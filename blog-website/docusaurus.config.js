@@ -25,15 +25,18 @@ module.exports = {
         },
         */
         {to: 'blog', label: 'Blog', position: 'left'},
+        /*
         {
           href: 'https://github.com/facebook/docusaurus',
           label: 'GitHub',
           position: 'right',
         },
+        */
       ],
     },
     footer: {
       style: 'dark',
+      /*
       links: [
         {
           title: 'Docs',
@@ -79,7 +82,11 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      */
+      copyright: `Copyright © ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
+    },
+    prism: {
+      additionalLanguages: ['powershell', 'csharp'],
     },
   },
   presets: [

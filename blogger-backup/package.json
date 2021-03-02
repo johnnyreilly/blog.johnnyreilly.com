@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "@types/he": "^1.1.1",
+    "@types/jsdom": "^16.2.6",
     "@types/node": "^14.14.31",
+    "@types/showdown": "^1.9.3",
+    "he": "^1.2.0",
+    "jsdom": "^16.4.0",
     "showdown": "^1.9.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.2"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "ts-node index.ts"
   },
