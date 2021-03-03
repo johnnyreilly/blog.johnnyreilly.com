@@ -15,7 +15,8 @@ async function fromJsonToMarkDown() {
     for (const post of posts) {
         await makePostIntoContent(post);
     }
-    console.log('notMarkdownable', notMarkdownable)
+    if (notMarkdownable.length)
+        console.log('notMarkdownable', notMarkdownable)
 }
 
 async function makePostIntoContent(post: Post) {
@@ -27,9 +28,9 @@ async function makePostIntoContent(post: Post) {
     const filename = post.published.substr(0, 10) + '-' + linkSlug.replace('.html', '.md');
 
     const contentProcessed = post.content 
-        .replace(/<br\s*\/?>/gi, '\n')
+        .replace(/<br\s*\/?>/gi, '\n') // remove stray <br /> tags
         .replace(/code class="lang-/gi, 'code class="language-'); // make lang showdown friendly
-// console.log(contentProcessed)
+
     const images: string[] = [];
     const dom = new jsdom.JSDOM(contentProcessed);
     let markdown = "";
@@ -55,7 +56,6 @@ async function makePostIntoContent(post: Post) {
         notMarkdownable.push(post.link)
         console.log(e)
         return;
-        // throw new Error('Failed to convert to markdown')
     }
 
     const directory = filename.replace('.md', '');
@@ -64,12 +64,12 @@ async function makePostIntoContent(post: Post) {
             const localUrl = await downloadImage(url, directory);
             markdown = markdown.replace(url, '../static/blog/' + localUrl);
         } catch (e) {
-            console.error(`Failed to download ${url}`, e)
+            console.error(`Failed to download ${url}`)
         }
     }
 
     const content = `---
-title: ${post.title}
+title: "${post.title}"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
@@ -136,27 +136,13 @@ async function getPosts(): Promise<Post[]> {
     const tObj = fastXmlParser.getTraversalObj(xml, options);
     const blog = fastXmlParser.convertToJson(tObj, options);
 
-    const [entry] = blog.feed
-    // console.log(blog)
-    // console.log(entry.entry.map((e: any) => e.category.map((c:any) => c.attr)))
 
-    // console.log(Object.keys(entry))
-
-    // const json = await fs.promises.readFile('./blog.json', 'utf8');
-    // const blog = JSON.parse(json);
-
-    // const postsRaw = blog.feed.entry
-    //     .filter((entry: any) => (entry.category['@_term'] === "http://schemas.google.com/blogger/2008/kind#post" ||
-    //         (Array.isArray(entry.category) && entry.category.some((category: any) => category.attr['@_term'] === "http://schemas.google.com/blogger/2008/kind#post"))) &&
-    //         entry?.control?.draft !== 'yes');
-
-    const postsRaw = entry.entry
+    const postsRaw = blog.feed[0].entry
         .filter((entry: any) =>
             entry.category.some((category: any) => category.attr['@_term'] === "http://schemas.google.com/blogger/2008/kind#post") &&
             entry.link.some((link: any) => link.attr["@_href"] && link.attr["@_type"] === "text/html")
         );
 
-    // console.log(postsRaw[0])
     const posts: Post[] = postsRaw.map((entry: any) => {
         return {
             title: entry.title[0]['#text'],
@@ -167,7 +153,7 @@ async function getPosts(): Promise<Post[]> {
                 : undefined,
             tags: Array.isArray(entry.category) && entry.category.some((category: any) => category.attr['@_scheme'] === "http://www.blogger.com/atom/ns#")
                 ? entry.category
-                    .filter((category: any) => category.attr['@_scheme'] === "http://www.blogger.com/atom/ns#")
+                    .filter((category: any) => category.attr['@_scheme'] === "http://www.blogger.com/atom/ns#" && category.attr["@_term"] !== 'constructor') // 'constructor' will make docusaurus choke
                     .map((category: any) => category.attr["@_term"])
                 : []
         };
