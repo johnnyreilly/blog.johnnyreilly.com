@@ -10,6 +10,7 @@
     "@types/node": "^14.14.31",
     "@types/showdown": "^1.9.3",
     "axios": "^0.21.1",
+    "fast-xml-parser": "^3.18.0",
     "he": "^1.2.0",
     "jsdom": "^16.4.0",
     "showdown": "^1.9.1",

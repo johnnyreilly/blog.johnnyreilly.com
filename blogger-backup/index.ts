@@ -4,6 +4,7 @@ import showdown from 'showdown';
 import he from 'he'
 import jsdom from 'jsdom'
 import axios from 'axios';
+import fastXmlParser from 'fast-xml-parser';
 
 // make JSON with npx fast-xml-parser blog-02-28-2021.xml -o blog.json
 
@@ -17,15 +18,17 @@ async function fromJsonToMarkDown() {
 }
 
 async function makePostIntoContent(post: Post) {
-    const converter = new showdown.Converter({});
-    const filename = post.link
-        .replace('http://blog.johnnyreilly.com/', '')
-        .replace(/\//g, '-',)
-        .replace('.html', '.md');
+    const converter = new showdown.Converter({
+        ghCodeBlocks: true
+    });
+    const linkSections = post.link.split('/');
+    const linkSlug = linkSections[linkSections.length - 1]
+    const filename = post.published.substr(0, 10) + '-' + linkSlug.replace('.html', '.md');
 
-    const contentProcessed = he.decode(post.content)
-        .replace(/<br \/>/g, '\n')
-
+    const contentProcessed = post.content 
+        .replace(/<br\s*\/?>/gi, '\n')
+        .replace(/code class="lang-/gi, 'code class="language-'); // make lang showdown friendly
+// console.log(contentProcessed)
     const images: string[] = [];
     const dom = new jsdom.JSDOM(contentProcessed);
     let markdown = converter.makeMarkdown(contentProcessed, dom.window.document)
@@ -55,7 +58,7 @@ async function makePostIntoContent(post: Post) {
         }
     }
 
-    console.log(markdown)
+    // console.log(markdown)
 
 
     const content = `---
@@ -79,7 +82,7 @@ async function downloadImage(url: string, directory: string) {
     const directoryTo = path.resolve('..', 'blog-website', 'static', 'blog', directory);
     const pathTo = path.resolve('..', 'blog-website', 'static', 'blog', directory, filename);
 
-    if (!fs.existsSync(directoryTo)){
+    if (!fs.existsSync(directoryTo)) {
         fs.mkdirSync(directoryTo);
     }
 
@@ -94,7 +97,7 @@ async function downloadImage(url: string, directory: string) {
     response.data.pipe(writer)
 
     return new Promise<string>((resolve, reject) => {
-        writer.on('finish', () => resolve(directory + '/' +filename))
+        writer.on('finish', () => resolve(directory + '/' + filename))
         writer.on('error', reject)
     })
 }
@@ -103,28 +106,73 @@ async function downloadImage(url: string, directory: string) {
 interface Post { title: string; content: string; published: string; link: string; tags: string[]; }
 
 async function getPosts(): Promise<Post[]> {
-    const json = await fs.promises.readFile('./blog.json', 'utf8');
+    const xml = await fs.promises.readFile('./blog-02-28-2021.xml', 'utf-8');
 
-    const blog = JSON.parse(json);
+    const options = {
+        attributeNamePrefix: "@_",
+        attrNodeName: "attr", //default is 'false'
+        textNodeName: "#text",
+        ignoreAttributes: false,
+        ignoreNameSpace: false,
+        allowBooleanAttributes: true,
+        parseNodeValue: true,
+        parseAttributeValue: true,
+        trimValues: true,
+        cdataTagName: "__cdata", //default is 'false'
+        cdataPositionChar: "\\c",
+        parseTrueNumberOnly: false,
+        arrayMode: true, //"strict"
+        attrValueProcessor: (val: string, attrName: string) => he.decode(val, { isAttributeValue: true }),//default is a=>a
+        tagValueProcessor: (val: string, tagName: string) => he.decode(val), //default is a=>a
+    };
 
-    const postsRaw = blog.feed.entry
-        .filter((entry: any) => (entry.category['@_term'] === "http://schemas.google.com/blogger/2008/kind#post" ||
-            (Array.isArray(entry.category) && entry.category.some((category: any) => category['@_term'] === "http://schemas.google.com/blogger/2008/kind#post"))) &&
-            entry?.control?.draft !== 'yes');
+    const tObj = fastXmlParser.getTraversalObj(xml, options);
+    const blog = fastXmlParser.convertToJson(tObj, options);
+
+    const [entry] = blog.feed
+    // console.log(blog)
+    // console.log(entry.entry.map((e: any) => e.category.map((c:any) => c.attr)))
+
+    // console.log(Object.keys(entry))
+
+    // const json = await fs.promises.readFile('./blog.json', 'utf8');
+    // const blog = JSON.parse(json);
+
+    // const postsRaw = blog.feed.entry
+    //     .filter((entry: any) => (entry.category['@_term'] === "http://schemas.google.com/blogger/2008/kind#post" ||
+    //         (Array.isArray(entry.category) && entry.category.some((category: any) => category.attr['@_term'] === "http://schemas.google.com/blogger/2008/kind#post"))) &&
+    //         entry?.control?.draft !== 'yes');
+
+    const postsRaw = entry.entry
+        .filter((entry: any) =>
+            entry.category.some((category: any) => category.attr['@_term'] === "http://schemas.google.com/blogger/2008/kind#post") &&
+            entry.link.some((link: any) => link.attr["@_href"] && link.attr["@_type"] === "text/html")
+        );
+
+    // console.log(postsRaw[0])
     const posts: Post[] = postsRaw.map((entry: any) => {
         return {
-            title: entry.title['#text'],
-            content: entry.content['#text'],
+            title: entry.title[0]['#text'],
+            content: entry.content[0]['#text'],
             published: entry.published,
-            link: entry.link.find((link: any) => link["@_type"] === "text/html")
-                ? entry.link.find((link: any) => link["@_type"] === "text/html")["@_href"]
+            link: entry.link.find((link: any) => link.attr["@_href"] && link.attr["@_type"] === "text/html")
+                ? entry.link.find((link: any) => link.attr["@_href"] && link.attr["@_type"] === "text/html").attr["@_href"]
                 : undefined,
-            tags: Array.isArray(entry.category) && entry.category.some((category: any) => category['@_scheme'] === "http://www.blogger.com/atom/ns#")
-                ? entry.category.filter((category: any) => category['@_scheme'] === "http://www.blogger.com/atom/ns#").map((category: any) => category["@_term"])
+            tags: Array.isArray(entry.category) && entry.category.some((category: any) => category.attr['@_scheme'] === "http://www.blogger.com/atom/ns#")
+                ? entry.category
+                    .filter((category: any) => category.attr['@_scheme'] === "http://www.blogger.com/atom/ns#")
+                    .map((category: any) => category.attr["@_term"])
                 : []
         };
-    });
-    return posts;
+    })
+
+    for (const post of posts) {
+        const { content, ...others } = post;
+        console.log(others, content.length)
+        if (!content || !others.title || !others.published) throw new Error("No content");
+    }
+
+    return posts.filter(post => post.link);
 }
 
 /*
