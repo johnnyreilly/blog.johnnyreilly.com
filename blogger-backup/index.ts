@@ -6,7 +6,8 @@ import jsdom from 'jsdom'
 import axios from 'axios';
 import fastXmlParser from 'fast-xml-parser';
 
-// make JSON with npx fast-xml-parser blog-02-28-2021.xml -o blog.json
+const xmlPath = './blog-03-03-2021.xml';
+const notMarkdownable: string[] = [];
 
 async function fromJsonToMarkDown() {
     const posts = await getPosts();
@@ -14,6 +15,7 @@ async function fromJsonToMarkDown() {
     for (const post of posts) {
         await makePostIntoContent(post);
     }
+    console.log('notMarkdownable', notMarkdownable)
 }
 
 async function makePostIntoContent(post: Post) {
@@ -30,22 +32,31 @@ async function makePostIntoContent(post: Post) {
 // console.log(contentProcessed)
     const images: string[] = [];
     const dom = new jsdom.JSDOM(contentProcessed);
-    let markdown = converter.makeMarkdown(contentProcessed, dom.window.document)
-        .replace(/#### /g, '## ')
-        /*
-        <div class="separator" style="clear: both;"><a href="https://1.bp.blogspot.com/-UwrtZigWg78/YDqN82KbjVI/AAAAAAAAZTE/Umezr1MGQicnxMMr5rQHD4xKINg9fasDACLcBGAsYHQ/s783/traffic-to-app-service.png" style="display: block; padding: 1em 0; text-align: center; "><img alt="traffic to app service" border="0" width="600" data-original-height="753" data-original-width="783" src="https://1.bp.blogspot.com/-UwrtZigWg78/YDqN82KbjVI/AAAAAAAAZTE/Umezr1MGQicnxMMr5rQHD4xKINg9fasDACLcBGAsYHQ/s600/traffic-to-app-service.png"></a></div>
-         */
-        .replace(/<div.*(<img.*">).*<\/div>/g, (replacer) => {
-            const div = new jsdom.JSDOM(replacer);
-            const img = div?.window?.document?.querySelector("img");
-            const alt = img?.getAttribute('alt') ?? '';
-            const src = img?.getAttribute('src') ?? '';
+    let markdown = "";
+    try {
+        markdown = converter.makeMarkdown(contentProcessed, dom.window.document)
+            .replace(/#### /g, '## ')
+            /*
+            <div class="separator" style="clear: both;"><a href="https://1.bp.blogspot.com/-UwrtZigWg78/YDqN82KbjVI/AAAAAAAAZTE/Umezr1MGQicnxMMr5rQHD4xKINg9fasDACLcBGAsYHQ/s783/traffic-to-app-service.png" style="display: block; padding: 1em 0; text-align: center; "><img alt="traffic to app service" border="0" width="600" data-original-height="753" data-original-width="783" src="https://1.bp.blogspot.com/-UwrtZigWg78/YDqN82KbjVI/AAAAAAAAZTE/Umezr1MGQicnxMMr5rQHD4xKINg9fasDACLcBGAsYHQ/s600/traffic-to-app-service.png"></a></div>
+            */
+            .replace(/<div.*(<img.*">).*<\/div>/g, (replacer) => {
+                const div = new jsdom.JSDOM(replacer);
+                const img = div?.window?.document?.querySelector("img");
+                const alt = img?.getAttribute('alt') ?? '';
+                const src = img?.getAttribute('src') ?? '';
 
-            if (src) images.push(src);
+                if (src) images.push(src);
 
-            return `![${alt}](${src})`
-        })
-        ;
+                return `![${alt}](${src})`
+            });
+    }
+    catch (e) {
+        console.log(post.link)
+        notMarkdownable.push(post.link)
+        console.log(e)
+        return;
+        // throw new Error('Failed to convert to markdown')
+    }
 
     const directory = filename.replace('.md', '');
     for (const url of images) {
@@ -56,9 +67,6 @@ async function makePostIntoContent(post: Post) {
             console.error(`Failed to download ${url}`, e)
         }
     }
-
-    // console.log(markdown)
-
 
     const content = `---
 title: ${post.title}
@@ -105,7 +113,7 @@ async function downloadImage(url: string, directory: string) {
 interface Post { title: string; content: string; published: string; link: string; tags: string[]; }
 
 async function getPosts(): Promise<Post[]> {
-    const xml = await fs.promises.readFile('./blog-02-28-2021.xml', 'utf-8');
+    const xml = await fs.promises.readFile(xmlPath, 'utf-8');
 
     const options = {
         attributeNamePrefix: "@_",
