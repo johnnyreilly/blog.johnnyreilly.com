@@ -10,11 +10,10 @@ import fastXmlParser from 'fast-xml-parser';
 
 async function fromJsonToMarkDown() {
     const posts = await getPosts();
-    // posts.forEach(post => console.log(post.link ?? post.title, post.tags))
-    console.log('posts.length', posts.length)
 
-    const post = posts[1];
-    await makePostIntoContent(post);
+    for (const post of posts) {
+        await makePostIntoContent(post);
+    }
 }
 
 async function makePostIntoContent(post: Post) {
