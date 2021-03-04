@@ -6,7 +6,7 @@ import jsdom from 'jsdom'
 import axios from 'axios';
 import fastXmlParser from 'fast-xml-parser';
 
-const xmlPath = './blog-03-03-2021.xml';
+const xmlPath = './blog-03-04-2021.xml';
 const notMarkdownable: string[] = [];
 
 async function fromJsonToMarkDown() {
