@@ -86,7 +86,7 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
 
     const contentProcessed = post.content
         // remove stray <br /> tags 
-        .replace(/<br\s*\/?>/gi, '\n') 
+        .replace(/<br\s*\/?>/gi, '\n')
         // translate <code class="lang-cs" into <code class="language-cs"> to be showdown friendly
         .replace(/code class="lang-/gi, 'code class="language-');
 
@@ -95,8 +95,32 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
     let markdown = "";
     try {
         markdown = converter.makeMarkdown(contentProcessed, dom.window.document)
+            // bigger titles
             .replace(/#### /g, '## ')
             
+            // <div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe src="https://giphy.com/embed/l7JDTHpsXM26k" width="100%" height="100%" style="position:absolute" frameborder="0" class="giphy-embed" allowfullscreen=""></iframe></div>
+            
+            // The mechanism below extracts the underlying iframe
+            .replace(/<div.*(<iframe.*">).*<\/div>/g, (replacer) => {
+                const dom = new jsdom.JSDOM(replacer);
+                const iframe = dom?.window?.document?.querySelector("iframe");
+                return iframe?.outerHTML ?? '';
+            })
+            
+            // The mechanism below strips class and style attributes from iframes - react hates them
+            .replace(/<iframe.*<\/iframe>/g, (replacer) => {
+                const dom = new jsdom.JSDOM(replacer);
+                const iframe = dom?.window?.document?.querySelector("iframe");
+                iframe?.removeAttribute('class')
+                iframe?.removeAttribute('style')
+                return iframe?.outerHTML ?? '';
+            })
+            
+            // capitalise appropriately
+            .replace(/frameborder/g, 'frameBorder')
+            .replace(/allowfullscreen/g, 'allowFullScreen')
+            .replace(/charset/g, 'charSet')
+
             // Blogger tends to put images in HTML that looks like this:
             // <div class="separator" style="clear: both;"><a href="https://1.bp.blogspot.com/-UwrtZigWg78/YDqN82KbjVI/AAAAAAAAZTE/Umezr1MGQicnxMMr5rQHD4xKINg9fasDACLcBGAsYHQ/s783/traffic-to-app-service.png" style="display: block; padding: 1em 0; text-align: center; "><img alt="traffic to app service" border="0" width="600" data-original-height="753" data-original-width="783" src="https://1.bp.blogspot.com/-UwrtZigWg78/YDqN82KbjVI/AAAAAAAAZTE/Umezr1MGQicnxMMr5rQHD4xKINg9fasDACLcBGAsYHQ/s600/traffic-to-app-service.png"></a></div>
             
