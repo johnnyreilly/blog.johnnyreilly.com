@@ -1,8 +1,8 @@
 module.exports = {
   title: 'I CAN MAKE THIS WORK',
   tagline: 'The tagline of my site',
-  url: 'https://blog.johnnyreilly.com',
-  baseUrl: '/',
+  url: 'https://johnnyreilly.github.io/', // 'https://blog.johnnyreilly.com',
+  baseUrl: '/blog.johnnyreilly.com/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
