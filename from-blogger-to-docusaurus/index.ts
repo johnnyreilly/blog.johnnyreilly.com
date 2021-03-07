@@ -6,7 +6,7 @@ import jsdom from 'jsdom'
 import axios from 'axios';
 import fastXmlParser from 'fast-xml-parser';
 
-const bloggerXmlPath = './blog-03-05-2021.xml';
+const bloggerXmlPath = './blog-03-06-2021.xml';
 const docusaurusDirectory = '../blog-website';
 const notMarkdownable: string[] = [];
 
