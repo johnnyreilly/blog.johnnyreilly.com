@@ -57,7 +57,12 @@ async function publishToBlogger() {
         content: contentHtml,
       });
     } else {
-      const newPost = await postBlog(docusaurusPath, title, tags, contentHtml);
+      const newPost = await postBlog({
+        docusaurusPath,
+        title,
+        tags,
+        content: contentHtml,
+      });
     }
   }
 }
@@ -150,12 +155,17 @@ function makeBloggerPathFromDocusaurusPath(docusaurusPath: string) {
   return docusaurusPath.substring(11).replace(".md", "");
 }
 
-async function postBlog(
-  docusaurusPath: string,
-  title: string,
-  tags: string[],
-  content: string
-) {
+async function postBlog({
+  docusaurusPath,
+  title,
+  tags,
+  content,
+}: {
+  docusaurusPath: string;
+  title: string;
+  tags: string[];
+  content: string;
+}) {
   try {
     const url = `http://blog.johnnyreilly.com/${docusaurusPath.substring(
       0,
@@ -248,4 +258,6 @@ async function getBlogPostsToPublish() {
 }
 
 // do it!
-publishToBlogger();
+publishToBlogger().catch((e) => {
+  throw e;
+});
