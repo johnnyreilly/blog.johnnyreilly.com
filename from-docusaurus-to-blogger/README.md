@@ -35,8 +35,20 @@ Click on the URL in the console, grant consent in the browser and then (quickly)
 
 `yarn get-refresh-token --clientId CLIENT_ID --clientSecret CLIENT_ID --code THISISTHECODE`
 
-The `refresh_token` will be printed to the console.  Grab it and put it somewhere secure.
+The `refresh_token` will be printed to the console. Grab it and put it somewhere secure.
 
 ## Publishing to Blogger
 
-`yarn publish-blogs --clientId CLIENT_ID --clientSecret CLIENT_ID --refreshToken THISISTHECODE -test`
+This post takes the MarkDown blogs found in the [blogs directory of `blog-website`](../blog-website/blogs) and publishes them to Blogger. It updates posts that have already been published and it publishes brand new posts where it seems that it hasn't already been published.
+
+It doesn't do this for the whole history of posts, purely for those created since `2021-03-07`.  It would probably be fine if it did - but on the off chance it did bad things I don't want to have to repair 10 years of blog posts.
+
+Regrettably, specifying `url` when publishing does not seem to work as the [docs suggest](https://developers.google.com/blogger/docs/3.0/reference/posts#resource). Consequently the tool attempts to lookup blogs by date and roughly match by name. This could possibly be replaced by storing a map of the published blogposts in the project instead.
+
+To test publishing to Blogger, execute the following command:
+
+`yarn publish-blogs --clientId CLIENT_ID --clientSecret CLIENT_ID --refreshToken THISISTHEREFRESHTOKEN --test`
+
+To actually publish to Blogger, execute the following command:
+
+`yarn publish-blogs --clientId CLIENT_ID --clientSecret CLIENT_ID --refreshToken THISISTHEREFRESHTOKEN`

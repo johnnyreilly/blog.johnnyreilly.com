@@ -26,5 +26,8 @@
     "get-refresh-token": "ts-node get-refresh-token.ts"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "2.2.1"
+  }
 }
