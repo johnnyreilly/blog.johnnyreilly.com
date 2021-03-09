@@ -33,7 +33,7 @@ async function publishToBlogger() {
 
         const { test } = getArgs();
         if (test) {
-            console.log(`[TEST] Would otherwise ${post ? 'update' : 'insert'} ${docusaurusPath}`)
+            console.log(`[TEST] Would otherwise ${post ? `update ${post.url} based on ${docusaurusPath}` : `create a new post based on ${docusaurusPath}`}`)
             continue;
         }
 
