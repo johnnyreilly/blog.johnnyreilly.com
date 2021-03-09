@@ -258,6 +258,4 @@ async function getBlogPostsToPublish() {
 }
 
 // do it!
-publishToBlogger().catch((e) => {
-  throw e;
-});
+publishToBlogger();
