@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  checks:
+  checks-docusaurus:
     if: github.event_name != 'push'
     runs-on: ubuntu-latest
     steps:
@@ -27,6 +27,15 @@ jobs:
           npm i
           fi
           npm run build
+
+  checks-blogger:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
 
       - name: Test Blogger Publish
         run: |

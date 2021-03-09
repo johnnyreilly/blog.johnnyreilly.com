@@ -33,7 +33,7 @@ async function publishToBlogger() {
 
         const { test } = getArgs();
         if (test) {
-            console.log(`Not ${post ? 'updating' : 'inserting'} ${docusaurusPath} as is test mode`)
+            console.log(`[TEST] Would otherwise ${post ? 'update' : 'insert'} ${docusaurusPath}`)
             continue;
         }
 
@@ -65,7 +65,7 @@ async function getPostByPath(docusaurusPath: string) {
                 return post.data;
             }
         } catch {
-            console.log(`Failed to load ${path} by path - will lookup by date`);
+            console.log(`Unable to load ${path} by path - will lookup by date`);
         }
 
         const dateInMonth = new Date(`${year}-${month}-${date}`);
