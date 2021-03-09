@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  checks:
+  checks-docusaurus:
     if: github.event_name != 'push'
     runs-on: ubuntu-latest
     steps:
@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: '14.x'
 
-      - name: Test Build
+      - name: Test Docusaurus Build
         run: |
           cd blog-website
           if [ -e yarn.lock ]; then
@@ -27,6 +27,27 @@ jobs:
           npm i
           fi
           npm run build
+
+  checks-blogger:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+
+      - name: Test Blogger Publish
+        run: |
+          cd from-docusaurus-to-blogger
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi
+          yarn publish-blogs --clientId ${{ secrets.BLOGGER_CLIENT_ID }} --clientSecret ${{ secrets.BLOGGER_CLIENT_SECRET }} --refreshToken ${{ secrets.BLOGGER_REFRESH_TOKEN }} --test
 
   deploy-to-github:
     if: github.event_name != 'pull_request'
@@ -68,3 +89,24 @@ jobs:
           npm i
           fi
           npx docusaurus deploy
+
+  deploy-to-blogger:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+
+      - name: Publish to Blogger
+        run: |
+          cd from-docusaurus-to-blogger
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi
+          yarn publish-blogs --clientId ${{ secrets.BLOGGER_CLIENT_ID }} --clientSecret ${{ secrets.BLOGGER_CLIENT_SECRET }} --refreshToken ${{ secrets.BLOGGER_REFRESH_TOKEN }}
