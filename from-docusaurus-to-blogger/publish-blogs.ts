@@ -30,7 +30,7 @@ async function publishToBlogger() {
     });
     const contentHtml = converter
       .makeHtml(content)
-      .replace(/..\/static\/blog\//, staticImageCdnRoot);
+      .replace(/..\/static\/blog\//g, staticImageCdnRoot);
 
     const post = await getPostByPath(docusaurusPath);
 
