@@ -6,7 +6,9 @@ author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033
 tags: [connection string, managed identity, entity framework, Microsoft.Data.SqlClient]
 hide_table_of_contents: false
 ---
-Managed Identity offers a very secure way for applications running in Azure to connect to Azure SQL databases. It's an approach that does not require code changes; merely configuration of connection string and associated resources and hence has a good developer experience. Importantly, it allows us to avoid exposing our database to username / password authentication, and hence making it a tougher target for bad actors. 
+Managed Identity offers a very secure way for applications running in Azure to connect to Azure SQL databases. It's an approach that does not require code changes; merely configuration of connection string and associated resources. Hence it has a good developer experience. Importantly, it allows us to avoid exposing our database to username / password authentication, and hence making it a tougher target for bad actors.
+
+This post talks us through using managed identity for connecting to Azure SQL. 
 
 #### `Integrated Security=true`
 
