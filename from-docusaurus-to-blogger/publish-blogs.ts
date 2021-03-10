@@ -57,110 +57,115 @@ async function publishToBlogger() {
         content: contentHtml,
       });
     } else {
-      const newPost = await postBlog(docusaurusPath, title, tags, contentHtml);
+      const newPost = await postBlog({
+        docusaurusPath,
+        title,
+        tags,
+        content: contentHtml,
+      });
     }
   }
 }
 
 async function getPostByPath(docusaurusPath: string) {
+  const blogger = makeBloggerClient();
+
+  const year = docusaurusPath.substring(0, 4);
+  const month = docusaurusPath.substring(5, 7);
+  const date = docusaurusPath.substring(8, 10);
+  const url = makeBloggerPathFromDocusaurusPath(docusaurusPath);
+  const path = `/${year}/${month}/${url}.html`;
+  console.log(`Attempting to load ${path} by path`);
+
   try {
-    const blogger = makeBloggerClient();
+    const post = await blogger.posts.getByPath({ blogId, path });
 
-    const year = docusaurusPath.substring(0, 4);
-    const month = docusaurusPath.substring(5, 7);
-    const date = docusaurusPath.substring(8, 10);
-    const url = makeBloggerPathFromDocusaurusPath(docusaurusPath);
-    const path = `/${year}/${month}/${url}.html`;
-    console.log(`Attempting to load ${path} by path`);
-
-    try {
-      const post = await blogger.posts.getByPath({ blogId, path });
-
-      if (post) {
-        console.log(`Found Blogger post by path "${path}"\n`);
-        return post.data;
-      }
-    } catch {
-      console.log(`Unable to load ${path} by path - will lookup by date`);
+    if (post) {
+      console.log(`Found Blogger post by path "${path}"\n`);
+      return post.data;
     }
+  } catch {
+    console.log(`Unable to load ${path} by path - will lookup by date`);
+  }
 
-    const dateInMonth = new Date(`${year}-${month}-${date}`);
-    const startDate = formatRFC3339(startOfDay(dateInMonth));
-    const endDate = formatRFC3339(endOfDay(dateInMonth));
+  const dateInMonth = new Date(`${year}-${month}-${date}`);
+  const startDate = formatRFC3339(startOfDay(dateInMonth));
+  const endDate = formatRFC3339(endOfDay(dateInMonth));
 
-    const monthPosts = await blogger.posts.list({
-      blogId,
-      startDate,
-      endDate,
-      maxResults: 10,
-      fetchBodies: false,
-      fetchImages: false,
-    });
+  const monthPosts = await blogger.posts.list({
+    blogId,
+    startDate,
+    endDate,
+    maxResults: 10,
+    fetchBodies: false,
+    fetchImages: false,
+  });
 
-    if (!monthPosts.data.items) {
-      console.log(
-        `Unable to look up Blogger post matching ${docusaurusPath} between ${startDate} and ${endDate}`
-      );
-      return null;
-    }
-
-    console.log(
-      `Looking for Blogger post matching ${docusaurusPath} amongst the following posts:\n${monthPosts.data?.items
-        ?.map((post) => `- ${post.url}`)
-        .join("\n")}\n`
-    );
-
-    let numCharacters = url.length > 6 ? 6 : 0; // start with at least 6 characters
-    while (
-      monthPosts.data.items &&
-      monthPosts.data.items.length > 0 &&
-      numCharacters < url.length
-    ) {
-      numCharacters += 1;
-      const lookFor = url.substr(0, numCharacters);
-
-      const matches = monthPosts.data.items.filter((post) => {
-        const postSegments = post.url!.split("/");
-        const lastSegment = postSegments[postSegments.length - 1];
-
-        return lastSegment.startsWith(lookFor);
-      });
-
-      if (matches.length === 1) {
-        console.log(
-          `Found single match starting with "${lookFor}": ${matches[0].url}\n`
-        );
-        return matches[0];
-      } else {
-        console.log(
-          `Found ${matches.length} matches for blog starting with "${lookFor}"` +
-            (matches.length > 0
-              ? `:\n${matches.map((post) => `- ${post.url}`).join("\n")}`
-              : "")
-        );
-      }
-    }
-
+  if (!monthPosts.data.items) {
     console.log(
       `Unable to look up Blogger post matching ${docusaurusPath} between ${startDate} and ${endDate}`
     );
     return null;
-  } catch (e) {
-    console.error(e);
-    return null;
   }
+
+  console.log(
+    `Looking for Blogger post matching ${docusaurusPath} amongst the following posts:\n${monthPosts.data?.items
+      ?.map((post) => `- ${post.url}`)
+      .join("\n")}\n`
+  );
+
+  let numCharacters = url.length > 6 ? 6 : 0; // start with at least 6 characters
+  while (
+    monthPosts.data.items &&
+    monthPosts.data.items.length > 0 &&
+    numCharacters < url.length
+  ) {
+    numCharacters += 1;
+    const lookFor = url.substr(0, numCharacters);
+
+    const matches = monthPosts.data.items.filter((post) => {
+      const postSegments = post.url!.split("/");
+      const lastSegment = postSegments[postSegments.length - 1];
+
+      return lastSegment.startsWith(lookFor);
+    });
+
+    if (matches.length === 1) {
+      console.log(
+        `Found single match starting with "${lookFor}": ${matches[0].url}\n`
+      );
+      return matches[0];
+    } else {
+      console.log(
+        `Found ${matches.length} matches for blog starting with "${lookFor}"` +
+          (matches.length > 0
+            ? `:\n${matches.map((post) => `- ${post.url}`).join("\n")}`
+            : "")
+      );
+    }
+  }
+
+  console.log(
+    `Unable to look up Blogger post matching ${docusaurusPath} between ${startDate} and ${endDate}`
+  );
+  return null;
 }
 
 function makeBloggerPathFromDocusaurusPath(docusaurusPath: string) {
   return docusaurusPath.substring(11).replace(".md", "");
 }
 
-async function postBlog(
-  docusaurusPath: string,
-  title: string,
-  tags: string[],
-  content: string
-) {
+async function postBlog({
+  docusaurusPath,
+  title,
+  tags,
+  content,
+}: {
+  docusaurusPath: string;
+  title: string;
+  tags: string[];
+  content: string;
+}) {
   try {
     const url = `http://blog.johnnyreilly.com/${docusaurusPath.substring(
       0,
