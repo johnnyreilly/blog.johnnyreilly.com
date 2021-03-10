@@ -87,9 +87,11 @@ If you look close above, you'll see that the package has a dependency on Microso
 dotnet add package Microsoft.Data.SqlClient --version 2.1.2
 ```
 
-#### User Assigned Managed Identity in ARM
+The version which we want to use is 2.1 (or greater) and fortunately that is compatible with Entity Framework Core 5.  Incidentally, when Entity Framework Core 6 ships it will no longer be necessary to manually specify this dependency as it already requires 2.1 as a minimum.
 
-If you're using user assigned managed identity, you'll need to supply the object id of your managed identity:
+#### User Assigned Managed Identity
+
+If you're using user assigned managed identity, you'll need to supply the object id of your managed identity, which you can find in the [Azure Portal](https://portal.azure.com/):
 
 ![Managed Identity object id](../static/blog/2021-03-10-managed-identity-azure-sql-entity-framework/managed-identity-object-id.png)
 
@@ -99,4 +101,4 @@ You can configure this in ARM as well, but cryptically, the object id goes by th
 "CONNECTIONSTRINGS__OURDBCONNECTION": "[concat('Server=tcp:', parameters('sqlServerName') , '.database.windows.net,1433;Initial Catalog=', parameters('sqlDatabaseName'),';Authentication=Active Directory MSI',';User Id=', reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', parameters('managedIdentityName')), '2018-11-30').principalId)]"
 ```
 
-That's it - with managed identity handling your authentication you can sleep easy, knowing you're in a great place security wise.
+That's it - with managed identity handling your authentication you can sleep easy, knowing you should be in a better place security wise.
