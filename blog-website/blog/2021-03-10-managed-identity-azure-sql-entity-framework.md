@@ -56,9 +56,7 @@ The wonderful aspect of the original `Integrated Security=true` approach, was th
 
 This is now possible with Azure SQL thanks to [this PR](https://github.com/dotnet/SqlClient/pull/730) to the [Microsoft.Data.SqlClient](https://www.nuget.org/packages/Microsoft.Data.SqlClient/) nuget package. (Incidentally, [Microsoft.Data.SqlClient is the successor to System.Data.SqlClient.](https://devblogs.microsoft.com/dotnet/introducing-the-new-microsoftdatasqlclient/))
 
-Support for connection string managed identities shipped with v2.1: https://github.com/dotnet/SqlClient/blob/master/release-notes/2.1/2.1.0.md#Azure-Active-Directory-Managed-Identity-authentication
-
-Connection strings can look slightly different depending on the type of managed identity you're using:
+Support for connection string managed identities [shipped with v2.1](https://github.com/dotnet/SqlClient/blob/master/release-notes/2.1/2.1.0.md#Azure-Active-Directory-Managed-Identity-authentication). Connection strings can look slightly different depending on the type of managed identity you're using:
 
 ```
 // For System Assigned Managed Identity
