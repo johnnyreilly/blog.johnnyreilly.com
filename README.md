@@ -7,7 +7,7 @@ This repo contains the source code for John Reilly's blog. It is published to tw
 
 GitHub Actions do the publication.
 
-## Migrating to Docusauras
+## Migrating to Docusauras?
 
 This blog has lived on Blogger since it began. Docusaurus represents a modern way forward which is "blog as code" by default, which appeals to my sensibilities. There's a number of things to consider before I would make the move.  Let's go through them:
 
