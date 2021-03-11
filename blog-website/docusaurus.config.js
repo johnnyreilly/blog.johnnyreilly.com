@@ -106,7 +106,14 @@ module.exports = {
             'https://github.com/facebook/docusaurus/edit/master/website/',
         }*/,
         blog: {
+          /**
+           * Number of blog post elements to show in the blog sidebar
+           * 'ALL' to show all blog posts
+           * 0 to disable
+           */
+          blogSidebarCount: 5,
           path: './blog',
+          postsPerPage: 1,
           routeBasePath: '/', // Set this value to '/'.
           showReadingTime: true,
           editUrl:
