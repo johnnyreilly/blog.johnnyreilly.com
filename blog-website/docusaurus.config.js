@@ -2,7 +2,7 @@ module.exports = {
   title: 'I CAN MAKE THIS WORK',
   tagline: 'The tagline of my site',
   url: 'https://johnnyreilly.github.io/', // 'https://blog.johnnyreilly.com',
-  baseUrl: '/blog.johnnyreilly.com/',
+  baseUrl: '/',
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
