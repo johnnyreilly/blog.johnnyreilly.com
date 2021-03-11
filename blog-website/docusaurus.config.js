@@ -15,8 +15,6 @@ module.exports = {
       // Optional fields.
       anonymizeIP: true, // Should IPs be anonymized?
     },
-  },
-  themeConfig: {
     navbar: {
       title: 'I CAN MAKE THIS WORK',
       logo: {
