@@ -8,6 +8,14 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'johnnyreilly', // Usually your GitHub org/user name.
   projectName: 'blog.johnnyreilly.com', // Usually your repo name.
+  plugins: ['@docusaurus/plugin-google-analytics'],
+  themeConfig: {
+    googleAnalytics: {
+      trackingID: 'UA-51754530-2',
+      // Optional fields.
+      anonymizeIP: true, // Should IPs be anonymized?
+    },
+  },
   themeConfig: {
     navbar: {
       title: 'I CAN MAKE THIS WORK',
