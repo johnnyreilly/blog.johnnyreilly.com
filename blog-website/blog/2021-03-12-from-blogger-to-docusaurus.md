@@ -1,16 +1,36 @@
 ---
-title: "Managed Identity, Azure SQL and Entity Framework"
+title: "From Blogger to Docusaurus"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
-tags: [connection string, managed identity, entity framework, Microsoft.Data.SqlClient]
+tags: [Blogger, Docusaurus]
 hide_table_of_contents: false
 ---
+[Docusaurus](https://v2.docusaurus.io/) is, amongst other things, a MarkDown powered blogging platform. My blog has lived happily on [Blogger](https://www.blogger.com/) for the past decade.  I'm considering moving, but losing my historic content as part of the move was never an option. This post goes through what it would like to move from Blogger to Docusaurus *without* losing your content.
+
+It is imperative that the world never forgets what I was doing with jQuery in 2012.
+
+## Blog as code
+
+Everything is better when it's code.  Infrastructure as code. Awesome right? So naturally "blog as code" must be better than just a blog.  More seriously, [Markdown](https://en.wikipedia.org/wiki/Markdown) is a tremendous documentation format. Simple, straightforward and, like Goldilocks, "just right". For a long time I've written everything as Markdown. My years of toil down the Open Source mines have preconditioned me to be very MD-disposed.
+
+I was keen to move my blog, which was a mass of HTML that lived inside Blogger's database. (I assume they have a database; I haven't actually checked.)
+
+
+
+
+
+
+
+
+
+
+
 Managed Identity offers a very secure way for applications running in Azure to connect to Azure SQL databases. It's an approach that does not require code changes; merely configuration of connection string and associated resources. Hence it has a good developer experience. Importantly, it allows us to avoid exposing our database to username / password authentication, and hence making it a tougher target for bad actors.
 
 This post talks us through using managed identity for connecting to Azure SQL. 
 
-## `Integrated Security=true`
+#### `Integrated Security=true`
 
 Everyone is deploying to the cloud. Few are the organisations that view deployment to data centers they manage as the future. This is generally a good thing, however in the excitement of the new, it's possible to forget some of the good properties that "on premise" deployment afforded when it came to connectivity and authentication.
 
@@ -28,7 +48,7 @@ Bottom line: the less you are sharing authentication credentials, the better you
 
 What if there was a way to have the developer experience of `Integrated Security=true` without needing to use Windows Authentication?  There is.
 
-## Managed Identity
+#### Managed Identity
 
 The docs express the purpose of [managed identity](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview) well:
 
@@ -50,7 +70,7 @@ public MyDbContext(DbContextOptions options) : base(options) {
 
 This mechanism works, and has the tremendous upside of no longer requiring credentials be passed in a connection string.  However, as you can see this isn't the simplest of setups.  And also, what if you don't want to use managed identity when you're developing locally?  This approach has baggage and forces us to make code changes.
 
-## Connection String alone
+#### Connection String alone
 
 The wonderful aspect of the original `Integrated Security=true` approach, was that there were no code changes required; one need only supply the connection string. Just configuration.
 
@@ -74,7 +94,7 @@ Support for connection string managed identities [shipped with v2.1](https://git
 
 Regardless of the approach, you can see that none of the connection strings have credentials in them.  And that's special.
 
-## Usage with Entity Framework Core 5
+#### Usage with Entity Framework Core 5
 
 If you're using Entity Framework Core, you might be struggling to get this working and encountering strange error messages.  In my ASP.NET project I had a dependendency on 
 [Microsoft.EntityFrameworkCore.SqlServer@5](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/5.0.4).
@@ -89,7 +109,7 @@ dotnet add package Microsoft.Data.SqlClient --version 2.1.2
 
 The version which we want to use is 2.1 (or greater) and fortunately that is compatible with Entity Framework Core 5.  Incidentally, when Entity Framework Core 6 ships it will no longer be necessary to manually specify this dependency as it already requires Microsoft.Data.SqlClient@2.1 as a minimum.
 
-## User Assigned Managed Identity
+#### User Assigned Managed Identity
 
 If you're using user assigned managed identity, you'll need to supply the object id of your managed identity, which you can find in the [Azure Portal](https://portal.azure.com/):
 
