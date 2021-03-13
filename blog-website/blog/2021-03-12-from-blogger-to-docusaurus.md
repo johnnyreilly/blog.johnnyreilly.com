@@ -6,7 +6,7 @@ author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033
 tags: [Blogger, Docusaurus]
 hide_table_of_contents: false
 ---
-[Docusaurus](https://v2.docusaurus.io/) is, amongst other things, a MarkDown powered blogging platform. My blog has lived happily on [Blogger](https://www.blogger.com/) for the past decade.  I'm considering moving, but losing my historic content as part of the move was never an option. This post goes through what it would like to move from Blogger to Docusaurus *without* losing your content.
+[Docusaurus](https://v2.docusaurus.io/) is, amongst other things, a Markdown powered blogging platform. My blog has lived happily on [Blogger](https://www.blogger.com/) for the past decade.  I'm considering moving, but losing my historic content as part of the move was never an option. This post goes through what it would like to move from Blogger to Docusaurus *without* losing your content.
 
 It is imperative that the world never forgets what I was doing with jQuery in 2012.
 
@@ -14,47 +14,46 @@ It is imperative that the world never forgets what I was doing with jQuery in 20
 
 Everything is better when it's code.  Infrastructure as code. Awesome right? So naturally "blog as code" must be better than just a blog.  More seriously, [Markdown](https://en.wikipedia.org/wiki/Markdown) is a tremendous documentation format. Simple, straightforward and, like Goldilocks, "just right". For a long time I've written everything as Markdown. My years of toil down the Open Source mines have preconditioned me to be very MD-disposed.
 
-I was keen to move my blog, which was a mass of HTML that lived inside Blogger's database. (I assume they have a database; I haven't actually checked.)
+I started out writing this blog a long time ago as pure HTML. Not the smoothest of writing formats. At some point I got into the habit of spinning up a new repo in GitHub for a new blogpost, writing it in Markdown and piping it through a variety of tools to convert it into HTML for publication on Blogger.  As time passed I felt I'd be a lot happier if I wasn't creating a repo each time. What if I did all my blogging in a single repo and used that as the code that represented my blog?
 
+Just having that thought laid the seeds for what was to follow:
+1. An investigation into importing my content from Blogger into a GitHub repo
+2. An experimental port to Docusaurus
+3. The automation of publication to Docusaurus and Blogger
 
+We're going to go through 1 and 2 now.
 
+## I want everything
 
+The first thing was obtaining my blog content. This is a mass of HTML that lived inside Blogger's database. (I assume they have a database; I haven't actually checked.) There's a "Back up content" option inside Blogger to allow this:
 
+![Download content from Blogger](../static/blog/2021-03-12-from-blogger-to-docusaurus/blogger-back-up-your-content.png)
 
+It provides you with an XML file with a dispiritingly small size. Ten years blogging? You'll get change out of 4Mb it turns out. 
 
+## From HTML in XML to Markdown
 
+We now want to take that XML and:
 
+- Extract each blog post (and it's associated metadata; title / tags and whatnot) 
+- Convert the HTML content of each blog post from HTML to Markdown and save it as an .MD file
+- Download the images used in the blogpost so they can be stored in the repo alogside
 
-
-Managed Identity offers a very secure way for applications running in Azure to connect to Azure SQL databases. It's an approach that does not require code changes; merely configuration of connection string and associated resources. Hence it has a good developer experience. Importantly, it allows us to avoid exposing our database to username / password authentication, and hence making it a tougher target for bad actors.
-
-This post talks us through using managed identity for connecting to Azure SQL. 
-
-#### `Integrated Security=true`
-
-Everyone is deploying to the cloud. Few are the organisations that view deployment to data centers they manage as the future. This is generally a good thing, however in the excitement of the new, it's possible to forget some of the good properties that "on premise" deployment afforded when it came to connectivity and authentication.
-
-I speak of course, of our old friend `Integrated Security=true`. When you seek to connect a web application to a database, you'll typically use some kind of database connection string. And back in the day, it may have looked something like this:
+To do this we're going to whip up a smallish TypeScript console app.  Let's initialise it with the packages we're going to need:
 
 ```
-Data Source=myServer;Initial Catalog=myDB;Integrated Security=true;
+yarn init
+yarn add @types/axios @types/he @types/jsdom @types/node @types/showdown axios fast-xml-parser he jsdom showdown ts-node typescript
 ```
 
-The above provides a database server, a database and also `Integrated Security=true`. When you see `Integrated Security=true`, what you're essentially looking at is an instruction to use the identity that an application is running under (typically called a "service account") as the authentication credential to secure access to the database. Under the covers, this amounts to [Windows Authentication](https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql/authentication-in-sql-server).
+We're using:
+- [`fast-xml-parser`](https://github.com/NaturalIntelligence/fast-xml-parser) to parse XML
+- [`he`](https://github.com/mathiasbynens/he), [jsdom](https://github.com/jsdom/jsdom) and [showdown](https://github.com/showdownjs/showdown) to convert HTML to Markdown
+- [`axios`](https://github.com/axios/axios) to download images
+- [`typescript`](https://github.com/microsoft/TypeScript) to code in and [`ts-node`](https://github.com/TypeStrong/ts-node) to make our TypeScript Node.js console app.
 
-The significant thing about this approach is that it is more secure than using usernames and passwords in the connection string. If you have to use username and password to authenticate, then you need to persist them somewhere - so you need to make sure that's secure. Also, if someone manages to acquire that username and password, they're free to get access to the database and do malicious things.
 
-Bottom line: the less you are sharing authentication credentials, the better your security. Integrated Security is a harder nut to crack than username and password. The thing to note about the above phrase is "Windows Authentication".  Web Apps in Azure / AWS etc do not typically use Windows Authentication when it comes to connecting to the database.  Connecting with username / password is far more common.
 
-What if there was a way to have the developer experience of `Integrated Security=true` without needing to use Windows Authentication?  There is.
-
-#### Managed Identity
-
-The docs express the purpose of [managed identity](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview) well:
-
-> A common challenge for developers is the management of secrets and credentials to secure communication between different services. On Azure, managed identities eliminate the need for developers having to manage credentials by providing an identity for the Azure resource in Azure AD and using it to obtain Azure Active Directory (Azure AD) tokens
-
-Historically a certain amount of ceremony was required to use managed identity to connect to a database, and could involve augmenting a `DbContext` like so:
 
 ```cs
 public MyDbContext(DbContextOptions options) : base(options) {
