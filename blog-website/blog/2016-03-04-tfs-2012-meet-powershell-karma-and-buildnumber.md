@@ -120,7 +120,7 @@ Finally in `FailBuildIfThereAreTestFailures` we parse the `test-results.trx` fil
 
 ## Bonus Karma: `test-results.trx`
 
-If you've read a [previous post of mine](</2016/02/visual-studio-tsconfigjson-and-external.html>) you'll be aware that it's possible to get MSBuild to kick off npm build tasks. Specifically I have MSBuild kicking off an `npm run build`. My `package.json` looks like this:
+If you've read a [previous post of mine](<https://blog.johnnyreilly.com/2016/02/visual-studio-tsconfigjson-and-external.html>) you'll be aware that it's possible to get MSBuild to kick off npm build tasks. Specifically I have MSBuild kicking off an `npm run build`. My `package.json` looks like this:
 
 ```json
 "scripts": {

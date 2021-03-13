@@ -8,7 +8,7 @@ hide_table_of_contents: false
 ---
 ## Update 05/10/2015
 
- If you're after a version of this that works with Globalize 1.x then take a look [here](</2015/10/jquery-validation-globalize-hits-10.html>).
+ If you're after a version of this that works with Globalize 1.x then take a look [here](<https://blog.johnnyreilly.com/2015/10/jquery-validation-globalize-hits-10.html>).
 
 ## Update 27/08/2013
 

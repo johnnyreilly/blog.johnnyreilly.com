@@ -8,7 +8,7 @@ hide_table_of_contents: false
 ---
 This is very probably the dullest title for a blog post I've ever come up with. Read on though folks - it's definitely going to pick up...
 
- I [wrote last year](</2014/11/using-gulp-in-visual-studio-instead-of-web-optimization.html>) about my first usage of Gulp in an ASP.Net project. I used Gulp to replace the Web Optimization functionality that is due to disappear when ASP.Net v5 ships. What I came up with was an approach that provided pretty much the same functionality; raw source in debug mode, bundling + minification in release mode.
+ I [wrote last year](<https://blog.johnnyreilly.com/2014/11/using-gulp-in-visual-studio-instead-of-web-optimization.html>) about my first usage of Gulp in an ASP.Net project. I used Gulp to replace the Web Optimization functionality that is due to disappear when ASP.Net v5 ships. What I came up with was an approach that provided pretty much the same functionality; raw source in debug mode, bundling + minification in release mode.
 
 It worked by having a launch page which was straight HTML. Embedded within this page was JavaScript that would, at runtime, load the required JavaScript / CSS and inject it dynamically into the document. This approach worked but it had a number of downsides:
 
