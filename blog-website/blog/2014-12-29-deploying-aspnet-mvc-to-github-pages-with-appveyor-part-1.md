@@ -157,6 +157,6 @@ d----        12/29/2014   7:50 AM            Scripts
 
 And that's it for part 1 my friends! You now have a static version of the ASP.Net MVC site to dazzle the world with. I should say for the purposes of full disclosure that there are 2 pages in the site which are not entirely "static" friendly. For these 2 pages I've put messages in that are displayed when the page is served up in a static format explaining the limitations. Their full glory can still be experienced by cloning the project and running locally.
 
-[Next time](</2015/01/deploying-aspnet-mvc-to-github-pages-with-appveyor-part-2.html>) we'll take the mechanism detailed above and plug it into AppVeyor for some Continuous Integration happiness.
+[Next time](<https://blog.johnnyreilly.com/2015/01/deploying-aspnet-mvc-to-github-pages-with-appveyor-part-2.html>) we'll take the mechanism detailed above and plug it into AppVeyor for some Continuous Integration happiness.
 
 

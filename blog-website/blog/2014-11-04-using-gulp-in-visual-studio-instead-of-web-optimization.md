@@ -10,7 +10,7 @@ hide_table_of_contents: false
 
 
 
- ### Update 17/02/2015: I've taken the approach discussed in this post a little further - you can see [here](</2015/02/using-gulp-in-asp-net-instead-of-web-optimization.html>)
+ ### Update 17/02/2015: I've taken the approach discussed in this post a little further - you can see [here](<https://blog.johnnyreilly.com/2015/02/using-gulp-in-asp-net-instead-of-web-optimization.html>)
 
 I've used a number of tools to package up JavaScript and CSS in my web apps. [Andrew Davey's tremendous Cassette](<http://getcassette.net/>) has been really useful. Also good (although less powerful/magical) has been Microsoft's very own [Microsoft.AspNet.Web.Optimization](<https://www.nuget.org/packages/Microsoft.AspNet.Web.Optimization/>) that ships with MVC.
 

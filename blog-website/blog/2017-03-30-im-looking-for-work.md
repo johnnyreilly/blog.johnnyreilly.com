@@ -6,7 +6,7 @@ author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033
 tags: []
 hide_table_of_contents: false
 ---
-My name is John Reilly. I'm a full stack developer based in London, UK. I'm just coming to the end of a contract (due to finish in April 2017) and I'm starting to look for my next role. <!--I've never used my blog to publicise a search for work before, and I thought it would be interesting to see what, if anything, comes of it.-->
+My name is John Reilly. I'm a full stack developer based in London, UK. I'm just coming to the end of a contract (due to finish in April 2017) and I'm starting to look for my next role.
 
  I have more than 15 years experience developing software commercially. I've worked in a number of industries including telecoms, advertising, technology (I worked at Microsoft for a time) and, of course, finance. The bulk of my experience is in the finance sector. I've provided consultancy services, building and maintaining applications for both large and small companies; from enterprise to startup.
 
@@ -18,7 +18,7 @@ In my spare time I'm involved with various open source projects including [ts-lo
 
 ## Update 25/04/2016: Position Filled
 
-I'm happy to say that I've lined up work for the next 6 months or so. Once again I'll be working in the financial services industry with one interesting twist. [In a blog post ages ago I bet that native apps would start to be replaced with SPAs.](</2014/02/wpf-and-mystic-meg-or-playing.html>) This has started to happen. I've started to see companies taking a "web-first-and-only" approach to building apps. In that vein, that's exactly what I'm off to build.
+I'm happy to say that I've lined up work for the next 6 months or so. Once again I'll be working in the financial services industry with one interesting twist. [In a blog post ages ago I bet that native apps would start to be replaced with SPAs.](<https://blog.johnnyreilly.com/2014/02/wpf-and-mystic-meg-or-playing.html>) This has started to happen. I've started to see companies taking a "web-first-and-only" approach to building apps. In that vein, that's exactly what I'm off to build.
 
 As a result of publishing this blog post I've had some interesting conversations with companies and got to think hard about the direction the industry is taking. I remain excited by JavaScript / TypeScript and React. I'm hopeful of the possibilities offered by the container world of Docker etc. I'm enjoying .NET Core and have very high hopes for it. I remain curious about Web Assembly.
 

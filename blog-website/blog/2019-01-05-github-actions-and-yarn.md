@@ -31,7 +31,7 @@ I quickly discovered that someone out there <s>loves me</s>
 
  had [already written a GitHub Action for `npm`](<https://github.com/actions/npm>).
 
-The example in the [`README.md`](<https://github.com/actions/npm/blob/master/README.md>) could be easily tweaked to meet my needs with one caveat: I had to use `npm` in place of `yarn`. I didn't want to switch from `yarn`. What to do?
+The example in the `README.md` could be easily tweaked to meet my needs with one caveat: I had to use `npm` in place of `yarn`. I didn't want to switch from `yarn`. What to do?
 
 Well, remember when I said actions are code run in Docker containers? Another way to phrase that is to say: GitHub Actions are Docker images. Let's look under the covers of the `npm` GitHub Action. As we peer inside the [`Dockerfile`](<https://github.com/actions/npm/blob/e7aaefed7c9f2e83d493ff810f17fa5ccd7ed437/Dockerfile#L1>) what do we find?
 

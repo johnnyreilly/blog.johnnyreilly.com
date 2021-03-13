@@ -8,7 +8,7 @@ hide_table_of_contents: false
 ---
 ### Further posts on this topic
 
- - [NgValidationFor Baby Steps](<http://blog.icanmakethiswork.io/2015/05/ngvalidationfor-baby-steps.html>)
+ - [NgValidationFor Baby Steps](<https://blog.johnnyreilly.com/2015/05/ngvalidationfor-baby-steps.html>)
 
 <!-- -->
 
