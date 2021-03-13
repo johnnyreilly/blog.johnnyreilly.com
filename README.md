@@ -9,7 +9,7 @@ GitHub Actions do the publication.
 
 ## Migrating to Docusauras?
 
-This blog has lived on Blogger since it began. Docusaurus represents a modern way forward which is "blog as code" by default. Thi appeals to my sensibilities. There's a number of things to consider before I would make the move.  Let's go through them:
+This blog has lived on Blogger since it began. Docusaurus represents a modern way forward which is "blog as code" by default. This appeals to my sensibilities. There's a number of things to consider before I would make the move.  Let's go through them:
 
 - [x] If I migrate across, I'd like the URLs to look like https://blog.johnnyreilly.com/ rather than https://blog.johnnyreilly.com/blog.johnnyreilly.com/. This was helpful: https://deanattali.com/blog/multiple-github-pages-domains/
 - [x] Analytics - I should start using Google Analytics to track traffic.
