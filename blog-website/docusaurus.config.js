@@ -1,3 +1,6 @@
+//@ts-check
+const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
+
 module.exports = {
   title: 'I CAN MAKE THIS WORK',
   tagline: 'The tagline of my site',
@@ -9,7 +12,19 @@ module.exports = {
   organizationName: 'johnnyreilly', // Usually your GitHub org/user name.
   projectName: 'blog.johnnyreilly.com', // Usually your repo name.
   plugins: [
-    
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        createRedirects: function (existingPath) {
+          if (existingPath.match(urlRegex)) {
+            const [,year, month, date, slug] = existingPath.split('/');
+            const oldUrl = `/${year}/${month}/${slug}.html`;
+            console.log(`redirect from ${oldUrl} -> ${existingPath}`);
+            return [oldUrl, `/${year}/${month}/${slug}`];
+          }
+        },
+      },
+    ],
   ],
   themeConfig: {
     googleAnalytics: {
