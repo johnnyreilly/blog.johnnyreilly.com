@@ -30,10 +30,11 @@ What I’m after is the Chutzpah test adapter for Visual Studio 2012/2013 which 
 
 [![null](<http://2.bp.blogspot.com/-Ns9-ZoCzyxU/UxiVe83GQAI/AAAAAAAAAik/9rJiv7c3gOA/s320/EverythingFails.png>)](<http://2.bp.blogspot.com/-Ns9-ZoCzyxU/UxiVe83GQAI/AAAAAAAAAik/9rJiv7c3gOA/s1600/EverythingFails.png>)All fail. This makes me sad. All the errors say “Can’t find variable: Player in file”. Hmmm. Why? Dammit I’m actually going to have to read the [documentation](<https://chutzpah.codeplex.com/wikipage?title=Chutzpah%20File%20References&referringTitle=Documentation>)... It turns out the issue can be happily resolved by adding these 3 references to the top of PlayerSpec.js:
 
-<pre>/// &lt;reference path="../src/Player.js" /&gt;
-/// &lt;reference path="../src/Song.js" /&gt;
-/// &lt;reference path="SpecHelper.js" /&gt;
-</pre>
+```js
+/// <reference path="../src/Player.js" />
+/// <reference path="../src/Song.js" />
+/// <reference path="SpecHelper.js" />
+```
 
 Now the tests pass:
 

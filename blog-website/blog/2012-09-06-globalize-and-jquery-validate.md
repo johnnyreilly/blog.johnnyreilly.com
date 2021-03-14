@@ -34,10 +34,11 @@ Here's the JavaScript:
 
 The above script does 2 things. Firstly it monkey patches jquery.validate.js to make use of Globalize.js number and date parsing in place of the defaults. Secondly it initialises Globalize to relevant current culture driven by the `html lang` property. So if the html tag looked like this:
 
-<pre>&lt;html lang="de-DE"&gt;
+```html
+<html lang="de-DE">
 ...
-&lt;/html&gt;
-</pre>
+</html>
+```
 
 Then Globalize would be initialised with the "de-DE" culture assuming that culture was available and had been served up to the client. (By the way, the Globalize initialisation logic has only been placed in the code above to demonstrate that Globalize needs to be initialised to the culture. It's more likely that this initialisation step would sit elsewhere in a "proper" app.)
 
@@ -49,19 +50,20 @@ Rather than generating a meta tag I've chosen to use the `lang` attribute of the
 
 So how's it getting set? Well, it's no great shakes; in my `_Layout.cshtml` file my html tag looks like this:
 
-<pre>&lt;html lang="@System.Globalization.CultureInfo.CurrentUICulture.Name"&gt;
-</pre>
+```html
+<html lang="@System.Globalization.CultureInfo.CurrentUICulture.Name">
+```
 
 And in my `web.config` I have following setting set:
 
-<pre>&lt;configuration&gt;
-  &lt;system.web&gt;
-    &lt;globalization culture="auto" uiCulture="auto" /&gt;
-    &lt;!--- Other stuff.... --&gt;
-  &lt;/system.web&gt;
-&lt;/configuration&gt;
-
-</pre>
+```xml
+<configuration>
+  <system.web>
+    <globalization culture="auto" uiCulture="auto" />
+    <!--- Other stuff.... -->
+  </system.web>
+</configuration>
+```
 
 With both of these set this means I get `&lt;html lang="de-DE"&gt;` or `&lt;html lang="en-GB"&gt;` etc. depending on a users culture.
 
@@ -75,27 +77,27 @@ In order that I send the correct Globalize culture to the client I've come up wi
 
 To make use of all of this together you'll need to have the `html lang` attribute set as described earlier and some scripts output in your layout page like this:
 
-<pre>&lt;script src="@Url.Content("~/Scripts/jquery.js")" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="@Url.Content(GlobalizeUrls.Globalize)" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="@Url.Content(GlobalizeUrls.GlobalizeCulture)" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="@Url.Content("~/scripts/jquery.validate.globalize.js")" type="text/javascript"&gt;&lt;/script&gt;
+```html
+<script src="@Url.Content("~/Scripts/jquery.js")" type="text/javascript"></script>
+<script src="@Url.Content(GlobalizeUrls.Globalize)" type="text/javascript"></script>
+<script src="@Url.Content(GlobalizeUrls.GlobalizeCulture)" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/scripts/jquery.validate.globalize.js")" type="text/javascript"></script>
 
 @* Only serve the following script if you need it: *@
-&lt;script src="@Url.Content("~/scripts/jquery.validate.unobtrusive.js")" type="text/javascript"&gt;&lt;/script&gt;
-
-</pre>
+<script src="@Url.Content("~/scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+```
 
 Which will render something like this:
 
-<pre>&lt;script src="/Scripts/jquery.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="/Scripts/globalize.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="/scripts/globalize/globalize.culture.en-GB.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="/Scripts/jquery.validate.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="/Scripts/jquery.validate.globalize.js" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script src="/Scripts/jquery.validate.unobtrusive.js" type="text/javascript"&gt;&lt;/script&gt;
-
-</pre>
+```html
+<script src="/Scripts/jquery.js" type="text/javascript"></script>
+<script src="/Scripts/globalize.js" type="text/javascript"></script>
+<script src="/scripts/globalize/globalize.culture.en-GB.js" type="text/javascript"></script>
+<script src="/Scripts/jquery.validate.js" type="text/javascript"></script>
+<script src="/Scripts/jquery.validate.globalize.js" type="text/javascript"></script>
+<script src="/Scripts/jquery.validate.unobtrusive.js" type="text/javascript"></script>
+```
 
 This will load up jQuery, Globalize, your Globalize culture, jQuery Validate, jQuery Validates unobtrusive extensions (which you don't need if you're not using them) and the jQuery Validate Globalize script which will set up culture aware validation.
 

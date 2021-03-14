@@ -18,8 +18,9 @@ The issue was VS Code. The bug has now been fixed and shipped last night with [V
 
 I've recently experienced many of my `npm install`s failing for no consistent reason. The error message would generally be something along the lines of:
 
-<pre>npm ERR! Error: EPERM: operation not permitted, rename 'C:\dev\training\drrug\node_modules\.staging\@exponent\ngrok-fc327f2a' -&gt; 'C:\dev\training\drrug\node_modules\@exponent\ngrok'
-</pre>
+```sh
+npm ERR! Error: EPERM: operation not permitted, rename 'C:\dev\training\drrug\node_modules\.staging\@exponent\ngrok-fc327f2a' -> 'C:\dev\training\drrug\node_modules\@exponent\ngrok'
+```
 
 I spent a good deal of time changing the versions of node and npm I was running; all seemingly to no avail. Regular flakiness which I ascribed to node / npm. I was starting to give up when I read of [other people experiencing similar issues](<https://github.com/react-community/create-react-native-app/issues/191#issuecomment-304073970>). Encouragingly [Fernando Meira](<https://github.com/fmeira>) suggested a solution:
 

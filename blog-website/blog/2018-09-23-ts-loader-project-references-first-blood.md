@@ -20,17 +20,19 @@ Using project references currently requires building referenced projects outside
 
 ts-loader has partial support for [project references](<https://www.typescriptlang.org/docs/handbook/project-references.html>) in that it will *load* dependent composite projects that are already built, but will not currently *build/rebuild* those upstream projects. The best way to explain exactly what this means is through an example. Say you have a project with a project reference pointing to the `lib/` directory:
 
-<pre>tsconfig.json
+```sh
+tsconfig.json
 app.ts
 lib/
   tsconfig.json
   niftyUtil.ts
-</pre>
+```
 
 And we’ll assume that the root `tsconfig.json` has `{ "references": { "path": "lib" } }`, which means that any import of a file that’s part of the `lib` sub-project is treated as a reference to another project, not just a reference to a TypeScript file. Before discussing how ts-loader handles this, it’s helpful to review at a really basic level what `tsc` itself does here. If you were to run `tsc` on this tiny example project, the build would fail with the error:
 
-<pre>error TS6305: Output file 'lib/niftyUtil.d.ts' has not been built from source file 'lib/niftyUtil.ts'.
-</pre>
+```sh
+error TS6305: Output file 'lib/niftyUtil.d.ts' has not been built from source file 'lib/niftyUtil.ts'.
+```
 
 Using project references actually instructs `tsc`*not* to build anything that’s part of another project from source, but rather to look for any `.d.ts` and `.js` files that have already been generated from a previous build. Since we’ve never built the project in `lib` before, those files don’t exist, so building the root project fails. Still just thinking about how `tsc` works, there are two options to make the build succeed: either run `tsc -p lib/tsconfig.json`*first*, or simply run `tsc --build`, which will figure out that `lib` hasn’t been built and build it first for you.
 

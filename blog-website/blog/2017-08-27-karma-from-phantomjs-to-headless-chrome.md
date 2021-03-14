@@ -20,13 +20,15 @@ You no longer need `phantomjs-prebuilt` as a dev dependency of your project. Tha
 
 You need to tell Karma to use Chrome Headless instead of PhantomJS. You do that by replacing
 
-<pre>   browsers: [ 'PhantomJS' ],
-</pre>
+```js
+browsers: [ 'PhantomJS' ],
+```
 
 with
 
-<pre>   browsers: [ 'ChromeHeadless' ],
-</pre>
+```js
+browsers: [ 'ChromeHeadless' ],
+```
 
 That's it; job done!
 
@@ -36,10 +38,11 @@ There's always one more thing isn't there? Yup, ts-loader has CI builds that run
 
 Travis went red. (boooo!) Travis doesn't have Chrome installed by default. But it's no biggie; you just need to tweak your `.travis.yml` like so:
 
-<pre>dist: trusty
+```yml
+dist: trusty
 addons:
   chrome: stable
-</pre>
+```
 
 This includes Chrome in the Travis build environment. Green. Boom!
 
