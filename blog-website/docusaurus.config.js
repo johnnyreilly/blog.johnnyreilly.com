@@ -46,22 +46,30 @@ module.exports = {
           label: 'Docs',
           position: 'left',
         },
-        {to: 'blog', label: 'Blog', position: 'left'},
+        */
+        {to: 'about', label: 'About', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/johnnyreilly',
           label: 'GitHub',
           position: 'right',
         },
-        */
+        {
+          href: 'https://twitter.com/johnny_reilly',
+          label: 'Twitter',
+          position: 'right',
+        },
       ],
     },
     footer: {
       style: 'dark',
-      /*
       links: [
         {
-          title: 'Docs',
+          // title: 'Docs',
           items: [
+            {
+              html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`
+            }
+            /*
             {
               label: 'Style Guide',
               to: 'docs/',
@@ -100,10 +108,10 @@ module.exports = {
               label: 'GitHub',
               href: 'https://github.com/facebook/docusaurus',
             },
+            */
           ],
         },
       ],
-      */
       copyright: `Copyright © ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
     },
     prism: {
@@ -127,8 +135,8 @@ module.exports = {
            * 0 to disable
            */
           blogSidebarCount: 5,
-          path: './blog',
           postsPerPage: 1,
+          path: './blog',
           routeBasePath: '/', // Set this value to '/'.
           showReadingTime: true,
           editUrl:
