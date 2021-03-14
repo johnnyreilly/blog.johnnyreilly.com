@@ -8,8 +8,9 @@ hide_table_of_contents: false
 ---
 I'm addicted to the [ternary operator](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator>). For reasons I can't explain, I cannot get enough of:
 
- <pre>const thisOrThat = (someCondition) ? "this" : "or that"
-</pre>
+ ```js
+const thisOrThat = (someCondition) ? "this" : "or that"
+```
 
 The occasion regularly arises where I need to turn my lovely terse code into an if statement in order to set 2 variables instead of 1. I've been heartbroken; I hate doing:
 

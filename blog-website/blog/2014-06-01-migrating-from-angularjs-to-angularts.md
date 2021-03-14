@@ -55,16 +55,17 @@ As well as pulling in the typing files Visual Studio 2013 has also made some twe
 
 [![null](<http://4.bp.blogspot.com/-DZcJ-YANHAE/U4b6Yd4Zr7I/AAAAAAAAAlM/SYpK8RFSVgg/s1600/TypeScriptDialog.png>)](<http://4.bp.blogspot.com/-DZcJ-YANHAE/U4b6Yd4Zr7I/AAAAAAAAAlM/SYpK8RFSVgg/s1600/TypeScriptDialog.png>)And these are the TypeScript specific additions that Visual Studio has made to `PoorClaresAngular.csproj`:
 
-<pre>  &lt;Import 
+```xml
+<Import 
    Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" 
-   Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" /&gt;
+   Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
 
-  &lt;TypeScriptToolsVersion&gt;1.0&lt;/TypeScriptToolsVersion&gt;
+  <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
 
-  &lt;Import 
+  <Import 
    Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" 
-   Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" /&gt;
-</pre>
+   Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+```
 
 I'm going to add one extra of my own:
 

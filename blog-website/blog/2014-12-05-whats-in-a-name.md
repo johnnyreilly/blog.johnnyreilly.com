@@ -6,7 +6,7 @@ author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033
 tags: [cybersquatting]
 hide_table_of_contents: false
 ---
-The observant amongst you may have noticed that this blog has a brand new and shiny domain name! That's right, after happily trading under "[icanmakethiswork.blogspot.com](<icanmakethiswork.blogspot.com>)" for the longest time it's now "[blog.icanmakethiswork.io](<blog.icanmakethiswork.io>)". Trumpets and fanfare!
+The observant amongst you may have noticed that this blog has a brand new and shiny domain name! That's right, after happily trading under "icanmakethiswork.blogspot.com" for the longest time it's now "blog.icanmakethiswork.io". Trumpets and fanfare!
 
  Why the change? Well let's break that question down a little. First of all, why change at all? Secondly, why change to blog.icanmakethiswork.io?
 
@@ -34,7 +34,7 @@ As of June 3rd 2014 someone has been sitting on my blog name. I was actually rat
 
 So that's why I went for icanmakethiswork.io instead. Path of least resistance and all that. I'd still like icanmakethiswork.com to be mine but I'm not going to court and I'm not paying the squatter. Maybe one day I'll get it. Who knows?
 
-Either way, from now on this is [blog.icanmakethiswork.io](<blog.icanmakethiswork.io>) \- please stick around!
+Either way, from now on this is blog.icanmakethiswork.io - please stick around!
 
 ## Is anything else going to change?
 

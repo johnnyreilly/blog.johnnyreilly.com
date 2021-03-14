@@ -34,45 +34,46 @@ What this means is: rimraf can delete. Properly. So let's get it: `npm install -
 
 In my current situation the contents of the `node_modules` folder is causing me heartache. But with rimraf in play I can get rid of it with the magic words: `rimraf ./node_modules`. Alakazam! So let's poke this command into the extra commands that I've already shoplifted from Steve's blog post. I'll end up with the following section of XML at the end of my `.csproj`:
 
-<pre>  &lt;PropertyGroup&gt;
-    &lt;CompileDependsOn&gt;
+```xml
+<PropertyGroup>
+    <CompileDependsOn>
       $(CompileDependsOn);
       GulpBuild;
-    &lt;/CompileDependsOn&gt;
-    &lt;CleanDependsOn&gt;
+    </CompileDependsOn>
+    <CleanDependsOn>
       $(CleanDependsOn);
       GulpClean
-    &lt;/CleanDependsOn&gt;
-    &lt;CopyAllFilesToSingleFolderForPackageDependsOn&gt;
+    </CleanDependsOn>
+    <CopyAllFilesToSingleFolderForPackageDependsOn>
       CollectGulpOutput;
       $(CopyAllFilesToSingleFolderForPackageDependsOn);
-    &lt;/CopyAllFilesToSingleFolderForPackageDependsOn&gt;
-    &lt;CopyAllFilesToSingleFolderForMsdeployDependsOn&gt;
+    </CopyAllFilesToSingleFolderForPackageDependsOn>
+    <CopyAllFilesToSingleFolderForMsdeployDependsOn>
       CollectGulpOutput;
       $(CopyAllFilesToSingleFolderForPackageDependsOn);
-    &lt;/CopyAllFilesToSingleFolderForMsdeployDependsOn&gt;
-  &lt;/PropertyGroup&gt;
-  &lt;Target Name="GulpBuild"&gt;
-    &lt;Exec Command="npm install" /&gt;
-    &lt;Exec Command="bower install" /&gt;
-    &lt;Exec Command="gulp" /&gt;
-    &lt;Exec Command="rimraf ./node_modules" /&gt;
-  &lt;/Target&gt;
-  &lt;Target Name="GulpClean"&gt;
-    &lt;Exec Command="npm install" /&gt;
-    &lt;Exec Command="gulp clean" /&gt;
-    &lt;Exec Command="rimraf ./node_modules" /&gt;
-  &lt;/Target&gt;
-  &lt;Target Name="CollectGulpOutput"&gt;
-    &lt;ItemGroup&gt;
-      &lt;_CustomFiles Include="build\**\*" /&gt;
-      &lt;FilesForPackagingFromProject Include="%(_CustomFiles.Identity)"&gt;
-        &lt;DestinationRelativePath&gt;build\%(RecursiveDir)%(Filename)%(Extension)&lt;/DestinationRelativePath&gt;
-      &lt;/FilesForPackagingFromProject&gt;
-    &lt;/ItemGroup&gt;
-    &lt;Message Text="CollectGulpOutput list: %(_CustomFiles.Identity)" /&gt;
-  &lt;/Target&gt;
-</pre>
+    </CopyAllFilesToSingleFolderForMsdeployDependsOn>
+  </PropertyGroup>
+  <Target Name="GulpBuild">
+    <Exec Command="npm install" />
+    <Exec Command="bower install" />
+    <Exec Command="gulp" />
+    <Exec Command="rimraf ./node_modules" />
+  </Target>
+  <Target Name="GulpClean">
+    <Exec Command="npm install" />
+    <Exec Command="gulp clean" />
+    <Exec Command="rimraf ./node_modules" />
+  </Target>
+  <Target Name="CollectGulpOutput">
+    <ItemGroup>
+      <_CustomFiles Include="build\**\*" />
+      <FilesForPackagingFromProject Include="%(_CustomFiles.Identity)">
+        <DestinationRelativePath>build\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+      </FilesForPackagingFromProject>
+    </ItemGroup>
+    <Message Text="CollectGulpOutput list: %(_CustomFiles.Identity)" />
+  </Target>
+```
 
 So let's focus on the important bits in the `GulpBuild` target:
 

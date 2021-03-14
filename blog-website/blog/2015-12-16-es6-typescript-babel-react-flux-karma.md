@@ -6,7 +6,7 @@ author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033
 tags: [ES6, Karma, React, ts-loader, Webpack]
 hide_table_of_contents: false
 ---
-I wrote [a while ago](</2015/09/things-done-changed.html>) about how I was using some different tools in a current project:
+I wrote [a while ago](<https://blog.johnnyreilly.com/2015/09/things-done-changed.html>) about how I was using some different tools in a current project:
 
  - React with JSX
 - Flux

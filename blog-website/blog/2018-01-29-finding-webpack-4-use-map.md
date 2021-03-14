@@ -1,5 +1,5 @@
 ---
-title: "finding webpack 4 (use a Map)"
+title: "Finding webpack 4 (use a Map)"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
@@ -112,10 +112,11 @@ this.compiler._pluginCompat.tap('fork-ts-checker-webpack-plugin', options => {
 
 With your registration in place, you just need to replace your calls to `compiler.applyPlugins('sync-hook-name', ` and `compiler.applyPluginsAsync('async-hook-name', ` with calls to `compiler.hooks.syncHookName.call(` and `compiler.hooks.asyncHookName.callAsync(`. So to migrate our `fork-ts-checker-service-before-start` hook we'd write:
 
-<pre>this.compiler.hooks.forkTsCheckerServiceBeforeStart.callAsync(() =&gt; {
+```js
+this.compiler.hooks.forkTsCheckerServiceBeforeStart.callAsync(() => {
    // do your thing here
 });
-</pre>
+```
 
 ## Loaders
 
