@@ -1,48 +1,73 @@
-import React from 'react';
-import clsx from 'clsx';
-import Layout from '@theme/Layout';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import useBaseUrl from '@docusaurus/useBaseUrl';
-import styles from './styles.module.css';
+import React from "react";
+import clsx from "clsx";
+import Layout from "@theme/Layout";
+import Link from "@docusaurus/Link";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+// import usePages from "@docusaurus/usePages";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import styles from "./styles.module.css";
 
 const features = [
   {
-    title: 'Easy to Use',
-    imageUrl: 'img/undraw_docusaurus_mountain.svg',
+    title: "What is this?",
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        <p>
+          The meanderings and ramblings of a dev. If you were wondering, the
+          slightly egotistical-sounding title of this blog started life as a pun
+          on{" "}
+          <a href="http://en.wikipedia.org/wiki/ICANN" target="_blank">
+            ICANN
+          </a>
+          . Not, if I'm honest, the finest joke in the world but I haven't yet
+          thought of a better name and so here we are...
+        </p>
+        <p>
+          <a href="https://reillysontour.blogspot.com/">
+            I also write a (sort of) travel blog.
+          </a>
+        </p>
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    imageUrl: 'img/undraw_docusaurus_tree.svg',
+    title: "Who am I?",
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        <p>
+          Long-time Londoner, born in Bristol and raised in Fleet. Developer,
+          writer, hedge chopper extraordinaire, father, food botherer, Christian
+          and husband to the most wonderful Geordie wife there ever was!
+        </p>
+
+        <p>
+          You can <a href="mailto:johnny_reilly@hotmail.com">email me</a>.
+        </p>
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    imageUrl: 'img/undraw_docusaurus_react.svg',
+    title: "What do I do?",
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        <p>
+          I work on a number of open source projects including:
+          <ul>
+            <li><a href="https://github.com/DefinitelyTyped">Definitely Typed</a></li>
+            <li><a href="https://github.com/TypeStrong/ts-loader">ts-loader</a></li>
+            <li><a href="https://github.com/TypeStrong/fork-ts-checker-webpack-plugin">fork-ts-checker-webpack-plugin</a></li>
+          </ul>
+        </p>
+        <p>I also wrote the <a href="https://blog.johnnyreilly.com/2019/10/definitely-typed-movie.html">history of Definitely Typed</a>.</p>
       </>
     ),
   },
 ];
 
-function Feature({imageUrl, title, description}) {
+function Feature({ imageUrl, title, description }) {
   const imgUrl = useBaseUrl(imageUrl);
   return (
-    <div className={clsx('col col--4', styles.feature)}>
+    <div className={clsx("col col--4", styles.feature)}>
       {imgUrl && (
         <div className="text--center">
           <img className={styles.featureImage} src={imgUrl} alt={title} />
@@ -56,25 +81,24 @@ function Feature({imageUrl, title, description}) {
 
 function About() {
   const context = useDocusaurusContext();
-  const {siteConfig = {}} = context;
+  console.log(context);
+  const { siteConfig = {} } = context;
   return (
     <Layout
       title={`About ${siteConfig.title}`}
-      description={`What is ${siteConfig.title}`}>
-      <header className={clsx('hero hero--primary', styles.heroBanner)}>
+      description={`What is ${siteConfig.title}`}
+    >
+      <header className={clsx("hero hero--primary", styles.heroBanner)}>
         <div className="container">
           <h1 className="hero__title">{siteConfig.title}</h1>
-          <p className="hero__subtitle">{siteConfig.tagline}</p>
-          <div className={styles.buttons}>
-            <Link
-              className={clsx(
-                'button button--outline button--secondary button--lg',
-                styles.getStarted,
-              )}
-              to={useBaseUrl('/')}>
-              Get Started
-            </Link>
+          <div className="text--center">
+            <img
+              src="img/profile.jpg"
+              className={styles.profileImage}
+              alt="johnnyreilly profile picture"
+            />
           </div>
+          <p className="hero__subtitle">{siteConfig.tagline}</p>
         </div>
       </header>
       <main>

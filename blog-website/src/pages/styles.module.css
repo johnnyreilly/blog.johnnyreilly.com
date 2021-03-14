@@ -6,7 +6,7 @@
  */
 
 .heroBanner {
-  padding: 4rem 0;
+  padding: 1rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -32,6 +32,12 @@
 }
 
 .featureImage {
+  height: 200px;
+  width: 200px;
+}
+
+.profileImage {
+  border-radius: 50%;
   height: 200px;
   width: 200px;
 }
