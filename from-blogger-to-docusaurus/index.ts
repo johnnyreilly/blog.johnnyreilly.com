@@ -48,7 +48,8 @@ async function getPosts(): Promise<Post[]> {
     const postsRaw = blog.feed[0].entry
         .filter((entry: any) =>
             entry.category.some((category: any) => category.attr['@_term'] === "http://schemas.google.com/blogger/2008/kind#post") &&
-            entry.link.some((link: any) => link.attr["@_href"] && link.attr["@_type"] === "text/html")
+            entry.link.some((link: any) => link.attr["@_href"] && link.attr["@_type"] === "text/html") &&
+            entry.published < '2021-03-07'
         );
 
     const posts: Post[] = postsRaw.map((entry: any) => {

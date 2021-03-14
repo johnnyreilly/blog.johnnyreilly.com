@@ -6,7 +6,7 @@ module.exports = {
   tagline: 'The tagline of my site',
   url: 'https://johnnyreilly.github.io/', // 'https://blog.johnnyreilly.com',
   baseUrl: '/',
-  onBrokenLinks: 'warn',
+  // onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
   organizationName: 'johnnyreilly', // Usually your GitHub org/user name.
