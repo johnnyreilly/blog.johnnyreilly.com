@@ -113,14 +113,13 @@ Many changes yes? Let's break it down a little.
 
 The first thing to note is the `number` setter method:
 
-<pre>    val(value: number): JQuery;
-</pre>
+```ts
+val(value: number): JQuery;
+```
 
 Let's have a look at the jQuery documentation for the simple setter:
 
-> ## [<span class="icon-link"></span>
-> 
-> .val( value )](<http://api.jquery.com/val/#val-value>)
+> ## [.val( value )](<http://api.jquery.com/val/#val-value>)
 > 
 > <div><strong>value</strong></div>
 > 

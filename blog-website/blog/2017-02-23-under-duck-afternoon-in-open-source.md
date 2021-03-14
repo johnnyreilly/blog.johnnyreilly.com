@@ -70,9 +70,10 @@ It's rather nagging at me that behaviour has changed without warning. This has b
 > 
 > This is what the present code does:
 > 
-> <pre>const watcher = watching.compiler.watchFileSystem.watcher || 
+> ```js
+> const watcher = watching.compiler.watchFileSystem.watcher || 
 >                 watching.compiler.watchFileSystem.wfs.watcher
-> </pre>
+> ```
 > 
 > And then `.mtimes`
 > 
