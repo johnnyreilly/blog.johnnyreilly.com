@@ -2,22 +2,22 @@
 const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 
 module.exports = {
-  title: 'I CAN MAKE THIS WORK',
-  tagline: 'The blog of johnnyreilly',
-  url: 'https://johnnyreilly.github.io/', // 'https://blog.johnnyreilly.com',
-  baseUrl: '/',
+  title: "I CAN MAKE THIS WORK",
+  tagline: "The blog of johnnyreilly",
+  url: "https://johnnyreilly.github.io/", // 'https://blog.johnnyreilly.com',
+  baseUrl: "/",
   // onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
-  organizationName: 'johnnyreilly', // Usually your GitHub org/user name.
-  projectName: 'blog.johnnyreilly.com', // Usually your repo name.
+  onBrokenMarkdownLinks: "warn",
+  favicon: "img/favicon.ico",
+  organizationName: "johnnyreilly", // Usually your GitHub org/user name.
+  projectName: "blog.johnnyreilly.com", // Usually your repo name.
   plugins: [
     [
-      '@docusaurus/plugin-client-redirects',
+      "@docusaurus/plugin-client-redirects",
       {
         createRedirects: function (existingPath) {
           if (existingPath.match(urlRegex)) {
-            const [,year, month, date, slug] = existingPath.split('/');
+            const [, year, month, date, slug] = existingPath.split("/");
             const oldUrl = `/${year}/${month}/${slug}.html`;
             console.log(`redirect from ${oldUrl} -> ${existingPath}`);
             return [oldUrl, `/${year}/${month}/${slug}`];
@@ -28,15 +28,15 @@ module.exports = {
   ],
   themeConfig: {
     googleAnalytics: {
-      trackingID: 'UA-51754530-2',
+      trackingID: "UA-51754530-2",
       // Optional fields.
       anonymizeIP: true, // Should IPs be anonymized?
     },
     navbar: {
-      title: 'I CAN MAKE THIS WORK',
+      title: "I CAN MAKE THIS WORK",
       logo: {
-        alt: 'I CAN MAKE THIS WORK',
-        src: 'img/profile.jpg',
+        alt: "I CAN MAKE THIS WORK",
+        src: "img/profile.jpg",
       },
       items: [
         /*
@@ -47,28 +47,29 @@ module.exports = {
           position: 'left',
         },
         */
-        {to: 'about', label: 'About', position: 'left'},
+        { to: "about", label: "About", position: "left" },
+        { to: "blog-archive", label: "Blog Archive", position: "left" },
         {
-          href: 'https://github.com/johnnyreilly',
-          label: 'GitHub',
-          position: 'right',
+          href: "https://github.com/johnnyreilly",
+          label: "GitHub",
+          position: "right",
         },
         {
-          href: 'https://twitter.com/johnny_reilly',
-          label: 'Twitter',
-          position: 'right',
+          href: "https://twitter.com/johnny_reilly",
+          label: "Twitter",
+          position: "right",
         },
       ],
     },
     footer: {
-      style: 'dark',
+      style: "dark",
       links: [
         {
           // title: 'Docs',
           items: [
             {
-              html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`
-            }
+              html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
+            },
             /*
             {
               label: 'Style Guide',
@@ -115,12 +116,12 @@ module.exports = {
       copyright: `Copyright © ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
     },
     prism: {
-      additionalLanguages: ['powershell', 'csharp'],
+      additionalLanguages: ["powershell", "csharp"],
     },
   },
   presets: [
     [
-      '@docusaurus/preset-classic',
+      "@docusaurus/preset-classic",
       {
         docs: false /*{
           sidebarPath: require.resolve('./sidebars.js'),
@@ -136,14 +137,14 @@ module.exports = {
            */
           blogSidebarCount: 5,
           postsPerPage: 1,
-          path: './blog',
-          routeBasePath: '/', // Set this value to '/'.
+          path: "./blog",
+          routeBasePath: "/", // Set this value to '/'.
           showReadingTime: true,
           editUrl:
-            'https://github.com/johnnyreilly/blog.johnnyreilly.com/edit/main/blog-website/blog/',
+            "https://github.com/johnnyreilly/blog.johnnyreilly.com/edit/main/blog-website/blog/",
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve("./src/css/custom.css"),
         },
       },
     ],
