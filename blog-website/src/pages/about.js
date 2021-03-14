@@ -3,7 +3,6 @@ import clsx from "clsx";
 import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-// import usePages from "@docusaurus/usePages";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import styles from "./styles.module.css";
 
@@ -50,15 +49,27 @@ const features = [
     title: "What do I do?",
     description: (
       <>
+        <p>I work on a number of open source projects including:</p>
+        <ul>
+          <li>
+            <a href="https://github.com/DefinitelyTyped">Definitely Typed</a>
+          </li>
+          <li>
+            <a href="https://github.com/TypeStrong/ts-loader">ts-loader</a>
+          </li>
+          <li>
+            <a href="https://github.com/TypeStrong/fork-ts-checker-webpack-plugin">
+              fork-ts-checker-webpack-plugin
+            </a>
+          </li>
+        </ul>
         <p>
-          I work on a number of open source projects including:
-          <ul>
-            <li><a href="https://github.com/DefinitelyTyped">Definitely Typed</a></li>
-            <li><a href="https://github.com/TypeStrong/ts-loader">ts-loader</a></li>
-            <li><a href="https://github.com/TypeStrong/fork-ts-checker-webpack-plugin">fork-ts-checker-webpack-plugin</a></li>
-          </ul>
+          I also wrote the{" "}
+          <a href="https://blog.johnnyreilly.com/2019/10/definitely-typed-movie.html">
+            history of Definitely Typed
+          </a>
+          .
         </p>
-        <p>I also wrote the <a href="https://blog.johnnyreilly.com/2019/10/definitely-typed-movie.html">history of Definitely Typed</a>.</p>
       </>
     ),
   },
@@ -74,14 +85,14 @@ function Feature({ imageUrl, title, description }) {
         </div>
       )}
       <h3>{title}</h3>
-      <p>{description}</p>
+      {description}
     </div>
   );
 }
 
 function About() {
+  const imgUrl = useBaseUrl("img/profile.jpg");
   const context = useDocusaurusContext();
-  console.log(context);
   const { siteConfig = {} } = context;
   return (
     <Layout
@@ -93,7 +104,7 @@ function About() {
           <h1 className="hero__title">{siteConfig.title}</h1>
           <div className="text--center">
             <img
-              src="img/profile.jpg"
+              src={imgUrl}
               className={styles.profileImage}
               alt="johnnyreilly profile picture"
             />
