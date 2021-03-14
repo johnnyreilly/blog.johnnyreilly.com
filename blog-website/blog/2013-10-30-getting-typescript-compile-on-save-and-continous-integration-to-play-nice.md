@@ -24,21 +24,27 @@ The information was that we need not lose our Compile on Save. We just need to f
 > 
 > For C#-style projects (.csproj):
 > 
-> <pre>  &lt;PropertyGroup Condition="'$(Configuration)' == 'Debug'"&gt;
->     &lt;TypeScriptTarget&gt;ES5&lt;/TypeScriptTarget&gt;
->     &lt;TypeScriptIncludeComments&gt;true&lt;/TypeScriptIncludeComments&gt;
->     &lt;TypeScriptSourceMap&gt;true&lt;/TypeScriptSourceMap&gt;
->   &lt;/PropertyGroup&gt;
->   &lt;PropertyGroup Condition="'$(Configuration)' == 'Release'"&gt;
->     &lt;TypeScriptTarget&gt;ES5&lt;/TypeScriptTarget&gt;
->     &lt;TypeScriptIncludeComments&gt;false&lt;/TypeScriptIncludeComments&gt;
->     &lt;TypeScriptSourceMap&gt;false&lt;/TypeScriptSourceMap&gt;
->   &lt;/PropertyGroup&gt;
->   &lt;Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" /&gt;</pre>
+> ```xml
+> <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+>     <TypeScriptTarget>ES5</TypeScriptTarget>
+>     <TypeScriptIncludeComments>true</TypeScriptIncludeComments>
+>     <TypeScriptSourceMap>true</TypeScriptSourceMap>
+>   </PropertyGroup>
+>   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+>     <TypeScriptTarget>ES5</TypeScriptTarget>
+>     <TypeScriptIncludeComments>false</TypeScriptIncludeComments>
+>     <TypeScriptSourceMap>false</TypeScriptSourceMap>
+>   </PropertyGroup>
+>   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" />
+> ```
 
 I followed these instructions (well I had to tweak the `Import Project` location) and I was in business again. But I when I came to check my code into TFS I came unstuck. The automated build kicked off and then, in short order, kicked me:
 
-> `C:\Builds\1\MyApp\MyApp Continuous Integration\src\MyApp\MyApp.csproj (1520): The imported project "C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v11.0\TypeScript\Microsoft.TypeScript.targets" was not found. Confirm that the path in the <import> declaration is correct, and that the file exists on disk. C:\Builds\1\MyApp\MyApp Continuous Integration\src\MyApp\MyApp.csproj (1520): The imported project "C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v11.0\TypeScript\Microsoft.TypeScript.targets" was not found. Confirm that the path in the <import> declaration is correct, and that the file exists on disk. </import></import>`
+> ```
+> C:\Builds\1\MyApp\MyApp Continuous Integration\src\MyApp\MyApp.csproj (1520): The imported project "C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v11.0\TypeScript\Microsoft.TypeScript.targets" was not found. Confirm that the path in the <import> declaration is correct, and that the file exists on disk.
+> C:\Builds\1\MyApp\MyApp Continuous Integration\src\MyApp\MyApp.csproj (1520): The imported project "C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v11.0\TypeScript\Microsoft.TypeScript.targets" was not found. Confirm that the path in the <import> declaration is correct, and that the file exists on disk.
+> </import></import>
+> ```
 
 That's right, TypeScript wasn't installed on the build server. And since TypeScript was now part of the build process my builds were now failing. Ouch.
 
@@ -59,46 +65,28 @@ So, to sum up, what I wanted was to be able to compile TypeScript in Visual Stud
 
 The solution in the end was pretty simple - I replaced the `.csproj` changes with the code below:
 
-<pre>  &lt;PropertyGroup Condition="'$(Configuration)' == 'Debug'"&gt;
-    &lt;TypeScriptTarget&gt;ES5&lt;/TypeScriptTarget&gt;
-    &lt;TypeScriptRemoveComments&gt;false&lt;/TypeScriptRemoveComments&gt;
-    &lt;TypeScriptSourceMap&gt;false&lt;/TypeScriptSourceMap&gt;
-    &lt;TypeScriptModuleKind&gt;AMD&lt;/TypeScriptModuleKind&gt;
-    &lt;TypeScriptNoImplicitAny&gt;true&lt;/TypeScriptNoImplicitAny&gt;
-  &lt;/PropertyGroup&gt;
-  &lt;PropertyGroup Condition="'$(Configuration)' == 'Release'"&gt;
-    &lt;TypeScriptTarget&gt;ES5&lt;/TypeScriptTarget&gt;
-    &lt;TypeScriptRemoveComments&gt;false&lt;/TypeScriptRemoveComments&gt;
-    &lt;TypeScriptSourceMap&gt;false&lt;/TypeScriptSourceMap&gt;
-    &lt;TypeScriptModuleKind&gt;AMD&lt;/TypeScriptModuleKind&gt;
-    &lt;TypeScriptNoImplicitAny&gt;true&lt;/TypeScriptNoImplicitAny&gt;
-  &lt;/PropertyGroup&gt;
-  &lt;Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" /&gt;</pre>
+```xml
+<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+    <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
+    <TypeScriptNoImplicitAny>true</TypeScriptNoImplicitAny>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+    <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
+    <TypeScriptNoImplicitAny>true</TypeScriptNoImplicitAny>
+  </PropertyGroup>
+  <Import Project="$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(VSToolsPath)\TypeScript\Microsoft.TypeScript.targets')" />
+```
 
 What this does is enable TypeScript compilation \***only**\* if TypeScript is installed. So when I'm busy developing with Visual Studio on my machine with the plugin installed I can compile TypeScript. But when I check in the TypeScript compilation is \***not**\* performed on the build server. This is because TypeScript is not installed on the build server and we are only compiling if it is installed. (Just to completely labour the point.)
 
 ## Final thoughts
 
 I do consider this an interim solution. As I mentioned earlier, when TypeScript has stabilised I think I'd like TS compilation to be part of the build process. Like with any other code I think compiling on check-in to catch bugs early is an excellent idea. But I think I'll wait until there's some clearer guidance on the topic from the TypeScript team before I take this step.
-
-<!-- Typescript CI WebEssentials 3.0 Debug=false Compile on save does not work unless csproj change in place   C:\Program Files (x86)\MSBuild\Microsoft\VisualStudio\v11.0\TypeScript  <pre class="prettyprint xml">
-&lt;PropertyGroup Condition="'$(TypeScriptBuildConfigurations)' == ''"&gt;
-  &lt;TypeScriptCompileOnSaveEnabled Condition="'$(TypeScriptEnableCompileOnSave)' != 'false'"&gt;true&lt;/TypeScriptCompileOnSaveEnabled&gt;
-
-  &lt;TypeScriptBuildConfigurations Condition="'$(TypeScriptRemoveComments)' == 'true'"&gt;$(TypeScriptBuildConfigurations) --removeComments&lt;/TypeScriptBuildConfigurations&gt;
-  &lt;TypeScriptBuildConfigurations Condition="'$(TypeScriptNoImplicitAny)' == 'true'"&gt;$(TypeScriptBuildConfigurations) --noImplicitAny&lt;/TypeScriptBuildConfigurations&gt;
-  &lt;TypeScriptBuildConfigurations Condition="'$(TypeScriptNoResolve)' == 'true'"&gt;$(TypeScriptBuildConfigurations) --noResolve&lt;/TypeScriptBuildConfigurations&gt;
-  &lt;TypeScriptBuildConfigurations Condition="'$(TypeScriptGeneratesDeclarations)' == 'true'"&gt;$(TypeScriptBuildConfigurations) --declaration&lt;/TypeScriptBuildConfigurations&gt;
-  &lt;TypeScriptBuildConfigurations Condition="'$(TypeScriptModuleKind)' != ''"&gt;$(TypeScriptBuildConfigurations) --module $(TypeScriptModuleKind)&lt;/TypeScriptBuildConfigurations&gt;
-  &lt;TypeScriptBuildConfigurations Condition="'$(TypeScriptOutFile)' != ''"&gt;$(TypeScriptBuildConfigurations) --out &quot;$(TypeScriptOutFile)&quot;&lt;/TypeScriptBuildConfigurations&gt;
-  &lt;TypeScriptBuildConfigurations Condition="'$(TypeScriptOutDir)' != ''"&gt;$(TypeScriptBuildConfigurations) --outDir &quot;$(TypeScriptOutDir)&quot;&lt;/TypeScriptBuildConfigurations&gt;
-  &lt;TypeScriptBuildConfigurations Condition="'$(TypeScriptSourceMap)' == 'true'"&gt;$(TypeScriptBuildConfigurations) --sourcemap&lt;/TypeScriptBuildConfigurations&gt;
-  &lt;TypeScriptBuildConfigurations Condition="'$(TypeScriptTarget)' != ''"&gt;$(TypeScriptBuildConfigurations) --target $(TypeScriptTarget)&lt;/TypeScriptBuildConfigurations&gt;
-  &lt;TypeScriptBuildConfigurations Condition="'$(TypeScriptNoResolve)' == 'true'"&gt;$(TypeScriptBuildConfigurations) --noResolve&lt;/TypeScriptBuildConfigurations&gt;
-  &lt;TypeScriptBuildConfigurations Condition="'$(TypeScriptAdditionalFlags)' != ''"&gt;$(TypeScriptBuildConfigurations) $(TypeScriptAdditionalFlags)&lt;/TypeScriptBuildConfigurations&gt;
-  &lt;TypeScriptBuildConfigurations Condition="'$(TypeScriptMapRoot)' != ''"&gt;$(TypeScriptBuildConfigurations) --mapRoot &quot;$(TypeScriptMapRoot)&quot;&lt;/TypeScriptBuildConfigurations&gt;
-  &lt;TypeScriptBuildConfigurations Condition="'$(TypeScriptSourceRoot)' != ''"&gt;$(TypeScriptBuildConfigurations) --sourceRoot &quot;$(TypeScriptSourceRoot)&quot;&lt;/TypeScriptBuildConfigurations&gt;
-&lt;/PropertyGroup&gt;
-</pre>-->
 
 

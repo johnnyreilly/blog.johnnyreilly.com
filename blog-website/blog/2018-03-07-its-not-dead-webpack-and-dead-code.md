@@ -65,12 +65,4 @@ The TL;DR: if you want to elimate dead code then \*always\* use `process.env.NOD
 
 UglifyJS is smart. But not that smart.
 
-<!--   In fact you can also use the <code>DefinePlugin</code> to chop dead code with other more friendly variables. Take the example below which injects a <code>boolean</code> called <code>IS_DEVELOPMENT</code>:</p> <pre class="prettyprint js">
-new webpack.DefinePlugin({
-    'process.env.NODE_ENV': JSON.stringify('production'),
-    IS_DEVELOPMENT: JSON.stringify(true)
-}),
-new UglifyJSPlugin(),
-</pre> -->
-
 

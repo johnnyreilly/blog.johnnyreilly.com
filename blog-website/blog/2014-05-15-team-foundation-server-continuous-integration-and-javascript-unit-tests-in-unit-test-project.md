@@ -35,20 +35,22 @@ First of all, install Chutzpah on TFS / VSO. You can do this by following [Steps
 
 To our unit test project add your JavaScript unit tests. These should be marked in Visual Studio with a Build Action of "Content" and a Copy to Output Directory of "Do not copy". You should be able to run these tests locally using the Visual Studio Chutzpah extension - or indeed in some other JavaScript test runner. Then, and this is the important part, edit the csproj file of your unit test project and add this `Import Project` statement:
 
-<pre>  &lt;Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" /&gt;
-</pre>
+```xml
+<Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+```
 
 Ordering is important in this case. It matters that this new statement sits after the other `Import Project` statements. So you should end up with a csproj file that looks in part like this: (comments added by me for clarity)
 
-<pre>  &lt;!-- Pre-existing Import Project statements start --&gt;
-  &lt;Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" /&gt;
-  &lt;Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" /&gt;
-  &lt;!-- Pre-existing Import Project statements end --&gt;
+```xml
+<!-- Pre-existing Import Project statements start -->
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- Pre-existing Import Project statements end -->
 
-  &lt;!-- New addition start --&gt;
-  &lt;Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" /&gt;
-  &lt;!-- New addition end --&gt;
-</pre>
+  <!-- New addition start -->
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <!-- New addition end -->
+```
 
 Check in your amended csproj and the unit tests to TFS / VSO. You should see the JavaScript unit tests being run as part of the build.
 

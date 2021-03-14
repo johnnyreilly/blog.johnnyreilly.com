@@ -26,20 +26,18 @@ I had thought that Razor, clever beast that it is, would automatically attribute
 
 Now this worked just fine but I was aware that if any PartialView needed to use single quotation marks I would have a problem. Let's say for a moment that `_MyTooltipInAPartial.cshtml` contained this:
 
-<pre>
-&lt;span style="color:green"&gt;fjkdsjf'lksdjdlks&lt;/span&gt;
-
-</pre>
+```xml
+<span style="color:green">fjkdsjf'lksdjdlks</span>
+```
 
 Well when I used my handy little single quote workaround, the following would result:
 
-<pre>
-&lt;div class="tooltip"
-     title='&lt;span style="color:green"&gt;fjkdsjf'lksdjdlks&lt;/span&gt;'&gt;
+```xml
+<div class="tooltip"
+     title='<span style="color:green">fjkdsjf'lksdjdlks</span>'>
     Some content
-&lt;/div&gt;
-
-</pre>
+</div>
+```
 
 Which although it doesn't show up so well in the code sample above is definite *"does not compute, does not compute, does not compute \*LOUD EXPLOSION\*"* territory.
 
@@ -47,13 +45,12 @@ Which although it doesn't show up so well in the code sample above is definite *
 
 This took me back to my original intent which was to encapsulate the HTML in double quotes like this:
 
-<pre>
-&lt;div class="tooltip" 
-     title="@Html.Partial("_MyTooltipInAPartial")"&gt;
+```xml
+<div class="tooltip" 
+     title="@Html.Partial("_MyTooltipInAPartial")">
     Some content
-&lt;/div&gt;
-
-</pre>
+</div>
+```
 
 Though with the example discussed above we clearly had a problem whether we used single or double quotes. What to do?
 
@@ -65,23 +62,21 @@ Here's the code:
 
 Using the above helper is simplicity itself:
 
-<pre>
-&lt;div class="tooltip" 
-     title="@Html.PartialAttributeEncoded("_MyTooltipInAPartial")"&gt;
+```xml
+<div class="tooltip" 
+     title="@Html.PartialAttributeEncoded("_MyTooltipInAPartial")">
     Some content
-&lt;/div&gt;
-
-</pre>
+</div>
+```
 
 And, given the example I've been going through, it would provide you with this output:
 
-<pre>
-&lt;div class="tooltip"
-     title="&amp;lt;span style=&amp;quot;color:green&amp;quot;&gt;fjkdsjf&amp;#39;lksdjdlks&lt;/span&gt;"&gt;
+```xml
+<div class="tooltip"
+     title="&lt;span style=&quot;color:green&quot;>fjkdsjf&#39;lksdjdlks</span>">
     Some content
-&lt;/div&gt;
-
-</pre>
+</div>
+```
 
 Now the HTML in the title attribute above might be an unreadable mess - but it's the unreadable mess you need. That's what the HTML we've been discussing looks like when it's been encoded.
 

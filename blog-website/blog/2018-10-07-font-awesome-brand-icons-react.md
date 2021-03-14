@@ -17,10 +17,11 @@ Love me some [Font Awesome](<https://fontawesome.com>). Absolutely wonderful. Ho
 
 You want brands? Well you need the `<a href="https://www.npmjs.com/package/@fortawesome/free-brands-svg-icons">@fortawesome/free-brands-svg-icons</a>`. Obvs, right?
 
-<pre>yarn add @fortawesome/fontawesome-svg-core
+```sh
+yarn add @fortawesome/fontawesome-svg-core
 yarn add @fortawesome/free-brands-svg-icons
 yarn add @fortawesome/react-fontawesome
-</pre>
+```
 
 Now usage:
 

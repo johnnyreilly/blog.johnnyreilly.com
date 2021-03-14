@@ -32,18 +32,20 @@ That post was written back in the days of webpack 2 / 3. It advocated use of bot
 
 Jan quickly identified the problem. He did that rarest of things; he read the documentation which said:
 
-<pre>      // timeout for killing the worker processes when idle
+```js
+// timeout for killing the worker processes when idle
       // defaults to 500 (ms)
       // can be set to Infinity for watching builds to keep workers alive
       poolTimeout: 2000,
-</pre>
+```
 
 The `webpack-config-plugins` configurations (running in watch mode) were subject to the thread loaders being killed after 500ms. They got resurrected when they were next needed; but that's not as instant as you might hope. Jan then did a test:
 
-<pre>(default pool - 30 runs - 1000 components ) average: 2.668068965517241
+```sh
+(default pool - 30 runs - 1000 components ) average: 2.668068965517241
 (no thread-loader - 30 runs - 1000 components ) average: 1.2674137931034484
 (Infinity pool - 30 runs - 1000 components ) average: 1.371827586206896
-</pre>
+```
 
 This demonstrates that using `thread-loader` in watch mode with `poolTimeout: Infinity` performs significantly better than when it defaults to 500ms. But perhaps more significantly, not using `thread-loader` performs even better still.
 
