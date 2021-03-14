@@ -16,13 +16,12 @@ In the project I was working on I was using PartialViews to store the HTML that 
 
 I had thought that Razor, clever beast that it is, would automatically attribute encode anything sat between quotes in my HTML. Unfortunately this doesn't appear to be the case. In the short term I was able to workaround this by using single quotation marks to encapsulate my PartialViews HTML. See below for an example:
 
-<pre>
-&lt;div class="tooltip" 
-     title='@Html.Partial("_MyTooltipInAPartial")'&gt;
+```xml
+<div class="tooltip" 
+     title='@Html.Partial("_MyTooltipInAPartial")'>
     Some content
-&lt;/div&gt;
-
-</pre>
+</div>
+```
 
 Now this worked just fine but I was aware that if any PartialView needed to use single quotation marks I would have a problem. Let's say for a moment that `_MyTooltipInAPartial.cshtml` contained this:
 

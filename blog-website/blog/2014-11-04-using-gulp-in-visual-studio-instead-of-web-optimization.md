@@ -1,18 +1,14 @@
 ---
-title: "How I learned to stop worrying and love the Task Runner Explorer"
+title: "Using Gulp in Visual Studio instead of Web Optimization"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
 tags: [Task Runner Explorer, Visual Studio, TypeScript, javascript, Gulp]
 hide_table_of_contents: false
 ---
-## <sub>(Using Gulp in Visual Studio instead of Web Optimization)</sub>
+### Update 17/02/2015: I've taken the approach discussed in this post a little further - you can see [here](<https://blog.johnnyreilly.com/2015/02/using-gulp-in-asp-net-instead-of-web-optimization.html>)
 
-
-
- ### Update 17/02/2015: I've taken the approach discussed in this post a little further - you can see [here](</2015/02/using-gulp-in-asp-net-instead-of-web-optimization.html>)
-
-I've used a number of tools to package up JavaScript and CSS in my web apps. [Andrew Davey's tremendous Cassette](<http://getcassette.net/>) has been really useful. Also good (although less powerful/magical) has been Microsoft's very own [Microsoft.AspNet.Web.Optimization](<https://www.nuget.org/packages/Microsoft.AspNet.Web.Optimization/>) that ships with MVC.
+ I've used a number of tools to package up JavaScript and CSS in my web apps. [Andrew Davey's tremendous Cassette](<http://getcassette.net/>) has been really useful. Also good (although less powerful/magical) has been Microsoft's very own [Microsoft.AspNet.Web.Optimization](<https://www.nuget.org/packages/Microsoft.AspNet.Web.Optimization/>) that ships with MVC.
 
 I was watching the [ASP.NET Community Standup from October 7th, 2014](<http://youtu.be/NgbA2BxNweE?list=PL0M0zPgJ3HSftTAAHttA3JQU4vOjXFquF>) and learned that the ASP.Net team is not planning to migrate [Microsoft.AspNet.Web.Optimization](<https://www.nuget.org/packages/Microsoft.AspNet.Web.Optimization/>) to the next version of ASP.Net. Instead they're looking to make use of JavaScript task runners like [Grunt](<http://gruntjs.com/>) and maybe [Gulp](<http://gulpjs.com/>). Perhaps you're even dimly aware that they've been taking steps to make these runners more of a first class citizen in Visual Studio, hence the recent release of the new and groovy [Task Runner Explorer](<http://visualstudiogallery.msdn.microsoft.com/8e1b4368-4afb-467a-bc13-9650572db708>).
 
