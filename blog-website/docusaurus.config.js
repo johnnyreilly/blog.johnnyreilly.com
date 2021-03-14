@@ -130,6 +130,8 @@ module.exports = {
             'https://github.com/facebook/docusaurus/edit/master/website/',
         }*/,
         blog: {
+          blogTitle: 'I CAN MAKE THIS WORK',
+          blogDescription: 'The blog of johnnyreilly',
           /**
            * Number of blog post elements to show in the blog sidebar
            * 'ALL' to show all blog posts
