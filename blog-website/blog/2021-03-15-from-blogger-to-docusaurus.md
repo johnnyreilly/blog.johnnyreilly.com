@@ -4,7 +4,7 @@ author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
 tags: [Blogger, Docusaurus]
-image: ../static/blog/2021-03-15-from-blogger-to-docusaurus/docusaurus.png
+image: blog/2021-03-15-from-blogger-to-docusaurus/docusaurus.png
 hide_table_of_contents: false
 ---
 [Docusaurus](https://v2.docusaurus.io/) is, amongst other things, a Markdown powered blogging platform. My blog has lived happily on [Blogger](https://www.blogger.com/) for the past decade.  I'm considering moving, but losing my historic content as part of the move was never an option. This post goes through what it would look like to move from Blogger to Docusaurus *without* losing your content.
