@@ -1358,7 +1358,7 @@
   dependencies:
     "@docusaurus/core" "2.0.0-alpha.71"
 
-"@docusaurus/plugin-ideal-image@^2.0.0-alpha.71":
+"@docusaurus/plugin-ideal-image@2.0.0-alpha.71":
   version "2.0.0-alpha.71"
   resolved "https://registry.yarnpkg.com/@docusaurus/plugin-ideal-image/-/plugin-ideal-image-2.0.0-alpha.71.tgz#91fbca47f630f0ebae82aef0a7157897d1efeb43"
   integrity sha512-RnuDSkcyXaz5GeMCseXNwUtzchMW+DJSveENO8mTIUB2kv2X6nqm5+2H5DeWiFErHzhrGlBzBrDrBufgOw+dow==
