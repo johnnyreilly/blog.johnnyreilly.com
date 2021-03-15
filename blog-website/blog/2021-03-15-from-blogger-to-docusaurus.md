@@ -6,7 +6,7 @@ author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033
 tags: [Blogger, Docusaurus]
 hide_table_of_contents: false
 ---
-[Docusaurus](https://v2.docusaurus.io/) is, amongst other things, a Markdown powered blogging platform. My blog has lived happily on [Blogger](https://www.blogger.com/) for the past decade.  I'm considering moving, but losing my historic content as part of the move was never an option. This post goes through what it would like to move from Blogger to Docusaurus *without* losing your content.
+[Docusaurus](https://v2.docusaurus.io/) is, amongst other things, a Markdown powered blogging platform. My blog has lived happily on [Blogger](https://www.blogger.com/) for the past decade.  I'm considering moving, but losing my historic content as part of the move was never an option. This post goes through what it would look like to move from Blogger to Docusaurus *without* losing your content.
 
 It is imperative that the world never forgets what I was doing with jQuery in 2012.
 
@@ -40,8 +40,8 @@ It provides you with an XML file with a dispiritingly small size. Ten years blog
 We now want to take that XML and:
 
 - Extract each blog post (and it's associated metadata; title / tags and whatnot) 
-- Convert the HTML content of each blog post from HTML to Markdown and save it as an .MD file
-- Download the images used in the blogpost so they can be stored in the repo alogside
+- Convert the HTML content of each blog post from HTML to Markdown and save it as a `.md` file
+- Download the images used in the blogpost so they can be stored in the repo alongside
 
 To do this we're going to whip up a smallish TypeScript console app.  Let's initialise it with the packages we're going to need:
 
@@ -288,4 +288,18 @@ To run the script, we add the following script to the `package.json`:
   },
 ```
 
-And have ourselves a merry little `yarn start`. Congratulations! We're now the proud owners of a Docusaurus blog site based upon our Blogger content. To see what this looks like directly, have a gander [here](https://github.com/johnnyreilly/blog.johnnyreilly.com).
+And have ourselves a merry little `yarn start` to kick off the process. In a very short period of time, if you crack open the `blogs` directory of your Docusaurus site you'll see a collection of Markdown files which represent your blog and are ready to power Docusaurus:
+
+![Markdown files](../static/blog/2021-03-15-from-blogger-to-docusaurus/blogs-as-markdown.png)
+
+I have slightly papered over some details here.  For my own case I discovered that I hadn't always written perfect HTML when blogging. I had to go in and fix the HTML in a number of historic blogs such that the mechanism would work. I also learned that a number of my screenshots that I use to illustrate posts have vanished from Blogger at some point.  This makes me all the more convinced that storing your blog in a repo is a good idea.  Things should not "go missing".
+
+Congratulations! We're now the proud owners of a Docusaurus blog site based upon our Blogger content that looks something like this: 
+
+![Blog in Docusaurus](../static/blog/2021-03-15-from-blogger-to-docusaurus/docusaurus.png)
+
+## Making the move?
+
+Now that I've got the content, I'm theoretically safe to migrate from Blogger to Docusaurus.  I'm pondering this now and I have come up with a checklist of criteria to satisfy before I do.  You can have a read of the [criteria here](https://github.com/johnnyreilly/blog.johnnyreilly.com#migrating-to-docusauras).
+
+Odds are, I'm likely to make the move; it's probably just a matter of time.
