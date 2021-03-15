@@ -12,6 +12,7 @@ module.exports = {
   organizationName: "johnnyreilly", // Usually your GitHub org/user name.
   projectName: "blog.johnnyreilly.com", // Usually your repo name.
   plugins: [
+    "@docusaurus/plugin-ideal-image",
     [
       "@docusaurus/plugin-client-redirects",
       {
