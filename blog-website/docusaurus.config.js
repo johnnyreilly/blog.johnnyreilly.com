@@ -27,6 +27,9 @@ module.exports = {
     ],
   ],
   themeConfig: {
+    // Relative to your site's "static" directory.
+    // Cannot be SVGs. Can be external URLs too.
+    image: 'img/profile.png',
     googleAnalytics: {
       trackingID: "UA-51754530-2",
       // Optional fields.
