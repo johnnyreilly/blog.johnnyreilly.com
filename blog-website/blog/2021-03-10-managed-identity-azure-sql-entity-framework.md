@@ -10,7 +10,7 @@ Managed Identity offers a very secure way for applications running in Azure to c
 
 This post talks us through using managed identity for connecting to Azure SQL. 
 
-#### `Integrated Security=true`
+## `Integrated Security=true`
 
 Everyone is deploying to the cloud. Few are the organisations that view deployment to data centers they manage as the future. This is generally a good thing, however in the excitement of the new, it's possible to forget some of the good properties that "on premise" deployment afforded when it came to connectivity and authentication.
 
@@ -28,7 +28,7 @@ Bottom line: the less you are sharing authentication credentials, the better you
 
 What if there was a way to have the developer experience of `Integrated Security=true` without needing to use Windows Authentication?  There is.
 
-#### Managed Identity
+## Managed Identity
 
 The docs express the purpose of [managed identity](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview) well:
 
@@ -50,7 +50,7 @@ public MyDbContext(DbContextOptions options) : base(options) {
 
 This mechanism works, and has the tremendous upside of no longer requiring credentials be passed in a connection string.  However, as you can see this isn't the simplest of setups.  And also, what if you don't want to use managed identity when you're developing locally?  This approach has baggage and forces us to make code changes.
 
-#### Connection String alone
+## Connection String alone
 
 The wonderful aspect of the original `Integrated Security=true` approach, was that there were no code changes required; one need only supply the connection string. Just configuration.
 
@@ -74,7 +74,7 @@ Support for connection string managed identities [shipped with v2.1](https://git
 
 Regardless of the approach, you can see that none of the connection strings have credentials in them.  And that's special.
 
-#### Usage with Entity Framework Core 5
+## Usage with Entity Framework Core 5
 
 If you're using Entity Framework Core, you might be struggling to get this working and encountering strange error messages.  In my ASP.NET project I had a dependendency on 
 [Microsoft.EntityFrameworkCore.SqlServer@5](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/5.0.4).
@@ -89,7 +89,7 @@ dotnet add package Microsoft.Data.SqlClient --version 2.1.2
 
 The version which we want to use is 2.1 (or greater) and fortunately that is compatible with Entity Framework Core 5.  Incidentally, when Entity Framework Core 6 ships it will no longer be necessary to manually specify this dependency as it already requires Microsoft.Data.SqlClient@2.1 as a minimum.
 
-#### User Assigned Managed Identity
+## User Assigned Managed Identity
 
 If you're using user assigned managed identity, you'll need to supply the object id of your managed identity, which you can find in the [Azure Portal](https://portal.azure.com/):
 

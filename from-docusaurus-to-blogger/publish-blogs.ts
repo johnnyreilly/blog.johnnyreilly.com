@@ -29,7 +29,9 @@ async function publishToBlogger() {
       ghCodeBlocks: true,
     });
     const contentHtml = converter
-      .makeHtml(content)
+      .makeHtml(
+        content.replace(/## /g, "#### ") // h2 -> h4
+      )
       .replace(/..\/static\/blog\//g, staticImageCdnRoot)
       .replace(/<img /g, '<img style="max-width: 100%;" ');
 
@@ -42,7 +44,10 @@ async function publishToBlogger() {
           post
             ? `update ${post.url} based on ${docusaurusPath}`
             : `create a new post based on ${docusaurusPath}`
-        }`
+        }
+
+${content}
+`
       );
       continue;
     }

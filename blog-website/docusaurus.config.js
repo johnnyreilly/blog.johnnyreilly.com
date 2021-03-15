@@ -4,7 +4,7 @@ const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 module.exports = {
   title: "I CAN MAKE THIS WORK",
   tagline: "The blog of johnnyreilly",
-  url: "https://johnnyreilly.github.io/", // 'https://blog.johnnyreilly.com',
+  url: "https://blog.priou.com", // 'https://blog.johnnyreilly.com',
   baseUrl: "/",
   // onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: "warn",
@@ -130,6 +130,8 @@ module.exports = {
             'https://github.com/facebook/docusaurus/edit/master/website/',
         }*/,
         blog: {
+          blogTitle: 'I CAN MAKE THIS WORK',
+          blogDescription: 'The blog of johnnyreilly',
           /**
            * Number of blog post elements to show in the blog sidebar
            * 'ALL' to show all blog posts
