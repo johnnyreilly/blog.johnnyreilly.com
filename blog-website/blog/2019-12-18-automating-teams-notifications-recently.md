@@ -22,7 +22,9 @@ This post will explain the following:
 
 Now, it's not obvious from Teams that there is a simple webhooks integration for Teams, but there is. It's tucked away under "Connectors". If you want to create a webhook of your own, find your team, your channel, click on the menu, then connectors and create a hook. Like so:
 
-[![null](<https://1.bp.blogspot.com/-vDUdt6EdpT4/XfotTYgHzfI/AAAAAAAASxc/YqMWUwUYp_wzIp_-abs1tKXvjwc_lOzZQCLcBGAsYHQ/s1600/teams-notification.gif>)](<https://1.bp.blogspot.com/-vDUdt6EdpT4/XfotTYgHzfI/AAAAAAAASxc/YqMWUwUYp_wzIp_-abs1tKXvjwc_lOzZQCLcBGAsYHQ/s1600/teams-notification.gif>)With the URL you've just obtained, you are now free to send notifications to that channel via a simple `curl`:
+![](https://1.bp.blogspot.com/-vDUdt6EdpT4/XfotTYgHzfI/AAAAAAAASxc/YqMWUwUYp_wzIp_-abs1tKXvjwc_lOzZQCLcBGAsYHQ/s1600/teams-notification.gif)
+
+](<https://1.bp.blogspot.com/-vDUdt6EdpT4/XfotTYgHzfI/AAAAAAAASxc/YqMWUwUYp_wzIp_-abs1tKXvjwc_lOzZQCLcBGAsYHQ/s1600/teams-notification.gif>)With the URL you've just obtained, you are now free to send notifications to that channel via a simple `curl`:
 
 ```shell
 curl -H "Content-Type: application/json" -d "{\"text\": \"Hello World\"}" https://outlook.office.com/webhook/big-long-guid1/IncomingWebhook/big-long-guid2
@@ -56,7 +58,9 @@ curl -H "Content-Type: application/json" -d @down.json https://outlook.office.co
 
 As you can see from the example above, you can use all the qualities of MarkDown that you know and love. Text, bold text, italics, links and even images too. It's *great*!
 
-[![null](<https://2.bp.blogspot.com/-_6XeGIucQ5Y/Xfos-w5_EZI/AAAAAAAASxU/fz_O5yT6T4Qp-_B_0TGesBviP1-3ftxswCLcBGAsYHQ/s1600/teams-notification-2.gif>)](<https://2.bp.blogspot.com/-_6XeGIucQ5Y/Xfos-w5_EZI/AAAAAAAASxU/fz_O5yT6T4Qp-_B_0TGesBviP1-3ftxswCLcBGAsYHQ/s1600/teams-notification-2.gif>)## ASP.Net Core
+![](https://2.bp.blogspot.com/-_6XeGIucQ5Y/Xfos-w5_EZI/AAAAAAAASxU/fz_O5yT6T4Qp-_B_0TGesBviP1-3ftxswCLcBGAsYHQ/s1600/teams-notification-2.gif)
+
+](<https://2.bp.blogspot.com/-_6XeGIucQ5Y/Xfos-w5_EZI/AAAAAAAASxU/fz_O5yT6T4Qp-_B_0TGesBviP1-3ftxswCLcBGAsYHQ/s1600/teams-notification-2.gif>)## ASP.Net Core
 
 Finally, I wanted to illustrate just how simple the WebHooks API makes plugging notifications into an existing app. In our case we're going to use ASP.Net Core, but really there's nothing particular about how we're going to do this.
 

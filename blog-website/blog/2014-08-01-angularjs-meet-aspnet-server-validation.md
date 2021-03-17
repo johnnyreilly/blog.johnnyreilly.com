@@ -12,7 +12,9 @@ So. You're using AngularJS to build your front end with ASP.Net running on the s
 
 This works but it's not as helpful to the user as it might be. It groups together all the validation from the server into one place. What I want is field level validation from the server that's presented on a field level basis on the screen. Like this:
 
-[![null](<http://2.bp.blogspot.com/-vxr6_ajRNj8/U9tQjs3SS3I/AAAAAAAAAr8/1HoOUJdPO0w/s320/server-error.png>)](<http://2.bp.blogspot.com/-vxr6_ajRNj8/U9tQjs3SS3I/AAAAAAAAAr8/1HoOUJdPO0w/s1600/server-error.png>)I know. [A thing of beauty is a joy forever.](<http://en.wikipedia.org/wiki/Endymion_(poem)>) Let us travel together to this promised land...
+![](http://2.bp.blogspot.com/-vxr6_ajRNj8/U9tQjs3SS3I/AAAAAAAAAr8/1HoOUJdPO0w/s320/server-error.png)
+
+](<http://2.bp.blogspot.com/-vxr6_ajRNj8/U9tQjs3SS3I/AAAAAAAAAr8/1HoOUJdPO0w/s1600/server-error.png>)I know. [A thing of beauty is a joy forever.](<http://en.wikipedia.org/wiki/Endymion_(poem)>) Let us travel together to this promised land...
 
 ## What do we need client side?
 

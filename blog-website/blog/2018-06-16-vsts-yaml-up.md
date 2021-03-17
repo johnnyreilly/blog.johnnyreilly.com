@@ -28,9 +28,13 @@ When I started testing it out I found things to like and some things I didn't un
 
 You can get to "Hello World" by looking at [the docs here](<https://docs.microsoft.com/en-us/vsts/pipelines/build/yaml?view=vsts>) and [the examples here](<https://github.com/Microsoft/vsts-agent/blob/master/docs/preview/yamlgettingstarted.md>). But what you really want is your existing build, configured in the UI, exported to YAML. That doesn't seem to quite exist, but there's something that gets you part way. Take a look:
 
-[![null](<https://1.bp.blogspot.com/-DvGnGLL98Lc/WyVPlzFXozI/AAAAAAAAK1Y/ukRhpwRcRWckQI6QhrEjmmvCuhkYCxItACLcBGAs/s640/Screenshot%2B2018-06-16%2B18.49.08.png> =640x254)](<https://1.bp.blogspot.com/-DvGnGLL98Lc/WyVPlzFXozI/AAAAAAAAK1Y/ukRhpwRcRWckQI6QhrEjmmvCuhkYCxItACLcBGAs/s1600/Screenshot%2B2018-06-16%2B18.49.08.png>)If you notice, in the top right of the screen, each task now allows you click on a new "View YAML" button. It's kinda [Ronseal](<https://en.wikipedia.org/wiki/Ronseal>):
+![](https://1.bp.blogspot.com/-DvGnGLL98Lc/WyVPlzFXozI/AAAAAAAAK1Y/ukRhpwRcRWckQI6QhrEjmmvCuhkYCxItACLcBGAs/s640/Screenshot%2B2018-06-16%2B18.49.08.png)
 
-[![null](<https://2.bp.blogspot.com/-fiYHNC0ASSk/WyVR7qvx8FI/AAAAAAAAK1k/1cSeQXhyGVYPxOtICiqQnQdGImKQuZQMQCPcBGAYYCw/s400/Screenshot%2B2018-06-16%2B19.04.00.png> =400x344)](<https://2.bp.blogspot.com/-fiYHNC0ASSk/WyVR7qvx8FI/AAAAAAAAK1k/1cSeQXhyGVYPxOtICiqQnQdGImKQuZQMQCPcBGAYYCw/s1600/Screenshot%2B2018-06-16%2B19.04.00.png>)Using this hotness you can build yourself a `.vsts-ci.yml` file task by task.
+If you notice, in the top right of the screen, each task now allows you click on a new "View YAML" button. It's kinda [Ronseal](<https://en.wikipedia.org/wiki/Ronseal>):
+
+![](https://2.bp.blogspot.com/-fiYHNC0ASSk/WyVR7qvx8FI/AAAAAAAAK1k/1cSeQXhyGVYPxOtICiqQnQdGImKQuZQMQCPcBGAYYCw/s400/Screenshot%2B2018-06-16%2B19.04.00.png)
+
+Using this hotness you can build yourself a `.vsts-ci.yml` file task by task.
 
 ## A Bump in the Road
 

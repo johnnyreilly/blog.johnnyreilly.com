@@ -12,7 +12,9 @@ The team felt they had good answers to InfoSec's questions. However, just as the
 
 The team, with one foot in the air, paused. They swallowed and said "can you give us five minutes?"
 
- [![null](<https://3.bp.blogspot.com/-tmH5nbo_kGY/XG-8jmokKdI/AAAAAAAAN_Q/1zzN3IfRtlopNC9HTRio6HdpVCeO5jMkwCPcBGAYYCw/s640/hang-on-lads-ive-got-a-great-idea.jpg> =640x271)](<https://3.bp.blogspot.com/-tmH5nbo_kGY/XG-8jmokKdI/AAAAAAAAN_Q/1zzN3IfRtlopNC9HTRio6HdpVCeO5jMkwCPcBGAYYCw/s1600/hang-on-lads-ive-got-a-great-idea.jpg>)## The Proxy Regroup
+ ![](https://3.bp.blogspot.com/-tmH5nbo_kGY/XG-8jmokKdI/AAAAAAAAN_Q/1zzN3IfRtlopNC9HTRio6HdpVCeO5jMkwCPcBGAYYCw/s640/hang-on-lads-ive-got-a-great-idea.jpg)
+
+## The Proxy Regroup
 
 And so it came to pass that the teams product (which took the form of ASP.Net Core web application) had to be changed. Where once there had been a single application, there would now be two; one that lived on the internet (the *web* app) and one that lived on the companies private network (the *API* app). The API app would do all the database access. In fact the product team opted to move all significant operations into the API as well. This left the web app with two purposes:
 

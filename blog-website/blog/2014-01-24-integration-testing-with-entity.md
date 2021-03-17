@@ -35,13 +35,17 @@ In this post I want to go through the process of taking an existing database, po
 
 You can find a whole assortment of databases [here](<https://msftdbprodsamples.codeplex.com/releases>). I'm going to use [AdventureWorksLT](<https://msftdbprodsamples.codeplex.com/wikipage?title=AWLTDocs>) as it's small and simple. So I'll download [this](<https://msftdbprodsamples.codeplex.com/downloads/get/478217>) and unzip it. I'll drop `AdventureWorksLT2008R2_Data.mdf` and `AdventureWorksLT2008R2_log.LDF` in my data folder and attach AdventureWorksLT2008R2 to my database server. And now I have a database:
 
-[![null](<http://1.bp.blogspot.com/-Nke8F6wYI4A/UuEeJ6C0XqI/AAAAAAAAAgg/tbuhu2TuOpg/s320/Database2.png>)](<http://1.bp.blogspot.com/-Nke8F6wYI4A/UuEeJ6C0XqI/AAAAAAAAAgg/tbuhu2TuOpg/s1600/Database2.png>)## Assemble me your finest DbContext
+![](http://1.bp.blogspot.com/-Nke8F6wYI4A/UuEeJ6C0XqI/AAAAAAAAAgg/tbuhu2TuOpg/s320/Database2.png)
+
+](<http://1.bp.blogspot.com/-Nke8F6wYI4A/UuEeJ6C0XqI/AAAAAAAAAgg/tbuhu2TuOpg/s1600/Database2.png>)## Assemble me your finest DbContext
 
 Or in English: we want to point Entity Framework at our new shiny database. So let's fire up Visual Studio (I'm using 2013) and create a new solution called "AdventureWorks".
 
 To our solution let's add a new class library project called "AdventureWorks.EntityFramework". And to that we'll add an ADO.NET Entity Data Model which we'll call "AdventureWorks.edmx". When the wizard fires up we'll use the "Generate from database" option, click Next and select "New Connection". In the dialog we'll select our newly attached AdventureWorksLT2008R2 database. We'll leave the "save entity connection settings in App.Config" option selected and click Next. I'm going to use Entity Framework 6.0 - though I think that any version would do. I'm going to pull in all tables / store procs and views. And now Entity Framework is pointing at my database:
 
-[![null](<http://3.bp.blogspot.com/-Sv_GPsqilao/UuElIcLCYaI/AAAAAAAAAgw/7ui-xpml8dk/s400/EDMX.png>)](<http://3.bp.blogspot.com/-Sv_GPsqilao/UuElIcLCYaI/AAAAAAAAAgw/7ui-xpml8dk/s1600/EDMX.png>)## Let There be Repositories!
+![](http://3.bp.blogspot.com/-Sv_GPsqilao/UuElIcLCYaI/AAAAAAAAAgw/7ui-xpml8dk/s400/EDMX.png)
+
+](<http://3.bp.blogspot.com/-Sv_GPsqilao/UuElIcLCYaI/AAAAAAAAAgw/7ui-xpml8dk/s1600/EDMX.png>)## Let There be Repositories!
 
 In the name of testability let's create a new project to house repositories called "AdventureWorks.Repositories". I'm going to use [K. Scott Allen](<http://odetocode.com/about/scott-allen>)'s fine [article on MSDN](<http://msdn.microsoft.com/en-us/library/ff714955.aspx>) to create a very basic set of repositories wrapped in a unit of work.
 

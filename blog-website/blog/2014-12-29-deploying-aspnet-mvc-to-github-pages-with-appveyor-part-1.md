@@ -14,7 +14,9 @@ I believe it was Tony Blair that said "documentation, documentation, documentati
 
 Anyway I'm happy to say that jQuery Validation Unobtrusive Native *has* documentation! And pretty good documentation at that. The documentation takes the form of the [jVUNDemo](<https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/tree/master/jVUNDemo>) project which is part of the jQuery Validation Unobtrusive Native repo. jVUNDemo is an ASP.Net MVC web application which is built on top of the jQuery Validation Unobtrusive Native helpers. It demonstrates the helpers in action and documents how you might go about using them. It looks a bit like this:
 
-[![null](<http://1.bp.blogspot.com/-5p7fD3Q9dc8/VKDzTV1wYDI/AAAAAAAAAxE/LowxrVAxeXI/s640/Screenshot%2B2014-12-29%2B06.22.46.png>)](<http://1.bp.blogspot.com/-5p7fD3Q9dc8/VKDzTV1wYDI/AAAAAAAAAxE/LowxrVAxeXI/s1600/Screenshot%2B2014-12-29%2B06.22.46.png>)When I first put jVUNDemo together I hosted it on Azure so the world could see it in all it's finery. And that worked just fine. However, there's something you ought to know about me:
+![](http://1.bp.blogspot.com/-5p7fD3Q9dc8/VKDzTV1wYDI/AAAAAAAAAxE/LowxrVAxeXI/s640/Screenshot%2B2014-12-29%2B06.22.46.png)
+
+](<http://1.bp.blogspot.com/-5p7fD3Q9dc8/VKDzTV1wYDI/AAAAAAAAAxE/LowxrVAxeXI/s1600/Screenshot%2B2014-12-29%2B06.22.46.png>)When I first put jVUNDemo together I hosted it on Azure so the world could see it in all it's finery. And that worked just fine. However, there's something you ought to know about me:
 
 ## I'm quite cheap
 

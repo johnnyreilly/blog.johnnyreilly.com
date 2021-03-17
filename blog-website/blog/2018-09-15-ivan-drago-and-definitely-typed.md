@@ -12,7 +12,9 @@ This a tale of things that are and things that aren't. It's a tale of semantic v
 
 This is often the experience people have of using type definitions from Definitely Typed:
 
-[![null](<https://1.bp.blogspot.com/-mG6pw3oJA4E/W5tD5vgfD4I/AAAAAAAAMQQ/upV1w2nJw1whI7MGp9HI5pniFEbVTJNxACPcBGAYYCw/s1600/i-must-break-you.jpg>)](<https://1.bp.blogspot.com/-mG6pw3oJA4E/W5tD5vgfD4I/AAAAAAAAMQQ/upV1w2nJw1whI7MGp9HI5pniFEbVTJNxACPcBGAYYCw/s1600/i-must-break-you.jpg>)Specifically, people are used to the idea of semantic versioning and expect it from types published to npm by Definitely Typed. They wait in vain. [I've written before about the Definitely Typed / @types semantic version compromise.](<https://blog.johnnyreilly.com/2017/02/typescript-types-and-repeatable-builds.html>) And I wanted to talk about it a little further as (watching the issues raised on DT) I don't think the message has quite got out there. To summarise:
+![](https://1.bp.blogspot.com/-mG6pw3oJA4E/W5tD5vgfD4I/AAAAAAAAMQQ/upV1w2nJw1whI7MGp9HI5pniFEbVTJNxACPcBGAYYCw/s1600/i-must-break-you.jpg)
+
+](<https://1.bp.blogspot.com/-mG6pw3oJA4E/W5tD5vgfD4I/AAAAAAAAMQQ/upV1w2nJw1whI7MGp9HI5pniFEbVTJNxACPcBGAYYCw/s1600/i-must-break-you.jpg>)Specifically, people are used to the idea of semantic versioning and expect it from types published to npm by Definitely Typed. They wait in vain. [I've written before about the Definitely Typed / @types semantic version compromise.](<https://blog.johnnyreilly.com/2017/02/typescript-types-and-repeatable-builds.html>) And I wanted to talk about it a little further as (watching the issues raised on DT) I don't think the message has quite got out there. To summarise:
 
 1. npm is built on top of [semantic versioning](<http://semver.org/>) and they [take it seriously](<https://docs.npmjs.com/getting-started/semantic-versioning>). When a package is published it should be categorised as a major release (breaking changes), a minor release (extra functionality which is backwards compatible) or a patch release (backwards compatible bug fixes).
 
@@ -37,7 +39,9 @@ My own personal preference is [yarn](<https://yarnpkg.com/lang/en/>). Mother, I'
 
 This has some value in that when I upgrade I probably want to upgrade to a newer version following the semantic versioning convention. I should just expect that I'll need to check valid compilation when I do so. yarn even has it's own built in utility that tells you when things are out of date: `yarn outdated`:
 
-[![null](<https://1.bp.blogspot.com/-CMAE-6BZQjQ/W5yfpzZG_iI/AAAAAAAAMRU/GkH9ZDr_SmMIzLwO1dlwS0Y0bVqWkhXyQCPcBGAYYCw/s640/Screenshot%2B2018-09-15%2B06.56.20.png> =640x159)](<https://1.bp.blogspot.com/-CMAE-6BZQjQ/W5yfpzZG_iI/AAAAAAAAMRU/GkH9ZDr_SmMIzLwO1dlwS0Y0bVqWkhXyQCPcBGAYYCw/s1600/Screenshot%2B2018-09-15%2B06.56.20.png>)So lovely
+![](https://1.bp.blogspot.com/-CMAE-6BZQjQ/W5yfpzZG_iI/AAAAAAAAMRU/GkH9ZDr_SmMIzLwO1dlwS0Y0bVqWkhXyQCPcBGAYYCw/s640/Screenshot%2B2018-09-15%2B06.56.20.png)
+
+So lovely
 
 ## You Were Already Broken - I Just Showed You How
 

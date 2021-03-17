@@ -20,9 +20,13 @@ So the obvious thing to do is to take this process and plug in the generation of
 
 In order to complete our chosen mission we're going to need a GitHub Personal Access Token. We're going to use it when we clone, update and push our GitHub Pages branch. To get one we biff over to Settings / Applications in GitHub and click the "Generate New Token" button.
 
-[![null](<http://1.bp.blogspot.com/-TN1tTkL_eoQ/VKwQfPn8_JI/AAAAAAAAAyI/EeF6XLcP8dg/s640/GitHubApplicationSettings.png>)](<http://1.bp.blogspot.com/-TN1tTkL_eoQ/VKwQfPn8_JI/AAAAAAAAAyI/EeF6XLcP8dg/s1600/GitHubApplicationSettings.png>)The token I'm using for my project has the following scopes selected:
+![](http://1.bp.blogspot.com/-TN1tTkL_eoQ/VKwQfPn8_JI/AAAAAAAAAyI/EeF6XLcP8dg/s640/GitHubApplicationSettings.png)
 
-[![null](<http://2.bp.blogspot.com/-2hsSnmHy_DY/VKwQo7MM0BI/AAAAAAAAAyQ/c5ZAT_mZi5w/s640/GitHub%2BPersonal%2BAccess%2BToken.png>)](<http://2.bp.blogspot.com/-2hsSnmHy_DY/VKwQo7MM0BI/AAAAAAAAAyQ/c5ZAT_mZi5w/s1600/GitHub%2BPersonal%2BAccess%2BToken.png>)## `appveyor.yml`
+](<http://1.bp.blogspot.com/-TN1tTkL_eoQ/VKwQfPn8_JI/AAAAAAAAAyI/EeF6XLcP8dg/s1600/GitHubApplicationSettings.png>)The token I'm using for my project has the following scopes selected:
+
+![](http://2.bp.blogspot.com/-2hsSnmHy_DY/VKwQo7MM0BI/AAAAAAAAAyQ/c5ZAT_mZi5w/s640/GitHub%2BPersonal%2BAccess%2BToken.png)
+
+](<http://2.bp.blogspot.com/-2hsSnmHy_DY/VKwQo7MM0BI/AAAAAAAAAyQ/c5ZAT_mZi5w/s1600/GitHub%2BPersonal%2BAccess%2BToken.png>)## `appveyor.yml`
 
 With our token in hand we turn our attention to AppVeyor build configuration. This is possible using a file called [`appveyor.yml`](<http://www.appveyor.com/docs/build-configuration>) stored in the root of your repo. You can also use the AppVeyor web UI to do this. However, for the purposes of ease of demonstration I'm using the file approach. The [jQuery Validation Unobtrusive Native `appveyor.yml`](<https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/blob/master/appveyor.yml>) looks like this:
 
@@ -71,7 +75,9 @@ There's a number of things you should notice from the yml file:
 
 We pass 4 arguments to `pushStatic.ps1`: the build folder, my email address, my username and my personal access token. For the sake of security the GithubPersonalAccessToken has been encrypted as indicated by the `secure` keyword. This is a capability available in AppVeyor [here](<https://ci.appveyor.com/tools/encrypt>).
 
-[![null](<http://1.bp.blogspot.com/-rQcNQPu2ass/VKwRC0QbQTI/AAAAAAAAAyY/8a8Qf5DGapA/s640/AppVeyor%2Bencrypt.png>)](<http://1.bp.blogspot.com/-rQcNQPu2ass/VKwRC0QbQTI/AAAAAAAAAyY/8a8Qf5DGapA/s1600/AppVeyor%2Bencrypt.png>)This allows me to mask my personal access token rather than have it available as free text for anyone to grab.
+![](http://1.bp.blogspot.com/-rQcNQPu2ass/VKwRC0QbQTI/AAAAAAAAAyY/8a8Qf5DGapA/s640/AppVeyor%2Bencrypt.png)
+
+](<http://1.bp.blogspot.com/-rQcNQPu2ass/VKwRC0QbQTI/AAAAAAAAAyY/8a8Qf5DGapA/s1600/AppVeyor%2Bencrypt.png>)This allows me to mask my personal access token rather than have it available as free text for anyone to grab.
 
 ## `pushStatic.ps1`
 

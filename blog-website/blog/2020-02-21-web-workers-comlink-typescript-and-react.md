@@ -105,7 +105,9 @@ console.log('Do another thing');
 
 When our application runs we see this behaviour:
 
- [![null](<https://3.bp.blogspot.com/-1NFBdptu-Mo/XjUqgCVVisI/AAAAAAAATa8/eYCZ_5XcmZoTAlykNW4Lp4m5uhXnr7KogCPcBGAYYCw/s640/blocking.gif> =640x245)](<https://3.bp.blogspot.com/-1NFBdptu-Mo/XjUqgCVVisI/AAAAAAAATa8/eYCZ_5XcmZoTAlykNW4Lp4m5uhXnr7KogCPcBGAYYCw/s1600/blocking.gif>)The app starts and logs `Do something` and `Start our long running job...` to the console. It then blocks the UI until the `takeALongTimeToDoSomething` function has completed running. During this time the screen is empty and unresponsive. This is a poor user experience.
+ ![](https://3.bp.blogspot.com/-1NFBdptu-Mo/XjUqgCVVisI/AAAAAAAATa8/eYCZ_5XcmZoTAlykNW4Lp4m5uhXnr7KogCPcBGAYYCw/s640/blocking.gif)
+
+The app starts and logs `Do something` and `Start our long running job...` to the console. It then blocks the UI until the `takeALongTimeToDoSomething` function has completed running. During this time the screen is empty and unresponsive. This is a poor user experience.
 
 ## Hello `worker-plugin` and `comlink`
 
@@ -234,7 +236,9 @@ function takeALongTimeToDoSomething() {
 
 Now we're ready to demo our application using our function offloaded into a Web Worker. It now behaves like this:
 
-[![null](<https://2.bp.blogspot.com/-UDxm0xHbJpY/XjUrg4BwgTI/AAAAAAAATbE/F2jZ2F4nI9c05puL6zP8n6VYvrPsEOjIQCLcBGAsYHQ/s640/non-blocking.gif> =640x251)](<https://2.bp.blogspot.com/-UDxm0xHbJpY/XjUrg4BwgTI/AAAAAAAATbE/F2jZ2F4nI9c05puL6zP8n6VYvrPsEOjIQCLcBGAsYHQ/s1600/non-blocking.gif>)There's a number of exciting things to note here:
+![](https://2.bp.blogspot.com/-UDxm0xHbJpY/XjUrg4BwgTI/AAAAAAAATbE/F2jZ2F4nI9c05puL6zP8n6VYvrPsEOjIQCLcBGAsYHQ/s640/non-blocking.gif)
+
+There's a number of exciting things to note here:
 
 1. The application is now non-blocking. Our long running function is now not preventing the UI from updating
 2. The functionality is lazily loaded via a `my-first-worker.chunk.worker.js` that has been created by the `worker-plugin` and `comlink`.
@@ -307,7 +311,9 @@ export default App;
 
 When you try it out you'll notice that entering a single digit locks the UI for 5 seconds whilst it adds the numbers. From the moment the cursor stops blinking to the moment the screen updates the UI is non-responsive:
 
-[![null](<https://2.bp.blogspot.com/-ngQ_wdVxKYw/XjUr33bOiWI/AAAAAAAATbM/kkMzEWKCu8w0NrD6CZeyNRW8CYQ78eRzgCLcBGAsYHQ/s640/blocking-react.gif> =640x293)](<https://2.bp.blogspot.com/-ngQ_wdVxKYw/XjUr33bOiWI/AAAAAAAATbM/kkMzEWKCu8w0NrD6CZeyNRW8CYQ78eRzgCLcBGAsYHQ/s1600/blocking-react.gif>)So far, so classic. Let's Web Workerify this!
+![](https://2.bp.blogspot.com/-ngQ_wdVxKYw/XjUr33bOiWI/AAAAAAAATbM/kkMzEWKCu8w0NrD6CZeyNRW8CYQ78eRzgCLcBGAsYHQ/s640/blocking-react.gif)
+
+So far, so classic. Let's Web Workerify this!
 
 We'll update our `my-first-worker/index.ts` to import this new function:
 
@@ -453,7 +459,9 @@ export default App;
 
 Now our calculation takes place off the main thread and the UI is no longer blocked!
 
-[![null](<https://3.bp.blogspot.com/-WOTMRZzhaVk/XjUsJTMXBxI/AAAAAAAATbU/6WXtrpk66mY6aFyxBcgvBktQScq_AhyZwCLcBGAsYHQ/s640/non-blocking-react.gif> =640x293)](<https://3.bp.blogspot.com/-WOTMRZzhaVk/XjUsJTMXBxI/AAAAAAAATbU/6WXtrpk66mY6aFyxBcgvBktQScq_AhyZwCLcBGAsYHQ/s1600/non-blocking-react.gif>)[This post was originally published on LogRocket.](<https://blog.logrocket.com/integrating-web-workers-in-a-react-app-with-comlink/>)
+![](https://3.bp.blogspot.com/-WOTMRZzhaVk/XjUsJTMXBxI/AAAAAAAATbU/6WXtrpk66mY6aFyxBcgvBktQScq_AhyZwCLcBGAsYHQ/s640/non-blocking-react.gif)
+
+[This post was originally published on LogRocket.](<https://blog.logrocket.com/integrating-web-workers-in-a-react-app-with-comlink/>)
 
 [The source code for this project can be found here.](<https://github.com/johnnyreilly/webworkers-comlink-typescript-react>)
 

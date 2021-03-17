@@ -137,7 +137,9 @@ $(System.DefaultWorkingDirectory)/my-awesome-project-YAML/drop/MigrateDatabase
 
 Do note that the command uses the `ConnectionStrings.MyAwesomeProjectDatabaseConnection` variable which you need to create and set to the value of your connection string.
 
-[![null](<https://3.bp.blogspot.com/-38rTxu20hPo/Wy-6lSU6OkI/AAAAAAAAK7E/0-sZ9D6Z_B8mYQMPia8kdQ9e4xzmXrNqQCPcBGAYYCw/s640/Screenshot%2B2018-06-24%2B10.55.27.png> =640x293)](<https://3.bp.blogspot.com/-38rTxu20hPo/Wy-6lSU6OkI/AAAAAAAAK7E/0-sZ9D6Z_B8mYQMPia8kdQ9e4xzmXrNqQCPcBGAYYCw/s1600/Screenshot%2B2018-06-24%2B10.55.27.png>)## Give It A Whirl
+![](https://3.bp.blogspot.com/-38rTxu20hPo/Wy-6lSU6OkI/AAAAAAAAK7E/0-sZ9D6Z_B8mYQMPia8kdQ9e4xzmXrNqQCPcBGAYYCw/s640/Screenshot%2B2018-06-24%2B10.55.27.png)
+
+## Give It A Whirl
 
 Let's find out what happens when the rubber hits the road. I'll add a new entity to my database project:
 
@@ -180,14 +182,18 @@ dotnet ef migrations add TestOurMigrationsApproach
 
 Commit my change, push it to VSTS, wait for the build to run and a deployment to take place.... Okay. It's done. Looks good.
 
-[![null](<https://3.bp.blogspot.com/-i0ESAvjWtEw/Wy-68vGEyLI/AAAAAAAAK7M/VaIiwevgN40cDcJmTMG2VK1NNem2InmjQCLcBGAs/s640/Screenshot%2B2018-06-24%2B09.02.22.png> =640x269)](<https://3.bp.blogspot.com/-i0ESAvjWtEw/Wy-68vGEyLI/AAAAAAAAK7M/VaIiwevgN40cDcJmTMG2VK1NNem2InmjQCLcBGAs/s1600/Screenshot%2B2018-06-24%2B09.02.22.png>)Let's take a look in the database:
+![](https://3.bp.blogspot.com/-i0ESAvjWtEw/Wy-68vGEyLI/AAAAAAAAK7M/VaIiwevgN40cDcJmTMG2VK1NNem2InmjQCLcBGAs/s640/Screenshot%2B2018-06-24%2B09.02.22.png)
+
+Let's take a look in the database:
 
 ```console
 select * from NewHotnesses
 go
 ```
 
-[![null](<https://3.bp.blogspot.com/-enEbqRGkfA0/Wy-7HHwHlRI/AAAAAAAAK7Q/VLYQfC5WU_kfj07zYJflnuAx1E0fkYnHwCLcBGAs/s640/Screenshot%2B2018-06-24%2B08.59.00.png> =640x436)](<https://3.bp.blogspot.com/-enEbqRGkfA0/Wy-7HHwHlRI/AAAAAAAAK7Q/VLYQfC5WU_kfj07zYJflnuAx1E0fkYnHwCLcBGAs/s1600/Screenshot%2B2018-06-24%2B08.59.00.png>)It's there! We are migrating our database upon deployment; and not in our ASP.Net Core app itself. I feel a burden lifted.
+![](https://3.bp.blogspot.com/-enEbqRGkfA0/Wy-7HHwHlRI/AAAAAAAAK7Q/VLYQfC5WU_kfj07zYJflnuAx1E0fkYnHwCLcBGAs/s640/Screenshot%2B2018-06-24%2B08.59.00.png)
+
+It's there! We are migrating our database upon deployment; and not in our ASP.Net Core app itself. I feel a burden lifted.
 
 ## Wrapping Up
 

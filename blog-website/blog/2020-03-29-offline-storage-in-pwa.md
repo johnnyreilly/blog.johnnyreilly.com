@@ -101,7 +101,9 @@ You'll also note that `testIDBKeyval` is an `async` function. This is so that we
 
 What happens when we run our application with `yarn start`? Let's do that and take a look at the devtools:
 
- [![null](<https://4.bp.blogspot.com/-b9-GrL0IXaY/Xmqj4GRhKXI/AAAAAAAAT5s/ZoceUInSY5EWXeCr2LkGV9Zvea8S6-mUgCPcBGAYYCw/s640/hello_world_idb_keyval.png> =640x484)](<https://4.bp.blogspot.com/-b9-GrL0IXaY/Xmqj4GRhKXI/AAAAAAAAT5s/ZoceUInSY5EWXeCr2LkGV9Zvea8S6-mUgCPcBGAYYCw/s1600/hello_world_idb_keyval.png>)We successfully wrote something into IndexedDB, read it back and printed that value to the console. Amazing!
+ ![](https://4.bp.blogspot.com/-b9-GrL0IXaY/Xmqj4GRhKXI/AAAAAAAAT5s/ZoceUInSY5EWXeCr2LkGV9Zvea8S6-mUgCPcBGAYYCw/s640/hello_world_idb_keyval.png)
+
+We successfully wrote something into IndexedDB, read it back and printed that value to the console. Amazing!
 
 ## Usage in React
 
@@ -155,7 +157,9 @@ export default App;
 
 When you run the app you can see how it works:
 
-[![null](<https://3.bp.blogspot.com/-xS6AYMXkqfw/Xmqk4QZQx0I/AAAAAAAAT54/ACHaHu6I9BsKSqQAIW7IgBH9D-UP6iHuACPcBGAYYCw/s640/use-dark-mode.gif> =640x127)](<https://3.bp.blogspot.com/-xS6AYMXkqfw/Xmqk4QZQx0I/AAAAAAAAT54/ACHaHu6I9BsKSqQAIW7IgBH9D-UP6iHuACPcBGAYYCw/s1600/use-dark-mode.gif>)Looking at the code you'll be able to see that this is implemented using React's `useState` hook. So any user preference selected will be lost on a page refresh. Let's see if we can take this state and move it into IndexedDB using `IDB-Keyval`.
+![](https://3.bp.blogspot.com/-xS6AYMXkqfw/Xmqk4QZQx0I/AAAAAAAAT54/ACHaHu6I9BsKSqQAIW7IgBH9D-UP6iHuACPcBGAYYCw/s640/use-dark-mode.gif)
+
+Looking at the code you'll be able to see that this is implemented using React's `useState` hook. So any user preference selected will be lost on a page refresh. Let's see if we can take this state and move it into IndexedDB using `IDB-Keyval`.
 
 We'll change the code like so:
 
@@ -234,7 +238,9 @@ The changes here are:
 
 As you can see, this means that we are persisting preferences beyond page refresh in a fashion that will work both online *and* offline!
 
-[![null](<https://1.bp.blogspot.com/-ZBsWsQNFDVk/XmqledYAp4I/AAAAAAAAT6E/3ShBesSOuxsrJ34r1QIs0R3HsXGRFBBzgCPcBGAYYCw/s640/use-dark-mode-with-idb-keyval.gif> =640x315)](<https://1.bp.blogspot.com/-ZBsWsQNFDVk/XmqledYAp4I/AAAAAAAAT6E/3ShBesSOuxsrJ34r1QIs0R3HsXGRFBBzgCPcBGAYYCw/s1600/use-dark-mode-with-idb-keyval.gif>)## Usage as a React hook
+![](https://1.bp.blogspot.com/-ZBsWsQNFDVk/XmqledYAp4I/AAAAAAAAT6E/3ShBesSOuxsrJ34r1QIs0R3HsXGRFBBzgCPcBGAYYCw/s640/use-dark-mode-with-idb-keyval.gif)
+
+## Usage as a React hook
 
 Finally it's time for bonus points. Wouldn't it be nice if we could move this functionality into a reusable React hook? Let's do it!
 

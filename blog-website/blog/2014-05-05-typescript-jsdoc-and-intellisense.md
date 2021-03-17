@@ -22,7 +22,9 @@ If you can convey information about the API that you're building then I'd say yo
 
 When I started getting involved with the [Definitely Typed project](<https://github.com/DefinitelyTyped>) my focus was on giving good Intellisense. Where there was documentation for an API I wanted to get that popping in front of users when they hit the "." key:
 
-[![null](<http://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-56-67/1200.JSDoc_5F00_in_5F00_VS.png>)](<http://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-56-67/1200.JSDoc_5F00_in_5F00_VS.png>)As the above screenshot demonstrates [TypeScript supports Intellisense](<http://blogs.msdn.com/b/typescript/archive/2013/01/21/announcing-typescript-0-8-2.aspx>) through a slightly tweaked implementation of [JSDoc](<http://en.wikipedia.org/wiki/JSDoc>):
+![](http://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-56-67/1200.JSDoc_5F00_in_5F00_VS.png)
+
+](<http://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-56-67/1200.JSDoc_5F00_in_5F00_VS.png>)As the above screenshot demonstrates [TypeScript supports Intellisense](<http://blogs.msdn.com/b/typescript/archive/2013/01/21/announcing-typescript-0-8-2.aspx>) through a slightly tweaked implementation of [JSDoc](<http://en.wikipedia.org/wiki/JSDoc>):
 
 > With 0.8.2, the TypeScript compiler and tools now support JSDoc comments.
 > 
@@ -161,7 +163,9 @@ So let's enrich these typings with some JSDoc:
 
 If you look you can see we've added a related JSDoc style comment block prior to each overload. The first part of the comment (*"Set the value of..."*) is the overarching Intellisense that is displayed. Each of the `@param` statements represents each of the parameters and it's associated comment. By comparing the [API documentation](<http://api.jquery.com/val/#val-value>) to the JSDoc it's pretty clear how the API has been transformed into useful JSDoc.
 
-[![null](<http://2.bp.blogspot.com/-ljw2HiAp0qE/U2D915IIcaI/AAAAAAAAAkk/DVPv-TolEJw/s640/Intellisense-Setter-String.png>)](<http://2.bp.blogspot.com/-ljw2HiAp0qE/U2D915IIcaI/AAAAAAAAAkk/DVPv-TolEJw/s1600/Intellisense-Setter-String.png>)It's worth noting that I could have taken the choice to customise the `@param value` comments based on the overload I was JSDoc-ing. Arguably it would have been more useful to have something like this instead:
+![](http://2.bp.blogspot.com/-ljw2HiAp0qE/U2D915IIcaI/AAAAAAAAAkk/DVPv-TolEJw/s640/Intellisense-Setter-String.png)
+
+](<http://2.bp.blogspot.com/-ljw2HiAp0qE/U2D915IIcaI/AAAAAAAAAkk/DVPv-TolEJw/s1600/Intellisense-Setter-String.png>)It's worth noting that I could have taken the choice to customise the `@param value` comments based on the overload I was JSDoc-ing. Arguably it would have been more useful to have something like this instead:
 
 ```ts
 /**
@@ -207,7 +211,9 @@ The final getter typing with JSDoc applied ends up looking like this:
 
 As you can see the *"Get the current value..."* from the API docs has been used as the overarching Intellisense that is displayed for the getter.
 
-[![null](<http://4.bp.blogspot.com/-7PG3jVXPWdM/U2D-BvxwYYI/AAAAAAAAAks/_ZTRQWBt7L8/s640/Intellisense-Getter.png>)](<http://4.bp.blogspot.com/-7PG3jVXPWdM/U2D-BvxwYYI/AAAAAAAAAks/_ZTRQWBt7L8/s1600/Intellisense-Getter.png>)## 4\. The `Function` setter
+![](http://4.bp.blogspot.com/-7PG3jVXPWdM/U2D-BvxwYYI/AAAAAAAAAks/_ZTRQWBt7L8/s640/Intellisense-Getter.png)
+
+](<http://4.bp.blogspot.com/-7PG3jVXPWdM/U2D-BvxwYYI/AAAAAAAAAks/_ZTRQWBt7L8/s1600/Intellisense-Getter.png>)## 4\. The `Function` setter
 
 Finally we're going to take a look at the `Function` setter which is documented as follows:
 
@@ -278,7 +284,9 @@ So, we've got a little tidy up to do for #1 and extra overloads to add for #2 an
 
 A cursory glance shows that each of the overloads above shares the same JSDoc. Each has the *"Set the value..."* from the API docs as the overarching Intellisense that is displayed for the `Function` setter. And each has the same `@param func` comment as well.
 
-[![null](<http://1.bp.blogspot.com/-9wwPOZIiwcs/U2D-Ngw9CrI/AAAAAAAAAk0/V32FCsotPTQ/s640/Intellisense-Setter-Function.png>)](<http://1.bp.blogspot.com/-9wwPOZIiwcs/U2D-Ngw9CrI/AAAAAAAAAk0/V32FCsotPTQ/s1600/Intellisense-Setter-Function.png>)## It could be you...
+![](http://1.bp.blogspot.com/-9wwPOZIiwcs/U2D-Ngw9CrI/AAAAAAAAAk0/V32FCsotPTQ/s640/Intellisense-Setter-Function.png)
+
+](<http://1.bp.blogspot.com/-9wwPOZIiwcs/U2D-Ngw9CrI/AAAAAAAAAk0/V32FCsotPTQ/s1600/Intellisense-Setter-Function.png>)## It could be you...
 
 This post is much longer than I ever intended it to be. But I wanted to show how easy it is to create typings with JSDoc to drive Intellisense. For no obvious reason people generally don't make a great deal of use of JSDoc when creating typings. Perhaps the creators have no good source of documentation (a common problem). Or perhaps people are not even aware it's a possibility - they don't know about the TypeScript support of JSDoc. In case it's the latter I think this post was worth writing.
 

@@ -10,7 +10,9 @@ My name is John Reilly and I'm a VS Code addict. There I said it. I'm also a big
 
  One thing I love is using VS Code both as my editor and my terminal. Using the fork-ts-checker-webpack-plugin I noticed a problem when TypeScript errors showed up in the terminal:
 
-[![null](<https://2.bp.blogspot.com/-XRG_JvUHkTQ/Wbds0uKYYzI/AAAAAAAAGes/ol8enPs6lLwRTdv8Uhml3cQdfJPji6nvACLcBGAs/s640/Screenshot%2B2017-09-12%2B06.12.25.png> =640x317)](<https://2.bp.blogspot.com/-XRG_JvUHkTQ/Wbds0uKYYzI/AAAAAAAAGes/ol8enPs6lLwRTdv8Uhml3cQdfJPji6nvACLcBGAs/s1600/Screenshot%2B2017-09-12%2B06.12.25.png>)Take a look at the red file location in the console above. What's probably not obvious from the above screenshot is that it is **not clickable**. I'm used to being able to click on link in the console and bounce straight to the error location. It's a really productive workflow; see a problem, click on it, be taken to the cause, fix it.
+![](https://2.bp.blogspot.com/-XRG_JvUHkTQ/Wbds0uKYYzI/AAAAAAAAGes/ol8enPs6lLwRTdv8Uhml3cQdfJPji6nvACLcBGAs/s640/Screenshot%2B2017-09-12%2B06.12.25.png)
+
+Take a look at the red file location in the console above. What's probably not obvious from the above screenshot is that it is **not clickable**. I'm used to being able to click on link in the console and bounce straight to the error location. It's a really productive workflow; see a problem, click on it, be taken to the cause, fix it.
 
 I want to click on "`C:/source/ts-loader/examples/fork-ts-checker/src/fileWithError.ts(2,7)`" and have VS Code open up `fileWithError.ts`, ideally at line 2 and column 7. But here it's not working. Why?
 
@@ -58,6 +60,8 @@ module.exports = {
 
 With that in place, what do you we have? This:
 
-[![null](<https://2.bp.blogspot.com/-nCA_UAzk7jQ/WbdyV9bxZ1I/AAAAAAAAGe8/9d5RJ6DsF3opycHZcPDNYYMScezFGRXCQCLcBGAs/s640/Screenshot%2B2017-09-12%2B06.35.48.png> =640x317)](<https://2.bp.blogspot.com/-nCA_UAzk7jQ/WbdyV9bxZ1I/AAAAAAAAGe8/9d5RJ6DsF3opycHZcPDNYYMScezFGRXCQCLcBGAs/s1600/Screenshot%2B2017-09-12%2B06.35.48.png>)VS Code clickability; it's a beautiful thing.
+![](https://2.bp.blogspot.com/-nCA_UAzk7jQ/WbdyV9bxZ1I/AAAAAAAAGe8/9d5RJ6DsF3opycHZcPDNYYMScezFGRXCQCLcBGAs/s640/Screenshot%2B2017-09-12%2B06.35.48.png)
+
+VS Code clickability; it's a beautiful thing.
 
 

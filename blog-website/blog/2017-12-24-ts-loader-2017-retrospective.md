@@ -10,7 +10,67 @@ hide_table_of_contents: false
 
  Many releases were shipped and that was down to a whole bunch of folk. People helped out with bug fixes, features, advice and docs improvements. **All of these help.**`ts-loader` wouldn't be where it is without you so thanks to everyone that helped out - you rock!
 
-[![null](<https://avatars.githubusercontent.com/christiantinauer> "@christiantinauer")](<https://github.com/christiantinauer>)[![null](<https://avatars.githubusercontent.com/Pajn> "@Pajn")](<https://github.com/Pajn>)[![null](<https://avatars.githubusercontent.com/maier49> "@maier49")](<https://github.com/maier49>)[![null](<https://avatars.githubusercontent.com/false> "@false")](<https://github.com/false>)[![null](<https://avatars.githubusercontent.com/roddypratt> "@roddypratt")](<https://github.com/roddypratt>)[![null](<https://avatars.githubusercontent.com/ldrick> "@ldrick")](<https://github.com/ldrick>)[![null](<https://avatars.githubusercontent.com/mattlewis92> "@mattlewis92")](<https://github.com/mattlewis92>)[![null](<https://avatars.githubusercontent.com/Venryx> "@Venryx")](<https://github.com/Venryx>)[![null](<https://avatars.githubusercontent.com/WillMartin> "@WillMartin")](<https://github.com/WillMartin>)[![null](<https://avatars.githubusercontent.com/Loilo> "@Loilo")](<https://github.com/Loilo>)[![null](<https://avatars.githubusercontent.com/Brooooooklyn> "@Brooooooklyn")](<https://github.com/Brooooooklyn>)[![null](<https://avatars.githubusercontent.com/mengxy> "@mengxy")](<https://github.com/mengxy>)[![null](<https://avatars.githubusercontent.com/bsouthga> "@bsouthga")](<https://github.com/bsouthga>)[![null](<https://avatars.githubusercontent.com/zinserjan> "@zinserjan")](<https://github.com/zinserjan>)[![null](<https://avatars.githubusercontent.com/sokra> "@sokra")](<https://github.com/sokra>)[![null](<https://avatars.githubusercontent.com/vhqtvn> "@vhqtvn")](<https://github.com/vhqtvn>)[![null](<https://avatars.githubusercontent.com/HerringtonDarkholme> "@HerringtonDarkholme")](<https://github.com/HerringtonDarkholme>)[![null](<https://avatars.githubusercontent.com/johnnyreilly> "@johnnyreilly")](<https://github.com/johnnyreilly>)[![null](<https://avatars.githubusercontent.com/jbrantly> "@jbrantly")](<https://github.com/jbrantly>)[![null](<https://avatars.githubusercontent.com/octref> "@octref")](<https://github.com/octref>)[![null](<https://avatars.githubusercontent.com/rhyek> "@rhyek")](<https://github.com/rhyek>)[![null](<https://avatars.githubusercontent.com/develar> "@develar")](<https://github.com/develar>)[![null](<https://avatars.githubusercontent.com/donaldpipowitch> "@donaldpipowitch")](<https://github.com/donaldpipowitch>)[![null](<https://avatars.githubusercontent.com/schmuli> "@schmuli")](<https://github.com/schmuli>)[![null](<https://avatars.githubusercontent.com/longlho> "@longlho")](<https://github.com/longlho>)[![null](<https://avatars.githubusercontent.com/Igorbek> "@Igorbek")](<https://github.com/Igorbek>)[![null](<https://avatars.githubusercontent.com/aindlq> "@aindlq")](<https://github.com/aindlq>)[![null](<https://avatars.githubusercontent.com/wearymonkey> "@wearymonkey")](<https://github.com/wearymonkey>)[![null](<https://avatars.githubusercontent.com/bancek> "@bancek")](<https://github.com/bancek>)[![null](<https://avatars.githubusercontent.com/mredbishop> "@mredbishop")](<https://github.com/mredbishop>)
+![](https://avatars.githubusercontent.com/christiantinauer)
+
+![](https://avatars.githubusercontent.com/Pajn)
+
+![](https://avatars.githubusercontent.com/maier49)
+
+![](https://avatars.githubusercontent.com/false)
+
+![](https://avatars.githubusercontent.com/roddypratt)
+
+![](https://avatars.githubusercontent.com/ldrick)
+
+![](https://avatars.githubusercontent.com/mattlewis92)
+
+![](https://avatars.githubusercontent.com/Venryx)
+
+![](https://avatars.githubusercontent.com/WillMartin)
+
+![](https://avatars.githubusercontent.com/Loilo)
+
+![](https://avatars.githubusercontent.com/Brooooooklyn)
+
+![](https://avatars.githubusercontent.com/mengxy)
+
+![](https://avatars.githubusercontent.com/bsouthga)
+
+![](https://avatars.githubusercontent.com/zinserjan)
+
+![](https://avatars.githubusercontent.com/sokra)
+
+![](https://avatars.githubusercontent.com/vhqtvn)
+
+![](https://avatars.githubusercontent.com/HerringtonDarkholme)
+
+![](https://avatars.githubusercontent.com/johnnyreilly)
+
+![](https://avatars.githubusercontent.com/jbrantly)
+
+![](https://avatars.githubusercontent.com/octref)
+
+![](https://avatars.githubusercontent.com/rhyek)
+
+![](https://avatars.githubusercontent.com/develar)
+
+![](https://avatars.githubusercontent.com/donaldpipowitch)
+
+![](https://avatars.githubusercontent.com/schmuli)
+
+![](https://avatars.githubusercontent.com/longlho)
+
+![](https://avatars.githubusercontent.com/Igorbek)
+
+![](https://avatars.githubusercontent.com/aindlq)
+
+![](https://avatars.githubusercontent.com/wearymonkey)
+
+![](https://avatars.githubusercontent.com/bancek)
+
+![](https://avatars.githubusercontent.com/mredbishop)
+
+
 
 I'm really grateful to all of you. Thanks so much! (Apologies for those I've missed anyone out - I know there's more still.)
 
