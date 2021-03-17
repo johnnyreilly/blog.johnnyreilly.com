@@ -33,4 +33,6 @@ This blog has lived on Blogger since it began. Docusaurus represents a modern wa
 
   ![](blog-archive.png)
 
-- [ ] Comments - My comments are on Disqus and so should be portable. However, there doesn't seem to be a mechanism for Disqus in Docusaurus as yet. Maybe it's fine to live without.
+- [x] Comments - My comments are on Disqus and so should be portable. However, there doesn't seem to be a mechanism for Disqus in Docusaurus as yet.
+  
+  For now it's fine to live without.
