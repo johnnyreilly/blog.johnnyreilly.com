@@ -6,7 +6,7 @@ import jsdom from 'jsdom'
 import axios from 'axios';
 import fastXmlParser from 'fast-xml-parser';
 
-const bloggerXmlPath = './blog-03-13-2021.xml';
+const bloggerXmlPath = './blog-03-17-2021.xml';
 const docusaurusDirectory = '../blog-website';
 const notMarkdownable: string[] = [];
 
@@ -126,7 +126,7 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
             // <div class="separator" style="clear: both;"><a href="https://1.bp.blogspot.com/-UwrtZigWg78/YDqN82KbjVI/AAAAAAAAZTE/Umezr1MGQicnxMMr5rQHD4xKINg9fasDACLcBGAsYHQ/s783/traffic-to-app-service.png" style="display: block; padding: 1em 0; text-align: center; "><img alt="traffic to app service" border="0" width="600" data-original-height="753" data-original-width="783" src="https://1.bp.blogspot.com/-UwrtZigWg78/YDqN82KbjVI/AAAAAAAAZTE/Umezr1MGQicnxMMr5rQHD4xKINg9fasDACLcBGAsYHQ/s600/traffic-to-app-service.png"></a></div>
             
             // The mechanism below extracts the underlying image path and it's alt text
-            .replace(/<div.*(<img.*">).*<\/div>/g, (replacer) => {
+            .replace(/(<div.*>)*\w*(<a .*>)*(<img .*">)(<\/a>)*.*(<\/div>)*/g, (replacer) => {
                 const div = new jsdom.JSDOM(replacer);
                 const img = div?.window?.document?.querySelector("img");
                 const alt = img?.getAttribute('alt') ?? '';
