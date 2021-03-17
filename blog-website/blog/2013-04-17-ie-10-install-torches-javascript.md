@@ -21,7 +21,9 @@ In the end, after a great deal of frustration, I happened upon [this answer](<ht
 
 In my "Browse With..." drop down in Visual Studio I was \***not**\* seeing this:
 
-[![null](<http://3.bp.blogspot.com/-iRgBxdxUrkU/UW6csypEd3I/AAAAAAAAAaY/rNK6N79GT6k/s320/BrowseWith.png>)](<http://3.bp.blogspot.com/-iRgBxdxUrkU/UW6csypEd3I/AAAAAAAAAaY/rNK6N79GT6k/s1600/BrowseWith.png>)I was seeing exactly the same as this list but with **TWO** instances of Internet Explorer in the list instead of one. Odd, I know.
+![](http://3.bp.blogspot.com/-iRgBxdxUrkU/UW6csypEd3I/AAAAAAAAAaY/rNK6N79GT6k/s320/BrowseWith.png)
+
+](<http://3.bp.blogspot.com/-iRgBxdxUrkU/UW6csypEd3I/AAAAAAAAAaY/rNK6N79GT6k/s1600/BrowseWith.png>)I was seeing exactly the same as this list but with **TWO** instances of Internet Explorer in the list instead of one. Odd, I know.
 
 I fixed this up by selecting Google Chrome as my target instead of IE, running it and then setting it back to IE. And interestingly, when I went to set it back to IE there was only one instance of Internet Explorer in the list again.
 

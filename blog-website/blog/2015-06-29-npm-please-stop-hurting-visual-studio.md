@@ -24,7 +24,9 @@ Since this approach was so marvellous I took a look at the demo / docs part of [
 
 For reasons that I don't fully understand, Visual Studio is really upset by the presence in the project structure of one almighty long path. Oddly enough, not a path that's actually part of the Visual Studio project in question at all. Rather one that has come along as a result of our Gulp / Bower / npm shenanigans. Quick as a flash, I whipped out Daniel Schroeder's [Path Length Checker](<https://pathlengthchecker.codeplex.com/>) to see where the problem lay:
 
-[![null](<http://2.bp.blogspot.com/-uTcT2hLpRyA/VZFIiLX5n8I/AAAAAAAAA3M/lHA0TV2UVOM/s640/bower-with-the-long-paths.png>)](<http://2.bp.blogspot.com/-uTcT2hLpRyA/VZFIiLX5n8I/AAAAAAAAA3M/lHA0TV2UVOM/s1600/bower-with-the-long-paths.png>)And lo, the fault lay with Bower. Poor show, Bower, poor show.
+![](http://2.bp.blogspot.com/-uTcT2hLpRyA/VZFIiLX5n8I/AAAAAAAAA3M/lHA0TV2UVOM/s640/bower-with-the-long-paths.png)
+
+](<http://2.bp.blogspot.com/-uTcT2hLpRyA/VZFIiLX5n8I/AAAAAAAAA3M/lHA0TV2UVOM/s1600/bower-with-the-long-paths.png>)And lo, the fault lay with Bower. Poor show, Bower, poor show.
 
 ## rimraf to the Rescue
 

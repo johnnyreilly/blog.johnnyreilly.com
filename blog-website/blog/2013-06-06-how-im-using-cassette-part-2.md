@@ -80,7 +80,9 @@ With this in place Cassette will render out a bundle for each script in the View
 
 If you browse to the home page of the application this is what you should now see:
 
-[![null](<http://2.bp.blogspot.com/-tGZTEhhkGz8/Ua7xlgl3n5I/AAAAAAAAAcs/miNZsysrJeY/s320/Index.js.png>)](<http://2.bp.blogspot.com/-tGZTEhhkGz8/Ua7xlgl3n5I/AAAAAAAAAcs/miNZsysrJeY/s1600/Index.js.png>)What this means is, `Index.js` was served up by Cassette. And more importantly before `Index.js` was served the referenced `~/bundles/core` was served too.
+![](http://2.bp.blogspot.com/-tGZTEhhkGz8/Ua7xlgl3n5I/AAAAAAAAAcs/miNZsysrJeY/s320/Index.js.png)
+
+](<http://2.bp.blogspot.com/-tGZTEhhkGz8/Ua7xlgl3n5I/AAAAAAAAAcs/miNZsysrJeY/s1600/Index.js.png>)What this means is, `Index.js` was served up by Cassette. And more importantly before `Index.js` was served the referenced `~/bundles/core` was served too.
 
 ## Avoiding the Gotcha
 

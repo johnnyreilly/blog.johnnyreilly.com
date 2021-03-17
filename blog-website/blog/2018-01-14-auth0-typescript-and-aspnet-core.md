@@ -74,7 +74,9 @@ Run the client app using webpack-dev-server using `yarn start` in the `ClientApp
 
 When you fire up the app you're presented with "you are not logged in!" message and the option to login. Do it, it'll take you to the Auth0 "lock" screen where you can sign up / login. Once you do that you'll be asked to confirm access:
 
-[![null](<https://2.bp.blogspot.com/-gNCT_tnatho/Wlr776dvpeI/AAAAAAAAIEo/Fb4c9ViaXwEHwGR95eXW9CzpjWsHiPuvgCLcBGAs/s400/Screenshot%2B2018-01-13%2B18.40.21.png> =395x400)](<https://2.bp.blogspot.com/-gNCT_tnatho/Wlr776dvpeI/AAAAAAAAIEo/Fb4c9ViaXwEHwGR95eXW9CzpjWsHiPuvgCLcBGAs/s1600/Screenshot%2B2018-01-13%2B18.40.21.png>)All this is powered by Auth0's [auth0-js](<https://www.npmjs.com/package/auth0-js>) npm package. (Excellent type definition files are available from Definitely Typed; I'm using the [@types/auth0-js](<https://www.npmjs.com/package/@types/auth0-js>) package DT publishes.) Usage of which is super simple; it exposes an `authorize` method that when called triggers the Auth0 lock screen. Once you've "okayed" you'll be taken back to the app which will use the `parseHash` method to extract the access token that Auth0 has provided. Take a look at how our `authStore` makes use of auth0-js: (don't be scared; it uses mobx - but you could use anything)
+![](https://2.bp.blogspot.com/-gNCT_tnatho/Wlr776dvpeI/AAAAAAAAIEo/Fb4c9ViaXwEHwGR95eXW9CzpjWsHiPuvgCLcBGAs/s400/Screenshot%2B2018-01-13%2B18.40.21.png)
+
+All this is powered by Auth0's [auth0-js](<https://www.npmjs.com/package/auth0-js>) npm package. (Excellent type definition files are available from Definitely Typed; I'm using the [@types/auth0-js](<https://www.npmjs.com/package/@types/auth0-js>) package DT publishes.) Usage of which is super simple; it exposes an `authorize` method that when called triggers the Auth0 lock screen. Once you've "okayed" you'll be taken back to the app which will use the `parseHash` method to extract the access token that Auth0 has provided. Take a look at how our `authStore` makes use of auth0-js: (don't be scared; it uses mobx - but you could use anything)
 
 ### authStore.ts
 
@@ -202,7 +204,9 @@ export class AuthStore {
 
 Once you're logged in the app offers you more in the way of navigation options. A "Profile" screen shows you the details your React app has retrieved from Auth0 about you. This is backed by the `client.userInfo` method on `auth0-js`. There's also a "Ping" screen which is where your React app talks to your ASP.NET Core server. The screenshot below illustrates the result of hitting the "Get Private Data" button:
 
-[![null](<https://3.bp.blogspot.com/-g42g4gnwNYw/Wlr8HRlfdfI/AAAAAAAAIEs/5nvEnHIbvXst4KhBc_2NKMiBBDyfMR1RACPcBGAYYCw/s400/Screenshot%2B2018-01-13%2B18.47.49.png> =400x340)](<https://3.bp.blogspot.com/-g42g4gnwNYw/Wlr8HRlfdfI/AAAAAAAAIEs/5nvEnHIbvXst4KhBc_2NKMiBBDyfMR1RACPcBGAYYCw/s1600/Screenshot%2B2018-01-13%2B18.47.49.png>)The "Get Server to Retrieve Profile Data" button is interesting as it illustrates that the server can get access to your profile data as well. There's nothing insecure here; it gets the details using the access token retrieved from Auth0 by the ClientApp and passed to the server. It's the API we set up in Auth0 that is in play here. The app uses the Domain and the access token to talk to Auth0 like so:
+![](https://3.bp.blogspot.com/-g42g4gnwNYw/Wlr8HRlfdfI/AAAAAAAAIEs/5nvEnHIbvXst4KhBc_2NKMiBBDyfMR1RACPcBGAYYCw/s400/Screenshot%2B2018-01-13%2B18.47.49.png)
+
+The "Get Server to Retrieve Profile Data" button is interesting as it illustrates that the server can get access to your profile data as well. There's nothing insecure here; it gets the details using the access token retrieved from Auth0 by the ClientApp and passed to the server. It's the API we set up in Auth0 that is in play here. The app uses the Domain and the access token to talk to Auth0 like so:
 
 ### UserController.cs
 
@@ -332,13 +336,17 @@ public class HasScopeHandler : AuthorizationHandler<hasscoperequirement>
 
 The reason we're 403ing at present is because when our `HasScopeHandler` executes, `requirement.Scope` has the value of `"do:admin:thing"` and our `scopes` do not contain that value. To add it, go to your API in the Auth0 management console and add it:
 
-[![null](<https://1.bp.blogspot.com/-XWDZYx9Y9yU/WlsUqI_Tk0I/AAAAAAAAIE8/r2ksEOsqG8cf2mvza-1TuFFWXFaZusykACLcBGAs/s400/Screenshot%2B2018-01-14%2B08.26.54.png> =400x261)](<https://1.bp.blogspot.com/-XWDZYx9Y9yU/WlsUqI_Tk0I/AAAAAAAAIE8/r2ksEOsqG8cf2mvza-1TuFFWXFaZusykACLcBGAs/s1600/Screenshot%2B2018-01-14%2B08.26.54.png>)
+![](https://1.bp.blogspot.com/-XWDZYx9Y9yU/WlsUqI_Tk0I/AAAAAAAAIE8/r2ksEOsqG8cf2mvza-1TuFFWXFaZusykACLcBGAs/s400/Screenshot%2B2018-01-14%2B08.26.54.png)
+
+
 
 Note that you can control how this scope is acquired using "Rules" in the Auth0 management portal.
 
 You won't be able to access the admin endpoint yet because you're still rocking with the old access token; pre-newly-added scope. But when you next login to Auth0 you'll see a prompt like this:
 
-[![null](<https://3.bp.blogspot.com/-Bqom1m6bb9o/WlsV-lSG5QI/AAAAAAAAIFI/L4cCLbxjmmktBVAfXxsNsF-LXtaqNC5XACLcBGAs/s400/Screenshot%2B2018-01-14%2B08.32.59.png> =327x400)](<https://3.bp.blogspot.com/-Bqom1m6bb9o/WlsV-lSG5QI/AAAAAAAAIFI/L4cCLbxjmmktBVAfXxsNsF-LXtaqNC5XACLcBGAs/s1600/Screenshot%2B2018-01-14%2B08.32.59.png>)Which demonstrates that you're being granted an extra scope. With your new shiny access token you can now access the oh-so-secret Admin endpoint.
+![](https://3.bp.blogspot.com/-Bqom1m6bb9o/WlsV-lSG5QI/AAAAAAAAIFI/L4cCLbxjmmktBVAfXxsNsF-LXtaqNC5XACLcBGAs/s400/Screenshot%2B2018-01-14%2B08.32.59.png)
+
+Which demonstrates that you're being granted an extra scope. With your new shiny access token you can now access the oh-so-secret Admin endpoint.
 
 I had some more questions about Auth0 as I'm still new to it myself. To see my question (and the very helpful answer!) go here: [https://community.auth0.com/questions/13786/get-user-data-server-side-what-is-a-good-approach](<https://community.auth0.com/questions/13786/get-user-data-server-side-what-is-a-good-approach>)
 

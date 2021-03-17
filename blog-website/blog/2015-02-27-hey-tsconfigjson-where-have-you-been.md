@@ -40,7 +40,9 @@ As you can see - this is sub-optimal. But don't worry - there's a new sheriff in
 
 ## `tsconfig.json`
 
-I'd decided to give [Atom TypeScript plugin](<https://github.com/TypeStrong/atom-typescript>) a go as I heard much enthusiastic noise about it. I fired it up and pointed it at a a TypeScript AngularJS project built in Visual Studio. I was mentally preparing myself for the job of adding all the /// references in when I suddenly noticed a file blinking at me: [![null](<http://3.bp.blogspot.com/-cK80o3-ysP0/VPCV9fxtwXI/AAAAAAAAAzA/HC8uY9wjB7s/s640/Screenshot%2B2015-02-27%2B16.05.29.png>)](<http://3.bp.blogspot.com/-cK80o3-ysP0/VPCV9fxtwXI/AAAAAAAAAzA/HC8uY9wjB7s/s1600/Screenshot%2B2015-02-27%2B16.05.29.png>)
+I'd decided to give [Atom TypeScript plugin](<https://github.com/TypeStrong/atom-typescript>) a go as I heard much enthusiastic noise about it. I fired it up and pointed it at a a TypeScript AngularJS project built in Visual Studio. I was mentally preparing myself for the job of adding all the /// references in when I suddenly noticed a file blinking at me: ![](http://3.bp.blogspot.com/-cK80o3-ysP0/VPCV9fxtwXI/AAAAAAAAAzA/HC8uY9wjB7s/s640/Screenshot%2B2015-02-27%2B16.05.29.png)
+
+](<http://3.bp.blogspot.com/-cK80o3-ysP0/VPCV9fxtwXI/AAAAAAAAAzA/HC8uY9wjB7s/s1600/Screenshot%2B2015-02-27%2B16.05.29.png>)
 
 `tsconfig.json`? What's that? Time to read [the docs](<https://github.com/TypeStrong/atom-typescript#project-support>):
 

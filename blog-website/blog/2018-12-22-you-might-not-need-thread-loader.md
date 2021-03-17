@@ -55,7 +55,9 @@ When I tested using `thread-loader` in watch mode with `poolTimeout: Infinity` o
 
 A likely reason for this benefit is that typically when you're developing, you're working on one file at a time. Hence you only transpile one file at a time:
 
-[![null](<https://2.bp.blogspot.com/-u2nbxnUAJXQ/XB8y1mF6hoI/AAAAAAAANRU/biYIfBaDsDwnNA2jp_YLNrLBcXWITAM1ACPcBGAYYCw/s640/ts-profile2.png> =640x173)](<https://2.bp.blogspot.com/-u2nbxnUAJXQ/XB8y1mF6hoI/AAAAAAAANRU/biYIfBaDsDwnNA2jp_YLNrLBcXWITAM1ACPcBGAYYCw/s1600/ts-profile2.png>)So there's not a great deal of value that `thread-loader` can add here; mostly it's twiddling thumbs and adding an overhead. [To quote the docs:](<https://github.com/webpack-contrib/thread-loader/blob/master/README.md#usage>)
+![](https://2.bp.blogspot.com/-u2nbxnUAJXQ/XB8y1mF6hoI/AAAAAAAANRU/biYIfBaDsDwnNA2jp_YLNrLBcXWITAM1ACPcBGAYYCw/s640/ts-profile2.png)
+
+So there's not a great deal of value that `thread-loader` can add here; mostly it's twiddling thumbs and adding an overhead. [To quote the docs:](<https://github.com/webpack-contrib/thread-loader/blob/master/README.md#usage>)
 
 > Each worker is a separate node.js process, which has an overhead of \~600ms. There is also an overhead of inter-process communication.
 > 

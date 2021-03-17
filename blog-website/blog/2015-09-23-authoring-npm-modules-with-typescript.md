@@ -177,7 +177,9 @@ You can even kind of tell that it was written in JavaScript thanks to the jshint
 
 I fired up Atom and created a new folder `src/lib` and inside there I created `index.ts` (yes, `index.js` renamed) and `tsconfig.json`. By the way, you'll notice I'm not leaving Atom - I'm making use of the magnificent [atom-typescript](<https://atom.io/packages/atom-typescript>) which you should totally be using too. It rocks.
 
-[![null](<http://2.bp.blogspot.com/-HkCD9qNaoaU/VgIwn4WTBTI/AAAAAAAAA4g/U2E1Ybe6acI/s640/Screenshot%2B2015-09-23%2B05.51.14.png>)](<http://2.bp.blogspot.com/-HkCD9qNaoaU/VgIwn4WTBTI/AAAAAAAAA4g/U2E1Ybe6acI/s1600/Screenshot%2B2015-09-23%2B05.51.14.png>)Now I'm not going to bore you with what I had to do to port the JS to TS (not much). If you're interested, the source is [here](<https://github.com/johnnyreilly/globalize-so-what-cha-want/blob/master/src/lib/index.ts>). What's more interesting is the `tsconfig.json` \- as it's this that is going to lead the generation of the JS and TS that we need:
+![](http://2.bp.blogspot.com/-HkCD9qNaoaU/VgIwn4WTBTI/AAAAAAAAA4g/U2E1Ybe6acI/s640/Screenshot%2B2015-09-23%2B05.51.14.png)
+
+](<http://2.bp.blogspot.com/-HkCD9qNaoaU/VgIwn4WTBTI/AAAAAAAAA4g/U2E1Ybe6acI/s1600/Screenshot%2B2015-09-23%2B05.51.14.png>)Now I'm not going to bore you with what I had to do to port the JS to TS (not much). If you're interested, the source is [here](<https://github.com/johnnyreilly/globalize-so-what-cha-want/blob/master/src/lib/index.ts>). What's more interesting is the `tsconfig.json` \- as it's this that is going to lead the generation of the JS and TS that we need:
 
 ```json
 {

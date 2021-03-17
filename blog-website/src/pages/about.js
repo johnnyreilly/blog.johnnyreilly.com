@@ -65,7 +65,7 @@ const features = [
         </ul>
         <p>
           I also wrote the{" "}
-          <a href="https://blog.johnnyreilly.com/2019/10/definitely-typed-movie.html">
+          <a href="https://blog.johnnyreilly.com/2019/10/08/definitely-typed-movie">
             history of Definitely Typed
           </a>
           .

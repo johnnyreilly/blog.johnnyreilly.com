@@ -215,7 +215,9 @@ That's right, he's created a function which takes a number of comparers and redu
 
 I know.
 
-[![null](<http://i.qkme.me/3qknmj.jpg>)](<http://i.qkme.me/3qknmj.jpg>)I'll get my coat...
+![](http://i.qkme.me/3qknmj.jpg)
+
+](<http://i.qkme.me/3qknmj.jpg>)I'll get my coat...
 
 <script src="https://gist.github.com/johnnyreilly/22f7c05b02c2129b89ef.js"></script>
 
