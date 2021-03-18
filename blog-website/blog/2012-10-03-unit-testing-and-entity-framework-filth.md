@@ -2,7 +2,7 @@
 title: "Unit Testing and Entity Framework: The Filth and the Fury"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [unit testing, Entity Framework, anti-pattern, MOQ]
 hide_table_of_contents: false
 ---

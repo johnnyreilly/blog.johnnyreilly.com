@@ -2,7 +2,7 @@
 title: "WCF Transport Windows authentication using NetTcpBinding in an Intranet environment"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [clientCredentialType, Security, Windows, WCF, Authentication, the server has rejected the client credentials, NetTcpBinding]
 hide_table_of_contents: false
 ---
