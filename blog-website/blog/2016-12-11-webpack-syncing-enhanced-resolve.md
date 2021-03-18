@@ -2,7 +2,7 @@
 title: "webpack: syncing the enhanced-resolve"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [enhanced-resolve, mild trolling, resolver, Webpack, sync]
 hide_table_of_contents: false
 ---
@@ -16,7 +16,7 @@ Well that doesn't sound too promising. Let's have a look at the docs. Ah. Hmmm. 
 
 ![](https://3.bp.blogspot.com/-b3dUlC6AJjI/WE2U_wcJvrI/AAAAAAAAA_4/lciulxFqwrUAZxLol9FVybHCpCdgXSufgCLcB/s1600/documentation-is-for-wimps.png)
 
-](<https://3.bp.blogspot.com/-b3dUlC6AJjI/WE2U_wcJvrI/AAAAAAAAA_4/lciulxFqwrUAZxLol9FVybHCpCdgXSufgCLcB/s1600/documentation-is-for-wimps.png>)In all fairness, things are beginning to change on that front. In fact the [new docs](<https://webpack.js.org/>) look very promising. But regrettably, the docs on the enhanced-resolve repo are old school. Which is to say: opaque. However, I'm here to tell you that if a sync resolver is your baby then, contrary to appearances, `enhanced-resolve` has your back.
+In all fairness, things are beginning to change on that front. In fact the [new docs](<https://webpack.js.org/>) look very promising. But regrettably, the docs on the enhanced-resolve repo are old school. Which is to say: opaque. However, I'm here to tell you that if a sync resolver is your baby then, contrary to appearances, `enhanced-resolve` has your back.
 
 ## Sync, for lack of a better word, is good
 

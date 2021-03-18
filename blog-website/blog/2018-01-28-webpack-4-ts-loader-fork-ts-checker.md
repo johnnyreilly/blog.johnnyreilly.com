@@ -2,7 +2,7 @@
 title: "webpack 4 - ts-loader / fork-ts-checker-webpack-plugin betas"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [fork-ts-checker-webpack-plugin, ts-loader, Webpack]
 hide_table_of_contents: false
 ---

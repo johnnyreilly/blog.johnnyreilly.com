@@ -2,7 +2,7 @@
 title: "The Surprisingly Happy Tale of Visual Studio Online, Continous Integration and Chutzpah"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [Jasmine, TFS, unit testing, javascript, Continuous Integration]
 hide_table_of_contents: false
 ---
@@ -24,7 +24,7 @@ First up, download Jasmine from [GitHub](<http://jasmine.github.io/>) \- I'll us
 
 ![](http://4.bp.blogspot.com/-M-Qct1e8Ofo/UxiT5wHICLI/AAAAAAAAAiY/tHUQemETCGI/s320/LookItWorksRightOutTheBox.png)
 
-](<http://4.bp.blogspot.com/-M-Qct1e8Ofo/UxiT5wHICLI/AAAAAAAAAiY/tHUQemETCGI/s1600/LookItWorksRightOutTheBox.png>)As well it might. I’d be worried if it didn’t. So I’ll move the contents of the release package into my empty project. Now let’s see if we can get those tests running inside Visual Studio. I’d heard of [Chutzpah](<https://chutzpah.codeplex.com/>) which describes itself thusly:
+As well it might. I’d be worried if it didn’t. So I’ll move the contents of the release package into my empty project. Now let’s see if we can get those tests running inside Visual Studio. I’d heard of [Chutzpah](<https://chutzpah.codeplex.com/>) which describes itself thusly:
 
 > *“Chutzpah is an open source JavaScript test runner which enables you to run unit tests using QUnit, Jasmine, Mocha, CoffeeScript and TypeScript.” *
 
@@ -32,7 +32,7 @@ What I’m after is the Chutzpah test adapter for Visual Studio 2012/2013 which 
 
 ![](http://2.bp.blogspot.com/-Ns9-ZoCzyxU/UxiVe83GQAI/AAAAAAAAAik/9rJiv7c3gOA/s320/EverythingFails.png)
 
-](<http://2.bp.blogspot.com/-Ns9-ZoCzyxU/UxiVe83GQAI/AAAAAAAAAik/9rJiv7c3gOA/s1600/EverythingFails.png>)All fail. This makes me sad. All the errors say “Can’t find variable: Player in file”. Hmmm. Why? Dammit I’m actually going to have to read the [documentation](<https://chutzpah.codeplex.com/wikipage?title=Chutzpah%20File%20References&referringTitle=Documentation>)... It turns out the issue can be happily resolved by adding these 3 references to the top of PlayerSpec.js:
+All fail. This makes me sad. All the errors say “Can’t find variable: Player in file”. Hmmm. Why? Dammit I’m actually going to have to read the [documentation](<https://chutzpah.codeplex.com/wikipage?title=Chutzpah%20File%20References&referringTitle=Documentation>)... It turns out the issue can be happily resolved by adding these 3 references to the top of PlayerSpec.js:
 
 ```js
 /// <reference path="../src/Player.js" />
@@ -44,7 +44,7 @@ Now the tests pass:
 
 ![](http://1.bp.blogspot.com/-n020yJN-tpA/UxiWLRegm5I/AAAAAAAAAis/TJHqYn08MZ4/s320/EverythingPasses.png)
 
-](<http://1.bp.blogspot.com/-n020yJN-tpA/UxiWLRegm5I/AAAAAAAAAis/TJHqYn08MZ4/s1600/EverythingPasses.png>)The question is: can we get this working with Visual Studio Online?
+The question is: can we get this working with Visual Studio Online?
 
 Fortunately another has gone before me. Mathew Aniyan has written a [superb blog post called "Javascript Unit Tests on Team Foundation Service with Chutzpah"](<http://blogs.msdn.com/b/visualstudioalm/archive/2012/07/09/javascript-unit-tests-on-team-foundation-service-with-chutzpah.aspx>). Using this post as a guide (it was written 18 months ago which is frankly aeons in the world of the web) I'm hoping that I'll be able to, without too many tweaks, get Javascript unit tests running on Team Foundation Service / Visual Studio Online ( / insert this weeks rebranding here).
 
@@ -72,7 +72,7 @@ Rather than following step 6 (which essentially nukes the running of any .NET te
 
 ![](http://3.bp.blogspot.com/-4lbMIsT9jFQ/Ux3ATwBrPgI/AAAAAAAAAjY/4XSY0u0RpOE/s320/AutomatedTests.png)
 
-](<http://3.bp.blogspot.com/-4lbMIsT9jFQ/Ux3ATwBrPgI/AAAAAAAAAjY/4XSY0u0RpOE/s1600/AutomatedTests.png>)Step 7 says:
+Step 7 says:
 
 > *7\. Create your Web application in Visual Studio and add your Qunit or Jasmine unit tests to them. <u>Make sure that the js files (that contain the tests) are getting copied to the build output directory.</u>
 > 
@@ -84,11 +84,11 @@ Finally I checked everything into source control and queued a build. I honestly 
 
 ![](http://2.bp.blogspot.com/-gEDIyMV7M_g/Uxibt99tuwI/AAAAAAAAAi8/G4I6XQp0aN0/s320/ItOnlyBlimminWellWorked.png)
 
-](<http://2.bp.blogspot.com/-gEDIyMV7M_g/Uxibt99tuwI/AAAAAAAAAi8/G4I6XQp0aN0/s1600/ItOnlyBlimminWellWorked.png>)Wow! It did! Here’s me cynically expecting some kind of “permission denied” error and it actually works! Brilliant! Look up in the cloud it says the same thing!
+Wow! It did! Here’s me cynically expecting some kind of “permission denied” error and it actually works! Brilliant! Look up in the cloud it says the same thing!
 
 ![](http://2.bp.blogspot.com/-A67cTSkzIDg/Uxib6wVnaWI/AAAAAAAAAjE/ZwbUdBJmi0w/s320/InTheCloudToo.png)
 
-](<http://2.bp.blogspot.com/-A67cTSkzIDg/Uxib6wVnaWI/AAAAAAAAAjE/ZwbUdBJmi0w/s1600/InTheCloudToo.png>)Fantastic!
+Fantastic!
 
 I realise that I haven’t yet written a single JavaScript unit test of my own and so I’ve still a way to go. What I have done is quietened those voices in my head that said “there’s not too much point having a unit test suite that isn’t plugged into continuous integration”. Although it's not documented here I'm happy to be able to report that I have been able to follow the self-same instructions for Team Foundation Service / Visual Studio Online and get CI working with TFS 2012 on our build server as well.
 

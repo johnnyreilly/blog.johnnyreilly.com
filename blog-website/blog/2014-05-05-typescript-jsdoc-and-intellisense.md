@@ -2,7 +2,7 @@
 title: "TypeScript, JSDoc and Intellisense"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [jquery, JSDoc, TypeScript, Intellisense, jQuery.d.ts]
 hide_table_of_contents: false
 ---
@@ -24,7 +24,7 @@ When I started getting involved with the [Definitely Typed project](<https://git
 
 ![](http://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-56-67/1200.JSDoc_5F00_in_5F00_VS.png)
 
-](<http://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-56-67/1200.JSDoc_5F00_in_5F00_VS.png>)As the above screenshot demonstrates [TypeScript supports Intellisense](<http://blogs.msdn.com/b/typescript/archive/2013/01/21/announcing-typescript-0-8-2.aspx>) through a slightly tweaked implementation of [JSDoc](<http://en.wikipedia.org/wiki/JSDoc>):
+As the above screenshot demonstrates [TypeScript supports Intellisense](<http://blogs.msdn.com/b/typescript/archive/2013/01/21/announcing-typescript-0-8-2.aspx>) through a slightly tweaked implementation of [JSDoc](<http://en.wikipedia.org/wiki/JSDoc>):
 
 > With 0.8.2, the TypeScript compiler and tools now support JSDoc comments.
 > 
@@ -165,7 +165,7 @@ If you look you can see we've added a related JSDoc style comment block prior to
 
 ![](http://2.bp.blogspot.com/-ljw2HiAp0qE/U2D915IIcaI/AAAAAAAAAkk/DVPv-TolEJw/s640/Intellisense-Setter-String.png)
 
-](<http://2.bp.blogspot.com/-ljw2HiAp0qE/U2D915IIcaI/AAAAAAAAAkk/DVPv-TolEJw/s1600/Intellisense-Setter-String.png>)It's worth noting that I could have taken the choice to customise the `@param value` comments based on the overload I was JSDoc-ing. Arguably it would have been more useful to have something like this instead:
+It's worth noting that I could have taken the choice to customise the `@param value` comments based on the overload I was JSDoc-ing. Arguably it would have been more useful to have something like this instead:
 
 ```ts
 /**
@@ -213,7 +213,7 @@ As you can see the *"Get the current value..."* from the API docs has been used 
 
 ![](http://4.bp.blogspot.com/-7PG3jVXPWdM/U2D-BvxwYYI/AAAAAAAAAks/_ZTRQWBt7L8/s640/Intellisense-Getter.png)
 
-](<http://4.bp.blogspot.com/-7PG3jVXPWdM/U2D-BvxwYYI/AAAAAAAAAks/_ZTRQWBt7L8/s1600/Intellisense-Getter.png>)## 4\. The `Function` setter
+## 4\. The `Function` setter
 
 Finally we're going to take a look at the `Function` setter which is documented as follows:
 
@@ -286,7 +286,7 @@ A cursory glance shows that each of the overloads above shares the same JSDoc. E
 
 ![](http://1.bp.blogspot.com/-9wwPOZIiwcs/U2D-Ngw9CrI/AAAAAAAAAk0/V32FCsotPTQ/s640/Intellisense-Setter-Function.png)
 
-](<http://1.bp.blogspot.com/-9wwPOZIiwcs/U2D-Ngw9CrI/AAAAAAAAAk0/V32FCsotPTQ/s1600/Intellisense-Setter-Function.png>)## It could be you...
+## It could be you...
 
 This post is much longer than I ever intended it to be. But I wanted to show how easy it is to create typings with JSDoc to drive Intellisense. For no obvious reason people generally don't make a great deal of use of JSDoc when creating typings. Perhaps the creators have no good source of documentation (a common problem). Or perhaps people are not even aware it's a possibility - they don't know about the TypeScript support of JSDoc. In case it's the latter I think this post was worth writing.
 

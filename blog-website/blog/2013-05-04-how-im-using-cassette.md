@@ -2,7 +2,7 @@
 title: "How I'm Using Cassette part 1:Getting Up and Running"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [asp.net mvc, Andrew Davey, cassette]
 hide_table_of_contents: false
 ---
@@ -44,7 +44,7 @@ At this point we've set up Cassette in our project - although we're not making u
 
 ![](http://1.bp.blogspot.com/-xM9iU6HjB7o/UWzjAN5EieI/AAAAAAAAAaA/EAXTTnD6vdY/s320/CassetteScripts.png)
 
-](<http://1.bp.blogspot.com/-xM9iU6HjB7o/UWzjAN5EieI/AAAAAAAAAaA/EAXTTnD6vdY/s1600/CassetteScripts.png>)## How Web Optimization and Cassette Differ
+## How Web Optimization and Cassette Differ
 
 If you're more familiar with the workings of Web Optimization than Cassette then it's probably worth taking a moment to appreciate an important distinction between the slightly different ways each works.
 

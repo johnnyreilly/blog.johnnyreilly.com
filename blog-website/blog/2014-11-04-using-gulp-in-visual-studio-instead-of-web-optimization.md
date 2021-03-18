@@ -2,7 +2,7 @@
 title: "Using Gulp in Visual Studio instead of Web Optimization"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [Task Runner Explorer, Visual Studio, TypeScript, javascript, Gulp]
 hide_table_of_contents: false
 ---
@@ -442,7 +442,7 @@ This mysterious comment is actually how the Task Runner Explorer hooks our `gulp
 
 ![](http://3.bp.blogspot.com/-prRrVlSsyXw/VEaD97QeIRI/AAAAAAAAAt0/WT1AElVQw4E/s640/Screenshot%2B2014-10-21%2B17.02.11.png)
 
-](<http://3.bp.blogspot.com/-prRrVlSsyXw/VEaD97QeIRI/AAAAAAAAAt0/WT1AElVQw4E/s1600/Screenshot%2B2014-10-21%2B17.02.11.png>)## How do I use this in my HTML?
+## How do I use this in my HTML?
 
 Well this is magnificent - we have a gulpfile that builds our debug and release packages. The question now is, how do we use it?
 

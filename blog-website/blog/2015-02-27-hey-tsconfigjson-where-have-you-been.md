@@ -2,7 +2,7 @@
 title: "Hey tsconfig.json, where have you been all my life?"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [tsconfig.json, TypeScript, implicit references]
 hide_table_of_contents: false
 ---
@@ -42,7 +42,7 @@ As you can see - this is sub-optimal. But don't worry - there's a new sheriff in
 
 I'd decided to give [Atom TypeScript plugin](<https://github.com/TypeStrong/atom-typescript>) a go as I heard much enthusiastic noise about it. I fired it up and pointed it at a a TypeScript AngularJS project built in Visual Studio. I was mentally preparing myself for the job of adding all the /// references in when I suddenly noticed a file blinking at me: ![](http://3.bp.blogspot.com/-cK80o3-ysP0/VPCV9fxtwXI/AAAAAAAAAzA/HC8uY9wjB7s/s640/Screenshot%2B2015-02-27%2B16.05.29.png)
 
-](<http://3.bp.blogspot.com/-cK80o3-ysP0/VPCV9fxtwXI/AAAAAAAAAzA/HC8uY9wjB7s/s1600/Screenshot%2B2015-02-27%2B16.05.29.png>)
+
 
 `tsconfig.json`? What's that? Time to read [the docs](<https://github.com/TypeStrong/atom-typescript#project-support>):
 

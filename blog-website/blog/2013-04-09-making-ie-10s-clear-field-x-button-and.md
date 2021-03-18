@@ -2,7 +2,7 @@
 title: "Making IE 10's clear field (X) button and jQuery UI autocomplete play nice"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [autocomplete, jQuery UI, clear field button, IE 10]
 hide_table_of_contents: false
 ---
@@ -14,11 +14,11 @@ However, I have found one exception to this rule already. IE 10 provides clear f
 
 ![](http://3.bp.blogspot.com/-HRxuGdc6PhE/UWQMq15gKHI/AAAAAAAAAZg/XmFfFZBMHYk/s320/ClearField.png)
 
-](<http://3.bp.blogspot.com/-HRxuGdc6PhE/UWQMq15gKHI/AAAAAAAAAZg/XmFfFZBMHYk/s1600/ClearField.png>)Unhappily I found these were clashing with our jQuery UI auto complete loading gif – looking like this:
+Unhappily I found these were clashing with our jQuery UI auto complete loading gif – looking like this:
 
 ![](http://3.bp.blogspot.com/-RPXGJkm1Lyk/UWQNCcFlmpI/AAAAAAAAAZo/pGP3IubeBiQ/s320/ClearFieldMeetAutoComplete.png)
 
-](<http://3.bp.blogspot.com/-RPXGJkm1Lyk/UWQNCcFlmpI/AAAAAAAAAZo/pGP3IubeBiQ/s1600/ClearFieldMeetAutoComplete.png>)I know; ugly isn't it? Happily I was able to resolve this with a CSS <strike>hack</strike>
+I know; ugly isn't it? Happily I was able to resolve this with a CSS <strike>hack</strike>
 
  fix which looks like this:
 
@@ -28,10 +28,10 @@ And now the jQuery UI autocomplete looks like we expect during the loading phase
 
 ![](http://3.bp.blogspot.com/-mzBwe7BGwjk/UWQNdEKiucI/AAAAAAAAAZw/OmUFi6zMY7g/s320/AutoComplete.png)
 
-](<http://3.bp.blogspot.com/-mzBwe7BGwjk/UWQNdEKiucI/AAAAAAAAAZw/OmUFi6zMY7g/s1600/AutoComplete.png>)But happily when the autocomplete is not in the loading phase we still have access to the IE 10 clear field button. This works because the CSS selector above only applies to the *ui-autocomplete-loading* class (which is only applied to the textbox when the loading is taking place). So we still get to use this:
+But happily when the autocomplete is not in the loading phase we still have access to the IE 10 clear field button. This works because the CSS selector above only applies to the *ui-autocomplete-loading* class (which is only applied to the textbox when the loading is taking place). So we still get to use this:
 
 ![](http://3.bp.blogspot.com/-HRxuGdc6PhE/UWQMq15gKHI/AAAAAAAAAZg/XmFfFZBMHYk/s320/ClearField.png)
 
-](<http://3.bp.blogspot.com/-HRxuGdc6PhE/UWQMq15gKHI/AAAAAAAAAZg/XmFfFZBMHYk/s1600/ClearField.png>)Which is nice.
+Which is nice.
 
 

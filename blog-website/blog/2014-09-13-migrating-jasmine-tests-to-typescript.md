@@ -2,7 +2,7 @@
 title: "Journalling the Migration of Jasmine Tests to TypeScript"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [Jasmine, TypeScript Language Service, TypeScript, javascript, implicit references]
 hide_table_of_contents: false
 ---
@@ -329,7 +329,7 @@ Yup it's dead. Whilst the compilation itself has no issues, take a look at the e
 
 ![](http://4.bp.blogspot.com/-SYbV5TwnO3Y/VBNwa2TwQPI/AAAAAAAAAtY/oU8dI5Tv-iY/s640/Screenshot%2B2014-09-12%2B23.15.22.png)
 
-](<http://4.bp.blogspot.com/-SYbV5TwnO3Y/VBNwa2TwQPI/AAAAAAAAAtY/oU8dI5Tv-iY/s1600/Screenshot%2B2014-09-12%2B23.15.22.png>)It looks like having one TypeScript project in a solution which uses `reference` comments somehow breaks the implicit referencing behaviour built into Visual Studio for other TypeScript projects in the solution. I can say this with some confidence as if I pull out the `reference` comments from the top of the test file that we've converted then it's business as usual - the TypeScript Language Service lives once more. I'm sure you can see the problem here though: the TypeScript test file doesn't compile. All rather unsatisfactory.
+It looks like having one TypeScript project in a solution which uses `reference` comments somehow breaks the implicit referencing behaviour built into Visual Studio for other TypeScript projects in the solution. I can say this with some confidence as if I pull out the `reference` comments from the top of the test file that we've converted then it's business as usual - the TypeScript Language Service lives once more. I'm sure you can see the problem here though: the TypeScript test file doesn't compile. All rather unsatisfactory.
 
 I suspect that if I added `reference` comments throughout the web project the TypeScript Language Service would be just fine. But I rather like the implicit referencing functionality so I'm not inclined to do that. After reaching something of a brick wall and thinking I had encountered a bug in the TypeScript Language service I [raised an issue on GitHub](<https://github.com/Microsoft/TypeScript/issues/673>).
 

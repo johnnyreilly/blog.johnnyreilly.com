@@ -2,7 +2,7 @@
 title: "TypeScript Definitions, webpack and Module Types"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [AMD, DefinitelyTyped, TypeScript, CommonJS]
 hide_table_of_contents: false
 ---
@@ -19,7 +19,7 @@ When modules are imported, your loader will decide which module format it wants 
 
 ![](https://2.bp.blogspot.com/-3yKFfse82vg/Wen3PsVsN6I/AAAAAAAAG1Q/OudrhuBvVs0BdzXt67OyMtxRB8peLwbeACPcBGAYYCw/s1600/one-definition-to-rule-them-all.jpg)
 
-](<https://2.bp.blogspot.com/-3yKFfse82vg/Wen3PsVsN6I/AAAAAAAAG1Q/OudrhuBvVs0BdzXt67OyMtxRB8peLwbeACPcBGAYYCw/s1600/one-definition-to-rule-them-all.jpg>)## The DR
+## The DR
 
 Once upon a time we decided to use [big.js](<https://github.com/MikeMcl/big.js/>) in our project. It's popular and my old friend [Steve Ognibene](<https://twitter.com/nycdotnet>) apparently originally wrote the type definitions which can be found [here](<https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js>). Then the definitions were updated by [Miika Hänninen](<https://github.com/googol>). And then there was pain.
 

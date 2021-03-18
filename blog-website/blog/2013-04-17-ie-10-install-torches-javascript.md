@@ -2,7 +2,7 @@
 title: "IE 10 Install Torches JavaScript Debugging in Visual Studio 2012 Through Auto Update (Probably)"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [Visual Studio 2012, JavaScript debugging, IE 10]
 hide_table_of_contents: false
 ---
@@ -23,7 +23,7 @@ In my "Browse With..." drop down in Visual Studio I was \***not**\* seeing this:
 
 ![](http://3.bp.blogspot.com/-iRgBxdxUrkU/UW6csypEd3I/AAAAAAAAAaY/rNK6N79GT6k/s320/BrowseWith.png)
 
-](<http://3.bp.blogspot.com/-iRgBxdxUrkU/UW6csypEd3I/AAAAAAAAAaY/rNK6N79GT6k/s1600/BrowseWith.png>)I was seeing exactly the same as this list but with **TWO** instances of Internet Explorer in the list instead of one. Odd, I know.
+I was seeing exactly the same as this list but with **TWO** instances of Internet Explorer in the list instead of one. Odd, I know.
 
 I fixed this up by selecting Google Chrome as my target instead of IE, running it and then setting it back to IE. And interestingly, when I went to set it back to IE there was only one instance of Internet Explorer in the list again.
 

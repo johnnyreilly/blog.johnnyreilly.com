@@ -2,7 +2,7 @@
 title: "npm please stop hurting Visual Studio"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [rimraf, npm, long paths, Windows]
 hide_table_of_contents: false
 ---
@@ -26,7 +26,7 @@ For reasons that I don't fully understand, Visual Studio is really upset by the 
 
 ![](http://2.bp.blogspot.com/-uTcT2hLpRyA/VZFIiLX5n8I/AAAAAAAAA3M/lHA0TV2UVOM/s640/bower-with-the-long-paths.png)
 
-](<http://2.bp.blogspot.com/-uTcT2hLpRyA/VZFIiLX5n8I/AAAAAAAAA3M/lHA0TV2UVOM/s1600/bower-with-the-long-paths.png>)And lo, the fault lay with Bower. Poor show, Bower, poor show.
+And lo, the fault lay with Bower. Poor show, Bower, poor show.
 
 ## rimraf to the Rescue
 

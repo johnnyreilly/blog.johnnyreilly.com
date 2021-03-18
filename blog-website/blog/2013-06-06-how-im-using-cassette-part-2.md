@@ -2,7 +2,7 @@
 title: "How I'm Using Cassette part 2:Get Cassette to Serve Scripts in Dependency Order"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [script references, RequireJS, cassette]
 hide_table_of_contents: false
 ---
@@ -82,7 +82,7 @@ If you browse to the home page of the application this is what you should now se
 
 ![](http://2.bp.blogspot.com/-tGZTEhhkGz8/Ua7xlgl3n5I/AAAAAAAAAcs/miNZsysrJeY/s320/Index.js.png)
 
-](<http://2.bp.blogspot.com/-tGZTEhhkGz8/Ua7xlgl3n5I/AAAAAAAAAcs/miNZsysrJeY/s1600/Index.js.png>)What this means is, `Index.js` was served up by Cassette. And more importantly before `Index.js` was served the referenced `~/bundles/core` was served too.
+What this means is, `Index.js` was served up by Cassette. And more importantly before `Index.js` was served the referenced `~/bundles/core` was served too.
 
 ## Avoiding the Gotcha
 

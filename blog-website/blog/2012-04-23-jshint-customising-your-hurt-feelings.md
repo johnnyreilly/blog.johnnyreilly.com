@@ -2,7 +2,7 @@
 title: "JSHint - Customising your hurt feelings"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [JSLint for Visual Studio, Coverity, Anton Kovalyov, javascript, paul irish, static code analysis, JSLint, JSHint, douglas crockford]
 hide_table_of_contents: false
 ---

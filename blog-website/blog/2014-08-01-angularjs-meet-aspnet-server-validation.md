@@ -2,7 +2,7 @@
 title: "AngularJS meet ASP.Net Server Validation"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [asp.net, directive, TypeScript, server validation, AngularJS]
 hide_table_of_contents: false
 ---
@@ -14,7 +14,7 @@ This works but it's not as helpful to the user as it might be. It groups togethe
 
 ![](http://2.bp.blogspot.com/-vxr6_ajRNj8/U9tQjs3SS3I/AAAAAAAAAr8/1HoOUJdPO0w/s320/server-error.png)
 
-](<http://2.bp.blogspot.com/-vxr6_ajRNj8/U9tQjs3SS3I/AAAAAAAAAr8/1HoOUJdPO0w/s1600/server-error.png>)I know. [A thing of beauty is a joy forever.](<http://en.wikipedia.org/wiki/Endymion_(poem)>) Let us travel together to this promised land...
+I know. [A thing of beauty is a joy forever.](<http://en.wikipedia.org/wiki/Endymion_(poem)>) Let us travel together to this promised land...
 
 ## What do we need client side?
 

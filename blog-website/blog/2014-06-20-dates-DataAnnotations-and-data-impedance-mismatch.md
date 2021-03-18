@@ -2,7 +2,7 @@
 title: "A folk story wherein we shall find dates, DataAnnotations & data impedance mismatch"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [Date, DateTime, Moment.JS, DataAnnotations, ValidationAttribute]
 hide_table_of_contents: false
 ---

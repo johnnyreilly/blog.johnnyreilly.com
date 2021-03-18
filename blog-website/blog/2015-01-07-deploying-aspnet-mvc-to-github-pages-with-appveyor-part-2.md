@@ -2,7 +2,7 @@
 title: "Deploying from ASP.Net MVC to GitHub Pages using AppVeyor part 2"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [GitHub Personal Access Token, Continuous Integration, powershell, github pages, AppVeyor]
 hide_table_of_contents: false
 ---
@@ -22,11 +22,11 @@ In order to complete our chosen mission we're going to need a GitHub Personal Ac
 
 ![](http://1.bp.blogspot.com/-TN1tTkL_eoQ/VKwQfPn8_JI/AAAAAAAAAyI/EeF6XLcP8dg/s640/GitHubApplicationSettings.png)
 
-](<http://1.bp.blogspot.com/-TN1tTkL_eoQ/VKwQfPn8_JI/AAAAAAAAAyI/EeF6XLcP8dg/s1600/GitHubApplicationSettings.png>)The token I'm using for my project has the following scopes selected:
+The token I'm using for my project has the following scopes selected:
 
 ![](http://2.bp.blogspot.com/-2hsSnmHy_DY/VKwQo7MM0BI/AAAAAAAAAyQ/c5ZAT_mZi5w/s640/GitHub%2BPersonal%2BAccess%2BToken.png)
 
-](<http://2.bp.blogspot.com/-2hsSnmHy_DY/VKwQo7MM0BI/AAAAAAAAAyQ/c5ZAT_mZi5w/s1600/GitHub%2BPersonal%2BAccess%2BToken.png>)## `appveyor.yml`
+## `appveyor.yml`
 
 With our token in hand we turn our attention to AppVeyor build configuration. This is possible using a file called [`appveyor.yml`](<http://www.appveyor.com/docs/build-configuration>) stored in the root of your repo. You can also use the AppVeyor web UI to do this. However, for the purposes of ease of demonstration I'm using the file approach. The [jQuery Validation Unobtrusive Native `appveyor.yml`](<https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/blob/master/appveyor.yml>) looks like this:
 
@@ -77,7 +77,7 @@ We pass 4 arguments to `pushStatic.ps1`: the build folder, my email address, my 
 
 ![](http://1.bp.blogspot.com/-rQcNQPu2ass/VKwRC0QbQTI/AAAAAAAAAyY/8a8Qf5DGapA/s640/AppVeyor%2Bencrypt.png)
 
-](<http://1.bp.blogspot.com/-rQcNQPu2ass/VKwRC0QbQTI/AAAAAAAAAyY/8a8Qf5DGapA/s1600/AppVeyor%2Bencrypt.png>)This allows me to mask my personal access token rather than have it available as free text for anyone to grab.
+This allows me to mask my personal access token rather than have it available as free text for anyone to grab.
 
 ## `pushStatic.ps1`
 

@@ -2,7 +2,7 @@
 title: "(Top One, Nice One) Get Sorted"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [sort, javascript, OrderBy, LINQ]
 hide_table_of_contents: false
 ---
@@ -217,7 +217,7 @@ I know.
 
 ![](http://i.qkme.me/3qknmj.jpg)
 
-](<http://i.qkme.me/3qknmj.jpg>)I'll get my coat...
+I'll get my coat...
 
 <script src="https://gist.github.com/johnnyreilly/22f7c05b02c2129b89ef.js"></script>
 

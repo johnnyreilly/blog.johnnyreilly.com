@@ -2,7 +2,7 @@
 title: "Deploying from ASP.Net MVC to GitHub Pages using AppVeyor part 1"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+author_image_url: img/profile.jpg
 tags: [wget, powershell, github pages, AppVeyor]
 hide_table_of_contents: false
 ---
@@ -16,7 +16,7 @@ Anyway I'm happy to say that jQuery Validation Unobtrusive Native *has* document
 
 ![](http://1.bp.blogspot.com/-5p7fD3Q9dc8/VKDzTV1wYDI/AAAAAAAAAxE/LowxrVAxeXI/s640/Screenshot%2B2014-12-29%2B06.22.46.png)
 
-](<http://1.bp.blogspot.com/-5p7fD3Q9dc8/VKDzTV1wYDI/AAAAAAAAAxE/LowxrVAxeXI/s1600/Screenshot%2B2014-12-29%2B06.22.46.png>)When I first put jVUNDemo together I hosted it on Azure so the world could see it in all it's finery. And that worked just fine. However, there's something you ought to know about me:
+When I first put jVUNDemo together I hosted it on Azure so the world could see it in all it's finery. And that worked just fine. However, there's something you ought to know about me:
 
 ## I'm quite cheap
 
