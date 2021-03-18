@@ -26,7 +26,7 @@ For reasons that I don't fully understand, Visual Studio is really upset by the 
 
 ![](http://2.bp.blogspot.com/-uTcT2hLpRyA/VZFIiLX5n8I/AAAAAAAAA3M/lHA0TV2UVOM/s640/bower-with-the-long-paths.png)
 
-](<http://2.bp.blogspot.com/-uTcT2hLpRyA/VZFIiLX5n8I/AAAAAAAAA3M/lHA0TV2UVOM/s1600/bower-with-the-long-paths.png>)And lo, the fault lay with Bower. Poor show, Bower, poor show.
+And lo, the fault lay with Bower. Poor show, Bower, poor show.
 
 ## rimraf to the Rescue
 

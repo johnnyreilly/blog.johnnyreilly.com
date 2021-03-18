@@ -179,7 +179,7 @@ I fired up Atom and created a new folder `src/lib` and inside there I created `i
 
 ![](http://2.bp.blogspot.com/-HkCD9qNaoaU/VgIwn4WTBTI/AAAAAAAAA4g/U2E1Ybe6acI/s640/Screenshot%2B2015-09-23%2B05.51.14.png)
 
-](<http://2.bp.blogspot.com/-HkCD9qNaoaU/VgIwn4WTBTI/AAAAAAAAA4g/U2E1Ybe6acI/s1600/Screenshot%2B2015-09-23%2B05.51.14.png>)Now I'm not going to bore you with what I had to do to port the JS to TS (not much). If you're interested, the source is [here](<https://github.com/johnnyreilly/globalize-so-what-cha-want/blob/master/src/lib/index.ts>). What's more interesting is the `tsconfig.json` \- as it's this that is going to lead the generation of the JS and TS that we need:
+Now I'm not going to bore you with what I had to do to port the JS to TS (not much). If you're interested, the source is [here](<https://github.com/johnnyreilly/globalize-so-what-cha-want/blob/master/src/lib/index.ts>). What's more interesting is the `tsconfig.json` \- as it's this that is going to lead the generation of the JS and TS that we need:
 
 ```json
 {

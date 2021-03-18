@@ -379,7 +379,7 @@ In the meantime, the TypeScript team was starting to get stuck into the work of 
 
 ![](https://3.bp.blogspot.com/--rEYhuJOjSw/XZuUpGM2eVI/AAAAAAAAR88/qXYMxPswi0cRXriaCx7nwlYCpMQdKHF1wCPcBGAYYCw/s1600/rotation.png)
 
-](<https://3.bp.blogspot.com/--rEYhuJOjSw/XZuUpGM2eVI/AAAAAAAAR88/qXYMxPswi0cRXriaCx7nwlYCpMQdKHF1wCPcBGAYYCw/s1600/rotation.png>)At this point, Definitely Typed had more than 500 open pull requests. Most of which had been open for a very long time. The most urgent and pressing problem was getting that down. The TypeScript team committed to, in perpetuity, a weekly rotation where one team member would review PRs. This would, in future, mean that PRs were handled in a timely fashion and that the number of open PRs was generally kept beneath 100.
+At this point, Definitely Typed had more than 500 open pull requests. Most of which had been open for a very long time. The most urgent and pressing problem was getting that down. The TypeScript team committed to, in perpetuity, a weekly rotation where one team member would review PRs. This would, in future, mean that PRs were handled in a timely fashion and that the number of open PRs was generally kept beneath 100.
 
 Alongside this, changes were being made to the TypeScript compiler. In large part these related to enabling automatic type acquisition through the @types scope. To make that work, the TypeScript team realised pretty quickly that many of the type definitions would not work as is. Ryan wrote up this report:
 

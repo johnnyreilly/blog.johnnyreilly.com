@@ -37,7 +37,7 @@ You can find a whole assortment of databases [here](<https://msftdbprodsamples.c
 
 ![](http://1.bp.blogspot.com/-Nke8F6wYI4A/UuEeJ6C0XqI/AAAAAAAAAgg/tbuhu2TuOpg/s320/Database2.png)
 
-](<http://1.bp.blogspot.com/-Nke8F6wYI4A/UuEeJ6C0XqI/AAAAAAAAAgg/tbuhu2TuOpg/s1600/Database2.png>)## Assemble me your finest DbContext
+## Assemble me your finest DbContext
 
 Or in English: we want to point Entity Framework at our new shiny database. So let's fire up Visual Studio (I'm using 2013) and create a new solution called "AdventureWorks".
 
@@ -45,7 +45,7 @@ To our solution let's add a new class library project called "AdventureWorks.Ent
 
 ![](http://3.bp.blogspot.com/-Sv_GPsqilao/UuElIcLCYaI/AAAAAAAAAgw/7ui-xpml8dk/s400/EDMX.png)
 
-](<http://3.bp.blogspot.com/-Sv_GPsqilao/UuElIcLCYaI/AAAAAAAAAgw/7ui-xpml8dk/s1600/EDMX.png>)## Let There be Repositories!
+## Let There be Repositories!
 
 In the name of testability let's create a new project to house repositories called "AdventureWorks.Repositories". I'm going to use [K. Scott Allen](<http://odetocode.com/about/scott-allen>)'s fine [article on MSDN](<http://msdn.microsoft.com/en-us/library/ff714955.aspx>) to create a very basic set of repositories wrapped in a unit of work.
 

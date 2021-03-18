@@ -16,7 +16,7 @@ Anyway I'm happy to say that jQuery Validation Unobtrusive Native *has* document
 
 ![](http://1.bp.blogspot.com/-5p7fD3Q9dc8/VKDzTV1wYDI/AAAAAAAAAxE/LowxrVAxeXI/s640/Screenshot%2B2014-12-29%2B06.22.46.png)
 
-](<http://1.bp.blogspot.com/-5p7fD3Q9dc8/VKDzTV1wYDI/AAAAAAAAAxE/LowxrVAxeXI/s1600/Screenshot%2B2014-12-29%2B06.22.46.png>)When I first put jVUNDemo together I hosted it on Azure so the world could see it in all it's finery. And that worked just fine. However, there's something you ought to know about me:
+When I first put jVUNDemo together I hosted it on Azure so the world could see it in all it's finery. And that worked just fine. However, there's something you ought to know about me:
 
 ## I'm quite cheap
 

@@ -442,7 +442,7 @@ This mysterious comment is actually how the Task Runner Explorer hooks our `gulp
 
 ![](http://3.bp.blogspot.com/-prRrVlSsyXw/VEaD97QeIRI/AAAAAAAAAt0/WT1AElVQw4E/s640/Screenshot%2B2014-10-21%2B17.02.11.png)
 
-](<http://3.bp.blogspot.com/-prRrVlSsyXw/VEaD97QeIRI/AAAAAAAAAt0/WT1AElVQw4E/s1600/Screenshot%2B2014-10-21%2B17.02.11.png>)## How do I use this in my HTML?
+## How do I use this in my HTML?
 
 Well this is magnificent - we have a gulpfile that builds our debug and release packages. The question now is, how do we use it?
 

@@ -26,13 +26,13 @@ Good questions all, and "no, I hope not". My original plans were to use the doma
 
 ![](http://4.bp.blogspot.com/-g4rYVOsfHrM/VIFF1KD4gYI/AAAAAAAAAwE/Ll5-YVAfwPM/s640/Screenshot%2B2014-12-05%2B05.39.00.png)
 
-](<http://4.bp.blogspot.com/-g4rYVOsfHrM/VIFF1KD4gYI/AAAAAAAAAwE/Ll5-YVAfwPM/s1600/Screenshot%2B2014-12-05%2B05.39.00.png>)My domain is being [cybersquatted](<https://en.wikipedia.org/wiki/Cybersquatting>)! I mean.... What??!!!!
+My domain is being [cybersquatted](<https://en.wikipedia.org/wiki/Cybersquatting>)! I mean.... What??!!!!
 
 I started to wonder "is there another icanmakethiswork out there"? Am I not the [one and only](<http://youtu.be/z8f2mW1GFSI>)? So I checked with DuckDuckGo ("The search engine that doesn't track you.") and look what I found:
 
 ![](http://4.bp.blogspot.com/-Ut96guCgZlU/VIFF_0ol1-I/AAAAAAAAAwM/LXI_I17jJgY/s640/Screenshot%2B2014-12-05%2B05.41.59.png)
 
-](<http://4.bp.blogspot.com/-Ut96guCgZlU/VIFF_0ol1-I/AAAAAAAAAwM/LXI_I17jJgY/s1600/Screenshot%2B2014-12-05%2B05.41.59.png>)A whole screen of me. Just me.
+A whole screen of me. Just me.
 
 As of June 3rd 2014 someone has been sitting on my blog name. I was actually rather outraged by this. I became even more so as I discovered that there was a mechanism (not free) by which I could try and buy it off the squatter. I could instead be like my life idol Madonna and go to court to get it back. But frankly in this sense I'm more like Rachel Green in Friends; not litigous.
 

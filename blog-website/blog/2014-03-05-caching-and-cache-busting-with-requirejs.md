@@ -65,7 +65,7 @@ But either way, I’m happy with this approach. As I always say, if it’s good 
 
 ![](http://4.bp.blogspot.com/-pG0ahnzaPJM/UxcP7f6ENII/AAAAAAAAAhY/VVahRmEe5_0/s320/IfItsGoodEnoughForStackOverflow.png)
 
-](<http://4.bp.blogspot.com/-pG0ahnzaPJM/UxcP7f6ENII/AAAAAAAAAhY/VVahRmEe5_0/s1600/IfItsGoodEnoughForStackOverflow.png>)## Implementation
+## Implementation
 
 I’m going to start off using the demo from [my last blog post](<http://icanmakethiswork.blogspot.com/2014/02/typescript-and-requirejs-keep-it-simple.html>) as a basis. Let’s take that and evolve it. As a result my solution is going to work with TypeScript and RequireJS (since the previous demo was about that) but the implementation I’m going to come up with would work as well with vanilla JS as it would with TypeScript compiled JS.
 
@@ -92,7 +92,7 @@ Spinning up the site all runs as you would expect. The question is: does this wo
 
 ![](http://1.bp.blogspot.com/-WTNrPPyeMTY/UxcRTQpqM3I/AAAAAAAAAhk/ICvFXxji3FY/s320/newDateSolution.png)
 
-](<http://1.bp.blogspot.com/-WTNrPPyeMTY/UxcRTQpqM3I/AAAAAAAAAhk/ICvFXxji3FY/s1600/newDateSolution.png>)Oh yeah! We’re cache-busting like gangbusters!
+Oh yeah! We’re cache-busting like gangbusters!
 
 So now let’s comment out our existing urlArgs (which represents the Development solution from Phil’s answer) and replace it with a fixed value like this:
 
@@ -105,7 +105,7 @@ This represents the Production solution from Phil’s answer. Now let’s run, r
 
 ![](http://4.bp.blogspot.com/-Yy138lKDkuE/UxcRr7EpiXI/AAAAAAAAAhs/QVPcUF-rdgw/s320/FixedQuerystring304.png)
 
-](<http://4.bp.blogspot.com/-Yy138lKDkuE/UxcRr7EpiXI/AAAAAAAAAhs/QVPcUF-rdgw/s1600/FixedQuerystring304.png>)It does! Now let’s increment the value:
+It does! Now let’s increment the value:
 
 ```js
 urlArgs: "v=2"
@@ -115,7 +115,7 @@ When we refresh the browser this should result in 200 status codes (indicating t
 
 ![](http://2.bp.blogspot.com/-qx7Ya1MZNC8/UxcSBwKjM_I/AAAAAAAAAh0/aywHMXHUrwI/s320/NewFixedQuerystring200.png)
 
-](<http://2.bp.blogspot.com/-qx7Ya1MZNC8/UxcSBwKjM_I/AAAAAAAAAh0/aywHMXHUrwI/s1600/NewFixedQuerystring200.png>)Success! That’s our premise tested – both Development and Production scenarios. Now we want to turn this into a slightly more sophisticated reusable solution like this:
+Success! That’s our premise tested – both Development and Production scenarios. Now we want to turn this into a slightly more sophisticated reusable solution like this:
 
 ```html
 <script src="/scripts/require.js"></script>
@@ -217,11 +217,11 @@ Which drives `urlArgs` from the `RequireJSHelpers.Version` property. If we fire 
 
 ![](http://1.bp.blogspot.com/-N9TIJO1jzU4/UxcUW8z2uaI/AAAAAAAAAiA/-vo6wVx2NoI/s320/DebugEqualsTrue.png)
 
-](<http://1.bp.blogspot.com/-N9TIJO1jzU4/UxcUW8z2uaI/AAAAAAAAAiA/-vo6wVx2NoI/s1600/DebugEqualsTrue.png>)And if we set debug to false in our web.config then (after the initial requests have been cached) we see requests like this:
+And if we set debug to false in our web.config then (after the initial requests have been cached) we see requests like this:
 
 ![](http://4.bp.blogspot.com/-xv40UDHgJfk/UxcUe4SZrUI/AAAAAAAAAiI/euLoArWTPLw/s320/DebugEqualsFalse.png)
 
-](<http://4.bp.blogspot.com/-xv40UDHgJfk/UxcUe4SZrUI/AAAAAAAAAiI/euLoArWTPLw/s1600/DebugEqualsFalse.png>)This leaves us with a simple mechanism to drive our RequireJS caching. If debug is set to `true` in our `web.config` then Require will perform cache-busting. If debug is set to `false` then RequireJS will perform only version-changing cache-busting and will, whilst the version remains constant, support client-side caching.
+This leaves us with a simple mechanism to drive our RequireJS caching. If debug is set to `true` in our `web.config` then Require will perform cache-busting. If debug is set to `false` then RequireJS will perform only version-changing cache-busting and will, whilst the version remains constant, support client-side caching.
 
 Finished. In case it helps I’ve put the code for this [up on GitHub](<https://github.com/johnnyreilly/RequireJSandCaching>).
 

@@ -47,7 +47,7 @@ When it's run it looks like this:
 
 ![](http://4.bp.blogspot.com/-FPsorsaP9ek/VbheyWDCUbI/AAAAAAAAA3k/I_Wf5WVJ42s/s640/Screenshot%2B2015-07-29%2B06.03.04.png)
 
-](<http://4.bp.blogspot.com/-FPsorsaP9ek/VbheyWDCUbI/AAAAAAAAA3k/I_Wf5WVJ42s/s1600/Screenshot%2B2015-07-29%2B06.03.04.png>)Let's see how we go about migrating this super simple example.
+Let's see how we go about migrating this super simple example.
 
 ## Update our Bower dependencies
 
@@ -319,7 +319,7 @@ And here is the page in all its post migration glory:
 
 ![](http://2.bp.blogspot.com/-cBx66MK1tYI/Vbp5Rvch6zI/AAAAAAAAA30/HBiaN6risRg/s640/Screenshot%2B2015-07-30%2B20.21.19.png)
 
-](<http://2.bp.blogspot.com/-cBx66MK1tYI/Vbp5Rvch6zI/AAAAAAAAA30/HBiaN6risRg/s1600/Screenshot%2B2015-07-30%2B20.21.19.png>)It looks exactly the same except 'de-DE' has become simply 'de' (since that's how the cldr rolls).
+It looks exactly the same except 'de-DE' has become simply 'de' (since that's how the cldr rolls).
 
 The migrated code is [there for the taking](<https://github.com/johnnyreilly/globalize-migration>). Make sure you remember to `bower install` \- and you'll need to host the demo on a simple server since it makes ajax calls.
 

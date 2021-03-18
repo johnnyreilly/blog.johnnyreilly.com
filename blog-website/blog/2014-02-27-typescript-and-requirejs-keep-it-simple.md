@@ -51,7 +51,7 @@ To my surprise this popped up the following dialog:
 
 ![](http://2.bp.blogspot.com/-rzhPvMSWRZ4/Uw9uJaGRz2I/AAAAAAAAAhI/sa6ZS1-fuPs/s320/TypeScriptConfigured.png)
 
-](<http://2.bp.blogspot.com/-rzhPvMSWRZ4/Uw9uJaGRz2I/AAAAAAAAAhI/sa6ZS1-fuPs/s1600/TypeScriptConfigured.png>)By "Your project has been configured to support TypeScript." it means that the csproj file has had the following entries added:
+By "Your project has been configured to support TypeScript." it means that the csproj file has had the following entries added:
 
 ```xml
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">

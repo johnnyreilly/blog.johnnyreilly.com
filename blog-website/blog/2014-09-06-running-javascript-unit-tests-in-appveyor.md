@@ -82,9 +82,9 @@ That's a wrap - We now have CI which includes our JavaScript tests! That's right
 
 ![](http://4.bp.blogspot.com/--GGN2YPhzkk/VAtx-JUkwAI/AAAAAAAAAsg/XPIJ7PICFsA/s640/Screenshot%2B2014-09-06%2B21.43.15.png)
 
-](<http://4.bp.blogspot.com/--GGN2YPhzkk/VAtx-JUkwAI/AAAAAAAAAsg/XPIJ7PICFsA/s1600/Screenshot%2B2014-09-06%2B21.43.15.png>)![](http://3.bp.blogspot.com/-NNrq3w-EbCg/VAtzVPUOsqI/AAAAAAAAAsw/akwN8-J9K1k/s640/Screenshot%2B2014-09-06%2B21.49.38.png)
+![](http://3.bp.blogspot.com/-NNrq3w-EbCg/VAtzVPUOsqI/AAAAAAAAAsw/akwN8-J9K1k/s640/Screenshot%2B2014-09-06%2B21.49.38.png)
 
-](<http://3.bp.blogspot.com/-NNrq3w-EbCg/VAtzVPUOsqI/AAAAAAAAAsw/akwN8-J9K1k/s1600/Screenshot%2B2014-09-06%2B21.49.38.png>)## Thanks to...
+## Thanks to...
 
 Thanks to Dan Jones, whose comments on [this discussion](<http://help.appveyor.com/discussions/questions/390-running-jasmine-on-appveyor#comment_34433599>) provided a number of useful pointers which moved me in the right direction. And thanks to Feador Fitzner who has generously [said AppVeyor will support JUnit in the future](<http://help.appveyor.com/discussions/questions/495-integrating-chutzpah-into-appveyor#comment_34447202>) which may simplify use of Chutzpah with AppVeyor even further.
 

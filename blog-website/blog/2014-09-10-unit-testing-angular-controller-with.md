@@ -22,7 +22,7 @@ I have an Angular controller called `sagesDetail`. It powers this screen:
 
 ![](http://1.bp.blogspot.com/--OBcJ0FLlmI/VBA_R_UpnXI/AAAAAAAAAtE/Zi4K4dR6PU8/s640/sageDetailScreen.png)
 
-](<http://1.bp.blogspot.com/--OBcJ0FLlmI/VBA_R_UpnXI/AAAAAAAAAtE/Zi4K4dR6PU8/s1600/sageDetailScreen.png>)`sagesDetail` is a very simple controller. It does these things:
+`sagesDetail` is a very simple controller. It does these things:
 
 1. Load the "sage" (think of it as just a "user") and make it available on the controller so it can be bound to the view.
 2. Set the view title.

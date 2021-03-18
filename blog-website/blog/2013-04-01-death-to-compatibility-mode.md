@@ -44,7 +44,7 @@ Maybe you're running II6 and so you making a change to the web.config won't make
 
 ![](http://4.bp.blogspot.com/-78CYavaCiUk/UVlGNv87U_I/AAAAAAAAAZQ/qtchMc14JsY/s320/CustomHeadersIIS6.gif)
 
-](<http://4.bp.blogspot.com/-78CYavaCiUk/UVlGNv87U_I/AAAAAAAAAZQ/qtchMc14JsY/s1600/CustomHeadersIIS6.gif>)Or, if you don't have access to IIS (don't laugh - it happens) you can fall back to doing this in code like this:
+Or, if you don't have access to IIS (don't laugh - it happens) you can fall back to doing this in code like this:
 
 <script src="https://gist.github.com/johnnyreilly/5283462.js?file=servingUpTheHardWay.cs"></script>
 
