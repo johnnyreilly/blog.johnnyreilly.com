@@ -7,13 +7,13 @@ tags: [Blogger, Docusaurus, RSS, Atom]
 image: blog/2021-03-20-bicep-in-azure-pipelines/bicep-in-a-pipeline.png
 hide_table_of_contents: false
 ---
-[Bicep](https://github.com/Azure/bicep) is a terser and more readable alternative language to ARM templates. There isn't yet a first class experience for running Bicep in Azure Pipelines as there is for ARM templates. This post demonstrates an approach that can be used until first class support lands.
+[Bicep](https://github.com/Azure/bicep) is a terser and more readable alternative language to ARM templates. Running ARM templates in Azure Pipelines is straightforward. However, there isn't yet a first class experience for running Bicep in Azure Pipelines. This post demonstrates an approach that can be used until a Bicep task is available.
 
 ## Bicep: mostly ARMless
 
-If you've been working with Azure and infrastructure as code, you'll likely have encountered [ARM templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview). They're a domain specific language that lives inside JSON, used to define the infrastructure that is deployed to Azure.
+If you've been working with Azure and infrastructure as code, you'll likely have encountered [ARM templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview). They're a domain specific language that lives inside JSON, used to define the infrastructure that is deployed to Azure; App Services, Key Vaults and the like.
 
-ARM templates are quite verbose and not the easiest thing to read. This is a consequence of being effectively a language nestled inside another language. Bicep is an alternative language which has been created which is far more readable. Bicep transpiles down to ARM templates, in the same way that TypeScript transpiles down to JavaScript.
+ARM templates are quite verbose and not the easiest thing to read. This is a consequence of being effectively a language nestled inside another language. Bicep is an alternative language which is far more readable. Bicep transpiles down to ARM templates, in the same way that TypeScript transpiles down to JavaScript.
 
 Bicep is quite new, but already it enjoys feature parity with ARM templates (as of [v0.3](https://github.com/Azure/bicep/releases/tag/v0.3.1)) and ships as part of the [Azure CLI](https://github.com/MicrosoftDocs/azure-docs-cli/blob/master/docs-ref-conceptual/release-notes-azure-cli.md#arm-1). However, as Bicep is new, it doesn't yet have a dedicated Azure Pipelines task for deployment.  This should exist in future, perhaps as soon as the [v0.4 release](https://github.com/Azure/bicep/issues/1341). In the meantime there's an alternative way to achieve this which we'll go through.
 
@@ -109,10 +109,10 @@ This tells you something of the advantage of Bicep. The template comes with an a
     "parameters": {
         "tags": {
             "value": {
-                "costCenter": "72822",
-                "environment": "sbx",
+                "costCenter": "8888",
+                "environment": "stg",
                 "application": "hello-azure",
-                "description": "App service for hello-azure",
+                "description": "App Service for hello-azure",
                 "managedBy": "ARM"
             }
         },
@@ -152,7 +152,7 @@ Now we have our Bicep file, we want to execute it from the context of an Azure P
           displayName: "Turn ARM outputs into variables"
 ```
 
-There's two tasks above. The first is the native task for ARM deployments which takes our ARM template and our parameters and deploys them. The second task takes the output variables from the first task and converts them into Azure Pipeline variables such that they can be referenced later in the pipeline. In this case using our `fullApplicationName` output variable.
+There's two tasks above. The first is the native task for ARM deployments which takes our ARM template and our parameters and deploys them. The second task takes the output variables from the first task and converts them into Azure Pipeline variables such that they can be referenced later in the pipeline. In this case this variablifies our `fullApplicationName` output.
 
 There is, as yet, no `BicepTemplateDeployment@1`. [Though it's coming](https://github.com/Azure/bicep/issues/1341). In the meantime, the marvellous [Alex Frankel](https://twitter.com/adotfrank) [advised](https://github.com/Azure/bicep/issues/1341#issuecomment-802010110):
 
@@ -192,7 +192,7 @@ Let's give it a go!
 
 The above is just a single Azure CLI task (as advised).  It invokes `az deployment group create` passing the relevant parameters. It then acquires the output properties using `az deployment group show`.  Finally it once again converts these outputs to Azure Pipeline variables with some [`jq`](https://stedolan.github.io/jq/) smarts.
 
-This works right now, and running it results in something like the below. So if you're excited about Bicep and don't want to wait for 0.4 to start moving on this, then this can get you going.
+This works right now, and running it results in something like the output below. So if you're excited about Bicep and don't want to wait for 0.4 to start moving on this, then this can get you going. To track the progress of the custom task, [keep an eye on this issue](https://github.com/Azure/bicep/issues/1341).
 
 ![Bicep in an Azure Pipeline](../static/blog/2021-03-20-bicep-in-azure-pipelines/bicep-in-a-pipeline.png)
 
