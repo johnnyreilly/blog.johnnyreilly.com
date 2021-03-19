@@ -2,7 +2,7 @@
 title: "HotTowel-Angular meet TypeScript"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [HotTowel, TypeScript, AngularJS, JohnPapa]
 hide_table_of_contents: false
 ---

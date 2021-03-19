@@ -2,7 +2,7 @@
 title: "Windows Defender Step Away From npm"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [VS Code, code, Windows, failed, npm install, windows defender]
 hide_table_of_contents: false
 ---

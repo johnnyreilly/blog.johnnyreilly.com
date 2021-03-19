@@ -2,7 +2,7 @@
 title: "Autofac, WebApplicationFactory and integration tests"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [autofac, ASP.Net Core, ConfigureTestContainer, Integration Testing]
 hide_table_of_contents: false
 ---

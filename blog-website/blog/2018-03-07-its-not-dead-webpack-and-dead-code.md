@@ -2,7 +2,7 @@
 title: "It's Not Dead: webpack and dead code elimination limitations"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [webpack; dead code elimination; process.env.NODE_ENV; DefinePlugin]
 hide_table_of_contents: false
 ---

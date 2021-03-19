@@ -2,7 +2,7 @@
 title: "Giving OData to CRM 4.0"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [OData, WCF Data Services, CRM 4.0, LINQ]
 hide_table_of_contents: false
 ---

@@ -2,7 +2,7 @@
 title: "The Surprisingly Happy Tale of Visual Studio Online, Continous Integration and Chutzpah"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Jasmine, TFS, unit testing, javascript, Continuous Integration]
 hide_table_of_contents: false
 ---

@@ -2,7 +2,7 @@
 title: "Using the PubSub / Observer pattern to emulate constructor chaining without cluttering up global scope"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [inheritance, javascript, c#, observer pattern, pubsub]
 hide_table_of_contents: false
 ---

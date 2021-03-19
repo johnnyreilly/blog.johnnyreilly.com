@@ -2,7 +2,7 @@
 title: "Using Bootstrap Tooltips to display jQuery Validation error messages"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Tooltip, Bootstrap, jQuery Validation]
 hide_table_of_contents: false
 ---

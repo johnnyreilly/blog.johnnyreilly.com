@@ -2,7 +2,7 @@
 title: "Using TypeScript and ESLint with webpack (fork-ts-checker-webpack-plugin new feature!)"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [ESLint, TypeScript, fork-ts-checker-webpack-plugin, Webpack]
 hide_table_of_contents: false
 ---

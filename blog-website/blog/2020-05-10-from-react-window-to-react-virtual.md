@@ -2,7 +2,7 @@
 title: "From react-window to react-virtual"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: []
 hide_table_of_contents: false
 ---

@@ -2,7 +2,7 @@
 title: "Using Expressions with Constructors"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Expression, Constructors, Generic]
 hide_table_of_contents: false
 ---

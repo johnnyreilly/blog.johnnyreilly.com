@@ -2,7 +2,7 @@
 title: "Visual Studio, tsconfig.json and external TypeScript compilation"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [TFS, Visual Studio, tsconfig.json, TypeScript, Webpack]
 hide_table_of_contents: false
 ---

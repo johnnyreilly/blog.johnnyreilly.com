@@ -2,7 +2,7 @@
 title: "Twitter.Bootstrap.MVC4 meet Bootstrap Datepicker"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [asp.net mvc, Twitter.Bootstrap.MVC4, Responsive, Twitter Bootstrap, Bootstrap Datepicker]
 hide_table_of_contents: false
 ---

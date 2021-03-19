@@ -2,7 +2,7 @@
 title: "jQuery Validate - Native Unobtrusive Validation Support!"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Native, jQuery Validate, Unobtrusive]
 hide_table_of_contents: false
 ---

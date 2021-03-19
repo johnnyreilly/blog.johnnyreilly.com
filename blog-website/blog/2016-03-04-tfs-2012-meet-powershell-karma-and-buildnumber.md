@@ -2,7 +2,7 @@
 title: "TFS 2012 meet PowerShell, Karma and BuildNumber"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [BuildDefinitionName, BuildNumber, npm, Karma, powershell, trx, TFS 2012]
 hide_table_of_contents: false
 ---
