@@ -2,7 +2,7 @@
 title: "IE 10 Install Torches JavaScript Debugging in Visual Studio 2012 Through Auto Update (Probably)"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Visual Studio 2012, JavaScript debugging, IE 10]
 hide_table_of_contents: false
 ---

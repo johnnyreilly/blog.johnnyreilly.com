@@ -2,7 +2,7 @@
 title: "Karma: From PhantomJS to Headless Chrome"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Chrome, Karma, PhantomJS, Headless]
 hide_table_of_contents: false
 ---

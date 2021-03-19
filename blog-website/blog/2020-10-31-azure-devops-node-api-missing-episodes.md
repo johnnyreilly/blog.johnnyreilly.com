@@ -2,7 +2,7 @@
 title: "Azure DevOps Node API: The missing episodes"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [azure devops api, 203, node.js]
 hide_table_of_contents: false
 ---

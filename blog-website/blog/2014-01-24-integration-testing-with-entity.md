@@ -2,7 +2,7 @@
 title: "Integration Testing with Entity Framework and Snapshot Backups"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Database Snapshot Backups, Integration Testing, SQL Server]
 hide_table_of_contents: false
 ---

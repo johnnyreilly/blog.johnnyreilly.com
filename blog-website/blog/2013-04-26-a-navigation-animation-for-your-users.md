@@ -2,7 +2,7 @@
 title: "A navigation animation (for your users delectation)"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [navigation animation, css load, UX, CSS animation, Modernizr]
 hide_table_of_contents: false
 ---

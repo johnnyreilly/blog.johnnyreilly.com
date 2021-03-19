@@ -2,7 +2,7 @@
 title: "npm please stop hurting Visual Studio"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [rimraf, npm, long paths, Windows]
 hide_table_of_contents: false
 ---

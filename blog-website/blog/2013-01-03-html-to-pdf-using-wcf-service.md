@@ -2,7 +2,7 @@
 title: "HTML to PDF using a WCF Service"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [wkhtmltopdf, html, WCF, pdf]
 hide_table_of_contents: false
 ---

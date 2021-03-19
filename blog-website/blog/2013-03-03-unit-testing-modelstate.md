@@ -2,7 +2,7 @@
 title: "Unit testing ModelState"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [asp.net mvc, Marc Talary, DataAnnotations, Controller, ModelState]
 hide_table_of_contents: false
 ---

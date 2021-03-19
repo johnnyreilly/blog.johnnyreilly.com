@@ -2,7 +2,7 @@
 title: "It's Not Dead 2: mobx-react-devtools and the undead"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [uglifyjs, mobx, dead code elimination, Webpack]
 hide_table_of_contents: false
 ---

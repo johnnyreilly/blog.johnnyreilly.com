@@ -2,7 +2,7 @@
 title: "The Ternary Operator <3 Destructuring"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Destructuring, Ternary Operator, TypeScript, ES2015]
 hide_table_of_contents: false
 ---
