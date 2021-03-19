@@ -2,7 +2,7 @@
 title: "RSS update; we moved to Docusaurus"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
-author_image_url: img/profile.jpg
+author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Blogger, Docusaurus, RSS, Atom]
 image: blog/2021-03-17-rss-update-we-moved-to-docusaurus/rss.png
 hide_table_of_contents: false
