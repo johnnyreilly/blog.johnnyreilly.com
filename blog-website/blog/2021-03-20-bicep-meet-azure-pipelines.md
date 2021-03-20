@@ -1,5 +1,5 @@
 ---
-title: "Bicep in Azure Pipelines"
+title: "Bicep meet Azure Pipelines"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
