@@ -3,11 +3,13 @@ title: "Bicep in Azure Pipelines"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: [Blogger, Docusaurus, RSS, Atom]
-image: blog/2021-03-20-bicep-in-azure-pipelines/bicep-in-a-pipeline.png
+tags: [Bicep, ARM templates, Azure Pipelines, Azure CLI]
+image: blog/2021-03-20-bicep-meet-azure-pipelines/bicep-meet-azure-pipelines.png
 hide_table_of_contents: false
 ---
 [Bicep](https://github.com/Azure/bicep) is a terser and more readable alternative language to ARM templates. Running ARM templates in Azure Pipelines is straightforward. However, there isn't yet a first class experience for running Bicep in Azure Pipelines. This post demonstrates an approach that can be used until a Bicep task is available.
+
+![Bicep meet Azure Pipelines](../static/blog/2021-03-20-bicep-meet-azure-pipelines/bicep-meet-azure-pipelines.png)
 
 ## Bicep: mostly ARMless
 
@@ -194,5 +196,5 @@ The above is just a single Azure CLI task (as advised).  It invokes `az deployme
 
 This works right now, and running it results in something like the output below. So if you're excited about Bicep and don't want to wait for 0.4 to start moving on this, then this can get you going. To track the progress of the custom task, [keep an eye on this issue](https://github.com/Azure/bicep/issues/1341).
 
-![Bicep in an Azure Pipeline](../static/blog/2021-03-20-bicep-in-azure-pipelines/bicep-in-a-pipeline.png)
+![Bicep in an Azure Pipeline](../static/blog/2021-03-20-bicep-meet-azure-pipelines/bicep-in-a-pipeline.png)
 
