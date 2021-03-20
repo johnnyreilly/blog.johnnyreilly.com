@@ -1,5 +1,6 @@
 //@ts-check
 const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
+const cutOffDateForRedirects = new Date('2021-03-01');
 
 module.exports = {
   title: "I CAN MAKE THIS WORK",
@@ -16,12 +17,21 @@ module.exports = {
     [
       "@docusaurus/plugin-client-redirects",
       {
+        redirects: [
+          {
+            to: '/atom.xml',
+            from: '/feeds/posts/default',
+          },
+        ],
         createRedirects: function (existingPath) {
           if (existingPath.match(urlRegex)) {
             const [, year, month, date, slug] = existingPath.split("/");
-            const oldUrl = `/${year}/${month}/${slug}.html`;
-            console.log(`redirect from ${oldUrl} -> ${existingPath}`);
-            return [oldUrl, `/${year}/${month}/${slug}`];
+            const dateOfPost = new Date(`${year}-${month}-${date}`);
+            if (dateOfPost < cutOffDateForRedirects) {
+              const oldUrl = `/${year}/${month}/${slug}.html`;
+              console.log(`redirect from ${oldUrl} -> ${existingPath}`);
+              return [oldUrl, `/${year}/${month}/${slug}`];
+            }
           }
         },
       },
