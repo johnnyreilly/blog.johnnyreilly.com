@@ -77,7 +77,7 @@ Let's compare this with the [`main.json`](https://github.com/Azure/bicep/blob/18
 }
 ```
 
-The above ARM template expresses exactly the same thing as the Bicep alternative. But that 3 lines of logic has become 27 lines of JSON. We've lost something in the transition. Intent is no longer clear, it's hard to reason about and hard to think about. You need to think a lot less to write the Bicep alternative and that's a *good* thing.
+The above ARM template expresses exactly the same thing as the Bicep alternative. But that 3 lines of logic has become 27 lines of JSON. We've lost something in the transition. Intent is no longer clear. We've gone from something easy to reason about, to something that is hard to reason about. You need to think a lot less to write the Bicep alternative and that's a *good* thing.
 
 I was chatting to someone recently who expressed it well by saying:
 
