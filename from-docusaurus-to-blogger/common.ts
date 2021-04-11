@@ -13,8 +13,14 @@ export function getArgs() {
   const test = argv.test as boolean;
   
   if (!clientId) throw new Error('No clientId - is this being run by a fork?');
+  console.log('We have a clientId');
+  
   if (!clientSecret) throw new Error('No clientSecret - is this being run by a fork?');
+  console.log('We have a clientSecret');
+  
   if (!code && !refreshToken) throw new Error('No code and no refreshToken - is this being run by a fork?');
+  if (code) console.log('We have a code');
+  if (refreshToken) console.log('We have a refreshToken');
 
   return { code, clientId, clientSecret, refreshToken, test };
 }
