@@ -11,6 +11,10 @@ export function getArgs() {
   const code = argv.code as string | undefined;
   const refreshToken = argv.refreshToken as string | undefined;
   const test = argv.test as boolean;
+  
+  if (!clientId) throw new Error('No clientId - is this being run by a fork?');
+  if (!clientSecret) throw new Error('No clientSecret - is this being run by a fork?');
+  if (!code && !refreshToken) throw new Error('No code and no refreshToken - is this being run by a fork?');
 
   return { code, clientId, clientSecret, refreshToken, test };
 }
