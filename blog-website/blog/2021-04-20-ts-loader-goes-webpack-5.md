@@ -7,7 +7,7 @@ tags: [webpack, ts-loader]
 image: blog/2021-04-20-ts-loader-goes-webpack-5/ts-loader-9.png
 hide_table_of_contents: false
 ---
-`ts-loader` has just released [v9.0.0](https://github.com/TypeStrong/ts-loader/releases/tag/v9.0.0). This post goes through what this release is all about, and what it took to ship this version. For intrigue, it includes a brief scamper into my mental health along the way. Some upgrades go smoothly - this one did had some hiccups. But we'll get into that.
+`ts-loader` has just released [v9.0.0](https://github.com/TypeStrong/ts-loader/releases/tag/v9.0.0). This post goes through what this release is all about, and what it took to ship this version. For intrigue, it includes a brief scamper into my mental health along the way. Some upgrades go smoothly - this one had some hiccups. But we'll get into that.
 
 ![hello world bicep](../static/blog/2021-04-20-ts-loader-goes-webpack-5/ts-loader-9.png)
 
@@ -54,7 +54,7 @@ As far as I was aware, we were doing all the appropriate work to ensure `ts-load
 
 I really want to be transparent about the warts and all aspect of open source software development.  It is like all other types of software development; sometimes things go wrong and it can be tough to work out why. Right then, I was really quite unhappy. Things weren't working code-wise and I was at a loss to say why. This is not something that I dig.
 
-I also wasn't sleeping amazingly at this point. It was winter and we'd been in lockdown in the UK for three months. I love my family dearly. I really do. With said, having my children around whilst I attempted to work was remarkably tough. I love those guys but, woah, was it stressful.
+I also wasn't sleeping amazingly at this point. It was winter and we'd been in lockdown in the UK for three months; as the COVID-19 pandemic ground relentlessly on. I love my family dearly. I really do. With that said, having my children around whilst I attempted to work was remarkably tough. I love those guys but, woah, was it stressful.
 
 I was feeling at a low ebb. And I wasn't sure what to do next. So, feeling tired and pretty fed up, I took a break.
 
@@ -71,7 +71,7 @@ Time passed. In March [Alexander Akait](https://github.com/alexander-akait) chec
 
 If you look closely at the `replace` you'll see that I'm globally replacing `'/'` with  `'/'` *rather* than globally replacing `'\'` with  `'/'`. This wasted time this caused... I could weep.
 
-I generally thrashed around for a bit; going in circles like a six year old swimming wearing one armband. Then [Tobias kindly volunteered to help](https://github.com/TypeStrong/ts-loader/pull/1251#issuecomment-805143890). This much I've learned from a career developing software: if a talented person offers their assistance, grab it with both hands!
+I generally thrashed around for a bit after this. Going in circles, like a six year old swimming wearing one armband. Then [Tobias kindly volunteered to help](https://github.com/TypeStrong/ts-loader/pull/1251#issuecomment-805143890). This much I've learned from a career in software: if a talented people offer their assistance, grab it with both hands!
 
 I'd been trying be as "learn in public" as possible about the issues I was facing on the pull request. The idea being, to surface the problems in a public forum where others can read and advise.  And also to attempt a textual kind of [rubber duck debugging](https://en.wikipedia.org/wiki/Rubber_duck_debugging).  
 
