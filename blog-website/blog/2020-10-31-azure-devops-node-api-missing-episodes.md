@@ -3,7 +3,7 @@ title: "Azure DevOps Node API: The missing episodes"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: [azure devops api, 203, node.js]
+tags: [azure devops api, '203', node.js]
 hide_table_of_contents: false
 ---
 I've been taking a good look at the [REST API for Azure DevOps](<https://docs.microsoft.com/en-us/rest/api/azure/devops/?view=azure-devops-rest-6.1>). I'm delighted to say that it's a very full API. However, there's quirks.
