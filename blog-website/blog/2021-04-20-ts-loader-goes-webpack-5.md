@@ -69,9 +69,9 @@ Time passed. In March [Alexander Akait](https://github.com/alexander-akait) chec
     .replace(/\//g, '/');
 ```
 
-If you look closely at the `replace` you'll see that I'm globally replacing `'/'` with  `'/'` *rather* than globally replacing `'\'` with  `'/'`. This wasted time this caused... I could weep.
+If you look closely at the `replace` you'll see that I'm globally replacing `'/'` with  `'/'` *rather* than globally replacing `'\'` with  `'/'`. The wasted time this caused... I could weep.
 
-I generally thrashed around for a bit after this. Going in circles, like a six year old swimming wearing one armband. Then [Tobias kindly volunteered to help](https://github.com/TypeStrong/ts-loader/pull/1251#issuecomment-805143890). This much I've learned from a career in software: if a talented people offer their assistance, grab it with both hands!
+I generally thrashed around for a bit after this. Going in circles, like a six year old swimming wearing one armband. Then [Tobias kindly volunteered to help](https://github.com/TypeStrong/ts-loader/pull/1251#issuecomment-805143890). This much I've learned from a career in software: if talented people offer their assistance, grab it with both hands!
 
 I'd been trying be as "learn in public" as possible about the issues I was facing on the pull request. The idea being, to surface the problems in a public forum where others can read and advise.  And also to attempt a textual kind of [rubber duck debugging](https://en.wikipedia.org/wiki/Rubber_duck_debugging).  
 

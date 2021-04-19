@@ -3,7 +3,7 @@ const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 
 module.exports = {
   title: "I CAN MAKE THIS WORK",
-  tagline: "The blog of johnnyreilly",
+  tagline: "The blog of johnnyreilly 🌻❤️",
   url: "https://blog.johnnyreilly.com", // 'https://blog.johnnyreilly.com',
   baseUrl: "/",
   // onBrokenLinks: 'warn',
@@ -112,53 +112,42 @@ module.exports = {
       style: "dark",
       links: [
         {
-          // title: 'Docs',
+          title: 'Support me',
           items: [
             {
               html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
             },
-            /*
             {
-              label: 'Style Guide',
-              to: 'docs/',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
-            },
+              html: `<div style="display: flex; align-items: center;"><iframe src="https://github.com/sponsors/johnnyreilly/button" title="Sponsor johnnyreilly" height="35" width="116" style="border: 0;"></iframe><div>&nbsp;on GitHub</div></div>`
+            }
           ],
         },
         {
-          title: 'Community',
+          title: 'Feeds',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'RSS',
+              href: 'https://blog.johnnyreilly.com/rss.xml',
             },
             {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
+              label: 'Atom',
+              href: 'https://blog.johnnyreilly.com/atom.xml',
             },
           ],
         },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'Blog',
-              to: 'blog',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
-            },
-            */
-          ],
-        },
+        // {
+        //   title: 'More',
+        //   items: [
+        //     {
+        //       label: 'Blog',
+        //       to: 'blog',
+        //     },
+        //     {
+        //       label: 'GitHub',
+        //       href: 'https://github.com/facebook/docusaurus',
+        //     },
+        //   ],
+        // },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
     },
