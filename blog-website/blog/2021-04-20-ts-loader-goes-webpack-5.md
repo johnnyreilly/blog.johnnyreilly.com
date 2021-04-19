@@ -89,4 +89,4 @@ I found then that I could revert Tobias' workaround and still have passing tests
 
 Now that we've got there; we've shipped.  You can get the latest version of `ts-loader` on [npm](https://www.npmjs.com/package/ts-loader/v/9.0.0) and you can find the release details on [GitHub](https://github.com/TypeStrong/ts-loader/releases/tag/v9.0.0). 
 
-Thanks everyone - I couldn't haved done it without your help. 🌻❤️
+Thanks everyone - I couldn't have done it without your help. 🌻❤️
