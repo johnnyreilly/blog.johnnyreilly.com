@@ -35,7 +35,7 @@ curl "https://ourcompanyinstance.service-now.com/api/now/table/change_request?sy
 curl "https://ourcompanyinstance.service-now.com/api/now/table/change_request?sysparm_query=number=CHG0122585&sysparm_limit=1&sysparm_display_value=false" --request GET --header "Accept:application/json" --user 'API_USERNAME':'API_PASSWORD' | jq '.result[0] | { state, sys_id, number, requested_by, reason }'
 ```
 
-When executed, they each load the same Change Request from Service Now. You'll notice there's some [`jq`](https://stedolan.github.io/jq/) in the mix as well.  This is because there's a *lot* of data in a Change Request.  Rather than display everything, we're dislaying a subset of fields. The first curl has a `sysparm_display_value` value of `all`, the second `false` and the third `true`.  What do the results look like?
+When executed, they each load the same Change Request from Service Now with a different value for `sysparm_display_value`. You'll notice there's some [`jq`](https://stedolan.github.io/jq/) in the mix as well.  This is because there's a *lot* of data in a Change Request.  Rather than display everything, we're displaying a subset of fields. The first curl has a `sysparm_display_value` value of `all`, the second `false` and the third `true`.  What do the results look like?
 
 `sysparm_display_value=all`:
 
