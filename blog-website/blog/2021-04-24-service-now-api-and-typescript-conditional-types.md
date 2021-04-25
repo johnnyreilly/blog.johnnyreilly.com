@@ -1,15 +1,17 @@
 ---
-title: "Service Now API and TypeScript Conditional Types"
+title: "The Service Now API and TypeScript Conditional Types"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Service Now, Table API, Change Request, change_request, sysparm_display_value, TypeScript, conditional types]
-# image: blog/2021-04-20-ts-loader-goes-webpack-5/ts-loader-9.png
+image: blog/2021-04-24-service-now-api-and-typescript-conditional-types/ts-service-now.png
 hide_table_of_contents: false
 ---
-The [Service Now REST API](https://docs.servicenow.com/bundle/paris-application-development/page/build/applications/concept/api-rest.html) is an API which allows you to interact with Service Now. It produces different shaped results based upon the [`sysparm_display_value` query parameter](https://docs.servicenow.com/bundle/paris-application-development/page/integrate/inbound-rest/concept/c_TableAPI.html#c_TableAPI__table-GET). This post looks at how we can model these API results with TypeScripts conditional types to minimise repetition whilst remaining strongly typed. This post is specifically about the Service Now API, but the principles around conditional type usage are generally applicable.
+The [Service Now REST API](https://docs.servicenow.com/bundle/paris-application-development/page/build/applications/concept/api-rest.html) is an API which allows you to interact with Service Now. It produces different shaped results based upon the [`sysparm_display_value` query parameter](https://docs.servicenow.com/bundle/paris-application-development/page/integrate/inbound-rest/concept/c_TableAPI.html#c_TableAPI__table-GET). This post looks at how we can model these API results with TypeScripts conditional types. The aim being to minimise repetition whilst remaining strongly typed. This post is specifically about the Service Now API, but the principles around conditional type usage are generally applicable.
 
-## What is `sysparm_display_value`?
+![Service Now and TypeScript](../static/blog/2021-04-24-service-now-api-and-typescript-conditional-types/ts-service-now.png)
+
+## The power of a query parameter
 
 There is a query parameter which many endpoints in Service Nows Table API support named `sysparm_display_value`. The docs describe it thus:
 
@@ -250,7 +252,7 @@ const requested_byFalse: LinkValue<'false'> = {
 };
 ```
 
-## Making a `ServiceNowChangeRequest`
+## Making our complete type
 
 With these primitives in place, we can now build ourself a (cut-down) type that models a Change Request:
 
@@ -292,8 +294,7 @@ const changeRequestTrue: ServiceNowChangeRequest<'true'> = {
   "reason": null
 }
 
-const changeRequestAll: ServiceNowChangeRequest<'all'> = 
-{
+const changeRequestAll: ServiceNowChangeRequest<'all'> = {
   "state": {
     "display_value": "Closed",
     "value": "3"
