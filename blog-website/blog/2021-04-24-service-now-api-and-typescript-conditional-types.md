@@ -98,7 +98,7 @@ When executed, they each load the same Change Request from Service Now with a di
 As you can see, we have the same properties being returned each time, but with a different shape. Let's call out some interesting highlights:
 
 - `requested_by` is *always* an object which contains `link`.  It may also contain `value` and `display_value` depending upon `sysparm_display_value`
-- `state`, `sys_id`, `number` and `reason` are objects containing `value` and `display_value` when `sysparm_display_value` is `all`.  Otherwise, the value of `value` or `display` is surfaced up directly; not in an object. 
+- `state`, `sys_id`, `number` and `reason` are objects containing `value` and `display_value` when `sysparm_display_value` is `all`.  Otherwise, the value of `value` or `display_value` is surfaced up directly; not in an object. 
 - most values are strings, even if they represent another data type.  So `state.value` is always a stringified number. The only exception to this rule is `reason.display_value` which can be `null`
 
 ## Type Definition time
