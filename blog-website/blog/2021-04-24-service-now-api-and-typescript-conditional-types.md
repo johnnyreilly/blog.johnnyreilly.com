@@ -162,7 +162,7 @@ Consider the type on the left and the value on the right. We're successfully mod
 
 ## Service Now Change Request States
 
-Let's look at another usage. We'll create a type that repesents the possible values of a Change Request's `state` in Service Now.  Do take a moment to appreciate these values. Many engineers were lost in the long missions to obtain these rare and secret enums. Alas, The Service Now API docs have some significant gaps.
+Let's look at another usage. We'll create a type that repesents the possible values of a Change Request's `state` in Service Now.  Do take a moment to appreciate these values. Many engineers were lost in the numerous missions to obtain these rare and secret enums. Alas, the Service Now API docs have some significant gaps.
 
 ```ts
 /** represents the possible Change Request "State" values in Service Now */
