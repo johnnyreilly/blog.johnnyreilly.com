@@ -4,12 +4,12 @@ author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Service Now, Table API, Change Request, change_request, sysparm_display_value, TypeScript, conditional types]
-image: blog/2021-04-24-service-now-api-and-typescript-conditional-types/ts-service-now.png
+image: blog/2021-04-24-service-now-api-and-typescript-conditional-types/ts-ervice-now.png
 hide_table_of_contents: false
 ---
 The [Service Now REST API](https://docs.servicenow.com/bundle/paris-application-development/page/build/applications/concept/api-rest.html) is an API which allows you to interact with Service Now. It produces different shaped results based upon the [`sysparm_display_value` query parameter](https://docs.servicenow.com/bundle/paris-application-development/page/integrate/inbound-rest/concept/c_TableAPI.html#c_TableAPI__table-GET). This post looks at how we can model these API results with TypeScripts conditional types. The aim being to minimise repetition whilst remaining strongly typed. This post is specifically about the Service Now API, but the principles around conditional type usage are generally applicable.
 
-![Service Now and TypeScript](../static/blog/2021-04-24-service-now-api-and-typescript-conditional-types/ts-service-now.png)
+![Service Now and TypeScript](../static/blog/2021-04-24-service-now-api-and-typescript-conditional-types/ts-ervice-now.png)
 
 ## The power of a query parameter
 
