@@ -105,7 +105,7 @@ As you can see, we have the same properties being returned each time, but with a
 
 ## Type Definition time
 
-We want to create a type definitions for these API results.  We could of course create three different results, but that would involve duplication. Boo!  Also, we're looking at a subset of five properties in this example.  In reality, there will be many, many properties and so duplication would become very impractical. 
+We want to create type definitions for these API results.  We could of course create three different results, but that would involve duplication. Boo!  It's worth bearing in mind we're looking at a subset of five properties in this example.  In reality, there are many, many properties on a Change Request. Whilst this example is for a subset, if we wanted to go on to create the full type definition the duplication would become very impractical. 
 
 What can we do? Well, if all of the underlying properties were of the same type, we could use a generic and be done.  But given the underlying types can vary, that's not going to work. We can achieve this though through using a combination of generics and conditional types.
 
@@ -133,7 +133,7 @@ export interface ValueAndDisplayValue<TValue = string, TDisplayValue = string> {
 }
 ```
 
-Note that this is a generic property with default values of `string` for both `display_value` and `value`. most of the time, `string` is the type in question so it's great that TypeScript allows us to cut down on the amount of syntax we use.
+Note that this is a generic property with a default type of `string` for both `display_value` and `value`. Most of the time, `string` is the type in question so it's great that TypeScript allows us to cut down on the amount of syntax we use.
 
 Now we're going to create our first conditional type:
 
