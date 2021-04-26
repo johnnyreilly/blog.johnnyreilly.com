@@ -4,12 +4,12 @@ author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Service Now, Table API, Change Request, change_request, sysparm_display_value, TypeScript, conditional types]
-image: blog/2021-04-24-service-now-api-and-typescript-conditional-types/ts-service-now.png
+image: blog/2021-04-24-service-now-api-and-typescript-conditional-types/ts-ervice-now.png
 hide_table_of_contents: false
 ---
 The [Service Now REST API](https://docs.servicenow.com/bundle/paris-application-development/page/build/applications/concept/api-rest.html) is an API which allows you to interact with Service Now. It produces different shaped results based upon the [`sysparm_display_value` query parameter](https://docs.servicenow.com/bundle/paris-application-development/page/integrate/inbound-rest/concept/c_TableAPI.html#c_TableAPI__table-GET). This post looks at how we can model these API results with TypeScripts conditional types. The aim being to minimise repetition whilst remaining strongly typed. This post is specifically about the Service Now API, but the principles around conditional type usage are generally applicable.
 
-![Service Now and TypeScript](../static/blog/2021-04-24-service-now-api-and-typescript-conditional-types/ts-service-now.png)
+![Service Now and TypeScript](../static/blog/2021-04-24-service-now-api-and-typescript-conditional-types/ts-ervice-now.png)
 
 ## The power of a query parameter
 
@@ -105,7 +105,7 @@ As you can see, we have the same properties being returned each time, but with a
 
 ## Type Definition time
 
-We want to create a type definitions for these API results.  We could of course create three different results, but that would involve duplication. Boo!  Also, we're looking at a subset of five properties in this example.  In reality, there will be many, many properties and so duplication would become very impractical. 
+We want to create type definitions for these API results.  We could of course create three different results, but that would involve duplication. Boo!  It's worth bearing in mind we're looking at a subset of five properties in this example.  In reality, there are many, many properties on a Change Request. Whilst this example is for a subset, if we wanted to go on to create the full type definition the duplication would become very impractical. 
 
 What can we do? Well, if all of the underlying properties were of the same type, we could use a generic and be done.  But given the underlying types can vary, that's not going to work. We can achieve this though through using a combination of generics and conditional types.
 
@@ -133,7 +133,7 @@ export interface ValueAndDisplayValue<TValue = string, TDisplayValue = string> {
 }
 ```
 
-Note that this is a generic property with default values of `string` for both `display_value` and `value`. most of the time, `string` is the type in question so it's great that TypeScript allows us to cut down on the amount of syntax we use.
+Note that this is a generic property with a default type of `string` for both `display_value` and `value`. Most of the time, `string` is the type in question so it's great that TypeScript allows us to cut down on the amount of syntax we use.
 
 Now we're going to create our first conditional type:
 
