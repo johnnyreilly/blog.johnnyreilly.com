@@ -1,5 +1,7 @@
 # blog.johnnyreilly.com
 
+[![blog status badge](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/blog.yml/badge.svg)](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/blog.yml)
+
 This repo contains the source code for John Reilly's blog. It is published to two locations:
 
 - https://blog.johnnyreilly.com - the primary deployment of the blog to GitHub Pages using [Docusaurus](https://v2.docusaurus.io/)
