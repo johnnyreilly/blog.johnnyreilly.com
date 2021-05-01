@@ -6,16 +6,15 @@ import styles from "./styles.module.css";
 
 /** @type {Array<{ date: string; formattedDate: string; title: string; permalink: string; }>} */
 const allPosts = ((ctx) => {
-  const keys = ctx.keys();
-  const values = keys.map(ctx);
-  return keys.reduce((blogposts, filename, i) => {
-    const module = values[i];
-    // console.log(module)
+  /** @type {Array<string>} */
+  const blogpostNames = ctx.keys();
+
+  return blogpostNames.reduce((blogposts, blogpostName, i) => {
+    const module = ctx(blogpostName)
     const { date, formattedDate, title, permalink } = module.metadata;
     return [
       ...blogposts,
       {
-        // filename,
         date,
         formattedDate,
         title,
