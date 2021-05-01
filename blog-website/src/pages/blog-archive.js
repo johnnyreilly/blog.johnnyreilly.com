@@ -4,32 +4,39 @@ import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
 import styles from "./styles.module.css";
 
-/** @type {Array<{ date: string; formattedDate: string; title: string; permalink: string; }>} */
+/**
+ * @typedef {Object} BlogPost - creates a new type named 'BlogPost'
+ * @property {string} date - eg "2021-04-24T00:00:00.000Z"
+ * @property {string} formattedDate - eg "April 24, 2021"
+ * @property {string} title - eg "The Service Now API and TypeScript Conditional Types"
+ * @property {string} permalink - eg "/2021/04/24/service-now-api-and-typescript-conditional-types"
+ */
+
+/** @type {BlogPost[]} */
 const allPosts = ((ctx) => {
-  const keys = ctx.keys();
-  const values = keys.map(ctx);
-  return keys.reduce((blogposts, filename, i) => {
-    const module = values[i];
-    // console.log(module)
+  /** @type {string[]} */
+  const blogpostNames = ctx.keys();
+
+  return blogpostNames.reduce((blogposts, blogpostName, i) => {
+    const module = ctx(blogpostName)
     const { date, formattedDate, title, permalink } = module.metadata;
     return [
       ...blogposts,
       {
-        // filename,
         date,
         formattedDate,
         title,
         permalink,
       },
     ];
-  }, []);
+  }, /** @type {string[]}>} */ ([]));
 })(require.context("../../blog", false, /.md/));
 
 const postsByYear = allPosts.reduceRight((posts, post) => {
   const year = post.date.split("-")[0];
   const yearPosts = posts.get(year) || [];
   return posts.set(year, [post, ...yearPosts]);
-}, new Map());
+}, /** @type {Map<string, BlogPost[]>}>} */ (new Map()));
 
 const yearsOfPosts = Array.from(postsByYear, ([year, posts]) => ({
   year,
@@ -37,7 +44,7 @@ const yearsOfPosts = Array.from(postsByYear, ([year, posts]) => ({
 }));
 
 function Year(
-  /** @type {{ year: string; posts: Array<{ date: string; formattedDate: string; title: string; permalink: string; }}>} */ {
+  /** @type {{ year: string; posts: BlogPost[]}} */ {
     year,
     posts,
   }
