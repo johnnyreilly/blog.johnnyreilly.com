@@ -21,7 +21,7 @@ The blog archive is a way by which you can browse through your historic blog pos
 
 ## Handrolling a Docusaurus blog archive
 
-Let's create our own blog archive in the land of Docusaurus.
+Let's create our own blog archive in the land of the Docusaurus.
 
 We'll create a new page under the `pages` directory called `blog-archive.js` and we'll add a link to it in our `docusaurus.config.js`:
 
