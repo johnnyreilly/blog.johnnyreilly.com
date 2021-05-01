@@ -156,7 +156,7 @@ function BlogArchive() {
 }
 ```
 
-## Putting it all together
+## Bringing it all together
 
 We're finished! We have a delightful looking blog archive plumbed into our blog:
 
@@ -262,4 +262,3 @@ function BlogArchive() {
 
 export default BlogArchive;
 ```
-
