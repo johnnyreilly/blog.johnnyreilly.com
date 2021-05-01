@@ -7,7 +7,7 @@ tags: [Docusaurus, blog archive, webpack]
 image: blog/2021-05-01-blog-archive-for-docusaurus/docusaurus-blog-archive.png
 hide_table_of_contents: false
 ---
-Docusaurus doesn't ship with "blog archive" functionality, that allows you to look at your historic blog posts. It is fairly straightforward to implement your own.  This post shows you how.
+Docusaurus doesn't ship with "blog archive" functionality. By which I mean, something that allows you to look at an overview of your historic blog posts. It turns out it is fairly straightforward to implement your own.  This post does just that.
 
 ![Docusaurus blog archive](../static/blog/2021-05-01-blog-archive-for-docusaurus/docusaurus-blog-archive.png)
 
@@ -17,7 +17,7 @@ I recently went through the exercise of [migrating my blog from Blogger to Docus
 
 ![Blogger blog archive](../static/blog/2021-05-01-blog-archive-for-docusaurus/blogger-blog-archive-small.png)
 
-The blog archive is a way by which you can browse through your historic blog posts. A place where you can see all that you've written and when. I find this very helpful and I didn't really want to make the jump without having something like that around.
+The blog archive is a way by which you can browse through your historic blog posts. A place where you can see all that you've written and when. I find this very helpful. I didn't really want to make the jump without having something like that around.
 
 ## Handrolling a Docusaurus blog archive
 
@@ -164,7 +164,7 @@ We're finished! We have a delightful looking blog archive plumbed into our blog:
 
 It is possible that a blog archive may become natively available in Docusaurus in future.  If you're interested in this, you can track [this issue](https://github.com/facebook/docusaurus/issues/4431).
 
-Here's the final code - which you can see in situ [here](https://github.com/johnnyreilly/blog.johnnyreilly.com/blob/main/blog-website/src/pages/blog-archive.js):
+Here's the final code - which you can see [powering this screen](https://blog.johnnyreilly.com/blog-archive). And you can see the code that backs it [here](https://github.com/johnnyreilly/blog.johnnyreilly.com/blob/main/blog-website/src/pages/blog-archive.js):
 
 ```tsx
 import React from "react";
