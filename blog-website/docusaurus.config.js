@@ -3,7 +3,7 @@ const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 
 module.exports = {
   title: "I CAN MAKE THIS WORK",
-  tagline: "The blog of johnnyreilly 🌻❤️",
+  tagline: "The blog of johnnyreilly ❤️🌻",
   url: "https://blog.johnnyreilly.com", // 'https://blog.johnnyreilly.com',
   baseUrl: "/",
   // onBrokenLinks: 'warn',
