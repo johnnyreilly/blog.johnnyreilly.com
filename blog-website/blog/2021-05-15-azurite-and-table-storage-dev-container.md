@@ -101,7 +101,7 @@ It consists of two services; `app` and `azurite`.  `azurite` is the Docker image
 docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 mcr.microsoft.com/azure-storage/azurite
 ```
 
-Now lets look at `app`.  This is our Azure Functions container.  It references a `Dockerfile` which we need to add:
+Now let's look at `app`.  This is our Azure Functions container.  It references a `Dockerfile` which we need to add:
 
 ```dockerfile
 # Find the Dockerfile for mcr.microsoft.com/azure-functions/dotnet:3.0-dotnet3-core-tools at this URL
