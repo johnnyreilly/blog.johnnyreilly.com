@@ -24,7 +24,7 @@ mkdir azurite-devcontainer
 code azurite-devcontainer
 ```
 
-We're going to initialise a dev container there for function apps based upon [the example Azure Functions & C# - .NET Core 3.1 container](https://github.com/microsoft/vscode-dev-containers/tree/master/containers/azure-functions-dotnetcore-3.1).  We'll use it later to test our Azurite connectivity.  To do that let's create ourselves a `.devcontainer.json` directory:
+We're going to initialise a dev container there for function apps based upon [the example Azure Functions & C# - .NET Core 3.1 container](https://github.com/microsoft/vscode-dev-containers/tree/master/containers/azure-functions-dotnetcore-3.1).  We'll use it later to test our Azurite connectivity.  To do that let's create ourselves a `.devcontainer` directory:
 
 ```bash
 mkdir .devcontainer
