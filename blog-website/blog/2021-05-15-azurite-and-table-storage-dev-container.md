@@ -283,4 +283,4 @@ Disco.
 
 You may be thinking *"This is great! But in the end I need to write to Azure Table Storage itself; not Azurite."*
 
-That's a fair point.  Fortunately, it's only connection string that determines where you read and write to.  It would be fairly easy to dependency inject the appropriate connection string, or indeed a service that is connected to the storage you wish to target. If you want to make that happen, you can.
+That's a fair point.  Fortunately, it's only the connection string that determines where you read and write to.  It would be fairly easy to dependency inject the appropriate connection string, or indeed a service that is connected to the storage you wish to target. If you want to make that happen, you can.
