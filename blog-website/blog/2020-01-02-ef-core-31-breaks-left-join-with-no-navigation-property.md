@@ -10,7 +10,7 @@ Just recently my team took on the challenge of upgrading our codebase from .NET 
 
  Whilst running our app, we started encountering an error with an Entity Framework Query that looked like this:
 
-```
+```cs
 var stuffWeCareAbout = await context.Things
     .Include(thing => thing.ThisIsFine)
     .Include(thing => thing.Problematic)
@@ -23,7 +23,7 @@ var stuffWeCareAbout = await context.Things
 
 As EF Core tried to join from the `Things` table to the `Problematic` table (some obfuscation in table names here), that which worked in .NET Core 2.2 was *not* working in .NET Core 3.1. Digging into the issue, we discovered EF Core was generating an invalid `LEFT JOIN`:
 
-```
+```sql
 fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
       Failed executing DbCommand (18ms) [Parameters=[@__startFromThisTime_0='?' (DbType = DateTime2), @__endAtThisTime_1='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
       SELECT [o].[ThingId], [o].[AnonymousId], [o].[CreatedOn],  [o].[Status], [o].[UpdatedOn], [o0].[Id], [o0].[ThingId], [o0].[Name], [o1].[ThingId], [o1].[Status], [o1].[CreatedOn], [o1].[ThingThingId], [o1].[SentOn]
@@ -43,13 +43,13 @@ ORDER BY [o].[CreatedOn] DESC, [o].[ThingId], [o1].[ThingId], [o1].[Status]
 
 Do you see it? Probably not; it took us a while too... The issue lay here:
 
-```
+```sql
 LEFT JOIN [Problematic] AS [o1] ON [o].[ThingId] = [o1].[ThingThingId]
 ```
 
 This should actually have been:
 
-```
+```sql
 LEFT JOIN [Problematic] AS [o1] ON [o].[ThingId] = [o1].[ThingId]
 ```
 

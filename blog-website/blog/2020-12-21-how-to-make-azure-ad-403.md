@@ -1,12 +1,12 @@
 ---
-title: "How to make Azure AD 403"
+title: "Azure AD should 403"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: []
 hide_table_of_contents: false
 ---
-This post is about how you can customise ASP.NETs integration with Azure Active Directory to customise the behaviour that redirects unauthorized requests to the `AccessDenied` endpoint. If you're using the tremendous [Azure Active Directory for authentication with ASP.NET](<https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-web-app-sign-user-app-configuration?tabs=aspnetcore>) then there's a good chance you're using the [`Microsoft.Identity.Web`](<https://github.com/AzureAD/microsoft-identity-web>) library. It's this that allows us to drop the following statement into the `ConfigureServices` method of our `Startup` class:
+This post is about how you can customise ASP.NETs integration with Azure Active Directory to tweak the behaviour that redirects unauthorized requests to the `AccessDenied` endpoint. If you're using the tremendous [Azure Active Directory for authentication with ASP.NET](<https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-web-app-sign-user-app-configuration?tabs=aspnetcore>) then there's a good chance you're using the [`Microsoft.Identity.Web`](<https://github.com/AzureAD/microsoft-identity-web>) library. It's this that allows us to drop the following statement into the `ConfigureServices` method of our `Startup` class:
 
 ```cs
 services.AddMicrosoftIdentityWebAppAuthentication(Configuration);
