@@ -18,8 +18,8 @@ module.exports = {
       {
         redirects: [
           {
-            to: '/2019-12-18-teams-notification-webhooks/',
-            from: '/2019/12/18/automating-teams-notifications-recently/',
+            to: '/2019/12/18/teams-notification-webhooks',
+            from: '/2019/12/18/automating-teams-notifications-recently',
           },
         ],
         createRedirects: function (existingPath) {
