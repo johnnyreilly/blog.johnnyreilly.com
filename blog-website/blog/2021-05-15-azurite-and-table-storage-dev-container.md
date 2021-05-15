@@ -177,7 +177,13 @@ namespace TableStorage
     public static class HelloAzuriteTableStorage
     {
         // Note how we're addressing our azurite service
-        const string AZURITE_TABLESTORAGE_CONNECTIONSTRING = "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azurite:10000/devstoreaccount1;QueueEndpoint=http://azurite:10001/devstoreaccount1;TableEndpoint=http://azurite:10002/devstoreaccount1;";
+        const string AZURITE_TABLESTORAGE_CONNECTIONSTRING = 
+            "DefaultEndpointsProtocol=http;" + 
+            "AccountName=devstoreaccount1;" + 
+            "AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;" + 
+            "BlobEndpoint=http://azurite:10000/devstoreaccount1;" + 
+            "QueueEndpoint=http://azurite:10001/devstoreaccount1;" + 
+            "TableEndpoint=http://azurite:10002/devstoreaccount1;";
         const string TABLE_NAME = "KewGardenVisits";
 
         [FunctionName("SaveVisit")]
