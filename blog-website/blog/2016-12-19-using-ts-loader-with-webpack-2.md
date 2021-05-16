@@ -15,7 +15,7 @@ Let's take [ts-loader's webpack 1 example](<https://github.com/TypeStrong/ts-loa
 - I'm probably going to get some stuff wrong. That's fine; one of the best ways to learn is to make mistakes. So do let me know where I go wrong.
 - I'm doing this based on what I've read in the new docs; they're very much a work in progress and the mistakes I make here may lead to those docs improving even more. That matters; **documentation matters**. I'll be leaning heavily on the [Migrating from v1 to v2](<https://webpack.js.org/guides/migrating/>) guide.
 
-<!-- -->
+
 
 So here we go. Our example is one which uses TypeScript for static typing and uses Babel to transpile from ES-super-modern (yes - it's a thing) to ES-older-than-that. Our example also uses React; but that's somewhat incidental. It only uses webpack for typescript / javascript and karma. It uses gulp to perform various other tasks; so if you're reliant on webpack for less / sass compilation etc then I have no idea whether that works.
 

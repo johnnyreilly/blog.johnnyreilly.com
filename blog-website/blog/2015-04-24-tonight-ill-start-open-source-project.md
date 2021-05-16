@@ -10,7 +10,7 @@ hide_table_of_contents: false
 
  - [NgValidationFor Baby Steps](<https://blog.johnnyreilly.com/2015/05/ngvalidationfor-baby-steps.html>)
 
-<!-- -->
+
 
 I'm excited. Are you? I'm babysitting for a friend, I've my laptop, time to kill and (crucially) an idea...
 
@@ -155,7 +155,7 @@ I just need a name and I'll begin. What shall I call it? Some options:
 - Angular Validation Html Helpers
 - NgValidationFor (the name of the HTML helper I made up)
 
-<!-- -->
+
 
 Hmmmm.... None of them is particularly lighting my fire. The first four are all a bit [RonSeal](<https://en.wikipedia.org/wiki/Ronseal>) \- which is fine.... Ug. The last one... It's a bit more pithy. Okay - I'll go with "NgValidationFor" at least for now. If something better occurs I can always change my mind.
 

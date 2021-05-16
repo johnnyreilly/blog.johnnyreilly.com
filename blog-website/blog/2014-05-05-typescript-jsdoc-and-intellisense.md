@@ -239,7 +239,7 @@ This is a good start but it's less accurate than it could be in a number of ways
 2. `value` is the old value - we know from our getter that this can be a `string`, `number` or `string[]`. So we can lose the `any` in favour of overloads which specify different types for `value` in each.
 3. The return value of the function is the value that should be set. We know from our other setters that the possible types allowed here are `string` and `string[]`. (And yes I'm as puzzled as you are that the getter can return a `number` but the setter can't set one.) That being the case it makes sense for us to have overloads with functions that return both `string` and `string[]`
 
-<!-- -->
+
 
 So, we've got a little tidy up to do for #1 and extra overloads to add for #2 and #3. We're going to replace the single `Function` setter with 3 overloads to cater for #2. Then for #3 we're going to take each of the 3 overloads we've just created and make 2 overloads place of each to handle the different return types. This will lead us with the grand total of 6 overloads to model our `Function` setter!
 

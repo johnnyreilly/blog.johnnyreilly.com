@@ -17,7 +17,7 @@ My criteria for "auth success" was this:
 - I want to build a SPA, specifically a React SPA. Ideally, I shouldn't need a back end of my own at all
 - I want to use TypeScript on my client.
 
-<!-- -->
+
 
 But, for when I do implement a back end:
 
@@ -25,7 +25,7 @@ But, for when I do implement a back end:
 - ‎I want to able to identify the user, given the token, to provide targeted data
 - Oh, and I want to use .NET Core 2 for my server.
 
-<!-- -->
+
 
 And in achieving all of the I want to add minimal code to my app. Not War and Peace. My code should remain focused on doing what it does.
 
@@ -51,14 +51,14 @@ Here's how to get the app set up with Auth0; you're going to need to sign up for
 - From the new Client Settings page take the Domain and Client ID and update the similarly named properties in the `appsettings.Development.json` and `appsettings.Production.json` files with these settings.
 - To the Allowed Callback URLs setting add the URLs: `http://localhost:3000/callback,http://localhost:5000/callback` \- the first of these faciliates running in Debug mode, the second in Production mode. If you were to deploy this you'd need to add other callback URLs in here too.
 
-<!-- -->
+
 
 ### API
 
 - Create an API with the name of your choice (I recommend the same as the Client to avoid confusion), an identifier which can be anything you like; I like to use the URL of my app but it's your call.
 - From the new API Settings page take the Identifier and update the Audience property in the `appsettings.Development.json` and `appsettings.Production.json` files with that value.
 
-<!-- -->
+
 
 ## Running the App
 

@@ -21,7 +21,7 @@ This post will:
 - Create a script which, when run, creates a TypeScript client.
 - Consume the API using the generated client in a simple TypeScript application.
 
-<!-- -->
+
 
 You will need both [Node.js](<https://nodejs.org/en/>) and the [.NET SDK](<https://dotnet.microsoft.com/download>) installed.
 
@@ -125,7 +125,7 @@ The significant changes in the above `Startup.cs` are:
 1. Exposing a Swagger endpoint with `UseOpenApi` and `UseSwaggerUi3`. NSwag will automagically create Swagger endpoints in your application for all your controllers. The .NET template ships with a `WeatherForecastController`.
 2. Allowing [Cross-Origin Requests (CORS)](<https://docs.microsoft.com/en-us/aspnet/core/security/cors>) which is useful during development (and will facilitate a demo later).
 
-<!-- -->
+
 
 Back in the root of our project we're going to initialise an npm project. We're going to use this to put in place a number of handy [`npm scripts`](<https://docs.npmjs.com/cli/v6/using-npm/scripts>) that will make our project easier to work with. So we'll `npm init` and accept all the defaults.
 
@@ -154,7 +154,7 @@ Let's walk through what the above scripts provide us with:
 - Running `npm run build` will build our client and server apps.
 - Running `npm run start` will start both our React app and our .NET app. Our React app will be started at [http://localhost:3000](<http://localhost:3000>). Our .NET app will be started at [http://localhost:5000](<http://localhost:5000>) (some environment variables are passed to it with [`cross-env`](<https://github.com/kentcdodds/cross-env>) ).
 
-<!-- -->
+
 
 Once `npm run start` has been run, you will find a Swagger endpoint at [http://localhost:5000/swagger](<http://localhost:5000/swagger>):
 
@@ -262,7 +262,7 @@ We've created ourselves a simple .NET console application that creates TypeScrip
 - `generatePath` \- the path where the generated client file should be placed, relative to this project.
 - `language` \- the language of the client to generate; valid values are "TypeScript" and "CSharp".
 
-<!-- -->
+
 
 To create a TypeScript client with it then we'd use the following command:
 
@@ -276,7 +276,7 @@ However, for this to run successfully, we'll first have to ensure the API is run
 - generate a client
 - bring down the API
 
-<!-- -->
+
 
 Let's make that.
 
@@ -295,7 +295,7 @@ Let's walk through what's happening here. Running `npm run generate-client:serve
 - Use the [`start-server-and-test`](<https://github.com/bahmutov/start-server-and-test>) package to spin up our server-app by running the `generate-client:server-app:serve` script.
 - `start-server-and-test` waits for the Swagger endpoint to start responding to requests. When it does start responding, `start-server-and-test` runs the `generate-client:server-app:generate` script which runs our APIClientGenerator console app and provides it with the URL where our swagger can be found, the path of the file to generate and the language of "TypeScript"
 
-<!-- -->
+
 
 If you were wanting to generate a C# client (say if you were writing a [Blazor](<https://blog.logrocket.com/js-free-frontends-blazor/>) app) then you could change the `generate-client:server-app:generate` script as follows:
 

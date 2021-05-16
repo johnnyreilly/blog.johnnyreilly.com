@@ -42,7 +42,7 @@ Note we have 2 CSS classes:
 - `fader` \- if this class is applied to an element then when the opacity of that element is changed it will be an animated change. The duration of the transition and the timing function used are customisable - in this case it takes 0.7 seconds and is linear.
 - `fadedOut` \- when used in conjunction with `fader` this class creates a fading in or fading out effect as it is removed or applied respectively. (This relies upon the default value of opacity being 1.)
 
-<!-- -->
+
 
 Let's see it in action:
 

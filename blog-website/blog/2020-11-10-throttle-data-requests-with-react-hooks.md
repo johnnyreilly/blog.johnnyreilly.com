@@ -15,7 +15,7 @@ This need presents two interesting problems to solve:
 1. how do we load data gradually?
 2. how do we present loading progress to users?
 
-<!-- -->
+
 
 This post will talk about how we can tackle these and demonstrate using a custom React Hook.
 
@@ -165,7 +165,7 @@ In summary, the problems with the current approach are:
 2. failing HTTP requests due to insufficient resources
 3. no information displayed to the user around progress
 
-<!-- -->
+
 
 ## Throttle me this
 
@@ -387,7 +387,7 @@ The `useThrottleRequests` hook returns 2 properties:
     - `percentageLoaded` \- a value between 0 and 100 which represents the percentage of requests that have been completed (whether successfully or not)
     - `loading` \- whether the throttle is currently processing requests
 
-    <!-- -->
+    
 
 - `updateThrottle` \- an object which exposes 3 functions:
 
@@ -395,10 +395,10 @@ The `useThrottleRequests` hook returns 2 properties:
     - `requestSucceededWithData` \- the function which is called if a request succeeds to provide the data
     - `requestFailedWithError` \- the function which is called if a request fails to provide the error
 
-    <!-- -->
+    
 
 
-<!-- -->
+
 
 That's a lot of words to describe our `useThrottleRequests` hook. Let's look at what it looks like by migrating our `use10_000Requests` hook to (no pun intended) use it. Here's a new implementation of `App.tsx`:
 
@@ -488,7 +488,7 @@ Very well indeed! Please note that the above GIF has again been edited for brevi
 2. ~~failing HTTP requests due to insufficient resources~~ \- the browser does not experience failing HTTP requests.
 3. ~~no information displayable to the user around progress~~ \- details of progress are displayed to the user throughout.
 
-<!-- -->
+
 
 Tremendous!
 
@@ -701,7 +701,7 @@ The application gives users the opportunity to enter the organisation and reposi
 - as it loads it communicates how far through the loading progress it has got
 - as users are loaded, it renders a tile for each user with a listed blog
 
-<!-- -->
+
 
 Just to make the demo a little clearer we've artificially slowed the duration of each request by a second. What does it look like when you put it together? Well like this:
 
@@ -713,7 +713,7 @@ We have built a React Hook which allows us to:
 - without blocking the UI of the browser
 - and which provides progress data to keep users informed.
 
-<!-- -->
+
 
 [This post was originally published on LogRocket.](<https://blog.logrocket.com/throttling-data-requests-with-react-hooks/>)
 

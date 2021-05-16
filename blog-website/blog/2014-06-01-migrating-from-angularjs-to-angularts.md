@@ -29,7 +29,7 @@ Behind the scenes this sends 2 emails:
 - The first back to the person who submitted the prayer request assuring them that they will be prayed for.
 - The second to the convent telling them the details of what the person would like prayer for.
 
-<!-- -->
+
 
 <aside><em>It's not accidental that I am not sharing the location of my aunt's website in this post. Given the inherent mischievousness of most developers (I should know, I am one) I harbour a fear that readers of this post might go away and submit many an insincere prayer request (or worse) to the convent. If that's you I don't intend to help you. You're clever, you'll find the site if you are so minded. But please know that the nuns who read any of your prayer requests are wonderful people (nuns get a bad rep) and that they love you. They *<strong>will</strong>* pray for you. They're good like that. I appeal to your better nature on this.</em></aside>
 
@@ -49,7 +49,7 @@ Before I kick off I thought I'd list a couple of guidelines / caveats on this po
 - The choices that I make for the migration path do not necessarily reflect the "one true way". Rather, they are pragmatic choices that I am making - there may be alternatives approaches here and there that could be used instead.
 - I love Visual Studio - it's my IDE of choice and the one I am using as I perform the migration. Some of the points that I will make are Visual Studio specific - I will try and highlight that when appropriate.
 
-<!-- -->
+
 
 ## Typings
 
@@ -343,7 +343,7 @@ For a small class this seems to add a little noise but as classes grow in comple
 - Because we're using TypeScript arrow functions (which preserve the outer "this" context) we are now free to dispose of the `var vm = this;` mechanism we're were previously using for the same purpose. Much more intuitive code to my mind.
 - We are not actually using `$scope` at all in this controller - maybe it should be removed entirely in the long run.
 
-<!-- -->
+
 
 ## TypeScriptify `navController.ts`
 

@@ -27,7 +27,7 @@ What has this done to my project? Well 2 things
 1. It's upgraded jQuery Validation ([jquery.validate.js](<http://jqueryvalidation.org/>)) from v1.10.0 (the version that is currently part of the MVC 4 template) to v1.11.1 (the latest and greatest jQuery Validation as of the time of writing)
 2. It's added a reference to the jQuery.Validation.Unobtrusive.Native.MVC4 assembly, like so:
 
-<!-- -->
+
 
 ![](http://3.bp.blogspot.com/-V-21V1Ypo3E/Uk583DTbegI/AAAAAAAAAd0/O0nv7w6kmew/s400/NewReference.png)
 

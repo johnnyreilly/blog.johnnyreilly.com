@@ -12,7 +12,7 @@ This post explains how to integrate the tremendous test runner [Jest](<https://j
 2. A failing test fails the build
 3. Test results are reported in Azure Pipelines UI?
 
-<!-- -->
+
 
 ## Tests run as part of our pipeline
 
@@ -57,7 +57,7 @@ The way we achieve this is by:
 1. Producing test results in a format that can be subsequently processed
 2. Using those test results to publish to Azure Pipelines
 
-<!-- -->
+
 
 The way that you configure Jest test output is through usage of [`reporters`](<https://jestjs.io/docs/en/cli#--reporters>). However, Create React App doesn't support these. However that's not an issue, as the marvellous [Dan Abramov](<https://twitter.com/dan_abramov>) demonstrates [here](<https://github.com/facebook/create-react-app/issues/2474#issuecomment-306340526>).
 

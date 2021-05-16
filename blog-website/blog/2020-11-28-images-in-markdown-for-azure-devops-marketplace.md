@@ -17,7 +17,7 @@ That, my friends, is the question to answer. Good documentation is key to succes
 - contain documentation
 - that documentation should support images... For a picture, famously, speaks a thousand words
 
-<!-- -->
+
 
 ## Mark(Down) our manifest
 

@@ -62,7 +62,7 @@ This helper allows the consumer to provide three things:
 - A `itemGetterAsync` which is the method that is used to retrieve a new value if an item cannot be found in the cache
 - A `timeToCache` which is the period of time that an item should be cached
 
-<!-- -->
+
 
 If an item can't be looked up by the `itemGetterAsync` then *nothing* will be cached and a the `default` value of the expected type will be returned. This is important because lookups can fail, and there's nothing worse than a lookup failing and you caching `null` as a result.
 

@@ -19,7 +19,7 @@ The initial plan was to, through code, extract Libor and Euribor rates from Bloo
 1. Typing “`WAPI&lt;GO&gt;`” into Bloomberg lead me to the Bloomberg API documentation.
 2. Typing “`DOCS 2055451&lt;GO&gt;`” into Bloomberg (I know - it's a bit cryptic) provided me with samples of how to use the Bloomberg API in VBA
 
-<!-- -->
+
 
 ![](http://4.bp.blogspot.com/-mZxP0-jXRIo/UKJ8y8Gs5AI/AAAAAAAAAW0/qNyIN9hGBiQ/s400/bloombergwapidocumentation.gif)
 
@@ -42,7 +42,7 @@ So I'm off and romping... I have something that works. Hallelujah! Now that that
 1. The Bloomberg API came with custom data types. I didn't want to use these unless it was absolutely necessary - I just wanted to stick to the standard .NET types. This way if I needed to hand data onto another application I wouldn't be making each of these applications dependant on the Bloomberg Open API.
 2. To get the data out of the Bloomberg API there was an awful lot of boilerplate. Code which handled the possibilities of very large responses that might be split into several packages. Code which walked the element tree returned from Bloomberg parsing out the data. It wasn't a beacon of simplicity.
 
-<!-- -->
+
 
 I wanted an API that I could simply invoke with security codes and required fields. And in return I wanted to be passed nicely structured data. As I've already mentioned a desire to not introduce unnecessary dependencies I thought it might well suit to make use of nested Dictionaries. I came up with a simple C# Console project / application which had a reference to the Bloomberg Open API. It contained the following class; essentially my wrapper for Open API operations: (please note this is deliberately a very "bare-bones" implementation)
 

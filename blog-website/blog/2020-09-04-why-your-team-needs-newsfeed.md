@@ -20,7 +20,7 @@ This was an experiment that seemed worth pursuing. So I decided to build a proof
 2. We'd host the newsfeed in our own mini analytics platform (which is already used by the team to understand how people use the platform)
 3. News stories wouldn't be stored anywhere; we'd generate them on the fly by querying various databases / APIs. The cost of this would be that our news stories wouldn't be "persistent"; you wouldn't be able to address them with a URL; there'd be no way to build "like" or "share" functionality.
 
-<!-- -->
+
 
 All of the above constraints are, importantly, reversable decisions. If we want auto update it could be built later. If we want the newsfeed to live somewhere else we could move it. If we wanted news stories to be persisted then we could do that.
 
@@ -78,7 +78,7 @@ So that's it! We've built a (primitive) news feed. We can now see in real time h
 1. We could make the feed auto-update
 2. We could push news stories to other destinations. Markdown is a gloriously portable format which can be used in a variety of environments. For instance the likes of Slack and [Teams](<https://blog.johnnyreilly.com/2019/12/automating-teams-notifications-recently.html>) accept it and apps like these are generally open on people's desktops and phones all the time anyway. Another way to narrow the gap between us and and our users.
 
-<!-- -->
+
 
 It's very exciting!
 

@@ -13,7 +13,7 @@ OK the title of this post is a little verbose. I've just wasted a morning of my 
 1. I'm not hitting my JavaScript breakpoints when I hit F5 in Visual Studio.
 2. [Script Documents](<http://msdn.microsoft.com/en-us/library/bb385621.aspx>) is missing from the Solution Explorer when I'm debugging in Visual Studio.
 
-<!-- -->
+
 
 ## The Cure
 

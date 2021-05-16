@@ -13,7 +13,7 @@ I wrote [a while ago](<https://blog.johnnyreilly.com/2015/09/things-done-changed
 - ES6 with Babel
 - Karma for unit testing
 
-<!-- -->
+
 
 I have fully come to love and appreciate all of the above. I really like working with them. However. There was still an ache in my soul and a thorn in my side. Whilst I love the syntax of ES6 and even though I've come to appreciate the clarity of JSX, I have been missing something. Perhaps you can guess? It's static typing.
 
@@ -30,7 +30,7 @@ I decided a couple of months ago what I wanted to have in my setup:
 3. Debugging. Being able to debug my code is non-negotiable for me. If I can't debug it I'm less productive. (I'm also bitter and twisted inside.) I should say that I wanted to be able to debug my *original* source code. Thanks to the magic of [sourcemaps](<https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit?usp=sharing>), that mad thing is possible.
 4. Karma for unit testing. I've become accustomed to writing my tests in ES6 and running them on a continual basis with [Karma](<https://karma-runner.github.io/0.13/index.html>). This allows for a rather good debugging story as well. I didn't want to lose this when I moved to TypeScript. I didn't.
 
-<!-- -->
+
 
 So I've talked about what I want and I've alluded to some of the solutions that there are. The question now is how to bring them all together. This post is, for the most part, going to be about correctly orchestrating a number of [gulp tasks](<http://gulpjs.com/>) to achieve the goals listed above. If you're after the [Blue Peter "here's one I made earlier"](<https://en.wikipedia.org/wiki/Blue_Peter>) moment then take a look at [the es6-babel-react-flux-karma repo](<https://github.com/Microsoft/TypeScriptSamples/tree/master/es6-babel-react-flux-karma>) in the [Microsoft/TypeScriptSamples repo on Github](<https://github.com/Microsoft/TypeScriptSamples>).
 
@@ -322,7 +322,7 @@ Which is no more than a boilerplate HTML page with a couple of key features:
 - `&lt;!-- inject:css --&gt;` and `&lt;!-- inject:js --&gt;` placeholders where css and js is going to be injected by `gulp-inject`.
 - a single `&lt;link /&gt;` to the Bootstrap CDN. This sample app doesn't actually serve up any css generated as part of the project. It could but it doesn't. When it comes to injection time no css will actually be injected. This has been left in place as, more typically, a project would have some styling served up.
 
-<!-- -->
+
 
 This is fed into our inject task in `inject.build()` and `inject.watch()`. They take css and javascript and, using our shell template, create a new page which has the css and javascript dropped into their respective placeholders:
 

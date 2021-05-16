@@ -21,7 +21,7 @@ What is that? Well, it's a number of things:
 1. [It's a way to get the unique values in a collection.](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set#Remove_duplicate_elements_from_the_array>)
 2. It's a pro-tip and a coding BMX trick.
 
-<!-- -->
+
 
 What do I mean? Well, this is indeed a technique for getting the unique values in a collection. But it relies upon you knowing a bunch of things:
 
@@ -29,7 +29,7 @@ What do I mean? Well, this is indeed a technique for getting the unique values i
 - The [`Set` constructor](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/Set>) takes [iterable objects](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#The_iterable_protocol>). This means we can `new` up a `Set` with an array that we want to "unique-ify" and we will have a `Set` that contains those unique values.
 - If you want to go on to do filtering / mapping etc on your unique values, you'll need to get them out of the `Set`. This is because (regrettably) ECMAScript iterables don't implicitly support these operations and neither are methods such as these part of the `Set` API. The easiest way to do that is to [spread](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax>) into a new array which you can then operate upon. 
 
-<!-- -->
+
 
 I have this knowledge. Lots of people have this knowledge. But whilst this may be the case, using this technique goes against what I would generally consider to be a good tenet of programming: comprehensibility. When you read this code above, it doesn't immediately tell you what it's doing. This is a strike against it.
 

@@ -21,7 +21,7 @@ In order to get a LINQ to CRM provider that caters for your own customised CRM i
 - [CRM blog site](<http://www.dynamicscrmtrickbag.com/>)
 - [Another site listing examples of LINQ to CRM](<http://community.adxstudio.com/products/adxstudio-portals/developers-guide/archive/linq-to-crm-22/>)
 
-<!-- -->
+
 
 You should end up with custom generated data context classes which look not dissimilar to similar classes that you may already have in place for Entity Framework etc. With your `Xrm.DataContext` in hand (a subclass of `Microsoft.Xrm.Client.Data.Services.CrmDataContext`) you'll be ready to move forwards.
 
@@ -38,12 +38,12 @@ As I said, Microsoft makes it fantastically easy to get an OData service up and 
     - microsoft.xrm.portal.dll
     - microsoft.xrm.portal.files.dll
 
-    <!-- -->
+    
 
 4. Add the `&lt;microsoft.xrm.client&gt;` config section to your web.config (not forgetting the associated Xrm connection string)
 5. Add this new file below to the root of the project:
 
-<!-- -->
+
 
 <script src="https://gist.github.com/3765280.js?file=Crm.svc.cs"></script>
 

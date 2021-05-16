@@ -17,13 +17,13 @@ It worked by having a launch page which was straight HTML. Embedded within this 
 - Depending on the result of the startup data either the debug or release package manifest would be loaded.
 - For each entry in the package manifest `script` and `link` tags would be created and added to the document. These would generate further requests to the server to load the resources.
 
-<!-- -->
+
 
 Quite a lot going on here isn't there? Accordingly, initial startup time was slower than you might hope.
 2. The "F" word: [FOUC](<https://en.wikipedia.org/wiki/Flash_of_unstyled_content>). Flash Of Unstyled Content - whilst all the hard work of the page load was going on (before the CSS had been loaded) the page would look rather ... bare. Not a terrible thing but none too slick either.
 3. The gulpfile built both the debug and the release package each time it was run. This meant the gulp task generally did double the work that it needed to do.
 
-<!-- -->
+
 
 I wanted to see if I could tackle these issues. I've recently been watching [John Papa](<https://twitter.com/John_Papa>)'s excellent [Pluralsight course on Gulp](<http://www.pluralsight.com/courses/javascript-build-automation-gulpjs>) and picked up a number of useful tips. With that in hand let's see what we can come up with...
 
@@ -403,7 +403,7 @@ Here we collect up the following:
 - the TypeScript + associated JavaScript files
 - and we use our template files to construct a `templates.js` file to prime the Angular template cache
 
-<!-- -->
+
 
 If it's the scripts-debug task we copy all these files into the `build/debug` folder. If it's the scripts-release task we also bundle, minify and strip the TypeScript out too and copy into the `build/release` folder.
 
@@ -414,7 +414,7 @@ Here we collect up the following:
 - the Bower specified CSS files
 - our own app CSS
 
-<!-- -->
+
 
 If it's the styles-debug task we copy all these files into the `build/debug` folder. If it's the styles-release task we also bundle and minify and copy into the `build/release` folder.
 

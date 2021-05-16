@@ -32,7 +32,7 @@ So that we can cover a lot of ground, this post will remain relatively high leve
 - Our application accesses various SQL Server databases. We struggled to get our application to connect to them. The issue related to the SSL configuration of our runner image. The fix was simple but frustrating; use a `-bionic` image as it has the configuration you need. We found that gem [here](<https://github.com/dotnet/SqlClient/issues/222#issuecomment-535802822>). 
 - Tests. Automated tests. We want to run them in our build; but how? Once more multi-stage builds to the rescue. We'd build our application, then in a separate stage we'd run the tests; copying in the app from the build stage. If the tests failed, the build failed. If they passed then the intermediate stage containing the tests would be discarded by Docker. No unnecessary bloat of the image; all that testing goodness still; now in containerised form! 
 
-<!-- -->
+
 
 ## Jenkins
 
@@ -90,7 +90,7 @@ We're there now; we've made the move. It was a difficult journey but one worth m
 - provision environments on demand - currently we have a highly contended situation when it comes to test environments. With k8s and AWS we can look at spinning up environments as we need them and throwing them away also
 - autoscaling for need - we can start to look at spinning up new containers in times of high load and removing excessive containers in times of low load
 
-<!-- -->
+
 
 We've also become more efficient as a team. We are no longer maintaining servers, renewing certificates, installing software, RDPing onto boxes. All that time and effort we can plough back into making awesome experiences for our users.
 

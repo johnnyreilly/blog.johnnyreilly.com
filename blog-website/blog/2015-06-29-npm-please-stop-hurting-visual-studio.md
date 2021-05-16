@@ -84,7 +84,7 @@ So let's focus on the important bits in the `GulpBuild` target:
 - `&lt;Exec Command="gulp" /&gt;` \- do a little dance, make a little love, copy a few files, get down tonight.
 - `&lt;Exec Command="rimraf ./node_modules" /&gt;` \- remove the `node_modules` folder populated by the `npm install` command.
 
-<!-- -->
+
 
 With that addition of `rimraf ./node_modules` to the build phase the problem goes away. During each build a big, big Windows path is being constructed but then it's wiped again before it has chance to upset anyone. I've also added the same to the `GulpClean` target.
 

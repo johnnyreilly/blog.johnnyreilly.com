@@ -47,7 +47,7 @@ Wouldn't it be nice to have both:
 1. Readable code and
 2. Anonymous objects?
 
-<!-- -->
+
 
 ## Attempt #2: `EnumerableExtensions.Create`
 

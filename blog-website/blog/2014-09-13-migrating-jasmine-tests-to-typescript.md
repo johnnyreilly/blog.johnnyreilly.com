@@ -340,7 +340,7 @@ Thanks to the help of [Mohamed Hegazy](<https://github.com/mhegazy>) it emerged 
 - Proverb.Web uses the Visual Studio implicit referencing functionality. This means that I do not need to use `reference` comments in the TypeScript files in Proverb.Web.
 - Proverb.Web.JavaScript does \***not**\* uses the implicit referencing functionality. It needs `reference` comments to resolve references.
 
-<!-- -->
+
 
 The important thing to take away from this (and the thing I had overlooked) was that Proverb.Web.JavaScript uses `reference` comments to pull in Proverb.Web TypeScript files. Those files have dependencies which are \***not**\* stated using `reference` comments. So the compiler trips up when it tries to walk the dependency tree - there are no `reference` comments to be followed! So for example, `common.ts` has a dependency upon `logger.ts`. Fixing the TypeScript Language Service involves ensuring that the full dependency list is included in the `sageDetail` controller tests file, like so:
 
@@ -369,7 +369,7 @@ With this in place you have a working solution, albeit one that is a little flak
 > - In Proverb.Web.Tests.JavaScript add a reference to this file.
 > - Right-click Proverb.Web.Tests.JavaScript select "Build Dependencies" > "Project Dependencies" and add a reference to Proverb.Web.
 > 
-> <!-- -->
+> 
 > 
 > I don't think directly referencing TypeScript source files is a good idea, because it causes the file to be rebuilt every time the dependant project is compiled.
 

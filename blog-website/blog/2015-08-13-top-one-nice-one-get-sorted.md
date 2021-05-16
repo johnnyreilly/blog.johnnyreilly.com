@@ -130,7 +130,7 @@ As the name suggests, this function takes a given comparer that's handed to it a
 - positive - implies `obj1` is greater than `obj2` by the ordering criterion
 - negative - implies `obj1` is less than `obj2` by the ordering criterion
 
-<!-- -->
+
 
 Our `reverse` function takes the comparer it is given and returns a new comparer that will return a positive value where the old one would have returned a negative and vica versa. (Equality is unaffected.) An alternative implementation would have been this:
 

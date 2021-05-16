@@ -17,7 +17,7 @@ To keep it simple I'm going to go through taking a "vanilla" MVC 3 app and enhan
 3. Update pre-existing NuGet packages
 4. At the NuGet console type: "`Install-Package Microsoft.AspNet.Web.Optimization`"
 
-<!-- -->
+
 
 Whilst the NuGet package adds the necessary references to your MVC 3 project it doesn't add the corresponding namespaces to the web.configs. To fix this manually add the following child XML element to the `&lt;namespaces&gt;` element in your root and Views web.config files:
 

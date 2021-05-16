@@ -124,7 +124,7 @@ Then let's install the packages we're going to be using:
 - [`worker-plugin`](<https://github.com/GoogleChromeLabs/worker-plugin>) \- this webpack plugin automatically compiles modules loaded in Web Workers
 - `comlink` \- this library provides the RPC-like experience that we want from our workers
 
-<!-- -->
+
 
 ```
 yarn add comlink worker-plugin
@@ -243,7 +243,7 @@ There's a number of exciting things to note here:
 1. The application is now non-blocking. Our long running function is now not preventing the UI from updating
 2. The functionality is lazily loaded via a `my-first-worker.chunk.worker.js` that has been created by the `worker-plugin` and `comlink`.
 
-<!-- -->
+
 
 ## Using Web Workers in React
 

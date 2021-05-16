@@ -16,7 +16,7 @@ Historically (and for many applications, currently) deployment results in downti
 2. Because you're a kind person and you want your users to be happy, you'll optimise to make their lives better. You'll release when the fewest users are accessing your application. It will likely mean you'll end up working late, early or at weekends.
 3. Again because you want to reduce impact on users, you'll release less often. This means that every release will bring with it a greater collection of changes. This is turn will often result in a large degree of focus on manually testing each release, to reduce the likelihood of bugs ending up in users hands. This is a noble aim, but it drags the teams focus away from shipping.
 
-<!-- -->
+
 
 Put simply: downtime in releases impacts customer happiness and leads to reduced pace for teams. It's a vicious circle.
 
@@ -27,7 +27,7 @@ But if we turn it around, what does it look like if releases have *no* downtime 
 3. If your team has sufficient automated testing in place, they're now in a position where they can move to [Continuous Deployment](<https://www.atlassian.com/continuous-delivery/principles/continuous-integration-vs-delivery-vs-deployment>).
 4. Releases become boring. This is good. They "just work™️" and so the team can focus instead on building the cool features that are going to make users lives even better.
 
-<!-- -->
+
 
 ## Manual zero downtime releases with App Services
 

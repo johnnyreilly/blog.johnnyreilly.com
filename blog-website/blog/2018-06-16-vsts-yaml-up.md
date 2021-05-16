@@ -110,7 +110,7 @@ This file does the following:
 3. Publish our web app to a directory. Effectively `yarn run publish:web`. This is only separate because we want to pass in the output directory and so it's just easier for it to be a separate step.
 4. Publish the build artefact to TFS. (This will go on to be picked up by the continuous deployment mechanism and published out to Azure.)
 
-<!-- -->
+
 
 I much prefer this to what I had before. I feel there's much more that can be done here as well. I'm looking forward to the continuous deployment piece becoming scriptable too.
 

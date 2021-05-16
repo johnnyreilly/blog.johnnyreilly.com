@@ -21,7 +21,7 @@ In order that I could run Chutzpah I needed Chutzpah to be installed on the buil
 1. Add Chutzpah direct to the repo
 2. Add the [Chutzpah Nuget package](<http://www.nuget.org/packages/chutzpah>) to the solution
 
-<!-- -->
+
 
 Unsurprisingly I chose #2 - much cleaner.
 
@@ -76,7 +76,7 @@ What this does is:
 2. We iterate through test results and tell AppVeyor about the the test passes and failures using the [Build Worker API](<http://www.appveyor.com/docs/build-worker-api>).
 3. If there have been any failed tests then we fail the build. If you look [here](<https://ci.appveyor.com/project/JohnReilly/proverb/build/1.0.17>) you can see a deliberately failed build which demo's that this works as it should.
 
-<!-- -->
+
 
 That's a wrap - We now have CI which includes our JavaScript tests! That's right we get to see beautiful screens like these:
 

@@ -36,7 +36,7 @@ Now to get me some jQuery 1.10.2 goodness. To the console Batman! We've already 
 - We move `C:\Users\me\Documents\My Web Sites\Empty Site\App_Data\packages\jQuery.1.10.2\Content\Scripts` to `C:\Users\me\Documents\My Web Sites\Empty Site\Scripts`.
 - And finally we delete the `C:\Users\me\Documents\My Web Sites\Empty Site\App_Data\packages\jQuery.1.10.2\Content` folder.
 
-<!-- -->
+
 
 We hit refresh back in WebMatrix and now we get this:
 

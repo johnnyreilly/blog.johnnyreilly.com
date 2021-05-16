@@ -89,7 +89,7 @@ If you look at this code it's doing these things:
 1. Registering three types of authentication: Cookie, Azure AD and "WhichAuthDoWeUse"
 2. Registers the default `Scheme` to be "WhichAuthDoWeUse".
 
-<!-- -->
+
 
 "WhichAuthDoWeUse" is effectively an `if` statement that says, *"if this is an external `Request` use Cookies authentication, otherwise use Azure AD"*. Given that "WhichAuthDoWeUse" is the default scheme, this code runs for each request, to determine which authentication method to use.
 
@@ -212,7 +212,7 @@ The code above allows anonymous requests to land in our app through the `AllowAn
 1. It's an internal request (i.e. the Request URL starts "[https://strictly4mypeeps.io/"](<https://strictly4mypeeps.io/">))
 2. The current user is *not* authenticated.
 
-<!-- -->
+
 
 In this case the user is redirected to the [https://strictly4mypeeps.io/login-with-azure-ad](<https://strictly4mypeeps.io/login-with-azure-ad>) route which is decorated with the `Authorize` attribute. This will trigger authentication for our unauthenticated internal users and drive them through the Azure AD login process.
 

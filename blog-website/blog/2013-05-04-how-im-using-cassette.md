@@ -16,7 +16,7 @@ hide_table_of_contents: false
 4. How to ensure that Javascript files are served up last to any web page to ensure a speedy feel to users (don't want JS blocking rendering).
 5. And last but certainly not least the need to load Javascript files in dependency order. If `myView.js` depends on jQuery then clearly `jQuery-latest.js` needs to be served before `myView.js`.
 
-<!-- -->
+
 
 Now the best, most comprehensive and solid looking solution to this problem has for some time seemed to me to be [Andrew Davey's](<http://aboutcode.net/>)[Cassette](<http://getcassette.net/>). This addresses all my issues in one way or another, as well as bringing in a raft of other features (support for Coffeescript etc).
 
@@ -53,7 +53,7 @@ If you're more familiar with the workings of Web Optimization than Cassette then
 1. Create bundles as desired.
 2. Serve up bundles and / or straight JavaScript files as you like within your MVC views / partial views / layouts. 
 
-<!-- -->
+
 
 **Cassette**
 
@@ -61,7 +61,7 @@ If you're more familiar with the workings of Web Optimization than Cassette then
 2. Reference bundles and / or individual JavaScript files in their individual bundles as you like within your MVC views / partial views / layouts / controllers / HTML helpers... the list goes on!
 3. Render the referenced scripts to the page (typically just before the closing `body` tag)
 
-<!-- -->
+
 
 ## Making use of our Bundles
 

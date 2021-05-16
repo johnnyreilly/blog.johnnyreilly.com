@@ -208,7 +208,7 @@ There's a number of changes in the above code to Maxime's package. Three changes
 2. It uses [C#s nullable reference types](<https://blog.johnnyreilly.com/2020/12/nullable-reference-types-csharp-strictnullchecks.html>)
 3. It changes the extension method signature such that instead of entering `services.AddAuthentication().AddEasyAuthAuthentication((o) =&gt; { })` we now need only enter `services.AddEasyAuthAuthentication()`
 
-<!-- -->
+
 
 Now the significant change:
 

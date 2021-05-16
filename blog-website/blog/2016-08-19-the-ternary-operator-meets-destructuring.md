@@ -32,7 +32,7 @@ Just going from setting one variable to setting two has been really traumatic:
 - I've gone from 1 line of code to *9 lines of code*. That's 9x the code for increasing the number of variables in play by 1. That's... heavy.
 - This third point only applies if you're using TypeScript (and I am): I have to specify the types of my variables up front if I want type safety.
 
-<!-- -->
+
 
 ES2015 gives us another option. We can move back to the ternary operator if we change the return type of each branch to be an object sharing the same signature. Then, using destructuring, we can pull out those object properties into `const`s:
 

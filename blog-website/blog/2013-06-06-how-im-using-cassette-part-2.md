@@ -68,7 +68,7 @@ The eagle-eyed amongst you will have noticed
 2. The purpose of the script is very simple, it fades out the main body of the screen, re-writes the HTML in that tag and then fades back in. It's purpose is just to do something that is obvious to the user - so they can see the evidence of JavaScript executing.
 3. Lastly and most importantly, do you notice that `// @reference ~/bundles/core` is the first line of the file? This is our script reference. It's this that Cassette will be reading to pick up references.
 
-<!-- -->
+
 
 To make sure Cassette is picking up our brand new file let's take a look at `CassetteConfiguration.cs` and uncomment the line of code below:
 

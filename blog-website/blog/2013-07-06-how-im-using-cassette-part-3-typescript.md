@@ -29,7 +29,7 @@ TypeScript is designed to allow you to break up your application into modules. H
 - *A comment of the form /// <reference path="…"/> adds a dependency on the source file specified in the path argument. The path is resolved relative to the directory of the containing source file.*
 - *An external import declaration that specifies a relative external module name (section 11.2.1) resolves the name relative to the directory of the containing source file. If a source file with the resulting path and file extension ‘.ts’ exists, that file is added as a dependency. Otherwise, if a source file with the resulting path and file extension ‘.d.ts’ exists, that file is added as a dependency.*
 
-<!-- -->
+
 
 
 

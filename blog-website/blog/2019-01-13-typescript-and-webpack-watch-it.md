@@ -21,7 +21,7 @@ I took this PR for a spin on a large project that I work on. With my machine, I 
 1. Up your version of the plugin to `fork-ts-checker-webpack-plugin@next` in your `package.json`
 2. Add `useTypescriptIncrementalApi: true` to the plugin when you initialise it in your `webpack.config.js`.
 
-<!-- -->
+
 
 That's it.
 

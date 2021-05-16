@@ -24,7 +24,7 @@ There's 2 things happening in this target:
 1. A message is printed out during compilation which contains details of the various compile time variables. This is nothing more than a `console.log` statement really; it's useful for debugging and so I keep it around. You'll notice one of them is called `$(BuildNumber)`; more on that later.
 2. A command is executed; PowerShell! This invokes PowerShell with the `-NonInteractive` and `-ExecutionPolicy RemoteSigned` flags. It passes a script to be executed called `AfterBuild.ps1` that lives in the root of the project directory. To that script a number of parameters are supplied; compile time variables that we may use in the script.
 
-<!-- -->
+
 
 ## Where's my `BuildNumber` and `BuildDefinitionName`?
 

@@ -15,7 +15,7 @@ Yes! The [`ts-loader`](<https://github.com/TypeStrong/ts-loader>) beta to work w
 - When using `yarn`: `yarn add ts-loader@4.0.0-beta.0 -D`
 - When using `npm`: `npm install ts-loader@4.0.0-beta.0 -D`
 
-<!-- -->
+
 
 Remember to use this in concert with the webpack 4 beta. To see a working example take a look at [the "vanilla" example](<https://github.com/johnnyreilly/ts-loader/tree/master/examples/vanilla>).
 
@@ -26,7 +26,7 @@ There's more! You may like to use the `<a href="https://github.com/Realytics/for
 - When using `yarn`: `yarn add johnnyreilly/fork-ts-checker-webpack-plugin#4.0.0-beta.1 -D`
 - When using `npm`: `npm install johnnyreilly/fork-ts-checker-webpack-plugin#4.0.0-beta.1 -D`
 
-<!-- -->
+
 
 To see a working example take a look at [the "fork-ts-checker" example](<https://github.com/johnnyreilly/ts-loader/tree/master/examples/fork-ts-checker>).
 

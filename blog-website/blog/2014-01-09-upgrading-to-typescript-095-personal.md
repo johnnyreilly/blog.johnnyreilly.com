@@ -101,7 +101,7 @@ You're there. You've upgraded to the new plugin and the new typings. All is comp
 2. When we compiled with TS 0.9.5 we found there were a couple of bugs in our codebase which the tightened up compiler was now detecting. Essentially where we'd assumed types were flowing through to functions there were a couple of occasions with TS 0.9.1.1 where they weren't. Where we'd assumed we had a type of `T` available in a function whereas it was actually a type of `any`. I was really surprised that this was the case since we were already making use of `noImplicitAny` compiler flag in our project. So where a type had changed and a retired property was being referenced TS 0.9.5 picked up an error that TS 0.9.1.1 had not. Good catch! 
 3. And finally (and I know these are really minor), the compiled JS is a little different now. Firstly, the compiled JS features all of TypeScript comments in the positions that you might hope for. Previously it seemed that about 75% came along for the ride and ended up in some strange locations sometimes. Secondly, enums are treated differently during compilation now - where it makes sense the actual backing value of an enum is used rather than going through the JavaScript construct. So it's a bit like a `const` I guess - presumably this allows JavaScript engines to optimise a little more.
 
-<!-- -->
+
 
 I hope I haven't put you off with this post. I think TypeScript 0.9.5 is well worth making the leap for - and hopefully by reading this you'll have saved yourself from a few of the rough edges.
 

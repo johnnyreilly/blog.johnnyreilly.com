@@ -165,7 +165,7 @@ If you look closely at this directive you'll see it is restricted to be used as 
 1. The value that the `server-error` attribute is set to should be an object which will contain key / values where the keys represent fields that are being validated.
 2. The element being validated must have a name property (which will be used to look up the validation message in the `server-error` error "dictionary".
 
-<!-- -->
+
 
 Totally not clear, right? Let's have an example. Here is my "sageEdit" screen which you saw the screenshot of earlier:
 

@@ -19,7 +19,7 @@ What you want is a way to wipe the slate clean - to return the database back to 
 > - Backup to tape can be accomplished by another host without an effect on the production system.
 > - **A copy of a production database can be created instantly for reporting or testing.**
 > 
-> <!-- -->
+> 
 > 
 > *
 

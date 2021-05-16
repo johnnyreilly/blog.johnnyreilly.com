@@ -17,7 +17,7 @@ Our app uses a Linux App Service. It's worth knowing that Linux App Services run
 > - Manages the authenticated session
 > - Injects identity information into request headers The module runs separately from your application code and is configured using app settings. No SDKs, specific languages, or changes to your application code are required.
 > 
-> <!-- -->
+> 
 > 
 > The authentication and authorization module runs in a separate container, isolated from your application code. Using what's known as the [Ambassador](<https://docs.microsoft.com/en-us/azure/architecture/patterns/ambassador>) pattern, it interacts with the incoming traffic to perform similar functionality as on Windows.
 
@@ -86,7 +86,7 @@ There's two notable things happening above:
 1. In the `SASGen` job, a PowerShell script runs that [generates a SaS token URL](<https://docs.microsoft.com/en-us/powershell/module/az.storage/new-azstoragecontainersastoken?view=azps-5.5.0>) with read, write and list permissions that will last for 90 days. (Incidentally, there is a way to do this via [ARM templates, and without PowerShell](<https://stackoverflow.com/a/56127006/761388>) \- but alas it didn't seem to work when we experimented with it.)
 2. The generated (secret) token URL (`sasUrl`) is passed as a parameter to our App Service ARM template. The ARM template sets an appsetting for the app service:
 
-<!-- -->
+
 
 ```json
 {

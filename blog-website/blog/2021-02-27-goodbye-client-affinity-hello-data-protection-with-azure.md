@@ -35,7 +35,7 @@ All instances of the application can access the key ring and consequently sharin
 - [`Azure.Extensions.AspNetCore.DataProtection.Blobs`](<https://www.nuget.org/packages/Azure.Extensions.AspNetCore.DataProtection.Blobs>)
 - [`Azure.Extensions.AspNetCore.DataProtection.Keys`](<https://www.nuget.org/packages/Azure.Extensions.AspNetCore.DataProtection.Keys>)
 
-<!-- -->
+
 
 And adding the following to the `ConfigureServices` in your ASP.NET app:
 

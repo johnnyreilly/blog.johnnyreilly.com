@@ -125,14 +125,14 @@ All of these hindrances should hopefully be resolved in future. Ideally, one day
 - And on built in TypeScript support here: [https://github.com/Microsoft/TypeScript/issues/18896](<https://github.com/Microsoft/TypeScript/issues/18896>)
 - Finally, there it's worth watching the [nodejs/module](<https://github.com/nodejs/modules>) repository, which debates amongst other things how to properly integrate loaders with Node.
 
-<!-- -->
+
 
 This last one would be nice because:
 
 - We'd stop having to patch require
 - We probably wouldn't have to use yarn node if Node itself was able to find the loader somehow (such as if it was listed in the package.json metadata)
 
-<!-- -->
+
 
 Thanks to Maël for his tireless work on Yarn. To my mind Maël is certainly a candidate for the hardest worker in open source. I've been shamelessly borrowing his excellent docs for this post - thanks for writing so excellently Maël!
 

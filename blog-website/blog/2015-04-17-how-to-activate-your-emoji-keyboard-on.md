@@ -20,6 +20,6 @@ A departure from from my normal content - I need to tell you about [emoji](<http
 - now you should find your keyboard contains a little globe icon. When you select it.... Emoji!!!! [![](<http://2.bp.blogspot.com/-xtdHdGuc6YU/VTC6I-_43tI/AAAAAAAAA0g/JnlckIUnS48/s320/Screenshot_2015-04-16-07-23-56%257E2-739197.jpg>)](<http://2.bp.blogspot.com/-xtdHdGuc6YU/VTC6I-_43tI/AAAAAAAAA0g/JnlckIUnS48/s1600/Screenshot_2015-04-16-07-23-56%257E2-739197.jpg>)
 
 
-<!-- -->
+
 
 

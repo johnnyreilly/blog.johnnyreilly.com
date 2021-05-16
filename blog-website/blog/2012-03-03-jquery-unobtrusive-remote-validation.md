@@ -12,7 +12,7 @@ Just recently I have been particularly needing to make use of remote / server-si
 - Using remote validation you can supply \***multiple**\* parameters to be evaluated
 - It is possible to block validation and force it to be re-evaluted - although using a slightly hacky method which I document here. For what it's worth I acknowledge up front that this is \***not**\* an ideal solution but it does seem to work. I really hope there is a better solution out there and if anyone knows about it then please get in contact and let me know.
 
-<!-- -->
+
 
 Off we go... So, jQuery unobtrusive validation; clearly the new cool right?
 
@@ -165,7 +165,7 @@ So what happens here exactly? Well it's like this:
 4. Using `setInterval` we intend to trigger the `pendingValidationComplete` function to check if remote validation has completed every 50ms - again I try to avoid setInterval wherever possible but this seems to be the most sensible solution in this case. 
 5. When the remote request finally completes (ie when `pendingRequest` has a value of 0) then we can safely proceed on the basis of our validation results. In the example above I'm simply alerting to the screen based on my results; this is \***not**\* advised for any finished work; I'm just using this mechanism here to demonstrate the principle.
 
-<!-- -->
+
 
 Validation in action:
 

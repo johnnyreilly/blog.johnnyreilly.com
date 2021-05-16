@@ -27,7 +27,7 @@ My first efforts have resulted in the implementation of the `<a href="https://ms
 3. NgValidationFor.Documentation - this is an ASP.Net MVC project which will become a documentation site for NgValidationFor. It also doubles as a way for me to try out NgValidationFor.
 4. NgValidationFor.Documentation.UnitTests - unit tests for the documentation (there's none yet as I'm still spiking - but when I'm a little clearer, they will be)
 
-<!-- -->
+
 
 How can it be used? Well fairly easily. Take this simple model:
 

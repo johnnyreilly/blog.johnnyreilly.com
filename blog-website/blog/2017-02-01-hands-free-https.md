@@ -24,7 +24,7 @@ This is where I point you off to a number of resources to help you on your HTTPS
 2. [Watch Troy Hunt's Pluralsight course "Getting Started with CloudFlare™ Security"](<https://www.pluralsight.com/courses/cloudflare-security-getting-started>)
 3. [Go to Cloudflare's website and sign up](<https://www.cloudflare.com/>)
 
-<!-- -->
+
 
 It just works. And that makes me very happy indeed.
 

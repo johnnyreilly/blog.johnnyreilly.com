@@ -47,14 +47,14 @@ I'd like to draw your attention to 2 of the properties that can be passed in (qu
 >     `{Array.&lt;Object&gt;}` \- route parameters extracted from the current $location.path() by applying the current route
 > 
 > 
-> <!-- -->
+> 
 
 Both of these properties can be of more than 1 type.
 
 - `controller` can be a `string`*or* a `function`.
 - `template` can be a `string`*or* a `function` that returns a `string` and has `$routeParams` as a parameter.
 
-<!-- -->
+
 
 There's the rub. Whilst it was possible to overload functions in TypeScript pre 1.4, it was <u>not</u>
 

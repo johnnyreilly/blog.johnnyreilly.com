@@ -20,7 +20,7 @@ Then comes the moment of trepidation. You suggest a change. You suggest differen
 - "Yes we use 3 spaces."
 - "Okay... So we'll be using 3 spaces..." [backs away carefully]
 
-<!-- -->
+
 
 I've been in this position so many times I've learned to adapt. It helps that I'm a malleable sort anyway. But what if there were another way?
 

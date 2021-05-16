@@ -26,7 +26,7 @@ I'd been brought in to work on a full stack ASP.Net project. However, I've initi
 6. [Gulp](<http://gulpjs.com/>)
 7. [Atom](<https://atom.io/>)
 
-<!-- -->
+
 
 Where to begin? Perhaps at the end - Atom.
 
@@ -49,7 +49,7 @@ This is nice for a couple of reasons:
 - When I want to test out the app the build is already done - I don't have to wait for it to happen.
 - When I do bad things I find out faster. So I've got JSHint being triggered by my watch. If I write code that makes JSHint sad (and I haven't noticed the warnings from the [atom plugin](<https://atom.io/packages/jshint>)) then they'll appear in the console. Likewise, my unit tests are continuously running in response to file changes (in an [ncrunch](<http://www.ncrunch.net/>)\-y sorta style) and so I know straight away if I'm breaking tests. Rather invaluable in the dynamic world of JavaScript.
 
-<!-- -->
+
 
 ## Karma, Karma, Karma, Chameleon
 
@@ -84,7 +84,7 @@ The application I'm working on is plugging into an existing system which uses We
 1. WebSockets is a slightly different way of working - permanently open connections as opposed to the request / response paradigm of classic HTTP
 2. WebSockets are wicked fast (due in part to those permanent connections). So performance is *amazing*. Fast like native, type amazing. In our case performance is pretty important and so this has been really great.
 
-<!-- -->
+
 
 ## React / Flux
 

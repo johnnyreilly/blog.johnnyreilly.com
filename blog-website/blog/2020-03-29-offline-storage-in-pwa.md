@@ -20,7 +20,7 @@ If you were building a classic web app you'd probably be reaching for [`Window.l
 2. `Window.localStorage` cannot be used in the context of a `Worker` or a `ServiceWorker`. The APIs are not available there.
 3. `Window.localStorage` stores only `string`s. Given [`JSON.stringify`](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify>) and [`JSON.parse`](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse>) that's not a big problem. But it's an inconvenience.
 
-<!-- -->
+
 
 The second point here is the significant one. If we've a need to access our offline data in the context of a `ServiceWorker` (and if you're offline you'll be using a `ServiceWorker`) then what do you do?
 
@@ -48,7 +48,7 @@ The API is essentially equivalent to `localStorage` with a few lovely difference
 2. The API is not restricted to `string`s as `localStorage` is. To quote the docs: *this is IDB-backed, you can store anything structured-clonable (numbers, arrays, objects, dates, blobs etc)*
 3. Because this is abstraction built on top of IndexedDB, it can be used both in the context of a typical web app and also in a `Worker` or a `ServiceWorker` if required.
 
-<!-- -->
+
 
 ## Simple usage
 
@@ -95,7 +95,7 @@ As you can see, we've added a `testIDBKeyval` function which does the following:
 2. Queries IndexedDB using IDB-Keyval for the key of `'hello'` and stores it in the variable `whatDoWeHave`
 3. Logs out what we found.
 
-<!-- -->
+
 
 You'll also note that `testIDBKeyval` is an `async` function. This is so that we can use `await` when we're interacting with IDB-Keyval. Given that its API is `Promise` based, it is `await` friendly. Where you're performing more than an a single asynchronous operation at a time, it's often valuable to use `async` / `await` to increase the readability of your codebase.
 
@@ -234,7 +234,7 @@ The changes here are:
 2. The app attempts to app load a value from IDB-Keyval with the key `'darkModeOn'` and set `darkModeOn` with the retrieved value. If no value is retrieved then it sets `darkModeOn` to `true`.
 3. When the checkbox is changed, the corresponding value is both applied to `darkModeOn` and saved to IDB-Keyval with the key `'darkModeOn'`
 
-<!-- -->
+
 
 As you can see, this means that we are persisting preferences beyond page refresh in a fashion that will work both online *and* offline!
 

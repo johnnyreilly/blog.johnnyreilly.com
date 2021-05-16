@@ -37,7 +37,7 @@ I also started to notice that a 1 man war was being waged against the approach I
 - [An answer on StackOverflow](<http://stackoverflow.com/a/6904479/761388>) (there's quite a few similar answers around on StackOverflow saying similar)
 - [A comment on Rowan Millers post about fake DbContexts](<http://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/#div-comment-1620>)
 
-<!-- -->
+
 
 Ladislav is quite strongly of the opinion that wrapping DbSet / DbContext (and I presume ObjectSet / ObjectContext too) in a further Repository / Unit of Work is an antipattern. To quote him: *"The reason why I don’t like it is leaky abstraction in Linq-to-entities queries ... In your test you have Linq-to-Objects which is superset of Linq-to-entities and only subset of queries written in L2O is translatable to L2E"*. It's worth looking at [Jon Skeets explanation of "leaky abstractions"](<http://www.youtube.com/watch?v=gNeSZYke-_Q>) which he did for TekPub.
 

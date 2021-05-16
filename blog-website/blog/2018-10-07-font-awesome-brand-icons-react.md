@@ -11,7 +11,7 @@ Love me some [Font Awesome](<https://fontawesome.com>). Absolutely wonderful. Ho
  1. Font Awesome's brand icons are not part of `<a href="https://www.npmjs.com/package/@fortawesome/free-solid-svg-icons">@fortawesome/free-solid-svg-icons</a>` package
 2. The method of icon usage illustrated (i.e. with the `FontAwesomeIcon` component) doesn't work. It doesn't render owt.
 
-<!-- -->
+
 
 ## Brand Me Up Buttercup
 

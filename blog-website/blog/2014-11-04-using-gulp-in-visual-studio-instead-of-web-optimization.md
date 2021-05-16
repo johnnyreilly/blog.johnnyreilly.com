@@ -411,7 +411,7 @@ This file does a number of things each time it is run. First of all it deletes a
     ```
 
 
-<!-- -->
+
 
 For release our gulpfile works with the same resources but has a different aim. Namely to minimise the the number of HTTP requests, obfuscate the code and version the files produced to prevent caching issues. To achieve those lofty aims it does the following:
 
@@ -426,7 +426,7 @@ For release our gulpfile works with the same resources but has a different aim. 
 
  As you can see, the number of files included are reduced down to 2; 1 for JavaScript and 1 for CSS. 
 
-<!-- -->
+
 
 Finally, for both the debug and release packages the contents of the `fonts` folder is copied across wholesale, preserving the original folder structure. This is because the CSS files contain relative references that point to the font files. If I had image files which were referenced by my CSS I'd similarly need to include these in the build process.
 
@@ -581,7 +581,7 @@ If you very carefully compare the HTML above the MVC view that it replaces you c
 3. For each CSS file in the styles bundle a `link` element is created and added to the page.
 4. For each JavaScript file in the scripts bundle a `script` element is created and added to the page.
 
-<!-- -->
+
 
 It's worth pointing out that this also has a performance edge over Web Optimization as the assets are loaded asynchronously! (Yes I know it says `script.async = false` but that's not what you think it is... Go read Jake's article!)
 

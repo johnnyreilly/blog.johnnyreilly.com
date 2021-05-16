@@ -71,7 +71,7 @@ There's a number of things you should notice from the yml file:
 - We use [Chocolatey](<https://chocolatey.org/packages/Wget>) to install Wget which is used by the `makeStatic.ps1` Powershell script.
 - After the tests have completed we run 2 Powershell scripts. First `<a href="https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/blob/master/makeStatic.ps1">makeStatic.ps1</a>` which builds the static version of our site. This is the exact same script we discussed in the previous post - we're just passing it the build folder this time (one of AppVeyor's environment variables). Second, we run `<a href="https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/blob/master/pushStatic.ps1">pushStatic.ps1</a>` which publishes the static site to GitHub Pages.
 
-<!-- -->
+
 
 We pass 4 arguments to `pushStatic.ps1`: the build folder, my email address, my username and my personal access token. For the sake of security the GithubPersonalAccessToken has been encrypted as indicated by the `secure` keyword. This is a capability available in AppVeyor [here](<https://ci.appveyor.com/tools/encrypt>).
 
@@ -132,7 +132,7 @@ So what's happening here? Let's break it down:
 - If we have no changes then we do nothing.
 - If we have changes then we stage them, commit them and push them to GitHub Pages. Then we sign off with an allusion to [80's East Coast hip-hop](<https://en.wikipedia.org/wiki/Push_It_(Salt-n-Pepa_song)>)... 'Cos that's how we roll.
 
-<!-- -->
+
 
 With this in place, any changes to the docs will be automatically published out to our "gh-pages" branch. Our documentation will always be up to date thanks to the goodness of AppVeyor's Continuous Integration service.
 

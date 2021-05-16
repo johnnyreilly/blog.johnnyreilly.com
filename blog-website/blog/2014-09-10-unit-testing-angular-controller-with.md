@@ -29,7 +29,7 @@ I have an Angular controller called `sagesDetail`. It powers this screen:
 3. Log view activation.
 4. Expose a `gotoEdit` method which, when called, redirects the user to the edit screen.
 
-<!-- -->
+
 
 The controller is written in TypeScript and looks like this:
 

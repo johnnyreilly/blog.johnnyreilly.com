@@ -42,7 +42,7 @@ As you can see, we're placing the following variables that are available at buil
 - `SourceVersion` \- This is the commit hash of the source code in Git
 - `SourceBranchName` \- The name of the branch in Git.
 
-<!-- -->
+
 
 [There's many variables available in Azure Pipelines that can be used](<https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#build-variables-devops-services>) \- we've picked out the ones most interesting to us.
 

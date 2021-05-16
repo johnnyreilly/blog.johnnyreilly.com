@@ -18,7 +18,7 @@ Ug. The problem is that my atom packages have become corrupt. Quite how I couldn
 
 3. You'll see an `.apm` folder that contains all your packages. Delete this.
 
-<!-- -->
+
 
 When you next fire up Atom these packages will automagically come back but this time they shouldn't be corrupt. Instead you should see the happiness of normality restored:
 

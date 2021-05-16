@@ -70,7 +70,7 @@ Until that is either Visual Studio 2013 Update 3 or Internet Explorer 11 was ins
 > 2.  The application started another process and has now stopped. You may need to launch the process directly.
 > 3.  You do not have sufficient privileges for this application." File: C:\Program Files\Internet Explorer\iexplore.exe."
 > 
-> <!-- -->
+> 
 
 Lamentably, this was pretty much unresolvable and [logging it with Microsoft yielded nothing helpful](<https://connect.microsoft.com/VisualStudio/feedbackdetail/view/949049/coded-ui-cannot-run-as-a-different-user-with-visual-studio-2013-update-3>). This is what I mean about Coded UI being badly supported by Microsoft. Despite my best efforts to report this issue both to Connect and [elsewhere](<http://social.msdn.microsoft.com/Forums/vstudio/en-US/f48665e4-569a-4b67-9bdb-5522b2adffb2/cannot-run-coded-ui-tests-as-different-user-on-windows-81?forum=vsmantest#28c9decb-b579-4848-a7a9-f41c57584d59>) and in the end nothing useful happened.
 

@@ -86,7 +86,7 @@ What's happening here? Well first of all, if `okButtonText`, `cancelButtonText` 
 - If the user clicks the "OK" button then the promise is resolved with a value of `true`.
 - If the dialog closes and the promise has not been resolved then the promise is resolved with a value of `false`. This covers people clicking on the "Cancel" button as well as closing the dialog through other means.
 
-<!-- -->
+
 
 Finally we return the promise from our deferred object.
 

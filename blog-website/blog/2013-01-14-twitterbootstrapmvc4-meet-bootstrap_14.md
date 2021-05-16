@@ -39,7 +39,7 @@ To illustrate how this works, a German user running a machine with the de-DE cul
 - `globalize.culture.de-DE.js`
 - `bootstrap-datepicker.de.js`
 
-<!-- -->
+
 
 ## Where have we got to?
 
@@ -62,6 +62,6 @@ In this post we:
 1. fixed the validation issues we'd introduced by marrying up Twitter.Bootstrap.MVC4 and the Bootstrap Datepicker
 2. switched over to using the Andrew Rowls fork of Bootstrap Datepicker and made use of the internationalisation functionality it exposes.
 
-<!-- -->
+
 
 

@@ -93,7 +93,7 @@ The above Powershell does the following:
 5. Stops IIS Express
 6. Prints out the contents of the "static-site" directory
 
-<!-- -->
+
 
 When run, it pumps something like this out:
 

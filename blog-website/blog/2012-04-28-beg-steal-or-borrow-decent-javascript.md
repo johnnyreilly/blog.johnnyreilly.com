@@ -9,7 +9,7 @@ hide_table_of_contents: false
 I've so named this blog post because it shamelessly borrows from the fine work of others: Sebastian Markbåge and Nathan Vonnahme. Sebastian wrote a blog post documenting a good solution to the ASP.NET JavaScriptSerializer DateTime problem at the tail end of last year. However, his solution didn't get me 100% of the way there when I tried to use it because of a need to support IE 8 which lead me to use Nathan Vonnahme's ISO 8601 JavaScript Date parser. I thought it was worth documenting this, hence this post, but just so I'm clear; the hard work here was done by Sebastian Markbåge and Nathan Vonnahme and not me. Consider me just a curator in this case. The original blog posts that I am drawing upon can be found here: 1. [http://blog.calyptus.eu/seb/2011/12/custom-datetime-json-serialization/](<http://blog.calyptus.eu/seb/2011/12/custom-datetime-json-serialization/>) and here: 
 2. [http://n8v.enteuxis.org/2010/12/parsing-iso-8601-dates-in-javascript/](<http://n8v.enteuxis.org/2010/12/parsing-iso-8601-dates-in-javascript/>)
 
-<!-- -->
+
 
 ## DateTime, JSON, JavaScript Dates....
 
@@ -22,7 +22,7 @@ Anyway, I didn't think there was anything I could really do about this in an ASP
  Using this converter meant that a DateTime that previously would have been serialised as `"\/Date(1293840000000)\/"` would now be serialised as `"2011-01-01T00:00:00.0000000Z"` instead. This is entirely agreeable because 1. it's entirely clear what a `"2011-01-01T00:00:00.0000000Z"` style date represents and
 2. this is more in line with native browser JSON implementations and `&lt;statingTheObvious&gt;`consistency is a good thing.`&lt;/statingTheObvious&gt;`
 
-<!-- -->
+
 
 ## Getting your web services to use the ISO 8601 DateTime Converter
 

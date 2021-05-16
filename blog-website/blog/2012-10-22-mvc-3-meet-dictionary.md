@@ -41,7 +41,7 @@ My colleague found a workaround for the issue [here](<http://stackoverflow.com/a
 1. Dictionaries in JavaScript are simple JavaScript Object Literals. In order to workaround this issue it is necessary to `JSON.stringify` our Dictionary / JOL before sending it to the endpoint. This is done so a string can be picked up at the endpoint.
 2. The signature of your action is switched over from a Dictionary reference to a string reference. Deserialization is then manually performed back from the string to a Dictionary within the Action itself.
 
-<!-- -->
+
 
 I've adapted my example from earlier to demonstrate this; first the JavaScript:
 

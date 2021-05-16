@@ -19,7 +19,7 @@ There isn't actually a great deal to say about this WCF service. It should (hope
 1. `GetPdf` \- given a supplied URL this method creates a PDF and then returns it as a Stream to the client
 2. `GetPdfUrl` \- given a supplied URL this method creates a PDF and then returns the location of it to the client
 
-<!-- -->
+
 
 Both of these methods also set a Location header in the response indicating the location of the created PDF.
 

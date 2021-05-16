@@ -114,7 +114,7 @@ We toyed with 3 approaches and since each has merits I thought it worth going th
 
     - Our standard constructor already initialised the value of our internally set properties. So adding `virtual` to the internally set properties generated [ReSharper](<http://www.jetbrains.com/resharper/>) warnings aplenty about virtual properties being initialised in the constructor. Fair enough.
 
-    <!-- -->
+    
 
     Because of the snags it still felt like we were in nutcracking territory...
 
@@ -149,6 +149,6 @@ We toyed with 3 approaches and since each has merits I thought it worth going th
     Implementing these custom constructors wasn't a massive piece of work and so we ended up settling on this technique for initialising internal properties.
 
 
-<!-- -->
+
 
 

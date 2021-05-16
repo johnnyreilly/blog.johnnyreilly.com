@@ -186,7 +186,7 @@ It's at this point where we reach a conditional type in our type definition. Ess
 1. Where we're inferring the return type of the query
 2. Where we're inferring the return type of a `select`. A `select` option can be used to transform or select a part of the data returned by the query function. It has the signature: `select: (data: TData) =&gt; TSelect`
 
-<!-- -->
+
 
 We've been unpacking the first of these so far. Now we encounter the conditional type that chooses between them:
 
@@ -204,7 +204,7 @@ What's happening here is:
 - if a query includes a `select` option, we infer what that is and then subsequently extract the return type of the `select`.
 - otherwise we use the query return type (as we we've previously examined)
 
-<!-- -->
+
 
 Finally, whichever type we end up with, we supply that type as a parameter to `UseQueryResult`. And that is what is going to surface up our types to our users.
 

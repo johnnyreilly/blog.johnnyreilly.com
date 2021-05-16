@@ -23,7 +23,7 @@ What's more, Sheetal took the PR for a test drive using `ts-loader`, and her har
 - [https://github.com/TypeStrong/ts-loader/pull/1012](<https://github.com/TypeStrong/ts-loader/pull/1012>)
 - [https://github.com/TypeStrong/ts-loader/pull/1017](<https://github.com/TypeStrong/ts-loader/pull/1017>)
 
-<!-- -->
+
 
 If you're a `ts-loader` user, and you're using TypeScript 3.6+ then you can get the benefit of this now. That is, if you make use of the `experimentalWatchApi: true` option. With this set:
 
@@ -34,7 +34,7 @@ If you're a `ts-loader` user, and you're using TypeScript 3.6+ then you can get 
 3. The net result of people using this should be faster cold starts in build time where a previous compilation has taken place.
 
 
-<!-- -->
+
 
 ## `ts-loader v7.0.0`
 

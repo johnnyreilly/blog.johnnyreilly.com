@@ -15,7 +15,7 @@ This post will set out:
 1. How to get JavaScript tests to run on TFS / VSO in a continuous integration scenario.
 2. How to achieve this \***without**\* having to include your tests as part of web project.
 
-<!-- -->
+
 
 To do this I will lean heavily (that's fancy language for "rip off entirely") on an [excellent blog post by Mathew Aniyan](<http://blogs.msdn.com/b/visualstudioalm/archive/2012/07/09/javascript-unit-tests-on-team-foundation-service-with-chutzpah.aspx>) which covers point #1. My contribution is point #2.
 

@@ -181,7 +181,7 @@ So. What do we actually need? Well I've consulted the [documentation](<https://g
 - `<a href="https://github.com/jquery/globalize#date-module">globalize/date.js</a>`
 - `<a href="https://github.com/jquery/globalize#number-module">globalize/number.js</a>`
 
-<!-- -->
+
 
 On top of that I'm also going to need the various cldr dependencies too. That's not all. Given that I've decided which modules I will use I now need to acquire the associated cldr data. According to the docs [here](<https://github.com/jquery/globalize#2-cldr-content>) we're going to need:
 
@@ -193,7 +193,7 @@ On top of that I'm also going to need the various cldr dependencies too. That's 
 - `cldr/main/locale/numbers.json`
 - `cldr/supplemental/numberingSystems.json`
 
-<!-- -->
+
 
 Figuring that all out felt like really hard work. But I think that now we're ready to do the actual migration.
 

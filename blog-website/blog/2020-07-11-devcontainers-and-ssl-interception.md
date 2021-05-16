@@ -48,7 +48,7 @@ We need to do two things to get this working:
 1. Acquire the requisite CA certificate(s) from your friendly neighbourhood networking team. Place them in a `certs` folder inside your repo, in the `.devcontainer` folder.
 2. Add the following lines to your `.devcontainer/Dockerfile`, just after the initial `FROM` statement:
 
-<!-- -->
+
 
 ```
 # Because MITM certificates
@@ -63,7 +63,7 @@ Which does the following:
 - This is a Node example and so we set an environment variable called [`NODE_EXTRA_CA_CERTS`](<https://nodejs.org/api/cli.html#cli_node_extra_ca_certs_file>) which points to the path of your MITM CA certificate file inside your devcontainer.
 - updates the directory `/etc/ssl/certs` to hold SSL certificates and generates `ca-certificates.crt`
 
-<!-- -->
+
 
 With these in place then you should be able to build your devcontainer with no SSL trauma. Enjoy!
 

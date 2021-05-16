@@ -175,7 +175,7 @@ Let's go through the above, significant property by significant property (it's a
 - `properties.scope` \- we're modifying another resource; our key vault isn't defined in this ARM template and we want to specify the resource we're granting permissions to.
 - `properties.principalType` \- the type of principal that we're creating an assignment for; in our this is `"ServicePrincipal"` \- our managed identity.
 
-<!-- -->
+
 
 There is an alternate approach that you can use where the `type` is `"Microsoft.Authorization/roleAssignments"`. Whilst this also works, it displayed errors in the [Azure tooling for VS Code](<https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools>). As such, we've opted not to use that approach in our ARM templates.
 

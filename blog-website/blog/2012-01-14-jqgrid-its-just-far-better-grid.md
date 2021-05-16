@@ -14,6 +14,6 @@ The year was 2010 (not really that long ago I know) and the project that I was w
 - there are regular [releases / upgrades](<http://www.trirand.com/blog/>)
 - there are good online [demonstrations](<http://trirand.com/blog/jqgrid/jqgrid.html>) and [documentation](<http://www.trirand.com/jqgridwiki/doku.php>)
 
-<!-- -->
+
 
  I think Tony Tomov (the man behind jqGrid) has come up with something truly brilliant. It's worth saying that the equally brilliant jQueryUI team are in the process of writing an official [jQuery UI grid component](<http://wiki.jqueryui.com/w/page/34246941/Grid>) which uses jqGrid as one of its inspirations. However, this is still a long way from even a "zero feature" release. In the meantime jqGrid is continuing to go from strength to strength and as such I heartily recommend it. Finally, you can take a look at jqGrid's source on [GitHub](<https://github.com/tonytomov/jqGrid>).

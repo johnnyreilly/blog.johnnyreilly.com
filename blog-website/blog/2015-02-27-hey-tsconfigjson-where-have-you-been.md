@@ -34,7 +34,7 @@ I feel I should be clear - you can already set up TypeScript projects to work re
 2. Using Visual Studio without any csproj tweaks. This approach requires that all files will need `/// &lt;reference`s at their heads in order to build compilation context *outside* of Visual Studio. It's possible that `/// &lt;reference`s and the csproj could get out of line - care is required to avoid this. Compiler options in VS can be controlled using the project file as is.
 3. Using just files in Visual Studio with `/// &lt;reference`s to build compilation context. This scenario also requires that all developers (regardless of IDE) use `/// &lt;reference`s to build context. In Visual Studio there will be no control over compiler options.
 
-<!-- -->
+
 
 As you can see - this is sub-optimal. But don't worry - there's a new sheriff in town....
 
@@ -57,7 +57,7 @@ I'd decided to give [Atom TypeScript plugin](<https://github.com/TypeStrong/atom
 > - [format](<https://github.com/TypeStrong/atom-typescript/blob/master/docs/tsconfig.md#format>): Code formatting options
 > - [version](<https://github.com/TypeStrong/atom-typescript/blob/master/docs/tsconfig.md#version>): The TypeScript version
 > 
-> <!-- -->
+> 
 
 That's right folks, we don't need `/// &lt;reference`s comments anymore. In a blinding flash of light it all changes. We're going from the dark end of the street, to the bright side of the road. `tsconfig.json` is here to ease away the pain and make it all better. Let's enjoy it while we can.
 

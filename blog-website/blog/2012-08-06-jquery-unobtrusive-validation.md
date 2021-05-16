@@ -73,7 +73,7 @@ If you want to read up on this further I recommend these links:
 - [How to apply unobtrusive jQuery validation to dynamic content](<http://xhalent.wordpress.com/2011/01/24/applying-unobtrusive-validation-to-dynamic-content/>) \- handy if you're creating HTML on the client which you want to be validated.
 - And finally, a workaround for [a bug in MVC 3](<http://aspnet.codeplex.com/workitem/7629>) which means that data attributes aren’t emitted when using DropDownListFor for nested objects: [http://forums.asp.net/t/1649193.aspx/1/10](<http://forums.asp.net/t/1649193.aspx/1/10>). In fact because I've only seen this on a forum I've copied and the pasted the code there to below because I feared it being lost: **Update: It turns out the self-same issue exists for TextAreaFor as well. Details of this and a workaround can be found [here](<http://aspnet.codeplex.com/workitem/8576>)... **
 
-<!-- -->
+
 
 ```cs
 /// <summary>

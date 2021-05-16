@@ -11,7 +11,7 @@ I’ve long used [Globalize](<https://github.com/jquery/globalize/>) for my Java
  1. Was specifically purposed for dealing with numeric values
 2. Handled the parsing / formatting for the current locale (and I naturally intended to use Globalize for this purpose)
 
-<!-- -->
+
 
 Like so much development we start by standing on the shoulders of giants. In this case it’s the fantastic [Ryan Niemeyer](<https://twitter.com/RPNiemeyer>) who put up a [post on StackOverflow](<http://stackoverflow.com/a/12647270/761388>) that got me on the right track.
 

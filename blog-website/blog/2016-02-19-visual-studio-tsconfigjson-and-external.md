@@ -39,7 +39,7 @@ Have no fear, I gotcha. What we're going to do is ensure that Visual Studio trig
 - The modular ES6 TypeScript (new)
 - The legacy TypeScript (old)
 
-<!-- -->
+
 
 How do we do this? Through the magic of build targets. We need to add this to our `.csproj`: (I add it near the end; I'm not sure if location matters though)
 

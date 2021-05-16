@@ -68,7 +68,7 @@ This attribute does 2 things:
 1. Most importantly it fails validation for any `DateTime` or `DateTime?` that includes a time portion. It only allows through DateTimes where the clock strikes midnight. It's optimised for Cinderella.
 2. It fails validation if the attribute is applied to any property which is not a `DateTime` or `DateTime?`.
 
-<!-- -->
+
 
 You can decorate `DateTime` or `DateTime?` properties on your model with this attribute like so:
 

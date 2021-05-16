@@ -97,7 +97,7 @@ The conclusion of the linked blog post is twofold
 1. Don't mock HTTPContext
 2. Use the [facade pattern](<https://en.wikipedia.org/wiki/Facade_pattern>) instead
 
-<!-- -->
+
 
 Having testable code is not a optional bauble in my view - it's a necessity. So with my final approach that's exactly what I'll do.
 

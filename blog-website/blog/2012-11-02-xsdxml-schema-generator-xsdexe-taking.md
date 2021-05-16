@@ -60,7 +60,7 @@ But why is this good stuff? Indeed why is this more interesting than the newer, 
 2. Terse code - I'm passionate about less code. I think that a noble aim in software development is to write as little code as possible in order to achieve your aims. I say this as generally I have found that writing a minimal amount of code expresses the intention of the code in a far clearer fashion. In service of that aim Xsd.exe's generated classes allow me to write less code than would be required with LINQ to XML.
 3. To quote Scott Hanselman "[successful compilation is just the first unit test](<http://www.hanselman.com/blog/NuGetPackageOfTheWeek6DynamicMalleableEnjoyableExpandoObjectsWithClay.aspx>)". That it is but it's a doozy. If I'm making changes to the code and I've been using LINQ to XML I'm not going to see the benefits of strong typing that I would with Xsd.exe's generated classes. I like learning if I've broken the build sooner rather than later; strong typing gives me that safety net.
 
-<!-- -->
+
 
 ## Serialization / Deserialization Helper
 

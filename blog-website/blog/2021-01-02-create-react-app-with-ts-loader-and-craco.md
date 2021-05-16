@@ -17,7 +17,7 @@ Will give you a great TypeScript React project to get building with. There's two
 1. Transpilation AKA "turning our TypeScript into JavaScript". Back since [Babel 7 launched, Babel has enjoyed great support for transpiling TypeScript into JavaScript](<https://devblogs.microsoft.com/typescript/typescript-and-babel-7/>). Create React App leverages this; using the Babel webpack loader, [babel-loader](<https://github.com/babel/babel-loader>), for transpilation.
 2. Type checking AKA "seeing if our code compiles". Create React App uses the [`fork-ts-checker-webpack-plugin`](<https://github.com/TypeStrong/fork-ts-checker-webpack-plugin>) to run the TypeScript type checker on a separate process and report any issues that may exist.
 
-<!-- -->
+
 
 This is a great setup and works very well for the majority of use cases. However, what if we'd like to tweak this setup? What if we'd like to swap out `babel-loader` for `ts-loader` for compilation purposes? Can we do that?
 

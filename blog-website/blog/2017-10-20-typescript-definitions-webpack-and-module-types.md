@@ -15,7 +15,7 @@ When modules are imported, your loader will decide which module format it wants 
 1. You want to be able to reliably use the module regardless of the choice that your loader has made for which export to use.
 2. Because when it comes to writing type definition files for modules, there is support for a *single* external definition. Not one for each module format.
 
-<!-- -->
+
 
 ![](../static/blog/2017-10-20-typescript-definitions-webpack-and-module-types/one-definition-to-rule-them-all.jpg)
 

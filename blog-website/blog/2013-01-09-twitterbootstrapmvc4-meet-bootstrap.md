@@ -28,10 +28,10 @@ To get up and running with Eric's work was a straightforward proposition. I...
 2. Executed the following commands at the NuGet Package Manager Console: - `Install-Package twitter.bootstrap.mvc4`
     - `Install-Package twitter.bootstrap.mvc4.sample`
 
-    <!-- -->
+    
 
 
-<!-- -->
+
 
 Check out the responsive goodness I had when I ran it:
 
@@ -54,7 +54,7 @@ Incorporating the Bootstrap Datepicker into Twitter.Bootstrap.MVC4 was actually 
 - `bootstrap-datepicker.js` was added to `~\Scripts`.
 - `datepicker.css` was added to `~\Content`. I renamed this file to `bootstrap-datepicker.css` to stay in line with the other css files.
 
-<!-- -->
+
 
 Once this was done I amended the `BootstrapBundleConfig.cs` bundles to include these assets. Once this was done the bundle file looked like this:
 

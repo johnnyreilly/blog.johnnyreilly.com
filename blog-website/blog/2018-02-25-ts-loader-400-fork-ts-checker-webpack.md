@@ -15,7 +15,7 @@ The [`ts-loader`](<https://github.com/TypeStrong/ts-loader>) 4 is available too.
 - When using `yarn`: `yarn add ts-loader@4.1.0 -D`
 - When using `npm`: `npm install ts-loader@4.1.0 -D`
 
-<!-- -->
+
 
 Remember to use this in concert with the webpack 4. To see a working example take a look at [the "vanilla" example](<https://github.com/johnnyreilly/ts-loader/tree/master/examples/vanilla>).
 
@@ -26,7 +26,7 @@ There's more! You may like to use the `<a href="https://github.com/Realytics/for
 - When using `yarn`: `yarn add fork-ts-checker-webpack-plugin@0.4.1 -D`
 - When using `npm`: `npm install fork-ts-checker-webpack-plugin@0.4.1 -D`
 
-<!-- -->
+
 
 To see a working example take a look at [the "fork-ts-checker" example](<https://github.com/johnnyreilly/ts-loader/tree/master/examples/fork-ts-checker>).
 

@@ -13,7 +13,7 @@ Recently, various issues have been raised against create-react-app (which uses f
 - [https://github.com/Realytics/fork-ts-checker-webpack-plugin/issues/236](<https://github.com/Realytics/fork-ts-checker-webpack-plugin/issues/236>)
 - [https://github.com/facebook/create-react-app/issues/6792](<https://github.com/facebook/create-react-app/issues/6792>)
 
-<!-- -->
+
 
 ## Why High?
 

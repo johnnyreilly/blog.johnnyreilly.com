@@ -19,7 +19,7 @@ The one thing that might not be clear from the above curriculum vitae is this: *
 1. I have no formal training to speak of - I didn't do a computer sciences degree. In fact my first real coding experience was writing a program in [Locomotive Basic](<http://en.wikipedia.org/wiki/Locomotive_BASIC>) for my father on our humble Amstrad CPC.
 2. That said, I love it. I find writing code an intellectually, emotionally, creatively satisfying act. And whilst I undoubtedly have less of the theoretical knowledge which most professional developers seem to have, I probably counter-balance that with a hunger to keep learning and keep trying new things. And since software never sits still that's probably just as well. Keep watching the horizon - there will be something coming over it! And it's worth saying, I have an instinct for developing which serves me pretty well. I'm good at coming up with elegant and pragmatic solutions. Put simply: I'm good at making code work.
 
-<!-- -->
+
 
 So back to the point. In my daily work life, like any other developer, I am repeatedly called on to turn someones requirement into a reality. Very rarely do I achieve this on my own. Like most of us I'm a dwarf standing on the shoulders of giants. There's a lot of people out there who come up with useful tools / components / plug-ins that make it possible for me to deliver much more than I would given my own abilities.
 

@@ -21,7 +21,7 @@ Each time I publish a release of `ts-loader` I execute the following node comman
 3. `yarn test` \- to run `ts-loader`'s test packs
 4. `npm publish` \- to publish the release of `ts-loader` to npm
 
-<!-- -->
+
 
 Having read up on GitHub Actions it seemed like they were born to handle this sort of task.
 

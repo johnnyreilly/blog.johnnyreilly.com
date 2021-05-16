@@ -14,7 +14,7 @@ Last time I wrote about WCF I was getting up and running with [WCF Transport Win
 2. I've established a basic Windows Service hosted WCF service / client harness which is useful if you're trying to get up and running with a WCF service quickly
 3. I've locked down the WCF authorization to a single Windows account through the use of my own [ServiceAuthorizationManager](<http://msdn.microsoft.com/en-us/library/ms731774.aspx>)
 
-<!-- -->
+
 
 ## Moving from Config to Code
 

@@ -55,7 +55,7 @@ I did a little digging and found [this issue report on the TypeScript CodePlex s
 1. Install TypeScript on the build server
 2. Copy the required files for Microsoft.TypeScript.targets to a different source-controlled folder and change the path references in the csproj file to this folder.
 
-<!-- -->
+
 
 \#1 wasn't an option for us - we couldn't install on the build server. And covering both #1 and #2, I wasn't particularly inclined to kick off builds on the build server since I was wary of [reported problems with memory leaks](<https://typescript.codeplex.com/workitem/1432>) etc with the TS compiler. I may feel differently later when TS is no longer in Alpha and has stabilised but it didn't seem like the right time.
 

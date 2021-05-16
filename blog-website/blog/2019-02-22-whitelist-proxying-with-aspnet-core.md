@@ -21,7 +21,7 @@ And so it came to pass that the teams product (which took the form of ASP.Net Co
 1. the straightforward serving of HTML, CSS, JS and images
 2. the proxying of API calls through to the API app
 
-<!-- -->
+
 
 ## Proxy Part 1
 
@@ -60,7 +60,7 @@ If you look at the code above you can see that we are proxing all our requests t
 1. `GET` requests to `api/version` are proxied through as *anonymous*`GET` requests.
 2. `GET` and `POST` requests to `api/account/{accountId:int}/all-the-secret-info` are proxied through as `GET` and `POST` requests. These requests require that a user be authenticated first.
 
-<!-- -->
+
 
 The `WhiteListProxy` proxy class we've been using looks like this:
 

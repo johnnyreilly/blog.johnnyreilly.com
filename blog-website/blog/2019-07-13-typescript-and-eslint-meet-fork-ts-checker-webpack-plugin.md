@@ -11,7 +11,7 @@ The `fork-ts-checker-webpack-plugin` has, since its inception, performed two cla
 1. Compilation errors which the TypeScript compiler surfaces up
 2. Linting issues which TSLint reports
 
-<!-- -->
+
 
 [You may have caught the announcement that TSLint is being deprecated and ESLint is the future of linting in the TypeScript world.](<https://eslint.org/blog/2019/01/future-typescript-eslint>) This plainly has a bearing on linting in `fork-ts-checker-webpack-plugin`.
 
@@ -45,7 +45,7 @@ yarn add eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin --dev
 - `@typescript-eslint/parser`: The parser that will allow ESLint to lint TypeScript code
 - `@typescript-eslint/eslint-plugin`: A plugin that contains ESLint rules that are TypeScript specific
 
-<!-- -->
+
 
 If you want, you can pass options to ESLint using the `eslintOptions` option as well. These will be passed through to the underlying ESLint CLI Engine when it is instantiated. Docs on the supported options are [documented here](<https://eslint.org/docs/developer-guide/nodejs-api#cliengine>).
 
@@ -159,7 +159,7 @@ The [`TIMING` environment variable](<https://eslint.org/docs/developer-guide/wor
 - `lint` \- just runs the linter standalone
 - `lint-rule-timings` \- does the same but with the `TIMING` environment variable set to 1 so a report will be generated.
 
-<!-- -->
+
 
 I'd advise, making use of `lint-rule-timings` to identify which rules are costing you performance and then turning `off` rules as you need to. Remember, different rules have different value.
 

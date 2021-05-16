@@ -16,7 +16,7 @@ What did I get out of the switch?
 - TypeScript support in the box
 - Improved perceived performance. I didn't run any specific tests to quantify this, but I can say that the same functionality now feels snappier.
 
-<!-- -->
+
 
 I tweeted my delight at this and Tanner asked if there was commit diff I could share. I couldn't as it's a private codebase, but I thought it could form the basis of a blogpost.
 

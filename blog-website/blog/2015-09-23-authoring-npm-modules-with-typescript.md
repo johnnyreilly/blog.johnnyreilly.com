@@ -17,7 +17,7 @@ OK - the title's total clickbait but stay with me; there's a point here.
 > 3. Look for `node_modules\&lt;module name&gt;\index.d.ts`
 > 4. Then we go one level higher and repeat the process
 > 
-> <!-- -->
+> 
 > 
 > **Please note:** when we search through node\_modules, we assume these are the packaged node modules which have type information and a corresponding `.js` file. As such, we resolve only `.d.ts` files (not `.ts` file) for non-relative names.
 > 
@@ -358,6 +358,6 @@ One of the useful things about writing a blog is that you get to learn. Since I 
 - [https://github.com/Microsoft/TypeScript/wiki/Typings-for-npm-packages](<https://github.com/Microsoft/TypeScript/wiki/Typings-for-npm-packages>)
 - [https://basarat.gitbooks.io/typescript/content/docs/node/nodejs.html](<https://basarat.gitbooks.io/typescript/content/docs/node/nodejs.html>)
 
-<!-- -->
+
 
 

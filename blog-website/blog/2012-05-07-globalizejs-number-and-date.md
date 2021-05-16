@@ -11,7 +11,7 @@ I wanted to write about a JavaScript library which seems to have had very little
 1. Brilliant!
 2. Solves a common problem that faces many app developers who work in the wonderful world of web; myself included
 
-<!-- -->
+
 
 The library is called Globalize.js and can be found on [GitHub here](<https://github.com/jquery/globalize>). Globalize.js is a simple JavaScript library that allows you to format and parse numbers and dates in culture specific fashion.
 
@@ -42,7 +42,7 @@ Well to be frank - it's a bit rubbish really. What's on offer natively at presen
 - [Date.toLocaleDateString](<https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Date/toLocaleDateString>)
 - [Number.ToLocaleString](<https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number/ToLocaleString>)
 
-<!-- -->
+
 
 This is better than nothing - but not by much. There's no real control or flexibility here. If you don't like the native localisation format or you want something slightly different then tough. This is all you've got to play with.
 
@@ -66,7 +66,7 @@ I'm not aware of a great fuss ever being made about this - a fact I find surpris
 - [Number.localeFormat](<http://msdn.microsoft.com/en-us/library/bb310813.aspx>)
 - [Number.parseLocale](<http://msdn.microsoft.com/en-us/library/bb310985.aspx>)
 
-<!-- -->
+
 
 When our team became aware of this we started to make use of it in our web applications. I imagine we weren't alone...
 
@@ -98,7 +98,7 @@ The long and short of which was:
 - The source of Globalize.js moved to this location on GitHub: [https://github.com/jquery/globalize/](<https://github.com/jquery/globalize/>)
 - Perhaps most significantly, the jQuery globalisation plug-in as developed by Microsoft had now been made a standalone JavaScript library. This was clearly brilliant news for Node.js developers as they would now be able to take advantage of this and perform localisation / globalisation server-side - they wouldn't need to have jQuery along for the ride. Also, this would be presumably be good news for users of other client side JavaScript libraries like Dojo / YUI etc.
 
-<!-- -->
+
 
 Globalize.js clearly has a rosy future in front of it. Using the new Globalize.js library was still simplicity itself. Here's some examples of localising dates / numbers using the German culture:
 

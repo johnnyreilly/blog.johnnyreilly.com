@@ -13,7 +13,7 @@ hide_table_of_contents: false
 1. *In Development* \- I want my URLs for static resources to have a unique querystring with each request to ensure that resources are loaded afresh each time. (eg so a GET request URL might look like this: "/app/layout/sidebar.html?v=IAmRandomYesRandomRandomIsWhatIAm58965782")
 2. *In Production* \- I want my URLs for static resources to have a querystring with that is driven by the application version number. This means that static resources can potentially be cached with a given querystring - subsequent requests should result in a 304 status code (indicating “Not Modified”) and local cache should be used. But when a new version of the app is rolled out and the app version is incremented then the querystring will change and resources will be loaded anew. (eg a GET request URL might look like this: "/app/layout/sidebar.html?v=1.0.5389.16180")
 
-<!-- -->
+
 
 ## Loading Views in AngularJS Using this Approach
 
@@ -88,7 +88,7 @@ This interceptor steps in and amends each ajax request when all the following co
 2. It's requesting a file that ends ".html" - a template basically.
 3. The template cache does not already contain the template. I left this out at first and got bitten when I found that the contents of the template cache were being ignored for pre-primed templates. Ugly.
 
-<!-- -->
+
 
 ## Interesting technique.... How do I apply it?
 

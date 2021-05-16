@@ -18,7 +18,7 @@ This post presumes knowledge of:
 - TypeScript
 - Node
 
-<!-- -->
+
 
 ## From console to web app
 
@@ -51,7 +51,7 @@ As the hint suggests, swap `serviceWorker.unregister()` for `serviceWorker.regis
 > - All static site assets are cached so that your page loads fast on subsequent visits, regardless of network connectivity (such as 2G or 3G). Updates are downloaded in the background.
 > - Your app will work regardless of network state, even if offline. This means your users will be able to use your app at 10,000 feet and on the subway.
 > 
-> <!-- -->
+> 
 > 
 > ... it will take care of generating a service worker file that will automatically precache all of your local assets and keep them up to date as you deploy updates. The service worker will use a [cache-first strategy](<https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-falling-back-to-network>)for handling all requests for local assets, including [navigation requests](<https://developers.google.com/web/fundamentals/primers/service-workers/high-performance-loading#first_what_are_navigation_requests>) for your HTML, ensuring that your web app is consistently fast, even on a slow or unreliable network.
 
@@ -71,7 +71,7 @@ But it's not just an offline experience that makes this a PWA. Other important f
 - That the app has a name and an icon which can be customised.
 - That there's a splash screen displayed to the user as the app starts up.
 
-<!-- -->
+
 
 All of the above is "in the box" with `create-react-app`. Let's start customizing these.
 
@@ -131,7 +131,7 @@ You can use the above properties (and others not yet configured) to control how 
 - updating references to them in the `manifest.json`
 - finally, for older Apple devices, updating the `&lt;link rel="apple-touch-icon" ... /&gt;` in the `index.html`.
 
-<!-- -->
+
 
 ## Where are we?
 

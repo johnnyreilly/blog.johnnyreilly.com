@@ -31,7 +31,7 @@ This raises a number of issues but essentially it gets me to think about the sor
 1. Development
 2. Production
 
-<!-- -->
+
 
 For Development I want any changes to JavaScript files to be picked up – I do \***not**\* want caching. For Production I want caching in order that users have better performance / faster loading. If I ship a new version of the app to Production I also want users to pick up the new versions of a file and cache those.
 

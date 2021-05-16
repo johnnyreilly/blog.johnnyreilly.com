@@ -14,7 +14,7 @@ Yes the title of this post is \***painfully**\* verbose. Sorry about that. Coupl
 - Have you then subsequently thought "and hold on a minute... even if I did implement this using the prototype and split things between different files / modules wouldn't I have to pollute the global scope to achieve that? And wouldn't that mean that my code was exposed to the vagaries of any other scripts on the page? Hmmm..."
 - [Men! Are you skinny? Do bullies kick sand in your face?](<http://www.thrillingdetective.com/eyes/oxford.html>) (Just wanted to see if you were still paying attention...)
 
-<!-- -->
+
 
  ## The Problem
 
@@ -117,7 +117,7 @@ So when my event was published out the functions in the above JS files would be 
 2. BoyReilly.js
 3. JohnReilly.js
 
-<!-- -->
+
 
 If you were so inclined you could use this to emulate inheritance in behaviour. Eg you could set a property in `BaseReilly.js` which was subsequently overridden in `JohnReilly.js` or `BoyReilly.js` if you so desired. I'm not doing that myself but it occurred as a possibility. ## PS
 

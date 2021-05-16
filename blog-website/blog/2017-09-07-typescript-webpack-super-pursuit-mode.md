@@ -31,7 +31,7 @@ What does this mean and how does this fit with ts-loader? Well, ts-loader does 2
 1. It transpiles your TypeScript into JavaScript and hands it off to webpack
 2. It collects any TypeScript compilation errors and reports them to webpack
 
-<!-- -->
+
 
 What this plugin does is say, "forget about #2 - we've got this." It removes the responsibility for type checking from ts-loader, so the only work ts-loader does is transpilation. In the meantime, the all important type checking is still happening. To be honest, there would be little reason to recommend this approach otherwise. The difference is `fork-ts-checker-webpack-plugin` is doing the heavy lifting **in a separate process**. This provides a nice performance boost to your workflow. ts-loader is doing **less** and that's a <u>good thing</u>
 
