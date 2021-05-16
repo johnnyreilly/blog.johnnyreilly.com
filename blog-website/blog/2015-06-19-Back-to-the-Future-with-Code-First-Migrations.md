@@ -44,7 +44,7 @@ I want you to look very carefully at this and tell me what you see. We're lookin
 
 The `IMigrationMetadata.Id` property is returning `<u>201408121401253</u>_AddSagacityToSage`. That is the *old* date! Remember? The passé one. If you change that property to line up with the file name change you're done. It works.
 
-![](https://upload.wikimedia.org/wikipedia/en/9/97/Doc_Brown.JPG)
+![](../static/blog/2015-06-19-Back-to-the-Future-with-Code-First-Migrations/where-were-going.jpg)
 
 Let's say it together: "Automatic Migrations? Where we're going, we don't need Automatic Migrations."
 

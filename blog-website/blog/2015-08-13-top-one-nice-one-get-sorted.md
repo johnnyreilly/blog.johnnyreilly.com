@@ -215,7 +215,7 @@ That's right, he's created a function which takes a number of comparers and redu
 
 I know.
 
-![](http://i.qkme.me/3qknmj.jpg)
+![](../static/blog/2015-08-13-top-one-nice-one-get-sorted/3qknmj.jpg)
 
 I'll get my coat...
 
