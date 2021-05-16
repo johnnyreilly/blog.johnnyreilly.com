@@ -3,7 +3,7 @@ title: "Offline storage in a PWA"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [PWA, idb-keyval, IndexedDB, localStorage]
 hide_table_of_contents: false
 ---
 When you are building any kind of application it's typical to want to store information which persists beyond a single user session. Sometimes that will be information that you'll want to live in some kind of centralised database, but not always.

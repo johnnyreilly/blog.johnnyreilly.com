@@ -3,7 +3,7 @@ title: "EF Core 3.1 breaks left join with no navigation property"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [Entity Framework, left join, navigation property, broken]
 hide_table_of_contents: false
 ---
 Just recently my team took on the challenge of upgrading our codebase from .NET Core 2.2 to .NET Core 3.1. Along the way we encountered a quirky issue which caused us much befuddlement. Should you be befuddled too, then maybe this can help you.

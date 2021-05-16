@@ -3,7 +3,7 @@ title: "Nullable reference types; CSharp's very own strictNullChecks"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [CSharp, Nullable reference types]
 hide_table_of_contents: false
 ---
 'Tis the season to play with new compiler settings! I'm a very keen TypeScript user and have been merrily using [`strictNullChecks`](<https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#--strictnullchecks>) since it shipped. I was dimly aware that C# was also getting a similar feature by the name of [nullable reference types](<https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/nullable-reference-types>).

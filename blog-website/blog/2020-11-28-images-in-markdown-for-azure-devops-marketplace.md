@@ -1,9 +1,9 @@
 ---
-title: "Images in MarkDown for the Azure DevOps Marketplace!"
+title: "Visual Studio Marketplace: Images in MarkDown!"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [Azure DevOps Marketplace, Visual Studio Marketplace, markdown, images]
 hide_table_of_contents: false
 ---
 I've recently found myself developing [custom pipelines task extensions for Azure DevOps](<https://docs.microsoft.com/en-us/azure/devops/extend/develop/add-build-task?view=azure-devops>). The extensions being developed end up in the [Azure DevOps Marketplace](<https://marketplace.visualstudio.com/azuredevops>). What you see there when you look at existing extensions is some pretty lovely documentation.

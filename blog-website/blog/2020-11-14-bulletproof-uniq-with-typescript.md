@@ -3,7 +3,7 @@ title: "Bulletproof uniq with TypeScript generics (yay code reviews!)"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [TypeScript, unique]
 hide_table_of_contents: false
 ---
 Never neglect the possibilities of a code review. There are times when you raise a PR and all you want is for everyone to hit approve so you can merge, merge and ship, ship! This can be a missed opportunity. For as much as I'd like to imagine my code is perfect, it's patently not. There's always scope for improvement.

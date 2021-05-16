@@ -1,9 +1,9 @@
 ---
-title: "Dual boot authentication with ASP.Net Core"
+title: "Dual boot authentication with ASP.NET"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [Authentication, dual authentication, Cookie, Azure AD, ForwardDefaultSelector, ASP.NET]
 hide_table_of_contents: false
 ---
 This is a post about having two kinds of authentication working at the same time in ASP.Net Core. But choosing which authentication method to use dynamically at runtime; based upon the criteria of your choice.

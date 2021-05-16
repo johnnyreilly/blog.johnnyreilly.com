@@ -3,7 +3,7 @@ title: "Azure App Service, Health checks and zero downtime deployments"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [Azure App Service, Health checks, deployment slots, zero downtime deployments]
 hide_table_of_contents: false
 ---
 I've been working recently on zero downtime deployments using Azure App Service. They're facilitated by a combination of [Health checks](<https://docs.microsoft.com/en-us/azure/app-service/monitor-instances-health-check>) and [deployment slots](<https://docs.microsoft.com/en-us/azure/app-service/deploy-staging-slots>). This post will talk about why this is important and how it works.

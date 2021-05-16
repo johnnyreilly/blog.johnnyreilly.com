@@ -3,7 +3,7 @@ title: "Making Easy Auth tokens survive releases on Linux Azure App Service"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [Azure, Easy Auth, tokens, SAS, Blob Storage]
 hide_table_of_contents: false
 ---
 I [wrote recently about zero downtime deployments on Azure App Service](<https://blog.johnnyreilly.com/2021/02/azure-app-service-health-checks-and-zero-downtime-deployments.html>). Many applications require authentication, and ours is no exception. In our case we're using Azure Active Directory facilitated by ["Easy Auth"](<https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization>) which provides authentication to our App Service.

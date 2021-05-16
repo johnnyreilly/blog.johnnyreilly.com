@@ -3,7 +3,7 @@ title: "From react-window to react-virtual"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [react-virtual, react-window, React]
 hide_table_of_contents: false
 ---
 The tremendous [Tanner Linsley](<https://twitter.com/tannerlinsley>) recently released [`react-virtual`](<https://github.com/tannerlinsley/react-virtual>). `react-virtual` provides "hooks for virtualizing scrollable elements in React".

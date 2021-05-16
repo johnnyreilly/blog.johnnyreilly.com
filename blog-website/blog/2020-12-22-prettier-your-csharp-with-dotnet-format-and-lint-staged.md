@@ -1,9 +1,9 @@
 ---
-title: "Prettier your CSharp with dotnet-format and lint-staged"
+title: "dotnet-format: Prettier your CSharp with lint-staged"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [Prettier, dotnet-format, CSharpier]
 hide_table_of_contents: false
 ---
 Consistent formatting is a good thing. It makes code less confusing to newcomers and it allows whoever is working on the codebase to reliably focus on the task at hand. Not "fixing curly braces because Janice messed them up with her last commit". (A `git commit` message that would be tragic in so many ways.)
@@ -95,4 +95,11 @@ Secondly we've added the `*.cs` task of `dotnet format --include`. This is the t
 
 By and large we don't have to think about this; the important take home is that we're now enforcing standardised formatting for all C# files upon commit. Everything that goes into the codebase will be formatted in a consistent fashion.
 
+## CSharpier - update 16/05/2021
 
+There is an alternative to the CSharp Prettier project. It's being worked on by 
+[Bela VanderVoort](https://github.com/belav) and it goes by the name of [csharpier](https://github.com/belav/csharpier). When comparing CSharpier and dotnet-format, Bela put it like this:
+
+> I could see CSharpier being the non-configurable super opinionated formatter and dotnet-format being for the people that do want to have options.
+
+Check it out!

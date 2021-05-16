@@ -3,7 +3,7 @@ title: "Goodbye Client Affinity, Hello Data Protection with Azure"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [Azure, Data Protection, Easy Auth, ASP.NET]
 hide_table_of_contents: false
 ---
 I've written lately about [zero downtime releases with Azure App Service](<https://blog.johnnyreilly.com/2021/02/azure-app-service-health-checks-and-zero-downtime-deployments.html>). Zero downtime releases are only successful if your authentication mechanism survives a new deployment. We looked in my last post at [how to achieve this with Azure's in-built authentication mechanism; Easy Auth](<https://blog.johnnyreilly.com/2021/02/easy-auth-tokens-survive-releases-on-linux-azure-app-service.html>).

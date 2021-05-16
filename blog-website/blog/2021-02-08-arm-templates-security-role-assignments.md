@@ -3,7 +3,7 @@ title: "ARM templates, security, role assignments and magic GUIDs"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [Azure, ARM templates, role assignments, permissions]
 hide_table_of_contents: false
 ---
 If you're deploying to Azure, there's a good chance you're using [ARM templates](<https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview>) to do so. Once you've got past "Hello World", you'll probably find yourself in a situation when you're deploying multiple types of resource to make your solution. For instance, you may be deploying an [App Service](<https://docs.microsoft.com/en-us/azure/app-service/quickstart-arm-template?pivots=platform-linux#review-the-template>) alongside [Key Vault](<https://docs.microsoft.com/en-us/azure/templates/microsoft.keyvault/vaults>) and [Storage](<https://docs.microsoft.com/en-us/azure/templates/microsoft.storage/storageaccounts>).

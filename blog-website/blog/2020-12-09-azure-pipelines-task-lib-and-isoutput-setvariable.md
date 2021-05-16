@@ -3,7 +3,7 @@ title: "azure-pipelines-task-lib and isOutput setVariable"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [azure-pipelines-task-lib, Azure Pipelines, custom task]
 hide_table_of_contents: false
 ---
 Some blog posts are insightful treatises on the future of web development, some are "here's how I solved my problem". This is most assuredly the latter.

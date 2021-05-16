@@ -3,7 +3,7 @@ title: "Web Workers, comlink, TypeScript and React"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [web workers, comlink, TypeScript, React]
 hide_table_of_contents: false
 ---
 JavaScript is famously single threaded. However, if you're developing for the web, you may well know that this is not quite accurate. There are [`Web Workers`](<https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers>):

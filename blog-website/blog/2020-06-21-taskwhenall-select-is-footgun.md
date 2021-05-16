@@ -3,7 +3,7 @@ title: "Task.WhenAll / Select is a footgun 👟🔫"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [CSharp, LINQ, Task.WhenAll, Select]
 hide_table_of_contents: false
 ---
 This post differs from my typical fayre. Most often I write "here's how to do a thing". This is not that. It's more "don't do this thing I did". And maybe also, "how can we avoid a situation like this happening again in future?". On this topic I very much don't have all the answers - but by putting my thoughts down maybe I'll learn and maybe others will educate me. I would love that!

@@ -3,7 +3,7 @@ title: "Azure Easy Auth and Roles with .NET and Microsoft.Identity.Web"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [Azure, Easy Auth, Roles, ASP.NET, Microsoft.Identity.Web]
 hide_table_of_contents: false
 ---
 [I wrote recently about how to get Azure Easy Auth to work with roles](<https://blog.johnnyreilly.com/2021/01/azure-easy-auth-and-roles-with-dotnet-and-core.html>). This involved borrowing the approach used by [MaximeRouiller.Azure.AppService.EasyAuth](<https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth>).
