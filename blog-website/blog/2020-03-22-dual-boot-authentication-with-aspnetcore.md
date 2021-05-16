@@ -8,11 +8,11 @@ hide_table_of_contents: false
 ---
 This is a post about having two kinds of authentication working at the same time in ASP.Net Core. But choosing which authentication method to use dynamically at runtime; based upon the criteria of your choice.
 
-Already this sounds complicated; let's fix that. Perhaps I should describe my situation to you. I've an app which has two classes of user. One class, let's call them "customers" (because... uh... they're customers). The customers access our application via a public facing website. Traffic rolls through Cloudflare and into our application. The public facing URL is something fancy like [https://mega-app.com](<https://mega-app.com>). That's one class of user.
+Already this sounds complicated; let's fix that. Perhaps I should describe my situation to you. I've an app which has two classes of user. One class, let's call them "customers" (because... uh... they're customers). The customers access our application via a public facing website. Traffic rolls through Cloudflare and into our application. The public facing URL is something fancy like [https://mega-app.com](https://mega-app.com). That's one class of user.
 
-The other class of user we'll call "our peeps"; because they are *us*. We use the app that we build. Traffic from "us" comes from a different hostname; only addressable on our network. So URLs from requests that we make are more along the lines of [https://strictly4mypeeps.io](<https://strictly4mypeeps.io>).
+The other class of user we'll call "our peeps"; because they are *us*. We use the app that we build. Traffic from "us" comes from a different hostname; only addressable on our network. So URLs from requests that we make are more along the lines of [https://strictly4mypeeps.io](https://strictly4mypeeps.io).
 
-So far, so uncontroversial. Now it starts to get interesting. Our customers log into our application using their super secret credentials. It's [cookie based authentication](<https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?view=aspnetcore-3.1#create-an-authentication-cookie>). But for our peeps we do something different. Having to enter your credentials each time you use the app is friction. It gets in the way. So for us we have [Azure AD](<https://docs.microsoft.com/en-us/aspnet/core/security/authentication/azure-active-directory/?view=aspnetcore-3.1>) in the mix. Azure AD is how we authenticate ourselves; and that means we don't spend 5% of each working day entering credentials.
+So far, so uncontroversial. Now it starts to get interesting. Our customers log into our application using their super secret credentials. It's [cookie based authentication](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?view=aspnetcore-3.1#create-an-authentication-cookie). But for our peeps we do something different. Having to enter your credentials each time you use the app is friction. It gets in the way. So for us we have [Azure AD](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/azure-active-directory/?view=aspnetcore-3.1) in the mix. Azure AD is how we authenticate ourselves; and that means we don't spend 5% of each working day entering credentials.
 
 ## Let us speak of the past
 
@@ -24,9 +24,9 @@ As I said, a simpler time.
 
 ## A new hope
 
-We've been going through the process of cloudifying our app. Bye, bye servers, hello [Docker](<https://www.docker.com/>) and [Kubernetes](<https://kubernetes.io/>). So exciting! As we change the way our app is built and deployed; we've been thinking about whether the choices we make still make sense.
+We've been going through the process of cloudifying our app. Bye, bye servers, hello [Docker](https://www.docker.com/) and [Kubernetes](https://kubernetes.io/). So exciting! As we change the way our app is built and deployed; we've been thinking about whether the choices we make still make sense.
 
-When it came to authentication, my initial thoughts were to continue the same road we're travelling; just in containers and pods. So where we had "internal" servers, we'd have "internal" pods, and where we'd have "external" servers we'd have external pods. I had the good fortune to be working with the amazingly talented [Robski](<https://uk.linkedin.com/in/robert-grzankowski-53618114>). Robski knows far more about K8s and networking than I'm ever likely to. He'd regularly say things like "ingress" and "MTLS" whilst I stared blankly at him. He definitely knows stuff.
+When it came to authentication, my initial thoughts were to continue the same road we're travelling; just in containers and pods. So where we had "internal" servers, we'd have "internal" pods, and where we'd have "external" servers we'd have external pods. I had the good fortune to be working with the amazingly talented [Robski](https://uk.linkedin.com/in/robert-grzankowski-53618114). Robski knows far more about K8s and networking than I'm ever likely to. He'd regularly say things like "ingress" and "MTLS" whilst I stared blankly at him. He definitely knows stuff.
 
 Robski challenged my plans. "We don't need it. Have one pod that does both sorts of auth. If you do that, your implementation is simpler and scaling is more straightforward. You'll only need half the pods because you won't need internal *and* external ones; one pod can handle both sets of traffic. You'll save money."
 
@@ -34,11 +34,11 @@ Robski challenged my plans. "We don't need it. Have one pod that does both sorts
 
 ![](../static/blog/2020-03-22-dual-boot-authentication-with-aspnetcore/robski-dynamic-auth.png)
 
-It was a link to the amazing [David Fowler](<https://twitter.com/davidfowl>) talking about [some API I'd never heard of called `SchemeSelector`](<https://github.com/aspnet/Security/issues/1469#issuecomment-335027005>). It turned out that this was the starting point for exactly what we needed; a way to dynamically select an authentication scheme at runtime.
+It was a link to the amazing [David Fowler](https://twitter.com/davidfowl) talking about [some API I'd never heard of called `SchemeSelector`](https://github.com/aspnet/Security/issues/1469#issuecomment-335027005). It turned out that this was the starting point for exactly what we needed; a way to dynamically select an authentication scheme at runtime.
 
 ## Show me the code
 
-This API did end up landing in ASP.Net Core, but with the name `ForwardDefaultSelector`. Not the most descriptive of names and I've struggled to find any documentation on it at all. What I did discover was [an answer on StackOverflow by the marvellous Barbara Post](<https://stackoverflow.com/a/51897159/761388>). I was able to take the approach Barbara laid out and use it to my own ends. I ended up with this snippet of code added to my `Startup.ConfigureServices`:
+This API did end up landing in ASP.Net Core, but with the name `ForwardDefaultSelector`. Not the most descriptive of names and I've struggled to find any documentation on it at all. What I did discover was [an answer on StackOverflow by the marvellous Barbara Post](https://stackoverflow.com/a/51897159/761388). I was able to take the approach Barbara laid out and use it to my own ends. I ended up with this snippet of code added to my `Startup.ConfigureServices`:
 
 ```cs
 services
@@ -209,12 +209,12 @@ Finally, I updated the `SpaController.cs` (which serves initial requests to our 
 
 The code above allows anonymous requests to land in our app through the `AllowAnonymous` attribute. However, it checks the request when it comes in to see if:
 
-1. It's an internal request (i.e. the Request URL starts "[https://strictly4mypeeps.io/"](<https://strictly4mypeeps.io/">))
+1. It's an internal request (i.e. the Request URL starts "[https://strictly4mypeeps.io/"](https://strictly4mypeeps.io/"))
 2. The current user is *not* authenticated.
 
 
 
-In this case the user is redirected to the [https://strictly4mypeeps.io/login-with-azure-ad](<https://strictly4mypeeps.io/login-with-azure-ad>) route which is decorated with the `Authorize` attribute. This will trigger authentication for our unauthenticated internal users and drive them through the Azure AD login process.
+In this case the user is redirected to the [https://strictly4mypeeps.io/login-with-azure-ad](https://strictly4mypeeps.io/login-with-azure-ad) route which is decorated with the `Authorize` attribute. This will trigger authentication for our unauthenticated internal users and drive them through the Azure AD login process.
 
 ## The mystery of no documentation
 

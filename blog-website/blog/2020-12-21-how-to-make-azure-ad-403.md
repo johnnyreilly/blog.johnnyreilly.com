@@ -9,7 +9,7 @@ hide_table_of_contents: false
 ---
 By default `Microsoft.Identity.Web` responds to unauthorized requests with a 302 (redirect). Do you want a 403 (forbidden) instead? Here's how.
 
-If you're using the tremendous [Azure Active Directory for authentication with ASP.NET](<https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-web-app-sign-user-app-configuration?tabs=aspnetcore>) then there's a good chance you're using the [`Microsoft.Identity.Web`](<https://github.com/AzureAD/microsoft-identity-web>) library. It's this that allows us to drop the following statement into the `ConfigureServices` method of our `Startup` class:
+If you're using the tremendous [Azure Active Directory for authentication with ASP.NET](https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-web-app-sign-user-app-configuration?tabs=aspnetcore) then there's a good chance you're using the [`Microsoft.Identity.Web`](https://github.com/AzureAD/microsoft-identity-web) library. It's this that allows us to drop the following statement into the `ConfigureServices` method of our `Startup` class:
 
 ```cs
 services.AddMicrosoftIdentityWebAppAuthentication(Configuration);
@@ -19,7 +19,7 @@ Which (combined with configuration in our `appsettings.json` files) hooks us up 
 
  ![a screenshot of Chrome Devtools showing a 302](../static/blog/2020-12-21-how-to-make-azure-ad-403/AccessDenied.png)
 
-We've made a request to `/WeatherForecast`; a secured endpoint (a controller decorated with the `Authorize` attribute). We're authenticated; the app knows who we are. But we're not authorized / allowed to access this endpoint. We don't have permission. The HTTP specification caters directly for this scenario with [status code `403 Forbidden`](<https://tools.ietf.org/html/rfc7231#section-6.5.3>):
+We've made a request to `/WeatherForecast`; a secured endpoint (a controller decorated with the `Authorize` attribute). We're authenticated; the app knows who we are. But we're not authorized / allowed to access this endpoint. We don't have permission. The HTTP specification caters directly for this scenario with [status code `403 Forbidden`](https://tools.ietf.org/html/rfc7231#section-6.5.3):
 
 > The 403 (Forbidden) status code indicates that the server understood the request but refuses to authorize it.
 

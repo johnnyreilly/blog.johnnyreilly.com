@@ -95,7 +95,7 @@ If you're using user assigned managed identity, you'll need to supply the object
 
 ![Managed Identity object id](../static/blog/2021-03-10-managed-identity-azure-sql-entity-framework/managed-identity-object-id.png)
 
-You can configure this in ARM as well, but cryptically, the object id goes by the nom de plume of `principalId` (thanks to my partner in crime [John McCormick](<https://github.com/jmccor99>) for puzzling that out):
+You can configure this in ARM as well, but cryptically, the object id goes by the nom de plume of `principalId` (thanks to my partner in crime [John McCormick](https://github.com/jmccor99) for puzzling that out):
 
 ```json
 "CONNECTIONSTRINGS__OURDBCONNECTION": "[concat('Server=tcp:', parameters('sqlServerName') , '.database.windows.net,1433;Initial Catalog=', parameters('sqlDatabaseName'),';Authentication=Active Directory MSI',';User Id=', reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', parameters('managedIdentityName')), '2018-11-30').principalId)]"

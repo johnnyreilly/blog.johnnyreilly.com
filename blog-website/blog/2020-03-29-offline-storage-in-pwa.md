@@ -14,11 +14,11 @@ How can we achieve this in the context of a PWA?
 
 ## The problem with `localStorage`
 
-If you were building a classic web app you'd probably be reaching for [`Window.localStorage`](<https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage>) at this point. `Window.localStorage` is a long existing API that stores data beyond a single session. It has a simple API and is very easy to use. However, it has a couple of problems:
+If you were building a classic web app you'd probably be reaching for [`Window.localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) at this point. `Window.localStorage` is a long existing API that stores data beyond a single session. It has a simple API and is very easy to use. However, it has a couple of problems:
 
 1. `Window.localStorage` is synchronous. Not a tremendous problem for every app, but if you're building something that has significant performance needs then this could become an issue.
 2. `Window.localStorage` cannot be used in the context of a `Worker` or a `ServiceWorker`. The APIs are not available there.
-3. `Window.localStorage` stores only `string`s. Given [`JSON.stringify`](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify>) and [`JSON.parse`](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse>) that's not a big problem. But it's an inconvenience.
+3. `Window.localStorage` stores only `string`s. Given [`JSON.stringify`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) and [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) that's not a big problem. But it's an inconvenience.
 
 
 
@@ -26,11 +26,11 @@ The second point here is the significant one. If we've a need to access our offl
 
 ## IndexedDB to the rescue?
 
-Fortunately, `localStorage` is not the only game in town. There's alternative offline storage mechanism available in browsers with the curious name of [IndexedDB](<https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API>). To quote the docs:
+Fortunately, `localStorage` is not the only game in town. There's alternative offline storage mechanism available in browsers with the curious name of [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API). To quote the docs:
 
 > IndexedDB is a transactional database system, like an SQL-based RDBMS. However, unlike SQL-based RDBMSes, which use fixed-column tables, IndexedDB is a JavaScript-based object-oriented database. IndexedDB lets you store and retrieve objects that are indexed with a key; any objects supported by the structured clone algorithm can be stored. You need to specify the database schema, open a connection to your database, and then retrieve and update data within a series of transactions.
 
-It's clear that IndexedDB is *very* powerful. But it doesn't sound very simple. A further look at the [MDN example](<https://github.com/mdn/to-do-notifications/blob/8b3e1708598e42062b0136608b1c5fbb66520f0a/scripts/todo.js#L48>) of how to interact with IndexedDB does little to remove that thought.
+It's clear that IndexedDB is *very* powerful. But it doesn't sound very simple. A further look at the [MDN example](https://github.com/mdn/to-do-notifications/blob/8b3e1708598e42062b0136608b1c5fbb66520f0a/scripts/todo.js#L48) of how to interact with IndexedDB does little to remove that thought.
 
 We'd like to be able to access data offline; but in a simple fashion. Like we could with `localStorage` which has a wonderfully straightforward API. If only someone would build an astraction on top of IndexedDB to make our lives easier...
 
@@ -38,7 +38,7 @@ Someone did.
 
 ## IDB-Keyval to the rescue!
 
-The excellent [Jake Archibald](<https://twitter.com/jaffathecake>) of Google has written [IDB-Keyval](<https://github.com/jakearchibald/idb-keyval>) which is:
+The excellent [Jake Archibald](https://twitter.com/jaffathecake) of Google has written [IDB-Keyval](https://github.com/jakearchibald/idb-keyval) which is:
 
 > A super-simple-small promise-based keyval store implemented with IndexedDB
 
@@ -54,7 +54,7 @@ The API is essentially equivalent to `localStorage` with a few lovely difference
 
 Let's take a look at what usage of `IDB-Keyval` might be like. For that we're going to need an application. It would be good to be able to demonstrate both simple usage and also how usage in the context of an application might look.
 
-Let's spin up a TypeScript React app with [Create React App](<https://create-react-app.dev/>):
+Let's spin up a TypeScript React app with [Create React App](https://create-react-app.dev/):
 
 ```shell
 npx create-react-app offline-storage-in-a-pwa --template typescript
@@ -268,7 +268,7 @@ export function usePersistedState<TState>(keyToPersistWith: string, defaultState
 }
 ```
 
-This new hook is modelled after the API of [`useState`](<https://reactjs.org/docs/hooks-reference.html#usestate>) and is named `usePersistentState`. It requires that a key be supplied which is the key that will be used to save the data. It also requires a default value to use in the case that nothing is found during the lookup.
+This new hook is modelled after the API of [`useState`](https://reactjs.org/docs/hooks-reference.html#usestate) and is named `usePersistentState`. It requires that a key be supplied which is the key that will be used to save the data. It also requires a default value to use in the case that nothing is found during the lookup.
 
 It returns (just like `useState`) a stateful value, and a function to update it. Finally, let's switch over our `App.tsx` to use our shiny new hook:
 
@@ -329,12 +329,12 @@ export default App;
 
 ## Conclusion
 
-This post has demonstrate how a web application or a PWA can safely store data that is persisted between sessions using native browser capabilities easily. IndexedDB powered the solution we've built. We used used [IDB-Keyval](<https://github.com/jakearchibald/idb-keyval>) for the delightful and familiar abstraction it offers over IndexedDB. It's allowed us to come up with a solution with a similarly lovely API. It's worth knowing that there are alternatives to IDB-Keyval available such as [localForage](<https://github.com/localForage/localForage>). If you are building for older browsers which may lack good IndexedDB support then this would be a good choice. But be aware that with greater backwards compatibility comes greater download size. Do consider this and make the tradeoffs that make sense for you.
+This post has demonstrate how a web application or a PWA can safely store data that is persisted between sessions using native browser capabilities easily. IndexedDB powered the solution we've built. We used used [IDB-Keyval](https://github.com/jakearchibald/idb-keyval) for the delightful and familiar abstraction it offers over IndexedDB. It's allowed us to come up with a solution with a similarly lovely API. It's worth knowing that there are alternatives to IDB-Keyval available such as [localForage](https://github.com/localForage/localForage). If you are building for older browsers which may lack good IndexedDB support then this would be a good choice. But be aware that with greater backwards compatibility comes greater download size. Do consider this and make the tradeoffs that make sense for you.
 
 Finally, I've finished this post illustrating what usage would look like in a React context. Do be aware that there's nothing React specific about our offline storage mechanism. So if you're rolling with Vue, Angular or something else entirely: *this is for you too*! Offline storage is a feature that provide much greater user experiences. Please do consider making use of it in your applications.
 
-[This post was originally published on LogRocket.](<https://blog.logrocket.com/offline-storage-for-pwas/>)
+[This post was originally published on LogRocket.](https://blog.logrocket.com/offline-storage-for-pwas/)
 
-[The source code for this project can be found here.](<https://github.com/johnnyreilly/offline-storage-in-a-pwa>)
+[The source code for this project can be found here.](https://github.com/johnnyreilly/offline-storage-in-a-pwa)
 
 

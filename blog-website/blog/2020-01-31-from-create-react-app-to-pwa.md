@@ -22,7 +22,7 @@ This post presumes knowledge of:
 
 ## From console to web app
 
-To create our PWA we're going to use [`create-react-app`](<https://create-react-app.dev/>). This excellent project has long had inbuilt support for making PWAs. In recent months that support has matured to a very satisfactory level. To create ourselves a TypeScript React app using `create-react-app` enter this `npx` command at the console:
+To create our PWA we're going to use [`create-react-app`](https://create-react-app.dev/). This excellent project has long had inbuilt support for making PWAs. In recent months that support has matured to a very satisfactory level. To create ourselves a TypeScript React app using `create-react-app` enter this `npx` command at the console:
 
 ```shell
 npx create-react-app pwa-react-typescript --template typescript
@@ -46,22 +46,22 @@ From web app to PWA is incredibly simple; it’s just a question of opting in to
 serviceWorker.unregister();
 ```
 
-As the hint suggests, swap `serviceWorker.unregister()` for `serviceWorker.register()` and you now have a PWA. Amazing! What does this mean? Well to [quote the docs](<https://create-react-app.dev/docs/making-a-progressive-web-app/#why-opt-in>):
+As the hint suggests, swap `serviceWorker.unregister()` for `serviceWorker.register()` and you now have a PWA. Amazing! What does this mean? Well to [quote the docs](https://create-react-app.dev/docs/making-a-progressive-web-app/#why-opt-in):
 
 > - All static site assets are cached so that your page loads fast on subsequent visits, regardless of network connectivity (such as 2G or 3G). Updates are downloaded in the background.
 > - Your app will work regardless of network state, even if offline. This means your users will be able to use your app at 10,000 feet and on the subway.
 > 
 > 
 > 
-> ... it will take care of generating a service worker file that will automatically precache all of your local assets and keep them up to date as you deploy updates. The service worker will use a [cache-first strategy](<https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-falling-back-to-network>)for handling all requests for local assets, including [navigation requests](<https://developers.google.com/web/fundamentals/primers/service-workers/high-performance-loading#first_what_are_navigation_requests>) for your HTML, ensuring that your web app is consistently fast, even on a slow or unreliable network.
+> ... it will take care of generating a service worker file that will automatically precache all of your local assets and keep them up to date as you deploy updates. The service worker will use a [cache-first strategy](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-falling-back-to-network)for handling all requests for local assets, including [navigation requests](https://developers.google.com/web/fundamentals/primers/service-workers/high-performance-loading#first_what_are_navigation_requests) for your HTML, ensuring that your web app is consistently fast, even on a slow or unreliable network.
 
-Under the bonnet, `create-react-app` is achieving this through the use of technology called ["Workbox"](<https://developers.google.com/web/tools/workbox>). Workbox describes itself as:
+Under the bonnet, `create-react-app` is achieving this through the use of technology called ["Workbox"](https://developers.google.com/web/tools/workbox). Workbox describes itself as:
 
-> a set of libraries and Node modules that make it easy to cache assets and take full advantage of features used to build [Progressive Web Apps](<https://developers.google.com/web/progressive-web-apps/>).
+> a set of libraries and Node modules that make it easy to cache assets and take full advantage of features used to build [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/).
 
 The good folks of Google are aware that writing your own PWA can be tricky. There's much new behaviour to configure and be aware of; it's easy to make mistakes. Workbox is there to help ease the way forward by implementing default strategies for caching / offline behaviour which can be controlled through configuration.
 
-A downside of the usage of `Workbox` in `create-react-app` is that (as with most things `create-react-app`) there's little scope for configuration of your own if the defaults don't serve your purpose. This may change in the future, indeed [there's an open PR that adds this support](<https://github.com/facebook/create-react-app/pull/5369>).
+A downside of the usage of `Workbox` in `create-react-app` is that (as with most things `create-react-app`) there's little scope for configuration of your own if the defaults don't serve your purpose. This may change in the future, indeed [there's an open PR that adds this support](https://github.com/facebook/create-react-app/pull/5369).
 
 ## Icons and splash screens and A2HS, oh my!
 
@@ -89,9 +89,9 @@ with:
   "name": "My PWA",
 ```
 
-Your app now has a name. The question you might be asking is: what is this `manifest.json` file? Well to [quote the good folks of Google](<https://developers.google.com/web/fundamentals/web-app-manifest>):
+Your app now has a name. The question you might be asking is: what is this `manifest.json` file? Well to [quote the good folks of Google](https://developers.google.com/web/fundamentals/web-app-manifest):
 
-> The [web app manifest](<https://developer.mozilla.org/en-US/docs/Web/Manifest>) is a simple JSON file that tells the browser about your web application and how it should behave when 'installed' on the user's mobile device or desktop. Having a manifest is required by Chrome to show the [Add to Home Screen prompt](<https://developers.google.com/web/fundamentals/app-install-banners/>).
+> The [web app manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest) is a simple JSON file that tells the browser about your web application and how it should behave when 'installed' on the user's mobile device or desktop. Having a manifest is required by Chrome to show the [Add to Home Screen prompt](https://developers.google.com/web/fundamentals/app-install-banners/).
 > 
 > A typical manifest file includes information about the app name, icons it should use, the start\_url it should start at when launched, and more.
 
@@ -137,7 +137,7 @@ You can use the above properties (and others not yet configured) to control how 
 
 So far, we have a basic PWA in place. It's installable. You can run it locally and develop it with `yarn start`. You can build it for deployment with `yarn build`.
 
-What this isn't, is recognisably a web app. In the sense that it doesn't have support for different pages / URLs. We're typically going to want to break up our application this way. Let's do that now. We're going to use [`react-router`](<https://github.com/ReactTraining/react-router>); the de facto routing solution for React. To add it to our project (and the required type definitions for TypeScript) we use:
+What this isn't, is recognisably a web app. In the sense that it doesn't have support for different pages / URLs. We're typically going to want to break up our application this way. Let's do that now. We're going to use [`react-router`](https://github.com/ReactTraining/react-router); the de facto routing solution for React. To add it to our project (and the required type definitions for TypeScript) we use:
 
 ```
 yarn add react-router-dom @types/react-router-dom
@@ -230,7 +230,7 @@ Now we've split up our app into multiple sections, we're going to split the code
 
 Notice the `build/static/js/main.bc740179.chunk.js` file. This is our `single-file.js`. It represents the compiled output of building the TypeScript files that make up our app. It will grow and grow as our app grows, eventually becoming problematic from a user loading speed perspective.
 
-`create-react-app` is built upon webpack. There is excellent support for code splitting in webpack and hence [create-react-app supports it by default](<https://reactjs.org/docs/code-splitting.html#code-splitting>). Let's apply it to our app. Again we're going to change `App.tsx`.
+`create-react-app` is built upon webpack. There is excellent support for code splitting in webpack and hence [create-react-app supports it by default](https://reactjs.org/docs/code-splitting.html#code-splitting). Let's apply it to our app. Again we're going to change `App.tsx`.
 
 Where we previously had:
 
@@ -246,7 +246,7 @@ const About = lazy(() => import('./About'));
 const Home = lazy(() => import('./Home'));
 ```
 
-This is the syntax to lazily load components in React. You'll note that it internally uses the [dynamic `import()` syntax](<https://github.com/tc39/proposal-dynamic-import>) which webpack uses as a "split point".
+This is the syntax to lazily load components in React. You'll note that it internally uses the [dynamic `import()` syntax](https://github.com/tc39/proposal-dynamic-import) which webpack uses as a "split point".
 
 Let's also give React something to render whilst it waits for the dynamic imports to be resolved. Just inside our `&lt;Router&gt;` component we'll add a `&lt;Suspense&gt;` component too:
 
@@ -311,7 +311,7 @@ As we continue to build out our app from this point we'll have a great approach 
 
 ## Deploy your PWA
 
-Now that we have our basic PWA in place, let's deploy it so the outside world can appreciate it. We're going to use [Netlify](<https://www.netlify.com/>) for this.
+Now that we have our basic PWA in place, let's deploy it so the outside world can appreciate it. We're going to use [Netlify](https://www.netlify.com/) for this.
 
 The source code of our PWA lives on GitHub here: https://github.com/johnnyreilly/pwa-react-typescript
 
@@ -339,8 +339,8 @@ Now that we know it's there, let's see how what we've built holds up according t
 
 That is a good start for our PWA!
 
-[This post was originally published on LogRocket.](<https://blog.logrocket.com/from-create-react-app-to-pwa/>)
+[This post was originally published on LogRocket.](https://blog.logrocket.com/from-create-react-app-to-pwa/)
 
-[The source code for this project can be found here.](<https://github.com/johnnyreilly/pwa-react-typescript>)
+[The source code for this project can be found here.](https://github.com/johnnyreilly/pwa-react-typescript)
 
 

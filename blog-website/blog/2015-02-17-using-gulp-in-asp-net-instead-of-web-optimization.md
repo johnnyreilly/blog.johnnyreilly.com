@@ -8,7 +8,7 @@ hide_table_of_contents: false
 ---
 This is very probably the dullest title for a blog post I've ever come up with. Read on though folks - it's definitely going to pick up...
 
- I [wrote last year](<https://blog.johnnyreilly.com/2014/11/using-gulp-in-visual-studio-instead-of-web-optimization.html>) about my first usage of Gulp in an ASP.Net project. I used Gulp to replace the Web Optimization functionality that is due to disappear when ASP.Net v5 ships. What I came up with was an approach that provided pretty much the same functionality; raw source in debug mode, bundling + minification in release mode.
+ I [wrote last year](https://blog.johnnyreilly.com/2014/11/using-gulp-in-visual-studio-instead-of-web-optimization.html) about my first usage of Gulp in an ASP.Net project. I used Gulp to replace the Web Optimization functionality that is due to disappear when ASP.Net v5 ships. What I came up with was an approach that provided pretty much the same functionality; raw source in debug mode, bundling + minification in release mode.
 
 It worked by having a launch page which was straight HTML. Embedded within this page was JavaScript that would, at runtime, load the required JavaScript / CSS and inject it dynamically into the document. This approach worked but it had a number of downsides:
 
@@ -20,18 +20,18 @@ It worked by having a launch page which was straight HTML. Embedded within this 
 
 
 Quite a lot going on here isn't there? Accordingly, initial startup time was slower than you might hope.
-2. The "F" word: [FOUC](<https://en.wikipedia.org/wiki/Flash_of_unstyled_content>). Flash Of Unstyled Content - whilst all the hard work of the page load was going on (before the CSS had been loaded) the page would look rather ... bare. Not a terrible thing but none too slick either.
+2. The "F" word: [FOUC](https://en.wikipedia.org/wiki/Flash_of_unstyled_content). Flash Of Unstyled Content - whilst all the hard work of the page load was going on (before the CSS had been loaded) the page would look rather ... bare. Not a terrible thing but none too slick either.
 3. The gulpfile built both the debug and the release package each time it was run. This meant the gulp task generally did double the work that it needed to do.
 
 
 
-I wanted to see if I could tackle these issues. I've recently been watching [John Papa](<https://twitter.com/John_Papa>)'s excellent [Pluralsight course on Gulp](<http://www.pluralsight.com/courses/javascript-build-automation-gulpjs>) and picked up a number of useful tips. With that in hand let's see what we can come up with...
+I wanted to see if I could tackle these issues. I've recently been watching [John Papa](https://twitter.com/John_Papa)'s excellent [Pluralsight course on Gulp](http://www.pluralsight.com/courses/javascript-build-automation-gulpjs) and picked up a number of useful tips. With that in hand let's see what we can come up with...
 
 ## Death to dynamic loading
 
-The main issue with the approach I've been using is the dynamic loading. It makes the app slower and more complicated. So the obvious solution is to have my gulpfile inject scripts and css into the template. To that end it's [wiredep](<https://www.npmjs.com/package/wiredep>) & [gulp-inject](<https://www.npmjs.com/package/gulp-inject>) to the rescue!
+The main issue with the approach I've been using is the dynamic loading. It makes the app slower and more complicated. So the obvious solution is to have my gulpfile inject scripts and css into the template. To that end it's [wiredep](https://www.npmjs.com/package/wiredep) & [gulp-inject](https://www.npmjs.com/package/gulp-inject) to the rescue!
 
-gulp-inject (as the name suggests) is used to inject `script` and `link` tags into source code. I'm using [Bower](<http://bower.io/>) as my client side package manager and so I'm going to use wiredep to determine the vendor scripts I need. It will determine what packages my app is using from looking at my `bower.json`, and give me a list of file paths in *dependency order* (which I can then pass on to gulp-inject in combination with my own app script files). This means I don't have to think about ordering bower dependencies myself and I no longer need to separately maintain a list of these files within my gulpfile.
+gulp-inject (as the name suggests) is used to inject `script` and `link` tags into source code. I'm using [Bower](http://bower.io/) as my client side package manager and so I'm going to use wiredep to determine the vendor scripts I need. It will determine what packages my app is using from looking at my `bower.json`, and give me a list of file paths in *dependency order* (which I can then pass on to gulp-inject in combination with my own app script files). This means I don't have to think about ordering bower dependencies myself and I no longer need to separately maintain a list of these files within my gulpfile.
 
 So, let's get the launch page (`index.html`) ready for gulp-inject:
 
@@ -426,8 +426,8 @@ Whether it's the debug or the release build we copy across the font-awesome asse
 
 build-debug and build-release (as their name suggests) either perform a build for release or a build for debug. If you remember, the web optimization library in ASP.Net serves up the raw code ("debug" code) if the `compilation debug` flag in the `web.config` is set to `true`. If it is set to `false` then we get the bundled and minified code ("release" code) instead. Our default task tries its best to emulate this behaviour by doing a very blunt regex against the `web.config`. Simply, if it can match `&lt;compilation debug="true"` then it runs the debug build. Otherwise, the release build. It could be more elegant but there's a dearth of XML readers on npm that support synchronous parsing (which you kinda need for this scenario).
 
-What I intend to do soon is switch from using the web.config to drive the gulp build to using the approach outlined [here](<http://www.codecadwallader.com/2015/03/15/integrating-gulp-into-your-tfs-builds-and-web-deploy/>). Namely plugging the build directly into Visual Studio's build process and using the type of build there.
+What I intend to do soon is switch from using the web.config to drive the gulp build to using the approach outlined [here](http://www.codecadwallader.com/2015/03/15/integrating-gulp-into-your-tfs-builds-and-web-deploy/). Namely plugging the build directly into Visual Studio's build process and using the type of build there.
 
-Hopefully what I've written here makes it fairly clear how to use Gulp to directly inject scripts and styles directly into your HTML. If you want to look directly at the source then check out the Proverb.Web folder in [this repo](<https://github.com/johnnyreilly/proverb-offline>).
+Hopefully what I've written here makes it fairly clear how to use Gulp to directly inject scripts and styles directly into your HTML. If you want to look directly at the source then check out the Proverb.Web folder in [this repo](https://github.com/johnnyreilly/proverb-offline).
 
 

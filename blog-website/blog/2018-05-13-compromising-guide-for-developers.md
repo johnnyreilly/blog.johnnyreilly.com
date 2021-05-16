@@ -40,6 +40,6 @@ I'll contend that rolling like this makes for more content, happier and more pro
 
 ![](../static/blog/2018-05-13-compromising-guide-for-developers/Bestival_2008_Increase_the_Peace_banner.jpg)
 
-I've only recently discovered this technique and I can't claim credit for it. I learned it from the awesome [Jamie McCrindle](<https://twitter.com/foldr>). I commend to you! Be happier!
+I've only recently discovered this technique and I can't claim credit for it. I learned it from the awesome [Jamie McCrindle](https://twitter.com/foldr). I commend to you! Be happier!
 
 

@@ -21,13 +21,13 @@ This post will talk about how we can tackle these and demonstrate using a custom
 
 ## Let's bring Chrome to its knees
 
-We'll begin our journey by spinning up a TypeScript React app with [Create React App](<https://create-react-app.dev/>):
+We'll begin our journey by spinning up a TypeScript React app with [Create React App](https://create-react-app.dev/):
 
 ```shell
 npx create-react-app throttle-requests-react-hook --template typescript
 ```
 
-Because we're going to be making a number of asynchronous calls, we're going to simplify the code by leaning on the widely used [`react-use`](<https://github.com/streamich/react-use>) for a [`useAsync`](<https://github.com/streamich/react-use/blob/master/docs/useAsync.md>) hook.
+Because we're going to be making a number of asynchronous calls, we're going to simplify the code by leaning on the widely used [`react-use`](https://github.com/streamich/react-use) for a [`useAsync`](https://github.com/streamich/react-use/blob/master/docs/useAsync.md) hook.
 
 ```shell
 cd throttle-requests-react-hook
@@ -147,15 +147,15 @@ function App() {
 export default App;
 ```
 
-The app that we've built is very simple; it's a button which, when you press it, fires 10,000 HTTP requests in parallel using the [Fetch API](<https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API>). The data being requested in this case is an arbitrary JSON file; the `manifest.json`. If you look closely you'll see we're doing some querystring tricks with our URL to avoid getting cached data.
+The app that we've built is very simple; it's a button which, when you press it, fires 10,000 HTTP requests in parallel using the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). The data being requested in this case is an arbitrary JSON file; the `manifest.json`. If you look closely you'll see we're doing some querystring tricks with our URL to avoid getting cached data.
 
 In fact, for this demo we're not interested in the results of these HTTP requests; rather we're interested in how the browser copes with this approach. (Spoiler: not well!) It's worth considering that requesting a text file from a server running on the same machine as the browser should be fast.
 
-So we'll run `yarn start` and go to [http://localhost:3000](<http://localhost:3000>) to get to the app. Running with Devtools open results in the following unhappy affair:
+So we'll run `yarn start` and go to [http://localhost:3000](http://localhost:3000) to get to the app. Running with Devtools open results in the following unhappy affair:
 
  ![](../static/blog/2020-11-10-throttle-data-requests-with-react-hooks/i-want-it-all.gif)
 
-The GIF above has been edited significantly for length. In reality it took 20 seconds for the first request to be fired, prior to that Chrome was unresponsive. When requests did start to fire, a significant number failed with `net::ERR_INSUFFICIENT_RESOURCES`. Further to that, those requests that were fired sat in "Stalled" state prior to being executed. This is a consequence of [Chrome limiting the number of connections - all browsers do this](<https://developers.google.com/web/tools/chrome-devtools/network/reference#timing>):
+The GIF above has been edited significantly for length. In reality it took 20 seconds for the first request to be fired, prior to that Chrome was unresponsive. When requests did start to fire, a significant number failed with `net::ERR_INSUFFICIENT_RESOURCES`. Further to that, those requests that were fired sat in "Stalled" state prior to being executed. This is a consequence of [Chrome limiting the number of connections - all browsers do this](https://developers.google.com/web/tools/chrome-devtools/network/reference#timing):
 
 > There are already six TCP connections open for this origin, which is the limit. Applies to HTTP/1.0 and HTTP/1.1 only.
 
@@ -496,11 +496,11 @@ Tremendous!
 
 Our current example is definitely contrived. Let's try and apply our `useThrottleRequests` hook to a more realistic scenario. We're going to build an application which, given a repo on GitHub, lists all the contributors blogs. (You can specify a blog URL on your GitHub profile; many people use this to specify their Twitter profile.)
 
-We can build this thanks to the excellent [GitHub REST API](<https://docs.github.com/en/free-pro-team@latest/rest>). It exposes two endpoints of interest given our goal.
+We can build this thanks to the excellent [GitHub REST API](https://docs.github.com/en/free-pro-team@latest/rest). It exposes two endpoints of interest given our goal.
 
 ### 1\. List repository contributors
 
-[List repository contributors](<https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#list-repository-contributors>) lists contributors to the specified repository at this URL: `GET https://api.github.com/repos/{owner}/{repo}/contributors`. The response is an array of objects, crucially featuring a `url` property that points to the user in question's API endpoint:
+[List repository contributors](https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#list-repository-contributors) lists contributors to the specified repository at this URL: `GET https://api.github.com/repos/{owner}/{repo}/contributors`. The response is an array of objects, crucially featuring a `url` property that points to the user in question's API endpoint:
 
 ```js
 [
@@ -516,7 +516,7 @@ We can build this thanks to the excellent [GitHub REST API](<https://docs.github
 
 ### 2\. Get a user
 
-[Get a user](<https://docs.github.com/en/free-pro-team@latest/rest/reference/users#get-a-user>) is the API that the `url` property above is referring to. When called it returns an object representing the publicly available information about a user:
+[Get a user](https://docs.github.com/en/free-pro-team@latest/rest/reference/users#get-a-user) is the API that the `url` property above is referring to. When called it returns an object representing the publicly available information about a user:
 
 ```js
 {
@@ -715,6 +715,6 @@ We have built a React Hook which allows us to:
 
 
 
-[This post was originally published on LogRocket.](<https://blog.logrocket.com/throttling-data-requests-with-react-hooks/>)
+[This post was originally published on LogRocket.](https://blog.logrocket.com/throttling-data-requests-with-react-hooks/)
 
 

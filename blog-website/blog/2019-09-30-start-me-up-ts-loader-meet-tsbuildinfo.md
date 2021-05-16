@@ -6,7 +6,7 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [.tsbuildinfo, TypeScript]
 hide_table_of_contents: false
 ---
-With TypeScript 3.4, [a new behaviour landed and a magical new file type appeared; `.tsbuildinfo`](<https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html>)
+With TypeScript 3.4, [a new behaviour landed and a magical new file type appeared; `.tsbuildinfo`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html)
 
  > TypeScript 3.4 introduces a new flag called `--incremental` which tells TypeScript to save information about the project graph from the last compilation. The next time TypeScript is invoked with `--incremental`, it will use that information to detect the least costly way to type-check and emit changes to your project.
 > 
@@ -14,14 +14,14 @@ With TypeScript 3.4, [a new behaviour landed and a magical new file type appeare
 > 
 > These `.tsbuildinfo` files can be safely deleted and don’t have any impact on our code at runtime - they’re purely used to make compilations faster.
 
-This was all very exciting, but until the release of TypeScript 3.6 there were no APIs available to allow third party tools like `ts-loader` to hook into them. The wait is over! Because with TypeScript 3.6 the APIs landed: [https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-6.html#apis-to-support---build-and---incremental](<https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-6.html#apis-to-support---build-and---incremental>)
+This was all very exciting, but until the release of TypeScript 3.6 there were no APIs available to allow third party tools like `ts-loader` to hook into them. The wait is over! Because with TypeScript 3.6 the APIs landed: [https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-6.html#apis-to-support---build-and---incremental](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-6.html#apis-to-support---build-and---incremental)
 
-This was the handiwork of the very excellent [@sheetalkamat](<https://twitter.com/sheetalkamat>) of the TypeScript team - you can see her PR here: [https://github.com/microsoft/TypeScript/pull/31432](<https://github.com/microsoft/TypeScript/pull/31432>)
+This was the handiwork of the very excellent [@sheetalkamat](https://twitter.com/sheetalkamat) of the TypeScript team - you can see her PR here: [https://github.com/microsoft/TypeScript/pull/31432](https://github.com/microsoft/TypeScript/pull/31432)
 
 What's more, Sheetal took the PR for a test drive using `ts-loader`, and her hard work has just shipped with `<a href="https://github.com/TypeStrong/ts-loader/releases/tag/v6.2.0">v6.2.0</a>`:
 
-- [https://github.com/TypeStrong/ts-loader/pull/1012](<https://github.com/TypeStrong/ts-loader/pull/1012>)
-- [https://github.com/TypeStrong/ts-loader/pull/1017](<https://github.com/TypeStrong/ts-loader/pull/1017>)
+- [https://github.com/TypeStrong/ts-loader/pull/1012](https://github.com/TypeStrong/ts-loader/pull/1012)
+- [https://github.com/TypeStrong/ts-loader/pull/1017](https://github.com/TypeStrong/ts-loader/pull/1017)
 
 
 

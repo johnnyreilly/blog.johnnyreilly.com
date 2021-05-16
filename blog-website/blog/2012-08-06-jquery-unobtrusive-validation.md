@@ -10,9 +10,9 @@ I was recently working on a project which had client side validation manually se
 
  Time to break out the unobtrusive jQuery validation.
 
-If you’re not aware of this, as part of MVC 3 Microsoft leveraged the pre-existing [jQuery Validate library](<http://bassistance.de/jquery-plugins/jquery-plugin-validation/>) and introduced an “unobtrusive” extension to this which allows the library to be driven by HTML 5 data attributes. I have mentioned this lovely extension before but I haven't been using it for the last 6 months or so. And coming back to it I realised that I had forgotten a few of the details / quirks.
+If you’re not aware of this, as part of MVC 3 Microsoft leveraged the pre-existing [jQuery Validate library](http://bassistance.de/jquery-plugins/jquery-plugin-validation/) and introduced an “unobtrusive” extension to this which allows the library to be driven by HTML 5 data attributes. I have mentioned this lovely extension before but I haven't been using it for the last 6 months or so. And coming back to it I realised that I had forgotten a few of the details / quirks.
 
-First up, "where do these HTML 5 data attributes come from?" I hear you cry. Why from the [Validation attributes that live in System.ComponentModel.DataAnnotations](<http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.validationattribute.aspx>).
+First up, "where do these HTML 5 data attributes come from?" I hear you cry. Why from the [Validation attributes that live in System.ComponentModel.DataAnnotations](http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.validationattribute.aspx).
 
 Let me illustrate. This decoration:
 
@@ -67,11 +67,11 @@ See what I mean? Simple!
 
 If you want to read up on this further I recommend these links:
 
-- [The home of jQuery Validate](<http://bassistance.de/jquery-plugins/jquery-plugin-validation/>) \- by the way it seems to be important to work with the latest version (1.9 at time of writing). I found some strange AJAX issues when using 1.7...
-- [Brad Wilson's walkthrough of unobtrusive client validation](<http://bradwilson.typepad.com/blog/2010/10/mvc3-unobtrusive-validation.html>)
-- [An example of how to implement your own custom validation both server side \*and\* client side](<http://www.devtrends.co.uk/blog/the-complete-guide-to-validation-in-asp.net-mvc-3-part-2>)
-- [How to apply unobtrusive jQuery validation to dynamic content](<http://xhalent.wordpress.com/2011/01/24/applying-unobtrusive-validation-to-dynamic-content/>) \- handy if you're creating HTML on the client which you want to be validated.
-- And finally, a workaround for [a bug in MVC 3](<http://aspnet.codeplex.com/workitem/7629>) which means that data attributes aren’t emitted when using DropDownListFor for nested objects: [http://forums.asp.net/t/1649193.aspx/1/10](<http://forums.asp.net/t/1649193.aspx/1/10>). In fact because I've only seen this on a forum I've copied and the pasted the code there to below because I feared it being lost: **Update: It turns out the self-same issue exists for TextAreaFor as well. Details of this and a workaround can be found [here](<http://aspnet.codeplex.com/workitem/8576>)... **
+- [The home of jQuery Validate](http://bassistance.de/jquery-plugins/jquery-plugin-validation/) \- by the way it seems to be important to work with the latest version (1.9 at time of writing). I found some strange AJAX issues when using 1.7...
+- [Brad Wilson's walkthrough of unobtrusive client validation](http://bradwilson.typepad.com/blog/2010/10/mvc3-unobtrusive-validation.html)
+- [An example of how to implement your own custom validation both server side \*and\* client side](http://www.devtrends.co.uk/blog/the-complete-guide-to-validation-in-asp.net-mvc-3-part-2)
+- [How to apply unobtrusive jQuery validation to dynamic content](http://xhalent.wordpress.com/2011/01/24/applying-unobtrusive-validation-to-dynamic-content/) \- handy if you're creating HTML on the client which you want to be validated.
+- And finally, a workaround for [a bug in MVC 3](http://aspnet.codeplex.com/workitem/7629) which means that data attributes aren’t emitted when using DropDownListFor for nested objects: [http://forums.asp.net/t/1649193.aspx/1/10](http://forums.asp.net/t/1649193.aspx/1/10). In fact because I've only seen this on a forum I've copied and the pasted the code there to below because I feared it being lost: **Update: It turns out the self-same issue exists for TextAreaFor as well. Details of this and a workaround can be found [here](http://aspnet.codeplex.com/workitem/8576)... **
 
 
 

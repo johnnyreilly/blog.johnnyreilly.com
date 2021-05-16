@@ -8,11 +8,11 @@ hide_table_of_contents: false
 ---
 Some blog posts are insightful treatises on the future of web development, some are "here's how I solved my problem". This is most assuredly the latter.
 
-I'm writing an [custom pipelines task extension for Azure Pipelines](<https://docs.microsoft.com/en-us/azure/devops/extend/develop/add-build-task?view=azure-devops>). It's written with TypeScript and the [azure-pipelines-task-lib](<https://github.com/microsoft/azure-pipelines-task-lib>).
+I'm writing an [custom pipelines task extension for Azure Pipelines](https://docs.microsoft.com/en-us/azure/devops/extend/develop/add-build-task?view=azure-devops). It's written with TypeScript and the [azure-pipelines-task-lib](https://github.com/microsoft/azure-pipelines-task-lib).
 
-The pipeline needs to output a variable. Azure Pipelines does that using the `setvariable` command combined with [isOutput=true](<https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#set-a-multi-job-output-variable>). This looks something like this: `##vso[task.setvariable variable=myOutputVar;isOutput=true]this is the value"`.
+The pipeline needs to output a variable. Azure Pipelines does that using the `setvariable` command combined with [isOutput=true](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#set-a-multi-job-output-variable). This looks something like this: `##vso[task.setvariable variable=myOutputVar;isOutput=true]this is the value"`.
 
-The bad news is that the lib [doesn't presently support `isOutput=true`](<https://github.com/microsoft/azure-pipelines-task-lib/issues/688>). Gosh it makes me sad. Hopefully in future it will be resolved. But what now?
+The bad news is that the lib [doesn't presently support `isOutput=true`](https://github.com/microsoft/azure-pipelines-task-lib/issues/688). Gosh it makes me sad. Hopefully in future it will be resolved. But what now?
 
 For now we can hack ourselves a workaround:
 
@@ -57,8 +57,8 @@ function _command(command: string, properties: any, message: string) {
 }
 ```
 
-The above is effectively a wrapper for the existing [`setVariable`](<https://github.com/microsoft/azure-pipelines-task-lib/blob/90e9cde0e509cba77185a80ef3af2fc898fb026c/node/task.ts#L162>). However, once it's called into the initial implementation, `setOutputVariable` then writes out the same variable once more, but this time bolting on `isOutput=true`.
+The above is effectively a wrapper for the existing [`setVariable`](https://github.com/microsoft/azure-pipelines-task-lib/blob/90e9cde0e509cba77185a80ef3af2fc898fb026c/node/task.ts#L162). However, once it's called into the initial implementation, `setOutputVariable` then writes out the same variable once more, but this time bolting on `isOutput=true`.
 
-Finally, I've raised a PR to see if `isOutput` can be added directly to the library. [You can track progress on that here.](<https://github.com/microsoft/azure-pipelines-task-lib/pull/691>)
+Finally, I've raised a PR to see if `isOutput` can be added directly to the library. [You can track progress on that here.](https://github.com/microsoft/azure-pipelines-task-lib/pull/691)
 
 

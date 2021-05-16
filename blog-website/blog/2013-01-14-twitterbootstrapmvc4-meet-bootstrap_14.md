@@ -6,11 +6,11 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Internationalization, Twitter.Bootstrap.MVC4, Globalize JS, Twitter Bootstrap]
 hide_table_of_contents: false
 ---
-[Last time](<http://icanmakethiswork.blogspot.co.uk/2013/01/twitterbootstrapmvc4-meet-bootstrap.html>) I wrote about marrying up Twitter.Bootstrap.MVC4 and Bootstrap Datepicker. It came together quite nicely but when I took a more in depth look at what I'd done I discovered a problem. The brief work on regionalisation / internationalisation / localisation / globalisation / whatever it's called this week... wasn't really working. We had problems with the validation.
+[Last time](http://icanmakethiswork.blogspot.co.uk/2013/01/twitterbootstrapmvc4-meet-bootstrap.html) I wrote about marrying up Twitter.Bootstrap.MVC4 and Bootstrap Datepicker. It came together quite nicely but when I took a more in depth look at what I'd done I discovered a problem. The brief work on regionalisation / internationalisation / localisation / globalisation / whatever it's called this week... wasn't really working. We had problems with the validation.
 
- I also discovered that Stefan Petre's Bootstrap Datepicker appears to have been abandoned. Andrew Rowls has taken it on and created a GitHub repository for it [here](<https://github.com/eternicode/bootstrap-datepicker>). Besides bug fixes he's also introduced the ability for the Bootstrap Datepicker to customised for different cultures.
+ I also discovered that Stefan Petre's Bootstrap Datepicker appears to have been abandoned. Andrew Rowls has taken it on and created a GitHub repository for it [here](https://github.com/eternicode/bootstrap-datepicker). Besides bug fixes he's also introduced the ability for the Bootstrap Datepicker to customised for different cultures.
 
-Since these 2 subjects are linked I tackled them together and thought it might be worth writing up here. You can find the conclusion of my work in a GitHub repository I created [here](<https://github.com/johnnyreilly/BootstrapMvcSample>).
+Since these 2 subjects are linked I tackled them together and thought it might be worth writing up here. You can find the conclusion of my work in a GitHub repository I created [here](https://github.com/johnnyreilly/BootstrapMvcSample).
 
 ## Going global down in Acapulco
 
@@ -18,7 +18,7 @@ First step in internationalising any ASP.Net web app is adding the following to 
 
 <script src="https://gist.github.com/4528994.js?file=web.config"></script>
 
-Then I pulled [Globalize](<https://github.com/jquery/globalize>) and the [Andrew Rowls fork of Bootstrap Datepicker](<https://github.com/eternicode/bootstrap-datepicker>) into the project (replacing Stefan's original assets). As well as this I pulled in the `jQuery.validate.globalize.js` extension [I wrote about here](<http://icanmakethiswork.blogspot.co.uk/2012/09/globalize-and-jquery-validate.html>). (This replaces some of the default jQuery Validate functionality for culture-specific functionality based on Globalize.) This extension depends on a meta tag that is generated using the following file (which also handles the serving up of the relevant JavaScript culture bundles, more of which shortly):
+Then I pulled [Globalize](https://github.com/jquery/globalize) and the [Andrew Rowls fork of Bootstrap Datepicker](https://github.com/eternicode/bootstrap-datepicker) into the project (replacing Stefan's original assets). As well as this I pulled in the `jQuery.validate.globalize.js` extension [I wrote about here](http://icanmakethiswork.blogspot.co.uk/2012/09/globalize-and-jquery-validate.html). (This replaces some of the default jQuery Validate functionality for culture-specific functionality based on Globalize.) This extension depends on a meta tag that is generated using the following file (which also handles the serving up of the relevant JavaScript culture bundles, more of which shortly):
 
 <script src="https://gist.github.com/4528994.js?file=GlobalizationHelpers.cs"></script>
 

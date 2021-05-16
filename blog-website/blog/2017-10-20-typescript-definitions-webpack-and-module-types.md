@@ -6,7 +6,7 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [AMD, DefinitelyTyped, TypeScript, CommonJS]
 hide_table_of_contents: false
 ---
-A funny thing happened on the way to the registry the other day. Something changed in an npm package I was using and confusion arose. You can read my unfiltered confusion [here](<https://github.com/Microsoft/TypeScript/issues/18791>) but here's the slightly clearer explanation.
+A funny thing happened on the way to the registry the other day. Something changed in an npm package I was using and confusion arose. You can read my unfiltered confusion [here](https://github.com/Microsoft/TypeScript/issues/18791) but here's the slightly clearer explanation.
 
  ## The TL;DR
 
@@ -21,7 +21,7 @@ When modules are imported, your loader will decide which module format it wants 
 
 ## The DR
 
-Once upon a time we decided to use [big.js](<https://github.com/MikeMcl/big.js/>) in our project. It's popular and my old friend [Steve Ognibene](<https://twitter.com/nycdotnet>) apparently originally wrote the type definitions which can be found [here](<https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js>). Then the definitions were updated by [Miika Hänninen](<https://github.com/googol>). And then there was pain.
+Once upon a time we decided to use [big.js](https://github.com/MikeMcl/big.js/) in our project. It's popular and my old friend [Steve Ognibene](https://twitter.com/nycdotnet) apparently originally wrote the type definitions which can be found [here](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/big.js). Then the definitions were updated by [Miika Hänninen](https://github.com/googol). And then there was pain.
 
 ## UMD / CommonJS \*\*and\*\* Global exports oh my!
 
@@ -69,7 +69,7 @@ Which tells me that `Big` is being exported as a subproperty of the module. That
 
 The problem is that our type definition is not exposing `Big` as a default export. So even though it's there; TypeScript won't let us use it. What's killing us further is that webpack is loading the AMD export which *doesn't* have `Big` as a subproperty of the module. It only has it as a default.
 
-[Kitson Kelly](<https://twitter.com/kitsonk>) expressed the problem well when he said:
+[Kitson Kelly](https://twitter.com/kitsonk) expressed the problem well when he said:
 
 > there is a different shape depending on which loader is being used and I am not sure that makes a huge amount of sense. The AMD shape is different than the CommonJS shape. While that is technically possible, that feels like that is an issue.
 
@@ -79,6 +79,6 @@ He's right; it is an issue. From a TypeScript perspective there is no way to wri
 
 `AMD === CommonJS === Global`
 
-And that's what we now have! Thanks to [Michael McLaughlin](<https://github.com/mikemcl>), author of big.js, [version 4.0 unified the export shape of the package](<https://github.com/MikeMcl/big.js/pull/87#issuecomment-332663587>). Miika Hänninen submitted another [PR](<https://github.com/DefinitelyTyped/DefinitelyTyped/pull/20096>) which fixed up the type definitions. And once again the world is a beautiful place!
+And that's what we now have! Thanks to [Michael McLaughlin](https://github.com/mikemcl), author of big.js, [version 4.0 unified the export shape of the package](https://github.com/MikeMcl/big.js/pull/87#issuecomment-332663587). Miika Hänninen submitted another [PR](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/20096) which fixed up the type definitions. And once again the world is a beautiful place!
 
 

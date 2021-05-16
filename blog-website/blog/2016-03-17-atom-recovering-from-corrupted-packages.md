@@ -6,7 +6,7 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [apm, Atom, packages, corrupt]
 hide_table_of_contents: false
 ---
-Every now and then when I try and update my packages in [Atom](<https://atom.io/>) I find this glaring back at me:
+Every now and then when I try and update my packages in [Atom](https://atom.io/) I find this glaring back at me:
 
  ![](../static/blog/2016-03-17-atom-recovering-from-corrupted-packages/Screenshot%2B2016-03-17%2B06.17.03.png)
 

@@ -10,7 +10,7 @@ Code First Migrations. They look a little like this in Visual Studio:
 
  ![](../static/blog/2015-06-19-Back-to-the-Future-with-Code-First-Migrations/Migrations.png)
 
-The thing I want you to notice about the image above is not the pithily named migrations. It isn't the natty opacity on everything but the migration files (which I can assure you took me to the very limits of my [GIMP](<http://www.gimp.org/>) expertise). No, whilst exciting in themselves what I want you to think about is *the order in which migrations are applied*. Essentially how the `__MigrationHistory` table in SQL Server ends up being populated in this manner:
+The thing I want you to notice about the image above is not the pithily named migrations. It isn't the natty opacity on everything but the migration files (which I can assure you took me to the very limits of my [GIMP](http://www.gimp.org/) expertise). No, whilst exciting in themselves what I want you to think about is *the order in which migrations are applied*. Essentially how the `__MigrationHistory` table in SQL Server ends up being populated in this manner:
 
 ![](../static/blog/2015-06-19-Back-to-the-Future-with-Code-First-Migrations/MigrationHistory.png)
 
@@ -30,9 +30,9 @@ Perfection right? Wrong! What you've done makes not the slightest jot of differe
 
 ## Whoa, this is heavy! Gimme the project file
 
-How could I be so dim? I mean it makes perfect sense - before the days of [TypeScript's tsconfig.json ](<http://blog.icanmakethiswork.io/2015/02/hey-tsconfigjson-where-have-you-been.html>) the default ordering of `*.ts` files being passed to the TypeScript compiler was determined by the ordering of the `*.ts` files in the `.csproj` file. It must be the same for Code First Migrations.
+How could I be so dim? I mean it makes perfect sense - before the days of [TypeScript's tsconfig.json ](http://blog.icanmakethiswork.io/2015/02/hey-tsconfigjson-where-have-you-been.html) the default ordering of `*.ts` files being passed to the TypeScript compiler was determined by the ordering of the `*.ts` files in the `.csproj` file. It must be the same for Code First Migrations.
 
-So, simply spin up [Notepad++](<https://notepad-plus-plus.org/>) and let's play hack the XML until each file is referenced in the required order.
+So, simply spin up [Notepad++](https://notepad-plus-plus.org/) and let's play hack the XML until each file is referenced in the required order.
 
 Well, I'm glad we sorted that out. A quick test to reassure myself of my astuteness. Drum roll.... Fail!! Things are just as they were. Shame on you John Reilly, shame on you.
 

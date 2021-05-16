@@ -6,11 +6,11 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Database Snapshot Backups, Integration Testing, SQL Server]
 hide_table_of_contents: false
 ---
-I've written before about how unit testing [Entity Framework is a contentious and sometimes pointless activity](<http://icanmakethiswork.blogspot.co.uk/2012/10/unit-testing-and-entity-framework-filth.html>). The TL;DR is that LINQ-to-Objects != Linq-to-Entities and so if you want some useful tests around your data tier then integration tests that actually hit a database are what you want.
+I've written before about how unit testing [Entity Framework is a contentious and sometimes pointless activity](http://icanmakethiswork.blogspot.co.uk/2012/10/unit-testing-and-entity-framework-filth.html). The TL;DR is that LINQ-to-Objects != Linq-to-Entities and so if you want some useful tests around your data tier then integration tests that actually hit a database are what you want.
 
  However hitting an actual database is has serious implications. For a start you need a database server and you need a database. But the real issue lies around cleanup. When you write a test that amends data in the database you need the test to clean up after itself. If it doesn't then the next test that runs may trip over the amended data and that's your test pack instantly useless.
 
-What you want is a way to wipe the slate clean - to return the database back to the state that it was in before your test ran. Kind of like a database restore - except that would be slow. And this is where [SQL Server's snapshot backups](<http://technet.microsoft.com/en-us/library/ms189548(v=sql.105).aspx>) have got your back. To quote MSDN:
+What you want is a way to wipe the slate clean - to return the database back to the state that it was in before your test ran. Kind of like a database restore - except that would be slow. And this is where [SQL Server's snapshot backups](http://technet.microsoft.com/en-us/library/ms189548(v=sql.105).aspx) have got your back. To quote MSDN:
 
 > *Snapshot backups have the following primary benefits:
 > 
@@ -27,13 +27,13 @@ Just the ticket.
 
 ## Our Mission
 
-In this post I want to go through the process of taking an existing database, pointing Entity Framework at it, setting up some repositories and then creating an integration test pack that uses snapshot backups to cleanup after each test runs. The code detailed in this post is available in this [GitHub repo](<https://github.com/johnnyreilly/SnapshotBackupsIntegrationTesting>) if you want to have a go yourself.
+In this post I want to go through the process of taking an existing database, pointing Entity Framework at it, setting up some repositories and then creating an integration test pack that uses snapshot backups to cleanup after each test runs. The code detailed in this post is available in this [GitHub repo](https://github.com/johnnyreilly/SnapshotBackupsIntegrationTesting) if you want to have a go yourself.
 
 
 
 ## We need a database
 
-You can find a whole assortment of databases [here](<https://msftdbprodsamples.codeplex.com/releases>). I'm going to use [AdventureWorksLT](<https://msftdbprodsamples.codeplex.com/wikipage?title=AWLTDocs>) as it's small and simple. So I'll download [this](<https://msftdbprodsamples.codeplex.com/downloads/get/478217>) and unzip it. I'll drop `AdventureWorksLT2008R2_Data.mdf` and `AdventureWorksLT2008R2_log.LDF` in my data folder and attach AdventureWorksLT2008R2 to my database server. And now I have a database:
+You can find a whole assortment of databases [here](https://msftdbprodsamples.codeplex.com/releases). I'm going to use [AdventureWorksLT](https://msftdbprodsamples.codeplex.com/wikipage?title=AWLTDocs) as it's small and simple. So I'll download [this](https://msftdbprodsamples.codeplex.com/downloads/get/478217) and unzip it. I'll drop `AdventureWorksLT2008R2_Data.mdf` and `AdventureWorksLT2008R2_log.LDF` in my data folder and attach AdventureWorksLT2008R2 to my database server. And now I have a database:
 
 ![](http://1.bp.blogspot.com/-Nke8F6wYI4A/UuEeJ6C0XqI/AAAAAAAAAgg/tbuhu2TuOpg/s320/Database2.png)
 
@@ -47,7 +47,7 @@ To our solution let's add a new class library project called "AdventureWorks.Ent
 
 ## Let There be Repositories!
 
-In the name of testability let's create a new project to house repositories called "AdventureWorks.Repositories". I'm going to use [K. Scott Allen](<http://odetocode.com/about/scott-allen>)'s fine [article on MSDN](<http://msdn.microsoft.com/en-us/library/ff714955.aspx>) to create a very basic set of repositories wrapped in a unit of work.
+In the name of testability let's create a new project to house repositories called "AdventureWorks.Repositories". I'm going to use [K. Scott Allen](http://odetocode.com/about/scott-allen)'s fine [article on MSDN](http://msdn.microsoft.com/en-us/library/ff714955.aspx) to create a very basic set of repositories wrapped in a unit of work.
 
 In my new project I'll add a reference to the `AdventureWorks.EntityFramework` project and create a new `IRepository` interface that looks like this:
 

@@ -8,7 +8,7 @@ hide_table_of_contents: false
 ---
 Sometimes you write a post for the ages. Sometimes you write one you hope is out of date before you hit "publish". This is one of those.
 
- There's a [bug](<https://github.com/webpack/enhanced-resolve/issues/41>) in webpack's enhanced-resolve. It means that you cannot configure an aliased loader using the `query` (or `options` in the webpack 2 nomenclature). Let me illustrate; consider the following code:
+ There's a [bug](https://github.com/webpack/enhanced-resolve/issues/41) in webpack's enhanced-resolve. It means that you cannot configure an aliased loader using the `query` (or `options` in the webpack 2 nomenclature). Let me illustrate; consider the following code:
 
 ```js
 module.exports = {
@@ -29,7 +29,7 @@ module.exports = {
 module.exports.resolveLoader = { alias: { 'ts-loader': require('path').join(__dirname, "../../index.js")
 ```
 
-At the time of writing, if you alias a loader as above, then the `query` / `options` will \**not*\* be passed along. This is bad, particularly given the requirement in webpack 2 that configuration is no longer possible through extending the [`webpack.config.js`](<https://webpack.js.org/guides/migrating/#loader-configuration-is-through-options>). So what to do? Well, when this was a problem previously the marvellous [James Brantly](<https://www.twitter.com/jbrantly>) had a [workaround](<https://github.com/webpack/webpack/issues/1289#issuecomment-125767499>). I've taken that and run with it:
+At the time of writing, if you alias a loader as above, then the `query` / `options` will \**not*\* be passed along. This is bad, particularly given the requirement in webpack 2 that configuration is no longer possible through extending the [`webpack.config.js`](https://webpack.js.org/guides/migrating/#loader-configuration-is-through-options). So what to do? Well, when this was a problem previously the marvellous [James Brantly](https://www.twitter.com/jbrantly) had a [workaround](https://github.com/webpack/webpack/issues/1289#issuecomment-125767499). I've taken that and run with it:
 
 ```js
 var config = {

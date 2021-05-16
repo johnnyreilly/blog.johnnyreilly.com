@@ -8,11 +8,11 @@ hide_table_of_contents: false
 ---
 ## Update 03/01/2013
 
- I've written a subsequent post which builds on the work of this original post. The new post exposes this functionality via a WCF service and can be found [here](<http://icanmakethiswork.blogspot.co.uk/2013/01/html-to-pdf-using-wcf-service.html>).
+ I've written a subsequent post which builds on the work of this original post. The new post exposes this functionality via a WCF service and can be found [here](http://icanmakethiswork.blogspot.co.uk/2013/01/html-to-pdf-using-wcf-service.html).
 
 ## Making PDFs from HTML
 
-I wanted to talk about an approach I've discovered for making PDFs directly from HTML. I realise that in these wild and crazy days of [PDF.js](<http://mozilla.github.com/pdf.js/>) and the like that techniques like this must seem very old hat. That said, this technique works and more importantly it solves a problem I was faced with but without forcing the users to move the "newest hottest version of X". Much as many of would love to solve problems this way, alas many corporations move slower than that and in the meantime we still have to deliver - we still have to meet requirements. Rather than just say "I did this" I thought I'd record how I got to this point in the first place. I don't know about you but I find the reasoning behind why different technical decisions get made quite an interesting topic...
+I wanted to talk about an approach I've discovered for making PDFs directly from HTML. I realise that in these wild and crazy days of [PDF.js](http://mozilla.github.com/pdf.js/) and the like that techniques like this must seem very old hat. That said, this technique works and more importantly it solves a problem I was faced with but without forcing the users to move the "newest hottest version of X". Much as many of would love to solve problems this way, alas many corporations move slower than that and in the meantime we still have to deliver - we still have to meet requirements. Rather than just say "I did this" I thought I'd record how I got to this point in the first place. I don't know about you but I find the reasoning behind why different technical decisions get made quite an interesting topic...
 
 For some time I've been developing / supporting an application which is used in an intranet environment where the company mandated browser is still IE 6. It was a requirement that there be "print" functionality in this application. As is well known (even by Microsoft themselves) the print functionality in IE 6 was never fantastic. But the requirement for usable printouts remained.
 
@@ -28,11 +28,11 @@ I'd never really liked the Crystal solution for a number of reasons:
 
 
 
-It occurred to me that it would be good if we could find some way of generating our own PDF reports without using Crystal that would be a step forward. It was shortly after this that I happened upon [WKHTMLtoPDF](<http://code.google.com/p/wkhtmltopdf/>). This is an open source project which describes itself as a *"Simple shell utility to convert html to pdf using the webkit rendering engine, and qt."* I tested it out on various websites and it worked. It wasn't by any stretch of the imagination a perfect HTML to PDF tool but the quality it produced greatly outstripped the presentation currently in place via Crystal.
+It occurred to me that it would be good if we could find some way of generating our own PDF reports without using Crystal that would be a step forward. It was shortly after this that I happened upon [WKHTMLtoPDF](http://code.google.com/p/wkhtmltopdf/). This is an open source project which describes itself as a *"Simple shell utility to convert html to pdf using the webkit rendering engine, and qt."* I tested it out on various websites and it worked. It wasn't by any stretch of the imagination a perfect HTML to PDF tool but the quality it produced greatly outstripped the presentation currently in place via Crystal.
 
 This was just the ticket. Using WKHTMLtoPDF I could have simple web pages in the application which could be piped into WKHTMLtoPDF to make a PDF as needed. It could be dynamic - because ASP.NET is dynamic. We wouldn't need to write and maintain custom stored procs anymore. And happily we would no longer need to use Crystal.
 
-Before we could rid ourselves of Crystal though, I needed a way that I could generate these PDFs on the fly within the website. For this I ended up writing a simple wrapper class for WKHTMLtoPDF which could be used to invoke it on the fly. In fact a good portion of this was derived from various contributions on [a post on StackOverflow](<http://stackoverflow.com/q/1331926>). It ended up looking like this:
+Before we could rid ourselves of Crystal though, I needed a way that I could generate these PDFs on the fly within the website. For this I ended up writing a simple wrapper class for WKHTMLtoPDF which could be used to invoke it on the fly. In fact a good portion of this was derived from various contributions on [a post on StackOverflow](http://stackoverflow.com/q/1331926). It ended up looking like this:
 
 <script src="https://gist.github.com/2341776.js?file=PdfGenerator.cs"></script>
 
@@ -62,11 +62,11 @@ This new solution had a number of upsides from our perspective:
 
 - Development maintenance time (and consequently cost for our customers) for print screens was significantly reduced. This was due to the print screens being part of the main web app. This meant they shared styling etc with all the other web screens and the dynamic nature of ASP.NET made customising a screen on the fly simplicity itself.
 - We were now able to regionalise our print screens for the users in the same way as we did with our main web app. This just wasn't realistic with the Crystal solution because of the amount of work involved.
-- I guess this is kind of a [DRY](<http://en.wikipedia.org/wiki/Don%27t_repeat_yourself>) solution :-)
+- I guess this is kind of a [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself) solution :-)
 
 
 
-You can easily make use of the above approach yourself. All you need do is download and install [WKHTMLtoPDF](<http://code.google.com/p/wkhtmltopdf/>) on your machine. I advise using version 0.9.9 as the later release candidates appear slightly buggy at present.
+You can easily make use of the above approach yourself. All you need do is download and install [WKHTMLtoPDF](http://code.google.com/p/wkhtmltopdf/) on your machine. I advise using version 0.9.9 as the later release candidates appear slightly buggy at present.
 
 Couple of gotchas:
 

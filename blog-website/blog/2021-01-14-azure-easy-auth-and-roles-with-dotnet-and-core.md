@@ -6,13 +6,13 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Azure, App service, authorisation, Authentication, azure AD]
 hide_table_of_contents: false
 ---
-*If this post is interesting to you, you may also want to [look at this one where we try to use Microsoft.Identity.Web for the same purpose.](<https://blog.johnnyreilly.com/2021/01/azure-easy-auth-and-roles-with-net-and-microsoft-identity-web.html>)*
+*If this post is interesting to you, you may also want to [look at this one where we try to use Microsoft.Identity.Web for the same purpose.](https://blog.johnnyreilly.com/2021/01/azure-easy-auth-and-roles-with-net-and-microsoft-identity-web.html)*
 
- Azure has a feature which is intended to allow Authentication and Authorization to be applied outside of your application code. It's called ["Easy Auth"](<https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization>). Unfortunately, in the context of App Services it doesn't work with .NET Core and .NET. Perhaps it would be better to say: of the various .NETs, it supports .NET Framework. [To quote the docs](<https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization#userapplication-claims>):
+ Azure has a feature which is intended to allow Authentication and Authorization to be applied outside of your application code. It's called ["Easy Auth"](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization). Unfortunately, in the context of App Services it doesn't work with .NET Core and .NET. Perhaps it would be better to say: of the various .NETs, it supports .NET Framework. [To quote the docs](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization#userapplication-claims):
 
-> At this time, ASP.NET Core does not currently support populating the current user with the Authentication/Authorization feature. However, some [3rd party, open source middleware components](<https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth>) do exist to help fill this gap.
+> At this time, ASP.NET Core does not currently support populating the current user with the Authentication/Authorization feature. However, some [3rd party, open source middleware components](https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth) do exist to help fill this gap.
 
-Thanks to [Maxime Rouiller](<https://twitter.com/MaximRouiller>) there's a way forward here. However, as I was taking this for a spin today, I discovered another issue.
+Thanks to [Maxime Rouiller](https://twitter.com/MaximRouiller) there's a way forward here. However, as I was taking this for a spin today, I discovered another issue.
 
 ## Where are our roles?
 
@@ -204,8 +204,8 @@ namespace EasyAuth {
 
 There's a number of changes in the above code to Maxime's package. Three changes that are not significant and one that is. First the insignificant changes:
 
-1. It uses [`System.Text.Json`](<https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to?pivots=dotnet-5-0>) in place of JSON.NET
-2. It uses [C#s nullable reference types](<https://blog.johnnyreilly.com/2020/12/nullable-reference-types-csharp-strictnullchecks.html>)
+1. It uses [`System.Text.Json`](https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to?pivots=dotnet-5-0) in place of JSON.NET
+2. It uses [C#s nullable reference types](https://blog.johnnyreilly.com/2020/12/nullable-reference-types-csharp-strictnullchecks.html)
 3. It changes the extension method signature such that instead of entering `services.AddAuthentication().AddEasyAuthAuthentication((o) =&gt; { })` we now need only enter `services.AddEasyAuthAuthentication()`
 
 
@@ -243,12 +243,12 @@ As you can see, we now have both the originally supplied roles *as well* as role
 
 When I was tweeting this post, Maxime was good enough to respond and suggest that this may be resolved within Azure itself in future:
 
-> Oh, so that's why they removed the name? 😲😜 Jokes aside, we hope that this package won't be necessary for the future. I know that [@mattchenderson](<https://twitter.com/mattchenderson?ref_src=twsrc%5Etfw>) is part of a working group to update Easy Auth. Might want to make sure you follow him as well. 😁
+> Oh, so that's why they removed the name? 😲😜 Jokes aside, we hope that this package won't be necessary for the future. I know that [@mattchenderson](https://twitter.com/mattchenderson?ref_src=twsrc%5Etfw) is part of a working group to update Easy Auth. Might want to make sure you follow him as well. 😁
 > 
-> — Maxime Rouiller (@MaximRouiller) [January 14, 2021](<https://twitter.com/MaximRouiller/status/1349804324713615366?ref_src=twsrc%5Etfw>)
+> — Maxime Rouiller (@MaximRouiller) [January 14, 2021](https://twitter.com/MaximRouiller/status/1349804324713615366?ref_src=twsrc%5Etfw)
 
 <script async="" src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
 
-There's a prospective PR that would add an event to Maxime's API. If something along these lines was merged, then my workaround would no longer be necessary. Follow the PR [here](<https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth/pull/13>).
+There's a prospective PR that would add an event to Maxime's API. If something along these lines was merged, then my workaround would no longer be necessary. Follow the PR [here](https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth/pull/13).
 
 

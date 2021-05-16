@@ -25,7 +25,7 @@ And so it came to pass that the teams product (which took the form of ASP.Net Co
 
 ## Proxy Part 1
 
-In the early days of this proxying the team reached for [`AspNetCore.Proxy`](<https://github.com/twitchax/AspNetCore.Proxy>). It's a great open source project that allows you to proxy HTTP requests. It gives you complete control over the construction of proxy requests, so that you can have a request come into your API and end up proxying it to a URL with a completely different path on the proxy server.
+In the early days of this proxying the team reached for [`AspNetCore.Proxy`](https://github.com/twitchax/AspNetCore.Proxy). It's a great open source project that allows you to proxy HTTP requests. It gives you complete control over the construction of proxy requests, so that you can have a request come into your API and end up proxying it to a URL with a completely different path on the proxy server.
 
 ## Proxy Part 2
 

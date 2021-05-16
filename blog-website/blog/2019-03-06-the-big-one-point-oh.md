@@ -6,15 +6,15 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [TypeScript, fork-ts-checker-webpack-plugin, ts-loader, tslint, 1.0.0, Webpack]
 hide_table_of_contents: false
 ---
-[It's time for the first major version of `fork-ts-checker-webpack-plugin`](<https://github.com/Realytics/fork-ts-checker-webpack-plugin/releases/tag/v1.0.0>). It's been a long time coming :-)
+[It's time for the first major version of `fork-ts-checker-webpack-plugin`](https://github.com/Realytics/fork-ts-checker-webpack-plugin/releases/tag/v1.0.0). It's been a long time coming :-)
 
 ## A Little History
 
-The `fork-ts-checker-webpack-plugin` was originally the handiwork of [Piotr Oleś](<https://github.com/piotr-oles>). He raised an issue with [`ts-loader`](<https://github.com/TypeStrong/ts-loader/issues/537>) suggesting it could be the McCartney to `ts-loader`'s Lennon:
+The `fork-ts-checker-webpack-plugin` was originally the handiwork of [Piotr Oleś](https://github.com/piotr-oles). He raised an issue with [`ts-loader`](https://github.com/TypeStrong/ts-loader/issues/537) suggesting it could be the McCartney to `ts-loader`'s Lennon:
 
 > Hi everyone!
 > 
-> I've created webpack plugin: [fork-ts-checker-webpack-plugin](<https://github.com/Realytics/fork-ts-checker-webpack-plugin>) that plays nicely with `ts-loader`. The idea is to compile project with `transpileOnly: true` and check types on separate process (async). With this approach, webpack build is not blocked by type checker and we have semantic check with fast incremental build. More info on github repo :)
+> I've created webpack plugin: [fork-ts-checker-webpack-plugin](https://github.com/Realytics/fork-ts-checker-webpack-plugin) that plays nicely with `ts-loader`. The idea is to compile project with `transpileOnly: true` and check types on separate process (async). With this approach, webpack build is not blocked by type checker and we have semantic check with fast incremental build. More info on github repo :)
 > 
 > So if you like it and you think it would be good to add some info in README.md about this plugin, I would be greatful.
 > 
@@ -32,9 +32,9 @@ There are actually no breaking changes that we're aware of; users of 0.x `fork-t
 
 ## Incremental Watch API on by Default
 
-Users of TypeScript 3+ may notice a performance improvement as by default the plugin now uses the [incremental watch API](<https://github.com/Microsoft/TypeScript/pull/20234>) in TypeScript.
+Users of TypeScript 3+ may notice a performance improvement as by default the plugin now uses the [incremental watch API](https://github.com/Microsoft/TypeScript/pull/20234) in TypeScript.
 
-Should this prove problematic you can opt out of using it by supplying `useTypescriptIncrementalApi: false`. We are aware of an [issue with Vue and the incremental API](<https://github.com/Realytics/fork-ts-checker-webpack-plugin/issues/219>). We hope it will be fixed soon - a generous member of the community is taking a look. In the meantime, we will *not* default to using the incremental watch API when in Vue mode.
+Should this prove problematic you can opt out of using it by supplying `useTypescriptIncrementalApi: false`. We are aware of an [issue with Vue and the incremental API](https://github.com/Realytics/fork-ts-checker-webpack-plugin/issues/219). We hope it will be fixed soon - a generous member of the community is taking a look. In the meantime, we will *not* default to using the incremental watch API when in Vue mode.
 
 ## Compatibility
 

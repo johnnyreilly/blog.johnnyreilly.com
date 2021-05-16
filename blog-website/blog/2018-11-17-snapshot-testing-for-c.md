@@ -6,7 +6,7 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [snapshot testing, c#, jest]
 hide_table_of_contents: false
 ---
-If you're a user of Jest, you've no doubt heard of and perhaps made use of [snapshot testing](<https://jestjs.io/docs/en/snapshot-testing>).
+If you're a user of Jest, you've no doubt heard of and perhaps made use of [snapshot testing](https://jestjs.io/docs/en/snapshot-testing).
 
  Snapshot testing is an awesome tool that is generally discussed in the context of JavaScript React UI testing. But snapshot testing has a wider application than that. Essentially it is profoundly useful where you have functions which produce a complex structured output. It could be a React UI, it could be a list of FX prices. The type of data is immaterial; it's the amount of it that's key.
 
@@ -20,9 +20,9 @@ This approach takes less time to write, less time to maintain and the solid read
 
 Now if you're writing tests in JavaScript or TypeScript then Jest already has your back with CLI snapshot generation and `shouldMatchSnapshot`. However getting to nearly the same place in C# is delightfully easy. What are we going to need?
 
-First up, a serializer which can take your big bad data structures and render them as JSON. Also we'll use it to rehydrate our data structure into an object ready for comparison. We're going to use [Json.NET](<https://www.newtonsoft.com/json>).
+First up, a serializer which can take your big bad data structures and render them as JSON. Also we'll use it to rehydrate our data structure into an object ready for comparison. We're going to use [Json.NET](https://www.newtonsoft.com/json).
 
-Next up we need a way to compare our outputs with our rehydrated snapshots - we need a C# `shouldMatchSnapshot`. There's many choices out there, but for my money [Fluent Assertions](<https://fluentassertions.com>) is king of the hill.
+Next up we need a way to compare our outputs with our rehydrated snapshots - we need a C# `shouldMatchSnapshot`. There's many choices out there, but for my money [Fluent Assertions](https://fluentassertions.com) is king of the hill.
 
 Finally we're going to need Snapshot, a little helper utility I put together:
 

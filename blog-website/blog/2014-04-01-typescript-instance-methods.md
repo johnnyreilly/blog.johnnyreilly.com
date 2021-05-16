@@ -6,11 +6,11 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [callback functions, TypeScript, Lexical scoping, closure, Instance methods]
 hide_table_of_contents: false
 ---
-I was recently reading [Jeff Walker's blog post "Why TypeScript Isn't the Answer"](<http://www.walkercoderanger.com/blog/2014/02/typescript-isnt-the-answer/>). This is part of series in which Jeff goes through various compile-to-JavaScript technologies including TypeScript, CoffeeScript and Dart and explains his view of why he feels they don't quite hit the mark.
+I was recently reading [Jeff Walker's blog post "Why TypeScript Isn't the Answer"](http://www.walkercoderanger.com/blog/2014/02/typescript-isnt-the-answer/). This is part of series in which Jeff goes through various compile-to-JavaScript technologies including TypeScript, CoffeeScript and Dart and explains his view of why he feels they don't quite hit the mark.
 
  As a user (and big fan) of TypeScript I read the post with interest and picked up on one particular issue that Jeff mentions:
 
-> Classes make the unchanged behaviour of the `this` keyword more confusing. For example, in a class like `Greeter` from the [TypeScript playground](<http://www.typescriptlang.org/Playground>), the use of `this` is confusing:
+> Classes make the unchanged behaviour of the `this` keyword more confusing. For example, in a class like `Greeter` from the [TypeScript playground](http://www.typescriptlang.org/Playground), the use of `this` is confusing:
 > 
 > ```ts
 > class Greeter {
@@ -38,7 +38,7 @@ Now Jeff is quite correct in everything he says above. However, he's also missin
 
 ## Instance Methods to the Rescue!
 
-Still in the early days of TypeScript, the issue Jeff raises had already been identified. (And for what it's worth, this issue wasn't there by mistake - remember TypeScript is quite deliberately a "superset of JavaScript".) Happily with the [release of TypeScript 0.9.1](<http://blogs.msdn.com/b/typescript/archive/2013/08/06/announcing-0-9-1.aspx>) a nice remedy was included in the language in the form of "Instance Methods".
+Still in the early days of TypeScript, the issue Jeff raises had already been identified. (And for what it's worth, this issue wasn't there by mistake - remember TypeScript is quite deliberately a "superset of JavaScript".) Happily with the [release of TypeScript 0.9.1](http://blogs.msdn.com/b/typescript/archive/2013/08/06/announcing-0-9-1.aspx) a nice remedy was included in the language in the form of "Instance Methods".
 
 Instance Methods are lexically scoped; bound to a specific instance of a JavaScript object. i.e. These methods are \***not**\* vulnerable to the “Hello, undefined” issue Jeff raises. To quote the blog post:
 
@@ -62,7 +62,7 @@ class Greeter {
 
 Can you tell the difference? It's subtle. That's right; the mere swapping out of `()` with `= () =&gt;` on the `greet` method takes us from a `prototype` method to an Instance Method.
 
-Observant readers will have noticed that we are using TypeScript / [ES6's Arrow Function syntax](<https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/arrow_functions>). In fact with that in mind I could actually have gone super-terse if I was so inclined:
+Observant readers will have noticed that we are using TypeScript / [ES6's Arrow Function syntax](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/arrow_functions). In fact with that in mind I could actually have gone super-terse if I was so inclined:
 
 ```ts
 class Greeter {
@@ -117,7 +117,7 @@ But this time round the code displays “Hello, world” and no longer “Hello,
 
 ## Update 02/04/2014 - mixing and matching `prototype` and Instance Methods
 
-[Bart Verkoeijen](<https://twitter.com/bgever>) made an excellent comment concerning the extra memory that Instance Methods require as opposed to `prototype` methods. Not everyone reads the comments and so I thought I'd add a little suffix to my post.
+[Bart Verkoeijen](https://twitter.com/bgever) made an excellent comment concerning the extra memory that Instance Methods require as opposed to `prototype` methods. Not everyone reads the comments and so I thought I'd add a little suffix to my post.
 
 What I’ve come to realise is that it comes down to problem that you’re trying to solve. Instance methods are bulletproof in terms of relying on a specific instance of `this` regardless of how a method is invoked. But for many of my use cases that’s overkill. Let’s take the original (`prototype` methods) `Greeter` example:
 

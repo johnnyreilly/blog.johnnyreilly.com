@@ -6,14 +6,14 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [ts-loader, webpack 2]
 hide_table_of_contents: false
 ---
-Hands up, despite being one of the maintainers of [ts-loader](<https://github.com/TypeStrong/ts-loader>) (a TypeScript loader for webpack) I have not been tracking webpack v2. My reasons? Well, I'm keen on cutting edge but bleeding edge is often not a ton of fun as dealing with regularly breaking changes is frustrating. I'm generally happy to wait for things to settle down a bit before leaping aboard. However, [webpack 2 RC'd last week](<https://github.com/webpack/webpack/releases/tag/v2.2.0-rc.0>) and so it's time to take a look!
+Hands up, despite being one of the maintainers of [ts-loader](https://github.com/TypeStrong/ts-loader) (a TypeScript loader for webpack) I have not been tracking webpack v2. My reasons? Well, I'm keen on cutting edge but bleeding edge is often not a ton of fun as dealing with regularly breaking changes is frustrating. I'm generally happy to wait for things to settle down a bit before leaping aboard. However, [webpack 2 RC'd last week](https://github.com/webpack/webpack/releases/tag/v2.2.0-rc.0) and so it's time to take a look!
 
  ## Porting our example
 
-Let's take [ts-loader's webpack 1 example](<https://github.com/TypeStrong/ts-loader/tree/master/examples/webpack1-gulp-react-flux-babel-karma>) and try and port it to webpack 2. Will it work? Probably; I'm aware of other people using ts-loader with webpack 2. It'll be a voyage of discovery. Like Darwin on the Beagle, I shall document our voyage for a couple of reasons:
+Let's take [ts-loader's webpack 1 example](https://github.com/TypeStrong/ts-loader/tree/master/examples/webpack1-gulp-react-flux-babel-karma) and try and port it to webpack 2. Will it work? Probably; I'm aware of other people using ts-loader with webpack 2. It'll be a voyage of discovery. Like Darwin on the Beagle, I shall document our voyage for a couple of reasons:
 
 - I'm probably going to get some stuff wrong. That's fine; one of the best ways to learn is to make mistakes. So do let me know where I go wrong.
-- I'm doing this based on what I've read in the new docs; they're very much a work in progress and the mistakes I make here may lead to those docs improving even more. That matters; **documentation matters**. I'll be leaning heavily on the [Migrating from v1 to v2](<https://webpack.js.org/guides/migrating/>) guide.
+- I'm doing this based on what I've read in the new docs; they're very much a work in progress and the mistakes I make here may lead to those docs improving even more. That matters; **documentation matters**. I'll be leaning heavily on the [Migrating from v1 to v2](https://webpack.js.org/guides/migrating/) guide.
 
 
 
@@ -92,7 +92,7 @@ Initially I thought I was supposed to switch to a custom babel preset called `<a
 }
 ```
 
-Looking at our existing config you'll note that for `js` files we're using `query` (`options` in the new world I understand) to configure babel usage. We're using [query parameters](<https://webpack.github.io/docs/using-loaders.html#query-parameters>) for `ts` files. I have *zero* idea how to configure preset options using query parameters. Fiddling with `query` / `options` didn't seem to work. So, I've decided to abandon using query entirely and drop in a `<a href="http://babeljs.io/docs/usage/babelrc/">.babelrc</a>` file using our presets combined with the `<a href="https://babeljs.io/docs/plugins/#plugin-preset-options">modules</a>` setting:
+Looking at our existing config you'll note that for `js` files we're using `query` (`options` in the new world I understand) to configure babel usage. We're using [query parameters](https://webpack.github.io/docs/using-loaders.html#query-parameters) for `ts` files. I have *zero* idea how to configure preset options using query parameters. Fiddling with `query` / `options` didn't seem to work. So, I've decided to abandon using query entirely and drop in a `<a href="http://babeljs.io/docs/usage/babelrc/">.babelrc</a>` file using our presets combined with the `<a href="https://babeljs.io/docs/plugins/#plugin-preset-options">modules</a>` setting:
 
 ```js
 {
@@ -156,9 +156,9 @@ module.exports = {
 
 ## `plugins`
 
-In our example the `plugins` section of our `webpack.config.js` is extended in a separate process. Whilst we're developing we also set the `debug` flag to be `true`. [It seems we need to introduce a `LoaderOptionsPlugin` to do this for us.](<https://webpack.js.org/guides/migrating/#debug>)
+In our example the `plugins` section of our `webpack.config.js` is extended in a separate process. Whilst we're developing we also set the `debug` flag to be `true`. [It seems we need to introduce a `LoaderOptionsPlugin` to do this for us.](https://webpack.js.org/guides/migrating/#debug)
 
-As we introduce our `LoaderOptionsPlugin` we also need to make sure that we provide it with `options`. How do I know this? Well [someone raised an issue against ts-loader](<https://github.com/TypeStrong/ts-loader/issues/283>). I don't think this is actually an issue with ts-loader; I think it's just a webpack 2 thing. I could be wrong; answers on a postcard please.
+As we introduce our `LoaderOptionsPlugin` we also need to make sure that we provide it with `options`. How do I know this? Well [someone raised an issue against ts-loader](https://github.com/TypeStrong/ts-loader/issues/283). I don't think this is actually an issue with ts-loader; I think it's just a webpack 2 thing. I could be wrong; answers on a postcard please.
 
 Either way, to get up and running we just need the `LoaderOptionsPlugin` in play. Consequently, most of what follows in our `webpack.js` file is unchanged:
 
@@ -336,7 +336,7 @@ module.exports = function(config) {
 
 ## Compare and contrast
 
-We now have a repo that works with webpack 2 rc 1. Yay! If you'd like to see it then take a look [here](<https://github.com/TypeStrong/ts-loader/tree/master/examples/webpack2-gulp-react-flux-babel-karma>).
+We now have a repo that works with webpack 2 rc 1. Yay! If you'd like to see it then take a look [here](https://github.com/TypeStrong/ts-loader/tree/master/examples/webpack2-gulp-react-flux-babel-karma).
 
 I thought I'd compare performance / output size of compiling with webpack 1 to webpack 2. First of all in debug / development mode:
 

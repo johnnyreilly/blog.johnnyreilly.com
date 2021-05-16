@@ -8,19 +8,19 @@ hide_table_of_contents: false
 ---
 ## Update 05/10/2015
 
- If you're after a version of this that works with Globalize 1.x then take a look [here](<https://blog.johnnyreilly.com/2015/10/jquery-validation-globalize-hits-10.html>).
+ If you're after a version of this that works with Globalize 1.x then take a look [here](https://blog.johnnyreilly.com/2015/10/jquery-validation-globalize-hits-10.html).
 
 ## Update 27/08/2013
 
-To make it easier for people to use the approach detailed in this post I have created a repository for `jquery.validate.globalize.js` on GitHub [here](<https://github.com/johnnyreilly/jquery-validation-globalize>).
+To make it easier for people to use the approach detailed in this post I have created a repository for `jquery.validate.globalize.js` on GitHub [here](https://github.com/johnnyreilly/jquery-validation-globalize).
 
-This is also available as a nuget package [here](<https://www.nuget.org/packages/jQuery.Validation.Globalize/>).
+This is also available as a nuget package [here](https://www.nuget.org/packages/jQuery.Validation.Globalize/).
 
-To see a good demo take a look [here](<http://jqueryvalidationunobtrusivenative.azurewebsites.net/AdvancedDemo/Globalize>).
+To see a good demo take a look [here](http://jqueryvalidationunobtrusivenative.azurewebsites.net/AdvancedDemo/Globalize).
 
 ## Background
 
-[I've written before about a great little library called Globalize](<http://icanmakethiswork.blogspot.co.uk/2012/05/globalizejs-number-and-date.html>) which makes locale specific number / date formatting simple within JavaScript. And I've just stumbled upon an [old post written by Scott Hanselman about the business of Globalisation / Internationalisation / Localisation within ASP.NET](<http://www.hanselman.com/blog/GlobalizationInternationalizationAndLocalizationInASPNETMVC3JavaScriptAndJQueryPart1.aspx>). It's a great post and I recommend reading it (I'm using many of the approaches he discusses).
+[I've written before about a great little library called Globalize](http://icanmakethiswork.blogspot.co.uk/2012/05/globalizejs-number-and-date.html) which makes locale specific number / date formatting simple within JavaScript. And I've just stumbled upon an [old post written by Scott Hanselman about the business of Globalisation / Internationalisation / Localisation within ASP.NET](http://www.hanselman.com/blog/GlobalizationInternationalizationAndLocalizationInASPNETMVC3JavaScriptAndJQueryPart1.aspx). It's a great post and I recommend reading it (I'm using many of the approaches he discusses).
 
 ## jQuery Global is dead... Long live Globalize!
 
@@ -46,7 +46,7 @@ Then Globalize would be initialised with the "de-DE" culture assuming that cultu
 
 In Scott's article he created a `MetaAcceptLanguage` helper to generate a META tag like this: `&lt;meta name="accept-language" content="en-GB" /&gt;` which he used to drive Globalizes specified culture.
 
-Rather than generating a meta tag I've chosen to use the `lang` attribute of the `html` tag to specify the culture. I've chosen to do this as it's more in line with the [W3C spec](<http://www.w3.org/TR/i18n-html-tech-lang/#ri20030510.102829377>). But it should be noted this is just a different way of achieving exactly the same end.
+Rather than generating a meta tag I've chosen to use the `lang` attribute of the `html` tag to specify the culture. I've chosen to do this as it's more in line with the [W3C spec](http://www.w3.org/TR/i18n-html-tech-lang/#ri20030510.102829377). But it should be noted this is just a different way of achieving exactly the same end.
 
 So how's it getting set? Well, it's no great shakes; in my `_Layout.cshtml` file my html tag looks like this:
 
@@ -101,6 +101,6 @@ Which will render something like this:
 
 This will load up jQuery, Globalize, your Globalize culture, jQuery Validate, jQuery Validates unobtrusive extensions (which you don't need if you're not using them) and the jQuery Validate Globalize script which will set up culture aware validation.
 
-Finally and just to re-iterate, it's highly worthwhile to give [Scott Hanselman's original article a look](<http://www.hanselman.com/blog/GlobalizationInternationalizationAndLocalizationInASPNETMVC3JavaScriptAndJQueryPart1.aspx>). Most all the ideas in here were taken wholesale from him!
+Finally and just to re-iterate, it's highly worthwhile to give [Scott Hanselman's original article a look](http://www.hanselman.com/blog/GlobalizationInternationalizationAndLocalizationInASPNETMVC3JavaScriptAndJQueryPart1.aspx). Most all the ideas in here were taken wholesale from him!
 
 

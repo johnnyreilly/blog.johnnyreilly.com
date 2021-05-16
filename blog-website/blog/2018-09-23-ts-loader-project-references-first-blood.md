@@ -6,11 +6,11 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [TypeScript, project references, ts-loader, Webpack]
 hide_table_of_contents: false
 ---
-So [project references](<https://www.typescriptlang.org/docs/handbook/project-references.html>) eh? They shipped with [TypeScript 3](<https://blogs.msdn.microsoft.com/typescript/2018/07/30/announcing-typescript-3-0/#project-references>). We've just shipped initial support for project references in [`ts-loader v5.2.0`](<https://github.com/TypeStrong/ts-loader/releases/tag/v5.2.0>). All the hard work was done by the amazing [Andrew Branch](<https://twitter.com/atcb>). In fact I'd recommend taking a gander at [the PR](<https://github.com/TypeStrong/ts-loader/pull/817>). Yay Andrew!
+So [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) eh? They shipped with [TypeScript 3](https://blogs.msdn.microsoft.com/typescript/2018/07/30/announcing-typescript-3-0/#project-references). We've just shipped initial support for project references in [`ts-loader v5.2.0`](https://github.com/TypeStrong/ts-loader/releases/tag/v5.2.0). All the hard work was done by the amazing [Andrew Branch](https://twitter.com/atcb). In fact I'd recommend taking a gander at [the PR](https://github.com/TypeStrong/ts-loader/pull/817). Yay Andrew!
 
  This post will take us through the nature of the support for project references in ts-loader now and what we hope the future will bring. It <strike>rips off shamelessly</strike>
 
- borrows from the [`README.md`](<https://github.com/TypeStrong/ts-loader#projectreferences-boolean-defaultfalse>) documentation that Andrew wrote as part of the PR. Because I am not above stealing.
+ borrows from the [`README.md`](https://github.com/TypeStrong/ts-loader#projectreferences-boolean-defaultfalse) documentation that Andrew wrote as part of the PR. Because I am not above stealing.
 
 ## TL;DR
 
@@ -18,7 +18,7 @@ Using project references currently requires building referenced projects outside
 
 ## Like `tsc`, but *not* like `tsc --build`
 
-ts-loader has partial support for [project references](<https://www.typescriptlang.org/docs/handbook/project-references.html>) in that it will *load* dependent composite projects that are already built, but will not currently *build/rebuild* those upstream projects. The best way to explain exactly what this means is through an example. Say you have a project with a project reference pointing to the `lib/` directory:
+ts-loader has partial support for [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in that it will *load* dependent composite projects that are already built, but will not currently *build/rebuild* those upstream projects. The best way to explain exactly what this means is through an example. Say you have a project with a project reference pointing to the `lib/` directory:
 
 ```sh
 tsconfig.json
@@ -40,10 +40,10 @@ Ok, so how is that relevant to ts-loader? Because the best way to think about wh
 
 ## “Hey, don’t you think that sounds kind of useless and terrible?”
 
-Well, sort of. You can consider it a work-in-progress. It’s true that on its own, as of today, ts-loader doesn’t have everything you need to take advantage of project references in webpack. In practice, though, *consuming* upstream projects and *building* upstream projects are somewhat separate concerns. Building them will likely come in a future release. For background, see the [original issue](<https://github.com/TypeStrong/ts-loader/issues/815>).
+Well, sort of. You can consider it a work-in-progress. It’s true that on its own, as of today, ts-loader doesn’t have everything you need to take advantage of project references in webpack. In practice, though, *consuming* upstream projects and *building* upstream projects are somewhat separate concerns. Building them will likely come in a future release. For background, see the [original issue](https://github.com/TypeStrong/ts-loader/issues/815).
 
 ## `outDir` Windows problemo.
 
-At the moment, composite projects built using the [`outDir` compiler option](<https://www.typescriptlang.org/docs/handbook/compiler-options.html>) cannot be consumed using ts-loader on Windows. If you try to, ts-loader throws a "`has not been built from source file`" error. [You can see Andrew and I puzzling over it in the PR.](<https://github.com/TypeStrong/ts-loader/pull/817#issuecomment-422245998>) We don't know why yet; it's possible there's a bug in `tsc`. It's more likely there's a bug in `ts-loader`. Hopefully it's going to get solved at some point. (Hey, maybe you're the one to solve it!) Either way, we didn't want to hold back from releasing. So if you're building on Windows then avoid building `composite` projects using `outDir`.
+At the moment, composite projects built using the [`outDir` compiler option](https://www.typescriptlang.org/docs/handbook/compiler-options.html) cannot be consumed using ts-loader on Windows. If you try to, ts-loader throws a "`has not been built from source file`" error. [You can see Andrew and I puzzling over it in the PR.](https://github.com/TypeStrong/ts-loader/pull/817#issuecomment-422245998) We don't know why yet; it's possible there's a bug in `tsc`. It's more likely there's a bug in `ts-loader`. Hopefully it's going to get solved at some point. (Hey, maybe you're the one to solve it!) Either way, we didn't want to hold back from releasing. So if you're building on Windows then avoid building `composite` projects using `outDir`.
 
 

@@ -6,11 +6,11 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [unit testing, InternalsVisibleTo, MOQ, mocking]
 hide_table_of_contents: false
 ---
-I was recently working with my colleagues on refactoring a legacy application. We didn't have an immense amount of time available for this but the plan was to try and improve what was there as much as possible. In its initial state the application had no unit tests in place at all and so the plan was to refactor the code base in such a way as to make testing it a realistic proposition. To that end the [domain layer](<http://en.wikipedia.org/wiki/Domain_layer>) was being heavily adjusted and the GUI was being migrated from WebForms to MVC 3. The intention was to build up a pretty solid collection of unit tests. However, as we were working on this we realised we had a problem with properties on our models with [`internal`](<http://msdn.microsoft.com/en-us/library/7c5ka91b(v=vs.80).aspx>) setters...
+I was recently working with my colleagues on refactoring a legacy application. We didn't have an immense amount of time available for this but the plan was to try and improve what was there as much as possible. In its initial state the application had no unit tests in place at all and so the plan was to refactor the code base in such a way as to make testing it a realistic proposition. To that end the [domain layer](http://en.wikipedia.org/wiki/Domain_layer) was being heavily adjusted and the GUI was being migrated from WebForms to MVC 3. The intention was to build up a pretty solid collection of unit tests. However, as we were working on this we realised we had a problem with properties on our models with [`internal`](http://msdn.microsoft.com/en-us/library/7c5ka91b(v=vs.80).aspx) setters...
 
  ## Background
 
-The entities of the project in question used an approach which would store pertinent bits of [normalised](<http://en.wikipedia.org/wiki/Database_normalization>) data for read-only purposes in related entities. I've re-read that sentence and realise it's as clear as mud. Here is an example to clarify:
+The entities of the project in question used an approach which would store pertinent bits of [normalised](http://en.wikipedia.org/wiki/Database_normalization) data for read-only purposes in related entities. I've re-read that sentence and realise it's as clear as mud. Here is an example to clarify:
 
 ```cs
 public class Person
@@ -66,7 +66,7 @@ All looks fine doesn't it? It's not. Because `OrderedByFirstName` and `OrderedBy
 
 We toyed with 3 approaches and since each has merits I thought it worth going through each of them:
 
-1. To the MOQumentation Batman!: [http://code.google.com/p/moq/wiki/QuickStart](<http://code.google.com/p/moq/wiki/QuickStart>)! Looking at the MOQ documentation it states the following:
+1. To the MOQumentation Batman!: [http://code.google.com/p/moq/wiki/QuickStart](http://code.google.com/p/moq/wiki/QuickStart)! Looking at the MOQ documentation it states the following:
 
     *Mocking internal types of another project: add the following assembly attributes (typically to the AssemblyInfo.cs) to the project containing the internal types:*
 
@@ -77,7 +77,7 @@ We toyed with 3 approaches and since each has merits I thought it worth going th
     [assembly: InternalsVisibleTo("The.NameSpace.Of.Your.Unit.Test")] //I'd hope it was shorter than that...
     ```
 
-    This looked to be exactly what we needed and in most situations it would make sense to go with this. Unfortunately for us there was a gotcha. Certain core shared parts of our application platform were [GAC](<http://en.wikipedia.org/wiki/Global_Assembly_Cache>)'d. A requirement for GAC-ing an assembly is that it is [signed](<http://msdn.microsoft.com/en-us/library/xc31ft41.aspx>).
+    This looked to be exactly what we needed and in most situations it would make sense to go with this. Unfortunately for us there was a gotcha. Certain core shared parts of our application platform were [GAC](http://en.wikipedia.org/wiki/Global_Assembly_Cache)'d. A requirement for GAC-ing an assembly is that it is [signed](http://msdn.microsoft.com/en-us/library/xc31ft41.aspx).
 
     The upshot of this was that if we wanted to use the `InternalsVisibleTo` approach then we would need to sign our web application test project. We weren't particularly averse to that and initially did so without much thought. It was then we remembered that every assembly referenced by a signed assembly must also be signed as well. We didn't really want to sign our main web application purely for testing purposes. We could and if there weren't viable alternatives we well might have. But it just seemed like the wrong reason to be taking that decision. Like using a sledgehammer to crack a nut.
 
@@ -112,7 +112,7 @@ We toyed with 3 approaches and since each has merits I thought it worth going th
         }
         ```
 
-    - Our standard constructor already initialised the value of our internally set properties. So adding `virtual` to the internally set properties generated [ReSharper](<http://www.jetbrains.com/resharper/>) warnings aplenty about virtual properties being initialised in the constructor. Fair enough.
+    - Our standard constructor already initialised the value of our internally set properties. So adding `virtual` to the internally set properties generated [ReSharper](http://www.jetbrains.com/resharper/) warnings aplenty about virtual properties being initialised in the constructor. Fair enough.
 
     
 
@@ -130,7 +130,7 @@ We toyed with 3 approaches and since each has merits I thought it worth going th
         }
     ```
 
-    Thanks to the ever lovely [Named and Optional Arguments](<http://msdn.microsoft.com/en-us/library/dd264739.aspx>) feature of C# combined with [Object Initializers](<http://msdn.microsoft.com/en-us/library/bb397680.aspx>) it meant it was possible to write quite expressive, succinct code using this approach; for example:
+    Thanks to the ever lovely [Named and Optional Arguments](http://msdn.microsoft.com/en-us/library/dd264739.aspx) feature of C# combined with [Object Initializers](http://msdn.microsoft.com/en-us/library/bb397680.aspx) it meant it was possible to write quite expressive, succinct code using this approach; for example:
 
     ```cs
     var order = new Order(

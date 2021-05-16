@@ -26,9 +26,9 @@ Good questions all, and "no, I hope not". My original plans were to use the doma
 
 ![](../static/blog/2014-12-05-whats-in-a-name/Screenshot%2B2014-12-05%2B05.39.00.png)
 
-My domain is being [cybersquatted](<https://en.wikipedia.org/wiki/Cybersquatting>)! I mean.... What??!!!!
+My domain is being [cybersquatted](https://en.wikipedia.org/wiki/Cybersquatting)! I mean.... What??!!!!
 
-I started to wonder "is there another icanmakethiswork out there"? Am I not the [one and only](<http://youtu.be/z8f2mW1GFSI>)? So I checked with DuckDuckGo ("The search engine that doesn't track you.") and look what I found:
+I started to wonder "is there another icanmakethiswork out there"? Am I not the [one and only](http://youtu.be/z8f2mW1GFSI)? So I checked with DuckDuckGo ("The search engine that doesn't track you.") and look what I found:
 
 ![](../static/blog/2014-12-05-whats-in-a-name/Screenshot%2B2014-12-05%2B05.41.59.png)
 

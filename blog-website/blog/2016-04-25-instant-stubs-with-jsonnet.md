@@ -16,7 +16,7 @@ Actually, it probably won't be fine. And even if it is (miracles do happen) you'
 
 ## Instant Stubs
 
-What I've come up with is a super simple utility class for creating stubs / fakes. (I'm aware the naming of such things [can be a little contentious](<http://martinfowler.com/articles/mocksArentStubs.html>).)
+What I've come up with is a super simple utility class for creating stubs / fakes. (I'm aware the naming of such things [can be a little contentious](http://martinfowler.com/articles/mocksArentStubs.html).)
 
 ```cs
 using Newtonsoft.Json;
@@ -75,7 +75,7 @@ namespace MakeFakeData.UnitTests
 }
 ```
 
-As you can see this class uses [JSON.Net](<http://www.newtonsoft.com/json>) and exposes 2 methods:
+As you can see this class uses [JSON.Net](http://www.newtonsoft.com/json) and exposes 2 methods:
 
 <dl><dt>Make</dt><dd>Takes a given piece of data and uses JSON.Net to serialise it as JSON to a file. (nb I choose to format the JSON for readability and exclude null values; both totally optional)</dd><dt>Load</dt><dd>Takes the given path and loads the associated JSON file and deserialises it back into an object.</dd></dl>
 

@@ -6,7 +6,7 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [web workers, comlink, TypeScript, React]
 hide_table_of_contents: false
 ---
-JavaScript is famously single threaded. However, if you're developing for the web, you may well know that this is not quite accurate. There are [`Web Workers`](<https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers>):
+JavaScript is famously single threaded. However, if you're developing for the web, you may well know that this is not quite accurate. There are [`Web Workers`](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers):
 
 > A worker is an object created using a constructor (e.g. `Worker()`) that runs a named JavaScript file — this file contains the code that will run in the worker thread; workers run in another global context that is different from the current window.
 
@@ -63,7 +63,7 @@ export function add2Numbers(firstNumber, secondNumber) {
 }
 ```
 
-There's a way to do this using a library made by Google called [comlink](<https://github.com/GoogleChromeLabs/comlink>). This post will demonstrate how we can use this. We'll use TypeScript and webpack. We'll also examine how to integrate this approach into a React app.
+There's a way to do this using a library made by Google called [comlink](https://github.com/GoogleChromeLabs/comlink). This post will demonstrate how we can use this. We'll use TypeScript and webpack. We'll also examine how to integrate this approach into a React app.
 
 ## A use case for a Web Worker
 
@@ -121,7 +121,7 @@ yarn eject
 
 Then let's install the packages we're going to be using:
 
-- [`worker-plugin`](<https://github.com/GoogleChromeLabs/worker-plugin>) \- this webpack plugin automatically compiles modules loaded in Web Workers
+- [`worker-plugin`](https://github.com/GoogleChromeLabs/worker-plugin) \- this webpack plugin automatically compiles modules loaded in Web Workers
 - `comlink` \- this library provides the RPC-like experience that we want from our workers
 
 
@@ -461,8 +461,8 @@ Now our calculation takes place off the main thread and the UI is no longer bloc
 
 ![](../static/blog/2020-02-21-web-workers-comlink-typescript-and-react/non-blocking-react.gif)
 
-[This post was originally published on LogRocket.](<https://blog.logrocket.com/integrating-web-workers-in-a-react-app-with-comlink/>)
+[This post was originally published on LogRocket.](https://blog.logrocket.com/integrating-web-workers-in-a-react-app-with-comlink/)
 
-[The source code for this project can be found here.](<https://github.com/johnnyreilly/webworkers-comlink-typescript-react>)
+[The source code for this project can be found here.](https://github.com/johnnyreilly/webworkers-comlink-typescript-react)
 
 

@@ -6,7 +6,7 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [NSwag, TypeScript, CSharp, API]
 hide_table_of_contents: false
 ---
-Generating clients for APIs is a tremendous way to reduce the amount of work you have to do when you're building a project. Why handwrite that code when it can be auto-generated for you quickly and accurately by a tool like [NSwag](<https://github.com/RicoSuter/NSwag>)? To quote the docs:
+Generating clients for APIs is a tremendous way to reduce the amount of work you have to do when you're building a project. Why handwrite that code when it can be auto-generated for you quickly and accurately by a tool like [NSwag](https://github.com/RicoSuter/NSwag)? To quote the docs:
 
 > The NSwag project provides tools to generate OpenAPI specifications from existing ASP.NET Web API controllers and client code from these OpenAPI specifications. The project combines the functionality of Swashbuckle (OpenAPI/Swagger generation) and AutoRest (client generation) in one toolchain.
 
@@ -16,18 +16,18 @@ However, what if you want to use NSwag purely for its client generation capabili
 
 This post will:
 
-- Create a .NET API which exposes a Swagger endpoint. (Alternatively, you could use any other Swagger endpoint; [for example an Express API](<https://blog.logrocket.com/documenting-your-express-api-with-swagger/>).)
+- Create a .NET API which exposes a Swagger endpoint. (Alternatively, you could use any other Swagger endpoint; [for example an Express API](https://blog.logrocket.com/documenting-your-express-api-with-swagger/).)
 - Create a .NET console app which can create both TypeScript and CSharp clients from a Swagger endpoint.
 - Create a script which, when run, creates a TypeScript client.
 - Consume the API using the generated client in a simple TypeScript application.
 
 
 
-You will need both [Node.js](<https://nodejs.org/en/>) and the [.NET SDK](<https://dotnet.microsoft.com/download>) installed.
+You will need both [Node.js](https://nodejs.org/en/) and the [.NET SDK](https://dotnet.microsoft.com/download) installed.
 
 ## Create an API
 
-We'll now create an API which exposes a [Swagger / Open API](<https://swagger.io/resources/open-api/>) endpoint. Whilst we're doing that we'll create a TypeScript React app which we'll use later on. We'll drop to the command line and enter the following commands which use the .NET SDK, node and the `create-react-app` package:
+We'll now create an API which exposes a [Swagger / Open API](https://swagger.io/resources/open-api/) endpoint. Whilst we're doing that we'll create a TypeScript React app which we'll use later on. We'll drop to the command line and enter the following commands which use the .NET SDK, node and the `create-react-app` package:
 
 ```shell
 mkdir src
@@ -123,11 +123,11 @@ namespace API
 The significant changes in the above `Startup.cs` are:
 
 1. Exposing a Swagger endpoint with `UseOpenApi` and `UseSwaggerUi3`. NSwag will automagically create Swagger endpoints in your application for all your controllers. The .NET template ships with a `WeatherForecastController`.
-2. Allowing [Cross-Origin Requests (CORS)](<https://docs.microsoft.com/en-us/aspnet/core/security/cors>) which is useful during development (and will facilitate a demo later).
+2. Allowing [Cross-Origin Requests (CORS)](https://docs.microsoft.com/en-us/aspnet/core/security/cors) which is useful during development (and will facilitate a demo later).
 
 
 
-Back in the root of our project we're going to initialise an npm project. We're going to use this to put in place a number of handy [`npm scripts`](<https://docs.npmjs.com/cli/v6/using-npm/scripts>) that will make our project easier to work with. So we'll `npm init` and accept all the defaults.
+Back in the root of our project we're going to initialise an npm project. We're going to use this to put in place a number of handy [`npm scripts`](https://docs.npmjs.com/cli/v6/using-npm/scripts) that will make our project easier to work with. So we'll `npm init` and accept all the defaults.
 
 Now we're going add some dependencies which our scripts will use: `npm install cpx cross-env npm-run-all start-server-and-test`
 
@@ -152,11 +152,11 @@ Let's walk through what the above scripts provide us with:
 
 - Running `npm install` in the root of our project will not only install dependencies for our root `package.json`, thanks to our `postinstall`, `install:client-app` and `install:server-app` scripts it will install the React app and .NET app dependencies as well.
 - Running `npm run build` will build our client and server apps.
-- Running `npm run start` will start both our React app and our .NET app. Our React app will be started at [http://localhost:3000](<http://localhost:3000>). Our .NET app will be started at [http://localhost:5000](<http://localhost:5000>) (some environment variables are passed to it with [`cross-env`](<https://github.com/kentcdodds/cross-env>) ).
+- Running `npm run start` will start both our React app and our .NET app. Our React app will be started at [http://localhost:3000](http://localhost:3000). Our .NET app will be started at [http://localhost:5000](http://localhost:5000) (some environment variables are passed to it with [`cross-env`](https://github.com/kentcdodds/cross-env) ).
 
 
 
-Once `npm run start` has been run, you will find a Swagger endpoint at [http://localhost:5000/swagger](<http://localhost:5000/swagger>):
+Once `npm run start` has been run, you will find a Swagger endpoint at [http://localhost:5000/swagger](http://localhost:5000/swagger):
 
 ![swagger screenshot](../static/blog/2021-03-06-generate-typescript-and-csharp-clients-with-nswag/swagger.png)
 
@@ -292,12 +292,12 @@ In the root of the project we're going to add the following `scripts`:
 
 Let's walk through what's happening here. Running `npm run generate-client:server-app` will:
 
-- Use the [`start-server-and-test`](<https://github.com/bahmutov/start-server-and-test>) package to spin up our server-app by running the `generate-client:server-app:serve` script.
+- Use the [`start-server-and-test`](https://github.com/bahmutov/start-server-and-test) package to spin up our server-app by running the `generate-client:server-app:serve` script.
 - `start-server-and-test` waits for the Swagger endpoint to start responding to requests. When it does start responding, `start-server-and-test` runs the `generate-client:server-app:generate` script which runs our APIClientGenerator console app and provides it with the URL where our swagger can be found, the path of the file to generate and the language of "TypeScript"
 
 
 
-If you were wanting to generate a C# client (say if you were writing a [Blazor](<https://blog.logrocket.com/js-free-frontends-blazor/>) app) then you could change the `generate-client:server-app:generate` script as follows:
+If you were wanting to generate a C# client (say if you were writing a [Blazor](https://blog.logrocket.com/js-free-frontends-blazor/) app) then you could change the `generate-client:server-app:generate` script as follows:
 
 ```json
 "generate-client:server-app:generate": "dotnet run --project src/server-app/ApiClientGenerator http://localhost:5000/swagger/v1/swagger.json clients.cs CSharp",
@@ -305,7 +305,7 @@ If you were wanting to generate a C# client (say if you were writing a [Blazor](
 
 ## Consume our generated API client
 
-Let's run the `npm run generate-client:server-app` command. It creates a `clients.ts` file which nestles nicely inside our `client-app`. We're going to exercise that in a moment. First of all, let's enable proxying from our `client-app` to our `server-app` following the instructions in the [Create React App docs](<https://create-react-app.dev/docs/proxying-api-requests-in-development/>) and adding the following to our `client-app/package.json`:
+Let's run the `npm run generate-client:server-app` command. It creates a `clients.ts` file which nestles nicely inside our `client-app`. We're going to exercise that in a moment. First of all, let's enable proxying from our `client-app` to our `server-app` following the instructions in the [Create React App docs](https://create-react-app.dev/docs/proxying-api-requests-in-development/) and adding the following to our `client-app/package.json`:
 
 ```json
 "proxy": "http://localhost:5000"
@@ -370,6 +370,6 @@ Inside the `React.useEffect` above you can see we create a new instance of the a
 
 As you an see we're loading data from the server using our auto-generated client. We're reducing the amount of code we have to write *and* we're reducing the likelihood of errors.
 
-*This post was originally posted on [LogRocket](<https://blog.logrocket.com/generate-typescript-csharp-clients-nswag-api/>).*
+*This post was originally posted on [LogRocket](https://blog.logrocket.com/generate-typescript-csharp-clients-nswag-api/).*
 
 

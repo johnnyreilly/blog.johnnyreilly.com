@@ -6,11 +6,11 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [autofac, asp.net, ConfigureTestContainer, Integration Testing]
 hide_table_of_contents: false
 ---
-I [blogged a little while ago around to support integration tests using Autofac](<https://blog.johnnyreilly.com/2020/05/autofac-webapplicationfactory-and.html>). This was specific to Autofac but documented a workaround for a [long standing issue with `ConfigureTestContainer` that was introduced into .NET core 3.0](<https://github.com/dotnet/aspnetcore/issues/14907>) which affects [all third-party containers](<https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1#default-service-container-replacement>) that use `ConfigureTestContainer` in their tests.
+I [blogged a little while ago around to support integration tests using Autofac](https://blog.johnnyreilly.com/2020/05/autofac-webapplicationfactory-and.html). This was specific to Autofac but documented a workaround for a [long standing issue with `ConfigureTestContainer` that was introduced into .NET core 3.0](https://github.com/dotnet/aspnetcore/issues/14907) which affects [all third-party containers](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1#default-service-container-replacement) that use `ConfigureTestContainer` in their tests.
 
-I'll not repeat the contents of the previous post - it all still stands. However, with Autofac 6 the approach documented there will cease to work. This is because the previous approach relied upon `ContainerBuilder` not being sealed. [As of Autofac 6 it is.](<https://github.com/autofac/Autofac/issues/1120>)
+I'll not repeat the contents of the previous post - it all still stands. However, with Autofac 6 the approach documented there will cease to work. This is because the previous approach relied upon `ContainerBuilder` not being sealed. [As of Autofac 6 it is.](https://github.com/autofac/Autofac/issues/1120)
 
-Happily the tremendous [Alistair Evans](<https://twitter.com/evocationist>) came up with an [alternative approach](<https://github.com/autofac/Autofac/issues/1207#issuecomment-701961371>) which is listed below:
+Happily the tremendous [Alistair Evans](https://twitter.com/evocationist) came up with an [alternative approach](https://github.com/autofac/Autofac/issues/1207#issuecomment-701961371) which is listed below:
 
 ```cs
 /// <summary>
@@ -68,10 +68,10 @@ Using this in place of the previous approach should allow you continue running y
 
  ## Concern for third-party containers
 
-Whilst this gets us back up and running, [Alistair pointed out that this approach depends upon a deprecated interface](<https://github.com/autofac/Autofac/issues/1207#issuecomment-702250044>). This is the [`IStartupConfigureContainerFilter`](<https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.hosting.istartupconfigurecontainerfilter-1.configurecontainer?view=aspnetcore-3.1>) which [has been marked as `Obsolete` since mid 2019](<https://github.com/dotnet/aspnetcore/pull/11505>). What this means is, at some point, this approach will stop working.
+Whilst this gets us back up and running, [Alistair pointed out that this approach depends upon a deprecated interface](https://github.com/autofac/Autofac/issues/1207#issuecomment-702250044). This is the [`IStartupConfigureContainerFilter`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.hosting.istartupconfigurecontainerfilter-1.configurecontainer?view=aspnetcore-3.1) which [has been marked as `Obsolete` since mid 2019](https://github.com/dotnet/aspnetcore/pull/11505). What this means is, at some point, this approach will stop working.
 
-The marvellous David Fowler has said that [`ConfigureTestContainer` issue should be resolved in .NET](<https://github.com/autofac/Autofac/issues/1207#issuecomment-702361608>). However it's worth noting that this has been an issue since .NET Core 3 shipped and unfortunately the wonderful [Chris Ross has advised that it's not likely to be fixed for .NET 5](<https://github.com/dotnet/aspnetcore/issues/14907#issuecomment-702287717>).
+The marvellous David Fowler has said that [`ConfigureTestContainer` issue should be resolved in .NET](https://github.com/autofac/Autofac/issues/1207#issuecomment-702361608). However it's worth noting that this has been an issue since .NET Core 3 shipped and unfortunately the wonderful [Chris Ross has advised that it's not likely to be fixed for .NET 5](https://github.com/dotnet/aspnetcore/issues/14907#issuecomment-702287717).
 
-I'm very keen this does get resolved in .NET. Building tests upon an `Obsolete` attribute doesn't fill me with confidence. I'm a long time user of Autofac and I'd like to continue to be. Here's hoping that's made possible by a fix landing in .NET. If this is something you care about, it may be worth upvoting / commenting on [the issue in GitHub](<https://github.com/dotnet/aspnetcore/issues/14907>) so the team are aware of desire around this being resolved.
+I'm very keen this does get resolved in .NET. Building tests upon an `Obsolete` attribute doesn't fill me with confidence. I'm a long time user of Autofac and I'd like to continue to be. Here's hoping that's made possible by a fix landing in .NET. If this is something you care about, it may be worth upvoting / commenting on [the issue in GitHub](https://github.com/dotnet/aspnetcore/issues/14907) so the team are aware of desire around this being resolved.
 
 

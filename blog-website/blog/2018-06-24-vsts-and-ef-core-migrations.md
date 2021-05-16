@@ -12,7 +12,7 @@ Let me start by telling you a dirty secret. I have an ASP.Net Core project that 
 
 It's also worth saying that being on VSTS made me less likely to give these approaches a go. Why? Well, the feedback loop for debugging a CI / CD setup is truly sucky. Make a change. Wait for it to trickle through the CI / CD flow (10 mins at least). Spot a problem, try and fix. Start waiting again. Repeat until you succeed. Or, if you're using the free tier of VSTS, repeat until you run out of build minutes. You have a limited number of build minutes per month with VSTS. Last time I fiddled with the build, I bled my way through a full month's minutes in 2 days. I have now adopted the approach of only playing with the setup in the last week of the month. That way if I end up running out of minutes, at least I'll roll over to the new allowance in a matter of days.
 
-Digression over. I could take the guilt of my EF migrations secret no longer, I decided to try and tackle it another way. I used the approach suggested by [Andre Broers](<https://github.com/broersa>)[here](<https://github.com/aspnet/EntityFrameworkCore/issues/9841#issuecomment-395712061>):
+Digression over. I could take the guilt of my EF migrations secret no longer, I decided to try and tackle it another way. I used the approach suggested by [Andre Broers](https://github.com/broersa)[here](https://github.com/aspnet/EntityFrameworkCore/issues/9841#issuecomment-395712061):
 
 > I worked around by adding a dotnetcore consoleapp project where I run the migration via the Context. In the Build I build this consoleapp in the release I execute it.
 
@@ -119,7 +119,7 @@ dotnet build
 dotnet publish --configuration Release --output $(build.artifactstagingdirectory)/MigrateDatabase
 ```
 
-There's various ways to accomplish this which I wont reiterate now. [I recommend YAML](<https://blog.johnnyreilly.com/2018/06/vsts-yaml-up.html>).
+There's various ways to accomplish this which I wont reiterate now. [I recommend YAML](https://blog.johnnyreilly.com/2018/06/vsts-yaml-up.html).
 
 ## Deploy It!
 
@@ -197,6 +197,6 @@ It's there! We are migrating our database upon deployment; and not in our ASP.Ne
 
 ## Wrapping Up
 
-The EF Core team are aware of the lack of guidance around deploying migrations and have recently announced plans to fix that in the docs. You can track the progress of this issue [here](<https://github.com/aspnet/EntityFramework.Docs/issues/691>). There's good odds that once they come out with this I'll find there's a better way than the approach I've outlined in this post. Until that glorious day!
+The EF Core team are aware of the lack of guidance around deploying migrations and have recently announced plans to fix that in the docs. You can track the progress of this issue [here](https://github.com/aspnet/EntityFramework.Docs/issues/691). There's good odds that once they come out with this I'll find there's a better way than the approach I've outlined in this post. Until that glorious day!
 
 

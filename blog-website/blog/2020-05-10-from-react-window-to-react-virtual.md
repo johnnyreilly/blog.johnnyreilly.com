@@ -6,9 +6,9 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [react-virtual, react-window, React]
 hide_table_of_contents: false
 ---
-The tremendous [Tanner Linsley](<https://twitter.com/tannerlinsley>) recently released [`react-virtual`](<https://github.com/tannerlinsley/react-virtual>). `react-virtual` provides "hooks for virtualizing scrollable elements in React".
+The tremendous [Tanner Linsley](https://twitter.com/tannerlinsley) recently released [`react-virtual`](https://github.com/tannerlinsley/react-virtual). `react-virtual` provides "hooks for virtualizing scrollable elements in React".
 
-I was already using the (also excellent) [`react-window`](<https://github.com/bvaughn/react-window>) for this purpose. `react-window` does the virtualising job and does it very well indeed However, I was both intrigued by the lure of the new shiny thing. I've also never been the biggest fan of `react-window`'s API. So I tried switching over from `react-window` to `react-virtual` as an experiment. To my delight, the experiment went so well I didn't look back!
+I was already using the (also excellent) [`react-window`](https://github.com/bvaughn/react-window) for this purpose. `react-window` does the virtualising job and does it very well indeed However, I was both intrigued by the lure of the new shiny thing. I've also never been the biggest fan of `react-window`'s API. So I tried switching over from `react-window` to `react-virtual` as an experiment. To my delight, the experiment went so well I didn't look back!
 
 What did I get out of the switch?
 
@@ -22,7 +22,7 @@ I tweeted my delight at this and Tanner asked if there was commit diff I could s
 
  > Nice! Do you have a commit diff we could see?
 > 
-> — Tanner Linsley ⚛️ (@tannerlinsley) [May 10, 2020](<https://twitter.com/tannerlinsley/status/1259503283103608832?ref_src=twsrc%5Etfw>)
+> — Tanner Linsley ⚛️ (@tannerlinsley) [May 10, 2020](https://twitter.com/tannerlinsley/status/1259503283103608832?ref_src=twsrc%5Etfw)
 
 <script async="" src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
 

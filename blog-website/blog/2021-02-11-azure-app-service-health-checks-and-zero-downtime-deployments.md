@@ -6,7 +6,7 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Azure App Service, Health checks, deployment slots, zero downtime deployments]
 hide_table_of_contents: false
 ---
-I've been working recently on zero downtime deployments using Azure App Service. They're facilitated by a combination of [Health checks](<https://docs.microsoft.com/en-us/azure/app-service/monitor-instances-health-check>) and [deployment slots](<https://docs.microsoft.com/en-us/azure/app-service/deploy-staging-slots>). This post will talk about why this is important and how it works.
+I've been working recently on zero downtime deployments using Azure App Service. They're facilitated by a combination of [Health checks](https://docs.microsoft.com/en-us/azure/app-service/monitor-instances-health-check) and [deployment slots](https://docs.microsoft.com/en-us/azure/app-service/deploy-staging-slots). This post will talk about why this is important and how it works.
 
 ## Why zero downtime deployments?
 
@@ -24,26 +24,26 @@ But if we turn it around, what does it look like if releases have *no* downtime 
 
 1. Your users can always use your application. This will please them.
 2. Your team is now safe to release at any time, day or night. They will likely release more often as a consequence.
-3. If your team has sufficient automated testing in place, they're now in a position where they can move to [Continuous Deployment](<https://www.atlassian.com/continuous-delivery/principles/continuous-integration-vs-delivery-vs-deployment>).
+3. If your team has sufficient automated testing in place, they're now in a position where they can move to [Continuous Deployment](https://www.atlassian.com/continuous-delivery/principles/continuous-integration-vs-delivery-vs-deployment).
 4. Releases become boring. This is good. They "just work™️" and so the team can focus instead on building the cool features that are going to make users lives even better.
 
 
 
 ## Manual zero downtime releases with App Services
 
-App Services have the ability to scale out. To [quote the docs](<https://azure.microsoft.com/en-us/blog/scaling-up-and-scaling-out-in-windows-azure-web-sites/>):
+App Services have the ability to scale out. To [quote the docs](https://azure.microsoft.com/en-us/blog/scaling-up-and-scaling-out-in-windows-azure-web-sites/):
 
 > A scale out operation is the equivalent of creating multiple copies of your web site and adding a load balancer to distribute the demand between them. When you scale out ... there is no need to configure load balancing separately since this is already provided by the platform.
 
-As you can see, scaling out works by having multiple instances of your app. Deployment slots are exactly this, but with an extra twist. If you add a deployment slot to your App Service, then you **no longer deploy to production**. Instead you deploy to your staging slot. Your staging slot is accessible in the same way your production slot is accessible. So whilst your users may go to [https://my-glorious-app.io](<https://my-glorious-app.io>), your staging slot may live at [https://my-glorious-app-stage.azurewebsites.net](<https://my-glorious-app-stage.azurewebsites.net>) instead. Because this is accessible, this is testable. You are in a position to test the deployed application before making it generally available.
+As you can see, scaling out works by having multiple instances of your app. Deployment slots are exactly this, but with an extra twist. If you add a deployment slot to your App Service, then you **no longer deploy to production**. Instead you deploy to your staging slot. Your staging slot is accessible in the same way your production slot is accessible. So whilst your users may go to [https://my-glorious-app.io](https://my-glorious-app.io), your staging slot may live at [https://my-glorious-app-stage.azurewebsites.net](https://my-glorious-app-stage.azurewebsites.net) instead. Because this is accessible, this is testable. You are in a position to test the deployed application before making it generally available.
 
  ![](../static/blog/2021-02-11-azure-app-service-health-checks-and-zero-downtime-deployments/app-service-with-slots.png)
 
-Once you're happy that everything looks good, you can "swap slots". What this means, is the version of the app living in the staging slot, gets moved into the production slot. So that which lived at [https://my-glorious-app-stage.azurewebsites.net](<https://my-glorious-app-stage.azurewebsites.net>) moves to [https://my-glorious-app.io](<https://my-glorious-app.io>). For a more details on what that involves [read this](<https://docs.microsoft.com/en-us/azure/app-service/deploy-staging-slots#what-happens-during-a-swap>). The significant take home is this: there is no downtime. Traffic stops being routed to the old instance and starts being routed to the new one. It's as simple as that.
+Once you're happy that everything looks good, you can "swap slots". What this means, is the version of the app living in the staging slot, gets moved into the production slot. So that which lived at [https://my-glorious-app-stage.azurewebsites.net](https://my-glorious-app-stage.azurewebsites.net) moves to [https://my-glorious-app.io](https://my-glorious-app.io). For a more details on what that involves [read this](https://docs.microsoft.com/en-us/azure/app-service/deploy-staging-slots#what-happens-during-a-swap). The significant take home is this: there is no downtime. Traffic stops being routed to the old instance and starts being routed to the new one. It's as simple as that.
 
-I should mention at this point that there's a [number of zero downtime strategies out there](<https://opensource.com/article/17/5/colorful-deployments>) and slots can help support a number of these. This includes canary deployments, where a subset of traffic is routed to the new version prior to it being opened out more widely. In our case, we're looking at rolling deployments, where we replace the currently running instances of our application with the new ones; but it's worth being aware that there are other strategies that slots can facilitate.
+I should mention at this point that there's a [number of zero downtime strategies out there](https://opensource.com/article/17/5/colorful-deployments) and slots can help support a number of these. This includes canary deployments, where a subset of traffic is routed to the new version prior to it being opened out more widely. In our case, we're looking at rolling deployments, where we replace the currently running instances of our application with the new ones; but it's worth being aware that there are other strategies that slots can facilitate.
 
-So what does it look like when slots swap? Well, to test that out, we swapped slots on our two App Service instances. We repeatedly CURLed our apps [`api/build`](<https://blog.johnnyreilly.com/2021/01/surfacing-azure-pipelines-build-info-in.html>) endpoint that exposes the build information; to get visibility around which version of our app we were routing traffic to. This is what we saw:
+So what does it look like when slots swap? Well, to test that out, we swapped slots on our two App Service instances. We repeatedly CURLed our apps [`api/build`](https://blog.johnnyreilly.com/2021/01/surfacing-azure-pipelines-build-info-in.html) endpoint that exposes the build information; to get visibility around which version of our app we were routing traffic to. This is what we saw:
 
 ```
 Thu Jan 21 11:51:51 GMT 2021
@@ -82,7 +82,7 @@ Slots have a tremendous rollback story. If it emerges that there was some uncaug
 
 ![](../static/blog/2021-02-11-azure-app-service-health-checks-and-zero-downtime-deployments/app-service-with-slots-and-build-number.png)
 
-Once again users going to [https://my-glorious-app.io](<https://my-glorious-app.io>) are hitting `buildNumber: 20210121.5`.
+Once again users going to [https://my-glorious-app.io](https://my-glorious-app.io) are hitting `buildNumber: 20210121.5`.
 
 This is also *very* exciting! We have zero downtime deployments *and* rollbacks!
 
@@ -133,11 +133,11 @@ The first job here, deploys our previously built `webapp` to the `stage` slot. T
 
 When I first considered this, the question rattling around in the back of my mind was this: how does App Service know when it's safe to swap? What if we swap before our app has fully woken up and started serving responses?
 
-It so happens that using [Health checks, App Service caters for this beautifully](<https://docs.microsoft.com/en-us/azure/app-service/monitor-instances-health-check>). A health check endpoint is a URL in your application which, when hit, checks the dependencies of your application. "Is the database accessible?" "Are the APIs I depend upon accessible?" The diagram from the docs expresses it very well:
+It so happens that using [Health checks, App Service caters for this beautifully](https://docs.microsoft.com/en-us/azure/app-service/monitor-instances-health-check). A health check endpoint is a URL in your application which, when hit, checks the dependencies of your application. "Is the database accessible?" "Are the APIs I depend upon accessible?" The diagram from the docs expresses it very well:
 
 ![](../static/blog/2021-02-11-azure-app-service-health-checks-and-zero-downtime-deployments/health-check-failure-diagram.png)
 
-This approach is very similar to [liveness, readiness and startup probes in Kubernetes](<https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/>). To make use of Health checks, in our ARM template for our App Service we have configured a `healthCheckPath`:
+This approach is very similar to [liveness, readiness and startup probes in Kubernetes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/). To make use of Health checks, in our ARM template for our App Service we have configured a `healthCheckPath`:
 
 ```json
 "siteConfig": {
@@ -162,7 +162,7 @@ app.UseEndpoints(endpoints => {
 });
 ```
 
-You read a full list of all the ways App Service uses Health checks [here](<https://docs.microsoft.com/en-us/azure/app-service/monitor-instances-health-check#what-app-service-does-with-health-checks>). Pertinent for zero downtime deployments is this:
+You read a full list of all the ways App Service uses Health checks [here](https://docs.microsoft.com/en-us/azure/app-service/monitor-instances-health-check#what-app-service-does-with-health-checks). Pertinent for zero downtime deployments is this:
 
 > when scaling up or out, App Service pings the Health check path to ensure new instances are ready.
 

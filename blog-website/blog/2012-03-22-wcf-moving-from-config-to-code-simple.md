@@ -6,13 +6,13 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [ServiceAuthorizationManager, Windows Account, Windows Service, configuration, WCF, authorisation, NetTcpBinding]
 hide_table_of_contents: false
 ---
-Last time I wrote about WCF I was getting up and running with [WCF Transport Windows authentication using NetTcpBinding in an Intranet environment](<http://icanmakethiswork.blogspot.com/2012/02/wcf-transport-windows-authentication.html>). I ended up with a WCF service hosted in a Windows Service which did pretty much what the previous post name implies.
+Last time I wrote about WCF I was getting up and running with [WCF Transport Windows authentication using NetTcpBinding in an Intranet environment](http://icanmakethiswork.blogspot.com/2012/02/wcf-transport-windows-authentication.html). I ended up with a WCF service hosted in a Windows Service which did pretty much what the previous post name implies.
 
  Since writing that I've taken things on a bit further and I thought it worth recording my approach whilst it's still fresh in my mind. There's 3 things I want to go over:
 
 1. I've moved away from the standard config driven WCF approach to a more "code-first" style
 2. I've established a basic Windows Service hosted WCF service / client harness which is useful if you're trying to get up and running with a WCF service quickly
-3. I've locked down the WCF authorization to a single Windows account through the use of my own [ServiceAuthorizationManager](<http://msdn.microsoft.com/en-us/library/ms731774.aspx>)
+3. I've locked down the WCF authorization to a single Windows account through the use of my own [ServiceAuthorizationManager](http://msdn.microsoft.com/en-us/library/ms731774.aspx)
 
 
 
@@ -24,9 +24,9 @@ Here's why not: it gets \***very**\* verbose \***very**\* quickly....
 
 Okay - that's not the end of the world. My problem was that I had \~10 Windows Services and 3 Web applications that needed to call into my WCF Service. I didn't want to have to separately tweak 15 or so configs each time I wanted to make one standard change to WCF configuration settings. I wanted everything in one place.
 
-Now there's newer (and probably hipper) ways of achieving this. [Here's one possibility I happened upon on StackOverflow that looks perfectly fine.](<http://stackoverflow.com/a/2814286>)
+Now there's newer (and probably hipper) ways of achieving this. [Here's one possibility I happened upon on StackOverflow that looks perfectly fine.](http://stackoverflow.com/a/2814286)
 
-Well I didn't use a hip new approach - no I went Old School with my old friend the [appSettings file attribute](<http://msdn.microsoft.com/en-us/library/ms228154.aspx>). Remember that? It's just a simple way to have all your common appSettings configuration settings in a single file which can be linked to from as many other apps as you like. It's wonderful and I've been using it for a long time now. Unfortunately it's pretty basic in that it's only the appSettings section that can be shared out; no `&lt;system.serviceModel&gt;` or similar.
+Well I didn't use a hip new approach - no I went Old School with my old friend the [appSettings file attribute](http://msdn.microsoft.com/en-us/library/ms228154.aspx). Remember that? It's just a simple way to have all your common appSettings configuration settings in a single file which can be linked to from as many other apps as you like. It's wonderful and I've been using it for a long time now. Unfortunately it's pretty basic in that it's only the appSettings section that can be shared out; no `&lt;system.serviceModel&gt;` or similar.
 
 But that wasn't really a problem from my perspective. I realised that there were actually very few things that needed to be configurable for my WCF service. Really I wanted a basic WCF harness that could be initialised in code which implicitly set all the basic configuration with settings that worked (ie it was set up with defaults like maximum message size which were sufficiently sized). On top of that I would allow myself to configure just those things that I needed to through the use of my own custom WCF config settings in the shared appSettings.config file.
 
@@ -164,7 +164,7 @@ public class WcfWindowsService: ServiceBase
   }
 ```
 
-As you've no doubt noticed this makes use of [Log4Net](<http://logging.apache.org/log4net/>) for logging purposes (I'll assume you're aware of it). My Windows Service implements such fantastic WCF services as HelloService and GoodbyeService. Each revolutionary in their own little way. To give you a taste of the joie de vivre that these services exemplify take a look at this:
+As you've no doubt noticed this makes use of [Log4Net](http://logging.apache.org/log4net/) for logging purposes (I'll assume you're aware of it). My Windows Service implements such fantastic WCF services as HelloService and GoodbyeService. Each revolutionary in their own little way. To give you a taste of the joie de vivre that these services exemplify take a look at this:
 
 ```cs
 // Implement the IHello service contract in a service class.

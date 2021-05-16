@@ -6,9 +6,9 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [asp.net mvc, sward, PartialView]
 hide_table_of_contents: false
 ---
-In the name of [DRY](<https://en.wikipedia.org/wiki/Don%27t_repeat_yourself>) I found myself puzzling how one could take a `PartialViewResult` and render it as a `string`. Simple, right?
+In the name of [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) I found myself puzzling how one could take a `PartialViewResult` and render it as a `string`. Simple, right?
 
- In fact, in my head this was already a solved problem. I mean I've written about this [before](<http://blog.icanmakethiswork.io/2012/07/rendering-partial-view-to-string.html>) already! Except I haven't. Not really - what I did back then was link to what someone else had written and say "yay! well done chap - like he said!". It turns out that was a bad move. That blog appears to be gone and so I'm back to where I was. Ug. Lesson learned.
+ In fact, in my head this was already a solved problem. I mean I've written about this [before](http://blog.icanmakethiswork.io/2012/07/rendering-partial-view-to-string.html) already! Except I haven't. Not really - what I did back then was link to what someone else had written and say "yay! well done chap - like he said!". It turns out that was a bad move. That blog appears to be gone and so I'm back to where I was. Ug. Lesson learned.
 
 ## What are we trying to do?
 
@@ -20,7 +20,7 @@ The solution is actually fairly simple. And, purely for swank, I'm going to offe
 
 ## Inheritance (it's so yesterday darling)
 
-Yes there was a time when everything was inheritance based. You were rewarded handsomely for making sure that was the case. However, times have changed and (with good reason) people tend to [favour composition over inheritance](<https://en.wikipedia.org/wiki/Composition_over_inheritance>). So, perhaps just for the memories, let first offer you the inheritance based approach:
+Yes there was a time when everything was inheritance based. You were rewarded handsomely for making sure that was the case. However, times have changed and (with good reason) people tend to [favour composition over inheritance](https://en.wikipedia.org/wiki/Composition_over_inheritance). So, perhaps just for the memories, let first offer you the inheritance based approach:
 
 ```cs
 protected string ConvertPartialViewToString(PartialViewResult partialView)
@@ -90,12 +90,12 @@ Which I think we can all agree is really rather lovely. Perhaps it would be more
 
 ## Favouring Composition over Inheritance (testable)
 
-Although ASP.Net MVC was designed to be testable there are times when you think "really? Can it be that hard?". In fact for a well thought through discussion on the topic I advise you read [this](<http://volaresystems.com/blog/post/2010/08/19/Dont-mock-HttpContext>). (I'm aware of the irony implicit in linking to another blog post in a blog post that I only wrote because I first linked to another blog which vanished.... Infinite recursion anybody?)
+Although ASP.Net MVC was designed to be testable there are times when you think "really? Can it be that hard?". In fact for a well thought through discussion on the topic I advise you read [this](http://volaresystems.com/blog/post/2010/08/19/Dont-mock-HttpContext). (I'm aware of the irony implicit in linking to another blog post in a blog post that I only wrote because I first linked to another blog which vanished.... Infinite recursion anybody?)
 
 The conclusion of the linked blog post is twofold
 
 1. Don't mock HTTPContext
-2. Use the [facade pattern](<https://en.wikipedia.org/wiki/Facade_pattern>) instead
+2. Use the [facade pattern](https://en.wikipedia.org/wiki/Facade_pattern) instead
 
 
 

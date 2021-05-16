@@ -12,9 +12,9 @@ So, there you sit, conflicted. You've got a lovely build setup; it's a thing of 
 
 So this is the plan kids. Let's take a simple TypeScript, webpack setup and make it a PWA. Like Victoria Wood said...
 
-## [Let's Do It Tonight](<https://youtu.be/lNU5KVa_Tu8>)
+## [Let's Do It Tonight](https://youtu.be/lNU5KVa_Tu8)
 
-How to begin? Well first comes the plagiarism; [here's a simple TypeScript webpack setup](<https://github.com/TypeStrong/ts-loader/tree/master/examples/core-js>). Rob it. Stick a gun to its head and order it onto your hard drive. `yarn install` to pick up your dependencies and then `yarn start` to see what you've got. Something like this:
+How to begin? Well first comes the plagiarism; [here's a simple TypeScript webpack setup](https://github.com/TypeStrong/ts-loader/tree/master/examples/core-js). Rob it. Stick a gun to its head and order it onto your hard drive. `yarn install` to pick up your dependencies and then `yarn start` to see what you've got. Something like this:
 
 ![](../static/blog/2017-11-19-the-typescript-webpack-pwa/Screenshot%2B2017-11-19%2B18.29.15.png)
 
@@ -22,15 +22,15 @@ Beautiful right? And if we `yarn build` we end up with a simple output:
 
 ![](../static/blog/2017-11-19-the-typescript-webpack-pwa/Screenshot%2B2017-11-19%2B18.34.12.png)
 
-To test what we've built out we want to use a simple web server to serve up the `dist` folder. I've got the npm package [http-server](<https://www.npmjs.com/package/http-server>) installed globally for just such an eventuality. So let's `http-server ./dist` and I'm once again looking at our simple app; it looks exactly the same as when I `yarn start`. Smashing. What would we see if we were offline? Well thanks to the magic of Chrome DevTools we can find out. Offline and refresh our browser...
+To test what we've built out we want to use a simple web server to serve up the `dist` folder. I've got the npm package [http-server](https://www.npmjs.com/package/http-server) installed globally for just such an eventuality. So let's `http-server ./dist` and I'm once again looking at our simple app; it looks exactly the same as when I `yarn start`. Smashing. What would we see if we were offline? Well thanks to the magic of Chrome DevTools we can find out. Offline and refresh our browser...
 
 ![](../static/blog/2017-11-19-the-typescript-webpack-pwa/Screenshot%2B2017-11-19%2B20.05.19.png)
 
 Not very user friendly. Once we're done, we should be able to refresh and still see our app.
 
-## [Work(box) It](<https://youtu.be/UODX_pYpVxk>)
+## [Work(box) It](https://youtu.be/UODX_pYpVxk)
 
-[Workbox](<https://developers.google.com/web/tools/workbox/>) is a project that makes the setting up of Service Workers (aka the magic that powers PWAs) easier. It supports webpack use cases through the [workbox-webpack-plugin](<https://www.npmjs.com/package/workbox-webpack-plugin>); so let's give it a whirl. Incidentally, there's a [cracking example](<https://developers.google.com/web/tools/workbox/get-started/webpack>) on the Workbox site.
+[Workbox](https://developers.google.com/web/tools/workbox/) is a project that makes the setting up of Service Workers (aka the magic that powers PWAs) easier. It supports webpack use cases through the [workbox-webpack-plugin](https://www.npmjs.com/package/workbox-webpack-plugin); so let's give it a whirl. Incidentally, there's a [cracking example](https://developers.google.com/web/tools/workbox/get-started/webpack) on the Workbox site.
 
 `yarn add workbox-webpack-plugin --dev` adds the plugin to our project. To make use of it, punt your way over to the `webpack.production.config.js` and add an entry for the plugin. We also need to set the `hash` parameter of the html-webpack-plugin to be false; if it's true it'll cause problems for the ServiceWorker.
 
@@ -106,7 +106,7 @@ Let's `yarn build` again.
 
 ![](../static/blog/2017-11-19-the-typescript-webpack-pwa/Screenshot%2B2017-11-19%2B21.55.18.png)
 
-Oooohh look! A service worker is with us. Does it work? Let's find out... `http-server ./dist` Browse to [http://localhost:8080](<http://localhost:8080>) and let's have a look at the console.
+Oooohh look! A service worker is with us. Does it work? Let's find out... `http-server ./dist` Browse to [http://localhost:8080](http://localhost:8080) and let's have a look at the console.
 
 ![](../static/blog/2017-11-19-the-typescript-webpack-pwa/Screenshot%2B2017-11-19%2B21.34.54.png)
 

@@ -8,9 +8,9 @@ hide_table_of_contents: false
 ---
 The title of this post is hugely specific, but the idea is simple. We want to answer the question: "what codebase is running in Production right now?" Many is the time where I've been pondering over why something isn't working as expected and burned a disappointing amount of time before realising that I'm playing with an old version of an app. Wouldn't it be great give our app a way to say: "Hey! I'm version 1.2.3.4 of your app; built from this commit hash, I was built on Wednesday, I was the nineth build that day and I was built from the `main` branch. And I'm an Aries." Or something like that.
 
-This post was inspired by [Scott Hanselman's similar post on the topic](<https://www.hanselman.com/blog/adding-a-git-commit-hash-and-azure-devops-build-number-and-build-id-to-an-aspnet-website>). Ultimately this ended up going in a fairly different direction and so seemed worthy of a post of its own.
+This post was inspired by [Scott Hanselman's similar post on the topic](https://www.hanselman.com/blog/adding-a-git-commit-hash-and-azure-devops-build-number-and-build-id-to-an-aspnet-website). Ultimately this ended up going in a fairly different direction and so seemed worthy of a post of its own.
 
-A particular difference is that this is targeting SPAs. Famously, cache invalidation is hard. It's possible for the HTML/JS/CSS of your app to be stale due to aggressive caching. So we're going to make it possible to see build information for both when the SPA (or "client") is built, as well as when the .NET app (or "server") is built. We're using a specific type of SPA here; a [React](<https://reactjs.org/>) SPA built with [TypeScript](<https://www.typescriptlang.org/>) and [Material UI](<https://material-ui.com/>), however the principles here are general; you could surface this up any which way you choose.
+A particular difference is that this is targeting SPAs. Famously, cache invalidation is hard. It's possible for the HTML/JS/CSS of your app to be stale due to aggressive caching. So we're going to make it possible to see build information for both when the SPA (or "client") is built, as well as when the .NET app (or "server") is built. We're using a specific type of SPA here; a [React](https://reactjs.org/) SPA built with [TypeScript](https://www.typescriptlang.org/) and [Material UI](https://material-ui.com/), however the principles here are general; you could surface this up any which way you choose.
 
 ## Putting build info into `azure-pipelines.yml`
 
@@ -44,7 +44,7 @@ As you can see, we're placing the following variables that are available at buil
 
 
 
-[There's many variables available in Azure Pipelines that can be used](<https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#build-variables-devops-services>) \- we've picked out the ones most interesting to us.
+[There's many variables available in Azure Pipelines that can be used](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#build-variables-devops-services) \- we've picked out the ones most interesting to us.
 
 ## Surfacing the server build info
 

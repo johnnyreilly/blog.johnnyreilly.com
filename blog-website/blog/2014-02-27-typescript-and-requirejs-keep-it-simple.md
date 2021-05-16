@@ -6,11 +6,11 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [RequireJS, AMD, TypeScript]
 hide_table_of_contents: false
 ---
-I'm not the first to take a look at mixing TypeScript and RequireJS but I wanted to get it clear in my head. Also, I've always felt the best way to learn is to do. So here we go. I'm going to create a TypeScript and RequireJS demo based on [John Papa's "Keep It Simple RequireJS Demo"](<https://github.com/johnpapa/kis-requirejs-demo/>).
+I'm not the first to take a look at mixing TypeScript and RequireJS but I wanted to get it clear in my head. Also, I've always felt the best way to learn is to do. So here we go. I'm going to create a TypeScript and RequireJS demo based on [John Papa's "Keep It Simple RequireJS Demo"](https://github.com/johnpapa/kis-requirejs-demo/).
 
  So let's fire up Visual Studio 2013 and create a new ASP.NET Web Application called “RequireJSandTypeScript” (the empty project template is fine).
 
-Add a new HTML file to the root called “index.html” and base it on “index3.html” from [John Papa’s demo](<https://github.com/johnpapa/kis-requirejs-demo/blob/master/ModularDemo/index3.html>):
+Add a new HTML file to the root called “index.html” and base it on “index3.html” from [John Papa’s demo](https://github.com/johnpapa/kis-requirejs-demo/blob/master/ModularDemo/index3.html):
 
 ```html
 <!DOCTYPE html>
@@ -67,7 +67,7 @@ By "Your project has been configured to support TypeScript." it means that the c
 </Project>
 ```
 
-I’m not sure when this tweak to the Visual Studio tooling was added was added. Perhaps it's part of the [TypeScript 1.0 RC release](<http://blogs.msdn.com/b/typescript/archive/2014/02/25/announcing-typescript-1-0rc.aspx>); either way it’s pretty nice. Let's press on.
+I’m not sure when this tweak to the Visual Studio tooling was added was added. Perhaps it's part of the [TypeScript 1.0 RC release](http://blogs.msdn.com/b/typescript/archive/2014/02/25/announcing-typescript-1-0rc.aspx); either way it’s pretty nice. Let's press on.
 
 Whilst we’re at it let’s make sure that we’re compiling to AMD (to be RequireJS friendly) by adding in the following csproj tweaks just before the Microsoft.TypeScript.targets Project import statement:
 
@@ -86,7 +86,7 @@ Where was I? Oh yes, typings. So let’s get the RequireJS typings too:
 Install-Package requirejs.TypeScript.DefinitelyTyped
 ```
 
-Right – looking at index.html we can see from the data-main tag that the first file loaded by RequireJS, our bootstrapper if you will, is main.js. So let’s add ourselves a main.ts based on [John's example](<https://github.com/johnpapa/kis-requirejs-demo/blob/master/ModularDemo/Scripts3/main.js>) (which will in turn generate a main.js):
+Right – looking at index.html we can see from the data-main tag that the first file loaded by RequireJS, our bootstrapper if you will, is main.js. So let’s add ourselves a main.ts based on [John's example](https://github.com/johnpapa/kis-requirejs-demo/blob/master/ModularDemo/Scripts3/main.js) (which will in turn generate a main.js):
 
 ```ts
 (function () {
@@ -107,7 +107,7 @@ Right – looking at index.html we can see from the data-main tag that the first
 })();
 ```
 
-main.ts depends upon [alerter](<https://github.com/johnpapa/kis-requirejs-demo/blob/master/ModularDemo/Scripts3/alerter.js>) so let’s add ourselves an alerter.ts as well:
+main.ts depends upon [alerter](https://github.com/johnpapa/kis-requirejs-demo/blob/master/ModularDemo/Scripts3/alerter.js) so let’s add ourselves an alerter.ts as well:
 
 ```ts
 define('alerter',
@@ -128,7 +128,7 @@ define('alerter',
     });
 ```
 
-And a [dataservice.ts](<https://github.com/johnpapa/kis-requirejs-demo/blob/master/ModularDemo/Scripts3/dataservice.js>):
+And a [dataservice.ts](https://github.com/johnpapa/kis-requirejs-demo/blob/master/ModularDemo/Scripts3/dataservice.js):
 
 ```ts
 define('dataservice', [],
@@ -210,6 +210,6 @@ I’ve included the js and js.map files in the project file as they don't seem t
 
 ## Want the code for your very own?
 
-Well you can grab it from [GitHub](<https://github.com/johnnyreilly/RequireJSandTypeScript>).
+Well you can grab it from [GitHub](https://github.com/johnnyreilly/RequireJSandTypeScript).
 
 

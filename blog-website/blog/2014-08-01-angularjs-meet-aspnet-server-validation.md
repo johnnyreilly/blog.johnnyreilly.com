@@ -14,7 +14,7 @@ This works but it's not as helpful to the user as it might be. It groups togethe
 
 ![](http://2.bp.blogspot.com/-vxr6_ajRNj8/U9tQjs3SS3I/AAAAAAAAAr8/1HoOUJdPO0w/s320/server-error.png)
 
-I know. [A thing of beauty is a joy forever.](<http://en.wikipedia.org/wiki/Endymion_(poem)>) Let us travel together to this promised land...
+I know. [A thing of beauty is a joy forever.](http://en.wikipedia.org/wiki/Endymion_(poem)) Let us travel together to this promised land...
 
 ## What do we need client side?
 

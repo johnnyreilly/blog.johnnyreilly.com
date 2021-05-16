@@ -18,9 +18,9 @@ It seemed that was not the case. I was seeing (regrettably) undead code. And who
 
 ## Who Betrayed Me?
 
-My beef was with webpack. It done did me wrong. Or... So I thought. webpack did nothing wrong. It is pure and good and unjustly complained about. It was my other love: [mobx](<https://github.com/mobxjs/mobx>). Or to be more specific: [mobx-react-devtools](<https://github.com/mobxjs/mobx-react-devtools>).
+My beef was with webpack. It done did me wrong. Or... So I thought. webpack did nothing wrong. It is pure and good and unjustly complained about. It was my other love: [mobx](https://github.com/mobxjs/mobx). Or to be more specific: [mobx-react-devtools](https://github.com/mobxjs/mobx-react-devtools).
 
-It turns out that the way you use `mobx-react-devtools` reliably makes the difference. It's the cause of the stray `("production"!==e.env.NODE_ENV)` statements in our bundle output. After a **long** time I happened upon [this issue](<https://github.com/mobxjs/mobx-react-devtools/issues/66#issuecomment-365151531>) which contained a gem by one [Giles Butler](<https://github.com/gilesbutler>). His suggested way to reference `mobx-react-devtools` is (as far as I can tell) the solution!
+It turns out that the way you use `mobx-react-devtools` reliably makes the difference. It's the cause of the stray `("production"!==e.env.NODE_ENV)` statements in our bundle output. After a **long** time I happened upon [this issue](https://github.com/mobxjs/mobx-react-devtools/issues/66#issuecomment-365151531) which contained a gem by one [Giles Butler](https://github.com/gilesbutler). His suggested way to reference `mobx-react-devtools` is (as far as I can tell) the solution!
 
 On a dummy project I had the `mobx-react-devtools` advised code in place:
 

@@ -76,11 +76,11 @@ I'm really grateful to all of you. Thanks so much! (Apologies for those I've mis
 
 ## `fork-ts-checker-webpack-plugin` build speed improvements
 
-Alongside other's direct contributions to `ts-loader`, other projects improved the experience of using `ts-loader`. [Piotr Oleś](<https://github.com/piotr-oles>) dropped his `<a href="https://github.com/Realytics/fork-ts-checker-webpack-plugin">fork-ts-checker-webpack-plugin</a>` this year which nicely increased build speed when used with `ts-loader`.
+Alongside other's direct contributions to `ts-loader`, other projects improved the experience of using `ts-loader`. [Piotr Oleś](https://github.com/piotr-oles) dropped his `<a href="https://github.com/Realytics/fork-ts-checker-webpack-plugin">fork-ts-checker-webpack-plugin</a>` this year which nicely increased build speed when used with `ts-loader`.
 
 
 
-That opened up the possibility of adding [HappyPack](<https://github.com/amireh/happypack>) support. I had the good fortune to work with webpack's [Tobias Koppers](<https://github.com/sokra>) and ExtraHop's [Alex Birmingham](<https://github.com/abirmingham>) on [improving TypeScript build speed further](<https://www.extrahop.com/company/blog/2017/extrahop-webpack-accelerating-build-times/>).
+That opened up the possibility of adding [HappyPack](https://github.com/amireh/happypack) support. I had the good fortune to work with webpack's [Tobias Koppers](https://github.com/sokra) and ExtraHop's [Alex Birmingham](https://github.com/abirmingham) on [improving TypeScript build speed further](https://www.extrahop.com/company/blog/2017/extrahop-webpack-accelerating-build-times/).
 
 So what does the future hold?
 
@@ -90,7 +90,7 @@ The web marches on and webpack gallops alongside. Here's what's in the pipeline 
 
 ### Start using the new watch API
 
-[A new watch API is being made available in the TypeScript API](<https://github.com/Microsoft/TypeScript/pull/20234>). We have [a PR](<https://github.com/TypeStrong/ts-loader/pull/685>) from the amazing [Sheetal Nandi](<https://github.com/sheetalkamat>) which adds support to ts-loader. Given that's quite a big PR we want to merge that before anything else lands. The watch API is still being finalised but once it lands in TypeScript we'll look to merge the PR and ship a new version of `ts-loader`.
+[A new watch API is being made available in the TypeScript API](https://github.com/Microsoft/TypeScript/pull/20234). We have [a PR](https://github.com/TypeStrong/ts-loader/pull/685) from the amazing [Sheetal Nandi](https://github.com/sheetalkamat) which adds support to ts-loader. Given that's quite a big PR we want to merge that before anything else lands. The watch API is still being finalised but once it lands in TypeScript we'll look to merge the PR and ship a new version of `ts-loader`.
 
 ### Drop custom module resolution
 
@@ -106,11 +106,11 @@ If any changes need to happen to ts-loader to support webpack 4 then they will b
 
 ### `contextAsConfigBasePath` will be replaced with a `context`
 
-The option that landed in the last month doesn't quite achieve the aims of the original PR's author [Christian Tinauer](<https://github.com/christiantinauer>). Consequently it's going to be replaced with a new option. This is queued up and ready to go [here](<https://github.com/TypeStrong/ts-loader/pull/688>).
+The option that landed in the last month doesn't quite achieve the aims of the original PR's author [Christian Tinauer](https://github.com/christiantinauer). Consequently it's going to be replaced with a new option. This is queued up and ready to go [here](https://github.com/TypeStrong/ts-loader/pull/688).
 
 ### `reportFiles` option to be added
 
-[Michel Rasschaert](<https://github.com/freeman>) is presently working on adding a `reportFiles` option to `ts-loader`. You can see the PR in progress [here](<https://github.com/TypeStrong/ts-loader/pull/701>).
+[Michel Rasschaert](https://github.com/freeman) is presently working on adding a `reportFiles` option to `ts-loader`. You can see the PR in progress [here](https://github.com/TypeStrong/ts-loader/pull/701).
 
 ## Merry Christmas!
 

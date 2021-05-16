@@ -10,21 +10,21 @@ hide_table_of_contents: false
 
  It was my first job. The web was alive and well at this point but still very much in it's infancy. Newspapers had only recently moved on from calling it "the information superhighway". No-one was doing *real* programming for the web - the desktop was where it was at.
 
-As for me, I was writing call centre software. It was all very exciting. Here was the idea: the phone on your desk would start ringing and through the magic of [TAPI](<http://en.wikipedia.org/wiki/Telephony_Application_Programming_Interface>) our app would be presented with the telephone number of the dialer. It would then look up that telephone number in the appropriate CRM application and pop the callers details on the screen. You'd pick up the phone and bellow "why hello Mr Jones!" and either impress the caller with your incredible fore-knowledge of who had rung you or perhaps terrify them with our [Brave New Orwellian World](<http://en.wikipedia.org/wiki/Nineteen_Eighty-Four>).
+As for me, I was writing call centre software. It was all very exciting. Here was the idea: the phone on your desk would start ringing and through the magic of [TAPI](http://en.wikipedia.org/wiki/Telephony_Application_Programming_Interface) our app would be presented with the telephone number of the dialer. It would then look up that telephone number in the appropriate CRM application and pop the callers details on the screen. You'd pick up the phone and bellow "why hello Mr Jones!" and either impress the caller with your incredible fore-knowledge of who had rung you or perhaps terrify them with our [Brave New Orwellian World](http://en.wikipedia.org/wiki/Nineteen_Eighty-Four).
 
 My job was to work out how to call into the APIs of the various CRM applications / databases being used and extract the relevant information. So it goes without saying that I have spent a lot of time with badly documented APIs. Or in fact *undocumented* APIs. I know pain my friend...
 
-Hours and days were spent debugging and walking APIs just to find out what they could do and what information they exposed. This, I need hardly say, was dull and tedious work. Having spent longer than I care to remember with no more information on an API than method names has left its mark on me. I am consequently keener than your average dev on documentation and intellisense. When you've stared at the coalface of the [Lotus Notes](<http://en.wikipedia.org/wiki/IBM_Notes>) API for 2 weeks with only Dephi 3 as your constant companion you'd feel the same way too. (This was [before the days of Google](<http://en.wikipedia.org/wiki/AltaVista>) and actually being able to find stuff on the internet.)
+Hours and days were spent debugging and walking APIs just to find out what they could do and what information they exposed. This, I need hardly say, was dull and tedious work. Having spent longer than I care to remember with no more information on an API than method names has left its mark on me. I am consequently keener than your average dev on documentation and intellisense. When you've stared at the coalface of the [Lotus Notes](http://en.wikipedia.org/wiki/IBM_Notes) API for 2 weeks with only Dephi 3 as your constant companion you'd feel the same way too. (This was [before the days of Google](http://en.wikipedia.org/wiki/AltaVista) and actually being able to find stuff on the internet.)
 
 If you can convey information about the API that you're building then I'd say you're duty-bound to do so. Or at least that it's good manners.
 
 ## Definitely Intellisensed
 
-When I started getting involved with the [Definitely Typed project](<https://github.com/DefinitelyTyped>) my focus was on giving good Intellisense. Where there was documentation for an API I wanted to get that popping in front of users when they hit the "." key:
+When I started getting involved with the [Definitely Typed project](https://github.com/DefinitelyTyped) my focus was on giving good Intellisense. Where there was documentation for an API I wanted to get that popping in front of users when they hit the "." key:
 
 ![](http://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-56-67/1200.JSDoc_5F00_in_5F00_VS.png)
 
-As the above screenshot demonstrates [TypeScript supports Intellisense](<http://blogs.msdn.com/b/typescript/archive/2013/01/21/announcing-typescript-0-8-2.aspx>) through a slightly tweaked implementation of [JSDoc](<http://en.wikipedia.org/wiki/JSDoc>):
+As the above screenshot demonstrates [TypeScript supports Intellisense](http://blogs.msdn.com/b/typescript/archive/2013/01/21/announcing-typescript-0-8-2.aspx) through a slightly tweaked implementation of [JSDoc](http://en.wikipedia.org/wiki/JSDoc):
 
 > With 0.8.2, the TypeScript compiler and tools now support JSDoc comments.
 > 
@@ -38,11 +38,11 @@ Partly as an exercise in getting better acquainted with TypeScript and partly re
 
 ## Turning API documentation into JSDoc
 
-I wanted to take an example of API documentation and demonstrate how that can be applied to a typing file with particular focus on how JSDoc comments can be created to drive Intellisense. So let's take everyone's favourite jQuery method: `val`. The documentation of `val` can be found here: [api.jquery.com/val](<http://api.jquery.com/val>)
+I wanted to take an example of API documentation and demonstrate how that can be applied to a typing file with particular focus on how JSDoc comments can be created to drive Intellisense. So let's take everyone's favourite jQuery method: `val`. The documentation of `val` can be found here: [api.jquery.com/val](http://api.jquery.com/val)
 
 By the way, check out the \**entirely*\* intuitive URL. Now you've clocked just how straightforward that is you've probably a fair idea how you could find pretty much any jQuery documentation you might need without recourse to Google. Brilliant!
 
-Let's take a look at what `val` looked like [before JSDoc](<https://github.com/borisyankov/DefinitelyTyped/blob/c98eebb13724b5156f12318b68fc2d875ca6e4a3/jquery/jquery.d.ts#L364-L368>) in the first version of the typing available on GitHub. (By the way, remember the original `jquery.d.ts`[ came out of the TypeScript team](<https://typescript.codeplex.com/sourcecontrol/latest#samples/jquery/jquery.d.ts>)):
+Let's take a look at what `val` looked like [before JSDoc](https://github.com/borisyankov/DefinitelyTyped/blob/c98eebb13724b5156f12318b68fc2d875ca6e4a3/jquery/jquery.d.ts#L364-L368) in the first version of the typing available on GitHub. (By the way, remember the original `jquery.d.ts`[ came out of the TypeScript team](https://typescript.codeplex.com/sourcecontrol/latest#samples/jquery/jquery.d.ts)):
 
 ```ts
 val(): any;
@@ -52,7 +52,7 @@ val(): any;
     val(func: (index: any, value: any) => any): JQuery;
 ```
 
-And now let's look at `jquery.d.ts`[after JSDoc](<https://github.com/borisyankov/DefinitelyTyped/blob/c259dba094121a389b41c573d5000dda7bdf2092/jquery/jquery.d.ts#L1494-L1545>):
+And now let's look at `jquery.d.ts`[after JSDoc](https://github.com/borisyankov/DefinitelyTyped/blob/c259dba094121a389b41c573d5000dda7bdf2092/jquery/jquery.d.ts#L1494-L1545):
 
 ```ts
 /**
@@ -121,7 +121,7 @@ val(value: number): JQuery;
 
 Let's have a look at the jQuery documentation for the simple setter:
 
-> ## [.val( value )](<http://api.jquery.com/val/#val-value>)
+> ## [.val( value )](http://api.jquery.com/val/#val-value)
 > 
 > <div><strong>value</strong></div>
 > 
@@ -161,7 +161,7 @@ So let's enrich these typings with some JSDoc:
     val(value: string[]): JQuery;
 ```
 
-If you look you can see we've added a related JSDoc style comment block prior to each overload. The first part of the comment (*"Set the value of..."*) is the overarching Intellisense that is displayed. Each of the `@param` statements represents each of the parameters and it's associated comment. By comparing the [API documentation](<http://api.jquery.com/val/#val-value>) to the JSDoc it's pretty clear how the API has been transformed into useful JSDoc.
+If you look you can see we've added a related JSDoc style comment block prior to each overload. The first part of the comment (*"Set the value of..."*) is the overarching Intellisense that is displayed. Each of the `@param` statements represents each of the parameters and it's associated comment. By comparing the [API documentation](http://api.jquery.com/val/#val-value) to the JSDoc it's pretty clear how the API has been transformed into useful JSDoc.
 
 ![](http://2.bp.blogspot.com/-ljw2HiAp0qE/U2D915IIcaI/AAAAAAAAAkk/DVPv-TolEJw/s640/Intellisense-Setter-String.png)
 
@@ -182,7 +182,7 @@ It's worth noting that I could have taken the choice to customise the `@param va
     val(value: string[]): JQuery;
 ```
 
-After some pondering I decided not to take this approach, just to maintain that close relationship between `jquery.d.ts` and [api.jquery.com](<http://api.jquery.com/>). It's open to debate how useful that relationship actually is so I thought I'd just highlight this as a choice I made.
+After some pondering I decided not to take this approach, just to maintain that close relationship between `jquery.d.ts` and [api.jquery.com](http://api.jquery.com/). It's open to debate how useful that relationship actually is so I thought I'd just highlight this as a choice I made.
 
 ## 3\. Getter
 
@@ -198,7 +198,7 @@ The jQuery documentation for the getter looks like this:
 > 
 > **Description: **Get the current value of the first element in the set of matched elements.
 
-So the `val()` overload can return a `string`, a `number` or a `string[]`. Unfortunately there is no real way to model that in TypeScript at present due to the absence of ["union types"](<https://typescript.codeplex.com/workitem/1364>). Union types are being [discussed at present](<https://typescript.codeplex.com/discussions/543598#PostDetailsCell_1239340>) but in TypeScript v1.0 world the only viable approach is returning the `any` type. This implies `val()` returns any possible JavaScript value from `boolean` to `Function` and straight on 'til morning. So clearly this isn't accurate but importantly it also allows for the possibility of `val()` returning `string`, `number` or `string[]`.
+So the `val()` overload can return a `string`, a `number` or a `string[]`. Unfortunately there is no real way to model that in TypeScript at present due to the absence of ["union types"](https://typescript.codeplex.com/workitem/1364). Union types are being [discussed at present](https://typescript.codeplex.com/discussions/543598#PostDetailsCell_1239340) but in TypeScript v1.0 world the only viable approach is returning the `any` type. This implies `val()` returns any possible JavaScript value from `boolean` to `Function` and straight on 'til morning. So clearly this isn't accurate but importantly it also allows for the possibility of `val()` returning `string`, `number` or `string[]`.
 
 The final getter typing with JSDoc applied ends up looking like this:
 

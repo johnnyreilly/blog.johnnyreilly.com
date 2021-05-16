@@ -6,13 +6,13 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [wget, powershell, github pages, AppVeyor]
 hide_table_of_contents: false
 ---
-There's a small open source project I'm responsible for called [jQuery Validation Unobtrusive Native](<https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native>). (A catchy name is a must for any good open source project. Alas I'm not quite meeting my own exacting standards on this particular point... I should have gone with my gut and called it "Livingstone" instead. Too late now...)
+There's a small open source project I'm responsible for called [jQuery Validation Unobtrusive Native](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native). (A catchy name is a must for any good open source project. Alas I'm not quite meeting my own exacting standards on this particular point... I should have gone with my gut and called it "Livingstone" instead. Too late now...)
 
  The project itself is fairly simple in purpose. It's essentially a bridge between ASP.Net MVC's inbuilt support for driving validation from data attributes and jQuery Validation's native support for the same. It is, in the end, a collection of ASP.Net MVC HTML helper extensions. It is not massively complicated.
 
 I believe it was Tony Blair that said "documentation, documentation, documentation" were his priorities for open source projects. Or maybe it was someone else... Anyway, the point stands. Documentation is supremely important if you want your project to be in any way useful to anyone other than yourself. A project, no matter how fantastic, which lacks decent documentation is a missed opportunity.
 
-Anyway I'm happy to say that jQuery Validation Unobtrusive Native *has* documentation! And pretty good documentation at that. The documentation takes the form of the [jVUNDemo](<https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/tree/master/jVUNDemo>) project which is part of the jQuery Validation Unobtrusive Native repo. jVUNDemo is an ASP.Net MVC web application which is built on top of the jQuery Validation Unobtrusive Native helpers. It demonstrates the helpers in action and documents how you might go about using them. It looks a bit like this:
+Anyway I'm happy to say that jQuery Validation Unobtrusive Native *has* documentation! And pretty good documentation at that. The documentation takes the form of the [jVUNDemo](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/tree/master/jVUNDemo) project which is part of the jQuery Validation Unobtrusive Native repo. jVUNDemo is an ASP.Net MVC web application which is built on top of the jQuery Validation Unobtrusive Native helpers. It demonstrates the helpers in action and documents how you might go about using them. It looks a bit like this:
 
 ![](../static/blog/2014-12-29-deploying-aspnet-mvc-to-github-pages-with-appveyor-part-1/Screenshot%2B2014-12-29%2B06.22.46.png)
 
@@ -20,19 +20,19 @@ When I first put jVUNDemo together I hosted it on Azure so the world could see i
 
 ## I'm quite cheap
 
-No really, I am. My attention was grabbed by the essentially "free" nature of [GitHub Pages](<https://pages.github.com/>). I was immediately seized by the desire to somehow deploy jVUNDemo to GitHub Pages and roll around joyfully in all that lovely free hosting.
+No really, I am. My attention was grabbed by the essentially "free" nature of [GitHub Pages](https://pages.github.com/). I was immediately seized by the desire to somehow deploy jVUNDemo to GitHub Pages and roll around joyfully in all that lovely free hosting.
 
 "But", I hear you cry, "you can't deploy an ASP.Net MVC application to Git Hub Pages... It only hosts static sites!" Quite right. Sort of. This is where I get to pull my ace of spades: jVUNDemo is not really an "app" so much as a static site. Yup, once the HTML that makes up each page is generated there isn't any app like business to do. It's just a collection of text and 1 screen demo's really.
 
 That being the case, there's no reason why I shouldn't be able to make use of GitHub Pages. So that's what I decided to do. Whilst I was at it I also wanted to automate the deployment process. When I tweak jVUNDemo I don't want to have to manually push out a new version of jVUNDemo to wherever it's being hosted. No, I'm a developer so I'll automate it.
 
-I've broken this up into 2 posts. This first one will cover how you generate a static site from an ASP.Net MVC site. The second will be about how to use [AppVeyor](<http://www.appveyor.com/>) to ensure that on each build your documentation is getting republished.
+I've broken this up into 2 posts. This first one will cover how you generate a static site from an ASP.Net MVC site. The second will be about how to use [AppVeyor](http://www.appveyor.com/) to ensure that on each build your documentation is getting republished.
 
 ## You Wget me?
 
-So, static site generation. There's a well known Unix utility called [Wget](<https://en.wikipedia.org/wiki/Wget>) which covers exactly that ground and so we're going to use it. It downloads and saves HTML, it recursively walks the links inside the site and grabs those pages too and it converts our routes so they are locally browsable ("Demo/Required" becomes "Demo/Required.html").
+So, static site generation. There's a well known Unix utility called [Wget](https://en.wikipedia.org/wiki/Wget) which covers exactly that ground and so we're going to use it. It downloads and saves HTML, it recursively walks the links inside the site and grabs those pages too and it converts our routes so they are locally browsable ("Demo/Required" becomes "Demo/Required.html").
 
-You can use [Chocolatey](<https://chocolatey.org/packages/Wget>) to get a copy of Wget. We're also going to need IIS Express to host jVUNDemo whilst Wget converts it. Once jVUNDemo has been built successfully you should be be able to kick off the process like so:
+You can use [Chocolatey](https://chocolatey.org/packages/Wget) to get a copy of Wget. We're also going to need IIS Express to host jVUNDemo whilst Wget converts it. Once jVUNDemo has been built successfully you should be be able to kick off the process like so:
 
 ```ps
 cd C:\projects\jquery-validation-unobtrusive-native
@@ -159,6 +159,6 @@ d----        12/29/2014   7:50 AM            Scripts
 
 And that's it for part 1 my friends! You now have a static version of the ASP.Net MVC site to dazzle the world with. I should say for the purposes of full disclosure that there are 2 pages in the site which are not entirely "static" friendly. For these 2 pages I've put messages in that are displayed when the page is served up in a static format explaining the limitations. Their full glory can still be experienced by cloning the project and running locally.
 
-[Next time](<https://blog.johnnyreilly.com/2015/01/deploying-aspnet-mvc-to-github-pages-with-appveyor-part-2.html>) we'll take the mechanism detailed above and plug it into AppVeyor for some Continuous Integration happiness.
+[Next time](https://blog.johnnyreilly.com/2015/01/deploying-aspnet-mvc-to-github-pages-with-appveyor-part-2.html) we'll take the mechanism detailed above and plug it into AppVeyor for some Continuous Integration happiness.
 
 

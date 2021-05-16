@@ -8,7 +8,7 @@ hide_table_of_contents: false
 ---
 ## Loading On-Demand and Caching
 
- [I've written before about my own needs for caching and cache-busting when using RequireJS.](<http://icanmakethiswork.blogspot.com/2014/03/caching-and-cache-busting-with-requirejs.html>) Long story short, when I'm loading *static* resources (scripts / views etc) on demand from the server I want to do a little URL fiddling along the way. I want to do that to cater for these 2 scenarios:
+ [I've written before about my own needs for caching and cache-busting when using RequireJS.](http://icanmakethiswork.blogspot.com/2014/03/caching-and-cache-busting-with-requirejs.html) Long story short, when I'm loading *static* resources (scripts / views etc) on demand from the server I want to do a little URL fiddling along the way. I want to do that to cater for these 2 scenarios:
 
 1. *In Development* \- I want my URLs for static resources to have a unique querystring with each request to ensure that resources are loaded afresh each time. (eg so a GET request URL might look like this: "/app/layout/sidebar.html?v=IAmRandomYesRandomRandomIsWhatIAm58965782")
 2. *In Production* \- I want my URLs for static resources to have a querystring with that is driven by the application version number. This means that static resources can potentially be cached with a given querystring - subsequent requests should result in a 304 status code (indicating “Not Modified”) and local cache should be used. But when a new version of the app is rolled out and the app version is incremented then the querystring will change and resources will be loaded anew. (eg a GET request URL might look like this: "/app/layout/sidebar.html?v=1.0.5389.16180")
@@ -19,7 +19,7 @@ hide_table_of_contents: false
 
 I have exactly the same use cases when I'm using AngularJS for views. Out of the box with AngularJS 1.x views are loaded lazily (unlike controllers, services etc). For that reason I want to use the same approach I've outlined above to load my views. Also, I want to prepend my URLs with the root of my application - this allows me to cater for my app being deployed in a virtual folder.
 
-It turns out that's pretty easy thanks to [HTTP interceptors](<https://docs.angularjs.org/api/ng/service/$http#interceptors>). They allow you to step into the pipeline and access and modify requests and responses made by your application. When AngularJS loads a view it's the HTTP service doing the heavy lifting. So to deal with my own use case, I just need to add in an HTTP interceptor that amends the get request. This is handled in the example that follows in the `configureHttpProvider` function: (The example that follows is TypeScript - though if you just chopped out the interface and the type declarations you'd find this is pretty much idiomatic JavaScript)
+It turns out that's pretty easy thanks to [HTTP interceptors](https://docs.angularjs.org/api/ng/service/$http#interceptors). They allow you to step into the pipeline and access and modify requests and responses made by your application. When AngularJS loads a view it's the HTTP service doing the heavy lifting. So to deal with my own use case, I just need to add in an HTTP interceptor that amends the get request. This is handled in the example that follows in the `configureHttpProvider` function: (The example that follows is TypeScript - though if you just chopped out the interface and the type declarations you'd find this is pretty much idiomatic JavaScript)
 
 ```js
 interface config {
@@ -92,6 +92,6 @@ This interceptor steps in and amends each ajax request when all the following co
 
 ## Interesting technique.... How do I apply it?
 
-Isn't it always much more helpful when you can see an example of code in the context of which it is actually used? Course it is! If you want that then take a look at [`app.ts`](<https://github.com/johnnyreilly/Proverb/blob/master/Proverb.Web/app/app.ts>) on GitHub. And if you'd like the naked JavaScript well [that's there too](<https://github.com/johnnyreilly/Proverb/blob/master/Proverb.Web/app/app.js>).
+Isn't it always much more helpful when you can see an example of code in the context of which it is actually used? Course it is! If you want that then take a look at [`app.ts`](https://github.com/johnnyreilly/Proverb/blob/master/Proverb.Web/app/app.ts) on GitHub. And if you'd like the naked JavaScript well [that's there too](https://github.com/johnnyreilly/Proverb/blob/master/Proverb.Web/app/app.js).
 
 

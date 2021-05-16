@@ -17,19 +17,19 @@ This post will set out:
 
 
 
-To do this I will lean heavily (that's fancy language for "rip off entirely") on an [excellent blog post by Mathew Aniyan](<http://blogs.msdn.com/b/visualstudioalm/archive/2012/07/09/javascript-unit-tests-on-team-foundation-service-with-chutzpah.aspx>) which covers point #1. My contribution is point #2.
+To do this I will lean heavily (that's fancy language for "rip off entirely") on an [excellent blog post by Mathew Aniyan](http://blogs.msdn.com/b/visualstudioalm/archive/2012/07/09/javascript-unit-tests-on-team-foundation-service-with-chutzpah.aspx) which covers point #1. My contribution is point #2.
 
 ## Points #1 and #2 in short order
 
-First of all, install Chutzpah on TFS / VSO. You can do this by following [Steps 1 - 6 from Mathew Aniyan's post](<http://blogs.msdn.com/b/visualstudioalm/archive/2012/07/09/javascript-unit-tests-on-team-foundation-service-with-chutzpah.aspx>). Instead of following steps 7 and 8 create a new unit test project in your solution.
+First of all, install Chutzpah on TFS / VSO. You can do this by following [Steps 1 - 6 from Mathew Aniyan's post](http://blogs.msdn.com/b/visualstudioalm/archive/2012/07/09/javascript-unit-tests-on-team-foundation-service-with-chutzpah.aspx). Instead of following steps 7 and 8 create a new unit test project in your solution.
 
 <aside>This unit test project will effectively be a C# project that hosts no real C# code at all. Instead we're going to use it to house JavaScript tests. If there is another way to have a separate project which TFS / VSO can pick up on and run tests in then please let me know. As far as I'm aware though, this is the only game in town.</aside>
 
 **Edit 29/05/2014:** Matthew Manela (creator of Chutzpah) has confirmed that this is the correct approach - thanks chap!
 
-> [@johnny\_reilly](<https://twitter.com/johnny_reilly>) Nope that is pretty much what you need to do.
+> [@johnny\_reilly](https://twitter.com/johnny_reilly) Nope that is pretty much what you need to do.
 > 
-> — Matthew Manela (@mmanela) [May 15, 2014](<https://twitter.com/mmanela/statuses/466962743400996864>)
+> — Matthew Manela (@mmanela) [May 15, 2014](https://twitter.com/mmanela/statuses/466962743400996864)
 
 <script async="" src="//platform.twitter.com/widgets.js" charSet="utf-8"></script>
 

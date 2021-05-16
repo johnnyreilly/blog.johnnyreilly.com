@@ -6,7 +6,7 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: []
 hide_table_of_contents: false
 ---
-App Services have long been a super simple way to spin up a web app in Azure. The barrier to entry is low, maintenance is easy. It just works. App Services recently got a turbo boost in the form of [Azure App Service on Linux](<https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro>). Being able to deploy to Linux is exciting enough; but the real reason this is notable because [you can deploy Docker images that will be run as app services](<https://docs.microsoft.com/en-us/azure/app-service/containers/tutorial-custom-docker-image>).
+App Services have long been a super simple way to spin up a web app in Azure. The barrier to entry is low, maintenance is easy. It just works. App Services recently got a turbo boost in the form of [Azure App Service on Linux](https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro). Being able to deploy to Linux is exciting enough; but the real reason this is notable because [you can deploy Docker images that will be run as app services](https://docs.microsoft.com/en-us/azure/app-service/containers/tutorial-custom-docker-image).
 
  I cannot over-emphasise just how easy this makes getting a Docker image into Production. Yay Azure!
 
@@ -27,11 +27,11 @@ With a classic App Service you could override a setting in the `appsettings.json
 
 ![](../static/blog/2018-07-28-configuring-docker-azure-web-app-containers/appservice_classic.png)
 
-You can read about this approach [here](<https://blogs.msdn.microsoft.com/waws/2018/06/12/asp-net-core-settings-for-azure-app-service/>). Now there's something I want you to notice; consider the colons below:
+You can read about this approach [here](https://blogs.msdn.microsoft.com/waws/2018/06/12/asp-net-core-settings-for-azure-app-service/). Now there's something I want you to notice; consider the colons below:
 
 ![](../static/blog/2018-07-28-configuring-docker-azure-web-app-containers/appservice_colons_fine.png)
 
-If you try and follow the same steps when you're using Web App for Containers / i.e. [a Docker image deployed to an Azure App Service on Linux ](<https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro>) you **cannot** use colons:
+If you try and follow the same steps when you're using Web App for Containers / i.e. [a Docker image deployed to an Azure App Service on Linux ](https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro) you **cannot** use colons:
 
 ![](../static/blog/2018-07-28-configuring-docker-azure-web-app-containers/appservice_container_colons_bad.png)
 

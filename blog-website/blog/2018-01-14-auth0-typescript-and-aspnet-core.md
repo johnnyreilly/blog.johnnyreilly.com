@@ -37,7 +37,7 @@ This was a massive plus for me. I took the quickstart provided and ran with it t
 
 ## The Walkthrough
 
-Fork and clone the repo at this location: [https://github.com/johnnyreilly/auth0-react-typescript-asp-net-core](<https://github.com/johnnyreilly/auth0-react-typescript-asp-net-core>).
+Fork and clone the repo at this location: [https://github.com/johnnyreilly/auth0-react-typescript-asp-net-core](https://github.com/johnnyreilly/auth0-react-typescript-asp-net-core).
 
 What have we got? 2 folders, ClientApp contains the React app, Web contains the ASP.NET Core app. Now we need to get setup with Auth0 and customise our config.
 
@@ -64,11 +64,11 @@ Here's how to get the app set up with Auth0; you're going to need to sign up for
 
 ### Production build
 
-Build the client app with `yarn build` in the `ClientApp` folder. (Don't forget to `yarn install` first.) Then, in the `Web` folder `dotnet restore`, `dotnet run` and open your browser to [`http://localhost:5000`](<http://localhost:5000>)
+Build the client app with `yarn build` in the `ClientApp` folder. (Don't forget to `yarn install` first.) Then, in the `Web` folder `dotnet restore`, `dotnet run` and open your browser to [`http://localhost:5000`](http://localhost:5000)
 
 ### Debugging
 
-Run the client app using webpack-dev-server using `yarn start` in the `ClientApp` folder. Fire up VS Code in the root of the repo and hit F5 to debug the server. Then open your browser to [`http://localhost:3000`](<http://localhost:3000>)
+Run the client app using webpack-dev-server using `yarn start` in the `ClientApp` folder. Fire up VS Code in the root of the repo and hit F5 to debug the server. Then open your browser to [`http://localhost:3000`](http://localhost:3000)
 
 ## The Tour
 
@@ -76,7 +76,7 @@ When you fire up the app you're presented with "you are not logged in!" message 
 
 ![](../static/blog/2018-01-14-auth0-typescript-and-aspnet-core/Screenshot%2B2018-01-13%2B18.40.21.png)
 
-All this is powered by Auth0's [auth0-js](<https://www.npmjs.com/package/auth0-js>) npm package. (Excellent type definition files are available from Definitely Typed; I'm using the [@types/auth0-js](<https://www.npmjs.com/package/@types/auth0-js>) package DT publishes.) Usage of which is super simple; it exposes an `authorize` method that when called triggers the Auth0 lock screen. Once you've "okayed" you'll be taken back to the app which will use the `parseHash` method to extract the access token that Auth0 has provided. Take a look at how our `authStore` makes use of auth0-js: (don't be scared; it uses mobx - but you could use anything)
+All this is powered by Auth0's [auth0-js](https://www.npmjs.com/package/auth0-js) npm package. (Excellent type definition files are available from Definitely Typed; I'm using the [@types/auth0-js](https://www.npmjs.com/package/@types/auth0-js) package DT publishes.) Usage of which is super simple; it exposes an `authorize` method that when called triggers the Auth0 lock screen. Once you've "okayed" you'll be taken back to the app which will use the `parseHash` method to extract the access token that Auth0 has provided. Take a look at how our `authStore` makes use of auth0-js: (don't be scared; it uses mobx - but you could use anything)
 
 ### authStore.ts
 
@@ -348,6 +348,6 @@ You won't be able to access the admin endpoint yet because you're still rocking 
 
 Which demonstrates that you're being granted an extra scope. With your new shiny access token you can now access the oh-so-secret Admin endpoint.
 
-I had some more questions about Auth0 as I'm still new to it myself. To see my question (and the very helpful answer!) go here: [https://community.auth0.com/questions/13786/get-user-data-server-side-what-is-a-good-approach](<https://community.auth0.com/questions/13786/get-user-data-server-side-what-is-a-good-approach>)
+I had some more questions about Auth0 as I'm still new to it myself. To see my question (and the very helpful answer!) go here: [https://community.auth0.com/questions/13786/get-user-data-server-side-what-is-a-good-approach](https://community.auth0.com/questions/13786/get-user-data-server-side-what-is-a-good-approach)
 
 

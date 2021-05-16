@@ -12,11 +12,11 @@ hide_table_of_contents: false
 
 > Send a PR to change the name to .LICENSE.txt by default.
 > 
-> — Tobias Koppers (@wSokra) [January 22, 2020](<https://twitter.com/wSokra/status/1220069497660411904?ref_src=twsrc%5Etfw>)
+> — Tobias Koppers (@wSokra) [January 22, 2020](https://twitter.com/wSokra/status/1220069497660411904?ref_src=twsrc%5Etfw)
 
 <script async="" src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
 
-That seemed like an excellent idea! I raised [this PR](<https://github.com/webpack-contrib/terser-webpack-plugin/pull/210>) which changes the behaviour such that instead of `.LICENSE` files being produced, `.LICENSE.txt` files are pumped out instead. Crucially they are IIS (and other servers) friendly. The great news is that future users of webpack / create-react-app etc will not face this problem at all; result!
+That seemed like an excellent idea! I raised [this PR](https://github.com/webpack-contrib/terser-webpack-plugin/pull/210) which changes the behaviour such that instead of `.LICENSE` files being produced, `.LICENSE.txt` files are pumped out instead. Crucially they are IIS (and other servers) friendly. The great news is that future users of webpack / create-react-app etc will not face this problem at all; result!
 
 ## The tragedy
 
@@ -96,9 +96,9 @@ object-assign
 */
 ```
 
-What is this? Well, as the name of the file suggests, it's licenses. For some reason, my build was scraping the licenses from the head of some of my files and placing them in a separate `6.20102e99.chunk.js.LICENSE` file. Doing some more digging I happened upon [this discussion against the `create-react-app`](<https://github.com/facebook/create-react-app/issues/6441>) project. It's worth saying, that my PWA was an ejected `create-react-app` project.
+What is this? Well, as the name of the file suggests, it's licenses. For some reason, my build was scraping the licenses from the head of some of my files and placing them in a separate `6.20102e99.chunk.js.LICENSE` file. Doing some more digging I happened upon [this discussion against the `create-react-app`](https://github.com/facebook/create-react-app/issues/6441) project. It's worth saying, that my PWA was an ejected `create-react-app` project.
 
-It turned out the the issue was related to the [`terser-webpack-plugin`](<https://github.com/webpack-contrib/terser-webpack-plugin>). The default behaviour performs this kind of license file extraction. The app was being served by an IIS server and it wasn't configured to support the `.LICENSE` file type.
+It turned out the the issue was related to the [`terser-webpack-plugin`](https://github.com/webpack-contrib/terser-webpack-plugin). The default behaviour performs this kind of license file extraction. The app was being served by an IIS server and it wasn't configured to support the `.LICENSE` file type.
 
 ## The resolution
 

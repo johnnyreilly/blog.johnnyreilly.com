@@ -28,7 +28,7 @@ There's 2 things happening in this target:
 
 ## Where's my `BuildNumber` and `BuildDefinitionName`?
 
-So you've checked in your changes and kicked off a build on the server. You're picking over the log messages and you're thinking: "Where's my `BuildNumber`?". Well, TFS 2012 does not have that set as a variable at compile time by default. This stumped me for a while but thankfully I wasn't the only person wondering... As ever, [Stack Overflow had the answer](<http://stackoverflow.com/a/7330453/761388>). So, deep breath, it's time to hack the TFS build template file.
+So you've checked in your changes and kicked off a build on the server. You're picking over the log messages and you're thinking: "Where's my `BuildNumber`?". Well, TFS 2012 does not have that set as a variable at compile time by default. This stumped me for a while but thankfully I wasn't the only person wondering... As ever, [Stack Overflow had the answer](http://stackoverflow.com/a/7330453/761388). So, deep breath, it's time to hack the TFS build template file.
 
 Checkout the `DefaultTemplate.11.1.xaml` file from TFS and open it in your text editor of choice. It's *find and replace* time! (There are probably 2 instances that need replacement.) Perform a *find* for the below
 
@@ -116,11 +116,11 @@ Run
 
 Assuming we have a build number this script kicks off the `PublishTestResults` function above. So we won't attempt to publish test results when compiling in Visual Studio on our dev machine. The script looks for `MSTest.exe` in a certain location on disk (the default VS 2015 installation location in fact; it may be installed elsewhere on your build machine). MSTest is then invoked and passed a file called `test-results.trx` which is is expected to live in the root of the project. All being well, the test results will be registered with the running build and will be visible when you look at test results in TFS.
 
-Finally in `FailBuildIfThereAreTestFailures` we parse the `test-results.trx` file (and for this I'm totally in the debt of [David Robert's helpful Gist](<https://gist.github.com/davidroberts63/5655441>)). We write out the results to the host so it'll show up in the MSBuild logs. Also, and this is crucial, if there are any failures we fail the build by exiting PowerShell with a code of 1. We are deliberately swallowing any error that Karma raises earlier when it detects failed tests. We do this because we want to publish the failed test results to TFS *before* we kill the build.
+Finally in `FailBuildIfThereAreTestFailures` we parse the `test-results.trx` file (and for this I'm totally in the debt of [David Robert's helpful Gist](https://gist.github.com/davidroberts63/5655441)). We write out the results to the host so it'll show up in the MSBuild logs. Also, and this is crucial, if there are any failures we fail the build by exiting PowerShell with a code of 1. We are deliberately swallowing any error that Karma raises earlier when it detects failed tests. We do this because we want to publish the failed test results to TFS *before* we kill the build.
 
 ## Bonus Karma: `test-results.trx`
 
-If you've read a [previous post of mine](<https://blog.johnnyreilly.com/2016/02/visual-studio-tsconfigjson-and-external.html>) you'll be aware that it's possible to get MSBuild to kick off npm build tasks. Specifically I have MSBuild kicking off an `npm run build`. My `package.json` looks like this:
+If you've read a [previous post of mine](https://blog.johnnyreilly.com/2016/02/visual-studio-tsconfigjson-and-external.html) you'll be aware that it's possible to get MSBuild to kick off npm build tasks. Specifically I have MSBuild kicking off an `npm run build`. My `package.json` looks like this:
 
 ```json
 "scripts": {
@@ -132,7 +132,7 @@ If you've read a [previous post of mine](<https://blog.johnnyreilly.com/2016/02/
   },
 ```
 
-You can see that the `postbuild` hook kicks off the `test` script in turn. And that `test` script kicks off a single run of karma. I'm not going to go over setting up Karma at all here; there are other posts out there that cover that admirably. But I wanted to share news of the [karma trx reporter](<https://www.npmjs.com/package/karma-trx-reporter>). This reporter is the thing that produces our `test-results.trx` file; trx being the format that TFS likes to deal with.
+You can see that the `postbuild` hook kicks off the `test` script in turn. And that `test` script kicks off a single run of karma. I'm not going to go over setting up Karma at all here; there are other posts out there that cover that admirably. But I wanted to share news of the [karma trx reporter](https://www.npmjs.com/package/karma-trx-reporter). This reporter is the thing that produces our `test-results.trx` file; trx being the format that TFS likes to deal with.
 
 So now we've got a PowerShell hook into our build process (something very useful in itself) which we are using to publish Karma test results into TFS 2012. They said it couldn't be done. They were wrong. Huzzah!!!!!!!
 

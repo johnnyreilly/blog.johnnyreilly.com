@@ -8,19 +8,19 @@ hide_table_of_contents: false
 ---
 ## Update 14/01/2013
 
- Since I wrote this I've taken things on a little further - to read about that go [here](<http://icanmakethiswork.blogspot.co.uk/2013/01/twitterbootstrapmvc4-meet-bootstrap_14.html>).
+ Since I wrote this I've taken things on a little further - to read about that go [here](http://icanmakethiswork.blogspot.co.uk/2013/01/twitterbootstrapmvc4-meet-bootstrap_14.html).
 
 ## Getting Responsive
 
-It's the new year, it's time for new things. Long on my list of "things to do" was getting up to speed with [Responsive web design](<http://en.wikipedia.org/wiki/Responsive_web_design>). No doubt like everyone else I've been hearing more and more about this over the last year (by the way there was a [good article on Mashable](<http://mashable.com/2012/12/11/responsive-web-design/>) about this last month). RWD (in case you don't already know) is pretty much about having web interfaces that format their presentation based on the device they're running to provide a good user experience. (I kind of think of it as a [write once, run anywhere](<http://en.wikipedia.org/wiki/Write_once,_run_anywhere>) approach - though hopefully without the negative connotations...)
+It's the new year, it's time for new things. Long on my list of "things to do" was getting up to speed with [Responsive web design](http://en.wikipedia.org/wiki/Responsive_web_design). No doubt like everyone else I've been hearing more and more about this over the last year (by the way there was a [good article on Mashable](http://mashable.com/2012/12/11/responsive-web-design/) about this last month). RWD (in case you don't already know) is pretty much about having web interfaces that format their presentation based on the device they're running to provide a good user experience. (I kind of think of it as a [write once, run anywhere](http://en.wikipedia.org/wiki/Write_once,_run_anywhere) approach - though hopefully without the negative connotations...)
 
-Rather than diving straight in myself I'd heard at a user group that it might be worth taking [Twitter Bootstrap](<http://twitter.github.com/bootstrap/>) as a baseline. I'm a <strike>lazy</strike>
+Rather than diving straight in myself I'd heard at a user group that it might be worth taking [Twitter Bootstrap](http://twitter.github.com/bootstrap/) as a baseline. I'm a <strike>lazy</strike>
 
  busy fellow so this sounded ideal.
 
 ## I like ASP.Net MVC...
 
-... and this flavoured my investigations. I quickly stumbled on an [article written by Eric Hexter](<http://lostechies.com/erichexter/2012/11/20/twitter-bootstrap-mvc4-the-template-nuget-package-for-asp-net-mvc4-projects/ >). Eric had brought together Twitter Bootstrap and ASP.Net MVC 4 in a [NuGet package](<http://nuget.org/packages/twitter.bootstrap.mvc4>). Excellent work chap!
+... and this flavoured my investigations. I quickly stumbled on an [article written by Eric Hexter](http://lostechies.com/erichexter/2012/11/20/twitter-bootstrap-mvc4-the-template-nuget-package-for-asp-net-mvc4-projects/ ). Eric had brought together Twitter Bootstrap and ASP.Net MVC 4 in a [NuGet package](http://nuget.org/packages/twitter.bootstrap.mvc4). Excellent work chap!
 
 To get up and running with Eric's work was a straightforward proposition. I...
 
@@ -43,9 +43,9 @@ This is just 1 page, with `@media` queries doing the heavy lifting.
 
 ## Bootstrap Datepicker
 
-The eagle-eyed amongst you will have noticed that the edit screen above features a date field. I've long been a fan of datepickers to allow users to enter a date in an application in an intuitive fashion. Until native browser datepickers become the norm we'll be relying on some kind of component. Up until now my datepicker of choice has been the [jQuery UI one](<http://jqueryui.com/datepicker/>). Based on a quick Google it seemed that jQuery UI and Twitter Bootstrap were not necessarily natural bedfellows. (Though [Addy Osmani's jQuery UI Bootstrap](<http://addyosmani.github.com/jquery-ui-bootstrap/>) shows some promise...)
+The eagle-eyed amongst you will have noticed that the edit screen above features a date field. I've long been a fan of datepickers to allow users to enter a date in an application in an intuitive fashion. Until native browser datepickers become the norm we'll be relying on some kind of component. Up until now my datepicker of choice has been the [jQuery UI one](http://jqueryui.com/datepicker/). Based on a quick Google it seemed that jQuery UI and Twitter Bootstrap were not necessarily natural bedfellows. (Though [Addy Osmani's jQuery UI Bootstrap](http://addyosmani.github.com/jquery-ui-bootstrap/) shows some promise...)
 
-Since I feared ending up down a blind alley I found myself casting around for a Twitter Bootstrap datepicker. I quickly happened upon [Stefan Petre's Bootstrap Datepicker](<http://www.eyecon.ro/bootstrap-datepicker/>) which looked just the ticket.
+Since I feared ending up down a blind alley I found myself casting around for a Twitter Bootstrap datepicker. I quickly happened upon [Stefan Petre's Bootstrap Datepicker](http://www.eyecon.ro/bootstrap-datepicker/) which looked just the ticket.
 
 ## Shake hands and play nice...
 
@@ -72,7 +72,7 @@ Et voilà - it works!
 
 ![](http://4.bp.blogspot.com/-_SfaYN2dfuk/UO2JmrqO_gI/AAAAAAAAAZA/Y904hmwcqaI/s400/TwitterBootstrapDatepicker.png)
 
-My thanks to [Eric Hexter](<https://twitter.com/ehexter>) and Stefan Petre for doing all the hard work!
+My thanks to [Eric Hexter](https://twitter.com/ehexter) and Stefan Petre for doing all the hard work!
 
 ## Still to do
 

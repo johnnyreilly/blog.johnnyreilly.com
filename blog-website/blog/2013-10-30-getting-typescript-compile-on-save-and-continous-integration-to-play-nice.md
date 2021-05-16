@@ -10,13 +10,13 @@ Well sort of... Perhaps this post should more accurately called "How to get CI t
 
  ## Once there was Web Essentials
 
-When I first started using TypeScript, I was using it in combination with Web Essentials. Those were happy days. I saved my TS file and Web Essentials would kick off TypeScript compilation. Ah bliss. But the good times couldn't last forever and sure enough when version 3.0 of Web Essentials shipped it [pulled support for TypeScript](<http://madskristensen.net/post/Web-Essentials-2013-Where-is-the-TypeScript-support>).
+When I first started using TypeScript, I was using it in combination with Web Essentials. Those were happy days. I saved my TS file and Web Essentials would kick off TypeScript compilation. Ah bliss. But the good times couldn't last forever and sure enough when version 3.0 of Web Essentials shipped it [pulled support for TypeScript](http://madskristensen.net/post/Web-Essentials-2013-Where-is-the-TypeScript-support).
 
-This made me, [and others](<https://typescript.codeplex.com/workitem/1616>), very sad. Essentially we were given the choice between sticking with an old version of Web Essentials (2.9 - the last release before 3.0) and keeping our Compile-on-Save \***or**\* keeping with the latest version of Web Essentials and losing it. And since I understood that newer versions of TypeScript had differences in the compiler flags which slightly broke compatibility with WE 2.9 the latter choice seemed the most sensible...
+This made me, [and others](https://typescript.codeplex.com/workitem/1616), very sad. Essentially we were given the choice between sticking with an old version of Web Essentials (2.9 - the last release before 3.0) and keeping our Compile-on-Save \***or**\* keeping with the latest version of Web Essentials and losing it. And since I understood that newer versions of TypeScript had differences in the compiler flags which slightly broke compatibility with WE 2.9 the latter choice seemed the most sensible...
 
 ## But there is still Compile on Save hope!
 
-The information was that we need not lose our Compile on Save. We just need to follow the instructions [here](<https://typescript.codeplex.com/wikipage?title=Compile-on-Save>). Or to quote them:
+The information was that we need not lose our Compile on Save. We just need to follow the instructions [here](https://typescript.codeplex.com/wikipage?title=Compile-on-Save). Or to quote them:
 
 > Then additionally add (or replace if you had an older PreBuild action for TypeScript) the following at the end of your project file to include TypeScript compilation in your project.
 > 
@@ -50,14 +50,14 @@ That's right, TypeScript wasn't installed on the build server. And since TypeScr
 
 ## So what now?
 
-I did a little digging and found [this issue report on the TypeScript CodePlex site](<https://typescript.codeplex.com/workitem/1518>). To quote the issue, it seemed there were 2 possible solutions to get continuous integration and typescript playing nice:
+I did a little digging and found [this issue report on the TypeScript CodePlex site](https://typescript.codeplex.com/workitem/1518). To quote the issue, it seemed there were 2 possible solutions to get continuous integration and typescript playing nice:
 
 1. Install TypeScript on the build server
 2. Copy the required files for Microsoft.TypeScript.targets to a different source-controlled folder and change the path references in the csproj file to this folder.
 
 
 
-\#1 wasn't an option for us - we couldn't install on the build server. And covering both #1 and #2, I wasn't particularly inclined to kick off builds on the build server since I was wary of [reported problems with memory leaks](<https://typescript.codeplex.com/workitem/1432>) etc with the TS compiler. I may feel differently later when TS is no longer in Alpha and has stabilised but it didn't seem like the right time.
+\#1 wasn't an option for us - we couldn't install on the build server. And covering both #1 and #2, I wasn't particularly inclined to kick off builds on the build server since I was wary of [reported problems with memory leaks](https://typescript.codeplex.com/workitem/1432) etc with the TS compiler. I may feel differently later when TS is no longer in Alpha and has stabilised but it didn't seem like the right time.
 
 ## A solution
 

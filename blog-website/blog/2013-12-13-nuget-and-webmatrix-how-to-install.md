@@ -6,7 +6,7 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [jquery, package, WebMatrix, NuGet]
 hide_table_of_contents: false
 ---
-I've recently been experimenting with WebMatrix. If you haven't heard of it, WebMatrix is Microsoft's *["free, lightweight, cloud-connected web development tool"](<http://www.microsoft.com/web/webmatrix/>)*. All marketing aside, it's pretty cool. You can whip up a site in next to no time, it has source control, publishing abilities, intellisense. Much good stuff. And one thing it has, that I genuinely hadn't expected is [NuGet](<https://www.nuget.org/>). Brilliant!
+I've recently been experimenting with WebMatrix. If you haven't heard of it, WebMatrix is Microsoft's *["free, lightweight, cloud-connected web development tool"](http://www.microsoft.com/web/webmatrix/)*. All marketing aside, it's pretty cool. You can whip up a site in next to no time, it has source control, publishing abilities, intellisense. Much good stuff. And one thing it has, that I genuinely hadn't expected is [NuGet](https://www.nuget.org/). Brilliant!
 
  But like any free product there are disadvantages. As a long time Visual Studio user I've become very used to the power of the NuGet command line. I've been spoiled. You don't have this in WebMatrix. You have a nice UI that looks like this:
 
@@ -28,7 +28,7 @@ I've created a new site in WebMatrix using the Empty Site template. Looks like t
 
 Lovely.
 
-Now to get me some jQuery 1.10.2 goodness. To the console Batman! We've already got the NuGet command line installed (if you haven't you could get it from [here](<http://nuget.org/nuget.exe>)) and so we follow these steps:
+Now to get me some jQuery 1.10.2 goodness. To the console Batman! We've already got the NuGet command line installed (if you haven't you could get it from [here](http://nuget.org/nuget.exe)) and so we follow these steps:
 
 - At the `C:\` prompt we enter `nuget install jQuery -Version 1.10.2` and down comes jQuery 1.10.2.
 - We move `C:\jQuery.1.10.2` to `C:\Users\me\Documents\My Web Sites\Empty Site\App_Data\packages\jQuery.1.10.2`.

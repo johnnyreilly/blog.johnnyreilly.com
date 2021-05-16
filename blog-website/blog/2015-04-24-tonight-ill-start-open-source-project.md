@@ -8,7 +8,7 @@ hide_table_of_contents: false
 ---
 ### Further posts on this topic
 
- - [NgValidationFor Baby Steps](<https://blog.johnnyreilly.com/2015/05/ngvalidationfor-baby-steps.html>)
+ - [NgValidationFor Baby Steps](https://blog.johnnyreilly.com/2015/05/ngvalidationfor-baby-steps.html)
 
 
 
@@ -16,7 +16,7 @@ I'm excited. Are you? I'm babysitting for a friend, I've my laptop, time to kill
 
 ## The Idea
 
-You're likely aware of the various form element directives that AngularJS offers. For instance the [input directive](<https://docs.angularjs.org/api/ng/directive/input>):
+You're likely aware of the various form element directives that AngularJS offers. For instance the [input directive](https://docs.angularjs.org/api/ng/directive/input):
 
 > HTML input element control. When used together with ngModel, it provides data-binding, input state control, and *validation*.
 
@@ -65,9 +65,9 @@ And that would generate HTML like this:
 </form>
 ```
 
-If you look at the HTML you'll see that the `Required` data annotations have been propogated into the HTML in the HTML in the form of `data-rule-*` and `data-msg-*` attributes. The code above is built using my [jQuery.Validation.Unobtrusive.Native project](<http://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/>) which in turn was inspired by / based upon the [Unobtrusive Client Validation in ASP.NET MVC](<http://bradwilson.typepad.com/blog/2010/10/mvc3-unobtrusive-validation.html>). That's right - I've done this before - or at least something quite like it.
+If you look at the HTML you'll see that the `Required` data annotations have been propogated into the HTML in the HTML in the form of `data-rule-*` and `data-msg-*` attributes. The code above is built using my [jQuery.Validation.Unobtrusive.Native project](http://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/) which in turn was inspired by / based upon the [Unobtrusive Client Validation in ASP.NET MVC](http://bradwilson.typepad.com/blog/2010/10/mvc3-unobtrusive-validation.html). That's right - I've done this before - or at least something quite like it.
 
-There's clearly a strong crossover between AngularJS's input directive parameters and unobtrusive client validation. I'm planning to take the principles (and maybe some of the code) that I used on that project and see if I can't make something useful with it here. [Server side validation is jolly important](<https://blog.johnnyreilly.com/2014/08/angularjs-meet-aspnet-server-validation.html>) but I can probably save a few compute cycles on the server by making use of client side validation as well. If I'm right then I should able to come up with a mechanism that saves me from manually duplicating my server validation on the client.
+There's clearly a strong crossover between AngularJS's input directive parameters and unobtrusive client validation. I'm planning to take the principles (and maybe some of the code) that I used on that project and see if I can't make something useful with it here. [Server side validation is jolly important](https://blog.johnnyreilly.com/2014/08/angularjs-meet-aspnet-server-validation.html) but I can probably save a few compute cycles on the server by making use of client side validation as well. If I'm right then I should able to come up with a mechanism that saves me from manually duplicating my server validation on the client.
 
 ## The Aim
 
@@ -143,9 +143,9 @@ This is a simplified example of course - it's likely that any number of validati
 
 At least to start off with I'm going to aim at creating the second of my approaches. I may come back and implement the first at some point but I think the second is a better place to start.
 
-I'm kind of surprised no-one else has built this already actually - but I'm not aware of anything. I've had a little duckduckgo around and found no takers. The closest I've come is the excellent [BreezeJS](<http://www.breezejs.com/sites/all/apidocs/classes/Validator.html>). BreezeJS does way more than I want it to - I'm planning to restrict the scope of this project to simply turning data annotations on my ASP.Net MVC server models into `ng-*` directive attributes in HTML. That's it.
+I'm kind of surprised no-one else has built this already actually - but I'm not aware of anything. I've had a little duckduckgo around and found no takers. The closest I've come is the excellent [BreezeJS](http://www.breezejs.com/sites/all/apidocs/classes/Validator.html). BreezeJS does way more than I want it to - I'm planning to restrict the scope of this project to simply turning data annotations on my ASP.Net MVC server models into `ng-*` directive attributes in HTML. That's it.
 
-So, general housekeeping.... I'm going to host this project on [GitHub](<http://www.github.com>), I'm going to have Continuous Integration with [AppVeyor](<http://www.appveyor.com/>) and I'm planning to publish this via [NuGet](<http://www.nuget.org/>) (when and if I've created something useful).
+So, general housekeeping.... I'm going to host this project on [GitHub](http://www.github.com), I'm going to have Continuous Integration with [AppVeyor](http://www.appveyor.com/) and I'm planning to publish this via [NuGet](http://www.nuget.org/) (when and if I've created something useful).
 
 I just need a name and I'll begin. What shall I call it? Some options:
 
@@ -157,8 +157,8 @@ I just need a name and I'll begin. What shall I call it? Some options:
 
 
 
-Hmmmm.... None of them is particularly lighting my fire. The first four are all a bit [RonSeal](<https://en.wikipedia.org/wiki/Ronseal>) \- which is fine.... Ug. The last one... It's a bit more pithy. Okay - I'll go with "NgValidationFor" at least for now. If something better occurs I can always change my mind.
+Hmmmm.... None of them is particularly lighting my fire. The first four are all a bit [RonSeal](https://en.wikipedia.org/wiki/Ronseal) \- which is fine.... Ug. The last one... It's a bit more pithy. Okay - I'll go with "NgValidationFor" at least for now. If something better occurs I can always change my mind.
 
-[And we're off!](<https://github.com/johnnyreilly/NgValidationFor>)
+[And we're off!](https://github.com/johnnyreilly/NgValidationFor)
 
 

@@ -13,13 +13,13 @@ The `fork-ts-checker-webpack-plugin` has, since its inception, performed two cla
 
 
 
-[You may have caught the announcement that TSLint is being deprecated and ESLint is the future of linting in the TypeScript world.](<https://eslint.org/blog/2019/01/future-typescript-eslint>) This plainly has a bearing on linting in `fork-ts-checker-webpack-plugin`.
+[You may have caught the announcement that TSLint is being deprecated and ESLint is the future of linting in the TypeScript world.](https://eslint.org/blog/2019/01/future-typescript-eslint) This plainly has a bearing on linting in `fork-ts-checker-webpack-plugin`.
 
-[I've been beavering away at adding support for ESLint to the fork-ts-checker-webpack-plugin.](<https://github.com/TypeStrong/fork-ts-checker-webpack-plugin/pull/305>) I'm happy to say, the plugin now supports ESLint. Do you want to get your arms all around ESLint with `fork-ts-checker-webpack-plugin`? Read on!
+[I've been beavering away at adding support for ESLint to the fork-ts-checker-webpack-plugin.](https://github.com/TypeStrong/fork-ts-checker-webpack-plugin/pull/305) I'm happy to say, the plugin now supports ESLint. Do you want to get your arms all around ESLint with `fork-ts-checker-webpack-plugin`? Read on!
 
 ## How do you migrate from TSLint to ESLint?
 
-Well, first of all you need the latest and greatest `fork-ts-checker-webpack-plugin`. Support for ESLint shipped with [v1.4.0](<https://github.com/TypeStrong/fork-ts-checker-webpack-plugin/releases/tag/v1.4.0>).
+Well, first of all you need the latest and greatest `fork-ts-checker-webpack-plugin`. Support for ESLint shipped with [v1.4.0](https://github.com/TypeStrong/fork-ts-checker-webpack-plugin/releases/tag/v1.4.0).
 
 You need to change the options you supply to the plugin in your `webpack.config.js` to look something like this:
 
@@ -47,7 +47,7 @@ yarn add eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin --dev
 
 
 
-If you want, you can pass options to ESLint using the `eslintOptions` option as well. These will be passed through to the underlying ESLint CLI Engine when it is instantiated. Docs on the supported options are [documented here](<https://eslint.org/docs/developer-guide/nodejs-api#cliengine>).
+If you want, you can pass options to ESLint using the `eslintOptions` option as well. These will be passed through to the underlying ESLint CLI Engine when it is instantiated. Docs on the supported options are [documented here](https://eslint.org/docs/developer-guide/nodejs-api#cliengine).
 
 ## Go Configure
 
@@ -141,15 +141,15 @@ module.exports = {
 };
 ```
 
-You can add Prettier into the mix too. You can see how it is used in the above code sample. But given the impact that has on performance I wouldn't recommend it; hence it's commented out. [There's a good piece by Rob Cooper's for more details on setting up Prettier and VS Code with TypeScript and ESLint.](<https://dev.to/robertcoopercode/using-eslint-and-prettier-in-a-typescript-project-53jb>)
+You can add Prettier into the mix too. You can see how it is used in the above code sample. But given the impact that has on performance I wouldn't recommend it; hence it's commented out. [There's a good piece by Rob Cooper's for more details on setting up Prettier and VS Code with TypeScript and ESLint.](https://dev.to/robertcoopercode/using-eslint-and-prettier-in-a-typescript-project-53jb)
 
 ## Performance and Power Tools
 
-It's worth noting that support for TypeScript in ESLint is still brand new. As such, the rule of "Make it Work, Make it Right, Make it Fast" applies.... ESLint with TypeScript still has some performance issues which should be ironed out in the fullness of time. You can [track them here](<https://github.com/typescript-eslint/typescript-eslint/issues/389>).
+It's worth noting that support for TypeScript in ESLint is still brand new. As such, the rule of "Make it Work, Make it Right, Make it Fast" applies.... ESLint with TypeScript still has some performance issues which should be ironed out in the fullness of time. You can [track them here](https://github.com/typescript-eslint/typescript-eslint/issues/389).
 
 This is important to bear in mind as, when I converted a large codebase over to using ESLint, I discovered that initial performance of linting was terribly slow. Something that's worth doing right now is identifying which rules are costing you most timewise and tweaking based on whether you think they're earning their keep.
 
-The [`TIMING` environment variable](<https://eslint.org/docs/developer-guide/working-with-rules#per-rule-performance>) can be used to provide a report on the relative cost performance wise of running each rule. A nice way to plug this into your workflow is to add the `cross-env` package to your project: `yarn add cross-env -D` and then add 2 scripts to your `package.json`:
+The [`TIMING` environment variable](https://eslint.org/docs/developer-guide/working-with-rules#per-rule-performance) can be used to provide a report on the relative cost performance wise of running each rule. A nice way to plug this into your workflow is to add the `cross-env` package to your project: `yarn add cross-env -D` and then add 2 scripts to your `package.json`:
 
 ```
 "lint": "eslint ./", 
@@ -163,6 +163,6 @@ The [`TIMING` environment variable](<https://eslint.org/docs/developer-guide/wor
 
 I'd advise, making use of `lint-rule-timings` to identify which rules are costing you performance and then turning `off` rules as you need to. Remember, different rules have different value.
 
-[Finally, if you'd like to see how it's done, here's an example of porting from TSLint to ESLint.](<https://github.com/TypeStrong/ts-loader/pull/960>)
+[Finally, if you'd like to see how it's done, here's an example of porting from TSLint to ESLint.](https://github.com/TypeStrong/ts-loader/pull/960)
 
 

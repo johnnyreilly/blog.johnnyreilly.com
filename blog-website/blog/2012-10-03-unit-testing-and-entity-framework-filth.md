@@ -10,7 +10,7 @@ Just recently I've noticed that there appears to be something of a controversy a
 
  ## The Setup
 
-It started as I was working on a new project. We were using ASP.NET MVC 3 and Entity Framework with DbContext as our persistence layer. Rather than crowbarring the tests in afterwards the intention was to write tests to support the ongoing development. Not quite test driven development but certainly [test supported development](<http://blog.troyd.net/Test+Supported+Development+TSD+Is+NOT+Test+Driven+Development+TDD.aspx>). (Let's not get into the internecine conflict as to whether this is black belt testable code or not - it isn't but he who pays the piper etc.) Oh and we were planning to use MOQ as our mocking library.
+It started as I was working on a new project. We were using ASP.NET MVC 3 and Entity Framework with DbContext as our persistence layer. Rather than crowbarring the tests in afterwards the intention was to write tests to support the ongoing development. Not quite test driven development but certainly [test supported development](http://blog.troyd.net/Test+Supported+Development+TSD+Is+NOT+Test+Driven+Development+TDD.aspx). (Let's not get into the internecine conflict as to whether this is black belt testable code or not - it isn't but he who pays the piper etc.) Oh and we were planning to use MOQ as our mocking library.
 
 It was the first time I'd used DbContext rather than ObjectContext and so I thought I'd do a little research on how people were using DbContext with regards to testability. I had expected to find that there was some kind of consensus and an advised way forwards. I didn't get that at all. Instead I found a number of conflicting opinions.
 
@@ -22,9 +22,9 @@ Not as mad as it sounds. The reason for the extra abstraction is that ObjectCont
 
 ## Or maybe I'm wrong, maybe you can MOQ DbContext?
 
-No you can't. Well that's not true. You can and it's documented [here](<http://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/>) but there's a "but". You need to be using Entity Frameworks Code First approach; actually coding up your DbContext yourself. Before I'd got on board the project had already begun and we were already some way down the road of using the Database First approach. So this didn't seem to be a go-er really.
+No you can't. Well that's not true. You can and it's documented [here](http://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/) but there's a "but". You need to be using Entity Frameworks Code First approach; actually coding up your DbContext yourself. Before I'd got on board the project had already begun and we were already some way down the road of using the Database First approach. So this didn't seem to be a go-er really.
 
-The best article I found on testability and Entity Framework was [this one](<http://msdn.microsoft.com/en-us/library/ff714955.aspx>) by [K. Scott Allen](<http://odetocode.com/>) which essentially detailed how you could implement the Repository / Unit of Work patterns on top of ObjectSet / ObjectContext. In the end I adapted this to do the same thing sat on top of DbSet / DbContext instead.
+The best article I found on testability and Entity Framework was [this one](http://msdn.microsoft.com/en-us/library/ff714955.aspx) by [K. Scott Allen](http://odetocode.com/) which essentially detailed how you could implement the Repository / Unit of Work patterns on top of ObjectSet / ObjectContext. In the end I adapted this to do the same thing sat on top of DbSet / DbContext instead.
 
 With this in place I had me my testable code. I was quite happy with this as it seemed quite intelligible. My new approach looked similar to the existing DbSet / DbContext code and so there wasn't a great deal of re-writing to do. Sorted, right?
 
@@ -32,14 +32,14 @@ With this in place I had me my testable code. I was quite happy with this as it 
 
 I did wonder, given that I found a number of articles about applying the Repository / Unit of Work patterns on top of ObjectSet / ObjectContext that there didn't seem to be many examples to do the same for DbSet / DbContext. (I did find a few examples of this but none that felt satisfactory to me for a variety of reasons.) This puzzled me.
 
-I also started to notice that a 1 man war was being waged against the approach I was using by [Ladislav Mrnka](<http://www.ladislavmrnka.com/about/>). Here are a couple of examples of his crusade:
+I also started to notice that a 1 man war was being waged against the approach I was using by [Ladislav Mrnka](http://www.ladislavmrnka.com/about/). Here are a couple of examples of his crusade:
 
-- [An answer on StackOverflow](<http://stackoverflow.com/a/6904479/761388>) (there's quite a few similar answers around on StackOverflow saying similar)
-- [A comment on Rowan Millers post about fake DbContexts](<http://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/#div-comment-1620>)
+- [An answer on StackOverflow](http://stackoverflow.com/a/6904479/761388) (there's quite a few similar answers around on StackOverflow saying similar)
+- [A comment on Rowan Millers post about fake DbContexts](http://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/#div-comment-1620)
 
 
 
-Ladislav is quite strongly of the opinion that wrapping DbSet / DbContext (and I presume ObjectSet / ObjectContext too) in a further Repository / Unit of Work is an antipattern. To quote him: *"The reason why I don’t like it is leaky abstraction in Linq-to-entities queries ... In your test you have Linq-to-Objects which is superset of Linq-to-entities and only subset of queries written in L2O is translatable to L2E"*. It's worth looking at [Jon Skeets explanation of "leaky abstractions"](<http://www.youtube.com/watch?v=gNeSZYke-_Q>) which he did for TekPub.
+Ladislav is quite strongly of the opinion that wrapping DbSet / DbContext (and I presume ObjectSet / ObjectContext too) in a further Repository / Unit of Work is an antipattern. To quote him: *"The reason why I don’t like it is leaky abstraction in Linq-to-entities queries ... In your test you have Linq-to-Objects which is superset of Linq-to-entities and only subset of queries written in L2O is translatable to L2E"*. It's worth looking at [Jon Skeets explanation of "leaky abstractions"](http://www.youtube.com/watch?v=gNeSZYke-_Q) which he did for TekPub.
 
 As much as I didn't want to admit it - I have come to the conclusion Ladislav probably has a point for a number of reasons:
 
@@ -53,7 +53,7 @@ So in this case unit tests of this sort don't provide you with any security. Wha
 
 ### 2\. Complex queries
 
-You can write some pretty complex LINQ queries if you want. This is made particularly easy if you're using [comprehension syntax](<http://blogs.msdn.com/b/ericlippert/archive/2009/12/07/query-transformations-are-syntactic.aspx>). Whilst these queries may be simple to write it can be uphill work to generate test data to satisfy this. So much so that at times it can feel you've made a rod for your own back using this approach.
+You can write some pretty complex LINQ queries if you want. This is made particularly easy if you're using [comprehension syntax](http://blogs.msdn.com/b/ericlippert/archive/2009/12/07/query-transformations-are-syntactic.aspx). Whilst these queries may be simple to write it can be uphill work to generate test data to satisfy this. So much so that at times it can feel you've made a rod for your own back using this approach.
 
 ### 3\. Lazy Loading
 
@@ -73,10 +73,10 @@ I'm open to the possibility that my opinion may be modified further. And I'd be 
 
 ## Update
 
-It turns out that I'm not alone in thinking about this issue and indeed others have expressed this rather better than me - take a look at Jimmy Bogard's post for an example: [http://lostechies.com/jimmybogard/2012/09/20/limiting-your-abstractions/](<http://lostechies.com/jimmybogard/2012/09/20/limiting-your-abstractions/>).
+It turns out that I'm not alone in thinking about this issue and indeed others have expressed this rather better than me - take a look at Jimmy Bogard's post for an example: [http://lostechies.com/jimmybogard/2012/09/20/limiting-your-abstractions/](http://lostechies.com/jimmybogard/2012/09/20/limiting-your-abstractions/).
 
 ## Update 2
 
-I've also recently watched the following Pluralsight course by Julie Lerman: [http://pluralsight.com/training/Courses/TableOfContents/efarchitecture#efarchitecture-m3-archrepo](<http://pluralsight.com/training/Courses/TableOfContents/efarchitecture#efarchitecture-m3-archrepo>). In this course Julie talks about different implementations of the Repository and Unit of Work patterns in conjunction with Entity Framework. Julie is in favour of using this approach but in this module she elaborates on different "flavours" of these patterns that you might want to use for different reasons (bounded contexts / reference contexts etc). She makes a compelling case and helpfully she is open enough to say that this a point of contention in the community. At the end of watching this I think I felt happy that our "halfway house" approach seems to fit and seems to work. More than anything else Julie made clear that there isn't one definitively "true" approach. Rather many different but similar approaches for achieving the same goal. Good stuff Julie!
+I've also recently watched the following Pluralsight course by Julie Lerman: [http://pluralsight.com/training/Courses/TableOfContents/efarchitecture#efarchitecture-m3-archrepo](http://pluralsight.com/training/Courses/TableOfContents/efarchitecture#efarchitecture-m3-archrepo). In this course Julie talks about different implementations of the Repository and Unit of Work patterns in conjunction with Entity Framework. Julie is in favour of using this approach but in this module she elaborates on different "flavours" of these patterns that you might want to use for different reasons (bounded contexts / reference contexts etc). She makes a compelling case and helpfully she is open enough to say that this a point of contention in the community. At the end of watching this I think I felt happy that our "halfway house" approach seems to fit and seems to work. More than anything else Julie made clear that there isn't one definitively "true" approach. Rather many different but similar approaches for achieving the same goal. Good stuff Julie!
 
 

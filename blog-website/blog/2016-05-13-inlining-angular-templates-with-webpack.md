@@ -6,17 +6,17 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [raw-loader, Angular, templatecache, Webpack]
 hide_table_of_contents: false
 ---
-This technique actually applies to pretty much any web stack where you have to supply templates; it just so happens that I'm using Angular 1.x in this case. Also I have an extra technique which is useful to handle the [ng-include](<https://docs.angularjs.org/api/ng/directive/ngInclude>) scenario.
+This technique actually applies to pretty much any web stack where you have to supply templates; it just so happens that I'm using Angular 1.x in this case. Also I have an extra technique which is useful to handle the [ng-include](https://docs.angularjs.org/api/ng/directive/ngInclude) scenario.
 
  ## Preamble
 
-For some time I've been using webpack to bundle my front end. I write ES6 TypeScript; import statements and all. This is all sewn together using the glorious [ts-loader](<https://www.npmjs.com/package/ts-loader>) to compile and emit ES6 code which is handed off to the wonderful [babel-loader](<https://www.npmjs.com/package/babel-loader>) which transpiles it to ESold code. All with full source map support. It's wonderful.
+For some time I've been using webpack to bundle my front end. I write ES6 TypeScript; import statements and all. This is all sewn together using the glorious [ts-loader](https://www.npmjs.com/package/ts-loader) to compile and emit ES6 code which is handed off to the wonderful [babel-loader](https://www.npmjs.com/package/babel-loader) which transpiles it to ESold code. All with full source map support. It's wonderful.
 
-However, up until now I've been leaving Angular to perform the relevant http requests at runtime when it needs to pull in templates. That works absolutely fine but my preference is to preload those templates. In fact I've [written before](<http://blog.johnnyreilly.com/2015/02/using-gulp-in-asp-net-instead-of-web-optimization.html>) about using the [gulp angular template cache](<https://www.npmjs.com/package/gulp-angular-templatecache>) to achieve just that aim.
+However, up until now I've been leaving Angular to perform the relevant http requests at runtime when it needs to pull in templates. That works absolutely fine but my preference is to preload those templates. In fact I've [written before](http://blog.johnnyreilly.com/2015/02/using-gulp-in-asp-net-instead-of-web-optimization.html) about using the [gulp angular template cache](https://www.npmjs.com/package/gulp-angular-templatecache) to achieve just that aim.
 
 So I was wondering; in this modular world what would be the equivalent approach? Sure I could still use the gulp angular template cache approach but I would like something a little more deliberate and a little less magic. Also, I've discovered (to my cost) that when using the existing approach, it's possible to break the existing implementation without realising it; only finding out there's a problem in Production when unexpected http requests start happening. Finding these problems out at compile time rather than runtime is always to be strived for. So how?
 
-## [raw-loader](<https://www.npmjs.com/package/raw-loader>)!
+## [raw-loader](https://www.npmjs.com/package/raw-loader)!
 
 raw-loader allows you load file content using `require` statements. This works well with the use case of inlining html. So I drop it into my `webpack.config.js` like so:
 
@@ -99,7 +99,7 @@ You've now inlined your template. And for bonus points, if you were to make a mi
 
 ## ng-include
 
-The one use case that this doesn't cover is where your templates import other templates through use of the [ng-include](<https://docs.angularjs.org/api/ng/directive/ngInclude>) directive. They will still trigger http requests as the templates are served. The simple way to prevent that is by priming the angular `<a href="https://docs.angularjs.org/api/ng/service/$templateCache">$templateCache</a>` like so:
+The one use case that this doesn't cover is where your templates import other templates through use of the [ng-include](https://docs.angularjs.org/api/ng/directive/ngInclude) directive. They will still trigger http requests as the templates are served. The simple way to prevent that is by priming the angular `<a href="https://docs.angularjs.org/api/ng/service/$templateCache">$templateCache</a>` like so:
 
 ```js
 app.run(["$templateCache",
