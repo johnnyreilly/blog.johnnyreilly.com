@@ -6,8 +6,8 @@ module.exports = {
   tagline: "The blog of johnnyreilly ❤️🌻",
   url: "https://blog.johnnyreilly.com", // 'https://blog.johnnyreilly.com',
   baseUrl: "/",
-  // onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: "warn",
+  onBrokenLinks: "error",
+  onBrokenMarkdownLinks: "error",
   favicon: "img/favicon.ico",
   organizationName: "johnnyreilly", // Usually your GitHub org/user name.
   projectName: "blog.johnnyreilly.com", // Usually your repo name.

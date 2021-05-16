@@ -3,21 +3,17 @@ import path from "path";
 import axios from "axios";
 
 const docusaurusDirectory = "../blog-website";
-const notMarkdownable: string[] = [];
 const docusaurusBlogDirectory = "../blog-website/blog";
 const imagesToDownloadRegex = /!\[.*\]\((http.*blogspot.*)\)/gi;
+const wonkyUrlsRegex = /\[(.*)\]\(<(.*)>\)/gi;
 
 async function importImages() {
   const posts = await getPosts();
 
   for (const [blogPostName, blogPostContent] of posts) {
     await makePostIntoMarkDownAndDownloadImages(blogPostName, blogPostContent);
+    // await fixWonkyUrls(blogPostName, blogPostContent);
   }
-  if (notMarkdownable.length)
-    console.log(
-      "These blog posts could not be turned into MarkDown - go find out why!",
-      notMarkdownable
-    );
 }
 
 async function getPosts(): Promise<Map<string, string>> {
@@ -63,6 +59,32 @@ async function makePostIntoMarkDownAndDownloadImages(
     } catch (e) {
       console.error(`Failed to download ${url}`);
     }
+  }
+
+  await fs.promises.writeFile(
+    path.resolve(docusaurusDirectory, "blog", blogPostName),
+    blogPostContent
+  );
+}
+
+async function fixWonkyUrls(
+  blogPostName: string,
+  blogPostContent: string
+) {
+  const matches = blogPostContent.matchAll(wonkyUrlsRegex);
+  const textAndUrls: { fullMatch: string; text:string; url: string; }[] = [];
+  for (const match of matches) {
+    const [fullMatch, text, url] = match;
+    textAndUrls.push({fullMatch, text, url});
+  }
+
+  if (textAndUrls.length === 0) return;
+
+  for (const {fullMatch, text, url} of textAndUrls) {
+      blogPostContent = blogPostContent.replace(
+        fullMatch,
+        `[${text}](${url})`
+      );
   }
 
   await fs.promises.writeFile(
