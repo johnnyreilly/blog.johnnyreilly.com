@@ -117,7 +117,7 @@ Hmmm... So sad. If you go to [https://manage.auth0.com/#/applications](<https://
 
 Select it, Save Changes and try again.
 
-![](https://4.bp.blogspot.com/-RhUKING4eYU/W0RxKvVMg2I/AAAAAAAALLM/QohX5jP5rZogoH27UGxVxYxAfTxgcUDXwCPcBGAYYCw/s640/auth0-enable-password-grant-type.png)
+![](../static/blog/2018-07-09-cypress-and-auth0/auth0-enable-password-grant-type.png)
 
 You now have a test which automates your Auth0 login using Cypress and goes on to test your application functionality with it!
 

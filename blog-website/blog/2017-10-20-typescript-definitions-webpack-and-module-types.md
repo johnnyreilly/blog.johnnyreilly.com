@@ -17,7 +17,7 @@ When modules are imported, your loader will decide which module format it wants 
 
 <!-- -->
 
-![](https://2.bp.blogspot.com/-3yKFfse82vg/Wen3PsVsN6I/AAAAAAAAG1Q/OudrhuBvVs0BdzXt67OyMtxRB8peLwbeACPcBGAYYCw/s1600/one-definition-to-rule-them-all.jpg)
+![](../static/blog/2017-10-20-typescript-definitions-webpack-and-module-types/one-definition-to-rule-them-all.jpg)
 
 ## The DR
 

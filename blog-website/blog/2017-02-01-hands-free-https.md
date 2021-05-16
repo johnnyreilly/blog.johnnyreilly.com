@@ -8,7 +8,7 @@ hide_table_of_contents: false
 ---
 I have had a \***great**\* week. You? Take a look at this blog. Can you see what I can see? Here's a clue:
 
- ![](https://3.bp.blogspot.com/-kGUtF6RJR-s/WI4BUnWu4qI/AAAAAAAABDE/8wOD9eHikMwQz5envUcg1tpHXxcJzegngCPcB/s640/Screenshot%2B2017-01-29%2B14.45.57.png)
+ ![](../static/blog/2017-02-01-hands-free-https/Screenshot%2B2017-01-29%2B14.45.57.png)
 
 Yup, look at the top left hand corner.... see that beautiful padlock? Yeah - that's what's thrilled me. You see I have a dream; that one day on the red hills of the internet, the sons of former certificates and the sons of former certificate authorities will be able to sit down together at the table of HTTPS. Peace, love and TLS for all.
 

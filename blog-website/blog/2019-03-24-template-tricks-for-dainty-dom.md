@@ -32,7 +32,7 @@ This was impacting users. Clicking to open a modal resulted in a noticeable lag.
 
 Running an audit of StatsDash in Chrome DevTools there was no doubt we had a DOM problem:
 
- ![](https://1.bp.blogspot.com/-lrVKXxqAtmU/XJdHE509SCI/AAAAAAAAOhU/vxVhqlOMtFMbdm_HDpNkSW55B73Wxm86ACPcBGAYYCw/s640/DOM-massive.png)
+ ![](../static/blog/2019-03-24-template-tricks-for-dainty-dom/DOM-massive.png)
 
 What to do? I still didn't want to go back to the server on each click in StatsDash. And I didn't want to start writing rendering code on the client as well either. I have in the past mixed client and server side rendering and I know well that it's a first class ticket to a confusing codebase.
 

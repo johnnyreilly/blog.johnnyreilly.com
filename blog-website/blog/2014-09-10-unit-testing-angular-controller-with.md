@@ -20,7 +20,7 @@ Whilst I'm at it I thought it might prove helpful if I wrote up how I approached
 
 I have an Angular controller called `sagesDetail`. It powers this screen:
 
-![](http://1.bp.blogspot.com/--OBcJ0FLlmI/VBA_R_UpnXI/AAAAAAAAAtE/Zi4K4dR6PU8/s640/sageDetailScreen.png)
+![](../static/blog/2014-09-10-unit-testing-angular-controller-with/sageDetailScreen.png)
 
 `sagesDetail` is a very simple controller. It does these things:
 

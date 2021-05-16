@@ -80,9 +80,9 @@ What this does is:
 
 That's a wrap - We now have CI which includes our JavaScript tests! That's right we get to see beautiful screens like these:
 
-![](http://4.bp.blogspot.com/--GGN2YPhzkk/VAtx-JUkwAI/AAAAAAAAAsg/XPIJ7PICFsA/s640/Screenshot%2B2014-09-06%2B21.43.15.png)
+![](../static/blog/2014-09-06-running-javascript-unit-tests-in-appveyor/Screenshot%2B2014-09-06%2B21.43.15.png)
 
-![](http://3.bp.blogspot.com/-NNrq3w-EbCg/VAtzVPUOsqI/AAAAAAAAAsw/akwN8-J9K1k/s640/Screenshot%2B2014-09-06%2B21.49.38.png)
+![](../static/blog/2014-09-06-running-javascript-unit-tests-in-appveyor/Screenshot%2B2014-09-06%2B21.49.38.png)
 
 ## Thanks to...
 

@@ -20,11 +20,11 @@ So the obvious thing to do is to take this process and plug in the generation of
 
 In order to complete our chosen mission we're going to need a GitHub Personal Access Token. We're going to use it when we clone, update and push our GitHub Pages branch. To get one we biff over to Settings / Applications in GitHub and click the "Generate New Token" button.
 
-![](http://1.bp.blogspot.com/-TN1tTkL_eoQ/VKwQfPn8_JI/AAAAAAAAAyI/EeF6XLcP8dg/s640/GitHubApplicationSettings.png)
+![](../static/blog/2015-01-07-deploying-aspnet-mvc-to-github-pages-with-appveyor-part-2/GitHubApplicationSettings.png)
 
 The token I'm using for my project has the following scopes selected:
 
-![](http://2.bp.blogspot.com/-2hsSnmHy_DY/VKwQo7MM0BI/AAAAAAAAAyQ/c5ZAT_mZi5w/s640/GitHub%2BPersonal%2BAccess%2BToken.png)
+![](../static/blog/2015-01-07-deploying-aspnet-mvc-to-github-pages-with-appveyor-part-2/GitHub%2BPersonal%2BAccess%2BToken.png)
 
 ## `appveyor.yml`
 
@@ -75,7 +75,7 @@ There's a number of things you should notice from the yml file:
 
 We pass 4 arguments to `pushStatic.ps1`: the build folder, my email address, my username and my personal access token. For the sake of security the GithubPersonalAccessToken has been encrypted as indicated by the `secure` keyword. This is a capability available in AppVeyor [here](<https://ci.appveyor.com/tools/encrypt>).
 
-![](http://1.bp.blogspot.com/-rQcNQPu2ass/VKwRC0QbQTI/AAAAAAAAAyY/8a8Qf5DGapA/s640/AppVeyor%2Bencrypt.png)
+![](../static/blog/2015-01-07-deploying-aspnet-mvc-to-github-pages-with-appveyor-part-2/AppVeyor%2Bencrypt.png)
 
 This allows me to mask my personal access token rather than have it available as free text for anyone to grab.
 

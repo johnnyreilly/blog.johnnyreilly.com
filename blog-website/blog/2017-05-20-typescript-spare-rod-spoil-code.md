@@ -33,7 +33,7 @@ function sayHi(name: string) {
 
 It's an easy mistake to make. I've made this mistake before myself. But with the `noUnusedLocals` compiler setting in place it's now an easy mistake to catch; VS Code lets you know loud and clear:
 
-![](https://2.bp.blogspot.com/-EgsBVxOeD88/WR_NvmhT0dI/AAAAAAAAEzk/LXOWhJyGGDEhr-AmLGqPjRbARQEB6h_ZwCPcB/s400/Screenshot%2B2017-05-20%2B05.58.54.png)
+![](../static/blog/2017-05-20-typescript-spare-rod-spoil-code/Screenshot%2B2017-05-20%2B05.58.54.png)
 
 The other compiler settings will similarly highlight simple mistakes it's possible to make and I'd recommend using them. I should say I've written this from the perspective of a VS Code user, but this really applies generally to TypeScript usage. So whether you're an [alm.tools](<http://alm.tools/>) guy, a WebStorm gal or something else entirely then this too can be yours!
 

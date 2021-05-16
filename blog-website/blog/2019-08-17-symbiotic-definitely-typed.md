@@ -30,17 +30,17 @@ This two step process isn't the end of the world, but it does make it marginally
 
 Fortunately, Kent and [Daniel K](<https://github.com/FredyC>) had one of these moments:
 
- ![](https://4.bp.blogspot.com/-tmH5nbo_kGY/XG-8jmokKdI/AAAAAAAAN_U/umq24uPgdKAZgAlePU5teNs57i8RWOg7gCPcBGAYYCw/s640/hang-on-lads-ive-got-a-great-idea.jpg)
+ ![](../static/blog/2019-08-17-symbiotic-definitely-typed/hang-on-lads-ive-got-a-great-idea.jpg)
 
 Kent suggested that at the same time as dropping the type definitions that were shipped with the library, we try making `@types/testing-library__react` a dependency of `@testing-library/react`. This would mean that people installing `@testing-library/react` would get `@types/testing-library__react` installed *automatically*. So from the developers point of view, it's as though the type definitions shipped with the package directly.
 
 To cut a long story short reader, that's what happened. If you're using `@testing-library/react` from 9.1.2 you're getting Definitely Typed under the covers. This was [nicely illustrated by Kent](<https://github.com/testing-library/react-testing-library/pull/437#issuecomment-521763117>) showing what the TypeScript consumption experience looked like before the Definitely Typed switch:
 
-![](https://1.bp.blogspot.com/-wJCLzg0uPuU/XVhqss-lXwI/AAAAAAAAQ48/SGCl9aEHGjUh1qE7OpyyY8MhqPkd2Rw4wCPcBGAYYCw/s640/RTL-9.1.1.png)
+![](../static/blog/2019-08-17-symbiotic-definitely-typed/RTL-9.1.1.png)
 
 And here's what it looked like after:
 
-![](https://4.bp.blogspot.com/-jeTQeQnKpVY/XVhrvq8D-0I/AAAAAAAAQ5E/tOieujozFZQ_pttgStAAj_zQwtpGl1AsgCLcBGAs/s640/RTL-9.1.2.png)
+![](../static/blog/2019-08-17-symbiotic-definitely-typed/RTL-9.1.2.png)
 
 Identical! i.e it worked. I grant you this is one of the more boring before / after comparisons there is… But hopefully you can see it demonstrates that this is giving us exactly what we need.
 

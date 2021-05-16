@@ -101,7 +101,7 @@ You'll also note that `testIDBKeyval` is an `async` function. This is so that we
 
 What happens when we run our application with `yarn start`? Let's do that and take a look at the devtools:
 
- ![](https://4.bp.blogspot.com/-b9-GrL0IXaY/Xmqj4GRhKXI/AAAAAAAAT5s/ZoceUInSY5EWXeCr2LkGV9Zvea8S6-mUgCPcBGAYYCw/s640/hello_world_idb_keyval.png)
+ ![](../static/blog/2020-03-29-offline-storage-in-pwa/hello_world_idb_keyval.png)
 
 We successfully wrote something into IndexedDB, read it back and printed that value to the console. Amazing!
 
@@ -157,7 +157,7 @@ export default App;
 
 When you run the app you can see how it works:
 
-![](https://3.bp.blogspot.com/-xS6AYMXkqfw/Xmqk4QZQx0I/AAAAAAAAT54/ACHaHu6I9BsKSqQAIW7IgBH9D-UP6iHuACPcBGAYYCw/s640/use-dark-mode.gif)
+![](../static/blog/2020-03-29-offline-storage-in-pwa/use-dark-mode.gif)
 
 Looking at the code you'll be able to see that this is implemented using React's `useState` hook. So any user preference selected will be lost on a page refresh. Let's see if we can take this state and move it into IndexedDB using `IDB-Keyval`.
 
@@ -238,7 +238,7 @@ The changes here are:
 
 As you can see, this means that we are persisting preferences beyond page refresh in a fashion that will work both online *and* offline!
 
-![](https://1.bp.blogspot.com/-ZBsWsQNFDVk/XmqledYAp4I/AAAAAAAAT6E/3ShBesSOuxsrJ34r1QIs0R3HsXGRFBBzgCPcBGAYYCw/s640/use-dark-mode-with-idb-keyval.gif)
+![](../static/blog/2020-03-29-offline-storage-in-pwa/use-dark-mode-with-idb-keyval.gif)
 
 ## Usage as a React hook
 

@@ -45,7 +45,7 @@ Globalize has hit 1.0. Anyone who reads my blog will likely be aware that I'm a 
 
 When it's run it looks like this:
 
-![](http://4.bp.blogspot.com/-FPsorsaP9ek/VbheyWDCUbI/AAAAAAAAA3k/I_Wf5WVJ42s/s640/Screenshot%2B2015-07-29%2B06.03.04.png)
+![](../static/blog/2015-07-30-upgrading-to-globalize-1x-for-dummies/Screenshot%2B2015-07-29%2B06.03.04.png)
 
 Let's see how we go about migrating this super simple example.
 
@@ -317,7 +317,7 @@ The above is standard node/io type code by the way; just take the contents of th
 
 And here is the page in all its post migration glory:
 
-![](http://2.bp.blogspot.com/-cBx66MK1tYI/Vbp5Rvch6zI/AAAAAAAAA30/HBiaN6risRg/s640/Screenshot%2B2015-07-30%2B20.21.19.png)
+![](../static/blog/2015-07-30-upgrading-to-globalize-1x-for-dummies/Screenshot%2B2015-07-30%2B20.21.19.png)
 
 It looks exactly the same except 'de-DE' has become simply 'de' (since that's how the cldr rolls).
 

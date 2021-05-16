@@ -80,7 +80,7 @@ Boris took his type definitions and put them into this repository. Were you ever
 
 [https://github.com/DefinitelyTyped/DefinitelyTyped/commits?after=4a4cf23ff4301835a45bb138bbb62bf5f0759255+699&author=borisyankov](<https://github.com/DefinitelyTyped/DefinitelyTyped/commits?after=4a4cf23ff4301835a45bb138bbb62bf5f0759255+699&author=borisyankov>)
 
-![](https://1.bp.blogspot.com/-0DbMi8aGa1c/XZwdP4VnoKI/AAAAAAAAR9k/33evIreTYEA4KTuZnNnZ9KhlgEAgVrskQCPcBGAYYCw/s640/Initial-CommitsDefinitelyTyped.png)
+![](../static/blog/2019-10-08-definitely-typed-movie/Initial-CommitsDefinitelyTyped.png)
 
 It wasn't complicated; it was just a folder with subfolders underneath; each folder representing a project. One for jQuery, one for jQuery UI, one for Knockout.... You get the idea. It's not so different now.
 
@@ -152,7 +152,7 @@ Bas had the level of self knowledge required to realise that getting others invo
 
 On December 28th 2013 Basarat decided that a regular contributor to Definitely Typed might be a potential team member. Bas opened up Twitter and sent a Direct Message to John Reilly.
 
-![](https://4.bp.blogspot.com/-IZzAtFiDQi8/XZuNoLYhMBI/AAAAAAAAR7k/i-khpa5KpDUjocNFhEfDALsXLCuhlffMACPcBGAYYCw/s640/2019-10-02%2B21_51_58-basarat%2B_%2BTwitter.png)
+![](../static/blog/2019-10-08-definitely-typed-movie/2019-10-02%2B21_51_58-basarat%2B_%2BTwitter.png)
 
 ## John Reilly
 
@@ -341,7 +341,7 @@ The TypeScript team had also been in contact with the Definitely Typed team. The
 
 At this point I have to stick my own hand up and confess to thinking that Definitely Typed was not long for this world. Steve Ognibene (another DT member) and others were all feeling similarly. It seemed inevitable.
 
-![](https://1.bp.blogspot.com/-c9HAg6SjhoM/XZuUCF0ZYOI/AAAAAAAAR8s/_K-q62ccC54gjBr6JW1d7RAL1D_mYaLLgCPcBGAYYCw/s640/steveognibe.png)
+![](../static/blog/2019-10-08-definitely-typed-movie/steveognibe.png)
 
 The TypeScript team were about to change that. After talking, thinking, thinking and talking they put together a plan. It was going to change TypeScript and change Definitely Typed. It was also going to effectively end Typings.
 
@@ -377,13 +377,13 @@ A young Australian man had helped change the direction of TypeScript. It was tim
 
 In the meantime, the TypeScript team was starting to get stuck into the work of giving Definitely Typed a make-over.
 
-![](https://3.bp.blogspot.com/--rEYhuJOjSw/XZuUpGM2eVI/AAAAAAAAR88/qXYMxPswi0cRXriaCx7nwlYCpMQdKHF1wCPcBGAYYCw/s1600/rotation.png)
+![](../static/blog/2019-10-08-definitely-typed-movie/rotation.png)
 
 At this point, Definitely Typed had more than 500 open pull requests. Most of which had been open for a very long time. The most urgent and pressing problem was getting that down. The TypeScript team committed to, in perpetuity, a weekly rotation where one team member would review PRs. This would, in future, mean that PRs were handled in a timely fashion and that the number of open PRs was generally kept beneath 100.
 
 Alongside this, changes were being made to the TypeScript compiler. In large part these related to enabling automatic type acquisition through the @types scope. To make that work, the TypeScript team realised pretty quickly that many of the type definitions would not work as is. Ryan wrote up this report:
 
-![](https://2.bp.blogspot.com/-VixlEWrjrg8/XZuVk6o1LmI/AAAAAAAAR9M/yNYln8kGI08eKe4Foh7D4Nx9wwQ_RYq2gCPcBGAYYCw/s640/RyansDefTypReport.png)
+![](../static/blog/2019-10-08-definitely-typed-movie/RyansDefTypReport.png)
 
 At this point in time there were around 1700 type definitions. Pretty much all of them required some massaging. Roughly speaking, with TS 2.0, the language was going to move from a name based type acquisition approach to a file based one. New features were added to TypeScript 2.0 such as the `export as namespace` syntax to support a type definition supporting both being used in modules (where there are `import` / `export`s) but also in script files (where there aren't)
 
@@ -393,7 +393,7 @@ This was one of the reasons why going with the centralised approach of Definitel
 
 It took a long time to get the types 2.0 branch to a point where CI went green. All this time, merges we're taking place between the master branch and the future one. It was hard, unglamorous work. As Ryan put it, "I partied hard when CI went green for the first time on types 2.0."
 
-![](https://3.bp.blogspot.com/-8Y0e7jeMEgE/XZuWVTGTK9I/AAAAAAAAR9Q/VWVitGY2u6kgXRtYM4jJjgqyEstCANVlACLcBGAsYHQ/s640/types20goinggreen.png)
+![](../static/blog/2019-10-08-definitely-typed-movie/types20goinggreen.png)
 
 The first and most obvious addition was the automation of TypeScript definitions being published out to npm.
 

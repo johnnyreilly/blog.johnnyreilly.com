@@ -105,7 +105,7 @@ console.log('Do another thing');
 
 When our application runs we see this behaviour:
 
- ![](https://3.bp.blogspot.com/-1NFBdptu-Mo/XjUqgCVVisI/AAAAAAAATa8/eYCZ_5XcmZoTAlykNW4Lp4m5uhXnr7KogCPcBGAYYCw/s640/blocking.gif)
+ ![](../static/blog/2020-02-21-web-workers-comlink-typescript-and-react/blocking.gif)
 
 The app starts and logs `Do something` and `Start our long running job...` to the console. It then blocks the UI until the `takeALongTimeToDoSomething` function has completed running. During this time the screen is empty and unresponsive. This is a poor user experience.
 
@@ -236,7 +236,7 @@ function takeALongTimeToDoSomething() {
 
 Now we're ready to demo our application using our function offloaded into a Web Worker. It now behaves like this:
 
-![](https://2.bp.blogspot.com/-UDxm0xHbJpY/XjUrg4BwgTI/AAAAAAAATbE/F2jZ2F4nI9c05puL6zP8n6VYvrPsEOjIQCLcBGAsYHQ/s640/non-blocking.gif)
+![](../static/blog/2020-02-21-web-workers-comlink-typescript-and-react/non-blocking.gif)
 
 There's a number of exciting things to note here:
 
@@ -311,7 +311,7 @@ export default App;
 
 When you try it out you'll notice that entering a single digit locks the UI for 5 seconds whilst it adds the numbers. From the moment the cursor stops blinking to the moment the screen updates the UI is non-responsive:
 
-![](https://2.bp.blogspot.com/-ngQ_wdVxKYw/XjUr33bOiWI/AAAAAAAATbM/kkMzEWKCu8w0NrD6CZeyNRW8CYQ78eRzgCLcBGAsYHQ/s640/blocking-react.gif)
+![](../static/blog/2020-02-21-web-workers-comlink-typescript-and-react/blocking-react.gif)
 
 So far, so classic. Let's Web Workerify this!
 
@@ -459,7 +459,7 @@ export default App;
 
 Now our calculation takes place off the main thread and the UI is no longer blocked!
 
-![](https://3.bp.blogspot.com/-WOTMRZzhaVk/XjUsJTMXBxI/AAAAAAAATbU/6WXtrpk66mY6aFyxBcgvBktQScq_AhyZwCLcBGAsYHQ/s640/non-blocking-react.gif)
+![](../static/blog/2020-02-21-web-workers-comlink-typescript-and-react/non-blocking-react.gif)
 
 [This post was originally published on LogRocket.](<https://blog.logrocket.com/integrating-web-workers-in-a-react-app-with-comlink/>)
 

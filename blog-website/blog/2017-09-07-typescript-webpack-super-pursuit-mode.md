@@ -12,11 +12,11 @@ hide_table_of_contents: false
 
 I'm the primary maintainer of ts-loader, a TypeScript loader for webpack. Just recently a couple of PRs were submitted that said, in other words: ts-loader is like this:
 
-![](https://3.bp.blogspot.com/-31rZcGTrXpk/WThjLBJlBfI/AAAAAAAAFQY/13XSYUVr27IPgtQr80KhQpdDVVKmwaxIgCPcB/s400/KITT.jpg)
+![](../static/blog/2017-09-07-typescript-webpack-super-pursuit-mode/KITT.jpg)
 
 But it could be like this:
 
-![](https://2.bp.blogspot.com/-Mktfora8HfA/WThj-Z-mm0I/AAAAAAAAFQc/stDPTjNiQmUlDIUaCfaN9qjqEUostR_YACLcB/s400/webkitt.jpg)
+![](../static/blog/2017-09-07-typescript-webpack-super-pursuit-mode/webkitt.jpg)
 
 Apologies for the image quality above; there appear to be no high quality pictures out there of KITT in Super Pursuit Mode for me to defame with [Garan Jenkin](<https://github.com/plemont>)'s atrocious puns.
 

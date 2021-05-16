@@ -30,7 +30,7 @@ I didn't really expect this to work - Windows Defender has been running in the b
 
 Alas Windows Defender doesn't stay dead for long; it's like a zombie that rises from the grave no matter how many times you kill it. So you might want to try configuring it to ignore node.exe:
 
-![](https://2.bp.blogspot.com/-Pfq0TRPVLrk/WT1O_ieEo3I/AAAAAAAAFSI/pOSO45HlLcwGFISihZ-t8D8aETjjn64_wCPcB/s640/Screenshot%2B2017-06-11%2B15.05.47.png)
+![](../static/blog/2017-06-11-windows-defender-step-away-from-npm/Screenshot%2B2017-06-11%2B15.05.47.png)
 
 Or switching to Linux...
 

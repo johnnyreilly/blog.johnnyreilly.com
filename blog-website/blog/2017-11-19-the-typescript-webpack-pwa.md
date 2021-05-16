@@ -16,15 +16,15 @@ So this is the plan kids. Let's take a simple TypeScript, webpack setup and make
 
 How to begin? Well first comes the plagiarism; [here's a simple TypeScript webpack setup](<https://github.com/TypeStrong/ts-loader/tree/master/examples/core-js>). Rob it. Stick a gun to its head and order it onto your hard drive. `yarn install` to pick up your dependencies and then `yarn start` to see what you've got. Something like this:
 
-![](https://2.bp.blogspot.com/-Myu9uP3Vy3M/WhHN8AoAKLI/AAAAAAAAHOo/VtxOTu4S3bEhVIzkPvzt-BfV5c6anSidgCPcBGAYYCw/s320/Screenshot%2B2017-11-19%2B18.29.15.png)
+![](../static/blog/2017-11-19-the-typescript-webpack-pwa/Screenshot%2B2017-11-19%2B18.29.15.png)
 
 Beautiful right? And if we `yarn build` we end up with a simple output:
 
-![](https://4.bp.blogspot.com/-EVLkO9g-zSE/WhHPJYhCXJI/AAAAAAAAHO0/rBnRHqsjCE8cHvEPtuPyQqd5DtZDUCgdgCPcBGAYYCw/s320/Screenshot%2B2017-11-19%2B18.34.12.png)
+![](../static/blog/2017-11-19-the-typescript-webpack-pwa/Screenshot%2B2017-11-19%2B18.34.12.png)
 
 To test what we've built out we want to use a simple web server to serve up the `dist` folder. I've got the npm package [http-server](<https://www.npmjs.com/package/http-server>) installed globally for just such an eventuality. So let's `http-server ./dist` and I'm once again looking at our simple app; it looks exactly the same as when I `yarn start`. Smashing. What would we see if we were offline? Well thanks to the magic of Chrome DevTools we can find out. Offline and refresh our browser...
 
-![](https://2.bp.blogspot.com/-6AXev3DTAr8/WhHkJjtRHqI/AAAAAAAAHPI/aTaWZXWQPmIdXSIjoYjBXysWkSJ3wDUJACLcBGAs/s320/Screenshot%2B2017-11-19%2B20.05.19.png)
+![](../static/blog/2017-11-19-the-typescript-webpack-pwa/Screenshot%2B2017-11-19%2B20.05.19.png)
 
 Not very user friendly. Once we're done, we should be able to refresh and still see our app.
 
@@ -104,15 +104,15 @@ Put it together and...
 
 Let's `yarn build` again.
 
-![](https://3.bp.blogspot.com/-qnRIwI47480/WhH97gl3IcI/AAAAAAAAHQE/cGiYHu46Fy4TpKkoy-DBzRnqIJuocFUdQCLcBGAs/s640/Screenshot%2B2017-11-19%2B21.55.18.png)
+![](../static/blog/2017-11-19-the-typescript-webpack-pwa/Screenshot%2B2017-11-19%2B21.55.18.png)
 
 Oooohh look! A service worker is with us. Does it work? Let's find out... `http-server ./dist` Browse to [http://localhost:8080](<http://localhost:8080>) and let's have a look at the console.
 
-![](https://2.bp.blogspot.com/-PuY_60KBBag/WhH5V7BSFEI/AAAAAAAAHP4/jeFJYz9TPXMYpQCiblVVIW1M1xJcS9WiwCLcBGAs/s640/Screenshot%2B2017-11-19%2B21.34.54.png)
+![](../static/blog/2017-11-19-the-typescript-webpack-pwa/Screenshot%2B2017-11-19%2B21.34.54.png)
 
 Looks very exciting. So now the test; let's go offline and refresh:
 
-![](https://3.bp.blogspot.com/-uYJ4yOIuJro/WhH_Yj2xRGI/AAAAAAAAHQQ/hqMmJC-HwwkR6sMGbMJyxCpRms0wXccrgCLcBGAs/s640/Screenshot%2B2017-11-19%2B22.01.37.png)
+![](../static/blog/2017-11-19-the-typescript-webpack-pwa/Screenshot%2B2017-11-19%2B22.01.37.png)
 
 You are looking at the 200s of success. You're now running with webpack and TypeScript and you have built a Progressive Web Application. Feel good about life.
 

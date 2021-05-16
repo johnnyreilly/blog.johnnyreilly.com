@@ -72,11 +72,11 @@ The other prompt says `"Required assets to build and debug are missing from 'Web
 
 So lets try that F5 thing again... http://localhost:5000/ is now serving the same app. That looks pretty good. So lets add a breakpoint to the `HomeController` and see if we can hit it:
 
-![](https://3.bp.blogspot.com/-iGUm3Cz8TzE/WNqNIEYnzUI/AAAAAAAAETU/p8NxbGTzJe8Zj5MbXuivzjGlWEvUPKOygCPcB/s640/firstgo.png)
+![](../static/blog/2017-03-28-debugging-aspnet-core-in-vs-or-code/firstgo.png)
 
 Well I can certainly add a breakpoint but all those red squigglies are unnerving me. Let's clean the slate. If you want to simply do that in VS Code hold down `CTRL+SHIFT+P` and then type "reload". Pick "Reload window". A couple of seconds later we're back in and Code is looking much happier. Can we hit our breakpoint?
 
-![](https://3.bp.blogspot.com/-cOJHnIO0_io/WNqNe6a_94I/AAAAAAAAETc/DXsH0wkvbgIMIrUl04k_oj-VTA5-FS9TwCLcB/s640/secondgo.png)
+![](../static/blog/2017-03-28-debugging-aspnet-core-in-vs-or-code/secondgo.png)
 
 Yes we can! So you're free to develop in either Code or VS; the choice is yours. I think that's pretty awesome - and well done to all the peeople behind Code who've made this a pretty seamless experience!
 

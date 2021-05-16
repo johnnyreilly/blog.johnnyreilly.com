@@ -440,7 +440,7 @@ The eagle eyed amongst you will also have noticed a peculiar first line to our `
 
 This mysterious comment is actually how the Task Runner Explorer hooks our `gulpfile.js` into the Visual Studio build process. Our "magic comment" ensures that on the `AfterBuild` event, Task Runner Explorer runs the `default` task in our `gulpfile.js`. The reason we're using the `AfterBuild` event rather than the `BeforeBuild` event is because our project contains TypeScript and we need the transpiled JavaScript to be created before we can usefully run our package tasks. If we were using JavaScript alone then that wouldn't be an issue and either build event would do.
 
-![](http://3.bp.blogspot.com/-prRrVlSsyXw/VEaD97QeIRI/AAAAAAAAAt0/WT1AElVQw4E/s640/Screenshot%2B2014-10-21%2B17.02.11.png)
+![](../static/blog/2014-11-04-using-gulp-in-visual-studio-instead-of-web-optimization/Screenshot%2B2014-10-21%2B17.02.11.png)
 
 ## How do I use this in my HTML?
 

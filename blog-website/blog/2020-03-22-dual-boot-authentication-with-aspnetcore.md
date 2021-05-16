@@ -32,7 +32,7 @@ Robski challenged my plans. "We don't need it. Have one pod that does both sorts
 
  I loved the idea but I didn't think that ASP.Net Core supported it. "It's just not a thing Robski; ASP.Net Core doesn't suppport it." Robski didn't believe me. That turned out to a *very good thing*. There followed a period of much googling and experimentation. One day of hunting in, I was still convinced there was no way to do it that would allow me to look in the mirror without self loathing. Then Robski sent me this:
 
-![](https://4.bp.blogspot.com/-CjllrSY1e04/XneghUmKZ_I/AAAAAAAAUEA/WfZwU25wfQUWFVItCeC5l7FITgCaru9PgCPcBGAYYCw/s400/robski-dynamic-auth.png)
+![](../static/blog/2020-03-22-dual-boot-authentication-with-aspnetcore/robski-dynamic-auth.png)
 
 It was a link to the amazing [David Fowler](<https://twitter.com/davidfowl>) talking about [some API I'd never heard of called `SchemeSelector`](<https://github.com/aspnet/Security/issues/1469#issuecomment-335027005>). It turned out that this was the starting point for exactly what we needed; a way to dynamically select an authentication scheme at runtime.
 
