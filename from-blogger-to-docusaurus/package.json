@@ -18,7 +18,8 @@
     "typescript": "^4.2.2"
   },
   "scripts": {
-    "start": "ts-node index.ts"
+    "start": "ts-node index.ts",
+    "images": "ts-node images.ts"
   },
   "author": "",
   "license": "ISC"
