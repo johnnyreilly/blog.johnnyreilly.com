@@ -7,4 +7,4 @@ This repo contains the source code for John Reilly's blog. It is published to tw
 - https://blog.johnnyreilly.com - the primary deployment of the blog to GitHub Pages using [Docusaurus](https://v2.docusaurus.io/)
 - https://icanmakethiswork.blogspot.com - the historic home of the blog on Blogger; lived there from 2012-2021
 
-[GitHub Actions do the publication.](.github/blog.yml)
+[GitHub Actions do the publication.](.github/workflows/blog.yml)
