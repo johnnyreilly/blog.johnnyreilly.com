@@ -7,17 +7,13 @@ tags: [Microsoft Teams, connectors, notifications, webhook]
 image: blog/2019-12-18-teams-notification-webhooks/teams-notification.gif
 hide_table_of_contents: false
 ---
-Teams notifications are mighty useful. This post will explain the following:
+Teams notifications are mighty useful. You can send them using Markdown via a webhook.
+
+This post will explain the following:
 
 1. How you can automate the sending of notifications using Teams.
-2. How Teams supports MarkDown in notifications.
+2. How Teams supports Markdown in notifications.
 3. How you can use ASP.Net Core to automate sending notifications.
-
-## First, some mild complaints
-
-Recently, my team transitioned from using Slack to using Microsoft Teams. It's fair to say that the team had a lot of love for Slack. Teams is a poorer product from the perspective of UI / UX. Maybe as you read this in the future that's all changed. But here on December 18th 2019, Teams is a solid 2 stars out of 5.
-
-However, we are where we are, and the purpose of this post is not to complain. Because our team is now effectively using Microsoft Teams. And one of the things that's helped us make the move is automating various Teams notifications in a similar fashion to how we used to with Slack.
 
 ## Notifications via Webhooks
 
@@ -31,7 +27,7 @@ With the URL you've just obtained, you are now free to send notifications to tha
 curl -H "Content-Type: application/json" -d "{\"text\": \"Hello World\"}" https://outlook.office.com/webhook/big-long-guid1/IncomingWebhook/big-long-guid2
 ```
 
-## MarkDown
+## Markdown
 
 Let's see if we can make this more interesting. It turns out that the the webhook can receive JSON as the body of the payload. And there's 3 properties we'd like our JSON to contain:
 
@@ -55,7 +51,7 @@ We can trigger it with this `curl`:
 curl -H "Content-Type: application/json" -d @down.json https://outlook.office.com/webhook/big-long-guid1/IncomingWebhook/big-long-guid2
 ```
 
-As you can see from the example above, you can use all the qualities of MarkDown that you know and love. Text, bold text, italics, links and even images too. It's *great*!
+As you can see from the example above, you can use all the qualities of Markdown that you know and love. Text, bold text, italics, links and even images too. It's *great*!
 
 ![animation of Teams notification](../static/blog/2019-12-18-teams-notification-webhooks/teams-notification.gif)
 
@@ -65,7 +61,7 @@ Finally, I wanted to illustrate just how simple the WebHooks API makes plugging 
 
 Here's a class called `TeamsNotificationService`. It exposes 2 methods:
 
-- `SendNotification` which allows the consumer to just provide a `title` and a `message` \- you could consume this from anywhere in your app and use it to publish the notification of your choice.
+- `SendNotification` which allows the consumer to just provide a `title` and a `message` - you could consume this from anywhere in your app and use it to publish the notification of your choice.
 - `SendExcitingNotification` which actually uses `SendNotification` and illustrates how you might provide an exciting notification to publish out.
 
 ```cs
@@ -159,4 +155,4 @@ namespace My.Services {
 }
 ```
 
-It's as simple as that :-)
+It's as simple as that 😄
