@@ -47,7 +47,7 @@ Wouldn't it be nice to have both:
 1. Readable code and
 2. Anonymous objects?
 
-<!-- -->
+
 
 ## Attempt #2: `EnumerableExtensions.Create`
 
@@ -89,6 +89,6 @@ That's right; anonymous types are back! Strictly speaking the `Concat` method ab
 
 If you look closely at the implementation you'll notice that I purge all `null`s when I'm bringing together the `Enumerable`s. For why? Some may legitimately argue this is a bad idea. However, there is method in my "bad practice".
 
-I've chosen to treat `null` as "not important" for this use case. I'm doing this because it emerges that ASP.NET MVC deserialises empty collections as nulls. (See [here](<http://aspnetwebstack.codeplex.com/SourceControl/latest#src/System.Web.Mvc/ValueProviderResult.cs>) and play spot the `return null;`) Which is a pain. But thanks to the null purging behaviour of `EnumerableExtensions.Create` I can trust in the [null-conditional (Elvis)](<https://csharp.today/c-6-features-null-conditional-and-and-null-coalescing-operators/>) operator to not do me wrong.
+I've chosen to treat `null` as "not important" for this use case. I'm doing this because it emerges that ASP.NET MVC deserialises empty collections as nulls. (See [here](http://aspnetwebstack.codeplex.com/SourceControl/latest#src/System.Web.Mvc/ValueProviderResult.cs) and play spot the `return null;`) Which is a pain. But thanks to the null purging behaviour of `EnumerableExtensions.Create` I can trust in the [null-conditional (Elvis)](https://csharp.today/c-6-features-null-conditional-and-and-null-coalescing-operators/) operator to not do me wrong.
 
 

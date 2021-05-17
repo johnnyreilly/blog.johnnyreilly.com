@@ -14,9 +14,9 @@ Like Captain Ahab I resolve to sync the white whale that is webpack's `<a href="
 
 Well that doesn't sound too promising. Let's have a look at the docs. Ah. Hmmm. You know how it goes with webpack. Why document anything clearly when people could just guess wildly until they near insanity and gibber? Right? It's well established that webpack's attitude to docs has been traditionally akin to Gordon Gecko's view on lunch.
 
-![](https://3.bp.blogspot.com/-b3dUlC6AJjI/WE2U_wcJvrI/AAAAAAAAA_4/lciulxFqwrUAZxLol9FVybHCpCdgXSufgCLcB/s1600/documentation-is-for-wimps.png)
+![](../static/blog/2016-12-11-webpack-syncing-enhanced-resolve/documentation-is-for-wimps.png)
 
-In all fairness, things are beginning to change on that front. In fact the [new docs](<https://webpack.js.org/>) look very promising. But regrettably, the docs on the enhanced-resolve repo are old school. Which is to say: opaque. However, I'm here to tell you that if a sync resolver is your baby then, contrary to appearances, `enhanced-resolve` has your back.
+In all fairness, things are beginning to change on that front. In fact the [new docs](https://webpack.js.org/) look very promising. But regrettably, the docs on the enhanced-resolve repo are old school. Which is to say: opaque. However, I'm here to tell you that if a sync resolver is your baby then, contrary to appearances, `enhanced-resolve` has your back.
 
 ## Sync, for lack of a better word, is good
 
@@ -34,7 +34,7 @@ function makeSyncResolver(options) {
 const resolveSync = makeSyncResolver(loader.options);
 ```
 
-The loader options used above you'll be familiar with as the `resolve` section of your `webpack.config.js`. You can read more about them [here](<https://github.com/webpack/enhanced-resolve/blob/master/README.md>) and [here](<https://webpack.js.org/configuration/resolve/>).
+The loader options used above you'll be familiar with as the `resolve` section of your `webpack.config.js`. You can read more about them [here](https://github.com/webpack/enhanced-resolve/blob/master/README.md) and [here](https://webpack.js.org/configuration/resolve/).
 
 What you're left with at this point is a function; a `resolveSync` function if you will that takes 3 arguments:
 

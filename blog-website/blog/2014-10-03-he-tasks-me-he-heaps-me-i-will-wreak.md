@@ -123,7 +123,7 @@ _sageServiceMock
 
 No it won't - `void` is not a real type and much as you might like it to, this is not going to work.
 
-So right now you're thinking, well Moq probably has my back - it'll have something like `ReturnsTask`, right? Wrong! It's intentional it turns out - there's a discussion on [GitHub about the issue](<https://github.com/Moq/moq4/issues/117>). And in that discussion there's just what we need. We can use `Task.Delay` or `Task.FromResult` alongside Moq's good old `Returns` method and we're home free!
+So right now you're thinking, well Moq probably has my back - it'll have something like `ReturnsTask`, right? Wrong! It's intentional it turns out - there's a discussion on [GitHub about the issue](https://github.com/Moq/moq4/issues/117). And in that discussion there's just what we need. We can use `Task.Delay` or `Task.FromResult` alongside Moq's good old `Returns` method and we're home free!
 
 ## Here's one I made earlier...
 

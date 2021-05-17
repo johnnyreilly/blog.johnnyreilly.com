@@ -6,7 +6,7 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Destructuring, Ternary Operator, TypeScript, ES2015]
 hide_table_of_contents: false
 ---
-I'm addicted to the [ternary operator](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator>). For reasons I can't explain, I cannot get enough of:
+I'm addicted to the [ternary operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator). For reasons I can't explain, I cannot get enough of:
 
  ```js
 const thisOrThat = (someCondition) ? "this" : "or that"
@@ -32,7 +32,7 @@ Just going from setting one variable to setting two has been really traumatic:
 - I've gone from 1 line of code to *9 lines of code*. That's 9x the code for increasing the number of variables in play by 1. That's... heavy.
 - This third point only applies if you're using TypeScript (and I am): I have to specify the types of my variables up front if I want type safety.
 
-<!-- -->
+
 
 ES2015 gives us another option. We can move back to the ternary operator if we change the return type of each branch to be an object sharing the same signature. Then, using destructuring, we can pull out those object properties into `const`s:
 
@@ -48,13 +48,13 @@ With this approach we're keeping usage of `const` instead of `let` and we're onl
 
 I thought I was done and then I saw this:
 
-> [@johnny\_reilly](<https://twitter.com/johnny_reilly>) even neater with tuples: const [str, num] = test ? ["yes", 100] : ["no", 50];
+> [@johnny\_reilly](https://twitter.com/johnny_reilly) even neater with tuples: const [str, num] = test ? ["yes", 100] : ["no", 50];
 > 
-> — Illustrated Pamphlet (@Rickenhacker) [August 20, 2016](<https://twitter.com/Rickenhacker/status/766913766323781632>)
+> — Illustrated Pamphlet (@Rickenhacker) [August 20, 2016](https://twitter.com/Rickenhacker/status/766913766323781632)
 
 <script async="" src="//platform.twitter.com/widgets.js" charSet="utf-8"></script>
 
-[Daniel](<https://twitter.com/Rickenhacker>) helpfully points out that there's an even terser syntax available to us:
+[Daniel](https://twitter.com/Rickenhacker) helpfully points out that there's an even terser syntax available to us:
 
 ```ts
 const [ legWear, coat ] = (weather === "good") 
@@ -62,7 +62,7 @@ const [ legWear, coat ] = (weather === "good")
   : [ "jeans",  true  ]
 ```
 
-The above is ES2015 array destructuring. We get exactly the same effect but it's a little terser as we don't have to repeat the prop names as we do when using object destructuring. From a TypeScript perspective the assignment side of the above is a [Tuple](<https://github.com/Microsoft/TypeScript/pull/428>) which allows our type inference to flow through in the manner we'd hope.
+The above is ES2015 array destructuring. We get exactly the same effect but it's a little terser as we don't have to repeat the prop names as we do when using object destructuring. From a TypeScript perspective the assignment side of the above is a [Tuple](https://github.com/Microsoft/TypeScript/pull/428) which allows our type inference to flow through in the manner we'd hope.
 
 Lovely. Thanks!
 

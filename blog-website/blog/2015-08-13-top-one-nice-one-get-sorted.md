@@ -6,15 +6,15 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [sort, javascript, OrderBy, LINQ]
 hide_table_of_contents: false
 ---
-I was recently reading [a post by Jaime González García](<http://www.barbarianmeetscoding.com/blog/2015/07/09/mastering-the-arcane-art-of-javascript-mancy-for-c-sharp-developers-chapter-7-using-linq-in-javascript/>) which featured the following mind-bending proposition:
+I was recently reading [a post by Jaime González García](http://www.barbarianmeetscoding.com/blog/2015/07/09/mastering-the-arcane-art-of-javascript-mancy-for-c-sharp-developers-chapter-7-using-linq-in-javascript/) which featured the following mind-bending proposition:
 
- > What if I told you that JavaScript has [LINQ](<https://msdn.microsoft.com/en-us/library/bb397926.aspx>)??
+ > What if I told you that JavaScript has [LINQ](https://msdn.microsoft.com/en-us/library/bb397926.aspx)??
 
-It got me thinking about one of favourite features of LINQ: [ordering using OrderBy, ThenBy...](<http://www.dotnetperls.com/orderby-extension>) The ability to simply expose a collection of objects in a given order with a relatively terse and descriptive syntax. It is fantastically convenient, expressive and something I've been missing in JavaScript. But if Jaime is right... Well, let's see what we can do.
+It got me thinking about one of favourite features of LINQ: [ordering using OrderBy, ThenBy...](http://www.dotnetperls.com/orderby-extension) The ability to simply expose a collection of objects in a given order with a relatively terse and descriptive syntax. It is fantastically convenient, expressive and something I've been missing in JavaScript. But if Jaime is right... Well, let's see what we can do.
 
 ## Sort
 
-JavaScript arrays have a [sort](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort>) method. To quote MDN:
+JavaScript arrays have a [sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) method. To quote MDN:
 
 > `arr.sort([compareFunction])`### `compareFunction`
 > 
@@ -130,7 +130,7 @@ As the name suggests, this function takes a given comparer that's handed to it a
 - positive - implies `obj1` is greater than `obj2` by the ordering criterion
 - negative - implies `obj1` is less than `obj2` by the ordering criterion
 
-<!-- -->
+
 
 Our `reverse` function takes the comparer it is given and returns a new comparer that will return a positive value where the old one would have returned a negative and vica versa. (Equality is unaffected.) An alternative implementation would have been this:
 
@@ -188,7 +188,7 @@ const foodInTheHouseSorted = foodInTheHouse.sort(composeComparers(
 
 ## `composeComparers`: The Sequel
 
-I'm not gonna lie - I was feeling quite pleased with this approach. I shared it with my friend (and repeated colleague) [Peter Foldi](<http://blog.peterfoldi.com/>). The next day I found this in my inbox:
+I'm not gonna lie - I was feeling quite pleased with this approach. I shared it with my friend (and repeated colleague) [Peter Foldi](http://blog.peterfoldi.com/). The next day I found this in my inbox:
 
 ```js
 function composeComparers(...comparers) {
@@ -215,7 +215,7 @@ That's right, he's created a function which takes a number of comparers and redu
 
 I know.
 
-![](http://i.qkme.me/3qknmj.jpg)
+![](../static/blog/2015-08-13-top-one-nice-one-get-sorted/3qknmj.jpg)
 
 I'll get my coat...
 

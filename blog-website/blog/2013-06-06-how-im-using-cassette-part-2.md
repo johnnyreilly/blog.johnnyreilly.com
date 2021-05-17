@@ -6,13 +6,13 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [script references, RequireJS, cassette]
 hide_table_of_contents: false
 ---
-[Last time](<http://icanmakethiswork.blogspot.co.uk/2013/05/how-im-using-cassette.html>) I wrote about Cassette I was talking about how to generally get up and running. How to use Cassette within an ASP.Net MVC project. What I want to write about now is (in my eyes) the most useful feature of Cassette by a country mile. This is Cassettes ability to ensure scripts are served in dependency order.
+[Last time](http://icanmakethiswork.blogspot.co.uk/2013/05/how-im-using-cassette.html) I wrote about Cassette I was talking about how to generally get up and running. How to use Cassette within an ASP.Net MVC project. What I want to write about now is (in my eyes) the most useful feature of Cassette by a country mile. This is Cassettes ability to ensure scripts are served in dependency order.
 
  ## Why does this matter?
 
-You might well ask. If we go back 10 years or so then really this wasn't a problem. No-one was doing a great deal with JavaScript. And if they did anything it tended to be code snippets in amongst the HTML; nothing adventurous. But unless you've had your head in the sand for the last 3 years then you will have clearly noticed that JavaScript is in rude health and being used for all kinds of things you'd never have imagined. In fact some would have it that it's the [assembly language of the web](<http://www.hanselman.com/blog/JavaScriptisAssemblyLanguagefortheWebPart2MadnessorjustInsanity.aspx>).
+You might well ask. If we go back 10 years or so then really this wasn't a problem. No-one was doing a great deal with JavaScript. And if they did anything it tended to be code snippets in amongst the HTML; nothing adventurous. But unless you've had your head in the sand for the last 3 years then you will have clearly noticed that JavaScript is in rude health and being used for all kinds of things you'd never have imagined. In fact some would have it that it's the [assembly language of the web](http://www.hanselman.com/blog/JavaScriptisAssemblyLanguagefortheWebPart2MadnessorjustInsanity.aspx).
 
-For my part, I've been doing more and more with JavaScript. And as I do more and more with it I seek to modularise my code; ([like any good developer would](<http://en.wikipedia.org/wiki/Separation_of_concerns>)) breaking it up into discrete areas of functionality. I aim to only serve up the JavaScript that I need on a given page. And that would be all well and good but for one of the languages shortcomings. Modules. JavaScript doesn't yet have a good module loading story to tell. (Apparently one's coming in [EcmaScript 6](<http://wiki.ecmascript.org/doku.php?id=harmony:modules>)). (I don't want to get diverted into this topic as it's a big area. But if you're interested then you can read up a little on different approaches being used [here](<http://requirejs.org/docs/whyamd.html#today>). The ongoing contest between RequireJS and CommonJS frankly makes me want to keep my distance for now.)
+For my part, I've been doing more and more with JavaScript. And as I do more and more with it I seek to modularise my code; ([like any good developer would](http://en.wikipedia.org/wiki/Separation_of_concerns)) breaking it up into discrete areas of functionality. I aim to only serve up the JavaScript that I need on a given page. And that would be all well and good but for one of the languages shortcomings. Modules. JavaScript doesn't yet have a good module loading story to tell. (Apparently one's coming in [EcmaScript 6](http://wiki.ecmascript.org/doku.php?id=harmony:modules)). (I don't want to get diverted into this topic as it's a big area. But if you're interested then you can read up a little on different approaches being used [here](http://requirejs.org/docs/whyamd.html#today). The ongoing contest between RequireJS and CommonJS frankly makes me want to keep my distance for now.)
 
 ## It Depends
 
@@ -56,7 +56,7 @@ This is a very simple demonstration of the feature but I can't underplay just ho
 
 ## Declaring References in your JavaScript itself
 
-And the good news doesn't stop there. Let's say you **don't** want to maintain your references in a separate file. You'd rather declare references inside your JavaScript files themselves. Well - you can. Cassette caters for this through the usage of [Asset References](<http://getcassette.net/documentation/v1/AssetReferences>).
+And the good news doesn't stop there. Let's say you **don't** want to maintain your references in a separate file. You'd rather declare references inside your JavaScript files themselves. Well - you can. Cassette caters for this through the usage of [Asset References](http://getcassette.net/documentation/v1/AssetReferences).
 
 Let's demo this. First of all add the following file at this location in the project: `~/Scripts/Views/Home/Index.js`
 
@@ -68,7 +68,7 @@ The eagle-eyed amongst you will have noticed
 2. The purpose of the script is very simple, it fades out the main body of the screen, re-writes the HTML in that tag and then fades back in. It's purpose is just to do something that is obvious to the user - so they can see the evidence of JavaScript executing.
 3. Lastly and most importantly, do you notice that `// @reference ~/bundles/core` is the first line of the file? This is our script reference. It's this that Cassette will be reading to pick up references.
 
-<!-- -->
+
 
 To make sure Cassette is picking up our brand new file let's take a look at `CassetteConfiguration.cs` and uncomment the line of code below:
 
@@ -100,7 +100,7 @@ It would fulfil exactly the same purpose and would work identically. But there's
 
 There is also support in Cassette for CSS referencing (as well as other types of referencing relating to LESS and even CoffeeScript). I haven't made use of CSS referencing myself as, in stark contrast to my JS, my CSS is generally one bundle of styles which I'm happy to be rendered on each page. But it's nice to know the option is there if I wanted it.
 
-Finally, as last time you can see what I've done in this post by just looking at the repository on [GitHub](<https://github.com/johnnyreilly/CassetteDemo/tree/References>). The changes I made are on the References branch of that particular repository.
+Finally, as last time you can see what I've done in this post by just looking at the repository on [GitHub](https://github.com/johnnyreilly/CassetteDemo/tree/References). The changes I made are on the References branch of that particular repository.
 
 <!-- I don't want to serve up a monster JavaScript payload with each screen refresh.  Quite besides anything else, if I did that each screen refresh would be slower as more JavaScript was served up and parsed - the UX would suffer.  I don't want that.  I want *<strong>performance</strong>*! -->
 

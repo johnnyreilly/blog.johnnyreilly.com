@@ -21,9 +21,9 @@ Generally I try to keep the logic in a view to a minimum. It makes the view hard
 
 ## `ui-sref` in the Controller
 
-Actually, that's not exactly what you want to do. If you look at the [Angular UI Router docs](<http://angular-ui.github.io/ui-router/site/#/api/ui.router.state.directive:ui-sref>) you will see that `ui-sref` is:
+Actually, that's not exactly what you want to do. If you look at the [Angular UI Router docs](http://angular-ui.github.io/ui-router/site/#/api/ui.router.state.directive:ui-sref) you will see that `ui-sref` is:
 
-> ...a directive that binds a link (`&lt;a&gt;` tag) to a state. If the state has an associated URL, the directive will automatically generate & update the href attribute via the [`$state.href()`](<http://angular-ui.github.io/ui-router/site/#/api/ui.router.state.$state#methods_href>) method.
+> ...a directive that binds a link (`&lt;a&gt;` tag) to a state. If the state has an associated URL, the directive will automatically generate & update the href attribute via the [`$state.href()`](http://angular-ui.github.io/ui-router/site/#/api/ui.router.state.$state#methods_href) method.
 
 So what we actually want to do is use the `$state.href()` method in our controller. To take our example above we'll create another method on our controller called `getEditUrl`
 

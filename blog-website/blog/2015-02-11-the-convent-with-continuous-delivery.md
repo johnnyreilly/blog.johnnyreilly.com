@@ -6,9 +6,9 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Poor Clares, Continuous Delivery, Arundel, AppVeyor]
 hide_table_of_contents: false
 ---
-I've done it. I've open sourced the [website that I maintain for my aunt what is a nun](<http://www.poorclaresarundel.org/>). Because I think we can all agree that nuns need open source and continuous integration about as much as anyone else.
+I've done it. I've open sourced the [website that I maintain for my aunt what is a nun](http://www.poorclaresarundel.org/). Because I think we can all agree that nuns need open source and continuous integration about as much as anyone else.
 
- For a long time now I've been maintaining a website for one of my (many) aunts that is a Poor Clare. ([That's a subtype of "nun" you OO enthusiasts.](<https://en.wikipedia.org/wiki/Subtyping>)) It's not a terribly exciting site - it's mostly static content. It's built with a combination of AngularJS / TypeScript / Bootstrap and ASP.Net MVC. It's hosted on [Azure Websites](<http://azure.microsoft.com/en-us/documentation/services/websites/>). In fact I have written about it (slightly more cagily) before [here](<https://blog.johnnyreilly.com/2014/06/migrating-from-angularjs-to-angularts.html>).
+ For a long time now I've been maintaining a website for one of my (many) aunts that is a Poor Clare. ([That's a subtype of "nun" you OO enthusiasts.](https://en.wikipedia.org/wiki/Subtyping)) It's not a terribly exciting site - it's mostly static content. It's built with a combination of AngularJS / TypeScript / Bootstrap and ASP.Net MVC. It's hosted on [Azure Websites](http://azure.microsoft.com/en-us/documentation/services/websites/). In fact I have written about it (slightly more cagily) before [here](https://blog.johnnyreilly.com/2014/06/migrating-from-angularjs-to-angularts.html).
 
 I'll say up front: presentation-wise the site is not a work of art. However the nuns seem pretty happy with it. (Or perhaps secretly they're forgiving me the shonkiness and sparing my feelings - who can say?) If I put my mind to it the site could look much more lovely. But there's only so much time I can spare - and that's actually one of the reasons I've set up Continuous Delivery.
 
@@ -22,9 +22,9 @@ It occurred to me that if I had Continuous Delivery set up then I could make the
 
 ## How did you go about it?
 
-Since [Visual Studio Online (then "Team Foundation Service")](<http://www.visualstudioonline.com>) was released I have been using it to host the source code. So the obvious solution was to use the tools offered there to do the deployment. However, this wasn't the smooth experience you might have hoped for. I had quite a frustrating afternoon trying things out before deciding it was becoming more trouble than it was worth. VSO appeared to make it supremely hard to customise builds.
+Since [Visual Studio Online (then "Team Foundation Service")](http://www.visualstudioonline.com) was released I have been using it to host the source code. So the obvious solution was to use the tools offered there to do the deployment. However, this wasn't the smooth experience you might have hoped for. I had quite a frustrating afternoon trying things out before deciding it was becoming more trouble than it was worth. VSO appeared to make it supremely hard to customise builds.
 
-Just recently though I have been having the most wonderful experience with [AppVeyor](<http://www.appveyor.com/>). AppVeyor market themselves as *"#1 Continuous Delivery service for Windows"* \- I think they're right. Their build process is entirely flexible and customisable. It is, in short, a joy to use. (The support is fantastic too - very helpful indeed. Go [Feodor](<https://github.com/FeodorFitsner>)!)
+Just recently though I have been having the most wonderful experience with [AppVeyor](http://www.appveyor.com/). AppVeyor market themselves as *"#1 Continuous Delivery service for Windows"* \- I think they're right. Their build process is entirely flexible and customisable. It is, in short, a joy to use. (The support is fantastic too - very helpful indeed. Go [Feodor](https://github.com/FeodorFitsner)!)
 
 If you look just below the header you'll read a very important sentence: *"Free for open-source projects"*. You hear that? By the time I'd finished reading that sentence I'd decided that the Poor Clares website was about to become an open source project.
 
@@ -32,7 +32,7 @@ And now it is.
 
 ## Where is it?
 
-The source on [GitHub](<https://github.com/johnnyreilly/poorclaresarundel>). The builds and deployment are taken care of by [AppVeyor](<https://ci.appveyor.com/project/JohnReilly/poorclaresarundel>).
+The source on [GitHub](https://github.com/johnnyreilly/poorclaresarundel). The builds and deployment are taken care of by [AppVeyor](https://ci.appveyor.com/project/JohnReilly/poorclaresarundel).
 
 ## Will you take pull requests?
 

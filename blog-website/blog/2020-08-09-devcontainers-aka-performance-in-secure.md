@@ -18,7 +18,7 @@ The most secure computer is off. But you won't ship much with it. Encouraging yo
 
 Devcontainers, the infrastructure as code equivalent for developing software, have an underappreciated quality: unlocking your machine's performance.
 
-Devcontainers are isolated secure sandboxes in which you can build software. To quote the [docs](<https://code.visualstudio.com/docs/remote/containers>):
+Devcontainers are isolated secure sandboxes in which you can build software. To quote the [docs](https://code.visualstudio.com/docs/remote/containers):
 
 > A `devcontainer.json` file in your project tells VS Code how to access (or create) a development container with a well-defined tool and runtime stack. This container can be used to run an application or to sandbox tools, libraries, or runtimes needed for working with a codebase.
 > 
@@ -26,7 +26,7 @@ Devcontainers are isolated secure sandboxes in which you can build software. To 
 
 We're going to set up a devcontainer to code an ASP.NET Core application with a JavaScript (well TypeScript) front end. If there's one thing that's sure to catch a virus checkers beady eye, it's `node_modules`. `node_modules` contains more files than a black hole has mass. Consider a project with 5,000 source files. One trusty `yarn` later and the folder now has a tidy 250,000 files. The virus checker is now really sitting up and taking notice.
 
-Our project has a `git commit` hook set up with [Husky](<https://github.com/typicode/husky>) that formats our TypeScript files with [Prettier](<https://prettier.io/>). Every commit the files are formatted to align with the project standard. With all the virus checkers in place a `git commit` takes around 45 seconds. Inside a devcontainer we can drop this to 5 seconds. That's nine times faster. I'll repeat that: that's **nine times faster**!
+Our project has a `git commit` hook set up with [Husky](https://github.com/typicode/husky) that formats our TypeScript files with [Prettier](https://prettier.io/). Every commit the files are formatted to align with the project standard. With all the virus checkers in place a `git commit` takes around 45 seconds. Inside a devcontainer we can drop this to 5 seconds. That's nine times faster. I'll repeat that: that's **nine times faster**!
 
 The "cloned into a container" above is key to what we're going to do. We're *not* going to mount our local file system into the devcontainer. Oh no. We're going to build a devcontainer with ASP.NET CORE and JavaScript in. Then, inside there, we're going to clone our repo. Then we can develop, build and debug all inside the container. It will feel like we're working on our own machine because VS Code does such a damn fine job. In reality, we're connecting to another computer (a Linux computer to boot) that is running in isolation to our own. In our case that machine is sharing our hardware; but that's just an implementation detail. It could be anywhere (and in the future may well be).
 

@@ -6,9 +6,9 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Native, jQuery Validate, Unobtrusive]
 hide_table_of_contents: false
 ---
-Did you know that jQuery Validate natively supports the use of [HTML 5 data attributes](<http://ejohn.org/blog/html-5-data-attributes/>) to drive validation unobtrusively? Neither did I - I haven't seen any documentation for it. However, I was reading the [jQuery Validate test suite](<https://github.com/jzaefferer/jquery-validation/blob/master/test/index.html>) and that's what I spotted being used in some of the tests.
+Did you know that jQuery Validate natively supports the use of [HTML 5 data attributes](http://ejohn.org/blog/html-5-data-attributes/) to drive validation unobtrusively? Neither did I - I haven't seen any documentation for it. However, I was reading the [jQuery Validate test suite](https://github.com/jzaefferer/jquery-validation/blob/master/test/index.html) and that's what I spotted being used in some of the tests.
 
- I was quite keen to give it a try as I've found the Microsoft produced [unobtrusive extensions](<http://nuget.org/packages/jQuery.Validation.Unobtrusive/>) both fantastic and frustrating in nearly equal measure. Fantastic because they work and they're [integrated nicely with MVC](<http://icanmakethiswork.blogspot.co.uk/2012/08/jquery-unobtrusive-validation.html>). Frustrating, because they don't allow you do all the things that jQuery Validate in the raw does.
+ I was quite keen to give it a try as I've found the Microsoft produced [unobtrusive extensions](http://nuget.org/packages/jQuery.Validation.Unobtrusive/) both fantastic and frustrating in nearly equal measure. Fantastic because they work and they're [integrated nicely with MVC](http://icanmakethiswork.blogspot.co.uk/2012/08/jquery-unobtrusive-validation.html). Frustrating, because they don't allow you do all the things that jQuery Validate in the raw does.
 
 So when I realised that there was native alternative available I was delighted. Enough with the fine words - what we want is a demo:
 
@@ -32,6 +32,6 @@ For myself I'm in the early stages of experimenting with this but I thought it m
 
 ## Update 09/08/2012
 
-If you're using ASP.Net MVC 3+ and this post has been of interest to you then you might want to take a look at [this](<http://icanmakethiswork.blogspot.co.uk/2013/08/announcing-jquery-validation.html>).
+If you're using ASP.Net MVC 3+ and this post has been of interest to you then you might want to take a look at [this](http://icanmakethiswork.blogspot.co.uk/2013/08/announcing-jquery-validation.html).
 
 

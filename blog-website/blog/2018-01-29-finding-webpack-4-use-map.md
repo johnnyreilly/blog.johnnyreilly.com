@@ -8,17 +8,17 @@ hide_table_of_contents: false
 ---
 ## Update: 03/02/2018
 
- Tobias Koppers has written a migration guide for plugins / loaders as well - take a read [here](<https://medium.com/webpack/webpack-4-migration-guide-for-plugins-loaders-20a79b927202>). It's very useful.
+ Tobias Koppers has written a migration guide for plugins / loaders as well - take a read [here](https://medium.com/webpack/webpack-4-migration-guide-for-plugins-loaders-20a79b927202). It's very useful.
 
 ## webpack 4
 
-webpack 4 is on the horizon. [The beta dropped last Friday](<https://medium.com/webpack/webpack-4-beta-try-it-today-6b1d27d7d7e2>). So what do you, as a plugin / loader author need to do? What needs to change to make your loader / plugin webpack 4 friendly?
+webpack 4 is on the horizon. [The beta dropped last Friday](https://medium.com/webpack/webpack-4-beta-try-it-today-6b1d27d7d7e2). So what do you, as a plugin / loader author need to do? What needs to change to make your loader / plugin webpack 4 friendly?
 
-This is a guide that should inform you about the changes you might need to make. It's based on my own experiences migrating [`ts-loader`](<https://github.com/TypeStrong/ts-loader>) and the [`fork-ts-checker-webpack-plugin`](<https://github.com/Realytics/fork-ts-checker-webpack-plugin>). If you'd like to see this in action then take a look at the PRs related to these. The ts-loader PR can be found [here](<https://github.com/TypeStrong/ts-loader/pull/710>). The fork-ts-checker-webpack-plugin PR can be found [here](<https://github.com/Realytics/fork-ts-checker-webpack-plugin/pull/93>).
+This is a guide that should inform you about the changes you might need to make. It's based on my own experiences migrating [`ts-loader`](https://github.com/TypeStrong/ts-loader) and the [`fork-ts-checker-webpack-plugin`](https://github.com/Realytics/fork-ts-checker-webpack-plugin). If you'd like to see this in action then take a look at the PRs related to these. The ts-loader PR can be found [here](https://github.com/TypeStrong/ts-loader/pull/710). The fork-ts-checker-webpack-plugin PR can be found [here](https://github.com/Realytics/fork-ts-checker-webpack-plugin/pull/93).
 
 ## Plugins
 
-One of the notable changes to webpack with v4 is the change to the plugin architecture. In terms of implications it's worth reading the comments made by [Tobias Koppers](<https://twitter.com/wsokra>)[here](<https://github.com/webpack/webpack/issues/6244#issuecomment-357502113>) and [here](<https://github.com/webpack/webpack/issues/6064#issuecomment-349405474>).
+One of the notable changes to webpack with v4 is the change to the plugin architecture. In terms of implications it's worth reading the comments made by [Tobias Koppers](https://twitter.com/wsokra)[here](https://github.com/webpack/webpack/issues/6244#issuecomment-357502113) and [here](https://github.com/webpack/webpack/issues/6064#issuecomment-349405474).
 
 Previously, if your plugin was tapping into a compiler hook you'd write code that looked something like this:
 
@@ -70,7 +70,7 @@ this.compiler.applyPluginsAsync('fork-ts-checker-service-before-start', () => {
 
 You can still use custom hooks with webpack 4, but there's a little more ceremony involved. Essentially, you need to tell webpack up front what you're planning. Not hard, I promise you.
 
-First of all, you'll need to add the package [`tapable`](<https://www.npmjs.com/package/tapable>) as a dependency. Then, inside your plugin you'll need to import the type of hook that you want to use; in the case of the `fork-ts-checker-webpack-plugin` we used both a sync and an async hook:
+First of all, you'll need to add the package [`tapable`](https://www.npmjs.com/package/tapable) as a dependency. Then, inside your plugin you'll need to import the type of hook that you want to use; in the case of the `fork-ts-checker-webpack-plugin` we used both a sync and an async hook:
 
 ```js
 const AsyncSeriesHook = require("tapable").AsyncSeriesHook;
@@ -140,7 +140,7 @@ Note again, we're using the string `"ts-loader"` to identify our loader.
 
 When I initially ported to webpack 4, `ts-loader` simply wasn't working. In the end I tied this down to problems in our `watch-run` callback. There's 2 things of note here.
 
-Firstly, as per [the changelog](<https://github.com/webpack/webpack/releases/tag/v4.0.0-beta.0>), the `watch-run` hook now has the `Compiler` as the first parameter. Previously this was a subproperty on the supplied `watching` parameter. So swapping over to use the compiler directly was necessary. Incidentally, `ts-loader` previously made use of the `watching.startTime` property that was supplied in webpack's 1, 2 and 3. It seems to be coping without it; so hopefully that's fine.
+Firstly, as per [the changelog](https://github.com/webpack/webpack/releases/tag/v4.0.0-beta.0), the `watch-run` hook now has the `Compiler` as the first parameter. Previously this was a subproperty on the supplied `watching` parameter. So swapping over to use the compiler directly was necessary. Incidentally, `ts-loader` previously made use of the `watching.startTime` property that was supplied in webpack's 1, 2 and 3. It seems to be coping without it; so hopefully that's fine.
 
 Secondly, with webpack 4 it's "ES2015 all the things!" That is to say, with webpack now requiring a minimum of node 6, the codebase is free to start using ES2015. So if you're a consumer of `compiler.fileTimestamps` (and `ts-loader` is) then it's time to make a change to cater for the different API that a `Map` offers instead of indexing into an object literal with a `string` key.
 

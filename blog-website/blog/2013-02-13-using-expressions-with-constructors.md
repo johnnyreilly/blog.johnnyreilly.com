@@ -28,8 +28,8 @@ Well it's this:
 
 <script src="https://gist.github.com/johnnyreilly/4944545.js?file=FieldValidationAfter.cs"></script>
 
-As you can see we have taken the original FieldValidation class and added in a generic constructor which instead of taking `string fieldName` as a first argument it takes `Expression&lt;Func&lt;T, object&gt;&gt; expression`. LINQ's Expression magic is used to determine the supplied property name which is smashing. If you were wondering, the first `MemberExpression` code is used for *reference* types. The `UnaryExpression` wrapping a `MemberExpression` code is used for *value* types. A good explanation of this can be found [here](<http://stackoverflow.com/a/12975480/761388>).
+As you can see we have taken the original FieldValidation class and added in a generic constructor which instead of taking `string fieldName` as a first argument it takes `Expression&lt;Func&lt;T, object&gt;&gt; expression`. LINQ's Expression magic is used to determine the supplied property name which is smashing. If you were wondering, the first `MemberExpression` code is used for *reference* types. The `UnaryExpression` wrapping a `MemberExpression` code is used for *value* types. A good explanation of this can be found [here](http://stackoverflow.com/a/12975480/761388).
 
-My colleague directed me to [this crucial StackOverflow answer](<http://stackoverflow.com/a/2916344>) which provided some much needed direction when I was thrashing. And that's it; we're done, home free.
+My colleague directed me to [this crucial StackOverflow answer](http://stackoverflow.com/a/2916344) which provided some much needed direction when I was thrashing. And that's it; we're done, home free.
 
 

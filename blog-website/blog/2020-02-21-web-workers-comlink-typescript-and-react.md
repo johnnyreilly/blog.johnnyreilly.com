@@ -3,10 +3,10 @@ title: "Web Workers, comlink, TypeScript and React"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [web workers, comlink, TypeScript, React]
 hide_table_of_contents: false
 ---
-JavaScript is famously single threaded. However, if you're developing for the web, you may well know that this is not quite accurate. There are [`Web Workers`](<https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers>):
+JavaScript is famously single threaded. However, if you're developing for the web, you may well know that this is not quite accurate. There are [`Web Workers`](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers):
 
 > A worker is an object created using a constructor (e.g. `Worker()`) that runs a named JavaScript file — this file contains the code that will run in the worker thread; workers run in another global context that is different from the current window.
 
@@ -63,7 +63,7 @@ export function add2Numbers(firstNumber, secondNumber) {
 }
 ```
 
-There's a way to do this using a library made by Google called [comlink](<https://github.com/GoogleChromeLabs/comlink>). This post will demonstrate how we can use this. We'll use TypeScript and webpack. We'll also examine how to integrate this approach into a React app.
+There's a way to do this using a library made by Google called [comlink](https://github.com/GoogleChromeLabs/comlink). This post will demonstrate how we can use this. We'll use TypeScript and webpack. We'll also examine how to integrate this approach into a React app.
 
 ## A use case for a Web Worker
 
@@ -105,7 +105,7 @@ console.log('Do another thing');
 
 When our application runs we see this behaviour:
 
- ![](https://3.bp.blogspot.com/-1NFBdptu-Mo/XjUqgCVVisI/AAAAAAAATa8/eYCZ_5XcmZoTAlykNW4Lp4m5uhXnr7KogCPcBGAYYCw/s640/blocking.gif)
+ ![](../static/blog/2020-02-21-web-workers-comlink-typescript-and-react/blocking.gif)
 
 The app starts and logs `Do something` and `Start our long running job...` to the console. It then blocks the UI until the `takeALongTimeToDoSomething` function has completed running. During this time the screen is empty and unresponsive. This is a poor user experience.
 
@@ -121,10 +121,10 @@ yarn eject
 
 Then let's install the packages we're going to be using:
 
-- [`worker-plugin`](<https://github.com/GoogleChromeLabs/worker-plugin>) \- this webpack plugin automatically compiles modules loaded in Web Workers
+- [`worker-plugin`](https://github.com/GoogleChromeLabs/worker-plugin) \- this webpack plugin automatically compiles modules loaded in Web Workers
 - `comlink` \- this library provides the RPC-like experience that we want from our workers
 
-<!-- -->
+
 
 ```
 yarn add comlink worker-plugin
@@ -236,14 +236,14 @@ function takeALongTimeToDoSomething() {
 
 Now we're ready to demo our application using our function offloaded into a Web Worker. It now behaves like this:
 
-![](https://2.bp.blogspot.com/-UDxm0xHbJpY/XjUrg4BwgTI/AAAAAAAATbE/F2jZ2F4nI9c05puL6zP8n6VYvrPsEOjIQCLcBGAsYHQ/s640/non-blocking.gif)
+![](../static/blog/2020-02-21-web-workers-comlink-typescript-and-react/non-blocking.gif)
 
 There's a number of exciting things to note here:
 
 1. The application is now non-blocking. Our long running function is now not preventing the UI from updating
 2. The functionality is lazily loaded via a `my-first-worker.chunk.worker.js` that has been created by the `worker-plugin` and `comlink`.
 
-<!-- -->
+
 
 ## Using Web Workers in React
 
@@ -311,7 +311,7 @@ export default App;
 
 When you try it out you'll notice that entering a single digit locks the UI for 5 seconds whilst it adds the numbers. From the moment the cursor stops blinking to the moment the screen updates the UI is non-responsive:
 
-![](https://2.bp.blogspot.com/-ngQ_wdVxKYw/XjUr33bOiWI/AAAAAAAATbM/kkMzEWKCu8w0NrD6CZeyNRW8CYQ78eRzgCLcBGAsYHQ/s640/blocking-react.gif)
+![](../static/blog/2020-02-21-web-workers-comlink-typescript-and-react/blocking-react.gif)
 
 So far, so classic. Let's Web Workerify this!
 
@@ -459,10 +459,10 @@ export default App;
 
 Now our calculation takes place off the main thread and the UI is no longer blocked!
 
-![](https://3.bp.blogspot.com/-WOTMRZzhaVk/XjUsJTMXBxI/AAAAAAAATbU/6WXtrpk66mY6aFyxBcgvBktQScq_AhyZwCLcBGAsYHQ/s640/non-blocking-react.gif)
+![](../static/blog/2020-02-21-web-workers-comlink-typescript-and-react/non-blocking-react.gif)
 
-[This post was originally published on LogRocket.](<https://blog.logrocket.com/integrating-web-workers-in-a-react-app-with-comlink/>)
+[This post was originally published on LogRocket.](https://blog.logrocket.com/integrating-web-workers-in-a-react-app-with-comlink/)
 
-[The source code for this project can be found here.](<https://github.com/johnnyreilly/webworkers-comlink-typescript-react>)
+[The source code for this project can be found here.](https://github.com/johnnyreilly/webworkers-comlink-typescript-react)
 
 

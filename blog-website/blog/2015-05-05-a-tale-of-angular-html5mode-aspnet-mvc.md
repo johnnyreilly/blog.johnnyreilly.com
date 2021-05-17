@@ -6,13 +6,13 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [asp.net mvc, asp.net, html5mode, AngularJS, ASP.Net Web API]
 hide_table_of_contents: false
 ---
-So. You want to kick hash based routing to the kerb. You want *real* URLs. You've read the HTML5 mode section of the [Angular $location docs](<https://docs.angularjs.org/guide/$location>) and you're good to go. It's just a matter of dropping `$locationProvider.html5Mode(true)` into your app initialisation right?
+So. You want to kick hash based routing to the kerb. You want *real* URLs. You've read the HTML5 mode section of the [Angular $location docs](https://docs.angularjs.org/guide/$location) and you're good to go. It's just a matter of dropping `$locationProvider.html5Mode(true)` into your app initialisation right?
 
  Wrong.
 
 You want your URLs to be shareable. If, when you copy the URL out of your browser and send it someone else, they do not get taken to the same position in the application as you do then I've got news for you: THAT'S NOT REALLY A URL. And just using `$locationProvider.html5Mode(true)` has done nothing useful for you. You want to ensure that, if the URL entered in the browser does not relate to a specific server-side end-point, the self-same HTML root page is *always* served up. Then Angular can load the correct resources for the URL you have entered and get you to the required state.
 
-There are tips to be found in Angular UI's [How to: Configure your server to work with html5Mode](<https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-configure-your-server-to-work-with-html5mode>) doc. However they required a little extra fiddling to get my ASP.Net back end working quite as I wanted. To save you pain, here are my cultural learnings.
+There are tips to be found in Angular UI's [How to: Configure your server to work with html5Mode](https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-configure-your-server-to-work-with-html5mode) doc. However they required a little extra fiddling to get my ASP.Net back end working quite as I wanted. To save you pain, here are my cultural learnings.
 
 ## ASP.Net MVC
 

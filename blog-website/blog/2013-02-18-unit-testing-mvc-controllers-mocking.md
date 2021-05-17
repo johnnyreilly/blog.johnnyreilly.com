@@ -20,13 +20,13 @@ Looks fine right? It's an action that takes a simple object as an argument. That
 
 Yup, the minute you start pumping in asserts around that `UrlHelper` driven property you're going to be mighty disappointed. What, you didn't expect the result to be `null`? Damn shame.
 
-Despite [articles](<http://msdn.microsoft.com/en-us/magazine/dd942838.aspx>) on MSDN about how the intention is for MVC to be deliberately testable the sad fact of the matter is that there is a yawning hole around the testing support for controllers in ASP.Net MVC. Whenever you try to test something that makes use of controller "gubbins" you have **serious** problems. And unfortunately I didn't find anyone out there who could offer the whole solution.
+Despite [articles](http://msdn.microsoft.com/en-us/magazine/dd942838.aspx) on MSDN about how the intention is for MVC to be deliberately testable the sad fact of the matter is that there is a yawning hole around the testing support for controllers in ASP.Net MVC. Whenever you try to test something that makes use of controller "gubbins" you have **serious** problems. And unfortunately I didn't find anyone out there who could offer the whole solution.
 
 After what I can best describe as a day of pain I found a way to scratch my particular itch. I found a way to write unit tests for controllers that made use of UrlHelper. As a bonus I managed to include the unit testing of Routes and Areas (well kind of) too.
 
 ## MvcMockControllers updated
 
-This solution is heavily based on the work of Scott Hanselman who [wrote and blogged about `MvcMockHelpers`](<http://www.hanselman.com/blog/ASPNETMVCSessionAtMix08TDDAndMvcMockHelpers.aspx>) back in 2008. Essentially I've taken this and tweaked it so I could achieve my ends. My version of `MvcMockHelpers` looks a little like this:
+This solution is heavily based on the work of Scott Hanselman who [wrote and blogged about `MvcMockHelpers`](http://www.hanselman.com/blog/ASPNETMVCSessionAtMix08TDDAndMvcMockHelpers.aspx) back in 2008. Essentially I've taken this and tweaked it so I could achieve my ends. My version of `MvcMockHelpers` looks a little like this:
 
 <script src="https://gist.github.com/johnnyreilly/4959924.js?file=MvcMockHelpers.cs"></script>
 
@@ -48,7 +48,7 @@ Let's go through this unit test and breakdown what's happening:
 2. Act
 3. Assert
 
-<!-- -->
+
 
 The most interesting thing you'll note is the controller's UrlHelper is now generating a URL as we might have hoped. The URL is generated making use of our routing, yay! Finally we're also managing to unit test a route registered by our area.
 

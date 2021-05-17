@@ -16,15 +16,15 @@ You can probably guess where I'm going with this... Despite our (cough) rock sol
 
 ## A Primitive Problem
 
-Dates is a sticky topic in many languages. As I mentioned, SQL Server has a `<a href="http://msdn.microsoft.com/en-gb/library/bb630352.aspx">date</a>` data type. C# has `<a href="http://msdn.microsoft.com/en-gb/library/system.datetime.aspx">DateTime</a>`. If you want to operate on Dates alone then you're best off talking looking at Jon Skeet's [NodaTime](<http://nodatime.org/>) \- though most people start with `DateTime` and stick with it. (After all, it's native.) As to JavaScript, well primitive-wise there's no alternative to `Date` \- but `<a href="http://momentjs.com/">Moment.js</a>` may help.
+Dates is a sticky topic in many languages. As I mentioned, SQL Server has a `<a href="http://msdn.microsoft.com/en-gb/library/bb630352.aspx">date</a>` data type. C# has `<a href="http://msdn.microsoft.com/en-gb/library/system.datetime.aspx">DateTime</a>`. If you want to operate on Dates alone then you're best off talking looking at Jon Skeet's [NodaTime](http://nodatime.org/) \- though most people start with `DateTime` and stick with it. (After all, it's native.) As to JavaScript, well primitive-wise there's no alternative to `Date` \- but `<a href="http://momentjs.com/">Moment.js</a>` may help.
 
-My point is that it is a long standing issue in the development world. We represent data in types that aren't entirely meant for the purpose that they are used. It's not just restricted to dates, numbers have a comparable story around the issue of [decimals and doubles](<http://csharpindepth.com/Articles/General/Decimal.aspx>). As a result of data type issues, developers experience problems. Like the one I was facing.
+My point is that it is a long standing issue in the development world. We represent data in types that aren't entirely meant for the purpose that they are used. It's not just restricted to dates, numbers have a comparable story around the issue of [decimals and doubles](http://csharpindepth.com/Articles/General/Decimal.aspx). As a result of data type issues, developers experience problems. Like the one I was facing.
 
 ## An Attribute Solution
 
 The source of the problem turned out to be the string JavaScript `<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date">Date constructor</a>` in an earlier version of Internet Explorer. The fix was switching away from using the JavaScript Date constructor in favour of using Moment.js's more dependable ability to parse strings into dates. Happy days we're working once more! Some quick work to put together a SQL script to fix up the data and we have ourselves our patch!
 
-But we didn't want to get bitten again. We wanted ourselves a little [belts and braces](<http://dictionary.cambridge.org/dictionary/british/belt-and-braces>). What do do? Hang on a minute, lads – I've got a great idea... It's `<a href="http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.validationattribute(v=vs.110).aspx">ValidationAttribute</a>` time!
+But we didn't want to get bitten again. We wanted ourselves a little [belts and braces](http://dictionary.cambridge.org/dictionary/british/belt-and-braces). What do do? Hang on a minute, lads – I've got a great idea... It's `<a href="http://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.validationattribute(v=vs.110).aspx">ValidationAttribute</a>` time!
 
 We whipped ourselves up an attribute that looked like this:
 
@@ -68,7 +68,7 @@ This attribute does 2 things:
 1. Most importantly it fails validation for any `DateTime` or `DateTime?` that includes a time portion. It only allows through DateTimes where the clock strikes midnight. It's optimised for Cinderella.
 2. It fails validation if the attribute is applied to any property which is not a `DateTime` or `DateTime?`.
 
-<!-- -->
+
 
 You can decorate `DateTime` or `DateTime?` properties on your model with this attribute like so:
 

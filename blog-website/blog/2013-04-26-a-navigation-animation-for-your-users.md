@@ -18,7 +18,7 @@ Now I'm fully aware that this is more in the region of nice-to-have rather than 
 
 ## The Agreeable Resolution
 
-To that end, I've come up with something that I feel does the job, and does it well. I've taken a CSS animation courtesy of the good folk at [CSS Load](<http://cssload.net/>) and embedded it in the layout of my application. This animation is hidden from view until the user navigates to another page. At that point, the CSS animation appears in the header of the screen and remains in place until the new screen is rendered. This is what it looks like:
+To that end, I've come up with something that I feel does the job, and does it well. I've taken a CSS animation courtesy of the good folk at [CSS Load](http://cssload.net/) and embedded it in the layout of my application. This animation is hidden from view until the user navigates to another page. At that point, the CSS animation appears in the header of the screen and remains in place until the new screen is rendered. This is what it looks like:
 
 ![](http://2.bp.blogspot.com/-RaGwl1llrDM/UX4pEiUfGWI/AAAAAAAAAbo/jSZC0skiLfQ/s320/NavigationAnimationAtWork.png)
 
@@ -30,7 +30,7 @@ You're no doubt dazzled by the glory of it all. How was it accomplished? Well, i
 
 <script src="https://gist.github.com/johnnyreilly/5466370.js?file=navigationAnimation.html"></script>
 
-Apart from the outer `div` tag (#navigationAnimation) all of this is the HTML taken from [CSS Load](<http://cssload.net/>). If you wanted to use a different navigation animation you could easily replace the inner HTML with something else instead. Next up is the CSS, again courtesy of CSS Load (and it's this that turns this simple HTML into sumptuous animated goodness):
+Apart from the outer `div` tag (#navigationAnimation) all of this is the HTML taken from [CSS Load](http://cssload.net/). If you wanted to use a different navigation animation you could easily replace the inner HTML with something else instead. Next up is the CSS, again courtesy of CSS Load (and it's this that turns this simple HTML into sumptuous animated goodness):
 
 <script src="https://gist.github.com/johnnyreilly/5466370.js?file=navigationAnimation.css"></script>
 
@@ -38,18 +38,18 @@ And finally we have the JavaScript which is responsible for showing animation wh
 
 <script src="https://gist.github.com/johnnyreilly/5466370.js?file=navigationAnimation.js"></script>
 
-It's helped along with a little jQuery here but this could easily be accomplished with vanilla JS if you fancied. The approach works by hooking into the [beforeunload](<https://developer.mozilla.org/en-US/docs/DOM/Mozilla_event_reference/beforeunload>) event that fires when "*the window, the document and its resources are about to be unloaded*". There's a little bit more to the functionality in the JavaScript abover which I go into in the PPS below. Essentially that covers backwards compatibility with earlier versions of IE.
+It's helped along with a little jQuery here but this could easily be accomplished with vanilla JS if you fancied. The approach works by hooking into the [beforeunload](https://developer.mozilla.org/en-US/docs/DOM/Mozilla_event_reference/beforeunload) event that fires when "*the window, the document and its resources are about to be unloaded*". There's a little bit more to the functionality in the JavaScript abover which I go into in the PPS below. Essentially that covers backwards compatibility with earlier versions of IE.
 
 I've coded this up in a manner that lends itself to re-use. I can imagine that you might also want to make use of the navigation animation if, for example, you had an expensive AJAX operation on a page and you didn't want the users to despair. So the navigation animation could become a kind of a generic "I am doing something" animation instead - I leave it to your disgression.
 
 ## Oh, and a final PS
 
-I had initially planned to use an old school animated GIF instead of a CSS animation. The thing that stopped me taking this course of action is that, to quote an [answer on Stack Overflow](<http://stackoverflow.com/a/780617/761388>) "*IE assumes that the clicking of a link heralds a new navigation where the current page contents will be replaced. As part of the process for perparing for that it halts the code that animates the GIFs.*". So I needed animation that stayed animated. And lo, there were CSS animations...
+I had initially planned to use an old school animated GIF instead of a CSS animation. The thing that stopped me taking this course of action is that, to quote an [answer on Stack Overflow](http://stackoverflow.com/a/780617/761388) "*IE assumes that the clicking of a link heralds a new navigation where the current page contents will be replaced. As part of the process for perparing for that it halts the code that animates the GIFs.*". So I needed animation that stayed animated. And lo, there were CSS animations...
 
 ## Better make that a PPS - catering for IE 9 and earlier
 
-I spoke a touch too soon when I expounded on how CSS animations were going to get me out of a hole. Unfortunately, and to my lasting regret, they aren't supported in IE 9. And yes, at least for now that is what the users have. To get round this I've delved a little bit further and discovered a frankly hacky way to make animated gifs stay animated after beforeunload has fired. It works by rendering an animated gif to the screen when beforeunload is fired. Why this works I couldn't say - but if you're interested to research more then take a look at [this answer on Stack Overflow](<http://stackoverflow.com/a/1904931/761388>). In my case I've found an animated gif on [AjaxLoad](<http://www.ajaxload.info/>) which looks pretty similar to the CSS animation:
+I spoke a touch too soon when I expounded on how CSS animations were going to get me out of a hole. Unfortunately, and to my lasting regret, they aren't supported in IE 9. And yes, at least for now that is what the users have. To get round this I've delved a little bit further and discovered a frankly hacky way to make animated gifs stay animated after beforeunload has fired. It works by rendering an animated gif to the screen when beforeunload is fired. Why this works I couldn't say - but if you're interested to research more then take a look at [this answer on Stack Overflow](http://stackoverflow.com/a/1904931/761388). In my case I've found an animated gif on [AjaxLoad](http://www.ajaxload.info/) which looks pretty similar to the CSS animation:
 
-![null](<http://4.bp.blogspot.com/-_9OgkLfflAg/UYEXn7dgByI/AAAAAAAAAb8/3Q33pAs6WeM/s320/navigationAnimation.gif>)This is now saved away as `navigationAnimation.gif` in the application. The JavaScript uses Modernizr to detect if CSS animations are in play. If they're not then the animated gif is rendered to the screen in place of the CSS animation HTML. Ugly, but it seems to work well; I think this will work on IE 6 - 9. The CSS animations will work on IE 10+.
+![null](http://4.bp.blogspot.com/-_9OgkLfflAg/UYEXn7dgByI/AAAAAAAAAb8/3Q33pAs6WeM/s320/navigationAnimation.gif)This is now saved away as `navigationAnimation.gif` in the application. The JavaScript uses Modernizr to detect if CSS animations are in play. If they're not then the animated gif is rendered to the screen in place of the CSS animation HTML. Ugly, but it seems to work well; I think this will work on IE 6 - 9. The CSS animations will work on IE 10+.
 
 

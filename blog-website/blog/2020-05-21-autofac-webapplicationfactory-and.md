@@ -6,7 +6,7 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [autofac, ASP.Net Core, ConfigureTestContainer, Integration Testing]
 hide_table_of_contents: false
 ---
-**Updated 2nd Oct 2020:** *for an approach that works with Autofac 6 see [this post.](<https://blog.johnnyreilly.com/2020/10/autofac-6-integration-tests-and-generic-hosting.html>)*
+**Updated 2nd Oct 2020:** *for an approach that works with Autofac 6 see [this post.](https://blog.johnnyreilly.com/2020/10/autofac-6-integration-tests-and-generic-hosting.html)*
 
 ---
 
@@ -16,13 +16,13 @@ Integration tests with ASP.NET Core are the best. They spin up an in memory vers
 
 What makes this approach particularly useful / powerful is that you can swap out dependencies of your running app with fakes / stubs etc. Just like unit tests! But potentially more useful because they run your whole app and hence give you a greater degree of confidence. What does this mean? Well, imagine you changed a piece of middleware in your application; this could potentially break functionality. Unit tests would probably not reveal this. Integration tests would.
 
-There is a fly in the ointment. A hair in the gazpacho. ASP.NET Core ships with dependency injection in the box. It has its own Inversion of Control container which is perfectly fine. However, many people are accustomed to using other IOC containers such as [Autofac](<https://autofac.org/>).
+There is a fly in the ointment. A hair in the gazpacho. ASP.NET Core ships with dependency injection in the box. It has its own Inversion of Control container which is perfectly fine. However, many people are accustomed to using other IOC containers such as [Autofac](https://autofac.org/).
 
-What's the problem? Well, swapping out dependencies registered using ASP.NET Core's IOC requires using a hook called [`ConfigureTestServices`](<https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-3.1#inject-mock-services>). There's an equivalent hook for swapping out services registered using a custom IOC container: [`ConfigureTestContainer`](<https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.testhost.webhostbuilderextensions.configuretestcontainer?view=aspnetcore-3.0>). Unfortunately, there is a bug in ASP.NET Core as of version 3.0: [When using GenericHost, in tests `ConfigureTestContainer` is not executed](<https://github.com/dotnet/aspnetcore/issues/14907>)
+What's the problem? Well, swapping out dependencies registered using ASP.NET Core's IOC requires using a hook called [`ConfigureTestServices`](https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-3.1#inject-mock-services). There's an equivalent hook for swapping out services registered using a custom IOC container: [`ConfigureTestContainer`](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.testhost.webhostbuilderextensions.configuretestcontainer?view=aspnetcore-3.0). Unfortunately, there is a bug in ASP.NET Core as of version 3.0: [When using GenericHost, in tests `ConfigureTestContainer` is not executed](https://github.com/dotnet/aspnetcore/issues/14907)
 
-This means you cannot swap out dependencies that have been registered with Autofac and the like. According to the tremendous [David Fowler](<https://www.twitter.com/davidfowl>) of the ASP.NET team, [this will hopefully be resolved](<https://github.com/dotnet/aspnetcore/issues/14907#issuecomment-592102145>).
+This means you cannot swap out dependencies that have been registered with Autofac and the like. According to the tremendous [David Fowler](https://www.twitter.com/davidfowl) of the ASP.NET team, [this will hopefully be resolved](https://github.com/dotnet/aspnetcore/issues/14907#issuecomment-592102145).
 
-In the meantime, [there's a workaround thanks to various commenters on the thread](<https://github.com/dotnet/aspnetcore/issues/14907#issuecomment-620750841>). Instead of using `WebApplicationFactory` directly, subclass it and create a custom `AutofacWebApplicationFactory` (the name is not important). This custom class overrides the behavior of `ConfigureServices` and `CreateHost` with a `CustomServiceProviderFactory`:
+In the meantime, [there's a workaround thanks to various commenters on the thread](https://github.com/dotnet/aspnetcore/issues/14907#issuecomment-620750841). Instead of using `WebApplicationFactory` directly, subclass it and create a custom `AutofacWebApplicationFactory` (the name is not important). This custom class overrides the behavior of `ConfigureServices` and `CreateHost` with a `CustomServiceProviderFactory`:
 
 ```cs
 namespace My.Web.Tests.Helpers {

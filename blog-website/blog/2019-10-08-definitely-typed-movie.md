@@ -28,7 +28,7 @@ I want to tell you the story of the history of type definitions in the TypeScrip
 
 I was hanging out for something like TypeScript. I'd been busily developing rich client applications in JS and, whilst I loved the language, I was dearly missing static typing. All the things broke all of the time and I wanted help. I wanted a compiler to take me by the hand and say "hey John, you just did a silly thing. Don't do it John; you'll only be filled with regret...". The TypeScript team wrote that compiler.
 
-When TypeScript was announced, it was important that the world could see that interop with JS was a first class citizen. Accordingly, a jQuery type definition was demonstrated as well. At the time, jQuery was the number one JavaScript library downloaded on the internet. So naturally it was the obvious choice for a demo. The type definition was fairly rough and ready but it worked. [You can see Anders Hejlsberg showing off the jQuery definition 45 minutes into this presentation introducing TypeScript.](<https://channel9.msdn.com/posts/Anders-Hejlsberg-Introducing-TypeScript>)
+When TypeScript was announced, it was important that the world could see that interop with JS was a first class citizen. Accordingly, a jQuery type definition was demonstrated as well. At the time, jQuery was the number one JavaScript library downloaded on the internet. So naturally it was the obvious choice for a demo. The type definition was fairly rough and ready but it worked. [You can see Anders Hejlsberg showing off the jQuery definition 45 minutes into this presentation introducing TypeScript.](https://channel9.msdn.com/posts/Anders-Hejlsberg-Introducing-TypeScript)
 
 Consumption was straightforward, if perhaps quirky. You took the `jquery.d.ts` file, copied it into your project location. Back then, to let the compiler know that a JS library had come to the party you had to use a kind of comment pragma in the header of your TypeScript files. For example: `/// &lt;reference path="jquery/jquery.d.ts" /&gt;`. This let TypeScript know that the type definition living at that path was relevant for the current script and it should scope it in.
 
@@ -44,7 +44,7 @@ Boris was a backend developer who'd found himself doing more and more frontend. 
 
 "What people forget is how different it was back then. Microsoft made this announcement, but probably most of the people that were listening were part of the MS ecosystem. I certainly was. Remember, back then if you had a Mac or did Linux you probably didn't think about MS too much."
 
-Boris thought TypeScript just seemed like this interesting and weird thing that Microsoft were doing. He was excited by types; he was missing them and there was a real need there. A problem to solve. There were already people trying to address this. But the attempts so far had been underwhelming. Boris had encountered Google Closure Compiler; a tool built by Google which, amongst other things, introduces some measure of type safety to JavaScript by reading annotations in JSDoc format. Boris viewed GCC as a tentative first step. [One which lead the way for things like TypeScript and Flow to follow.](<https://github.com/google/closure-compiler/wiki/Annotating-JavaScript-for-the-Closure-Compiler>)
+Boris thought TypeScript just seemed like this interesting and weird thing that Microsoft were doing. He was excited by types; he was missing them and there was a real need there. A problem to solve. There were already people trying to address this. But the attempts so far had been underwhelming. Boris had encountered Google Closure Compiler; a tool built by Google which, amongst other things, introduces some measure of type safety to JavaScript by reading annotations in JSDoc format. Boris viewed GCC as a tentative first step. [One which lead the way for things like TypeScript and Flow to follow.](https://github.com/google/closure-compiler/wiki/Annotating-JavaScript-for-the-Closure-Compiler)
 
 The other aspect of TypeScript that excited Boris was transpilation. Transpilation is the term coined to describe what TypeScript does when it comes to emit output. It takes in TypeScript and pumps out JavaScript. The question is: what sort of JavaScript? One choice the TypeScript team could have made was just having the compiler stripping out types from the codebase. If it worked that way then you'd get out the JavaScript equivalent of the TypeScript you wrote. You wrote a `class`? TypeScript emits a `class`; just; one shorn of types and interfaces.
 
@@ -52,7 +52,7 @@ The TypeScript team made a different choice. They wrote the compiler such that t
 
 ES6 had been in the works for some time at this point. The release was shaping up to be the biggest incremental change to JavaScript that had so far happened. Or that would ever happen. Prior to this, JavaScript had experienced no small amount of tension and disagreement as it sought to evolve and develop. These played out in the form of the abandoned fourth edition of the language. There were arguments, harsh words, public disagreements and finally a failure to ship ECMAScript 4. In an alternate universe this was the end of the road for JavaScript. However, in our universe JavaScript got another throw of the dice.
 
-It's telling that ES5 was for a long time known also as ES3.1; reflecting that it was initially planned to be the stepping stone between ES3 and ES4. In reality it ended up being the stepping stone between ES3 and ES6. As it turned out, it was a vital one too, [it allowed the TC39 to recalibrate after a very public shelving of plans.](<https://en.m.wikipedia.org/wiki/ECMAScript>)
+It's telling that ES5 was for a long time known also as ES3.1; reflecting that it was initially planned to be the stepping stone between ES3 and ES4. In reality it ended up being the stepping stone between ES3 and ES6. As it turned out, it was a vital one too, [it allowed the TC39 to recalibrate after a very public shelving of plans.](https://en.m.wikipedia.org/wiki/ECMAScript)
 
 The band was back together (albeit with a new rhythm section) and ES6 was going to be *massive*. JavaScript was going to get new constructs such as `Map`, `Set`, new scoping possibilities with `let` and `const`, `Promise`s which paved the way for new kinds of async programming, the contentious `class`es…. And who can forget where they were when they first heard about "fat" arrow functions?
 
@@ -74,13 +74,13 @@ Boris had been feeling unproductive. He would build applications in JS and watch
 
 It was great. He fired up Visual Studio and converted a `.js` file to end with the mystical TypeScript suffix of `.ts`. In front of his eyes, red squiggly lines started to appear here and there in his code. As he looked at the visual noise he could see this was TypeScript delivering on its promise. It was finding the bugs he hadn't spotted. These migrations were also addictive; the more information you could feed the compiler, the more problems it found. Boris felt it was time to start writing type definitions, whatever they were.
 
-Boris quickly learned how to write a type definition and set to work. Most libraries weren't well documented and so he found himself reading the source code of libraries he used in order that he could write the definitions. At first, the definitions were just files dropped in his ASP.NET MVC projects that he copied around. That wasn't going to scale; there needed to be somewhere he could go to grab type definitions when he needed them. And so on October 5th 2012 he created a repository under his profile at GitHub called "DefinitelyTyped": [https://github.com/DefinitelyTyped/DefinitelyTyped/commit/647369a322be470d84f8d226e297267a7d1a0796](<https://github.com/DefinitelyTyped/DefinitelyTyped/commit/647369a322be470d84f8d226e297267a7d1a0796>)
+Boris quickly learned how to write a type definition and set to work. Most libraries weren't well documented and so he found himself reading the source code of libraries he used in order that he could write the definitions. At first, the definitions were just files dropped in his ASP.NET MVC projects that he copied around. That wasn't going to scale; there needed to be somewhere he could go to grab type definitions when he needed them. And so on October 5th 2012 he created a repository under his profile at GitHub called "DefinitelyTyped": [https://github.com/DefinitelyTyped/DefinitelyTyped/commit/647369a322be470d84f8d226e297267a7d1a0796](https://github.com/DefinitelyTyped/DefinitelyTyped/commit/647369a322be470d84f8d226e297267a7d1a0796)
 
 Boris took his type definitions and put them into this repository. Were you ever curious what the first definition added was? Close your eyes and think... You might imagine it was the (then number one JavaScript library on the web) jQuery. In fact it was Modernizr. Then Underscore followed, and then jQuery. Take a look:
 
-[https://github.com/DefinitelyTyped/DefinitelyTyped/commits?after=4a4cf23ff4301835a45bb138bbb62bf5f0759255+699&author=borisyankov](<https://github.com/DefinitelyTyped/DefinitelyTyped/commits?after=4a4cf23ff4301835a45bb138bbb62bf5f0759255+699&author=borisyankov>)
+[https://github.com/DefinitelyTyped/DefinitelyTyped/commits?after=4a4cf23ff4301835a45bb138bbb62bf5f0759255+699&author=borisyankov](https://github.com/DefinitelyTyped/DefinitelyTyped/commits?after=4a4cf23ff4301835a45bb138bbb62bf5f0759255+699&author=borisyankov)
 
-![](https://1.bp.blogspot.com/-0DbMi8aGa1c/XZwdP4VnoKI/AAAAAAAAR9k/33evIreTYEA4KTuZnNnZ9KhlgEAgVrskQCPcBGAYYCw/s640/Initial-CommitsDefinitelyTyped.png)
+![](../static/blog/2019-10-08-definitely-typed-movie/Initial-CommitsDefinitelyTyped.png)
 
 It wasn't complicated; it was just a folder with subfolders underneath; each folder representing a project. One for jQuery, one for jQuery UI, one for Knockout.... You get the idea. It's not so different now.
 
@@ -110,7 +110,7 @@ This test ensures that you can use your function in the way you'd expect. It ret
 
 This is the very first test committed to Definitely Typed; a test for Modernizr.
 
-[https://github.com/DefinitelyTyped/DefinitelyTyped/blob/a976315cacbcfc151d5f57b25f4325dc7deca6f2/Tests/modernizr.ts](<https://github.com/DefinitelyTyped/DefinitelyTyped/blob/a976315cacbcfc151d5f57b25f4325dc7deca6f2/Tests/modernizr.ts>)
+[https://github.com/DefinitelyTyped/DefinitelyTyped/blob/a976315cacbcfc151d5f57b25f4325dc7deca6f2/Tests/modernizr.ts](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/a976315cacbcfc151d5f57b25f4325dc7deca6f2/Tests/modernizr.ts)
 
 This idea represents what tests look like throughout Definitely Typed today. They're now "run" as part of Continuous Integration and type definitions are tested in concert with one another to ensure that a change to one type definition doesn't break another. But there is nothing fundamentally different in place today to what Boris originally came up with.
 
@@ -118,7 +118,7 @@ This idea represents what tests look like throughout Definitely Typed today. The
 
 Very quickly, Definitely Typed became a known project. People like Steve Fenton (author of the first book about TypeScript) were vocal supporters of the project. The TypeScript team talked up the project and were entirely supportive of its existence. In fact, at every given opportunity Anders Hejlsberg would sing its praises. For a while you could guarantee that any TypeScript talk by Anders would include a variant of "this guy called Boris started a project called Definitely Typed". The impression he gave was that he was kind of amazed, and thoroughly delighted, the project existed.
 
-The TypeScript team were completely uninvolved with Definitely Typed. That in itself is worth considering. The perception of Microsoft by developers generally in 2012 was at best, highly suspicious. "Embrace, extend, extinguish" - a strategy attributed to MS was very much a current perspective. This was born out in online comments and conversations at meetups. [The Hacker News comments on the TypeScript release were a mixed bag.](<https://news.ycombinator.com/item?id=4597716>) The reaction on social media was rather less generous. Certainly it was harsh enough to prompt Scott Hanselman to write something of [a defence of TypeScripts right to exist](<https://www.hanselman.com/blog/WhyDoesTypeScriptHaveToBeTheAnswerToAnything.aspx>).
+The TypeScript team were completely uninvolved with Definitely Typed. That in itself is worth considering. The perception of Microsoft by developers generally in 2012 was at best, highly suspicious. "Embrace, extend, extinguish" - a strategy attributed to MS was very much a current perspective. This was born out in online comments and conversations at meetups. [The Hacker News comments on the TypeScript release were a mixed bag.](https://news.ycombinator.com/item?id=4597716) The reaction on social media was rather less generous. Certainly it was harsh enough to prompt Scott Hanselman to write something of [a defence of TypeScripts right to exist](https://www.hanselman.com/blog/WhyDoesTypeScriptHaveToBeTheAnswerToAnything.aspx).
 
 Given that TypeScript had arrived with the promise of transforming the JavaScript developer experience, the developer community was understandably cautious. Was Microsoft doing a good or ill? Could they be trusted? There were already signs that MS was changing. For example, it had been shipping open source libraries such as jQuery with ASP.Net MVC for some time. Microsoft was starting to engage with the world of open source software.
 
@@ -152,13 +152,13 @@ Bas had the level of self knowledge required to realise that getting others invo
 
 On December 28th 2013 Basarat decided that a regular contributor to Definitely Typed might be a potential team member. Bas opened up Twitter and sent a Direct Message to John Reilly.
 
-![](https://4.bp.blogspot.com/-IZzAtFiDQi8/XZuNoLYhMBI/AAAAAAAAR7k/i-khpa5KpDUjocNFhEfDALsXLCuhlffMACPcBGAYYCw/s640/2019-10-02%2B21_51_58-basarat%2B_%2BTwitter.png)
+![](../static/blog/2019-10-08-definitely-typed-movie/2019-10-02%2B21_51_58-basarat%2B_%2BTwitter.png)
 
 ## John Reilly
 
 ![](../static/blog/2019-10-08-definitely-typed-movie/johnny_reilly.jpg)
 
-That's me. Or [johnny\_reilly on Twitter](<https://twitter.com/johnny_reilly>) and [johnnyreilly](<https://github.com/johnnyreilly>) on GitHub (as John Papa and I have learned to our chagrin; GitHub don't support the "\_" character in usernames). Relatively few people call me Johnny. I'm named that online because back when I applied for an email address, someone had already bagsied john\_reilly@popularemailhotness.com. So rather than sully my handle with a number or a middle name I settled for johnny\_reilly. I haven't looked back and have generally tried to keep that nom de plume wherever I lay my hat online.
+That's me. Or [johnny\_reilly on Twitter](https://twitter.com/johnny_reilly) and [johnnyreilly](https://github.com/johnnyreilly) on GitHub (as John Papa and I have learned to our chagrin; GitHub don't support the "\_" character in usernames). Relatively few people call me Johnny. I'm named that online because back when I applied for an email address, someone had already bagsied john\_reilly@popularemailhotness.com. So rather than sully my handle with a number or a middle name I settled for johnny\_reilly. I haven't looked back and have generally tried to keep that nom de plume wherever I lay my hat online.
 
 In contrast to others I was a relatively late starter to TypeScript. I was intrigued right from the initial announcement, but held off from properly getting my hands dirty until generics was added to the language in 0.9. (This predisposition towards generics in a language perhaps explains why I didn't get too far with Golang.)
 
@@ -172,11 +172,11 @@ The team were on board and, one sprint review later, we decided that all future 
 
 From day one of using TypeScript I was in love. I had the functionality of JavaScript, the future semantics of JavaScript and I was making less mistakes. Our team had become more productive. We were shipping faster and more reliably with fewer errors. People were noticing; our reputation as a team was improving, in part due to our usage of TypeScript. We had a jetpack.
 
-However. I wasn't satisfied. As I tapped away at my keyboard I found type definitions to be… imperfect. And that niggled. Did it ever niggle. By then [Jason Jarrett](<https://github.com/staxmanade>) had wired up Definitely Typed packages to be published out to Nuget. Devs using ASP.NET MVC 4 (as I then was) were busily installing type definitions alongside AutoFac and other dependencies. Whilst most of those dependencies arrived like polished diamonds, finished products ready to be plugged into the project and start adding value. The type definitions by contrast felt very beta. And of course, they were. TypeScript was beta. The definitions reflected the newness of the language.
+However. I wasn't satisfied. As I tapped away at my keyboard I found type definitions to be… imperfect. And that niggled. Did it ever niggle. By then [Jason Jarrett](https://github.com/staxmanade) had wired up Definitely Typed packages to be published out to Nuget. Devs using ASP.NET MVC 4 (as I then was) were busily installing type definitions alongside AutoFac and other dependencies. Whilst most of those dependencies arrived like polished diamonds, finished products ready to be plugged into the project and start adding value. The type definitions by contrast felt very beta. And of course, they were. TypeScript was beta. The definitions reflected the newness of the language.
 
 I could make it better.
 
-I started submitting pull requests. The first problem I decided to solve was IntelliSense. I wanted IntelliSense for jQuery. If you went to [https://api.jquery.com](<https://api.jquery.com>) there was rich documentation for every method jQuery exposed. I wanted to see that documentation inside Visual Studio as I coded. If I keyed in `$.appendTo(` I wanted VS to be filled with the content from [https://api.jquery.com/appendTo/](<https://api.jquery.com/appendTo/>) . That was my mission. For each overload of the method I'd add something akin to this to the type definition file:
+I started submitting pull requests. The first problem I decided to solve was IntelliSense. I wanted IntelliSense for jQuery. If you went to [https://api.jquery.com](https://api.jquery.com) there was rich documentation for every method jQuery exposed. I wanted to see that documentation inside Visual Studio as I coded. If I keyed in `$.appendTo(` I wanted VS to be filled with the content from [https://api.jquery.com/appendTo/](https://api.jquery.com/appendTo/) . That was my mission. For each overload of the method I'd add something akin to this to the type definition file:
 
 ```
 /**
@@ -189,7 +189,7 @@ I started submitting pull requests. The first problem I decided to solve was Int
     appendTo(target: string): JQuery;
 ```
 
-It was a tedious task plugging it all in, but the pleasure I got from having rich IntelliSense in VS more than made up for it to me. Along the way I added and fixed sections of the jQuery API that hadn't been implemented, or had been implemented incorrectly. It got to a point where jQuery was a good example of what a type definition should look like. That remains the case to this day; surprisingly few type definitions enjoy the JSDoc richness of jQuery. [I have tried to encourage more use of this with blog posts code reviews and the like, but it's never got the traction I'd hoped.](<https://blog.johnnyreilly.com/2014/05/typescript-jsdoc-and-intellisense.html>)
+It was a tedious task plugging it all in, but the pleasure I got from having rich IntelliSense in VS more than made up for it to me. Along the way I added and fixed sections of the jQuery API that hadn't been implemented, or had been implemented incorrectly. It got to a point where jQuery was a good example of what a type definition should look like. That remains the case to this day; surprisingly few type definitions enjoy the JSDoc richness of jQuery. [I have tried to encourage more use of this with blog posts code reviews and the like, but it's never got the traction I'd hoped.](https://blog.johnnyreilly.com/2014/05/typescript-jsdoc-and-intellisense.html)
 
 I'm fairly relentless when I put my mind to something. I work very hard to make things come to pass. What this meant at one point was the Definitely Typed maintainers receiving multiple PRs a day. Which prompted Bas to wonder "I wonder if he'd like to join us?"
 
@@ -233,7 +233,7 @@ TypeScript had, since the very early days, made a commitment to track the ECMASc
 
 Alongside differences like this there were other delineations. Types had different names in the past which, as time went by, were renamed to align with standards. `boolean` was originally `bool` for instance; likely a reflection of Anders involvement with C#.
 
-These sorts of changes, alongside any number of others, meant that each release of TypeScript sometimes entirely broke the definitions in Definitely Typed. Most notable was the 0.9.1 -> 0.9.5 migration. This was both an exercise in serious pain endurance and also a testament to the already strong commitment to TypeScript that existed. The reason people were willing to put the effort in to keep these migrations going was because they believed it was worth it. They believed in TypeScript. This PR is testament to that: [https://github.com/DefinitelyTyped/DefinitelyTyped/pull/1385](<https://github.com/DefinitelyTyped/DefinitelyTyped/pull/1385>)
+These sorts of changes, alongside any number of others, meant that each release of TypeScript sometimes entirely broke the definitions in Definitely Typed. Most notable was the 0.9.1 -> 0.9.5 migration. This was both an exercise in serious pain endurance and also a testament to the already strong commitment to TypeScript that existed. The reason people were willing to put the effort in to keep these migrations going was because they believed it was worth it. They believed in TypeScript. This PR is testament to that: [https://github.com/DefinitelyTyped/DefinitelyTyped/pull/1385](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/1385)
 
 A level of flux meant that for a long time Definitely Typed committed only to support the latest version of TypeScript and the latest version of packages therein. These days it's not so brutal, but then it had to be as a matter of necessity.
 
@@ -253,7 +253,7 @@ Mas was using JS to build the web applications he worked on. But ECMAScript 5 wa
 
 Then Masahiro heard about TypeScript. Like Goldilocks and the three bears, this third language sounded just right. He loved the type safety. It also had a compelling proposition: the transpiled JS that TypeScript generated was human readable and idiomatic. Generating idiomatic JS as opposed to some kind of strange byte code was a goal of the language from the early days, as Anders Hejlsberg would repeatedly explain. This generation of "real JS" made test driving TypeScript a low risk proposition. One that appealed to the likes of Masahiro. No lock-in. You decide TypeScript isn't for you? Fine. Take the generated JS files and shake the TypeScript dust off your sandals. Masahiro consequently went all in on TypeScript. This was his bet. And he was going to cover his bet by trying to make the ecosystem even stronger.
 
-Masahiro started out trying to improve the testing framework in DT; sending in pull requests. Before too long, Basarat messaged him to say "do you wanna become a committer?" [Masahiro became a committer.](<https://github.com/DefinitelyTyped/DefinitelyTyped/pull/1358>)
+Masahiro started out trying to improve the testing framework in DT; sending in pull requests. Before too long, Basarat messaged him to say "do you wanna become a committer?" [Masahiro became a committer.](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/1358)
 
 It turned out that MH had a special qualities that DT was going to sorely need: he was willing and able to review PR after PR, day after day. His stamina was incredible.
 
@@ -293,13 +293,13 @@ Blake had published a bunch of modules on npm. But no one had ever been able to 
 
 This essentially came down to how TSD worked and what Definitely Typed contained. TSD was a pretty simple tool; by and large it worked by copying files from Definitely Typed into a users project. The files copied would contain type definitions which contained global types. So even though you cared solely about external modules, because of Definitely Typed you found yourself installing globals alongside which lead to conflicts between different type definitions. Different type definitions punching it out whilst the TypeScript compiler stood in between ineffectually shouting "leave it alone mate - it's not worth it!"
 
-How could we have a world where external modules and global were treated distinctly? Blake had ideas… Plan one was to rewrite TSD to support external modules; the type of modules that were standard in Node land. After working hard on that for some time, Blake came to conclusion that solving global variables alongside external modules was a hard problem. A very hard problem. And perhaps that just running with external modules, [a new start if you will, represented the best way forwards](<https://github.com/DefinitelyTyped/tsd/issues/150>).
+How could we have a world where external modules and global were treated distinctly? Blake had ideas… Plan one was to rewrite TSD to support external modules; the type of modules that were standard in Node land. After working hard on that for some time, Blake came to conclusion that solving global variables alongside external modules was a hard problem. A very hard problem. And perhaps that just running with external modules, [a new start if you will, represented the best way forwards](https://github.com/DefinitelyTyped/tsd/issues/150).
 
 ## Typings
 
 ![](../static/blog/2019-10-08-definitely-typed-movie/typings.jpg)
 
-Blake made [typings](<https://github.com/typings/typings>). Typings was a number of things; it was a new command line tool to replace TSD, it was a new approach to distributing type definitions and it was a registry. But Typings was a registry which pointed out to the web. Typings installation was entirely decentralized and the typings themselves could be downloaded from almost anywhere - GitHub, NPM, Bower and even over HTTP or the filesystem. Those type definitions could be external modules or globals.
+Blake made [typings](https://github.com/typings/typings). Typings was a number of things; it was a new command line tool to replace TSD, it was a new approach to distributing type definitions and it was a registry. But Typings was a registry which pointed out to the web. Typings installation was entirely decentralized and the typings themselves could be downloaded from almost anywhere - GitHub, NPM, Bower and even over HTTP or the filesystem. Those type definitions could be external modules or globals.
 
 It was radical. From centralisation to decentralisation. As Blake described it:
 
@@ -341,7 +341,7 @@ The TypeScript team had also been in contact with the Definitely Typed team. The
 
 At this point I have to stick my own hand up and confess to thinking that Definitely Typed was not long for this world. Steve Ognibene (another DT member) and others were all feeling similarly. It seemed inevitable.
 
-![](https://1.bp.blogspot.com/-c9HAg6SjhoM/XZuUCF0ZYOI/AAAAAAAAR8s/_K-q62ccC54gjBr6JW1d7RAL1D_mYaLLgCPcBGAYYCw/s640/steveognibe.png)
+![](../static/blog/2019-10-08-definitely-typed-movie/steveognibe.png)
 
 The TypeScript team were about to change that. After talking, thinking, thinking and talking they put together a plan. It was going to change TypeScript and change Definitely Typed. It was also going to effectively end Typings.
 
@@ -349,7 +349,7 @@ It’s worth saying at this point that the TypeScript team didn’t enter into t
 
 To remove friction in the type acquisition space they decided to change the compiler. It would now look out for a special scoped namespace on npm named @types. Type definitions from Definitely Typed would be published out to @types. They would land as type definition packages that matched the non @types package. This meant that TypeScript was now sharing the same infrastructure as the rest of the JS ecosystem: npm. And consequently, installation of a package like jQuery in a TypeScript workflow now looked like this: `npm install jquery @types/jquery`. One command, one tool, one registry.
 
-They published their plans here: [https://github.com/Microsoft/TypeScript/issues/9184](<https://github.com/Microsoft/TypeScript/issues/9184>)
+They published their plans here: [https://github.com/Microsoft/TypeScript/issues/9184](https://github.com/Microsoft/TypeScript/issues/9184)
 
 There was more. The TypeScript team had really enjoyed knowing that this open source project which ran completely independently from the TypeScript team existed. And whilst they were focused directly on the language that was reasonable. But with the changes that were being planned, TypeScript was about to start explicitly depending upon Definitely Typed. It had been unofficially true up until that point. But now it was different; TypeScript were going to automate publishing Definitely Typed packages to the special @types scope in npm which the TypeScript compiler gave preference to. TypeScript and Definitely Typed were going from dating to being engaged.
 
@@ -367,7 +367,7 @@ Although that work had arguably kickstarted the discussion of what the future of
 
 Very much, Blake had in mind all the people that had contributed to Typings. That all their work was going to be abandoned. He felt a sense of responsibility. It was both frustrating and heartbreaking.
 
-When TypeScript 2.0 shipped, in the release announcement was the following statement: [https://devblogs.microsoft.com/typescript/announcing-typescript-2-0/](<https://devblogs.microsoft.com/typescript/announcing-typescript-2-0/>)
+When TypeScript 2.0 shipped, in the release announcement was the following statement: [https://devblogs.microsoft.com/typescript/announcing-typescript-2-0/](https://devblogs.microsoft.com/typescript/announcing-typescript-2-0/)
 
 > We’d like to thank Blake Embrey for his work on Typings and helping us bring this solution forward.
 
@@ -377,13 +377,13 @@ A young Australian man had helped change the direction of TypeScript. It was tim
 
 In the meantime, the TypeScript team was starting to get stuck into the work of giving Definitely Typed a make-over.
 
-![](https://3.bp.blogspot.com/--rEYhuJOjSw/XZuUpGM2eVI/AAAAAAAAR88/qXYMxPswi0cRXriaCx7nwlYCpMQdKHF1wCPcBGAYYCw/s1600/rotation.png)
+![](../static/blog/2019-10-08-definitely-typed-movie/rotation.png)
 
 At this point, Definitely Typed had more than 500 open pull requests. Most of which had been open for a very long time. The most urgent and pressing problem was getting that down. The TypeScript team committed to, in perpetuity, a weekly rotation where one team member would review PRs. This would, in future, mean that PRs were handled in a timely fashion and that the number of open PRs was generally kept beneath 100.
 
 Alongside this, changes were being made to the TypeScript compiler. In large part these related to enabling automatic type acquisition through the @types scope. To make that work, the TypeScript team realised pretty quickly that many of the type definitions would not work as is. Ryan wrote up this report:
 
-![](https://2.bp.blogspot.com/-VixlEWrjrg8/XZuVk6o1LmI/AAAAAAAAR9M/yNYln8kGI08eKe4Foh7D4Nx9wwQ_RYq2gCPcBGAYYCw/s640/RyansDefTypReport.png)
+![](../static/blog/2019-10-08-definitely-typed-movie/RyansDefTypReport.png)
 
 At this point in time there were around 1700 type definitions. Pretty much all of them required some massaging. Roughly speaking, with TS 2.0, the language was going to move from a name based type acquisition approach to a file based one. New features were added to TypeScript 2.0 such as the `export as namespace` syntax to support a type definition supporting both being used in modules (where there are `import` / `export`s) but also in script files (where there aren't)
 
@@ -393,7 +393,7 @@ This was one of the reasons why going with the centralised approach of Definitel
 
 It took a long time to get the types 2.0 branch to a point where CI went green. All this time, merges we're taking place between the master branch and the future one. It was hard, unglamorous work. As Ryan put it, "I partied hard when CI went green for the first time on types 2.0."
 
-![](https://3.bp.blogspot.com/-8Y0e7jeMEgE/XZuWVTGTK9I/AAAAAAAAR9Q/VWVitGY2u6kgXRtYM4jJjgqyEstCANVlACLcBGAsYHQ/s640/types20goinggreen.png)
+![](../static/blog/2019-10-08-definitely-typed-movie/types20goinggreen.png)
 
 The first and most obvious addition was the automation of TypeScript definitions being published out to npm.
 

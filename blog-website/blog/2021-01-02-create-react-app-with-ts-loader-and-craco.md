@@ -6,7 +6,7 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [CRACO, TypeScript, create react app, fork-ts-checker-webpack-plugin, ts-loader]
 hide_table_of_contents: false
 ---
-[Create React App](<https://create-react-app.dev/>) is a fantastic way to get up and running building a web app with React. It also supports using TypeScript with React. Simply entering the following:
+[Create React App](https://create-react-app.dev/) is a fantastic way to get up and running building a web app with React. It also supports using TypeScript with React. Simply entering the following:
 
 ```shell
 npx create-react-app my-app --template typescript
@@ -14,14 +14,14 @@ npx create-react-app my-app --template typescript
 
 Will give you a great TypeScript React project to get building with. There's two parts to the TypeScript support that exist:
 
-1. Transpilation AKA "turning our TypeScript into JavaScript". Back since [Babel 7 launched, Babel has enjoyed great support for transpiling TypeScript into JavaScript](<https://devblogs.microsoft.com/typescript/typescript-and-babel-7/>). Create React App leverages this; using the Babel webpack loader, [babel-loader](<https://github.com/babel/babel-loader>), for transpilation.
-2. Type checking AKA "seeing if our code compiles". Create React App uses the [`fork-ts-checker-webpack-plugin`](<https://github.com/TypeStrong/fork-ts-checker-webpack-plugin>) to run the TypeScript type checker on a separate process and report any issues that may exist.
+1. Transpilation AKA "turning our TypeScript into JavaScript". Back since [Babel 7 launched, Babel has enjoyed great support for transpiling TypeScript into JavaScript](https://devblogs.microsoft.com/typescript/typescript-and-babel-7/). Create React App leverages this; using the Babel webpack loader, [babel-loader](https://github.com/babel/babel-loader), for transpilation.
+2. Type checking AKA "seeing if our code compiles". Create React App uses the [`fork-ts-checker-webpack-plugin`](https://github.com/TypeStrong/fork-ts-checker-webpack-plugin) to run the TypeScript type checker on a separate process and report any issues that may exist.
 
-<!-- -->
+
 
 This is a great setup and works very well for the majority of use cases. However, what if we'd like to tweak this setup? What if we'd like to swap out `babel-loader` for `ts-loader` for compilation purposes? Can we do that?
 
-Yes you can! And that's what we're going to do using a tool named [`CRACO`](<https://github.com/gsoft-inc/craco>) \- the pithy shortening of "Create React App Configuration Override". This is a tool that allows us to:
+Yes you can! And that's what we're going to do using a tool named [`CRACO`](https://github.com/gsoft-inc/craco) \- the pithy shortening of "Create React App Configuration Override". This is a tool that allows us to:
 
 > Get all the benefits of create-react-app and customization without using 'eject' by adding a single `craco.config.js` file at the root of your application and customize your eslint, babel, postcss configurations and many more.
 

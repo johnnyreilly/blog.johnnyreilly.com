@@ -12,7 +12,7 @@ It is said that a picture speaks a thousand words. So here's two:
 
 ![](http://4.bp.blogspot.com/-VVzJ7B0Uhys/UpN7vnX7diI/AAAAAAAAAe8/i3hlMT1ECB8/s400/Pretty.png)
 
-That's right, we're here to talk about the [confirm](<https://developer.mozilla.org/en-US/docs/Web/API/Window.confirm>) dialog. Or, more specifically, how we can make our own confirm dialog.
+That's right, we're here to talk about the [confirm](https://developer.mozilla.org/en-US/docs/Web/API/Window.confirm) dialog. Or, more specifically, how we can make our own confirm dialog.
 
 JavaScript in the browser has had the `window.confirm` method for the longest time. This method takes a string as an argument and displays it in the form of a dialog, giving the user the option to click on either an "OK" or a "Cancel" button. If the user clicks "OK" the method returns `true`, if the user clicks "Cancel" the method returns `false`.
 
@@ -20,13 +20,13 @@ JavaScript in the browser has had the `window.confirm` method for the longest ti
 
 ## Making confirm 2.0
 
-[jQuery UI's dialog](<http://jqueryui.com/dialog/#modal-confirmation>) has been around for a long time. I've been using it for a long time. But, if you look at the API, you'll see it works in a very different way to `window.confirm` \- basically it's all about the callbacks. My intention was to create a mechanism which allowed me to prompt the user with jQuery UI's tried and tested dialog, but to expose it in a way that embraced the simplicity of the `window.confirm` API.
+[jQuery UI's dialog](http://jqueryui.com/dialog/#modal-confirmation) has been around for a long time. I've been using it for a long time. But, if you look at the API, you'll see it works in a very different way to `window.confirm` \- basically it's all about the callbacks. My intention was to create a mechanism which allowed me to prompt the user with jQuery UI's tried and tested dialog, but to expose it in a way that embraced the simplicity of the `window.confirm` API.
 
-How to do this? Promises! To quote [Martin Fowler](<http://martinfowler.com/bliki/JavascriptPromise.html>) (makes you look smart when you do that):
+How to do this? Promises! To quote [Martin Fowler](http://martinfowler.com/bliki/JavascriptPromise.html) (makes you look smart when you do that):
 
 > *"In Javascript, promises are objects which represent the pending result of an asynchronous operation. You can use these to schedule further activity after the asynchronous operation has completed by supplying a callback."*
 
-When we show our dialog we are in asynchronous land; waiting for the user to click "OK" or "Cancel". When they do, we need to act on their response. So if our custom confirm dialog returns a promise of a boolean (`true` when the users click "OK", `false` otherwise) then that should be exactly what we need. I'm going to use [Q](<https://github.com/kriskowal/q>) for promises. (Nothing particularly special about Q - it's one of many [Promises / A+](<https://github.com/promises-aplus/promises-spec/blob/master/implementations.md>) compliant implementations available.)
+When we show our dialog we are in asynchronous land; waiting for the user to click "OK" or "Cancel". When they do, we need to act on their response. So if our custom confirm dialog returns a promise of a boolean (`true` when the users click "OK", `false` otherwise) then that should be exactly what we need. I'm going to use [Q](https://github.com/kriskowal/q) for promises. (Nothing particularly special about Q - it's one of many [Promises / A+](https://github.com/promises-aplus/promises-spec/blob/master/implementations.md) compliant implementations available.)
 
 Here's my custom confirm dialog:
 
@@ -86,7 +86,7 @@ What's happening here? Well first of all, if `okButtonText`, `cancelButtonText` 
 - If the user clicks the "OK" button then the promise is resolved with a value of `true`.
 - If the dialog closes and the promise has not been resolved then the promise is resolved with a value of `false`. This covers people clicking on the "Cancel" button as well as closing the dialog through other means.
 
-<!-- -->
+
 
 Finally we return the promise from our deferred object.
 

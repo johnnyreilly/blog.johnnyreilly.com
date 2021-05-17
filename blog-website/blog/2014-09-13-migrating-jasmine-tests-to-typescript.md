@@ -12,7 +12,7 @@ I previously attempted to migrate my Jasmine tests from JavaScript to TypeScript
 
 ## What to Migrate?
 
-I'm going to use one of the test files in my my side project [Proverb](<https://github.com/johnnyreilly/Proverb>). It's the tests for an AngularJS controller called `sageDetail` \- I've written about it [before](<http://icanmakethiswork.blogspot.co.uk/2014/09/unit-testing-angular-controller-with.html>). Here it is in all it's JavaScript-y glory:
+I'm going to use one of the test files in my my side project [Proverb](https://github.com/johnnyreilly/Proverb). It's the tests for an AngularJS controller called `sageDetail` \- I've written about it [before](http://icanmakethiswork.blogspot.co.uk/2014/09/unit-testing-angular-controller-with.html). Here it is in all it's JavaScript-y glory:
 
 ```ts
 describe("Proverb.Web -> app-> controllers ->", function () {
@@ -139,7 +139,7 @@ And add this:
 </Content>
 ```
 
-What next? I've a million red squigglies in my code. It's "could not find symbol" city. Why? Typings! We need typings! So let's begin - I'm needing the Jasmine typings for starters. So let's hit NuGet and it looks like we need [this](<http://www.nuget.org/packages/jasmine.TypeScript.DefinitelyTyped/>):
+What next? I've a million red squigglies in my code. It's "could not find symbol" city. Why? Typings! We need typings! So let's begin - I'm needing the Jasmine typings for starters. So let's hit NuGet and it looks like we need [this](http://www.nuget.org/packages/jasmine.TypeScript.DefinitelyTyped/):
 
 `Install-Package jasmine.TypeScript.DefinitelyTyped`That did no good at all. Still red squigglies. I'm going to hazard a guess that this is something to do with the fact my JavaScript Unit Test project doesn't contain the various TypeScript artefacts that Visual Studio kindly puts into the web csproj for you. This is because I'm keeping my JavaScript tests in a separate project from the code being tested. Also, the Visual Studio TypeScript tooling seems to work on the assumption that TypeScript will only be used within a web project; not a test project. Well I won't let that hold me back... Time to port the TypeScript artefacts in the web csproj over by hand. I'll take this:
 
@@ -327,20 +327,20 @@ The TypeScript compiler will now strip comments; which includes the `reference` 
 
 Yup it's dead. Whilst the compilation itself has no issues, take a look at the errors being presented for just one of the files back in the original web project:
 
-![](http://4.bp.blogspot.com/-SYbV5TwnO3Y/VBNwa2TwQPI/AAAAAAAAAtY/oU8dI5Tv-iY/s640/Screenshot%2B2014-09-12%2B23.15.22.png)
+![](../static/blog/2014-09-13-migrating-jasmine-tests-to-typescript/Screenshot%2B2014-09-12%2B23.15.22.png)
 
 It looks like having one TypeScript project in a solution which uses `reference` comments somehow breaks the implicit referencing behaviour built into Visual Studio for other TypeScript projects in the solution. I can say this with some confidence as if I pull out the `reference` comments from the top of the test file that we've converted then it's business as usual - the TypeScript Language Service lives once more. I'm sure you can see the problem here though: the TypeScript test file doesn't compile. All rather unsatisfactory.
 
-I suspect that if I added `reference` comments throughout the web project the TypeScript Language Service would be just fine. But I rather like the implicit referencing functionality so I'm not inclined to do that. After reaching something of a brick wall and thinking I had encountered a bug in the TypeScript Language service I [raised an issue on GitHub](<https://github.com/Microsoft/TypeScript/issues/673>).
+I suspect that if I added `reference` comments throughout the web project the TypeScript Language Service would be just fine. But I rather like the implicit referencing functionality so I'm not inclined to do that. After reaching something of a brick wall and thinking I had encountered a bug in the TypeScript Language service I [raised an issue on GitHub](https://github.com/Microsoft/TypeScript/issues/673).
 
 ## Solutions....
 
-Thanks to the help of [Mohamed Hegazy](<https://github.com/mhegazy>) it emerged that the problem was down to missing `reference` comments in my `sageDetail` controller tests. One thing I had not considered was the 2 different ways each of my TypeScript projects were working:
+Thanks to the help of [Mohamed Hegazy](https://github.com/mhegazy) it emerged that the problem was down to missing `reference` comments in my `sageDetail` controller tests. One thing I had not considered was the 2 different ways each of my TypeScript projects were working:
 
 - Proverb.Web uses the Visual Studio implicit referencing functionality. This means that I do not need to use `reference` comments in the TypeScript files in Proverb.Web.
 - Proverb.Web.JavaScript does \***not**\* uses the implicit referencing functionality. It needs `reference` comments to resolve references.
 
-<!-- -->
+
 
 The important thing to take away from this (and the thing I had overlooked) was that Proverb.Web.JavaScript uses `reference` comments to pull in Proverb.Web TypeScript files. Those files have dependencies which are \***not**\* stated using `reference` comments. So the compiler trips up when it tries to walk the dependency tree - there are no `reference` comments to be followed! So for example, `common.ts` has a dependency upon `logger.ts`. Fixing the TypeScript Language Service involves ensuring that the full dependency list is included in the `sageDetail` controller tests file, like so:
 
@@ -361,7 +361,7 @@ The important thing to take away from this (and the thing I had overlooked) was 
 /// <reference path="../../../proverb.web/app/config.route.ts" />
 ```
 
-With this in place you have a working solution, albeit one that is a little flaky. [An alternative solution was suggested by Noel Abrahams](<https://github.com/Microsoft/TypeScript/issues/673#issuecomment-56024348>) which I quote here:
+With this in place you have a working solution, albeit one that is a little flaky. [An alternative solution was suggested by Noel Abrahams](https://github.com/Microsoft/TypeScript/issues/673#issuecomment-56024348) which I quote here:
 
 > Why not do the following?
 > 
@@ -369,7 +369,7 @@ With this in place you have a working solution, albeit one that is a little flak
 > - In Proverb.Web.Tests.JavaScript add a reference to this file.
 > - Right-click Proverb.Web.Tests.JavaScript select "Build Dependencies" > "Project Dependencies" and add a reference to Proverb.Web.
 > 
-> <!-- -->
+> 
 > 
 > I don't think directly referencing TypeScript source files is a good idea, because it causes the file to be rebuilt every time the dependant project is compiled.
 

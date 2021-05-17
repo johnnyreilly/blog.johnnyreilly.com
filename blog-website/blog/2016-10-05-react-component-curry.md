@@ -31,6 +31,6 @@ const TrophyIcon = iconMaker("fa-trophy");
 <p>This is totally <ThumbsUpIcon />.... You should win a <TrophyIcon /></p>
 ```
 
-So our `iconMaker` is a function which, when called with a [Font Awesome](<http://fontawesome.io/>) class name produces a function which, when invoked, will return a the HTML required to render that icon. This is a super simple example, a bhaji if you will, but you can imagine how useful this technique can be when you've more of a banquet in mind.
+So our `iconMaker` is a function which, when called with a [Font Awesome](http://fontawesome.io/) class name produces a function which, when invoked, will return a the HTML required to render that icon. This is a super simple example, a bhaji if you will, but you can imagine how useful this technique can be when you've more of a banquet in mind.
 
 

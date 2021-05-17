@@ -3,12 +3,12 @@ title: "Azure Easy Auth and Roles with .NET and Microsoft.Identity.Web"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [Azure, Easy Auth, Roles, ASP.NET, Microsoft.Identity.Web]
 hide_table_of_contents: false
 ---
-[I wrote recently about how to get Azure Easy Auth to work with roles](<https://blog.johnnyreilly.com/2021/01/azure-easy-auth-and-roles-with-dotnet-and-core.html>). This involved borrowing the approach used by [MaximeRouiller.Azure.AppService.EasyAuth](<https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth>).
+[I wrote recently about how to get Azure Easy Auth to work with roles](https://blog.johnnyreilly.com/2021/01/azure-easy-auth-and-roles-with-dotnet-and-core.html). This involved borrowing the approach used by [MaximeRouiller.Azure.AppService.EasyAuth](https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth).
 
-As a consequence of writing that post I came to learn that official support for Azure Easy Auth had landed in October 2020 in v1.2 of [Microsoft.Identity.Web](<https://github.com/AzureAD/microsoft-identity-web/wiki/1.2.0#integration-with-azure-app-services-authentication-of-web-apps-running-with-microsoftidentityweb>). This was great news; I was delighted.
+As a consequence of writing that post I came to learn that official support for Azure Easy Auth had landed in October 2020 in v1.2 of [Microsoft.Identity.Web](https://github.com/AzureAD/microsoft-identity-web/wiki/1.2.0#integration-with-azure-app-services-authentication-of-web-apps-running-with-microsoftidentityweb). This was great news; I was delighted.
 
 However, it turns out that the same authorization issue that `MaximeRouiller.Azure.AppService.EasyAuth` suffers from, is visited upon `Microsoft.Identity.Web` as well.
 
@@ -89,7 +89,7 @@ This is because .NET is looking for claims with a `type` of `"http://schemas.mic
 
 ## Claims transformation FTW
 
-There is a way to work around this issue .NET using `IClaimsTransformation`. This is a poorly documented feature, but fortunately [Gunnar Peipman's blog does a grand job of explaining it](<https://gunnarpeipman.com/aspnet-core-adding-claims-to-existing-identity/>).
+There is a way to work around this issue .NET using `IClaimsTransformation`. This is a poorly documented feature, but fortunately [Gunnar Peipman's blog does a grand job of explaining it](https://gunnarpeipman.com/aspnet-core-adding-claims-to-existing-identity/).
 
 Inside our `Startup.cs` I've registered a claims transformer:
 
@@ -134,6 +134,6 @@ public class AddRolesClaimsTransformation : IClaimsTransformation {
 
 The class above creates a new principal with `"roles"` claims mapped across to `"http://schemas.microsoft.com/ws/2008/06/identity/claims/role"`. This is enough to get .NET treating roles the way you'd hope.
 
-[I've raised an issue against the `Microsoft.Identity.Web` repo](<https://github.com/AzureAD/microsoft-identity-web/issues/881>) about this. Perhaps one day this workaround will no longer be necessary.
+[I've raised an issue against the `Microsoft.Identity.Web` repo](https://github.com/AzureAD/microsoft-identity-web/issues/881) about this. Perhaps one day this workaround will no longer be necessary.
 
 

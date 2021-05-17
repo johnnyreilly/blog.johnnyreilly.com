@@ -11,16 +11,16 @@ hide_table_of_contents: false
  For a while now, I've been seeking a bulletproof way to handle the following scenarios... all at the same time in the context of an ASP.Net MVC application:
 
 1. How to serve full-fat JavaScript in debug mode and minified in release mode
-2. When debugging, ensure that the full-fat JS being served is definitely the latest version; and \***not**\* from the cache. (The time I've wasted due to [304's](<http://en.wikipedia.org/wiki/List_of_HTTP_status_codes#304>)...)
+2. When debugging, ensure that the full-fat JS being served is definitely the latest version; and \***not**\* from the cache. (The time I've wasted due to [304's](http://en.wikipedia.org/wiki/List_of_HTTP_status_codes#304)...)
 3. How to add Javascript assets that need to be served up from any point in an ASP.Net MVC application (including views, layouts, partial views... even controllers if so desired) whilst preventing duplicate scripts from being served.
 4. How to ensure that Javascript files are served up last to any web page to ensure a speedy feel to users (don't want JS blocking rendering).
 5. And last but certainly not least the need to load Javascript files in dependency order. If `myView.js` depends on jQuery then clearly `jQuery-latest.js` needs to be served before `myView.js`.
 
-<!-- -->
 
-Now the best, most comprehensive and solid looking solution to this problem has for some time seemed to me to be [Andrew Davey's](<http://aboutcode.net/>)[Cassette](<http://getcassette.net/>). This addresses all my issues in one way or another, as well as bringing in a raft of other features (support for Coffeescript etc).
 
-However, up until now I've slightly shied away from using Cassette as I was under the impression it had a large number of dependencies. That doesn't appear to be the case at all. I also had some vague notion that I could quite simply build my own solution to these problems making use of Microsoft's [Web Optimization](<http://nuget.org/packages/Microsoft.AspNet.Web.Optimization/1.0.0>) which nicely handles my #1 problem above. However, looking again at the documentation Cassette was promising to handle scenarios #1 - #5 without breaking sweat. How could I ignore that? I figured I should do the sensible thing and take another look at it. And, lo and behold, when I started evaluating it again it seemed to be just what I needed.
+Now the best, most comprehensive and solid looking solution to this problem has for some time seemed to me to be [Andrew Davey's](http://aboutcode.net/)[Cassette](http://getcassette.net/). This addresses all my issues in one way or another, as well as bringing in a raft of other features (support for Coffeescript etc).
+
+However, up until now I've slightly shied away from using Cassette as I was under the impression it had a large number of dependencies. That doesn't appear to be the case at all. I also had some vague notion that I could quite simply build my own solution to these problems making use of Microsoft's [Web Optimization](http://nuget.org/packages/Microsoft.AspNet.Web.Optimization/1.0.0) which nicely handles my #1 problem above. However, looking again at the documentation Cassette was promising to handle scenarios #1 - #5 without breaking sweat. How could I ignore that? I figured I should do the sensible thing and take another look at it. And, lo and behold, when I started evaluating it again it seemed to be just what I needed.
 
 With the minumum of fuss I was able to get an ASP.Net MVC 4 solution up and running, integrated with Cassette, which dealt with all my scenarios very nicely indeed. I thought it might be good to write this up over a short series of posts and share what my finished code looks like. If you follow the steps I go through below it'll get you started using Cassette. Or you could skip to the end of this post and look at the repo on GitHub. Here we go...
 
@@ -53,7 +53,7 @@ If you're more familiar with the workings of Web Optimization than Cassette then
 1. Create bundles as desired.
 2. Serve up bundles and / or straight JavaScript files as you like within your MVC views / partial views / layouts. 
 
-<!-- -->
+
 
 **Cassette**
 
@@ -61,7 +61,7 @@ If you're more familiar with the workings of Web Optimization than Cassette then
 2. Reference bundles and / or individual JavaScript files in their individual bundles as you like within your MVC views / partial views / layouts / controllers / HTML helpers... the list goes on!
 3. Render the referenced scripts to the page (typically just before the closing `body` tag)
 
-<!-- -->
+
 
 ## Making use of our Bundles
 
@@ -81,6 +81,6 @@ To this:
 
 <script src="https://gist.github.com/johnnyreilly/5393608.js?file=LoginAfter.cshtml"></script>
 
-So now you should be up and running with Cassette. If you want the code behind this then take I've put it on GitHub [here](<https://github.com/johnnyreilly/CassetteDemo>).
+So now you should be up and running with Cassette. If you want the code behind this then take I've put it on GitHub [here](https://github.com/johnnyreilly/CassetteDemo).
 
 

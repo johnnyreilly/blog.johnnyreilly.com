@@ -10,9 +10,9 @@ hide_table_of_contents: false
 
  OK, that's not quite true... But what is certainly true is that maintaining an open source project takes time. And there's only so much free time that anyone has. For that reason, wherever you can it makes sense to *AUTOMATE*!
 
-[Last time](<https://blog.johnnyreilly.com/2014/12/deploying-aspnet-mvc-to-github-pages-with-appveyor-part-1.html>) we looked at how you can take an essentially static ASP.Net MVC site (in this case my jVUNDemo documentation site) and generate an entirely static version using Wget. This static site has been pushed to [GitHub Pages](<https://pages.github.com/>) and is serving as the documentation for [jQuery Validation Unobtrusive Native](<http://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/>) (and for bonus points is costing me no money at all).
+[Last time](https://blog.johnnyreilly.com/2014/12/deploying-aspnet-mvc-to-github-pages-with-appveyor-part-1.html) we looked at how you can take an essentially static ASP.Net MVC site (in this case my jVUNDemo documentation site) and generate an entirely static version using Wget. This static site has been pushed to [GitHub Pages](https://pages.github.com/) and is serving as the documentation for [jQuery Validation Unobtrusive Native](http://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/) (and for bonus points is costing me no money at all).
 
-So what next? Well, automation clearly! If I make a change to jQuery Validation Unobtrusive Native then AppVeyor already bounds in and performs a [continuous integration build](<https://ci.appveyor.com/project/JohnReilly/jquery-validation-unobtrusive-native>) for me. It picks up the [latest source](<https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native>) from GitHub, pulls in my dependencies, performs a build and runs my tests. Lovely.
+So what next? Well, automation clearly! If I make a change to jQuery Validation Unobtrusive Native then AppVeyor already bounds in and performs a [continuous integration build](https://ci.appveyor.com/project/JohnReilly/jquery-validation-unobtrusive-native) for me. It picks up the [latest source](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native) from GitHub, pulls in my dependencies, performs a build and runs my tests. Lovely.
 
 So the obvious thing to do is to take this process and plug in the generation of my static site and the publication thereof to GitHub pages. The minute a change is made to my project the documentation should be updated without me having to break sweat. That's the goal.
 
@@ -20,15 +20,15 @@ So the obvious thing to do is to take this process and plug in the generation of
 
 In order to complete our chosen mission we're going to need a GitHub Personal Access Token. We're going to use it when we clone, update and push our GitHub Pages branch. To get one we biff over to Settings / Applications in GitHub and click the "Generate New Token" button.
 
-![](http://1.bp.blogspot.com/-TN1tTkL_eoQ/VKwQfPn8_JI/AAAAAAAAAyI/EeF6XLcP8dg/s640/GitHubApplicationSettings.png)
+![](../static/blog/2015-01-07-deploying-aspnet-mvc-to-github-pages-with-appveyor-part-2/GitHubApplicationSettings.png)
 
 The token I'm using for my project has the following scopes selected:
 
-![](http://2.bp.blogspot.com/-2hsSnmHy_DY/VKwQo7MM0BI/AAAAAAAAAyQ/c5ZAT_mZi5w/s640/GitHub%2BPersonal%2BAccess%2BToken.png)
+![](../static/blog/2015-01-07-deploying-aspnet-mvc-to-github-pages-with-appveyor-part-2/GitHub%2BPersonal%2BAccess%2BToken.png)
 
 ## `appveyor.yml`
 
-With our token in hand we turn our attention to AppVeyor build configuration. This is possible using a file called [`appveyor.yml`](<http://www.appveyor.com/docs/build-configuration>) stored in the root of your repo. You can also use the AppVeyor web UI to do this. However, for the purposes of ease of demonstration I'm using the file approach. The [jQuery Validation Unobtrusive Native `appveyor.yml`](<https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/blob/master/appveyor.yml>) looks like this:
+With our token in hand we turn our attention to AppVeyor build configuration. This is possible using a file called [`appveyor.yml`](http://www.appveyor.com/docs/build-configuration) stored in the root of your repo. You can also use the AppVeyor web UI to do this. However, for the purposes of ease of demonstration I'm using the file approach. The [jQuery Validation Unobtrusive Native `appveyor.yml`](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/blob/master/appveyor.yml) looks like this:
 
 ```yml
 #---------------------------------#
@@ -68,14 +68,14 @@ There's a number of things you should notice from the yml file:
 
 - We create 3 environment variables: GithubEmail, GithubUsername and GithubPersonalAccessToken (more on this in a moment).
 - We only build the master branch.
-- We use [Chocolatey](<https://chocolatey.org/packages/Wget>) to install Wget which is used by the `makeStatic.ps1` Powershell script.
+- We use [Chocolatey](https://chocolatey.org/packages/Wget) to install Wget which is used by the `makeStatic.ps1` Powershell script.
 - After the tests have completed we run 2 Powershell scripts. First `<a href="https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/blob/master/makeStatic.ps1">makeStatic.ps1</a>` which builds the static version of our site. This is the exact same script we discussed in the previous post - we're just passing it the build folder this time (one of AppVeyor's environment variables). Second, we run `<a href="https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/blob/master/pushStatic.ps1">pushStatic.ps1</a>` which publishes the static site to GitHub Pages.
 
-<!-- -->
 
-We pass 4 arguments to `pushStatic.ps1`: the build folder, my email address, my username and my personal access token. For the sake of security the GithubPersonalAccessToken has been encrypted as indicated by the `secure` keyword. This is a capability available in AppVeyor [here](<https://ci.appveyor.com/tools/encrypt>).
 
-![](http://1.bp.blogspot.com/-rQcNQPu2ass/VKwRC0QbQTI/AAAAAAAAAyY/8a8Qf5DGapA/s640/AppVeyor%2Bencrypt.png)
+We pass 4 arguments to `pushStatic.ps1`: the build folder, my email address, my username and my personal access token. For the sake of security the GithubPersonalAccessToken has been encrypted as indicated by the `secure` keyword. This is a capability available in AppVeyor [here](https://ci.appveyor.com/tools/encrypt).
+
+![](../static/blog/2015-01-07-deploying-aspnet-mvc-to-github-pages-with-appveyor-part-2/AppVeyor%2Bencrypt.png)
 
 This allows me to mask my personal access token rather than have it available as free text for anyone to grab.
 
@@ -130,9 +130,9 @@ So what's happening here? Let's break it down:
 - We copy across the contents of the "static-site" folder (created by `makeStatic.ps1`) into the "gh-pages".
 - We use `git status` to check if there are any changes. (This method is completely effective but a little crude to my mind - there's probably better approaches to this.... shout me in the comments if you have a suggestion.)
 - If we have no changes then we do nothing.
-- If we have changes then we stage them, commit them and push them to GitHub Pages. Then we sign off with an allusion to [80's East Coast hip-hop](<https://en.wikipedia.org/wiki/Push_It_(Salt-n-Pepa_song)>)... 'Cos that's how we roll.
+- If we have changes then we stage them, commit them and push them to GitHub Pages. Then we sign off with an allusion to [80's East Coast hip-hop](https://en.wikipedia.org/wiki/Push_It_(Salt-n-Pepa_song))... 'Cos that's how we roll.
 
-<!-- -->
+
 
 With this in place, any changes to the docs will be automatically published out to our "gh-pages" branch. Our documentation will always be up to date thanks to the goodness of AppVeyor's Continuous Integration service.
 

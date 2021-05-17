@@ -8,7 +8,7 @@ hide_table_of_contents: false
 ---
 OK - the title's total clickbait but stay with me; there's a point here.
 
- I'm a member of the Definitely Typed team - and hopefully I won't be kicked out for writing this. My point is this: `.d.ts` files should live with the package they provide typing information for, in npm / GitHub etc. Not separately. TypeScript 1.6 has just been released. Yay! In the [release blog post](<http://blogs.msdn.com/b/typescript/archive/2015/09/16/announcing-typescript-1-6.aspx>) it says this:
+ I'm a member of the Definitely Typed team - and hopefully I won't be kicked out for writing this. My point is this: `.d.ts` files should live with the package they provide typing information for, in npm / GitHub etc. Not separately. TypeScript 1.6 has just been released. Yay! In the [release blog post](http://blogs.msdn.com/b/typescript/archive/2015/09/16/announcing-typescript-1-6.aspx) it says this:
 
 > We’ve changed module resolution when doing CommonJS output to work more closely to how Node does module resolution. If a module name is non-relative, we now follow these steps to find the associated typings:
 > 
@@ -17,7 +17,7 @@ OK - the title's total clickbait but stay with me; there's a point here.
 > 3. Look for `node_modules\&lt;module name&gt;\index.d.ts`
 > 4. Then we go one level higher and repeat the process
 > 
-> <!-- -->
+> 
 > 
 > **Please note:** when we search through node\_modules, we assume these are the packaged node modules which have type information and a corresponding `.js` file. As such, we resolve only `.d.ts` files (not `.ts` file) for non-relative names.
 > 
@@ -27,7 +27,7 @@ The TL;DR is this: consuming npm packages which come with definition files shoul
 
 ## Wrong!
 
-Yeah, it's never going to happen. Surprising as it is, there are many people who are quite happy without TypeScript in their lives (I know - mad right?). These poor unfortunates are unlikely to ever take the extra steps necessary to write definition files. For this reason, there will probably *always* be a need for a provider of typings such as Definitely Typed. As well as that, the vast majority of people using TypeScript probably don't use npm to manage dependencies. There are, however, an increasing number of users who are using npm. Some (like me) may even be using tools like [Browserify](<http://browserify.org/>) (with the [TSIFY plugin](<https://github.com/smrq/tsify>)) or [WebPack](<https://webpack.github.io/>) (with the [TS loader](<https://github.com/jbrantly/ts-loader>)) to bring it all together. My feeling is that, over time, using npm will become more common; particularly given the improvements being made to module resolution in the language.
+Yeah, it's never going to happen. Surprising as it is, there are many people who are quite happy without TypeScript in their lives (I know - mad right?). These poor unfortunates are unlikely to ever take the extra steps necessary to write definition files. For this reason, there will probably *always* be a need for a provider of typings such as Definitely Typed. As well as that, the vast majority of people using TypeScript probably don't use npm to manage dependencies. There are, however, an increasing number of users who are using npm. Some (like me) may even be using tools like [Browserify](http://browserify.org/) (with the [TSIFY plugin](https://github.com/smrq/tsify)) or [WebPack](https://webpack.github.io/) (with the [TS loader](https://github.com/jbrantly/ts-loader)) to bring it all together. My feeling is that, over time, using npm will become more common; particularly given the improvements being made to module resolution in the language.
 
 An advantage of shipping typings with an npm package is this: those typings should accurately describe their accompanying package. In Definitely Typed we only aim to support the latest and greatest typings. So if you find yourself looking for the typings of an older version of a package you're going to have to pick your way back through the history of a `.d.ts` file and hope you happen upon the version you're looking for. Not a fantastic experience.
 
@@ -35,21 +35,21 @@ So I guess what I'm saying is this: if you're an npm package author then it woul
 
 ## Authoring npm modules with TypeScript
 
-Yup - that's what this post is actually about. See how I lured you in with my mild trolling and pulled the old switcheroo? That's edutainment my friend. So, how do we write npm packages in TypeScript and publish them with their typings? Apparently Gandhi [didn't actually say](<http://www.nytimes.com/2011/08/30/opinion/falser-words-were-never-spoken.html?_r=0>) "Be the change you wish to see in the world." Which is a shame. But anyway, I'm going to try and embrace the sentiment here.
+Yup - that's what this post is actually about. See how I lured you in with my mild trolling and pulled the old switcheroo? That's edutainment my friend. So, how do we write npm packages in TypeScript and publish them with their typings? Apparently Gandhi [didn't actually say](http://www.nytimes.com/2011/08/30/opinion/falser-words-were-never-spoken.html?_r=0) "Be the change you wish to see in the world." Which is a shame. But anyway, I'm going to try and embrace the sentiment here.
 
-Not so long ago I wrote a small npm module called [globalize-so-what-cha-want](<https://www.npmjs.com/package/globalize-so-what-cha-want>). It is used to determine what parts of Globalize 1.x you need depending on the modules you're planning to use. It also, contains a little demo UI / online tool written in React which powers [this](<http://johnnyreilly.github.io/globalize-so-what-cha-want/>).
+Not so long ago I wrote a small npm module called [globalize-so-what-cha-want](https://www.npmjs.com/package/globalize-so-what-cha-want). It is used to determine what parts of Globalize 1.x you need depending on the modules you're planning to use. It also, contains a little demo UI / online tool written in React which powers [this](http://johnnyreilly.github.io/globalize-so-what-cha-want/).
 
 For this post, the purpose of the package is rather irrelevant. And even though I've just told you about it, I want you to pretend that the online tool doesn't exist. Pretend I never mentioned it.
 
 What is relevant, and what I want you to think about, is this: I wrote globalize-so-what-cha-want in plain old, honest to goodness JavaScript. Old school.
 
-[But, my love of static typing could be held in abeyance for only so long.](<https://www.youtube.com/watch?v=V4YPFHyGWaY&feature=youtu.be&t=49s>) Once the initial package was written, unit tested and published I got the itch. THIS SHOULD BE WRITTEN IN TYPESCRIPT!!! Well, it didn't have to be but I wanted it to be. Despite having used TypeScript since the early days I'd only been using it for front end work; not for writing npm packages. My mission was clear: port globalize-so-what-cha-want to TypeScript and re-publish to npm.
+[But, my love of static typing could be held in abeyance for only so long.](https://www.youtube.com/watch?v=V4YPFHyGWaY&feature=youtu.be&t=49s) Once the initial package was written, unit tested and published I got the itch. THIS SHOULD BE WRITTEN IN TYPESCRIPT!!! Well, it didn't have to be but I wanted it to be. Despite having used TypeScript since the early days I'd only been using it for front end work; not for writing npm packages. My mission was clear: port globalize-so-what-cha-want to TypeScript and re-publish to npm.
 
 ## Port, port, port!!!
 
 At this point globalize-so-what-cha-want consisted of a single `index.js` file in the root of the package. My end goal was to end up with that file still sat there, but now generated from TypeScript. Alongside it I wanted to see a `index.d.ts` which was generated from the same TypeScript.
 
-`index.js`[before](<https://github.com/johnnyreilly/globalize-so-what-cha-want/tree/6cce84289134a555fe8462247b43eddb051303e3>) looked like this:
+`index.js`[before](https://github.com/johnnyreilly/globalize-so-what-cha-want/tree/6cce84289134a555fe8462247b43eddb051303e3) looked like this:
 
 ```js
 /* jshint varstmt: false, esnext: false */
@@ -175,11 +175,11 @@ module.exports = {
 
 You can even kind of tell that it was written in JavaScript thanks to the jshint rules at the top.
 
-I fired up Atom and created a new folder `src/lib` and inside there I created `index.ts` (yes, `index.js` renamed) and `tsconfig.json`. By the way, you'll notice I'm not leaving Atom - I'm making use of the magnificent [atom-typescript](<https://atom.io/packages/atom-typescript>) which you should totally be using too. It rocks.
+I fired up Atom and created a new folder `src/lib` and inside there I created `index.ts` (yes, `index.js` renamed) and `tsconfig.json`. By the way, you'll notice I'm not leaving Atom - I'm making use of the magnificent [atom-typescript](https://atom.io/packages/atom-typescript) which you should totally be using too. It rocks.
 
-![](http://2.bp.blogspot.com/-HkCD9qNaoaU/VgIwn4WTBTI/AAAAAAAAA4g/U2E1Ybe6acI/s640/Screenshot%2B2015-09-23%2B05.51.14.png)
+![](../static/blog/2015-09-23-authoring-npm-modules-with-typescript/Screenshot%2B2015-09-23%2B05.51.14.png)
 
-Now I'm not going to bore you with what I had to do to port the JS to TS (not much). If you're interested, the source is [here](<https://github.com/johnnyreilly/globalize-so-what-cha-want/blob/master/src/lib/index.ts>). What's more interesting is the `tsconfig.json` \- as it's this that is going to lead the generation of the JS and TS that we need:
+Now I'm not going to bore you with what I had to do to port the JS to TS (not much). If you're interested, the source is [here](https://github.com/johnnyreilly/globalize-so-what-cha-want/blob/master/src/lib/index.ts). What's more interesting is the `tsconfig.json` \- as it's this that is going to lead the generation of the JS and TS that we need:
 
 ```json
 {
@@ -349,15 +349,15 @@ We're there, huzzah! This has been now published to npm - anyone consuming this 
 
 ## PS I'm not the only one
 
-I was just about to hit "publish" when I happened upon [Basarat](<https://twitter.com/basarat>)'s [ts-npm-module](<https://github.com/basarat/ts-npm-module>) which is a project on GitHub which demo's how to publish and consume TypeScript using npm. I'd say great minds think alike but I'm pretty sure Basarat's mind is far greater than mine! (Cough, atom-typescript, cough.) Either way, it's good to see validation for the approach I'm suggesting.
+I was just about to hit "publish" when I happened upon [Basarat](https://twitter.com/basarat)'s [ts-npm-module](https://github.com/basarat/ts-npm-module) which is a project on GitHub which demo's how to publish and consume TypeScript using npm. I'd say great minds think alike but I'm pretty sure Basarat's mind is far greater than mine! (Cough, atom-typescript, cough.) Either way, it's good to see validation for the approach I'm suggesting.
 
 ## PPS Update 23/09/2015 09:51
 
-One of the useful things about writing a blog is that you get to learn. Since I published I've become aware of a few things somewhat relevant to this post. First of all, there is still work ongoing in TypeScript land around this topic. Essentially there are problems resolving dependency conflicts when different dependencies have different versions - you can take part in the ongoing discussion [here](<https://github.com/Microsoft/TypeScript/issues/4665>). There's also some useful resources to look at:
+One of the useful things about writing a blog is that you get to learn. Since I published I've become aware of a few things somewhat relevant to this post. First of all, there is still work ongoing in TypeScript land around this topic. Essentially there are problems resolving dependency conflicts when different dependencies have different versions - you can take part in the ongoing discussion [here](https://github.com/Microsoft/TypeScript/issues/4665). There's also some useful resources to look at:
 
-- [https://github.com/Microsoft/TypeScript/wiki/Typings-for-npm-packages](<https://github.com/Microsoft/TypeScript/wiki/Typings-for-npm-packages>)
-- [https://basarat.gitbooks.io/typescript/content/docs/node/nodejs.html](<https://basarat.gitbooks.io/typescript/content/docs/node/nodejs.html>)
+- [https://github.com/Microsoft/TypeScript/wiki/Typings-for-npm-packages](https://github.com/Microsoft/TypeScript/wiki/Typings-for-npm-packages)
+- [https://basarat.gitbooks.io/typescript/content/docs/node/nodejs.html](https://basarat.gitbooks.io/typescript/content/docs/node/nodejs.html)
 
-<!-- -->
+
 
 

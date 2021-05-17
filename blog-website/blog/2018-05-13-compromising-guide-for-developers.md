@@ -20,7 +20,7 @@ Then comes the moment of trepidation. You suggest a change. You suggest differen
 - "Yes we use 3 spaces."
 - "Okay... So we'll be using 3 spaces..." [backs away carefully]
 
-<!-- -->
+
 
 I've been in this position so many times I've learned to adapt. It helps that I'm a malleable sort anyway. But what if there were another way?
 
@@ -38,8 +38,8 @@ It's because of situations like this that weighting votes becomes useful. Out of
 
 I'll contend that rolling like this makes for more content, happier and more productive teams. Making strength of feeling a factor in choices reduces friction and increases the peace.
 
-![](https://3.bp.blogspot.com/-mg_-2oAjkxE/WvfwNZe3bPI/AAAAAAAAJ7c/CrsL9e0J2pg_t0H3G4aevVAL-c0W0us8wCPcBGAYYCw/s640/Bestival_2008_Increase_the_Peace_banner.jpg)
+![](../static/blog/2018-05-13-compromising-guide-for-developers/Bestival_2008_Increase_the_Peace_banner.jpg)
 
-I've only recently discovered this technique and I can't claim credit for it. I learned it from the awesome [Jamie McCrindle](<https://twitter.com/foldr>). I commend to you! Be happier!
+I've only recently discovered this technique and I can't claim credit for it. I learned it from the awesome [Jamie McCrindle](https://twitter.com/foldr). I commend to you! Be happier!
 
 

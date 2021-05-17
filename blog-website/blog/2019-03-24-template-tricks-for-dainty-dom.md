@@ -12,7 +12,7 @@ Typically I spend a good amount of time playing with TypeScript. Either working 
 
 I have a side project on the go which is essentially a mini analytics dashboard. For the purposes of this piece let's call it "StatsDash". When I was starting it I thought: let's try something different. Let's build StatsDash with HTML *only*. The actual HTML is hand cranked by me and generated in ASP.Net Core / C# using a combination of LINQ and string interpolation. (Who needs Razor? 😎) I'll say it's pretty fun - but the back end is not what I want to focus on.
 
-I got something up and running pretty quickly in pure HTML. The first lesson I learned was this: HTML alone is hella ugly. So I relaxed my criteria; I allowed CSS to come play as long as I didn't have to write any / much myself. There followed some experimentation with different CSS frameworks. For a while I rolled with Bootstrap (old school!), then Bulma and finally I settled on [Materialized](<https://materializecss.com/>). Materialized is a heavily inspired by Google's Material Design and is hence quite beautiful. With my HTML and Materialize's CSS we were rolling. Beautiful stats - no JS.
+I got something up and running pretty quickly in pure HTML. The first lesson I learned was this: HTML alone is hella ugly. So I relaxed my criteria; I allowed CSS to come play as long as I didn't have to write any / much myself. There followed some experimentation with different CSS frameworks. For a while I rolled with Bootstrap (old school!), then Bulma and finally I settled on [Materialized](https://materializecss.com/). Materialized is a heavily inspired by Google's Material Design and is hence quite beautiful. With my HTML and Materialize's CSS we were rolling. Beautiful stats - no JS.
 
 ## "Oh All Right; Just a Splash"
 
@@ -20,7 +20,7 @@ Lovely as things were, StatsDash quickly got to the point where there was too mu
 
 I needed a way to hide and show data as people interacted with StatsDash. I wanted to achieve this *without* starting to render on the client side and also without going back to the server each time.
 
-If you want interactions in your UI all roads lead to JS. It's certainly possible to do some tricks with CSS but that's a round of code golf I'm ill equipped to play. So, I took a look at what Materialized had to offer. Usefully it has a [Modal](<https://materializecss.com/modals.html>) component. With that in play I'd be able to separate the detailed information into different modals which the users could show and hide as required. Perfect!
+If you want interactions in your UI all roads lead to JS. It's certainly possible to do some tricks with CSS but that's a round of code golf I'm ill equipped to play. So, I took a look at what Materialized had to offer. Usefully it has a [Modal](https://materializecss.com/modals.html) component. With that in play I'd be able to separate the detailed information into different modals which the users could show and hide as required. Perfect!
 
 It required a little JS. What's a line or two between friends? Dear reader, I compromised once more.
 
@@ -32,13 +32,13 @@ This was impacting users. Clicking to open a modal resulted in a noticeable lag.
 
 Running an audit of StatsDash in Chrome DevTools there was no doubt we had a DOM problem:
 
- ![](https://1.bp.blogspot.com/-lrVKXxqAtmU/XJdHE509SCI/AAAAAAAAOhU/vxVhqlOMtFMbdm_HDpNkSW55B73Wxm86ACPcBGAYYCw/s640/DOM-massive.png)
+ ![](../static/blog/2019-03-24-template-tricks-for-dainty-dom/DOM-massive.png)
 
 What to do? I still didn't want to go back to the server on each click in StatsDash. And I didn't want to start writing rendering code on the client as well either. I have in the past mixed client and server side rendering and I know well that it's a first class ticket to a confusing codebase.
 
 ## Smuggling DOM in Templates
 
-There's a mechanism that supports this use case directly: the `&lt;template&gt;` element. [To quote MDN](<https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template>):
+There's a mechanism that supports this use case directly: the `&lt;template&gt;` element. [To quote MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template):
 
 > The HTML Content Template (`&lt;template&gt;`) element is a mechanism for holding client-side content that is not to be rendered when a page is loaded but may subsequently be instantiated during runtime using JavaScript.
 
@@ -93,6 +93,6 @@ For this minimal change, the client gets a dramatically different user experienc
 
 The code examples above rely upon the Materialize modals. However the principles used here are broadly applicable. It's easy for you to take the approach outlined here and apply it in a different situation.
 
-If you're interested in some of the other exciting things you can do with templates then I recommend [Eric Bidelman's post on the topic](<https://www.html5rocks.com/en/tutorials/webcomponents/template/>).
+If you're interested in some of the other exciting things you can do with templates then I recommend [Eric Bidelman's post on the topic](https://www.html5rocks.com/en/tutorials/webcomponents/template/).
 
 

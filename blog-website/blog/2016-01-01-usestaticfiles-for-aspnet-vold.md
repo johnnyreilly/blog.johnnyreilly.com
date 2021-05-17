@@ -12,15 +12,15 @@ That's what we're calling the original ASP.Net now, right? This is a guide on ho
 
  Oh and that's not all, we've also got.... drumroll:
 
-## Support for [HTML5 History API](<https://html.spec.whatwg.org/multipage/browsers.html#the-history-interface>)!
+## Support for [HTML5 History API](https://html.spec.whatwg.org/multipage/browsers.html#the-history-interface)!
 
-What that means, in as close to English as I can get it, is real URLs for Single Page Applications. None of that hash-based routing malarkey. So, `https://i-am-your-domain.com/i-am-your-route` rather than `https://i-am-your-domain.com/<em>#/</em>i-am-your-route`. (For a more in depth look at the different sorts of routing SPA's can use then take a look at the [excellent docs](<http://rackt.org/history/stable/GettingStarted.html>) by the folk behind [React Router](<https://github.com/rackt/react-router>). These concepts are not React specific and can be applied to any SPA technology.)
+What that means, in as close to English as I can get it, is real URLs for Single Page Applications. None of that hash-based routing malarkey. So, `https://i-am-your-domain.com/i-am-your-route` rather than `https://i-am-your-domain.com/<em>#/</em>i-am-your-route`. (For a more in depth look at the different sorts of routing SPA's can use then take a look at the [excellent docs](http://rackt.org/history/stable/GettingStarted.html) by the folk behind [React Router](https://github.com/rackt/react-router). These concepts are not React specific and can be applied to any SPA technology.)
 
 ## UseStaticFiles
 
-You may be aware that historically ASP.Net has been somewhat unusual in its approach to serving static files. Essentially, all the files in a project are theoretically servable. Okay, that's not entirely true; things like the `web.config` files etc are not going to be handed over to someone browsing your site. But other files that you might well want kept away from prying eyes may be. So your [TypeScript](<http://www.typescriptlang.org/>) files, your [Less](<http://lesscss.org/>) files are all up for grabs unless you take action to block access to them. This is, and has always been, bad.
+You may be aware that historically ASP.Net has been somewhat unusual in its approach to serving static files. Essentially, all the files in a project are theoretically servable. Okay, that's not entirely true; things like the `web.config` files etc are not going to be handed over to someone browsing your site. But other files that you might well want kept away from prying eyes may be. So your [TypeScript](http://www.typescriptlang.org/) files, your [Less](http://lesscss.org/) files are all up for grabs unless you take action to block access to them. This is, and has always been, bad.
 
-The ASP.Net team know this and things are changing with ASP.Net 5. With the new stack you have to say "these are the static files we want people to access" in the form of an `<a href="https://msdn.microsoft.com/en-us/library/dn782589(v=vs.113).aspx">app.UseStaticFiles()</a>` declaration. This is mighty similar to how you do things in other frameworks such as [Express](<http://expressjs.com/en/starter/static-files.html>). To quote the [docs](<https://docs.asp.net/en/latest/fundamentals/static-files.html#serving-static-files>):
+The ASP.Net team know this and things are changing with ASP.Net 5. With the new stack you have to say "these are the static files we want people to access" in the form of an `<a href="https://msdn.microsoft.com/en-us/library/dn782589(v=vs.113).aspx">app.UseStaticFiles()</a>` declaration. This is mighty similar to how you do things in other frameworks such as [Express](http://expressjs.com/en/starter/static-files.html). To quote the [docs](https://docs.asp.net/en/latest/fundamentals/static-files.html#serving-static-files):
 
 > By default, static files are stored in the webroot of your project. The location of the webroot is defined in the project’s `project.json` file where the default is wwwroot.
 > 
@@ -127,6 +127,6 @@ Sherlock Holmes was onto something; most applications are nothing without data. 
 
 <dl><dt>Map non-api URLs to the index.html - this to support our SPA routes</dt><dd>This amended rule says "whatever URL turns up, <em>unless it begins <code>"api/"</code></em>, if it hasn't been catered for by an existing rule, well it must be a SPA route, so we'll serve up the shell SPA page of <code>build/index.html</code>".</dd></dl>
 
-This allows us to perform data access by prefixing all the Web API routes with `"api/"`. I've picked this because it is the default location for ASP.Net Web API routes. It is (like most things) entirely configurable. To see a working implementation of this complete approach then take a look at the PoorClaresAngular project [here](<https://github.com/johnnyreilly/poorclaresarundel/tree/15e7d4ddc0f1c06fe326b44c3bdc71ceb554bf73>).
+This allows us to perform data access by prefixing all the Web API routes with `"api/"`. I've picked this because it is the default location for ASP.Net Web API routes. It is (like most things) entirely configurable. To see a working implementation of this complete approach then take a look at the PoorClaresAngular project [here](https://github.com/johnnyreilly/poorclaresarundel/tree/15e7d4ddc0f1c06fe326b44c3bdc71ceb554bf73).
 
 

@@ -6,13 +6,13 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [auth0-js, Auth0, cypress, login]
 hide_table_of_contents: false
 ---
-[Cypress](<https://www.cypress.io/>) is a fantastic way to write UI tests for your web apps. Just world class. Wait, no. Galaxy class. I'm going to go one further: universe class. You get my drift.
+[Cypress](https://www.cypress.io/) is a fantastic way to write UI tests for your web apps. Just world class. Wait, no. Galaxy class. I'm going to go one further: universe class. You get my drift.
 
  Here's a pickle for you. You have functionality that lies only behind the walled garden of authentication. You want to write tests for these capabilities. Assuming that authentication takes place within your application that's no great shakes. Authentication is part of your app; it's no big deal using Cypress to automate logging in.
 
 Auth is a serious business and, as Cypress is best in class for UI testing, I'll say that Auth0 is romping home with the same title in the auth-as-a-service space. My app is using Auth0 for authentication. What's important to note about this is the flow. Typically when using auth-as-a-service, the user is redirected to the auth provider's site to authenticate and then be redirected back to the application post-login.
 
-[Brian Mann](<https://github.com/brian-mann>) (of Cypress fame) has been [fairly clear when talking about testing with this sort of authentication flow](<https://github.com/cypress-io/cypress/issues/1342#issuecomment-366747803>):
+[Brian Mann](https://github.com/brian-mann) (of Cypress fame) has been [fairly clear when talking about testing with this sort of authentication flow](https://github.com/cypress-io/cypress/issues/1342#issuecomment-366747803):
 
 > You're trying to test SSO - and we have recipes showing you exactly how to do this.
 > 
@@ -22,9 +22,9 @@ I want to automate logging into Auth0 from my Cypress tests. But hopefully in a 
 
 ## Commanding Auth0
 
-To automate our login, we're going to use the [auth0-js client library](<https://github.com/auth0/auth0.js>). This is the same library the application uses; but we're going to do something subtly different with it.
+To automate our login, we're going to use the [auth0-js client library](https://github.com/auth0/auth0.js). This is the same library the application uses; but we're going to do something subtly different with it.
 
-The application uses [`authorize`](<https://github.com/auth0/auth0.js#api>) to log users in. This function redirects the user into the Auth0 lock screen, and then, post authentication, redirects the user back to the application with a token in the URL. The app parses the token (using the auth0 client library) and sets the token and the expiration of said token in the browser sessionStorage.
+The application uses [`authorize`](https://github.com/auth0/auth0.js#api) to log users in. This function redirects the user into the Auth0 lock screen, and then, post authentication, redirects the user back to the application with a token in the URL. The app parses the token (using the auth0 client library) and sets the token and the expiration of said token in the browser sessionStorage.
 
 What we're going to do is automate our login by using `login` instead. First of all, we need to add `auth0-js` as a dependency of our e2e tests:
 
@@ -88,7 +88,7 @@ Cypress.Commands.add('visitHome', (overrides = {}) => {
 });
 ```
 
-This visits the root of our application and wipes the `sessionStorage`. This is necessary because Cypress doesn't clear down `sessionStorage` between tests. ([That's going to change though.](<https://github.com/cypress-io/cypress/issues/413>))
+This visits the root of our application and wipes the `sessionStorage`. This is necessary because Cypress doesn't clear down `sessionStorage` between tests. ([That's going to change though.](https://github.com/cypress-io/cypress/issues/413))
 
 ## Using It
 
@@ -113,11 +113,11 @@ Well, the test looks good but it's failing. If I fire up the Chrome Dev Tools in
 {error: "unauthorized_client",…} error : "unauthorized_client" error_description : "Grant type 'http://auth0.com/oauth/grant-type/password-realm' not allowed for the client."
 ```
 
-Hmmm... So sad. If you go to [https://manage.auth0.com/#/applications](<https://manage.auth0.com/#/applications>), select your application, `Show Advanced Settings` and `Grant Types` you'll see a `Password` option is unselected.
+Hmmm... So sad. If you go to [https://manage.auth0.com/#/applications](https://manage.auth0.com/#/applications), select your application, `Show Advanced Settings` and `Grant Types` you'll see a `Password` option is unselected.
 
 Select it, Save Changes and try again.
 
-![](https://4.bp.blogspot.com/-RhUKING4eYU/W0RxKvVMg2I/AAAAAAAALLM/QohX5jP5rZogoH27UGxVxYxAfTxgcUDXwCPcBGAYYCw/s640/auth0-enable-password-grant-type.png)
+![](../static/blog/2018-07-09-cypress-and-auth0/auth0-enable-password-grant-type.png)
 
 You now have a test which automates your Auth0 login using Cypress and goes on to test your application functionality with it!
 
@@ -125,6 +125,6 @@ You now have a test which automates your Auth0 login using Cypress and goes on t
 
 It's worth saying that it's worth setting up different tenants in Auth0 to support your testing scenarios. This is generally a good idea so you can separate your testing accounts from Production accounts. Further to that, you don't need to have your Production setup supporting the `Password``Grant Type`.
 
-Also, if you're curious about what the application under test is like then read [this](<https://blog.johnnyreilly.com/2018/01/auth0-typescript-and-aspnet-core.html>).
+Also, if you're curious about what the application under test is like then read [this](https://blog.johnnyreilly.com/2018/01/auth0-typescript-and-aspnet-core.html).
 
 

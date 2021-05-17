@@ -6,11 +6,11 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [provideplugin, jquery, jqlite, Angular, Webpack]
 hide_table_of_contents: false
 ---
-You may know that [Angular ships with a cutdown version of jQuery called jQLite](<https://docs.angularjs.org/api/ng/function/angular.element>). It's still possible to use the full-fat jQuery; to quote the docs:
+You may know that [Angular ships with a cutdown version of jQuery called jQLite](https://docs.angularjs.org/api/ng/function/angular.element). It's still possible to use the full-fat jQuery; to quote the docs:
 
  > To use `jQuery`, simply ensure it is loaded before the `angular.js` file.
 
-Now the wording rather implies that you're not using any module loader / bundler. Rather that all files are being loaded via `script` tags and relies on the global variables that result from that. True enough, if you take a look at the [Angular source](<https://github.com/angular/angular.js/blob/eaa1119d4252bed08dfa42f984ef9502d0f02775/src/Angular.js#L1791>) you can see how this works:
+Now the wording rather implies that you're not using any module loader / bundler. Rather that all files are being loaded via `script` tags and relies on the global variables that result from that. True enough, if you take a look at the [Angular source](https://github.com/angular/angular.js/blob/eaa1119d4252bed08dfa42f984ef9502d0f02775/src/Angular.js#L1791) you can see how this works:
 
 ```ts
 // bind to jQuery if present;

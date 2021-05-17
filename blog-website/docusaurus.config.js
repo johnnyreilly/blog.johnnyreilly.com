@@ -6,8 +6,8 @@ module.exports = {
   tagline: "The blog of johnnyreilly ❤️🌻",
   url: "https://blog.johnnyreilly.com", // 'https://blog.johnnyreilly.com',
   baseUrl: "/",
-  // onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: "warn",
+  onBrokenLinks: "error",
+  onBrokenMarkdownLinks: "error",
   favicon: "img/favicon.ico",
   organizationName: "johnnyreilly", // Usually your GitHub org/user name.
   projectName: "blog.johnnyreilly.com", // Usually your repo name.
@@ -24,6 +24,12 @@ module.exports = {
     [
       "@docusaurus/plugin-client-redirects",
       {
+        redirects: [
+          {
+            to: '/2019/12/18/teams-notification-webhooks',
+            from: '/2019/12/18/automating-teams-notifications-recently',
+          },
+        ],
         createRedirects: function (existingPath) {
           if (existingPath.match(urlRegex)) {
             const [, year, month, date, slug] = existingPath.split("/");

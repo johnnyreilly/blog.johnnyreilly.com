@@ -78,6 +78,6 @@ const iAmAMap = new Map( // Look Ma!  No type annotations
 );
 ```
 
-I've raised this as an issue with the TypeScript team; you can find details [here](<https://github.com/Microsoft/TypeScript/issues/8936>).
+I've raised this as an issue with the TypeScript team; you can find details [here](https://github.com/Microsoft/TypeScript/issues/8936).
 
 

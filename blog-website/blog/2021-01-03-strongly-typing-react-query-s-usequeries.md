@@ -6,11 +6,11 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [useQueries, react-query]
 hide_table_of_contents: false
 ---
-If you haven't used [`react-query`](<https://react-query.tanstack.com/>) then I heartily recommend it. It provides (to quote the docs):
+If you haven't used [`react-query`](https://react-query.tanstack.com/) then I heartily recommend it. It provides (to quote the docs):
 
 > Hooks for fetching, caching and updating asynchronous data in React
 
-With version 3 of `react-query`, a new hook was added: [`useQueries`](<https://react-query.tanstack.com/reference/useQueries>). This hook allows you fetch a variable number of queries at the same time. An example of what usage looks like is this ([borrowed from the excellent docs](<https://react-query.tanstack.com/guides/parallel-queries#dynamic-parallel-queries-with-usequeries>)):
+With version 3 of `react-query`, a new hook was added: [`useQueries`](https://react-query.tanstack.com/reference/useQueries). This hook allows you fetch a variable number of queries at the same time. An example of what usage looks like is this ([borrowed from the excellent docs](https://react-query.tanstack.com/guides/parallel-queries#dynamic-parallel-queries-with-usequeries)):
 
 ```tsx
 function App({ users }) {
@@ -25,13 +25,13 @@ function App({ users }) {
  }
 ```
 
-Whilst `react-query` is written in TypeScript, the way that `useQueries` is presently written strips the types that are supplied to it. Consider [the signature of the `useQueries`](<https://github.com/tannerlinsley/react-query/blob/d25ab3ef8260ea1c02b52b7082c3ce4120596b31/src/react/useQueries.ts#L8>):
+Whilst `react-query` is written in TypeScript, the way that `useQueries` is presently written strips the types that are supplied to it. Consider [the signature of the `useQueries`](https://github.com/tannerlinsley/react-query/blob/d25ab3ef8260ea1c02b52b7082c3ce4120596b31/src/react/useQueries.ts#L8):
 
 ```ts
 export function useQueries(queries: UseQueryOptions[]): UseQueryResult[] {
 ```
 
-This returns an array of [`UseQueryResult`](<https://github.com/tannerlinsley/react-query/blob/d25ab3ef8260ea1c02b52b7082c3ce4120596b31/src/react/types.ts#L42>):
+This returns an array of [`UseQueryResult`](https://github.com/tannerlinsley/react-query/blob/d25ab3ef8260ea1c02b52b7082c3ce4120596b31/src/react/types.ts#L42):
 
 ```ts
 export type UseQueryResult<
@@ -75,7 +75,7 @@ export function useQueriesTyped<TQueries extends readonly UseQueryOptions[]>(
 }
 ```
 
-Let's unpack this. The first and most significant thing to note here is that `queries` moves from being `UseQueryOptions[]` to being `TQueries extends readonly UseQueryOptions[]` \- far more fancy! The reason for this change is we want the type parameters to flow through on an element by element basis in the supplied array. [TypeScript 4's variadic tuple types](<https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#variadic-tuple-types>) should allow us to support this. So the new array signature looks like this:
+Let's unpack this. The first and most significant thing to note here is that `queries` moves from being `UseQueryOptions[]` to being `TQueries extends readonly UseQueryOptions[]` \- far more fancy! The reason for this change is we want the type parameters to flow through on an element by element basis in the supplied array. [TypeScript 4's variadic tuple types](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#variadic-tuple-types) should allow us to support this. So the new array signature looks like this:
 
 ```ts
 queries: [...TQueries]
@@ -115,7 +115,7 @@ Let's walk this through. First of all we'll look at this bit:
 { [ArrayElement in keyof TQueries]: /* the type has been stripped to protect your eyes */ }
 ```
 
-On the face of it, it looks like we're returning an `Object`, not an `Array`. There's nuance here; [JavaScript `Array`s are `Object`s](<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array>).
+On the face of it, it looks like we're returning an `Object`, not an `Array`. There's nuance here; [JavaScript `Array`s are `Object`s](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array).
 
 More specifically, by approaching the signature this way, we can acquire the `ArrayElement` type which represents each of the keys of the array. Consider this array:
 
@@ -173,7 +173,7 @@ Now we want to get the return type of our `queryFn` \- as that's the data type w
 ReturnType<NonNullable<Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']>>
 ```
 
-Here we're using [TypeScript 4.1's recursive conditional types](<https://devblogs.microsoft.com/typescript/announcing-typescript-4-1/#recursive-conditional-types>) to unwrap a `Promise` (or not) to the relevant type. This allows us to get the actual type we're interested in, as opposed to the `Promise` of that type. Finally we have the type we need! So we can do this:
+Here we're using [TypeScript 4.1's recursive conditional types](https://devblogs.microsoft.com/typescript/announcing-typescript-4-1/#recursive-conditional-types) to unwrap a `Promise` (or not) to the relevant type. This allows us to get the actual type we're interested in, as opposed to the `Promise` of that type. Finally we have the type we need! So we can do this:
 
 ```ts
 type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T;
@@ -186,7 +186,7 @@ It's at this point where we reach a conditional type in our type definition. Ess
 1. Where we're inferring the return type of the query
 2. Where we're inferring the return type of a `select`. A `select` option can be used to transform or select a part of the data returned by the query function. It has the signature: `select: (data: TData) =&gt; TSelect`
 
-<!-- -->
+
 
 We've been unpacking the first of these so far. Now we encounter the conditional type that chooses between them:
 
@@ -204,7 +204,7 @@ What's happening here is:
 - if a query includes a `select` option, we infer what that is and then subsequently extract the return type of the `select`.
 - otherwise we use the query return type (as we we've previously examined)
 
-<!-- -->
+
 
 Finally, whichever type we end up with, we supply that type as a parameter to `UseQueryResult`. And that is what is going to surface up our types to our users.
 
@@ -266,6 +266,6 @@ Admittedly this last example is a somewhat unlikely scenario. But again we can s
 
 ## In the box?
 
-It's great that we can wrap `useQueries` to get a strongly typed experience. It would be tremendous if this functionality was available by default. [There's a discussion going on around this](<https://github.com/tannerlinsley/react-query/pull/1527>). It's possible that this wrapper may no longer need to exist, and that would be amazing. In the meantime; enjoy!
+It's great that we can wrap `useQueries` to get a strongly typed experience. It would be tremendous if this functionality was available by default. [There's a discussion going on around this](https://github.com/tannerlinsley/react-query/pull/1527). It's possible that this wrapper may no longer need to exist, and that would be amazing. In the meantime; enjoy!
 
 

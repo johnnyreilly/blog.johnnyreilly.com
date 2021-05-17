@@ -10,7 +10,7 @@ It started with nuns. Don't all good stories start that way? One of my (many) au
 
  ## TL;DR - grab what you need
 
-For reference the complete "before" and "after" projects can be found on GitHub [here](<https://github.com/johnnyreilly/AngularJS2AngularTS>). This is available so people can see clearly what changes have been made in the migration.
+For reference the complete "before" and "after" projects can be found on GitHub [here](https://github.com/johnnyreilly/AngularJS2AngularTS). This is available so people can see clearly what changes have been made in the migration.
 
 The content of the site is available for <u>reference only</u>
 
@@ -29,7 +29,7 @@ Behind the scenes this sends 2 emails:
 - The first back to the person who submitted the prayer request assuring them that they will be prayed for.
 - The second to the convent telling them the details of what the person would like prayer for.
 
-<!-- -->
+
 
 <aside><em>It's not accidental that I am not sharing the location of my aunt's website in this post. Given the inherent mischievousness of most developers (I should know, I am one) I harbour a fear that readers of this post might go away and submit many an insincere prayer request (or worse) to the convent. If that's you I don't intend to help you. You're clever, you'll find the site if you are so minded. But please know that the nuns who read any of your prayer requests are wonderful people (nuns get a bad rep) and that they love you. They *<strong>will</strong>* pray for you. They're good like that. I appeal to your better nature on this.</em></aside>
 
@@ -49,11 +49,11 @@ Before I kick off I thought I'd list a couple of guidelines / caveats on this po
 - The choices that I make for the migration path do not necessarily reflect the "one true way". Rather, they are pragmatic choices that I am making - there may be alternatives approaches here and there that could be used instead.
 - I love Visual Studio - it's my IDE of choice and the one I am using as I perform the migration. Some of the points that I will make are Visual Studio specific - I will try and highlight that when appropriate.
 
-<!-- -->
+
 
 ## Typings
 
-The first thing we're going to need to get going are the Angular typing files which can be found on Definitely Typed [here](<https://github.com/borisyankov/DefinitelyTyped/tree/master/angularjs>). Since these typings are made available over [NuGet](<https://www.nuget.org/packages/angularjs.TypeScript.DefinitelyTyped/>) I'm going to pull them in with a wave of my magic `Install-Package angularjs.TypeScript.DefinitelyTyped`.
+The first thing we're going to need to get going are the Angular typing files which can be found on Definitely Typed [here](https://github.com/borisyankov/DefinitelyTyped/tree/master/angularjs). Since these typings are made available over [NuGet](https://www.nuget.org/packages/angularjs.TypeScript.DefinitelyTyped/) I'm going to pull them in with a wave of my magic `Install-Package angularjs.TypeScript.DefinitelyTyped`.
 
 As well as pulling in the typing files Visual Studio 2013 has also made some tweaks to my `PoorClaresAngular.csproj` file which it tells me about:
 
@@ -291,7 +291,7 @@ I could move on but let's go for bonus points (and now you'll see why the unit t
 
 > In Angular, a Controller is a JavaScript constructor function that is used to augment the Angular Scope.
 
-So let's see if we can swap over our vanilla contructor function for a TypeScript class. This will (in my view) better express the intention of the code. To do this I am essentially following the example laid down by my Definitely Typed colleague [Basarat](<https://twitter.com/basarat>). I highly recommend his [screencast on the topic](<https://www.youtube.com/watch?v=WdtVn_8K17E>). Also kudos to [Andrew Davey](<https://twitter.com/andrewdavey>) whose [post on the topic](<http://aboutcode.net/2013/10/20/typescript-angularjs-controller-classes.html>) also fed into this.
+So let's see if we can swap over our vanilla contructor function for a TypeScript class. This will (in my view) better express the intention of the code. To do this I am essentially following the example laid down by my Definitely Typed colleague [Basarat](https://twitter.com/basarat). I highly recommend his [screencast on the topic](https://www.youtube.com/watch?v=WdtVn_8K17E). Also kudos to [Andrew Davey](https://twitter.com/andrewdavey) whose [post on the topic](http://aboutcode.net/2013/10/20/typescript-angularjs-controller-classes.html) also fed into this.
 
 ```ts
 "use strict";
@@ -335,7 +335,7 @@ module poorClaresApp.controllers {
 }
 ```
 
-My only reservation with this approach is that we have to declare the TypeScript class outside the `angular.module...` statement. To avoid cluttering up global scope I've placed our class in a module called `poorClaresApp.controllers` which maps nicely to our Angular module name. It would be nice if I could place the class definition in an [IIFE](<http://en.wikipedia.org/wiki/Immediately-invoked_function_expression>) to completely keep this completely isolated but TypeScript doesn't allow for that syntax (for reasons I'm unclear about - the output would be legal JavaScript).
+My only reservation with this approach is that we have to declare the TypeScript class outside the `angular.module...` statement. To avoid cluttering up global scope I've placed our class in a module called `poorClaresApp.controllers` which maps nicely to our Angular module name. It would be nice if I could place the class definition in an [IIFE](http://en.wikipedia.org/wiki/Immediately-invoked_function_expression) to completely keep this completely isolated but TypeScript doesn't allow for that syntax (for reasons I'm unclear about - the output would be legal JavaScript).
 
 For a small class this seems to add a little noise but as classes grow in complexity I think this approach will quickly start to pay dividends. There are a few things worth noting about the above approach:
 
@@ -343,7 +343,7 @@ For a small class this seems to add a little noise but as classes grow in comple
 - Because we're using TypeScript arrow functions (which preserve the outer "this" context) we are now free to dispose of the `var vm = this;` mechanism we're were previously using for the same purpose. Much more intuitive code to my mind.
 - We are not actually using `$scope` at all in this controller - maybe it should be removed entirely in the long run.
 
-<!-- -->
+
 
 ## TypeScriptify `navController.ts`
 

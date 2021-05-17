@@ -6,13 +6,13 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [azure-pipelines, jest]
 hide_table_of_contents: false
 ---
-This post explains how to integrate the tremendous test runner [Jest](<https://jestjs.io/>) with the continuous integration platform [Azure Pipelines](<https://azure.microsoft.com/en-gb/services/devops/pipelines/?nav=min>). Perhaps we're setting up a new project and we've created a new React app with [Create React App](<https://create-react-app.dev/>). This ships with Jest support out of the box. How do we get that plugged into Pipelines such that:
+This post explains how to integrate the tremendous test runner [Jest](https://jestjs.io/) with the continuous integration platform [Azure Pipelines](https://azure.microsoft.com/en-gb/services/devops/pipelines/?nav=min). Perhaps we're setting up a new project and we've created a new React app with [Create React App](https://create-react-app.dev/). This ships with Jest support out of the box. How do we get that plugged into Pipelines such that:
 
 1. Tests run as part of our pipeline
 2. A failing test fails the build
 3. Test results are reported in Azure Pipelines UI?
 
-<!-- -->
+
 
 ## Tests run as part of our pipeline
 
@@ -57,11 +57,11 @@ The way we achieve this is by:
 1. Producing test results in a format that can be subsequently processed
 2. Using those test results to publish to Azure Pipelines
 
-<!-- -->
 
-The way that you configure Jest test output is through usage of [`reporters`](<https://jestjs.io/docs/en/cli#--reporters>). However, Create React App doesn't support these. However that's not an issue, as the marvellous [Dan Abramov](<https://twitter.com/dan_abramov>) demonstrates [here](<https://github.com/facebook/create-react-app/issues/2474#issuecomment-306340526>).
 
-We need to install the [`jest-junit`](<https://github.com/jest-community/jest-junit>) package to our `client-app`:
+The way that you configure Jest test output is through usage of [`reporters`](https://jestjs.io/docs/en/cli#--reporters). However, Create React App doesn't support these. However that's not an issue, as the marvellous [Dan Abramov](https://twitter.com/dan_abramov) demonstrates [here](https://github.com/facebook/create-react-app/issues/2474#issuecomment-306340526).
+
+We need to install the [`jest-junit`](https://github.com/jest-community/jest-junit) package to our `client-app`:
 
 ```
 npm install jest-junit --save-dev
@@ -85,7 +85,7 @@ We also need to add some configuration to our `package.json` in the form of a `j
 
 The above configuration will use the name of the test file as the suite name in the results, which should speed up the tracking down of the failing test. The other values specify where the test results should be published to, in this case the root of our `client-app` with the filename `junit.xml`.
 
-Now our CI is producing our test results, how do we get them into Pipelines? For that we need the [Publish test results task](<https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/test/publish-test-results?view=azure-devops&tabs=trx%2Cyaml>) and a new step in our `azure-pipelines.yml` *after* our `npm run test` step:
+Now our CI is producing our test results, how do we get them into Pipelines? For that we need the [Publish test results task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/test/publish-test-results?view=azure-devops&tabs=trx%2Cyaml) and a new step in our `azure-pipelines.yml` *after* our `npm run test` step:
 
 ```yml
 - task: Npm@1

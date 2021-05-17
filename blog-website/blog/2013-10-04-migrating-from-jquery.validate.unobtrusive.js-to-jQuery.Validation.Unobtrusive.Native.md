@@ -6,7 +6,7 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [migrating, jquery.validate.unobtrusive.js, getting started, jQuery.Validation.Unobtrusive.Native, jQuery Validation]
 hide_table_of_contents: false
 ---
-So, you're looking at [jQuery.Validation.Unobtrusive.Native](<https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native>). You're thinking to yourself "Yeah, I'd really like to use the native unobtrusive support in jQuery Validation. But I've already got this app which is using [jquery.validate.unobtrusive.js](<https://www.nuget.org/packages/jQuery.Validation.Unobtrusive/>) \- actually how easy is switching over?" Well I'm here to tell you that it's pretty straightforward - here's a walkthrough of how it might be done.
+So, you're looking at [jQuery.Validation.Unobtrusive.Native](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native). You're thinking to yourself "Yeah, I'd really like to use the native unobtrusive support in jQuery Validation. But I've already got this app which is using [jquery.validate.unobtrusive.js](https://www.nuget.org/packages/jQuery.Validation.Unobtrusive/) \- actually how easy is switching over?" Well I'm here to tell you that it's pretty straightforward - here's a walkthrough of how it might be done.
 
  ## I need something to migrate
 
@@ -24,10 +24,10 @@ Time to dive into NuGet and install jQuery.Validation.Unobtrusive.Native. We'll 
 
 What has this done to my project? Well 2 things
 
-1. It's upgraded jQuery Validation ([jquery.validate.js](<http://jqueryvalidation.org/>)) from v1.10.0 (the version that is currently part of the MVC 4 template) to v1.11.1 (the latest and greatest jQuery Validation as of the time of writing)
+1. It's upgraded jQuery Validation ([jquery.validate.js](http://jqueryvalidation.org/)) from v1.10.0 (the version that is currently part of the MVC 4 template) to v1.11.1 (the latest and greatest jQuery Validation as of the time of writing)
 2. It's added a reference to the jQuery.Validation.Unobtrusive.Native.MVC4 assembly, like so:
 
-<!-- -->
+
 
 ![](http://3.bp.blogspot.com/-V-21V1Ypo3E/Uk583DTbegI/AAAAAAAAAd0/O0nv7w6kmew/s400/NewReference.png)
 

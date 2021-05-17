@@ -3,26 +3,26 @@ title: "ARM templates, security, role assignments and magic GUIDs"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [Azure, ARM templates, role assignments, permissions]
 hide_table_of_contents: false
 ---
-If you're deploying to Azure, there's a good chance you're using [ARM templates](<https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview>) to do so. Once you've got past "Hello World", you'll probably find yourself in a situation when you're deploying multiple types of resource to make your solution. For instance, you may be deploying an [App Service](<https://docs.microsoft.com/en-us/azure/app-service/quickstart-arm-template?pivots=platform-linux#review-the-template>) alongside [Key Vault](<https://docs.microsoft.com/en-us/azure/templates/microsoft.keyvault/vaults>) and [Storage](<https://docs.microsoft.com/en-us/azure/templates/microsoft.storage/storageaccounts>).
+If you're deploying to Azure, there's a good chance you're using [ARM templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview) to do so. Once you've got past "Hello World", you'll probably find yourself in a situation when you're deploying multiple types of resource to make your solution. For instance, you may be deploying an [App Service](https://docs.microsoft.com/en-us/azure/app-service/quickstart-arm-template?pivots=platform-linux#review-the-template) alongside [Key Vault](https://docs.microsoft.com/en-us/azure/templates/microsoft.keyvault/vaults) and [Storage](https://docs.microsoft.com/en-us/azure/templates/microsoft.storage/storageaccounts).
 
 One of the hardest things when it comes to deploying software and having it work, is permissions. Without adequate permissions configured, the most beautiful code can do *nothing*. Incidentally, this is a good thing. We're deploying to the web; many people are there, not all good. As a different kind of web-head once said:
 
  ![With great power, comes great responsibility](../static/blog/2021-02-08-arm-templates-security-role-assignments/with-great-power-comes-great-responsibility.jpg)
 
-Azure has great power and [suggests you use it wisely](<https://docs.microsoft.com/en-us/azure/security/fundamentals/identity-management-best-practices#use-role-based-access-control>).
+Azure has great power and [suggests you use it wisely](https://docs.microsoft.com/en-us/azure/security/fundamentals/identity-management-best-practices#use-role-based-access-control).
 
-> Access management for cloud resources is critical for any organization that uses the cloud. [Azure role-based access control (Azure RBAC)](<https://docs.microsoft.com/en-us/azure/role-based-access-control/overview>) helps you manage who has access to Azure resources, what they can do with those resources, and what areas they have access to.
+> Access management for cloud resources is critical for any organization that uses the cloud. [Azure role-based access control (Azure RBAC)](https://docs.microsoft.com/en-us/azure/role-based-access-control/overview) helps you manage who has access to Azure resources, what they can do with those resources, and what areas they have access to.
 > 
-> Designating groups or individual roles responsible for specific functions in Azure helps avoid confusion that can lead to human and automation errors that create security risks. Restricting access based on the [need to know](<https://en.wikipedia.org/wiki/Need_to_know>) and [least privilege](<https://en.wikipedia.org/wiki/Principle_of_least_privilege>) security principles is imperative for organizations that want to enforce security policies for data access.
+> Designating groups or individual roles responsible for specific functions in Azure helps avoid confusion that can lead to human and automation errors that create security risks. Restricting access based on the [need to know](https://en.wikipedia.org/wiki/Need_to_know) and [least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege) security principles is imperative for organizations that want to enforce security policies for data access.
 
 This is good advice. With that in mind, how can we ensure that the different resources we're deploying to Azure can talk to one another?
 
 ## Role (up for your) assignments
 
-The answer is roles. There's a number of roles that exist in Azure that can be assigned to users, groups, service principals and managed identities. In our own case we're using managed identity for our resources. What we can do is use ["role assignments"](<https://docs.microsoft.com/en-us/azure/role-based-access-control/overview#how-azure-rbac-works>) to give our managed identity access to given resources. [Arturo Lucatero](<https://twitter.com/ArLucaID>) gives a great short explanation of this:
+The answer is roles. There's a number of roles that exist in Azure that can be assigned to users, groups, service principals and managed identities. In our own case we're using managed identity for our resources. What we can do is use ["role assignments"](https://docs.microsoft.com/en-us/azure/role-based-access-control/overview#how-azure-rbac-works) to give our managed identity access to given resources. [Arturo Lucatero](https://twitter.com/ArLucaID) gives a great short explanation of this:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Dzhm-garKBM" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen=""></iframe>
 
@@ -107,9 +107,9 @@ Let's take a look at these three variables:
         "keyVaultCryptoOfficer": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '14b46e9e-c2b7-41b4-b07b-48a6ebf60603')]",
 ```
 
-The three variables above contain the subscription resource ids for the roles [Storage Blob Data Contributor](<https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#storage-blob-data-contributor>), [Key Vault Secrets Officer](<https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#key-vault-secrets-officer-preview>) and [Key Vault Crypto Officer](<https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#key-vault-crypto-officer-preview>). The first question on your mind is likely: "what is `ba92f5b4-2d11-453d-a403-e96b0029c9fe` and where does it come from?" Great question! Well, each of these GUIDs represents a built-in role in Azure RBAC. The `ba92f5b4-2d11-453d-a403-e96b0029c9fe` represents the Storage Blob Data Contributor role.
+The three variables above contain the subscription resource ids for the roles [Storage Blob Data Contributor](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#storage-blob-data-contributor), [Key Vault Secrets Officer](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#key-vault-secrets-officer-preview) and [Key Vault Crypto Officer](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#key-vault-crypto-officer-preview). The first question on your mind is likely: "what is `ba92f5b4-2d11-453d-a403-e96b0029c9fe` and where does it come from?" Great question! Well, each of these GUIDs represents a built-in role in Azure RBAC. The `ba92f5b4-2d11-453d-a403-e96b0029c9fe` represents the Storage Blob Data Contributor role.
 
-How can I look these up? Well, there's two ways; [there's an article which documents them here](<https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles>) or you could crack open the [Cloud Shell](<https://azure.microsoft.com/en-gb/features/cloud-shell/>) and look up a role by GUID like so:
+How can I look these up? Well, there's two ways; [there's an article which documents them here](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles) or you could crack open the [Cloud Shell](https://azure.microsoft.com/en-gb/features/cloud-shell/) and look up a role by GUID like so:
 
 ```ps
 Get-AzRoleDefinition | ? {$_.id -eq "ba92f5b4-2d11-453d-a403-e96b0029c9fe" }
@@ -143,7 +143,7 @@ NotDataActions   : {}
 AssignableScopes : {/}
 ```
 
-As you can see, the `Actions` section of the output above (and in even more detail on the [linked article](<https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles>)) provides information about what the different roles can do. So if you're looking to enable one Azure resource to talk to another, you should be able to refer to these to identify a role that you might want to use.
+As you can see, the `Actions` section of the output above (and in even more detail on the [linked article](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles)) provides information about what the different roles can do. So if you're looking to enable one Azure resource to talk to another, you should be able to refer to these to identify a role that you might want to use.
 
 ## Creating a role assignment
 
@@ -166,7 +166,7 @@ So now we understand how you identify the roles in question, let's take the fina
         }
 ```
 
-Let's go through the above, significant property by significant property (it's also worth checking the official reference [here](<https://docs.microsoft.com/en-us/azure/templates/microsoft.authorization/roleassignments>)):
+Let's go through the above, significant property by significant property (it's also worth checking the official reference [here](https://docs.microsoft.com/en-us/azure/templates/microsoft.authorization/roleassignments)):
 
 - `type` \- the type of role assignment we want to create, for a key vault it's `"Microsoft.KeyVault/vaults/providers/roleAssignments"`, for storage it's `"Microsoft.Storage/storageAccounts/providers/roleAssignments"`. The pattern is that it's the resource type, followed by `"/providers/roleAssignments"`. 
 - `dependsOn` \- before we can create a role assignment, we need the service principal we desire to permission (in our case a managed identity) to exist
@@ -175,10 +175,10 @@ Let's go through the above, significant property by significant property (it's a
 - `properties.scope` \- we're modifying another resource; our key vault isn't defined in this ARM template and we want to specify the resource we're granting permissions to.
 - `properties.principalType` \- the type of principal that we're creating an assignment for; in our this is `"ServicePrincipal"` \- our managed identity.
 
-<!-- -->
 
-There is an alternate approach that you can use where the `type` is `"Microsoft.Authorization/roleAssignments"`. Whilst this also works, it displayed errors in the [Azure tooling for VS Code](<https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools>). As such, we've opted not to use that approach in our ARM templates.
 
-Many thanks to the awesome [John McCormick](<https://github.com/jmccor99>) who wrangled permissions with me until we bent Azure RBAC to our will.
+There is an alternate approach that you can use where the `type` is `"Microsoft.Authorization/roleAssignments"`. Whilst this also works, it displayed errors in the [Azure tooling for VS Code](https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools). As such, we've opted not to use that approach in our ARM templates.
+
+Many thanks to the awesome [John McCormick](https://github.com/jmccor99) who wrangled permissions with me until we bent Azure RBAC to our will.
 
 

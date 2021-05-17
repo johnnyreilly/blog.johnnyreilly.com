@@ -6,9 +6,9 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Globalize, migration]
 hide_table_of_contents: false
 ---
-Globalize has hit 1.0. Anyone who reads my blog will likely be aware that I'm a long time user of [Globalize 0.1.x](<http://blog.icanmakethiswork.io/2012/05/globalizejs-number-and-date.html>). I've been a little daunted by the leap that the move from 0.1.x to 1.x represents. It appears to be the very definition of "breaking changes". :-) But hey, this is Semantic Versioning being used correctly so how could I complain? Either way, I've decided to write up the migration here as I'm not expecting this to be easy.
+Globalize has hit 1.0. Anyone who reads my blog will likely be aware that I'm a long time user of [Globalize 0.1.x](http://blog.icanmakethiswork.io/2012/05/globalizejs-number-and-date.html). I've been a little daunted by the leap that the move from 0.1.x to 1.x represents. It appears to be the very definition of "breaking changes". :-) But hey, this is Semantic Versioning being used correctly so how could I complain? Either way, I've decided to write up the migration here as I'm not expecting this to be easy.
 
- To kick things off I've set up a very [simple repo](<https://github.com/johnnyreilly/globalize-migration/tree/v0.1.x>) that consists of a single page that depends upon Globalize 0.1.x to render a number and a date in German. It looks like this:
+ To kick things off I've set up a very [simple repo](https://github.com/johnnyreilly/globalize-migration/tree/v0.1.x) that consists of a single page that depends upon Globalize 0.1.x to render a number and a date in German. It looks like this:
 
 ```html
 <html>
@@ -45,7 +45,7 @@ Globalize has hit 1.0. Anyone who reads my blog will likely be aware that I'm a 
 
 When it's run it looks like this:
 
-![](http://4.bp.blogspot.com/-FPsorsaP9ek/VbheyWDCUbI/AAAAAAAAA3k/I_Wf5WVJ42s/s640/Screenshot%2B2015-07-29%2B06.03.04.png)
+![](../static/blog/2015-07-30-upgrading-to-globalize-1x-for-dummies/Screenshot%2B2015-07-29%2B06.03.04.png)
 
 Let's see how we go about migrating this super simple example.
 
@@ -86,9 +86,9 @@ This all looks happy enough. Except it's actually not.
 
 ## We need fuel
 
-Or as I like to call it cldr-data. We just pulled down Globalize 1.x but we didn't pull down the data that Globalize 1.x relies upon. This is one of the differences between Globalize 0.1.x and 1.x. Globalize 1.x does not include the "culture" data. By which I mean all the `globalize.culture.de-DE.js` type files. Instead Globalize 1.x relies upon [CLDR - Unicode Common Locale Data Repository](<http://cldr.unicode.org/>). It does this in the form of [cldr-json](<https://github.com/unicode-cldr/cldr-json>).
+Or as I like to call it cldr-data. We just pulled down Globalize 1.x but we didn't pull down the data that Globalize 1.x relies upon. This is one of the differences between Globalize 0.1.x and 1.x. Globalize 1.x does not include the "culture" data. By which I mean all the `globalize.culture.de-DE.js` type files. Instead Globalize 1.x relies upon [CLDR - Unicode Common Locale Data Repository](http://cldr.unicode.org/). It does this in the form of [cldr-json](https://github.com/unicode-cldr/cldr-json).
 
-Now before you start to worry, you shouldn't actually need to go and get this by yourself, the lovely [Rafael Xavier de Souza](<https://github.com/rxaviers>) has saved you a job by putting together [Bower](<https://github.com/rxaviers/cldr-data-bower>) and [npm](<https://github.com/rxaviers/cldr-data-npm>) modules to do the hard work for you.
+Now before you start to worry, you shouldn't actually need to go and get this by yourself, the lovely [Rafael Xavier de Souza](https://github.com/rxaviers) has saved you a job by putting together [Bower](https://github.com/rxaviers/cldr-data-bower) and [npm](https://github.com/rxaviers/cldr-data-npm) modules to do the hard work for you.
 
 I'm using Bower for my client side package management and so I'll use that. Looking at the Bower dependencies downloaded when I upgraded my package I can see there is a `cldr-data` package. Yay! However it appears to be missing the associated json files. Boo!
 
@@ -169,21 +169,21 @@ node ./node_modules/cldr-data-downloader/bin/download.js -i bower_components/cld
 
 If, like me, you were a regular user of Globalize 0.1.x then you know that you needed very little to get going. As you can see from our example you just serve up `Globalize.js` and the culture files you are interested in (eg `globalize.culture.de-DE.js`). That's it - you have all you need; job's a good'un. This is all very convenient and entirely lovely.
 
-Globalize 1.x has a different approach and one that (I have to be honest) I'm not entirely on board with. The thing that you need to know about the new Globalize is that *nothing comes for free*. It's been completely modularised and [you have to include extra libraries depending on the functionality you require.](<https://github.com/jquery/globalize#pick-the-modules-you-need>) On top of that you then have to work out the [portions of the cldr data that you require for those modules](<https://github.com/jquery/globalize#2-cldr-content>) and supply them. This means that getting up and running with Globalize 1.x is much harder. Frankly I think it's a little painful.
+Globalize 1.x has a different approach and one that (I have to be honest) I'm not entirely on board with. The thing that you need to know about the new Globalize is that *nothing comes for free*. It's been completely modularised and [you have to include extra libraries depending on the functionality you require.](https://github.com/jquery/globalize#pick-the-modules-you-need) On top of that you then have to work out the [portions of the cldr data that you require for those modules](https://github.com/jquery/globalize#2-cldr-content) and supply them. This means that getting up and running with Globalize 1.x is much harder. Frankly I think it's a little painful.
 
-I realise this is a little ["Who moved my cheese"](<https://en.wikipedia.org/wiki/Who_Moved_My_Cheese%3F>). I'll get over it. I do actually see the logic of this. It is certainly good that the culture date is not frozen in aspic but will evolve as the world does. But it's undeniable that in our brave new world Globalize is no longer a doddle to pick up. Or at least right now.
+I realise this is a little ["Who moved my cheese"](https://en.wikipedia.org/wiki/Who_Moved_My_Cheese%3F). I'll get over it. I do actually see the logic of this. It is certainly good that the culture date is not frozen in aspic but will evolve as the world does. But it's undeniable that in our brave new world Globalize is no longer a doddle to pick up. Or at least right now.
 
 ## Take the modules and run
 
-So. What do we actually need? Well I've consulted the [documentation](<https://github.com/jquery/globalize#pick-the-modules-you-need>) and I think I'm clear. Our simple demo cares about dates and numbers. So I'm going to guess that means I need:
+So. What do we actually need? Well I've consulted the [documentation](https://github.com/jquery/globalize#pick-the-modules-you-need) and I think I'm clear. Our simple demo cares about dates and numbers. So I'm going to guess that means I need:
 
 - `<a href="https://github.com/jquery/globalize#core-module">globalize.js</a>`
 - `<a href="https://github.com/jquery/globalize#date-module">globalize/date.js</a>`
 - `<a href="https://github.com/jquery/globalize#number-module">globalize/number.js</a>`
 
-<!-- -->
 
-On top of that I'm also going to need the various cldr dependencies too. That's not all. Given that I've decided which modules I will use I now need to acquire the associated cldr data. According to the docs [here](<https://github.com/jquery/globalize#2-cldr-content>) we're going to need:
+
+On top of that I'm also going to need the various cldr dependencies too. That's not all. Given that I've decided which modules I will use I now need to acquire the associated cldr data. According to the docs [here](https://github.com/jquery/globalize#2-cldr-content) we're going to need:
 
 - `cldr/supplemental/likelySubtags.json`
 - `cldr/main/<i>locale</i>/ca-gregorian.json`
@@ -193,17 +193,17 @@ On top of that I'm also going to need the various cldr dependencies too. That's 
 - `cldr/main/locale/numbers.json`
 - `cldr/supplemental/numberingSystems.json`
 
-<!-- -->
+
 
 Figuring that all out felt like really hard work. But I think that now we're ready to do the actual migration.
 
 ### Update 30/08/2015: Globalize · So What'cha Want
 
-To make working out what you need when using Globalize I've built [Globalize · So What'cha Want](<http://johnnyreilly.github.io/globalize-so-what-cha-want/>). You're so very welcome.
+To make working out what you need when using Globalize I've built [Globalize · So What'cha Want](http://johnnyreilly.github.io/globalize-so-what-cha-want/). You're so very welcome.
 
 ## The Actual Migration
 
-To do this I'm going to lean heavily upon [an example put together by Rafael](<https://github.com/jquery/globalize/blob/master/examples/plain-javascript/index.html>). The migrated code looks like this:
+To do this I'm going to lean heavily upon [an example put together by Rafael](https://github.com/jquery/globalize/blob/master/examples/plain-javascript/index.html). The migrated code looks like this:
 
 ```html
 <html>
@@ -277,7 +277,7 @@ To do this I'm going to lean heavily upon [an example put together by Rafael](<h
 </html>
 ```
 
-By the way, I'm using [fetch](<http://jakearchibald.com/2015/thats-so-fetch/>) and [promises](<http://www.html5rocks.com/en/tutorials/es6/promises/>) to load the cldr-data. This isn't mandatory - I use it because Chrome lets me. (I'm so bleeding edge.) Some standard jQuery ajax calls would do just as well. There's an example of that approach [here](<https://github.com/jquery/globalize/blob/master/doc/cldr.md#how-do-i-load-cldr-data-into-globalize>).
+By the way, I'm using [fetch](http://jakearchibald.com/2015/thats-so-fetch/) and [promises](http://www.html5rocks.com/en/tutorials/es6/promises/) to load the cldr-data. This isn't mandatory - I use it because Chrome lets me. (I'm so bleeding edge.) Some standard jQuery ajax calls would do just as well. There's an example of that approach [here](https://github.com/jquery/globalize/blob/master/doc/cldr.md#how-do-i-load-cldr-data-into-globalize).
 
 ## Observations
 
@@ -317,11 +317,11 @@ The above is standard node/io type code by the way; just take the contents of th
 
 And here is the page in all its post migration glory:
 
-![](http://2.bp.blogspot.com/-cBx66MK1tYI/Vbp5Rvch6zI/AAAAAAAAA30/HBiaN6risRg/s640/Screenshot%2B2015-07-30%2B20.21.19.png)
+![](../static/blog/2015-07-30-upgrading-to-globalize-1x-for-dummies/Screenshot%2B2015-07-30%2B20.21.19.png)
 
 It looks exactly the same except 'de-DE' has become simply 'de' (since that's how the cldr rolls).
 
-The migrated code is [there for the taking](<https://github.com/johnnyreilly/globalize-migration>). Make sure you remember to `bower install` \- and you'll need to host the demo on a simple server since it makes ajax calls.
+The migrated code is [there for the taking](https://github.com/johnnyreilly/globalize-migration). Make sure you remember to `bower install` \- and you'll need to host the demo on a simple server since it makes ajax calls.
 
 Before I finish off I wanted to say "well done!" to all the people who have worked on Globalize. It's an important project and I do apologise for my being a little critical of it here. I should say that I think it's just the getting started that's hard. Once you get over that hurdle you'll be fine. Hopefully this post will help people do just that. Pip, pip!
 

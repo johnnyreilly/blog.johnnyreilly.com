@@ -8,7 +8,7 @@ hide_table_of_contents: false
 ---
 ## Going off piste
 
- The post that follows is a slightly rambly affair which is pretty much my journal of the first steps of getting up and running with JavaScript unit testing. I will not claim that much of this blog is down to me. In fact in large part is me working my way through [Mathew Aniyan's excellent blog post on integrating Chutzpah with TFS](<http://blogs.msdn.com/b/visualstudioalm/archive/2012/07/09/javascript-unit-tests-on-team-foundation-service-with-chutzpah.aspx>). But a few deviations from this post have made me think it worth keeping hold of this record for my benefit (if no-one else's).
+ The post that follows is a slightly rambly affair which is pretty much my journal of the first steps of getting up and running with JavaScript unit testing. I will not claim that much of this blog is down to me. In fact in large part is me working my way through [Mathew Aniyan's excellent blog post on integrating Chutzpah with TFS](http://blogs.msdn.com/b/visualstudioalm/archive/2012/07/09/javascript-unit-tests-on-team-foundation-service-with-chutzpah.aspx). But a few deviations from this post have made me think it worth keeping hold of this record for my benefit (if no-one else's).
 
 That's the disclaimers out of the way now...
 
@@ -16,23 +16,23 @@ That's the disclaimers out of the way now...
 
 Getting started with JavaScript unit testing has not been the breeze I’d expected. Frankly I’ve found the docs out there not particularly helpful. But if at first you don't succeed then try, try, try again.
 
-So after a number of failed attempts I’m going to give it another go. [Rushaine McBean](<http://www.hanselminutes.com/412/getting-started-with-javascript-unit-testing-with-jasmine-and-rushaine-mcbean>) says Jasmine is easiest so I'm going to follow her lead and give it a go.
+So after a number of failed attempts I’m going to give it another go. [Rushaine McBean](http://www.hanselminutes.com/412/getting-started-with-javascript-unit-testing-with-jasmine-and-rushaine-mcbean) says Jasmine is easiest so I'm going to follow her lead and give it a go.
 
 Let’s new up a new (empty) ASP.NET project. Yes, I know ASP.NET has nothing to do with JavaScript unit testing but my end goal is to be able to run JS unit tests in Visual Studio and as part of Continuous Integration. Further to that, I'm anticipating a future where I have a solution that contains JavaScript unit tests and C# unit tests as well. It is indeed a bold and visionary Brave New World. We'll see how far we get.
 
-First up, download Jasmine from [GitHub](<http://jasmine.github.io/>) \- I'll use [v2.0](<https://github.com/pivotal/jasmine/blob/master/dist/jasmine-standalone-2.0.0.zip>). Unzip it and fire up SpecRunner.html and whaddya know... It works!
+First up, download Jasmine from [GitHub](http://jasmine.github.io/) \- I'll use [v2.0](https://github.com/pivotal/jasmine/blob/master/dist/jasmine-standalone-2.0.0.zip). Unzip it and fire up SpecRunner.html and whaddya know... It works!
 
 ![](http://4.bp.blogspot.com/-M-Qct1e8Ofo/UxiT5wHICLI/AAAAAAAAAiY/tHUQemETCGI/s320/LookItWorksRightOutTheBox.png)
 
-As well it might. I’d be worried if it didn’t. So I’ll move the contents of the release package into my empty project. Now let’s see if we can get those tests running inside Visual Studio. I’d heard of [Chutzpah](<https://chutzpah.codeplex.com/>) which describes itself thusly:
+As well it might. I’d be worried if it didn’t. So I’ll move the contents of the release package into my empty project. Now let’s see if we can get those tests running inside Visual Studio. I’d heard of [Chutzpah](https://chutzpah.codeplex.com/) which describes itself thusly:
 
 > *“Chutzpah is an open source JavaScript test runner which enables you to run unit tests using QUnit, Jasmine, Mocha, CoffeeScript and TypeScript.” *
 
-What I’m after is the Chutzpah test adapter for Visual Studio 2012/2013 which can be found [here](<http://visualstudiogallery.msdn.microsoft.com/f8741f04-bae4-4900-81c7-7c9bfb9ed1fe>). I download the VSIX and install. Pretty painless. Once I restart Visual Studio I can see my unit tests in the test explorer. Nice! Run them and...
+What I’m after is the Chutzpah test adapter for Visual Studio 2012/2013 which can be found [here](http://visualstudiogallery.msdn.microsoft.com/f8741f04-bae4-4900-81c7-7c9bfb9ed1fe). I download the VSIX and install. Pretty painless. Once I restart Visual Studio I can see my unit tests in the test explorer. Nice! Run them and...
 
 ![](http://2.bp.blogspot.com/-Ns9-ZoCzyxU/UxiVe83GQAI/AAAAAAAAAik/9rJiv7c3gOA/s320/EverythingFails.png)
 
-All fail. This makes me sad. All the errors say “Can’t find variable: Player in file”. Hmmm. Why? Dammit I’m actually going to have to read the [documentation](<https://chutzpah.codeplex.com/wikipage?title=Chutzpah%20File%20References&referringTitle=Documentation>)... It turns out the issue can be happily resolved by adding these 3 references to the top of PlayerSpec.js:
+All fail. This makes me sad. All the errors say “Can’t find variable: Player in file”. Hmmm. Why? Dammit I’m actually going to have to read the [documentation](https://chutzpah.codeplex.com/wikipage?title=Chutzpah%20File%20References&referringTitle=Documentation)... It turns out the issue can be happily resolved by adding these 3 references to the top of PlayerSpec.js:
 
 ```js
 /// <reference path="../src/Player.js" />
@@ -46,7 +46,7 @@ Now the tests pass:
 
 The question is: can we get this working with Visual Studio Online?
 
-Fortunately another has gone before me. Mathew Aniyan has written a [superb blog post called "Javascript Unit Tests on Team Foundation Service with Chutzpah"](<http://blogs.msdn.com/b/visualstudioalm/archive/2012/07/09/javascript-unit-tests-on-team-foundation-service-with-chutzpah.aspx>). Using this post as a guide (it was written 18 months ago which is frankly aeons in the world of the web) I'm hoping that I'll be able to, without too many tweaks, get Javascript unit tests running on Team Foundation Service / Visual Studio Online ( / insert this weeks rebranding here).
+Fortunately another has gone before me. Mathew Aniyan has written a [superb blog post called "Javascript Unit Tests on Team Foundation Service with Chutzpah"](http://blogs.msdn.com/b/visualstudioalm/archive/2012/07/09/javascript-unit-tests-on-team-foundation-service-with-chutzpah.aspx). Using this post as a guide (it was written 18 months ago which is frankly aeons in the world of the web) I'm hoping that I'll be able to, without too many tweaks, get Javascript unit tests running on Team Foundation Service / Visual Studio Online ( / insert this weeks rebranding here).
 
 First of all in Visual Studio Online I’ll create a new project called "GettingStartedWithJavaScriptUnitTesting" (using all the default options). Apparently *“Your project is created and your team is going to absolutely love this.”* Hmmmm... I think I’ll be judge of that.
 

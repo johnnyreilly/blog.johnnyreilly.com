@@ -6,7 +6,7 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [compile-time constants, TypeScript, defineplugin, Webpack]
 hide_table_of_contents: false
 ---
-I've been searching for a way to describe what the DefinePlugin actually does. The [docs](<https://github.com/webpack/docs/wiki/list-of-plugins#defineplugin>) say\*:
+I've been searching for a way to describe what the DefinePlugin actually does. The [docs](https://github.com/webpack/docs/wiki/list-of-plugins#defineplugin) say\*:
 
  > Define free variables. Useful for having development builds with debug logging or adding global constants.
 
@@ -14,7 +14,7 @@ I've been searching for a way to describe what the DefinePlugin actually does. T
 
 I think I would describe it thusly: the DefinePlugin allows you to create global constants which can be *configured at compile time*. I find this very useful for allowing different behaviour between development builds and release builds. This post will demonstrate usage of this approach, talk about what's actually happening and how to get this working nicely with TypeScript.
 
-If you just want to see this in action then take a look at this [repo](<https://github.com/johnnyreilly/poorclaresarundel/>) and keep your eyes open for usage of [`__VERSION__`](<https://github.com/johnnyreilly/poorclaresarundel/search?utf8=%E2%9C%93&q=__VERSION__>) and [`__IN_DEBUG__`](<https://github.com/johnnyreilly/poorclaresarundel/search?utf8=%E2%9C%93&q=__IN_DEBUG__>).
+If you just want to see this in action then take a look at this [repo](https://github.com/johnnyreilly/poorclaresarundel/) and keep your eyes open for usage of [`__VERSION__`](https://github.com/johnnyreilly/poorclaresarundel/search?utf8=%E2%9C%93&q=__VERSION__) and [`__IN_DEBUG__`](https://github.com/johnnyreilly/poorclaresarundel/search?utf8=%E2%9C%93&q=__IN_DEBUG__).
 
 ## What Globals?
 
@@ -54,7 +54,7 @@ __IN_DEBUG__: false,
           __VERSION__: '1.0.0.' + Date.now()
 ```
 
-A little clearer, right? `__IN_DEBUG__` is given the boolean value `false` and `__VERSION__` is given the string value of `1.0.0.` plus the ticks off of `Date.now()`. What's happening here is well explained in Pete Hunt's excellent [webpack howto](<https://github.com/petehunt/webpack-howto#6-feature-flags>): "definePlugin takes raw strings and inserts them". `JSON.stringify` facilitates this; it produces a string representation of a value that can be inlined into code. When the inlining takes place the actual output would be something like this:
+A little clearer, right? `__IN_DEBUG__` is given the boolean value `false` and `__VERSION__` is given the string value of `1.0.0.` plus the ticks off of `Date.now()`. What's happening here is well explained in Pete Hunt's excellent [webpack howto](https://github.com/petehunt/webpack-howto#6-feature-flags): "definePlugin takes raw strings and inserts them". `JSON.stringify` facilitates this; it produces a string representation of a value that can be inlined into code. When the inlining takes place the actual output would be something like this:
 
 ```ts
 if (false) { // Because at compile time, __IN_DEBUG__ === false
@@ -62,7 +62,7 @@ if (false) { // Because at compile time, __IN_DEBUG__ === false
     }
 ```
 
-And if you've got some [UglifyJS](<https://github.com/mishoo/UglifyJS>) or similar in the mix then, in the example above, this would actually strip out the statement above entirely since it's clearly a [NOOP](<https://en.wikipedia.org/wiki/NOP>). Yay the dead code removal! If `__IN_DEBUG__` was `false` then (perhaps obviously) this statement would be left in place as it wouldn't be dead code.
+And if you've got some [UglifyJS](https://github.com/mishoo/UglifyJS) or similar in the mix then, in the example above, this would actually strip out the statement above entirely since it's clearly a [NOOP](https://en.wikipedia.org/wiki/NOP). Yay the dead code removal! If `__IN_DEBUG__` was `false` then (perhaps obviously) this statement would be left in place as it wouldn't be dead code.
 
 ## TypeScript and Define
 

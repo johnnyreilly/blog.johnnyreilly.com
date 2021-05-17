@@ -6,11 +6,11 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Directives, TypeScript, javascript, UI Bootstrap, Isolated Scope, AngularJS]
 hide_table_of_contents: false
 ---
-[I wrote a little while ago about creating a directive to present server errors on the screen in an Angular application](<http://icanmakethiswork.blogspot.com/2014/08/angularjs-meet-aspnet-server-validation.html>). In my own (not so humble opinion), it was really quite nice. I was particularly proud of my usage of isolate scope. However, pride comes before a fall.
+[I wrote a little while ago about creating a directive to present server errors on the screen in an Angular application](http://icanmakethiswork.blogspot.com/2014/08/angularjs-meet-aspnet-server-validation.html). In my own (not so humble opinion), it was really quite nice. I was particularly proud of my usage of isolate scope. However, pride comes before a fall.
 
  It turns out that using isolate scope in a directive is not always wise. Or rather – not always possible. And this is why:
 
-`Error: [$compile:multidir] Multiple directives [datepickerPopup, serverError] asking for new/isolated scope on: &lt;input name="sage.dateOfBirth" class="col-xs-12 col-sm-9" type="text" value="" ng-click="vm.dateOfBirthDatePickerOpen()" server-error="vm.errors" ng-model="vm.sage.dateOfBirth" is-open="vm.dateOfBirthDatePickerIsOpen" datepicker-popup="dd MMM yyyy"&gt; `Ug. What happened here? Well, I had a date field that I was using my serverError directive on. Nothing too controversial there. The problem came when I tried to plug in [UI Bootstrap’s datepicker](<http://angular-ui.github.io/bootstrap/>) as well. That’s right the directives are fighting. Sad face.
+`Error: [$compile:multidir] Multiple directives [datepickerPopup, serverError] asking for new/isolated scope on: &lt;input name="sage.dateOfBirth" class="col-xs-12 col-sm-9" type="text" value="" ng-click="vm.dateOfBirthDatePickerOpen()" server-error="vm.errors" ng-model="vm.sage.dateOfBirth" is-open="vm.dateOfBirthDatePickerIsOpen" datepicker-popup="dd MMM yyyy"&gt; `Ug. What happened here? Well, I had a date field that I was using my serverError directive on. Nothing too controversial there. The problem came when I tried to plug in [UI Bootstrap’s datepicker](http://angular-ui.github.io/bootstrap/) as well. That’s right the directives are fighting. Sad face.
 
 To be more precise, it turns out that only one directive on an element is allowed to create an isolated scope. So if I want to use UI Bootstrap’s datepicker (and I do) – well my serverError directive is toast.
 
@@ -162,7 +162,7 @@ It works by pulling the `name` and `serverError` values off the attrs parameter.
 
 ## My Plea
 
-What I’ve outlined here works. I’ll admit that usage of `$eval` makes me feel a little bit dirty (I’ve got [“eval is evil”](<http://www.jslint.com/lint.html#evil>) running through my head). Whilst it works, I’m not sure what I’ve done is necessarily best practice. After all [the Angular docs themselves say](<https://docs.angularjs.org/guide/directive>):
+What I’ve outlined here works. I’ll admit that usage of `$eval` makes me feel a little bit dirty (I’ve got [“eval is evil”](http://www.jslint.com/lint.html#evil) running through my head). Whilst it works, I’m not sure what I’ve done is necessarily best practice. After all [the Angular docs themselves say](https://docs.angularjs.org/guide/directive):
 
 > ***Best Practice:** Use the scope option to create isolate scopes when making components that you want to reuse throughout your app. *
 

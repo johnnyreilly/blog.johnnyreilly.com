@@ -6,7 +6,7 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [TypeScript, yarn, Webpack, PnP]
 hide_table_of_contents: false
 ---
-Yarn PnP is an innovation by the Yarn team designed to speed up module resolution by node. To quote the [(excellent) docs](<https://yarnpkg.com/en/docs/pnp>):
+Yarn PnP is an innovation by the Yarn team designed to speed up module resolution by node. To quote the [(excellent) docs](https://yarnpkg.com/en/docs/pnp):
 
 > Plug’n’Play is an alternative installation strategy unveiled in September 2018...
 > 
@@ -14,7 +14,7 @@ Yarn PnP is an innovation by the Yarn team designed to speed up module resolutio
 > 
 > When you think about it, Yarn knows everything about your dependency tree - it evens installs it! So why is Node tasked with locating your packages on the disk? Why don’t we simply query Yarn, and let it tell us where to look for a package X required by a package Y? That’s what Plug’n’Play (abbreviated PnP) is. Instead of generating a node\_modules directory and leaving the resolution to Node, we now generate a single .pnp.js file and let Yarn tell us where to find our packages.
 
-Yarn has been worked upon, amongst others, by the excellent [Maël Nison](<https://twitter.com/arcanis>). You can hear him talking about it in person [in this talk at JSConfEU](<https://youtu.be/XePfzVs852s>).
+Yarn has been worked upon, amongst others, by the excellent [Maël Nison](https://twitter.com/arcanis). You can hear him talking about it in person [in this talk at JSConfEU](https://youtu.be/XePfzVs852s).
 
 Thanks particularly to Maël's work, it's possible to use Yarn PnP with TypeScript using webpack with `ts-loader` *and*`fork-ts-checker-webpack-plugin`. This post intends to show you just how simple it is to convert a project that uses either to work with Yarn PnP.
 
@@ -103,13 +103,13 @@ And that's it! You now have `ts-loader` and `fork-ts-checker-webpack-plugin` fun
 
 Whilst you can happily develop and build using Yarn PnP, it's worth bearing in mind that this is a new approach. As such, there's some rough edges right now.
 
-If you're interested in Yarn PnP, it's worth taking the v2 of Yarn (Berry) for a spin. You can find it here: [https://github.com/yarnpkg/berry](<https://github.com/yarnpkg/berry>). It's where most of the Yarn PnP work happens, and it includes zip loading - two birds, one stone!
+If you're interested in Yarn PnP, it's worth taking the v2 of Yarn (Berry) for a spin. You can find it here: [https://github.com/yarnpkg/berry](https://github.com/yarnpkg/berry). It's where most of the Yarn PnP work happens, and it includes zip loading - two birds, one stone!
 
-Because there isn't first class support for Yarn PnP in TypeScript itself yet, you cannot make use of the Watch API through `fork-ts-checker-webpack-plugin`. (You can read about that issue [here](<https://github.com/microsoft/TypeScript/issues/31056>))
+Because there isn't first class support for Yarn PnP in TypeScript itself yet, you cannot make use of the Watch API through `fork-ts-checker-webpack-plugin`. (You can read about that issue [here](https://github.com/microsoft/TypeScript/issues/31056))
 
 As you've likely noticed, the webpack configuration required makes for a noisy `webpack.config.js`. Further to that, VS Code (which is powered by TypeScript remember) has no support for Yarn PnP yet and so will present resolution errors to you. If you can ignore the sea of red squigglies all over your source files in the editor and just look at your webpack build you'll be fine.
 
-There is a tool called `PnPify` that adds support for PnP to TypeScript (in particular tsc). You can find more information here: [https://yarnpkg.github.io/berry/advanced/pnpify](<https://yarnpkg.github.io/berry/advanced/pnpify>). For tsc it would be:
+There is a tool called `PnPify` that adds support for PnP to TypeScript (in particular tsc). You can find more information here: [https://yarnpkg.github.io/berry/advanced/pnpify](https://yarnpkg.github.io/berry/advanced/pnpify). For tsc it would be:
 
 ```
 $> yarn pnpify tsc [...]
@@ -117,22 +117,22 @@ $> yarn pnpify tsc [...]
 
 The gist is that it simulates the existence of `node_modules` by leveraging the data from the PnP file. As such it's not a perfect fix (`pnp-webpack-plugin` is a better integration), but it's a very useful tool to have to unblock yourself when using a project that doesn't support it.
 
-PnPify actually allows us to use TypeScript in VSCode with PnP! Its documentation is here: [https://yarnpkg.github.io/berry/advanced/pnpify#vscode-support](<https://yarnpkg.github.io/berry/advanced/pnpify#vscode-support>)
+PnPify actually allows us to use TypeScript in VSCode with PnP! Its documentation is here: [https://yarnpkg.github.io/berry/advanced/pnpify#vscode-support](https://yarnpkg.github.io/berry/advanced/pnpify#vscode-support)
 
 All of these hindrances should hopefully be resolved in future. Ideally, one day a good developer experience can be the default experience. In the meantime, you can still dev - just be prepared for the rough edges. Here's some useful resources to track the future of support:
 
-- You can follow more on built in webpack support here: [https://github.com/webpack/enhanced-resolve/issues/162](<https://github.com/webpack/enhanced-resolve/issues/162>)
-- And on built in TypeScript support here: [https://github.com/Microsoft/TypeScript/issues/18896](<https://github.com/Microsoft/TypeScript/issues/18896>)
-- Finally, there it's worth watching the [nodejs/module](<https://github.com/nodejs/modules>) repository, which debates amongst other things how to properly integrate loaders with Node.
+- You can follow more on built in webpack support here: [https://github.com/webpack/enhanced-resolve/issues/162](https://github.com/webpack/enhanced-resolve/issues/162)
+- And on built in TypeScript support here: [https://github.com/Microsoft/TypeScript/issues/18896](https://github.com/Microsoft/TypeScript/issues/18896)
+- Finally, there it's worth watching the [nodejs/module](https://github.com/nodejs/modules) repository, which debates amongst other things how to properly integrate loaders with Node.
 
-<!-- -->
+
 
 This last one would be nice because:
 
 - We'd stop having to patch require
 - We probably wouldn't have to use yarn node if Node itself was able to find the loader somehow (such as if it was listed in the package.json metadata)
 
-<!-- -->
+
 
 Thanks to Maël for his tireless work on Yarn. To my mind Maël is certainly a candidate for the hardest worker in open source. I've been shamelessly borrowing his excellent docs for this post - thanks for writing so excellently Maël!
 

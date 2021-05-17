@@ -8,7 +8,7 @@ hide_table_of_contents: false
 ---
 Every now and then you can be surprised. Your assumptions turn out to be wrong.
 
- Webpack has long supported the notion of dead code elimination. webpack facilitates this through use of the `DefinePlugin`. The compile time value of `process.env.NODE_ENV` is set either to `'production'` or something else. If it's set to `'production'` then some dead code hackery can happen. [Libraries like React make use of this to serve up different, and crucially smaller, production builds.](<https://reactjs.org/docs/optimizing-performance.html#webpack>)
+ Webpack has long supported the notion of dead code elimination. webpack facilitates this through use of the `DefinePlugin`. The compile time value of `process.env.NODE_ENV` is set either to `'production'` or something else. If it's set to `'production'` then some dead code hackery can happen. [Libraries like React make use of this to serve up different, and crucially smaller, production builds.](https://reactjs.org/docs/optimizing-performance.html#webpack)
 
 A (pre-webpack 4) production config file will typically contain this code:
 
@@ -37,9 +37,9 @@ if ('production' !== 'production') {
 }
 ```
 
-The [UglifyJSPlugin](<https://github.com/webpack-contrib/uglifyjs-webpack-plugin>) is there to minify the JavaScript in your bundles. As an added benefit, this plugin is smart enough to know that `'production' !== 'production'` is always `false`. And because it's smart, it chops the code. Dead code elimated.
+The [UglifyJSPlugin](https://github.com/webpack-contrib/uglifyjs-webpack-plugin) is there to minify the JavaScript in your bundles. As an added benefit, this plugin is smart enough to know that `'production' !== 'production'` is always `false`. And because it's smart, it chops the code. Dead code elimated.
 
-You can read more about this [in the webpack docs](<https://webpack.js.org/guides/production/#specify-the-environment>).
+You can read more about this [in the webpack docs](https://webpack.js.org/guides/production/#specify-the-environment).
 
 ## Limitations
 

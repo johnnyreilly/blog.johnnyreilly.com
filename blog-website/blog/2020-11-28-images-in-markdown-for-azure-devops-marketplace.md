@@ -1,12 +1,12 @@
 ---
-title: "Images in MarkDown for the Azure DevOps Marketplace!"
+title: "Visual Studio Marketplace: Images in MarkDown!"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: []
+tags: [Azure DevOps Marketplace, Visual Studio Marketplace, markdown, images]
 hide_table_of_contents: false
 ---
-I've recently found myself developing [custom pipelines task extensions for Azure DevOps](<https://docs.microsoft.com/en-us/azure/devops/extend/develop/add-build-task?view=azure-devops>). The extensions being developed end up in the [Azure DevOps Marketplace](<https://marketplace.visualstudio.com/azuredevops>). What you see there when you look at existing extensions is some pretty lovely documentation.
+I've recently found myself developing [custom pipelines task extensions for Azure DevOps](https://docs.microsoft.com/en-us/azure/devops/extend/develop/add-build-task?view=azure-devops). The extensions being developed end up in the [Azure DevOps Marketplace](https://marketplace.visualstudio.com/azuredevops). What you see there when you look at existing extensions is some pretty lovely documentation.
 
  ![](../static/blog/2020-11-28-images-in-markdown-for-azure-devops-marketplace/azure-devops-marketplace.png)
 
@@ -17,15 +17,15 @@ That, my friends, is the question to answer. Good documentation is key to succes
 - contain documentation
 - that documentation should support images... For a picture, famously, speaks a thousand words
 
-<!-- -->
+
 
 ## Mark(Down) our manifest
 
-To get documentation showing up in the marketplace, we need to take a look at the `vss-extension.json` file which lies at the root of our extension folder. It's a kind of manifest file and is documented [here](<https://docs.microsoft.com/en-us/azure/devops/extend/develop/manifest?view=azure-devops>).
+To get documentation showing up in the marketplace, we need to take a look at the `vss-extension.json` file which lies at the root of our extension folder. It's a kind of manifest file and is documented [here](https://docs.microsoft.com/en-us/azure/devops/extend/develop/manifest?view=azure-devops).
 
-[Tucked away in the docs, you'll find mention of a `content` property and the words:](<https://docs.microsoft.com/en-us/azure/devops/extend/develop/manifest?view=azure-devops#discovery-attributes>)
+[Tucked away in the docs, you'll find mention of a `content` property and the words:](https://docs.microsoft.com/en-us/azure/devops/extend/develop/manifest?view=azure-devops#discovery-attributes)
 
-> Dictionary of content files that describe your extension to users... Each file is assumed to be in [GitHub Flavored Markdown format](<https://help.github.com/articles/github-flavored-markdown/>). The path of each item is the path to the markdown file in the extension. Valid keys: `details`.
+> Dictionary of content files that describe your extension to users... Each file is assumed to be in [GitHub Flavored Markdown format](https://help.github.com/articles/github-flavored-markdown/). The path of each item is the path to the markdown file in the extension. Valid keys: `details`.
 
 This means we can have a MarkDown file in our repo which documents our task. To stay consistent with most projects, a solid choice is to use the `README.md` that sits in the root of the project to this end.
 
@@ -53,7 +53,7 @@ If we are referencing images in our `README.md` then, as it stands right now, th
 ![alt text](images/screenshot.png)
 ```
 
-This is entirely correct and supported, but won't work by default. This is because these images need to be specified in the [`files` property](<https://docs.microsoft.com/en-us/azure/devops/extend/develop/manifest?view=azure-devops#files>) of the `vss-extension.json`.
+This is entirely correct and supported, but won't work by default. This is because these images need to be specified in the [`files` property](https://docs.microsoft.com/en-us/azure/devops/extend/develop/manifest?view=azure-devops#files) of the `vss-extension.json`.
 
 ```json
 {
@@ -73,7 +73,7 @@ This is entirely correct and supported, but won't work by default. This is becau
 }
 ```
 
-Consider the above; the `path` of `images` includes everything inside the `images` folder in the task. However, it's crucial that the [`"addressable": true`](<https://docs.microsoft.com/en-us/azure/devops/extend/develop/manifest?view=azure-devops#properties-1>) is present as well. It's this that makes the files in this `path` URL-addressable. And without that, the images won't be displayed.
+Consider the above; the `path` of `images` includes everything inside the `images` folder in the task. However, it's crucial that the [`"addressable": true`](https://docs.microsoft.com/en-us/azure/devops/extend/develop/manifest?view=azure-devops#properties-1) is present as well. It's this that makes the files in this `path` URL-addressable. And without that, the images won't be displayed.
 
 That's it! We're done! We can have rich, image inclusive, documentation in our custom tasks.
 

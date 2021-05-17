@@ -6,22 +6,22 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [cross-env, TypeScript, fork-ts-checker-webpack-plugin, watch API, Webpack]
 hide_table_of_contents: false
 ---
-I'm one of the maintainers of the [fork-ts-checker-webpack-plugin](<https://github.com/Realytics/fork-ts-checker-webpack-plugin>). Hi there!
+I'm one of the maintainers of the [fork-ts-checker-webpack-plugin](https://github.com/Realytics/fork-ts-checker-webpack-plugin). Hi there!
 
 Recently, various issues have been raised against create-react-app (which uses fork-ts-checker-webpack-plugin) as well as against the plugin itself. They've been related to the level of CPU usage in watch mode on idle; i.e. it's high!
 
-- [https://github.com/Realytics/fork-ts-checker-webpack-plugin/issues/236](<https://github.com/Realytics/fork-ts-checker-webpack-plugin/issues/236>)
-- [https://github.com/facebook/create-react-app/issues/6792](<https://github.com/facebook/create-react-app/issues/6792>)
+- [https://github.com/Realytics/fork-ts-checker-webpack-plugin/issues/236](https://github.com/Realytics/fork-ts-checker-webpack-plugin/issues/236)
+- [https://github.com/facebook/create-react-app/issues/6792](https://github.com/facebook/create-react-app/issues/6792)
 
-<!-- -->
+
 
 ## Why High?
 
 Now, under the covers, the `fork-ts-checker-webpack-plugin` uses the TypeScript watch API.
 
-The marvellous [John](<https://github.com/NeKJ>) (not me - another John) did some digging and discovered the root cause came down to the way that the TypeScript watch API watches files:
+The marvellous [John](https://github.com/NeKJ) (not me - another John) did some digging and discovered the root cause came down to the way that the TypeScript watch API watches files:
 
-> TS uses internally the `fs.watch` and `fs.watchFile` API functions of nodejs for their watch mode. The latter function [is even not recommended by nodejs documentation](<https://nodejs.org/api/fs.html#fs_fs_watchfile_filename_options_listener>) for performance reasons, and urges to use `fs.watch` instead.
+> TS uses internally the `fs.watch` and `fs.watchFile` API functions of nodejs for their watch mode. The latter function [is even not recommended by nodejs documentation](https://nodejs.org/api/fs.html#fs_fs_watchfile_filename_options_listener) for performance reasons, and urges to use `fs.watch` instead.
 > 
 >  **NodeJS doc:**
 > 
@@ -78,6 +78,6 @@ So, in the case of a `create-react-app` user, your finished `start` script would
 
 ## The Future
 
-There's a possibility that the default watch behaviour may change in TypeScript in future. It's currently under discussion, you can read more [here](<https://github.com/microsoft/TypeScript/issues/31048>).
+There's a possibility that the default watch behaviour may change in TypeScript in future. It's currently under discussion, you can read more [here](https://github.com/microsoft/TypeScript/issues/31048).
 
 

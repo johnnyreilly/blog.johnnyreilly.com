@@ -31,15 +31,15 @@ This raises a number of issues but essentially it gets me to think about the sor
 1. Development
 2. Production
 
-<!-- -->
+
 
 For Development I want any changes to JavaScript files to be picked up – I do \***not**\* want caching. For Production I want caching in order that users have better performance / faster loading. If I ship a new version of the app to Production I also want users to pick up the new versions of a file and cache those.
 
 ## Research
 
-I did a little digging. The most useful information I found was [a StackOverflow post on RequireJS and caching](<http://stackoverflow.com/q/8315088/761388>). Actually I’d recommend anyone reading this to head over and read that from top to bottom. Read the question and all of the answers as well – pretty much everything will add to your understanding of RequireJS.
+I did a little digging. The most useful information I found was [a StackOverflow post on RequireJS and caching](http://stackoverflow.com/q/8315088/761388). Actually I’d recommend anyone reading this to head over and read that from top to bottom. Read the question and all of the answers as well – pretty much everything will add to your understanding of RequireJS.
 
-As with any set of answers there are different and conflicting views. [Phil McCull’s (accepted) answer](<http://stackoverflow.com/a/8479953/761388>) was for my money the most useful. It pointed [back to the RequireJS documentation](<http://requirejs.org/docs/api.html#config-urlArgs>).
+As with any set of answers there are different and conflicting views. [Phil McCull’s (accepted) answer](http://stackoverflow.com/a/8479953/761388) was for my money the most useful. It pointed [back to the RequireJS documentation](http://requirejs.org/docs/api.html#config-urlArgs).
 
 > *"urlArgs: Extra query string arguments appended to URLs that RequireJS uses to fetch resources. Most useful to cache bust when the browser or server is not configured correctly. Example cache bust setting for urlArgs:
 > 
@@ -53,13 +53,13 @@ As with any set of answers there are different and conflicting views. [Phil McCu
 
 Phil’s answer suggests using urlArgs \***both**\* for Production and for Development in 2 different ways. Using what amounts to a random number in the Development environment (as in the official docs) for cache-busting. For the Production environment he suggests using a specific version number which allows for client-side caching between different build versions.
 
-Full disclosure, this is not the approach favoured by James Burke (author of RequireJS). He doesn’t go into why in the RequireJS docs but has [elsewhere expounded on this](<https://groups.google.com/forum/#!msg/requirejs/3E9dP_BSQoY/36ut2Gtko7cJ>):
+Full disclosure, this is not the approach favoured by James Burke (author of RequireJS). He doesn’t go into why in the RequireJS docs but has [elsewhere expounded on this](https://groups.google.com/forum/#!msg/requirejs/3E9dP_BSQoY/36ut2Gtko7cJ):
 
 > *For deployed assets, I prefer to put the version or hash for the whole build as a build directory, then just modify the baseUrl config used for the project to use that versioned directory as the baseUrl. Then no other files change, and it helps avoid some proxy issues where they may not cache an URL with a query string on it. *
 
 I’m not so worried about the proxy caching issue. My users tend to be people who use the application repeatedly and so the caching I most care about is their local machine caching. From what I understand urlArgs will work fine in this scenario. Yes the downside of this approach is that some proxy servers may not cache these assets. That’s a shame but it’s not a dealbreaker for me. As I said, I still have client side caching.
 
-If you want to go a little deeper I recommend reading [Steve Souders post](<http://www.stevesouders.com/blog/2008/08/23/revving-filenames-dont-use-querystring/>) on the topic (in case you’re not aware Steve is Google’s Mr Performance). Interestingly, looking at the comments on the post it sounds like the lack of support for proxy caching with querystrings may that may be starting to change.
+If you want to go a little deeper I recommend reading [Steve Souders post](http://www.stevesouders.com/blog/2008/08/23/revving-filenames-dont-use-querystring/) on the topic (in case you’re not aware Steve is Google’s Mr Performance). Interestingly, looking at the comments on the post it sounds like the lack of support for proxy caching with querystrings may that may be starting to change.
 
 But either way, I’m happy with this approach. As I always say, if it’s good enough for Stack Overflow then it’s good enough for me:
 
@@ -67,9 +67,9 @@ But either way, I’m happy with this approach. As I always say, if it’s good 
 
 ## Implementation
 
-I’m going to start off using the demo from [my last blog post](<http://icanmakethiswork.blogspot.com/2014/02/typescript-and-requirejs-keep-it-simple.html>) as a basis. Let’s take that and evolve it. As a result my solution is going to work with TypeScript and RequireJS (since the previous demo was about that) but the implementation I’m going to come up with would work as well with vanilla JS as it would with TypeScript compiled JS.
+I’m going to start off using the demo from [my last blog post](http://icanmakethiswork.blogspot.com/2014/02/typescript-and-requirejs-keep-it-simple.html) as a basis. Let’s take that and evolve it. As a result my solution is going to work with TypeScript and RequireJS (since the previous demo was about that) but the implementation I’m going to come up with would work as well with vanilla JS as it would with TypeScript compiled JS.
 
-Let’s take a look at our index.html. First we’ll drop our usage of `main.ts` / `main.js` (our bootstrapper file that defines config and kicks off the "app"). We’ll pull out the use of `data-main` and instead, just after the reference to require we’ll add the contents of `main.js` much in [the style of the RequireJS docs](<http://requirejs.org/docs/api.html#config>). We’ll also include a urlArgs that as a cache-buster that uses the approach outlined [in the RequireJS docs](<http://requirejs.org/docs/api.html#config-urlArgs>):
+Let’s take a look at our index.html. First we’ll drop our usage of `main.ts` / `main.js` (our bootstrapper file that defines config and kicks off the "app"). We’ll pull out the use of `data-main` and instead, just after the reference to require we’ll add the contents of `main.js` much in [the style of the RequireJS docs](http://requirejs.org/docs/api.html#config). We’ll also include a urlArgs that as a cache-buster that uses the approach outlined [in the RequireJS docs](http://requirejs.org/docs/api.html#config-urlArgs):
 
 ```html
 <script src="/scripts/require.js"></script>
@@ -145,7 +145,7 @@ What drives the values of `inDevelopment` / `version` is down to you. You could 
 
 ## Let’s get the server involved!
 
-I want the server to drive my urlArgs value. Why? Well this project happens to be an ASP.NET project which handily has the concept of Development / Production scenarios nicely modelled by the [web.config’s compilation debug flag](<http://msdn.microsoft.com/en-us/library/s10awwz0(v=vs.85).aspx>).
+I want the server to drive my urlArgs value. Why? Well this project happens to be an ASP.NET project which handily has the concept of Development / Production scenarios nicely modelled by the [web.config’s compilation debug flag](http://msdn.microsoft.com/en-us/library/s10awwz0(v=vs.85).aspx).
 
 ```xml
 <configuration>
@@ -223,6 +223,6 @@ And if we set debug to false in our web.config then (after the initial requests 
 
 This leaves us with a simple mechanism to drive our RequireJS caching. If debug is set to `true` in our `web.config` then Require will perform cache-busting. If debug is set to `false` then RequireJS will perform only version-changing cache-busting and will, whilst the version remains constant, support client-side caching.
 
-Finished. In case it helps I’ve put the code for this [up on GitHub](<https://github.com/johnnyreilly/RequireJSandCaching>).
+Finished. In case it helps I’ve put the code for this [up on GitHub](https://github.com/johnnyreilly/RequireJSandCaching).
 
 

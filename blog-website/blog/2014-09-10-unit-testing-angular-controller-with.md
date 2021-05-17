@@ -6,13 +6,13 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Jasmine, Controllers, promises, Unit tests, AngularJS]
 hide_table_of_contents: false
 ---
-Anyone who reads my blog will know that I have been long in the habit of writing unit tests for my C# code. I'm cool like that. However, it took me a while to get up and running writing unit tests for my JavaScript code. I finally [got there](<http://icanmakethiswork.blogspot.com/2014/03/the-surprisingly-happy-tale-of-visual.html>) using a combination of Jasmine 2.0 and Chutzpah. (Jasmine being my test framework and Chutzpah being my test runner.)
+Anyone who reads my blog will know that I have been long in the habit of writing unit tests for my C# code. I'm cool like that. However, it took me a while to get up and running writing unit tests for my JavaScript code. I finally [got there](http://icanmakethiswork.blogspot.com/2014/03/the-surprisingly-happy-tale-of-visual.html) using a combination of Jasmine 2.0 and Chutzpah. (Jasmine being my test framework and Chutzpah being my test runner.)
 
  I'm getting properly into the habit of testing my JavaScript. I won't pretend it's been particularly fun but I firmly believe it will end up being useful... That's what I tell myself during the long dark tea-times of the soul anyway.
 
-I have a side project called [Proverb](<https://github.com/johnnyreilly/Proverb>). It doesn't do anything in particular - for the most part it's a simple application that displays the collected wise sayings of a team that I used to be part of. There's not much to it - a bit of CRUD, a dashboard. Not much more. Because of the project's simplicity it's ideal to use Proverb's underlying idea when trying out new technologies / frameworks. [The best way to learn is to do](<http://en.wikipedia.org/wiki/Paul_Halmos>). So if I want to learn "X", then building Proverb using "X" is a good way to go.
+I have a side project called [Proverb](https://github.com/johnnyreilly/Proverb). It doesn't do anything in particular - for the most part it's a simple application that displays the collected wise sayings of a team that I used to be part of. There's not much to it - a bit of CRUD, a dashboard. Not much more. Because of the project's simplicity it's ideal to use Proverb's underlying idea when trying out new technologies / frameworks. [The best way to learn is to do](http://en.wikipedia.org/wiki/Paul_Halmos). So if I want to learn "X", then building Proverb using "X" is a good way to go.
 
-I digress already. I had a version of Proverb built using a combination of [AngularJS and TypeScript](<https://github.com/johnnyreilly/Proverb/tree/master/AngularTypeScript>). I had written the Angular side of Proverb without any tests. Now I was able to write JavaScript tests for my Angular code that's just what I set out to do. It should prove something of a of [Code Kata](<http://en.wikipedia.org/wiki/Kata_(programming)>) too.
+I digress already. I had a version of Proverb built using a combination of [AngularJS and TypeScript](https://github.com/johnnyreilly/Proverb/tree/master/AngularTypeScript). I had written the Angular side of Proverb without any tests. Now I was able to write JavaScript tests for my Angular code that's just what I set out to do. It should prove something of a of [Code Kata](http://en.wikipedia.org/wiki/Kata_(programming)) too.
 
 Whilst I'm at it I thought it might prove helpful if I wrote up how I approached writing unit tests for a single Angular controller. So here goes.
 
@@ -20,7 +20,7 @@ Whilst I'm at it I thought it might prove helpful if I wrote up how I approached
 
 I have an Angular controller called `sagesDetail`. It powers this screen:
 
-![](http://1.bp.blogspot.com/--OBcJ0FLlmI/VBA_R_UpnXI/AAAAAAAAAtE/Zi4K4dR6PU8/s640/sageDetailScreen.png)
+![](../static/blog/2014-09-10-unit-testing-angular-controller-with/sageDetailScreen.png)
 
 `sagesDetail` is a very simple controller. It does these things:
 
@@ -29,7 +29,7 @@ I have an Angular controller called `sagesDetail`. It powers this screen:
 3. Log view activation.
 4. Expose a `gotoEdit` method which, when called, redirects the user to the edit screen.
 
-<!-- -->
+
 
 The controller is written in TypeScript and looks like this:
 

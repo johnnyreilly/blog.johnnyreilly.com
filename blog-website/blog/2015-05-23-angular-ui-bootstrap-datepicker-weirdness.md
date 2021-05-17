@@ -6,7 +6,7 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Angular UI Bootstrap Datepicker]
 hide_table_of_contents: false
 ---
-The [Angular UI Bootstrap Datepicker](<https://angular-ui.github.io/bootstrap/#/datepicker>) is fan-dabby-dozy. But it has a ... pecularity. You can use the picker like this:
+The [Angular UI Bootstrap Datepicker](https://angular-ui.github.io/bootstrap/#/datepicker) is fan-dabby-dozy. But it has a ... pecularity. You can use the picker like this:
 
  ```html
 <div ng-app="peskyDatepicker">
@@ -79,6 +79,6 @@ I decided to do a little experimentation. I created a Plunk which demonstrates t
 
 <iframe src="http://embed.plnkr.co/dJyF531w0QRGiAScRf15/preview" width="100%" height="450"></iframe>
 
-After a little experimentation of my own I discovered that calling `$event.stopPropogation()` is the magic bullet. Without that in place `valuationDatePickerIsOpen` gets set to `true` and then immediately back to `false` again. I do not know why. There may be an entirely sane reason for this - if so then please do post a comment and let me know. It wouldn't hurt for the Angular UI Bootstrap Datepicker docs to mention this. [Perhaps it's time to submit a PR....](<https://github.com/angular-ui/bootstrap/issues/3705>)
+After a little experimentation of my own I discovered that calling `$event.stopPropogation()` is the magic bullet. Without that in place `valuationDatePickerIsOpen` gets set to `true` and then immediately back to `false` again. I do not know why. There may be an entirely sane reason for this - if so then please do post a comment and let me know. It wouldn't hurt for the Angular UI Bootstrap Datepicker docs to mention this. [Perhaps it's time to submit a PR....](https://github.com/angular-ui/bootstrap/issues/3705)
 
 

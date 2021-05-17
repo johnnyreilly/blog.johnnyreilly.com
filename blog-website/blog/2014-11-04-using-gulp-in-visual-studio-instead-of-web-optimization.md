@@ -6,21 +6,21 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Task Runner Explorer, Visual Studio, TypeScript, javascript, Gulp]
 hide_table_of_contents: false
 ---
-### Update 17/02/2015: I've taken the approach discussed in this post a little further - you can see [here](<https://blog.johnnyreilly.com/2015/02/using-gulp-in-asp-net-instead-of-web-optimization.html>)
+### Update 17/02/2015: I've taken the approach discussed in this post a little further - you can see [here](https://blog.johnnyreilly.com/2015/02/using-gulp-in-asp-net-instead-of-web-optimization.html)
 
- I've used a number of tools to package up JavaScript and CSS in my web apps. [Andrew Davey's tremendous Cassette](<http://getcassette.net/>) has been really useful. Also good (although less powerful/magical) has been Microsoft's very own [Microsoft.AspNet.Web.Optimization](<https://www.nuget.org/packages/Microsoft.AspNet.Web.Optimization/>) that ships with MVC.
+ I've used a number of tools to package up JavaScript and CSS in my web apps. [Andrew Davey's tremendous Cassette](http://getcassette.net/) has been really useful. Also good (although less powerful/magical) has been Microsoft's very own [Microsoft.AspNet.Web.Optimization](https://www.nuget.org/packages/Microsoft.AspNet.Web.Optimization/) that ships with MVC.
 
-I was watching the [ASP.NET Community Standup from October 7th, 2014](<http://youtu.be/NgbA2BxNweE?list=PL0M0zPgJ3HSftTAAHttA3JQU4vOjXFquF>) and learned that the ASP.Net team is not planning to migrate [Microsoft.AspNet.Web.Optimization](<https://www.nuget.org/packages/Microsoft.AspNet.Web.Optimization/>) to the next version of ASP.Net. Instead they're looking to make use of JavaScript task runners like [Grunt](<http://gruntjs.com/>) and maybe [Gulp](<http://gulpjs.com/>). Perhaps you're even dimly aware that they've been taking steps to make these runners more of a first class citizen in Visual Studio, hence the recent release of the new and groovy [Task Runner Explorer](<http://visualstudiogallery.msdn.microsoft.com/8e1b4368-4afb-467a-bc13-9650572db708>).
+I was watching the [ASP.NET Community Standup from October 7th, 2014](http://youtu.be/NgbA2BxNweE?list=PL0M0zPgJ3HSftTAAHttA3JQU4vOjXFquF) and learned that the ASP.Net team is not planning to migrate [Microsoft.AspNet.Web.Optimization](https://www.nuget.org/packages/Microsoft.AspNet.Web.Optimization/) to the next version of ASP.Net. Instead they're looking to make use of JavaScript task runners like [Grunt](http://gruntjs.com/) and maybe [Gulp](http://gulpjs.com/). Perhaps you're even dimly aware that they've been taking steps to make these runners more of a first class citizen in Visual Studio, hence the recent release of the new and groovy [Task Runner Explorer](http://visualstudiogallery.msdn.microsoft.com/8e1b4368-4afb-467a-bc13-9650572db708).
 
-Gulp has been on my radar for a while now as has Grunt. By "on my radar" what I really mean is "Hmmmm, I really need to learn this..... perhaps I could wait until the [Betamax vs VHS battles](<http://en.wikipedia.org/wiki/Videotape_format_war>) are done? Oh never mind, here we go...".
+Gulp has been on my radar for a while now as has Grunt. By "on my radar" what I really mean is "Hmmmm, I really need to learn this..... perhaps I could wait until the [Betamax vs VHS battles](http://en.wikipedia.org/wiki/Videotape_format_war) are done? Oh never mind, here we go...".
 
 My understanding is that Grunt and Gulp essentially do the same thing (run tasks in JavaScript) but have different approaches. Grunt is more about configuration, Gulp is more about code. At present Gulp also has a performance advantage as it does less IO than Grunt - though I understand that's due to change in the future. But generally my preference is code over configuration. On that basis I decided that I was going to give Gulp first crack.
 
 ## Bub bye Web Optimization
 
-I already had a project that used [Web Optimization](<https://github.com/johnnyreilly/Proverb>) to bundle JavaScript and CSS files. When debugging on my own machine Web Optimization served up the full JavaScript and CSS files. Thanks to the magic of source maps I was able to debug the TypeScript that created the JavaScript files too. Which was nice. When I deployed to production, Web Optimization minified and concatenated the JavaScript and CSS files. This meant I had a single HTTP request for JavaScript and a single HTTP request for CSS. This was also... nooice!
+I already had a project that used [Web Optimization](https://github.com/johnnyreilly/Proverb) to bundle JavaScript and CSS files. When debugging on my own machine Web Optimization served up the full JavaScript and CSS files. Thanks to the magic of source maps I was able to debug the TypeScript that created the JavaScript files too. Which was nice. When I deployed to production, Web Optimization minified and concatenated the JavaScript and CSS files. This meant I had a single HTTP request for JavaScript and a single HTTP request for CSS. This was also... nooice!
 
-I took a copy of my existing project and created a [new repo for it on GitHub](<https://github.com/johnnyreilly/Proverb-gulp>). It was very simple in terms of bundling. It had a `BundleConfig` that created 2 bundles; 1 for JavaScript and 1 for CSS:
+I took a copy of my existing project and created a [new repo for it on GitHub](https://github.com/johnnyreilly/Proverb-gulp). It was very simple in terms of bundling. It had a `BundleConfig` that created 2 bundles; 1 for JavaScript and 1 for CSS:
 
 ```cs
 using System.Web;
@@ -411,7 +411,7 @@ This file does a number of things each time it is run. First of all it deletes a
     ```
 
 
-<!-- -->
+
 
 For release our gulpfile works with the same resources but has a different aim. Namely to minimise the the number of HTTP requests, obfuscate the code and version the files produced to prevent caching issues. To achieve those lofty aims it does the following:
 
@@ -426,7 +426,7 @@ For release our gulpfile works with the same resources but has a different aim. 
 
  As you can see, the number of files included are reduced down to 2; 1 for JavaScript and 1 for CSS. 
 
-<!-- -->
+
 
 Finally, for both the debug and release packages the contents of the `fonts` folder is copied across wholesale, preserving the original folder structure. This is because the CSS files contain relative references that point to the font files. If I had image files which were referenced by my CSS I'd similarly need to include these in the build process.
 
@@ -440,7 +440,7 @@ The eagle eyed amongst you will also have noticed a peculiar first line to our `
 
 This mysterious comment is actually how the Task Runner Explorer hooks our `gulpfile.js` into the Visual Studio build process. Our "magic comment" ensures that on the `AfterBuild` event, Task Runner Explorer runs the `default` task in our `gulpfile.js`. The reason we're using the `AfterBuild` event rather than the `BeforeBuild` event is because our project contains TypeScript and we need the transpiled JavaScript to be created before we can usefully run our package tasks. If we were using JavaScript alone then that wouldn't be an issue and either build event would do.
 
-![](http://3.bp.blogspot.com/-prRrVlSsyXw/VEaD97QeIRI/AAAAAAAAAt0/WT1AElVQw4E/s640/Screenshot%2B2014-10-21%2B17.02.11.png)
+![](../static/blog/2014-11-04-using-gulp-in-visual-studio-instead-of-web-optimization/Screenshot%2B2014-10-21%2B17.02.11.png)
 
 ## How do I use this in my HTML?
 
@@ -492,7 +492,7 @@ Before I make all the changes let's review where we were. I had a single MVC vie
 
 This is already more a complicated example than most peoples use cases. Essentially what's happening here is both bundles are written out as part of the HTML and then, once the scripts have loaded the Angular app is bootstrapped with some configuration loaded from the server by a good old jQuery AJAX call.
 
-After reading [an article about script loading by the magnificently funny Jake Archibald](<http://www.html5rocks.com/en/tutorials/speed/script-loading/>) I felt ready. I cast my MVC view to the four winds and created myself a straight HTML file:
+After reading [an article about script loading by the magnificently funny Jake Archibald](http://www.html5rocks.com/en/tutorials/speed/script-loading/) I felt ready. I cast my MVC view to the four winds and created myself a straight HTML file:
 
 ```html
 <!DOCTYPE html>
@@ -581,7 +581,7 @@ If you very carefully compare the HTML above the MVC view that it replaces you c
 3. For each CSS file in the styles bundle a `link` element is created and added to the page.
 4. For each JavaScript file in the scripts bundle a `script` element is created and added to the page.
 
-<!-- -->
+
 
 It's worth pointing out that this also has a performance edge over Web Optimization as the assets are loaded asynchronously! (Yes I know it says `script.async = false` but that's not what you think it is... Go read Jake's article!)
 

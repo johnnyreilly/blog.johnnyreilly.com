@@ -8,9 +8,9 @@ hide_table_of_contents: false
 ---
 Occasionally I flatter myself that I'm alright at this development lark. Such egotistical talk is foolish. What makes me pause even more when I consider the proposition is this: my subconscious is a better developer than I am.
 
- What's this fellow talking about?
+What's this fellow talking about?
 
-There's 2 of me. Not identical twins; masquerading as a single man (spoiler: I am not a Christopher Nolan movie). No. There's me, the chap who's tapping away at his keyboard and solving a problem. And there's the other chap too.
+There's two of me. Not identical twins; masquerading as a single man (spoiler: I am not a Christopher Nolan movie). No. There's me, the chap who's tapping away at his keyboard and solving a problem. And there's the other chap too.
 
 I have days when I'm working away at something and I'll hit a brick wall. I produce solutions that work but are not elegant. I'm not proud of them. Or worse, I fail to come up with something that solves the problem I'm facing. So I go home. I see my family, I have some food, I do something else. I context switch. I go to sleep.
 
@@ -20,10 +20,10 @@ What concerns me is this: I didn't work this out from first principles. The idea
 
 I think I'd like it better if I was a better developer than my subconscious. I'd come up with the gold and mock the half baked ideas he shows me in the morning. Alas it is not to be.
 
-I draw some comfort from the knowledge that I'm not alone in my experience. I've chatted to other devs in the same boat. There's probably 2 of you as well. Amarite? There's probably 3 of Jon Skeet; each more brilliant than the last...
+I draw some comfort from the knowledge that I'm not alone in my experience. I've chatted to other devs in the same boat. There's probably two of you as well. Amarite? There's probably three of Jon Skeet; each more brilliant than the last...
 
-![](../static/blog/2016-11-12-my-subconscious-is-better-developer/beingjohnm.png)
+![a poster from the film Being John Malkovich](../static/blog/2016-11-12-my-subconscious-is-better-developer/beingjohnm.png)
 
-PS I posted this to Hacker News and [the comments left by people are pretty fascinating](<https://news.ycombinator.com/item?id=12942461>).
+PS I posted this to Hacker News and [the comments left by people are pretty fascinating](https://news.ycombinator.com/item?id=12942461).
 
 

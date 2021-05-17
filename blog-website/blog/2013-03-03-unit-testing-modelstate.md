@@ -12,7 +12,7 @@ hide_table_of_contents: false
 - Him: "Yes it can, I've just done it"
 - Me: "Ooooh! Show me ..."
 
-<!-- -->
+
 
  The above conversation (or one much like it) took place between my colleague Marc Talary and myself a couple of weeks ago. It was one of those faintly embarrassing situations where you state your case with absolute certainty only to subsequently discover that you were \***completely**\* wrong. Ah arrogance, thy name is Reilly...
 
@@ -38,7 +38,7 @@ Contrary to my expectation the validity of `ModelState` is not evaluated on the 
 
 ## Back to the dispute
 
-As this blog post started off I was slightly missing Marc's point. I thought he was saying we should be testing the `ModelState.IsValid == false` code path. And given that `ModelState` is determined before we reach the controller my view was that the only way to achieve this was through making use of `ModelState.AddModelError` in our unit test (you can read a good explanation of that [here](<http://stackoverflow.com/a/3816143/761388>)). And indeed we were already testing for this; we were surfacing errors via a `JsonResult` and so had a test in place to ensure that `ModelState` errors were transformed in the manner we would expect.
+As this blog post started off I was slightly missing Marc's point. I thought he was saying we should be testing the `ModelState.IsValid == false` code path. And given that `ModelState` is determined before we reach the controller my view was that the only way to achieve this was through making use of `ModelState.AddModelError` in our unit test (you can read a good explanation of that [here](http://stackoverflow.com/a/3816143/761388)). And indeed we were already testing for this; we were surfacing errors via a `JsonResult` and so had a test in place to ensure that `ModelState` errors were transformed in the manner we would expect.
 
 However, Marc's point was actually that we should have unit tests that enforced our design. That is to say, if we'd decided a certain property on a model was mandatory we should have a test that checked that this was indeed the case. If someone came along later and removed the `Required` data annotation then we wanted that test to fail.
 

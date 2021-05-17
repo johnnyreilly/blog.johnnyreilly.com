@@ -12,7 +12,7 @@ The team felt they had good answers to InfoSec's questions. However, just as the
 
 The team, with one foot in the air, paused. They swallowed and said "can you give us five minutes?"
 
- ![](https://3.bp.blogspot.com/-tmH5nbo_kGY/XG-8jmokKdI/AAAAAAAAN_Q/1zzN3IfRtlopNC9HTRio6HdpVCeO5jMkwCPcBGAYYCw/s640/hang-on-lads-ive-got-a-great-idea.jpg)
+ ![](../static/blog/2019-02-22-whitelist-proxying-with-aspnet-core/hang-on-lads-ive-got-a-great-idea.jpg)
 
 ## The Proxy Regroup
 
@@ -21,11 +21,11 @@ And so it came to pass that the teams product (which took the form of ASP.Net Co
 1. the straightforward serving of HTML, CSS, JS and images
 2. the proxying of API calls through to the API app
 
-<!-- -->
+
 
 ## Proxy Part 1
 
-In the early days of this proxying the team reached for [`AspNetCore.Proxy`](<https://github.com/twitchax/AspNetCore.Proxy>). It's a great open source project that allows you to proxy HTTP requests. It gives you complete control over the construction of proxy requests, so that you can have a request come into your API and end up proxying it to a URL with a completely different path on the proxy server.
+In the early days of this proxying the team reached for [`AspNetCore.Proxy`](https://github.com/twitchax/AspNetCore.Proxy). It's a great open source project that allows you to proxy HTTP requests. It gives you complete control over the construction of proxy requests, so that you can have a request come into your API and end up proxying it to a URL with a completely different path on the proxy server.
 
 ## Proxy Part 2
 
@@ -60,7 +60,7 @@ If you look at the code above you can see that we are proxing all our requests t
 1. `GET` requests to `api/version` are proxied through as *anonymous*`GET` requests.
 2. `GET` and `POST` requests to `api/account/{accountId:int}/all-the-secret-info` are proxied through as `GET` and `POST` requests. These requests require that a user be authenticated first.
 
-<!-- -->
+
 
 The `WhiteListProxy` proxy class we've been using looks like this:
 
