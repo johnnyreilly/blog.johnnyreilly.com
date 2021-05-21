@@ -1,5 +1,5 @@
 ---
-title: "Visual Studio Marketplace: Images in MarkDown!"
+title: "Visual Studio Marketplace: images in Markdown!"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
@@ -10,7 +10,7 @@ hide_table_of_contents: false
 ---
 I've recently found myself developing [custom pipelines task extensions for Azure DevOps](https://docs.microsoft.com/en-us/azure/devops/extend/develop/add-build-task?view=azure-devops). The extensions being developed end up in the [Azure DevOps Marketplace](https://marketplace.visualstudio.com/azuredevops). What you see there when you look at existing extensions is some pretty lovely documentation.
 
-![](../static/blog/2020-11-28-images-in-markdown-for-azure-devops-marketplace/azure-devops-marketplace.png)
+![screenshot of a rich Markdown powered screen with images in Visual Studio Marketplace](../static/blog/2020-11-28-images-in-markdown-for-azure-devops-marketplace/azure-devops-marketplace.png)
 
 ## How can our tasks look as lovely?
 
@@ -18,8 +18,6 @@ That, my friends, is the question to answer. Good documentation is key to succes
 
 - contain documentation
 - that documentation should support images... For a picture, famously, speaks a thousand words
-
-
 
 ## Mark(Down) our manifest
 
@@ -29,7 +27,7 @@ To get documentation showing up in the marketplace, we need to take a look at th
 
 > Dictionary of content files that describe your extension to users... Each file is assumed to be in [GitHub Flavored Markdown format](https://help.github.com/articles/github-flavored-markdown/). The path of each item is the path to the markdown file in the extension. Valid keys: `details`.
 
-This means we can have a MarkDown file in our repo which documents our task. To stay consistent with most projects, a solid choice is to use the `README.md` that sits in the root of the project to this end.
+This means we can have a Markdown file in our repo which documents our task. To stay consistent with most projects, a solid choice is to use the `README.md` that sits in the root of the project to this end.
 
 So the simple addition of this:
 
@@ -49,7 +47,7 @@ Gives us documentation in the marketplace. Yay!
 
 ## Now the images...
 
-If we are referencing images in our `README.md` then, as it stands right now, they won't show up in the marketplace. It'll be broken link city. Imagine some MarkDown like this:
+If we are referencing images in our `README.md` then, as it stands right now, they won't show up in the marketplace. It'll be broken link city. Imagine some Markdown like this:
 
 ```md
 ![alt text](images/screenshot.png)
@@ -80,5 +78,3 @@ Consider the above; the `path` of `images` includes everything inside the `image
 That's it! We're done! We can have rich, image inclusive, documentation in our custom tasks.
 
 A final note: it's possible to specify individual files rather than whole paths in the `files` directory and you might want to do that if you're being very careful around file size. There is a maximum size for a custom task and it's easy to breach it. But by and large I find that "allowlisting" a single directory is easier.
-
-
