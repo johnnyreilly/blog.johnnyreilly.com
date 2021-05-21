@@ -4,8 +4,8 @@ author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Azure DevOps Marketplace, Visual Studio Marketplace, markdown, images]
-image: blog/2020-11-28-images-in-markdown-for-azure-devops-marketplace/azure-devops-marketplace.png)
-description: Publish your README.md and associated images to Visual Studio Marketplace.
+image: blog/2020-11-28-images-in-markdown-for-azure-devops-marketplace/azure-devops-marketplace.png
+description: "Publish your README.md and associated images to Visual Studio Marketplace."
 hide_table_of_contents: false
 ---
 I've recently found myself developing [custom pipelines task extensions for Azure DevOps](https://docs.microsoft.com/en-us/azure/devops/extend/develop/add-build-task?view=azure-devops). The extensions being developed end up in the [Azure DevOps Marketplace](https://marketplace.visualstudio.com/azuredevops). What you see there when you look at existing extensions is some pretty lovely documentation.
