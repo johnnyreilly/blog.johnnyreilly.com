@@ -3,6 +3,7 @@ title: "ARM templates, security, role assignments and magic GUIDs"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+image: blog/2021-02-08-arm-templates-security-role-assignments/with-great-power-comes-great-responsibility.jpg
 tags: [Azure, ARM templates, role assignments, permissions]
 hide_table_of_contents: false
 ---
@@ -10,7 +11,7 @@ If you're deploying to Azure, there's a good chance you're using [ARM templates]
 
 One of the hardest things when it comes to deploying software and having it work, is permissions. Without adequate permissions configured, the most beautiful code can do *nothing*. Incidentally, this is a good thing. We're deploying to the web; many people are there, not all good. As a different kind of web-head once said:
 
- ![With great power, comes great responsibility](../static/blog/2021-02-08-arm-templates-security-role-assignments/with-great-power-comes-great-responsibility.jpg)
+ ![Spider-man saying with great power, comes great responsibility](../static/blog/2021-02-08-arm-templates-security-role-assignments/with-great-power-comes-great-responsibility.jpg)
 
 Azure has great power and [suggests you use it wisely](https://docs.microsoft.com/en-us/azure/security/fundamentals/identity-management-best-practices#use-role-based-access-control).
 
@@ -103,8 +104,8 @@ Let's take a look at these three variables:
 
 ```json
 "storageBlobDataContributor": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')]",
-        "keyVaultSecretsOfficer": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b86a8fe4-44ce-4948-aee5-eccb2c155cd7')]",
-        "keyVaultCryptoOfficer": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '14b46e9e-c2b7-41b4-b07b-48a6ebf60603')]",
+"keyVaultSecretsOfficer": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b86a8fe4-44ce-4948-aee5-eccb2c155cd7')]",
+"keyVaultCryptoOfficer": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '14b46e9e-c2b7-41b4-b07b-48a6ebf60603')]",
 ```
 
 The three variables above contain the subscription resource ids for the roles [Storage Blob Data Contributor](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#storage-blob-data-contributor), [Key Vault Secrets Officer](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#key-vault-secrets-officer-preview) and [Key Vault Crypto Officer](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#key-vault-crypto-officer-preview). The first question on your mind is likely: "what is `ba92f5b4-2d11-453d-a403-e96b0029c9fe` and where does it come from?" Great question! Well, each of these GUIDs represents a built-in role in Azure RBAC. The `ba92f5b4-2d11-453d-a403-e96b0029c9fe` represents the Storage Blob Data Contributor role.

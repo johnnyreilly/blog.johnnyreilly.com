@@ -3,6 +3,7 @@ title: "Azure Pipelines meet Jest"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+image: blog/2020-12-30-azure-pipelines-meet-jest/test-results.png
 tags: [azure-pipelines, jest]
 hide_table_of_contents: false
 ---
@@ -20,11 +21,11 @@ First of all, lets get the tests running. Crack open your `azure-pipelines.yml` 
 
 ```yml
 - task: Npm@1
-          displayName: npm run test
-          inputs:
-            command: 'custom'
-            workingDir: 'src/client-app'
-            customCommand: 'run test'
+  displayName: npm run test
+  inputs:
+    command: 'custom'
+    workingDir: 'src/client-app'
+    customCommand: 'run test'
 ```
 
 The above will, when run, trigger a `npm run test` in the `src/client-app` folder of my project (it's here where my React app lives). You'd imagine this would just work™️ - but life is not that simple. This is because Jest, by default, runs in watch mode. This is blocking and so not appropriate for CI.
@@ -39,11 +40,11 @@ and switch our `azure-pipelines.yml` to use it:
 
 ```yml
 - task: Npm@1
-          displayName: npm run test
-          inputs:
-            command: 'custom'
-            workingDir: 'src/client-app'
-            customCommand: 'run test:ci'
+  displayName: npm run test
+  inputs:
+    command: 'custom'
+    workingDir: 'src/client-app'
+    customCommand: 'run test:ci'
 ```
 
 Boom! We're now running tests as part of our pipeline. And also, failing tests will fail the build, because of Jest's default behaviour of exiting with status code 1 on failed tests.
@@ -56,8 +57,6 @@ The way we achieve this is by:
 
 1. Producing test results in a format that can be subsequently processed
 2. Using those test results to publish to Azure Pipelines
-
-
 
 The way that you configure Jest test output is through usage of [`reporters`](https://jestjs.io/docs/en/cli#--reporters). However, Create React App doesn't support these. However that's not an issue, as the marvellous [Dan Abramov](https://twitter.com/dan_abramov) demonstrates [here](https://github.com/facebook/create-react-app/issues/2474#issuecomment-306340526).
 
@@ -89,25 +88,25 @@ Now our CI is producing our test results, how do we get them into Pipelines? For
 
 ```yml
 - task: Npm@1
-          displayName: npm run test
-          inputs:
-            command: 'custom'
-            workingDir: 'src/client-app'
-            customCommand: 'run test:ci'
+  displayName: npm run test
+  inputs:
+    command: 'custom'
+    workingDir: 'src/client-app'
+    customCommand: 'run test:ci'
 
-        - task: PublishTestResults@2
-          displayName: 'supply npm test results to pipelines'
-          condition: succeededOrFailed() # because otherwise we won't know what tests failed
-          inputs:
-            testResultsFiles: 'src/client-app/junit.xml'
+- task: PublishTestResults@2
+  displayName: 'supply npm test results to pipelines'
+  condition: succeededOrFailed() # because otherwise we won't know what tests failed
+  inputs:
+    testResultsFiles: 'src/client-app/junit.xml'
 ```
 
 This will read the test results from our `src/client-app/junit.xml` file and pump them into Pipelines. Do note that we're *always* running this step; so if the previous step failed (as it would in the case of a failing test) we still pump out the details of what that failure was. Like so:
 
-![](../static/blog/2020-12-30-azure-pipelines-meet-jest/test-and-publish-steps.png)
+![screenshot of test results being published to Azure Pipelines regardless of passing or failing tests](../static/blog/2020-12-30-azure-pipelines-meet-jest/test-and-publish-steps.png)
 
 And that's it! Azure Pipelines and Jest integrated.
 
-![](../static/blog/2020-12-30-azure-pipelines-meet-jest/test-results.png)
+![screenshot of test results published to Azure Pipelines](../static/blog/2020-12-30-azure-pipelines-meet-jest/test-results.png)
 
 

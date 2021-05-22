@@ -208,8 +208,6 @@ There's a number of changes in the above code to Maxime's package. Three changes
 2. It uses [C#s nullable reference types](https://blog.johnnyreilly.com/2020/12/nullable-reference-types-csharp-strictnullchecks.html)
 3. It changes the extension method signature such that instead of entering `services.AddAuthentication().AddEasyAuthAuthentication((o) =&gt; { })` we now need only enter `services.AddEasyAuthAuthentication()`
 
-
-
 Now the significant change:
 
 Where the middleware encounters claims in the `X-MS-CLIENT-PRINCIPAL` header with the `Type` of `"roles"` it creates brand new claims for each, with the same `Value` but with the official `Type` supplied by `ClaimsTypes.Role` of `"http://schemas.microsoft.com/ws/2008/06/identity/claims/role"`. The upshot of this, is that when the processed claims are inspected in Azure they now look more like this:
@@ -246,8 +244,6 @@ When I was tweeting this post, Maxime was good enough to respond and suggest tha
 > Oh, so that's why they removed the name? 😲😜 Jokes aside, we hope that this package won't be necessary for the future. I know that [@mattchenderson](https://twitter.com/mattchenderson?ref_src=twsrc%5Etfw) is part of a working group to update Easy Auth. Might want to make sure you follow him as well. 😁
 > 
 > — Maxime Rouiller (@MaximRouiller) [January 14, 2021](https://twitter.com/MaximRouiller/status/1349804324713615366?ref_src=twsrc%5Etfw)
-
-<script async="" src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
 
 There's a prospective PR that would add an event to Maxime's API. If something along these lines was merged, then my workaround would no longer be necessary. Follow the PR [here](https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth/pull/13).
 

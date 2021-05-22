@@ -24,17 +24,17 @@ In our `Startup.cs` we're using:
 
 ```cs
 public void ConfigureServices(IServiceCollection services) {
-            //...
-            services.AddMicrosoftIdentityWebAppAuthentication(Configuration);
-            //...
-      }
+    //...
+    services.AddMicrosoftIdentityWebAppAuthentication(Configuration);
+    //...
+}
 
-      public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
-            //...
-            app.UseAuthentication();
-            app.UseAuthorization();
-            //...
-      }
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+    //...
+    app.UseAuthentication();
+    app.UseAuthorization();
+    //...
+}
 ```
 
 ## You gotta `roles` with it
@@ -101,35 +101,35 @@ And that claims transformer looks like this:
 
 ```cs
 public class AddRolesClaimsTransformation : IClaimsTransformation {
-        private readonly ILogger<AddRolesClaimsTransformation> _logger;
+    private readonly ILogger<AddRolesClaimsTransformation> _logger;
 
-        public AddRolesClaimsTransformation(ILogger<AddRolesClaimsTransformation> logger) {
-            _logger = logger;
-        }
-
-        public Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal) {
-            var mappedRolesClaims = principal.Claims
-                .Where(claim => claim.Type == "roles")
-                .Select(claim => new Claim(ClaimTypes.Role, claim.Value))
-                .ToList();
-
-            // Clone current identity
-            var clone = principal.Clone();
-
-            if (clone.Identity is not ClaimsIdentity newIdentity) return Task.FromResult(principal);
-
-            // Add role claims to cloned identity
-            foreach (var mappedRoleClaim in mappedRolesClaims) 
-                newIdentity.AddClaim(mappedRoleClaim);
-
-            if (mappedRolesClaims.Count > 0)
-                _logger.LogInformation("Added roles claims {mappedRolesClaims}", mappedRolesClaims);
-            else
-                _logger.LogInformation("No roles claims added");
-
-            return Task.FromResult(clone);
-        }
+    public AddRolesClaimsTransformation(ILogger<AddRolesClaimsTransformation> logger) {
+        _logger = logger;
     }
+
+    public Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal) {
+        var mappedRolesClaims = principal.Claims
+            .Where(claim => claim.Type == "roles")
+            .Select(claim => new Claim(ClaimTypes.Role, claim.Value))
+            .ToList();
+
+        // Clone current identity
+        var clone = principal.Clone();
+
+        if (clone.Identity is not ClaimsIdentity newIdentity) return Task.FromResult(principal);
+
+        // Add role claims to cloned identity
+        foreach (var mappedRoleClaim in mappedRolesClaims) 
+            newIdentity.AddClaim(mappedRoleClaim);
+
+        if (mappedRolesClaims.Count > 0)
+            _logger.LogInformation("Added roles claims {mappedRolesClaims}", mappedRolesClaims);
+        else
+            _logger.LogInformation("No roles claims added");
+
+        return Task.FromResult(clone);
+    }
+}
 ```
 
 The class above creates a new principal with `"roles"` claims mapped across to `"http://schemas.microsoft.com/ws/2008/06/identity/claims/role"`. This is enough to get .NET treating roles the way you'd hope.

@@ -102,5 +102,3 @@ Now the next time we run `npm start` we'll have Create React App running using `
 If you value debugging your original source code rather than the transpiled JavaScript, remember to set the `"sourceMap": true` property in your `tsconfig.json`.
 
 Finally, if we wanted to go even further, we could remove the `fork-ts-checker-webpack-plugin` and move `ts-loader` to use `transpileOnly: false` so it performs type checking also. However, generally it may be better to stay with the setup with post outlines for performance reasons.
-
-

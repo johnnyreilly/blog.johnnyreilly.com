@@ -44,7 +44,7 @@ As you can see, no type parameters are passed to `UseQueryResult` in the `useQue
 
 What if there was a way to strongly type `useQueries` so we neither risked specifying incorrect types, nor wasted precious lines of code and CPU cycles performing type narrowing? There is my friends, read on!
 
-## `useQueriesTyped` \- a strongly typed wrapper for `useQueries`
+## `useQueriesTyped` - a strongly typed wrapper for `useQueries`
 
 It's possible to wrap the `useQueries` hook with our own `useQueriesTyped` hook which exposes a strongly typed API. It looks like this:
 
@@ -184,9 +184,7 @@ Awaited<ReturnType<NonNullable<Extract<TQueries[ArrayElement], UseQueryOptions>[
 It's at this point where we reach a conditional type in our type definition. Essentially, we have two different typing behaviours in play:
 
 1. Where we're inferring the return type of the query
-2. Where we're inferring the return type of a `select`. A `select` option can be used to transform or select a part of the data returned by the query function. It has the signature: `select: (data: TData) =&gt; TSelect`
-
-
+2. Where we're inferring the return type of a `select`. A `select` option can be used to transform or select a part of the data returned by the query function. It has the signature: `select: (data: TData) => TSelect`
 
 We've been unpacking the first of these so far. Now we encounter the conditional type that chooses between them:
 
@@ -203,8 +201,6 @@ What's happening here is:
 
 - if a query includes a `select` option, we infer what that is and then subsequently extract the return type of the `select`.
 - otherwise we use the query return type (as we we've previously examined)
-
-
 
 Finally, whichever type we end up with, we supply that type as a parameter to `UseQueryResult`. And that is what is going to surface up our types to our users.
 
