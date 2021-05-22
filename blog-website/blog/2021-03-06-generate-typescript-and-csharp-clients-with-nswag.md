@@ -4,6 +4,7 @@ author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [NSwag, TypeScript, CSharp, API]
+image: blog/2021-03-06-generate-typescript-and-csharp-clients-with-nswag/use-generated-client.gif
 hide_table_of_contents: false
 ---
 Generating clients for APIs is a tremendous way to reduce the amount of work you have to do when you're building a project. Why handwrite that code when it can be auto-generated for you quickly and accurately by a tool like [NSwag](https://github.com/RicoSuter/NSwag)? To quote the docs:

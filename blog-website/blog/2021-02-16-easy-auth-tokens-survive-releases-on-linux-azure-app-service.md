@@ -3,6 +3,7 @@ title: "Making Easy Auth tokens survive releases on Linux Azure App Service"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+image: blog/2021-02-16-easy-auth-tokens-survive-releases-on-linux-azure-app-service/easy-auth-zero-downtime-deployment.png
 tags: [Azure, Easy Auth, tokens, SAS, Blob Storage]
 hide_table_of_contents: false
 ---
@@ -85,8 +86,6 @@ There's two notable things happening above:
 
 1. In the `SASGen` job, a PowerShell script runs that [generates a SaS token URL](https://docs.microsoft.com/en-us/powershell/module/az.storage/new-azstoragecontainersastoken?view=azps-5.5.0) with read, write and list permissions that will last for 90 days. (Incidentally, there is a way to do this via [ARM templates, and without PowerShell](https://stackoverflow.com/a/56127006/761388) \- but alas it didn't seem to work when we experimented with it.)
 2. The generated (secret) token URL (`sasUrl`) is passed as a parameter to our App Service ARM template. The ARM template sets an appsetting for the app service:
-
-
 
 ```json
 {
