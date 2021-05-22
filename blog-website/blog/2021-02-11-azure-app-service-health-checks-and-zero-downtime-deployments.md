@@ -16,8 +16,6 @@ Historically (and for many applications, currently) deployment results in downti
 2. Because you're a kind person and you want your users to be happy, you'll optimise to make their lives better. You'll release when the fewest users are accessing your application. It will likely mean you'll end up working late, early or at weekends.
 3. Again because you want to reduce impact on users, you'll release less often. This means that every release will bring with it a greater collection of changes. This is turn will often result in a large degree of focus on manually testing each release, to reduce the likelihood of bugs ending up in users hands. This is a noble aim, but it drags the teams focus away from shipping.
 
-
-
 Put simply: downtime in releases impacts customer happiness and leads to reduced pace for teams. It's a vicious circle.
 
 But if we turn it around, what does it look like if releases have *no* downtime at all?
@@ -37,7 +35,7 @@ App Services have the ability to scale out. To [quote the docs](https://azure.mi
 
 As you can see, scaling out works by having multiple instances of your app. Deployment slots are exactly this, but with an extra twist. If you add a deployment slot to your App Service, then you **no longer deploy to production**. Instead you deploy to your staging slot. Your staging slot is accessible in the same way your production slot is accessible. So whilst your users may go to [https://my-glorious-app.io](https://my-glorious-app.io), your staging slot may live at [https://my-glorious-app-stage.azurewebsites.net](https://my-glorious-app-stage.azurewebsites.net) instead. Because this is accessible, this is testable. You are in a position to test the deployed application before making it generally available.
 
- ![](../static/blog/2021-02-11-azure-app-service-health-checks-and-zero-downtime-deployments/app-service-with-slots.png)
+![diagram of network traffic going to various App Service Deployment Slots](../static/blog/2021-02-11-azure-app-service-health-checks-and-zero-downtime-deployments/app-service-with-slots.png)
 
 Once you're happy that everything looks good, you can "swap slots". What this means, is the version of the app living in the staging slot, gets moved into the production slot. So that which lived at [https://my-glorious-app-stage.azurewebsites.net](https://my-glorious-app-stage.azurewebsites.net) moves to [https://my-glorious-app.io](https://my-glorious-app.io). For a more details on what that involves [read this](https://docs.microsoft.com/en-us/azure/app-service/deploy-staging-slots#what-happens-during-a-swap). The significant take home is this: there is no downtime. Traffic stops being routed to the old instance and starts being routed to the new one. It's as simple as that.
 
@@ -80,7 +78,7 @@ We now have the new version of the app (`buildNumber: 20210121.6`) in the produc
 
 Slots have a tremendous rollback story. If it emerges that there was some uncaught issue in your release and you'd like to revert to the previous version, you can! Just as we swapped just now to move `buildNumber: 20210121.6` from the staging slot to the production slot and `buildNumber: 20210121.5` the other way, we can swap right back and revert our release like so:
 
-![](../static/blog/2021-02-11-azure-app-service-health-checks-and-zero-downtime-deployments/app-service-with-slots-and-build-number.png)
+![diagram of network traffic going to various App Service Deployment Slots exposing build number](../static/blog/2021-02-11-azure-app-service-health-checks-and-zero-downtime-deployments/app-service-with-slots-and-build-number.png)
 
 Once again users going to [https://my-glorious-app.io](https://my-glorious-app.io) are hitting `buildNumber: 20210121.5`.
 
@@ -135,7 +133,7 @@ When I first considered this, the question rattling around in the back of my min
 
 It so happens that using [Health checks, App Service caters for this beautifully](https://docs.microsoft.com/en-us/azure/app-service/monitor-instances-health-check). A health check endpoint is a URL in your application which, when hit, checks the dependencies of your application. "Is the database accessible?" "Are the APIs I depend upon accessible?" The diagram from the docs expresses it very well:
 
-![](../static/blog/2021-02-11-azure-app-service-health-checks-and-zero-downtime-deployments/health-check-failure-diagram.png)
+![diagram of traffic hitting the health check endpoint](../static/blog/2021-02-11-azure-app-service-health-checks-and-zero-downtime-deployments/health-check-failure-diagram.png)
 
 This approach is very similar to [liveness, readiness and startup probes in Kubernetes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/). To make use of Health checks, in our ARM template for our App Service we have configured a `healthCheckPath`:
 
@@ -169,5 +167,3 @@ You read a full list of all the ways App Service uses Health checks [here](https
 This is the magic sauce. App Service doesn't route traffic to an instance until it's given the thumbs up that it's ready in the form of passing health checks. This is excellent; it is this that makes automated zero downtime releases a reality.
 
 Props to the various Azure teams that have made this possible; I'm very impressed by the way in which the Health checks and slots can be combined together to support some tremendous use cases.
-
-

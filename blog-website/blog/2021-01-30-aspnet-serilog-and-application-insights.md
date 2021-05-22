@@ -3,6 +3,7 @@ title: "ASP.NET, Serilog and Application Insights"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+image: blog/2021-01-30-aspnet-serilog-and-application-insights/application-insights-properties.png
 tags: [asp.net, Azure, Application Insights, Serilog]
 hide_table_of_contents: false
 ---
@@ -124,13 +125,13 @@ internal static class LoggerConfigurationExtensions {
 
 If we take a look at the `ConfigureBaseLogging` method above, we can see that our logs are being enriched with the build info, property by property. We're also giving ourselves a beautifully coloured console thanks to Serilog's glorious [theme support](https://github.com/serilog/serilog-sinks-console#themes):
 
- ![](../static/blog/2021-01-30-aspnet-serilog-and-application-insights/coloured-console.png)
+ ![screenshot of the console featuring coloured output](../static/blog/2021-01-30-aspnet-serilog-and-application-insights/coloured-console.png)
 
 Take a moment to admire the salmon pinks. Is it not lovely?
 
-Finally we come to the main act. Plugging in Application Insights is as simple as dropping in `loggerConfiguration.WriteTo.ApplicationInsights` into our configuration. You'll note that this depends upon the existence of an application setting of `APPINSIGHTS_INSTRUMENTATIONKEY` \- this is the secret sauce that we need to be in place so we can pipe logs merrily to Application Insights. So you'll need this configuration in place so this works.
+Finally we come to the main act. Plugging in Application Insights is as simple as dropping in `loggerConfiguration.WriteTo.ApplicationInsights` into our configuration. You'll note that this depends upon the existence of an application setting of `APPINSIGHTS_INSTRUMENTATIONKEY` - this is the secret sauce that we need to be in place so we can pipe logs merrily to Application Insights. So you'll need this configuration in place so this works.
 
-![](../static/blog/2021-01-30-aspnet-serilog-and-application-insights/application-insights-properties.png)
+![screenshot of application insights with our output](../static/blog/2021-01-30-aspnet-serilog-and-application-insights/application-insights-properties.png)
 
 As you can see, we now have the likes of `BuildNumber`, `CommitHash` and friends visible on each log. Happy diagnostic days!
 

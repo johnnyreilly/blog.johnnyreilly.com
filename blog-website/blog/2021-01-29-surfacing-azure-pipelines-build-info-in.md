@@ -3,6 +3,7 @@ title: "Surfacing Azure Pipelines Build Info in a .NET React SPA"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+image: blog/2021-01-29-surfacing-azure-pipelines-build-info-in/about-page.png
 tags: [build information, azure pipelines]
 hide_table_of_contents: false
 ---
@@ -37,14 +38,13 @@ We generate this by adding the following `yml` to the beginning of our `azure-pi
 
 As you can see, we're placing the following variables that are available at build time in Azure Pipelines, into the `buildinfo.json`:
 
-- `BuildNumber` \- The name of the completed build; which usually takes the form of a date in the `yyyyMMdd` format, suffixed by `.x` where `x` is a number that increments representing the number of builds that have taken place on the given day.
-- `BuildId` \- The ID of the record for the completed build.
-- `SourceVersion` \- This is the commit hash of the source code in Git
-- `SourceBranchName` \- The name of the branch in Git.
+- `BuildNumber` - The name of the completed build; which usually takes the form of a date in the `yyyyMMdd` format, suffixed by `.x` where `x` is a number that increments representing the number of builds that have taken place on the given day.
+- `BuildId` - The ID of the record for the completed build.
+- `SourceVersion` - This is the commit hash of the source code in Git
+- `SourceBranchName` - The name of the branch in Git.
 
 
-
-[There's many variables available in Azure Pipelines that can be used](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#build-variables-devops-services) \- we've picked out the ones most interesting to us.
+[There's many variables available in Azure Pipelines that can be used](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#build-variables-devops-services) - we've picked out the ones most interesting to us.
 
 ## Surfacing the server build info
 
@@ -111,10 +111,10 @@ The above code reads the `buildinfo.json` file and deserialises it into a `Build
 
 ```cs
 public static int Main(string[] args) {
-            AppVersionInfo.InitialiseBuildInfoGivenPath(Directory.GetCurrentDirectory());
-            // Now we're free to call AppVersionInfo.GetBuildInfo()
-            // ....
-        }
+    AppVersionInfo.InitialiseBuildInfoGivenPath(Directory.GetCurrentDirectory());
+    // Now we're free to call AppVersionInfo.GetBuildInfo()
+    // ....
+}
 ```
 
 Now we need a controller to surface this information up. We'll add ourselves a `BuildInfoController.cs`:
@@ -135,7 +135,7 @@ namespace Server.Controllers {
 
 This exposes an `api/build` endpoint in our .NET app that, when hit, will display the following JSON:
 
- ![](../static/blog/2021-01-29-surfacing-azure-pipelines-build-info-in/api-build-screenshot.png)
+ ![screenshot of api/build output](../static/blog/2021-01-29-surfacing-azure-pipelines-build-info-in/api-build-screenshot.png)
 
 ## Surfacing the client build info
 
@@ -278,7 +278,7 @@ export default AboutPage;
 
 When the above page is viewed it looks like this:
 
-![](../static/blog/2021-01-29-surfacing-azure-pipelines-build-info-in/about-page.png)
+![screenshot of our web app surfacing up the build information](../static/blog/2021-01-29-surfacing-azure-pipelines-build-info-in/about-page.png)
 
 And that's it! Our app is clearly telling us what version is being run, both on the server and in the client. Thanks to Scott Hanselman for his work which inspired this.
 
