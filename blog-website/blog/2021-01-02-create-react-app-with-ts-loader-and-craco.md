@@ -37,8 +37,8 @@ Then we'll swap over our various `scripts` in our `package.json` to use `CRACO`:
 
 ```json
 "start": "craco start",
-        "build": "craco build",
-        "test": "craco test",
+"build": "craco build",
+"test": "craco test",
 ```
 
 Finally we'll add a `craco.config.js` file to the root of our project. This is where we swap out `babel-loader` for `ts-loader`:
