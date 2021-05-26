@@ -30,8 +30,8 @@ module.exports = {
             from: '/2019/12/18/automating-teams-notifications-recently',
           },
           {
-            to: '/2019/12/18/autofac-webapplicationfactory-integration-tests',
-            from: '/2019/12/18/autofac-webapplicationfactory-and',
+            to: '/2020/05/21/autofac-webapplicationfactory-integration-tests',
+            from: '/2020/05/21/autofac-webapplicationfactory-and',
           },
         ],
         createRedirects: function (existingPath) {
