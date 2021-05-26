@@ -3,16 +3,17 @@ title: "Autofac, WebApplicationFactory and integration tests"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: [autofac, ASP.Net Core, ConfigureTestContainer, Integration Testing]
+tags: [autofac, WebApplicationFactory, ASP.Net Core, ConfigureTestContainer, Integration Testing]
+image: blog/2020-05-21-autofac-webapplicationfactory-integration-tests/autofac-webapplicationfactory-tests.png
 hide_table_of_contents: false
 ---
-**Updated 2nd Oct 2020:** *for an approach that works with Autofac 6 see [this post.](https://blog.johnnyreilly.com/2020/10/autofac-6-integration-tests-and-generic-hosting.html)*
+**Updated 2nd Oct 2020:** *for an approach that works with Autofac 6 and `ConfigureTestContainer` see [this post](./2020-10-02-autofac-6-integration-tests-and-generic-hosting.md).*
 
----
+![A title image for the blog featuring the Autofac logo](../static/blog/2020-05-21-autofac-webapplicationfactory-integration-tests/autofac-webapplicationfactory-tests.png)
 
 This is one of those occasions where I'm not writing up my own work so much as my discovery after in depth googling.
 
-Integration tests with ASP.NET Core are the best. They spin up an in memory version of your application and let you fire requests at it. They've gone through a number of iterations since ASP.NET Core has been around. You may also be familiar with the `TestServer` approach of earlier versions. For some time, the advised approach has been using `<a href="https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-3.1#basic-tests-with-the-default-webapplicationfactory">WebApplicationFactory</a>`.
+Integration tests with ASP.NET Core are the best. They spin up an in memory version of your application and let you fire requests at it. They've gone through a number of iterations since ASP.NET Core has been around. You may also be familiar with the `TestServer` approach of earlier versions. For some time, the advised approach has been using [`WebApplicationFactory`](https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-3.1#basic-tests-with-the-default-webapplicationfactory).
 
 What makes this approach particularly useful / powerful is that you can swap out dependencies of your running app with fakes / stubs etc. Just like unit tests! But potentially more useful because they run your whole app and hence give you a greater degree of confidence. What does this mean? Well, imagine you changed a piece of middleware in your application; this could potentially break functionality. Unit tests would probably not reveal this. Integration tests would.
 
@@ -150,5 +151,3 @@ namespace My.Web.Tests.Controllers
     }
 }
 ```
-
-
