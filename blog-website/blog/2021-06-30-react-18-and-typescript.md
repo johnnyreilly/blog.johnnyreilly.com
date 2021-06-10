@@ -4,7 +4,7 @@ author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [React, TypeScript, React 18]
-image: blog/2021-06-09-react-18-and-typescript/createNode-error.png
+image: blog/2021-06-30-react-18-and-typescript/createNode-error.png
 hide_table_of_contents: false
 ---
 [React 18 alpha has been released](https://reactjs.org/blog/2021/06/08/the-plan-for-react-18.html); but can we use it with TypeScript? The answer is "yes", but you need to do a couple of things to make that happen. This post will show you what to do. 
@@ -56,7 +56,7 @@ If we were running JavaScript alone, this would work. However, because we're usi
 
 > `Property 'createRoot' does not exist on type 'typeof import("/code/my-app/node_modules/@types/react-dom/index")'.  TS2339`
 
-![a screenshot of the Property 'createRoot' does not exist error](../static/blog/2021-06-09-react-18-and-typescript/createNode-error.png)
+![a screenshot of the Property 'createRoot' does not exist error](../static/blog/2021-06-30-react-18-and-typescript/createNode-error.png)
 
 This is the TypeScript compiler complaining that it doesn't know anything about `ReactDOM.createRoot`. This is because the type definitions that are currently in place in our application don't have that API defined.
 
@@ -110,7 +110,7 @@ If we restart our build with `yarn start` we're now presented with a *different*
 > `Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element | Document | DocumentFragment | Comment'.
   Type 'null' is not assignable to type 'Element | Document | DocumentFragment | Comment'.  TS2345`
 
-![a screenshot of the null is not assignable error](../static/blog/2021-06-09-react-18-and-typescript/null_is_not_assignable-error.png)
+![a screenshot of the null is not assignable error](../static/blog/2021-06-30-react-18-and-typescript/null_is_not_assignable-error.png)
 
 Now this is actually nothing to do with issues with our new React type definitions. They are fine. This is TypeScript saying "it's not guaranteed that `document.getElementById('root')` returns something that is not `null`... since we're in `strictNullChecks` mode you need to be sure `root` is not null".
 
