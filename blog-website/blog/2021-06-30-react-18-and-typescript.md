@@ -124,3 +124,5 @@ We'll deal with that by testing we do have an element in play before invoking `R
 ```
 
 Now that change is made, we have a working React 18 application, using TypeScript. Enjoy!
+
+[This post was originally published on LogRocket.](https://blog.logrocket.com/how-to-use-typescript-with-react-18-alpha/)
