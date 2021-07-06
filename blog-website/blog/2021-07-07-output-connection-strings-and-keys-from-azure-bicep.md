@@ -140,6 +140,8 @@ output blobStorageConnectionString string = blobStorageConnectionString
 output blobContainerName string = blobContainerName
 ```
 
+If you just wanted to know how to acquire connection strings from Bicep then you can stop now; we're done! But if you're curious on how the Bicep might connect to ~~the shoulder~~ Azure Pipelines... Read on.
+
 ## From Bicep to Azure Pipelines
 
 If we put together our snippets above into a single Bicep file it would look like this:
@@ -306,4 +308,4 @@ With the above in place, we now have all of our variables in place; `blobStorage
         workingDirectory: '$(Build.SourcesDirectory)/OurTestApp'
 ```
 
-Here we run a dotnet application and pass it our connection strings.
+Here we run a .NET application and pass it our connection strings. Please note, there's nothing .NET specific about what we're doing above - it could be any kind of application, bash script or similar that consumes our connection strings. The significant thing is that we can acquire connection strings in an automated fashion, for use in whichever manner pleases us.
