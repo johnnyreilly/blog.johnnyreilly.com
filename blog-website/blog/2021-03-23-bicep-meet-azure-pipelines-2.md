@@ -16,7 +16,7 @@ hide_table_of_contents: false
 The target reader of the previous post was someone who was already using `AzureResourceManagerTemplateDeployment@3` in an Azure Pipeline to deploy an ARM template. Rather than replacing your existing `AzureResourceManagerTemplateDeployment@3` tasks, all you need do is insert a prior `bash` step that compiles the Bicep to ARM, which your existing template can then process. It looks like this:
 
 ```yml
-        - bash: az bicep build --files infra/app-service/azuredeploy.bicep
+        - bash: az bicep build --file infra/app-service/azuredeploy.bicep
           displayName: "Compile Bicep to ARM"
 ```
 
@@ -25,7 +25,7 @@ This will take your Bicep template of `azuredeploy.bicep`, transpile it into an 
 In fact this simple task could even be a one-liner if you didn't fancy using the `displayName`. (Though I say keep it; optimising for readability is generally a good shout.) A full pipeline could look like this:
 
 ```yml
-        - bash: az bicep build --files infra/app-service/azuredeploy.bicep
+        - bash: az bicep build --file infra/app-service/azuredeploy.bicep
           displayName: "Compile Bicep to ARM"
 
         - task: AzureResourceManagerTemplateDeployment@3
