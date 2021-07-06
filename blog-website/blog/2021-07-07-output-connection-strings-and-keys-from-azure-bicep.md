@@ -127,7 +127,7 @@ When this is deployed to Azure, it will result in creating something like this:
 
 ![screenshot of storage account access keys in the Azure Portal](../static/blog/2021-07-07-output-connection-strings-and-keys-from-azure-bicep/storage-account-access-keys.png)
 
-Again we can see, there are connection strings available which can be used to access the storage account. However, things aren't quite as simple as previously; in that there doesn't seem to be directly acquire a connection string.  What we can do, is acquire a key; and construct ourselves a connection string on that basis.  Here's how:
+Again we can see, there are connection strings available in the Azure Portal, which can be used to access the storage account. However, things aren't quite as simple as previously; in that there doesn't seem to be a way to directly acquire a connection string.  What we can do, is acquire a key; and construct ourselves a connection string with that.  Here's how:
 
 ```bicep
 // Determine our connection string
