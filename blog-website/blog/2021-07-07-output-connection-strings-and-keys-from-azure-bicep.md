@@ -80,7 +80,7 @@ output eventHubNamespaceConnectionString string = eventHubNamespaceConnectionStr
 output eventHubName string = eventHubName
 ```
 
-What we're doing here is using the [`listKeys`](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-functions-resource#list) helper on our authorization rule and retrieve the handy `primaryConnectionString`, which is then exposed as an output variable.
+What we're doing here is using the [`listKeys`](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-functions-resource#list) helper on our authorization rule and retrieving the handy `primaryConnectionString`, which is then exposed as an output variable.
 
 ## Storage Account connection string
 
