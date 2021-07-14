@@ -7,7 +7,7 @@ tags: [Directory.Build.props, C# 9, .NET Core]
 image: blog/2021-07-13-directory-build-props-c-sharp-9-for-all/title-image.png
 hide_table_of_contents: false
 ---
-.NET Core can make use of C# 9 by making some changes to your `.csproj` files. There is a way to opt all projects in a solution into this behaviour in a *single* place, through using a `Directory.Build.props` file. Here's how to do it.
+.NET Core can make use of C# 9 by making some changes to your `.csproj` files. There is a way to opt all projects in a solution into this behaviour in a *single* place, through using a `Directory.Build.props` file and / or a `Directory.Build.targets` file. Here's how to do it.
 
 ![title image showing name of post and the C# logo](../static/blog/2021-07-13-directory-build-props-c-sharp-9-for-all/title-image.png)
 
