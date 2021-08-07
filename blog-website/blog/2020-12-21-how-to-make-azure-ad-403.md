@@ -1,5 +1,5 @@
 ---
-title: "Azure AD should 403"
+title: "Make Microsoft.Identity.Web respond with 403 forbidden instead of a 302 redirect"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
