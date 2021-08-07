@@ -1,18 +1,22 @@
 ---
-title: "Azure DevOps Node API: The missing episodes"
+title: "Azure DevOps Client for Node.js - working around limitations"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [azure devops api, '203', node.js]
 hide_table_of_contents: false
 ---
+The Azure DevOps Client library for Node.js has limitations and missing features, such as the ability to paginate git refs and create wiki posts. This post details some of these issues and illustrates a workaround using the Azure DevOps REST API.
+
+## The Azure DevOps REST API and Client Libraries
+
 I've been taking a good look at the [REST API for Azure DevOps](https://docs.microsoft.com/en-us/rest/api/azure/devops/?view=azure-devops-rest-6.1). I'm delighted to say that it's a very full API. However, there's quirks.
 
 I'm writing a tool that interrogates Azure DevOps in order that it can construct release documentation. That release documentation we would like to publish to the project wiki.
 
 To make integration with Azure DevOps even easier, the ADO team have put a good amount of work into [client libraries](https://docs.microsoft.com/en-us/rest/api/azure/devops/?view=azure-devops-rest-6.1#client-libraries) that allow you to code in your language of choice. In my case I'm writing a Node.js tool (using TypeScript) and happily the client lib for Node is written and published with TypeScript too. Tremendous! However, there is a "but" coming....
 
-## Wiki got a big ol' "but"
+## `GitApi` and `WikiApi` shortcomings
 
 As I've been using the Node client lib, I've found minor quirks. Such as the [`GitApi.getRefs` missing the pagination parts of the API](https://github.com/microsoft/azure-devops-node-api/issues/415).
 
@@ -166,5 +170,3 @@ let topLevelPage = await getWikiPage({
 ```
 
 and the wikis were ours!
-
-
