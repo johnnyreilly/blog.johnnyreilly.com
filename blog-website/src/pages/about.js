@@ -11,7 +11,7 @@ const features = [
     description: (
       <>
         <p>
-          The meanderings and ramblings of a dev. If you were wondering, the
+          The meanderings and ramblings of a software engineer. If you were wondering, the
           slightly egotistical-sounding title of this blog started life as a pun
           on{" "}
           <a href="http://en.wikipedia.org/wiki/ICANN" target="_blank">
@@ -19,27 +19,6 @@ const features = [
           </a>
           . Not, if I'm honest, the finest joke in the world but I haven't yet
           thought of a better name and so here we are...
-        </p>
-        <p>
-          <a href="https://reillysontour.johnnyreilly.com/">
-            I also write a (sort of) travel blog.
-          </a>
-        </p>
-      </>
-    ),
-  },
-  {
-    title: "Who am I?",
-    description: (
-      <>
-        <p>
-          Long-time Londoner, born in Bristol and raised in Fleet. Developer,
-          writer, hedge chopper extraordinaire, father, food botherer, Christian
-          and husband to the most wonderful Geordie wife there ever was!
-        </p>
-
-        <p>
-          You can <a href="mailto:johnny_reilly@hotmail.com">email me</a>.
         </p>
       </>
     ),
@@ -67,7 +46,28 @@ const features = [
           <a href="https://blog.johnnyreilly.com/2019/10/08/definitely-typed-movie">
             history of Definitely Typed
           </a>
-          .
+          </p>
+      </>
+    ),
+  },
+  {
+    title: "Who am I?",
+    description: (
+      <>
+        <p>
+          Long-time Londoner, born in Bristol and raised in Fleet. Developer,
+          writer, hedge chopper extraordinaire, father, food botherer, Christian
+          and husband to the most wonderful Geordie wife there ever was!
+        </p>
+
+        <p>
+          I write the occasional <a href="https://reillysontour.johnnyreilly.com/">
+            travel blog(ish)
+          </a> as well.
+        </p>
+
+        <p>
+          You can <a href="mailto:johnny_reilly@hotmail.com">email me</a>.
         </p>
       </>
     ),
