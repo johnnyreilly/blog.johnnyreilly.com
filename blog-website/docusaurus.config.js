@@ -25,7 +25,6 @@ module.exports = {
       "@docusaurus/plugin-client-redirects",
       {
         redirects: [
-          //2019-08-02-hard-coding-claim-in-development-mode
           {
             to: '/2019/02/22/allowlist-proxying-with-aspnet-core',
             from: '/2019/02/22/whitelist-proxying-with-aspnet-core',
