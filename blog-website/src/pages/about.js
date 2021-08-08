@@ -21,7 +21,7 @@ const features = [
           thought of a better name and so here we are...
         </p>
         <p>
-          <a href="https://reillysontour.blogspot.com/">
+          <a href="https://reillysontour.johnnyreilly.com/">
             I also write a (sort of) travel blog.
           </a>
         </p>
