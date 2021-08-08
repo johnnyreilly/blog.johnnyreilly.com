@@ -1,5 +1,5 @@
 ---
-title: "The Big One Point Oh"
+title: "fork-ts-checker-webpack-plugin v1.0"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg

@@ -1,9 +1,9 @@
 ---
-title: "WhiteList Proxying with ASP.Net Core"
+title: "AllowList Proxying with ASP.Net Core"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-tags: [asp net core, proxy, http requests, whitelist]
+tags: [asp net core, proxy, http requests, allowlist]
 hide_table_of_contents: false
 ---
 Once upon a time there lived a young team who were building a product. They were ready to go live with their beta and so they set off on a journey to a mystical land they had heard tales of. This magical kingdom was called "Production". However, Production was a land with walls and but one gate. That gate was jealously guarded by a defender named "InfoSec". InfoSec was there to make sure that only the the right people, noble of thought and pure of deed were allowed into the promised land. InfoSec would ask questions like "are you serving over HTTPS" and "what are you doing about cross site scripting"?
@@ -12,7 +12,7 @@ The team felt they had good answers to InfoSec's questions. However, just as the
 
 The team, with one foot in the air, paused. They swallowed and said "can you give us five minutes?"
 
- ![](../static/blog/2019-02-22-whitelist-proxying-with-aspnet-core/hang-on-lads-ive-got-a-great-idea.jpg)
+ ![](../static/blog/2019-02-22-allowlist-proxying-with-aspnet-core/hang-on-lads-ive-got-a-great-idea.jpg)
 
 ## The Proxy Regroup
 
@@ -37,15 +37,15 @@ So we ended up spinning up our own solution which allowed just the specification
 public void Configure(IApplicationBuilder app) {
             // ...
 
-            app.UseProxyWhiteList(
+            app.UseProxyAllowList(
                 // where ServerToProxyToBaseUrl is the server you want requests to be proxied to
                 proxyAddressTweaker: (requestPath) => $"{ServerToProxyToBaseUrl}{requestPath}",
-                whiteListProxyRoutes: new [] {
+                allowListProxyRoutes: new [] {
                     // An anonymous request
-                    WhiteListProxy.AnonymousRoute("api/version", HttpMethod.Get),
+                    AllowListProxy.AnonymousRoute("api/version", HttpMethod.Get),
      
                     // An authenticated request; to send this we must know who the user is
-                    WhiteListProxy.Route("api/account/{accountId:int}/all-the-secret-info", HttpMethod.Get, HttpMethod.Post),
+                    AllowListProxy.Route("api/account/{accountId:int}/all-the-secret-info", HttpMethod.Get, HttpMethod.Post),
             });
 
 
@@ -62,7 +62,7 @@ If you look at the code above you can see that we are proxing all our requests t
 
 
 
-The `WhiteListProxy` proxy class we've been using looks like this:
+The `AllowListProxy` proxy class we've been using looks like this:
 
 ```
 using System;
@@ -70,12 +70,12 @@ using System.Collections.Generic;
 using System.Net.Http;
 
 namespace My.Web.Proxy {
-    public class WhiteListProxy {
+    public class AllowListProxy {
         public string Path { get; set; }
         public IEnumerable<HttpMethod> Methods { get; set; }
         public bool IsAnonymous { get; set; }
 
-        private WhiteListProxy(string path, bool isAnonymous, params HttpMethod[] methods) {
+        private AllowListProxy(string path, bool isAnonymous, params HttpMethod[] methods) {
             if (methods == null || methods.Length == 0)
                 throw new ArgumentException($"You need at least a single HttpMethod to be specified for {path}");
 
@@ -84,14 +84,14 @@ namespace My.Web.Proxy {
             Methods = methods;
         }
 
-        public static WhiteListProxy Route(string path, params HttpMethod[] methods) => new WhiteListProxy(path, isAnonymous : false, methods: methods);
-        public static WhiteListProxy AnonymousRoute(string path, params HttpMethod[] methods) => new WhiteListProxy(path, isAnonymous : true, methods: methods);
+        public static AllowListProxy Route(string path, params HttpMethod[] methods) => new AllowListProxy(path, isAnonymous : false, methods: methods);
+        public static AllowListProxy AnonymousRoute(string path, params HttpMethod[] methods) => new AllowListProxy(path, isAnonymous : true, methods: methods);
     }
 
 }
 ```
 
-The middleware for proxying (our `UseProxyWhiteList`) looks like this:
+The middleware for proxying (our `UseProxyAllowList`) looks like this:
 
 ```
 using System;
@@ -112,19 +112,19 @@ using Serilog;
 namespace My.Web.Proxy {
     public static class ProxyRouteExtensions {
         /// <summary>
-        /// Middleware which proxies the supplied whitelist routes
+        /// Middleware which proxies the supplied allowlist routes
         /// </summary>
-        public static void UseProxyWhiteList(
+        public static void UseProxyAllowList(
             this IApplicationBuilder app,
             Func<string, string> proxyAddressTweaker,
             Action<HttpContext, HttpRequestMessage> preSendProxyRequestAction,
-            IEnumerable<WhiteListProxy> whiteListProxyRoutes
+            IEnumerable<AllowListProxy> allowListProxyRoutes
         ) {
             app.UseRouter(builder => {
-                foreach (var whiteListProxy in whiteListProxyRoutes) {
-                    foreach (var method in whiteListProxy.Methods) {
-                        builder.MapMiddlewareVerb(method.ToString(), whiteListProxy.Path, proxyApp => {
-                            proxyApp.UseProxy_Challenge(whiteListProxy.IsAnonymous);
+                foreach (var allowListProxy in allowListProxyRoutes) {
+                    foreach (var method in allowListProxy.Methods) {
+                        builder.MapMiddlewareVerb(method.ToString(), allowListProxy.Path, proxyApp => {
+                            proxyApp.UseProxy_Challenge(allowListProxy.IsAnonymous);
                             proxyApp.UseProxy_Run(proxyAddressTweaker, preSendProxyRequestAction);
                         });
                     }
