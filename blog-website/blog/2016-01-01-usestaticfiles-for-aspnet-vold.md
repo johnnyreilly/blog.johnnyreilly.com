@@ -1,22 +1,20 @@
 ---
-title: "UseStaticFiles for ASP.Net vOld"
+title: "UseStaticFiles for ASP.Net Framework"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [HTML5 History API, Single Page Applications, UseStaticFiles, Routing, URL Rewrite]
 hide_table_of_contents: false
 ---
-That's what we're calling the original ASP.Net now, right? This is a guide on how <u>not</u>
+This is a guide on how *not* to expose all your static files to the world at large when working with the ASP.Net Framework. How to move from a blocklisting approach to a allowlisting approach.
 
- to expose all your static files to the world at large when working with the old (well, current) ASP.Net stack. How to move from a blacklisting approach to a whitelisting approach. Not clear? Stick around; I'll get better.
-
- Oh and that's not all, we've also got.... drumroll:
+Not clear? Stick around; I'll get better. Oh and that's not all, we've also got.... drumroll:
 
 ## Support for [HTML5 History API](https://html.spec.whatwg.org/multipage/browsers.html#the-history-interface)!
 
 What that means, in as close to English as I can get it, is real URLs for Single Page Applications. None of that hash-based routing malarkey. So, `https://i-am-your-domain.com/i-am-your-route` rather than `https://i-am-your-domain.com/<em>#/</em>i-am-your-route`. (For a more in depth look at the different sorts of routing SPA's can use then take a look at the [excellent docs](http://rackt.org/history/stable/GettingStarted.html) by the folk behind [React Router](https://github.com/rackt/react-router). These concepts are not React specific and can be applied to any SPA technology.)
 
-## UseStaticFiles
+## `UseStaticFiles`
 
 You may be aware that historically ASP.Net has been somewhat unusual in its approach to serving static files. Essentially, all the files in a project are theoretically servable. Okay, that's not entirely true; things like the `web.config` files etc are not going to be handed over to someone browsing your site. But other files that you might well want kept away from prying eyes may be. So your [TypeScript](http://www.typescriptlang.org/) files, your [Less](http://lesscss.org/) files are all up for grabs unless you take action to block access to them. This is, and has always been, bad.
 

@@ -26,6 +26,18 @@ module.exports = {
       {
         redirects: [
           {
+            to: '/2019/02/22/allowlist-proxying-with-aspnet-core',
+            from: '/2019/02/22/whitelist-proxying-with-aspnet-core',
+          },
+          {
+            to: '/2019/03/06/fork-ts-checker-webpack-plugin-v1',
+            from: '/2019/03/06/the-big-one-point-oh',
+          },
+          {
+            to: '/2019/08/02/asp-net-authentication-hard-coding-claims',
+            from: '/2019/08/02/hard-coding-claim-in-development-mode',
+          },
+          {
             to: '/2019/12/18/teams-notification-webhooks',
             from: '/2019/12/18/automating-teams-notifications-recently',
           },
@@ -177,12 +189,7 @@ module.exports = {
     [
       "@docusaurus/preset-classic",
       {
-        docs: false /*{
-          sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
-        }*/,
+        docs: false,
         blog: {
           blogTitle: 'I CAN MAKE THIS WORK',
           blogDescription: 'The blog of johnnyreilly',

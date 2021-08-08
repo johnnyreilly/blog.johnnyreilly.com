@@ -6,11 +6,9 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [asp net core, google analytics]
 hide_table_of_contents: false
 ---
-Some of my posts are meaningful treaties on the nature of software development. Some are detailed explanations of approaches you can use. Some are effectively code dumps. This is one of those.
-
 I recently had need to be able to access the API for Google Analytics from ASP.Net Core. Getting this up and running turned out to be surprisingly tough because of an absence of good examples. So here it is; an example of how you can access a simple page access stat using [the API](https://www.nuget.org/packages/Google.Apis.AnalyticsReporting.v4/):
 
-```
+```cs
 async Task<SomeKindOfDataStructure[]> GetUsageFromGoogleAnalytics(DateTime startAtThisDate, DateTime endAtThisDate)
 {
     // Create the DateRange object. Here we want data from last week.

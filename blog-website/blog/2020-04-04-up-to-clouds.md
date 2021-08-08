@@ -54,7 +54,7 @@ Hey presto! Safe secrets in k8s.
 
 ## Networking
 
-Our on premise servers sat on the company network. They could see *everything* that there was to see. All the other servers around them on the network, bleeping and blooping. The opposite was true in AWS. There was nothing to see. Nothing to access. As it should be. It's safer that way should a machine become compromised. For each database and each API our application depended upon, we needed to specifically whitelist access.
+Our on premise servers sat on the company network. They could see *everything* that there was to see. All the other servers around them on the network, bleeping and blooping. The opposite was true in AWS. There was nothing to see. Nothing to access. As it should be. It's safer that way should a machine become compromised. For each database and each API our application depended upon, we needed to specifically allowlist access.
 
 ## Kerberos
 
