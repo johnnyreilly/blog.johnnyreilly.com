@@ -1,18 +1,23 @@
 ---
-title: "AllowList Proxying with ASP.Net Core"
+title: "ASP.NET Core: Proxying HTTP Requests with an AllowList"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [asp net core, proxy, http requests, allowlist]
+image: blog/2019-02-22-aspnet-core-allowlist-proxying-http-requests/hang-on-lads-ive-got-a-great-idea.jpg
 hide_table_of_contents: false
 ---
+This post demonstrates a mechanism for proxying HTTP requests in ASP.NET Core. It doesn't proxy all requests; it only proxies requests that match entries on an "allowlist" - so we only proxy the traffic that we've actively decided is acceptable as determined by taking the form of an expected URL and HTTP verb (GET / POST etc). 
+
+## Why do we need to proxy?
+
 Once upon a time there lived a young team who were building a product. They were ready to go live with their beta and so they set off on a journey to a mystical land they had heard tales of. This magical kingdom was called "Production". However, Production was a land with walls and but one gate. That gate was jealously guarded by a defender named "InfoSec". InfoSec was there to make sure that only the the right people, noble of thought and pure of deed were allowed into the promised land. InfoSec would ask questions like "are you serving over HTTPS" and "what are you doing about cross site scripting"?
 
-The team felt they had good answers to InfoSec's questions. However, just as they were about to step through the gate, InfoSec held up their hand and said "your application wants to access a database... database access needs to take place on our own internal network. Not over the publicly accessible internet. You shall not pass."
+The team felt they had good answers to InfoSec's questions. However, just as they were about to step through the gate, InfoSec held up their hand and said "your application wants to access a database... database access needs to take place on our own internal network. Not over the publicly accessible internet."
 
 The team, with one foot in the air, paused. They swallowed and said "can you give us five minutes?"
 
- ![](../static/blog/2019-02-22-allowlist-proxying-with-aspnet-core/hang-on-lads-ive-got-a-great-idea.jpg)
+![image taken from the end of the classic movie "The Italian Job" of the bus hanging half off a mountainside](../static/blog/2019-02-22-aspnet-core-allowlist-proxying-http-requests/hang-on-lads-ive-got-a-great-idea.jpg)
 
 ## The Proxy Regroup
 
@@ -20,8 +25,6 @@ And so it came to pass that the teams product (which took the form of ASP.Net Co
 
 1. the straightforward serving of HTML, CSS, JS and images
 2. the proxying of API calls through to the API app
-
-
 
 ## Proxy Part 1
 
@@ -33,38 +36,38 @@ The approach offered by `AspNetCore.Proxy` is fantastically powerful in terms of
 
 So we ended up spinning up our own solution which allowed just the specification of paths we wanted to proxy with their corresponding HTTP verbs. Let's talk through it. Usage of our approach ended up as a middleware within our web app's `Startup.cs`:
 
-```
+```cs
 public void Configure(IApplicationBuilder app) {
-            // ...
+    // ...
 
-            app.UseProxyAllowList(
-                // where ServerToProxyToBaseUrl is the server you want requests to be proxied to
-                proxyAddressTweaker: (requestPath) => $"{ServerToProxyToBaseUrl}{requestPath}",
-                allowListProxyRoutes: new [] {
-                    // An anonymous request
-                    AllowListProxy.AnonymousRoute("api/version", HttpMethod.Get),
-     
-                    // An authenticated request; to send this we must know who the user is
-                    AllowListProxy.Route("api/account/{accountId:int}/all-the-secret-info", HttpMethod.Get, HttpMethod.Post),
-            });
+    app.UseProxyAllowList(
+        // where ServerToProxyToBaseUrl is the server you want requests to be proxied to
+        // eg "https://the-server-we-proxy-to"
+        proxyAddressTweaker: (requestPath) => $"{ServerToProxyToBaseUrl}{requestPath}",
+        allowListProxyRoutes: new [] {
+            // An anonymous request
+            AllowListProxy.AnonymousRoute("api/version", HttpMethod.Get),
+
+            // An authenticated request; to send this we must know who the user is
+            AllowListProxy.Route("api/account/{accountId:int}/all-the-secret-info", HttpMethod.Get, HttpMethod.Post),
+    });
 
 
-            app.UseMvc();
-   
-            // ...
-        }
+    app.UseMvc();
+
+    // ...
+}
 ```
 
-If you look at the code above you can see that we are proxing all our requests to a single server: `ServerToProxyToBaseUrl`. We're proxying 2 different requests:
+If you look at the code above you can see that we are proxing requests to a single server: `ServerToProxyToBaseUrl`. We're also only proxying requests which match an entry on our allowlist (as represented by `allowListProxyRoutes`). So in this case we're proxying two different requests:
 
 1. `GET` requests to `api/version` are proxied through as *anonymous*`GET` requests.
 2. `GET` and `POST` requests to `api/account/{accountId:int}/all-the-secret-info` are proxied through as `GET` and `POST` requests. These requests require that a user be authenticated first.
 
 
-
 The `AllowListProxy` proxy class we've been using looks like this:
 
-```
+```cs
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -84,16 +87,18 @@ namespace My.Web.Proxy {
             Methods = methods;
         }
 
-        public static AllowListProxy Route(string path, params HttpMethod[] methods) => new AllowListProxy(path, isAnonymous : false, methods: methods);
-        public static AllowListProxy AnonymousRoute(string path, params HttpMethod[] methods) => new AllowListProxy(path, isAnonymous : true, methods: methods);
-    }
+        public static AllowListProxy Route(string path, params HttpMethod[] methods) => 
+            new AllowListProxy(path, isAnonymous: false, methods: methods);
 
+        public static AllowListProxy AnonymousRoute(string path, params HttpMethod[] methods) => 
+            new AllowListProxy(path, isAnonymous: true, methods: methods);
+    }
 }
 ```
 
 The middleware for proxying (our `UseProxyAllowList`) looks like this:
 
-```
+```cs
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -251,4 +256,4 @@ namespace My.Web.Proxy {
 }
 ```
 
-
+This works out to be a flexible and simple approach to allowlist proxying.

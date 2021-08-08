@@ -26,7 +26,7 @@ module.exports = {
       {
         redirects: [
           {
-            to: '/2019/02/22/allowlist-proxying-with-aspnet-core',
+            to: '/2019/02/22/aspnet-core-allowlist-proxying-http-requests',
             from: '/2019/02/22/whitelist-proxying-with-aspnet-core',
           },
           {
