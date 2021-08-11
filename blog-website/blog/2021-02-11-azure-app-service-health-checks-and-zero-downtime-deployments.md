@@ -41,7 +41,7 @@ Once you're happy that everything looks good, you can "swap slots". What this me
 
 I should mention at this point that there's a [number of zero downtime strategies out there](https://opensource.com/article/17/5/colorful-deployments) and slots can help support a number of these. This includes canary deployments, where a subset of traffic is routed to the new version prior to it being opened out more widely. In our case, we're looking at rolling deployments, where we replace the currently running instances of our application with the new ones; but it's worth being aware that there are other strategies that slots can facilitate.
 
-So what does it look like when slots swap? Well, to test that out, we swapped slots on our two App Service instances. We repeatedly CURLed our apps [`api/build`](https://blog.johnnyreilly.com/2021/01/surfacing-azure-pipelines-build-info-in.html) endpoint that exposes the build information; to get visibility around which version of our app we were routing traffic to. This is what we saw:
+So what does it look like when slots swap? Well, to test that out, we swapped slots on our two App Service instances. We repeatedly CURLed our apps [`api/build`](./2021-01-29-surfacing-azure-pipelines-build-info-in-an-aspnet-react-app.md) endpoint that exposes the build information; to get visibility around which version of our app we were routing traffic to. This is what we saw:
 
 ```
 Thu Jan 21 11:51:51 GMT 2021

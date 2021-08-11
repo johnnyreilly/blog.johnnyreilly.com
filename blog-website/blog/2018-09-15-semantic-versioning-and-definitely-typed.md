@@ -15,7 +15,7 @@ This is often the experience people have of using type definitions from Definite
 
 ![Ivan Drago saying "I must break you"](../static/blog/2018-09-15-ivan-drago-and-definitely-typed/i-must-break-you.jpg)
 
-Specifically, people are used to the idea of semantic versioning and expect it from types published to npm by Definitely Typed. They wait in vain. [I've written before about the Definitely Typed / @types semantic version compromise.](https://blog.johnnyreilly.com/2017/02/14/typescript-types-and-repeatable-builds/) And I wanted to talk about it a little further as (watching the issues raised on DT) I don't think the message has quite got out there. To summarise:
+Specifically, people are used to the idea of semantic versioning and expect it from types published to npm by Definitely Typed. They wait in vain. [I've written before about the Definitely Typed / @types semantic version compromise.](./2017-02-14-typescript-types-and-repeatable-builds.md) And I wanted to talk about it a little further as (watching the issues raised on DT) I don't think the message has quite got out there. To summarise:
 
 1. npm is built on top of [semantic versioning](http://semver.org/) and they [take it seriously](https://docs.npmjs.com/getting-started/semantic-versioning). When a package is published it should be categorised as a major release (breaking changes), a minor release (extra functionality which is backwards compatible) or a patch release (backwards compatible bug fixes).
 
