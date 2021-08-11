@@ -1,13 +1,15 @@
 ---
-title: "Surfacing Azure Pipelines Build Info in a .NET React SPA"
+title: "Azure Pipelines Build Info in an ASP.NET React app"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
-image: blog/2021-01-29-surfacing-azure-pipelines-build-info-in/about-page.png
+image: blog/2021-01-29-azure-pipelines-build-info-in-an-aspnet-react-app/about-page.png
 tags: [build information, azure pipelines]
 hide_table_of_contents: false
 ---
-The title of this post is hugely specific, but the idea is simple. We want to answer the question: "what codebase is running in Production right now?" Many is the time where I've been pondering over why something isn't working as expected and burned a disappointing amount of time before realising that I'm playing with an old version of an app. Wouldn't it be great give our app a way to say: "Hey! I'm version 1.2.3.4 of your app; built from this commit hash, I was built on Wednesday, I was the nineth build that day and I was built from the `main` branch. And I'm an Aries." Or something like that.
+How do you answer the question: "what version of my application is running in Production right now?" This post demonstrates how to surface the build metadata that represents the version of your app, from your app using Azure Pipelines and ASP.NET.
+
+Many is the time where I've been pondering over why something isn't working as expected and burned a disappointing amount of time before realising that I'm playing with an old version of an app. Wouldn't it be great give our app a way to say: "Hey! I'm version 1.2.3.4 of your app; built from this commit hash, I was built on Wednesday, I was the nineth build that day and I was built from the `main` branch. And I'm an Aries." Or something like that.
 
 This post was inspired by [Scott Hanselman's similar post on the topic](https://www.hanselman.com/blog/adding-a-git-commit-hash-and-azure-devops-build-number-and-build-id-to-an-aspnet-website). Ultimately this ended up going in a fairly different direction and so seemed worthy of a post of its own.
 
@@ -42,7 +44,6 @@ As you can see, we're placing the following variables that are available at buil
 - `BuildId` - The ID of the record for the completed build.
 - `SourceVersion` - This is the commit hash of the source code in Git
 - `SourceBranchName` - The name of the branch in Git.
-
 
 [There's many variables available in Azure Pipelines that can be used](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#build-variables-devops-services) - we've picked out the ones most interesting to us.
 
@@ -135,7 +136,7 @@ namespace Server.Controllers {
 
 This exposes an `api/build` endpoint in our .NET app that, when hit, will display the following JSON:
 
- ![screenshot of api/build output](../static/blog/2021-01-29-surfacing-azure-pipelines-build-info-in/api-build-screenshot.png)
+ ![screenshot of api/build output](../static/blog/2021-01-29-azure-pipelines-build-info-in-an-aspnet-react-app/api-build-screenshot.png)
 
 ## Surfacing the client build info
 
@@ -278,8 +279,6 @@ export default AboutPage;
 
 When the above page is viewed it looks like this:
 
-![screenshot of our web app surfacing up the build information](../static/blog/2021-01-29-surfacing-azure-pipelines-build-info-in/about-page.png)
+![screenshot of our web app surfacing up the build information](../static/blog/2021-01-29-azure-pipelines-build-info-in-an-aspnet-react-app/about-page.png)
 
 And that's it! Our app is clearly telling us what version is being run, both on the server and in the client. Thanks to Scott Hanselman for his work which inspired this.
-
-
