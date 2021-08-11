@@ -13,7 +13,7 @@ Docusaurus doesn't ship with "blog archive" functionality. By which I mean, some
 
 ## Blogger's blog archive
 
-I recently went through the exercise of [migrating my blog from Blogger to Docusaurus](https://blog.johnnyreilly.com/2021/03/15/from-blogger-to-docusaurus). I found that [Docusaurus](https://docusaurus.io/) was a tremendous platform upon which to build a blog, but it was missing a feature from Blogger that I valued highly; the blog archive:
+I recently went through the exercise of [migrating my blog from Blogger to Docusaurus](./2021-03-15-from-blogger-to-docusaurus.md). I found that [Docusaurus](https://docusaurus.io/) was a tremendous platform upon which to build a blog, but it was missing a feature from Blogger that I valued highly; the blog archive:
 
 ![Blogger blog archive](../static/blog/2021-05-01-blog-archive-for-docusaurus/blogger-blog-archive-small.png)
 

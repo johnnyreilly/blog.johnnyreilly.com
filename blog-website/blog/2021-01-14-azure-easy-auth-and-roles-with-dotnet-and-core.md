@@ -6,7 +6,7 @@ author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [Azure, App service, authorisation, Authentication, azure AD]
 hide_table_of_contents: false
 ---
-*If this post is interesting to you, you may also want to [look at this one where we try to use Microsoft.Identity.Web for the same purpose.](https://blog.johnnyreilly.com/2021/01/azure-easy-auth-and-roles-with-net-and-microsoft-identity-web.html)*
+*If this post is interesting to you, you may also want to [look at this one where we try to use Microsoft.Identity.Web for the same purpose.](./2021-01-17-azure-easy-auth-and-roles-with-net-and-microsoft-identity-web.md)*
 
  Azure has a feature which is intended to allow Authentication and Authorization to be applied outside of your application code. It's called ["Easy Auth"](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization). Unfortunately, in the context of App Services it doesn't work with .NET Core and .NET. Perhaps it would be better to say: of the various .NETs, it supports .NET Framework. [To quote the docs](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization#userapplication-claims):
 
@@ -43,7 +43,7 @@ Let's back up a bit. First of all we've added a dependency to our project:
 dotnet add package MaximeRouiller.Azure.AppService.EasyAuth
 ```
 
-Next we've updated our `Startup.cs``ConfigureServices` such that it looks like this:
+Next we've updated our `Startup.ConfigureServices` such that it looks like this:
 
 ```cs
 if (Env.IsDevelopment()) {
@@ -205,8 +205,8 @@ namespace EasyAuth {
 There's a number of changes in the above code to Maxime's package. Three changes that are not significant and one that is. First the insignificant changes:
 
 1. It uses [`System.Text.Json`](https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to?pivots=dotnet-5-0) in place of JSON.NET
-2. It uses [C#s nullable reference types](https://blog.johnnyreilly.com/2020/12/nullable-reference-types-csharp-strictnullchecks.html)
-3. It changes the extension method signature such that instead of entering `services.AddAuthentication().AddEasyAuthAuthentication((o) =&gt; { })` we now need only enter `services.AddEasyAuthAuthentication()`
+2. It uses [C#s nullable reference types](./2020-12-20-nullable-reference-types-csharp-strictnullchecks.md)
+3. It changes the extension method signature such that instead of entering `services.AddAuthentication().AddEasyAuthAuthentication((o) => { })` we now need only enter `services.AddEasyAuthAuthentication()`
 
 Now the significant change:
 

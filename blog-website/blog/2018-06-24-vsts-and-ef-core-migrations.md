@@ -119,7 +119,7 @@ dotnet build
 dotnet publish --configuration Release --output $(build.artifactstagingdirectory)/MigrateDatabase
 ```
 
-There's various ways to accomplish this which I wont reiterate now. [I recommend YAML](https://blog.johnnyreilly.com/2018/06/vsts-yaml-up.html).
+There's various ways to accomplish this which I wont reiterate now. [I recommend YAML](./2018-06-16-vsts-yaml-up.md).
 
 ## Deploy It!
 
