@@ -1,11 +1,16 @@
 ---
-title: "Strongly typing react-querys useQueries"
+title: "react-query: strongly typing useQueries"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+image: blog/2021-01-03-strongly-typing-react-query-s-usequeries/strongly-typing-usequeries.png
 tags: [useQueries, react-query]
 hide_table_of_contents: false
 ---
+`react-query` has a weakly typed hook named `useQueries`. It's possible to turn that into a strong typed hook; this post shows you how.
+
+![title image that says "react-query: strongly typings useQueries"](../static/blog/2021-01-03-strongly-typing-react-query-s-usequeries/strongly-typing-usequeries.png)
+
 If you haven't used [`react-query`](https://react-query.tanstack.com/) then I heartily recommend it. It provides (to quote the docs):
 
 > Hooks for fetching, caching and updating asynchronous data in React
