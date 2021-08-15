@@ -30,9 +30,9 @@ When it came to authentication, my initial thoughts were to continue the same ro
 
 Robski challenged my plans. "We don't need it. Have one pod that does both sorts of auth. If you do that, your implementation is simpler and scaling is more straightforward. You'll only need half the pods because you won't need internal *and* external ones; one pod can handle both sets of traffic. You'll save money."
 
- I loved the idea but I didn't think that ASP.Net Core supported it. "It's just not a thing Robski; ASP.Net Core doesn't suppport it." Robski didn't believe me. That turned out to a *very good thing*. There followed a period of much googling and experimentation. One day of hunting in, I was still convinced there was no way to do it that would allow me to look in the mirror without self loathing. Then Robski sent me this:
+I loved the idea but I didn't think that ASP.Net Core supported it. "It's just not a thing Robski; ASP.Net Core doesn't suppport it." Robski didn't believe me. That turned out to a *very good thing*. There followed a period of much googling and experimentation. One day of hunting in, I was still convinced there was no way to do it that would allow me to look in the mirror without self loathing. Then Robski sent me this:
 
-![](../static/blog/2020-03-22-dual-boot-authentication-with-aspnetcore/robski-dynamic-auth.png)
+![screenshot of WhatsApp message with a link in it](../static/blog/2020-03-22-dual-boot-authentication-with-aspnetcore/robski-dynamic-auth.png)
 
 It was a link to the amazing [David Fowler](https://twitter.com/davidfowl) talking about [some API I'd never heard of called `SchemeSelector`](https://github.com/aspnet/Security/issues/1469#issuecomment-335027005). It turned out that this was the starting point for exactly what we needed; a way to dynamically select an authentication scheme at runtime.
 
@@ -88,8 +88,6 @@ If you look at this code it's doing these things:
 
 1. Registering three types of authentication: Cookie, Azure AD and "WhichAuthDoWeUse"
 2. Registers the default `Scheme` to be "WhichAuthDoWeUse".
-
-
 
 "WhichAuthDoWeUse" is effectively an `if` statement that says, *"if this is an external `Request` use Cookies authentication, otherwise use Azure AD"*. Given that "WhichAuthDoWeUse" is the default scheme, this code runs for each request, to determine which authentication method to use.
 
@@ -150,7 +148,7 @@ namespace My.App.Auth {
 Finally, I updated the `SpaController.cs` (which serves initial requests to our Single Page Application) to cater for having two types of Auth in play:
 
 ```cs
-/// <summary>
+        /// <summary>
         /// ASP.NET will try and load the index.html using the FileServer if we don't have a route
         /// here to match `/`. These attributes can't be on Index or the spa fallback doesn't work
         /// Note: this is almost perfect except that if someone actually calls /index.html they'll get
@@ -181,7 +179,7 @@ Finally, I updated the `SpaController.cs` (which serves initial requests to our 
 
         /// <summary>
         /// This method returns a RedirectURL if a request is coming from an internal URL
-        /// eg https://ix-web-int.prd.investec.cloud and is not authenticated.  In this case
+        /// eg https://int.prd.our.cloud and is not authenticated.  In this case
         /// we likely want to trigger authentication by redirecting to an authorized endpoint
         /// </summary>
         string GetRedirectUrlIfUserIsInternalAndNotAuthenticated(string returnUrl)
@@ -212,12 +210,8 @@ The code above allows anonymous requests to land in our app through the `AllowAn
 1. It's an internal request (i.e. the Request URL starts "[https://strictly4mypeeps.io/"](https://strictly4mypeeps.io/"))
 2. The current user is *not* authenticated.
 
-
-
 In this case the user is redirected to the [https://strictly4mypeeps.io/login-with-azure-ad](https://strictly4mypeeps.io/login-with-azure-ad) route which is decorated with the `Authorize` attribute. This will trigger authentication for our unauthenticated internal users and drive them through the Azure AD login process.
 
 ## The mystery of no documentation
 
 I'm so surprised that this approach hasn't yet been better documented on the (generally superb) ASP.Net Core docs. It's such a potentially useful approach; and in our case, money saving too! I hope the official docs feature something on this in future. If they do, and I've just missed it (possible!) then please hit me up in the comments.
-
-
