@@ -182,7 +182,7 @@ module.exports = {
       copyright: `Copyright © ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
     },
     prism: {
-      additionalLanguages: ["powershell", "csharp", "docker"],
+      additionalLanguages: ["powershell", "csharp", "docker", "bicep"],
     },
   },
   presets: [
