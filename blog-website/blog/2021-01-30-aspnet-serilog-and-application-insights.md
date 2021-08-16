@@ -28,10 +28,10 @@ We're going to need a number of Serilog dependencies added to our `.csproj`:
 
 ```xml
 <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
-    <PackageReference Include="Serilog.Enrichers.Environment" Version="2.1.3" />
-    <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
-    <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="3.1.0" />
-    <PackageReference Include="Serilog.Sinks.Async" Version="1.4.0" />
+<PackageReference Include="Serilog.Enrichers.Environment" Version="2.1.3" />
+<PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
+<PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="3.1.0" />
+<PackageReference Include="Serilog.Sinks.Async" Version="1.4.0" />
 ```
 
 The earlier in your application lifetime you get logging wired up, the happier you will be. Earlier, means more information when you're diagnosing issues. So we want to start in our `Program.cs`; `Startup.cs` would be just *way* too late.
@@ -76,7 +76,7 @@ public class Program {
 
 If you look at the code above you'll see that the first line of code that executes is `AppVersionInfo.InitialiseBuildInfoGivenPath`. This initialises our `AppVersionInfo` so we have meaningful build info to pump into our logs. The next thing we do is to configure Serilog with `LoggerConfigurationExtensions.SetupLoggerConfiguration`. This provides us with a configured logger so we are free to log any issues that take place during startup. (Incidentally, after startup you'll likely inject an `ILogger` into your classes rather than using the static `Log` directly.)
 
-Finally, we call `CreateHostBuilder` which in turn calls `UseSerilog` to plug Serilog into ASP.NET. If you take a look inside the body of `UserSerilog` you'll see we configure the logging of ASP.NET (in the same we did for Serilog) and we hook into Application Insights as well. There's been a number of references to `LoggerConfigurationExtensions`. Let's take a look at it:
+Finally, we call `CreateHostBuilder` which in turn calls `UseSerilog` to plug Serilog into ASP.NET. If you take a look inside the body of `UseSerilog` you'll see we configure the logging of ASP.NET (in the same way we did for Serilog) and we hook into Application Insights as well. There's been a number of references to `LoggerConfigurationExtensions`. Let's take a look at it:
 
 ```cs
 internal static class LoggerConfigurationExtensions {
@@ -136,5 +136,3 @@ Finally we come to the main act. Plugging in Application Insights is as simple a
 As you can see, we now have the likes of `BuildNumber`, `CommitHash` and friends visible on each log. Happy diagnostic days!
 
 I'm indebted to the marvellous [Marcel Michau](https://twitter.com/MarcelMichau) who showed me how to get the fiddlier parts of how to get Application Insights plugged in the right way. Thanks chap!
-
-
