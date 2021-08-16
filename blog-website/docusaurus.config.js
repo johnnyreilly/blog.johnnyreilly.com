@@ -182,6 +182,9 @@ module.exports = {
       copyright: `Copyright © ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
     },
     prism: {
+      // theme: require('prism-react-renderer/themes/dracula'),
+      theme: require('prism-react-renderer/themes/nightOwl'),
+      // theme: require('prism-react-renderer/themes/vsDark'),
       additionalLanguages: ["powershell", "csharp", "docker", "bicep"],
     },
   },
