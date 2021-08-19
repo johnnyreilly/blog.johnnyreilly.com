@@ -1,14 +1,18 @@
 ---
-title: "TypeScript, webpack: goodbye relative paths"
+title: "Using TypeScript and webpack alias: goodbye relative paths"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
 tags: [relative paths, TypeScript, webpack, alias, paths, resolve, tsconfig-paths-webpack-plugin]
 hide_table_of_contents: false
 ---
+This post shows how you can use TypeScript with webpack `alias` to move away from using relative paths in your `import` statements.
+
+## Long relative paths
+
 I write a lot of TypeScript. Because I like modularity, I split up my codebases into discreet modules and `import` from them as necessary.
 
- Take a look at this `import`:
+Take a look at this `import`:
 
 ```ts
 import * as utils from '../../../../../../../shared/utils';

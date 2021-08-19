@@ -26,6 +26,14 @@ module.exports = {
       {
         redirects: [
           {
+            to: '/2018/07/28/azure-app-service-web-app-containers-asp-net-nested-configuration',
+            from: '/2018/07/28/configuring-docker-azure-web-app-containers',
+          },
+          {
+            to: '/2018/08/21/typescript-webpack-alias-goodbye-relative-paths',
+            from: '/2018/08/21/killing-relative-paths-with-typescript-and',
+          },
+          {
             to: '/2019/02/22/aspnet-core-allowlist-proxying-http-requests',
             from: '/2019/02/22/whitelist-proxying-with-aspnet-core',
           },
