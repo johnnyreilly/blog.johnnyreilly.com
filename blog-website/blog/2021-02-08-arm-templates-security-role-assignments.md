@@ -1,5 +1,5 @@
 ---
-title: "ARM templates, security, role assignments and magic GUIDs"
+title: "Azure RBAC: role assignments and ARM templates"
 author: John Reilly
 author_url: https://github.com/johnnyreilly
 author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
@@ -7,11 +7,13 @@ image: blog/2021-02-08-arm-templates-security-role-assignments/with-great-power-
 tags: [Azure, ARM templates, role assignments, permissions]
 hide_table_of_contents: false
 ---
+This post is about Azure's role assignments and ARM templates. Role assignments can be thought of as "permissions for Azure".
+
 If you're deploying to Azure, there's a good chance you're using [ARM templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview) to do so. Once you've got past "Hello World", you'll probably find yourself in a situation when you're deploying multiple types of resource to make your solution. For instance, you may be deploying an [App Service](https://docs.microsoft.com/en-us/azure/app-service/quickstart-arm-template?pivots=platform-linux#review-the-template) alongside [Key Vault](https://docs.microsoft.com/en-us/azure/templates/microsoft.keyvault/vaults) and [Storage](https://docs.microsoft.com/en-us/azure/templates/microsoft.storage/storageaccounts).
 
 One of the hardest things when it comes to deploying software and having it work, is permissions. Without adequate permissions configured, the most beautiful code can do *nothing*. Incidentally, this is a good thing. We're deploying to the web; many people are there, not all good. As a different kind of web-head once said:
 
- ![Spider-man saying with great power, comes great responsibility](../static/blog/2021-02-08-arm-templates-security-role-assignments/with-great-power-comes-great-responsibility.jpg)
+![Spider-man saying with great power, comes great responsibility](../static/blog/2021-02-08-arm-templates-security-role-assignments/with-great-power-comes-great-responsibility.jpg)
 
 Azure has great power and [suggests you use it wisely](https://docs.microsoft.com/en-us/azure/security/fundamentals/identity-management-best-practices#use-role-based-access-control).
 
