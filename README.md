@@ -1,4 +1,4 @@
-# blog.johnnyreilly.com
+# [blog.johnnyreilly.com](https://blog.johnnyreilly.com)
 
 [![blog status badge](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/blog.yml/badge.svg)](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/blog.yml)
 
