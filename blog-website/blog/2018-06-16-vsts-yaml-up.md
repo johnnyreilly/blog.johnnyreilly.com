@@ -28,11 +28,11 @@ When I started testing it out I found things to like and some things I didn't un
 
 You can get to "Hello World" by looking at [the docs here](https://docs.microsoft.com/en-us/vsts/pipelines/build/yaml?view=vsts) and [the examples here](https://github.com/Microsoft/vsts-agent/blob/master/docs/preview/yamlgettingstarted.md). But what you really want is your existing build, configured in the UI, exported to YAML. That doesn't seem to quite exist, but there's something that gets you part way. Take a look:
 
-![](../static/blog/2018-06-16-vsts-yaml-up/Screenshot%2B2018-06-16%2B18.49.08.png)
+![screenshot of restore task in VSTS](../static/blog/2018-06-16-vsts-yaml-up/vsts-screenshot-of-restore-task.png)
 
 If you notice, in the top right of the screen, each task now allows you click on a new "View YAML" button. It's kinda [Ronseal](https://en.wikipedia.org/wiki/Ronseal):
 
-![](../static/blog/2018-06-16-vsts-yaml-up/Screenshot%2B2018-06-16%2B19.04.00.png)
+![screenshot of copy to clipboard in VSTS](../static/blog/2018-06-16-vsts-yaml-up/vsts-screenshot-of-copy-to-clipboard.png)
 
 Using this hotness you can build yourself a `.vsts-ci.yml` file task by task.
 
@@ -110,10 +110,6 @@ This file does the following:
 3. Publish our web app to a directory. Effectively `yarn run publish:web`. This is only separate because we want to pass in the output directory and so it's just easier for it to be a separate step.
 4. Publish the build artefact to TFS. (This will go on to be picked up by the continuous deployment mechanism and published out to Azure.)
 
-
-
 I much prefer this to what I had before. I feel there's much more that can be done here as well. I'm looking forward to the continuous deployment piece becoming scriptable too.
 
 Thanks to Zoltan and props to the TFVS team!
-
-
