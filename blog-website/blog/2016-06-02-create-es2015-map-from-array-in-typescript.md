@@ -1,8 +1,6 @@
 ---
 title: "Creating an ES2015 Map from an Array in TypeScript"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [TypeScript, ES6, Array, ES2015, Map]
 hide_table_of_contents: false
 ---

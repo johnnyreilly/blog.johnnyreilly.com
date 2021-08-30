@@ -1,8 +1,6 @@
 ---
 title: "Web Workers, comlink, TypeScript and React"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [web workers, comlink, TypeScript, React]
 hide_table_of_contents: false
 ---

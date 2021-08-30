@@ -1,8 +1,6 @@
 ---
 title: "How I'm Using Cassette part 2:Get Cassette to Serve Scripts in Dependency Order"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [script references, RequireJS, cassette]
 hide_table_of_contents: false
 ---

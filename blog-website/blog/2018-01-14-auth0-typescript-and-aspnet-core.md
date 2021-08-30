@@ -1,8 +1,6 @@
 ---
 title: "Auth0, TypeScript and ASP.NET Core"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [ASP.Net Core, Auth0, TypeScript, OAuth, React]
 hide_table_of_contents: false
 ---

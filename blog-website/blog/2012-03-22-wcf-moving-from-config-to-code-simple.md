@@ -1,8 +1,6 @@
 ---
 title: "WCF - moving from Config to Code, a simple WCF service harness (plus implementing your own Authorization)"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [ServiceAuthorizationManager, Windows Account, Windows Service, configuration, WCF, authorisation, NetTcpBinding]
 hide_table_of_contents: false
 ---

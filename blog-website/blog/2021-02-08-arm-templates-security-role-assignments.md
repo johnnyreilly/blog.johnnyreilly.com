@@ -1,8 +1,6 @@
 ---
 title: "Azure RBAC: role assignments and ARM templates"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 image: blog/2021-02-08-arm-templates-security-role-assignments/with-great-power-comes-great-responsibility.jpg
 tags: [Azure, ARM templates, role assignments, permissions]
 hide_table_of_contents: false

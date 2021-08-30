@@ -1,8 +1,6 @@
 ---
 title: "Managed Identity, Azure SQL and Entity Framework"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [connection string, managed identity, entity framework, Microsoft.Data.SqlClient]
 image: blog/2021-03-10-managed-identity-azure-sql-entity-framework/entity-framework-core-nuget.png
 hide_table_of_contents: false

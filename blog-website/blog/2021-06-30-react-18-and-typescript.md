@@ -1,8 +1,6 @@
 ---
 title: "React 18 and TypeScript"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [React, TypeScript, React 18]
 image: blog/2021-06-30-react-18-and-typescript/createNode-error.png
 hide_table_of_contents: false

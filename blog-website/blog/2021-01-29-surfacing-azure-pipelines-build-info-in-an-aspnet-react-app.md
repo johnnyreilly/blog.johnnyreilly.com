@@ -1,8 +1,6 @@
 ---
 title: "Azure Pipelines Build Info in an ASP.NET React app"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 image: blog/2021-01-29-azure-pipelines-build-info-in-an-aspnet-react-app/about-page.png
 tags: [build information, azure pipelines]
 hide_table_of_contents: false

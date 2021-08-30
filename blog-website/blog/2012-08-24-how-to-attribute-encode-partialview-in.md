@@ -1,8 +1,6 @@
 ---
 title: "How to attribute encode a PartialView in MVC (Razor)"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [asp.net mvc, encode, PartialView, razor, attribute]
 hide_table_of_contents: false
 ---

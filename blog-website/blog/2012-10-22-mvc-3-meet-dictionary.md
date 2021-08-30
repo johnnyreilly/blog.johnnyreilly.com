@@ -1,8 +1,6 @@
 ---
 title: "MVC 3 meet Dictionary"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [MVC 3, Dictionary]
 hide_table_of_contents: false
 ---

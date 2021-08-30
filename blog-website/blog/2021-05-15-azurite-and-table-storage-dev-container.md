@@ -1,8 +1,6 @@
 ---
 title: "Azurite and Table Storage in a dev container"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Azurite, Azure Table Storage, VS Code, dev container, devcontainer, Docker]
 image: blog/2021-05-15-azurite-and-table-storage-dev-container/dev-container-start.gif
 hide_table_of_contents: false

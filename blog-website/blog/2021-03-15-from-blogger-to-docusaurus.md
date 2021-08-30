@@ -1,8 +1,6 @@
 ---
 title: "From Blogger to Docusaurus"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Blogger, Docusaurus]
 image: blog/2021-03-15-from-blogger-to-docusaurus/docusaurus.png
 hide_table_of_contents: false

@@ -1,8 +1,6 @@
 ---
 title: "webpack? esbuild? Why not both?"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [webpack, esbuild, esbuild-loader, ts-loader, babel-loader]
 image: blog/2021-07-11-webpack-esbuild-why-not-both/webpack-esbuild-why-not-both.jpg
 hide_table_of_contents: false

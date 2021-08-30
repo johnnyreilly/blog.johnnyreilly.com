@@ -1,8 +1,6 @@
 ---
 title: "How I'm Using Cassette part 1:Getting Up and Running"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [asp.net mvc, Andrew Davey, cassette]
 hide_table_of_contents: false
 ---

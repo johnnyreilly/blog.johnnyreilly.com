@@ -1,8 +1,6 @@
 ---
 title: "react-query: strongly typing useQueries"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 image: blog/2021-01-03-strongly-typing-react-query-s-usequeries/strongly-typing-usequeries.png
 tags: [useQueries, react-query]
 hide_table_of_contents: false

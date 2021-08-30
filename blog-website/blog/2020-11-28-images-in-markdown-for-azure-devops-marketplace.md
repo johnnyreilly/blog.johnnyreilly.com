@@ -1,8 +1,6 @@
 ---
 title: "Visual Studio Marketplace: images in Markdown!"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Azure DevOps Marketplace, Visual Studio Marketplace, markdown, images]
 image: blog/2020-11-28-images-in-markdown-for-azure-devops-marketplace/azure-devops-marketplace.png
 description: "Publish your README.md and associated images to Visual Studio Marketplace."

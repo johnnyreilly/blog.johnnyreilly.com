@@ -1,8 +1,6 @@
 ---
 title: "Safari: The Mysterious Case of the Empty Download"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Safari, Content-Type, Content-Length]
 hide_table_of_contents: false
 ---

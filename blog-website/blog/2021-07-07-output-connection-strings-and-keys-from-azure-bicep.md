@@ -1,8 +1,6 @@
 ---
 title: "Output connection strings and keys from Azure Bicep"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Bicep, Azure, connection string, keys]
 image: blog/2021-07-07-output-connection-strings-and-keys-from-azure-bicep/title-image.jpg
 hide_table_of_contents: false

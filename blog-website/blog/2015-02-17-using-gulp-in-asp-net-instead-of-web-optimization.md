@@ -1,8 +1,6 @@
 ---
 title: "Using Gulp to inject scripts and styles tags directly into your HTML"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [asp.net, gulp-inject, Web Optimization, gulpjs, wiredep]
 hide_table_of_contents: false
 ---

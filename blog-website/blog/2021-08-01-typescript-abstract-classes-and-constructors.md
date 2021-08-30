@@ -1,8 +1,6 @@
 ---
 title: "TypeScript, abstract classes, and constructors"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [TypeScript, abstract, constructors, classes]
 image: blog/2021-08-01-typescript-abstract-classes-and-constructors/vs-code-abstract-screenshot.png
 hide_table_of_contents: false

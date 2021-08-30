@@ -1,8 +1,6 @@
 ---
 title: "Semantic Versioning and Definitely Typed"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [DefinitelyTyped, semantic versioning, SemVer, TypeScript, react-router, Ivan Drago]
 image: blog/2018-09-15-ivan-drago-and-definitely-typed/i-must-break-you.jpg
 hide_table_of_contents: false

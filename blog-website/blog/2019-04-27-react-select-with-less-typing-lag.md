@@ -1,8 +1,6 @@
 ---
 title: "react-select with less typing lag"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [large lists, react-select, typing]
 hide_table_of_contents: false
 ---

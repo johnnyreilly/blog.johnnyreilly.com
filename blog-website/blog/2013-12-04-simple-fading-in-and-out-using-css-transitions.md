@@ -1,8 +1,6 @@
 ---
 title: "Simple fading in and out using CSS transitions and classes"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [CSS 3, transitionend, fadeIn, fadeOut, transitions]
 hide_table_of_contents: false
 ---

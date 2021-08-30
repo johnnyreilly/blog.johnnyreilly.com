@@ -1,8 +1,6 @@
 ---
 title: "Teams notification webhooks"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Microsoft Teams, connectors, notifications, webhook]
 image: blog/2019-12-18-teams-notification-webhooks/teams-notification.gif
 hide_table_of_contents: false

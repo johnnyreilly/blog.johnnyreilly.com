@@ -1,8 +1,6 @@
 ---
 title: "Azure App Service, Health checks and zero downtime deployments"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Azure App Service, Health checks, deployment slots, zero downtime deployments]
 hide_table_of_contents: false
 ---

@@ -1,8 +1,6 @@
 ---
 title: "From create-react-app to PWA"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [create-react-app, PWA]
 hide_table_of_contents: false
 ---

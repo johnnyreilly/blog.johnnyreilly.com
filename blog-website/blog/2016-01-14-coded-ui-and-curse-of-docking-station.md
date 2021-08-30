@@ -1,8 +1,6 @@
 ---
 title: "Coded UI and the Curse of the Docking Station"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Docking station, Surface Pro 3, Coded UI, Second monitor]
 hide_table_of_contents: false
 ---

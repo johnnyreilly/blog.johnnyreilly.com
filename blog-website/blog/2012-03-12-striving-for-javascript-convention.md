@@ -1,8 +1,6 @@
 ---
 title: "Striving for (JavaScript) Convention"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [naming convention, javascript, Hungarian Notation, DOJO]
 hide_table_of_contents: false
 ---

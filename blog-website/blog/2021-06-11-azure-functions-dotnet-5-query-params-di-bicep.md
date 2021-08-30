@@ -1,8 +1,6 @@
 ---
 title: "Azure Functions and .NET 5: Query params, Dependency Injection, Bicep & Build"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Azure Functions, .NET 5, querystring, query params, dependency injection, Bicep]
 image: blog/2021-06-11-azure-functions-dotnet-5-query-params-di-bicep/title-image.png
 description: "The upgrade of Azure Functions from .NET Core 3.1 to .NET 5 is significant. This post shows part of the upgrade: Query params, Dependency Injection, Bicep & Build"

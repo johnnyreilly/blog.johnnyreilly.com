@@ -1,8 +1,6 @@
 ---
 title: "A tale of Angular, html5mode, ASP.Net MVC and ASP.Net Web API"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [asp.net mvc, asp.net, html5mode, AngularJS, ASP.Net Web API]
 hide_table_of_contents: false
 ---

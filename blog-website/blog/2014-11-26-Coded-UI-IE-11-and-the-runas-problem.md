@@ -1,8 +1,6 @@
 ---
 title: "Pretending to be someone you're not and the dark pit of despair"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [IE 11, runas, Coded UI, nomerge, Internet Exporer]
 hide_table_of_contents: false
 ---

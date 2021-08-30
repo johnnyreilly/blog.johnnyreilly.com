@@ -1,8 +1,6 @@
 ---
 title: "Bicep meet Azure Pipelines"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Bicep, ARM templates, Azure Pipelines, Azure CLI]
 image: blog/2021-03-20-bicep-meet-azure-pipelines/bicep-meet-azure-pipelines.png
 hide_table_of_contents: false
