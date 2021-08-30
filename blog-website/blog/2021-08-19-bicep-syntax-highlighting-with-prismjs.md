@@ -58,7 +58,7 @@ prismjs@PrismJS/prism, prismjs@^1.23.0:
 
 ## What does it look like?
 
-Finally, let's see if works.  Here's a Bicep code snippet that I borrowed from [an earlier post](./2021-08-15-bicep-azure-static-web-apps-azure-devops.md):
+Finally, let's see if works.  Here's a Bicep code snippet that I borrowed from [an earlier post](/2021/08/19/bicep-syntax-highlighting-with-prismjs):
 
 ```bicep
 param repositoryUrl string

@@ -1,19 +1,23 @@
 //@ts-check
 const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 
+const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
+const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+
+/** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: "I CAN MAKE THIS WORK",
-  tagline: "The blog of johnnyreilly ❤️🌻",
-  url: "https://blog.johnnyreilly.com", // 'https://blog.johnnyreilly.com',
-  baseUrl: "/",
-  onBrokenLinks: "error",
-  onBrokenMarkdownLinks: "error",
-  favicon: "img/favicon.ico",
-  organizationName: "johnnyreilly", // Usually your GitHub org/user name.
-  projectName: "blog.johnnyreilly.com", // Usually your repo name.
+  title: 'I CAN MAKE THIS WORK',
+  tagline: 'The blog of johnnyreilly ❤️🌻',
+  url: 'https://blog.johnnyreilly.com',
+  baseUrl: '/',
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'throw',
+  favicon: 'img/favicon.ico',
+  organizationName: 'johnnyreilly', // Usually your GitHub org/user name.
+  projectName: 'blog.johnnyreilly.com', // Usually your repo name.
   plugins: [
     [ 
-      "@docusaurus/plugin-ideal-image", 
+      '@docusaurus/plugin-ideal-image', 
       { 
         quality: 70, 
         max: 1030, // max resized image's size. 
@@ -22,7 +26,7 @@ module.exports = {
       }, 
     ],
     [
-      "@docusaurus/plugin-client-redirects",
+      '@docusaurus/plugin-client-redirects',
       {
         redirects: [
           {
@@ -56,7 +60,7 @@ module.exports = {
         ],
         createRedirects: function (existingPath) {
           if (existingPath.match(urlRegex)) {
-            const [, year, month, date, slug] = existingPath.split("/");
+            const [, year, month, date, slug] = existingPath.split('/');
             const oldUrl = `/${year}/${month}/${slug}.html`;
             console.log(`redirect from ${oldUrl} -> ${existingPath}`);
             return [oldUrl, `/${year}/${month}/${slug}`];
@@ -109,40 +113,40 @@ module.exports = {
     ],
   ],
   themeConfig: {
-    // Relative to your site's "static" directory.
+    // Relative to your site's 'static' directory.
     // Cannot be SVGs. Can be external URLs too.
     image: 'img/profile.png',
     googleAnalytics: {
-      trackingID: "UA-51754530-2",
+      trackingID: 'UA-51754530-2',
       // Optional fields.
       anonymizeIP: true, // Should IPs be anonymized?
     },
     navbar: {
-      title: "I CAN MAKE THIS WORK",
+      title: 'I CAN MAKE THIS WORK',
       logo: {
-        alt: "I CAN MAKE THIS WORK",
-        src: "img/profile.jpg",
+        alt: 'I CAN MAKE THIS WORK',
+        src: 'img/profile.jpg',
       },
       items: [
         /*
         {
-          to: 'docs/',
-          activeBasePath: 'docs',
-          label: 'Docs',
+          type: 'doc',
+          docId: 'intro',
           position: 'left',
+          label: 'Tutorial',
         },
         */
-        { to: "about", label: "About", position: "left" },
-        { to: "blog-archive", label: "Blog Archive", position: "left" },
+        { to: 'about', label: 'About', position: 'left' },
+        { to: 'blog-archive', label: 'Blog Archive', position: 'left' },
         {
-          href: "https://github.com/johnnyreilly",
-          label: "GitHub",
-          position: "right",
+          href: 'https://github.com/johnnyreilly',
+          label: 'GitHub',
+          position: 'right',
         },
         {
-          href: "https://twitter.com/johnny_reilly",
-          label: "Twitter",
-          position: "right",
+          href: 'https://twitter.com/johnny_reilly',
+          label: 'Twitter',
+          position: 'right',
         },
       ],
     },
@@ -190,15 +194,14 @@ module.exports = {
       copyright: `Copyright © ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
     },
     prism: {
-      // theme: require('prism-react-renderer/themes/dracula'),
-      theme: require('prism-react-renderer/themes/nightOwl'),
-      // theme: require('prism-react-renderer/themes/vsDark'),
+      theme: lightCodeTheme,
+      darkTheme: darkCodeTheme,
       additionalLanguages: ["powershell", "csharp", "docker", "bicep"],
     },
   },
   presets: [
     [
-      "@docusaurus/preset-classic",
+      '@docusaurus/preset-classic',
       {
         docs: false,
         blog: {
@@ -218,7 +221,7 @@ module.exports = {
             "https://github.com/johnnyreilly/blog.johnnyreilly.com/edit/main/blog-website/blog/",
         },
         theme: {
-          customCss: require.resolve("./src/css/custom.css"),
+          customCss: require.resolve('./src/css/custom.css'),
         },
       },
     ],
