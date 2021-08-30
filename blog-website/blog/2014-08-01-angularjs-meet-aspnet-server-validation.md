@@ -1,8 +1,6 @@
 ---
 title: "AngularJS meet ASP.Net Server Validation"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [asp.net, directive, TypeScript, server validation, AngularJS]
 hide_table_of_contents: false
 ---

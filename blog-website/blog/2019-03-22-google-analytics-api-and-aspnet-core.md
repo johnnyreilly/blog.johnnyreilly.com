@@ -1,8 +1,6 @@
 ---
 title: "Google Analytics API and ASP.Net Core"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [asp net core, google analytics]
 hide_table_of_contents: false
 ---

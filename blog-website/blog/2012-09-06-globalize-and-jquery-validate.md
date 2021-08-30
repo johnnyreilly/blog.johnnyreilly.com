@@ -1,8 +1,6 @@
 ---
 title: "Globalize and jQuery Validation"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [asp.net mvc, Internationalisation, Globalization, Globalize JS, Localisation, jQuery Validation, jQuery.validate.js]
 hide_table_of_contents: false
 ---

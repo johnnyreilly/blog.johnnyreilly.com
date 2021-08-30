@@ -1,8 +1,6 @@
 ---
 title: "Publish Azure Static Web Apps with Bicep and Azure DevOps"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Azure Static Web App, Bicep, Azure DevOps, Azure Pipelines]
 image: blog/2021-08-15-bicep-azure-static-web-apps-azure-devops/title-image.png
 hide_table_of_contents: false

@@ -1,8 +1,6 @@
 ---
 title: "TypeScript 2.0, ES2016 and Babel"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [TypeScript, Babel, ES2016]
 hide_table_of_contents: false
 ---

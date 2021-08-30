@@ -1,8 +1,6 @@
 ---
 title: "Directory.Build.props: C# 9 for all your projects"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Directory.Build.props, C# 9, .NET Core]
 image: blog/2021-07-14-directory-build-props-c-sharp-9-for-all/title-image.png
 hide_table_of_contents: false

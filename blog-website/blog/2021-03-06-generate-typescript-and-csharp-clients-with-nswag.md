@@ -1,8 +1,6 @@
 ---
 title: "NSwag: TypeScript and CSharp client generation based on an API"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [NSwag, TypeScript, CSharp, API]
 image: blog/2021-03-06-generate-typescript-and-csharp-clients-with-nswag/use-generated-client.gif
 hide_table_of_contents: false

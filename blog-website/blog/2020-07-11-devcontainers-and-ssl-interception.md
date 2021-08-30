@@ -1,8 +1,6 @@
 ---
 title: "Devcontainers and SSL interception"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [devcontainer, mitm certificate, ssl interception]
 hide_table_of_contents: false
 ---

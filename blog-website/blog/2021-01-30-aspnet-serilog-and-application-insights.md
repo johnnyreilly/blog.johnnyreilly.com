@@ -1,8 +1,6 @@
 ---
 title: "ASP.NET, Serilog and Application Insights"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 image: blog/2021-01-30-aspnet-serilog-and-application-insights/application-insights-properties.png
 tags: [asp.net, Azure, Application Insights, Serilog]
 hide_table_of_contents: false

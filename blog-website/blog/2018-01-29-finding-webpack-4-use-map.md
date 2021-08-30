@@ -1,8 +1,6 @@
 ---
 title: "Finding webpack 4 (use a Map)"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [webpack 4]
 hide_table_of_contents: false
 ---

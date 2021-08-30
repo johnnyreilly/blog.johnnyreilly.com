@@ -1,8 +1,6 @@
 ---
 title: "ts-loader goes webpack 5"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [webpack, ts-loader, TypeScript, webpack 5]
 image: blog/2021-04-20-ts-loader-goes-webpack-5/ts-loader-9.png
 hide_table_of_contents: false

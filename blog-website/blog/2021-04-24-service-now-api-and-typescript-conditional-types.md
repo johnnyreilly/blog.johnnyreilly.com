@@ -1,8 +1,6 @@
 ---
 title: "The Service Now API and TypeScript Conditional Types"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Service Now, Table API, Change Request, change_request, sysparm_display_value, TypeScript, conditional types]
 image: blog/2021-04-24-service-now-api-and-typescript-conditional-types/ts-ervice-now.png
 hide_table_of_contents: false

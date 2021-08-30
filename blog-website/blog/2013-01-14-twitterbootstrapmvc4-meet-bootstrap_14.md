@@ -1,8 +1,6 @@
 ---
 title: "Twitter.Bootstrap.MVC4 meet Bootstrap Datepicker *and* get your Internationalization on..."
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Internationalization, Twitter.Bootstrap.MVC4, Globalize JS, Twitter Bootstrap]
 hide_table_of_contents: false
 ---

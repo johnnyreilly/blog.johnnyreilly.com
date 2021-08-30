@@ -1,8 +1,6 @@
 ---
 title: "Azure DevOps Client for Node.js - working around limitations"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [azure devops api, '203', node.js]
 image: blog/2020-10-31-azure-devops-node-api-missing-episodes/title-image.png
 hide_table_of_contents: false

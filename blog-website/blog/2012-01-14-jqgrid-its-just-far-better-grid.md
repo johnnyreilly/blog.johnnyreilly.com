@@ -1,8 +1,6 @@
 ---
 title: "jqGrid - it's just a far better grid"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [jqgrid, ajax, jquery, datagrid, Dave Ward, json, no postback, Encosia, tony tomov]
 hide_table_of_contents: false
 ---

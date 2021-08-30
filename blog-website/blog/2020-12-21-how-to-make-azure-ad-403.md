@@ -1,8 +1,6 @@
 ---
 title: "Make Microsoft.Identity.Web respond with 403 forbidden instead of a 302 redirect"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Microsoft.Identity.Web, OnRedirectToAccessDenied, Azure AD, Azure Active Directory, redirect, ASP.NET]
 image: blog/2020-12-21-how-to-make-azure-ad-403/Forbidden.png
 hide_table_of_contents: false

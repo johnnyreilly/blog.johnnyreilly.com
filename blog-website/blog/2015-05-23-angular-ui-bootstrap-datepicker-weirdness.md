@@ -1,8 +1,6 @@
 ---
 title: "Angular UI Bootstrap Datepicker Weirdness"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Angular UI Bootstrap Datepicker]
 hide_table_of_contents: false
 ---

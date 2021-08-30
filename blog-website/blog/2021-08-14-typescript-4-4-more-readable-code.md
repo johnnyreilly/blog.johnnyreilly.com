@@ -1,8 +1,6 @@
 ---
 title: "TypeScript 4.4 and more readable code"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [TypeScript, Control Flow Analysis of Aliased Conditions]
 image: blog/2021-08-14-typescript-4-4-more-readable-code/reactions-on-github.png
 hide_table_of_contents: false

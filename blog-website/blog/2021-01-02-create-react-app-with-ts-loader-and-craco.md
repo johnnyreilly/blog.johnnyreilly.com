@@ -1,8 +1,6 @@
 ---
 title: "Create React App with ts-loader and CRACO"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [CRACO, TypeScript, create react app, fork-ts-checker-webpack-plugin, ts-loader]
 hide_table_of_contents: false
 ---

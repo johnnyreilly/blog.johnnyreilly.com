@@ -1,8 +1,6 @@
 ---
 title: "Using TypeScript and webpack alias: goodbye relative paths"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [relative paths, TypeScript, webpack, alias, paths, resolve, tsconfig-paths-webpack-plugin]
 hide_table_of_contents: false
 ---

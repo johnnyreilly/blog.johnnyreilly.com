@@ -1,8 +1,6 @@
 ---
 title: "dotnet-format: Prettier your CSharp with lint-staged"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Prettier, dotnet-format, CSharpier]
 hide_table_of_contents: false
 ---

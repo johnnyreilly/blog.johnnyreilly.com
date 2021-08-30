@@ -1,8 +1,6 @@
 ---
 title: "Create a Pipeline with the Azure DevOps API"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Azure Pipelines, Azure DevOps API]
 image: blog/2021-05-08-create-pipeline-with-azure-devops-api/new-pipeline.png
 hide_table_of_contents: false

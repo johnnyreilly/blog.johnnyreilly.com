@@ -1,8 +1,6 @@
 ---
 title: "My Unrequited Love for Isolate Scope"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Directives, TypeScript, javascript, UI Bootstrap, Isolated Scope, AngularJS]
 hide_table_of_contents: false
 ---

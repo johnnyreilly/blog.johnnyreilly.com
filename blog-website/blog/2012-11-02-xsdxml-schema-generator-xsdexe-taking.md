@@ -1,8 +1,6 @@
 ---
 title: "XSD/XML Schema Generator + Xsd.exe:Taking the pain out of manual XML"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Xsd.exe, XSD/XML Schema Generator, LINQ to XML]
 hide_table_of_contents: false
 ---

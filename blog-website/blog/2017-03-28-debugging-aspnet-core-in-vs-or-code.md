@@ -1,8 +1,6 @@
 ---
 title: "Debugging ASP.Net Core in VS or Code"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [VS Code, ASP.Net Core, Visual Studio]
 hide_table_of_contents: false
 ---

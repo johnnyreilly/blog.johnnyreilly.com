@@ -1,8 +1,6 @@
 ---
 title: "Running JavaScript Unit Tests in AppVeyor"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Jasmine, javascript, Unit tests, Continuous Integration, AppVeyor, Chutzpah]
 hide_table_of_contents: false
 ---

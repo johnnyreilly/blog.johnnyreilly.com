@@ -1,8 +1,6 @@
 ---
 title: "Blog Archive for Docusaurus"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Docusaurus, blog archive, webpack]
 image: blog/2021-05-01-blog-archive-for-docusaurus/docusaurus-blog-archive.png
 hide_table_of_contents: false

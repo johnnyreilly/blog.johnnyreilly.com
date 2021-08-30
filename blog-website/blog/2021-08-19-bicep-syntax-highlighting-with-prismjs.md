@@ -1,8 +1,6 @@
 ---
 title: "Bicep: syntax highlighting with PrismJS (and Docusaurus)"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Bicep, PrismJS]
 image: blog/2021-08-19-bicep-syntax-highlighting-with-prismjs/bicep-syntax-highlighting-with-prismjs.png
 hide_table_of_contents: false

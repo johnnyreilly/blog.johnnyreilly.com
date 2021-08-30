@@ -1,8 +1,6 @@
 ---
 title: "UseStaticFiles for ASP.Net Framework"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [HTML5 History API, Single Page Applications, UseStaticFiles, Routing, URL Rewrite]
 hide_table_of_contents: false
 ---

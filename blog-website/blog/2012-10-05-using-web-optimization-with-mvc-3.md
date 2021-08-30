@@ -1,8 +1,6 @@
 ---
 title: "Using Web Optimization with MVC 3"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [asp.net, Bundling, MVC 3, Web Optimization, Minification]
 hide_table_of_contents: false
 ---

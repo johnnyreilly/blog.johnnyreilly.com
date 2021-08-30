@@ -1,8 +1,6 @@
 ---
 title: "Journalling the Migration of Jasmine Tests to TypeScript"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Jasmine, TypeScript Language Service, TypeScript, javascript, implicit references]
 hide_table_of_contents: false
 ---

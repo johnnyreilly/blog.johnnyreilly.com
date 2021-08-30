@@ -1,8 +1,6 @@
 ---
 title: "C# 9 in-process Azure Functions"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [C# 9, Azure Functions, .NET, in-process]
 image: blog/2021-07-01-c-sharp-9-azure-functions-in-process/title-image.png
 hide_table_of_contents: false

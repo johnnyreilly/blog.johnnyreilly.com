@@ -1,8 +1,6 @@
 ---
 title: "Hello World Bicep"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://blog.johnnyreilly.com/img/profile.jpg
+authors: johnnyreilly
 tags: [Bicep, ARM templates]
 image: blog/2021-04-10-hello-world-bicep/hello-world-bicep.png
 hide_table_of_contents: false
