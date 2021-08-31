@@ -8,7 +8,7 @@ hide_table_of_contents: false
 
  Have you heard the good news my friend? I refer, of course, to the shipping of TypeScript 1.4 and my *favourite* language feature since generics.... Union Types.
 
-In the [1\.4 announcement](http://blogs.msdn.com/b/typescript/archive/2015/01/16/announcing-typescript-1-4.aspx) Jonathan Turner described Union Types thusly:
+In the [1\.4 announcement](https://blogs.msdn.com/b/typescript/archive/2015/01/16/announcing-typescript-1-4.aspx) Jonathan Turner described Union Types thusly:
 
 > JavaScript functions may take a number of possible argument types. Up to now, we’ve supported this using function overloads. Starting with TypeScript 1.4, we’ve generalized this capability and now allow you to specify that that a value is one of a number of different types using a union type:
 > 

@@ -12,7 +12,7 @@ I was chatting to [Marc Talary](https://plus.google.com/u/0/11685981035937778561
 
 After a certain amount of fiddling I came up with a fairly solid mechanism for getting jQuery Validation to display error messages as tooltips which I'll share here. It's worth saying that for the application that Marc and I were working on we already had [jQuery UI](http://jqueryui.com/) in place and so we decided to use the [jQuery UI tooltip](http://jqueryui.com/tooltip/). This example will use the [Bootstrap tooltip](http://getbootstrap.com/javascript/#tooltips) instead. As much as anything else this demonstrates that you could swap out the tooltip mechanism here with any of your choosing.
 
-<iframe src="http://htmlpreview.github.io/?https://gist.github.com/johnnyreilly/5867188/raw/2543a12fbd5c0aaad1da6793b7a7437492be3baf/DemoTooltip.html" width="100%" height="350"></iframe>
+<iframe src="https://htmlpreview.github.io/?https://gist.github.com/johnnyreilly/5867188/raw/2543a12fbd5c0aaad1da6793b7a7437492be3baf/DemoTooltip.html" width="100%" height="350"></iframe>
 
 Beautiful isn't it? Now look at the source:
 

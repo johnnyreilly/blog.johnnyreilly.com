@@ -36,7 +36,7 @@ Now Jeff is quite correct in everything he says above. However, he's also missin
 
 ## Instance Methods to the Rescue!
 
-Still in the early days of TypeScript, the issue Jeff raises had already been identified. (And for what it's worth, this issue wasn't there by mistake - remember TypeScript is quite deliberately a "superset of JavaScript".) Happily with the [release of TypeScript 0.9.1](http://blogs.msdn.com/b/typescript/archive/2013/08/06/announcing-0-9-1.aspx) a nice remedy was included in the language in the form of "Instance Methods".
+Still in the early days of TypeScript, the issue Jeff raises had already been identified. (And for what it's worth, this issue wasn't there by mistake - remember TypeScript is quite deliberately a "superset of JavaScript".) Happily with the [release of TypeScript 0.9.1](https://blogs.msdn.com/b/typescript/archive/2013/08/06/announcing-0-9-1.aspx) a nice remedy was included in the language in the form of "Instance Methods".
 
 Instance Methods are lexically scoped; bound to a specific instance of a JavaScript object. i.e. These methods are \***not**\* vulnerable to the “Hello, undefined” issue Jeff raises. To quote the blog post:
 

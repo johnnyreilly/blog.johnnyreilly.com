@@ -114,6 +114,6 @@ There's no more to it than that.
 
 With the JSFiddle below you can create your own custom dialogs and see the result of clicking on either the "OK" or "Cancel" buttons.
 
-<iframe width="100%" height="500" src="http://jsfiddle.net/johnny_reilly/ARWL5/embedded/result,js,html,css" allowFullScreen="allowFullScreen" frameBorder="0"></iframe>
+<iframe width="100%" height="500" src="https://jsfiddle.net/johnny_reilly/ARWL5/embedded/result,js,html,css" allowFullScreen="allowFullScreen" frameBorder="0"></iframe>
 
 

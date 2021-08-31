@@ -65,7 +65,7 @@ By "Your project has been configured to support TypeScript." it means that the c
 </Project>
 ```
 
-I’m not sure when this tweak to the Visual Studio tooling was added was added. Perhaps it's part of the [TypeScript 1.0 RC release](http://blogs.msdn.com/b/typescript/archive/2014/02/25/announcing-typescript-1-0rc.aspx); either way it’s pretty nice. Let's press on.
+I’m not sure when this tweak to the Visual Studio tooling was added was added. Perhaps it's part of the [TypeScript 1.0 RC release](https://blogs.msdn.com/b/typescript/archive/2014/02/25/announcing-typescript-1-0rc.aspx); either way it’s pretty nice. Let's press on.
 
 Whilst we’re at it let’s make sure that we’re compiling to AMD (to be RequireJS friendly) by adding in the following csproj tweaks just before the Microsoft.TypeScript.targets Project import statement:
 

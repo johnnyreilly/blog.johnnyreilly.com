@@ -112,7 +112,7 @@ Finally when the element gains focus / becomes active the full underlying value 
 
 Finally, here’s a demo using the "de-DE" locale:
 
-<iframe width="100%" height="400" src="http://jsfiddle.net/johnny_reilly/jRt3k/embedded/result,js,html" allowFullScreen="allowFullScreen" frameBorder="0"></iframe>
+<iframe width="100%" height="400" src="https://jsfiddle.net/johnny_reilly/jRt3k/embedded/result,js,html" allowFullScreen="allowFullScreen" frameBorder="0"></iframe>
 
 ## PS Globalize is a-changing
 
