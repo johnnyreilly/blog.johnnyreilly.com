@@ -10,11 +10,11 @@ This morning when I logged on I was surprised to discover IE 10 had been install
 
 However, I have found one exception to this rule already. IE 10 provides clear field buttons in text boxes that look like this:
 
-![](http://3.bp.blogspot.com/-HRxuGdc6PhE/UWQMq15gKHI/AAAAAAAAAZg/XmFfFZBMHYk/s320/ClearField.png)
+![](https://3.bp.blogspot.com/-HRxuGdc6PhE/UWQMq15gKHI/AAAAAAAAAZg/XmFfFZBMHYk/s320/ClearField.png)
 
 Unhappily I found these were clashing with our jQuery UI auto complete loading gif – looking like this:
 
-![](http://3.bp.blogspot.com/-RPXGJkm1Lyk/UWQNCcFlmpI/AAAAAAAAAZo/pGP3IubeBiQ/s320/ClearFieldMeetAutoComplete.png)
+![](https://3.bp.blogspot.com/-RPXGJkm1Lyk/UWQNCcFlmpI/AAAAAAAAAZo/pGP3IubeBiQ/s320/ClearFieldMeetAutoComplete.png)
 
 I know; ugly isn't it? Happily I was able to resolve this with a CSS <strike>hack</strike>
 
@@ -24,11 +24,11 @@ I know; ugly isn't it? Happily I was able to resolve this with a CSS <strike>hac
 
 And now the jQuery UI autocomplete looks like we expect during the loading phase:
 
-![](http://3.bp.blogspot.com/-mzBwe7BGwjk/UWQNdEKiucI/AAAAAAAAAZw/OmUFi6zMY7g/s320/AutoComplete.png)
+![](https://3.bp.blogspot.com/-mzBwe7BGwjk/UWQNdEKiucI/AAAAAAAAAZw/OmUFi6zMY7g/s320/AutoComplete.png)
 
 But happily when the autocomplete is not in the loading phase we still have access to the IE 10 clear field button. This works because the CSS selector above only applies to the *ui-autocomplete-loading* class (which is only applied to the textbox when the loading is taking place). So we still get to use this:
 
-![](http://3.bp.blogspot.com/-HRxuGdc6PhE/UWQMq15gKHI/AAAAAAAAAZg/XmFfFZBMHYk/s320/ClearField.png)
+![](https://3.bp.blogspot.com/-HRxuGdc6PhE/UWQMq15gKHI/AAAAAAAAAZg/XmFfFZBMHYk/s320/ClearField.png)
 
 Which is nice.
 

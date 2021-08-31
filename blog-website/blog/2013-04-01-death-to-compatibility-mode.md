@@ -14,7 +14,7 @@ But rendering and CSS - well that's another matter. Because here we're at the me
 
 Well it all started when Microsoft released IE 8. To quote them:
 
-> *A fundamental problem discussed during each and every Internet Explorer release is balancing new features and functionality with site compatibility for the existing Web. On the one hand, new features and functionality push the Web forward. On the other hand, the Web is a large expanse; requiring every legacy page to support the "latest and greatest" browser version immediately at product launch just isn't feasible. Internet Explorer 8 addresses this challenge by introducing compatibility modes which gives a way to introduce new features and stricter compliance to standards while enabling it to be backward compliant.* \- excerpted from [understanding compatibility modes in Internet Explorer 8](http://blogs.msdn.com/b/askie/archive/2009/03/23/understanding-compatibility-modes-in-internet-explorer-8.aspx).
+> *A fundamental problem discussed during each and every Internet Explorer release is balancing new features and functionality with site compatibility for the existing Web. On the one hand, new features and functionality push the Web forward. On the other hand, the Web is a large expanse; requiring every legacy page to support the "latest and greatest" browser version immediately at product launch just isn't feasible. Internet Explorer 8 addresses this challenge by introducing compatibility modes which gives a way to introduce new features and stricter compliance to standards while enabling it to be backward compliant.* \- excerpted from [understanding compatibility modes in Internet Explorer 8](https://blogs.msdn.com/b/askie/archive/2009/03/23/understanding-compatibility-modes-in-internet-explorer-8.aspx).
 
 ## There's the rub
 
@@ -40,7 +40,7 @@ This will make IIS serve up the above custom response HTTP header with each page
 
 Maybe you're running II6 and so you making a change to the web.config won't make a difference. That's fine, you can still get the same behaviour by going to the HTTP headers tab in IIS (see below) and adding the `X-UA-Compatible: IE=edge` header by hand.
 
-![](http://4.bp.blogspot.com/-78CYavaCiUk/UVlGNv87U_I/AAAAAAAAAZQ/qtchMc14JsY/s320/CustomHeadersIIS6.gif)
+![](https://4.bp.blogspot.com/-78CYavaCiUk/UVlGNv87U_I/AAAAAAAAAZQ/qtchMc14JsY/s320/CustomHeadersIIS6.gif)
 
 Or, if you don't have access to IIS (don't laugh - it happens) you can fall back to doing this in code like this:
 
@@ -72,7 +72,7 @@ Again, it's lamentable that this behaviour isn't better documented - hopefully t
 
 Armed with the above I hope you have less compatibility mode pain than I have. The following blog entry is worth a read by the way:
 
-[http://blogs.msdn.com/b/ie/archive/2009/02/16/just-the-facts-recap-of-compatibility-view.aspx](http://blogs.msdn.com/b/ie/archive/2009/02/16/just-the-facts-recap-of-compatibility-view.aspx)
+[https://blogs.msdn.com/b/ie/archive/2009/02/16/just-the-facts-recap-of-compatibility-view.aspx](https://blogs.msdn.com/b/ie/archive/2009/02/16/just-the-facts-recap-of-compatibility-view.aspx)
 
 Finally, I have an open question about compatibility mode. I *think* (but I don't know) that even in compatibility mode IE runs using the same JavaScript engine. However I suspect it has a different DOM to play with. If anyone knows a little more about this and wants to let me know that'd be fantastic.
 

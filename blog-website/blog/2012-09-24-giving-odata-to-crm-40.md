@@ -47,7 +47,7 @@ As I said, Microsoft makes it fantastically easy to get an OData service up and 
 
 And that's it - done. When you run this web application you will find an OData service exposed at http://localhost:12345/Crm.svc. You could have it even simpler if you wanted - you could pull out the logging that's in place and leave only the `InitializeService` there. That's all you need. (The `GetEntityById` method is a helper method of my own for identifying the GUIDs of CRM.)
 
-You may have noticed that I have made use of caching for my OData service following the steps I found [here](http://blogs.msdn.com/b/peter_qian/archive/2010/11/17/using-asp-net-output-caching-with-wcf-data-services.aspx). Again you may or may not want to use this.
+You may have noticed that I have made use of caching for my OData service following the steps I found [here](https://blogs.msdn.com/b/peter_qian/archive/2010/11/17/using-asp-net-output-caching-with-wcf-data-services.aspx). Again you may or may not want to use this.
 
 ## Now, a warning...
 

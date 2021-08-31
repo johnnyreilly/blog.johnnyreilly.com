@@ -33,15 +33,15 @@ I should say that this service is arguably *\*not\** completely RESTful as each 
 
 It's worth noting that `automaticFormatSelectionEnabled` set to true on the behaviour so that content negotiation is enabled. Obviously for the `GetPdf` action this is rather meaningless as it's a stream that's passed back. However, for the `GetPdfUrl` action the returned string can either be JSON or XML. The Fiddler screenshots below demonstrate this in action:
 
-![](http://4.bp.blogspot.com/-CX7w0jI0jTE/UOVaDP5Ae-I/AAAAAAAAAXk/H7zhyYYjPGA/s400/GetPdfUrl%2B-%2BJSON.png)
+![](https://4.bp.blogspot.com/-CX7w0jI0jTE/UOVaDP5Ae-I/AAAAAAAAAXk/H7zhyYYjPGA/s400/GetPdfUrl%2B-%2BJSON.png)
 
-![](http://4.bp.blogspot.com/-78GBDqI596I/UOVaTchTbBI/AAAAAAAAAXw/rz2Dg4g8BRs/s400/GetPdfUrl%2B-%2BXML.png)
+![](https://4.bp.blogspot.com/-78GBDqI596I/UOVaTchTbBI/AAAAAAAAAXw/rz2Dg4g8BRs/s400/GetPdfUrl%2B-%2BXML.png)
 
 ## Test Harness
 
 As a final touch I added in a test harness in the form of `Demo.aspx`. If you browse to it you'll see a screen a little like this:
 
-![](http://2.bp.blogspot.com/-zoyt7ufl9FQ/UOVmD0VPh0I/AAAAAAAAAYE/DnmZmbx-Mxc/s400/PdfMakerDemo.png)
+![](https://2.bp.blogspot.com/-zoyt7ufl9FQ/UOVmD0VPh0I/AAAAAAAAAYE/DnmZmbx-Mxc/s400/PdfMakerDemo.png)
 
 It's fairly self-explanatory as you can see. And here's an example of the output generated when pointing at Hacker News:
 

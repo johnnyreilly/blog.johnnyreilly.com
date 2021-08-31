@@ -51,7 +51,7 @@ So in this case unit tests of this sort don't provide you with any security. Wha
 
 ### 2\. Complex queries
 
-You can write some pretty complex LINQ queries if you want. This is made particularly easy if you're using [comprehension syntax](http://blogs.msdn.com/b/ericlippert/archive/2009/12/07/query-transformations-are-syntactic.aspx). Whilst these queries may be simple to write it can be uphill work to generate test data to satisfy this. So much so that at times it can feel you've made a rod for your own back using this approach.
+You can write some pretty complex LINQ queries if you want. This is made particularly easy if you're using [comprehension syntax](https://blogs.msdn.com/b/ericlippert/archive/2009/12/07/query-transformations-are-syntactic.aspx). Whilst these queries may be simple to write it can be uphill work to generate test data to satisfy this. So much so that at times it can feel you've made a rod for your own back using this approach.
 
 ### 3\. Lazy Loading
 

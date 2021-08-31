@@ -40,7 +40,7 @@ In the script above I've created 4 bundles, 1 stylesheet bundle and 3 JavaScript
 
 At this point we've set up Cassette in our project - although we're not making use of it yet. If you want to double check that everything is working properly then you can fire up your project and browse to "Cassette.axd" in the root. You should see something a bit like this:
 
-![](http://1.bp.blogspot.com/-xM9iU6HjB7o/UWzjAN5EieI/AAAAAAAAAaA/EAXTTnD6vdY/s320/CassetteScripts.png)
+![](https://1.bp.blogspot.com/-xM9iU6HjB7o/UWzjAN5EieI/AAAAAAAAAaA/EAXTTnD6vdY/s320/CassetteScripts.png)
 
 ## How Web Optimization and Cassette Differ
 
