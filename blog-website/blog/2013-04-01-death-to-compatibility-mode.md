@@ -40,7 +40,7 @@ This will make IIS serve up the above custom response HTTP header with each page
 
 Maybe you're running II6 and so you making a change to the web.config won't make a difference. That's fine, you can still get the same behaviour by going to the HTTP headers tab in IIS (see below) and adding the `X-UA-Compatible: IE=edge` header by hand.
 
-![](http://4.bp.blogspot.com/-78CYavaCiUk/UVlGNv87U_I/AAAAAAAAAZQ/qtchMc14JsY/s320/CustomHeadersIIS6.gif)
+![](https://4.bp.blogspot.com/-78CYavaCiUk/UVlGNv87U_I/AAAAAAAAAZQ/qtchMc14JsY/s320/CustomHeadersIIS6.gif)
 
 Or, if you don't have access to IIS (don't laugh - it happens) you can fall back to doing this in code like this:
 

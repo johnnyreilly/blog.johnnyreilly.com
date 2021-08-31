@@ -33,9 +33,9 @@ To get up and running with Eric's work was a straightforward proposition. I...
 
 Check out the responsive goodness I had when I ran it:
 
-![](http://4.bp.blogspot.com/-2ytMlGLGRpo/UO1mqfi7yQI/AAAAAAAAAYs/RRuVGbr8nAg/s400/TwitterBootstrapFullSize.png)
+![](https://4.bp.blogspot.com/-2ytMlGLGRpo/UO1mqfi7yQI/AAAAAAAAAYs/RRuVGbr8nAg/s400/TwitterBootstrapFullSize.png)
 
-![](http://3.bp.blogspot.com/-780OCEuXoLw/UO1maRJ-CZI/AAAAAAAAAYg/chBHgYMAIJk/s400/TwitterBootstrapTitchyTiny.png)
+![](https://3.bp.blogspot.com/-780OCEuXoLw/UO1maRJ-CZI/AAAAAAAAAYg/chBHgYMAIJk/s400/TwitterBootstrapTitchyTiny.png)
 
 This is just 1 page, with `@media` queries doing the heavy lifting.
 
@@ -68,7 +68,7 @@ And finally I amended the `Create.cshtml` View (which perhaps more accurately mi
 
 Et voilà - it works!
 
-![](http://4.bp.blogspot.com/-_SfaYN2dfuk/UO2JmrqO_gI/AAAAAAAAAZA/Y904hmwcqaI/s400/TwitterBootstrapDatepicker.png)
+![](https://4.bp.blogspot.com/-_SfaYN2dfuk/UO2JmrqO_gI/AAAAAAAAAZA/Y904hmwcqaI/s400/TwitterBootstrapDatepicker.png)
 
 My thanks to [Eric Hexter](https://twitter.com/ehexter) and Stefan Petre for doing all the hard work!
 

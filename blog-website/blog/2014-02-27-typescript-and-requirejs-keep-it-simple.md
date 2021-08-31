@@ -47,7 +47,7 @@ Install-Package jQuery.TypeScript.DefinitelyTyped
 
 To my surprise this popped up the following dialog:
 
-![](http://2.bp.blogspot.com/-rzhPvMSWRZ4/Uw9uJaGRz2I/AAAAAAAAAhI/sa6ZS1-fuPs/s320/TypeScriptConfigured.png)
+![](https://2.bp.blogspot.com/-rzhPvMSWRZ4/Uw9uJaGRz2I/AAAAAAAAAhI/sa6ZS1-fuPs/s320/TypeScriptConfigured.png)
 
 By "Your project has been configured to support TypeScript." it means that the csproj file has had the following entries added:
 

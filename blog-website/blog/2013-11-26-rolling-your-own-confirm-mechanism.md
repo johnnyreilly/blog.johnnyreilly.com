@@ -6,9 +6,9 @@ hide_table_of_contents: false
 ---
 It is said that a picture speaks a thousand words. So here's two:
 
- ![](http://4.bp.blogspot.com/-zZvqgKiP9CI/UpN7YtkFbnI/AAAAAAAAAe4/OUpA5uVpCl4/s400/Ugly.png)
+ ![](https://4.bp.blogspot.com/-zZvqgKiP9CI/UpN7YtkFbnI/AAAAAAAAAe4/OUpA5uVpCl4/s400/Ugly.png)
 
-![](http://4.bp.blogspot.com/-VVzJ7B0Uhys/UpN7vnX7diI/AAAAAAAAAe8/i3hlMT1ECB8/s400/Pretty.png)
+![](https://4.bp.blogspot.com/-VVzJ7B0Uhys/UpN7vnX7diI/AAAAAAAAAe8/i3hlMT1ECB8/s400/Pretty.png)
 
 That's right, we're here to talk about the [confirm](https://developer.mozilla.org/en-US/docs/Web/API/Window.confirm) dialog. Or, more specifically, how we can make our own confirm dialog.
 

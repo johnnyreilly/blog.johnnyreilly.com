@@ -98,19 +98,26 @@ function About() {
   // details on structured data support: https://developers.google.com/search/docs/data-types/article#non-amp
   // and https://schema.org/Person
   const personStructuredData = {
-    "@context": "https://schema.org",
+    "@context": "http://www.schema.org",
     "@type": "Person",
-    "@id": "https://blog.johnnyreilly.com",
-    email: "johnny_reilly@hotmail.com",
-    image: "https://blog.johnnyreilly.com/img/profile.jpg",
-    jobTitle: "MacGyver turned Dev",
     name: "John Reilly",
     alternateName: "Johnny Reilly",
+    description: "MacGyver turned Dev",
     url: "https://blog.johnnyreilly.com",
+    image: "https://blog.johnnyreilly.com/img/profile.jpg",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Twickenham",
+      addressLocality: "London",
+      addressCountry: "United Kingdom",
+    },
+    email: "johnny_reilly@hotmail.com",
+    birthPlace: "Bristol",
     sameAs: [
       "https://twitter.com/johnny_reilly",
       "https://github.com/johnnyreilly",
       "https://https://stackoverflow.com/users/761388/john-reilly",
+      "https://blog.logrocket.com/author/johnreilly/",
     ],
   };
 

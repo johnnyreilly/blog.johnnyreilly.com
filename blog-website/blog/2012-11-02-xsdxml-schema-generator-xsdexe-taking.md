@@ -44,7 +44,7 @@ Excited? Thought not. But what this means is we can hurl our XSD at this tool an
 
 `xsd.exe "C:\\Contact.xsd" /classes /out:"C:\\" /namespace:"MyNameSpace"`Generation looks like this:
 
-![](http://1.bp.blogspot.com/-TR-eaxshZo8/UJPclxs8JjI/AAAAAAAAAWg/TNKZuyi-8NU/s400/XsdInAction.png)
+![](https://1.bp.blogspot.com/-TR-eaxshZo8/UJPclxs8JjI/AAAAAAAAAWg/TNKZuyi-8NU/s400/XsdInAction.png)
 
 And you're left with the lovely Contact.cs class:
 

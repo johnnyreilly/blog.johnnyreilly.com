@@ -161,7 +161,7 @@ So let's enrich these typings with some JSDoc:
 
 If you look you can see we've added a related JSDoc style comment block prior to each overload. The first part of the comment (*"Set the value of..."*) is the overarching Intellisense that is displayed. Each of the `@param` statements represents each of the parameters and it's associated comment. By comparing the [API documentation](http://api.jquery.com/val/#val-value) to the JSDoc it's pretty clear how the API has been transformed into useful JSDoc.
 
-![](http://2.bp.blogspot.com/-ljw2HiAp0qE/U2D915IIcaI/AAAAAAAAAkk/DVPv-TolEJw/s640/Intellisense-Setter-String.png)
+![](https://2.bp.blogspot.com/-ljw2HiAp0qE/U2D915IIcaI/AAAAAAAAAkk/DVPv-TolEJw/s640/Intellisense-Setter-String.png)
 
 It's worth noting that I could have taken the choice to customise the `@param value` comments based on the overload I was JSDoc-ing. Arguably it would have been more useful to have something like this instead:
 
@@ -209,7 +209,7 @@ The final getter typing with JSDoc applied ends up looking like this:
 
 As you can see the *"Get the current value..."* from the API docs has been used as the overarching Intellisense that is displayed for the getter.
 
-![](http://4.bp.blogspot.com/-7PG3jVXPWdM/U2D-BvxwYYI/AAAAAAAAAks/_ZTRQWBt7L8/s640/Intellisense-Getter.png)
+![](https://4.bp.blogspot.com/-7PG3jVXPWdM/U2D-BvxwYYI/AAAAAAAAAks/_ZTRQWBt7L8/s640/Intellisense-Getter.png)
 
 ## 4\. The `Function` setter
 
@@ -282,7 +282,7 @@ So, we've got a little tidy up to do for #1 and extra overloads to add for #2 an
 
 A cursory glance shows that each of the overloads above shares the same JSDoc. Each has the *"Set the value..."* from the API docs as the overarching Intellisense that is displayed for the `Function` setter. And each has the same `@param func` comment as well.
 
-![](http://1.bp.blogspot.com/-9wwPOZIiwcs/U2D-Ngw9CrI/AAAAAAAAAk0/V32FCsotPTQ/s640/Intellisense-Setter-Function.png)
+![](https://1.bp.blogspot.com/-9wwPOZIiwcs/U2D-Ngw9CrI/AAAAAAAAAk0/V32FCsotPTQ/s640/Intellisense-Setter-Function.png)
 
 ## It could be you...
 

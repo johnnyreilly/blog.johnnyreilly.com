@@ -14,13 +14,13 @@ The content of the site is available for <u>reference only</u>
 
 . (Not that I can really imagine people creating their own "Poor Clares" site and hawking it to convents around the globe but I thought I'd make the point.) It looks like this:
 
-![](http://2.bp.blogspot.com/-jUf3uryRdKk/U4w3VVMX04I/AAAAAAAAAnQ/6Pu84tk92S0/s1600/SisterGabriel.png)
+![](https://2.bp.blogspot.com/-jUf3uryRdKk/U4w3VVMX04I/AAAAAAAAAnQ/6Pu84tk92S0/s1600/SisterGabriel.png)
 
 ## Background
 
 I've been quietly maintaining this website / app for quite a while now. It's a very simple site; 95% of it is static content about the convent. The one piece of actual functionality is a page which allows the user of the website to send a prayer request to the nuns at the convent:
 
-![](http://2.bp.blogspot.com/-DChKaPJu4eE/U4w4DPbwxCI/AAAAAAAAAnY/PPtSe_HzPCU/s1600/OurPrayer.png)
+![](https://2.bp.blogspot.com/-DChKaPJu4eE/U4w4DPbwxCI/AAAAAAAAAnY/PPtSe_HzPCU/s1600/OurPrayer.png)
 
 Behind the scenes this sends 2 emails:
 
@@ -55,7 +55,7 @@ The first thing we're going to need to get going are the Angular typing files wh
 
 As well as pulling in the typing files Visual Studio 2013 has also made some tweaks to my `PoorClaresAngular.csproj` file which it tells me about:
 
-![](http://4.bp.blogspot.com/-DZcJ-YANHAE/U4b6Yd4Zr7I/AAAAAAAAAlM/SYpK8RFSVgg/s1600/TypeScriptDialog.png)
+![](https://4.bp.blogspot.com/-DZcJ-YANHAE/U4b6Yd4Zr7I/AAAAAAAAAlM/SYpK8RFSVgg/s1600/TypeScriptDialog.png)
 
 And these are the TypeScript specific additions that Visual Studio has made to `PoorClaresAngular.csproj`:
 
@@ -81,17 +81,17 @@ This prevents you having variables of type `any` in your TypeScript codebase wit
 
 I decline the kind opportunity to further search NuGet as I'm already on my way typing-wise. So let's review what has happened. Below you can see the typing files that have been pulled in and that the project and packages files were amended:
 
-![](http://1.bp.blogspot.com/-mgEjfAnPp5I/U4b7wqDLkdI/AAAAAAAAAlY/MlfZA5c7TIs/s1600/AddedTypings.png)
+![](https://1.bp.blogspot.com/-mgEjfAnPp5I/U4b7wqDLkdI/AAAAAAAAAlY/MlfZA5c7TIs/s1600/AddedTypings.png)
 
 ## Changing JS files to TS files
 
 This really should be as simple as changing all the JavaScript files underneath the `js` directory to have the suffix `ts`. So going from this:
 
-![](http://1.bp.blogspot.com/-El_425y9130/U4clVSYUO4I/AAAAAAAAAlo/Z-NmvPlOjiA/s1600/js.png)
+![](https://1.bp.blogspot.com/-El_425y9130/U4clVSYUO4I/AAAAAAAAAlo/Z-NmvPlOjiA/s1600/js.png)
 
 To this:
 
-![](http://2.bp.blogspot.com/-QMLxo7CnDV0/U4clbseUBsI/AAAAAAAAAlw/oRCZf5YqZUQ/s1600/ts.png)
+![](https://2.bp.blogspot.com/-QMLxo7CnDV0/U4clbseUBsI/AAAAAAAAAlw/oRCZf5YqZUQ/s1600/ts.png)
 
 And if you're not using Visual Studio it is. But if you are using Visual Studio there's a certain amount of fiddling required to include the generated `.js` and `.js.map` files associated with each `.ts` file. The easiest (hah!) thing to do is to crack open the project and wherever you find a `&lt;TypeScriptCompile Include="js\somePath.ts" /&gt;` to add in 2 `Content` statements, one for each generated file which states the dependency on the TypeScript file. For example:
 
@@ -117,7 +117,7 @@ Now we can actually start working through our TypeScript files and ensuring we'r
 
 Opening up `app.ts` we're presented with a few red squigglies:
 
-![](http://4.bp.blogspot.com/-91g1TEbkZd4/U4ctcYQqogI/AAAAAAAAAmI/qQzfzNAaPhA/s1600/app.ts.png)
+![](https://4.bp.blogspot.com/-91g1TEbkZd4/U4ctcYQqogI/AAAAAAAAAmI/qQzfzNAaPhA/s1600/app.ts.png)
 
 These red squigglies are the direct result of my earlier opting in to `NoImplicitAny`. So in my view it's already paid for itself as it's telling me where I could start using typings. So to get things working nicely I'll give `$routeProvider` the type of `ng.route.IRouteProvider` and I'll explicitly specify the type of `any` for the 2 `params` parameters:
 
@@ -144,7 +144,7 @@ These red squigglies are the direct result of my earlier opting in to `NoImplici
 
 Opening up `siteSectionService.ts` we're only presented with a single squiggly, and for the same reason as last time:
 
-![](http://4.bp.blogspot.com/-aFd1JgtcLIU/U4cwBbs8N7I/AAAAAAAAAmU/x9GME8J5CMc/s1600/siteSectionService.ts.png)
+![](https://4.bp.blogspot.com/-aFd1JgtcLIU/U4cwBbs8N7I/AAAAAAAAAmU/x9GME8J5CMc/s1600/siteSectionService.ts.png)
 
 This error is easily remedied by giving `path` the type of `string`.
 
@@ -197,7 +197,7 @@ As you can see the `ISiteSectionService ` interface is marked as the return type
 
 Opening up `prayerRequestService.ts` we're again in `NoImplicitAny` country:
 
-![](http://4.bp.blogspot.com/-QfZUdnxu5oA/U4c0iI-JF3I/AAAAAAAAAmg/pbwlmGGbBjo/s1600/prayerRequestService.ts.png)
+![](https://4.bp.blogspot.com/-QfZUdnxu5oA/U4c0iI-JF3I/AAAAAAAAAmg/pbwlmGGbBjo/s1600/prayerRequestService.ts.png)
 
 This is fixed up by defining `$http` as `ng.IHttpService` and `email` and `prayFor` as `string`.
 
@@ -245,7 +245,7 @@ angular.module("poorClaresApp.services").factory(
 
 Opening up `prayerRequestController.ts` leads me to the conclusion that I have **no interesting way left** of telling you that we once more need to supply types for our parameters. Let's take it as read that the same will happen on all remaining files as well eh? Hopefully by now it's fairly clear that this option is useful, even if only for a migration. I say this because using it forces you to think about what typings should be applied to your code:
 
-![](http://3.bp.blogspot.com/-5-joMHeUrNE/U4c5tcYeoLI/AAAAAAAAAmw/qwl0Bjz21zA/s1600/prayerRequestController.png)
+![](https://3.bp.blogspot.com/-5-joMHeUrNE/U4c5tcYeoLI/AAAAAAAAAmw/qwl0Bjz21zA/s1600/prayerRequestController.png)
 
 We'll define `$scope` as `ng.IScope`, `prayerRequestService` as `IPrayerRequestService` (which we created just now) and `prayerRequest` as `{ email: string; prayFor: string }`. Which leaves me with this:
 
@@ -447,7 +447,7 @@ module poorClaresApp.controllers {
 
 In unit tests we trust. Let's run them...
 
-![](http://2.bp.blogspot.com/-re8aAJVtSDk/U4hYNPqKk9I/AAAAAAAAAnA/1Vu7ooQk1jw/s1600/UnitTestsPass.png)
+![](https://2.bp.blogspot.com/-re8aAJVtSDk/U4hYNPqKk9I/AAAAAAAAAnA/1Vu7ooQk1jw/s1600/UnitTestsPass.png)
 
 Success! I hope you found this useful.
 
