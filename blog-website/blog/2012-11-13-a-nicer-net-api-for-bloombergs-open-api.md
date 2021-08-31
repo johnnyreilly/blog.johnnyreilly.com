@@ -19,7 +19,7 @@ The initial plan was to, through code, extract Libor and Euribor rates from Bloo
 
 
 
-![](http://4.bp.blogspot.com/-mZxP0-jXRIo/UKJ8y8Gs5AI/AAAAAAAAAW0/qNyIN9hGBiQ/s400/bloombergwapidocumentation.gif)
+![](https://4.bp.blogspot.com/-mZxP0-jXRIo/UKJ8y8Gs5AI/AAAAAAAAAW0/qNyIN9hGBiQ/s400/bloombergwapidocumentation.gif)
 
 To go with this I found some useful documentation of the Bloomberg Open API [here](http://www.openbloomberg.com/files/2012/10/blpapi-developers-guide.pdf) and I found the .NET Bloomberg Open API itself [here](http://www.openbloomberg.com/open-api/).
 
@@ -52,7 +52,7 @@ The project also contained this class which demonstrates how I made use of my wr
 
 And here's what the output looked like:
 
-![](http://1.bp.blogspot.com/-1ghUYqbl0AE/UKJ_3vsuKqI/AAAAAAAAAXI/pPKR5dup48U/s400/Bloomberg.png)
+![](https://1.bp.blogspot.com/-1ghUYqbl0AE/UKJ_3vsuKqI/AAAAAAAAAXI/pPKR5dup48U/s400/Bloomberg.png)
 
 This covered my bases. It was simple, it was easy to consume and it didn't require any custom types. My mini-API is only really catering for my own needs (unsurprisingly). However, there's lots more to the Bloomberg Open API and I may end up taking this further in the future if I encounter use cases that my current API doesn't cover.
 

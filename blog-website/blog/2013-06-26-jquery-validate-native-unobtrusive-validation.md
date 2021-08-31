@@ -10,7 +10,7 @@ Did you know that jQuery Validate natively supports the use of [HTML 5 data attr
 
 So when I realised that there was native alternative available I was delighted. Enough with the fine words - what we want is a demo:
 
-<iframe src="http://htmlpreview.github.io/?http://gist.github.com/johnnyreilly/5867188/raw/272b1b42f4773fe6df843550b3e3d457013522a8/Demo.html" width="100%" height="575"></iframe>
+<iframe src="https://htmlpreview.github.io/?http://gist.github.com/johnnyreilly/5867188/raw/272b1b42f4773fe6df843550b3e3d457013522a8/Demo.html" width="100%" height="575"></iframe>
 
 Not particularly exciting? Not noticably different to any other jQuery Validate demo you've ever seen? Fair enough. Now look at the source:
 

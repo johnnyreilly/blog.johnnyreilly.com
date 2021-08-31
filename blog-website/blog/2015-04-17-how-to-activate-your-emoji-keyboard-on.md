@@ -13,9 +13,9 @@ A departure from from my normal content - I need to tell you about [emoji](http:
 - select your "Current keyboard" and then select the "Choose keyboards" option
 - look for a keyboard that says "iWnn IME Japanese". Select it
 - drop back to the "Language and Input" menu where you will see "iWnn IME Japanese" is now there.
-- select it and deactivate "Japanese" and activate "Emoji" like this: [![](http://4.bp.blogspot.com/-toFgqIFcTs4/VTC6JXxwmtI/AAAAAAAAA0s/OT7O7MdGvSc/s320/Screenshot_2015-04-16-07-21-06-741564.png)](http://4.bp.blogspot.com/-toFgqIFcTs4/VTC6JXxwmtI/AAAAAAAAA0s/OT7O7MdGvSc/s1600/Screenshot_2015-04-16-07-21-06-741564.png)
+- select it and deactivate "Japanese" and activate "Emoji" like this: [![](https://4.bp.blogspot.com/-toFgqIFcTs4/VTC6JXxwmtI/AAAAAAAAA0s/OT7O7MdGvSc/s320/Screenshot_2015-04-16-07-21-06-741564.png)](https://4.bp.blogspot.com/-toFgqIFcTs4/VTC6JXxwmtI/AAAAAAAAA0s/OT7O7MdGvSc/s1600/Screenshot_2015-04-16-07-21-06-741564.png)
 
-- now you should find your keyboard contains a little globe icon. When you select it.... Emoji!!!! [![](http://2.bp.blogspot.com/-xtdHdGuc6YU/VTC6I-_43tI/AAAAAAAAA0g/JnlckIUnS48/s320/Screenshot_2015-04-16-07-23-56%257E2-739197.jpg)](http://2.bp.blogspot.com/-xtdHdGuc6YU/VTC6I-_43tI/AAAAAAAAA0g/JnlckIUnS48/s1600/Screenshot_2015-04-16-07-23-56%257E2-739197.jpg)
+- now you should find your keyboard contains a little globe icon. When you select it.... Emoji!!!! [![](https://2.bp.blogspot.com/-xtdHdGuc6YU/VTC6I-_43tI/AAAAAAAAA0g/JnlckIUnS48/s320/Screenshot_2015-04-16-07-23-56%257E2-739197.jpg)](https://2.bp.blogspot.com/-xtdHdGuc6YU/VTC6I-_43tI/AAAAAAAAA0g/JnlckIUnS48/s1600/Screenshot_2015-04-16-07-23-56%257E2-739197.jpg)
 
 
 

@@ -75,7 +75,7 @@ Ignore all the `$scope` malarkey - I want you to pay attention to what is happen
 
 I decided to do a little experimentation. I created a Plunk which demonstrates the datepicker and uses `$watch` to track what happens to `valuationDatePickerIsOpen`. The Plunk featured 2 calendar glyphs - the left one doesn't pass along `$event` to `valuationDatePickerOpen` when it is clicked and the right one does. When `$event` is passed we call `preventDefault` and `stopPropogation`.
 
-<iframe src="http://embed.plnkr.co/dJyF531w0QRGiAScRf15/preview" width="100%" height="450"></iframe>
+<iframe src="https://embed.plnkr.co/dJyF531w0QRGiAScRf15/preview" width="100%" height="450"></iframe>
 
 After a little experimentation of my own I discovered that calling `$event.stopPropogation()` is the magic bullet. Without that in place `valuationDatePickerIsOpen` gets set to `true` and then immediately back to `false` again. I do not know why. There may be an entirely sane reason for this - if so then please do post a comment and let me know. It wouldn't hurt for the Angular UI Bootstrap Datepicker docs to mention this. [Perhaps it's time to submit a PR....](https://github.com/angular-ui/bootstrap/issues/3705)
 
