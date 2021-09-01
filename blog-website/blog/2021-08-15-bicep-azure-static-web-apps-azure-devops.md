@@ -5,7 +5,7 @@ tags: [Azure Static Web App, Bicep, Azure DevOps, Azure Pipelines]
 image: blog/2021-08-15-bicep-azure-static-web-apps-azure-devops/title-image.png
 hide_table_of_contents: false
 ---
-This post demonstrates how to deploy [Azure Static Web Apps](https://docs.microsoft.com/en-us/azure/static-web-apps/overview) using Bicep and Azure DevOps. It includes a workaround for the ["Provider is invalid.  Cannot change the Provider. Please detach your static site first if you wish to use to another deployment provider." issue](https://github.com/Azure/static-web-apps/issues/516).
+This post demonstrates how to deploy [Azure Static Web Apps](https://docs.microsoft.com/en-us/azure/static-web-apps/overview) using Bicep and Azure DevOps. It includes a few workarounds for the ["Provider is invalid.  Cannot change the Provider. Please detach your static site first if you wish to use to another deployment provider." issue](https://github.com/Azure/static-web-apps/issues/516).
 
 ![title image reading "Publish Azure Static Web Apps with Bicep and Azure DevOps" and some Azure logos](../static/blog/2021-08-15-bicep-azure-static-web-apps-azure-devops/title-image.png)
 
@@ -32,7 +32,6 @@ param appName string
 resource staticWebApp 'Microsoft.Web/staticSites@2020-12-01' = {
   name: appName
   location: location
-  tags: tagsObj
   sku: {
     name: skuName
     tier: skuTier
@@ -72,70 +71,68 @@ Which will scaffold a Docusaurus site in a folder named `static-web-app`. We don
 We're going to add an `azure-pipelines.yml` file which Azure DevOps can use to power a pipeline:  
 
 ```yml
-stages:
-- stage: build
-  displayName: build
-  pool:
-    vmImage: 'ubuntu-latest'
-  jobs:
-  - job: BuildAndDeploy
-    displayName: 'Build and Deploy'
-    steps:
-    - checkout: self
-      submodules: true
-        
-    - bash: az bicep build --file infra/static-web-app/main.bicep
-      displayName: "Compile Bicep to ARM"
+trigger:
+  - main
+  
+pool:
+  vmImage: ubuntu-latest
 
-    - task: AzureResourceManagerTemplateDeployment@3
-      name: DeployStaticWebAppInfra
-      displayName: Deploy Static Web App infra
-      inputs:
-        deploymentScope: Resource Group
-        azureResourceManagerConnection: ${{ parameters.serviceConnection }}
-        subscriptionId: $(subscriptionId)
-        action: Create Or Update Resource Group
-        resourceGroupName: $(azureResourceGroup)
-        location: $(location)
-        templateLocation: Linked artifact
-        csmFile: 'infra/static-web-app/main.json' # created by bash script
-        overrideParameters: >-
-          -repositoryUrl $(repo)
-          -repositoryBranch $(Build.SourceBranchName)
-          -appName $(staticWebAppName)
-        deploymentMode: Incremental
-        deploymentOutputs: deploymentOutputs
+steps:
+- checkout: self
+  submodules: true
+    
+- bash: az bicep build --file infra/static-web-app/main.bicep
+  displayName: "Compile Bicep to ARM"
 
-    - task: PowerShell@2
-      name: 'SetDeploymentOutputVariables'
-      displayName: "Set Deployment Output Variables"
-      inputs:
-        targetType: inline
-        script: |
-          $armOutputObj = '$(deploymentOutputs)' | ConvertFrom-Json
-          $armOutputObj.PSObject.Properties | ForEach-Object {
-            $keyname = $_.Name
-            $value = $_.Value.value
+- task: AzureResourceManagerTemplateDeployment@3
+  name: DeployStaticWebAppInfra
+  displayName: Deploy Static Web App infra
+  inputs:
+    deploymentScope: Resource Group
+    azureResourceManagerConnection: $(serviceConnection)
+    subscriptionId: $(subscriptionId)
+    action: Create Or Update Resource Group
+    resourceGroupName: $(azureResourceGroup)
+    location: $(location)
+    templateLocation: Linked artifact
+    csmFile: 'infra/static-web-app/main.json' # created by bash script
+    overrideParameters: >-
+      -repositoryUrl $(repo)
+      -repositoryBranch $(Build.SourceBranchName)
+      -appName $(staticWebAppName)
+    deploymentMode: Incremental
+    deploymentOutputs: deploymentOutputs
 
-            # Creates a standard pipeline variable
-            Write-Output "##vso[task.setvariable variable=$keyName;]$value"
+- task: PowerShell@2
+  name: 'SetDeploymentOutputVariables'
+  displayName: "Set Deployment Output Variables"
+  inputs:
+    targetType: inline
+    script: |
+      $armOutputObj = '$(deploymentOutputs)' | ConvertFrom-Json
+      $armOutputObj.PSObject.Properties | ForEach-Object {
+        $keyname = $_.Name
+        $value = $_.Value.value
 
-            # Creates an output variable
-            Write-Output "##vso[task.setvariable variable=$keyName;issecret=true;isOutput=true]$value"
+        # Creates a standard pipeline variable
+        Write-Output "##vso[task.setvariable variable=$keyName;]$value"
 
-            # Display keys in pipeline
-            Write-Output "output variable: $keyName"
-          }
-        pwsh: true
+        # Creates an output variable
+        Write-Output "##vso[task.setvariable variable=$keyName;issecret=true;isOutput=true]$value"
 
-    - task: AzureStaticWebApp@0
-      name: DeployStaticWebApp
-      displayName: Deploy Static Web App
-      inputs:
-        app_location: 'static-web-app'
-        # api_location: 'api'
-        output_location: 'build'
-        azure_static_web_apps_api_token: $(deployment_token) # captured from deploymentOutputs
+        # Display keys in pipeline
+        Write-Output "output variable: $keyName"
+      }
+    pwsh: true
+
+- task: AzureStaticWebApp@0
+  name: DeployStaticWebApp
+  displayName: Deploy Static Web App
+  inputs:
+    app_location: 'static-web-app'
+    # api_location: 'api'
+    output_location: 'build'
+    azure_static_web_apps_api_token: $(deployment_token) # captured from deploymentOutputs
 ```
 
 When the pipeline is run, it does the following:
@@ -144,6 +141,14 @@ When the pipeline is run, it does the following:
 2. Deploys the compiled ARM template to Azure
 3. Captures the deployment outputs (essentially the `deployment_token`) and converts them into variables to use in the pipeline
 4. Deploys our Static Web App using the `deployment_token`
+
+The pipeline depends upon a number of variables:
+- `azureResourceGroup` - the name of your resource group in Azure where the app will be deployed
+- `location` - where your app is deployed, eg `northeurope`
+- `repo` - the URL of your repository in Azure DevOps, eg https://dev.azure.com/johnnyreilly/_git/azure-static-web-apps
+- `serviceConnection` - the name of your AzureRM service connection in Azure DevOps
+- `staticWebAppName` - the name of your static web app, eg `azure-static-web-apps-johnnyreilly`
+- `subscriptionId` - your Azure subscription id from the [Azure Portal](https://portal.azure.com)
 
 A successful pipeline looks something like this:
 
@@ -156,3 +161,20 @@ Finally, let's see if we've deployed something successfully...
 ![Screenshot of deployed Azure Static Web App](../static/blog/2021-08-15-bicep-azure-static-web-apps-azure-devops/deployed-azure-static-web-app-screenshot.png)
 
 We have! It's worth noting that you'll likely want to give your Azure Static Web App a lovelier URL, and perhaps even put it behind Azure Front Door as well.
+
+## `Provider is invalid` workaround 2
+
+[Shane Neff](https://www.linkedin.com/in/shaneneff/) was attempting to follow the instructions in this post and encountered issues.  He shared his struggles with me as he encountered the ["Provider is invalid.  Cannot change the Provider. Please detach your static site first if you wish to use to another deployment provider." issue](https://github.com/Azure/static-web-apps/issues/516).
+
+He was good enough to share his solution as well, which is inserting this task at the start of the pipeline (before the `az bicep build` step):
+
+```yml
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: '<name of your service connection>'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az staticwebapp disconnect -n <name of your app>'
+```
+
+I haven't had the problems that Shane has had myself, but I wanted to share his fix for the people out there who almost certainly are bumping on this.
