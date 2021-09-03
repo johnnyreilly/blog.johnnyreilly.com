@@ -13,33 +13,33 @@ The idea of this was sparked by [Martin Fowler's post](https://martinfowler.com/
 
 The first thing we need to do is go to the [Google Cloud Platform to create a project](https://console.cloud.google.com/projectcreate). The name of the project doesn't matter particularly; although it can be helpful to name the project to align with the API you're intending to consume. That's what we'll do here as we plan to integrate with the Google Calendar API: 
 
-![Screenshot of the Create Project screen in the Google Cloud Platform](../static/blog/̣̣2021-09-10-google-apis-authentication-with-typescript/google-cloud-platform-create-project.png)
+![Screenshot of the Create Project screen in the Google Cloud Platform](../static/blog/2021-09-10-google-apis-authentication-with-typescript/google-cloud-platform-create-project.png)
 
 The project is the container in which the OAuth 2.0 Client ID will be housed. Now we've created the project, let's go to the [credentials screen](https://console.cloud.google.com/apis/credentials) and create an OAuth Client ID using the Create Credentials dropdown:
 
-![Screenshot of the Create Credentials dropdown in the Google Cloud Platform](../static/blog/̣̣2021-09-10-google-apis-authentication-with-typescript/create-credentials.png)
+![Screenshot of the Create Credentials dropdown in the Google Cloud Platform](../static/blog/2021-09-10-google-apis-authentication-with-typescript/create-credentials.png)
 
 You'll likely have to create an OAuth consent screen before you can create the OAuth Client ID. Going through the journey of doing that feels a little daunting as many questions have to be answered.  This is because the consent screen can be used for a variety of purposes beyond the API authentication we're looking at today.
 
 When challenged, you can generally accept the defaults and proceed. The user type you'll require will be "External":
 
-![Screenshot of the OAuth consent screen in the Google Cloud Platform](../static/blog/̣̣2021-09-10-google-apis-authentication-with-typescript/oauth-consent-screen.png)
+![Screenshot of the OAuth consent screen in the Google Cloud Platform](../static/blog/2021-09-10-google-apis-authentication-with-typescript/oauth-consent-screen.png)
 
 You'll also be required to create an app registration - all that's really required here is a name (which can be anything) and your email address:
 
-![Screenshot of the OAuth consent screen in the Google Cloud Platform](../static/blog/̣̣2021-09-10-google-apis-authentication-with-typescript/app-registration.png)
+![Screenshot of the OAuth consent screen in the Google Cloud Platform](../static/blog/2021-09-10-google-apis-authentication-with-typescript/app-registration.png)
 
 You don't need to worry about scopes. You can either plan to publish the app, or alternately set yourself up to be a test user - you'll need to do one of these in order that you can authenticate with the app. Continuing to the end of the journey should provide you with the OAuth consent screen which you need in order that you may then create the OAuth Client ID.
 
 Creating the OAuth Client ID is slightly confusing as the "Application type" required is "TVs and Limited Input devices".
 
-![Screenshot of the create OAuth Client ID screen in the Google Cloud Platform](../static/blog/̣̣2021-09-10-google-apis-authentication-with-typescript/create-oauth-client-id-type.png)
+![Screenshot of the create OAuth Client ID screen in the Google Cloud Platform](../static/blog/2021-09-10-google-apis-authentication-with-typescript/create-oauth-client-id-type.png)
 
 We're using this type of application as we want to acquire a [refresh token](https://oauth.net/2/grant-types/refresh-token/) which we'll be able to use in future to aquire access tokens which will be used to access the Google APIs. 
 
 Once it's created, you'll be able to download the Client ID from the Google Cloud Platform:
 
-![Screenshot of the create OAuth Client ID screen in the Google Cloud Platform](../static/blog/̣̣2021-09-10-google-apis-authentication-with-typescript/oauth-client-id.png)
+![Screenshot of the create OAuth Client ID screen in the Google Cloud Platform](../static/blog/2021-09-10-google-apis-authentication-with-typescript/oauth-client-id.png)
 
 When you download it, it should look something like this:
 
@@ -175,11 +175,11 @@ Now we're ready to acquire the refresh token.  We'll run the following command (
 
 Click on the URL that is generated in the console, it should open up a consent screen in the browser which looks like this:
 
-![Screenshot of the consent screen](../static/blog/̣̣2021-09-10-google-apis-authentication-with-typescript/grant-consent.png)
+![Screenshot of the consent screen](../static/blog/2021-09-10-google-apis-authentication-with-typescript/grant-consent.png)
 
 Authenticate and grant consent and you should get a code:
 
-![Screenshot of the generated code](../static/blog/̣̣2021-09-10-google-apis-authentication-with-typescript/auth-code.png)
+![Screenshot of the generated code](../static/blog/2021-09-10-google-apis-authentication-with-typescript/auth-code.png)
 
 Then (quickly) paste the acquired code into the following command:
 
@@ -248,7 +248,7 @@ When we run for the first time, we may encounter a self explanatory message whic
 
 Once enabled, we can run successfully for the first time. Consequently we should see something like this showing up in the console:
 
-![Screenshot of calendars list response in the console](../static/blog/̣̣2021-09-10-google-apis-authentication-with-typescript/calendars-response.png)
+![Screenshot of calendars list response in the console](../static/blog/2021-09-10-google-apis-authentication-with-typescript/calendars-response.png)
 
 This demonstrates that we're successfully integrating with a Google API using our refresh token.
 
