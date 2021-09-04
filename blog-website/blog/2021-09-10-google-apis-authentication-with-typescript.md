@@ -2,7 +2,7 @@
 title: "Google APIs: authentication with TypeScript"
 authors: johnnyreilly
 tags: [Google APIs, TypeScript]
-image: blog/2021-09-10-google-apis-authentication-with-typescript/app-registration.png
+image: ../static/blog/2021-09-10-google-apis-authentication-with-typescript/app-registration.png
 hide_table_of_contents: false
 ---
 Google has a [wealth of APIs](https://developers.google.com/apis-explorer) which we can interact with.  At the time of writing, there's more than two hundred available; including YouTube, Google Calendar and GMail (alongside many others). To integrate with these APIs, it's necessary to authenticate and then use that credential with the API. This post will take you through how to do just that using TypeScript. It will also demonstrate how to use one of those APIs: the Google Calendar API.
