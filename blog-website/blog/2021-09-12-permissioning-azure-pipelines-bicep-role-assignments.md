@@ -5,7 +5,7 @@ tags: [Role Assignments, Bicep, Azure DevOps, Azure Pipelines]
 image: blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/title-image.png
 hide_table_of_contents: false
 ---
-We want to test our newly deployed Azure resources, in the context of an Azure Pipeline.  We'll permission our Azure Pipeline to access these resources using role assignments, then we'll make use of those role assignments.
+We want to test our newly deployed Azure resources in the context of an Azure Pipeline.  We'll permission our Azure Pipeline to access these resources using role assignments. Finally we'll write a dotnet test that runs in the context of the pipeline and makes use of those role assignments.
 
 We're following this approach as an alternative to exporting connection strings, as these can be viewed in the Azure Portal; which may be an security issue if you have many people who are able to access the portal and view outputs.
 
@@ -57,6 +57,14 @@ Then when selecting members we should be able to look up the service principal t
 ![Screenshot of the add role assignment select member IAM page in the Azure Portal](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/screenshot-azure-portal-add-role-assignment-member.png)
 
 We now have a service connection which we should be able to use for granting permissions / role assignments, which is what we need.
+
+## Event Hub and Role Assignment with Bicep
+
+Next we want a Bicep file that will, when run, provision an Event Hub and a role assignment which will allow our Azure Pipeline (via its service connection) to interact with it.
+
+```bicep
+// Bicep here
+```
 
 ## Azure Pipeline
 
