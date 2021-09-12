@@ -7,7 +7,7 @@ hide_table_of_contents: false
 ---
 We want to test our newly deployed Azure resources, in the context of an Azure Pipeline.  We'll permission our Azure Pipeline to access these resources using role assignments, then we'll make use of those role assignments.
 
-We're following this approach as an alternative to exporting connection strings, as these can be viewed in the Azure Portal; which may be an security issue if you have many people able to access the portal.
+We're following this approach as an alternative to exporting connection strings, as these can be viewed in the Azure Portal; which may be an security issue if you have many people who are able to access the portal and view outputs.
 
 There's a number of things we need to have set up before we can actually get deploying:
 
@@ -16,47 +16,47 @@ There's a number of things we need to have set up before we can actually get dep
 
 ## Add Event Hubs to your subscription
 
-There's some other pre-requisites for this to run as well. First of all, you may need to add Event Hubs to your Azure subscription.
+First of all, we may need to add Event Hubs to our Azure subscription.
 
-Without this in place, you may encounter errors of the type:
+Without this in place, we may encounter errors of the type:
 
 > ##[error]MissingSubscriptionRegistration: The subscription is not registered to use namespace 'Microsoft.EventHub'. See https://aka.ms/rps-not-found for how to register subscriptions.
 
-You do this by going to "Resource Providers" in the [Azure Portal](https://portal.azure.com) and registering the resources you need. Lots are registered by default, but not all.
+We do this by going to "Resource Providers" in the [Azure Portal](https://portal.azure.com) and registering the resources you need. Lots are registered by default, but not all.
 
 ![Screenshot of the Azure Portal, subscriptions -> resource providers section, showing that Event Hubs have been registered](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/screenshot-azure-portal-subscription-resource-providers.png)
 
-## Permission your service connection / service principal
+## Permission our service connection / service principal
 
-In order that you can run pipelines related to Azure, you mostly need to have an Azure Resource Manager service connection set up in Azure DevOps.  Once that exists, you also need to give it a role assignment to allow it to create role assignments of its own when pipelines are running.
+In order that we can run pipelines related to Azure, we mostly need to have an Azure Resource Manager service connection set up in Azure DevOps.  Once that exists, we also need to give it a role assignment to allow it to create role assignments of its own when pipelines are running.
 
-Without this in place, you may encounter errors of the type:
+Without this in place, we may encounter errors of the type:
 
 > ##[error]The template deployment failed with error: 'Authorization failed for template resource '{GUID-THE-FIRST}' of type 'Microsoft.Authorization/roleAssignments'. The client '{GUID-THE-SECOND}' with object id '{GUID-THE-SECOND}' does not have permission to perform action 'Microsoft.Authorization/roleAssignments/write' at scope '/subscriptions/***/resourceGroups/johnnyreilly/providers/Microsoft.EventHub/namespaces/evhns-demo/providers/Microsoft.Authorization/roleAssignments/{GUID-THE-FIRST}'.'.
 
-Essentially, we want to be able to run pipelines that say "hey Azure, we want to give permissions to our service connection".  We are doing this *with* the self same service connection, so (chicken and egg) we first need to give it permission to give those commands in future.  This is a little confusing; but let's role with it 😉.
+Essentially, we want to be able to run pipelines that say "hey Azure, we want to give permissions to our service connection".  We are doing this *with* the self same service connection, so (chicken and egg) we first need to give it permission to give those commands in future.  This is a little confusing; but let's role with it. (Pun most definitely intended. 😉)
 
 To grant that permission / add that role assignment, we go to the service connection in Azure Devops:
 
 ![Screenshot of the service connection in Azure DevOps](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/screenshot-azure-devops-service-connection.png)
 
-You can see there's two links here; first click on "Manage Service Principal", which will take you to the service principal in the Azure Portal:
+We can see there's two links here; first we'll click on "Manage Service Principal", which will take us to the service principal in the Azure Portal:
 
 ![Screenshot of the service principal in the Azure Portal](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/screenshot-azure-portal-service-principal.png)
 
-Take note of the display name of the service principal; you'll need that as you click on the "Manage service connection roles" link, which will take you to the resource groups IAM page in the Azure Portal:
+Take note of the display name of the service principal; we'll need that as we click on the "Manage service connection roles" link, which will take us to the resource groups IAM page in the Azure Portal:
 
 ![Screenshot of the resource groups IAM page in the Azure Portal](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/screenshot-azure-portal-service-principal-access-control.png)
 
-Here you can click on "Add role assignment", select "Owner":
+Here we can click on "Add role assignment", select "Owner":
 
 ![Screenshot of the add role assignment IAM page in the Azure Portal](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/screenshot-azure-portal-add-role-assignment.png)
 
-Then when selecting members you should be able to look up the service principal to assign it to:
+Then when selecting members we should be able to look up the service principal to assign it:
 
 ![Screenshot of the add role assignment select member IAM page in the Azure Portal](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/screenshot-azure-portal-add-role-assignment-member.png)
 
-
+We now have a service connection which we should be able to use for granting permissions / role assignments, which is what we need.
 
 ## Azure Pipeline
 
