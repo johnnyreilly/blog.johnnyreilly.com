@@ -63,7 +63,66 @@ We now have a service connection which we should be able to use for granting per
 Next we want a Bicep file that will, when run, provision an Event Hub and a role assignment which will allow our Azure Pipeline (via its service connection) to interact with it.
 
 ```bicep
-// Bicep here
+@description('Name of the eventhub namespace')
+param eventHubNamespaceName string
+
+@description('Name of the eventhub name')
+param eventHubName string
+
+@description('The service principal')
+param principalId string
+
+// Create an event hub namespace
+resource eventHubNamespace 'Microsoft.EventHub/namespaces@2021-01-01-preview' = {
+  name: eventHubNamespaceName
+  location: resourceGroup().location
+  sku: {
+    name: 'Standard'
+    tier: 'Standard'
+    capacity: 1
+  }
+  properties: {
+    zoneRedundant: true
+  }
+}
+
+// Create an event hub inside the namespace
+resource eventHubNamespaceName_eventHubName 'Microsoft.EventHub/namespaces/eventhubs@2021-01-01-preview' = {
+  parent: eventHubNamespace
+  name: eventHubName
+  properties: {
+    messageRetentionInDays: 7
+    partitionCount: 1
+  }
+}
+
+// Grant Listen and Send on our event hub
+resource eventHubNamespaceName_eventHubName_ListenSend 'Microsoft.EventHub/namespaces/eventhubs/authorizationRules@2021-01-01-preview' = {
+  parent: eventHubNamespaceName_eventHubName
+  name: 'ListenSend'
+  properties: {
+    rights: [
+      'Listen'
+      'Send'
+    ]
+  }
+  dependsOn: [
+    eventHubNamespace
+  ]
+}
+
+// give Azure Pipelines Service Principal permissions against the namespace 
+
+var roleDefinitionAzureEventHubsDataOwner = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'f526a384-b230-433a-b45c-95f59c4a2dec')
+
+resource integrationTestEventHubReceiverNamespaceRoleAssignment 'Microsoft.Authorization/roleAssignments@2018-01-01-preview' = {
+  name: guid(principalId, eventHubNamespace.id, roleDefinitionAzureEventHubsDataOwner)
+  scope: eventHubNamespace
+  properties: {
+    roleDefinitionId: roleDefinitionAzureEventHubsDataOwner
+    principalId: principalId
+  }
+}
 ```
 
 ## Azure Pipeline
