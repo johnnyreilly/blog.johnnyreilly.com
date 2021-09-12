@@ -2,17 +2,19 @@
 title: "Permissioning Azure Pipelines with Bicep and Role Assignments"
 authors: johnnyreilly
 tags: [Role Assignments, Bicep, Azure DevOps, Azure Pipelines]
-image: blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/title-image.png
+image: blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/permissioning-azure-pipelines-with-bicep-and-role-assignments.png
 hide_table_of_contents: false
 ---
 We want to test our newly deployed Azure resources in the context of an Azure Pipeline.  We'll permission our Azure Pipeline to access these resources using role assignments. Finally we'll write a dotnet test that runs in the context of the pipeline and makes use of those role assignments.
 
 We're following this approach as an alternative to exporting connection strings, as these can be viewed in the Azure Portal; which may be an security issue if you have many people who are able to access the portal and view outputs.
 
+![title image reading "Permissioning Azure Pipelines with Bicep and Role Assignments" and some Azure logos](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/permissioning-azure-pipelines-with-bicep-and-role-assignments.png)
+
 There's a number of things we need to have set up before we can actually get deploying:
 
 - Add Event Hubs to your subscription
-- Permission your service connection / service principal 
+- Permission your service connection / service principal
 
 ## Add Event Hubs to your subscription
 
