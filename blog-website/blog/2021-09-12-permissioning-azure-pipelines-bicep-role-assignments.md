@@ -116,7 +116,6 @@ resource integrationTestEventHubReceiverNamespaceRoleAssignment 'Microsoft.Autho
 ```
 
 Do note that our bicep template takes the service principal id as a parameter. We're going to supply this later from our Azure Pipeline. 
-- 
 
 ## Our test
 
