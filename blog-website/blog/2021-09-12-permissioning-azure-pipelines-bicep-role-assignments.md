@@ -1,20 +1,23 @@
 ---
-title: "Permissioning Azure Pipelines with Bicep and Role Assignments"
+title: "Permissioning Azure Pipelines with Bicep and Azure RBAC Role Assignments"
 authors: johnnyreilly
 tags: [Role Assignments, Bicep, Azure DevOps, Azure Pipelines]
 image: blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/permissioning-azure-pipelines-with-bicep-and-role-assignments.png
 hide_table_of_contents: false
 ---
-We want to test our newly deployed Azure resources in the context of an Azure Pipeline.  We'll permission our Azure Pipeline to access these resources using role assignments. Finally we'll write a dotnet test that runs in the context of the pipeline and makes use of those role assignments.
+How can we deploy resources to Azure, and then run an integration test through them in the context of an Azure Pipeline?  This post will show how to do this by permissioning our Azure Pipeline to access these resources using Azure RBAC role assignments. It will also demonstrate a dotnet test that runs in the context of the pipeline and makes use of those role assignments.
 
-We're following this approach as an alternative to exporting connection strings, as these can be viewed in the Azure Portal; which may be an security issue if you have many people who are able to access the portal and view outputs.
+We're following this approach as an alternative to [exporting connection strings](./2021-07-07-output-connection-strings-and-keys-from-azure-bicep.md), as these can be viewed in the Azure Portal; which may be an security issue if you have many people who are able to access the portal and view outputs.
 
 ![title image reading "Permissioning Azure Pipelines with Bicep and Role Assignments" and some Azure logos](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/permissioning-azure-pipelines-with-bicep-and-role-assignments.png)
 
-There's a number of things we need to have set up before we can actually get deploying:
+There's a number of steps to this:
 
-- Add Event Hubs to your subscription
-- Permission your service connection / service principal
+- Add Event Hubs to our Azure subscription
+- Permission our service connection / service principal
+- Deploy to Azure with Bicep
+- Write an integration test
+- Write a pipeline to bring it all together
 
 ## Add Event Hubs to your subscription
 
@@ -98,23 +101,7 @@ resource eventHubNamespaceName_eventHubName 'Microsoft.EventHub/namespaces/event
   }
 }
 
-// Grant Listen and Send on our event hub
-resource eventHubNamespaceName_eventHubName_ListenSend 'Microsoft.EventHub/namespaces/eventhubs/authorizationRules@2021-01-01-preview' = {
-  parent: eventHubNamespaceName_eventHubName
-  name: 'ListenSend'
-  properties: {
-    rights: [
-      'Listen'
-      'Send'
-    ]
-  }
-  dependsOn: [
-    eventHubNamespace
-  ]
-}
-
 // give Azure Pipelines Service Principal permissions against the namespace 
-
 var roleDefinitionAzureEventHubsDataOwner = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'f526a384-b230-433a-b45c-95f59c4a2dec')
 
 resource integrationTestEventHubReceiverNamespaceRoleAssignment 'Microsoft.Authorization/roleAssignments@2018-01-01-preview' = {
@@ -130,24 +117,177 @@ resource integrationTestEventHubReceiverNamespaceRoleAssignment 'Microsoft.Autho
 Our bicep template takes three parameters: 
 ...
 
+## Our test
+
+We're now going to write a dotnet integration test which will make use of the infrastructure deployed by our Bicep template. Let's create a new test project:
+
+```
+mkdir src
+cd src
+dotnet new xunit -o IntegrationTests
+cd IntegrationTests
+dotnet add package Azure.Identity
+dotnet add package Azure.Messaging.EventHubs
+dotnet add package FluentAssertions
+dotnet add package Microsoft.Extensions.Configuration.EnvironmentVariables
+```
+
+We'll create a test file called `EventHubTest.cs` with these contents:
+
+```cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Azure.Identity;
+using Azure.Messaging.EventHubs;
+using Azure.Messaging.EventHubs.Consumer;
+using Azure.Messaging.EventHubs.Producer;
+using FluentAssertions;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using Xunit;
+using Xunit.Abstractions;
+
+namespace IntegrationTests
+{
+    public record EchoMessage(string Id, string Message, DateTime Timestamp);
+
+    public class EventHubTest
+    {
+        private readonly ITestOutputHelper _output;
+
+        public EventHubTest(ITestOutputHelper output)
+        {
+            _output = output;
+        }
+
+        [Fact]
+        public async Task Can_post_message_to_event_hub_and_read_it_back()
+        {
+            // ARRANGE
+            var configuration = new ConfigurationBuilder()
+                .AddEnvironmentVariables()
+                .Build();
+
+            // populated by variables specified in the Azure Pipeline
+            var eventhubNamespaceName = configuration["EVENTHUBNAMESPACENAME"];
+            eventhubNamespaceName.Should().NotBeNull();
+            var eventhubName = configuration["EVENTHUBNAME"];
+            eventhubName.Should().NotBeNull();
+            var tenantId = configuration["TENANTID"];
+            tenantId.Should().NotBeNull();
+
+            // populated as a consequence of the addSpnToEnvironment in the azure-pipelines.yml
+            var servicePrincipalId = configuration["SERVICEPRINCIPALID"];
+            servicePrincipalId.Should().NotBeNull();
+            var servicePrincipalKey = configuration["SERVICEPRINCIPALKEY"];
+            servicePrincipalKey.Should().NotBeNull();
+
+            var fullyQualifiedNamespace = $"{eventhubNamespaceName}.servicebus.windows.net";
+
+            var clientCredential = new ClientSecretCredential(tenantId, servicePrincipalId, servicePrincipalKey);
+            var eventHubClient = new EventHubProducerClient(
+                fullyQualifiedNamespace: fullyQualifiedNamespace,
+                eventHubName: eventhubName,
+                credential: clientCredential
+            );
+            var ourGuid = Guid.NewGuid().ToString();
+            var now = DateTime.UtcNow;
+            var sentEchoMessage = new EchoMessage(Id: ourGuid, Message: $"Test message", Timestamp: now);
+            var sentEventData = new EventData(
+                Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(sentEchoMessage))
+            );
+
+            // ACT
+            await eventHubClient.SendAsync(new List<EventData> { sentEventData }, CancellationToken.None);
+
+            var eventHubConsumerClient = new EventHubConsumerClient(
+                consumerGroup: EventHubConsumerClient.DefaultConsumerGroupName,
+                fullyQualifiedNamespace: fullyQualifiedNamespace,
+                eventHubName: eventhubName,
+                credential: clientCredential
+            );
+
+            List<PartitionEvent> partitionEvents = new();
+            await foreach (var partitionEvent in eventHubConsumerClient.ReadEventsAsync(new ReadEventOptions
+            {
+                MaximumWaitTime = TimeSpan.FromSeconds(10)
+            }))
+            {
+                if (partitionEvent.Data == null) break;
+                _output.WriteLine(Encoding.UTF8.GetString(partitionEvent.Data.EventBody.ToArray()));
+                partitionEvents.Add(partitionEvent);
+            }
+
+            // ASSERT
+            partitionEvents.Count.Should().BeGreaterOrEqualTo(1);
+            var firstOne = partitionEvents.FirstOrDefault(evnt =>
+              ExtractTypeFromEventBody<EchoMessage>(evnt, _output)?.Id == ourGuid
+            );
+            var receivedEchoMessage = ExtractTypeFromEventBody<EchoMessage>(firstOne, _output);
+            receivedEchoMessage.Should().BeEquivalentTo(sentEchoMessage, because: "the event body should be the same one posted to the message queue");
+        }
+
+        private static T ExtractTypeFromEventBody<T>(PartitionEvent evnt, ITestOutputHelper _output)
+        {
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(evnt.Data.EventBody.ToArray()));
+            }
+            catch (JsonException)
+            {
+                _output.WriteLine("[" + Encoding.UTF8.GetString(evnt.Data.EventBody.ToArray()) + "] is probably not JSON");
+                return default(T);
+            }
+        }
+    }
+}
+```
+
+Let's talk through what happens in the test above:
+
+1. We read in event hub connection configuration for the test from environment variables. These will be supplied by an Azure Pipeline that we will create shortly.
+2. We post a message to the event hub.
+3. We read a message back from the event hub.
+4. We confirm that the message we read back matches the one we posted.
+
+Now that we have our test, we want to be able to execute it.  For that we need an Azure Pipeline!
+
 ## Azure Pipeline
 
-We'll begin by creating a Repo in Azure DevOps which we're going to work in. Then we're going to add an `azure-pipelines.yml` file which Azure DevOps can use to power a pipeline:  
+We're going to add an `azure-pipelines.yml` file which Azure DevOps can use to power a pipeline:  
 
 ```yml
-trigger:
-  - main
-  
+variables:
+  - name: eventHubNamespaceName
+    value: evhns-demo 
+  - name: eventHubName
+    value: evh-demo 
+    
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- bash: az bicep build --file infra/static-web-app/main.bicep
+- task: AzureCLI@2
+  displayName: Get Service Principal Id
+  inputs:
+    azureSubscription: $(serviceConnection)
+    scriptType: bash
+    scriptLocation: inlineScript
+    addSpnToEnvironment: true
+    inlineScript: |
+      PRINCIPAL_ID=$(az ad sp show --id $servicePrincipalId --query objectId -o tsv)
+      echo "##vso[task.setvariable variable=PIPELINE_PRINCIPAL_ID;]$PRINCIPAL_ID"
+      
+- bash: az bicep build --file infra/main.bicep
   displayName: "Compile Bicep to ARM"
 
 - task: AzureResourceManagerTemplateDeployment@3
-  name: DeployStaticWebAppInfra
-  displayName: Deploy Static Web App infra
+  name: DeployEventHubInfra
+  displayName: Deploy Event Hub infra
   inputs:
     deploymentScope: Resource Group
     azureResourceManagerConnection: $(serviceConnection)
@@ -156,64 +296,52 @@ steps:
     resourceGroupName: $(azureResourceGroup)
     location: $(location)
     templateLocation: Linked artifact
-    csmFile: 'infra/static-web-app/main.json' # created by bash script
+    csmFile: 'infra/main.json' # created by bash script
     overrideParameters: >-
-      -repositoryUrl $(repo)
-      -repositoryBranch $(Build.SourceBranchName)
-      -appName $(staticWebAppName)
+      -eventHubNamespaceName $(eventHubNamespaceName)
+      -eventHubName $(eventHubName)
+      -principalId $(PIPELINE_PRINCIPAL_ID)
     deploymentMode: Incremental
-    deploymentOutputs: deploymentOutputs
 
-- task: PowerShell@2
-  name: 'SetDeploymentOutputVariables'
-  displayName: "Set Deployment Output Variables"
+- task: UseDotNet@2
+  displayName: 'Install .NET SDK 5.0.x'
   inputs:
-    targetType: inline
-    script: |
-      $armOutputObj = '$(deploymentOutputs)' | ConvertFrom-Json
-      $armOutputObj.PSObject.Properties | ForEach-Object {
-        $keyname = $_.Name
-        $value = $_.Value.value
+    packageType: 'sdk'
+    version: 5.0.x  
 
-        # Creates a standard pipeline variable
-        Write-Output "##vso[task.setvariable variable=$keyName;]$value"
-
-        # Creates an output variable
-        Write-Output "##vso[task.setvariable variable=$keyName;issecret=true;isOutput=true]$value"
-
-        # Display keys in pipeline
-        Write-Output "output variable: $keyName"
-      }
-    pwsh: true
-
-- task: AzureStaticWebApp@0
-  name: DeployStaticWebApp
-  displayName: Deploy Static Web App
+- task: AzureCLI@2
+  displayName: dotnet integration test
   inputs:
-    app_location: 'static-web-app'
-    # api_location: 'api'
-    output_location: 'build'
-    azure_static_web_apps_api_token: $(deployment_token) # captured from deploymentOutputs
+    azureSubscription: $(serviceConnection)
+    scriptType: pscore
+    scriptLocation: inlineScript
+    addSpnToEnvironment: true # allows access to service principal details in script
+    inlineScript: |
+      cd $(Build.SourcesDirectory)/src/IntegrationTests
+      dotnet test
 ```
 
 When the pipeline is run, it does the following:
 
-1. Compiles our Bicep into an ARM template
-2. Deploys the compiled ARM template to Azure
-3. Captures the deployment outputs (essentially the `deployment_token`) and converts them into variables to use in the pipeline
-4. Deploys our Static Web App using the `deployment_token`
+1. Gets the service principal id from the service connection.
+2. Compiles our Bicep into an ARM template
+3. Deploys the compiled ARM template to Azure
+4. Installs the dotnet SDK
+5. Uses the [Azure CLI task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-cli?view=azure-devops) which allows us to access service principal details in the pipeline to run our dotnet test.
 
-The pipeline depends upon a number of variables:
+We'll create a pipeline in Azure DevOps pointing to this file, and we'll also create the variables that it depends upon:
 - `azureResourceGroup` - the name of your resource group in Azure where the app will be deployed
 - `location` - where your app is deployed, eg `northeurope`
-- `repo` - the URL of your repository in Azure DevOps, eg https://dev.azure.com/johnnyreilly/_git/azure-static-web-apps
 - `serviceConnection` - the name of your AzureRM service connection in Azure DevOps
-- `staticWebAppName` - the name of your static web app, eg `azure-static-web-apps-johnnyreilly`
 - `subscriptionId` - your Azure subscription id from the [Azure Portal](https://portal.azure.com)
+- `tenantId` - the Azure tenant id from the [Azure Portal](https://portal.azure.com)
 
+## Running the pipeline
 
+Now we're ready to run our pipeline:
 
-This post demonstrates how to deploy [Azure Static Web Apps](https://docs.microsoft.com/en-us/azure/static-web-apps/overview) using Bicep and Azure DevOps. It includes a few workarounds for the ["Provider is invalid.  Cannot change the Provider. Please detach your static site first if you wish to use to another deployment provider." issue](https://github.com/Azure/static-web-apps/issues/516).
+![title image reading "Permissioning Azure Pipelines with Bicep and Role Assignments" and some Azure logos](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/screenshot-azure-pipelines-tests-passing.png)
 
-![title image reading "Publish Azure Static Web Apps with Bicep and Azure DevOps" and some Azure logos](../static/blog/2021-08-15-bicep-azure-static-web-apps-azure-devops/title-image.png)
+Here we can see that the pipeline runs and the test passes.  That means we've successfully provisioned the event hub and permissioned our pipeline to be able to access it using Azure RBAC role assignments. We then wrote a test which used the pipeline credentials to interact with the event hub.
 
+Thanks to [Jamie McCrindle](https://twitter.com/foldr) for helping out with permissioning the service connection / service principal. [His post on rotating `AZURE_CREDENTIALS` in GitHub with Terraform](https://foldr.uk/rotating-azure-credentials-in-github-with-terraform) provides useful background for those who would like to do similar permissioning using Terraform.
