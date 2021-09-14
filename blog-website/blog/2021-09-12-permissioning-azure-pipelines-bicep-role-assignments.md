@@ -2,14 +2,14 @@
 title: "Permissioning Azure Pipelines with Bicep and Azure RBAC Role Assignments"
 authors: johnnyreilly
 tags: [Role Assignments, Bicep, Azure DevOps, Azure Pipelines]
-image: blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/permissioning-azure-pipelines-with-bicep-and-role-assignments.png
+image: https://deploy-preview-99--zen-benz-587276.netlify.app/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/permissioning-azure-pipelines-with-bicep-and-role-assignments.png
 hide_table_of_contents: false
 ---
 How can we deploy resources to Azure, and then run an integration test through them in the context of an Azure Pipeline?  This post will show how to do this by permissioning our Azure Pipeline to access these resources using Azure RBAC role assignments. It will also demonstrate a dotnet test that runs in the context of the pipeline and makes use of those role assignments.
 
-We're following this approach as an alternative to [exporting connection strings](./2021-07-07-output-connection-strings-and-keys-from-azure-bicep.md), as these can be viewed in the Azure Portal; which may be an security issue if you have many people who are able to access the portal and view outputs.
-
 ![title image reading "Permissioning Azure Pipelines with Bicep and Role Assignments" and some Azure logos](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/permissioning-azure-pipelines-with-bicep-and-role-assignments.png)
+
+We're following this approach as an alternative to [exporting connection strings](./2021-07-07-output-connection-strings-and-keys-from-azure-bicep.md), as these can be viewed in the Azure Portal; which may be an security issue if you have many people who are able to access the portal and view outputs.
 
 There's a number of steps to this:
 
@@ -340,7 +340,7 @@ We'll create a pipeline in Azure DevOps pointing to this file, and we'll also cr
 
 Now we're ready to run our pipeline:
 
-![title image reading "Permissioning Azure Pipelines with Bicep and Role Assignments" and some Azure logos](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/screenshot-azure-pipelines-tests-passing.png)
+![screenshot of pipeline running successfully](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/screenshot-azure-pipelines-tests-passing.png)
 
 Here we can see that the pipeline runs and the test passes.  That means we've successfully provisioned the event hub and permissioned our pipeline to be able to access it using Azure RBAC role assignments. We then wrote a test which used the pipeline credentials to interact with the event hub.
 
