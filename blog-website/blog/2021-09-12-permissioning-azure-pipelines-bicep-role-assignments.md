@@ -9,7 +9,7 @@ How can we deploy resources to Azure, and then run an integration test through t
 
 ![title image reading "Permissioning Azure Pipelines with Bicep and Role Assignments" and some Azure logos](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/permissioning-azure-pipelines-with-bicep-and-role-assignments.png)
 
-We're following this approach as an alternative to [exporting connection strings](./2021-07-07-output-connection-strings-and-keys-from-azure-bicep.md), as these can be viewed in the Azure Portal; which may be an security issue if you have many people who are able to access the portal and view outputs.
+We're following this approach as an alternative to [exporting connection strings](./2021-07-07-output-connection-strings-and-keys-from-azure-bicep.md), as these can be viewed in the Azure Portal; which may be an security issue if you have many people who are able to access the portal and view deployment outputs.
 
 There's a number of steps to this:
 
@@ -92,7 +92,7 @@ resource eventHubNamespace 'Microsoft.EventHub/namespaces@2021-01-01-preview' = 
 }
 
 // Create an event hub inside the namespace
-resource eventHubNamespaceName_eventHubName 'Microsoft.EventHub/namespaces/eventhubs@2021-01-01-preview' = {
+resource eventHub 'Microsoft.EventHub/namespaces/eventhubs@2021-01-01-preview' = {
   parent: eventHubNamespace
   name: eventHubName
   properties: {
@@ -101,11 +101,12 @@ resource eventHubNamespaceName_eventHubName 'Microsoft.EventHub/namespaces/event
   }
 }
 
-// give Azure Pipelines Service Principal permissions against the namespace 
+// give Azure Pipelines Service Principal permissions against the event hub 
+
 var roleDefinitionAzureEventHubsDataOwner = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'f526a384-b230-433a-b45c-95f59c4a2dec')
 
 resource integrationTestEventHubReceiverNamespaceRoleAssignment 'Microsoft.Authorization/roleAssignments@2018-01-01-preview' = {
-  name: guid(principalId, eventHubNamespace.id, roleDefinitionAzureEventHubsDataOwner)
+  name: guid(principalId, eventHub.id, roleDefinitionAzureEventHubsDataOwner)
   scope: eventHubNamespace
   properties: {
     roleDefinitionId: roleDefinitionAzureEventHubsDataOwner
