@@ -2,7 +2,7 @@
 title: "Permissioning Azure Pipelines with Bicep and Azure RBAC Role Assignments"
 authors: johnnyreilly
 tags: [Role Assignments, Bicep, Azure DevOps, Azure Pipelines]
-image: https://deploy-preview-99--zen-benz-587276.netlify.app/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/permissioning-azure-pipelines-with-bicep-and-role-assignments.png
+image: blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/permissioning-azure-pipelines-with-bicep-and-role-assignments.png
 hide_table_of_contents: false
 ---
 How can we deploy resources to Azure, and then run an integration test through them in the context of an Azure Pipeline?  This post will show how to do this by permissioning our Azure Pipeline to access these resources using Azure RBAC role assignments. It will also demonstrate a dotnet test that runs in the context of the pipeline and makes use of those role assignments.
@@ -115,7 +115,9 @@ resource integrationTestEventHubReceiverNamespaceRoleAssignment 'Microsoft.Autho
 }
 ```
 
-Our bicep template takes three parameters: 
+Do note that our bicep template takes the service principal id as a parameter. We're going to supply this later from our Azure Pipeline. 
+- 
+
 ...
 
 ## Our test
