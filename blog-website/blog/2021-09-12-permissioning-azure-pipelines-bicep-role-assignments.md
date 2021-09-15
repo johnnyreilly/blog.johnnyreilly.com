@@ -11,7 +11,9 @@ How can we deploy resources to Azure, and then run an integration test through t
 
 We're following this approach as an alternative to [exporting connection strings](./2021-07-07-output-connection-strings-and-keys-from-azure-bicep.md), as these can be viewed in the Azure Portal; which may be an security issue if you have many people who are able to access the portal and view deployment outputs.
 
-There's a number of steps to this:
+We're going to demonstrate this approach using Event Hubs. It's worth calling out that this is a generally useful approach which can be applied to any Azure resources that support Azure RBAC Role Assignments. So wherever in this post you read "Event Hubs", imagine substituting other Azure resources you're working with.
+
+The post will do the following:
 
 - Add Event Hubs to our Azure subscription
 - Permission our service connection / service principal
@@ -77,7 +79,7 @@ param eventHubName string
 @description('The service principal')
 param principalId string
 
-// Create an event hub namespace
+// Create an Event Hub namespace
 resource eventHubNamespace 'Microsoft.EventHub/namespaces@2021-01-01-preview' = {
   name: eventHubNamespaceName
   location: resourceGroup().location
@@ -91,7 +93,7 @@ resource eventHubNamespace 'Microsoft.EventHub/namespaces@2021-01-01-preview' = 
   }
 }
 
-// Create an event hub inside the namespace
+// Create an Event Hub inside the namespace
 resource eventHub 'Microsoft.EventHub/namespaces/eventhubs@2021-01-01-preview' = {
   parent: eventHubNamespace
   name: eventHubName
@@ -101,7 +103,7 @@ resource eventHub 'Microsoft.EventHub/namespaces/eventhubs@2021-01-01-preview' =
   }
 }
 
-// give Azure Pipelines Service Principal permissions against the event hub 
+// give Azure Pipelines Service Principal permissions against the Event Hub 
 
 var roleDefinitionAzureEventHubsDataOwner = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'f526a384-b230-433a-b45c-95f59c4a2dec')
 
@@ -249,9 +251,9 @@ namespace IntegrationTests
 
 Let's talk through what happens in the test above:
 
-1. We read in event hub connection configuration for the test from environment variables. These will be supplied by an Azure Pipeline that we will create shortly.
-2. We post a message to the event hub.
-3. We read a message back from the event hub.
+1. We read in Event Hub connection configuration for the test from environment variables. (These will be supplied by an Azure Pipeline that we will create shortly.)
+2. We post a message to the Event Hub.
+3. We read a message back from the Event Hub.
 4. We confirm that the message we read back matches the one we posted.
 
 Now that we have our test, we want to be able to execute it.  For that we need an Azure Pipeline!
@@ -342,6 +344,8 @@ Now we're ready to run our pipeline:
 
 ![screenshot of pipeline running successfully](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/screenshot-azure-pipelines-tests-passing.png)
 
-Here we can see that the pipeline runs and the test passes.  That means we've successfully provisioned the event hub and permissioned our pipeline to be able to access it using Azure RBAC role assignments. We then wrote a test which used the pipeline credentials to interact with the event hub.
+Here we can see that the pipeline runs and the test passes.  That means we've successfully provisioned the Event Hub and permissioned our pipeline to be able to access it using Azure RBAC role assignments. We then wrote a test which used the pipeline credentials to interact with the Event Hub.
+
+Just to reiterate: we've demonstrated this approach using Event Hubs. This is a generally useful approach which can be applied to any Azure resources that support Azure RBAC Role Assignments.
 
 Thanks to [Jamie McCrindle](https://twitter.com/foldr) for helping out with permissioning the service connection / service principal. [His post on rotating `AZURE_CREDENTIALS` in GitHub with Terraform](https://foldr.uk/rotating-azure-credentials-in-github-with-terraform) provides useful background for those who would like to do similar permissioning using Terraform.
