@@ -344,7 +344,7 @@ Now we're ready to run our pipeline:
 
 ![screenshot of pipeline running successfully](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/screenshot-azure-pipelines-tests-passing.png)
 
-Here we can see that the pipeline runs and the test passes.  That means we've successfully provisioned the Event Hub and permissioned our pipeline to be able to access it using Azure RBAC role assignments. We then wrote a test which used the pipeline credentials to interact with the Event Hub.
+Here we can see that the pipeline runs and the test passes.  That means we've successfully provisioned the Event Hub and permissioned our pipeline to be able to access it using Azure RBAC role assignments. We then wrote a test which used the pipeline credentials to interact with the Event Hub. To see the repo that demostrates this, [look here](https://dev.azure.com/johnnyreilly/blog-demos/_git/permissioning-azure-pipelines-bicep-role-assignments).
 
 Just to reiterate: we've demonstrated this approach using Event Hubs. This is a generally useful approach which can be applied to any Azure resources that support Azure RBAC Role Assignments.
 
