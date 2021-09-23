@@ -48,6 +48,7 @@ const features = [
             history of Definitely Typed
           </a>
         </p>
+        <p>Some of my blogs are available on <a href="https://blog.logrocket.com/author/johnreilly/">LogRocket</a></p>
       </>
     ),
   },
