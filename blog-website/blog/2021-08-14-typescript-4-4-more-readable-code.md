@@ -56,7 +56,7 @@ If we look at this function, whilst it works, it's not super expressive. The `ty
 
 You can infer this from reading the code. However, what if we were to re-write it to capture intent? Let's try creating a `shouldCoerceToNumber` constant which expresses the action we need to take:
 
-```ts
+```ts twoslash
 function add(...thingsToAdd: (string | number)[]): number {
     let total = 0;
     for (const thingToAdd of thingsToAdd) {
