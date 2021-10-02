@@ -25,12 +25,10 @@
     "docusaurus-preset-shiki-twoslash": "^1.1.29",
     "file-loader": "^6.2.0",
     "prism-react-renderer": "^1.2.1",
+    "prismjs": "^1.25.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "url-loader": "^4.1.1"
-  },
-  "resolutions": {
-    "prismjs": "PrismJS/prism"
   },
   "browserslist": {
     "production": [

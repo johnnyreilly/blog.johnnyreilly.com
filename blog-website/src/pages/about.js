@@ -28,7 +28,7 @@ const features = [
     title: "What do I do?",
     description: (
       <>
-        <p>I work on a number of open source projects including:</p>
+        <p>I blog and I work on a number of open source projects including:</p>
         <ul>
           <li>
             <a href="https://github.com/DefinitelyTyped">Definitely Typed</a>
@@ -48,6 +48,7 @@ const features = [
             history of Definitely Typed
           </a>
         </p>
+        <p>Some of my blogs are available on <a href="https://blog.logrocket.com/author/johnreilly/">LogRocket</a></p>
       </>
     ),
   },
@@ -118,6 +119,7 @@ function About() {
       "https://github.com/johnnyreilly",
       "https://https://stackoverflow.com/users/761388/john-reilly",
       "https://blog.logrocket.com/author/johnreilly/",
+      "https://polywork.com/johnnyreilly",
     ],
   };
 

@@ -138,6 +138,12 @@ module.exports = {
         */
         { to: "about", label: "About", position: "left" },
         { to: "blog-archive", label: "Blog Archive", position: "left" },
+        { to: 'talks', label: 'Talks', position: 'left' },
+        {
+          href: 'https://polywork.johnnyreilly.com/',
+          label: 'Polywork',
+          position: 'right',
+        },
         {
           href: "https://github.com/johnnyreilly",
           label: "GitHub",
