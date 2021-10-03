@@ -1,25 +1,26 @@
 ---
-title: "Caching and cache-busting with RequireJS"
+title: 'Caching and cache-busting with RequireJS'
 authors: johnnyreilly
 tags: [asp.net, RequireJS, cache, caching]
 hide_table_of_contents: false
 ---
+
 Having put together a demo of using TypeScript with RequireJS my attention turned quickly to caching. Or rather, IE forced me to think about caching.
 
- Everyone has their own workflow, their own tools. The things they like to use as they put things together. And for me I’m a Visual Studio man – it’s not everyone’s bag but I really like it. I find the JavaScript tooling is now really solid combined with IE and it (generally) makes me more productive. I want to use it. But, as you know, nothing is perfect...
+Everyone has their own workflow, their own tools. The things they like to use as they put things together. And for me I’m a Visual Studio man – it’s not everyone’s bag but I really like it. I find the JavaScript tooling is now really solid combined with IE and it (generally) makes me more productive. I want to use it. But, as you know, nothing is perfect...
 
 So there I was, delighted with the TypeScript / RequireJS demo. It was working just lovely. I started investigating the debugging story. What would happen if I change a script file on the fly? When I refresh IE does it pick up the tweaks?
 
 Let’s find out. I'll open up alerter.ts and change this:
 
 ```ts
-var name = "John";
+var name = 'John';
 ```
 
 to this:
 
 ```js
-var name = "Bobby";
+var name = 'Bobby';
 ```
 
 And \***boom**\*! Nothing. I’ve refreshed IE and I’m expecting to see “Welcome to Code Camp, Bobby”. But I’m still reading “Welcome to Code Camp, John”... I bet Chrome wouldn’t do this to me... And I’m right! It doesn’t. I don’t want to get too much into the details of this but it looks like it comes down to Chrome sending an "If-Modified-Since" request header where IE does not. I’m pretty sure that IE could be configured to behave likewise but I’d rather not have to remember that. (And furthermore I don’t want to have to remind every person that works on the app to do that as well.)
@@ -29,8 +30,6 @@ This raises a number of issues but essentially it gets me to think about the sor
 1. Development
 2. Production
 
-
-
 For Development I want any changes to JavaScript files to be picked up – I do \***not**\* want caching. For Production I want caching in order that users have better performance / faster loading. If I ship a new version of the app to Production I also want users to pick up the new versions of a file and cache those.
 
 ## Research
@@ -39,21 +38,21 @@ I did a little digging. The most useful information I found was [a StackOverflow
 
 As with any set of answers there are different and conflicting views. [Phil McCull’s (accepted) answer](http://stackoverflow.com/a/8479953/761388) was for my money the most useful. It pointed [back to the RequireJS documentation](http://requirejs.org/docs/api.html#config-urlArgs).
 
-> *"urlArgs: Extra query string arguments appended to URLs that RequireJS uses to fetch resources. Most useful to cache bust when the browser or server is not configured correctly. Example cache bust setting for urlArgs:
-> 
+> \*"urlArgs: Extra query string arguments appended to URLs that RequireJS uses to fetch resources. Most useful to cache bust when the browser or server is not configured correctly. Example cache bust setting for urlArgs:
+>
 > ```js
-> urlArgs: "bust=" +  (new Date()).getTime()
+> urlArgs: 'bust=' + new Date().getTime();
 > ```
-> 
+>
 > During development it can be useful to use this, however be sure to remove it before deploying your code."
-> 
-> *
+>
+> -
 
 Phil’s answer suggests using urlArgs \***both**\* for Production and for Development in 2 different ways. Using what amounts to a random number in the Development environment (as in the official docs) for cache-busting. For the Production environment he suggests using a specific version number which allows for client-side caching between different build versions.
 
 Full disclosure, this is not the approach favoured by James Burke (author of RequireJS). He doesn’t go into why in the RequireJS docs but has [elsewhere expounded on this](https://groups.google.com/forum/#!msg/requirejs/3E9dP_BSQoY/36ut2Gtko7cJ):
 
-> *For deployed assets, I prefer to put the version or hash for the whole build as a build directory, then just modify the baseUrl config used for the project to use that versioned directory as the baseUrl. Then no other files change, and it helps avoid some proxy issues where they may not cache an URL with a query string on it. *
+> _For deployed assets, I prefer to put the version or hash for the whole build as a build directory, then just modify the baseUrl config used for the project to use that versioned directory as the baseUrl. Then no other files change, and it helps avoid some proxy issues where they may not cache an URL with a query string on it. _
 
 I’m not so worried about the proxy caching issue. My users tend to be people who use the application repeatedly and so the caching I most care about is their local machine caching. From what I understand urlArgs will work fine in this scenario. Yes the downside of this approach is that some proxy servers may not cache these assets. That’s a shame but it’s not a dealbreaker for me. As I said, I still have client side caching.
 
@@ -72,17 +71,17 @@ Let’s take a look at our index.html. First we’ll drop our usage of `main.ts`
 ```html
 <script src="/scripts/require.js"></script>
 <script>
-    require.config({
-        baseUrl: "/scripts",
-        paths: {
-            "jquery": "jquery-2.1.0"
-        },
-        urlArgs: "v=" +  (new Date()).getTime()
-    });
- 
-    require(["alerter"], function (alerter) {
-        alerter.showMessage();
-    });
+  require.config({
+    baseUrl: '/scripts',
+    paths: {
+      jquery: 'jquery-2.1.0',
+    },
+    urlArgs: 'v=' + new Date().getTime(),
+  });
+
+  require(['alerter'], function (alerter) {
+    alerter.showMessage();
+  });
 </script>
 ```
 
@@ -96,7 +95,7 @@ So now let’s comment out our existing urlArgs (which represents the Developmen
 
 ```js
 //urlArgs: "v=" +  (new Date()).getTime()
-        urlArgs: "v=1"
+urlArgs: 'v=1';
 ```
 
 This represents the Production solution from Phil’s answer. Now let’s run, refresh a couple of times and ensure that our fixed querystring value results in a 304 status code (indicating “Not Modified” and cached item used):
@@ -106,7 +105,7 @@ This represents the Production solution from Phil’s answer. Now let’s run, r
 It does! Now let’s increment the value:
 
 ```js
-urlArgs: "v=2"
+urlArgs: 'v=2';
 ```
 
 When we refresh the browser this should result in 200 status codes (indicating the cached version has not been used and the client has picked up a new version from the server).
@@ -118,22 +117,20 @@ Success! That’s our premise tested – both Development and Production scenari
 ```html
 <script src="/scripts/require.js"></script>
 <script>
-    var inDevelopment = true,
-        version = "1";
- 
-    require.config({
-        baseUrl: "/scripts",
-        paths: {
-            "jquery": "jquery-2.1.0"
-        },
-        urlArgs: "v=" + ((inDevelopment)
-            ? (new Date()).getTime()
-            : version)
-    });
- 
-    require(["alerter"], function (alerter) {
-        alerter.showMessage();
-    });
+  var inDevelopment = true,
+    version = '1';
+
+  require.config({
+    baseUrl: '/scripts',
+    paths: {
+      jquery: 'jquery-2.1.0',
+    },
+    urlArgs: 'v=' + (inDevelopment ? new Date().getTime() : version),
+  });
+
+  require(['alerter'], function (alerter) {
+    alerter.showMessage();
+  });
 </script>
 ```
 
@@ -143,7 +140,7 @@ What drives the values of `inDevelopment` / `version` is down to you. You could 
 
 ## Let’s get the server involved!
 
-I want the server to drive my urlArgs value. Why? Well this project happens to be an ASP.NET project which handily has the concept of Development / Production scenarios nicely modelled by the [web.config’s compilation debug flag](http://msdn.microsoft.com/en-us/library/s10awwz0(v=vs.85).aspx).
+I want the server to drive my urlArgs value. Why? Well this project happens to be an ASP.NET project which handily has the concept of Development / Production scenarios nicely modelled by the [web.config’s compilation debug flag](<http://msdn.microsoft.com/en-us/library/s10awwz0(v=vs.85).aspx>).
 
 ```xml
 <configuration>
@@ -165,7 +162,7 @@ namespace RequireJSandCaching
     {
         private static readonly bool _inDebug;
         private static readonly string _version;
- 
+
         static RequireJSHelpers()
         {
             _inDebug = System.Web.HttpContext.Current.IsDebuggingEnabled;
@@ -173,7 +170,7 @@ namespace RequireJSandCaching
                 ? "InDebug"
                 : System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
- 
+
         public static string Version
         {
             get
@@ -197,17 +194,17 @@ Let’s clone our `index.html` page and call it `serverUrlArgs.cshtml` (note the
 
 ```html
 <script>
-    require.config({
-        baseUrl: "/scripts",
-        paths: {
-            "jquery": "jquery-2.1.0"
-        },
-        urlArgs: "v=@RequireJSandCaching.RequireJSHelpers.Version"
-    });
- 
-    require(["alerter"], function (alerter) {
-        alerter.showMessage();
-    });
+  require.config({
+    baseUrl: '/scripts',
+    paths: {
+      jquery: 'jquery-2.1.0',
+    },
+    urlArgs: 'v=@RequireJSandCaching.RequireJSHelpers.Version',
+  });
+
+  require(['alerter'], function (alerter) {
+    alerter.showMessage();
+  });
 </script>
 ```
 
@@ -222,5 +219,3 @@ And if we set debug to false in our web.config then (after the initial requests 
 This leaves us with a simple mechanism to drive our RequireJS caching. If debug is set to `true` in our `web.config` then Require will perform cache-busting. If debug is set to `false` then RequireJS will perform only version-changing cache-busting and will, whilst the version remains constant, support client-side caching.
 
 Finished. In case it helps I’ve put the code for this [up on GitHub](https://github.com/johnnyreilly/RequireJSandCaching).
-
-

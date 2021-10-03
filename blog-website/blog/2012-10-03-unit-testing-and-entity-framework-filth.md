@@ -1,12 +1,13 @@
 ---
-title: "Unit Testing and Entity Framework: The Filth and the Fury"
+title: 'Unit Testing and Entity Framework: The Filth and the Fury'
 authors: johnnyreilly
 tags: [unit testing, Entity Framework, anti-pattern, MOQ]
 hide_table_of_contents: false
 ---
+
 Just recently I've noticed that there appears to be something of a controversy around Unit Testing and Entity Framework. I first came across it as I was Googling around for useful posts on using MOQ in conjunction with EF. I've started to notice the topic more and more and as I have mixed feelings on the subject (that is to say I don't have a settled opinion) I thought I'd write about this and see if I came to any kind of conclusion...
 
- ## The Setup
+## The Setup
 
 It started as I was working on a new project. We were using ASP.NET MVC 3 and Entity Framework with DbContext as our persistence layer. Rather than crowbarring the tests in afterwards the intention was to write tests to support the ongoing development. Not quite test driven development but certainly [test supported development](http://blog.troyd.net/Test+Supported+Development+TSD+Is+NOT+Test+Driven+Development+TDD.aspx). (Let's not get into the internecine conflict as to whether this is black belt testable code or not - it isn't but he who pays the piper etc.) Oh and we were planning to use MOQ as our mocking library.
 
@@ -35,9 +36,7 @@ I also started to notice that a 1 man war was being waged against the approach I
 - [An answer on StackOverflow](http://stackoverflow.com/a/6904479/761388) (there's quite a few similar answers around on StackOverflow saying similar)
 - [A comment on Rowan Millers post about fake DbContexts](http://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/#div-comment-1620)
 
-
-
-Ladislav is quite strongly of the opinion that wrapping DbSet / DbContext (and I presume ObjectSet / ObjectContext too) in a further Repository / Unit of Work is an antipattern. To quote him: *"The reason why I don’t like it is leaky abstraction in Linq-to-entities queries ... In your test you have Linq-to-Objects which is superset of Linq-to-entities and only subset of queries written in L2O is translatable to L2E"*. It's worth looking at [Jon Skeets explanation of "leaky abstractions"](http://www.youtube.com/watch?v=gNeSZYke-_Q) which he did for TekPub.
+Ladislav is quite strongly of the opinion that wrapping DbSet / DbContext (and I presume ObjectSet / ObjectContext too) in a further Repository / Unit of Work is an antipattern. To quote him: _"The reason why I don’t like it is leaky abstraction in Linq-to-entities queries ... In your test you have Linq-to-Objects which is superset of Linq-to-entities and only subset of queries written in L2O is translatable to L2E"_. It's worth looking at [Jon Skeets explanation of "leaky abstractions"](http://www.youtube.com/watch?v=gNeSZYke-_Q) which he did for TekPub.
 
 As much as I didn't want to admit it - I have come to the conclusion Ladislav probably has a point for a number of reasons:
 
@@ -45,9 +44,9 @@ As much as I didn't want to admit it - I have come to the conclusion Ladislav pr
 
 Unfortunately, a LINQ query that looks right, compiles and has passing unit tests written for it doesn't necessarily work. You can take a query that fails when executed against Entity Framework and come up with test data that will pass that unit test. As Ladislav rightly points out: `LINQ-to-Objects != LINQ-to-Entities`.
 
-So in this case unit tests of this sort don't provide you with any security. What you need are **<u>integration</u>
+So in this case unit tests of this sort don't provide you with any security. What you need are \*\*<u>integration</u>
 
-** tests. Tests that run against an instance of the database and demonstrate that LINQ will actually translate queries / operations into valid SQL.
+\*\* tests. Tests that run against an instance of the database and demonstrate that LINQ will actually translate queries / operations into valid SQL.
 
 ### 2\. Complex queries
 
@@ -76,5 +75,3 @@ It turns out that I'm not alone in thinking about this issue and indeed others h
 ## Update 2
 
 I've also recently watched the following Pluralsight course by Julie Lerman: [http://pluralsight.com/training/Courses/TableOfContents/efarchitecture#efarchitecture-m3-archrepo](http://pluralsight.com/training/Courses/TableOfContents/efarchitecture#efarchitecture-m3-archrepo). In this course Julie talks about different implementations of the Repository and Unit of Work patterns in conjunction with Entity Framework. Julie is in favour of using this approach but in this module she elaborates on different "flavours" of these patterns that you might want to use for different reasons (bounded contexts / reference contexts etc). She makes a compelling case and helpfully she is open enough to say that this a point of contention in the community. At the end of watching this I think I felt happy that our "halfway house" approach seems to fit and seems to work. More than anything else Julie made clear that there isn't one definitively "true" approach. Rather many different but similar approaches for achieving the same goal. Good stuff Julie!
-
-

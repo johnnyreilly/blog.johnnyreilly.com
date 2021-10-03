@@ -1,12 +1,13 @@
 ---
-title: "Azure Easy Auth and Roles with .NET (and .NET Core)"
+title: 'Azure Easy Auth and Roles with .NET (and .NET Core)'
 authors: johnnyreilly
 tags: [Azure, App service, authorisation, Authentication, azure AD]
 hide_table_of_contents: false
 ---
-*If this post is interesting to you, you may also want to [look at this one where we try to use Microsoft.Identity.Web for the same purpose.](./2021-01-17-azure-easy-auth-and-roles-with-net-and-microsoft-identity-web.md)*
 
- Azure has a feature which is intended to allow Authentication and Authorization to be applied outside of your application code. It's called ["Easy Auth"](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization). Unfortunately, in the context of App Services it doesn't work with .NET Core and .NET. Perhaps it would be better to say: of the various .NETs, it supports .NET Framework. [To quote the docs](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization#userapplication-claims):
+_If this post is interesting to you, you may also want to [look at this one where we try to use Microsoft.Identity.Web for the same purpose.](./2021-01-17-azure-easy-auth-and-roles-with-net-and-microsoft-identity-web.md)_
+
+Azure has a feature which is intended to allow Authentication and Authorization to be applied outside of your application code. It's called ["Easy Auth"](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization). Unfortunately, in the context of App Services it doesn't work with .NET Core and .NET. Perhaps it would be better to say: of the various .NETs, it supports .NET Framework. [To quote the docs](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization#userapplication-claims):
 
 > At this time, ASP.NET Core does not currently support populating the current user with the Authentication/Authorization feature. However, some [3rd party, open source middleware components](https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth) do exist to help fill this gap.
 
@@ -56,17 +57,16 @@ It turns out that directly using the Microsoft Identity platform, we see roles c
 
 ```json
 [
-    // ...
-    {
-        "type": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-        "value": "Administrator"
-    },
-    {
-        "type": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-        "value": "Reader"
-    },
-    // ...
-
+  // ...
+  {
+    "type": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+    "value": "Administrator"
+  },
+  {
+    "type": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+    "value": "Reader"
+  }
+  // ...
 ]
 ```
 
@@ -74,16 +74,16 @@ But in Azure we see roles claims showing up with a different `type`:
 
 ```json
 [
-    // ...
-    {
-        "type": "roles",
-        "value": "Administrator"
-    },
-    {
-        "type": "roles",
-        "value": "Reader"
-    },
-    // ...
+  // ...
+  {
+    "type": "roles",
+    "value": "Administrator"
+  },
+  {
+    "type": "roles",
+    "value": "Reader"
+  }
+  // ...
 ]
 ```
 
@@ -212,37 +212,35 @@ Where the middleware encounters claims in the `X-MS-CLIENT-PRINCIPAL` header wit
 
 ```json
 [
-    // ...
-    {
-        "type": "roles",
-        "value": "Administrator"
-    },
-    {
-        "type": "roles",
-        "value": "Reader"
-    },
-    // ...
-    {
-        "type": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-        "value": "Administrator"
-    },
-    {
-        "type": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-        "value": "Reader"
-    }
+  // ...
+  {
+    "type": "roles",
+    "value": "Administrator"
+  },
+  {
+    "type": "roles",
+    "value": "Reader"
+  },
+  // ...
+  {
+    "type": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+    "value": "Administrator"
+  },
+  {
+    "type": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+    "value": "Reader"
+  }
 ]
 ```
 
-As you can see, we now have both the originally supplied roles *as well* as roles of the type that .NET and .NET Core expect. Consequently, roles based behaviour starts to work. Thanks to Maxime for his fine work on the initial solution. It would be tremendous if neither the code in this blog post nor Maxime's shim were required. Still, until that glorious day!
+As you can see, we now have both the originally supplied roles _as well_ as roles of the type that .NET and .NET Core expect. Consequently, roles based behaviour starts to work. Thanks to Maxime for his fine work on the initial solution. It would be tremendous if neither the code in this blog post nor Maxime's shim were required. Still, until that glorious day!
 
 ## Update: Potential ways forward
 
 When I was tweeting this post, Maxime was good enough to respond and suggest that this may be resolved within Azure itself in future:
 
 > Oh, so that's why they removed the name? 😲😜 Jokes aside, we hope that this package won't be necessary for the future. I know that [@mattchenderson](https://twitter.com/mattchenderson?ref_src=twsrc%5Etfw) is part of a working group to update Easy Auth. Might want to make sure you follow him as well. 😁
-> 
+>
 > — Maxime Rouiller (@MaximRouiller) [January 14, 2021](https://twitter.com/MaximRouiller/status/1349804324713615366?ref_src=twsrc%5Etfw)
 
 There's a prospective PR that would add an event to Maxime's API. If something along these lines was merged, then my workaround would no longer be necessary. Follow the PR [here](https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth/pull/13).
-
-

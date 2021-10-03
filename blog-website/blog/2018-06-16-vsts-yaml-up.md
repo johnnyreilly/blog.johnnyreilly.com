@@ -1,12 +1,13 @@
 ---
-title: "VSTS... YAML up!"
+title: 'VSTS... YAML up!'
 authors: johnnyreilly
 tags: [yaml, vsts, ci, travis, AppVeyor]
 hide_table_of_contents: false
 ---
+
 For the longest time I've been using the likes of [Travis](https://travis-ci.org/) and [AppVeyor](https://www.appveyor.com/) to build open source projects that I work on. They rock. I've also recently been dipping my toes back in the water of [Visual Studio Team Services](https://www.visualstudio.com/team-services/). VSTS offers a whole stack of stuff, but my own area of interest has been the Continuous Integration / Continuous Deployment offering.
 
- Historically I have been underwhelmed by the CI proposition of Team Foundation Server / VSTS. It was difficult to debug, difficult to configure, difficult to understand. If it worked... Great! If it didn't (and it often didn't), you were toast. But things done changed! I don't know when it happened, but VSTS is now super configurable. You add tasks / configure them, build and you're done! It's really nice.
+Historically I have been underwhelmed by the CI proposition of Team Foundation Server / VSTS. It was difficult to debug, difficult to configure, difficult to understand. If it worked... Great! If it didn't (and it often didn't), you were toast. But things done changed! I don't know when it happened, but VSTS is now super configurable. You add tasks / configure them, build and you're done! It's really nice.
 
 However, there's been something I've been missing from Travis, AppVeyor et al. Keeping my build script with my code. Travis has `.travis.yml`, AppVeyor has `appveyor.yml`. VSTS, what's up?
 
@@ -15,7 +16,7 @@ However, there's been something I've been missing from Travis, AppVeyor et al. K
 Up until now, really not much. It just wasn't possible. Until it was:
 
 > If you prefer a build definition in YAML then we’re currently hard at work on that. You can enable it as a preview feature: [https://t.co/hau9Sv8brf](https://t.co/hau9Sv8brf)
-> 
+>
 > — Martin Woodward (@martinwoodward) [March 4, 2018](https://twitter.com/martinwoodward/status/970250739510534144?ref_src=twsrc%5Etfw)
 
 <script async="" src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
@@ -41,11 +42,11 @@ If you look closely at the message above you'll see there's a message about an u
 ```yml
 #Your build definition references an undefined variable named ‘Parameters.RestoreBuildProjects’. Create or edit the build definition for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
 steps:
-- task: DotNetCoreCLI@2
-  displayName: Restore
-  inputs:
-    command: restore
-    projects: '$(Parameters.RestoreBuildProjects)'
+  - task: DotNetCoreCLI@2
+    displayName: Restore
+    inputs:
+      command: restore
+      projects: '$(Parameters.RestoreBuildProjects)'
 ```
 
 Try as I might, I couldn't locate `Parameters.RestoreBuildProjects`. So no working CI build for me. Then I remembered [Zoltan Erdos](https://github.com/zerdos). He's hard to forget. Or rather, I remembered an idea of his which I will summarise thusly: "Have a `package.json` in the root of your repo, use the `scripts` for individual tasks and you have a cross platform task runner".
@@ -83,22 +84,22 @@ It doesn't matter if I have "an undefined variable named ‘Parameters.RestoreBu
 queue: Hosted VS2017
 
 steps:
-- task: geeklearningio.gl-vsts-tasks-yarn.yarn-installer-task.YarnInstaller@2
-  displayName: install yarn itself
-  inputs:
-    checkLatest: true
-- task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@2
-  displayName: yarn build and test
-  inputs:
-    Arguments: build
-- task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@2
-  displayName: yarn publish:web
-  inputs:
-    Arguments: 'run publish:web --output $(build.artifactstagingdirectory)/MyAmazingProject'
-- task: PublishBuildArtifacts@1
-  displayName: publish build artifact
-  inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)'
+  - task: geeklearningio.gl-vsts-tasks-yarn.yarn-installer-task.YarnInstaller@2
+    displayName: install yarn itself
+    inputs:
+      checkLatest: true
+  - task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@2
+    displayName: yarn build and test
+    inputs:
+      Arguments: build
+  - task: geeklearningio.gl-vsts-tasks-yarn.yarn-task.Yarn@2
+    displayName: yarn publish:web
+    inputs:
+      Arguments: 'run publish:web --output $(build.artifactstagingdirectory)/MyAmazingProject'
+  - task: PublishBuildArtifacts@1
+    displayName: publish build artifact
+    inputs:
+      PathtoPublish: '$(build.artifactstagingdirectory)'
 ```
 
 This file does the following:

@@ -1,9 +1,19 @@
 ---
-title: "Using TypeScript and webpack alias: goodbye relative paths"
+title: 'Using TypeScript and webpack alias: goodbye relative paths'
 authors: johnnyreilly
-tags: [relative paths, TypeScript, webpack, alias, paths, resolve, tsconfig-paths-webpack-plugin]
+tags:
+  [
+    relative paths,
+    TypeScript,
+    webpack,
+    alias,
+    paths,
+    resolve,
+    tsconfig-paths-webpack-plugin,
+  ]
 hide_table_of_contents: false
 ---
+
 This post shows how you can use TypeScript with webpack `alias` to move away from using relative paths in your `import` statements.
 
 ## Long relative paths
@@ -31,25 +41,25 @@ There's been a solution for this in TypeScript-land for some time. You can read 
 Let's take a slightly simpler example; we have a folder structure that looks like this:
 
 ```console
-projectRoot 
-├── components 
-│ └── page.tsx (imports '../shared/utils') 
-├── shared 
-│ ├── folder1 
-│ └── folder2 
-│ └── utils.ts 
+projectRoot
+├── components
+│ └── page.tsx (imports '../shared/utils')
+├── shared
+│ ├── folder1
+│ └── folder2
+│ └── utils.ts
 └── tsconfig.json
 ```
 
 We would like `page.tsx` to import `'shared/utils'` instead of `'../shared/utils'`. We can, if we augment our `tsconfig.json` with the following properties:
 
 ```json
-{ 
-  "compilerOptions": { 
-    "baseUrl": ".", 
-    "paths": { 
-       "components/*": ["components/*"],
-       "shared/*": ["shared/*"]
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "components/*": ["components/*"],
+      "shared/*": ["shared/*"]
     }
   }
 }
@@ -82,8 +92,8 @@ module.exports = {
     alias: {
       components: path.resolve(process.cwd(), 'components/'),
       shared: path.resolve(process.cwd(), 'shared/'),
-    }
-  }
+    },
+  },
 };
 ```
 
@@ -101,13 +111,15 @@ Fortunately, you don't have to. There's the [`tsconfig-paths-webpack-plugin`](ht
 module.exports = {
   //...
   resolve: {
-    plugins: [new TsconfigPathsPlugin({ /*configFile: "./path/to/tsconfig.json" */ })]
-  }
+    plugins: [
+      new TsconfigPathsPlugin({
+        /*configFile: "./path/to/tsconfig.json" */
+      }),
+    ],
+  },
 };
 ```
 
 This does the hard graft of reading your `tsconfig.json` and translating path mappings into webpack `alias`es. From this point forward, you need only edit the `tsconfig.json` and everything else will just work.
 
 Thanks to [Jonas Kello](https://github.com/jonaskello), author of the plugin; it's tremendous! Thanks also to [Sean Larkin](https://twitter.com/TheLarkInn) and [Stanislav Panferov](https://github.com/s-panferov) (of [awesome-typescript-loader](https://github.com/s-panferov/awesome-typescript-loader)) who together worked on the original plugin that I understand the `tsconfig-paths-webpack-plugin` is based on. Great work!
-
-

@@ -1,12 +1,13 @@
 ---
-title: "NuGet and WebMatrix: How to install a specific version of a package"
+title: 'NuGet and WebMatrix: How to install a specific version of a package'
 authors: johnnyreilly
 tags: [jquery, package, WebMatrix, NuGet]
 hide_table_of_contents: false
 ---
-I've recently been experimenting with WebMatrix. If you haven't heard of it, WebMatrix is Microsoft's *["free, lightweight, cloud-connected web development tool"](http://www.microsoft.com/web/webmatrix/)*. All marketing aside, it's pretty cool. You can whip up a site in next to no time, it has source control, publishing abilities, intellisense. Much good stuff. And one thing it has, that I genuinely hadn't expected is [NuGet](https://www.nuget.org/). Brilliant!
 
- But like any free product there are disadvantages. As a long time Visual Studio user I've become very used to the power of the NuGet command line. I've been spoiled. You don't have this in WebMatrix. You have a nice UI that looks like this:
+I've recently been experimenting with WebMatrix. If you haven't heard of it, WebMatrix is Microsoft's _["free, lightweight, cloud-connected web development tool"](http://www.microsoft.com/web/webmatrix/)_. All marketing aside, it's pretty cool. You can whip up a site in next to no time, it has source control, publishing abilities, intellisense. Much good stuff. And one thing it has, that I genuinely hadn't expected is [NuGet](https://www.nuget.org/). Brilliant!
+
+But like any free product there are disadvantages. As a long time Visual Studio user I've become very used to the power of the NuGet command line. I've been spoiled. You don't have this in WebMatrix. You have a nice UI that looks like this:
 
 ![](https://2.bp.blogspot.com/-MLAAVw9-O_A/UqstzAa1-8I/AAAAAAAAAfU/gtg8kPjsP7M/s400/NuGetWebMatrix.png)
 
@@ -34,8 +35,6 @@ Now to get me some jQuery 1.10.2 goodness. To the console Batman! We've already 
 - We move `C:\Users\me\Documents\My Web Sites\Empty Site\App_Data\packages\jQuery.1.10.2\Content\Scripts` to `C:\Users\me\Documents\My Web Sites\Empty Site\Scripts`.
 - And finally we delete the `C:\Users\me\Documents\My Web Sites\Empty Site\App_Data\packages\jQuery.1.10.2\Content` folder.
 
-
-
 We hit refresh back in WebMatrix and now we get this:
 
 ![](https://4.bp.blogspot.com/-EAfCq2zjNl4/UqtAvAW35PI/AAAAAAAAAf4/u97kbdXWO84/s400/EmptySiteWithjQuery.png)
@@ -53,5 +52,3 @@ Just to prove that you can upgrade using the WebMatrix tooling following our man
 ## Rounding off
 
 In my example I'm only looking at a simple JavaScript library. But the same principal should be able to be applied to any NuGet package as far as I'm aware. Hope that helps!
-
-

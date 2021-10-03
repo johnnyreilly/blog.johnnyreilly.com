@@ -1,11 +1,12 @@
 ---
-title: "React 18 and TypeScript"
+title: 'React 18 and TypeScript'
 authors: johnnyreilly
 tags: [React, TypeScript, React 18]
 image: blog/2021-06-30-react-18-and-typescript/createNode-error.png
 hide_table_of_contents: false
 ---
-[React 18 alpha has been released](https://reactjs.org/blog/2021/06/08/the-plan-for-react-18.html); but can we use it with TypeScript? The answer is "yes", but you need to do a couple of things to make that happen. This post will show you what to do. 
+
+[React 18 alpha has been released](https://reactjs.org/blog/2021/06/08/the-plan-for-react-18.html); but can we use it with TypeScript? The answer is "yes", but you need to do a couple of things to make that happen. This post will show you what to do.
 
 ## Creating a React App with TypeScript
 
@@ -21,18 +22,18 @@ Now let's upgrade the version of React to `@next`:
 yarn add react@next react-dom@next
 ```
 
-Which will leave you with entries in the `package.json` which use React 18.  It will likely look something like this:
+Which will leave you with entries in the `package.json` which use React 18. It will likely look something like this:
 
 ```json
     "react": "^18.0.0-alpha-e6be2d531",
     "react-dom": "^18.0.0-alpha-e6be2d531",
 ```
 
-If we run `yarn start` we'll find ourselves running a React 18 app.  Exciting!
+If we run `yarn start` we'll find ourselves running a React 18 app. Exciting!
 
-## Using the new APIs 
+## Using the new APIs
 
-So let's try using [`ReactDOM.createRoot`](https://github.com/reactwg/react-18/discussions/5) API.  It's this API that opts our application into using new features of React 18. We'll open up `index.tsx` and make this change:
+So let's try using [`ReactDOM.createRoot`](https://github.com/reactwg/react-18/discussions/5) API. It's this API that opts our application into using new features of React 18. We'll open up `index.tsx` and make this change:
 
 ```diff
 -ReactDOM.render(
@@ -52,7 +53,7 @@ So let's try using [`ReactDOM.createRoot`](https://github.com/reactwg/react-18/d
 
 If we were running JavaScript alone, this would work. However, because we're using TypeScript as well, we're now confronted with an error:
 
-> `Property 'createRoot' does not exist on type 'typeof import("/code/my-app/node_modules/@types/react-dom/index")'.  TS2339`
+> `Property 'createRoot' does not exist on type 'typeof import("/code/my-app/node_modules/@types/react-dom/index")'. TS2339`
 
 ![a screenshot of the Property 'createRoot' does not exist error](../static/blog/2021-06-30-react-18-and-typescript/createNode-error.png)
 
@@ -68,9 +69,9 @@ We might reasonably hope that everything should work now. Alas it does not. The 
 
 ## Telling TypeScript about the new APIs
 
-If we take a look at the [PR that added support for the APIs](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/53685), we'll find some tips.  If you look at one of the [`next.d.ts`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/a07e9cfb005682fb6be0a2e85113eac131c3006f/types/react/next.d.ts) you'll find this info, courtesy of [Sebastian Silbermann](https://twitter.com/sebsilbermann): 
+If we take a look at the [PR that added support for the APIs](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/53685), we'll find some tips. If you look at one of the [`next.d.ts`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/a07e9cfb005682fb6be0a2e85113eac131c3006f/types/react/next.d.ts) you'll find this info, courtesy of [Sebastian Silbermann](https://twitter.com/sebsilbermann):
 
-```ts
+````ts
 /**
  * These are types for things that are present in the upcoming React 18 release.
  *
@@ -95,18 +96,17 @@ If we take a look at the [PR that added support for the APIs](https://github.com
  *
  * Either the import or the reference only needs to appear once, anywhere in the project.
  */
-```
+````
 
-Let's try the first item on the list.  We'll edit our `tsconfig.json` and add a new entry to the `"compilerOptions"` section:
+Let's try the first item on the list. We'll edit our `tsconfig.json` and add a new entry to the `"compilerOptions"` section:
 
 ```json
     "types": ["react/next", "react-dom/next"]
 ```
 
-If we restart our build with `yarn start` we're now presented with a *different* error:
+If we restart our build with `yarn start` we're now presented with a _different_ error:
 
-> `Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element | Document | DocumentFragment | Comment'.
-  Type 'null' is not assignable to type 'Element | Document | DocumentFragment | Comment'.  TS2345`
+> `Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element | Document | DocumentFragment | Comment'. Type 'null' is not assignable to type 'Element | Document | DocumentFragment | Comment'. TS2345`
 
 ![a screenshot of the null is not assignable error](../static/blog/2021-06-30-react-18-and-typescript/null_is_not_assignable-error.png)
 

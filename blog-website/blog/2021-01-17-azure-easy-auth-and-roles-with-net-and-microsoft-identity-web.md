@@ -1,9 +1,10 @@
 ---
-title: "Azure Easy Auth and Roles with .NET and Microsoft.Identity.Web"
+title: 'Azure Easy Auth and Roles with .NET and Microsoft.Identity.Web'
 authors: johnnyreilly
 tags: [Azure, Easy Auth, Roles, ASP.NET, Microsoft.Identity.Web]
 hide_table_of_contents: false
 ---
+
 [I wrote recently about how to get Azure Easy Auth to work with roles](./2021-01-14-azure-easy-auth-and-roles-with-dotnet-and-core.md). This involved borrowing the approach used by [MaximeRouiller.Azure.AppService.EasyAuth](https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth).
 
 As a consequence of writing that post I came to learn that official support for Azure Easy Auth had landed in October 2020 in v1.2 of [Microsoft.Identity.Web](https://github.com/AzureAD/microsoft-identity-web/wiki/1.2.0#integration-with-azure-app-services-authentication-of-web-apps-running-with-microsoftidentityweb). This was great news; I was delighted.
@@ -43,17 +44,16 @@ When directly using `Microsoft.Identity.Web` when running locally, we see these 
 
 ```json
 [
-    // ...
-    {
-        "type": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-        "value": "Administrator"
-    },
-    {
-        "type": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-        "value": "Reader"
-    },
-    // ...
-
+  // ...
+  {
+    "type": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+    "value": "Administrator"
+  },
+  {
+    "type": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+    "value": "Reader"
+  }
+  // ...
 ]
 ```
 
@@ -61,20 +61,20 @@ However, we get different behaviour with EasyAuth; it provides roles related cla
 
 ```json
 [
-    // ...
-    {
-        "type": "roles",
-        "value": "Administrator"
-    },
-    {
-        "type": "roles",
-        "value": "Reader"
-    },
-    // ...
+  // ...
+  {
+    "type": "roles",
+    "value": "Administrator"
+  },
+  {
+    "type": "roles",
+    "value": "Reader"
+  }
+  // ...
 ]
 ```
 
-This means that roles related authorization *does not work* with Easy Auth:
+This means that roles related authorization _does not work_ with Easy Auth:
 
 ```cs
 [Authorize(Roles = "Reader")]
@@ -117,7 +117,7 @@ public class AddRolesClaimsTransformation : IClaimsTransformation {
         if (clone.Identity is not ClaimsIdentity newIdentity) return Task.FromResult(principal);
 
         // Add role claims to cloned identity
-        foreach (var mappedRoleClaim in mappedRolesClaims) 
+        foreach (var mappedRoleClaim in mappedRolesClaims)
             newIdentity.AddClaim(mappedRoleClaim);
 
         if (mappedRolesClaims.Count > 0)
@@ -133,5 +133,3 @@ public class AddRolesClaimsTransformation : IClaimsTransformation {
 The class above creates a new principal with `"roles"` claims mapped across to `"http://schemas.microsoft.com/ws/2008/06/identity/claims/role"`. This is enough to get .NET treating roles the way you'd hope.
 
 [I've raised an issue against the `Microsoft.Identity.Web` repo](https://github.com/AzureAD/microsoft-identity-web/issues/881) about this. Perhaps one day this workaround will no longer be necessary.
-
-

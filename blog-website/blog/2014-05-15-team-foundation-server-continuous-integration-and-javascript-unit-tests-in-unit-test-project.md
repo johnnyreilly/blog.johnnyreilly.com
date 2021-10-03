@@ -1,19 +1,25 @@
 ---
-title: "Team Foundation Server, Continuous Integration and separate projects for JavaScript unit tests"
+title: 'Team Foundation Server, Continuous Integration and separate projects for JavaScript unit tests'
 authors: johnnyreilly
-tags: [Jasmine, Visual Studio, Continuous Integration, Team Foundation Server, Chutzpah]
+tags:
+  [
+    Jasmine,
+    Visual Studio,
+    Continuous Integration,
+    Team Foundation Server,
+    Chutzpah,
+  ]
 hide_table_of_contents: false
 ---
+
 Do you like to separate out your unit tests from the project you are testing? I imagine so. My own practice when creating a new project in Visual Studio is to create a separate unit test project alongside whose responsibility is to house unit tests for that new project.
 
- When I check in code for that project I expect the continuous integration build to kick off and, as part of that, the unit tests to be run. When it comes to running .NET tests then Team Foundation Server (and it's cloud counterpart Visual Studio Online) has your back. When it comes to running JavaScript tests then... not so much.
+When I check in code for that project I expect the continuous integration build to kick off and, as part of that, the unit tests to be run. When it comes to running .NET tests then Team Foundation Server (and it's cloud counterpart Visual Studio Online) has your back. When it comes to running JavaScript tests then... not so much.
 
 This post will set out:
 
 1. How to get JavaScript tests to run on TFS / VSO in a continuous integration scenario.
 2. How to achieve this \***without**\* having to include your tests as part of web project.
-
-
 
 To do this I will lean heavily (that's fancy language for "rip off entirely") on an [excellent blog post by Mathew Aniyan](https://blogs.msdn.com/b/visualstudioalm/archive/2012/07/09/javascript-unit-tests-on-team-foundation-service-with-chutzpah.aspx) which covers point #1. My contribution is point #2.
 
@@ -25,8 +31,8 @@ First of all, install Chutzpah on TFS / VSO. You can do this by following [Steps
 
 **Edit 29/05/2014:** Matthew Manela (creator of Chutzpah) has confirmed that this is the correct approach - thanks chap!
 
-> [@johnny\_reilly](https://twitter.com/johnny_reilly) Nope that is pretty much what you need to do.
-> 
+> [@johnny_reilly](https://twitter.com/johnny_reilly) Nope that is pretty much what you need to do.
+>
 > — Matthew Manela (@mmanela) [May 15, 2014](https://twitter.com/mmanela/statuses/466962743400996864)
 
 <script async="" src="//platform.twitter.com/widgets.js" charSet="utf-8"></script>
@@ -51,5 +57,3 @@ Ordering is important in this case. It matters that this new statement sits afte
 ```
 
 Check in your amended csproj and the unit tests to TFS / VSO. You should see the JavaScript unit tests being run as part of the build.
-
-

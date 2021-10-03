@@ -1,12 +1,13 @@
 ---
-title: "ts-loader 2017 retrospective"
+title: 'ts-loader 2017 retrospective'
 authors: johnnyreilly
 tags: [Die Hard, TypeScript, ts-loader, Webpack]
 hide_table_of_contents: false
 ---
+
 2017 is drawing to a close, and it's been a big, big year in webpack-land. It's been a big year for `ts-loader` too. At the start of the year v1.3.3 was the latest version available, officially supporting webpack 1. (Old school!) We end the year with `ts-loader` sitting pretty at v3.2.0 and supporting webpack 2 and 3.
 
- Many releases were shipped and that was down to a whole bunch of folk. People helped out with bug fixes, features, advice and docs improvements. **All of these help.**`ts-loader` wouldn't be where it is without you so thanks to everyone that helped out - you rock!
+Many releases were shipped and that was down to a whole bunch of folk. People helped out with bug fixes, features, advice and docs improvements. **All of these help.**`ts-loader` wouldn't be where it is without you so thanks to everyone that helped out - you rock!
 
 ![](https://avatars.githubusercontent.com/christiantinauer)
 
@@ -68,15 +69,11 @@ hide_table_of_contents: false
 
 ![](https://avatars.githubusercontent.com/mredbishop)
 
-
-
 I'm really grateful to all of you. Thanks so much! (Apologies for those I've missed anyone out - I know there's more still.)
 
 ## `fork-ts-checker-webpack-plugin` build speed improvements
 
 Alongside other's direct contributions to `ts-loader`, other projects improved the experience of using `ts-loader`. [Piotr Oleś](https://github.com/piotr-oles) dropped his `<a href="https://github.com/Realytics/fork-ts-checker-webpack-plugin">fork-ts-checker-webpack-plugin</a>` this year which nicely increased build speed when used with `ts-loader`.
-
-
 
 That opened up the possibility of adding [HappyPack](https://github.com/amireh/happypack) support. I had the good fortune to work with webpack's [Tobias Koppers](https://github.com/sokra) and ExtraHop's [Alex Birmingham](https://github.com/abirmingham) on [improving TypeScript build speed further](https://www.extrahop.com/company/blog/2017/extrahop-webpack-accelerating-build-times/).
 
@@ -113,5 +110,3 @@ The option that landed in the last month doesn't quite achieve the aims of the o
 ## Merry Christmas!
 
 You can expect to see the first releases of ts-loader 4.0 in 2018. In the meantime, I'd like to wish you Merry Christmas and a Happy New Year! And once more, thanks and thanks again to all you generous people who help build `ts-loader`. You're wonderful and so I'm glad you do what you do... joyeux Noel!
-
-

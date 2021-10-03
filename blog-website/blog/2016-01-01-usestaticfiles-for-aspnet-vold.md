@@ -1,10 +1,18 @@
 ---
-title: "UseStaticFiles for ASP.Net Framework"
+title: 'UseStaticFiles for ASP.Net Framework'
 authors: johnnyreilly
-tags: [HTML5 History API, Single Page Applications, UseStaticFiles, Routing, URL Rewrite]
+tags:
+  [
+    HTML5 History API,
+    Single Page Applications,
+    UseStaticFiles,
+    Routing,
+    URL Rewrite,
+  ]
 hide_table_of_contents: false
 ---
-This is a guide on how *not* to expose all your static files to the world at large when working with the ASP.Net Framework. How to move from a blocklisting approach to a allowlisting approach.
+
+This is a guide on how _not_ to expose all your static files to the world at large when working with the ASP.Net Framework. How to move from a blocklisting approach to a allowlisting approach.
 
 Not clear? Stick around; I'll get better. Oh and that's not all, we've also got.... drumroll:
 
@@ -19,13 +27,13 @@ You may be aware that historically ASP.Net has been somewhat unusual in its appr
 The ASP.Net team know this and things are changing with ASP.Net 5. With the new stack you have to say "these are the static files we want people to access" in the form of an `<a href="https://msdn.microsoft.com/en-us/library/dn782589(v=vs.113).aspx">app.UseStaticFiles()</a>` declaration. This is mighty similar to how you do things in other frameworks such as [Express](http://expressjs.com/en/starter/static-files.html). To quote the [docs](https://docs.asp.net/en/latest/fundamentals/static-files.html#serving-static-files):
 
 > By default, static files are stored in the webroot of your project. The location of the webroot is defined in the project’s `project.json` file where the default is wwwroot.
-> 
+>
 > ```json
 > "webroot": "wwwroot"
 > ```
-> 
+>
 > Static files can be stored in any folder under the webroot and accessed with a relative path to that root. For example, when you create a default Web application project using Visual Studio, there are several folders created within the webroot folder - `css`, `images` and `js`. In order to directly access an image in the images subfolder, the URL would look like the following:
-> 
+>
 > `http://&lt;yourApp&gt;/images/&lt;imageFileName&gt;`
 
 So how do we get this behaviour with ASP.Net vOld? Well, it's just a matter of `web.config` URL rewrite twiddling:
@@ -124,5 +132,3 @@ Sherlock Holmes was onto something; most applications are nothing without data. 
 <dl><dt>Map non-api URLs to the index.html - this to support our SPA routes</dt><dd>This amended rule says "whatever URL turns up, <em>unless it begins <code>"api/"</code></em>, if it hasn't been catered for by an existing rule, well it must be a SPA route, so we'll serve up the shell SPA page of <code>build/index.html</code>".</dd></dl>
 
 This allows us to perform data access by prefixing all the Web API routes with `"api/"`. I've picked this because it is the default location for ASP.Net Web API routes. It is (like most things) entirely configurable. To see a working implementation of this complete approach then take a look at the PoorClaresAngular project [here](https://github.com/johnnyreilly/poorclaresarundel/tree/15e7d4ddc0f1c06fe326b44c3bdc71ceb554bf73).
-
-

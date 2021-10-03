@@ -1,12 +1,13 @@
 ---
-title: "XSD/XML Schema Generator + Xsd.exe:Taking the pain out of manual XML"
+title: 'XSD/XML Schema Generator + Xsd.exe:Taking the pain out of manual XML'
 authors: johnnyreilly
 tags: [Xsd.exe, XSD/XML Schema Generator, LINQ to XML]
 hide_table_of_contents: false
 ---
+
 ## Is it 2003 again?!?
 
- I've just discovered Xsd.exe. It's not new. Or shiny. And in fact it's been around since .NET 1.1. Truth be told, I've been aware of it for years but up until now I've not had need of it. But now now I've investigated it a bit I've found that it, combined with the XSD/XML Schema Generator can make for a nice tool to add to the utility belt.
+I've just discovered Xsd.exe. It's not new. Or shiny. And in fact it's been around since .NET 1.1. Truth be told, I've been aware of it for years but up until now I've not had need of it. But now now I've investigated it a bit I've found that it, combined with the XSD/XML Schema Generator can make for a nice tool to add to the utility belt.
 
 Granted XML has long since stopped being sexy. But if you need it, as I did recently, then this is for you.
 
@@ -20,7 +21,7 @@ I recently came upon a situation where I was working with XML in the raw; that i
 
 I lied!
 
-In order to write something reliable I needed to be able to validate that the supplied XML was as I expected. So, [XSD](http://en.wikipedia.org/wiki/XML_Schema_(W3C)) time. If you're familiar with XML then you're probably equally familar with XSD which, to quote Wikipedia *"can be used to express a set of rules to which an XML document must conform in order to be considered 'valid'"*.
+In order to write something reliable I needed to be able to validate that the supplied XML was as I expected. So, [XSD](<http://en.wikipedia.org/wiki/XML_Schema_(W3C)>) time. If you're familiar with XML then you're probably equally familar with XSD which, to quote Wikipedia _"can be used to express a set of rules to which an XML document must conform in order to be considered 'valid'"_.
 
 Now I've written my fair share of XSDs over the years and I've generally found it a slightly tedious exercise. So I was delighted to discover an online tool to simplify the task. It's called the [XSD/XML Schema Generator](http://www.freeformatter.com/xsd-generator.html). What this marvellous tool does is allow you to enter an example of your XML which it then uses to reverse engineer an XSD.
 
@@ -36,9 +37,9 @@ Fantastic! It doesn't matter if the tool gets something slightly wrong; you can 
 
 ## Tools of the Trade
 
-How to get to the actual data? I was initially planning to break out the [`XDocument`](http://msdn.microsoft.com/en-us/library/system.xml.linq.xdocument(v=vs.100).aspx), plug in my XSD and use the `Validate` method. Which would do the job just dandy.
+How to get to the actual data? I was initially planning to break out the [`XDocument`](<http://msdn.microsoft.com/en-us/library/system.xml.linq.xdocument(v=vs.100).aspx>), plug in my XSD and use the `Validate` method. Which would do the job just dandy.
 
-However I resisted. As much as I like LINQ to XML I turned to use [Xsd.exe](http://msdn.microsoft.com/en-us/library/x6c1kb0s(v=vs.100).aspx) instead. As I've mentioned, this tool is as old as the hills. But there's gold in them thar hills, listen: *"The XML Schema Definition (Xsd.exe) tool generates XML schema or common language runtime classes from XDR, XML, and XSD files, or from classes in a runtime assembly."*
+However I resisted. As much as I like LINQ to XML I turned to use [Xsd.exe](<http://msdn.microsoft.com/en-us/library/x6c1kb0s(v=vs.100).aspx>) instead. As I've mentioned, this tool is as old as the hills. But there's gold in them thar hills, listen: _"The XML Schema Definition (Xsd.exe) tool generates XML schema or common language runtime classes from XDR, XML, and XSD files, or from classes in a runtime assembly."_
 
 Excited? Thought not. But what this means is we can hurl our XSD at this tool and it will toss back a nicely formatted C# class for me to use. Good stuff! So how's it done? Well MSDN is roughly as informative as it ever is (which is to say, not terribly) but fortunately there's not a great deal to it. You fire up the Visual Studio Command Prompt (and I advise doing this in Administrator mode to escape permissions pain). Then you enter a command to generate your class. Here's an example using the Contact.xsd file we generated earlier:
 
@@ -57,8 +58,6 @@ But why is this good stuff? Indeed why is this more interesting than the newer, 
 1. Intellisense - I have always loved this. Call me lazy but I think intellisense frees up the mind to think about what problem you're actually trying to solve. Xsd.exe's generated classes give me that; I don't need to hold the whole data structure in my head as I code.
 2. Terse code - I'm passionate about less code. I think that a noble aim in software development is to write as little code as possible in order to achieve your aims. I say this as generally I have found that writing a minimal amount of code expresses the intention of the code in a far clearer fashion. In service of that aim Xsd.exe's generated classes allow me to write less code than would be required with LINQ to XML.
 3. To quote Scott Hanselman "[successful compilation is just the first unit test](http://www.hanselman.com/blog/NuGetPackageOfTheWeek6DynamicMalleableEnjoyableExpandoObjectsWithClay.aspx)". That it is but it's a doozy. If I'm making changes to the code and I've been using LINQ to XML I'm not going to see the benefits of strong typing that I would with Xsd.exe's generated classes. I like learning if I've broken the build sooner rather than later; strong typing gives me that safety net.
-
-
 
 ## Serialization / Deserialization Helper
 
@@ -87,5 +86,3 @@ I was chatting to a friend about this blog post and he mentioned that you can ac
 However, the XSD generated above is very much a "Microsoft XSD"; it's an XSD which features MS properties and so on. It's fine but I think that generally I prefer my XSDs to be as vanilla as possible. To that end I'm likely to stick to using the XSD/XML Schema Generator as it doesn't appear to be possible to get Xsd.exe to generate "vanilla XSD".
 
 Thanks to Ajay for bringing it to my attention though.
-
-

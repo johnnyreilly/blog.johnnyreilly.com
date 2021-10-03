@@ -1,9 +1,10 @@
 ---
-title: "Up to the clouds!"
+title: 'Up to the clouds!'
 authors: johnnyreilly
 tags: [docker, kubernetes, asp net core, aws]
 hide_table_of_contents: false
 ---
+
 This last four months has been quite the departure for me. Most typically I find myself building applications; for this last period of time I've been taking the platform that I work on, and been migrating it from running on our on premise servers to running in the cloud.
 
 This turned out to be much more difficult than I'd expected and for reasons that often surprised me. We knew where we wanted to get to, but not all of what we'd need to do to get there. So many things you can only learn by doing. Whilst these experiences are still fresh in my mind I wanted to document some of the challenges we faced.
@@ -12,7 +13,7 @@ This turned out to be much more difficult than I'd expected and for reasons that
 
 At the start of January, the team decided to make a concerted effort to take our humble ASP.NET Core application and migrate it to the cloud. We sat down with some friends from the DevOps team who are part of our organisation. We're fortunate in that these marvellous people are very talented engineers indeed. It was going to be a collaboration between our two teams of budding cloudmongers that would make this happen.
 
-Now our application is young. It is not much more than a year old. However it is growing *fast*. And as we did the migration from on premise to the cloud, that wasn't going to stop. Development of the application was to continue as is, shipping new versions daily. Without impeding that, we were to try and get the application migrated to the cloud.
+Now our application is young. It is not much more than a year old. However it is growing _fast_. And as we did the migration from on premise to the cloud, that wasn't going to stop. Development of the application was to continue as is, shipping new versions daily. Without impeding that, we were to try and get the application migrated to the cloud.
 
 I would liken it to boarding a speeding train, fighting your way to the front, taking the driver hostage and then diverting the train onto a different track. It was challenging. Really, really challenging.
 
@@ -20,17 +21,15 @@ So many things had to change for us to get from on premise servers to the cloud,
 
 ## Kubernetes and Docker
 
-Our application was built using ASP.NET Core. A technology that is entirely cloud friendly (that's one of the reasons we picked it). We were running on a collection of hand installed, hand configured Windows servers. That had to change. We wanted to move our application to run on Kubernetes; so we didn't have to manually configure servers. Rather k8s would manage the provisioning and deployment of containers running our application. Worth saying now: I knew *nothing* about Kubernetes. Or nearly nothing. I learned a bunch along the way, but, as I've said, this was a collaboration between our team and the mighty site reliability engineers of the DevOps team. They knew a *lot* about this k8s stuff and moreoften than not, our team stood back and let them work their magic.
+Our application was built using ASP.NET Core. A technology that is entirely cloud friendly (that's one of the reasons we picked it). We were running on a collection of hand installed, hand configured Windows servers. That had to change. We wanted to move our application to run on Kubernetes; so we didn't have to manually configure servers. Rather k8s would manage the provisioning and deployment of containers running our application. Worth saying now: I knew _nothing_ about Kubernetes. Or nearly nothing. I learned a bunch along the way, but, as I've said, this was a collaboration between our team and the mighty site reliability engineers of the DevOps team. They knew a _lot_ about this k8s stuff and moreoften than not, our team stood back and let them work their magic.
 
 In order that we could migrate to running in k8s, we first needed to containerise our application. We needed a `Dockerfile`. There followed a good amount of experimentation as we worked out how to build ourselves images. There's an art to building an optimal Docker image.
 
 So that we can cover a lot of ground, this post will remain relatively high level. So here's a number of things that we encountered along the way that are worth considering:
 
-- Multi-stage builds were an absolute necessity for us. We'd build the front end of our app (React / TypeScript) using one stage with a [Node base image](https://hub.docker.com/_/node). Then we'd build our app using a [.NET Core SDK base image](https://hub.docker.com/_/microsoft-dotnet-core-sdk/). Finally, we'd use a [ASP.Net](https://hub.docker.com/_/microsoft-dotnet-core-aspnet) image to run the app; copying in the output of previous stages. 
-- Our application accesses various SQL Server databases. We struggled to get our application to connect to them. The issue related to the SSL configuration of our runner image. The fix was simple but frustrating; use a `-bionic` image as it has the configuration you need. We found that gem [here](https://github.com/dotnet/SqlClient/issues/222#issuecomment-535802822). 
-- Tests. Automated tests. We want to run them in our build; but how? Once more multi-stage builds to the rescue. We'd build our application, then in a separate stage we'd run the tests; copying in the app from the build stage. If the tests failed, the build failed. If they passed then the intermediate stage containing the tests would be discarded by Docker. No unnecessary bloat of the image; all that testing goodness still; now in containerised form! 
-
-
+- Multi-stage builds were an absolute necessity for us. We'd build the front end of our app (React / TypeScript) using one stage with a [Node base image](https://hub.docker.com/_/node). Then we'd build our app using a [.NET Core SDK base image](https://hub.docker.com/_/microsoft-dotnet-core-sdk/). Finally, we'd use a [ASP.Net](https://hub.docker.com/_/microsoft-dotnet-core-aspnet) image to run the app; copying in the output of previous stages.
+- Our application accesses various SQL Server databases. We struggled to get our application to connect to them. The issue related to the SSL configuration of our runner image. The fix was simple but frustrating; use a `-bionic` image as it has the configuration you need. We found that gem [here](https://github.com/dotnet/SqlClient/issues/222#issuecomment-535802822).
+- Tests. Automated tests. We want to run them in our build; but how? Once more multi-stage builds to the rescue. We'd build our application, then in a separate stage we'd run the tests; copying in the app from the build stage. If the tests failed, the build failed. If they passed then the intermediate stage containing the tests would be discarded by Docker. No unnecessary bloat of the image; all that testing goodness still; now in containerised form!
 
 ## Jenkins
 
@@ -52,7 +51,7 @@ Hey presto! Safe secrets in k8s.
 
 ## Networking
 
-Our on premise servers sat on the company network. They could see *everything* that there was to see. All the other servers around them on the network, bleeping and blooping. The opposite was true in AWS. There was nothing to see. Nothing to access. As it should be. It's safer that way should a machine become compromised. For each database and each API our application depended upon, we needed to specifically allowlist access.
+Our on premise servers sat on the company network. They could see _everything_ that there was to see. All the other servers around them on the network, bleeping and blooping. The opposite was true in AWS. There was nothing to see. Nothing to access. As it should be. It's safer that way should a machine become compromised. For each database and each API our application depended upon, we needed to specifically allowlist access.
 
 ## Kerberos
 
@@ -60,7 +59,7 @@ There's always a fly in the ointment. A nasty surprise on a dark night. Ours was
 
 What to do? Honestly it wasn't looking good. We were considering proxying through one of our Windows servers just to get access to that API. I was tremendously disappointed. At this point our hero arrived; one [JMac](https://twitter.com/foldr) hacked together a Kerberos sidecar approach one weekend. You can see a similar approach [here](https://github.com/edseymour/kinit-sidecar). This got us to a point that allowed us to access the API we needed to.
 
-I'm kind of amazed that there isn't better documentation out there around have a Kerberos sidecar in a k8s setup. Tragically Windows Authentication is a widely used authentication mechanism. That being the case, having good docs to show how you can get a Kerberos sidecar in place would likely greatly advance the ability of enterprises to migrate to the cloud. The best docs I've found are [here](https://blog.openshift.com/kerberos-sidecar-container/). It is super hard though. *So hard!*
+I'm kind of amazed that there isn't better documentation out there around have a Kerberos sidecar in a k8s setup. Tragically Windows Authentication is a widely used authentication mechanism. That being the case, having good docs to show how you can get a Kerberos sidecar in place would likely greatly advance the ability of enterprises to migrate to the cloud. The best docs I've found are [here](https://blog.openshift.com/kerberos-sidecar-container/). It is super hard though. _So hard!_
 
 ## Hangfire
 
@@ -88,12 +87,8 @@ We're there now; we've made the move. It was a difficult journey but one worth m
 - provision environments on demand - currently we have a highly contended situation when it comes to test environments. With k8s and AWS we can look at spinning up environments as we need them and throwing them away also
 - autoscaling for need - we can start to look at spinning up new containers in times of high load and removing excessive containers in times of low load
 
-
-
 We've also become more efficient as a team. We are no longer maintaining servers, renewing certificates, installing software, RDPing onto boxes. All that time and effort we can plough back into making awesome experiences for our users.
 
 There's a long list of other benefits and it's very exciting indeed! It's not enough for us to have done this though. It's important that we tell the story of what we've done and how and why we've done it. That way people have empathy for the work. Also they can start to think about how they could start to reap similar benefits themselves. By talking to others about the road we've travelled, we can save them time and help them to travel a similar road. This is good for them and it's good for us; it helps our relationships and it helps us all to move forwards together.
 
 A rising tide lifts all boats. By telling others about our journey, we raise the water level. Up to the clouds!
-
-

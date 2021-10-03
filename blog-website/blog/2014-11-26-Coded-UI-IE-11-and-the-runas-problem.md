@@ -4,11 +4,10 @@ authors: johnnyreilly
 tags: [IE 11, runas, Coded UI, nomerge, Internet Exporer]
 hide_table_of_contents: false
 ---
+
 ## <sub>(Coded UI, IE 11 and the "runas" problem)</sub>
 
-
-
- "I'm not angry, I'm just disappointed."
+"I'm not angry, I'm just disappointed."
 
 That's kind of how I feel about Coded UI tests. It may well be that you've never heard of them - in my experience very few people seem to be aware of them. What are they? Well, I've never used [Selenium](http://www.seleniumhq.org/) but as best I understand Coded UI is Microsoft's own version of that. Namely it's a way to automate testing, in my case browser-based testing. You can write a suite of tests that will spin up your application and test it out, going from screen to screen, URL to URL and asserting all is as you would expect.
 
@@ -16,7 +15,7 @@ The project that I'm currently working on has a pretty comprehensive set of test
 
 ## Sounds brilliant right? How could someone not love this?
 
-Well a number of reasons. First of all, *it takes 8 hours*!!!! That's a long time; I'd rather learn what I broke today rather than tomorrow.
+Well a number of reasons. First of all, _it takes 8 hours_!!!! That's a long time; I'd rather learn what I broke today rather than tomorrow.
 
 Also, and this is probably more significant, Coded UI tests are pretty flaky. Let me qualify that. For a test to be particularly useful it has to be quick, repeatable and reliable. As I've said, Coded UI tests are not quick.
 
@@ -24,7 +23,7 @@ By their very nature integration tests (of which Coded UI tests are a type) can 
 
 Further to that, Coded UI tests are repeatable, except when they're not. I've seen colleagues reduced to near tears by incredible sensitivity of Coded UI tests. Out of the box Coded UI tests appear to ship with the ["Works on my machine"](http://blog.codinghorror.com/the-works-on-my-machine-certification-program/) guarantee. It requires far more effort that you'd expect to come up with tests that can be reliably expected to pass. They will fail for surprising reasons. For instance, did you know that using the 2.x branch of jQuery won't work with Coded UI? [Neither did I.](https://connect.microsoft.com/VisualStudio/Feedback/Details/794841) I've lost track of the time that has been wasted running the same test in multiple different environments trying to identify what exactly is upsetting Coded UI about the environment this time.
 
-It is sad but true that with Coded UI tests you can spend an *enormous* amount of time maintaining the test pack on a day to day basis. As infrastructure and project dependencies are upgraded you will sadly discover Coded UI has once again gone into the foetal position and has to tempted back to normal functioning by whispering sweet nothings in it's ear. (*"It's not true that they've ended support for Windows XP" / "IE 6 will live forever"* and so on)
+It is sad but true that with Coded UI tests you can spend an _enormous_ amount of time maintaining the test pack on a day to day basis. As infrastructure and project dependencies are upgraded you will sadly discover Coded UI has once again gone into the foetal position and has to tempted back to normal functioning by whispering sweet nothings in it's ear. (_"It's not true that they've ended support for Windows XP" / "IE 6 will live forever"_ and so on)
 
 Coded UI also appears to be badly supported by Microsoft. Documentation is pretty sparse and, as we'll come back to in a minute, Coded UI is sometimes broken or damaged by other products shipped by Microsoft. This makes it hard to have faith in Coded UI. Indeed, if you're thinking of automating your QA testing my advice would be "look into Selenium". Not because I've used it (I haven't) but those I've met who have used Selenium and Coded UI say Selenium wins hands down.
 
@@ -63,12 +62,10 @@ What this does is fire up Internet Explorer as the supplied user of theDomain\te
 Until that is either Visual Studio 2013 Update 3 or Internet Explorer 11 was installed. One of these (and it appears to be hotly contested) broke the ability to run the above code successfully. After these were installed running the above code resulted in the following error message:
 
 > "The application cannot be started. This could be due to one of the following reasons:
-> 
+>
 > 1.  Another instance of the application is already running and only one instance can be running at a time.
 > 2.  The application started another process and has now stopped. You may need to launch the process directly.
 > 3.  You do not have sufficient privileges for this application." File: C:\Program Files\Internet Explorer\iexplore.exe."
-> 
-> 
 
 Lamentably, this was pretty much unresolvable and [logging it with Microsoft yielded nothing helpful](https://connect.microsoft.com/VisualStudio/feedbackdetail/view/949049/coded-ui-cannot-run-as-a-different-user-with-visual-studio-2013-update-3). This is what I mean about Coded UI being badly supported by Microsoft. Despite my best efforts to report this issue both to Connect and [elsewhere](http://social.msdn.microsoft.com/Forums/vstudio/en-US/f48665e4-569a-4b67-9bdb-5522b2adffb2/cannot-run-coded-ui-tests-as-different-user-on-windows-81?forum=vsmantest#28c9decb-b579-4848-a7a9-f41c57584d59) and in the end nothing useful happened.
 
@@ -76,11 +73,11 @@ So what to do? I still have Coded UI tests, I still need to be able to run them.
 
 ## The <strike>hack</strike>
 
- workaround
+workaround
 
 After IE 11 / Visual Studio Update 3 / whatev's was installed I was left with a setup that allowed me to run Coded UI tests, <u>but only</u>
 
- as the current user. On that basis I started looking into a little MVC jiggery pokery. All my controllers inherit from a single base controller. Inside there I placed the following extra override:
+as the current user. On that basis I started looking into a little MVC jiggery pokery. All my controllers inherit from a single base controller. Inside there I placed the following extra override:
 
 ```cs
 public abstract class BaseController : System.Web.Mvc.Controller
@@ -148,7 +145,7 @@ string domain = "theDomain.com";
 //ApplicationUnderTest.Launch(browserLocation, null, url, username, password, domain);
 
 // Suffixing url with UrlToImpersonate which will be picked up in Session_Start and used to impersonate
-// in OnAuthorization in BaseController.  Also no longer using ApplicationUnderTest.Launch; switched to 
+// in OnAuthorization in BaseController.  Also no longer using ApplicationUnderTest.Launch; switched to
 // BrowserWindow.Launch
 // No longer used parameters: browserLocation, password
 var userToImpersonate = username + "@" + domain; // eg "test.editor@theDomain.com"
@@ -158,7 +155,7 @@ var browser = BrowserWindow.Launch(urlWithUser, "-nomerge"); // "-nomerge" flag 
 
 As you can see we actually need less when we're using this approach. We no longer need to directly specify the password or the browser location. And the user to impersonate is now passed in as the part of the initial URL used to launch the test.
 
-Pay careful attention to the "-nomerge" flag that is passed in. This ensures that when another browser instance is opened a new session will be started. This is essential for "multi-user" tests that run tests for *different* users as part of the same test. It ensures that "test.editor" and "test.different.editor" can co-exist happily.
+Pay careful attention to the "-nomerge" flag that is passed in. This ensures that when another browser instance is opened a new session will be started. This is essential for "multi-user" tests that run tests for _different_ users as part of the same test. It ensures that "test.editor" and "test.different.editor" can co-exist happily.
 
 ## What do I think of the workaround?
 
@@ -166,8 +163,6 @@ This approach works reliably and dependably. More so than the original approach 
 
 The not so good news is that this approach is, in my view, a bit of hack. I want you to know that this isn't my ideal.
 
-I *really* don't like having to change the actual system code to facilitate the impersonation requirement. Naturally we only ship the release and not the debug builds to Production so the "back door" that this approach provides will not exist in our Production builds. It will only be accessible in our development environments and on our Coded UI test server. But it feels oh so wrong that there is an effective potential back door in the system now. Well, only if the stars were to align in a really terrible (and admittedly rather unlikely) way. But still, you take my point. Caveat emptor and all that. This is something of a cutdown example to illustrate the point. If anyone else intends to use this then I'd suggest doing more to safeguard your approach. Implementing impersonation allowlists so "any" user cannot be impersonated would be a sensible precaution to start with.
+I _really_ don't like having to change the actual system code to facilitate the impersonation requirement. Naturally we only ship the release and not the debug builds to Production so the "back door" that this approach provides will not exist in our Production builds. It will only be accessible in our development environments and on our Coded UI test server. But it feels oh so wrong that there is an effective potential back door in the system now. Well, only if the stars were to align in a really terrible (and admittedly rather unlikely) way. But still, you take my point. Caveat emptor and all that. This is something of a cutdown example to illustrate the point. If anyone else intends to use this then I'd suggest doing more to safeguard your approach. Implementing impersonation allowlists so "any" user cannot be impersonated would be a sensible precaution to start with.
 
-Perhaps this is just one more reason that I'm not that enamoured of Coded UI. Once again it is useful but I've had to compromise more than I'd like to keep it's use. If anyone out there has a better solution I would *love* to hear from you.
-
-
+Perhaps this is just one more reason that I'm not that enamoured of Coded UI. Once again it is useful but I've had to compromise more than I'd like to keep it's use. If anyone out there has a better solution I would _love_ to hear from you.

@@ -1,12 +1,13 @@
 ---
-title: "Announcing jQuery Validation Unobtrusive Native..."
+title: 'Announcing jQuery Validation Unobtrusive Native...'
 authors: johnnyreilly
 tags: []
 hide_table_of_contents: false
 ---
+
 I've been busy working on an open source project called **[jQuery Validation Unobtrusive Native](http://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native)**. [To see it in action take a look here](http://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/).
 
- ## A Little Background
+## A Little Background
 
 I noticed a little while ago that jQuery Validation was now providing native support for validation driven by HTML 5 data attributes. As you may be aware, Microsoft shipped [jquery.validate.unobtrusive.js](http://bradwilson.typepad.com/blog/2010/10/mvc3-unobtrusive-validation.html) back with MVC 3. ([I have written about it before.](http://icanmakethiswork.blogspot.com/2012/08/jquery-unobtrusive-validation.html)) It provided a way to apply data model validations to the client side using a combination of jQuery Validation and HTML 5 data attributes.
 
@@ -17,10 +18,8 @@ The principal of this was and is fantastic. But since that time the jQuery Valid
 jQuery Validation Unobtrusive Native is a collection of ASP.Net MVC HTML helper extensions. These make use of jQuery Validation's native support for validation driven by HTML 5 data attributes. The advantages of the native support over jquery.validate.unobtrusive.js are:
 
 - Dynamically created form elements are parsed automatically. jquery.validate.unobtrusive.js does not support this whilst jQuery Validation does. [Take a look at a demo using Knockout.](http://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/AdvancedDemo/Knockout.html)
-- jquery.validate.unobtrusive.js restricts how you use jQuery Validation. If you want to use showErrors or something similar then you may find that you need to go native (or at least you may find that significantly easier than working with the jquery.validate.unobtrusive.js defaults)... 
+- jquery.validate.unobtrusive.js restricts how you use jQuery Validation. If you want to use showErrors or something similar then you may find that you need to go native (or at least you may find that significantly easier than working with the jquery.validate.unobtrusive.js defaults)...
 - Send less code to your browser, make your browser to do less work and even get a (marginal) performance benefit .
-
-
 
 This project intends to be a bridge between MVC's inbuilt support for driving validation from data attributes and jQuery Validation's native support for the same. This is achieved by hooking into the MVC data attribute creation mechanism and using it to generate the data attributes natively supported by jQuery Validation.
 
@@ -34,8 +33,4 @@ So far the basic set of the HtmlHelpers and their associated unobtrusive mapping
 - get the unit test coverage to a good level and finally (and perhaps most importantly)
 - create some really useful [demos and documentation](http://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/Demo.html).
 
-
-
 Help is appreciated so feel free to pitch in! You can find the project on GitHub [here](http://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native)...
-
-

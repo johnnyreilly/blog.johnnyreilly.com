@@ -1,12 +1,13 @@
 ---
-title: "TFS 2012 meet PowerShell, Karma and BuildNumber"
+title: 'TFS 2012 meet PowerShell, Karma and BuildNumber'
 authors: johnnyreilly
 tags: [BuildDefinitionName, BuildNumber, npm, Karma, powershell, trx, TFS 2012]
 hide_table_of_contents: false
 ---
+
 To my lasting regret, TFS 2012 has no direct support for PowerShell. Such a shame as PowerShell scripts can do a lot of heavy lifting in a build process. Well, here we're going to brute force TFS 2012 into running PowerShell scripts. And along the way we'll also get Karma test results publishing into TFS 2012 as an example usage. Nice huh? Let's go!
 
- ## PowerShell via `csproj`
+## PowerShell via `csproj`
 
 It's time to hack the `csproj` (or whatever project file you have) again. We're going to add an `AfterBuild` target to the end of the file. This target will be triggered after the build completes (as the name suggests):
 
@@ -22,33 +23,38 @@ There's 2 things happening in this target:
 1. A message is printed out during compilation which contains details of the various compile time variables. This is nothing more than a `console.log` statement really; it's useful for debugging and so I keep it around. You'll notice one of them is called `$(BuildNumber)`; more on that later.
 2. A command is executed; PowerShell! This invokes PowerShell with the `-NonInteractive` and `-ExecutionPolicy RemoteSigned` flags. It passes a script to be executed called `AfterBuild.ps1` that lives in the root of the project directory. To that script a number of parameters are supplied; compile time variables that we may use in the script.
 
-
-
 ## Where's my `BuildNumber` and `BuildDefinitionName`?
 
 So you've checked in your changes and kicked off a build on the server. You're picking over the log messages and you're thinking: "Where's my `BuildNumber`?". Well, TFS 2012 does not have that set as a variable at compile time by default. This stumped me for a while but thankfully I wasn't the only person wondering... As ever, [Stack Overflow had the answer](http://stackoverflow.com/a/7330453/761388). So, deep breath, it's time to hack the TFS build template file.
 
-Checkout the `DefaultTemplate.11.1.xaml` file from TFS and open it in your text editor of choice. It's *find and replace* time! (There are probably 2 instances that need replacement.) Perform a *find* for the below
+Checkout the `DefaultTemplate.11.1.xaml` file from TFS and open it in your text editor of choice. It's _find and replace_ time! (There are probably 2 instances that need replacement.) Perform a _find_ for the below
 
 ```js
 [String.Format(&quot;/p:SkipInvalidConfigurations=true {0}&quot;, MSBuildArguments)]
 ```
 
-And *replace* it with this:
+And _replace_ it with this:
 
 ```js
-[String.Format("/p:SkipInvalidConfigurations=true /p:BuildNumber={1} /p:BuildDefinitionName={2} {0}", MSBuildArguments, BuildDetail.BuildNumber, BuildDetail.BuildDefinition.Name)]
+[
+  String.Format(
+    '/p:SkipInvalidConfigurations=true /p:BuildNumber={1} /p:BuildDefinitionName={2} {0}',
+    MSBuildArguments,
+    BuildDetail.BuildNumber,
+    BuildDetail.BuildDefinition.Name
+  ),
+];
 ```
 
 Pretty long line eh? Let's try breaking that up to make it more readable: (but remember in the XAML it needs to be a one liner)
 
 ```js
-[String.Format("/p:SkipInvalidConfigurations=true 
-    /p:BuildNumber={1} 
+[String.Format("/p:SkipInvalidConfigurations=true
+    /p:BuildNumber={1}
     /p:BuildDefinitionName={2} {0}", MSBuildArguments, BuildDetail.BuildNumber, BuildDetail.BuildDefinition.Name)]
 ```
 
-We're just adding 2 extra parameters of `BuildNumber` and `BuildDefinitionName` to the invocation of MSBuild. Once we've checked this back in, `BuildNumber` and `BuildDefinitionName` will be available on future builds. Yay! *Important! You must have a build name that does not feature spaces; probably there's a way to pass spaces here but I'm not sure what it is.*
+We're just adding 2 extra parameters of `BuildNumber` and `BuildDefinitionName` to the invocation of MSBuild. Once we've checked this back in, `BuildNumber` and `BuildDefinitionName` will be available on future builds. Yay! _Important! You must have a build name that does not feature spaces; probably there's a way to pass spaces here but I'm not sure what it is._
 
 ## `AfterBuild.ps1`
 
@@ -92,7 +98,7 @@ function FailBuildIfThereAreTestFailures([string]$resultsFile) {
 
  Write-Host
 
- if($outcome -eq "Failed") { 
+ if($outcome -eq "Failed") {
   Write-Host "Failing build as there are broken tests"
   $host.SetShouldExit(1)
  }
@@ -114,7 +120,7 @@ Run
 
 Assuming we have a build number this script kicks off the `PublishTestResults` function above. So we won't attempt to publish test results when compiling in Visual Studio on our dev machine. The script looks for `MSTest.exe` in a certain location on disk (the default VS 2015 installation location in fact; it may be installed elsewhere on your build machine). MSTest is then invoked and passed a file called `test-results.trx` which is is expected to live in the root of the project. All being well, the test results will be registered with the running build and will be visible when you look at test results in TFS.
 
-Finally in `FailBuildIfThereAreTestFailures` we parse the `test-results.trx` file (and for this I'm totally in the debt of [David Robert's helpful Gist](https://gist.github.com/davidroberts63/5655441)). We write out the results to the host so it'll show up in the MSBuild logs. Also, and this is crucial, if there are any failures we fail the build by exiting PowerShell with a code of 1. We are deliberately swallowing any error that Karma raises earlier when it detects failed tests. We do this because we want to publish the failed test results to TFS *before* we kill the build.
+Finally in `FailBuildIfThereAreTestFailures` we parse the `test-results.trx` file (and for this I'm totally in the debt of [David Robert's helpful Gist](https://gist.github.com/davidroberts63/5655441)). We write out the results to the host so it'll show up in the MSBuild logs. Also, and this is crucial, if there are any failures we fail the build by exiting PowerShell with a code of 1. We are deliberately swallowing any error that Karma raises earlier when it detects failed tests. We do this because we want to publish the failed test results to TFS _before_ we kill the build.
 
 ## Bonus Karma: `test-results.trx`
 
@@ -133,5 +139,3 @@ If you've read a [previous post of mine](https://blog.johnnyreilly.com/2016/02/v
 You can see that the `postbuild` hook kicks off the `test` script in turn. And that `test` script kicks off a single run of karma. I'm not going to go over setting up Karma at all here; there are other posts out there that cover that admirably. But I wanted to share news of the [karma trx reporter](https://www.npmjs.com/package/karma-trx-reporter). This reporter is the thing that produces our `test-results.trx` file; trx being the format that TFS likes to deal with.
 
 So now we've got a PowerShell hook into our build process (something very useful in itself) which we are using to publish Karma test results into TFS 2012. They said it couldn't be done. They were wrong. Huzzah!!!!!!!
-
-

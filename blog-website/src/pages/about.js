@@ -1,20 +1,20 @@
-import React from "react";
-import clsx from "clsx";
-import Layout from "@theme/Layout";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import useBaseUrl from "@docusaurus/useBaseUrl";
-import Head from "@docusaurus/Head";
-import styles from "./styles.module.css";
+import React from 'react';
+import clsx from 'clsx';
+import Layout from '@theme/Layout';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import Head from '@docusaurus/Head';
+import styles from './styles.module.css';
 
 const features = [
   {
-    title: "What is this?",
+    title: 'What is this?',
     description: (
       <>
         <p>
           The meanderings and ramblings of a software engineer. If you were
           wondering, the slightly egotistical-sounding title of this blog
-          started life as a pun on{" "}
+          started life as a pun on{' '}
           <a href="http://en.wikipedia.org/wiki/ICANN" target="_blank">
             ICANN
           </a>
@@ -25,7 +25,7 @@ const features = [
     ),
   },
   {
-    title: "What do I do?",
+    title: 'What do I do?',
     description: (
       <>
         <p>I blog and I work on a number of open source projects including:</p>
@@ -43,17 +43,20 @@ const features = [
           </li>
         </ul>
         <p>
-          I also wrote the{" "}
+          I also wrote the{' '}
           <a href="https://blog.johnnyreilly.com/2019/10/08/definitely-typed-movie">
             history of Definitely Typed
           </a>
         </p>
-        <p>Some of my blogs are available on <a href="https://blog.logrocket.com/author/johnreilly/">LogRocket</a></p>
+        <p>
+          Some of my blogs are available on{' '}
+          <a href="https://blog.logrocket.com/author/johnreilly/">LogRocket</a>
+        </p>
       </>
     ),
   },
   {
-    title: "Who am I?",
+    title: 'Who am I?',
     description: (
       <>
         <p>
@@ -63,8 +66,8 @@ const features = [
         </p>
 
         <p>
-          I write the occasional{" "}
-          <a href="https://reillysontour.johnnyreilly.com/">travel blog(ish)</a>{" "}
+          I write the occasional{' '}
+          <a href="https://reillysontour.johnnyreilly.com/">travel blog(ish)</a>{' '}
           as well.
         </p>
 
@@ -79,7 +82,7 @@ const features = [
 function Feature({ imageUrl, title, description }) {
   const imgUrl = useBaseUrl(imageUrl);
   return (
-    <div className={clsx("col col--4", styles.feature)}>
+    <div className={clsx('col col--4', styles.feature)}>
       {imgUrl && (
         <div className="text--center">
           <img className={styles.featureImage} src={imgUrl} alt={title} />
@@ -92,34 +95,34 @@ function Feature({ imageUrl, title, description }) {
 }
 
 function About() {
-  const imgUrl = useBaseUrl("img/profile.jpg");
+  const imgUrl = useBaseUrl('img/profile.jpg');
   const context = useDocusaurusContext();
   const { siteConfig = {} } = context;
 
   // details on structured data support: https://developers.google.com/search/docs/data-types/article#non-amp
   // and https://schema.org/Person
   const personStructuredData = {
-    "@context": "http://www.schema.org",
-    "@type": "Person",
-    name: "John Reilly",
-    alternateName: "Johnny Reilly",
-    description: "MacGyver turned Dev",
-    url: "https://blog.johnnyreilly.com",
-    image: "https://blog.johnnyreilly.com/img/profile.jpg",
+    '@context': 'http://www.schema.org',
+    '@type': 'Person',
+    name: 'John Reilly',
+    alternateName: 'Johnny Reilly',
+    description: 'MacGyver turned Dev',
+    url: 'https://blog.johnnyreilly.com',
+    image: 'https://blog.johnnyreilly.com/img/profile.jpg',
     address: {
-      "@type": "PostalAddress",
-      streetAddress: "Twickenham",
-      addressLocality: "London",
-      addressCountry: "United Kingdom",
+      '@type': 'PostalAddress',
+      streetAddress: 'Twickenham',
+      addressLocality: 'London',
+      addressCountry: 'United Kingdom',
     },
-    email: "johnny_reilly@hotmail.com",
-    birthPlace: "Bristol",
+    email: 'johnny_reilly@hotmail.com',
+    birthPlace: 'Bristol',
     sameAs: [
-      "https://twitter.com/johnny_reilly",
-      "https://github.com/johnnyreilly",
-      "https://https://stackoverflow.com/users/761388/john-reilly",
-      "https://blog.logrocket.com/author/johnreilly/",
-      "https://polywork.com/johnnyreilly",
+      'https://twitter.com/johnny_reilly',
+      'https://github.com/johnnyreilly',
+      'https://https://stackoverflow.com/users/761388/john-reilly',
+      'https://blog.logrocket.com/author/johnreilly/',
+      'https://polywork.com/johnnyreilly',
     ],
   };
 
@@ -135,7 +138,7 @@ function About() {
         title={`About ${siteConfig.title}`}
         description={`What is ${siteConfig.title}`}
       >
-        <header className={clsx("hero hero--primary", styles.heroBanner)}>
+        <header className={clsx('hero hero--primary', styles.heroBanner)}>
           <div className="container">
             <h1 className="hero__title">{siteConfig.title}</h1>
             <div className="text--center">

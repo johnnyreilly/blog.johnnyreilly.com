@@ -1,10 +1,11 @@
 ---
-title: "react-query: strongly typing useQueries"
+title: 'react-query: strongly typing useQueries'
 authors: johnnyreilly
 image: blog/2021-01-03-strongly-typing-react-query-s-usequeries/strongly-typing-usequeries.png
 tags: [useQueries, react-query]
 hide_table_of_contents: false
 ---
+
 `react-query` has a weakly typed hook named `useQueries`. It's possible to turn that into a strong typed hook; this post shows you how.
 
 ![title image that says "react-query: strongly typings useQueries"](../static/blog/2021-01-03-strongly-typing-react-query-s-usequeries/strongly-typing-usequeries.png)
@@ -17,15 +18,15 @@ With version 3 of `react-query`, a new hook was added: [`useQueries`](https://re
 
 ```tsx
 function App({ users }) {
-   const userQueries = useQueries(
-     users.map(user => {
-       return {
-         queryKey: ['user', user.id],
-         queryFn: () => fetchUserById(user.id),
-       }
-     })
-   )
- }
+  const userQueries = useQueries(
+    users.map((user) => {
+      return {
+        queryKey: ['user', user.id],
+        queryFn: () => fetchUserById(user.id),
+      };
+    })
+  );
+}
 ```
 
 Whilst `react-query` is written in TypeScript, the way that `useQueries` is presently written strips the types that are supplied to it. Consider [the signature of the `useQueries`](https://github.com/tannerlinsley/react-query/blob/d25ab3ef8260ea1c02b52b7082c3ce4120596b31/src/react/useQueries.ts#L8):
@@ -40,7 +41,7 @@ This returns an array of [`UseQueryResult`](https://github.com/tannerlinsley/rea
 export type UseQueryResult<
   TData = unknown,
   TError = unknown
-> = UseBaseQueryResult<TData, TError>
+> = UseBaseQueryResult<TData, TError>;
 ```
 
 As you can see, no type parameters are passed to `UseQueryResult` in the `useQueries` signature and so it takes the default types of `unknown`. This forces the consumer to either assert the type that they believe to be there, or to use type narrowing to ensure the type. The former approach exposes a possibility of errors (the user can specify incorrect types) and the latter approach requires our code to perform type narrowing operations which are essentially unnecessary (the type hasn't changed since it was returned; it's simply been discarded).
@@ -57,7 +58,7 @@ import { useQueries, UseQueryOptions, UseQueryResult } from 'react-query';
 type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T;
 
 export function useQueriesTyped<TQueries extends readonly UseQueryOptions[]>(
-    queries: [...TQueries]
+  queries: [...TQueries]
 ): {
   [ArrayElement in keyof TQueries]: UseQueryResult<
     TQueries[ArrayElement] extends { select: infer TSelect }
@@ -71,17 +72,19 @@ export function useQueriesTyped<TQueries extends readonly UseQueryOptions[]>(
             >
           >
         >
-  >
+  >;
 } {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return useQueries(queries as UseQueryOptions<unknown, unknown, unknown>[]) as any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return useQueries(
+    queries as UseQueryOptions<unknown, unknown, unknown>[]
+  ) as any;
 }
 ```
 
 Let's unpack this. The first and most significant thing to note here is that `queries` moves from being `UseQueryOptions[]` to being `TQueries extends readonly UseQueryOptions[]` \- far more fancy! The reason for this change is we want the type parameters to flow through on an element by element basis in the supplied array. [TypeScript 4's variadic tuple types](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#variadic-tuple-types) should allow us to support this. So the new array signature looks like this:
 
 ```ts
-queries: [...TQueries]
+queries: [...TQueries];
 ```
 
 Where `TQueries` is
@@ -95,7 +98,7 @@ What this means is, that each element of the rest parameters array must have a t
 So that's what's coming in.... What's going out? Well the return type of `useQueriesTyped` is the tremendously verbose:
 
 ```ts
-{ 
+{
   [ArrayElement in keyof TQueries]: UseQueryResult<
     TQueries[ArrayElement] extends { select: infer TSelect }
       ? TSelect extends (data: any) => any
@@ -123,7 +126,7 @@ On the face of it, it looks like we're returning an `Object`, not an `Array`. Th
 More specifically, by approaching the signature this way, we can acquire the `ArrayElement` type which represents each of the keys of the array. Consider this array:
 
 ```ts
-[1, 'two', new Date()]
+[1, 'two', new Date()];
 ```
 
 For the above, `ArrayElement` would take the values `0`, `1` and `2`. And this is going to prove useful in a moment as we're going to index into our `TQueries` object to surface up the return types for each element of our return array from there.
@@ -149,13 +152,13 @@ UseQueryResult<
 Gosh... Well there's a lot going on here. Let's start in the middle and work our way out.
 
 ```ts
-TQueries[ArrayElement]
+TQueries[ArrayElement];
 ```
 
 The above code indexes into our `TQueries` array for each element of our strongly typed indexer `ArrayElement`. So it might resolve the first element of an array to `{ queryKey: 'key1', queryFn: () =&gt; 1 }`, for example. Next:
 
 ```ts
-Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']
+Extract < TQueries[ArrayElement], UseQueryOptions > ['queryFn'];
 ```
 
 We're now taking the type of each element provided, and grabbing the type of the `queryFn` property. It's this type which contains the type of the data that will be passed back, that we want to make use of. So for an examples of `[{ queryKey: 'key1', queryFn: () =&gt; 1 }, { queryKey: 'key2', queryFn: () =&gt; 'two' }, { queryKey: 'key3', queryFn: () =&gt; new Date() }]` we'd have the type: `const result: [() =&gt; number, () =&gt; string, () =&gt; Date]`.
@@ -214,14 +217,17 @@ So what does using our `useQueriesTyped` hook look like?
 Well, supplying `queryFn`s with different signatures looks like this:
 
 ```ts
-const result = useQueriesTyped({ queryKey: 'key1', queryFn: () => 1 }, { queryKey: 'key2', queryFn: () => 'two' });
+const result = useQueriesTyped(
+  { queryKey: 'key1', queryFn: () => 1 },
+  { queryKey: 'key2', queryFn: () => 'two' }
+);
 // const result: [QueryObserverResult<number, unknown>, QueryObserverResult<string, unknown>]
 
 if (result[0].data) {
-    // number
+  // number
 }
 if (result[1].data) {
-    // string
+  // string
 }
 ```
 
@@ -230,11 +236,13 @@ As you can see, we're being returned a `Tuple` and the exact types are flowing t
 Next let's look at a `.map` example with identical types in our supplied array:
 
 ```ts
-const resultWithAllTheSameTypes = useQueriesTyped(...[1, 2].map((x) => ({ queryKey: `${x}`, queryFn: () => x })));
+const resultWithAllTheSameTypes = useQueriesTyped(
+  ...[1, 2].map((x) => ({ queryKey: `${x}`, queryFn: () => x }))
+);
 // const resultWithAllTheSameTypes: QueryObserverResult<number, unknown>[]
 
 if (resultWithAllTheSameTypes[0].data) {
-    // number
+  // number
 }
 ```
 
@@ -244,20 +252,20 @@ Finally let's look at how `.map` handles arrays with different types of elements
 
 ```ts
 const resultWithDifferentTypes = useQueriesTyped(
-    ...[1, 'two', new Date()].map((x) => ({ queryKey: `${x}`, queryFn: () => x }))
+  ...[1, 'two', new Date()].map((x) => ({ queryKey: `${x}`, queryFn: () => x }))
 );
 //const resultWithDifferentTypes: QueryObserverResult<string | number | Date, unknown>[]
 
 if (resultWithDifferentTypes[0].data) {
-    // string | number | Date
+  // string | number | Date
 }
 
 if (resultWithDifferentTypes[1].data) {
-    // string | number | Date
+  // string | number | Date
 }
 
 if (resultWithDifferentTypes[2].data) {
-    // string | number | Date
+  // string | number | Date
 }
 ```
 
@@ -266,5 +274,3 @@ Admittedly this last example is a somewhat unlikely scenario. But again we can s
 ## In the box?
 
 It's great that we can wrap `useQueries` to get a strongly typed experience. It would be tremendous if this functionality was available by default. [There's a discussion going on around this](https://github.com/tannerlinsley/react-query/pull/1527). It's possible that this wrapper may no longer need to exist, and that would be amazing. In the meantime; enjoy!
-
-

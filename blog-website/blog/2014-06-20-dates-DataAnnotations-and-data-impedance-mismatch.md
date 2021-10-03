@@ -1,12 +1,13 @@
 ---
-title: "A folk story wherein we shall find dates, DataAnnotations & data impedance mismatch"
+title: 'A folk story wherein we shall find dates, DataAnnotations & data impedance mismatch'
 authors: johnnyreilly
 tags: [Date, DateTime, Moment.JS, DataAnnotations, ValidationAttribute]
 hide_table_of_contents: false
 ---
+
 If you ever take a step back from what you're doing it can sometimes seem pretty abstract. Here's an example. I was looking at an issue in an app that I was supporting. The problem concerned a field which was to store a date value. Let's call it, for the sake of argument, `valuation_date`. (Clearly in reality the field name was entirely different... Probably.) This field was supposed to represent a specific date, like June 15th 2012 or 19th August 2014. To be clear, a date and \***not**\* in any way, a time.
 
- `valuation_date` was stored in a SQL database as a `<a href="http://msdn.microsoft.com/en-gb/library/ms187819.aspx">datetime</a>`. That's right a date with a time portion. I've encountered this sort of scenario many times on systems I've inherited. Although there is a `<a href="http://msdn.microsoft.com/en-gb/library/bb630352.aspx">date</a>` type in SQL it's pretty rarely used. I think it only shipped in SQL Server with 2008 which may go some way to explaining this. Anyway, I digress...
+`valuation_date` was stored in a SQL database as a `<a href="http://msdn.microsoft.com/en-gb/library/ms187819.aspx">datetime</a>`. That's right a date with a time portion. I've encountered this sort of scenario many times on systems I've inherited. Although there is a `<a href="http://msdn.microsoft.com/en-gb/library/bb630352.aspx">date</a>` type in SQL it's pretty rarely used. I think it only shipped in SQL Server with 2008 which may go some way to explaining this. Anyway, I digress...
 
 `valuation_date` was read into a field in a C# application called `ValuationDate` which was of type `<a href="http://msdn.microsoft.com/en-us/library/system.datetime.aspx">DateTime</a>`. As the name suggests this is also a date with a time portion. After a travelling through various layers of application this ended up being serialized as JSON and sent across the wire where it became a JavaScript variable by the name of `valuationDate` which had the type `<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date">Date</a>`. Despite the deceptive name this is also, you guessed it, a date with a time portion. (Fine naming work there JavaScript!)
 
@@ -66,8 +67,6 @@ This attribute does 2 things:
 1. Most importantly it fails validation for any `DateTime` or `DateTime?` that includes a time portion. It only allows through DateTimes where the clock strikes midnight. It's optimised for Cinderella.
 2. It fails validation if the attribute is applied to any property which is not a `DateTime` or `DateTime?`.
 
-
-
 You can decorate `DateTime` or `DateTime?` properties on your model with this attribute like so:
 
 ```cs
@@ -86,5 +85,3 @@ namespace My.Models
 ```
 
 And if you're using MVC (or anything that makes use of the validation data annotations) then you'll now find that you are nicely protected from DateTimes masquerading as dates. Should they show up you'll find that `ModelState.IsValid` is false and you can kick them to the curb with alacrity!
-
-

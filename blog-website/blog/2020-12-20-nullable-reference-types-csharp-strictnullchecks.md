@@ -4,6 +4,7 @@ authors: johnnyreilly
 tags: [CSharp, Nullable reference types]
 hide_table_of_contents: false
 ---
+
 'Tis the season to play with new compiler settings! I'm a very keen TypeScript user and have been merrily using [`strictNullChecks`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#--strictnullchecks) since it shipped. I was dimly aware that C# was also getting a similar feature by the name of [nullable reference types](https://docs.microsoft.com/en-us/dotnet/csharp/tutorials/nullable-reference-types).
 
 It's only now that I've got round to taking at look at this marvellous feature. I thought I'd share what moving to nullable reference types looked like for me; and what code changes I found myself making as a consequence.
@@ -126,11 +127,11 @@ Yay! Errors!
         }
 ```
 
-We're getting that error reported where we're returning `null` and where we're returning `User.Identity.Name` which *may* be `null`. And we're getting that because as far as the compiler is concerned `string` has changed. Before we turned on nullable reference types the compiler considered `string` to mean `string` *OR*`null`. Now, `string` means `string`.
+We're getting that error reported where we're returning `null` and where we're returning `User.Identity.Name` which _may_ be `null`. And we're getting that because as far as the compiler is concerned `string` has changed. Before we turned on nullable reference types the compiler considered `string` to mean `string` _OR_`null`. Now, `string` means `string`.
 
-This is the same sort of behaviour as TypeScripts `strictNullChecks`. With TypeScript, before you turn on `strictNullChecks`, as far as the compiler is concerned, `string` means `string`*OR*`null`*OR*`undefined` (JavaScript didn't feel one null-ish value was enough and so has two - don't ask). Once `strictNullChecks` is on, `string` means `string`.
+This is the same sort of behaviour as TypeScripts `strictNullChecks`. With TypeScript, before you turn on `strictNullChecks`, as far as the compiler is concerned, `string` means `string`_OR_`null`_OR_`undefined` (JavaScript didn't feel one null-ish value was enough and so has two - don't ask). Once `strictNullChecks` is on, `string` means `string`.
 
-It's a lot clearer. And that's why the compiler is getting antsy. The method signature is `string`, but it can see `null` potentially being returned. It doesn't like it. By and large that's good. We want the compiler to notice this as that's the entire point. We want to catch accidental `null`s before they hit a user. This is *great*! However, what do you do if have a method (as we do) that legitimately returns a `string` or `null`?
+It's a lot clearer. And that's why the compiler is getting antsy. The method signature is `string`, but it can see `null` potentially being returned. It doesn't like it. By and large that's good. We want the compiler to notice this as that's the entire point. We want to catch accidental `null`s before they hit a user. This is _great_! However, what do you do if have a method (as we do) that legitimately returns a `string` or `null`?
 
 ## Widening the type to include `null`
 
@@ -147,5 +148,3 @@ public string? GetUserName()
 ```
 
 That's right, the simple addition of `?` marks a reference type (like a string) as potentially being `null`. Adding that means that we're potentially returning `null`, but we're sure about it; there's intention here - it's not accidental. Wonderful!
-
-

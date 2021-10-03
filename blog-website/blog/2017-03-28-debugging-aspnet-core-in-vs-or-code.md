@@ -1,12 +1,13 @@
 ---
-title: "Debugging ASP.Net Core in VS or Code"
+title: 'Debugging ASP.Net Core in VS or Code'
 authors: johnnyreilly
 tags: [VS Code, ASP.Net Core, Visual Studio]
 hide_table_of_contents: false
 ---
+
 I've been using Visual Studio for a long time. Very good it is too. However, it is heavyweight; it does far more than I need. What I really want when I'm working is a fast snappy editor, with intellisense and debugging. What I've basically described is [VS Code](https://code.visualstudio.com/). It rocks and has long become my go-to editor for TypeScript.
 
- Since I'm a big C# fan as well I was delighted that editing C# was also possible in Code. What I want now is to be able to debug ASP.Net Core in Visual Studio OR VS Code. Can it be done? Let's see....
+Since I'm a big C# fan as well I was delighted that editing C# was also possible in Code. What I want now is to be able to debug ASP.Net Core in Visual Studio OR VS Code. Can it be done? Let's see....
 
 I fire up Visual Studio and `File -&gt; New Project` (yes it's a verb now). Select .NET Core and then ASP.Net Core Web Application. OK. We'll go for a Web Application. Let's not bother with authentication. OK. Wait a couple of seconds and Visual Studio serves up a new project. Hit F5 and we're debugging in Visual Studio.
 
@@ -55,11 +56,11 @@ Expanding 100% 34814 ms
   Generating MSBuild file c:\Source\Debugging\WebApplication1\WebApplication1\obj\WebApplication1.csproj.nuget.g.props.
   Writing lock file to disk. Path: c:\Source\Debugging\WebApplication1\WebApplication1\obj\project.assets.json
   Restore completed in 1.26 sec for c:\Source\Debugging\WebApplication1\WebApplication1\WebApplication1.csproj.
-  
+
   NuGet Config files used:
       C:\Users\johnr\AppData\Roaming\NuGet\NuGet.Config
       C:\Program Files (x86)\NuGet\Config\Microsoft.VisualStudio.Offline.config
-  
+
   Feeds used:
       https://api.nuget.org/v3/index.json
       C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\
@@ -77,5 +78,3 @@ Well I can certainly add a breakpoint but all those red squigglies are unnerving
 ![](../static/blog/2017-03-28-debugging-aspnet-core-in-vs-or-code/secondgo.png)
 
 Yes we can! So you're free to develop in either Code or VS; the choice is yours. I think that's pretty awesome - and well done to all the peeople behind Code who've made this a pretty seamless experience!
-
-

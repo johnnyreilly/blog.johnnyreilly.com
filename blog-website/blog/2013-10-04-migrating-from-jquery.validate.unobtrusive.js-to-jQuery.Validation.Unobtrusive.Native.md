@@ -1,12 +1,20 @@
 ---
-title: "Migrating from jquery.validate.unobtrusive.js to jQuery.Validation.Unobtrusive.Native"
+title: 'Migrating from jquery.validate.unobtrusive.js to jQuery.Validation.Unobtrusive.Native'
 authors: johnnyreilly
-tags: [migrating, jquery.validate.unobtrusive.js, getting started, jQuery.Validation.Unobtrusive.Native, jQuery Validation]
+tags:
+  [
+    migrating,
+    jquery.validate.unobtrusive.js,
+    getting started,
+    jQuery.Validation.Unobtrusive.Native,
+    jQuery Validation,
+  ]
 hide_table_of_contents: false
 ---
+
 So, you're looking at [jQuery.Validation.Unobtrusive.Native](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native). You're thinking to yourself "Yeah, I'd really like to use the native unobtrusive support in jQuery Validation. But I've already got this app which is using [jquery.validate.unobtrusive.js](https://www.nuget.org/packages/jQuery.Validation.Unobtrusive/) \- actually how easy is switching over?" Well I'm here to tell you that it's pretty straightforward - here's a walkthrough of how it might be done.
 
- ## I need something to migrate
+## I need something to migrate
 
 So let's File > New Project ourselves a new MVC 4 application using the Internet Application template. I've picked this template as I know it ships with account registration / login screens in place which make use of jquery.validate.unobtrusive.js. To demo this just run the project, click the "Log in" link and then click the "Log in" button - you should see something like this:
 
@@ -24,8 +32,6 @@ What has this done to my project? Well 2 things
 
 1. It's upgraded jQuery Validation ([jquery.validate.js](http://jqueryvalidation.org/)) from v1.10.0 (the version that is currently part of the MVC 4 template) to v1.11.1 (the latest and greatest jQuery Validation as of the time of writing)
 2. It's added a reference to the jQuery.Validation.Unobtrusive.Native.MVC4 assembly, like so:
-
-
 
 ![](https://3.bp.blogspot.com/-V-21V1Ypo3E/Uk583DTbegI/AAAAAAAAAd0/O0nv7w6kmew/s400/NewReference.png)
 
@@ -81,11 +87,10 @@ bundles.Add(new ScriptBundle("~/bundles/jqueryvalnative")
 To finish off our migrated screen we need to do 2 things. First we need to switch over the `Login.cshtml` view to only render the jquery.validate.js script (in the form of our new bundle). Secondly, the other thing that jquery.validate.unobtrusive.js did was to trigger validation for the current form. So we need to do that ourselves now. So our finished Scripts section looks like this:
 
 ```html
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryvalnative")
-    <script>
-        $("form").validate();
-    </script>
+@section Scripts { @Scripts.Render("~/bundles/jqueryvalnative")
+<script>
+  $('form').validate();
+</script>
 }
 ```
 
@@ -94,7 +99,7 @@ Which renders the following script:
 ```html
 <script src="/Scripts/jquery.validate.js"></script>
 <script>
-    $("form").validate();
+  $('form').validate();
 </script>
 ```
 
@@ -111,5 +116,3 @@ Before I sign off I'd like to illustrate how little we've had to change the code
 ![](https://2.bp.blogspot.com/-vnA84f1JXHw/Uk7HoDPGqMI/AAAAAAAAAeM/qZVlRak92_o/s400/WhatsTheDifference.png)
 
 As you see, it takes very little effort to migrate from one approach to the other. And it's \***your**\* choice. If you want to have one screen that uses jQuery.Validation.Unobtrusive.Native and one screen that uses jquery.validation.unobtrusive.js then you can! Including jQuery.Validation.Unobtrusive.Native in your project gives you the **option** to use it. It doesn't force you to, you can do so as you need to and when you want to. It's down to you.
-
-

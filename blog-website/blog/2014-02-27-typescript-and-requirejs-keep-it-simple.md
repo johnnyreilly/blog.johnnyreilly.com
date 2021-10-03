@@ -1,34 +1,37 @@
 ---
-title: "TypeScript and RequireJS (Keep It Simple)"
+title: 'TypeScript and RequireJS (Keep It Simple)'
 authors: johnnyreilly
 tags: [RequireJS, AMD, TypeScript]
 hide_table_of_contents: false
 ---
+
 I'm not the first to take a look at mixing TypeScript and RequireJS but I wanted to get it clear in my head. Also, I've always felt the best way to learn is to do. So here we go. I'm going to create a TypeScript and RequireJS demo based on [John Papa's "Keep It Simple RequireJS Demo"](https://github.com/johnpapa/kis-requirejs-demo/).
 
- So let's fire up Visual Studio 2013 and create a new ASP.NET Web Application called “RequireJSandTypeScript” (the empty project template is fine).
+So let's fire up Visual Studio 2013 and create a new ASP.NET Web Application called “RequireJSandTypeScript” (the empty project template is fine).
 
 Add a new HTML file to the root called “index.html” and base it on “index3.html” from [John Papa’s demo](https://github.com/johnpapa/kis-requirejs-demo/blob/master/ModularDemo/index3.html):
 
 ```html
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>TypeScript with RequireJS</title>
-</head>
-<body>
+  </head>
+  <body>
     <div>
-        <h1>TypeScript with RequireJS loading jQuery in Visual Studio land</h1>
+      <h1>TypeScript with RequireJS loading jQuery in Visual Studio land</h1>
     </div>
 
     <!-- use jquery to load this message-->
     <p id="message"></p>
 
     <!-- Shortcut to load require and then load main-->
-    <script src="/scripts/require.js"
-            data-main="/scripts/main"
-            type="text/javascript"></script>
-</body>
+    <script
+      src="/scripts/require.js"
+      data-main="/scripts/main"
+      type="text/javascript"
+    ></script>
+  </body>
 </html>
 ```
 
@@ -88,85 +91,73 @@ Right – looking at index.html we can see from the data-main tag that the first
 
 ```ts
 (function () {
+  requirejs.config({
+    baseUrl: 'scripts',
+    paths: {
+      jquery: 'jquery-2.1.0',
+    },
+  });
 
-    requirejs.config(
-        {
-            baseUrl: "scripts",
-            paths: {
-                "jquery": "jquery-2.1.0"
-            }
-        }
-        );
-
-    require(["alerter"],
-        (alerter) => {
-            alerter.showMessage();
-        });
+  require(['alerter'], (alerter) => {
+    alerter.showMessage();
+  });
 })();
 ```
 
 main.ts depends upon [alerter](https://github.com/johnpapa/kis-requirejs-demo/blob/master/ModularDemo/Scripts3/alerter.js) so let’s add ourselves an alerter.ts as well:
 
 ```ts
-define('alerter',
-    ['jquery', 'dataservice'],
-    function ($, dataservice) {
+define('alerter', ['jquery', 'dataservice'], function ($, dataservice) {
+  var name = 'John',
+    showMessage = function () {
+      var msg = dataservice.getMessage();
 
-        var
-            name = 'John',
-            showMessage = function () {
-                var msg = dataservice.getMessage();
+      $('#message').text(msg + ', ' + name);
+    };
 
-                $('#message').text(msg + ', ' + name);
-            };
-
-        return {
-            showMessage: showMessage
-        };
-    });
+  return {
+    showMessage: showMessage,
+  };
+});
 ```
 
 And a [dataservice.ts](https://github.com/johnpapa/kis-requirejs-demo/blob/master/ModularDemo/Scripts3/dataservice.js):
 
 ```ts
-define('dataservice', [],
-    function () {
-        var
-            msg = 'Welcome to Code Camp',
-            getMessage = function () {
-                return msg;
-            };
+define('dataservice', [], function () {
+  var msg = 'Welcome to Code Camp',
+    getMessage = function () {
+      return msg;
+    };
 
-        return {
-            getMessage: getMessage
-        };
-    });
+  return {
+    getMessage: getMessage,
+  };
+});
 ```
 
 That all compiles fine. But we’re missing a trick. We’re supposed to be using TypeScripts AMD support so let’s change the code to do just that. First dataservice.ts:
 
 ```ts
-var msg = "Welcome to Code Camp";
+var msg = 'Welcome to Code Camp';
 
 export function getMessage() {
-
-    return msg;
-};
+  return msg;
+}
 ```
 
 Then alerter.ts:
 
 ```ts
-import $ = require("jquery");
-import dataservice = require("dataservice");
+import $ = require('jquery');
+import dataservice = require('dataservice');
 
-var name = "John";
+var name = 'John';
 
 export function showMessage() {
+  var msg = dataservice.getMessage();
 
-    var msg = dataservice.getMessage();
-
-    $("#message").text(msg + ", " + name);
+  $('#message').text(msg + ', ' + name);
 }
 ```
 
@@ -209,5 +200,3 @@ I’ve included the js and js.map files in the project file as they don't seem t
 ## Want the code for your very own?
 
 Well you can grab it from [GitHub](https://github.com/johnnyreilly/RequireJSandTypeScript).
-
-

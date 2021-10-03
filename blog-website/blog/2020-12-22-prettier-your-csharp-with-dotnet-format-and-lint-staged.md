@@ -1,11 +1,12 @@
 ---
-title: "dotnet-format: Prettier your CSharp with lint-staged and husky"
+title: 'dotnet-format: Prettier your CSharp with lint-staged and husky'
 authors: johnnyreilly
 image: blog/2020-12-22-prettier-your-csharp-with-dotnet-format-and-lint-staged/title-image.png
 tags: [Prettier, dotnet-format, lint-staged, husky, CSharpier]
 hide_table_of_contents: false
 ---
-Consistent formatting in a codebase is a good thing. We can achieve this in dotnet using `dotnet format`, used in combination with the npm packages `husky` and `lint-staged`.  This post shows how.
+
+Consistent formatting in a codebase is a good thing. We can achieve this in dotnet using `dotnet format`, used in combination with the npm packages `husky` and `lint-staged`. This post shows how.
 
 ![title image reading "dotnet-format: Prettier your CSharp with lint-staged and husky" and the dotnet-format logo](../static/blog/2020-12-22-prettier-your-csharp-with-dotnet-format-and-lint-staged/title-image.png)
 
@@ -16,7 +17,6 @@ This has been updated to work with the latest versions of `lint-staged` and `hus
 ## Why format?
 
 Consistent formatting makes code less confusing to newcomers and it allows whoever is working on the codebase to reliably focus on the task at hand. Not "fixing curly braces because Janice messed them up with her last commit". (A `git commit` message that would be tragic in so many ways.)
-
 
 Once we've agreed that we want to have consistent formatting, we want it to be enforced. Enter, stage left, [Prettier](https://prettier.io/), the fantastic tool for formatting code. It rocks; I've been using on my JavaScript / TypeScript for the longest time. But what about C#? Well, there is a [Prettier plugin for C#](https://github.com/warrenseine/prettier-plugin-csharp).... Sort of. It appears to be abandoned and contains the worrying message in the `README.md`:
 
@@ -83,9 +83,9 @@ npx husky-init && npm install
 npm install lint-staged --save-dev
 ```
 
-We should have a new file living at `.husky/pre-commit` which is our pre-commit hook.  
+We should have a new file living at `.husky/pre-commit` which is our pre-commit hook.
 
-Within that file we should replace `npm test` with `npx lint-staged --relative`. This is the command that will be run on commit. `lint-staged` will be run and we're specifying `relative` so that **relative** file paths will be used. This is important as `dotnet format`'s `--include` accepts "a list of relative file or folder paths to include in formatting".  **Absolute paths (the default) won't work - and if we pass them to `dotnet format`, it will not format the files.**
+Within that file we should replace `npm test` with `npx lint-staged --relative`. This is the command that will be run on commit. `lint-staged` will be run and we're specifying `relative` so that **relative** file paths will be used. This is important as `dotnet format`'s `--include` accepts "a list of relative file or folder paths to include in formatting". **Absolute paths (the default) won't work - and if we pass them to `dotnet format`, it will not format the files.**
 
 Finally we add the following entry to the `package.json`:
 
@@ -135,7 +135,7 @@ By and large we don't have to think about this; the important take home is that 
 
 ## CSharpier - update 16/05/2021
 
-There is an alternative to the CSharp Prettier project. It's being worked on by 
+There is an alternative to the CSharp Prettier project. It's being worked on by
 [Bela VanderVoort](https://github.com/belav) and it goes by the name of [csharpier](https://github.com/belav/csharpier). When comparing CSharpier and dotnet-format, Bela put it like this:
 
 > I could see CSharpier being the non-configurable super opinionated formatter and dotnet-format being for the people that do want to have options.

@@ -1,9 +1,10 @@
 ---
-title: "GitHub Actions and Yarn"
+title: 'GitHub Actions and Yarn'
 authors: johnnyreilly
 tags: [docker, yarn, GitHub Actions]
 hide_table_of_contents: false
 ---
+
 I'd been meaning to automate the npm publishing of [`ts-loader`](https://github.com/TypeStrong/ts-loader) for the longest time. I had attempted to use Travis to do this in the same way as [`fork-ts-checker-webpack-plugin`](https://github.com/Realytics/fork-ts-checker-webpack-plugin). Alas using secure environment variables in Travis has unfortunate implications for ts-loader's test pack.
 
 Be not afeard. I've heard there's a new shiny thing from GitHub that I could use instead... It's a sign; I must use it!
@@ -19,15 +20,13 @@ Each time I publish a release of `ts-loader` I execute the following node comman
 3. `yarn test` \- to run `ts-loader`'s test packs
 4. `npm publish` \- to publish the release of `ts-loader` to npm
 
-
-
 Having read up on GitHub Actions it seemed like they were born to handle this sort of task.
 
 ## GitHub Action for `npm`
 
 I quickly discovered that someone out there <s>loves me</s>
 
- had [already written a GitHub Action for `npm`](https://github.com/actions/npm).
+had [already written a GitHub Action for `npm`](https://github.com/actions/npm).
 
 The example in the `README.md` could be easily tweaked to meet my needs with one caveat: I had to use `npm` in place of `yarn`. I didn't want to switch from `yarn`. What to do?
 
@@ -125,7 +124,7 @@ You heard me right. Docker containers be Docker containers. You don't actually n
 uses = "actions/npm@1.0.0"
 ```
 
-You can use *any* Docker container which has node / npm installed! So if you'd like to use say node 11 instead you could just do this:
+You can use _any_ Docker container which has node / npm installed! So if you'd like to use say node 11 instead you could just do this:
 
 ```
 uses = "docker://node:11"
@@ -133,8 +132,6 @@ uses = "docker://node:11"
 
 Which would use the node 11 image on [docker hub](https://hub.docker.com/_/node).
 
-Which is pretty cool. You know what's even more incredible? Inside a workflow you can switch `uses` mid-workflow and keep the output. That's right; you can have a work flow with say three actions running `uses = "docker://node:11"` and then a fourth running `uses = "actions/npm@1.0.0"`. That's *so* flexible and powerful!
+Which is pretty cool. You know what's even more incredible? Inside a workflow you can switch `uses` mid-workflow and keep the output. That's right; you can have a work flow with say three actions running `uses = "docker://node:11"` and then a fourth running `uses = "actions/npm@1.0.0"`. That's _so_ flexible and powerful!
 
 Thanks to [Matt Colyer](https://github.com/mcolyer) and [Landon Schropp](https://github.com/LandonSchropp) for [schooling me on the intricicies of GitHub Actions](https://github.com/actions/npm/issues/9). Much ❤
-
-

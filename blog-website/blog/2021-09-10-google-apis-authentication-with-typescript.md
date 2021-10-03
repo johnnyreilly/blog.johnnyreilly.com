@@ -1,15 +1,16 @@
 ---
-title: "Google APIs: authentication with TypeScript"
+title: 'Google APIs: authentication with TypeScript'
 authors: johnnyreilly
 tags: [Google APIs, TypeScript]
 image: blog/2021-09-10-google-apis-authentication-with-typescript/app-registration.png
 hide_table_of_contents: false
 ---
-Google has a wealth of APIs which we can interact with.  At the time of writing, there's more than two hundred available; including YouTube, Google Calendar and GMail (alongside many others). To integrate with these APIs, it's necessary to authenticate and then use that credential with the API. This post will take you through how to do just that using TypeScript. It will also demonstrate how to use one of those APIs: the Google Calendar API.
+
+Google has a wealth of APIs which we can interact with. At the time of writing, there's more than two hundred available; including YouTube, Google Calendar and GMail (alongside many others). To integrate with these APIs, it's necessary to authenticate and then use that credential with the API. This post will take you through how to do just that using TypeScript. It will also demonstrate how to use one of those APIs: the Google Calendar API.
 
 ## Creating an OAuth 2.0 Client ID on the Google Cloud Platform
 
-The first thing we need to do is go to the [Google Cloud Platform to create a project](https://console.cloud.google.com/projectcreate). The name of the project doesn't matter particularly; although it can be helpful to name the project to align with the API you're intending to consume. That's what we'll do here as we plan to integrate with the Google Calendar API: 
+The first thing we need to do is go to the [Google Cloud Platform to create a project](https://console.cloud.google.com/projectcreate). The name of the project doesn't matter particularly; although it can be helpful to name the project to align with the API you're intending to consume. That's what we'll do here as we plan to integrate with the Google Calendar API:
 
 ![Screenshot of the Create Project screen in the Google Cloud Platform](../static/blog/2021-09-10-google-apis-authentication-with-typescript/google-cloud-platform-create-project.png)
 
@@ -17,7 +18,7 @@ The project is the container in which the OAuth 2.0 Client ID will be housed. No
 
 ![Screenshot of the Create Credentials dropdown in the Google Cloud Platform](../static/blog/2021-09-10-google-apis-authentication-with-typescript/create-credentials.png)
 
-You'll likely have to create an OAuth consent screen before you can create the OAuth Client ID. Going through the journey of doing that feels a little daunting as many questions have to be answered.  This is because the consent screen can be used for a variety of purposes beyond the API authentication we're looking at today.
+You'll likely have to create an OAuth consent screen before you can create the OAuth Client ID. Going through the journey of doing that feels a little daunting as many questions have to be answered. This is because the consent screen can be used for a variety of purposes beyond the API authentication we're looking at today.
 
 When challenged, you can generally accept the defaults and proceed. The user type you'll require will be "External":
 
@@ -33,7 +34,7 @@ Creating the OAuth Client ID is slightly confusing as the "Application type" req
 
 ![Screenshot of the create OAuth Client ID screen in the Google Cloud Platform](../static/blog/2021-09-10-google-apis-authentication-with-typescript/create-oauth-client-id-type.png)
 
-We're using this type of application as we want to acquire a [refresh token](https://oauth.net/2/grant-types/refresh-token/) which we'll be able to use in future to aquire access tokens which will be used to access the Google APIs. 
+We're using this type of application as we want to acquire a [refresh token](https://oauth.net/2/grant-types/refresh-token/) which we'll be able to use in future to aquire access tokens which will be used to access the Google APIs.
 
 Once it's created, you'll be able to download the Client ID from the Google Cloud Platform:
 
@@ -82,7 +83,7 @@ We've added a number of dependencies that will allow us to write a TypeScript No
 We're going to make use of the OAuth 2.0 part. We'll start our journey by creating a file called `google-api-auth.ts`:
 
 ```ts
-import { getArgs, makeOAuth2Client } from "./shared";
+import { getArgs, makeOAuth2Client } from './shared';
 
 async function getToken() {
   const { clientId, clientSecret, code } = await getArgs();
@@ -94,10 +95,13 @@ async function getToken() {
   async function getAuthUrl() {
     const url = oauth2Client.generateAuthUrl({
       // 'online' (default) or 'offline' (gets refresh_token)
-      access_type: "offline",
+      access_type: 'offline',
 
       // scopes are documented here: https://developers.google.com/identity/protocols/oauth2/scopes#calendar
-      scope: ["https://www.googleapis.com/auth/calendar", "https://www.googleapis.com/auth/calendar.events"],
+      scope: [
+        'https://www.googleapis.com/auth/calendar',
+        'https://www.googleapis.com/auth/calendar.events',
+      ],
     });
 
     console.log(`Go to this URL to acquire a refresh token:\n\n${url}\n`);
@@ -115,9 +119,9 @@ getToken();
 And a common file named `shared.ts` which `google-api-auth.ts` imports and which we'll re-use later:
 
 ```ts
-import { google } from "googleapis";
-import yargs from "yargs/yargs";
-const { hideBin } = require("yargs/helpers");
+import { google } from 'googleapis';
+import yargs from 'yargs/yargs';
+const { hideBin } = require('yargs/helpers');
 
 export async function getArgs() {
   const argv = await Promise.resolve(yargs(hideBin(process.argv)).argv);
@@ -128,13 +132,13 @@ export async function getArgs() {
   const code = argv.code as string | undefined;
   const refreshToken = argv.refreshToken as string | undefined;
   const test = argv.test as boolean;
-  
+
   if (!clientId) throw new Error('No clientId ');
   console.log('We have a clientId');
-  
+
   if (!clientSecret) throw new Error('No clientSecret');
   console.log('We have a clientSecret');
-  
+
   if (code) console.log('We have a code');
   if (refreshToken) console.log('We have a refreshToken');
 
@@ -151,7 +155,7 @@ export function makeOAuth2Client({
   return new google.auth.OAuth2(
     /* YOUR_CLIENT_ID */ clientId,
     /* YOUR_CLIENT_SECRET */ clientSecret,
-    /* YOUR_REDIRECT_URL */ "urn:ietf:wg:oauth:2.0:oob"
+    /* YOUR_REDIRECT_URL */ 'urn:ietf:wg:oauth:2.0:oob'
   );
 }
 ```
@@ -167,7 +171,7 @@ We'll add an entry to our `package.json` which will allow us to run our console 
     "google-api-auth": "ts-node google-api-auth.ts"
 ```
 
-Now we're ready to acquire the refresh token.  We'll run the following command (substituting in the appropriate values):
+Now we're ready to acquire the refresh token. We'll run the following command (substituting in the appropriate values):
 
 `npm run google-api-auth -- --clientId CLIENT_ID --clientSecret CLIENT_SECRET`
 
@@ -185,30 +189,29 @@ Then (quickly) paste the acquired code into the following command:
 
 The `refresh_token` (alongside much else) will be printed to the console. Grab it and put it somewhere secure. Again, no storing in source control!
 
-It's worth taking a moment to reflect on what we've done.  We've acquired a refresh token which involved a certain amount of human interaction.  We've had to run a console command, do some work in a browser and run another commmand. You wouldn't want to do this repeatedly because it involves human interaction. Intentionally it cannot be automated. However, once you've acquired the refresh token, you can use it repeatedly until it expires (which may be never or at least years in the future). So once you have the refresh token, and you've stored it securely, you have what you need to be able to automate an API interaction.
+It's worth taking a moment to reflect on what we've done. We've acquired a refresh token which involved a certain amount of human interaction. We've had to run a console command, do some work in a browser and run another commmand. You wouldn't want to do this repeatedly because it involves human interaction. Intentionally it cannot be automated. However, once you've acquired the refresh token, you can use it repeatedly until it expires (which may be never or at least years in the future). So once you have the refresh token, and you've stored it securely, you have what you need to be able to automate an API interaction.
 
 ## Accessing the Google Calendar API
 
 Let's test out our refresh token by attempting to access the Google Calendar API. We'll create a `calendar.ts` file
 
 ```ts
-import { google } from "googleapis";
-import { getArgs, makeOAuth2Client } from "./shared";
+import { google } from 'googleapis';
+import { getArgs, makeOAuth2Client } from './shared';
 
 async function makeCalendarClient() {
   const { clientId, clientSecret, refreshToken } = await getArgs();
   const oauth2Client = makeOAuth2Client({ clientId, clientSecret });
   oauth2Client.setCredentials({
-    refresh_token: refreshToken
+    refresh_token: refreshToken,
   });
 
   const calendarClient = google.calendar({
-    version: "v3",
+    version: 'v3',
     auth: oauth2Client,
   });
   return calendarClient;
 }
-
 
 async function getCalendar() {
   const calendarClient = await makeCalendarClient();
@@ -220,7 +223,6 @@ async function getCalendar() {
   } else {
     console.log('there was an issue...', status);
   }
-
 }
 
 getCalendar();
@@ -234,7 +236,7 @@ We'll add an entry to our `package.json` which will allow us to run this functio
     "calendar": "ts-node calendar.ts",
 ```
 
-Now we're ready to test `calendar.ts`.  We'll run the following command (substituting in the appropriate values):
+Now we're ready to test `calendar.ts`. We'll run the following command (substituting in the appropriate values):
 
 `npm run calendar -- --clientId CLIENT_ID --clientSecret CLIENT_SECRET --refreshToken REFRESH_TOKEN`
 
@@ -252,7 +254,7 @@ This demonstrates that we're successfully integrating with a Google API using ou
 
 ## Today the Google Calendar API, tomorrow the (Google API) world!
 
-What we've demonstrated here is integrating with the Google Calendar API.  However, that is not the limit of what we can do. As we discussed earlier, Google has more than two hundred APIs we can interact with, and the key to that interaction is following the same steps for authentication that this post outlines.
+What we've demonstrated here is integrating with the Google Calendar API. However, that is not the limit of what we can do. As we discussed earlier, Google has more than two hundred APIs we can interact with, and the key to that interaction is following the same steps for authentication that this post outlines.
 
 Let's imagine that we want to integrate with the YouTube API or the GMail API. We'd be able to follow the steps in this post, using different [scopes for the refresh token appropriate to the API](https://developers.google.com/identity/protocols/oauth2/scopes#calendar), and build an integration against that API. [Take a look at the available APIs](https://developers.google.com/apis-explorer) here.
 

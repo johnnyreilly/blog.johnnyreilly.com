@@ -1,10 +1,11 @@
 ---
-title: "TypeScript 4.4 and more readable code"
+title: 'TypeScript 4.4 and more readable code'
 authors: johnnyreilly
 tags: [TypeScript, Control Flow Analysis of Aliased Conditions]
 image: blog/2021-08-14-typescript-4-4-more-readable-code/reactions-on-github.png
 hide_table_of_contents: false
 ---
+
 An exciting feature is shipping with TypeScript 4.4. It has the name ["Control Flow Analysis of Aliased Conditions"](https://devblogs.microsoft.com/typescript/announcing-typescript-4-4-beta/#cfa-aliased-conditions) which is quite a mouthful. This post unpacks what this feature is, and demonstrates the contribution it makes to improving the readability of code.
 
 ## Indirect type narrowing via `const`
@@ -33,18 +34,18 @@ Here's a simple function that adds all the parameters it receives and returns th
 
 ```ts
 function add(...thingsToAdd: (string | number)[]): number {
-    let total = 0;
-    for (const thingToAdd of thingsToAdd) {
-        if (typeof thingToAdd === 'string') {
-            total += Number(thingToAdd);
-        } else {
-            total += thingToAdd;
-        }
+  let total = 0;
+  for (const thingToAdd of thingsToAdd) {
+    if (typeof thingToAdd === 'string') {
+      total += Number(thingToAdd);
+    } else {
+      total += thingToAdd;
     }
-    return total;
+  }
+  return total;
 }
 
-console.log(add(1, '7', '3', 9))
+console.log(add(1, '7', '3', 9));
 ```
 
 [Try it out in the TypeScript playground.](https://www.typescriptlang.org/play?ts=4.3.5#code/GYVwdgxgLglg9mABAQwCaoBQDodQBYxgDmAzgCpwCC6AXIhiVAE6FGIA+iYIAtgEYBTJgEoA2gF1hdbvyGIA3gChEKxABsBURFDhRkaxAF5EABgDcy1cDhN6EBI20FiFaqkRxgT1uSrphCpaqqjBeGFAAngAOAp7eLn7uhsmIAOSMLMSpAUrBeao6egYA1MYAcryCTOHORK7+FvkqAL6IAmokAoFNeYX6iKXxdYmNTc1BiOPBTJogTEh9ahbjivZgJHAaWGpwRBhomACMADRpAOypp6kAzJeIAJzCwkA)
@@ -58,19 +59,19 @@ You can infer this from reading the code. However, what if we were to re-write i
 
 ```ts
 function add(...thingsToAdd: (string | number)[]): number {
-    let total = 0;
-    for (const thingToAdd of thingsToAdd) {
-        const shouldCoerceToNumber = typeof thingToAdd === 'string';
-        if (shouldCoerceToNumber) {
-            total += Number(thingToAdd);
-        } else {
-            total += thingToAdd;
-        }
+  let total = 0;
+  for (const thingToAdd of thingsToAdd) {
+    const shouldCoerceToNumber = typeof thingToAdd === 'string';
+    if (shouldCoerceToNumber) {
+      total += Number(thingToAdd);
+    } else {
+      total += thingToAdd;
     }
-    return total;
+  }
+  return total;
 }
 
-console.log(add(1, '7', '3', 9))
+console.log(add(1, '7', '3', 9));
 ```
 
 [Try it out in the TypeScript playground.](https://www.typescriptlang.org/play?ts=4.3.5#code/GYVwdgxgLglg9mABAQwCaoBQDodQBYxgDmAzgCpwCC6AXIhiVAE6FGIA+iYIAtgEYBTJgEoA2gF1hdbvyGIA3gChEKxABsBURFDhRkaxAF5EABgDcy1cDhN6EBI20FiFaqkRxgT1uSrphCpaqqvZgjiR4cCBqqADCcEIQAhQAcryCtsZQAJ4ADgKe3i5+7oZliADkjCzEFRbBwTBeDJHRcQlMSanpQgFKDQPauvqIANTGabJMGPisrv71gwC+iAJqJAKBgw06egbjRUTzqIsDS0GI58FMmiBMSLv6FueKoSRwGlhqcEQYaJgARgANJUAOwVEEVADMEMQAE5hMIgA)
@@ -83,9 +84,9 @@ The error being surfaced is:
 
 > `Operator '+=' cannot be applied to types 'number' and 'string | number'.(2365)`
 
-What's happening here, is TypeScript *does not remember* that `shouldCoerceToNumber` represents a type narrowing of `thingToAdd` from `string | number` to `string`.  So the type of `thingToAdd` remains unchanged from `string | number` when we write code that depends upon it. 
+What's happening here, is TypeScript _does not remember_ that `shouldCoerceToNumber` represents a type narrowing of `thingToAdd` from `string | number` to `string`. So the type of `thingToAdd` remains unchanged from `string | number` when we write code that depends upon it.
 
-This has terrible consequences.  It means we can't write this more expressive code that we're interested in, and would be better for maintainers of our codebase.  And this is what TypeScript 4.4, with our new feature, unlocks.  Let's change the playground to use TypeScript 4.4 instead:
+This has terrible consequences. It means we can't write this more expressive code that we're interested in, and would be better for maintainers of our codebase. And this is what TypeScript 4.4, with our new feature, unlocks. Let's change the playground to use TypeScript 4.4 instead:
 
 ![Screenshot of the TypeScript playground running TypeScript 4.4 and working with our new code - it shows the `thingToAdd` variable has been narrowed to a `string`](../static/blog/2021-08-14-typescript-4-4-more-readable-code/does-work-in-typescript-4-4.png)
 
@@ -97,7 +98,7 @@ So we're now writing more expressive code, and TypeScript is willing us on our w
 
 ## Read more
 
-This feature is a tremendous addition to the TypeScript language.  It should have a significant long-term positive impact on how people write code with TypeScript.
+This feature is a tremendous addition to the TypeScript language. It should have a significant long-term positive impact on how people write code with TypeScript.
 
 To read more, do check out the excellent [TypeScript 4.4 beta release notes](https://devblogs.microsoft.com/typescript/announcing-typescript-4-4-beta/#cfa-aliased-conditions). There's also some other exciting feature shipping with this release as well. Thanks very much to the TypeScript team for once again improving the language, and making a real contribution to people being able to write readable code.
 

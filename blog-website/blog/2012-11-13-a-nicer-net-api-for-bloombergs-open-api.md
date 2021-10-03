@@ -4,9 +4,10 @@ authors: johnnyreilly
 tags: [.NET, c#, Bloomberg, Open API]
 hide_table_of_contents: false
 ---
+
 A good portion of any devs life is usually spent playing with APIs. If you need to integrate some other system into the system you're working on (and it's rare to come upon a situation where this doesn't happen at some point) then it's API time.
 
- Some APIs are well documented and nice to use. Some aren't. I recently spent a goodly period of time investigating [Bloomberg's Open API](http://www.openbloomberg.com/open-api/) and it was a slightly painful experience. So much so that I thought it best to write up my own experiences and maybe I can save others time and a bit of pain.
+Some APIs are well documented and nice to use. Some aren't. I recently spent a goodly period of time investigating [Bloomberg's Open API](http://www.openbloomberg.com/open-api/) and it was a slightly painful experience. So much so that I thought it best to write up my own experiences and maybe I can save others time and a bit of pain.
 
 Also, as I investigated the Bloomberg Open API I found myself coming up with my own little mini-C#-API. (It's generally a sure sign you've found an API you don't love if you end up writing your own wrapper.) This mini API did the heavy lifting for me and just handed back nicely structured data to deal with. I have included this wrapper here as well.
 
@@ -16,8 +17,6 @@ The initial plan was to, through code, extract Libor and Euribor rates from Bloo
 
 1. Typing “`WAPI&lt;GO&gt;`” into Bloomberg lead me to the Bloomberg API documentation.
 2. Typing “`DOCS 2055451&lt;GO&gt;`” into Bloomberg (I know - it's a bit cryptic) provided me with samples of how to use the Bloomberg API in VBA
-
-
 
 ![](https://4.bp.blogspot.com/-mZxP0-jXRIo/UKJ8y8Gs5AI/AAAAAAAAAW0/qNyIN9hGBiQ/s400/bloombergwapidocumentation.gif)
 
@@ -40,8 +39,6 @@ So I'm off and romping... I have something that works. Hallelujah! Now that that
 1. The Bloomberg API came with custom data types. I didn't want to use these unless it was absolutely necessary - I just wanted to stick to the standard .NET types. This way if I needed to hand data onto another application I wouldn't be making each of these applications dependant on the Bloomberg Open API.
 2. To get the data out of the Bloomberg API there was an awful lot of boilerplate. Code which handled the possibilities of very large responses that might be split into several packages. Code which walked the element tree returned from Bloomberg parsing out the data. It wasn't a beacon of simplicity.
 
-
-
 I wanted an API that I could simply invoke with security codes and required fields. And in return I wanted to be passed nicely structured data. As I've already mentioned a desire to not introduce unnecessary dependencies I thought it might well suit to make use of nested Dictionaries. I came up with a simple C# Console project / application which had a reference to the Bloomberg Open API. It contained the following class; essentially my wrapper for Open API operations: (please note this is deliberately a very "bare-bones" implementation)
 
 <script src="https://gist.github.com/4065815.js?file=BloombergApi.cs"></script>
@@ -58,10 +55,8 @@ This covered my bases. It was simple, it was easy to consume and it didn't requi
 
 ## Update (07/12/2012)
 
-Finally, a PS. I found in the [Open API FAQs](http://www.openbloomberg.com/faq/) that *"Testing any of that functionality currently requires a valid Bloomberg Desktop API (DAPI), Server API (SAPI) or Managed B-Pipe subscription. Bloomberg is planning on releasing a stand-alone simulator which will not require a subscription."* There isn't any word yet on this stand-alone simulator. I emailed Bloomberg at [open-tech@bloomberg.net](mailto:open-tech@bloomberg.net) to ask about this. They kindly replied that *"Unfortunately it is not yet available. We understand that this makes testing API applications somewhat impractical, so we're continuing to work on this tool."* Fingers crossed for something we can test soon!
+Finally, a PS. I found in the [Open API FAQs](http://www.openbloomberg.com/faq/) that _"Testing any of that functionality currently requires a valid Bloomberg Desktop API (DAPI), Server API (SAPI) or Managed B-Pipe subscription. Bloomberg is planning on releasing a stand-alone simulator which will not require a subscription."_ There isn't any word yet on this stand-alone simulator. I emailed Bloomberg at [open-tech@bloomberg.net](mailto:open-tech@bloomberg.net) to ask about this. They kindly replied that _"Unfortunately it is not yet available. We understand that this makes testing API applications somewhat impractical, so we're continuing to work on this tool."_ Fingers crossed for something we can test soon!
 
 ## Note to self (because I keep forgetting)
 
 If you're looking to investigate what data is available about a security in Bloomberg it's worth typing “`FLDS&lt;GO&gt;`” into Bloomberg. This is the Bloomberg Fields Finder. Likewise, if you're trying to find a security you could try typing “`SECF&lt;GO&gt;`” into Bloomberg as this is the Security Finder.
-
-

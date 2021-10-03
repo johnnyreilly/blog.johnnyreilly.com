@@ -1,12 +1,14 @@
 ---
-title: "Running JavaScript Unit Tests in AppVeyor"
+title: 'Running JavaScript Unit Tests in AppVeyor'
 authors: johnnyreilly
-tags: [Jasmine, javascript, Unit tests, Continuous Integration, AppVeyor, Chutzpah]
+tags:
+  [Jasmine, javascript, Unit tests, Continuous Integration, AppVeyor, Chutzpah]
 hide_table_of_contents: false
 ---
+
 ## With a little help from Chutzpah...
 
- [AppVeyor](http://www.appveyor.com) (if you're not aware of it) is a Continuous Integration provider. If you like, it's plug-and-play CI for .NET developers. It's lovely. And what's more it's ["free for open-source projects with public repositories hosted on GitHub and BitBucket"](http://www.appveyor.com/pricing). Boom! I recently hooked up 2 of my GitHub projects with AppVeyor. It took me all of... 10 minutes. If that? It really is \***that**\* good.
+[AppVeyor](http://www.appveyor.com) (if you're not aware of it) is a Continuous Integration provider. If you like, it's plug-and-play CI for .NET developers. It's lovely. And what's more it's ["free for open-source projects with public repositories hosted on GitHub and BitBucket"](http://www.appveyor.com/pricing). Boom! I recently hooked up 2 of my GitHub projects with AppVeyor. It took me all of... 10 minutes. If that? It really is \***that**\* good.
 
 But.... There had to be a "but" otherwise I wouldn't have been writing the post you're reading. For a little side project of mine called [Proverb](https://github.com/johnnyreilly/Proverb) there were C# unit tests and there were JavaScript unit tests. And the JavaScript unit tests weren't being run... No fair!!!
 
@@ -18,8 +20,6 @@ In order that I could run Chutzpah I needed Chutzpah to be installed on the buil
 
 1. Add Chutzpah direct to the repo
 2. Add the [Chutzpah Nuget package](http://www.nuget.org/packages/chutzpah) to the solution
-
-
 
 Unsurprisingly I chose #2 - much cleaner.
 
@@ -74,8 +74,6 @@ What this does is:
 2. We iterate through test results and tell AppVeyor about the the test passes and failures using the [Build Worker API](http://www.appveyor.com/docs/build-worker-api).
 3. If there have been any failed tests then we fail the build. If you look [here](https://ci.appveyor.com/project/JohnReilly/proverb/build/1.0.17) you can see a deliberately failed build which demo's that this works as it should.
 
-
-
 That's a wrap - We now have CI which includes our JavaScript tests! That's right we get to see beautiful screens like these:
 
 ![](../static/blog/2014-09-06-running-javascript-unit-tests-in-appveyor/Screenshot%2B2014-09-06%2B21.43.15.png)
@@ -85,5 +83,3 @@ That's a wrap - We now have CI which includes our JavaScript tests! That's right
 ## Thanks to...
 
 Thanks to Dan Jones, whose comments on [this discussion](http://help.appveyor.com/discussions/questions/390-running-jasmine-on-appveyor#comment_34433599) provided a number of useful pointers which moved me in the right direction. And thanks to Feador Fitzner who has generously [said AppVeyor will support JUnit in the future](http://help.appveyor.com/discussions/questions/495-integrating-chutzpah-into-appveyor#comment_34447202) which may simplify use of Chutzpah with AppVeyor even further.
-
-

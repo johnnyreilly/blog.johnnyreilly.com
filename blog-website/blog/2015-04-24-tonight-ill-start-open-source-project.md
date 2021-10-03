@@ -4,11 +4,10 @@ authors: johnnyreilly
 tags: [asp.net mvc, validation, AngularJS]
 hide_table_of_contents: false
 ---
+
 ### Further posts on this topic
 
- - [NgValidationFor Baby Steps](https://blog.johnnyreilly.com/2015/05/ngvalidationfor-baby-steps.html)
-
-
+- [NgValidationFor Baby Steps](https://blog.johnnyreilly.com/2015/05/ngvalidationfor-baby-steps.html)
 
 I'm excited. Are you? I'm babysitting for a friend, I've my laptop, time to kill and (crucially) an idea...
 
@@ -16,7 +15,7 @@ I'm excited. Are you? I'm babysitting for a friend, I've my laptop, time to kill
 
 You're likely aware of the various form element directives that AngularJS offers. For instance the [input directive](https://docs.angularjs.org/api/ng/directive/input):
 
-> HTML input element control. When used together with ngModel, it provides data-binding, input state control, and *validation*.
+> HTML input element control. When used together with ngModel, it provides data-binding, input state control, and _validation_.
 
 You'll notice that I emphasised the word "validation" there. That's important - that's my idea. I'm using AngularJS to build SPA's and for the server side I'm using ASP.Net MVC / Web API. Crucially, my templates are actually ASP.Net MVC Partial Views. That's key.
 
@@ -40,13 +39,11 @@ namespace App.ViewModels
 I'd have a view like this:
 
 ```html
-@model App.ViewModels.RequiredModel
-@using (Html.BeginForm())
-{
- <div class="row">
+@model App.ViewModels.RequiredModel @using (Html.BeginForm()) {
+<div class="row">
   @Html.LabelFor(x => x.TextBox, "Something must be entered:")
   @Html.TextBoxFor(x => x.TextBox, true)
- </div>
+</div>
 }
 ```
 
@@ -54,12 +51,17 @@ And that would generate HTML like this:
 
 ```html
 <form action="/Demo/Required" method="post">
- <div class="row">
-  <label for="TextBox">Something must be entered:</label>
-  <input data-msg-required="The TextBox field is required." 
-      data-rule-required="true" 
-      id="TextBox" name="TextBox" type="text" value="" />
- </div>
+  <div class="row">
+    <label for="TextBox">Something must be entered:</label>
+    <input
+      data-msg-required="The TextBox field is required."
+      data-rule-required="true"
+      id="TextBox"
+      name="TextBox"
+      type="text"
+      value=""
+    />
+  </div>
 </form>
 ```
 
@@ -72,13 +74,11 @@ There's clearly a strong crossover between AngularJS's input directive parameter
 I want to be able to use HTML Helpers to propogate validation metadata from the server view models into angular form validation directive attributes. Quite a mouthful I know. What does that actually mean? Well I've got 2 ideas. Possibly I want to be able to code something like this:
 
 ```html
-@model App.ViewModels.RequiredModel
-@using (Html.BeginForm())
-{
- <div class="row">
+@model App.ViewModels.RequiredModel @using (Html.BeginForm()) {
+<div class="row">
   @Html.LabelFor(x => x.TextBox, "Something must be entered:")
   @Html.NgTextBoxFor(x => x.TextBox)
- </div>
+</div>
 }
 ```
 
@@ -86,12 +86,16 @@ And have HTML like this generated:
 
 ```html
 <form action="/Demo/Required" method="post">
- <div class="row">
-  <label for="TextBox">Something must be entered:</label>
-  <input
-      ng-required="true" 
-      id="TextBox" name="TextBox" type="text" value="" />
- </div>
+  <div class="row">
+    <label for="TextBox">Something must be entered:</label>
+    <input
+      ng-required="true"
+      id="TextBox"
+      name="TextBox"
+      type="text"
+      value=""
+    />
+  </div>
 </form>
 ```
 
@@ -99,13 +103,15 @@ The reservation I have about this approach is that it rather takes you away from
 
 ```html
 <div ng-controller="ExampleController">
-<form>
- <div class="row">
-  <label>Something must be entered: 
-    <input name="RequiredField" type="text" value="" />
-  </label>
- </div>
-</form>
+  <form>
+    <div class="row">
+      <label
+        >Something must be entered:
+        <input name="RequiredField" type="text" value="" />
+      </label>
+    </div>
+  </form>
+</div>
 ```
 
 I could tweak it to push in the validation directive attributes like this:
@@ -113,26 +119,30 @@ I could tweak it to push in the validation directive attributes like this:
 ```html
 @model App.ViewModels.RequiredModel
 <div ng-controller="ExampleController">
-<form>
- <div class="row">
-  <label>Something must be entered: 
-    <input name="RequiredField" type="text" value="" @Html.NgValidationFor(x => x.RequiredField) />
-  </label>
- </div>
-</form>
+  <form>
+    <div class="row">
+      <label
+        >Something must be entered: <input name="RequiredField" type="text"
+        value="" @Html.NgValidationFor(x => x.RequiredField) />
+      </label>
+    </div>
+  </form>
+</div>
 ```
 
 And end up with HTML like this:
 
 ```html
 <div ng-controller="ExampleController">
-<form>
- <div class="row">
-  <label>Something must be entered: 
-    <input name="RequiredField" type="text" value="" ng-required="true" />
-  </label>
- </div>
-</form>
+  <form>
+    <div class="row">
+      <label
+        >Something must be entered:
+        <input name="RequiredField" type="text" value="" ng-required="true" />
+      </label>
+    </div>
+  </form>
+</div>
 ```
 
 This is a simplified example of course - it's likely that any number of validation directive attributes might be returned from `NgValidationFor`. And crucially if these attributes were changed on the server view model then the validation changes would automatically end up in the client HTML with this approach.
@@ -153,10 +163,6 @@ I just need a name and I'll begin. What shall I call it? Some options:
 - Angular Validation Html Helpers
 - NgValidationFor (the name of the HTML helper I made up)
 
-
-
 Hmmmm.... None of them is particularly lighting my fire. The first four are all a bit [RonSeal](https://en.wikipedia.org/wiki/Ronseal) \- which is fine.... Ug. The last one... It's a bit more pithy. Okay - I'll go with "NgValidationFor" at least for now. If something better occurs I can always change my mind.
 
 [And we're off!](https://github.com/johnnyreilly/NgValidationFor)
-
-

@@ -1,14 +1,15 @@
 ---
-title: "npm please stop hurting Visual Studio"
+title: 'npm please stop hurting Visual Studio'
 authors: johnnyreilly
 tags: [rimraf, npm, long paths, Windows]
 hide_table_of_contents: false
 ---
+
 I don't know about you but I personally feel that the following sentence may well be the saddest in the English language:
 
- `2&gt;ASPNETCOMPILER : error ASPRUNTIME: The specified path, file name, or both are too long. The fully qualified file name must be less than 260 characters, and the directory name must be less than 248 characters.`
+`2&gt;ASPNETCOMPILER : error ASPRUNTIME: The specified path, file name, or both are too long. The fully qualified file name must be less than 260 characters, and the directory name must be less than 248 characters.`
 
-The message above would suggest there is some kind of ASP.Net issue going on. There isn't - the problem actually lies with Windows. It's [not the first time it's come up](http://blog.icanmakethiswork.io/2014/12/gulp-npm-long-paths-and-visual-studio-fight.html) but for those of you not aware there is something you need to know about Windows: *It handles long paths badly.*
+The message above would suggest there is some kind of ASP.Net issue going on. There isn't - the problem actually lies with Windows. It's [not the first time it's come up](http://blog.icanmakethiswork.io/2014/12/gulp-npm-long-paths-and-visual-studio-fight.html) but for those of you not aware there is something you need to know about Windows: _It handles long paths badly._
 
 There's a number of caveats which people may attach the above sentence. But essentially what I have said is true. And it becomes brutally apparent to you the moment you start using a few node / npm powered tools in your workflow. You will likely see that horrible message and you won't be able to get much further forward. Sigh. I thought this was the future...
 
@@ -28,7 +29,7 @@ And lo, the fault lay with Bower. Poor show, Bower, poor show.
 
 ## rimraf to the Rescue
 
-[rimraf](https://github.com/isaacs/rimraf) is "the [UNIX command](https://en.wikipedia.org/wiki/Rm_(Unix))`rm -rf` for node". (By the way, what is it with node and the pathological hatred of capital letters?)
+[rimraf](https://github.com/isaacs/rimraf) is "the [UNIX command](<https://en.wikipedia.org/wiki/Rm_(Unix)>)`rm -rf` for node". (By the way, what is it with node and the pathological hatred of capital letters?)
 
 What this means is: rimraf can delete. Properly. So let's get it: `npm install -g rimraf`. Then at any time at the command line we can dispose of a long path in 2 shakes of lamb's tail.
 
@@ -82,10 +83,6 @@ So let's focus on the important bits in the `GulpBuild` target:
 - `&lt;Exec Command="gulp" /&gt;` \- do a little dance, make a little love, copy a few files, get down tonight.
 - `&lt;Exec Command="rimraf ./node_modules" /&gt;` \- remove the `node_modules` folder populated by the `npm install` command.
 
-
-
 With that addition of `rimraf ./node_modules` to the build phase the problem goes away. During each build a big, big Windows path is being constructed but then it's wiped again before it has chance to upset anyone. I've also added the same to the `GulpClean` target.
 
 You are very welcome.
-
-

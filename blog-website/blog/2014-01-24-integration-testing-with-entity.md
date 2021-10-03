@@ -1,24 +1,23 @@
 ---
-title: "Integration Testing with Entity Framework and Snapshot Backups"
+title: 'Integration Testing with Entity Framework and Snapshot Backups'
 authors: johnnyreilly
 tags: [Database Snapshot Backups, Integration Testing, SQL Server]
 hide_table_of_contents: false
 ---
+
 I've written before about how unit testing [Entity Framework is a contentious and sometimes pointless activity](http://icanmakethiswork.blogspot.co.uk/2012/10/unit-testing-and-entity-framework-filth.html). The TL;DR is that LINQ-to-Objects != Linq-to-Entities and so if you want some useful tests around your data tier then integration tests that actually hit a database are what you want.
 
- However hitting an actual database is has serious implications. For a start you need a database server and you need a database. But the real issue lies around cleanup. When you write a test that amends data in the database you need the test to clean up after itself. If it doesn't then the next test that runs may trip over the amended data and that's your test pack instantly useless.
+However hitting an actual database is has serious implications. For a start you need a database server and you need a database. But the real issue lies around cleanup. When you write a test that amends data in the database you need the test to clean up after itself. If it doesn't then the next test that runs may trip over the amended data and that's your test pack instantly useless.
 
-What you want is a way to wipe the slate clean - to return the database back to the state that it was in before your test ran. Kind of like a database restore - except that would be slow. And this is where [SQL Server's snapshot backups](http://technet.microsoft.com/en-us/library/ms189548(v=sql.105).aspx) have got your back. To quote MSDN:
+What you want is a way to wipe the slate clean - to return the database back to the state that it was in before your test ran. Kind of like a database restore - except that would be slow. And this is where [SQL Server's snapshot backups](<http://technet.microsoft.com/en-us/library/ms189548(v=sql.105).aspx>) have got your back. To quote MSDN:
 
-> *Snapshot backups have the following primary benefits:
-> 
+> \*Snapshot backups have the following primary benefits:
+>
 > - A backup can be created quickly, typically measured in seconds, with little or no effect on the server.
 > - A restore operation can be accomplished from a disk backup just as quickly.
 > - Backup to tape can be accomplished by another host without an effect on the production system.
 > - **A copy of a production database can be created instantly for reporting or testing.**
-> 
-> 
-> 
+>
 > *
 
 Just the ticket.
@@ -26,8 +25,6 @@ Just the ticket.
 ## Our Mission
 
 In this post I want to go through the process of taking an existing database, pointing Entity Framework at it, setting up some repositories and then creating an integration test pack that uses snapshot backups to cleanup after each test runs. The code detailed in this post is available in this [GitHub repo](https://github.com/johnnyreilly/SnapshotBackupsIntegrationTesting) if you want to have a go yourself.
-
-
 
 ## We need a database
 
@@ -285,7 +282,7 @@ namespace AdventureWorks.Repositories
 
 ## And Now Let's Start Integration Testing!
 
-Let's create a new Unit Test project called "AdventureWorks.Repositories.IntegrationTests". (And just to be clear: this is \*not\* a unit test project - it is an ***integration*** test project.) We'll add a reference back to our `AdventureWorks.Repositories` project for the repositories and one back to `AdventureWorks.EntityFramework` for our domain models. And finally you'll need a reference to Entity Framework in your IntegrationTest project as well as well.
+Let's create a new Unit Test project called "AdventureWorks.Repositories.IntegrationTests". (And just to be clear: this is \*not\* a unit test project - it is an **_integration_** test project.) We'll add a reference back to our `AdventureWorks.Repositories` project for the repositories and one back to `AdventureWorks.EntityFramework` for our domain models. And finally you'll need a reference to Entity Framework in your IntegrationTest project as well as well.
 
 We'll copy across the `app.config` from `AdventureWorks.EntityFramework` to `AdventureWorks.Repositories.IntegrationTests` as it contains the database connection details. It'll look something like this:
 
@@ -297,8 +294,8 @@ We'll copy across the `app.config` from `AdventureWorks.EntityFramework` to `Adv
         <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
     </configSections>
     <connectionStrings>
-        <add name="AdventureWorksLT2008R2Entities" 
-             connectionString="metadata=res://*/AdventureWorks.csdl|res://*/AdventureWorks.ssdl|res://*/AdventureWorks.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.;initial catalog=AdventureWorksLT2008R2;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" 
+        <add name="AdventureWorksLT2008R2Entities"
+             connectionString="metadata=res://*/AdventureWorks.csdl|res://*/AdventureWorks.ssdl|res://*/AdventureWorks.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.;initial catalog=AdventureWorksLT2008R2;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;"
              providerName="System.Data.EntityClient" />
     </connectionStrings>
     <entityFramework>
@@ -395,18 +392,18 @@ BEGIN
     DECLARE @sql varchar(500)
     SELECT @sql = 'CREATE DATABASE ' + @snapshotBackupName +
                   ' ON (NAME=[' + @databaseLogicalName +
-                  '], FILENAME=''' + @snapshotBackupPath + @snapshotBackupName + 
+                  '], FILENAME=''' + @snapshotBackupPath + @snapshotBackupName +
                   ''') AS SNAPSHOT OF [' + @databaseName + ']'
     EXEC(@sql)
 END";
 
         private const string SpRestoreSnapShotName = "SnapshotBackup_Restore";
         private const string SpRestoreSnapShot =
-@"CREATE PROCEDURE [dbo].[" + SpRestoreSnapShotName + @"]    
-    @databaseName varchar(512),    
-    @snapshotBackupName varchar(512)    
-AS    
-BEGIN    
+@"CREATE PROCEDURE [dbo].[" + SpRestoreSnapShotName + @"]
+    @databaseName varchar(512),
+    @snapshotBackupName varchar(512)
+AS
+BEGIN
     SET NOCOUNT ON;
 
     DECLARE @sql varchar(500)
@@ -430,8 +427,8 @@ BEGIN
 
     DECLARE @sql varchar(500)
 
-    SELECT @sql = 'DROP DATABASE ' + @snapshotBackupName 
-    EXEC(@sql) 
+    SELECT @sql = 'DROP DATABASE ' + @snapshotBackupName
+    EXEC(@sql)
 END";
 
         private static string _masterDbConnectionString;
@@ -612,7 +609,7 @@ namespace AdventureWorks.Repositories.IntegrationTests
     [TestClass]
     public class BuildVersionTests
     {
-        // ... 
+        // ...
 
         [TestCleanup]
         public void TestCleanup()
@@ -676,5 +673,3 @@ And that's us finished - we now have a database snapshot restore mechanism in pl
 Obviously there are other alternative approaches for integration testing available to that which I've laid out in this post. But I can imagine that this approach is very useful for applying to legacy applications that you might inherit and need to continue supporting. Also, this approach should fit in well with a continuous integration setup. It would be pretty straightforward to have database that existed purely for testing purposes against which all the integration tests could be set to run at the point of each check in.
 
 Thanks to Marc Talary, Sandeep Deo and Tishul Vadher who all contributed to `DatabaseSnapshot`. Credit is also due to Google due to the hundreds of articles the team ended up reading on snapshot backups.
-
-

@@ -1,23 +1,22 @@
 ---
-title: "Making Easy Auth tokens survive releases on Linux Azure App Service"
+title: 'Making Easy Auth tokens survive releases on Linux Azure App Service'
 authors: johnnyreilly
 image: blog/2021-02-16-easy-auth-tokens-survive-releases-on-linux-azure-app-service/easy-auth-zero-downtime-deployment.png
 tags: [Azure, Easy Auth, tokens, SAS, Blob Storage]
 hide_table_of_contents: false
 ---
+
 I [wrote recently about zero downtime deployments on Azure App Service](./2021-02-11-azure-app-service-health-checks-and-zero-downtime-deployments.md). Many applications require authentication, and ours is no exception. In our case we're using Azure Active Directory facilitated by ["Easy Auth"](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization) which provides authentication to our App Service.
 
 Our app uses a Linux App Service. It's worth knowing that Linux App Services run as a Docker container. As a consequence, Easy Auth works in a slightly different way; effectively as a middleware. [To quote the docs on Easy Auth](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization#on-containers):
 
 > This module handles several things for your app:
-> 
+>
 > - Authenticates users with the specified provider
 > - Validates, stores, and refreshes tokens
 > - Manages the authenticated session
 > - Injects identity information into request headers The module runs separately from your application code and is configured using app settings. No SDKs, specific languages, or changes to your application code are required.
-> 
-> 
-> 
+>
 > The authentication and authorization module runs in a separate container, isolated from your application code. Using what's known as the [Ambassador](https://docs.microsoft.com/en-us/azure/architecture/patterns/ambassador) pattern, it interacts with the incoming traffic to perform similar functionality as on Windows.
 
 However, [Microsoft have acknowledged there is a potential bug in Easy Auth support at present](https://social.msdn.microsoft.com/Forums/en-US/dde551b2-c86d-474b-b0a6-cc66163785a1/restarting-azure-app-service-on-linux-with-azure-active-directory-authentication-resets-authme#b59951ab-623a-4442-a221-80c157387bbe). When the app service is restarted, the stored tokens are removed, and **authentication begins to fail**. As you might well imagine, authentication similarly starts to fail when a new app service is introduced - as is the case during deployment.
@@ -30,7 +29,7 @@ This is really significant. You may well have "zero downtime deployment", but it
 
 To turn that into something visual, what's suggested is this:
 
- ![diagram of Easy Auth with blog storage](../static/blog/2021-02-16-easy-auth-tokens-survive-releases-on-linux-azure-app-service/easy-auth-zero-downtime-deployment.png)
+![diagram of Easy Auth with blog storage](../static/blog/2021-02-16-easy-auth-tokens-survive-releases-on-linux-azure-app-service/easy-auth-zero-downtime-deployment.png)
 
 ## SaS-sy ARM Templates
 
@@ -108,14 +107,12 @@ If you take the trouble to look inside you'll find something like this tucked aw
 
 ```json
 {
-    "encrypted": true,
-    "tokens": {
-        "aad": "herewith_a_very_very_long_encrypted_token"
-    },
-    "version": 1
+  "encrypted": true,
+  "tokens": {
+    "aad": "herewith_a_very_very_long_encrypted_token"
+  },
+  "version": 1
 }
 ```
 
 With this in place, you can safely restart your app service and / or deploy a new one, safe in the knowledge that the tokens will live on in the storage account, and that consequently you will not be unauthenticating users.
-
-

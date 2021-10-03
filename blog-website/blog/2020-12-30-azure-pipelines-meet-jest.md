@@ -1,17 +1,16 @@
 ---
-title: "Azure Pipelines meet Jest"
+title: 'Azure Pipelines meet Jest'
 authors: johnnyreilly
 image: blog/2020-12-30-azure-pipelines-meet-jest/test-results.png
 tags: [azure-pipelines, jest]
 hide_table_of_contents: false
 ---
+
 This post explains how to integrate the tremendous test runner [Jest](https://jestjs.io/) with the continuous integration platform [Azure Pipelines](https://azure.microsoft.com/en-gb/services/devops/pipelines/?nav=min). Perhaps we're setting up a new project and we've created a new React app with [Create React App](https://create-react-app.dev/). This ships with Jest support out of the box. How do we get that plugged into Pipelines such that:
 
 1. Tests run as part of our pipeline
 2. A failing test fails the build
 3. Test results are reported in Azure Pipelines UI?
-
-
 
 ## Tests run as part of our pipeline
 
@@ -28,7 +27,7 @@ First of all, lets get the tests running. Crack open your `azure-pipelines.yml` 
 
 The above will, when run, trigger a `npm run test` in the `src/client-app` folder of my project (it's here where my React app lives). You'd imagine this would just work™️ - but life is not that simple. This is because Jest, by default, runs in watch mode. This is blocking and so not appropriate for CI.
 
-In our `src/client-app/package.json` let's create a new script that runs the tests but *not* in watch mode:
+In our `src/client-app/package.json` let's create a new script that runs the tests but _not_ in watch mode:
 
 ```json
 "test:ci": "npm run test -- --watchAll=false",
@@ -82,7 +81,7 @@ We also need to add some configuration to our `package.json` in the form of a `j
 
 The above configuration will use the name of the test file as the suite name in the results, which should speed up the tracking down of the failing test. The other values specify where the test results should be published to, in this case the root of our `client-app` with the filename `junit.xml`.
 
-Now our CI is producing our test results, how do we get them into Pipelines? For that we need the [Publish test results task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/test/publish-test-results?view=azure-devops&tabs=trx%2Cyaml) and a new step in our `azure-pipelines.yml` *after* our `npm run test` step:
+Now our CI is producing our test results, how do we get them into Pipelines? For that we need the [Publish test results task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/test/publish-test-results?view=azure-devops&tabs=trx%2Cyaml) and a new step in our `azure-pipelines.yml` _after_ our `npm run test` step:
 
 ```yml
 - task: Npm@1
@@ -99,12 +98,10 @@ Now our CI is producing our test results, how do we get them into Pipelines? For
     testResultsFiles: 'src/client-app/junit.xml'
 ```
 
-This will read the test results from our `src/client-app/junit.xml` file and pump them into Pipelines. Do note that we're *always* running this step; so if the previous step failed (as it would in the case of a failing test) we still pump out the details of what that failure was. Like so:
+This will read the test results from our `src/client-app/junit.xml` file and pump them into Pipelines. Do note that we're _always_ running this step; so if the previous step failed (as it would in the case of a failing test) we still pump out the details of what that failure was. Like so:
 
 ![screenshot of test results being published to Azure Pipelines regardless of passing or failing tests](../static/blog/2020-12-30-azure-pipelines-meet-jest/test-and-publish-steps.png)
 
 And that's it! Azure Pipelines and Jest integrated.
 
 ![screenshot of test results published to Azure Pipelines](../static/blog/2020-12-30-azure-pipelines-meet-jest/test-results.png)
-
-

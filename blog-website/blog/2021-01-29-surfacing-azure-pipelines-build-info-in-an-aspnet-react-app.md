@@ -1,10 +1,11 @@
 ---
-title: "Azure Pipelines Build Info in an ASP.NET React app"
+title: 'Azure Pipelines Build Info in an ASP.NET React app'
 authors: johnnyreilly
 image: blog/2021-01-29-azure-pipelines-build-info-in-an-aspnet-react-app/about-page.png
 tags: [build information, azure pipelines]
 hide_table_of_contents: false
 ---
+
 How do you answer the question: "what version of my application is running in Production right now?" This post demonstrates how to surface the build metadata that represents the version of your app, from your app using Azure Pipelines and ASP.NET.
 
 Many is the time where I've been pondering over why something isn't working as expected and burned a disappointing amount of time before realising that I'm playing with an old version of an app. Wouldn't it be great give our app a way to say: "Hey! I'm version 1.2.3.4 of your app; built from this commit hash, I was built on Wednesday, I was the nineth build that day and I was built from the `main` branch. And I'm an Aries." Or something like that.
@@ -19,10 +20,10 @@ The first thing we're going to do is to inject our build details into two identi
 
 ```json
 {
-    "buildNumber": "20210130.1",
-    "buildId": "123456",
-    "branchName": "main",
-    "commitHash": "7089620222c30c1ad88e4b556c0a7908ddd34a8e"
+  "buildNumber": "20210130.1",
+  "buildId": "123456",
+  "branchName": "main",
+  "commitHash": "7089620222c30c1ad88e4b556c0a7908ddd34a8e"
 }
 ```
 
@@ -51,10 +52,10 @@ Our pipeline is dropping the `buildinfo.json` over pre-existing stub `buildinfo.
 
 ```json
 {
-    "buildNumber": "yyyyMMdd.x",
-    "buildId": "xxxxxx",
-    "branchName": "",
-    "commitHash": "LOCAL_BUILD"
+  "buildNumber": "yyyyMMdd.x",
+  "buildId": "xxxxxx",
+  "branchName": "",
+  "commitHash": "LOCAL_BUILD"
 }
 ```
 
@@ -134,7 +135,7 @@ namespace Server.Controllers {
 
 This exposes an `api/build` endpoint in our .NET app that, when hit, will display the following JSON:
 
- ![screenshot of api/build output](../static/blog/2021-01-29-azure-pipelines-build-info-in-an-aspnet-react-app/api-build-screenshot.png)
+![screenshot of api/build output](../static/blog/2021-01-29-azure-pipelines-build-info-in-an-aspnet-react-app/api-build-screenshot.png)
 
 ## Surfacing the client build info
 
@@ -167,15 +168,15 @@ How you choose to use that information is entirely your choice. We're going to a
 
 ```tsx
 import {
-    Card,
-    CardContent,
-    CardHeader,
-    createStyles,
-    Grid,
-    makeStyles,
-    Theme,
-    Typography,
-    Zoom,
+  Card,
+  CardContent,
+  CardHeader,
+  createStyles,
+  Grid,
+  makeStyles,
+  Theme,
+  Typography,
+  Zoom,
 } from '@material-ui/core';
 import React from 'react';
 import clientBuildInfo from '../../buildinfo.json';
@@ -184,92 +185,108 @@ import { Loading } from '../shared/Loading';
 import { TransitionContainer } from '../shared/TransitionContainer';
 
 const useStyles = (cardColor: string) =>
-    makeStyles((theme: Theme) =>
-        createStyles({
-            card: {
-                padding: theme.spacing(0),
-                backgroundColor: cardColor,
-                color: theme.palette.common.white,
-                minHeight: theme.spacing(28),
-            },
-            avatar: {
-                backgroundColor: theme.palette.getContrastText(cardColor),
-                color: cardColor,
-            },
-            main: {
-                padding: theme.spacing(2),
-            },
-        })
-    )();
+  makeStyles((theme: Theme) =>
+    createStyles({
+      card: {
+        padding: theme.spacing(0),
+        backgroundColor: cardColor,
+        color: theme.palette.common.white,
+        minHeight: theme.spacing(28),
+      },
+      avatar: {
+        backgroundColor: theme.palette.getContrastText(cardColor),
+        color: cardColor,
+      },
+      main: {
+        padding: theme.spacing(2),
+      },
+    })
+  )();
 
 type Styles = ReturnType<typeof useStyles>;
 
 const AboutPage: React.FC = () => {
-    const [serverBuildInfo, setServerBuildInfo] = React.useState<typeof clientBuildInfo>();
+  const [serverBuildInfo, setServerBuildInfo] =
+    React.useState<typeof clientBuildInfo>();
 
-    React.useEffect(() => {
-        fetch('/api/build')
-            .then((response) => response.json())
-            .then(setServerBuildInfo);
-    }, []);
+  React.useEffect(() => {
+    fetch('/api/build')
+      .then((response) => response.json())
+      .then(setServerBuildInfo);
+  }, []);
 
-    const classes = useStyles(projectsPurple);
+  const classes = useStyles(projectsPurple);
 
-    return (
-        <TransitionContainer>
-            <Grid container spacing={3}>
-                <Grid item xs={12} sm={12} container alignItems="center">
-                    <Grid item>
-                        <Typography variant="h4" component="h1">
-                            About
-                        </Typography>
-                    </Grid>
-                </Grid>
-            </Grid>
-            <Grid container spacing={1}>
-                <BuildInfo classes={classes} title="Client Version" {...clientBuildInfo} />
-            </Grid>
-            <br />
-            <Grid container spacing={1}>
-                {serverBuildInfo ? (
-                    <BuildInfo classes={classes} title="Server Version" {...serverBuildInfo} />
-                ) : (
-                    <Loading />
-                )}
-            </Grid>
-        </TransitionContainer>
-    );
+  return (
+    <TransitionContainer>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={12} container alignItems="center">
+          <Grid item>
+            <Typography variant="h4" component="h1">
+              About
+            </Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid container spacing={1}>
+        <BuildInfo
+          classes={classes}
+          title="Client Version"
+          {...clientBuildInfo}
+        />
+      </Grid>
+      <br />
+      <Grid container spacing={1}>
+        {serverBuildInfo ? (
+          <BuildInfo
+            classes={classes}
+            title="Server Version"
+            {...serverBuildInfo}
+          />
+        ) : (
+          <Loading />
+        )}
+      </Grid>
+    </TransitionContainer>
+  );
 };
 
 interface Props {
-    classes: Styles;
-    title: string;
-    branchName: string;
-    buildNumber: string;
-    buildId: string;
-    commitHash: string;
+  classes: Styles;
+  title: string;
+  branchName: string;
+  buildNumber: string;
+  buildId: string;
+  commitHash: string;
 }
 
-const BuildInfo: React.FC<Props> = ({ classes, title, branchName, buildNumber, buildId, commitHash }) => (
-    <Zoom mountOnEnter unmountOnExit in={true}>
-        <Card className={classes.card}>
-            <CardHeader title={title} />
-            <CardContent className={classes.main}>
-                <Typography variant="body1" component="p">
-                    <b>Build Number</b> {buildNumber}
-                </Typography>
-                <Typography variant="body1" component="p">
-                    <b>Build Id</b> {buildId}
-                </Typography>
-                <Typography variant="body1" component="p">
-                    <b>Branch Name</b> {branchName}
-                </Typography>
-                <Typography variant="body1" component="p">
-                    <b>Commit Hash</b> {commitHash}
-                </Typography>
-            </CardContent>
-        </Card>
-    </Zoom>
+const BuildInfo: React.FC<Props> = ({
+  classes,
+  title,
+  branchName,
+  buildNumber,
+  buildId,
+  commitHash,
+}) => (
+  <Zoom mountOnEnter unmountOnExit in={true}>
+    <Card className={classes.card}>
+      <CardHeader title={title} />
+      <CardContent className={classes.main}>
+        <Typography variant="body1" component="p">
+          <b>Build Number</b> {buildNumber}
+        </Typography>
+        <Typography variant="body1" component="p">
+          <b>Build Id</b> {buildId}
+        </Typography>
+        <Typography variant="body1" component="p">
+          <b>Branch Name</b> {branchName}
+        </Typography>
+        <Typography variant="body1" component="p">
+          <b>Commit Hash</b> {commitHash}
+        </Typography>
+      </CardContent>
+    </Card>
+  </Zoom>
 );
 
 export default AboutPage;

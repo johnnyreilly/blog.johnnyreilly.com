@@ -1,11 +1,12 @@
 ---
-title: "Permissioning Azure Pipelines with Bicep and Azure RBAC Role Assignments"
+title: 'Permissioning Azure Pipelines with Bicep and Azure RBAC Role Assignments'
 authors: johnnyreilly
 tags: [Role Assignments, Bicep, Azure DevOps, Azure Pipelines]
 image: blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/permissioning-azure-pipelines-with-bicep-and-role-assignments.png
 hide_table_of_contents: false
 ---
-How can we deploy resources to Azure, and then run an integration test through them in the context of an Azure Pipeline?  This post will show how to do this by permissioning our Azure Pipeline to access these resources using Azure RBAC role assignments. It will also demonstrate a dotnet test that runs in the context of the pipeline and makes use of those role assignments.
+
+How can we deploy resources to Azure, and then run an integration test through them in the context of an Azure Pipeline? This post will show how to do this by permissioning our Azure Pipeline to access these resources using Azure RBAC role assignments. It will also demonstrate a dotnet test that runs in the context of the pipeline and makes use of those role assignments.
 
 ![title image reading "Permissioning Azure Pipelines with Bicep and Role Assignments" and some Azure logos](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/permissioning-azure-pipelines-with-bicep-and-role-assignments.png)
 
@@ -35,13 +36,13 @@ We do this by going to "Resource Providers" in the [Azure Portal](https://portal
 
 ## Permission our service connection / service principal
 
-In order that we can run pipelines related to Azure, we mostly need to have an Azure Resource Manager service connection set up in Azure DevOps.  Once that exists, we also need to give it a role assignment to allow it to create role assignments of its own when pipelines are running.
+In order that we can run pipelines related to Azure, we mostly need to have an Azure Resource Manager service connection set up in Azure DevOps. Once that exists, we also need to give it a role assignment to allow it to create role assignments of its own when pipelines are running.
 
 Without this in place, we may encounter errors of the type:
 
-> ##[error]The template deployment failed with error: 'Authorization failed for template resource '{GUID-THE-FIRST}' of type 'Microsoft.Authorization/roleAssignments'. The client '{GUID-THE-SECOND}' with object id '{GUID-THE-SECOND}' does not have permission to perform action 'Microsoft.Authorization/roleAssignments/write' at scope '/subscriptions/***/resourceGroups/johnnyreilly/providers/Microsoft.EventHub/namespaces/evhns-demo/providers/Microsoft.Authorization/roleAssignments/{GUID-THE-FIRST}'.'.
+> ##[error]The template deployment failed with error: 'Authorization failed for template resource '{GUID-THE-FIRST}' of type 'Microsoft.Authorization/roleAssignments'. The client '{GUID-THE-SECOND}' with object id '{GUID-THE-SECOND}' does not have permission to perform action 'Microsoft.Authorization/roleAssignments/write' at scope '/subscriptions/\*\*\*/resourceGroups/johnnyreilly/providers/Microsoft.EventHub/namespaces/evhns-demo/providers/Microsoft.Authorization/roleAssignments/{GUID-THE-FIRST}'.'.
 
-Essentially, we want to be able to run pipelines that say "hey Azure, we want to give permissions to our service connection".  We are doing this *with* the self same service connection, so (chicken and egg) we first need to give it permission to give those commands in future.  This is a little confusing; but let's role with it. (Pun most definitely intended. 😉)
+Essentially, we want to be able to run pipelines that say "hey Azure, we want to give permissions to our service connection". We are doing this _with_ the self same service connection, so (chicken and egg) we first need to give it permission to give those commands in future. This is a little confusing; but let's role with it. (Pun most definitely intended. 😉)
 
 To grant that permission / add that role assignment, we go to the service connection in Azure Devops:
 
@@ -103,7 +104,7 @@ resource eventHub 'Microsoft.EventHub/namespaces/eventhubs@2021-01-01-preview' =
   }
 }
 
-// give Azure Pipelines Service Principal permissions against the Event Hub 
+// give Azure Pipelines Service Principal permissions against the Event Hub
 
 var roleDefinitionAzureEventHubsDataOwner = subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'f526a384-b230-433a-b45c-95f59c4a2dec')
 
@@ -117,7 +118,7 @@ resource integrationTestEventHubReceiverNamespaceRoleAssignment 'Microsoft.Autho
 }
 ```
 
-Do note that our bicep template takes the service principal id as a parameter. We're going to supply this later from our Azure Pipeline. 
+Do note that our bicep template takes the service principal id as a parameter. We're going to supply this later from our Azure Pipeline.
 
 ## Our test
 
@@ -256,71 +257,71 @@ Let's talk through what happens in the test above:
 3. We read a message back from the Event Hub.
 4. We confirm that the message we read back matches the one we posted.
 
-Now that we have our test, we want to be able to execute it.  For that we need an Azure Pipeline!
+Now that we have our test, we want to be able to execute it. For that we need an Azure Pipeline!
 
 ## Azure Pipeline
 
-We're going to add an `azure-pipelines.yml` file which Azure DevOps can use to power a pipeline:  
+We're going to add an `azure-pipelines.yml` file which Azure DevOps can use to power a pipeline:
 
 ```yml
 variables:
   - name: eventHubNamespaceName
-    value: evhns-demo 
+    value: evhns-demo
   - name: eventHubName
-    value: evh-demo 
-    
+    value: evh-demo
+
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: AzureCLI@2
-  displayName: Get Service Principal Id
-  inputs:
-    azureSubscription: $(serviceConnection)
-    scriptType: bash
-    scriptLocation: inlineScript
-    addSpnToEnvironment: true
-    inlineScript: |
-      PRINCIPAL_ID=$(az ad sp show --id $servicePrincipalId --query objectId -o tsv)
-      echo "##vso[task.setvariable variable=PIPELINE_PRINCIPAL_ID;]$PRINCIPAL_ID"
-      
-- bash: az bicep build --file infra/main.bicep
-  displayName: "Compile Bicep to ARM"
+  - task: AzureCLI@2
+    displayName: Get Service Principal Id
+    inputs:
+      azureSubscription: $(serviceConnection)
+      scriptType: bash
+      scriptLocation: inlineScript
+      addSpnToEnvironment: true
+      inlineScript: |
+        PRINCIPAL_ID=$(az ad sp show --id $servicePrincipalId --query objectId -o tsv)
+        echo "##vso[task.setvariable variable=PIPELINE_PRINCIPAL_ID;]$PRINCIPAL_ID"
 
-- task: AzureResourceManagerTemplateDeployment@3
-  name: DeployEventHubInfra
-  displayName: Deploy Event Hub infra
-  inputs:
-    deploymentScope: Resource Group
-    azureResourceManagerConnection: $(serviceConnection)
-    subscriptionId: $(subscriptionId)
-    action: Create Or Update Resource Group
-    resourceGroupName: $(azureResourceGroup)
-    location: $(location)
-    templateLocation: Linked artifact
-    csmFile: 'infra/main.json' # created by bash script
-    overrideParameters: >-
-      -eventHubNamespaceName $(eventHubNamespaceName)
-      -eventHubName $(eventHubName)
-      -principalId $(PIPELINE_PRINCIPAL_ID)
-    deploymentMode: Incremental
+  - bash: az bicep build --file infra/main.bicep
+    displayName: 'Compile Bicep to ARM'
 
-- task: UseDotNet@2
-  displayName: 'Install .NET SDK 5.0.x'
-  inputs:
-    packageType: 'sdk'
-    version: 5.0.x  
+  - task: AzureResourceManagerTemplateDeployment@3
+    name: DeployEventHubInfra
+    displayName: Deploy Event Hub infra
+    inputs:
+      deploymentScope: Resource Group
+      azureResourceManagerConnection: $(serviceConnection)
+      subscriptionId: $(subscriptionId)
+      action: Create Or Update Resource Group
+      resourceGroupName: $(azureResourceGroup)
+      location: $(location)
+      templateLocation: Linked artifact
+      csmFile: 'infra/main.json' # created by bash script
+      overrideParameters: >-
+        -eventHubNamespaceName $(eventHubNamespaceName)
+        -eventHubName $(eventHubName)
+        -principalId $(PIPELINE_PRINCIPAL_ID)
+      deploymentMode: Incremental
 
-- task: AzureCLI@2
-  displayName: dotnet integration test
-  inputs:
-    azureSubscription: $(serviceConnection)
-    scriptType: pscore
-    scriptLocation: inlineScript
-    addSpnToEnvironment: true # allows access to service principal details in script
-    inlineScript: |
-      cd $(Build.SourcesDirectory)/src/IntegrationTests
-      dotnet test
+  - task: UseDotNet@2
+    displayName: 'Install .NET SDK 5.0.x'
+    inputs:
+      packageType: 'sdk'
+      version: 5.0.x
+
+  - task: AzureCLI@2
+    displayName: dotnet integration test
+    inputs:
+      azureSubscription: $(serviceConnection)
+      scriptType: pscore
+      scriptLocation: inlineScript
+      addSpnToEnvironment: true # allows access to service principal details in script
+      inlineScript: |
+        cd $(Build.SourcesDirectory)/src/IntegrationTests
+        dotnet test
 ```
 
 When the pipeline is run, it does the following:
@@ -332,6 +333,7 @@ When the pipeline is run, it does the following:
 5. Uses the [Azure CLI task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-cli?view=azure-devops) which allows us to access service principal details in the pipeline to run our dotnet test.
 
 We'll create a pipeline in Azure DevOps pointing to this file, and we'll also create the variables that it depends upon:
+
 - `azureResourceGroup` - the name of your resource group in Azure where the app will be deployed
 - `location` - where your app is deployed, eg `northeurope`
 - `serviceConnection` - the name of your AzureRM service connection in Azure DevOps
@@ -344,7 +346,7 @@ Now we're ready to run our pipeline:
 
 ![screenshot of pipeline running successfully](../static/blog/2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/screenshot-azure-pipelines-tests-passing.png)
 
-Here we can see that the pipeline runs and the test passes.  That means we've successfully provisioned the Event Hub and permissioned our pipeline to be able to access it using Azure RBAC role assignments. We then wrote a test which used the pipeline credentials to interact with the Event Hub. To see the repo that demostrates this, [look here](https://dev.azure.com/johnnyreilly/blog-demos/_git/permissioning-azure-pipelines-bicep-role-assignments).
+Here we can see that the pipeline runs and the test passes. That means we've successfully provisioned the Event Hub and permissioned our pipeline to be able to access it using Azure RBAC role assignments. We then wrote a test which used the pipeline credentials to interact with the Event Hub. To see the repo that demostrates this, [look here](https://dev.azure.com/johnnyreilly/blog-demos/_git/permissioning-azure-pipelines-bicep-role-assignments).
 
 Just to reiterate: we've demonstrated this approach using Event Hubs. This is a generally useful approach which can be applied to any Azure resources that support Azure RBAC Role Assignments.
 

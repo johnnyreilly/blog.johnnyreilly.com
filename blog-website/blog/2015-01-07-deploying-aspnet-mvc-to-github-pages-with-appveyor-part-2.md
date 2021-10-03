@@ -1,12 +1,20 @@
 ---
-title: "Deploying from ASP.Net MVC to GitHub Pages using AppVeyor part 2"
+title: 'Deploying from ASP.Net MVC to GitHub Pages using AppVeyor part 2'
 authors: johnnyreilly
-tags: [GitHub Personal Access Token, Continuous Integration, powershell, github pages, AppVeyor]
+tags:
+  [
+    GitHub Personal Access Token,
+    Continuous Integration,
+    powershell,
+    github pages,
+    AppVeyor,
+  ]
 hide_table_of_contents: false
 ---
+
 "Automation, automation, automation." Those were and are Tony Blair's priorities for keeping open source projects well maintained.
 
- OK, that's not quite true... But what is certainly true is that maintaining an open source project takes time. And there's only so much free time that anyone has. For that reason, wherever you can it makes sense to *AUTOMATE*!
+OK, that's not quite true... But what is certainly true is that maintaining an open source project takes time. And there's only so much free time that anyone has. For that reason, wherever you can it makes sense to _AUTOMATE_!
 
 [Last time](https://blog.johnnyreilly.com/2014/12/deploying-aspnet-mvc-to-github-pages-with-appveyor-part-1.html) we looked at how you can take an essentially static ASP.Net MVC site (in this case my jVUNDemo documentation site) and generate an entirely static version using Wget. This static site has been pushed to [GitHub Pages](https://pages.github.com/) and is serving as the documentation for [jQuery Validation Unobtrusive Native](http://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/) (and for bonus points is costing me no money at all).
 
@@ -29,6 +37,7 @@ The token I'm using for my project has the following scopes selected:
 With our token in hand we turn our attention to AppVeyor build configuration. This is possible using a file called [`appveyor.yml`](http://www.appveyor.com/docs/build-configuration) stored in the root of your repo. You can also use the AppVeyor web UI to do this. However, for the purposes of ease of demonstration I'm using the file approach. The [jQuery Validation Unobtrusive Native `appveyor.yml`](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/blob/master/appveyor.yml) looks like this:
 
 ```yml
+---
 #---------------------------------#
 #      general configuration      #
 #---------------------------------#
@@ -45,21 +54,21 @@ environment:
   GithubEmail: johnny_reilly@hotmail.com
   GithubUsername: johnnyreilly
   GithubPersonalAccessToken:
-    secure: T4M/N+e/baksVoeWoYKPWIpfahOsiSFw/+Zc81VuThZmWEqmrRtgEHUyin0vCWhl    
+    secure: T4M/N+e/baksVoeWoYKPWIpfahOsiSFw/+Zc81VuThZmWEqmrRtgEHUyin0vCWhl
 
 branches:
   only:
     - master
 
 install:
-- ps: choco install wget
+  - ps: choco install wget
 
 build:
   verbosity: minimal
 
 after_test:
-- ps: ./makeStatic.ps1 $env:APPVEYOR_BUILD_FOLDER
-- ps: ./pushStatic.ps1 $env:APPVEYOR_BUILD_FOLDER $env:GithubEmail $env:GithubUsername $env:GithubPersonalAccessToken
+  - ps: ./makeStatic.ps1 $env:APPVEYOR_BUILD_FOLDER
+  - ps: ./pushStatic.ps1 $env:APPVEYOR_BUILD_FOLDER $env:GithubEmail $env:GithubUsername $env:GithubPersonalAccessToken
 ```
 
 There's a number of things you should notice from the yml file:
@@ -68,8 +77,6 @@ There's a number of things you should notice from the yml file:
 - We only build the master branch.
 - We use [Chocolatey](https://chocolatey.org/packages/Wget) to install Wget which is used by the `makeStatic.ps1` Powershell script.
 - After the tests have completed we run 2 Powershell scripts. First `<a href="https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/blob/master/makeStatic.ps1">makeStatic.ps1</a>` which builds the static version of our site. This is the exact same script we discussed in the previous post - we're just passing it the build folder this time (one of AppVeyor's environment variables). Second, we run `<a href="https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/blob/master/pushStatic.ps1">pushStatic.ps1</a>` which publishes the static site to GitHub Pages.
-
-
 
 We pass 4 arguments to `pushStatic.ps1`: the build folder, my email address, my username and my personal access token. For the sake of security the GithubPersonalAccessToken has been encrypted as indicated by the `secure` keyword. This is a capability available in AppVeyor [here](https://ci.appveyor.com/tools/encrypt).
 
@@ -104,7 +111,7 @@ copy-item -path ..\static-site\* -Destination $pwd.Path -Recurse
 
 git status
 $thereAreChanges = git status | select-string -pattern "Changes not staged for commit:","Untracked files:" -simplematch
-if ($thereAreChanges -ne $null) { 
+if ($thereAreChanges -ne $null) {
     Write-host "- Committing changes to documentation..."
     git add --all
     git status
@@ -113,8 +120,8 @@ if ($thereAreChanges -ne $null) {
     Write-Host "- Push it...."
     git push --quiet
     Write-Host "- Pushed it good!"
-} 
-else { 
+}
+else {
     write-host "- No changes to documentation to commit"
 }
 ```
@@ -128,10 +135,6 @@ So what's happening here? Let's break it down:
 - We copy across the contents of the "static-site" folder (created by `makeStatic.ps1`) into the "gh-pages".
 - We use `git status` to check if there are any changes. (This method is completely effective but a little crude to my mind - there's probably better approaches to this.... shout me in the comments if you have a suggestion.)
 - If we have no changes then we do nothing.
-- If we have changes then we stage them, commit them and push them to GitHub Pages. Then we sign off with an allusion to [80's East Coast hip-hop](https://en.wikipedia.org/wiki/Push_It_(Salt-n-Pepa_song))... 'Cos that's how we roll.
-
-
+- If we have changes then we stage them, commit them and push them to GitHub Pages. Then we sign off with an allusion to [80's East Coast hip-hop](<https://en.wikipedia.org/wiki/Push_It_(Salt-n-Pepa_song)>)... 'Cos that's how we roll.
 
 With this in place, any changes to the docs will be automatically published out to our "gh-pages" branch. Our documentation will always be up to date thanks to the goodness of AppVeyor's Continuous Integration service.
-
-

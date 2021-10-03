@@ -1,12 +1,13 @@
 ---
-title: "NgValidationFor Baby Steps"
+title: 'NgValidationFor Baby Steps'
 authors: johnnyreilly
 tags: [asp.net mvc, AngularJS, NgValidationFor]
 hide_table_of_contents: false
 ---
+
 I thought as I start the [NgValidationFor project](http://blog.icanmakethiswork.io/2015/04/tonight-ill-start-open-source-project.html) I'd journal my progress. I'm writing this with someone particular in mind: me. Specifically, me in 2 years who will no doubt wonder why I made some of the choices I did. Everyone else, move along now - nothing to see. Unless the inner workings of someone else's mind are interesting to you... In which case: welcome!
 
- ## Getting up and running
+## Getting up and running
 
 I've got a project on [GitHub](https://github.com/johnnyreilly/NgValidationFor) and I'm starting to think about implementations. One thing that bit me on [jVUN](http://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/) was being tied to a specific version of ASP.Net MVC. For each major release of ASP.Net MVC I needed separate builds / NuGet packages and the like. A pain. Particularly when it came to bug fixes for prior versions - the breaking changes with each version of MVC meant far more work was required when it came to shipping fixes for MVC 4 / MVC 3.
 
@@ -24,8 +25,6 @@ My first efforts have resulted in the implementation of the `<a href="https://ms
 2. NgValidationFor.Core.UnitTests - the unit tests for the core
 3. NgValidationFor.Documentation - this is an ASP.Net MVC project which will become a documentation site for NgValidationFor. It also doubles as a way for me to try out NgValidationFor.
 4. NgValidationFor.Documentation.UnitTests - unit tests for the documentation (there's none yet as I'm still spiking - but when I'm a little clearer, they will be)
-
-
 
 How can it be used? Well fairly easily. Take this simple model:
 
@@ -45,24 +44,15 @@ namespace NgValidationFor.Documentation.Models
 When used in an MVC View for which `RequiredDemoModel` is the Model, NgValiditionFor can be used thusly:
 
 ```html
-@using NgValidationFor.Core
-@using NgValidationFor.Documentation.Models
-@model RequiredDemoModel
-<input type="text" 
-       name="userName" 
-       ng-model="user.name"
-       @Html.Raw(Model.GetAttributes(x => Model.RequiredField))
-       >
+@using NgValidationFor.Core @using NgValidationFor.Documentation.Models @model
+RequiredDemoModel <input type="text" name="userName" ng-model="user.name"
+@Html.Raw(Model.GetAttributes(x => Model.RequiredField)) >
 ```
 
 Which results in this HTML:
 
 ```html
-<input type="text"
-       name="userName" 
-       ng-model="user.name"
-       required="required"
-       >
+<input type="text" name="userName" ng-model="user.name" required="required" />
 ```
 
 Tada!!!! It works.
@@ -74,5 +64,3 @@ Yes it works, but I'm not going to pretend it's pretty. I don't like having to w
 I'm not too keen on the implementation I've come up with for NgValidationFor either. It's a single static method at the minute which does everything. It breaks the [Single Responsibility Priniciple](https://en.wikipedia.org/wiki/Single_responsibility_principle) and the [Open/Closed Principle](https://en.wikipedia.org/wiki/Open/closed_principle). I need to take a look at that - I want people to be able to extend this and I need to think about a good and simple way to achieve that.
 
 Finally, usage. `Model.GetAttributes(x =&gt; Model.RequiredField)` feels wrong to me. I think I'm happy with having this used as an extension method but it needs to be clearer what's happening. Perhaps `Model.NgValidationFor(x =&gt; Model.RequiredField)` would be better. I need to try a few things out and come up with a nicer way to use NgValidationFor.
-
-

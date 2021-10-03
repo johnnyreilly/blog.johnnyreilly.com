@@ -1,12 +1,13 @@
 ---
-title: "A navigation animation (for your users delectation)"
+title: 'A navigation animation (for your users delectation)'
 authors: johnnyreilly
 tags: [navigation animation, css load, UX, CSS animation, Modernizr]
 hide_table_of_contents: false
 ---
+
 ## The Vexation
 
- The current application I'm working on lives within an `iframe`. A side effect of that is that my users no longer get the visual feedback that they're used to as they navigate around the site. By "visual feedback" what I mean are the little visual tics that are displayed in the browser when you're in the process of navigating from one screen to the next. Basically, these:
+The current application I'm working on lives within an `iframe`. A side effect of that is that my users no longer get the visual feedback that they're used to as they navigate around the site. By "visual feedback" what I mean are the little visual tics that are displayed in the browser when you're in the process of navigating from one screen to the next. Basically, these:
 
 ![](https://1.bp.blogspot.com/-x_8VXvW0w1M/UXpam8TtPQI/AAAAAAAAAbI/uVFFkL8uBAc/s320/TheSpinCycleOfProgress.png)
 
@@ -36,18 +37,16 @@ And finally we have the JavaScript which is responsible for showing animation wh
 
 <script src="https://gist.github.com/johnnyreilly/5466370.js?file=navigationAnimation.js"></script>
 
-It's helped along with a little jQuery here but this could easily be accomplished with vanilla JS if you fancied. The approach works by hooking into the [beforeunload](https://developer.mozilla.org/en-US/docs/DOM/Mozilla_event_reference/beforeunload) event that fires when "*the window, the document and its resources are about to be unloaded*". There's a little bit more to the functionality in the JavaScript abover which I go into in the PPS below. Essentially that covers backwards compatibility with earlier versions of IE.
+It's helped along with a little jQuery here but this could easily be accomplished with vanilla JS if you fancied. The approach works by hooking into the [beforeunload](https://developer.mozilla.org/en-US/docs/DOM/Mozilla_event_reference/beforeunload) event that fires when "_the window, the document and its resources are about to be unloaded_". There's a little bit more to the functionality in the JavaScript abover which I go into in the PPS below. Essentially that covers backwards compatibility with earlier versions of IE.
 
 I've coded this up in a manner that lends itself to re-use. I can imagine that you might also want to make use of the navigation animation if, for example, you had an expensive AJAX operation on a page and you didn't want the users to despair. So the navigation animation could become a kind of a generic "I am doing something" animation instead - I leave it to your disgression.
 
 ## Oh, and a final PS
 
-I had initially planned to use an old school animated GIF instead of a CSS animation. The thing that stopped me taking this course of action is that, to quote an [answer on Stack Overflow](http://stackoverflow.com/a/780617/761388) "*IE assumes that the clicking of a link heralds a new navigation where the current page contents will be replaced. As part of the process for perparing for that it halts the code that animates the GIFs.*". So I needed animation that stayed animated. And lo, there were CSS animations...
+I had initially planned to use an old school animated GIF instead of a CSS animation. The thing that stopped me taking this course of action is that, to quote an [answer on Stack Overflow](http://stackoverflow.com/a/780617/761388) "_IE assumes that the clicking of a link heralds a new navigation where the current page contents will be replaced. As part of the process for perparing for that it halts the code that animates the GIFs._". So I needed animation that stayed animated. And lo, there were CSS animations...
 
 ## Better make that a PPS - catering for IE 9 and earlier
 
 I spoke a touch too soon when I expounded on how CSS animations were going to get me out of a hole. Unfortunately, and to my lasting regret, they aren't supported in IE 9. And yes, at least for now that is what the users have. To get round this I've delved a little bit further and discovered a frankly hacky way to make animated gifs stay animated after beforeunload has fired. It works by rendering an animated gif to the screen when beforeunload is fired. Why this works I couldn't say - but if you're interested to research more then take a look at [this answer on Stack Overflow](http://stackoverflow.com/a/1904931/761388). In my case I've found an animated gif on [AjaxLoad](http://www.ajaxload.info/) which looks pretty similar to the CSS animation:
 
 ![null](https://4.bp.blogspot.com/-_9OgkLfflAg/UYEXn7dgByI/AAAAAAAAAb8/3Q33pAs6WeM/s320/navigationAnimation.gif)This is now saved away as `navigationAnimation.gif` in the application. The JavaScript uses Modernizr to detect if CSS animations are in play. If they're not then the animated gif is rendered to the screen in place of the CSS animation HTML. Ugly, but it seems to work well; I think this will work on IE 6 - 9. The CSS animations will work on IE 10+.
-
-

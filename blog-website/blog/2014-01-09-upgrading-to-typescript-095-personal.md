@@ -1,12 +1,13 @@
 ---
-title: "Upgrading to TypeScript 0.9.5 - A Personal Memoir"
+title: 'Upgrading to TypeScript 0.9.5 - A Personal Memoir'
 authors: johnnyreilly
 tags: [Q, TypeScript, 0.9.1.1, 0.9.5, upgrading]
 hide_table_of_contents: false
 ---
+
 I recently made the step to upgrade from TypeScript 0.9.1.1 to 0.9.5. To my surprise this process was rather painful and certainly not an unalloyed pleasure. Since I'm now on the other side, so to speak, I thought I'd share my experience and cast back a rope bridge to those about to journey over the abyss.
 
- ## TL;DR
+## TL;DR
 
 TypeScript 0.9.5 is worth making the jump to. However, if you are using Visual Studio (as I would guess many are) then you should be aware of a number of problems with the TypeScript Visual Studio tooling for TS 0.9.5. These problems can be worked around if you follow the instructions in this post.
 
@@ -44,11 +45,11 @@ declare function Q<T>(promise: JQueryPromise<T>): Q.Promise<T>;
 declare function Q<T>(value: T): Q.Promise<T>;
 
 declare module Q {
-    //… functions etc in here
+  //… functions etc in here
 }
 
-declare module "q" {
-    export = Q;
+declare module 'q' {
+  export = Q;
 }
 ```
 
@@ -58,28 +59,28 @@ To:
 interface QIPromise<T> {
     //… functions etc in here
 }
- 
+
 interface QDeferred<T> {
     //… functions etc in here
 }
- 
+
 interface QPromise<T> {
     //… functions etc in here
 }
- 
+
 interface QPromiseState<T> {
     //… functions etc in here
 }
- 
+
 interface QStatic {
- 
+
     <t>(promise: QIPromise<T>): QPromise<T>;
     <t>(promise: JQueryPromise<T>): QPromise<T>;
     <t>(value: T): QPromise<T>;
- 
+
     //… other functions etc continue here
 }
- 
+
 declare module "q" {
     export = Q;
 }
@@ -95,12 +96,8 @@ And that fixed the obscure 'wrapsSomeTypeParameter' error. The full source code 
 
 You're there. You've upgraded to the new plugin and the new typings. All is compiling as it should and the language service is working as well. Was it worth it? I think yes, for the following reasons:
 
-1. TS 0.9.5 compiles faster, and hogs less memory. 
-2. When we compiled with TS 0.9.5 we found there were a couple of bugs in our codebase which the tightened up compiler was now detecting. Essentially where we'd assumed types were flowing through to functions there were a couple of occasions with TS 0.9.1.1 where they weren't. Where we'd assumed we had a type of `T` available in a function whereas it was actually a type of `any`. I was really surprised that this was the case since we were already making use of `noImplicitAny` compiler flag in our project. So where a type had changed and a retired property was being referenced TS 0.9.5 picked up an error that TS 0.9.1.1 had not. Good catch! 
+1. TS 0.9.5 compiles faster, and hogs less memory.
+2. When we compiled with TS 0.9.5 we found there were a couple of bugs in our codebase which the tightened up compiler was now detecting. Essentially where we'd assumed types were flowing through to functions there were a couple of occasions with TS 0.9.1.1 where they weren't. Where we'd assumed we had a type of `T` available in a function whereas it was actually a type of `any`. I was really surprised that this was the case since we were already making use of `noImplicitAny` compiler flag in our project. So where a type had changed and a retired property was being referenced TS 0.9.5 picked up an error that TS 0.9.1.1 had not. Good catch!
 3. And finally (and I know these are really minor), the compiled JS is a little different now. Firstly, the compiled JS features all of TypeScript comments in the positions that you might hope for. Previously it seemed that about 75% came along for the ride and ended up in some strange locations sometimes. Secondly, enums are treated differently during compilation now - where it makes sense the actual backing value of an enum is used rather than going through the JavaScript construct. So it's a bit like a `const` I guess - presumably this allows JavaScript engines to optimise a little more.
 
-
-
 I hope I haven't put you off with this post. I think TypeScript 0.9.5 is well worth making the leap for - and hopefully by reading this you'll have saved yourself from a few of the rough edges.
-
-

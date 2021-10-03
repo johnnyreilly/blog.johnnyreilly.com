@@ -1,14 +1,15 @@
 ---
-title: "Cache Rules Everything Around Me"
+title: 'Cache Rules Everything Around Me'
 authors: johnnyreilly
 tags: [asp net core, cache, wu-tang]
 hide_table_of_contents: false
 ---
+
 One thing that ASP.Net Core really got right was caching. `<a href="https://docs.microsoft.com/en-us/aspnet/core/performance/caching/memory">IMemoryCache</a>` is a caching implementation that does just what I want. I love it. I take it everywhere. I've introduced it to my family.
 
- ## TimeSpan, TimeSpan Expiration Y'all
+## TimeSpan, TimeSpan Expiration Y'all
 
-To make usage of the `IMemoryCache`*even* more lovely I've written an extension method. I follow pretty much one cache strategy: `SetAbsoluteExpiration` and I just vary the expiration by an amount of time. This extension method implements that in a simple way; I call it `GetOrCreateForTimeSpanAsync` \- catchy right? It looks like this:
+To make usage of the `IMemoryCache`_even_ more lovely I've written an extension method. I follow pretty much one cache strategy: `SetAbsoluteExpiration` and I just vary the expiration by an amount of time. This extension method implements that in a simple way; I call it `GetOrCreateForTimeSpanAsync` \- catchy right? It looks like this:
 
 ```cs
 using System;
@@ -45,7 +46,7 @@ namespace My.Helpers {
 Usage looks like this:
 
 ```cs
-private Task<superinterestingthing> GetSuperInterestingThingFromCache(Guid superInterestingThingId) => 
+private Task<superinterestingthing> GetSuperInterestingThingFromCache(Guid superInterestingThingId) =>
     _cache.GetOrCreateForTimeSpanAsync(
         key: $"{nameof(MyClass)}:GetSuperInterestingThing:{superInterestingThingId}",
         itemGetterAsync: () => GetSuperInterestingThing(superInterestingThingId),
@@ -60,12 +61,8 @@ This helper allows the consumer to provide three things:
 - A `itemGetterAsync` which is the method that is used to retrieve a new value if an item cannot be found in the cache
 - A `timeToCache` which is the period of time that an item should be cached
 
-
-
-If an item can't be looked up by the `itemGetterAsync` then *nothing* will be cached and a the `default` value of the expected type will be returned. This is important because lookups can fail, and there's nothing worse than a lookup failing and you caching `null` as a result.
+If an item can't be looked up by the `itemGetterAsync` then _nothing_ will be cached and a the `default` value of the expected type will be returned. This is important because lookups can fail, and there's nothing worse than a lookup failing and you caching `null` as a result.
 
 Go on, ask me how I know.
 
 This is a simple, clear and helpful API which makes interacting with `IMemoryCache` even more lovely than it was. Peep it y'all.
-
-

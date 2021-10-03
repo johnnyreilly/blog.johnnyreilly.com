@@ -1,9 +1,10 @@
 ---
-title: "Symbiotic Definitely Typed"
+title: 'Symbiotic Definitely Typed'
 authors: johnnyreilly
 tags: [TypeScript, react-testing-library, Definitely Typed]
 hide_table_of_contents: false
 ---
+
 I did ponder calling this post "how to enable a good TypeScript developer experience for npm modules that aren't written in TypeScript"... Not exactly pithy though.
 
 Definitely Typed is the resource which allows developers to use TypeScript with existing JavaScript libraries that ship without their own type definitions.
@@ -28,9 +29,9 @@ This two step process isn't the end of the world, but it does make it marginally
 
 Fortunately, Kent and [Daniel K](https://github.com/FredyC) had one of these moments:
 
- ![](../static/blog/2019-08-17-symbiotic-definitely-typed/hang-on-lads-ive-got-a-great-idea.jpg)
+![](../static/blog/2019-08-17-symbiotic-definitely-typed/hang-on-lads-ive-got-a-great-idea.jpg)
 
-Kent suggested that at the same time as dropping the type definitions that were shipped with the library, we try making `@types/testing-library__react` a dependency of `@testing-library/react`. This would mean that people installing `@testing-library/react` would get `@types/testing-library__react` installed *automatically*. So from the developers point of view, it's as though the type definitions shipped with the package directly.
+Kent suggested that at the same time as dropping the type definitions that were shipped with the library, we try making `@types/testing-library__react` a dependency of `@testing-library/react`. This would mean that people installing `@testing-library/react` would get `@types/testing-library__react` installed _automatically_. So from the developers point of view, it's as though the type definitions shipped with the package directly.
 
 To cut a long story short reader, that's what happened. If you're using `@testing-library/react` from 9.1.2 you're getting Definitely Typed under the covers. This was [nicely illustrated by Kent](https://github.com/testing-library/react-testing-library/pull/437#issuecomment-521763117) showing what the TypeScript consumption experience looked like before the Definitely Typed switch:
 
@@ -53,7 +54,7 @@ This is clearly an approach that's useful; it adds value. It would be tremendous
 When I [tweeted this article](https://twitter.com/johnny_reilly/status/1162843916661592064) it prompted this helpful response from [Andrew Branch](https://twitter.com/atcb) of the TypeScript team:
 
 > \> use a loose version range This is my advice as well and should probably be mentioned in the article TBH.
-> 
+>
 > — Kent C. Dodds (@kentcdodds) [August 18, 2019](https://twitter.com/kentcdodds/status/1162876792287293440?ref_src=twsrc%5Etfw)
 
 <script async="" src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
@@ -72,10 +73,8 @@ i.e. Any type definition with a version of `9.1` or greater (whilst still lower 
 
 This will always install the latest version of the `@types/testing-library__react` dependency and (importantly) allow users to override if there's a problematic `@types/testing-library__react` out there. This level of looseness is not really advised though. As in the scenario when a library (and associated type definitions) do a major release, users of the old major would get the wrong definitions by default when installing or upgrading (in range).
 
-Probably the most helpful approach is the approach followed by RTL; fixing the major version but allowing all minor and patch releases *inside* a major version.
+Probably the most helpful approach is the approach followed by RTL; fixing the major version but allowing all minor and patch releases _inside_ a major version.
 
 ## Update 2: Further Discussions!
 
 The technique used in this blog post sparked an interesting conversation with members of the TypeScript team when it was applied to `<a href="https://github.com/testing-library/jest-dom">https://github.com/testing-library/jest-dom</a>`. [The conversation can be read here](https://github.com/testing-library/jest-dom/issues/123#issuecomment-523586977).
-
-

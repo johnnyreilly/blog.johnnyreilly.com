@@ -1,12 +1,13 @@
 ---
-title: "Using Web Optimization with MVC 3"
+title: 'Using Web Optimization with MVC 3'
 authors: johnnyreilly
 tags: [asp.net, Bundling, MVC 3, Web Optimization, Minification]
 hide_table_of_contents: false
 ---
+
 A while ago I [wrote](http://icanmakethiswork.blogspot.com/2012/06/how-im-structuring-my-javascript-in-web.html#WebOptimization) about optimally serving up JavaScript in web applications. I mentioned that Microsoft had come up with a NuGet package called [Microsoft ASP.NET Web Optimization](http://nuget.org/packages/Microsoft.AspNet.Web.Optimization) which could help with that by minifying and bundling CSS and JavaScript. At the time I was wondering if I would be able to to use this package with pre-existing MVC 3 projects (given that the package had been released together with MVC 4). Happily it turns out you can. But it's not quite as straightforward as I might have liked so I've documented how to get going with this here...
 
- ## Getting the Basics in Place
+## Getting the Basics in Place
 
 To keep it simple I'm going to go through taking a "vanilla" MVC 3 app and enhancing it to work with Web Optimization. To start, follow these basic steps:
 
@@ -15,15 +16,13 @@ To keep it simple I'm going to go through taking a "vanilla" MVC 3 app and enhan
 3. Update pre-existing NuGet packages
 4. At the NuGet console type: "`Install-Package Microsoft.AspNet.Web.Optimization`"
 
-
-
 Whilst the NuGet package adds the necessary references to your MVC 3 project it doesn't add the corresponding namespaces to the web.configs. To fix this manually add the following child XML element to the `&lt;namespaces&gt;` element in your root and Views web.config files:
 
 `&lt;add namespace="System.Web.Optimization" /&gt;`
 
 This gives you access to `Scripts` and `Styles` in your views without needing the fully qualified namespace. For reasons best known to Microsoft I had to close down and restart Visual Studio before intellisense started working. You may need to do likewise.
 
-Next up we want to get some JavaScript / CSS bundles in place. To do this, create a folder in the root of your project called "App\_Start". There's nothing magical about this to my knowledge; this is just a convention that's been adopted to store all the bits of startup in one place and avoid clutterage. (I think this grew out of Nuget; see [David Ebbo talking about this here](http://blog.davidebbo.com/2011/02/appstart-folder-convention-for-nuget.html).) Inside your new folder you should add a new class called `BundleConfig.cs` which looks like this:
+Next up we want to get some JavaScript / CSS bundles in place. To do this, create a folder in the root of your project called "App_Start". There's nothing magical about this to my knowledge; this is just a convention that's been adopted to store all the bits of startup in one place and avoid clutterage. (I think this grew out of Nuget; see [David Ebbo talking about this here](http://blog.davidebbo.com/2011/02/appstart-folder-convention-for-nuget.html).) Inside your new folder you should add a new class called `BundleConfig.cs` which looks like this:
 
 <script src="https://gist.github.com/3839486.js?file=BundleConfig.cs"></script>
 
@@ -52,5 +51,3 @@ Now go back to your root `web.config` file and chance the debug tag to false: `&
 <script src="https://gist.github.com/3839486.js?file=debug  false"></script>
 
 This time you can see that in non-debug mode (ie how it would run in Production) minified bundles of scripts and css files are being served up instead of the raw files. And that's it; done.
-
-
