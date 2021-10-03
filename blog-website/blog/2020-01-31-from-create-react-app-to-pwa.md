@@ -1,10 +1,11 @@
 ---
-title: "From create-react-app to PWA"
+title: 'From create-react-app to PWA'
 authors: johnnyreilly
 tags: [create-react-app, PWA]
 hide_table_of_contents: false
 ---
-Progressive Web Apps are a (terribly named) wonderful idea. You can build an app *once* using web technologies which serves all devices and form factors. It can be accessible over the web, but also surface on the home screen of your Android / iOS device. That app can work offline, have a splash screen when it launches and have notifications too.
+
+Progressive Web Apps are a (terribly named) wonderful idea. You can build an app _once_ using web technologies which serves all devices and form factors. It can be accessible over the web, but also surface on the home screen of your Android / iOS device. That app can work offline, have a splash screen when it launches and have notifications too.
 
 PWAs can be a money saver for your business. The alternative, should you want an app experience for your users, is building the same application using three different technologies (one for web, one for Android and one for iOS). When you take this path it's hard to avoid a multiplication of cost and complexity. It often leads to dividing up the team as each works on a different stack. It's common to lose a certain amount of focus as a consequence. PWAs can help here; they are a compelling alternative, not just from a developers standpoint, but from a resourcing one too.
 
@@ -15,8 +16,6 @@ This post presumes knowledge of:
 - React
 - TypeScript
 - Node
-
-
 
 ## From console to web app
 
@@ -48,9 +47,7 @@ As the hint suggests, swap `serviceWorker.unregister()` for `serviceWorker.regis
 
 > - All static site assets are cached so that your page loads fast on subsequent visits, regardless of network connectivity (such as 2G or 3G). Updates are downloaded in the background.
 > - Your app will work regardless of network state, even if offline. This means your users will be able to use your app at 10,000 feet and on the subway.
-> 
-> 
-> 
+>
 > ... it will take care of generating a service worker file that will automatically precache all of your local assets and keep them up to date as you deploy updates. The service worker will use a [cache-first strategy](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-falling-back-to-network)for handling all requests for local assets, including [navigation requests](https://developers.google.com/web/fundamentals/primers/service-workers/high-performance-loading#first_what_are_navigation_requests) for your HTML, ensuring that your web app is consistently fast, even on a slow or unreliable network.
 
 Under the bonnet, `create-react-app` is achieving this through the use of technology called ["Workbox"](https://developers.google.com/web/tools/workbox). Workbox describes itself as:
@@ -68,8 +65,6 @@ But it's not just an offline experience that makes this a PWA. Other important f
 - That the app can be added to your home screen (A2HS AKA "installed").
 - That the app has a name and an icon which can be customised.
 - That there's a splash screen displayed to the user as the app starts up.
-
-
 
 All of the above is "in the box" with `create-react-app`. Let's start customizing these.
 
@@ -90,8 +85,8 @@ with:
 Your app now has a name. The question you might be asking is: what is this `manifest.json` file? Well to [quote the good folks of Google](https://developers.google.com/web/fundamentals/web-app-manifest):
 
 > The [web app manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest) is a simple JSON file that tells the browser about your web application and how it should behave when 'installed' on the user's mobile device or desktop. Having a manifest is required by Chrome to show the [Add to Home Screen prompt](https://developers.google.com/web/fundamentals/app-install-banners/).
-> 
-> A typical manifest file includes information about the app name, icons it should use, the start\_url it should start at when launched, and more.
+>
+> A typical manifest file includes information about the app name, icons it should use, the start_url it should start at when launched, and more.
 
 So the `manifest.json` is essentially metadata about your app. Here's what it should look like right now:
 
@@ -129,8 +124,6 @@ You can use the above properties (and others not yet configured) to control how 
 - updating references to them in the `manifest.json`
 - finally, for older Apple devices, updating the `&lt;link rel="apple-touch-icon" ... /&gt;` in the `index.html`.
 
-
-
 ## Where are we?
 
 So far, we have a basic PWA in place. It's installable. You can run it locally and develop it with `yarn start`. You can build it for deployment with `yarn build`.
@@ -144,10 +137,10 @@ yarn add react-router-dom @types/react-router-dom
 Now let's split up our app into a couple of pages. We'll replace the existing `App.tsx` with this:
 
 ```tsx
-import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import About from "./About";
-import Home from "./Home";
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import About from './About';
+import Home from './Home';
 
 const App: React.FC = () => (
   <Router>
@@ -194,11 +187,9 @@ test('renders about link', () => {
 You'll have noticed that in our new `App.tsx` we import two new components (or pages); `About` and `Home`. Let's create those. First `About.tsx`:
 
 ```tsx
-import React from "react";
+import React from 'react';
 
-const About: React.FC = () => (
-  <h1>This is a PWA</h1>
-);
+const About: React.FC = () => <h1>This is a PWA</h1>;
 
 export default About;
 ```
@@ -206,11 +197,9 @@ export default About;
 Then `Home.tsx`:
 
 ```tsx
-import React from "react";
+import React from 'react';
 
-const Home: React.FC = () => (
-  <h1>Welcome to your PWA!</h1>
-);
+const Home: React.FC = () => <h1>Welcome to your PWA!</h1>;
 
 export default Home;
 ```
@@ -233,8 +222,8 @@ Notice the `build/static/js/main.bc740179.chunk.js` file. This is our `single-fi
 Where we previously had:
 
 ```tsx
-import About from "./About";
-import Home from "./Home";
+import About from './About';
+import Home from './Home';
 ```
 
 Let's replace with:
@@ -250,19 +239,17 @@ Let's also give React something to render whilst it waits for the dynamic import
 
 ```tsx
 <Router>
-    <Suspense fallback={<div>Loading...</div>}>
-    {/*...*/}
-    </Suspense>
-  </Router>
+  <Suspense fallback={<div>Loading...</div>}>{/*...*/}</Suspense>
+</Router>
 ```
 
 The `&lt;Suspense&gt;` component will render the `&lt;div&gt;Loading...&lt;/div&gt;` whilst it waits for a routes code to be dynamically loaded. So our final `App.tsx` component ends up looking like this:
 
 ```tsx
-import React, { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-const About = lazy(() => import("./About"));
-const Home = lazy(() => import("./Home"));
+import React, { lazy, Suspense } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+const About = lazy(() => import('./About'));
+const Home = lazy(() => import('./Home'));
 
 const App: React.FC = () => (
   <Router>
@@ -315,7 +302,7 @@ The source code of our PWA lives on GitHub here: https://github.com/johnnyreilly
 
 We're going to log into Netlify, click on the "Create a new site" option and select GitHub as the provider. We'll need to authorize Netlify to access our GitHub.
 
- ![](../static/blog/2020-01-31-from-create-react-app-to-pwa/netlify-auth.png)
+![](../static/blog/2020-01-31-from-create-react-app-to-pwa/netlify-auth.png)
 
 You may need to click the "Configure Netlify on GitHub" button to grant permissions for Netlify to access your repo like so:
 
@@ -340,5 +327,3 @@ That is a good start for our PWA!
 [This post was originally published on LogRocket.](https://blog.logrocket.com/from-create-react-app-to-pwa/)
 
 [The source code for this project can be found here.](https://github.com/johnnyreilly/pwa-react-typescript)
-
-

@@ -1,17 +1,16 @@
 ---
-title: "IE 10 Install Torches JavaScript Debugging in Visual Studio 2012 Through Auto Update (Probably)"
+title: 'IE 10 Install Torches JavaScript Debugging in Visual Studio 2012 Through Auto Update (Probably)'
 authors: johnnyreilly
 tags: [Visual Studio 2012, JavaScript debugging, IE 10]
 hide_table_of_contents: false
 ---
+
 OK the title of this post is a little verbose. I've just wasted a morning of my life trying to discover what happened to my ability to debug JavaScript in Visual Studio 2012. If you don't want to experience the same pain then read on...
 
- ## The Symptoms
+## The Symptoms
 
 1. I'm not hitting my JavaScript breakpoints when I hit F5 in Visual Studio.
 2. [Script Documents](http://msdn.microsoft.com/en-us/library/bb385621.aspx) is missing from the Solution Explorer when I'm debugging in Visual Studio.
-
-
 
 ## The Cure
 
@@ -30,5 +29,3 @@ I fixed this up by selecting Google Chrome as my target instead of IE, running i
 My machine was auto updated from IE 9 to IE 10 just the other day. I \***think**\* my JavaScript debugging issue appeared at the same time. This would explain to me why I had two instances of "Internet Explorer" in my list. Not certain but I'd say the evidence is fairly compelling.
 
 Painful Microsoft. Painful
-
-

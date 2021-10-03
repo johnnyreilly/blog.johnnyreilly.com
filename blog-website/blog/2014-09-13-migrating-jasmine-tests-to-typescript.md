@@ -1,120 +1,133 @@
 ---
-title: "Journalling the Migration of Jasmine Tests to TypeScript"
+title: 'Journalling the Migration of Jasmine Tests to TypeScript'
 authors: johnnyreilly
-tags: [Jasmine, TypeScript Language Service, TypeScript, javascript, implicit references]
+tags:
+  [
+    Jasmine,
+    TypeScript Language Service,
+    TypeScript,
+    javascript,
+    implicit references,
+  ]
 hide_table_of_contents: false
 ---
+
 I previously attempted to migrate my Jasmine tests from JavaScript to TypeScript. The last time I tried it didn't go so well and I bailed. Thank the Lord for source control. But feeling I shouldn't be deterred I decided to have another crack at it.
 
- I did manage it this time... Sort of. Unfortunately there was a problem which I discovered right at the end. An issue with the TypeScript / Visual Studio tooling. So, just to be clear, this is not a blog post of "do this and it will work perfectly". On this occasion there will be some rough edges. This post exists, as much as anything else, as a record of the problems I experienced - I hope it will prove useful. Here we go:
+I did manage it this time... Sort of. Unfortunately there was a problem which I discovered right at the end. An issue with the TypeScript / Visual Studio tooling. So, just to be clear, this is not a blog post of "do this and it will work perfectly". On this occasion there will be some rough edges. This post exists, as much as anything else, as a record of the problems I experienced - I hope it will prove useful. Here we go:
 
 ## What to Migrate?
 
 I'm going to use one of the test files in my my side project [Proverb](https://github.com/johnnyreilly/Proverb). It's the tests for an AngularJS controller called `sageDetail` \- I've written about it [before](http://icanmakethiswork.blogspot.co.uk/2014/09/unit-testing-angular-controller-with.html). Here it is in all it's JavaScript-y glory:
 
 ```ts
-describe("Proverb.Web -> app-> controllers ->", function () {
+describe('Proverb.Web -> app-> controllers ->', function () {
+  beforeEach(function () {
+    module('app');
+  });
 
-    beforeEach(function () {
+  describe('sageDetail ->', function () {
+    var $rootScope,
+      getById_deferred, // deferred used for promises
+      $location,
+      $routeParams_stub,
+      common,
+      datacontext, // controller dependencies
+      sageDetailController; // the controller
 
-        module("app");
+    beforeEach(inject(function (
+      _$controller_,
+      _$rootScope_,
+      _$q_,
+      _$location_,
+      _common_,
+      _datacontext_
+    ) {
+      $rootScope = _$rootScope_;
+      $q = _$q_;
+
+      $location = _$location_;
+      common = _common_;
+      datacontext = _datacontext_;
+
+      $routeParams_stub = { id: '10' };
+      getById_deferred = $q.defer();
+
+      spyOn(datacontext.sage, 'getById').and.returnValue(
+        getById_deferred.promise
+      );
+      spyOn(common, 'activateController').and.callThrough();
+      spyOn(common.logger, 'getLogFn').and.returnValue(
+        jasmine.createSpy('log')
+      );
+      spyOn($location, 'path').and.returnValue(jasmine.createSpy('path'));
+
+      sageDetailController = _$controller_('sageDetail', {
+        $location: $location,
+        $routeParams: $routeParams_stub,
+        common: common,
+        datacontext: datacontext,
+      });
+    }));
+
+    describe('on creation ->', function () {
+      it("controller should have a title of 'Sage Details'", function () {
+        expect(sageDetailController.title).toBe('Sage Details');
+      });
+
+      it('controller should have no sage', function () {
+        expect(sageDetailController.sage).toBeUndefined();
+      });
+
+      it('datacontext.sage.getById should be called', function () {
+        expect(datacontext.sage.getById).toHaveBeenCalledWith(10, true);
+      });
     });
 
-    describe("sageDetail ->", function () {
+    describe('activateController ->', function () {
+      var sage_stub;
+      beforeEach(function () {
+        sage_stub = { name: 'John' };
+      });
 
-        var $rootScope,
-            getById_deferred, // deferred used for promises
-            $location, $routeParams_stub, common, datacontext, // controller dependencies
-            sageDetailController; // the controller
+      it('should set sages to be the resolved promise values', function () {
+        getById_deferred.resolve(sage_stub);
+        $rootScope.$digest(); // So Angular processes the resolved promise
 
-        beforeEach(inject(function (_$controller_, _$rootScope_, _$q_, _$location_, _common_, _datacontext_) {
+        expect(sageDetailController.sage).toBe(sage_stub);
+      });
 
-            $rootScope = _$rootScope_;
-            $q = _$q_;
+      it("should log 'Activated Sage Details View' and set title with name", function () {
+        getById_deferred.resolve(sage_stub);
+        $rootScope.$digest(); // So Angular processes the resolved promise
 
-            $location = _$location_;
-            common = _common_;
-            datacontext = _datacontext_;
-
-            $routeParams_stub = { id: "10" };
-            getById_deferred = $q.defer();
-
-            spyOn(datacontext.sage, "getById").and.returnValue(getById_deferred.promise);
-            spyOn(common, "activateController").and.callThrough();
-            spyOn(common.logger, "getLogFn").and.returnValue(jasmine.createSpy("log"));
-            spyOn($location, "path").and.returnValue(jasmine.createSpy("path"));
-
-            sageDetailController = _$controller_("sageDetail", {
-                $location: $location,
-                $routeParams: $routeParams_stub,
-                common: common,
-                datacontext: datacontext
-            });
-
-
-        }));
-
-        describe("on creation ->", function () {
-
-            it("controller should have a title of 'Sage Details'", function () {
-
-                expect(sageDetailController.title).toBe("Sage Details");
-            });
-
-            it("controller should have no sage", function () {
-
-                expect(sageDetailController.sage).toBeUndefined();
-            });
-
-            it("datacontext.sage.getById should be called", function () {
-
-                expect(datacontext.sage.getById).toHaveBeenCalledWith(10, true);
-            });
-        });
-
-        describe("activateController ->", function () {
-
-            var sage_stub;
-            beforeEach(function () {
-                sage_stub = { name: "John" };
-            });
-
-            it("should set sages to be the resolved promise values", function () {
-
-                getById_deferred.resolve(sage_stub);
-                $rootScope.$digest(); // So Angular processes the resolved promise
-
-                expect(sageDetailController.sage).toBe(sage_stub);
-            });
-
-            it("should log 'Activated Sage Details View' and set title with name", function () {
-
-                getById_deferred.resolve(sage_stub);
-                $rootScope.$digest(); // So Angular processes the resolved promise
-
-                expect(sageDetailController.log).toHaveBeenCalledWith("Activated Sage Details View");
-                expect(sageDetailController.title).toBe("Sage Details: " + sage_stub.name);
-            });
-        });
-
-        describe("gotoEdit ->", function () {
-
-            var sage_stub;
-            beforeEach(function () {
-                sage_stub = { id: 20 };
-            });
-
-            it("should set $location.path to edit URL", function () {
-
-                getById_deferred.resolve(sage_stub);
-                $rootScope.$digest(); // So Angular processes the resolved promise
-
-                sageDetailController.gotoEdit();
-
-                expect($location.path).toHaveBeenCalledWith("/sages/edit/" + sage_stub.id);
-            });
-        });
+        expect(sageDetailController.log).toHaveBeenCalledWith(
+          'Activated Sage Details View'
+        );
+        expect(sageDetailController.title).toBe(
+          'Sage Details: ' + sage_stub.name
+        );
+      });
     });
+
+    describe('gotoEdit ->', function () {
+      var sage_stub;
+      beforeEach(function () {
+        sage_stub = { id: 20 };
+      });
+
+      it('should set $location.path to edit URL', function () {
+        getById_deferred.resolve(sage_stub);
+        $rootScope.$digest(); // So Angular processes the resolved promise
+
+        sageDetailController.gotoEdit();
+
+        expect($location.path).toHaveBeenCalledWith(
+          '/sages/edit/' + sage_stub.id
+        );
+      });
+    });
+  });
 });
 ```
 
@@ -192,119 +205,127 @@ Now we need to work our way through the "variable 'x' implicitly has an 'any' ty
 /// <reference path="../../../proverb.web/app/common/common.ts" />
 /// <reference path="../../../proverb.web/app/services/datacontext.ts" />
 /// <reference path="../../../proverb.web/app/services/repository.sage.ts" />
-describe("Proverb.Web -> app-> controllers ->", function () {
+describe('Proverb.Web -> app-> controllers ->', function () {
+  beforeEach(function () {
+    module('app');
+  });
 
-    beforeEach(function () {
+  describe('sageDetail ->', function () {
+    var $rootScope: ng.IRootScopeService,
+      // deferred used for promises
+      getById_deferred: ng.IDeferred<sage>,
+      // controller dependencies
+      $location: ng.ILocationService,
+      $routeParams_stub: controllers.sageDetailRouteParams,
+      common: common,
+      datacontext: datacontext,
+      sageDetailController: controllers.SageDetail; // the controller
 
-        module("app");
+    beforeEach(inject(function (
+      _$controller_: any,
+      _$rootScope_: ng.IRootScopeService,
+      _$q_: ng.IQService,
+      _$location_: ng.ILocationService,
+      _common_: common,
+      _datacontext_: datacontext
+    ) {
+      $rootScope = _$rootScope_;
+      var $q = _$q_;
+
+      $location = _$location_;
+      common = _common_;
+      datacontext = _datacontext_;
+
+      $routeParams_stub = { id: '10' };
+      getById_deferred = $q.defer();
+
+      spyOn(datacontext.sage, 'getById').and.returnValue(
+        getById_deferred.promise
+      );
+      spyOn(common, 'activateController').and.callThrough();
+      spyOn(common.logger, 'getLogFn').and.returnValue(
+        jasmine.createSpy('log')
+      );
+      spyOn($location, 'path').and.returnValue(jasmine.createSpy('path'));
+
+      sageDetailController = _$controller_('sageDetail', {
+        $location: $location,
+        $routeParams: $routeParams_stub,
+        common: common,
+        datacontext: datacontext,
+      });
+    }));
+
+    describe('on creation ->', function () {
+      it("controller should have a title of 'Sage Details'", function () {
+        expect(sageDetailController.title).toBe('Sage Details');
+      });
+
+      it('controller should have no sage', function () {
+        expect(sageDetailController.sage).toBeUndefined();
+      });
+
+      it('datacontext.sage.getById should be called', function () {
+        expect(datacontext.sage.getById).toHaveBeenCalledWith(10, true);
+      });
     });
 
-    describe("sageDetail ->", function () {
+    describe('activateController ->', function () {
+      var sage_stub: sage;
+      beforeEach(function () {
+        sage_stub = {
+          name: 'John',
+          id: 10,
+          username: 'John',
+          email: 'john@',
+          dateOfBirth: new Date(),
+        };
+      });
 
-        var $rootScope: ng.IRootScopeService,
-            // deferred used for promises 
-            getById_deferred: ng.IDeferred<sage>, 
-            // controller dependencies
-            $location: ng.ILocationService,
-            $routeParams_stub: controllers.sageDetailRouteParams,
-            common: common,
-            datacontext: datacontext,
-            sageDetailController: controllers.SageDetail; // the controller
+      it('should set sages to be the resolved promise values', function () {
+        getById_deferred.resolve(sage_stub);
+        $rootScope.$digest(); // So Angular processes the resolved promise
 
-        beforeEach(inject(function (
-            _$controller_: any,
-            _$rootScope_: ng.IRootScopeService,
-            _$q_: ng.IQService,
-            _$location_: ng.ILocationService,
-            _common_: common,
-            _datacontext_: datacontext) {
+        expect(sageDetailController.sage).toBe(sage_stub);
+      });
 
-            $rootScope = _$rootScope_;
-            var $q = _$q_;
+      it("should log 'Activated Sage Details View' and set title with name", function () {
+        getById_deferred.resolve(sage_stub);
+        $rootScope.$digest(); // So Angular processes the resolved promise
 
-            $location = _$location_;
-            common = _common_;
-            datacontext = _datacontext_;
-
-            $routeParams_stub = { id: "10" };
-            getById_deferred = $q.defer();
-
-            spyOn(datacontext.sage, "getById").and.returnValue(getById_deferred.promise);
-            spyOn(common, "activateController").and.callThrough();
-            spyOn(common.logger, "getLogFn").and.returnValue(jasmine.createSpy("log"));
-            spyOn($location, "path").and.returnValue(jasmine.createSpy("path"));
-
-            sageDetailController = _$controller_("sageDetail", {
-                $location: $location,
-                $routeParams: $routeParams_stub,
-                common: common,
-                datacontext: datacontext
-            });
-
-
-        }));
-
-        describe("on creation ->", function () {
-
-            it("controller should have a title of 'Sage Details'", function () {
-
-                expect(sageDetailController.title).toBe("Sage Details");
-            });
-
-            it("controller should have no sage", function () {
-
-                expect(sageDetailController.sage).toBeUndefined();
-            });
-
-            it("datacontext.sage.getById should be called", function () {
-
-                expect(datacontext.sage.getById).toHaveBeenCalledWith(10, true);
-            });
-        });
-
-        describe("activateController ->", function () {
-
-            var sage_stub: sage;
-            beforeEach(function () {
-                sage_stub = { name: "John", id: 10, username: "John", email: "john@", dateOfBirth: new Date() };
-            });
-
-            it("should set sages to be the resolved promise values", function () {
-
-                getById_deferred.resolve(sage_stub);
-                $rootScope.$digest(); // So Angular processes the resolved promise
-
-                expect(sageDetailController.sage).toBe(sage_stub);
-            });
-
-            it("should log 'Activated Sage Details View' and set title with name", function () {
-
-                getById_deferred.resolve(sage_stub);
-                $rootScope.$digest(); // So Angular processes the resolved promise
-
-                expect(sageDetailController.log).toHaveBeenCalledWith("Activated Sage Details View");
-                expect(sageDetailController.title).toBe("Sage Details: " + sage_stub.name);
-            });
-        });
-
-        describe("gotoEdit ->", function () {
-
-            var sage_stub: sage;
-            beforeEach(function () {
-                sage_stub = { name: "John", id: 20, username: "John", email: "john@", dateOfBirth: new Date() };
-            });
-
-            it("should set $location.path to edit URL", function () {
-
-                getById_deferred.resolve(sage_stub);
-                $rootScope.$digest(); // So Angular processes the resolved promise
-
-                sageDetailController.gotoEdit();
-
-                expect($location.path).toHaveBeenCalledWith("/sages/edit/" + sage_stub.id);
-            });
-        });
+        expect(sageDetailController.log).toHaveBeenCalledWith(
+          'Activated Sage Details View'
+        );
+        expect(sageDetailController.title).toBe(
+          'Sage Details: ' + sage_stub.name
+        );
+      });
     });
+
+    describe('gotoEdit ->', function () {
+      var sage_stub: sage;
+      beforeEach(function () {
+        sage_stub = {
+          name: 'John',
+          id: 20,
+          username: 'John',
+          email: 'john@',
+          dateOfBirth: new Date(),
+        };
+      });
+
+      it('should set $location.path to edit URL', function () {
+        getById_deferred.resolve(sage_stub);
+        $rootScope.$digest(); // So Angular processes the resolved promise
+
+        sageDetailController.gotoEdit();
+
+        expect($location.path).toHaveBeenCalledWith(
+          '/sages/edit/' + sage_stub.id
+        );
+      });
+    });
+  });
 });
 ```
 
@@ -338,8 +359,6 @@ Thanks to the help of [Mohamed Hegazy](https://github.com/mhegazy) it emerged th
 - Proverb.Web uses the Visual Studio implicit referencing functionality. This means that I do not need to use `reference` comments in the TypeScript files in Proverb.Web.
 - Proverb.Web.JavaScript does \***not**\* uses the implicit referencing functionality. It needs `reference` comments to resolve references.
 
-
-
 The important thing to take away from this (and the thing I had overlooked) was that Proverb.Web.JavaScript uses `reference` comments to pull in Proverb.Web TypeScript files. Those files have dependencies which are \***not**\* stated using `reference` comments. So the compiler trips up when it tries to walk the dependency tree - there are no `reference` comments to be followed! So for example, `common.ts` has a dependency upon `logger.ts`. Fixing the TypeScript Language Service involves ensuring that the full dependency list is included in the `sageDetail` controller tests file, like so:
 
 ```ts
@@ -362,15 +381,11 @@ The important thing to take away from this (and the thing I had overlooked) was 
 With this in place you have a working solution, albeit one that is a little flaky. [An alternative solution was suggested by Noel Abrahams](https://github.com/Microsoft/TypeScript/issues/673#issuecomment-56024348) which I quote here:
 
 > Why not do the following?
-> 
+>
 > - Compile Proverb.Web with --declarations and the option for combining output into a single file. This should create a Proverb.Web.d.ts in your output directory.
 > - In Proverb.Web.Tests.JavaScript add a reference to this file.
 > - Right-click Proverb.Web.Tests.JavaScript select "Build Dependencies" > "Project Dependencies" and add a reference to Proverb.Web.
-> 
-> 
-> 
+>
 > I don't think directly referencing TypeScript source files is a good idea, because it causes the file to be rebuilt every time the dependant project is compiled.
 
 Mohamed rather liked this solution. It looks like some more work is due to be done on the TypeScript tooling to make this less headache-y in future.
-
-

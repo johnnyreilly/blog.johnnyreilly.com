@@ -1,9 +1,10 @@
 ---
-title: "Why your team needs a newsfeed"
+title: 'Why your team needs a newsfeed'
 authors: johnnyreilly
 tags: [newsfeed]
 hide_table_of_contents: false
 ---
+
 I'm part of a team that builds an online platform. I'm often preoccupied by how to narrow the gap between our users and "us" - the people that build the platform. It's important we understand how people use and interact with what we've built. If we don't then we're liable to waste our time and energy building the wrong things. Or the wrong amount of the right things.
 
 On a recent holiday I spent a certain amount of time pondering how to narrow the gap between our user and us. We have lots of things that help us; we use various analytics tools like [mixpanel](https://mixpanel.com/), we've got a mini analytics platform of our own, we have teams notifications that pop up client feedback and so on. They are all great, but they're somewhat disparate; they don't give us a clear insight as to who uses our platform and how they do so. The information is there, but it's tough to grok. It doesn't make for a joined up story.
@@ -17,8 +18,6 @@ This was an experiment that seemed worth pursuing. So I decided to build a proof
 1. The news feed wouldn't auto update (users have the F5 key for that)
 2. We'd host the newsfeed in our own mini analytics platform (which is already used by the team to understand how people use the platform)
 3. News stories wouldn't be stored anywhere; we'd generate them on the fly by querying various databases / APIs. The cost of this would be that our news stories wouldn't be "persistent"; you wouldn't be able to address them with a URL; there'd be no way to build "like" or "share" functionality.
-
-
 
 All of the above constraints are, importantly, reversable decisions. If we want auto update it could be built later. If we want the newsfeed to live somewhere else we could move it. If we wanted news stories to be persisted then we could do that.
 
@@ -55,9 +54,9 @@ Now the killer feature here is [Markdown](https://en.wikipedia.org/wiki/Markdown
 
 This crucially includes the ability to include links. This was significant because I want us to be able to be able to click on pieces of information in the stories and be taken to the relevant place in the platform to see more details. Just as you see status updates on, for example, Twitter which lead you on to more details:
 
- > This is the history of [@DefinitelyTyped](https://twitter.com/DefinitelyTyped?ref_src=twsrc%5Etfw): [https://t.co/AY6s3bWnKP](https://t.co/AY6s3bWnKP) Thanks to [@SeaRyanC](https://twitter.com/SeaRyanC?ref_src=twsrc%5Etfw) & [@drosenwasser](https://twitter.com/drosenwasser?ref_src=twsrc%5Etfw) of the [@typescript](https://twitter.com/typescript?ref_src=twsrc%5Etfw) team, [@blakeembrey](https://twitter.com/blakeembrey?ref_src=twsrc%5Etfw) inventor of typings, [@vvakame](https://twitter.com/vvakame?ref_src=twsrc%5Etfw), [@\_stevefenton](https://twitter.com/_stevefenton?ref_src=twsrc%5Etfw), [@basarat](https://twitter.com/basarat?ref_src=twsrc%5Etfw), and of course [@borisyankov](https://twitter.com/borisyankov?ref_src=twsrc%5Etfw) for telling me their parts of the story❤️🌻
-> 
-> — John Reilly (@johnny\_reilly) [October 8, 2019](https://twitter.com/johnny_reilly/status/1181542739994976256?ref_src=twsrc%5Etfw)
+> This is the history of [@DefinitelyTyped](https://twitter.com/DefinitelyTyped?ref_src=twsrc%5Etfw): [https://t.co/AY6s3bWnKP](https://t.co/AY6s3bWnKP) Thanks to [@SeaRyanC](https://twitter.com/SeaRyanC?ref_src=twsrc%5Etfw) & [@drosenwasser](https://twitter.com/drosenwasser?ref_src=twsrc%5Etfw) of the [@typescript](https://twitter.com/typescript?ref_src=twsrc%5Etfw) team, [@blakeembrey](https://twitter.com/blakeembrey?ref_src=twsrc%5Etfw) inventor of typings, [@vvakame](https://twitter.com/vvakame?ref_src=twsrc%5Etfw), [@\_stevefenton](https://twitter.com/_stevefenton?ref_src=twsrc%5Etfw), [@basarat](https://twitter.com/basarat?ref_src=twsrc%5Etfw), and of course [@borisyankov](https://twitter.com/borisyankov?ref_src=twsrc%5Etfw) for telling me their parts of the story❤️🌻
+>
+> — John Reilly (@johnny_reilly) [October 8, 2019](https://twitter.com/johnny_reilly/status/1181542739994976256?ref_src=twsrc%5Etfw)
 
 <script async="" src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
 

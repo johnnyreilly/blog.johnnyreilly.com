@@ -1,15 +1,14 @@
 ---
-title: "Knockout + Globalize = valueNumber Binding Handler"
+title: 'Knockout + Globalize = valueNumber Binding Handler'
 authors: johnnyreilly
 tags: [Globalize, Knockout, bindingHandler]
 hide_table_of_contents: false
 ---
+
 I’ve long used [Globalize](https://github.com/jquery/globalize/) for my JavaScript number formatting / parsing needs. In a current project I’m using Knockout for the UI. When it came to data-binding numeric values none of the default binding handlers seemed appropriate. What I wanted was a binding handler that:
 
- 1. Was specifically purposed for dealing with numeric values
+1. Was specifically purposed for dealing with numeric values
 2. Handled the parsing / formatting for the current locale (and I naturally intended to use Globalize for this purpose)
-
-
 
 Like so much development we start by standing on the shoulders of giants. In this case it’s the fantastic [Ryan Niemeyer](https://twitter.com/RPNiemeyer) who put up a [post on StackOverflow](http://stackoverflow.com/a/12647270/761388) that got me on the right track.
 
@@ -17,90 +16,98 @@ Essentially his approach provides an “interceptor” mechanism that allows you
 
 ```js
 ko.bindingHandlers.valueNumber = {
-    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
- 
-        /**
-         * Adapted from the KO hasfocus handleElementFocusChange function
-         */ 
-        function elementIsFocused() {
-            var isFocused = false,
-                ownerDoc = element.ownerDocument;
-            if ("activeElement" in ownerDoc) {
-                var active;
-                try {
-                    active = ownerDoc.activeElement;
-                } catch(e) {
-                    // IE9 throws if you access activeElement during page load
-                    active = ownerDoc.body;
-                }
-                isFocused = (active === element);
-            }
- 
-            return isFocused;
+  init: function (
+    element,
+    valueAccessor,
+    allBindingsAccessor,
+    viewModel,
+    bindingContext
+  ) {
+    /**
+     * Adapted from the KO hasfocus handleElementFocusChange function
+     */
+    function elementIsFocused() {
+      var isFocused = false,
+        ownerDoc = element.ownerDocument;
+      if ('activeElement' in ownerDoc) {
+        var active;
+        try {
+          active = ownerDoc.activeElement;
+        } catch (e) {
+          // IE9 throws if you access activeElement during page load
+          active = ownerDoc.body;
         }
- 
-        /**
-         * Adapted from the KO hasfocus handleElementFocusChange function
-         *
-         * @param {boolean} isFocused whether the current element has focus
-         */
-        function handleElementFocusChange(isFocused) {
-            elementHasFocus(isFocused);
-        }
- 
-        var observable = valueAccessor(),
-            properties = allBindingsAccessor(),
-            elementHasFocus = ko.observable(elementIsFocused()),
-            handleElementFocusIn = handleElementFocusChange.bind(null, true),
-            handleElementFocusOut = handleElementFocusChange.bind(null, false);
- 
-        var interceptor = ko.computed({
-            read: function () {
-                var currentValue = ko.utils.unwrapObservable(observable);
-                if (elementHasFocus()) {
-                    return (!isNaN(currentValue) && (currentValue !== null) && (currentValue !== undefined))
-                        ? currentValue.toString().replace(".", Globalize.findClosestCulture().numberFormat["."]) // Displays correct decimal separator for the current culture (so de-DE would format 1.234 as "1,234")
-                        : null;
-                } else {
-                    var format = properties.numberFormat || "n2",
-                        formattedNumber = Globalize.format(currentValue, format);
- 
-                    return formattedNumber;
-                }
-            },
-            write: function (newValue) {
-                var currentValue = ko.utils.unwrapObservable(observable),
-                    numberValue = Globalize.parseFloat(newValue);
-                
-                if (!isNaN(numberValue)) {
-                    
-                    if (numberValue !== currentValue) {
-                        // The value has changed so update the observable
-                        observable(numberValue);
-                    }
-                } else if (newValue.length === 0) {
-                    if (properties.isNullable) {
-                        // If newValue is a blank string and the isNullable property has been set then nullify the observable
-                        observable(null);
-                    } else {
-                        // If newValue is a blank string and the isNullable property has not been set then set the observable to 0
-                        observable(0);
-                    }
-                }
-            }
-        });
-        
-        ko.utils.registerEventHandler(element, "focus", handleElementFocusIn);
-        ko.utils.registerEventHandler(element, "focusin", handleElementFocusIn); // For IE
-        ko.utils.registerEventHandler(element, "blur", handleElementFocusOut);
-        ko.utils.registerEventHandler(element, "focusout", handleElementFocusOut); // For IE
- 
-        if (element.tagName.toLowerCase() === 'input') {
-            ko.applyBindingsToNode(element, { value: interceptor });
-        } else {
-            ko.applyBindingsToNode(element, { text: interceptor });
-        }
+        isFocused = active === element;
+      }
+
+      return isFocused;
     }
+
+    /**
+     * Adapted from the KO hasfocus handleElementFocusChange function
+     *
+     * @param {boolean} isFocused whether the current element has focus
+     */
+    function handleElementFocusChange(isFocused) {
+      elementHasFocus(isFocused);
+    }
+
+    var observable = valueAccessor(),
+      properties = allBindingsAccessor(),
+      elementHasFocus = ko.observable(elementIsFocused()),
+      handleElementFocusIn = handleElementFocusChange.bind(null, true),
+      handleElementFocusOut = handleElementFocusChange.bind(null, false);
+
+    var interceptor = ko.computed({
+      read: function () {
+        var currentValue = ko.utils.unwrapObservable(observable);
+        if (elementHasFocus()) {
+          return !isNaN(currentValue) &&
+            currentValue !== null &&
+            currentValue !== undefined
+            ? currentValue
+                .toString()
+                .replace('.', Globalize.findClosestCulture().numberFormat['.']) // Displays correct decimal separator for the current culture (so de-DE would format 1.234 as "1,234")
+            : null;
+        } else {
+          var format = properties.numberFormat || 'n2',
+            formattedNumber = Globalize.format(currentValue, format);
+
+          return formattedNumber;
+        }
+      },
+      write: function (newValue) {
+        var currentValue = ko.utils.unwrapObservable(observable),
+          numberValue = Globalize.parseFloat(newValue);
+
+        if (!isNaN(numberValue)) {
+          if (numberValue !== currentValue) {
+            // The value has changed so update the observable
+            observable(numberValue);
+          }
+        } else if (newValue.length === 0) {
+          if (properties.isNullable) {
+            // If newValue is a blank string and the isNullable property has been set then nullify the observable
+            observable(null);
+          } else {
+            // If newValue is a blank string and the isNullable property has not been set then set the observable to 0
+            observable(0);
+          }
+        }
+      },
+    });
+
+    ko.utils.registerEventHandler(element, 'focus', handleElementFocusIn);
+    ko.utils.registerEventHandler(element, 'focusin', handleElementFocusIn); // For IE
+    ko.utils.registerEventHandler(element, 'blur', handleElementFocusOut);
+    ko.utils.registerEventHandler(element, 'focusout', handleElementFocusOut); // For IE
+
+    if (element.tagName.toLowerCase() === 'input') {
+      ko.applyBindingsToNode(element, { value: interceptor });
+    } else {
+      ko.applyBindingsToNode(element, { text: interceptor });
+    }
+  },
 };
 ```
 
@@ -117,5 +124,3 @@ Finally, here’s a demo using the "de-DE" locale:
 ## PS Globalize is a-changing
 
 The version of Globalize used in the binding handler is Globalize v0.1.1. This has been available in various forms for quite some time but as I write this the Globalize plugin is in the process of being ported to the [CLDR](http://cldr.unicode.org/). As part of that work it looks like the Globalize API will change. When that gets finalized I’ll try and come back and update this.
-
-

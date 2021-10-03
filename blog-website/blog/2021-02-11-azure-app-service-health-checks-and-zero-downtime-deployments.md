@@ -1,9 +1,16 @@
 ---
-title: "Azure App Service, Health checks and zero downtime deployments"
+title: 'Azure App Service, Health checks and zero downtime deployments'
 authors: johnnyreilly
-tags: [Azure App Service, Health checks, deployment slots, zero downtime deployments]
+tags:
+  [
+    Azure App Service,
+    Health checks,
+    deployment slots,
+    zero downtime deployments,
+  ]
 hide_table_of_contents: false
 ---
+
 I've been working recently on zero downtime deployments using Azure App Service. They're facilitated by a combination of [Health checks](https://docs.microsoft.com/en-us/azure/app-service/monitor-instances-health-check) and [deployment slots](https://docs.microsoft.com/en-us/azure/app-service/deploy-staging-slots). This post will talk about why this is important and how it works.
 
 ## Why zero downtime deployments?
@@ -16,14 +23,12 @@ Historically (and for many applications, currently) deployment results in downti
 
 Put simply: downtime in releases impacts customer happiness and leads to reduced pace for teams. It's a vicious circle.
 
-But if we turn it around, what does it look like if releases have *no* downtime at all?
+But if we turn it around, what does it look like if releases have _no_ downtime at all?
 
 1. Your users can always use your application. This will please them.
 2. Your team is now safe to release at any time, day or night. They will likely release more often as a consequence.
 3. If your team has sufficient automated testing in place, they're now in a position where they can move to [Continuous Deployment](https://www.atlassian.com/continuous-delivery/principles/continuous-integration-vs-delivery-vs-deployment).
 4. Releases become boring. This is good. They "just work™️" and so the team can focus instead on building the cool features that are going to make users lives even better.
-
-
 
 ## Manual zero downtime releases with App Services
 
@@ -68,7 +73,7 @@ Thu Jan 21 11:52:17 GMT 2021
 
 The first new version of our application showed up in a production slot at 11:51:54, and the last old version showed up at 11:52:12. So it took a total of 15 seconds to complete the transition from hitting only instances of the old application to hitting only instances of the new application. During that 15 seconds either old or new versions of the application would be serving traffic. Significantly, there was always a version of the application returning responses.
 
-This is *very* exciting! We have zero downtime deployments!
+This is _very_ exciting! We have zero downtime deployments!
 
 ## Rollbacks for bonus points
 
@@ -80,7 +85,7 @@ Slots have a tremendous rollback story. If it emerges that there was some uncaug
 
 Once again users going to [https://my-glorious-app.io](https://my-glorious-app.io) are hitting `buildNumber: 20210121.5`.
 
-This is also *very* exciting! We have zero downtime deployments *and* rollbacks!
+This is also _very_ exciting! We have zero downtime deployments _and_ rollbacks!
 
 ## Automated zero downtime releases with Health checks
 

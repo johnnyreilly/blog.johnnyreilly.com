@@ -1,12 +1,13 @@
 ---
-title: "Migrating from AngularJS to AngularTS - a walkthrough"
+title: 'Migrating from AngularJS to AngularTS - a walkthrough'
 authors: johnnyreilly
 tags: [Jasmine, TypeScript, Unit tests, AngularJS]
 hide_table_of_contents: false
 ---
+
 It started with nuns. Don't all good stories start that way? One of my (many) aunts is a Poor Clare nun. At some point in the distant past I was cajoled into putting together a simple website for her convent. This post is a walkthrough of how to migrate from AngularJS using JavaScript to AngularJS using TypeScript. It just so happens that the AngularJS app in question is the one that belongs to my mother's sister's convent.
 
- ## TL;DR - grab what you need
+## TL;DR - grab what you need
 
 For reference the complete "before" and "after" projects can be found on GitHub [here](https://github.com/johnnyreilly/AngularJS2AngularTS). This is available so people can see clearly what changes have been made in the migration.
 
@@ -27,8 +28,6 @@ Behind the scenes this sends 2 emails:
 - The first back to the person who submitted the prayer request assuring them that they will be prayed for.
 - The second to the convent telling them the details of what the person would like prayer for.
 
-
-
 <aside><em>It's not accidental that I am not sharing the location of my aunt's website in this post. Given the inherent mischievousness of most developers (I should know, I am one) I harbour a fear that readers of this post might go away and submit many an insincere prayer request (or worse) to the convent. If that's you I don't intend to help you. You're clever, you'll find the site if you are so minded. But please know that the nuns who read any of your prayer requests are wonderful people (nuns get a bad rep) and that they love you. They *<strong>will</strong>* pray for you. They're good like that. I appeal to your better nature on this.</em></aside>
 
 Right now you are probably thinking this is an unusual post. Perhaps it is, but bear with me.
@@ -47,8 +46,6 @@ Before I kick off I thought I'd list a couple of guidelines / caveats on this po
 - The choices that I make for the migration path do not necessarily reflect the "one true way". Rather, they are pragmatic choices that I am making - there may be alternatives approaches here and there that could be used instead.
 - I love Visual Studio - it's my IDE of choice and the one I am using as I perform the migration. Some of the points that I will make are Visual Studio specific - I will try and highlight that when appropriate.
 
-
-
 ## Typings
 
 The first thing we're going to need to get going are the Angular typing files which can be found on Definitely Typed [here](https://github.com/borisyankov/DefinitelyTyped/tree/master/angularjs). Since these typings are made available over [NuGet](https://www.nuget.org/packages/angularjs.TypeScript.DefinitelyTyped/) I'm going to pull them in with a wave of my magic `Install-Package angularjs.TypeScript.DefinitelyTyped`.
@@ -60,14 +57,14 @@ As well as pulling in the typing files Visual Studio 2013 has also made some twe
 And these are the TypeScript specific additions that Visual Studio has made to `PoorClaresAngular.csproj`:
 
 ```xml
-<Import 
-   Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" 
+<Import
+   Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props"
    Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
 
   <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
 
-  <Import 
-   Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" 
+  <Import
+   Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets"
    Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
 ```
 
@@ -151,44 +148,44 @@ This error is easily remedied by giving `path` the type of `string`.
 What's more interesting / challenging is thinking about how we want to enforce the definition of `siteSectionService`. Remember, this is a service and as such it will be re-used elsewhere in the application (in both `navController` and `mainController`). What we need is an interface that describes what our (revealing module pattern) service exposes:
 
 ```ts
-"use strict";
+'use strict';
 
 interface ISiteSectionService {
-    getSiteSection: () => string;
-    determineSiteSection: (path: string) => void;
+  getSiteSection: () => string;
+  determineSiteSection: (path: string) => void;
 }
 
-angular.module("poorClaresApp.services").factory(
+angular.module('poorClaresApp.services').factory(
+  'siteSectionService',
 
-    "siteSectionService",
-
-    [ // No dependencies at present
+  [
+    // No dependencies at present
     function (): ISiteSectionService {
+      var siteSection = 'home';
 
-        var siteSection = "home";
+      function getSiteSection() {
+        return siteSection;
+      }
 
-        function getSiteSection() {
-            return siteSection;
+      function determineSiteSection(path: string) {
+        var newSiteSection = 'home';
+
+        if (path.indexOf('/theConvent/') !== -1) {
+          newSiteSection = 'theConvent';
+        } else if (path !== '/') {
+          newSiteSection = 'main';
         }
 
-        function determineSiteSection(path: string) {
-            var newSiteSection = "home";
+        siteSection = newSiteSection;
+      }
 
-            if (path.indexOf("/theConvent/") !== -1) {
-                newSiteSection = "theConvent";
-            }
-            else if (path !== "/") {
-                newSiteSection = "main";
-            }
-
-            siteSection = newSiteSection;
-        }
-
-        return {
-            getSiteSection: getSiteSection,
-            determineSiteSection: determineSiteSection
-        };
-    }]);
+      return {
+        getSiteSection: getSiteSection,
+        determineSiteSection: determineSiteSection,
+      };
+    },
+  ]
+);
 ```
 
 As you can see the `ISiteSectionService ` interface is marked as the return type of the function. This ensures that what we return from the function satisfies that definition. Also, it allows us to re-use that interface elsewhere (as we will do later).
@@ -204,41 +201,43 @@ This is fixed up by defining `$http` as `ng.IHttpService` and `email` and `prayF
 As with `siteSectionService` we need to create an interface to define what `prayerRequestService` exposes. This leaves us with this:
 
 ```ts
-"use strict";
+'use strict';
 
 interface IPrayerRequestService {
-    sendPrayerRequest: (email: string, prayFor: string) => ng.IPromise<{
-        success: boolean;
-        text: string;
-    }>;
+  sendPrayerRequest: (
+    email: string,
+    prayFor: string
+  ) => ng.IPromise<{
+    success: boolean;
+    text: string;
+  }>;
 }
 
-angular.module("poorClaresApp.services").factory(
+angular.module('poorClaresApp.services').factory(
+  'prayerRequestService',
 
-    "prayerRequestService",
-
-    ["$http",
+  [
+    '$http',
     function ($http: ng.IHttpService): IPrayerRequestService {
+      var url = '/PrayerRequest';
 
-        var url = "/PrayerRequest";
+      function sendPrayerRequest(email: string, prayFor: string) {
+        var params = { email: email, prayFor: prayFor };
 
-        function sendPrayerRequest(email: string, prayFor: string) {
+        return $http.post(url, params).then(function (response) {
+          return {
+            success: response.data.success,
+            text: response.data.text,
+          };
+        });
+      }
 
-            var params = { email: email, prayFor: prayFor };
-
-            return $http.post(url, params)
-                .then(function (response) {
-                    return {
-                        success: response.data.success,
-                        text: response.data.text
-                    };
-                });
-        }
-
-        return {
-            sendPrayerRequest: sendPrayerRequest
-        };
-    }]);
+      return {
+        sendPrayerRequest: sendPrayerRequest,
+      };
+    },
+  ]
+);
 ```
 
 ## TypeScriptify `prayerRequestController.ts`
@@ -250,39 +249,42 @@ Opening up `prayerRequestController.ts` leads me to the conclusion that I have *
 We'll define `$scope` as `ng.IScope`, `prayerRequestService` as `IPrayerRequestService` (which we created just now) and `prayerRequest` as `{ email: string; prayFor: string }`. Which leaves me with this:
 
 ```ts
-"use strict";
+'use strict';
 
-angular.module("poorClaresApp.controllers").controller(
+angular.module('poorClaresApp.controllers').controller(
+  'PrayerRequestController',
 
-    "PrayerRequestController",
-
-    ["$scope", "prayerRequestService",
+  [
+    '$scope',
+    'prayerRequestService',
     function ($scope: ng.IScope, prayerRequestService: IPrayerRequestService) {
-        
-        var vm = this;
+      var vm = this;
 
-        vm.send = function (prayerRequest: { email: string; prayFor: string }) {
+      vm.send = function (prayerRequest: { email: string; prayFor: string }) {
+        vm.message = {
+          success: true,
+          text: 'Sending...',
+        };
 
+        prayerRequestService
+          .sendPrayerRequest(prayerRequest.email, prayerRequest.prayFor)
+          .then(function (response) {
             vm.message = {
-                success: true,
-                text: "Sending..."
+              success: response.success,
+              text: response.text,
             };
-
-            prayerRequestService.sendPrayerRequest(prayerRequest.email, prayerRequest.prayFor)
-                .then(function (response) {
-                    vm.message = {
-                        success: response.success,
-                        text: response.text
-                    };
-                })
-                .then(null, function (error) { // IE 8 friendly alias for catch
-                    vm.message = {
-                        success: false,
-                        text: "Sorry your email was not sent"
-                    };
-                });
-        }
-    }]);
+          })
+          .then(null, function (error) {
+            // IE 8 friendly alias for catch
+            vm.message = {
+              success: false,
+              text: 'Sorry your email was not sent',
+            };
+          });
+      };
+    },
+  ]
+);
 ```
 
 I could move on but let's go for bonus points (and now you'll see why the unit test suite is so handy). To quote the Angular documentation:
@@ -292,44 +294,45 @@ I could move on but let's go for bonus points (and now you'll see why the unit t
 So let's see if we can swap over our vanilla contructor function for a TypeScript class. This will (in my view) better express the intention of the code. To do this I am essentially following the example laid down by my Definitely Typed colleague [Basarat](https://twitter.com/basarat). I highly recommend his [screencast on the topic](https://www.youtube.com/watch?v=WdtVn_8K17E). Also kudos to [Andrew Davey](https://twitter.com/andrewdavey) whose [post on the topic](http://aboutcode.net/2013/10/20/typescript-angularjs-controller-classes.html) also fed into this.
 
 ```ts
-"use strict";
+'use strict';
 
 module poorClaresApp.controllers {
-    class PrayerRequestController {
+  class PrayerRequestController {
+    static $inject = ['$scope', 'prayerRequestService'];
+    constructor(
+      private $scope: ng.IScope,
+      private prayerRequestService: IPrayerRequestService
+    ) {}
 
-        static $inject = ["$scope", "prayerRequestService"];
-        constructor(
-            private $scope: ng.IScope,
-            private prayerRequestService: IPrayerRequestService) {
-        }
+    message: { success: boolean; text: string };
 
-        message: { success: boolean; text: string };
+    send(prayerRequest: { email: string; prayFor: string }) {
+      this.message = {
+        success: true,
+        text: 'Sending...',
+      };
 
-        send(prayerRequest: { email: string; prayFor: string }) {
-
-            this.message = {
-                success: true,
-                text: "Sending..."
-            };
-
-            this.prayerRequestService.sendPrayerRequest(prayerRequest.email, prayerRequest.prayFor)
-                .then((response) => {
-                    this.message = {
-                        success: response.success,
-                        text: response.text
-                    };
-                })
-                .then(null, (error) => { // IE 8 friendly alias for catch
-                    this.message = {
-                        success: false,
-                        text: "Sorry your email was not sent"
-                    };
-                });
-        }
+      this.prayerRequestService
+        .sendPrayerRequest(prayerRequest.email, prayerRequest.prayFor)
+        .then((response) => {
+          this.message = {
+            success: response.success,
+            text: response.text,
+          };
+        })
+        .then(null, (error) => {
+          // IE 8 friendly alias for catch
+          this.message = {
+            success: false,
+            text: 'Sorry your email was not sent',
+          };
+        });
     }
+  }
 
-    angular.module("poorClaresApp.controllers")
-           .controller("PrayerRequestController", PrayerRequestController);
+  angular
+    .module('poorClaresApp.controllers')
+    .controller('PrayerRequestController', PrayerRequestController);
 }
 ```
 
@@ -341,34 +344,40 @@ For a small class this seems to add a little noise but as classes grow in comple
 - Because we're using TypeScript arrow functions (which preserve the outer "this" context) we are now free to dispose of the `var vm = this;` mechanism we're were previously using for the same purpose. Much more intuitive code to my mind.
 - We are not actually using `$scope` at all in this controller - maybe it should be removed entirely in the long run.
 
-
-
 ## TypeScriptify `navController.ts`
 
 `navController` can be simply converted like so:
 
 ```ts
-"use strict";
+'use strict';
 
 interface INavControllerScope extends ng.IScope {
-    isCollapsed: boolean;
-    siteSection: string;
+  isCollapsed: boolean;
+  siteSection: string;
 }
 
-angular.module("poorClaresApp.controllers").controller(
+angular.module('poorClaresApp.controllers').controller(
+  'NavController',
 
-    "NavController",
+  [
+    '$scope',
+    'siteSectionService',
+    function (
+      $scope: INavControllerScope,
+      siteSectionService: ISiteSectionService
+    ) {
+      $scope.isCollapsed = true;
+      $scope.siteSection = siteSectionService.getSiteSection();
 
-    ["$scope", "siteSectionService",
-    function ($scope: INavControllerScope, siteSectionService: ISiteSectionService) {
-
-        $scope.isCollapsed = true;
-        $scope.siteSection = siteSectionService.getSiteSection();
-
-        $scope.$watch(siteSectionService.getSiteSection, function (newValue, oldValue) {
-            $scope.siteSection = newValue;
-        });
-    }]);
+      $scope.$watch(
+        siteSectionService.getSiteSection,
+        function (newValue, oldValue) {
+          $scope.siteSection = newValue;
+        }
+      );
+    },
+  ]
+);
 ```
 
 I'd draw your attention to the creation of a the `INavControllerScope` interface that extends the default Angular $scope of `ng.IScope` with 2 extra properties.
@@ -376,31 +385,35 @@ I'd draw your attention to the creation of a the `INavControllerScope` interface
 Let's also switch this over to the class based approach (there is less of a reason to on this occasion just looking at the size of the codebase but I'm all about consistency of approach):
 
 ```ts
-"use strict";
+'use strict';
 
 module poorClaresApp.controllers {
-    interface INavControllerScope extends ng.IScope {
-        isCollapsed: boolean;
-        siteSection: string;
-    }
+  interface INavControllerScope extends ng.IScope {
+    isCollapsed: boolean;
+    siteSection: string;
+  }
 
-    class NavController {
+  class NavController {
+    static $inject = ['$scope', 'siteSectionService'];
+    constructor(
+      private $scope: INavControllerScope,
+      private siteSectionService: ISiteSectionService
+    ) {
+      $scope.isCollapsed = true;
+      $scope.siteSection = siteSectionService.getSiteSection();
 
-        static $inject = ["$scope", "siteSectionService"];
-        constructor(
-            private $scope: INavControllerScope,
-            private siteSectionService: ISiteSectionService) {
-
-            $scope.isCollapsed = true;
-            $scope.siteSection = siteSectionService.getSiteSection();
-
-            $scope.$watch(siteSectionService.getSiteSection, function (newValue, oldValue) {
-                $scope.siteSection = newValue;
-            });
+      $scope.$watch(
+        siteSectionService.getSiteSection,
+        function (newValue, oldValue) {
+          $scope.siteSection = newValue;
         }
+      );
     }
+  }
 
-    angular.module("poorClaresApp.controllers").controller("NavController", NavController);
+  angular
+    .module('poorClaresApp.controllers')
+    .controller('NavController', NavController);
 }
 ```
 
@@ -409,37 +422,43 @@ module poorClaresApp.controllers {
 Finally, `mainController` can be converted as follows:
 
 ```ts
-"use strict";
+'use strict';
 
-angular.module("poorClaresApp.controllers").controller(
+angular.module('poorClaresApp.controllers').controller(
+  'MainController',
 
-    "MainController",
-
-    ["$location", "siteSectionService",
-    function ($location: ng.ILocationService, siteSectionService: ISiteSectionService) {
-
-        siteSectionService.determineSiteSection($location.path());
-    }]);
+  [
+    '$location',
+    'siteSectionService',
+    function (
+      $location: ng.ILocationService,
+      siteSectionService: ISiteSectionService
+    ) {
+      siteSectionService.determineSiteSection($location.path());
+    },
+  ]
+);
 ```
 
 Again it's just a case of assigning the undeclared types. For completeness lets also switch this over to the class based approach:
 
 ```ts
-"use strict";
+'use strict';
 
 module poorClaresApp.controllers {
-    class MainController {
-
-        static $inject = ["$location", "siteSectionService"];
-        constructor(
-            private $location: ng.ILocationService,
-            private siteSectionService: ISiteSectionService) {
-
-            siteSectionService.determineSiteSection($location.path());
-        }
+  class MainController {
+    static $inject = ['$location', 'siteSectionService'];
+    constructor(
+      private $location: ng.ILocationService,
+      private siteSectionService: ISiteSectionService
+    ) {
+      siteSectionService.determineSiteSection($location.path());
     }
+  }
 
-    angular.module("poorClaresApp.controllers").controller("MainController", MainController);
+  angular
+    .module('poorClaresApp.controllers')
+    .controller('MainController', MainController);
 }
 ```
 
@@ -450,5 +469,3 @@ In unit tests we trust. Let's run them...
 ![](https://2.bp.blogspot.com/-re8aAJVtSDk/U4hYNPqKk9I/AAAAAAAAAnA/1Vu7ooQk1jw/s1600/UnitTestsPass.png)
 
 Success! I hope you found this useful.
-
-

@@ -1,12 +1,13 @@
 ---
-title: "Simple fading in and out using CSS transitions and classes"
+title: 'Simple fading in and out using CSS transitions and classes'
 authors: johnnyreilly
 tags: [CSS 3, transitionend, fadeIn, fadeOut, transitions]
 hide_table_of_contents: false
 ---
+
 Caveat emptor folks... Let me start off by putting my hands up and saying I am no expert on CSS. And furthermore let me say that this blog post is essentially the distillation of a heady session of googling on the topic of CSS transitions. The credit for the technique detailed here belongs to many others, I'm just documenting it for my own benefit (and for anyone who stumbles upon this).
 
- ## What do we want to do?
+## What do we want to do?
 
 Most web developers have likely reached at some point for jQuery's [`fadeIn`](http://api.jquery.com/fadeIn/) and [`fadeOut`](http://api.jquery.com/fadeOut/) awesomeness. What could be cooler than fading in or out your UI, right?
 
@@ -14,7 +15,7 @@ Behind the scenes of `fadeIn` and `fadeOut` JavaScript is doing an awful lot of 
 
 Added to the "[because it's there](http://en.wikipedia.org/wiki/George_Mallory)" reason for using CSS transitions to do fading there is a more important reason; let me quote [HTML5 rocks](http://www.html5rocks.com/en/tutorials/speed/html5/#toc-css3-transitions):
 
-> "*CSS Transitions make style animation trivial for everyone, but they also are a smart performance feature. Because a CSS transition is managed by the browser, the fidelity of its animation can be greatly improved, and in many cases hardware accelerated. Currently WebKit (Chrome, Safari, iOS) have hardware accelerated CSS transforms, but it's coming quickly to other browsers and platforms.*"
+> "_CSS Transitions make style animation trivial for everyone, but they also are a smart performance feature. Because a CSS transition is managed by the browser, the fidelity of its animation can be greatly improved, and in many cases hardware accelerated. Currently WebKit (Chrome, Safari, iOS) have hardware accelerated CSS transforms, but it's coming quickly to other browsers and platforms._"
 
 Added to this, if you have mobile users then the usage of native functionality (as opposed to doing it manually in JavaScript) actually saves battery life.
 
@@ -24,14 +25,14 @@ This is the CSS we'll need:
 
 ```css
 .fader {
-    -moz-transition: opacity 0.7s linear;
-    -o-transition: opacity 0.7s linear;
-    -webkit-transition: opacity 0.7s linear;
-    transition: opacity 0.7s linear;
+  -moz-transition: opacity 0.7s linear;
+  -o-transition: opacity 0.7s linear;
+  -webkit-transition: opacity 0.7s linear;
+  transition: opacity 0.7s linear;
 }
 
 .fader.fadedOut {
-    opacity: 0;
+  opacity: 0;
 }
 ```
 
@@ -39,8 +40,6 @@ Note we have 2 CSS classes:
 
 - `fader` \- if this class is applied to an element then when the opacity of that element is changed it will be an animated change. The duration of the transition and the timing function used are customisable - in this case it takes 0.7 seconds and is linear.
 - `fadedOut` \- when used in conjunction with `fader` this class creates a fading in or fading out effect as it is removed or applied respectively. (This relies upon the default value of opacity being 1.)
-
-
 
 Let's see it in action:
 
@@ -56,8 +55,8 @@ Unfortunately the technique detailed above differs from [`fadeIn`](http://api.jq
 
 Andrew Davey tweeted me the suggestion below:
 
-> [@johnny\_reilly](https://twitter.com/johnny_reilly) Yep, transitions are sweet. You could use the transitionend event to remove the element from the DOM [http://t.co/Q1oWy3g8Lp](http://t.co/Q1oWy3g8Lp)
-> 
+> [@johnny_reilly](https://twitter.com/johnny_reilly) Yep, transitions are sweet. You could use the transitionend event to remove the element from the DOM [http://t.co/Q1oWy3g8Lp](http://t.co/Q1oWy3g8Lp)
+>
 > — Andrew Davey (@andrewdavey) [December 5, 2013](https://twitter.com/andrewdavey/statuses/408545283606212608)
 
 <script async="" src="//platform.twitter.com/widgets.js" charSet="utf-8"></script>
@@ -65,25 +64,25 @@ Andrew Davey tweeted me the suggestion below:
 So I thought I'd give it a go. However, whilst we've a `transitionend` event to play with we don't have a corresponding `transitionstart` or `transitionbegin`. So I tried this:
 
 ```js
-$("#showHideButton").click(function(){
-    var $alertDiv = $("#alertDiv");
-    if ($alertDiv.hasClass("fadedOut")) {
-        $alertDiv.removeClass("fadedOut").css("display", "");
-    }
-    else {
-        $("#alertDiv").addClass("fadedOut");
-    }
-})
-
-$(document).on('webkitTransitionEnd transitionend oTransitionEnd', ".fader", 
-    function (evnt) {
-        var $faded = $(evnt.target);
-        if ($faded.hasClass("fadedOut")) {
-            $faded.css("display", "none");
-        }
+$('#showHideButton').click(function () {
+  var $alertDiv = $('#alertDiv');
+  if ($alertDiv.hasClass('fadedOut')) {
+    $alertDiv.removeClass('fadedOut').css('display', '');
+  } else {
+    $('#alertDiv').addClass('fadedOut');
+  }
 });
+
+$(document).on(
+  'webkitTransitionEnd transitionend oTransitionEnd',
+  '.fader',
+  function (evnt) {
+    var $faded = $(evnt.target);
+    if ($faded.hasClass('fadedOut')) {
+      $faded.css('display', 'none');
+    }
+  }
+);
 ```
 
 Essentially, on the `transitionend` event `display: none` is applied to the element in question. Groovy. In the absence of a `transitionstart` or `transitionbegin`, when removing the `fadeOut` class I'm first manually clearing out the `display: none`. Whilst this works in terms of adding it back into the flow of the DOM it takes away all the `fadeIn` gorgeousness. So it's not quite the fully featured solution you might hope for. But it's a start.
-
-

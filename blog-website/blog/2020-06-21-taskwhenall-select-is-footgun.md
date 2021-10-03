@@ -1,9 +1,10 @@
 ---
-title: "Task.WhenAll / Select is a footgun 👟🔫"
+title: 'Task.WhenAll / Select is a footgun 👟🔫'
 authors: johnnyreilly
 tags: [CSharp, LINQ, Task.WhenAll, Select]
 hide_table_of_contents: false
 ---
+
 This post differs from my typical fayre. Most often I write "here's how to do a thing". This is not that. It's more "don't do this thing I did". And maybe also, "how can we avoid a situation like this happening again in future?". On this topic I very much don't have all the answers - but by putting my thoughts down maybe I'll learn and maybe others will educate me. I would love that!
 
 ## Doing things that don't scale
@@ -37,7 +38,7 @@ var userTasks = userIds.Select(userId => GetUserDetailsAsync(userId));
 var users = await Task.WhenAll(tasks); // users is User[]
 ```
 
-It worked great! Right up until to the point where it didn't. These sorts of shenanigans were fine when we had a minimal number of users... But there came a point where problems arose. It got to the point where that simple looking mapping operation became a cause of many, many, *many* HTTP requests being fired concurrently. Then bad things started to happen. Not only did we realise we were launching a denial of service attack on the API we were consuming, we were bringing our own application to collapse.
+It worked great! Right up until to the point where it didn't. These sorts of shenanigans were fine when we had a minimal number of users... But there came a point where problems arose. It got to the point where that simple looking mapping operation became a cause of many, many, _many_ HTTP requests being fired concurrently. Then bad things started to happen. Not only did we realise we were launching a denial of service attack on the API we were consuming, we were bringing our own application to collapse.
 
 Not a proud day.
 
@@ -68,5 +69,3 @@ To solve the immediate issue we were able to pivot away to a completely differen
 Moving to a different approach solved my immediate issue. But it left me puzzling. What was actually going wrong? Is it thread pool exhaustion? Is it something else? So many possibilities!
 
 If anyone has any insights they'd like to share that would be incredible! I've also [asked a question on Stack Overflow](https://stackoverflow.com/questions/62490098/task-whenall-with-select-is-a-footgun-but-why/62490705) which has kindly had answers from generous souls. [James Skimming](https://twitter.com/jamesskimming)'s answer lead me to [Steve Gordon's excellent post on connection pooling](https://www.stevejgordon.co.uk/httpclient-connection-pooling-in-dotnet-core) which I'm still absorbing and seems like it could be relevant.
-
-

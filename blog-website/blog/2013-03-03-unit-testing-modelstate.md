@@ -1,18 +1,17 @@
 ---
-title: "Unit testing ModelState"
+title: 'Unit testing ModelState'
 authors: johnnyreilly
 tags: [asp.net mvc, Marc Talary, DataAnnotations, Controller, ModelState]
 hide_table_of_contents: false
 ---
+
 - Me: "It can't be done"
 - Him: "Yes it can"
 - Me: "No it can't"
 - Him: "Yes it can, I've just done it"
 - Me: "Ooooh! Show me ..."
 
-
-
- The above conversation (or one much like it) took place between my colleague Marc Talary and myself a couple of weeks ago. It was one of those faintly embarrassing situations where you state your case with absolute certainty only to subsequently discover that you were \***completely**\* wrong. Ah arrogance, thy name is Reilly...
+The above conversation (or one much like it) took place between my colleague Marc Talary and myself a couple of weeks ago. It was one of those faintly embarrassing situations where you state your case with absolute certainty only to subsequently discover that you were \***completely**\* wrong. Ah arrogance, thy name is Reilly...
 
 The disputed situation in this case was ModelState validation in ASP.Net MVC. How can you unit test a models validation driven by `DataAnnotations`? If at all. Well it can be done, and here's how.
 
@@ -63,5 +62,3 @@ Let me wrap up with an example unit test. The test below makes use of the `Model
 ## Wrapping up
 
 In a way I think it's a shame that `TryValidateModel` is a protected method. If it weren't it would be simplicity to write a unit test which tested the ModelState directly in context of the action method. It would be possible to get round this by establishing a base controller class which all our controllers would inherit from which implemented the `TestTryValidateModel` method from above. On the other hand maybe it's good to have clarity of the difference between testing model validations and testing controller actions. Something to ponder...
-
-

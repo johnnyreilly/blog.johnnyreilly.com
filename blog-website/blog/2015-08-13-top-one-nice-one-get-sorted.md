@@ -1,12 +1,13 @@
 ---
-title: "(Top One, Nice One) Get Sorted"
+title: '(Top One, Nice One) Get Sorted'
 authors: johnnyreilly
 tags: [sort, javascript, OrderBy, LINQ]
 hide_table_of_contents: false
 ---
+
 I was recently reading [a post by Jaime González García](http://www.barbarianmeetscoding.com/blog/2015/07/09/mastering-the-arcane-art-of-javascript-mancy-for-c-sharp-developers-chapter-7-using-linq-in-javascript/) which featured the following mind-bending proposition:
 
- > What if I told you that JavaScript has [LINQ](https://msdn.microsoft.com/en-us/library/bb397926.aspx)??
+> What if I told you that JavaScript has [LINQ](https://msdn.microsoft.com/en-us/library/bb397926.aspx)??
 
 It got me thinking about one of favourite features of LINQ: [ordering using OrderBy, ThenBy...](http://www.dotnetperls.com/orderby-extension) The ability to simply expose a collection of objects in a given order with a relatively terse and descriptive syntax. It is fantastically convenient, expressive and something I've been missing in JavaScript. But if Jaime is right... Well, let's see what we can do.
 
@@ -15,7 +16,7 @@ It got me thinking about one of favourite features of LINQ: [ordering using Orde
 JavaScript arrays have a [sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) method. To quote MDN:
 
 > `arr.sort([compareFunction])`### `compareFunction`
-> 
+>
 > Optional. Specifies a function that defines the sort order. If omitted, the array is sorted according to each character's Unicode code point value, according to the string conversion of each element.
 
 We want to use the `sort` function to introduce some LINQ-ish ordering goodness. Sort of. See what I did there?
@@ -42,23 +43,23 @@ We need some example data to sort: (I can only apologise for my lack of inspirat
 
 ```js
 const foodInTheHouse = [
-  { what: 'cake',   daysSincePurchase: 2 },
-  { what: 'apple',  daysSincePurchase: 8 },
+  { what: 'cake', daysSincePurchase: 2 },
+  { what: 'apple', daysSincePurchase: 8 },
   { what: 'orange', daysSincePurchase: 6 },
-  { what: 'apple',  daysSincePurchase: 2 },
+  { what: 'apple', daysSincePurchase: 2 },
 ];
 ```
 
 If we were doing a sort by strings in LINQ we wouldn't need to implement our own comparer. And the code we'd write would look something like this:
 
 ```js
-var foodInTheHouseSorted = foodInTheHouse.OrderBy(x => x.what);
+var foodInTheHouseSorted = foodInTheHouse.OrderBy((x) => x.what);
 ```
 
 With that in mind, here's how it would look to use our shiny and new `stringComparer`:
 
 ```js
-const foodInTheHouseSorted = foodInTheHouse.sort(stringComparer(x => x.what));
+const foodInTheHouseSorted = foodInTheHouse.sort(stringComparer((x) => x.what));
 
 // foodInTheHouseSorted: [
 //   { what: 'apple',  daysSincePurchase: 8 },
@@ -69,12 +70,14 @@ const foodInTheHouseSorted = foodInTheHouse.sort(stringComparer(x => x.what));
 
 // PS Don't forget, for our JavaScript: foodInTheHouse === foodInTheHouseSorted
 //    But for the LINQ:                 foodInTheHouse !=  foodInTheHouseSorted
-//    
+//
 //    However, if I'd done this:
 
-const foodInTheHouseSlicedAndSorted = foodInTheHouse.slice().sort(stringComparer(x => x.what));
+const foodInTheHouseSlicedAndSorted = foodInTheHouse
+  .slice()
+  .sort(stringComparer((x) => x.what));
 
-//    then:                             foodInTheHouse !== foodInTheHouseSlicedAndSorted 
+//    then:                             foodInTheHouse !== foodInTheHouseSlicedAndSorted
 //
 //    I shan't mention this again.
 ```
@@ -90,8 +93,7 @@ function numberComparer(propLambda) {
     const obj2Val = propLambda(obj2);
     if (obj1Val > obj2Val) {
       return 1;
-    }
-    else if (obj1Val < obj2Val) {
+    } else if (obj1Val < obj2Val) {
       return -1;
     }
     return 0;
@@ -102,7 +104,9 @@ function numberComparer(propLambda) {
 If we use the `numberComparer` on our original array it looks like this:
 
 ```js
-const foodInTheHouseSorted = foodInTheHouse.sort(numberComparer(x => x.daysSincePurchase));
+const foodInTheHouseSorted = foodInTheHouse.sort(
+  numberComparer((x) => x.daysSincePurchase)
+);
 
 // foodInTheHouseSorted: [
 //   { what: 'cake',   daysSincePurchase: 2 },
@@ -128,8 +132,6 @@ As the name suggests, this function takes a given comparer that's handed to it a
 - positive - implies `obj1` is greater than `obj2` by the ordering criterion
 - negative - implies `obj1` is less than `obj2` by the ordering criterion
 
-
-
 Our `reverse` function takes the comparer it is given and returns a new comparer that will return a positive value where the old one would have returned a negative and vica versa. (Equality is unaffected.) An alternative implementation would have been this:
 
 ```js
@@ -141,7 +143,9 @@ function reverse(comparer) {
 Which is more optimal and even simpler as it just swaps the values supplied to the comparer. Whatever tickles your fancy. Either way, when used it looks like this:
 
 ```js
-const foodInTheHouseSorted = foodInTheHouse.sort(reverse(stringComparer(x => x.what)));
+const foodInTheHouseSorted = foodInTheHouse.sort(
+  reverse(stringComparer((x) => x.what))
+);
 
 // foodInTheHouseSorted: [
 //   { what: 'orange', daysSincePurchase: 6 },
@@ -162,8 +166,8 @@ It's time to compose our comparers together. May I present... drum roll.... the 
 ```js
 function composeComparers(...comparers) {
   return (obj1, obj2) => {
-    const comparer = comparers.find(c => c(obj1, obj2) !== 0);
-    return (comparer) ? comparer(obj1, obj2) : 0;
+    const comparer = comparers.find((c) => c(obj1, obj2) !== 0);
+    return comparer ? comparer(obj1, obj2) : 0;
   };
 }
 ```
@@ -171,10 +175,12 @@ function composeComparers(...comparers) {
 This fine function takes any number of comparers that have been supplied to it. It then returns a comparer function which, when called, iterates through each of the original comparers and executes them until it finds one that returns a value that is not 0 (ie represents that the 2 items are not equal). It then sends that non-zero value back or if all was equal then sends back 0.
 
 ```js
-const foodInTheHouseSorted = foodInTheHouse.sort(composeComparers(
-    stringComparer(x => x.what),
-    numberComparer(x => x.daysSincePurchase),
-));
+const foodInTheHouseSorted = foodInTheHouse.sort(
+  composeComparers(
+    stringComparer((x) => x.what),
+    numberComparer((x) => x.daysSincePurchase)
+  )
+);
 
 // foodInTheHouseSorted: [
 //   { what: 'apple',  daysSincePurchase: 2 },
@@ -190,7 +196,8 @@ I'm not gonna lie - I was feeling quite pleased with this approach. I shared it 
 
 ```js
 function composeComparers(...comparers) {
-  return (obj1, obj2) => comparers.reduce((prev, curr) => prev || curr(obj1, obj2), 0);
+  return (obj1, obj2) =>
+    comparers.reduce((prev, curr) => prev || curr(obj1, obj2), 0);
 }
 ```
 
@@ -226,34 +233,36 @@ You want to do this with TypeScript? Use this:
 ```ts
 type Comparer<TObject> = (obj1: TObject, obj2: TObject) => number;
 
-export function stringComparer<TObject>(propLambda: (obj: TObject) => string): Comparer<TObject> {
-    return (obj1: TObject, obj2: TObject) => {
-        const obj1Val = propLambda(obj1) || '';
-        const obj2Val = propLambda(obj2) || '';
-        return obj1Val.localeCompare(obj2Val);
-    };
+export function stringComparer<TObject>(
+  propLambda: (obj: TObject) => string
+): Comparer<TObject> {
+  return (obj1: TObject, obj2: TObject) => {
+    const obj1Val = propLambda(obj1) || '';
+    const obj2Val = propLambda(obj2) || '';
+    return obj1Val.localeCompare(obj2Val);
+  };
 }
 
-export function numberComparer<TObject>(propLambda: (obj: TObject) => number): Comparer<TObject> {
-    return (obj1: TObject, obj2: TObject) => {
-        const obj1Val = propLambda(obj1);
-        const obj2Val = propLambda(obj2);
-        if (obj1Val > obj2Val) {
-            return 1;
-        } else if (obj1Val < obj2Val) {
-            return -1;
-        }
-        return 0;
-    };
+export function numberComparer<TObject>(
+  propLambda: (obj: TObject) => number
+): Comparer<TObject> {
+  return (obj1: TObject, obj2: TObject) => {
+    const obj1Val = propLambda(obj1);
+    const obj2Val = propLambda(obj2);
+    if (obj1Val > obj2Val) {
+      return 1;
+    } else if (obj1Val < obj2Val) {
+      return -1;
+    }
+    return 0;
+  };
 }
 
 export function reverse<TObject>(comparer: Comparer<TObject>) {
-    return (obj1: TObject, obj2: TObject) => comparer(obj2, obj1);
+  return (obj1: TObject, obj2: TObject) => comparer(obj2, obj1);
 }
 
 export function composeComparers<TObject>(...comparers: Comparer<TObject>[]) {
-    return comparers.reduce((prev, curr) => (a, b) => prev(a, b) || curr(a, b));
+  return comparers.reduce((prev, curr) => (a, b) => prev(a, b) || curr(a, b));
 }
 ```
-
-

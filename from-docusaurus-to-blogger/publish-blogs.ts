@@ -258,7 +258,8 @@ function makeBloggerClient() {
 async function getBlogPostsToPublish() {
   const blogPosts = await fs.promises.readdir(docusaurusBlogDirectory);
   const blogPostsExcludingHistoric = blogPosts.filter(
-    (post) => post >= startDateOfPostsToCreateAndUpdate && post !== 'authors.yml'
+    (post) =>
+      post >= startDateOfPostsToCreateAndUpdate && post !== "authors.yml"
   );
   return blogPostsExcludingHistoric;
 }

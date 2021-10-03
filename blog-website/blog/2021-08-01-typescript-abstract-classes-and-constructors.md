@@ -1,10 +1,11 @@
 ---
-title: "TypeScript, abstract classes, and constructors"
+title: 'TypeScript, abstract classes, and constructors'
 authors: johnnyreilly
 tags: [TypeScript, abstract, constructors, classes]
 image: blog/2021-08-01-typescript-abstract-classes-and-constructors/vs-code-abstract-screenshot.png
 hide_table_of_contents: false
 ---
+
 TypeScript has the ability to define classes as abstract. This means they cannot be instantiated directly, only non-abstract subclasses can be. Let's take a look at what this means when it comes to constructor usage.
 
 ## Making a scratchpad
@@ -24,7 +25,7 @@ We now have a `package.json` file set up. We need to initialise a TypeScript pro
 npx tsc --init
 ```
 
-This will give us a `tsconfig.json` file that will drive configuration of TypeScript. By default TypeScript transpiles to an older version of JavaScript that predates classes.  So we'll update the config to target a newer version of the language that does include them: 
+This will give us a `tsconfig.json` file that will drive configuration of TypeScript. By default TypeScript transpiles to an older version of JavaScript that predates classes. So we'll update the config to target a newer version of the language that does include them:
 
 ```json
     "target": "es2020",
@@ -46,7 +47,7 @@ Now we're ready. Let's add an abstract class with a constructor to our `index.ts
 ```ts
 abstract class ViewModel {
   id: string;
- 
+
   constructor(id: string) {
     this.id = id;
   }
@@ -57,7 +58,7 @@ Consider the `ViewModel` class above. Let's say we're building some kind of CRUD
 
 Importantly, all subclasses of `ViewModel` should either:
 
-- not implement a constructor at all, leaving the base class constructor to become the default constructor of the subclass *or*
+- not implement a constructor at all, leaving the base class constructor to become the default constructor of the subclass _or_
 
 - implement their own constructor which invokes the `ViewModel` base class constructor.
 
@@ -84,11 +85,11 @@ const viewModel = new ViewModel('my-id');
 Tremendous. However, it's worth remembering that `abstract` is a TypeScript concept. When we compile our TS, although it's throwing a compilation error, it still transpiles an `index.js` file that looks like this:
 
 ```js
-"use strict";
+'use strict';
 class ViewModel {
-    constructor(id) {
-        this.id = id;
-    }
+  constructor(id) {
+    this.id = id;
+  }
 }
 const viewModel = new ViewModel('my-id');
 console.log(`the id is: ${viewModel.id}`);
@@ -107,8 +108,7 @@ So the transpiled code is valid JavaScript even if the source code isn't valid T
 Let's now create our first subclass of `ViewModel` and attempt to instantiate it:
 
 ```ts
-class NoNewConstructorViewModel extends ViewModel {
-}
+class NoNewConstructorViewModel extends ViewModel {}
 
 // error TS2554: Expected 1 arguments, but got 0.
 const viewModel1 = new NoNewConstructorViewModel();
@@ -128,9 +128,9 @@ Having done that, let's try subclassing and implementing a new constructor which
 class NewConstructorViewModel extends ViewModel {
   data: string;
   constructor(id: string, data: string) {
-        super(id);
-        this.data = data;
-   }
+    super(id);
+    this.data = data;
+  }
 }
 
 // error TS2554: Expected 2 arguments, but got 0.
@@ -152,7 +152,7 @@ It's also worth noting that we're calling `super` in the `NewConstructorViewMode
 
 We've seen that TypeScript ensures correct usage of constructors when we have an abstract class. Importantly, all subclasses of abstract classes either:
 
-- do not implement a constructor at all, leaving the base class constructor (the abstract constructor) to become the default constructor of the subclass *or*
+- do not implement a constructor at all, leaving the base class constructor (the abstract constructor) to become the default constructor of the subclass _or_
 
 - implement their own constructor which invokes the base (or "super") class constructor with the correct arguments.
 

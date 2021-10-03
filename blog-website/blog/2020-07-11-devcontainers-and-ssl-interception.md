@@ -1,12 +1,13 @@
 ---
-title: "Devcontainers and SSL interception"
+title: 'Devcontainers and SSL interception'
 authors: johnnyreilly
 tags: [devcontainer, mitm certificate, ssl interception]
 hide_table_of_contents: false
 ---
+
 [Devcontainers](https://code.visualstudio.com/docs/remote/containers) are cool. They are the infrastructure as code equivalent for developing software.
 
-Imagine your new starter joins the team, you'd like them to be contributing code on *day 1*. But if the first thing that happens is you hand them a sheaf of paper upon which are the instructions for how to get their machines set up for development, well, maybe it's going to be a while. But if your project has a devcontainer then you're off to the races. One trusty `git clone`, fire up VS Code and they can get going.
+Imagine your new starter joins the team, you'd like them to be contributing code on _day 1_. But if the first thing that happens is you hand them a sheaf of paper upon which are the instructions for how to get their machines set up for development, well, maybe it's going to be a while. But if your project has a devcontainer then you're off to the races. One trusty `git clone`, fire up VS Code and they can get going.
 
 That's the dream right?
 
@@ -20,7 +21,7 @@ It is a common practice in company networks to perform [SSL interception](https:
 
 SSL interception is the practice of installing a "man-in-the-middle" (MITM) CA certificate on users machines. When SSL traffic takes place from a users machine, it goes through a proxy. That proxy performs the SSL on behalf of that user and, if it's happy, supplies another certificate back to the users machine which satisfies the MITM CA certificate. So rather than seeing, for example, Google's certificate from [https://google.com](https://google.com) you'd see the one resulting from the SSL interception. You can read more [here](https://security.stackexchange.com/questions/107542/is-it-common-practice-for-companies-to-mitm-https-traffic).
 
-Now this is a little known and less understood practice. I barely understand it myself. Certificates are *hard*. Even having read the above you may be none the wiser about why this is relevant. Let's get to the broken stuff.
+Now this is a little known and less understood practice. I barely understand it myself. Certificates are _hard_. Even having read the above you may be none the wiser about why this is relevant. Let's get to the broken stuff.
 
 ## "Devcontainers don't work at work!"
 
@@ -46,8 +47,6 @@ We need to do two things to get this working:
 1. Acquire the requisite CA certificate(s) from your friendly neighbourhood networking team. Place them in a `certs` folder inside your repo, in the `.devcontainer` folder.
 2. Add the following lines to your `.devcontainer/Dockerfile`, just after the initial `FROM` statement:
 
-
-
 ```
 # Because MITM certificates
 COPY certs/. /usr/local/share/ca-certificates/
@@ -61,8 +60,4 @@ Which does the following:
 - This is a Node example and so we set an environment variable called [`NODE_EXTRA_CA_CERTS`](https://nodejs.org/api/cli.html#cli_node_extra_ca_certs_file) which points to the path of your MITM CA certificate file inside your devcontainer.
 - updates the directory `/etc/ssl/certs` to hold SSL certificates and generates `ca-certificates.crt`
 
-
-
 With these in place then you should be able to build your devcontainer with no SSL trauma. Enjoy!
-
-

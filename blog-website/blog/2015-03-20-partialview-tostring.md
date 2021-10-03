@@ -1,18 +1,19 @@
 ---
-title: "PartialView.ToString()"
+title: 'PartialView.ToString()'
 authors: johnnyreilly
 tags: [asp.net mvc, sward, PartialView]
 hide_table_of_contents: false
 ---
+
 In the name of [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) I found myself puzzling how one could take a `PartialViewResult` and render it as a `string`. Simple, right?
 
- In fact, in my head this was already a solved problem. I mean I've written about this [before](http://blog.icanmakethiswork.io/2012/07/rendering-partial-view-to-string.html) already! Except I haven't. Not really - what I did back then was link to what someone else had written and say "yay! well done chap - like he said!". It turns out that was a bad move. That blog appears to be gone and so I'm back to where I was. Ug. Lesson learned.
+In fact, in my head this was already a solved problem. I mean I've written about this [before](http://blog.icanmakethiswork.io/2012/07/rendering-partial-view-to-string.html) already! Except I haven't. Not really - what I did back then was link to what someone else had written and say "yay! well done chap - like he said!". It turns out that was a bad move. That blog appears to be gone and so I'm back to where I was. Ug. Lesson learned.
 
 ## What are we trying to do?
 
 So, for the second time of asking, here is how to take a `PartialViewResult` and turn it into a `string`. It's an invaluable technique to deal with certain scenarios.
 
-In my own case I have a toolbar in my application that is first pushed into the UI in my `_Layout.cshtml` by means of a trusty `@Html.Action("Toolbar")`. I wanted to be able to re-use the `PartialViewResult` returned by `Toolbar` on my controller inside a `JSON` payload. And despite the title of this post, `PartialView.ToString()`*doesn't* quite cut the mustard. Obvious really, if it did then why would I be writing this and you be reading this?
+In my own case I have a toolbar in my application that is first pushed into the UI in my `_Layout.cshtml` by means of a trusty `@Html.Action("Toolbar")`. I wanted to be able to re-use the `PartialViewResult` returned by `Toolbar` on my controller inside a `JSON` payload. And despite the title of this post, `PartialView.ToString()`_doesn't_ quite cut the mustard. Obvious really, if it did then why would I be writing this and you be reading this?
 
 The solution is actually fairly simple. And, purely for swank, I'm going to offer it you 3 ways. Whatever's your poison.
 
@@ -57,7 +58,7 @@ namespace My.Utilities.Extensions
 {
   public static class PartialViewResultExtensions
   {
-    public static string ConvertToString(this PartialViewResult partialView, 
+    public static string ConvertToString(this PartialViewResult partialView,
                                               ControllerContext controllerContext)
     {
       using (var sw = new StringWriter())
@@ -95,8 +96,6 @@ The conclusion of the linked blog post is twofold
 1. Don't mock HTTPContext
 2. Use the [facade pattern](https://en.wikipedia.org/wiki/Facade_pattern) instead
 
-
-
 Having testable code is not a optional bauble in my view - it's a necessity. So with my final approach that's exactly what I'll do.
 
 ```cs
@@ -120,7 +119,7 @@ namespace My.Utilities
 {
   public class MvcInternals : IMvcInternals
   {
-    public string ConvertPartialViewToString(PartialViewResult partialView, 
+    public string ConvertPartialViewToString(PartialViewResult partialView,
                                              ControllerContext controllerContext)
     {
       using (var sw = new StringWriter())
@@ -148,5 +147,3 @@ var toolbarHtml = _mvcInternals.ConvertPartialViewToString(partialViewResult, Co
 ```
 
 Ah... that's the sweet mellifluous sound of easily testable code.
-
-

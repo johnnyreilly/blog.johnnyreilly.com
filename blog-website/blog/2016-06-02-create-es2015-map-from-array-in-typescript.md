@@ -1,17 +1,21 @@
 ---
-title: "Creating an ES2015 Map from an Array in TypeScript"
+title: 'Creating an ES2015 Map from an Array in TypeScript'
 authors: johnnyreilly
 tags: [TypeScript, ES6, Array, ES2015, Map]
 hide_table_of_contents: false
 ---
+
 I'm a great lover of ES2015's `<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">Map</a>`. However, just recently I tumbled over something I find a touch inconvenient about how you initialise a new `Map` from the contents of an `Array` in TypeScript.
 
- ## This Doesn't Work
+## This Doesn't Work
 
 We're going try to something like this: (pilfered from the MDN docs)
 
 ```ts
-var kvArray = [["key1", "value1"], ["key2", "value2"]];
+var kvArray = [
+  ['key1', 'value1'],
+  ['key2', 'value2'],
+];
 
 // Use the regular Map constructor to transform a 2D key-value Array into a map
 var myMap = new Map(kvArray);
@@ -44,7 +48,7 @@ However, to my surprise this errored out with:
                 Property '0' is missing in type 'string[]'.
 ```
 
-Disappointing right? It's expecting `Iterable&lt;[string, string]&gt;` and an `Array` with 2 elements that are strings is *not* inferred to be that.
+Disappointing right? It's expecting `Iterable&lt;[string, string]&gt;` and an `Array` with 2 elements that are strings is _not_ inferred to be that.
 
 ## This Does
 
@@ -77,5 +81,3 @@ const iAmAMap = new Map( // Look Ma!  No type annotations
 ```
 
 I've raised this as an issue with the TypeScript team; you can find details [here](https://github.com/Microsoft/TypeScript/issues/8936).
-
-

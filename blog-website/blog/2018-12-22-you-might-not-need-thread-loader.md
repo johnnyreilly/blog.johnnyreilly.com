@@ -1,12 +1,21 @@
 ---
-title: "You Might Not Need thread-loader"
+title: 'You Might Not Need thread-loader'
 authors: johnnyreilly
-tags: [HappyPack, thread-loader, fork-ts-checker-webpack-plugin, ts-loader, Webpack, fast builds]
+tags:
+  [
+    HappyPack,
+    thread-loader,
+    fork-ts-checker-webpack-plugin,
+    ts-loader,
+    Webpack,
+    fast builds,
+  ]
 hide_table_of_contents: false
 ---
+
 It all started with a GitHub issue. [Ernst Ammann reported](https://github.com/namics/webpack-config-plugins/issues/24):
 
- > Without the thread-loader, compilation takes three to four times less time on changes. We could remove it.
+> Without the thread-loader, compilation takes three to four times less time on changes. We could remove it.
 
 If you're not aware of the [`webpack-config-plugins`](https://github.com/namics/webpack-config-plugins) project then I commend it to you. Famously, webpack configuration can prove tricky. `webpack-config-plugins` borrows the idea of presets from Babel. It provides a number of pluggable webpack configurations which give a best practice setup for different webpack use cases. So if you're no expert with webpack and you want a good setup for building your TypeScript / Sass / JavaScript then `webpack-config-plugins` has got your back.
 
@@ -49,7 +58,7 @@ This demonstrates that using `thread-loader` in watch mode with `poolTimeout: In
 
 ## "Maybe You've Thread Enough"
 
-When I tested using `thread-loader` in watch mode with `poolTimeout: Infinity` on my own builds I got the same benefit Jan had. I also got *even* more benefit from dropping `thread-loader` entirely.
+When I tested using `thread-loader` in watch mode with `poolTimeout: Infinity` on my own builds I got the same benefit Jan had. I also got _even_ more benefit from dropping `thread-loader` entirely.
 
 A likely reason for this benefit is that typically when you're developing, you're working on one file at a time. Hence you only transpile one file at a time:
 
@@ -58,7 +67,7 @@ A likely reason for this benefit is that typically when you're developing, you'r
 So there's not a great deal of value that `thread-loader` can add here; mostly it's twiddling thumbs and adding an overhead. [To quote the docs:](https://github.com/webpack-contrib/thread-loader/blob/master/README.md#usage)
 
 > Each worker is a separate node.js process, which has an overhead of \~600ms. There is also an overhead of inter-process communication.
-> 
+>
 > Use this loader only for expensive operations!
 
 Now, my build is not your build. I can't guarantee that you'll get the same results as Jan and I experienced; but I would encourage you to investigate if you're using `thread-loader` correctly and whether it's actually helping you. In these days of webpack 4+ perhaps it isn't.
@@ -66,5 +75,3 @@ Now, my build is not your build. I can't guarantee that you'll get the same resu
 There are still scenarios where `thread-loader` still provides an advantage. It can speed up production builds. It can speed up the initial startup of watch mode. [In fact Jan has subsequently actually improved the `thread-loader` to that specific end.](https://github.com/webpack-contrib/thread-loader/pull/52) Yay Jan!
 
 If this is all too much for you, and you want to hand off the concern to someone else then perhaps all of this serves as a motivation to just sit back, put your feet up and start using [`webpack-config-plugins`](https://github.com/namics/webpack-config-plugins) instead of doing your own configuration.
-
-

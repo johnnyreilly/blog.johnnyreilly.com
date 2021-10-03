@@ -1,11 +1,12 @@
 ---
-title: "Visual Studio Marketplace: images in Markdown!"
+title: 'Visual Studio Marketplace: images in Markdown!'
 authors: johnnyreilly
 tags: [Azure DevOps Marketplace, Visual Studio Marketplace, markdown, images]
 image: blog/2020-11-28-images-in-markdown-for-azure-devops-marketplace/azure-devops-marketplace.png
-description: "Publish your README.md and associated images to Visual Studio Marketplace."
+description: 'Publish your README.md and associated images to Visual Studio Marketplace.'
 hide_table_of_contents: false
 ---
+
 I've recently found myself developing [custom pipelines task extensions for Azure DevOps](https://docs.microsoft.com/en-us/azure/devops/extend/develop/add-build-task?view=azure-devops). The extensions being developed end up in the [Azure DevOps Marketplace](https://marketplace.visualstudio.com/azuredevops). What you see there when you look at existing extensions is some pretty lovely documentation.
 
 ![screenshot of a rich Markdown powered screen with images in Visual Studio Marketplace](../static/blog/2020-11-28-images-in-markdown-for-azure-devops-marketplace/azure-devops-marketplace.png)
@@ -31,13 +32,13 @@ So the simple addition of this:
 
 ```json
 {
-    //...
-    "content": {
-        "details": {
-            "path": "README.md"
-        }
-    },
-    //...
+  //...
+  "content": {
+    "details": {
+      "path": "README.md"
+    }
+  }
+  //...
 }
 ```
 
@@ -55,19 +56,19 @@ This is entirely correct and supported, but won't work by default. This is becau
 
 ```json
 {
-    //...
-    "content": {
-        "details": {
-            "path": "README.md"
-        }
-    },
-    "files": [
-        {
-            "path": "images",
-            "addressable": true
-        }
-    ]
-    //...
+  //...
+  "content": {
+    "details": {
+      "path": "README.md"
+    }
+  },
+  "files": [
+    {
+      "path": "images",
+      "addressable": true
+    }
+  ]
+  //...
 }
 ```
 

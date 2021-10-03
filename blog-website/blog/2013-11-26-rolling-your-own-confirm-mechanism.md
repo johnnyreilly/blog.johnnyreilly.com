@@ -1,12 +1,13 @@
 ---
-title: "Rolling your own confirm mechanism using Promises and jQuery UI"
+title: 'Rolling your own confirm mechanism using Promises and jQuery UI'
 authors: johnnyreilly
 tags: [Q, jQuery UI, promises, confirm]
 hide_table_of_contents: false
 ---
+
 It is said that a picture speaks a thousand words. So here's two:
 
- ![](https://4.bp.blogspot.com/-zZvqgKiP9CI/UpN7YtkFbnI/AAAAAAAAAe4/OUpA5uVpCl4/s400/Ugly.png)
+![](https://4.bp.blogspot.com/-zZvqgKiP9CI/UpN7YtkFbnI/AAAAAAAAAe4/OUpA5uVpCl4/s400/Ugly.png)
 
 ![](https://4.bp.blogspot.com/-VVzJ7B0Uhys/UpN7vnX7diI/AAAAAAAAAe8/i3hlMT1ECB8/s400/Pretty.png)
 
@@ -22,7 +23,7 @@ JavaScript in the browser has had the `window.confirm` method for the longest ti
 
 How to do this? Promises! To quote [Martin Fowler](http://martinfowler.com/bliki/JavascriptPromise.html) (makes you look smart when you do that):
 
-> *"In Javascript, promises are objects which represent the pending result of an asynchronous operation. You can use these to schedule further activity after the asynchronous operation has completed by supplying a callback."*
+> _"In Javascript, promises are objects which represent the pending result of an asynchronous operation. You can use these to schedule further activity after the asynchronous operation has completed by supplying a callback."_
 
 When we show our dialog we are in asynchronous land; waiting for the user to click "OK" or "Cancel". When they do, we need to act on their response. So if our custom confirm dialog returns a promise of a boolean (`true` when the users click "OK", `false` otherwise) then that should be exactly what we need. I'm going to use [Q](https://github.com/kriskowal/q) for promises. (Nothing particularly special about Q - it's one of many [Promises / A+](https://github.com/promises-aplus/promises-spec/blob/master/implementations.md) compliant implementations available.)
 
@@ -30,50 +31,53 @@ Here's my custom confirm dialog:
 
 ```js
 /**
-  * Show a "confirm" dialog to the user (using jQuery UI's dialog)
-  *
-  * @param {string} message The message to display to the user
-  * @param {string} okButtonText OPTIONAL - The OK button text, defaults to "Yes"
-  * @param {string} cancelButtonText OPTIONAL - The Cancel button text, defaults to "No"
-  * @param {string} title OPTIONAL - The title of the dialog box, defaults to "Confirm..."
-  * @returns {Q.Promise<boolean>} A promise of a boolean value
-  */
+ * Show a "confirm" dialog to the user (using jQuery UI's dialog)
+ *
+ * @param {string} message The message to display to the user
+ * @param {string} okButtonText OPTIONAL - The OK button text, defaults to "Yes"
+ * @param {string} cancelButtonText OPTIONAL - The Cancel button text, defaults to "No"
+ * @param {string} title OPTIONAL - The title of the dialog box, defaults to "Confirm..."
+ * @returns {Q.Promise<boolean>} A promise of a boolean value
+ */
 function confirmDialog(message, okButtonText, cancelButtonText, title) {
-    okButtonText = okButtonText || "Yes";
-    cancelButtonText = cancelButtonText || "No";
-    title = title || "Confirm...";
+  okButtonText = okButtonText || 'Yes';
+  cancelButtonText = cancelButtonText || 'No';
+  title = title || 'Confirm...';
 
-    var deferred = Q.defer();
-    $('<div title="' + title + '">' + message + '</div>').dialog({
-        modal: true,
-        buttons: [{
-            // The OK button
-            text: okButtonText,
-            click: function () {
-                // Resolve the promise as true indicating the user clicked "OK"
-                deferred.resolve(true);
-                $(this).dialog("close");
-            }
-        }, {
-            // The Cancel button
-            text: cancelButtonText,
-            click: function () {
-                $(this).dialog("close");
-            }
-        }],
-        close: function (event, ui) {
-            // Destroy the jQuery UI dialog and remove it from the DOM
-            $(this).dialog("destroy").remove();
-            
-            // If the promise has not yet been resolved (eg the user clicked the close icon) 
-            // then resolve the promise as false indicating the user did *not* click "OK"
-            if (deferred.promise.isPending()) {
-                deferred.resolve(false);
-            }
-        }
-    });
+  var deferred = Q.defer();
+  $('<div title="' + title + '">' + message + '</div>').dialog({
+    modal: true,
+    buttons: [
+      {
+        // The OK button
+        text: okButtonText,
+        click: function () {
+          // Resolve the promise as true indicating the user clicked "OK"
+          deferred.resolve(true);
+          $(this).dialog('close');
+        },
+      },
+      {
+        // The Cancel button
+        text: cancelButtonText,
+        click: function () {
+          $(this).dialog('close');
+        },
+      },
+    ],
+    close: function (event, ui) {
+      // Destroy the jQuery UI dialog and remove it from the DOM
+      $(this).dialog('destroy').remove();
 
-    return deferred.promise;
+      // If the promise has not yet been resolved (eg the user clicked the close icon)
+      // then resolve the promise as false indicating the user did *not* click "OK"
+      if (deferred.promise.isPending()) {
+        deferred.resolve(false);
+      }
+    },
+  });
+
+  return deferred.promise;
 }
 ```
 
@@ -84,8 +88,6 @@ What's happening here? Well first of all, if `okButtonText`, `cancelButtonText` 
 - If the user clicks the "OK" button then the promise is resolved with a value of `true`.
 - If the dialog closes and the promise has not been resolved then the promise is resolved with a value of `false`. This covers people clicking on the "Cancel" button as well as closing the dialog through other means.
 
-
-
 Finally we return the promise from our deferred object.
 
 ## Going from `window.confirm` to `confirmDialog`
@@ -93,18 +95,18 @@ Finally we return the promise from our deferred object.
 It's very simple to move from using `window.confirm` to `confirmDialog`. Take this example:
 
 ```js
-if (window.confirm("Are you sure?")) {
-    // Do something
+if (window.confirm('Are you sure?')) {
+  // Do something
 }
 ```
 
 Becomes:
 
 ```js
-confirmDialog("Are you sure?").then(function(confirmed) {
-    if (confirmed) {
-        // Do something
-    }
+confirmDialog('Are you sure?').then(function (confirmed) {
+  if (confirmed) {
+    // Do something
+  }
 });
 ```
 
@@ -115,5 +117,3 @@ There's no more to it than that.
 With the JSFiddle below you can create your own custom dialogs and see the result of clicking on either the "OK" or "Cancel" buttons.
 
 <iframe width="100%" height="500" src="https://jsfiddle.net/johnny_reilly/ARWL5/embedded/result,js,html,css" allowFullScreen="allowFullScreen" frameBorder="0"></iframe>
-
-

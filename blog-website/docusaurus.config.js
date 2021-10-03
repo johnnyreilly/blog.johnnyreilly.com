@@ -16,14 +16,14 @@ module.exports = {
   organizationName: 'johnnyreilly', // Usually your GitHub org/user name.
   projectName: 'blog.johnnyreilly.com', // Usually your repo name.
   plugins: [
-    [ 
-      '@docusaurus/plugin-ideal-image', 
-      { 
-        quality: 70, 
-        max: 1030, // max resized image's size. 
-        min: 640, // min resized image's size. if original is lower, use that size. 
-        steps: 2, // the max number of images generated between min and max (inclusive) 
-      }, 
+    [
+      '@docusaurus/plugin-ideal-image',
+      {
+        quality: 70,
+        max: 1030, // max resized image's size.
+        min: 640, // min resized image's size. if original is lower, use that size.
+        steps: 2, // the max number of images generated between min and max (inclusive)
+      },
     ],
     [
       '@docusaurus/plugin-client-redirects',
@@ -157,7 +157,7 @@ module.exports = {
       ],
     },
     footer: {
-      style: "dark",
+      style: 'dark',
       links: [
         {
           title: 'Support me',
@@ -166,8 +166,8 @@ module.exports = {
               html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
             },
             {
-              html: `<div style="display: flex; align-items: center;"><iframe src="https://github.com/sponsors/johnnyreilly/button" title="Sponsor johnnyreilly" height="35" width="116" style="border: 0;"></iframe><div>&nbsp;on GitHub</div></div>`
-            }
+              html: `<div style="display: flex; align-items: center;"><iframe src="https://github.com/sponsors/johnnyreilly/button" title="Sponsor johnnyreilly" height="35" width="116" style="border: 0;"></iframe><div>&nbsp;on GitHub</div></div>`,
+            },
           ],
         },
         {
@@ -202,7 +202,7 @@ module.exports = {
     prism: {
       theme: lightCodeTheme,
       darkTheme: darkCodeTheme,
-      additionalLanguages: ["powershell", "csharp", "docker", "bicep"],
+      additionalLanguages: ['powershell', 'csharp', 'docker', 'bicep'],
     },
   },
   presets: [
@@ -220,11 +220,11 @@ module.exports = {
            */
           blogSidebarCount: 5,
           postsPerPage: 1,
-          path: "./blog",
-          routeBasePath: "/", // Set this value to '/'.
+          path: './blog',
+          routeBasePath: '/', // Set this value to '/'.
           showReadingTime: true,
           editUrl:
-            "https://github.com/johnnyreilly/blog.johnnyreilly.com/edit/main/blog-website/blog/",
+            'https://github.com/johnnyreilly/blog.johnnyreilly.com/edit/main/blog-website/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

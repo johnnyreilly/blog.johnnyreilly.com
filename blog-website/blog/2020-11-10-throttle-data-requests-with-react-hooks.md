@@ -1,9 +1,10 @@
 ---
-title: "Throttling data requests with React Hooks"
+title: 'Throttling data requests with React Hooks'
 authors: johnnyreilly
 tags: [throttle, React, Hooks, data]
 hide_table_of_contents: false
 ---
+
 When an application loads data, typically relatively few HTTP requests will be made. For example, if we imagine we're making a student administration application, then a "view" screen might make a single HTTP request to load that student's data before displaying it.
 
 Occasionally there's a need for an application to make a large number of HTTP requests. Consider a reporting application which loads data and then aggregates it for presentation purposes.
@@ -12,8 +13,6 @@ This need presents two interesting problems to solve:
 
 1. how do we load data gradually?
 2. how do we present loading progress to users?
-
-
 
 This post will talk about how we can tackle these and demonstrate using a custom React Hook.
 
@@ -52,7 +51,7 @@ We'll replace the `App.css` file with this:
 
 .App-labelinput > * {
   margin: 0.5em;
-  font-size:24px;
+  font-size: 24px;
 }
 
 .App-link {
@@ -90,9 +89,9 @@ We'll replace the `App.css` file with this:
 Then we'll replace the `App.tsx` contents with this:
 
 ```tsx
-import React, { useState } from "react";
-import { useAsync } from "react-use";
-import "./App.css";
+import React, { useState } from 'react';
+import { useAsync } from 'react-use';
+import './App.css';
 
 function use10_000Requests(startedAt: string) {
   const responses = useAsync(async () => {
@@ -115,9 +114,8 @@ function use10_000Requests(startedAt: string) {
   return responses;
 }
 
-
 function App() {
-  const [startedAt, setStartedAt] = useState("");
+  const [startedAt, setStartedAt] = useState('');
   const responses = use10_000Requests(startedAt);
 
   return (
@@ -151,7 +149,7 @@ In fact, for this demo we're not interested in the results of these HTTP request
 
 So we'll run `yarn start` and go to [http://localhost:3000](http://localhost:3000) to get to the app. Running with Devtools open results in the following unhappy affair:
 
- ![](../static/blog/2020-11-10-throttle-data-requests-with-react-hooks/i-want-it-all.gif)
+![](../static/blog/2020-11-10-throttle-data-requests-with-react-hooks/i-want-it-all.gif)
 
 The GIF above has been edited significantly for length. In reality it took 20 seconds for the first request to be fired, prior to that Chrome was unresponsive. When requests did start to fire, a significant number failed with `net::ERR_INSUFFICIENT_RESOURCES`. Further to that, those requests that were fired sat in "Stalled" state prior to being executed. This is a consequence of [Chrome limiting the number of connections - all browsers do this](https://developers.google.com/web/tools/chrome-devtools/network/reference#timing):
 
@@ -163,15 +161,13 @@ In summary, the problems with the current approach are:
 2. failing HTTP requests due to insufficient resources
 3. no information displayed to the user around progress
 
-
-
 ## Throttle me this
 
 Instead of hammering the browser by firing all the requests at once, we could instead implement a throttle. A throttle is a mechanism which allows you to limit the rate at which operations are performed. In this case we want to limit the rate at which HTTP requests are made. A throttle will tackle problems 1 and 2 - essentially keeping the browser free and easy and ensuring that requests are all successfully sent. We also want to keep our users informed around how progress is going. It's time to unveil the `useThrottleRequests` hook:
 
 ```ts
-import { useMemo, useReducer } from "react";
-import { AsyncState } from "react-use/lib/useAsync";
+import { useMemo, useReducer } from 'react';
+import { AsyncState } from 'react-use/lib/useAsync';
 
 /** Function which makes a request */
 export type RequestToMake = () => Promise<void>;
@@ -256,7 +252,8 @@ function updateThrottledProgress<TData>(
     currentProgress.totalRequests === 0
       ? 0
       : Math.round(
-          ((errors.length + values.length) / currentProgress.totalRequests) * 100
+          ((errors.length + values.length) / currentProgress.totalRequests) *
+            100
         );
 
   const loading =
@@ -275,15 +272,15 @@ function updateThrottledProgress<TData>(
 
 type ThrottleActions<TValue> =
   | {
-      type: "initialise";
+      type: 'initialise';
       totalRequests: number;
     }
   | {
-      type: "requestSuccess";
+      type: 'requestSuccess';
       value: TValue;
     }
   | {
-      type: "requestFailed";
+      type: 'requestFailed';
       error: Error;
     };
 
@@ -296,16 +293,16 @@ export function useThrottleRequests<TValue>() {
     action: ThrottleActions<TValue>
   ): ThrottledProgress<TValue> {
     switch (action.type) {
-      case "initialise":
+      case 'initialise':
         return createThrottledProgress(action.totalRequests);
 
-      case "requestSuccess":
+      case 'requestSuccess':
         return updateThrottledProgress(throttledProgressAndState, {
           loading: false,
           value: action.value,
         });
 
-      case "requestFailed":
+      case 'requestFailed':
         return updateThrottledProgress(throttledProgressAndState, {
           loading: false,
           error: action.error,
@@ -325,7 +322,7 @@ export function useThrottleRequests<TValue>() {
      */
     function requestSucceededWithData(value: TValue) {
       return dispatch({
-        type: "requestSuccess",
+        type: 'requestSuccess',
         value,
       });
     }
@@ -336,7 +333,7 @@ export function useThrottleRequests<TValue>() {
      */
     function requestFailedWithError(error: Error) {
       return dispatch({
-        type: "requestFailed",
+        type: 'requestFailed',
         error,
       });
     }
@@ -354,7 +351,7 @@ export function useThrottleRequests<TValue>() {
       maxParallelRequests = 6
     ) {
       dispatch({
-        type: "initialise",
+        type: 'initialise',
         totalRequests: requestsToMake.length,
       });
 
@@ -379,69 +376,61 @@ The `useThrottleRequests` hook returns 2 properties:
 
 - `throttle` \- a `ThrottledProgress&lt;TData&gt;` that contains the following data:
 
-    - `totalRequests` \- the number of requests that will be made
-    - `errors` \- the errors that came from failed requests
-    - `values` \- the responses that came from successful requests
-    - `percentageLoaded` \- a value between 0 and 100 which represents the percentage of requests that have been completed (whether successfully or not)
-    - `loading` \- whether the throttle is currently processing requests
-
-    
+  - `totalRequests` \- the number of requests that will be made
+  - `errors` \- the errors that came from failed requests
+  - `values` \- the responses that came from successful requests
+  - `percentageLoaded` \- a value between 0 and 100 which represents the percentage of requests that have been completed (whether successfully or not)
+  - `loading` \- whether the throttle is currently processing requests
 
 - `updateThrottle` \- an object which exposes 3 functions:
 
-    - `queueRequests` \- the function to which you pass the requests that should be queued and executed in a throttled fashion
-    - `requestSucceededWithData` \- the function which is called if a request succeeds to provide the data
-    - `requestFailedWithError` \- the function which is called if a request fails to provide the error
-
-    
-
-
-
+  - `queueRequests` \- the function to which you pass the requests that should be queued and executed in a throttled fashion
+  - `requestSucceededWithData` \- the function which is called if a request succeeds to provide the data
+  - `requestFailedWithError` \- the function which is called if a request fails to provide the error
 
 That's a lot of words to describe our `useThrottleRequests` hook. Let's look at what it looks like by migrating our `use10_000Requests` hook to (no pun intended) use it. Here's a new implementation of `App.tsx`:
 
 ```tsx
-import React, { useState } from "react";
-import { useAsync } from "react-use";
-import { useThrottleRequests } from "./useThrottleRequests";
-import "./App.css";
+import React, { useState } from 'react';
+import { useAsync } from 'react-use';
+import { useThrottleRequests } from './useThrottleRequests';
+import './App.css';
 
 function use10_000Requests(startedAt: string) {
   const { throttle, updateThrottle } = useThrottleRequests();
-  const [progressMessage, setProgressMessage] = useState("not started");
+  const [progressMessage, setProgressMessage] = useState('not started');
 
-  useAsync(async() => {
-      if (!startedAt) return;
+  useAsync(async () => {
+    if (!startedAt) return;
 
-      setProgressMessage("preparing");
+    setProgressMessage('preparing');
 
-      const requestsToMake = Array.from(Array(10_000)).map(
-        (_, index) => async () => {
-          try {
-            setProgressMessage(`loading ${index}...`);
+    const requestsToMake = Array.from(Array(10_000)).map(
+      (_, index) => async () => {
+        try {
+          setProgressMessage(`loading ${index}...`);
 
-            const response = await fetch(
-              `/manifest.json?querystringValueToPreventCaching=${startedAt}_request-${index}`
-            );
-            const json = await response.json();
+          const response = await fetch(
+            `/manifest.json?querystringValueToPreventCaching=${startedAt}_request-${index}`
+          );
+          const json = await response.json();
 
-            updateThrottle.requestSucceededWithData(json);
-          } catch (error) {
-            console.error(`failed to load ${index}`, error);
-            updateThrottle.requestFailedWithError(error);
-          }
+          updateThrottle.requestSucceededWithData(json);
+        } catch (error) {
+          console.error(`failed to load ${index}`, error);
+          updateThrottle.requestFailedWithError(error);
         }
-      );
+      }
+    );
 
-      await updateThrottle.queueRequests(requestsToMake);
-
+    await updateThrottle.queueRequests(requestsToMake);
   }, [startedAt, updateThrottle, setProgressMessage]);
 
   return { throttle, progressMessage };
 }
 
 function App() {
-  const [startedAt, setStartedAt] = useState("");
+  const [startedAt, setStartedAt] = useState('');
 
   const { progressMessage, throttle } = use10_000Requests(startedAt);
 
@@ -486,8 +475,6 @@ Very well indeed! Please note that the above GIF has again been edited for brevi
 2. ~~failing HTTP requests due to insufficient resources~~ \- the browser does not experience failing HTTP requests.
 3. ~~no information displayable to the user around progress~~ \- details of progress are displayed to the user throughout.
 
-
-
 Tremendous!
 
 ## What shall we build?
@@ -505,11 +492,11 @@ We can build this thanks to the excellent [GitHub REST API](https://docs.github.
   // ...
   {
     // ...
-    "url": "https://api.github.com/users/octocat",
+    url: 'https://api.github.com/users/octocat',
     // ...
   },
   // ...
-]
+];
 ```
 
 ### 2\. Get a user
@@ -531,10 +518,10 @@ We can build this thanks to the excellent [GitHub REST API](https://docs.github.
 We're now ready to build our blogging devs app; let's replace the existing `App.tsx` with:
 
 ```tsx
-import React, { useCallback, useMemo, useState } from "react";
-import { useAsync } from "react-use";
-import { useThrottleRequests } from "./useThrottleRequests";
-import "./App.css";
+import React, { useCallback, useMemo, useState } from 'react';
+import { useAsync } from 'react-use';
+import { useThrottleRequests } from './useThrottleRequests';
+import './App.css';
 
 type GitHubUser = { name: string; blog?: string };
 
@@ -544,12 +531,12 @@ function timeout(ms: number) {
 
 function useContributors(contributorsUrlToLoad: string) {
   const { throttle, updateThrottle } = useThrottleRequests<GitHubUser>();
-  const [progressMessage, setProgressMessage] = useState("");
+  const [progressMessage, setProgressMessage] = useState('');
 
   useAsync(async () => {
     if (!contributorsUrlToLoad) return;
 
-    setProgressMessage("loading contributors");
+    setProgressMessage('loading contributors');
 
     // load contributors from GitHub
     const contributorsResponse = await fetch(contributorsUrlToLoad);
@@ -580,7 +567,7 @@ function useContributors(contributorsUrlToLoad: string) {
 
     await updateThrottle.queueRequests(requestsToMake);
 
-    setProgressMessage("");
+    setProgressMessage('');
   }, [contributorsUrlToLoad, updateThrottle, setProgressMessage]);
 
   return { throttle, progressMessage };
@@ -590,8 +577,8 @@ function App() {
   // The owner and repo to query; we're going to default
   // to using DefinitelyTyped as an example repo as it
   // is one of the most contributed to repos on GitHub
-  const [owner, setOwner] = useState("DefinitelyTyped");
-  const [repo, setRepo] = useState("DefinitelyTyped");
+  const [owner, setOwner] = useState('DefinitelyTyped');
+  const [repo, setRepo] = useState('DefinitelyTyped');
   const handleOwnerChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) =>
       setOwner(event.target.value),
@@ -604,7 +591,7 @@ function App() {
 
   const contributorsUrl = `https://api.github.com/repos/${owner}/${repo}/contributors`;
 
-  const [contributorsUrlToLoad, setUrlToLoad] = useState("");
+  const [contributorsUrlToLoad, setUrlToLoad] = useState('');
   const { progressMessage, throttle } = useContributors(contributorsUrlToLoad);
 
   const bloggers = useMemo(
@@ -618,7 +605,7 @@ function App() {
         <h1>Blogging devs</h1>
 
         <p>
-          Show me the{" "}
+          Show me the{' '}
           <a
             className="App-link"
             href={contributorsUrl}
@@ -626,7 +613,7 @@ function App() {
             rel="noopener noreferrer"
           >
             contributors for {owner}/{repo}
-          </a>{" "}
+          </a>{' '}
           who have blogs.
         </p>
 
@@ -699,8 +686,6 @@ The application gives users the opportunity to enter the organisation and reposi
 - as it loads it communicates how far through the loading progress it has got
 - as users are loaded, it renders a tile for each user with a listed blog
 
-
-
 Just to make the demo a little clearer we've artificially slowed the duration of each request by a second. What does it look like when you put it together? Well like this:
 
 ![](../static/blog/2020-11-10-throttle-data-requests-with-react-hooks/blogging-devs.gif)
@@ -711,8 +696,4 @@ We have built a React Hook which allows us to:
 - without blocking the UI of the browser
 - and which provides progress data to keep users informed.
 
-
-
 [This post was originally published on LogRocket.](https://blog.logrocket.com/throttling-data-requests-with-react-hooks/)
-
-

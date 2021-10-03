@@ -1,12 +1,13 @@
 ---
-title: "Making PDFs from HTML in C# using WKHTMLtoPDF"
+title: 'Making PDFs from HTML in C# using WKHTMLtoPDF'
 authors: johnnyreilly
 tags: [wkhtmltopdf, webkit, c#, html, pdf]
 hide_table_of_contents: false
 ---
+
 ## Update 03/01/2013
 
- I've written a subsequent post which builds on the work of this original post. The new post exposes this functionality via a WCF service and can be found [here](http://icanmakethiswork.blogspot.co.uk/2013/01/html-to-pdf-using-wcf-service.html).
+I've written a subsequent post which builds on the work of this original post. The new post exposes this functionality via a WCF service and can be found [here](http://icanmakethiswork.blogspot.co.uk/2013/01/html-to-pdf-using-wcf-service.html).
 
 ## Making PDFs from HTML
 
@@ -24,9 +25,7 @@ I'd never really liked the Crystal solution for a number of reasons:
 2. We had to switch IDEs whenever we were maintaining our print screens. And the Crystal IDE is not a joy to use.
 3. Perhaps most importantly, for certain users we needed to hide bits of information from the print. The version of Crystal we were using did not make the dynamic customisation of our print screens a straightforward proposition. (In its defence we weren't really using it for what it was designed for.) As a result the developers before me had ended up creating various versions of each print screen revealing different levels of information. As you can imagine, this meant that the effort involved in making changes to the print screens had increased exponentially
 
-
-
-It occurred to me that it would be good if we could find some way of generating our own PDF reports without using Crystal that would be a step forward. It was shortly after this that I happened upon [WKHTMLtoPDF](http://code.google.com/p/wkhtmltopdf/). This is an open source project which describes itself as a *"Simple shell utility to convert html to pdf using the webkit rendering engine, and qt."* I tested it out on various websites and it worked. It wasn't by any stretch of the imagination a perfect HTML to PDF tool but the quality it produced greatly outstripped the presentation currently in place via Crystal.
+It occurred to me that it would be good if we could find some way of generating our own PDF reports without using Crystal that would be a step forward. It was shortly after this that I happened upon [WKHTMLtoPDF](http://code.google.com/p/wkhtmltopdf/). This is an open source project which describes itself as a _"Simple shell utility to convert html to pdf using the webkit rendering engine, and qt."_ I tested it out on various websites and it worked. It wasn't by any stretch of the imagination a perfect HTML to PDF tool but the quality it produced greatly outstripped the presentation currently in place via Crystal.
 
 This was just the ticket. Using WKHTMLtoPDF I could have simple web pages in the application which could be piped into WKHTMLtoPDF to make a PDF as needed. It could be dynamic - because ASP.NET is dynamic. We wouldn't need to write and maintain custom stored procs anymore. And happily we would no longer need to use Crystal.
 
@@ -62,8 +61,6 @@ This new solution had a number of upsides from our perspective:
 - We were now able to regionalise our print screens for the users in the same way as we did with our main web app. This just wasn't realistic with the Crystal solution because of the amount of work involved.
 - I guess this is kind of a [DRY](http://en.wikipedia.org/wiki/Don%27t_repeat_yourself) solution :-)
 
-
-
 You can easily make use of the above approach yourself. All you need do is download and install [WKHTMLtoPDF](http://code.google.com/p/wkhtmltopdf/) on your machine. I advise using version 0.9.9 as the later release candidates appear slightly buggy at present.
 
 Couple of gotchas:
@@ -72,8 +69,4 @@ Couple of gotchas:
 2. Ensure that Read and Execute rights are granted to the wkhtmltopdf folder for the relevant process
 3. Ensure that Write rights are granted for the location you want to create your PDFs for the relevant process
 
-
-
 In our situation we are are invoking this directly in our web application on demand. I have no idea how this would scale - perhaps not well. This is not really an issue for us as our user base is fairly small and this functionality isn't called excessively. I think if this was used much more than it is I'd be tempted to hive off this functionality into a separate app. But this works just dandy for now.
-
-

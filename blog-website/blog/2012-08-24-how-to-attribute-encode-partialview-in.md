@@ -1,12 +1,13 @@
 ---
-title: "How to attribute encode a PartialView in MVC (Razor)"
+title: 'How to attribute encode a PartialView in MVC (Razor)'
 authors: johnnyreilly
 tags: [asp.net mvc, encode, PartialView, razor, attribute]
 hide_table_of_contents: false
 ---
+
 This post is plagiarism. But I'm plagiarising myself so I don't feel too bad.
 
- I posted a [question](http://stackoverflow.com/q/12093005/761388) on StackOverflow recently asking if there was a simple way to attribute encode a PartialView in Razor / ASP.NET MVC. I ended up answering my own question and since I thought it was a useful solution it might be worth sharing.
+I posted a [question](http://stackoverflow.com/q/12093005/761388) on StackOverflow recently asking if there was a simple way to attribute encode a PartialView in Razor / ASP.NET MVC. I ended up answering my own question and since I thought it was a useful solution it might be worth sharing.
 
 ## The Question
 
@@ -15,7 +16,7 @@ In the project I was working on I was using PartialViews to store the HTML that 
 I had thought that Razor, clever beast that it is, would automatically attribute encode anything sat between quotes in my HTML. Unfortunately this doesn't appear to be the case. In the short term I was able to workaround this by using single quotation marks to encapsulate my PartialViews HTML. See below for an example:
 
 ```xml
-<div class="tooltip" 
+<div class="tooltip"
      title='@Html.Partial("_MyTooltipInAPartial")'>
     Some content
 </div>
@@ -36,14 +37,14 @@ Well when I used my handy little single quote workaround, the following would re
 </div>
 ```
 
-Which although it doesn't show up so well in the code sample above is definite *"does not compute, does not compute, does not compute \*LOUD EXPLOSION\*"* territory.
+Which although it doesn't show up so well in the code sample above is definite _"does not compute, does not compute, does not compute \*LOUD EXPLOSION\*"_ territory.
 
 ## The Answer
 
 This took me back to my original intent which was to encapsulate the HTML in double quotes like this:
 
 ```xml
-<div class="tooltip" 
+<div class="tooltip"
      title="@Html.Partial("_MyTooltipInAPartial")">
     Some content
 </div>
@@ -60,7 +61,7 @@ Here's the code:
 Using the above helper is simplicity itself:
 
 ```xml
-<div class="tooltip" 
+<div class="tooltip"
      title="@Html.PartialAttributeEncoded("_MyTooltipInAPartial")">
     Some content
 </div>
@@ -80,5 +81,3 @@ Now the HTML in the title attribute above might be an unreadable mess - but it's
 ## Final thoughts
 
 I was surprised that Razor didn't handle this out of the box. I wonder if this is something that will come along with a later version? It's worth saying that I experienced this issue when working on an MVC 3 application. It's possible that this issue may actually have been solved with MVC 4 already; I haven't had chance to check yet though.
-
-

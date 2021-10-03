@@ -1,11 +1,12 @@
 ---
-title: "ASP.NET Core: Proxying HTTP Requests with an AllowList"
+title: 'ASP.NET Core: Proxying HTTP Requests with an AllowList'
 authors: johnnyreilly
 tags: [asp net core, proxy, http requests, allowlist]
 image: blog/2019-02-22-aspnet-core-allowlist-proxying-http-requests/hang-on-lads-ive-got-a-great-idea.jpg
 hide_table_of_contents: false
 ---
-This post demonstrates a mechanism for proxying HTTP requests in ASP.NET Core. It doesn't proxy all requests; it only proxies requests that match entries on an "allowlist" - so we only proxy the traffic that we've actively decided is acceptable as determined by taking the form of an expected URL and HTTP verb (GET / POST etc). 
+
+This post demonstrates a mechanism for proxying HTTP requests in ASP.NET Core. It doesn't proxy all requests; it only proxies requests that match entries on an "allowlist" - so we only proxy the traffic that we've actively decided is acceptable as determined by taking the form of an expected URL and HTTP verb (GET / POST etc).
 
 ## Why do we need to proxy?
 
@@ -19,7 +20,7 @@ The team, with one foot in the air, paused. They swallowed and said "can you giv
 
 ## The Proxy Regroup
 
-And so it came to pass that the teams product (which took the form of ASP.Net Core web application) had to be changed. Where once there had been a single application, there would now be two; one that lived on the internet (the *web* app) and one that lived on the companies private network (the *API* app). The API app would do all the database access. In fact the product team opted to move all significant operations into the API as well. This left the web app with two purposes:
+And so it came to pass that the teams product (which took the form of ASP.Net Core web application) had to be changed. Where once there had been a single application, there would now be two; one that lived on the internet (the _web_ app) and one that lived on the companies private network (the _API_ app). The API app would do all the database access. In fact the product team opted to move all significant operations into the API as well. This left the web app with two purposes:
 
 1. the straightforward serving of HTML, CSS, JS and images
 2. the proxying of API calls through to the API app
@@ -30,7 +31,7 @@ In the early days of this proxying the team reached for [`AspNetCore.Proxy`](htt
 
 ## Proxy Part 2
 
-The approach offered by `AspNetCore.Proxy` is fantastically powerful in terms of control. However, we didn't actually need that level of configurability. In fact, it resulted in us writing a great deal of boilerplate code. You see in our case we'd opted to proxy path for path, changing only the server name on each proxied request. So if a GET request came in going to https://web.app.com/api/version then we would want to proxy it to a GET request to https://api.app.com/api/version. You see? All we did was swap https://web.app.com for https://api.app.com. Nothing more. We did that as a rule. We knew we *always* wanted to do just this.
+The approach offered by `AspNetCore.Proxy` is fantastically powerful in terms of control. However, we didn't actually need that level of configurability. In fact, it resulted in us writing a great deal of boilerplate code. You see in our case we'd opted to proxy path for path, changing only the server name on each proxied request. So if a GET request came in going to https://web.app.com/api/version then we would want to proxy it to a GET request to https://api.app.com/api/version. You see? All we did was swap https://web.app.com for https://api.app.com. Nothing more. We did that as a rule. We knew we _always_ wanted to do just this.
 
 So we ended up spinning up our own solution which allowed just the specification of paths we wanted to proxy with their corresponding HTTP verbs. Let's talk through it. Usage of our approach ended up as a middleware within our web app's `Startup.cs`:
 
@@ -59,9 +60,8 @@ public void Configure(IApplicationBuilder app) {
 
 If you look at the code above you can see that we are proxing requests to a single server: `ServerToProxyToBaseUrl`. We're also only proxying requests which match an entry on our allowlist (as represented by `allowListProxyRoutes`). So in this case we're proxying two different requests:
 
-1. `GET` requests to `api/version` are proxied through as *anonymous*`GET` requests.
+1. `GET` requests to `api/version` are proxied through as _anonymous_`GET` requests.
 2. `GET` and `POST` requests to `api/account/{accountId:int}/all-the-secret-info` are proxied through as `GET` and `POST` requests. These requests require that a user be authenticated first.
-
 
 The `AllowListProxy` proxy class we've been using looks like this:
 
@@ -85,10 +85,10 @@ namespace My.Web.Proxy {
             Methods = methods;
         }
 
-        public static AllowListProxy Route(string path, params HttpMethod[] methods) => 
+        public static AllowListProxy Route(string path, params HttpMethod[] methods) =>
             new AllowListProxy(path, isAnonymous: false, methods: methods);
 
-        public static AllowListProxy AnonymousRoute(string path, params HttpMethod[] methods) => 
+        public static AllowListProxy AnonymousRoute(string path, params HttpMethod[] methods) =>
             new AllowListProxy(path, isAnonymous: true, methods: methods);
     }
 }
@@ -159,7 +159,7 @@ namespace My.Web.Proxy {
                 var proxyAddress = "";
                 try {
                     proxyAddress = proxyAddressTweaker(context.Request.Path.Value);
-                    
+
                     var proxyRequest = context.Request.CreateProxyHttpRequest(proxyAddress);
 
                     if (preSendProxyRequestAction != null)

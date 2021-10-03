@@ -1,12 +1,13 @@
 ---
-title: "Live Reload Considered Harmful"
+title: 'Live Reload Considered Harmful'
 authors: johnnyreilly
 tags: []
 hide_table_of_contents: false
 ---
-I've seen it go by many names; [live reload](http://livereload.com/), hot reload, [browser sync](https://browsersync.io/)... the list goes on. It's been the subject of a million demos. It's the focus of a thousand npm packages. Someone tweaks a file and... wait for it... *doesn't have to refresh their browser to see the changes*... The future is now!
 
- Forgive me the sarcasm, but I have come to the conclusion that whilst live reload is impressive... for my own purposes, it is not actually that useful. It certainly shouldn't be the default goto that it seems to have become.
+I've seen it go by many names; [live reload](http://livereload.com/), hot reload, [browser sync](https://browsersync.io/)... the list goes on. It's been the subject of a million demos. It's the focus of a thousand npm packages. Someone tweaks a file and... wait for it... _doesn't have to refresh their browser to see the changes_... The future is now!
+
+Forgive me the sarcasm, but I have come to the conclusion that whilst live reload is impressive... for my own purposes, it is not actually that useful. It certainly shouldn't be the default goto that it seems to have become.
 
 Hear me out people, I may be the voice crying out in the wilderness but I'm right dammit.
 
@@ -31,5 +32,3 @@ Perhaps a more convincing rationale is how useful it is to have 2 different vers
 Finally, I'm an obsessive 'Ctrl-S'-er. I've been burned by unsaved changes too many times. I'm saving every couple of keypresses. With live reload that usually means I have the noise of a dead application in the corner of my eye as LR obsessively forces the latest brokenness upon me. That sucks.
 
 I've no doubt there are situations where live reload is useful. But for my money that's the exception rather than the rule. Let the madness end now. Just say "no", kids.
-
-

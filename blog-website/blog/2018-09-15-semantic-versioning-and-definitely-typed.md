@@ -1,13 +1,22 @@
 ---
-title: "Semantic Versioning and Definitely Typed"
+title: 'Semantic Versioning and Definitely Typed'
 authors: johnnyreilly
-tags: [DefinitelyTyped, semantic versioning, SemVer, TypeScript, react-router, Ivan Drago]
+tags:
+  [
+    DefinitelyTyped,
+    semantic versioning,
+    SemVer,
+    TypeScript,
+    react-router,
+    Ivan Drago,
+  ]
 image: blog/2018-09-15-ivan-drago-and-definitely-typed/i-must-break-you.jpg
 hide_table_of_contents: false
 ---
+
 This a tale of things that are and things that aren't. It's a tale of semantic versioning, the lack thereof and heartbreak. It's a story of terror and failing builds. But it has a bittersweet ending wherein our heroes learn a lesson and understand the need for compromise. We all come out better and wiser people. Hopefully there's something for everybody; let's start with an exciting opener and see where it goes...
 
- ## Definitely Typed
+## Definitely Typed
 
 This is often the experience people have of using type definitions from Definitely Typed:
 
@@ -21,7 +30,7 @@ Specifically, people are used to the idea of semantic versioning and expect it f
 
 3. To make consumption of type definitions easier, the versioning of a type definition package will seek to emulate the versioning of the npm package it supports. For example, right now `<a href="https://www.npmjs.com/package/react-router">react-router</a>`'s latest version is `4.3.1`. The corresponding type definition `<a href="https://www.npmjs.com/package/@types/react-router">@types/react-router</a>`'s latest version is `4.0.31`. (It's fairly common for type definition versions to lag behind the package they type.)
 
-    If there's a breaking change to the `react-router` type definition then the new version published will have a version number that begins `"4.0."`. If you are relying on semantic versioning this will break you.
+   If there's a breaking change to the `react-router` type definition then the new version published will have a version number that begins `"4.0."`. If you are relying on semantic versioning this will break you.
 
 ## I Couldn't Help But Notice Your Pain
 
@@ -64,5 +73,3 @@ export interface match<Params extends { [K in keyof Params]?: string } = {}> {
 So any object definition supplied must have `string` values (and you don't actually need to supply an object definition; that's optional now).
 
 I expected this PR to break people [and it did](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/28894). But this is a useful break. If they were relying upon their parameters to be types other than strings they would be experiencing some unexpected behaviour. In fact, it's exactly this that prompted my PR in the first place. A colleague had defined his parameters as `number`s and couldn't understand why they weren't behaving like `number`s. Because they weren't `number`s! And wonderfully, this will now be caught at compile time; not runtime. Yay!
-
-

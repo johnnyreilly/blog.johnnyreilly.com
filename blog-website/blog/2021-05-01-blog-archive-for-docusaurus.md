@@ -1,17 +1,18 @@
 ---
-title: "Blog Archive for Docusaurus"
+title: 'Blog Archive for Docusaurus'
 authors: johnnyreilly
 tags: [Docusaurus, blog archive, webpack]
 image: blog/2021-05-01-blog-archive-for-docusaurus/docusaurus-blog-archive.png
 hide_table_of_contents: false
 ---
-Docusaurus doesn't ship with "blog archive" functionality. By which I mean, something that allows you to look at an overview of your historic blog posts. It turns out it is fairly straightforward to implement your own.  This post does just that.
+
+Docusaurus doesn't ship with "blog archive" functionality. By which I mean, something that allows you to look at an overview of your historic blog posts. It turns out it is fairly straightforward to implement your own. This post does just that.
 
 ![Docusaurus blog archive](../static/blog/2021-05-01-blog-archive-for-docusaurus/docusaurus-blog-archive.png)
 
 ## Update 2021-09-01
 
-As of [v2.0.0-beta.6](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.6), Docusauras *does* ship with blog archive functionality that lives at the `archive` route.  This is down to the work of [Gabriel Csapo](https://github.com/gabrielcsapo) in [this PR](https://github.com/facebook/docusaurus/pull/5428).
+As of [v2.0.0-beta.6](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.6), Docusauras _does_ ship with blog archive functionality that lives at the `archive` route. This is down to the work of [Gabriel Csapo](https://github.com/gabrielcsapo) in [this PR](https://github.com/facebook/docusaurus/pull/5428).
 
 If you'd like to know how to build your own, read on... But you may not need to!
 
@@ -42,15 +43,15 @@ We'll create a new page under the `pages` directory called `blog-archive.js` and
 
 ## Obtaining the blog data
 
-This page will be powered by webpack's [`require.context`](https://webpack.js.org/guides/dependency-management/#requirecontext) function. `require.context` allows us to use webpack to obtain all of the blog modules: 
+This page will be powered by webpack's [`require.context`](https://webpack.js.org/guides/dependency-management/#requirecontext) function. `require.context` allows us to use webpack to obtain all of the blog modules:
 
 ```js
-require.context("../../blog", false, /.md/)
+require.context('../../blog', false, /.md/);
 ```
 
-The code snippet above looks in the `blog` directory for files / modules ending with the suffix `".md"`.  Each one of these represents a blog post.  The function returns a `context` object, which contains all of the data about these modules.
+The code snippet above looks in the `blog` directory for files / modules ending with the suffix `".md"`. Each one of these represents a blog post. The function returns a `context` object, which contains all of the data about these modules.
 
-By reducing over that data we can construct an array of objects called `allPosts` that could drive a blog archive screen.  Let's do this below, and we'll use [TypeScripts JSDoc support](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html) to type our JavaScript:
+By reducing over that data we can construct an array of objects called `allPosts` that could drive a blog archive screen. Let's do this below, and we'll use [TypeScripts JSDoc support](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html) to type our JavaScript:
 
 ```tsx
 /**
@@ -66,20 +67,23 @@ const allPosts = ((ctx) => {
   /** @type {string[]} */
   const blogpostNames = ctx.keys();
 
-  return blogpostNames.reduce((blogposts, blogpostName, i) => {
-    const module = ctx(blogpostName)
-    const { date, formattedDate, title, permalink } = module.metadata;
-    return [
-      ...blogposts,
-      {
-        date,
-        formattedDate,
-        title,
-        permalink,
-      },
-    ];
-  }, /** @type {string[]}>} */ ([]));
-})(require.context("../../blog", false, /.md/));
+  return blogpostNames.reduce(
+    (blogposts, blogpostName, i) => {
+      const module = ctx(blogpostName);
+      const { date, formattedDate, title, permalink } = module.metadata;
+      return [
+        ...blogposts,
+        {
+          date,
+          formattedDate,
+          title,
+          permalink,
+        },
+      ];
+    },
+    /** @type {string[]}>} */ []
+  );
+})(require.context('../../blog', false, /.md/));
 ```
 
 Observe the `metadata` property in the screenshot below:
@@ -94,10 +98,10 @@ Now we have our data in the form of `allPosts`, let's display it. We'd like to b
 
 ```tsx
 const postsByYear = allPosts.reduceRight((posts, post) => {
-  const year = post.date.split("-")[0];
+  const year = post.date.split('-')[0];
   const yearPosts = posts.get(year) || [];
   return posts.set(year, [post, ...yearPosts]);
-}, /** @type {Map<string, BlogPost[]>}>} */ (new Map()));
+}, /** @type {Map<string, BlogPost[]>}>} */ new Map());
 
 const yearsOfPosts = Array.from(postsByYear, ([year, posts]) => ({
   year,
@@ -105,20 +109,17 @@ const yearsOfPosts = Array.from(postsByYear, ([year, posts]) => ({
 }));
 ```
 
-Now we're ready to blast it onto the screen.  We'll create two components:
+Now we're ready to blast it onto the screen. We'll create two components:
 
 - `Year` - which is a list of the posts for a given year and
 - `BlogArchive` - which is the overall page and maps over `yearsOfPosts` to render `Year`s
 
 ```tsx
 function Year(
-  /** @type {{ year: string; posts: BlogPost[]}} */ {
-    year,
-    posts,
-  }
+  /** @type {{ year: string; posts: BlogPost[]}} */ { year, posts }
 ) {
   return (
-    <div className={clsx("col col--4", styles.feature)}>
+    <div className={clsx('col col--4', styles.feature)}>
       <h3>{year}</h3>
       <ul>
         {posts.map((post) => (
@@ -136,7 +137,7 @@ function Year(
 function BlogArchive() {
   return (
     <Layout title="Blog Archive">
-      <header className={clsx("hero hero--primary", styles.heroBanner)}>
+      <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
           <h1 className="hero__title">Blog Archive</h1>
           <p className="hero__subtitle">Historic posts</p>
@@ -166,16 +167,16 @@ We're finished! We have a delightful looking blog archive plumbed into our blog:
 
 ![Docusaurus blog archive](../static/blog/2021-05-01-blog-archive-for-docusaurus/docusaurus-blog-archive.png)
 
-It is possible that a blog archive may become natively available in Docusaurus in future.  If you're interested in this, you can track [this issue](https://github.com/facebook/docusaurus/issues/4431).
+It is possible that a blog archive may become natively available in Docusaurus in future. If you're interested in this, you can track [this issue](https://github.com/facebook/docusaurus/issues/4431).
 
 Here's the final code - which you can see [powering this screen](https://blog.johnnyreilly.com/blog-archive). And you can see the code that backs it [here](https://github.com/johnnyreilly/blog.johnnyreilly.com/blob/main/blog-website/src/pages/blog-archive.js):
 
 ```tsx
-import React from "react";
-import clsx from "clsx";
-import Layout from "@theme/Layout";
-import Link from "@docusaurus/Link";
-import styles from "./styles.module.css";
+import React from 'react';
+import clsx from 'clsx';
+import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
+import styles from './styles.module.css';
 
 /**
  * @typedef {Object} BlogPost - creates a new type named 'BlogPost'
@@ -190,26 +191,29 @@ const allPosts = ((ctx) => {
   /** @type {string[]} */
   const blogpostNames = ctx.keys();
 
-  return blogpostNames.reduce((blogposts, blogpostName, i) => {
-    const module = ctx(blogpostName)
-    const { date, formattedDate, title, permalink } = module.metadata;
-    return [
-      ...blogposts,
-      {
-        date,
-        formattedDate,
-        title,
-        permalink,
-      },
-    ];
-  }, /** @type {string[]}>} */ ([]));
-})(require.context("../../blog", false, /.md/));
+  return blogpostNames.reduce(
+    (blogposts, blogpostName, i) => {
+      const module = ctx(blogpostName);
+      const { date, formattedDate, title, permalink } = module.metadata;
+      return [
+        ...blogposts,
+        {
+          date,
+          formattedDate,
+          title,
+          permalink,
+        },
+      ];
+    },
+    /** @type {string[]}>} */ []
+  );
+})(require.context('../../blog', false, /.md/));
 
 const postsByYear = allPosts.reduceRight((posts, post) => {
-  const year = post.date.split("-")[0];
+  const year = post.date.split('-')[0];
   const yearPosts = posts.get(year) || [];
   return posts.set(year, [post, ...yearPosts]);
-}, /** @type {Map<string, BlogPost[]>}>} */ (new Map()));
+}, /** @type {Map<string, BlogPost[]>}>} */ new Map());
 
 const yearsOfPosts = Array.from(postsByYear, ([year, posts]) => ({
   year,
@@ -217,13 +221,10 @@ const yearsOfPosts = Array.from(postsByYear, ([year, posts]) => ({
 }));
 
 function Year(
-  /** @type {{ year: string; posts: BlogPost[]}} */ {
-    year,
-    posts,
-  }
+  /** @type {{ year: string; posts: BlogPost[]}} */ { year, posts }
 ) {
   return (
-    <div className={clsx("col col--4", styles.feature)}>
+    <div className={clsx('col col--4', styles.feature)}>
       <h3>{year}</h3>
       <ul>
         {posts.map((post) => (
@@ -241,7 +242,7 @@ function Year(
 function BlogArchive() {
   return (
     <Layout title="Blog Archive">
-      <header className={clsx("hero hero--primary", styles.heroBanner)}>
+      <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
           <h1 className="hero__title">Blog Archive</h1>
           <p className="hero__subtitle">Historic posts</p>

@@ -1,17 +1,16 @@
 ---
-title: "ES6 + TypeScript + Babel + React + Flux + Karma: The Secret Recipe"
+title: 'ES6 + TypeScript + Babel + React + Flux + Karma: The Secret Recipe'
 authors: johnnyreilly
 tags: [ES6, Karma, React, ts-loader, Webpack]
 hide_table_of_contents: false
 ---
+
 I wrote [a while ago](https://blog.johnnyreilly.com/2015/09/things-done-changed.html) about how I was using some different tools in a current project:
 
- - React with JSX
+- React with JSX
 - Flux
 - ES6 with Babel
 - Karma for unit testing
-
-
 
 I have fully come to love and appreciate all of the above. I really like working with them. However. There was still an ache in my soul and a thorn in my side. Whilst I love the syntax of ES6 and even though I've come to appreciate the clarity of JSX, I have been missing something. Perhaps you can guess? It's static typing.
 
@@ -25,10 +24,8 @@ I decided a couple of months ago what I wanted to have in my setup:
 
 1. I want to be able to write React / JSX in TypeScript. Naturally I couldn't achieve that by myself but handily the TypeScript team decided to add support for JSX with [TypeScript 1.6](https://blogs.msdn.com/b/typescript/archive/2015/09/16/announcing-typescript-1-6.aspx). Ooh yeah.
 2. I wanted to be able to write ES6. When I realised [the approach for writing ES6 and having the transpilation handled by TypeScript wasn't clear](https://github.com/Microsoft/TypeScript/issues/3956) I had another idea. I thought ["what if I write ES6 and hand off the transpilation to Babel?"](https://github.com/Microsoft/TypeScript/issues/4765) i.e. Use TypeScript for type checking, not for transpilation. I realised that [James Brantly had my back](http://www.jbrantly.com/es6-modules-with-typescript-and-webpack/#configuringwebpack) here already. Enter [Webpack](https://webpack.github.io/) and [ts-loader](https://github.com/TypeStrong/ts-loader).
-3. Debugging. Being able to debug my code is non-negotiable for me. If I can't debug it I'm less productive. (I'm also bitter and twisted inside.) I should say that I wanted to be able to debug my *original* source code. Thanks to the magic of [sourcemaps](https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit?usp=sharing), that mad thing is possible.
+3. Debugging. Being able to debug my code is non-negotiable for me. If I can't debug it I'm less productive. (I'm also bitter and twisted inside.) I should say that I wanted to be able to debug my _original_ source code. Thanks to the magic of [sourcemaps](https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit?usp=sharing), that mad thing is possible.
 4. Karma for unit testing. I've become accustomed to writing my tests in ES6 and running them on a continual basis with [Karma](https://karma-runner.github.io/0.13/index.html). This allows for a rather good debugging story as well. I didn't want to lose this when I moved to TypeScript. I didn't.
-
-
 
 So I've talked about what I want and I've alluded to some of the solutions that there are. The question now is how to bring them all together. This post is, for the most part, going to be about correctly orchestrating a number of [gulp tasks](http://gulpjs.com/) to achieve the goals listed above. If you're after the [Blue Peter "here's one I made earlier"](https://en.wikipedia.org/wiki/Blue_Peter) moment then take a look at [the es6-babel-react-flux-karma repo](https://github.com/Microsoft/TypeScriptSamples/tree/master/es6-babel-react-flux-karma) in the [Microsoft/TypeScriptSamples repo on Github](https://github.com/Microsoft/TypeScriptSamples).
 
@@ -58,42 +55,54 @@ gulp.task('build-process.env.NODE_ENV', function () {
   process.env.NODE_ENV = 'production';
 });
 
-gulp.task('build-js', ['delete-dist', 'build-process.env.NODE_ENV'], function(done) {
-  webpack.build().then(function() { done(); });
-});
+gulp.task(
+  'build-js',
+  ['delete-dist', 'build-process.env.NODE_ENV'],
+  function (done) {
+    webpack.build().then(function () {
+      done();
+    });
+  }
+);
 
-gulp.task('build-other', ['delete-dist', 'build-process.env.NODE_ENV'], function() {
-  staticFiles.build();
-});
+gulp.task(
+  'build-other',
+  ['delete-dist', 'build-process.env.NODE_ENV'],
+  function () {
+    staticFiles.build();
+  }
+);
 
 gulp.task('build', ['build-js', 'build-other', 'lint'], function () {
   inject.build();
 });
 
 gulp.task('lint', function () {
-  return gulp.src(lintSrcs)
-    .pipe(eslint())
-    .pipe(eslint.format());
+  return gulp.src(lintSrcs).pipe(eslint()).pipe(eslint.format());
 });
 
-gulp.task('watch', ['delete-dist'], function() {
+gulp.task('watch', ['delete-dist'], function () {
   process.env.NODE_ENV = 'development';
   Promise.all([
-    webpack.watch()//,
+    webpack.watch(), //,
     //less.watch()
-  ]).then(function() {
-    gutil.log('Now that initial assets (js and css) are generated inject will start...');
-    inject.watch(postInjectCb);
-  }).catch(function(error) {
-    gutil.log('Problem generating initial assets (js and css)', error);
-  });
+  ])
+    .then(function () {
+      gutil.log(
+        'Now that initial assets (js and css) are generated inject will start...'
+      );
+      inject.watch(postInjectCb);
+    })
+    .catch(function (error) {
+      gutil.log('Problem generating initial assets (js and css)', error);
+    });
 
   gulp.watch(lintSrcs, ['lint']);
   staticFiles.watch();
   tests.watch();
 });
 
-gulp.task('watch-and-serve', ['watch'], function() {
+gulp.task('watch-and-serve', ['watch'], function () {
   postInjectCb = stopAndStartServer;
 });
 
@@ -112,7 +121,7 @@ function startServer() {
   gutil.log('Starting server');
   connect.server({
     root: './dist',
-    port: 8080
+    port: 8080,
   });
   serverStarted = true;
 }
@@ -148,19 +157,29 @@ function buildProduction(done) {
 
   myProdConfig.plugins = myProdConfig.plugins.concat(
     // make the vendor.js file with cachebusting filename
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.[hash].js' }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.[hash].js',
+    }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin()
   );
 
   // run webpack
-  webpack(myProdConfig, function(err, stats) {
-    if(err) { throw new gutil.PluginError('webpack:build', err); }
-    gutil.log('[webpack:build]', stats.toString({
-      colors: true
-    }));
+  webpack(myProdConfig, function (err, stats) {
+    if (err) {
+      throw new gutil.PluginError('webpack:build', err);
+    }
+    gutil.log(
+      '[webpack:build]',
+      stats.toString({
+        colors: true,
+      })
+    );
 
-    if (done) { done(); }
+    if (done) {
+      done();
+    }
   });
 }
 
@@ -172,7 +191,10 @@ function createDevCompiler() {
 
   myDevConfig.plugins = myDevConfig.plugins.concat(
     // Make the vendor.js file
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js' }), 
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.js',
+    }),
     new WebpackNotifierPlugin({ title: 'Webpack build', excludeWarnings: true })
   );
 
@@ -182,17 +204,23 @@ function createDevCompiler() {
 
 function buildDevelopment(done, devCompiler) {
   // run webpack
-  devCompiler.run(function(err, stats) {
-    if(err) { throw new gutil.PluginError('webpack:build-dev', err); }
-    gutil.log('[webpack:build-dev]', stats.toString({
-      chunks: false, // dial down the output from webpack (it can be noisy)
-      colors: true
-    }));
+  devCompiler.run(function (err, stats) {
+    if (err) {
+      throw new gutil.PluginError('webpack:build-dev', err);
+    }
+    gutil.log(
+      '[webpack:build-dev]',
+      stats.toString({
+        chunks: false, // dial down the output from webpack (it can be noisy)
+        colors: true,
+      })
+    );
 
-    if (done) { done(); }
+    if (done) {
+      done();
+    }
   });
 }
-
 
 function bundle(options) {
   var devCompiler;
@@ -208,10 +236,12 @@ function bundle(options) {
   if (options.shouldWatch) {
     devCompiler = createDevCompiler();
 
-    gulp.watch('src/**/*', function() { build(); });
+    gulp.watch('src/**/*', function () {
+      build();
+    });
   }
 
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     build(function (err) {
       if (err) {
         reject(err);
@@ -223,8 +253,12 @@ function bundle(options) {
 }
 
 module.exports = {
-  build: function() { return bundle({ shouldWatch: false }); },
-  watch: function() { return bundle({ shouldWatch: true  }); }
+  build: function () {
+    return bundle({ shouldWatch: false });
+  },
+  watch: function () {
+    return bundle({ shouldWatch: true });
+  },
 };
 ```
 
@@ -240,50 +274,47 @@ module.exports = {
   cache: true,
   entry: {
     // The entry point of our application; the script that imports all other scripts in our SPA
-    main: './src/main.tsx', 
+    main: './src/main.tsx',
 
     // The packages that are to be included in vendor.js
-    vendor: [
-      'babel-polyfill',
-      'events',
-      'flux',
-      'react'
-    ]
+    vendor: ['babel-polyfill', 'events', 'flux', 'react'],
   },
 
   // Where the output of our compilation ends up
   output: {
     path: path.resolve(__dirname, './dist/scripts'),
     filename: '[name].js',
-    chunkFilename: '[chunkhash].js'
+    chunkFilename: '[chunkhash].js',
   },
 
   module: {
-    loaders: [{
-      // The loader that handles ts and tsx files.  These are compiled
-      // with the ts-loader and the output is then passed through to the
-      // babel-loader.  The babel-loader uses the es2015 and react presets
-      // in order that jsx and es6 are processed.
-      test: /\.ts(x?)$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader?presets[]=es2015&presets[]=react!ts-loader'
-    }, {
-      // The loader that handles any js files presented alone.
-      // It passes these to the babel-loader which (again) uses the es2015
-      // and react presets.
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: 'babel',
-      query: {
-        presets: ['es2015', 'react']
-      }
-    }]
+    loaders: [
+      {
+        // The loader that handles ts and tsx files.  These are compiled
+        // with the ts-loader and the output is then passed through to the
+        // babel-loader.  The babel-loader uses the es2015 and react presets
+        // in order that jsx and es6 are processed.
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader?presets[]=es2015&presets[]=react!ts-loader',
+      },
+      {
+        // The loader that handles any js files presented alone.
+        // It passes these to the babel-loader which (again) uses the es2015
+        // and react presets.
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'react'],
+        },
+      },
+    ],
   },
-  plugins: [
-  ],
+  plugins: [],
   resolve: {
     // Files with the following extensions are fair game for webpack to process
-    extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
+    extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
   },
 };
 ```
@@ -293,19 +324,22 @@ module.exports = {
 Your compiled output needs to be referenced from some kind of HTML page. So we've got this:
 
 ```html
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charSet="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>ES6 + Babel + React + Flux + Karma: The Secret Recipe</title>
 
     <!-- inject:css -->
     <!-- endinject -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    </head>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+    />
+  </head>
   <body>
     <div id="content"></div>
     <!-- inject:js -->
@@ -319,8 +353,6 @@ Which is no more than a boilerplate HTML page with a couple of key features:
 - a single `&lt;div /&gt;` element in the `&lt;body /&gt;` which is where our React app is going to be rendered.
 - `&lt;!-- inject:css --&gt;` and `&lt;!-- inject:js --&gt;` placeholders where css and js is going to be injected by `gulp-inject`.
 - a single `&lt;link /&gt;` to the Bootstrap CDN. This sample app doesn't actually serve up any css generated as part of the project. It could but it doesn't. When it comes to injection time no css will actually be injected. This has been left in place as, more typically, a project would have some styling served up.
-
-
 
 This is fed into our inject task in `inject.build()` and `inject.watch()`. They take css and javascript and, using our shell template, create a new page which has the css and javascript dropped into their respective placeholders:
 
@@ -336,22 +368,34 @@ function injectIndex(options) {
   var postInjectCbTriggerId = null;
   function run() {
     var target = gulp.src('./src/index.html');
-    var sources = gulp.src([
-      //'./dist/styles/main*.css',
-      './dist/scripts/vendor*.js',
-      './dist/scripts/main*.js'
-    ], { read: false });
+    var sources = gulp.src(
+      [
+        //'./dist/styles/main*.css',
+        './dist/scripts/vendor*.js',
+        './dist/scripts/main*.js',
+      ],
+      { read: false }
+    );
 
     return target
-      .on('end', function() { // invoke postInjectCb after 1s
-        if (postInjectCbTriggerId || !postInjectCb) { return; }
+      .on('end', function () {
+        // invoke postInjectCb after 1s
+        if (postInjectCbTriggerId || !postInjectCb) {
+          return;
+        }
 
-        postInjectCbTriggerId = setTimeout(function() {
+        postInjectCbTriggerId = setTimeout(function () {
           postInjectCb();
           postInjectCbTriggerId = null;
         }, 1000);
       })
-      .pipe(inject(sources, { ignorePath: '/dist/', addRootSlash: false, removeTags: true }))
+      .pipe(
+        inject(sources, {
+          ignorePath: '/dist/',
+          addRootSlash: false,
+          removeTags: true,
+        })
+      )
       .pipe(gulp.dest('./dist'));
   }
 
@@ -359,10 +403,13 @@ function injectIndex(options) {
 
   function checkForInitialFilesThenRun() {
     glob(jsCssGlob, function (er, files) {
-      var filesWeNeed = ['dist/scripts/main', 'dist/scripts/vendor'/*, 'dist/styles/main'*/];
+      var filesWeNeed = [
+        'dist/scripts/main',
+        'dist/scripts/vendor' /*, 'dist/styles/main'*/,
+      ];
 
       function fileIsPresent(fileWeNeed) {
-        return files.some(function(file) {
+        return files.some(function (file) {
           return file.indexOf(fileWeNeed) !== -1;
         });
       }
@@ -378,7 +425,7 @@ function injectIndex(options) {
   checkForInitialFilesThenRun();
 
   if (options.shouldWatch) {
-    gulp.watch(jsCssGlob, function(evt) {
+    gulp.watch(jsCssGlob, function (evt) {
       if (evt.path && evt.type === 'changed') {
         run(evt.path);
       }
@@ -387,8 +434,12 @@ function injectIndex(options) {
 }
 
 module.exports = {
-  build: function() { return injectIndex({ shouldWatch: false }); },
-  watch: function(postInjectCb) { return injectIndex({ shouldWatch: true, postInjectCb: postInjectCb }); }
+  build: function () {
+    return injectIndex({ shouldWatch: false });
+  },
+  watch: function (postInjectCb) {
+    return injectIndex({ shouldWatch: true, postInjectCb: postInjectCb });
+  },
 };
 ```
 
@@ -407,22 +458,25 @@ var cache = require('gulp-cached');
 var targets = [
   // In my own example I don't use any of the targets below, they
   // are included to give you more of a feel of how you might use this
-  { description: 'FONTS',   src: './fonts/*',     dest: './dist/fonts' },  
-  { description: 'STYLES',  src: './styles/*',    dest: './dist/styles' },
-  { description: 'FAVICON', src: './favicon.ico', dest: './dist' },  
-  { description: 'IMAGES',  src: './images/*',    dest: './dist/images' }
+  { description: 'FONTS', src: './fonts/*', dest: './dist/fonts' },
+  { description: 'STYLES', src: './styles/*', dest: './dist/styles' },
+  { description: 'FAVICON', src: './favicon.ico', dest: './dist' },
+  { description: 'IMAGES', src: './images/*', dest: './dist/images' },
 ];
 
 function copy(options) {
   // Copy files from their source to their destination
   function run(target) {
-    gulp.src(target.src)
+    gulp
+      .src(target.src)
       .pipe(cache(target.description))
       .pipe(gulp.dest(target.dest));
   }
 
   function watch(target) {
-    gulp.watch(target.src, function() { run(target); });
+    gulp.watch(target.src, function () {
+      run(target);
+    });
   }
 
   targets.forEach(run);
@@ -433,8 +487,12 @@ function copy(options) {
 }
 
 module.exports = {
-  build: function() { return copy({ shouldWatch: false }); },
-  watch: function() { return copy({ shouldWatch: true }); }
+  build: function () {
+    return copy({ shouldWatch: false });
+  },
+  watch: function () {
+    return copy({ shouldWatch: true });
+  },
 };
 ```
 
@@ -450,14 +508,21 @@ var path = require('path');
 var gutil = require('gulp-util');
 
 module.exports = {
-  watch: function() {
+  watch: function () {
     // Documentation: https://karma-runner.github.io/0.13/dev/public-api.html
     var karmaConfig = {
       configFile: path.join(__dirname, '../karma.conf.js'),
       singleRun: false,
 
-      plugins: ['karma-webpack', 'karma-jasmine', 'karma-mocha-reporter', 'karma-sourcemap-loader', 'karma-phantomjs-launcher', 'karma-phantomjs-shim'], // karma-phantomjs-shim only in place until PhantomJS hits 2.0 and has function.bind
-      reporters: ['mocha']
+      plugins: [
+        'karma-webpack',
+        'karma-jasmine',
+        'karma-mocha-reporter',
+        'karma-sourcemap-loader',
+        'karma-phantomjs-launcher',
+        'karma-phantomjs-shim',
+      ], // karma-phantomjs-shim only in place until PhantomJS hits 2.0 and has function.bind
+      reporters: ['mocha'],
     };
 
     new Server(karmaConfig, karmaCompleted).start();
@@ -466,7 +531,7 @@ module.exports = {
       gutil.log('Karma has exited with:', exitCode);
       process.exit(exitCode);
     }
-  }
+  },
 };
 ```
 
@@ -480,41 +545,41 @@ Whichever approach we use for running tests, we use the following `karma.conf.js
 
 var webpackConfig = require('./webpack.config.js');
 
-module.exports = function(config) {
+module.exports = function (config) {
   // Documentation: https://karma-runner.github.io/0.13/config/configuration-file.html
   config.set({
-    browsers: [ 'PhantomJS' ],
+    browsers: ['PhantomJS'],
 
     files: [
       'test/import-babel-polyfill.js', // This ensures we have the es6 shims in place from babel
       'test/**/*.tests.ts',
-      'test/**/*.tests.tsx'
+      'test/**/*.tests.tsx',
     ],
 
     port: 9876,
 
-    frameworks: [ 'jasmine', 'phantomjs-shim' ],
+    frameworks: ['jasmine', 'phantomjs-shim'],
 
     logLevel: config.LOG_INFO, //config.LOG_DEBUG
 
     preprocessors: {
-      'test/import-babel-polyfill.js': [ 'webpack', 'sourcemap' ],
-      'src/**/*.{ts,tsx}': [ 'webpack', 'sourcemap' ],
-      'test/**/*.tests.{ts,tsx}': [ 'webpack', 'sourcemap' ]
+      'test/import-babel-polyfill.js': ['webpack', 'sourcemap'],
+      'src/**/*.{ts,tsx}': ['webpack', 'sourcemap'],
+      'test/**/*.tests.{ts,tsx}': ['webpack', 'sourcemap'],
     },
 
     webpack: {
       devtool: 'eval-source-map', //'inline-source-map', - inline-source-map doesn't work at present
       debug: true,
       module: webpackConfig.module,
-      resolve: webpackConfig.resolve
+      resolve: webpackConfig.resolve,
     },
 
     webpackMiddleware: {
       quiet: true,
       stats: {
-        colors: true
-      }
+        colors: true,
+      },
     },
 
     // reporter options
@@ -523,15 +588,15 @@ module.exports = function(config) {
         success: 'bgGreen',
         info: 'cyan',
         warning: 'bgBlue',
-        error: 'bgRed'
-      }
+        error: 'bgRed',
+      },
     },
 
     junitReporter: {
       outputDir: 'test-results', // results will be saved as $outputDir/$browserName.xml
       outputFile: undefined, // if included, results will be saved as $outputDir/$browserName/$outputFile
-      suite: ''
-    }
+      suite: '',
+    },
   });
 };
 ```
@@ -543,5 +608,3 @@ And that's it; we have a workflow for developing in TypeScript using React with 
 ## Babel 5 -> Babel 6
 
 This post has actually been sat waiting to be published for some time. I'd got this solution up and running with Babel 5. Then they shipped Babel 6 and (as is the way with "breaking changes") [broke sourcemap support](https://phabricator.babeljs.io/T2864) and thus torpedoed this workflow. Happily that's now [been resolved](https://github.com/babel/babel/pull/3108). But if you should experience any wonkiness - it's worth checking that you're using the latest and greatest of Babel 6.
-
-

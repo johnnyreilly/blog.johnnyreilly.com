@@ -1,9 +1,10 @@
 ---
-title: "My Subconscious is a Better Developer Than I Am"
+title: 'My Subconscious is a Better Developer Than I Am'
 authors: johnnyreilly
 tags: []
 hide_table_of_contents: false
 ---
+
 Occasionally I flatter myself that I'm alright at this development lark. Such egotistical talk is foolish. What makes me pause even more when I consider the proposition is this: my subconscious is a better developer than I am.
 
 What's this fellow talking about?
@@ -23,5 +24,3 @@ I draw some comfort from the knowledge that I'm not alone in my experience. I've
 ![a poster from the film Being John Malkovich](../static/blog/2016-11-12-my-subconscious-is-better-developer/beingjohnm.png)
 
 PS I posted this to Hacker News and [the comments left by people are pretty fascinating](https://news.ycombinator.com/item?id=12942461).
-
-

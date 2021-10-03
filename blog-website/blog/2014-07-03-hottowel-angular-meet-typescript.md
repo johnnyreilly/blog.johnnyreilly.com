@@ -1,9 +1,10 @@
 ---
-title: "HotTowel-Angular meet TypeScript"
+title: 'HotTowel-Angular meet TypeScript'
 authors: johnnyreilly
 tags: [HotTowel, TypeScript, AngularJS, JohnPapa]
 hide_table_of_contents: false
 ---
+
 I've recently ported John Papa's popular [Hot Towel Angular SPA Template](https://github.com/johnpapa/HotTowel-Angular) to TypeScript. Why? [Because it was there.](http://en.wikipedia.org/wiki/George_Mallory)
 
 If you'd like to read more about HotTowel-Angular then have a read of [John Papa's post](http://www.johnpapa.net/hot-towel-angular/). You can find my port on GitHub [here](https://github.com/johnnyreilly/HotTowel-Angular-TypeScript).
@@ -30,9 +31,10 @@ In fact there are only 2 differences in the end:
 return r.config.settings && r.config.settings.nav;
 ```
 
- to this: ```ts
+to this: ```ts
 return (r.config.settings && r.config.settings.nav) ? true : false;
-```
+
+````
 
 This was necessary as TypeScript insists that the array `filter` predicate returns a `boolean`. John's original method returns a number (`nav`'s value to be clear) which actually seems to work fine. My assumption is that JavaScript's filter method is happy with a truth-y / false-y test which John's implementation would satisfy.
 
@@ -45,7 +47,7 @@ var args = [];
     for (var _i = 0; _i < (arguments.length - 0); _i++) {
         args[_i] = arguments[_i + 0];
     }
-```
+````
 
 ## If you want to use this
 
@@ -70,5 +72,3 @@ If you're interested in the specific versions of the typings that I used then yo
 To John Papa for creating HotTowel-Angular. Much love.
 
 And my mum too... Just because.
-
-

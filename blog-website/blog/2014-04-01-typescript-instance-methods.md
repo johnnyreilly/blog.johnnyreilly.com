@@ -1,35 +1,37 @@
 ---
-title: "TypeScript this is what I want! (the unfortunate neglect of Instance Methods / callback functions)"
+title: 'TypeScript this is what I want! (the unfortunate neglect of Instance Methods / callback functions)'
 authors: johnnyreilly
-tags: [callback functions, TypeScript, Lexical scoping, closure, Instance methods]
+tags:
+  [callback functions, TypeScript, Lexical scoping, closure, Instance methods]
 hide_table_of_contents: false
 ---
+
 I was recently reading [Jeff Walker's blog post "Why TypeScript Isn't the Answer"](http://www.walkercoderanger.com/blog/2014/02/typescript-isnt-the-answer/). This is part of series in which Jeff goes through various compile-to-JavaScript technologies including TypeScript, CoffeeScript and Dart and explains his view of why he feels they don't quite hit the mark.
 
- As a user (and big fan) of TypeScript I read the post with interest and picked up on one particular issue that Jeff mentions:
+As a user (and big fan) of TypeScript I read the post with interest and picked up on one particular issue that Jeff mentions:
 
 > Classes make the unchanged behaviour of the `this` keyword more confusing. For example, in a class like `Greeter` from the [TypeScript playground](http://www.typescriptlang.org/Playground), the use of `this` is confusing:
-> 
+>
 > ```ts
 > class Greeter {
->  greeting: string;
->  constructor(message: string) {
->   this.greeting = message;
->  }
->  greet() {
->   return "Hello, " + this.greeting;
->  }
+>   greeting: string;
+>   constructor(message: string) {
+>     this.greeting = message;
+>   }
+>   greet() {
+>     return 'Hello, ' + this.greeting;
+>   }
 > }
 > ```
-> 
+>
 > One can’t help but feel the `this` keyword in the methods of `Greeter` should always reference a `Greeter` instance. However, the semantics of this are unchanged from JavaScript:
-> 
+>
 > ```js
-> var greeter = new Greeter("world");
+> var greeter = new Greeter('world');
 > var unbound = greeter.greet;
 > alert(unbound());
 > ```
-> 
+>
 > The above code displays “Hello, undefined” instead of the naively expected “Hello, world”.
 
 Now Jeff is quite correct in everything he says above. However, he's also missing a trick. Or rather, he's missing out on a very useful feature of TypeScript.
@@ -48,13 +50,13 @@ So, if we take the `Greeter` example, how do we apply Instance Methods to it? We
 
 ```ts
 class Greeter {
- greeting: string;
- constructor(message: string) {
-  this.greeting = message;
- }
- greet = () => {
-  return "Hello, " + this.greeting;
- }
+  greeting: string;
+  constructor(message: string) {
+    this.greeting = message;
+  }
+  greet = () => {
+    return 'Hello, ' + this.greeting;
+  };
 }
 ```
 
@@ -64,11 +66,11 @@ Observant readers will have noticed that we are using TypeScript / [ES6's Arrow 
 
 ```ts
 class Greeter {
- greeting: string;
- constructor(message: string) {
-  this.greeting = message;
- }
- greet = () => "Hello, " + this.greeting
+  greeting: string;
+  constructor(message: string) {
+    this.greeting = message;
+  }
+  greet = () => 'Hello, ' + this.greeting;
 }
 ```
 
@@ -76,14 +78,14 @@ But either way, both of the above class declarations compile down to the followi
 
 ```js
 var Greeter = (function () {
-    function Greeter(message) {
-        var _this = this;
-        this.greet = function () {
-            return "Hello, " + _this.greeting;
-        };
-        this.greeting = message;
-    }
-    return Greeter;
+  function Greeter(message) {
+    var _this = this;
+    this.greet = function () {
+      return 'Hello, ' + _this.greeting;
+    };
+    this.greeting = message;
+  }
+  return Greeter;
 })();
 ```
 
@@ -91,13 +93,13 @@ Which differs from the pre-Instance Methods generated JavaScript:
 
 ```js
 var Greeter = (function () {
-    function Greeter(message) {
-        this.greeting = message;
-    }
-    Greeter.prototype.greet = function () {
-        return "Hello, " + this.greeting;
-    };
-    return Greeter;
+  function Greeter(message) {
+    this.greeting = message;
+  }
+  Greeter.prototype.greet = function () {
+    return 'Hello, ' + this.greeting;
+  };
+  return Greeter;
 })();
 ```
 
@@ -106,7 +108,7 @@ As you can see the Instance Methods approach does \***not**\* make use of the `p
 So with Instance Methods we can repeat Jeff's experiment from earlier:
 
 ```js
-var greeter = new Greeter("world");
+var greeter = new Greeter('world');
 var bound = greeter.greet;
 alert(bound());
 ```
@@ -121,17 +123,17 @@ What I’ve come to realise is that it comes down to problem that you’re tryin
 
 ```js
 var Greeter = (function () {
-    function Greeter(message) {
-        this.greeting = message;
-    }
-    Greeter.prototype.greet = function () {
-        return "Hello, " + this.greeting;
-    };
-    return Greeter;
+  function Greeter(message) {
+    this.greeting = message;
+  }
+  Greeter.prototype.greet = function () {
+    return 'Hello, ' + this.greeting;
+  };
+  return Greeter;
 })();
 
-var greeter = new Greeter("world");
-var greeter2 = new Greeter("universe");
+var greeter = new Greeter('world');
+var greeter2 = new Greeter('universe');
 
 console.log(greeter.greet()); // Logs "Hello, world"
 console.log(greeter2.greet()); // Logs "Hello, universe"
@@ -142,5 +144,3 @@ As you can see above, provided I invoke my `greet` method in the context of my c
 That being the case my general practice has not been to use exclusively Instance methods \***or**\* `prototype` methods. What I tend to do is start out only with `prototype` methods on my classes and switch them over to be an Instance method if there is an actual need to ensure context. So my TypeScript classes tend to be a combination of `prototype` methods and Instance methods.
 
 More often than not the `prototype` methods are just fine. It tends to be where an object is interacting with some kind of presentation framework (Knockout / Angular etc) or being invoked as part of a callback (eg AJAX scenarios) where I need Instance methods.
-
-

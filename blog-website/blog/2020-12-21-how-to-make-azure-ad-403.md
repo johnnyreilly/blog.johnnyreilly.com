@@ -1,10 +1,19 @@
 ---
-title: "Make Microsoft.Identity.Web respond with 403 forbidden instead of a 302 redirect"
+title: 'Make Microsoft.Identity.Web respond with 403 forbidden instead of a 302 redirect'
 authors: johnnyreilly
-tags: [Microsoft.Identity.Web, OnRedirectToAccessDenied, Azure AD, Azure Active Directory, redirect, ASP.NET]
+tags:
+  [
+    Microsoft.Identity.Web,
+    OnRedirectToAccessDenied,
+    Azure AD,
+    Azure Active Directory,
+    redirect,
+    ASP.NET,
+  ]
 image: blog/2020-12-21-how-to-make-azure-ad-403/Forbidden.png
 hide_table_of_contents: false
 ---
+
 By default `Microsoft.Identity.Web` responds to unauthorized requests with a 302 (redirect). Do you want a 403 (forbidden) instead? Here's how.
 
 If you're using the tremendous [Azure Active Directory for authentication with ASP.NET](https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-web-app-sign-user-app-configuration?tabs=aspnetcore) then there's a good chance you're using the [`Microsoft.Identity.Web`](https://github.com/AzureAD/microsoft-identity-web) library. It's this that allows us to drop the following statement into the `ConfigureServices` method of our `Startup` class:
@@ -15,13 +24,13 @@ services.AddMicrosoftIdentityWebAppAuthentication(Configuration);
 
 Which (combined with configuration in our `appsettings.json` files) hooks us up with Azure AD for authentication. This is 95% awesome. The 5% is what we're here for. Here's a screenshot of the scenario that troubles us:
 
- ![a screenshot of Chrome Devtools showing a 302](../static/blog/2020-12-21-how-to-make-azure-ad-403/AccessDenied.png)
+![a screenshot of Chrome Devtools showing a 302](../static/blog/2020-12-21-how-to-make-azure-ad-403/AccessDenied.png)
 
 We've made a request to `/WeatherForecast`; a secured endpoint (a controller decorated with the `Authorize` attribute). We're authenticated; the app knows who we are. But we're not authorized / allowed to access this endpoint. We don't have permission. The HTTP specification caters directly for this scenario with [status code `403 Forbidden`](https://tools.ietf.org/html/rfc7231#section-6.5.3):
 
 > The 403 (Forbidden) status code indicates that the server understood the request but refuses to authorize it.
 
-However, `Microsoft.Identity.Web` is ploughing another furrow. Instead of returning `403`, it's returning `302 Found` and redirecting the browser to `https://localhost:5001/Account/AccessDenied?ReturnUrl=%2FWeatherForecast`. Now the intentions here are *great*. If you wanted to implement a page in your application at that endpoint that displayed some kind of useful message it would be really useful. However, what if you want the more HTTP-y behaviour instead? In the case of a HTTP request triggered by JavaScript (typical for Single Page Applications) then this redirect isn't that helpful. JavaScript doesn't really know what to do with the `302` and whilst you could code around this, it's not desirable.
+However, `Microsoft.Identity.Web` is ploughing another furrow. Instead of returning `403`, it's returning `302 Found` and redirecting the browser to `https://localhost:5001/Account/AccessDenied?ReturnUrl=%2FWeatherForecast`. Now the intentions here are _great_. If you wanted to implement a page in your application at that endpoint that displayed some kind of useful message it would be really useful. However, what if you want the more HTTP-y behaviour instead? In the case of a HTTP request triggered by JavaScript (typical for Single Page Applications) then this redirect isn't that helpful. JavaScript doesn't really know what to do with the `302` and whilst you could code around this, it's not desirable.
 
 We want `403` - we don't want `302`.
 
@@ -69,4 +78,4 @@ services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefaults.Aut
 });
 ```
 
-So above, we check the request `Accept` headers and see if they contain `"text/html"`; which we're using as a signal that the request came from a users browsing. (This may not be bulletproof; better suggestions gratefully received.) If the request does contain a `"text/html"``Accept` header then we redirect the client to an `/unauthorized` screen, otherwise we return `403` as we did before. Super flexible and powerful!
+So above, we check the request `Accept` headers and see if they contain `"text/html"`; which we're using as a signal that the request came from a users browsing. (This may not be bulletproof; better suggestions gratefully received.) If the request does contain a ` "text/html"``Accept ` header then we redirect the client to an `/unauthorized` screen, otherwise we return `403` as we did before. Super flexible and powerful!

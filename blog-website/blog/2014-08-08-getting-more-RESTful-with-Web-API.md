@@ -1,12 +1,13 @@
 ---
-title: "Getting more RESTful with Web API and IHttpActionResult"
+title: 'Getting more RESTful with Web API and IHttpActionResult'
 authors: johnnyreilly
 tags: [Web API 2, IHttpActionResult]
 hide_table_of_contents: false
 ---
+
 Up until, well yesterday really, I tended to have my Web API action methods all returning [200](http://en.wikipedia.org/wiki/HTTP_200#2xx_Success)'s no matter what. Successful request? 200 for you sir! Some validation error in the model? 200 for you too ma'am - but I'll wrap up the validation errors and send them back too. Database error? 200 and and an error message.
 
- It kind of looked like this (this example taken from a [previous post](http://icanmakethiswork.blogspot.co.uk/2014/08/angularjs-meet-aspnet-server-validation.html)):
+It kind of looked like this (this example taken from a [previous post](http://icanmakethiswork.blogspot.co.uk/2014/08/angularjs-meet-aspnet-server-validation.html)):
 
 ```cs
 public class SageController : ApiController
@@ -52,7 +53,7 @@ public class SageController : ApiController
   {
     if (!ModelState.IsValid) {
 
-      return BadRequest(new  { 
+      return BadRequest(new  {
         Errors = ModelState.ToErrorDictionary()
       });
     }
@@ -98,7 +99,7 @@ public class SageController : ApiController
   {
     if (!ModelState.IsValid) {
       // See how we have "this." before BadRequest so the Extension method is invoked
-      return this.BadRequest(new  { 
+      return this.BadRequest(new  {
         Errors = ModelState.ToErrorDictionary()
       });
     }
@@ -115,5 +116,3 @@ public class SageController : ApiController
 ```
 
 And now we have have an endpoint that serves up 2xx status codes or 4xx status codes just as I'd hoped. Obviously this change in the way my action methods are returning will have implications for the consuming client (in my case an app built using AngularJS and $q). Essentially I can now use my `then` to handle the successes and my `catch` to handle the errors.
-
-

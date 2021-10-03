@@ -1,12 +1,13 @@
 ---
-title: "He tasks me; he heaps me.... I will wreak that MOQ upon him."
+title: 'He tasks me; he heaps me.... I will wreak that MOQ upon him.'
 authors: johnnyreilly
 tags: [unit testing, async, MOQ, metaphysics]
 hide_table_of_contents: false
 ---
+
 Enough with the horrific misquotes - this is about Moq and async (that's my slight justification for robbing Herman Melville).
 
- It's pretty straightforward to use Moq to do async testing thanks to it's marvellous `ReturnsAsync` method. That means it's really easy to test a class that consumes an async API. Below is an example of a class that does just that: (it so happens that this class is a Web API controller but that's pretty irrelevant to be honest)
+It's pretty straightforward to use Moq to do async testing thanks to it's marvellous `ReturnsAsync` method. That means it's really easy to test a class that consumes an async API. Below is an example of a class that does just that: (it so happens that this class is a Web API controller but that's pretty irrelevant to be honest)
 
 ```cs
 namespace Proverb.Web.Controllers
@@ -21,7 +22,7 @@ namespace Proverb.Web.Controllers
     {
         ISageService _sageService;
 
-        public SageController(ISageService userService) 
+        public SageController(ISageService userService)
         {
             _sageService = userService;
         }
@@ -138,7 +139,7 @@ namespace Proverb.Web.Controllers
     {
         ISageService _sageService;
 
-        public SageController(ISageService userService) 
+        public SageController(ISageService userService)
         {
             _sageService = userService;
         }
@@ -190,5 +191,3 @@ namespace Proverb.Web.Tests.ASPNet.Controllers
     }
 }
 ```
-
-

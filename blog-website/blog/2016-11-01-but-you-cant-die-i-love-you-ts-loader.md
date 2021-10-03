@@ -4,9 +4,10 @@ authors: johnnyreilly
 tags: [open source, TypeScript, ts-loader]
 hide_table_of_contents: false
 ---
+
 That's how I was feeling on the morning of October 6th 2016. I'd been feeling that way for some time. The target of my concern? [ts-loader](https://github.com/TypeStrong/ts-loader). ts-loader is a loader for [webpack; the module bundler](https://webpack.github.io/). ts-loader allows you use TypeScript with webpack. I'd been a merry user of it for at least a year or so. But, at that point, all was not well in the land of ts-loader. Come with me and I'll tell you a story...
 
- ## Going Red
+## Going Red
 
 At some point, I became a member of the [TypeStrong](https://github.com/TypeStrong) organisation on GitHub. I'm honestly not entirely sure how. I think it may have been down to the very excellent [Basarat](https://github.com/basarat) (he of [ALM](http://alm.tools/) / [atom-typescript](https://github.com/TypeStrong/atom-typescript) / the list goes on fame) but I couldn't clearly say.
 
@@ -19,21 +20,21 @@ This is where we came in. On the morning of October 6th I was mulling what to do
 So that evening I raised [an issue against ts-loader](https://github.com/TypeStrong/ts-loader/issues/296). Not a "sort it out chap" issue. No. That wouldn't be terribly helpful. I raised a "here's how I can help" issue. I present an abridged version below:
 
 > Okay here's the deal; I've been using ts-loader for a long time but my contributions up until now have mostly been documentation. Fixing of tests etc. As the commit history shows this is [@jbrantly](https://github.com/jbrantly)'s baby and kudos to him.
-> 
+>
 > He's not been able to contribute much of late and since he's the main person who's worked on ts-loader not much has happened for a while; the code is a bit stale. As I'm a member of TypeStrong I'm going to have a go at improving the state of the project. I'm going to do this as carefully as I can. This issue is intended as a meta issue to make it visible what I'm plannning to do / doing.
-> 
+>
 > My immediate goal is to get a newer version of ts-loader built and shipped. Essentially all the bug fixes / tweaks since the last release should ship.
-> 
+>
 > ...
-> 
+>
 > I don't have npm publish rights for ts-loader. Fortunately both [@jbrantly](https://github.com/jbrantly) and [@blakeembrey](https://github.com/blakeembrey) do - and hopefully one of them will either be able to help out with a publish or let me have the requisite rights to do it.
-> 
+>
 > I can't promise this is all going to work; I've got a limited amount of spare time I'm afraid. Whatever happens it's going to take me a little while. But I'm going to see where I can take this. Best foot forward! Please bear with me...
 
 I did wonder what would happen next. This happened next:
 
-> My [\#opensourceguilt](https://twitter.com/hashtag/opensourceguilt?src=hash) has been lifted thanks to [@johnny\_reilly](https://twitter.com/johnny_reilly) stepping up to take over ts-loader. Thanks man!
-> 
+> My [\#opensourceguilt](https://twitter.com/hashtag/opensourceguilt?src=hash) has been lifted thanks to [@johnny_reilly](https://twitter.com/johnny_reilly) stepping up to take over ts-loader. Thanks man!
+>
 > — James Brantly (@jbrantly) [October 11, 2016](https://twitter.com/jbrantly/status/785931975064444928)
 
 <script async="" src="//platform.twitter.com/widgets.js" charSet="utf-8"></script>
@@ -49,5 +50,3 @@ I've got plans to do a lot more. I'm in the process of [refactoring ts-loader to
 I'm working with [Herrington Darkholme](https://github.com/HerringtonDarkholme) (awesome name BTW!) to [add a hook-in point](https://github.com/TypeStrong/ts-loader/issues/270) that will allow ts-loader to support [vuejs](http://vuejs.org/). Stuff is happening and will continue to. But don't be shy; be part of this! ts-loader awaits your PRs and is happy to have as many caretakers as possible!
 
 ![](../static/blog/2016-11-01-but-you-cant-die-i-love-you-ts-loader/caretaker.png)
-
-

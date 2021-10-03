@@ -1,10 +1,11 @@
 ---
-title: "Teams notification webhooks"
+title: 'Teams notification webhooks'
 authors: johnnyreilly
 tags: [Microsoft Teams, connectors, notifications, webhook]
 image: blog/2019-12-18-teams-notification-webhooks/teams-notification.gif
 hide_table_of_contents: false
 ---
+
 Teams notifications are mighty useful. You can send them using Markdown via a webhook.
 
 This post will explain the following:
@@ -37,9 +38,9 @@ So if we have a notification payload file called `down.json`:
 
 ```json
 {
-    "title": "Your Notification Title",
-    "textFormat": "markdown",
-    "text": "*Wow*\nThis is [markdown](https://en.wikipedia.org/wiki/Markdown)!\n![do a little dance!](https://media.giphy.com/media/YJ5OlVLZ2QNl6/giphy.gif)\n**Huzzah**!"
+  "title": "Your Notification Title",
+  "textFormat": "markdown",
+  "text": "*Wow*\nThis is [markdown](https://en.wikipedia.org/wiki/Markdown)!\n![do a little dance!](https://media.giphy.com/media/YJ5OlVLZ2QNl6/giphy.gif)\n**Huzzah**!"
 }
 ```
 
@@ -49,7 +50,7 @@ We can trigger it with this `curl`:
 curl -H "Content-Type: application/json" -d @down.json https://outlook.office.com/webhook/big-long-guid1/IncomingWebhook/big-long-guid2
 ```
 
-As you can see from the example above, you can use all the qualities of Markdown that you know and love. Text, bold text, italics, links and even images too. It's *great*!
+As you can see from the example above, you can use all the qualities of Markdown that you know and love. Text, bold text, italics, links and even images too. It's _great_!
 
 ![animation of Teams notification](../static/blog/2019-12-18-teams-notification-webhooks/teams-notification.gif)
 
@@ -85,7 +86,7 @@ namespace My.Services {
         private readonly ILogger<TeamsNotificationService> logger;
         private readonly IHttpClientFactory _clientFactory;
 
- 
+
         public TeamsNotificationService(
             ILogger<TeamsNotificationService> logger,
             IHttpClientFactory clientFactory
@@ -107,7 +108,7 @@ namespace My.Services {
         public async Task SendNotification(string title, string message) {
             try {
                 var client = CreateClient();
- 
+
                 var messageContents = string.IsNullOrEmpty(title)
                     ? new JsonContent(new { text = message, textFormat = "markdown" })
                     : new JsonContent(new { title = title, text = message, textFormat = "markdown" });

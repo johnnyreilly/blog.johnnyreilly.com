@@ -1,12 +1,13 @@
 ---
-title: "Making a Programmer"
+title: 'Making a Programmer'
 authors: johnnyreilly
 tags: [coding bootcamp, retrospective, learning, feedback]
 hide_table_of_contents: false
 ---
+
 I recently had the good fortune to help run a coding bootcamp. The idea was simple: there are many people around us who are interested in programming but don't know where to start. Let's take some folk who do and share the knowledge.
 
- The bootcamp went tremendously! (Well, I say that... Frankly I had a blast. 😀 )
+The bootcamp went tremendously! (Well, I say that... Frankly I had a blast. 😀 )
 
 Coding padawans walked in at the start with laptops and questions, and six weeks later they left with the groundwork of development experience. We ran a session for an hour during lunchtime once a week. Between that, people would have the opportunity to learn online, do exercises and reach out to the facilitators and their fellow apprentices for help.
 
@@ -32,7 +33,7 @@ Well, to start each session we kicked off with an icebreaker. We very much wante
 
 The IBs were connected with the subject at hand. For example: Human FizzBuzz. We took the classic interview question and applied it to wannabe coders. We explained the rules, and went round in a circle, each person was the next iteration of the loop. As each dev-in-training opened their mouths they had to say a number or "Fizz" or "Buzz" or "FizzBuzz". (It turns out this is harder than you think; and makes for a surprisingly entertaining parlour game. I intend to do this at my next dinner party.)
 
-After that we covered the rules of the game. (Yup, learning is a game and it's a good 'un.) Certainly the most important rule was this: <u>there are <strong>*no*</strong> stupid questions</u>
+After that we covered the rules of the game. (Yup, learning is a game and it's a good 'un.) Certainly the most important rule was this: <u>there are <strong>_no_</strong> stupid questions</u>
 
 . If people think there are, then they might be hesitant to ask. And any question benched is a learning opportunity lost. We don't want that.
 
@@ -55,5 +56,3 @@ Finally, we did this together. The course wasn't run by one person; we had a gan
 ## RTM
 
 We've run a bootcamp once now. Where we are is informed by the experience we've just had. A different group of learners may well have resulted in a slightly different format; though I have a feeling not overly dissimilar. We feel pretty sure that what we've got is pretty solid. That said, just as the attendees are learning about development, we're still learning about learning!
-
-

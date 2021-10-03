@@ -4,9 +4,10 @@ authors: johnnyreilly
 tags: [webpack; dead code elimination; process.env.NODE_ENV; DefinePlugin]
 hide_table_of_contents: false
 ---
+
 Every now and then you can be surprised. Your assumptions turn out to be wrong.
 
- Webpack has long supported the notion of dead code elimination. webpack facilitates this through use of the `DefinePlugin`. The compile time value of `process.env.NODE_ENV` is set either to `'production'` or something else. If it's set to `'production'` then some dead code hackery can happen. [Libraries like React make use of this to serve up different, and crucially smaller, production builds.](https://reactjs.org/docs/optimizing-performance.html#webpack)
+Webpack has long supported the notion of dead code elimination. webpack facilitates this through use of the `DefinePlugin`. The compile time value of `process.env.NODE_ENV` is set either to `'production'` or something else. If it's set to `'production'` then some dead code hackery can happen. [Libraries like React make use of this to serve up different, and crucially smaller, production builds.](https://reactjs.org/docs/optimizing-performance.html#webpack)
 
 A (pre-webpack 4) production config file will typically contain this code:
 
@@ -45,11 +46,11 @@ Given what I've said, consider the following code:
 
 ```js
 export class Config {
-    // Other properties
+  // Other properties
 
-    get isDevelopment() {
-        return process.env.NODE_ENV !== 'production';
-    }
+  get isDevelopment() {
+    return process.env.NODE_ENV !== 'production';
+  }
 }
 ```
 
@@ -62,5 +63,3 @@ However, this turns out not to be the case. Dead code elimination works just as 
 The TL;DR: if you want to elimate dead code then \*always\* use `process.env.NODE_ENV !== 'production'`; don't abstract it. It doesn't work.
 
 UglifyJS is smart. But not that smart.
-
-

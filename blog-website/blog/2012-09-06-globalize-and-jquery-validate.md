@@ -1,12 +1,22 @@
 ---
-title: "Globalize and jQuery Validation"
+title: 'Globalize and jQuery Validation'
 authors: johnnyreilly
-tags: [asp.net mvc, Internationalisation, Globalization, Globalize JS, Localisation, jQuery Validation, jQuery.validate.js]
+tags:
+  [
+    asp.net mvc,
+    Internationalisation,
+    Globalization,
+    Globalize JS,
+    Localisation,
+    jQuery Validation,
+    jQuery.validate.js,
+  ]
 hide_table_of_contents: false
 ---
+
 ## Update 05/10/2015
 
- If you're after a version of this that works with Globalize 1.x then take a look [here](https://blog.johnnyreilly.com/2015/10/jquery-validation-globalize-hits-10.html).
+If you're after a version of this that works with Globalize 1.x then take a look [here](https://blog.johnnyreilly.com/2015/10/jquery-validation-globalize-hits-10.html).
 
 ## Update 27/08/2013
 
@@ -34,7 +44,7 @@ The above script does 2 things. Firstly it monkey patches jquery.validate.js to 
 
 ```html
 <html lang="de-DE">
-...
+  ...
 </html>
 ```
 
@@ -49,7 +59,7 @@ Rather than generating a meta tag I've chosen to use the `lang` attribute of the
 So how's it getting set? Well, it's no great shakes; in my `_Layout.cshtml` file my html tag looks like this:
 
 ```html
-<html lang="@System.Globalization.CultureInfo.CurrentUICulture.Name">
+<html lang="@System.Globalization.CultureInfo.CurrentUICulture.Name"></html>
 ```
 
 And in my `web.config` I have following setting set:
@@ -91,14 +101,21 @@ Which will render something like this:
 ```html
 <script src="/Scripts/jquery.js" type="text/javascript"></script>
 <script src="/Scripts/globalize.js" type="text/javascript"></script>
-<script src="/scripts/globalize/globalize.culture.en-GB.js" type="text/javascript"></script>
+<script
+  src="/scripts/globalize/globalize.culture.en-GB.js"
+  type="text/javascript"
+></script>
 <script src="/Scripts/jquery.validate.js" type="text/javascript"></script>
-<script src="/Scripts/jquery.validate.globalize.js" type="text/javascript"></script>
-<script src="/Scripts/jquery.validate.unobtrusive.js" type="text/javascript"></script>
+<script
+  src="/Scripts/jquery.validate.globalize.js"
+  type="text/javascript"
+></script>
+<script
+  src="/Scripts/jquery.validate.unobtrusive.js"
+  type="text/javascript"
+></script>
 ```
 
 This will load up jQuery, Globalize, your Globalize culture, jQuery Validate, jQuery Validates unobtrusive extensions (which you don't need if you're not using them) and the jQuery Validate Globalize script which will set up culture aware validation.
 
 Finally and just to re-iterate, it's highly worthwhile to give [Scott Hanselman's original article a look](http://www.hanselman.com/blog/GlobalizationInternationalizationAndLocalizationInASPNETMVC3JavaScriptAndJQueryPart1.aspx). Most all the ideas in here were taken wholesale from him!
-
-

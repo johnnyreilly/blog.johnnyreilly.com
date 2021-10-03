@@ -1,12 +1,13 @@
 ---
-title: "Death to compatibility mode"
+title: 'Death to compatibility mode'
 authors: johnnyreilly
 tags: [css, intranet, meta, internet explorer, compatibility mode, header]
 hide_table_of_contents: false
 ---
+
 For just over 10 years my bread and butter has been the development and maintenance of line of business apps. More particularly, web apps built on the Microsoft stack of love ([© Scott Hanselman](https://channel9.msdn.com/Events/MIX/MIX11/FRM02)). These sort of apps are typically accessed via the company intranet and since "bring your own device" is still a relatively new innovation these apps are invariably built for everyones favourite browser: Internet Explorer. As we all know, enterprises are generally not that speedy when it comes to upgrades. So we're basically talking IE 9 at best, but more often than not, IE 8.
 
- Now, unlike many people, I don't regard IE as a work of evil. I spent a fair number of years working for an organization which had IE 6 as the only installed browser on company desktops. (In fact, this was still the case as late as 2012!) Now, because JavaScript is so marvellously flexible I was still able to do a great deal with the help of a number of [shivs / shims](http://paulirish.com/2011/the-history-of-the-html5-shiv/).
+Now, unlike many people, I don't regard IE as a work of evil. I spent a fair number of years working for an organization which had IE 6 as the only installed browser on company desktops. (In fact, this was still the case as late as 2012!) Now, because JavaScript is so marvellously flexible I was still able to do a great deal with the help of a number of [shivs / shims](http://paulirish.com/2011/the-history-of-the-html5-shiv/).
 
 But rendering and CSS - well that's another matter. Because here we're at the mercy of "compatibility mode". Perhaps a quick history lesson is in order. What is this "compatibility mode" of which you speak?
 
@@ -14,13 +15,13 @@ But rendering and CSS - well that's another matter. Because here we're at the me
 
 Well it all started when Microsoft released IE 8. To quote them:
 
-> *A fundamental problem discussed during each and every Internet Explorer release is balancing new features and functionality with site compatibility for the existing Web. On the one hand, new features and functionality push the Web forward. On the other hand, the Web is a large expanse; requiring every legacy page to support the "latest and greatest" browser version immediately at product launch just isn't feasible. Internet Explorer 8 addresses this challenge by introducing compatibility modes which gives a way to introduce new features and stricter compliance to standards while enabling it to be backward compliant.* \- excerpted from [understanding compatibility modes in Internet Explorer 8](https://blogs.msdn.com/b/askie/archive/2009/03/23/understanding-compatibility-modes-in-internet-explorer-8.aspx).
+> _A fundamental problem discussed during each and every Internet Explorer release is balancing new features and functionality with site compatibility for the existing Web. On the one hand, new features and functionality push the Web forward. On the other hand, the Web is a large expanse; requiring every legacy page to support the "latest and greatest" browser version immediately at product launch just isn't feasible. Internet Explorer 8 addresses this challenge by introducing compatibility modes which gives a way to introduce new features and stricter compliance to standards while enabling it to be backward compliant._ \- excerpted from [understanding compatibility modes in Internet Explorer 8](https://blogs.msdn.com/b/askie/archive/2009/03/23/understanding-compatibility-modes-in-internet-explorer-8.aspx).
 
 ## There's the rub
 
 Sounds fair enough? Of course it does. Microsoft have generally bent over backwards to facilitate backwards compatibility. Quite right too - good business sense and all that. However, one of the choices made around backwards compatibility I've come to regard as somewhat irksome. Later down in the article you'll find this doozy: (emphasis mine)
 
-> *"**for Intranet pages, 7 (IE 7 Standards) rendering mode is used by default** and can be changed."*
+> _"**for Intranet pages, 7 (IE 7 Standards) rendering mode is used by default** and can be changed."_
 
 For whatever reason, this decision was not particularly well promoted. As a result, a fair number of devs I've encountered have little or no knowledge of compatibility mode. Certainly it came as a surprise to me. Here was I, developing away on my desktop. I'd fire up the app hosted on my machine and test on my local install of IE 8. All would look new and shiny (well non-anchor tags would have `:hover` support). Happy and content, I'd push to our test system and browse to it. Wait, what's happened? Where's the new style rendering? What's up with my CSS? This is a bug right?
 
@@ -56,7 +57,7 @@ The final approach uses meta tags. And, in my experience it is the most quirky a
 
 Having crawled over the WWW equivalent of broken glass I now know why this \***sometimes**\* doesn't work. (And credit where it's due the answer came from [here](http://stackoverflow.com/a/3960197/761388).) It's all down to the positioning of the meta tag:
 
-> *The X-UA-compatible header is not case sensitive; however, it must appear in the Web page's header (the HEAD section) before all other elements, except for the title element and other meta elements.* \- excerpted from [specifying legacy document modes](http://msdn.microsoft.com/en-gb/library/jj676915(v=vs.85).aspx)
+> _The X-UA-compatible header is not case sensitive; however, it must appear in the Web page's header (the HEAD section) before all other elements, except for the title element and other meta elements._ \- excerpted from [specifying legacy document modes](<http://msdn.microsoft.com/en-gb/library/jj676915(v=vs.85).aspx>)
 
 That's right, get your meta tag in the wrong place and things won't work. And you won't know why. Lovely. But get it right and it's all gravy. This remains the most unsatisfactory approach in my book though.
 
@@ -74,6 +75,4 @@ Armed with the above I hope you have less compatibility mode pain than I have. T
 
 [https://blogs.msdn.com/b/ie/archive/2009/02/16/just-the-facts-recap-of-compatibility-view.aspx](https://blogs.msdn.com/b/ie/archive/2009/02/16/just-the-facts-recap-of-compatibility-view.aspx)
 
-Finally, I have an open question about compatibility mode. I *think* (but I don't know) that even in compatibility mode IE runs using the same JavaScript engine. However I suspect it has a different DOM to play with. If anyone knows a little more about this and wants to let me know that'd be fantastic.
-
-
+Finally, I have an open question about compatibility mode. I _think_ (but I don't know) that even in compatibility mode IE runs using the same JavaScript engine. However I suspect it has a different DOM to play with. If anyone knows a little more about this and wants to let me know that'd be fantastic.

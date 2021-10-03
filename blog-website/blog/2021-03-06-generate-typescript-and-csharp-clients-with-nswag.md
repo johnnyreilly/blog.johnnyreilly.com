@@ -1,10 +1,11 @@
 ---
-title: "NSwag: TypeScript and CSharp client generation based on an API"
+title: 'NSwag: TypeScript and CSharp client generation based on an API'
 authors: johnnyreilly
 tags: [NSwag, TypeScript, CSharp, API]
 image: blog/2021-03-06-generate-typescript-and-csharp-clients-with-nswag/use-generated-client.gif
 hide_table_of_contents: false
 ---
+
 Generating clients for APIs is a tremendous way to reduce the amount of work you have to do when you're building a project. Why handwrite that code when it can be auto-generated for you quickly and accurately by a tool like [NSwag](https://github.com/RicoSuter/NSwag)? To quote the docs:
 
 > The NSwag project provides tools to generate OpenAPI specifications from existing ASP.NET Web API controllers and client code from these OpenAPI specifications. The project combines the functionality of Swashbuckle (OpenAPI/Swagger generation) and AutoRest (client generation) in one toolchain.
@@ -19,8 +20,6 @@ This post will:
 - Create a .NET console app which can create both TypeScript and CSharp clients from a Swagger endpoint.
 - Create a script which, when run, creates a TypeScript client.
 - Consume the API using the generated client in a simple TypeScript application.
-
-
 
 You will need both [Node.js](https://nodejs.org/en/) and the [.NET SDK](https://dotnet.microsoft.com/download) installed.
 
@@ -88,7 +87,7 @@ namespace API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            } 
+            }
             else
             {
                 app.UseExceptionHandler("/Error");
@@ -124,8 +123,6 @@ The significant changes in the above `Startup.cs` are:
 1. Exposing a Swagger endpoint with `UseOpenApi` and `UseSwaggerUi3`. NSwag will automagically create Swagger endpoints in your application for all your controllers. The .NET template ships with a `WeatherForecastController`.
 2. Allowing [Cross-Origin Requests (CORS)](https://docs.microsoft.com/en-us/aspnet/core/security/cors) which is useful during development (and will facilitate a demo later).
 
-
-
 Back in the root of our project we're going to initialise an npm project. We're going to use this to put in place a number of handy [`npm scripts`](https://docs.npmjs.com/cli/v6/using-npm/scripts) that will make our project easier to work with. So we'll `npm init` and accept all the defaults.
 
 Now we're going add some dependencies which our scripts will use: `npm install cpx cross-env npm-run-all start-server-and-test`
@@ -152,8 +149,6 @@ Let's walk through what the above scripts provide us with:
 - Running `npm install` in the root of our project will not only install dependencies for our root `package.json`, thanks to our `postinstall`, `install:client-app` and `install:server-app` scripts it will install the React app and .NET app dependencies as well.
 - Running `npm run build` will build our client and server apps.
 - Running `npm run start` will start both our React app and our .NET app. Our React app will be started at [http://localhost:3000](http://localhost:3000). Our .NET app will be started at [http://localhost:5000](http://localhost:5000) (some environment variables are passed to it with [`cross-env`](https://github.com/kentcdodds/cross-env) ).
-
-
 
 Once `npm run start` has been run, you will find a Swagger endpoint at [http://localhost:5000/swagger](http://localhost:5000/swagger):
 
@@ -201,7 +196,7 @@ namespace APIClientGenerator
             if (language != "TypeScript" && language != "CSharp")
                 throw new ArgumentException("Invalid language parameter; valid values are TypeScript and CSharp");
 
-            if (language == "TypeScript") 
+            if (language == "TypeScript")
                 await GenerateTypeScriptClient(url, generatePath);
             else
                 await GenerateCSharpClient(url, generatePath);
@@ -261,8 +256,6 @@ We've created ourselves a simple .NET console application that creates TypeScrip
 - `generatePath` \- the path where the generated client file should be placed, relative to this project.
 - `language` \- the language of the client to generate; valid values are "TypeScript" and "CSharp".
 
-
-
 To create a TypeScript client with it then we'd use the following command:
 
 ```shell
@@ -274,8 +267,6 @@ However, for this to run successfully, we'll first have to ensure the API is run
 - bring up the API
 - generate a client
 - bring down the API
-
-
 
 Let's make that.
 
@@ -293,8 +284,6 @@ Let's walk through what's happening here. Running `npm run generate-client:serve
 
 - Use the [`start-server-and-test`](https://github.com/bahmutov/start-server-and-test) package to spin up our server-app by running the `generate-client:server-app:serve` script.
 - `start-server-and-test` waits for the Swagger endpoint to start responding to requests. When it does start responding, `start-server-and-test` runs the `generate-client:server-app:generate` script which runs our APIClientGenerator console app and provides it with the URL where our swagger can be found, the path of the file to generate and the language of "TypeScript"
-
-
 
 If you were wanting to generate a C# client (say if you were writing a [Blazor](https://blog.logrocket.com/js-free-frontends-blazor/) app) then you could change the `generate-client:server-app:generate` script as follows:
 
@@ -367,8 +356,6 @@ Inside the `React.useEffect` above you can see we create a new instance of the a
 
 ![load data from server](../static/blog/2021-03-06-generate-typescript-and-csharp-clients-with-nswag/use-generated-client.gif)
 
-As you an see we're loading data from the server using our auto-generated client. We're reducing the amount of code we have to write *and* we're reducing the likelihood of errors.
+As you an see we're loading data from the server using our auto-generated client. We're reducing the amount of code we have to write _and_ we're reducing the likelihood of errors.
 
-*This post was originally posted on [LogRocket](https://blog.logrocket.com/generate-typescript-csharp-clients-nswag-api/).*
-
-
+_This post was originally posted on [LogRocket](https://blog.logrocket.com/generate-typescript-csharp-clients-nswag-api/)._

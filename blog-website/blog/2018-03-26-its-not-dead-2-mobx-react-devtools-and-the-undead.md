@@ -4,9 +4,10 @@ authors: johnnyreilly
 tags: [uglifyjs, mobx, dead code elimination, Webpack]
 hide_table_of_contents: false
 ---
+
 I spent today digging through our webpack 4 config trying to work out why a production bundle contained code like this:
 
- ```js
+```js
 if("production"!==e.env.NODE_ENV){//...
 ```
 
@@ -27,11 +28,13 @@ import * as React from 'react';
 import { Layout } from './components/layout';
 import DevTools from 'mobx-react-devtools';
 
-export const App: React.SFC<{}> = _props => (
-    <div className="ui container">
-        <Layout />
-        {process.env.NODE_ENV !== 'production' ? <DevTools position={{ bottom: 20, right: 20 }} /> : null}
-    </div>
+export const App: React.SFC<{}> = (_props) => (
+  <div className="ui container">
+    <Layout />
+    {process.env.NODE_ENV !== 'production' ? (
+      <DevTools position={{ bottom: 20, right: 20 }} />
+    ) : null}
+  </div>
 );
 ```
 
@@ -44,13 +47,16 @@ import * as React from 'react';
 import { Layout } from './components/layout';
 const { Fragment } = React;
 
-const DevTools = process.env.NODE_ENV !== 'production' ? require('mobx-react-devtools').default : Fragment;
+const DevTools =
+  process.env.NODE_ENV !== 'production'
+    ? require('mobx-react-devtools').default
+    : Fragment;
 
-export const App: React.SFC<{}> = _props => (
-    <div className="ui container">
-        <Layout />
-        <DevTools position={{ bottom: 20, right: 20 }} />
-    </div>
+export const App: React.SFC<{}> = (_props) => (
+  <div className="ui container">
+    <Layout />
+    <DevTools position={{ bottom: 20, right: 20 }} />
+  </div>
 );
 ```
 
@@ -59,5 +65,3 @@ With this approach I got a build size of 191kb. This was thanks to the dead code
 ## Perhaps We Change the Advice?
 
 There's a suggestion that the README should be changed to reflect this advice - until that happens, I wanted to share this solution. Also, I've a nagging feeling that I've missed something pertinent here; if someone knows something that I should... Tell me please!
-
-

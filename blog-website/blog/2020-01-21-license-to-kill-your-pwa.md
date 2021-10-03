@@ -1,15 +1,16 @@
 ---
-title: "LICENSE to kill your PWA"
+title: 'LICENSE to kill your PWA'
 authors: johnnyreilly
 tags: []
 hide_table_of_contents: false
 ---
+
 ## Update: 26/01/2020 - LICENSE to kill revoked!
 
- Following the original publication of this post I received this tweet suggesting we should change the behaviour of the underlying `terser-webpack-plugin`:
+Following the original publication of this post I received this tweet suggesting we should change the behaviour of the underlying `terser-webpack-plugin`:
 
 > Send a PR to change the name to .LICENSE.txt by default.
-> 
+>
 > — Tobias Koppers (@wSokra) [January 22, 2020](https://twitter.com/wSokra/status/1220069497660411904?ref_src=twsrc%5Etfw)
 
 <script async="" src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
@@ -44,54 +45,54 @@ So, to disk. I took a look at what was actually on the server in that location. 
 
 ```js
 /**
-* A better abstraction over CSS.
-*
-* @copyright Oleg Isonen (Slobodskoi) / Isonen 2014-present
-* @website https://github.com/cssinjs/jss
-* @license MIT
-*/
- 
+ * A better abstraction over CSS.
+ *
+ * @copyright Oleg Isonen (Slobodskoi) / Isonen 2014-present
+ * @website https://github.com/cssinjs/jss
+ * @license MIT
+ */
+
 /*
 object-assign
 (c) Sindre Sorhus
 @license MIT
 */
- 
+
 /** @license React v16.12.0
-* react.production.min.js
-*
-* Copyright (c) Facebook, Inc. and its affiliates.
-*
-* This source code is licensed under the MIT license found in the
-* LICENSE file in the root directory of this source tree.
-*/
- 
+ * react.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 /** @license React v16.12.0
-* react-dom.production.min.js
-*
-* Copyright (c) Facebook, Inc. and its affiliates.
-*
-* This source code is licensed under the MIT license found in the
-* LICENSE file in the root directory of this source tree.
-*/
- 
+ * react-dom.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 /** @license React v0.18.0
-* scheduler.production.min.js
-*
-* Copyright (c) Facebook, Inc. and its affiliates.
-*
-* This source code is licensed under the MIT license found in the
-* LICENSE file in the root directory of this source tree.
-*/
- 
+ * scheduler.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 /** @license React v16.12.0
-* react-is.production.min.js
-*
-* Copyright (c) Facebook, Inc. and its affiliates.
-*
-* This source code is licensed under the MIT license found in the
-* LICENSE file in the root directory of this source tree.
-*/
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 ```
 
 What is this? Well, as the name of the file suggests, it's licenses. For some reason, my build was scraping the licenses from the head of some of my files and placing them in a separate `6.20102e99.chunk.js.LICENSE` file. Doing some more digging I happened upon [this discussion against the `create-react-app`](https://github.com/facebook/create-react-app/issues/6441) project. It's worth saying, that my PWA was an ejected `create-react-app` project.
@@ -112,5 +113,3 @@ new TerserPlugin({
 ```
 
 And with this we say goodbye to our `404`s and hello to a resurrected PWA!
-
-
