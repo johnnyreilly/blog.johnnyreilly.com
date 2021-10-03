@@ -4,9 +4,10 @@ authors: johnnyreilly
 tags: [script references, RequireJS, cassette]
 hide_table_of_contents: false
 ---
+
 [Last time](http://icanmakethiswork.blogspot.co.uk/2013/05/how-im-using-cassette.html) I wrote about Cassette I was talking about how to generally get up and running. How to use Cassette within an ASP.Net MVC project. What I want to write about now is (in my eyes) the most useful feature of Cassette by a country mile. This is Cassettes ability to ensure scripts are served in dependency order.
 
- ## Why does this matter?
+## Why does this matter?
 
 You might well ask. If we go back 10 years or so then really this wasn't a problem. No-one was doing a great deal with JavaScript. And if they did anything it tended to be code snippets in amongst the HTML; nothing adventurous. But unless you've had your head in the sand for the last 3 years then you will have clearly noticed that JavaScript is in rude health and being used for all kinds of things you'd never have imagined. In fact some would have it that it's the [assembly language of the web](http://www.hanselman.com/blog/JavaScriptisAssemblyLanguagefortheWebPart2MadnessorjustInsanity.aspx).
 
@@ -24,7 +25,7 @@ In short, what I want to do is reference a script file somewhere in my server-si
 
 And this is where Cassette takes the pain away. To quote the documentation:
 
-> "*Some assets must be included in a page before others. For example, your code may use jQuery, so the jQuery script must be included first. Cassette will sort all assets based on references they declare.*"
+> "_Some assets must be included in a page before others. For example, your code may use jQuery, so the jQuery script must be included first. Cassette will sort all assets based on references they declare._"
 
 Just the ticket!
 
@@ -38,11 +39,11 @@ In my `_Layout.cshtml` file I'm going to remove the following reference from the
 
 I'm pulling this out of my layout page because it's presence means that **every** page MVC serves up is also serving up jQuery and jQuery UI (which is what `~/bundles/core` is). If a page doesn't actually make use of jQuery and / or jQuery UI then there's no point in doing this.
 
-"*But wait!*", I hear you cry, "*Haven't you just caused a bug with your reckless action? I distinctly recall that the `Login.cshtml` page has the following code in place:*"
+"_But wait!_", I hear you cry, "_Haven't you just caused a bug with your reckless action? I distinctly recall that the `Login.cshtml` page has the following code in place:_"
 
 `Bundles.Reference("~/bundles/validate");`
 
-"*And now with your foolhardy, nay, reckless attitude to the `~/bundles/core` bundle you've broken your Login screen. How can jQuery Validation be expected to work if there's no jQuery there to extend?*"
+"_And now with your foolhardy, nay, reckless attitude to the `~/bundles/core` bundle you've broken your Login screen. How can jQuery Validation be expected to work if there's no jQuery there to extend?_"
 
 Well, I understand your concerns but really you needn't worry - Cassette's got my back. Look closely at the code below:
 
@@ -65,8 +66,6 @@ The eagle-eyed amongst you will have noticed
 1. I'm mirroring the MVC folder structure inside the Scripts directory. (There's nothing special about that by the way - it's just a file structure I've come to find useful. It's very easy to find the script associated with a View if the scripts share the same organisational approach as the Views.).
 2. The purpose of the script is very simple, it fades out the main body of the screen, re-writes the HTML in that tag and then fades back in. It's purpose is just to do something that is obvious to the user - so they can see the evidence of JavaScript executing.
 3. Lastly and most importantly, do you notice that `// @reference ~/bundles/core` is the first line of the file? This is our script reference. It's this that Cassette will be reading to pick up references.
-
-
 
 To make sure Cassette is picking up our brand new file let's take a look at `CassetteConfiguration.cs` and uncomment the line of code below:
 
@@ -101,5 +100,3 @@ There is also support in Cassette for CSS referencing (as well as other types of
 Finally, as last time you can see what I've done in this post by just looking at the repository on [GitHub](https://github.com/johnnyreilly/CassetteDemo/tree/References). The changes I made are on the References branch of that particular repository.
 
 <!-- I don't want to serve up a monster JavaScript payload with each screen refresh.  Quite besides anything else, if I did that each screen refresh would be slower as more JavaScript was served up and parsed - the UX would suffer.  I don't want that.  I want *<strong>performance</strong>*! -->
-
-

@@ -1,9 +1,9 @@
-import fs from "fs";
-import path from "path";
-import axios from "axios";
+import fs from 'fs';
+import path from 'path';
+import axios from 'axios';
 
-const docusaurusDirectory = "../blog-website";
-const docusaurusBlogDirectory = "../blog-website/blog";
+const docusaurusDirectory = '../blog-website';
+const docusaurusBlogDirectory = '../blog-website/blog';
 const imagesToDownloadRegex = /!\[.*\]\((http.*blogspot.*)\)/gi;
 const wonkyUrlsRegex = /\[(.*)\]\(<(.*)>\)/gi;
 
@@ -23,7 +23,7 @@ async function getPosts(): Promise<Map<string, string>> {
   for (const blogPostName of blogPosts) {
     const blogPostContent = await fs.promises.readFile(
       path.join(docusaurusBlogDirectory, blogPostName),
-      "utf-8"
+      'utf-8'
     );
 
     blogPostsByName.set(blogPostName, blogPostContent);
@@ -45,14 +45,14 @@ async function makePostIntoMarkDownAndDownloadImages(
 
   if (imageUrls.length === 0) return;
 
-  const imageDirectory = blogPostName.replace(".md", "");
+  const imageDirectory = blogPostName.replace('.md', '');
   for (const url of imageUrls) {
     try {
       const localUrl = await downloadImage(url, imageDirectory);
 
       blogPostContent = blogPostContent.replace(
         url,
-        "../static/blog/" + localUrl
+        '../static/blog/' + localUrl
       );
 
       //   console.log(`${blogPostName}: ${blogPostContent.length} chars`);
@@ -62,51 +62,45 @@ async function makePostIntoMarkDownAndDownloadImages(
   }
 
   await fs.promises.writeFile(
-    path.resolve(docusaurusDirectory, "blog", blogPostName),
+    path.resolve(docusaurusDirectory, 'blog', blogPostName),
     blogPostContent
   );
 }
 
-async function fixWonkyUrls(
-  blogPostName: string,
-  blogPostContent: string
-) {
+async function fixWonkyUrls(blogPostName: string, blogPostContent: string) {
   const matches = blogPostContent.matchAll(wonkyUrlsRegex);
-  const textAndUrls: { fullMatch: string; text:string; url: string; }[] = [];
+  const textAndUrls: { fullMatch: string; text: string; url: string }[] = [];
   for (const match of matches) {
     const [fullMatch, text, url] = match;
-    textAndUrls.push({fullMatch, text, url});
+    textAndUrls.push({ fullMatch, text, url });
   }
 
   if (textAndUrls.length === 0) return;
 
-  for (const {fullMatch, text, url} of textAndUrls) {
-      blogPostContent = blogPostContent.replace(
-        fullMatch,
-        `[${text}](${url})`
-      );
+  for (const { fullMatch, text, url } of textAndUrls) {
+    blogPostContent = blogPostContent.replace(fullMatch, `[${text}](${url})`);
   }
 
   await fs.promises.writeFile(
-    path.resolve(docusaurusDirectory, "blog", blogPostName),
+    path.resolve(docusaurusDirectory, 'blog', blogPostName),
     blogPostContent
   );
 }
 
 async function downloadImage(url: string, directory: string) {
   console.log(`Downloading ${url}`);
-  const pathParts = new URL(url).pathname.split("/");
+  const pathParts = new URL(url).pathname.split('/');
   const filename = pathParts[pathParts.length - 1];
   const directoryTo = path.resolve(
     docusaurusDirectory,
-    "static",
-    "blog",
+    'static',
+    'blog',
     directory
   );
   const pathTo = path.resolve(
     docusaurusDirectory,
-    "static",
-    "blog",
+    'static',
+    'blog',
     directory,
     filename
   );
@@ -119,15 +113,15 @@ async function downloadImage(url: string, directory: string) {
 
   const response = await axios({
     url,
-    method: "GET",
-    responseType: "stream",
+    method: 'GET',
+    responseType: 'stream',
   });
 
   response.data.pipe(writer);
 
   return new Promise<string>((resolve, reject) => {
-    writer.on("finish", () => resolve(directory + "/" + filename));
-    writer.on("error", reject);
+    writer.on('finish', () => resolve(directory + '/' + filename));
+    writer.on('error', reject);
   });
 }
 

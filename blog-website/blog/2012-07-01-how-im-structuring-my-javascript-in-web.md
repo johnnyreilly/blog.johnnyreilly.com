@@ -1,12 +1,13 @@
 ---
-title: "Optimally Serving Up JavaScript"
+title: 'Optimally Serving Up JavaScript'
 authors: johnnyreilly
 tags: [asp.net mvc, html helper, javascript, cassette]
 hide_table_of_contents: false
 ---
+
 I have occasionally done some server-side JavaScript with Rhino and Node.js but this is the exception rather than the rule. Like most folk at the moment, almost all the JavaScript I write is in a web context.
 
- Over time I've come to adopt a roughly standard approach to how I structure my JavaScript; both the JavaScript itself and how it is placed / rendered in the an HTML document. I wanted to write about the approach I'm using. Partly just to document the approach but also because I often find writing about something crystalises my feelings on the subject in one way or another. I think that most of what I'm doing is sensible and rational but maybe as I write about this I'll come to some firmer conclusions about my direction of travel.
+Over time I've come to adopt a roughly standard approach to how I structure my JavaScript; both the JavaScript itself and how it is placed / rendered in the an HTML document. I wanted to write about the approach I'm using. Partly just to document the approach but also because I often find writing about something crystalises my feelings on the subject in one way or another. I think that most of what I'm doing is sensible and rational but maybe as I write about this I'll come to some firmer conclusions about my direction of travel.
 
 ## What are you up to?
 
@@ -20,8 +21,6 @@ I took 2 things away from [Steve Souder's article](http://www.stevesouders.com/b
 
 1. Async script loading is better than synchronous script loading
 2. Get your screen rendered and \***then**\* execute your JavaScript
-
-
 
 I'm not doing any async script loading as yet; although I am thinking of giving it a try at some point. In terms of choosing a loader I'll probably give RequireJS first crack of the whip (purely as it looks like most people are tending it's direction and that can't be without reason).
 
@@ -74,10 +73,6 @@ So while CDN's are clearly a good thing. I don't use them at present. And that's
 3. I don't minify my own scripts (though clearly it wouldn't be hard) but I do serve the minified versions of 3rd party libraries (eg jQuery) in a Production environment.
 4. I don't use async script loaders at present. I may in future; we shall see.
 
-
-
 I expect some of the above may change (well, possibly not point #1) but this general approach is working well for me at present.
 
 I haven't touched at all on how I'm structuring my JavaScript code itself. Perhaps next time.
-
-

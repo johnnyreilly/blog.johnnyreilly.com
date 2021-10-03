@@ -1,12 +1,13 @@
 ---
-title: "EF Core 3.1 breaks left join with no navigation property"
+title: 'EF Core 3.1 breaks left join with no navigation property'
 authors: johnnyreilly
 tags: [Entity Framework, left join, navigation property, broken]
 hide_table_of_contents: false
 ---
+
 Just recently my team took on the challenge of upgrading our codebase from .NET Core 2.2 to .NET Core 3.1. Along the way we encountered a quirky issue which caused us much befuddlement. Should you be befuddled too, then maybe this can help you.
 
- Whilst running our app, we started encountering an error with an Entity Framework Query that looked like this:
+Whilst running our app, we started encountering an error with an Entity Framework Query that looked like this:
 
 ```cs
 var stuffWeCareAbout = await context.Things
@@ -19,7 +20,7 @@ var stuffWeCareAbout = await context.Things
 
 ## Join me!
 
-As EF Core tried to join from the `Things` table to the `Problematic` table (some obfuscation in table names here), that which worked in .NET Core 2.2 was *not* working in .NET Core 3.1. Digging into the issue, we discovered EF Core was generating an invalid `LEFT JOIN`:
+As EF Core tried to join from the `Things` table to the `Problematic` table (some obfuscation in table names here), that which worked in .NET Core 2.2 was _not_ working in .NET Core 3.1. Digging into the issue, we discovered EF Core was generating an invalid `LEFT JOIN`:
 
 ```sql
 fail: Microsoft.EntityFrameworkCore.Database.Command[20102]
@@ -76,7 +77,7 @@ namespace Treasury.Data.Entities
 }
 ```
 
-If you look closely you'll see it has a `ForeignKey` but *no* accompanying Navigation property. So let's add one:
+If you look closely you'll see it has a `ForeignKey` but _no_ accompanying Navigation property. So let's add one:
 
 ```cs
 using System;
@@ -101,5 +102,3 @@ namespace Our.App
 ```
 
 With this in place our app starts generating the SQL we need.
-
-

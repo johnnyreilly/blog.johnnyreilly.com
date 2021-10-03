@@ -1,12 +1,13 @@
 ---
-title: "Visual Studio, tsconfig.json and external TypeScript compilation"
+title: 'Visual Studio, tsconfig.json and external TypeScript compilation'
 authors: johnnyreilly
 tags: [TFS, Visual Studio, tsconfig.json, TypeScript, Webpack]
 hide_table_of_contents: false
 ---
+
 TypeScript first gained support for [`tsconfig.json`](https://github.com/Microsoft/TypeScript/wiki/tsconfig.json) back with the [1\.5 release](https://blogs.msdn.microsoft.com/typescript/2015/07/20/announcing-typescript-1-5/). However, to my lasting regret and surprise Visual Studio will not be gaining meaningful support for it until [TypeScript 1.8](https://github.com/Microsoft/TypeScript/wiki/What%27s-new-in-TypeScript#improved-support-for-tsconfigjson-in-visual-studio-2015) ships. However, if you want it now, it's already available to use in [beta](https://blogs.msdn.microsoft.com/typescript/2016/01/28/announcing-typescript-1-8-beta/).
 
- I've already leapt aboard. Whilst there's a number of bugs in the beta it's still totally usable. So use it.
+I've already leapt aboard. Whilst there's a number of bugs in the beta it's still totally usable. So use it.
 
 ## External TypeScript Compilation and the VS build
 
@@ -18,12 +19,12 @@ Like any developer, I want to build with the latest and greatest. In my case, th
 
 ## Goodbye TypeScript Compilation in VS
 
-Writing modular ES6 TypeScript which is fully transpiled to old-school JS is *not possible* using the Visual Studio tooling at present. For what it's worth I think that SystemJS compilation may make this more possible in the future but I don't really know enough about it to be sure. That's why I'm bringing webpack / Babel into the mix right now. I don't want Visual Studio to do anything for the ES6 code; I don't want it to compile. I want to deactivate my TypeScript compilation for the ES6 code. I can't do this from the `tsconfig.json` so I'm in a bit of a hole. What to do?
+Writing modular ES6 TypeScript which is fully transpiled to old-school JS is _not possible_ using the Visual Studio tooling at present. For what it's worth I think that SystemJS compilation may make this more possible in the future but I don't really know enough about it to be sure. That's why I'm bringing webpack / Babel into the mix right now. I don't want Visual Studio to do anything for the ES6 code; I don't want it to compile. I want to deactivate my TypeScript compilation for the ES6 code. I can't do this from the `tsconfig.json` so I'm in a bit of a hole. What to do?
 
 Well, as of (I think) TypeScript 1.7 it's possible to deactivate TypeScript compilation in Visual Studio. To [quote](https://github.com/Microsoft/TypeScript/issues/2294#issuecomment-129367578):
 
 > there is an easier way to disable TypeScriptCompile:
-> 
+>
 > Just add `&lt;TypeScriptCompileBlocked&gt;true&lt;/TypeScriptCompileBlocked&gt;` to the `.csproj`, e.g. in the first `&lt;PropertyGroup&gt;`.
 
 Awesomeness!
@@ -36,8 +37,6 @@ Have no fear, I gotcha. What we're going to do is ensure that Visual Studio trig
 
 - The modular ES6 TypeScript (new)
 - The legacy TypeScript (old)
-
-
 
 How do we do this? Through the magic of build targets. We need to add this to our `.csproj`: (I add it near the end; I'm not sure if location matters though)
 
@@ -109,7 +108,7 @@ As you've no doubt gathered, I'm following the convention of using the `scripts`
     "clean": "gulp delete-dist-contents",
     "watch": "gulp watch",
     "build": "gulp build"
-  },
+  }
   // ...
 }
 ```
@@ -126,8 +125,6 @@ The task that runs to clean up artefacts created by `WebClientBuild`.
 
 Since we're compiling our TypeScript outside of VS we need to tell MSBuild / MSDeploy about the externally compiled assets in order that they are included in the publish pipeline. Here I'm standing on the shoulders of [Steve Cadwallader's excellent post](http://www.codecadwallader.com/2015/03/15/integrating-gulp-into-your-tfs-builds-and-web-deploy/). Thanks Steve!
 
-`CollectLegacyTypeScriptOutput` and `CollectGulpOutput` respectively include all the built files contained in the `"Scripts"` and `"dist"` folders when a publish takes place. You don't need this for when you're building on your own machine but if you're looking to publish (either from your machine or from TFS) then you will need exactly this. Believe me that last sentence was typed with a memory of *great* pain and frustration.
+`CollectLegacyTypeScriptOutput` and `CollectGulpOutput` respectively include all the built files contained in the `"Scripts"` and `"dist"` folders when a publish takes place. You don't need this for when you're building on your own machine but if you're looking to publish (either from your machine or from TFS) then you will need exactly this. Believe me that last sentence was typed with a memory of _great_ pain and frustration.
 
 So in the end, as far as TypeScript is concerned, I'm using Visual Studio solely as an editor. It's the hooks in the `.csproj` that ensure that compilation happens. It seems a little quirky that we still need to have the original TypeScript targets in the `.csproj` file as well; but it works. That's all that matters.
-
-

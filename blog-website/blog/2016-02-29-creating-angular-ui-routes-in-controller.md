@@ -1,16 +1,17 @@
 ---
-title: "Creating Angular UI Routes in the Controller"
+title: 'Creating Angular UI Routes in the Controller'
 authors: johnnyreilly
 tags: [ng-href, UI Router, Angular, ui-sref]
 hide_table_of_contents: false
 ---
+
 So you're creating a link with the Angular UI Router. You're passing more than a few parameters and it's getting kinda big. Something like this:
 
- ```xml
-<a class="contains-icon" 
-       ui-sref="Entity.Edit({ entityId: (vm.selectedEntityId ? vm.selectedEntityId: null), initialData: vm.initialData })">
-         <i class="fa fa-pencil"></i>Edit
-    </a>
+```xml
+<a class="contains-icon"
+      ui-sref="Entity.Edit({ entityId: (vm.selectedEntityId ? vm.selectedEntityId: null), initialData: vm.initialData })">
+        <i class="fa fa-pencil"></i>Edit
+   </a>
 ```
 
 See? It's too long to fit on the screen without wrapping. It's clearly mad and bad.
@@ -27,22 +28,21 @@ So what we actually want to do is use the `$state.href()` method in our controll
 
 ```js
 export class EntityController {
+  $state: angular.ui.IStateService;
 
-    $state: angular.ui.IStateService;
+  static $inject = ['$state'];
+  constructor($state: angular.ui.IStateService) {
+    this.$state = $state;
+  }
 
-    static $inject = ["$state"];
-    constructor($state: angular.ui.IStateService) {
-        this.$state = $state;
-    }
+  //... Other stuff
 
-    //... Other stuff
-
-    getEditUrl() {
-        return this.$state.href("Entity.Edit", { 
-            selectedEntityId: this.selectedEntityId ? this.selectedEntityId: null, 
-            initialData: this.initialData 
-        });
-    }
+  getEditUrl() {
+    return this.$state.href('Entity.Edit', {
+      selectedEntityId: this.selectedEntityId ? this.selectedEntityId : null,
+      initialData: this.initialData,
+    });
+  }
 }
 ```
 
@@ -55,5 +55,3 @@ Now we've added the `getEditUrl` method we just need to reference it in our view
 ```
 
 Note we've ditched usage of the `ui-sref` directive and gone with Angular's native `<a href="https://docs.angularjs.org/api/ng/directive/ngHref">ng-href</a>`. Within that directive we execute our `getEditUrl` as an expression which gives us our route. As a bonus, our view is much less cluttered and comprehensible as a result. How lovely.
-
-

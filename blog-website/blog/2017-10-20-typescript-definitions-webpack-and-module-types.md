@@ -1,19 +1,18 @@
 ---
-title: "TypeScript Definitions, webpack and Module Types"
+title: 'TypeScript Definitions, webpack and Module Types'
 authors: johnnyreilly
 tags: [AMD, DefinitelyTyped, TypeScript, CommonJS]
 hide_table_of_contents: false
 ---
+
 A funny thing happened on the way to the registry the other day. Something changed in an npm package I was using and confusion arose. You can read my unfiltered confusion [here](https://github.com/Microsoft/TypeScript/issues/18791) but here's the slightly clearer explanation.
 
- ## The TL;DR
+## The TL;DR
 
 When modules are imported, your loader will decide which module format it wants to use. CommonJS / AMD etc. The loader decides. It's important that the export is of the same "shape" regardless of the module format. For 2 reasons:
 
 1. You want to be able to reliably use the module regardless of the choice that your loader has made for which export to use.
-2. Because when it comes to writing type definition files for modules, there is support for a *single* external definition. Not one for each module format.
-
-
+2. Because when it comes to writing type definition files for modules, there is support for a _single_ external definition. Not one for each module format.
 
 ![](../static/blog/2017-10-20-typescript-definitions-webpack-and-module-types/one-definition-to-rule-them-all.jpg)
 
@@ -40,19 +39,19 @@ So I think: "Huh! I guess Miika just missed something off when he updated the de
 
 ```js
 //AMD.
-    if (typeof define === 'function' && define.amd) {
-        define(function () {
-            return Big;
-        });
-        
-    // Node and other CommonJS-like environments that support module.exports.
-    } else if (typeof module !== 'undefined' && module.exports) {
-        module.exports = Big;
-        module.exports.Big = Big;
-    //Browser.
-    } else {
-        global.Big = Big;
-    }
+if (typeof define === 'function' && define.amd) {
+  define(function () {
+    return Big;
+  });
+
+  // Node and other CommonJS-like environments that support module.exports.
+} else if (typeof module !== 'undefined' && module.exports) {
+  module.exports = Big;
+  module.exports.Big = Big;
+  //Browser.
+} else {
+  global.Big = Big;
+}
 ```
 
 Now, we were using webpack as our script bundler / loader. webpack is supersmart; it can take all kinds of module formats. So although it's more famous for supporting CommonJS, it can roll with AMD. That's exactly what's happening here. When webpack encounters the above code, it goes with the AMD export. So at runtime, `import * as BigJs from 'big.js';` lands up resolving to the `return Big;` above.
@@ -65,7 +64,7 @@ export const Big: BigConstructor;
 
 Which tells me that `Big` is being exported as a subproperty of the module. That makes sense; that lines up with the `module.exports.Big = Big;` statement in the the big.js source code. There's a "gotcha" coming; can you guess what it is?
 
-The problem is that our type definition is not exposing `Big` as a default export. So even though it's there; TypeScript won't let us use it. What's killing us further is that webpack is loading the AMD export which *doesn't* have `Big` as a subproperty of the module. It only has it as a default.
+The problem is that our type definition is not exposing `Big` as a default export. So even though it's there; TypeScript won't let us use it. What's killing us further is that webpack is loading the AMD export which _doesn't_ have `Big` as a subproperty of the module. It only has it as a default.
 
 [Kitson Kelly](https://twitter.com/kitsonk) expressed the problem well when he said:
 
@@ -78,5 +77,3 @@ He's right; it is an issue. From a TypeScript perspective there is no way to wri
 `AMD === CommonJS === Global`
 
 And that's what we now have! Thanks to [Michael McLaughlin](https://github.com/mikemcl), author of big.js, [version 4.0 unified the export shape of the package](https://github.com/MikeMcl/big.js/pull/87#issuecomment-332663587). Miika Hänninen submitted another [PR](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/20096) which fixed up the type definitions. And once again the world is a beautiful place!
-
-

@@ -1,20 +1,21 @@
 ---
-title: "TypeScript / webpack - you down with PnP? Yarn, you know me!"
+title: 'TypeScript / webpack - you down with PnP? Yarn, you know me!'
 authors: johnnyreilly
 tags: [TypeScript, yarn, Webpack, PnP]
 hide_table_of_contents: false
 ---
+
 Yarn PnP is an innovation by the Yarn team designed to speed up module resolution by node. To quote the [(excellent) docs](https://yarnpkg.com/en/docs/pnp):
 
 > Plug’n’Play is an alternative installation strategy unveiled in September 2018...
-> 
+>
 > The way regular installs work is simple: Yarn generates a `node_modules` directory that Node is then able to consume. In this context, Node doesn’t know the first thing about what a package is: it only reasons in terms of files. “Does this file exist here? No? Let’s look in the parent `node_modules` then. Does it exist here? Still no? Too bad… parent folder it is!” - and it does this until it matches something that matches one of the possibilities. That’s vastly inefficient.
-> 
-> When you think about it, Yarn knows everything about your dependency tree - it evens installs it! So why is Node tasked with locating your packages on the disk? Why don’t we simply query Yarn, and let it tell us where to look for a package X required by a package Y? That’s what Plug’n’Play (abbreviated PnP) is. Instead of generating a node\_modules directory and leaving the resolution to Node, we now generate a single .pnp.js file and let Yarn tell us where to find our packages.
+>
+> When you think about it, Yarn knows everything about your dependency tree - it evens installs it! So why is Node tasked with locating your packages on the disk? Why don’t we simply query Yarn, and let it tell us where to look for a package X required by a package Y? That’s what Plug’n’Play (abbreviated PnP) is. Instead of generating a node_modules directory and leaving the resolution to Node, we now generate a single .pnp.js file and let Yarn tell us where to find our packages.
 
 Yarn has been worked upon, amongst others, by the excellent [Maël Nison](https://twitter.com/arcanis). You can hear him talking about it in person [in this talk at JSConfEU](https://youtu.be/XePfzVs852s).
 
-Thanks particularly to Maël's work, it's possible to use Yarn PnP with TypeScript using webpack with `ts-loader` *and*`fork-ts-checker-webpack-plugin`. This post intends to show you just how simple it is to convert a project that uses either to work with Yarn PnP.
+Thanks particularly to Maël's work, it's possible to use Yarn PnP with TypeScript using webpack with `ts-loader` _and_`fork-ts-checker-webpack-plugin`. This post intends to show you just how simple it is to convert a project that uses either to work with Yarn PnP.
 
 ## Vanilla `ts-loader`
 
@@ -25,7 +26,7 @@ First things first, add this property to your `package.json`: (this is only requ
 ```
 {
     "installConfig": {
-        "pnp": true 
+        "pnp": true
     }
 }
 ```
@@ -41,18 +42,18 @@ To quote the excellent docs, make the following amends to your `webpack.config.j
 ```
 const PnpWebpackPlugin = require(`pnp-webpack-plugin`);
 
-module.exports = { 
-    module: { 
-        rules: [{ 
-            test: /\.ts$/, 
-            loader: require.resolve('ts-loader'), 
-            options: PnpWebpackPlugin.tsLoaderOptions(), 
-        }], 
+module.exports = {
+    module: {
+        rules: [{
+            test: /\.ts$/,
+            loader: require.resolve('ts-loader'),
+            options: PnpWebpackPlugin.tsLoaderOptions(),
+        }],
     },
-    resolve: { 
-        plugins: [ PnpWebpackPlugin, ], 
+    resolve: {
+        plugins: [ PnpWebpackPlugin, ],
     },
-    resolveLoader: { 
+    resolveLoader: {
         plugins: [ PnpWebpackPlugin.moduleLoader(module), ],
     },
 };
@@ -69,23 +70,23 @@ You may well be using `fork-ts-checker-webpack-plugin` to handle type checking w
 ```
 const PnpWebpackPlugin = require(`pnp-webpack-plugin`);
 
-module.exports = { 
+module.exports = {
     plugins: {
         new ForkTsCheckerWebpackPlugin(PnpWebpackPlugin.forkTsCheckerOptions({
             useTypescriptIncrementalApi: false, // not possible to use this until: https://github.com/microsoft/TypeScript/issues/31056
         })),
     }
-    module: { 
-        rules: [{ 
-            test: /\.ts$/, 
-            loader: require.resolve('ts-loader'), 
-            options: PnpWebpackPlugin.tsLoaderOptions({ transpileOnly: true }), 
-        }], 
+    module: {
+        rules: [{
+            test: /\.ts$/,
+            loader: require.resolve('ts-loader'),
+            options: PnpWebpackPlugin.tsLoaderOptions({ transpileOnly: true }),
+        }],
     },
-    resolve: { 
-        plugins: [ PnpWebpackPlugin, ], 
+    resolve: {
+        plugins: [ PnpWebpackPlugin, ],
     },
-    resolveLoader: { 
+    resolveLoader: {
         plugins: [ PnpWebpackPlugin.moduleLoader(module), ],
     },
 };
@@ -123,15 +124,9 @@ All of these hindrances should hopefully be resolved in future. Ideally, one day
 - And on built in TypeScript support here: [https://github.com/Microsoft/TypeScript/issues/18896](https://github.com/Microsoft/TypeScript/issues/18896)
 - Finally, there it's worth watching the [nodejs/module](https://github.com/nodejs/modules) repository, which debates amongst other things how to properly integrate loaders with Node.
 
-
-
 This last one would be nice because:
 
 - We'd stop having to patch require
 - We probably wouldn't have to use yarn node if Node itself was able to find the loader somehow (such as if it was listed in the package.json metadata)
 
-
-
 Thanks to Maël for his tireless work on Yarn. To my mind Maël is certainly a candidate for the hardest worker in open source. I've been shamelessly borrowing his excellent docs for this post - thanks for writing so excellently Maël!
-
-

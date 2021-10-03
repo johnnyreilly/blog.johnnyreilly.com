@@ -1,10 +1,11 @@
 ---
-title: "Bicep: syntax highlighting with PrismJS (and Docusaurus)"
+title: 'Bicep: syntax highlighting with PrismJS (and Docusaurus)'
 authors: johnnyreilly
 tags: [Bicep, PrismJS]
 image: blog/2021-08-19-bicep-syntax-highlighting-with-prismjs/bicep-syntax-highlighting-with-prismjs.png
 hide_table_of_contents: false
 ---
+
 Bicep is an amazing language, it's also very new. If you want to write attractive code snippets about Bicep, you can by using PrismJS (and Docusaurus). This post shows you how.
 
 ![title image reading "Publish Azure Static Web Apps with Bicep and Azure DevOps" and some Azure logos](../static/blog/2021-08-19-bicep-syntax-highlighting-with-prismjs/bicep-syntax-highlighting-with-prismjs.png)
@@ -19,10 +20,10 @@ Whilst my regex fu is amateur at best, happily [Michael Schmidt](https://github.
 
 If you have any code snippets that start with three backticks and the word `bicep`...
 
-```
+````
 ```bicep
 // code goes here...
-```
+````
 
 ... then ideally you'd like to see some syntax highlighting in your post. Since Bicep isn't "in the box" for Docusaurus you need to [explicitly opt into support like so:](https://docusaurus.io/docs/next/markdown-features/code-blocks#supported-languages)
 
@@ -56,7 +57,7 @@ prismjs@PrismJS/prism, prismjs@^1.23.0:
 
 ## What does it look like?
 
-Finally, let's see if works.  Here's a Bicep code snippet that I borrowed from [an earlier post](/2021/08/19/bicep-syntax-highlighting-with-prismjs):
+Finally, let's see if works. Here's a Bicep code snippet that I borrowed from [an earlier post](/2021/08/19/bicep-syntax-highlighting-with-prismjs):
 
 ```bicep
 param repositoryUrl string
@@ -88,7 +89,7 @@ resource staticWebApp 'Microsoft.Web/staticSites@2020-12-01' = {
   }
 }
 
-output deployment_token string = listSecrets(staticWebApp.id, staticWebApp.apiVersion).properties.apiKey 
+output deployment_token string = listSecrets(staticWebApp.id, staticWebApp.apiVersion).properties.apiKey
 ```
 
-As you can see, it's delightfully highlighted by PrismJS.  Enjoy!
+As you can see, it's delightfully highlighted by PrismJS. Enjoy!

@@ -1,26 +1,34 @@
 ---
-title: "Upgrading to Globalize 1.x for Dummies"
+title: 'Upgrading to Globalize 1.x for Dummies'
 authors: johnnyreilly
 tags: [Globalize, migration]
 hide_table_of_contents: false
 ---
+
 Globalize has hit 1.0. Anyone who reads my blog will likely be aware that I'm a long time user of [Globalize 0.1.x](http://blog.icanmakethiswork.io/2012/05/globalizejs-number-and-date.html). I've been a little daunted by the leap that the move from 0.1.x to 1.x represents. It appears to be the very definition of "breaking changes". :-) But hey, this is Semantic Versioning being used correctly so how could I complain? Either way, I've decided to write up the migration here as I'm not expecting this to be easy.
 
- To kick things off I've set up a very [simple repo](https://github.com/johnnyreilly/globalize-migration/tree/v0.1.x) that consists of a single page that depends upon Globalize 0.1.x to render a number and a date in German. It looks like this:
+To kick things off I've set up a very [simple repo](https://github.com/johnnyreilly/globalize-migration/tree/v0.1.x) that consists of a single page that depends upon Globalize 0.1.x to render a number and a date in German. It looks like this:
 
 ```html
 <html>
   <head>
     <title>Globalize demo</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="container-fluid">
       <h4>Globalize demo for the <em id="locale"></em> culture / locale</h4>
-      <p>This is a the number <strong id="number"></strong> formatted by Globalize: 
-          <strong id="numberFormatted"></strong></p>
-      <p>This is a the number <strong id="date"></strong> formatted by Globalize: 
-          <strong id="dateFormatted"></strong></p>
+      <p>
+        This is a the number <strong id="number"></strong> formatted by
+        Globalize: <strong id="numberFormatted"></strong>
+      </p>
+      <p>
+        This is a the number <strong id="date"></strong> formatted by Globalize:
+        <strong id="dateFormatted"></strong>
+      </p>
     </div>
 
     <script src="bower_components/globalize/lib/globalize.js"></script>
@@ -30,12 +38,18 @@ Globalize has hit 1.0. Anyone who reads my blog will likely be aware that I'm a 
       var number = 12345.67;
       var date = new Date(2012, 5, 15);
 
-      Globalize.culture( locale );
+      Globalize.culture(locale);
       document.querySelector('#locale').innerText = locale;
       document.querySelector('#number').innerText = number;
       document.querySelector('#date').innerText = date;
-      document.querySelector('#numberFormatted').innerText = Globalize.format(number, 'n2');
-      document.querySelector('#dateFormatted').innerText = Globalize.format(date, 'd');
+      document.querySelector('#numberFormatted').innerText = Globalize.format(
+        number,
+        'n2'
+      );
+      document.querySelector('#dateFormatted').innerText = Globalize.format(
+        date,
+        'd'
+      );
     </script>
   </body>
 </html>
@@ -167,7 +181,7 @@ node ./node_modules/cldr-data-downloader/bin/download.js -i bower_components/cld
 
 If, like me, you were a regular user of Globalize 0.1.x then you know that you needed very little to get going. As you can see from our example you just serve up `Globalize.js` and the culture files you are interested in (eg `globalize.culture.de-DE.js`). That's it - you have all you need; job's a good'un. This is all very convenient and entirely lovely.
 
-Globalize 1.x has a different approach and one that (I have to be honest) I'm not entirely on board with. The thing that you need to know about the new Globalize is that *nothing comes for free*. It's been completely modularised and [you have to include extra libraries depending on the functionality you require.](https://github.com/jquery/globalize#pick-the-modules-you-need) On top of that you then have to work out the [portions of the cldr data that you require for those modules](https://github.com/jquery/globalize#2-cldr-content) and supply them. This means that getting up and running with Globalize 1.x is much harder. Frankly I think it's a little painful.
+Globalize 1.x has a different approach and one that (I have to be honest) I'm not entirely on board with. The thing that you need to know about the new Globalize is that _nothing comes for free_. It's been completely modularised and [you have to include extra libraries depending on the functionality you require.](https://github.com/jquery/globalize#pick-the-modules-you-need) On top of that you then have to work out the [portions of the cldr data that you require for those modules](https://github.com/jquery/globalize#2-cldr-content) and supply them. This means that getting up and running with Globalize 1.x is much harder. Frankly I think it's a little painful.
 
 I realise this is a little ["Who moved my cheese"](https://en.wikipedia.org/wiki/Who_Moved_My_Cheese%3F). I'll get over it. I do actually see the logic of this. It is certainly good that the culture date is not frozen in aspic but will evolve as the world does. But it's undeniable that in our brave new world Globalize is no longer a doddle to pick up. Or at least right now.
 
@@ -179,8 +193,6 @@ So. What do we actually need? Well I've consulted the [documentation](https://gi
 - `<a href="https://github.com/jquery/globalize#date-module">globalize/date.js</a>`
 - `<a href="https://github.com/jquery/globalize#number-module">globalize/number.js</a>`
 
-
-
 On top of that I'm also going to need the various cldr dependencies too. That's not all. Given that I've decided which modules I will use I now need to acquire the associated cldr data. According to the docs [here](https://github.com/jquery/globalize#2-cldr-content) we're going to need:
 
 - `cldr/supplemental/likelySubtags.json`
@@ -190,8 +202,6 @@ On top of that I'm also going to need the various cldr dependencies too. That's 
 - `cldr/supplemental/weekData.json`
 - `cldr/main/locale/numbers.json`
 - `cldr/supplemental/numberingSystems.json`
-
-
 
 Figuring that all out felt like really hard work. But I think that now we're ready to do the actual migration.
 
@@ -207,15 +217,22 @@ To do this I'm going to lean heavily upon [an example put together by Rafael](ht
 <html>
   <head>
     <title>Globalize demo</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="container-fluid">
       <h4>Globalize demo for the <em id="locale"></em> culture / locale</h4>
-      <p>This is a the number <strong id="number"></strong> formatted by Globalize: 
-          <strong id="numberFormatted"></strong></p>
-      <p>This is a the number <strong id="date"></strong> formatted by Globalize: 
-          <strong id="dateFormatted"></strong></p>
+      <p>
+        This is a the number <strong id="number"></strong> formatted by
+        Globalize: <strong id="numberFormatted"></strong>
+      </p>
+      <p>
+        This is a the number <strong id="date"></strong> formatted by Globalize:
+        <strong id="dateFormatted"></strong>
+      </p>
     </div>
 
     <!-- First, we load Globalize's dependencies (`cldrjs` and its supplemental module). -->
@@ -231,45 +248,52 @@ To do this I'm going to lean heavily upon [an example put together by Rafael](ht
     <script src="bower_components/globalize/dist/globalize/date.js"></script>
 
     <script>
+      var locale = 'de';
 
-        var locale = 'de';
+      Promise.all([
+        // Core
+        fetch('bower_components/cldr-data/supplemental/likelySubtags.json'),
 
-        Promise.all([
-          // Core
-          fetch('bower_components/cldr-data/supplemental/likelySubtags.json'),
+        // Date
+        fetch(
+          'bower_components/cldr-data/main/' + locale + '/ca-gregorian.json'
+        ),
+        fetch(
+          'bower_components/cldr-data/main/' + locale + '/timeZoneNames.json'
+        ),
+        fetch('bower_components/cldr-data/supplemental/timeData.json'),
+        fetch('bower_components/cldr-data/supplemental/weekData.json'),
 
-          // Date
-          fetch('bower_components/cldr-data/main/' + locale + '/ca-gregorian.json'),
-          fetch('bower_components/cldr-data/main/' + locale + '/timeZoneNames.json'),
-          fetch('bower_components/cldr-data/supplemental/timeData.json'),
-          fetch('bower_components/cldr-data/supplemental/weekData.json'),
-
-          // Number
-          fetch('bower_components/cldr-data/main/' + locale + '/numbers.json'),
-          fetch('bower_components/cldr-data/supplemental/numberingSystems.json'),
-        ])
-        .then(function(responses) {
-            return Promise.all(responses.map(function(response) {
-                return response.json();
-            }));
+        // Number
+        fetch('bower_components/cldr-data/main/' + locale + '/numbers.json'),
+        fetch('bower_components/cldr-data/supplemental/numberingSystems.json'),
+      ])
+        .then(function (responses) {
+          return Promise.all(
+            responses.map(function (response) {
+              return response.json();
+            })
+          );
         })
         .then(Globalize.load)
-        .then(function() {
-            var number = 12345.67;
-            var date = new Date(2012, 5, 15);
+        .then(function () {
+          var number = 12345.67;
+          var date = new Date(2012, 5, 15);
 
-            var globalize = Globalize( locale );
-            document.querySelector('#locale').innerText = locale;
-            document.querySelector('#number').innerText = number;
-            document.querySelector('#date').innerText = date;
-            document.querySelector('#numberFormatted').innerText = globalize.formatNumber(number, {
-              minimumFractionDigits: 2, 
-              useGrouping: true 
+          var globalize = Globalize(locale);
+          document.querySelector('#locale').innerText = locale;
+          document.querySelector('#number').innerText = number;
+          document.querySelector('#date').innerText = date;
+          document.querySelector('#numberFormatted').innerText =
+            globalize.formatNumber(number, {
+              minimumFractionDigits: 2,
+              useGrouping: true,
             });
-            document.querySelector('#dateFormatted').innerText = globalize.formatDate(date, { 
-              date: 'medium' 
+          document.querySelector('#dateFormatted').innerText =
+            globalize.formatDate(date, {
+              date: 'medium',
             });
-        })
+        });
     </script>
   </body>
 </html>
@@ -284,31 +308,44 @@ We've gone from not a lot of code to... well, more than a little. A medium amoun
 Loading the data via ajax isn't mandatory by the way. If you wanted to you could create your own style of `globalize.culture.de.js` files which would allow you load the page without recourse to post-page load HTTP requests. Something like this Gulp task I've knocked up would do the trick:
 
 ```js
-gulp.task("make-globalize-culture-de-js", function() {
+gulp.task('make-globalize-culture-de-js', function () {
   var locale = 'de';
   var jsonWeNeed = [
     require('./bower_components/cldr-data/supplemental/likelySubtags.json'),
-    require('./bower_components/cldr-data/main/' + locale + '/ca-gregorian.json'),
-    require('./bower_components/cldr-data/main/' + locale + '/timeZoneNames.json'),
+    require('./bower_components/cldr-data/main/' +
+      locale +
+      '/ca-gregorian.json'),
+    require('./bower_components/cldr-data/main/' +
+      locale +
+      '/timeZoneNames.json'),
     require('./bower_components/cldr-data/supplemental/timeData.json'),
     require('./bower_components/cldr-data/supplemental/weekData.json'),
     require('./bower_components/cldr-data/main/' + locale + '/numbers.json'),
-    require('./bower_components/cldr-data/supplemental/numberingSystems.json')
+    require('./bower_components/cldr-data/supplemental/numberingSystems.json'),
   ];
 
-  var jsonStringWithLoad = 'Globalize.load(' + 
-    jsonWeNeed.map(function(json){ return JSON.stringify(json); }).join(', ') + 
+  var jsonStringWithLoad =
+    'Globalize.load(' +
+    jsonWeNeed
+      .map(function (json) {
+        return JSON.stringify(json);
+      })
+      .join(', ') +
     ');';
 
   var fs = require('fs');
-  fs.writeFile('./globalize.culture.' + locale + '.js', jsonStringWithLoad, function(err) {
-      if(err) {
-          console.log(err);
+  fs.writeFile(
+    './globalize.culture.' + locale + '.js',
+    jsonStringWithLoad,
+    function (err) {
+      if (err) {
+        console.log(err);
       } else {
-          console.log("The file was created!");
+        console.log('The file was created!');
       }
-  });
-})
+    }
+  );
+});
 ```
 
 The above is standard node/io type code by the way; just take the contents of the function and run in node and you should be fine. If you do use this approach then you're very much back to the simplicity of Globalize 0.1.x's approach.
@@ -322,5 +359,3 @@ It looks exactly the same except 'de-DE' has become simply 'de' (since that's ho
 The migrated code is [there for the taking](https://github.com/johnnyreilly/globalize-migration). Make sure you remember to `bower install` \- and you'll need to host the demo on a simple server since it makes ajax calls.
 
 Before I finish off I wanted to say "well done!" to all the people who have worked on Globalize. It's an important project and I do apologise for my being a little critical of it here. I should say that I think it's just the getting started that's hard. Once you get over that hurdle you'll be fine. Hopefully this post will help people do just that. Pip, pip!
-
-

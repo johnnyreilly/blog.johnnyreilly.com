@@ -1,9 +1,10 @@
 ---
-title: "Google Analytics API and ASP.Net Core"
+title: 'Google Analytics API and ASP.Net Core'
 authors: johnnyreilly
 tags: [asp net core, google analytics]
 hide_table_of_contents: false
 ---
+
 I recently had need to be able to access the API for Google Analytics from ASP.Net Core. Getting this up and running turned out to be surprisingly tough because of an absence of good examples. So here it is; an example of how you can access a simple page access stat using [the API](https://www.nuget.org/packages/Google.Apis.AnalyticsReporting.v4/):
 
 ```cs
@@ -19,9 +20,9 @@ async Task<SomeKindOfDataStructure[]> GetUsageFromGoogleAnalytics(DateTime start
     // var metrics = new List<Metric> { new Metric { Expression = "ga:sessions", Alias = "Sessions" } };
     // var dimensions = new List<Dimension> { new Dimension { Name = "ga:pageTitle" } };
     var metrics = new List<Metric> { new Metric { Expression = "ga:uniquePageviews" } };
-    var dimensions = new List<Dimension> { 
+    var dimensions = new List<Dimension> {
         new Dimension { Name = "ga:date" },
-        new Dimension { Name = "ga:dimension1" } 
+        new Dimension { Name = "ga:dimension1" }
     };
 
     // Get required View Id from configuration
@@ -40,15 +41,15 @@ async Task<SomeKindOfDataStructure[]> GetUsageFromGoogleAnalytics(DateTime start
     var getReportsRequest = new GetReportsRequest {
         ReportRequests = new List<ReportRequest> { reportRequest }
     };
-        
+
     //Invoke Google Analytics API call and get report
     var analyticsService = GetAnalyticsReportingServiceInstance();
     var response = await (analyticsService.Reports.BatchGet(getReportsRequest)).ExecuteAsync();
 
     var logins = response.Reports[0].Data.Rows.Select(row => new SomeKindOfDataStructure {
         Date = new DateTime(
-            year: Convert.ToInt32(row.Dimensions[0].Substring(0, 4)), 
-            month: Convert.ToInt32(row.Dimensions[0].Substring(4, 2)), 
+            year: Convert.ToInt32(row.Dimensions[0].Substring(0, 4)),
+            month: Convert.ToInt32(row.Dimensions[0].Substring(4, 2)),
             day: Convert.ToInt32(row.Dimensions[0].Substring(6, 2))),
         NumberOfLogins = Convert.ToInt32(row.Metrics[0].Values[0])
     })
@@ -87,5 +88,3 @@ AnalyticsReportingService GetAnalyticsReportingServiceInstance() {
 ```
 
 You can see above that you need various credentials to be able to use the API. You can acquire these by logging into GA. Enjoy!
-
-

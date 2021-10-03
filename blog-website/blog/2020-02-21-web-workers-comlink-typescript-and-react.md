@@ -1,9 +1,10 @@
 ---
-title: "Web Workers, comlink, TypeScript and React"
+title: 'Web Workers, comlink, TypeScript and React'
 authors: johnnyreilly
 tags: [web workers, comlink, TypeScript, React]
 hide_table_of_contents: false
 ---
+
 JavaScript is famously single threaded. However, if you're developing for the web, you may well know that this is not quite accurate. There are [`Web Workers`](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers):
 
 > A worker is an object created using a constructor (e.g. `Worker()`) that runs a named JavaScript file — this file contains the code that will run in the worker thread; workers run in another global context that is different from the current window.
@@ -13,20 +14,20 @@ Given that there is a way to use other threads for background processing, why do
 ```js
 // main.js
 function add2NumbersUsingWebWorker() {
-    const myWorker = new Worker("worker.js");
+  const myWorker = new Worker('worker.js');
 
-    myWorker.postMessage([42, 7]);
-    console.log('Message posted to worker');
+  myWorker.postMessage([42, 7]);
+  console.log('Message posted to worker');
 
-    myWorker.onmessage = function(e) {
-        console.log('Message received from worker', e.data);
-    }
+  myWorker.onmessage = function (e) {
+    console.log('Message received from worker', e.data);
+  };
 }
 
 add2NumbersUsingWebWorker();
 
 // worker.js
-onmessage = function(e) {
+onmessage = function (e) {
   console.log('Worker: Message received from main script');
   const result = e.data[0] * e.data[1];
   if (isNaN(result)) {
@@ -36,18 +37,18 @@ onmessage = function(e) {
     console.log('Worker: Posting message back to main script');
     postMessage(workerResult);
   }
-}
+};
 ```
 
-*This is not simple.* It's hard to understand what's happening. Also, this approach only supports a single method call. I'd much rather write something that looked more like this:
+_This is not simple._ It's hard to understand what's happening. Also, this approach only supports a single method call. I'd much rather write something that looked more like this:
 
 ```js
 // main.js
 function add2NumbersUsingWebWorker() {
-    const myWorker = new Worker("worker.js");
+  const myWorker = new Worker('worker.js');
 
-    const total = myWorker.add2Numbers([42, 7]);
-    console.log('Message received from worker', total);
+  const total = myWorker.add2Numbers([42, 7]);
+  console.log('Message received from worker', total);
 }
 
 add2NumbersUsingWebWorker();
@@ -55,9 +56,7 @@ add2NumbersUsingWebWorker();
 // worker.js
 export function add2Numbers(firstNumber, secondNumber) {
   const result = firstNumber + secondNumber;
-  return (isNaN(result))
-    ? 'Please write two numbers'
-    : 'Result: ' + result;
+  return isNaN(result) ? 'Please write two numbers' : 'Result: ' + result;
 }
 ```
 
@@ -75,17 +74,17 @@ Create a `takeALongTimeToDoSomething.ts` file alongside `index.tsx`:
 
 ```ts
 export function takeALongTimeToDoSomething() {
-    console.log('Start our long running job...');
-    const seconds = 5;
-    const start = new Date().getTime();
-    const delay = seconds * 1000;
+  console.log('Start our long running job...');
+  const seconds = 5;
+  const start = new Date().getTime();
+  const delay = seconds * 1000;
 
-    while (true) {
-        if ((new Date().getTime() - start) > delay) {
-            break;
-        }
+  while (true) {
+    if (new Date().getTime() - start > delay) {
+      break;
     }
-    console.log('Finished our long running job');
+  }
+  console.log('Finished our long running job');
 }
 ```
 
@@ -103,7 +102,7 @@ console.log('Do another thing');
 
 When our application runs we see this behaviour:
 
- ![](../static/blog/2020-02-21-web-workers-comlink-typescript-and-react/blocking.gif)
+![](../static/blog/2020-02-21-web-workers-comlink-typescript-and-react/blocking.gif)
 
 The app starts and logs `Do something` and `Start our long running job...` to the console. It then blocks the UI until the `takeALongTimeToDoSomething` function has completed running. During this time the screen is empty and unresponsive. This is a poor user experience.
 
@@ -121,8 +120,6 @@ Then let's install the packages we're going to be using:
 
 - [`worker-plugin`](https://github.com/GoogleChromeLabs/worker-plugin) \- this webpack plugin automatically compiles modules loaded in Web Workers
 - `comlink` \- this library provides the RPC-like experience that we want from our workers
-
-
 
 ```
 yarn add comlink worker-plugin
@@ -175,7 +172,7 @@ import { expose } from 'comlink';
 import { takeALongTimeToDoSomething } from '../takeALongTimeToDoSomething';
 
 const exports = {
-    takeALongTimeToDoSomething
+  takeALongTimeToDoSomething,
 };
 export type MyFirstWorker = typeof exports;
 
@@ -198,7 +195,7 @@ Here we're going to import our `takeALongTimeToDoSomething` function that we wro
 
 ```ts
 const exports = {
-    takeALongTimeToDoSomething
+  takeALongTimeToDoSomething,
 };
 ```
 
@@ -226,9 +223,12 @@ With an import of `wrap` from comlink that creates a local `takeALongTimeToDoSom
 import { wrap } from 'comlink';
 
 function takeALongTimeToDoSomething() {
-    const worker = new Worker('./my-first-worker', { name: 'my-first-worker', type: 'module' });
-    const workerApi = wrap<import('./my-first-worker').MyFirstWorker>(worker);
-    workerApi.takeALongTimeToDoSomething();    
+  const worker = new Worker('./my-first-worker', {
+    name: 'my-first-worker',
+    type: 'module',
+  });
+  const workerApi = wrap<import('./my-first-worker').MyFirstWorker>(worker);
+  workerApi.takeALongTimeToDoSomething();
 }
 ```
 
@@ -241,8 +241,6 @@ There's a number of exciting things to note here:
 1. The application is now non-blocking. Our long running function is now not preventing the UI from updating
 2. The functionality is lazily loaded via a `my-first-worker.chunk.worker.js` that has been created by the `worker-plugin` and `comlink`.
 
-
-
 ## Using Web Workers in React
 
 The example we've showed so far demostrates how you could use Web Workers and why you might want to. However, it's a far cry from a real world use case. Let's take the next step and plug our Web Worker usage into our React application. What would that look like? Let's find out.
@@ -251,27 +249,27 @@ We'll return `index.tsx` back to it's initial state. Then we'll make a simple ad
 
 ```ts
 export function takeALongTimeToAddTwoNumbers(number1: number, number2: number) {
-    console.log('Start to add...');
-    const seconds = 5;
-    const start = new Date().getTime();
-    const delay = seconds * 1000;
-    while (true) {
-        if ((new Date().getTime() - start) > delay) {
-            break;
-        }
+  console.log('Start to add...');
+  const seconds = 5;
+  const start = new Date().getTime();
+  const delay = seconds * 1000;
+  while (true) {
+    if (new Date().getTime() - start > delay) {
+      break;
     }
-    const total = number1 + number2;
-    console.log('Finished adding');
-    return total;
+  }
+  const total = number1 + number2;
+  console.log('Finished adding');
+  return total;
 }
 ```
 
 Let's start using our long running calculator in a React component. We'll update our `App.tsx` to use this function and create a simple adder component:
 
 ```tsx
-import React, { useState } from "react";
-import "./App.css";
-import { takeALongTimeToAddTwoNumbers } from "./takeALongTimeToDoSomething";
+import React, { useState } from 'react';
+import './App.css';
+import { takeALongTimeToAddTwoNumbers } from './takeALongTimeToDoSomething';
 
 const App: React.FC = () => {
   const [number1, setNumber1] = useState(1);
@@ -287,7 +285,7 @@ const App: React.FC = () => {
         <label>Number to add: </label>
         <input
           type="number"
-          onChange={e => setNumber1(parseInt(e.target.value))}
+          onChange={(e) => setNumber1(parseInt(e.target.value))}
           value={number1}
         />
       </div>
@@ -295,7 +293,7 @@ const App: React.FC = () => {
         <label>Number to add: </label>
         <input
           type="number"
-          onChange={e => setNumber2(parseInt(e.target.value))}
+          onChange={(e) => setNumber2(parseInt(e.target.value))}
           value={number2}
         />
       </div>
@@ -316,15 +314,15 @@ So far, so classic. Let's Web Workerify this!
 We'll update our `my-first-worker/index.ts` to import this new function:
 
 ```ts
-import { expose } from "comlink";
+import { expose } from 'comlink';
 import {
   takeALongTimeToDoSomething,
-  takeALongTimeToAddTwoNumbers
-} from "../takeALongTimeToDoSomething";
+  takeALongTimeToAddTwoNumbers,
+} from '../takeALongTimeToDoSomething';
 
 const exports = {
   takeALongTimeToDoSomething,
-  takeALongTimeToAddTwoNumbers
+  takeALongTimeToAddTwoNumbers,
 };
 export type MyFirstWorker = typeof exports;
 
@@ -334,8 +332,8 @@ expose(exports);
 Alongside our `App.tsx` file let's create an `App.hooks.ts` file.
 
 ```ts
-import { wrap, releaseProxy } from "comlink";
-import { useEffect, useState, useMemo } from "react";
+import { wrap, releaseProxy } from 'comlink';
+import { useEffect, useState, useMemo } from 'react';
 
 /**
  * Our hook that performs the calculation on the worker
@@ -347,7 +345,7 @@ export function useTakeALongTimeToAddTwoNumbers(
   // We'll want to expose a wrapping object so we know when a calculation is in progress
   const [data, setData] = useState({
     isCalculating: false,
-    total: undefined as number | undefined
+    total: undefined as number | undefined,
   });
 
   // acquire our worker
@@ -359,7 +357,7 @@ export function useTakeALongTimeToAddTwoNumbers(
 
     workerApi
       .takeALongTimeToAddTwoNumbers(number1, number2)
-      .then(total => setData({ isCalculating: false, total })); // We receive the result here
+      .then((total) => setData({ isCalculating: false, total })); // We receive the result here
   }, [workerApi, setData, number1, number2]);
 
   return data;
@@ -387,11 +385,11 @@ function useWorker() {
  */
 function makeWorkerApiAndCleanup() {
   // Here we create our worker and wrap it with comlink so we can interact with it
-  const worker = new Worker("./my-first-worker", {
-    name: "my-first-worker",
-    type: "module"
+  const worker = new Worker('./my-first-worker', {
+    name: 'my-first-worker',
+    type: 'module',
   });
-  const workerApi = wrap<import("./my-first-worker").MyFirstWorker>(worker);
+  const workerApi = wrap<import('./my-first-worker').MyFirstWorker>(worker);
 
   // A cleanup function that releases the comlink proxy and terminates the worker
   const cleanup = () => {
@@ -410,9 +408,9 @@ The `useWorker` and `makeWorkerApiAndCleanup` functions make up the basis of a s
 Time to test! We'll change our `App.tsx` to use the new `useTakeALongTimeToAddTwoNumbers` hook:
 
 ```tsx
-import React, { useState } from "react";
-import "./App.css";
-import { useTakeALongTimeToAddTwoNumbers } from "./App.hooks";
+import React, { useState } from 'react';
+import './App.css';
+import { useTakeALongTimeToAddTwoNumbers } from './App.hooks';
 
 const App: React.FC = () => {
   const [number1, setNumber1] = useState(1);
@@ -428,7 +426,7 @@ const App: React.FC = () => {
         <label>Number to add: </label>
         <input
           type="number"
-          onChange={e => setNumber1(parseInt(e.target.value))}
+          onChange={(e) => setNumber1(parseInt(e.target.value))}
           value={number1}
         />
       </div>
@@ -436,12 +434,12 @@ const App: React.FC = () => {
         <label>Number to add: </label>
         <input
           type="number"
-          onChange={e => setNumber2(parseInt(e.target.value))}
+          onChange={(e) => setNumber2(parseInt(e.target.value))}
           value={number2}
         />
       </div>
       <h2>
-        Total:{" "}
+        Total:{' '}
         {total.isCalculating ? (
           <em>Calculating...</em>
         ) : (
@@ -462,5 +460,3 @@ Now our calculation takes place off the main thread and the UI is no longer bloc
 [This post was originally published on LogRocket.](https://blog.logrocket.com/integrating-web-workers-in-a-react-app-with-comlink/)
 
 [The source code for this project can be found here.](https://github.com/johnnyreilly/webworkers-comlink-typescript-react)
-
-

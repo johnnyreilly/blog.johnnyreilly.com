@@ -1,10 +1,11 @@
 ---
-title: "Azure DevOps Client for Node.js - working around limitations"
+title: 'Azure DevOps Client for Node.js - working around limitations'
 authors: johnnyreilly
 tags: [azure devops api, '203', node.js]
 image: blog/2020-10-31-azure-devops-node-api-missing-episodes/title-image.png
 hide_table_of_contents: false
 ---
+
 The Azure DevOps Client library for Node.js has limitations and missing features, such as the ability to paginate git refs and create wiki posts. This post details some of these issues and illustrates a workaround using the Azure DevOps REST API.
 
 ![A title image that reads "Azure DevOps Client for Node.js - working around limitations"](../static/blog/2020-10-31-azure-devops-node-api-missing-episodes/title-image.png)
@@ -57,94 +58,104 @@ With this in hand everything started to work and I found myself able to write my
 
 ```ts
 import axios from 'axios';
-import { WikiPage, WikiPageCreateOrUpdateParameters, WikiType } from 'azure-devops-node-api/interfaces/WikiInterfaces';
+import {
+  WikiPage,
+  WikiPageCreateOrUpdateParameters,
+  WikiType,
+} from 'azure-devops-node-api/interfaces/WikiInterfaces';
 import { IWikiApi } from 'azure-devops-node-api/WikiApi';
 
 async function getWikiPage({
-    adoUrl,
-    adoProject,
-    adoPat,
-    wikiId,
-    path,
+  adoUrl,
+  adoProject,
+  adoPat,
+  wikiId,
+  path,
 }: {
-    adoUrl: string;
-    adoProject: string;
-    adoPat: string;
-    wikiId: string;
-    path: string;
+  adoUrl: string;
+  adoProject: string;
+  adoPat: string;
+  wikiId: string;
+  path: string;
 }) {
-    try {
-        const url = `${makeBaseApiUrl({
-            adoUrl,
-            adoProject,
-        })}/wiki/wikis/${wikiId}/pages?${apiVersion}&path=${path}&includeContent=True&recursionLevel=full`;
-        const request = await axios({
-            url,
-            headers: makeHeaders(adoPat),
-        });
+  try {
+    const url = `${makeBaseApiUrl({
+      adoUrl,
+      adoProject,
+    })}/wiki/wikis/${wikiId}/pages?${apiVersion}&path=${path}&includeContent=True&recursionLevel=full`;
+    const request = await axios({
+      url,
+      headers: makeHeaders(adoPat),
+    });
 
-        const page: WikiPage = request.data;
-        return page;
-    } catch (error) {
-        return undefined;
-    }
+    const page: WikiPage = request.data;
+    return page;
+  } catch (error) {
+    return undefined;
+  }
 }
 
 async function createWikiPage({
-    adoUrl,
-    adoProject,
-    adoPat,
-    wikiId,
-    path,
-    data,
+  adoUrl,
+  adoProject,
+  adoPat,
+  wikiId,
+  path,
+  data,
 }: {
-    adoUrl: string;
-    adoProject: string;
-    adoPat: string;
-    wikiId: string;
-    path: string;
-    data: WikiPageCreateOrUpdateParameters;
+  adoUrl: string;
+  adoProject: string;
+  adoPat: string;
+  wikiId: string;
+  path: string;
+  data: WikiPageCreateOrUpdateParameters;
 }) {
-    try {
-        const url = `${makeBaseApiUrl({
-            adoUrl,
-            adoProject,
-        })}/wiki/wikis/${wikiId}/pages?${apiVersion}&path=${path}`;
+  try {
+    const url = `${makeBaseApiUrl({
+      adoUrl,
+      adoProject,
+    })}/wiki/wikis/${wikiId}/pages?${apiVersion}&path=${path}`;
 
-        const request = await axios({
-            method: 'PUT',
-            url,
-            headers: makeHeaders(adoPat),
-            data,
-        });
+    const request = await axios({
+      method: 'PUT',
+      url,
+      headers: makeHeaders(adoPat),
+      data,
+    });
 
-        const newPage: WikiPage = request.data;
-        return newPage;
-    } catch (error) {
-        return undefined;
-    }
+    const newPage: WikiPage = request.data;
+    return newPage;
+  } catch (error) {
+    return undefined;
+  }
 }
 
-const apiVersion = "api-version=6.0";
+const apiVersion = 'api-version=6.0';
 
 /**
-* Create the headers necessary to ake Azure DevOps happy
-* @param adoPat Personal Access Token from ADO
-*/
+ * Create the headers necessary to ake Azure DevOps happy
+ * @param adoPat Personal Access Token from ADO
+ */
 function makeHeaders(adoPat: string) {
-    return {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Basic ${Buffer.from(`PAT:${adoPat}`).toString('base64')}`,
-        'X-TFS-FedAuthRedirect': 'Suppress',
-    };
+  return {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    Authorization: `Basic ${Buffer.from(`PAT:${adoPat}`).toString('base64')}`,
+    'X-TFS-FedAuthRedirect': 'Suppress',
+  };
 }
 
 /**
-* eg https://dev.azure.com/{organization}/{project}/_apis
-*/
-function makeBaseApiUrl({ adoUrl, adoProject }: { adoUrl: string; adoProject: string }) {
-    return `${adoUrl}/${adoProject}/_apis`;
+ * eg https://dev.azure.com/{organization}/{project}/_apis
+ */
+function makeBaseApiUrl({
+  adoUrl,
+  adoProject,
+}: {
+  adoUrl: string;
+  adoProject: string;
+}) {
+  return `${adoUrl}/${adoProject}/_apis`;
 }
 ```
 
@@ -152,22 +163,22 @@ With this I was able to write code like this:
 
 ```ts
 let topLevelPage = await getWikiPage({
-        adoUrl,
-        adoProject,
-        adoPat,
-        wikiId,
-        path: config.wikiTopLevelName,
-    });
+  adoUrl,
+  adoProject,
+  adoPat,
+  wikiId,
+  path: config.wikiTopLevelName,
+});
 
-    if (!topLevelPage)
-        topLevelPage = await createWikiPage({
-            adoUrl,
-            adoProject,
-            adoPat,
-            wikiId,
-            path: config.wikiTopLevelName,
-            data: { content: '' },
-        });
+if (!topLevelPage)
+  topLevelPage = await createWikiPage({
+    adoUrl,
+    adoProject,
+    adoPat,
+    wikiId,
+    path: config.wikiTopLevelName,
+    data: { content: '' },
+  });
 ```
 
 and the wikis were ours!

@@ -1,12 +1,13 @@
 ---
-title: "Things Done Changed"
+title: 'Things Done Changed'
 authors: johnnyreilly
 tags: [Browserify, ES6, Atom, Babel, React, WebSockets]
 hide_table_of_contents: false
 ---
-Some people fear change. Most people actually. I'm not immune to that myself, but not in the key area of technology. Any developer that fears change when it comes to the tools and languages that he / she is using is in the *wrong* business. Because what you're using to cut code today will not last. The language will evolve, the tools and frameworks that you love will die out and be replaced by new ones that are different and strange. In time, the language you feel you write as a native will fall out of favour, replaced by a new upstart.
 
- My first gig was writing telecoms software using Delphi. I haven't touched Delphi (or telecoms for that matter) for over 10 years now. Believe me, I grok that things change.
+Some people fear change. Most people actually. I'm not immune to that myself, but not in the key area of technology. Any developer that fears change when it comes to the tools and languages that he / she is using is in the _wrong_ business. Because what you're using to cut code today will not last. The language will evolve, the tools and frameworks that you love will die out and be replaced by new ones that are different and strange. In time, the language you feel you write as a native will fall out of favour, replaced by a new upstart.
+
+My first gig was writing telecoms software using Delphi. I haven't touched Delphi (or telecoms for that matter) for over 10 years now. Believe me, I grok that things change.
 
 That is the developer's lot. If you're able to accept that then you'll be just fine. For my part I've always rather relished the new and so I embrace it. However, I've met a surprising number of devs that are outraged when they realise that the language and tools they have used since their first job are not going to last. They do not go gentle into that good dawn. They rage, rage against the death of WebForms. My apologies to Dylan Thomas.
 
@@ -14,7 +15,7 @@ I recently started a new contract. This always brings a certain amount of change
 
 ## The Shock of the New (Toys)
 
-I'd been brought in to work on a full stack ASP.Net project. However, I've initially been working on a separate project which is *entirely* different. A web client app which has nothing to do with ASP.Net at all. It's a greenfield app which is built using the following:
+I'd been brought in to work on a full stack ASP.Net project. However, I've initially been working on a separate project which is _entirely_ different. A web client app which has nothing to do with ASP.Net at all. It's a greenfield app which is built using the following:
 
 1. [React](https://facebook.github.io/react/) / [Flux](https://facebook.github.io/flux/docs/overview.html)
 2. [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) / [Protocol Buffers](https://developers.google.com/protocol-buffers/)
@@ -23,8 +24,6 @@ I'd been brought in to work on a full stack ASP.Net project. However, I've initi
 5. [Karma](https://karma-runner.github.io)
 6. [Gulp](http://gulpjs.com/)
 7. [Atom](https://atom.io/)
-
-
 
 Where to begin? Perhaps at the end - Atom.
 
@@ -46,8 +45,6 @@ This is nice for a couple of reasons:
 
 - When I want to test out the app the build is already done - I don't have to wait for it to happen.
 - When I do bad things I find out faster. So I've got JSHint being triggered by my watch. If I write code that makes JSHint sad (and I haven't noticed the warnings from the [atom plugin](https://atom.io/packages/jshint)) then they'll appear in the console. Likewise, my unit tests are continuously running in response to file changes (in an [ncrunch](http://www.ncrunch.net/)\-y sorta style) and so I know straight away if I'm breaking tests. Rather invaluable in the dynamic world of JavaScript.
-
-
 
 ## Karma, Karma, Karma, Chameleon
 
@@ -80,13 +77,11 @@ Browserify is pretty fab - my only real reservation is that if you step outside 
 The application I'm working on is plugging into an existing system which uses WebSockets for communication. Since WebSockets are native to the web we've been able to plumb these straight into our app. We're also using Protocol Buffers as another optimisation; a way to save a few extra bytes from going down the wire. I don't have much to say about either, just some observations really:
 
 1. WebSockets is a slightly different way of working - permanently open connections as opposed to the request / response paradigm of classic HTTP
-2. WebSockets are wicked fast (due in part to those permanent connections). So performance is *amazing*. Fast like native, type amazing. In our case performance is pretty important and so this has been really great.
-
-
+2. WebSockets are wicked fast (due in part to those permanent connections). So performance is _amazing_. Fast like native, type amazing. In our case performance is pretty important and so this has been really great.
 
 ## React / Flux
 
-Finally, React and Flux. I was completely new to these when I came onto the project and I quickly came to love them. There was a prejudice for me to overcome and that was JSX. When I first saw it I felt a little sick. "Have we learned *NOTHING*???" I wailed. "Don't we know that embedding strings in our controllers is a *BAD* thing?" I was wrong. I had an epiphany. I discovered that JSX is not, as I first imagined, embedded HTML strings. Actually it's syntactic sugar for object creation. A simple example:
+Finally, React and Flux. I was completely new to these when I came onto the project and I quickly came to love them. There was a prejudice for me to overcome and that was JSX. When I first saw it I felt a little sick. "Have we learned _NOTHING_???" I wailed. "Don't we know that embedding strings in our controllers is a _BAD_ thing?" I was wrong. I had an epiphany. I discovered that JSX is not, as I first imagined, embedded HTML strings. Actually it's syntactic sugar for object creation. A simple example:
 
 ```jsx
 var App;
@@ -95,7 +90,7 @@ var App;
 var app = <App version="1.0.0" />;
 
 // What that JSX transpiles into:
-var app = React.createElement(App, {version:"1.0.0"});
+var app = React.createElement(App, { version: '1.0.0' });
 ```
 
 Now that I'm well used to JSX and React I've really got to like it. I keep my views / components as dumb as possible and do all the complex logic in the stores. The stores are just standard JavaScript and so, pretty testable (simple Jasmine gives you all you need - I haven't felt the need for [Jest](https://facebook.github.io/jest/)). The components / views are also completely testable. I'd advise anyone coming to React afresh to make use of the `<a href="https://facebook.github.io/react/docs/test-utils.html#shallow-rendering">ReactShallowRenderer</a>` for these purposes. This means you can test without a DOM - much better all round.
@@ -103,5 +98,3 @@ Now that I'm well used to JSX and React I've really got to like it. I keep my vi
 I don't have a great deal to say about Flux; I think my views on it aren't fully formed yet. I do really like predictability that unidirectional data flow gives you. However, I'm mindful that the app that I've been writing is very much about displaying data and doesn't require much user input. I know that I'm living without 2-way data binding and I do wonder if I would come to miss it. Time will tell.
 
 I really want to get back to static typing. That either means TypeScript (which I know and love) or Facebook's Flow. ([A Windows version of Flow is in the works](https://github.com/facebook/flow/issues/6).) I'll be very happy if I get either into the mix... Watch this space.
-
-

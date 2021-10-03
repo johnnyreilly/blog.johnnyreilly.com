@@ -1,12 +1,13 @@
 ---
-title: "Unit testing MVC controllers / Mocking UrlHelper"
+title: 'Unit testing MVC controllers / Mocking UrlHelper'
 authors: johnnyreilly
 tags: [MVC, unit testing, AreaRegistration.RegisterAllAreas(), MOQ, UrlHelper]
 hide_table_of_contents: false
 ---
-## I have put a name to my pain... 
 
- And it is unit testing ASP.Net MVC controllers.
+## I have put a name to my pain...
+
+And it is unit testing ASP.Net MVC controllers.
 
 Well perhaps that's unfair. I have no problem unit testing MVC controllers.... **until** it comes to making use of the "innards" of MVC. Let me be more specific. This week I had a controller action that I needed to test. It looked a little like this:
 
@@ -46,8 +47,4 @@ Let's go through this unit test and breakdown what's happening:
 2. Act
 3. Assert
 
-
-
 The most interesting thing you'll note is the controller's UrlHelper is now generating a URL as we might have hoped. The URL is generated making use of our routing, yay! Finally we're also managing to unit test a route registered by our area.
-
-

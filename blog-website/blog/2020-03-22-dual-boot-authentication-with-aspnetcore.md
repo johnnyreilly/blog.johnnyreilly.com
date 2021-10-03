@@ -1,14 +1,23 @@
 ---
-title: "Dual boot authentication with ASP.NET"
+title: 'Dual boot authentication with ASP.NET'
 authors: johnnyreilly
-tags: [Authentication, dual authentication, Cookie, Azure AD, ForwardDefaultSelector, ASP.NET]
+tags:
+  [
+    Authentication,
+    dual authentication,
+    Cookie,
+    Azure AD,
+    ForwardDefaultSelector,
+    ASP.NET,
+  ]
 hide_table_of_contents: false
 ---
+
 This is a post about having two kinds of authentication working at the same time in ASP.Net Core. But choosing which authentication method to use dynamically at runtime; based upon the criteria of your choice.
 
 Already this sounds complicated; let's fix that. Perhaps I should describe my situation to you. I've an app which has two classes of user. One class, let's call them "customers" (because... uh... they're customers). The customers access our application via a public facing website. Traffic rolls through Cloudflare and into our application. The public facing URL is something fancy like [https://mega-app.com](https://mega-app.com). That's one class of user.
 
-The other class of user we'll call "our peeps"; because they are *us*. We use the app that we build. Traffic from "us" comes from a different hostname; only addressable on our network. So URLs from requests that we make are more along the lines of [https://strictly4mypeeps.io](https://strictly4mypeeps.io).
+The other class of user we'll call "our peeps"; because they are _us_. We use the app that we build. Traffic from "us" comes from a different hostname; only addressable on our network. So URLs from requests that we make are more along the lines of [https://strictly4mypeeps.io](https://strictly4mypeeps.io).
 
 So far, so uncontroversial. Now it starts to get interesting. Our customers log into our application using their super secret credentials. It's [cookie based authentication](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/cookie?view=aspnetcore-3.1#create-an-authentication-cookie). But for our peeps we do something different. Having to enter your credentials each time you use the app is friction. It gets in the way. So for us we have [Azure AD](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/azure-active-directory/?view=aspnetcore-3.1) in the mix. Azure AD is how we authenticate ourselves; and that means we don't spend 5% of each working day entering credentials.
 
@@ -26,9 +35,9 @@ We've been going through the process of cloudifying our app. Bye, bye servers, h
 
 When it came to authentication, my initial thoughts were to continue the same road we're travelling; just in containers and pods. So where we had "internal" servers, we'd have "internal" pods, and where we'd have "external" servers we'd have external pods. I had the good fortune to be working with the amazingly talented [Robski](https://uk.linkedin.com/in/robert-grzankowski-53618114). Robski knows far more about K8s and networking than I'm ever likely to. He'd regularly say things like "ingress" and "MTLS" whilst I stared blankly at him. He definitely knows stuff.
 
-Robski challenged my plans. "We don't need it. Have one pod that does both sorts of auth. If you do that, your implementation is simpler and scaling is more straightforward. You'll only need half the pods because you won't need internal *and* external ones; one pod can handle both sets of traffic. You'll save money."
+Robski challenged my plans. "We don't need it. Have one pod that does both sorts of auth. If you do that, your implementation is simpler and scaling is more straightforward. You'll only need half the pods because you won't need internal _and_ external ones; one pod can handle both sets of traffic. You'll save money."
 
-I loved the idea but I didn't think that ASP.Net Core supported it. "It's just not a thing Robski; ASP.Net Core doesn't suppport it." Robski didn't believe me. That turned out to a *very good thing*. There followed a period of much googling and experimentation. One day of hunting in, I was still convinced there was no way to do it that would allow me to look in the mirror without self loathing. Then Robski sent me this:
+I loved the idea but I didn't think that ASP.Net Core supported it. "It's just not a thing Robski; ASP.Net Core doesn't suppport it." Robski didn't believe me. That turned out to a _very good thing_. There followed a period of much googling and experimentation. One day of hunting in, I was still convinced there was no way to do it that would allow me to look in the mirror without self loathing. Then Robski sent me this:
 
 ![screenshot of WhatsApp message with a link in it](../static/blog/2020-03-22-dual-boot-authentication-with-aspnetcore/robski-dynamic-auth.png)
 
@@ -87,7 +96,7 @@ If you look at this code it's doing these things:
 1. Registering three types of authentication: Cookie, Azure AD and "WhichAuthDoWeUse"
 2. Registers the default `Scheme` to be "WhichAuthDoWeUse".
 
-"WhichAuthDoWeUse" is effectively an `if` statement that says, *"if this is an external `Request` use Cookies authentication, otherwise use Azure AD"*. Given that "WhichAuthDoWeUse" is the default scheme, this code runs for each request, to determine which authentication method to use.
+"WhichAuthDoWeUse" is effectively an `if` statement that says, _"if this is an external `Request` use Cookies authentication, otherwise use Azure AD"_. Given that "WhichAuthDoWeUse" is the default scheme, this code runs for each request, to determine which authentication method to use.
 
 Alongside this mechanism I added these extension methods:
 
@@ -164,7 +173,7 @@ Finally, I updated the `SpaController.cs` (which serves initial requests to our 
         }
 
         /// <summary>
-        /// SPA landing with authorisation - this endpoint will typically not be directly navigated to by a user; 
+        /// SPA landing with authorisation - this endpoint will typically not be directly navigated to by a user;
         /// rather it will be redirected to from the IndexWithoutAuthorisation and SpaFallback actions above
         /// in the case where a user is *not* authenticated but has come from an internal URL eg https://strictlyformypeeps.io
         /// </summary>
@@ -206,7 +215,7 @@ Finally, I updated the `SpaController.cs` (which serves initial requests to our 
 The code above allows anonymous requests to land in our app through the `AllowAnonymous` attribute. However, it checks the request when it comes in to see if:
 
 1. It's an internal request (i.e. the Request URL starts "[https://strictly4mypeeps.io/"](https://strictly4mypeeps.io/"))
-2. The current user is *not* authenticated.
+2. The current user is _not_ authenticated.
 
 In this case the user is redirected to the [https://strictly4mypeeps.io/login-with-azure-ad](https://strictly4mypeeps.io/login-with-azure-ad) route which is decorated with the `Authorize` attribute. This will trigger authentication for our unauthenticated internal users and drive them through the Azure AD login process.
 

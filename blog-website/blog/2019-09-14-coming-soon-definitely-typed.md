@@ -1,9 +1,10 @@
 ---
-title: "Coming Soon: Definitely Typed"
+title: 'Coming Soon: Definitely Typed'
 authors: johnnyreilly
 tags: [TypeScript, Definitely Typed]
 hide_table_of_contents: false
 ---
+
 A long time ago (well, 2012) in a galaxy far, far away (okay; Plovdiv, Bulgaria)....
 
 [Definitely Typed](https://github.com/DefinitelyTyped/DefinitelyTyped) began!
@@ -15,5 +16,3 @@ Perhaps you know that the project was started by a shadowy figure named "Boris Y
 This autumn, I'd like to tell you the story of how Definitely Typed came to be what it is. From an individual commit in a repo that Boris created in 2012 to [the number 10 project by contributions on GitHub in 2018](https://octoverse.github.com/projects). I'm part of that story. Basarat Ali Syed is part of that story. Masahi Wakame too. Blake Embrey. Steve Fenton. Igor Oleinikov. It's an amazing and unexpected tale. One that turns upon the actions of individuals. They changed your life and I'd love you to learn how.
 
 So, coming soon to a blog post near you, is the story of Definitely Typed. It's very exciting! Stay tuned...
-
-

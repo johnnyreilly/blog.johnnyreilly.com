@@ -1,20 +1,21 @@
 ---
-title: "ASP.NET, Serilog and Application Insights"
+title: 'ASP.NET, Serilog and Application Insights'
 authors: johnnyreilly
 image: blog/2021-01-30-aspnet-serilog-and-application-insights/application-insights-properties.png
 tags: [asp.net, Azure, Application Insights, Serilog]
 hide_table_of_contents: false
 ---
+
 If you're deploying an ASP.NET application to Azure App Services, there's a decent chance you'll also be using the fantastic [Serilog](https://serilog.net/) and will want to plug it into Azure's [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview).
 
 This post will show you how it's done, and it'll also build upon the [build info work from our previous post](2021-01-29-surfacing-azure-pipelines-build-info-in-an-aspnet-react-app.md). In what way? Great question. Well logs are a tremendous diagnostic tool. If you have logs which display some curious behaviour, and you'd like to replicate that in another environment, you really want to take exactly that version of the codebase out to play. Our last post introduced build info into our application in the form of our `AppVersionInfo` class that looks something like this:
 
 ```json
 {
-    "buildNumber": "20210130.1",
-    "buildId": "123456",
-    "branchName": "main",
-    "commitHash": "7089620222c30c1ad88e4b556c0a7908ddd34a8e"
+  "buildNumber": "20210130.1",
+  "buildId": "123456",
+  "branchName": "main",
+  "commitHash": "7089620222c30c1ad88e4b556c0a7908ddd34a8e"
 }
 ```
 
@@ -32,7 +33,7 @@ We're going to need a number of Serilog dependencies added to our `.csproj`:
 <PackageReference Include="Serilog.Sinks.Async" Version="1.4.0" />
 ```
 
-The earlier in your application lifetime you get logging wired up, the happier you will be. Earlier, means more information when you're diagnosing issues. So we want to start in our `Program.cs`; `Startup.cs` would be just *way* too late.
+The earlier in your application lifetime you get logging wired up, the happier you will be. Earlier, means more information when you're diagnosing issues. So we want to start in our `Program.cs`; `Startup.cs` would be just _way_ too late.
 
 ```cs
 public class Program {
@@ -123,7 +124,7 @@ internal static class LoggerConfigurationExtensions {
 
 If we take a look at the `ConfigureBaseLogging` method above, we can see that our logs are being enriched with the build info, property by property. We're also giving ourselves a beautifully coloured console thanks to Serilog's glorious [theme support](https://github.com/serilog/serilog-sinks-console#themes):
 
- ![screenshot of the console featuring coloured output](../static/blog/2021-01-30-aspnet-serilog-and-application-insights/coloured-console.png)
+![screenshot of the console featuring coloured output](../static/blog/2021-01-30-aspnet-serilog-and-application-insights/coloured-console.png)
 
 Take a moment to admire the salmon pinks. Is it not lovely?
 

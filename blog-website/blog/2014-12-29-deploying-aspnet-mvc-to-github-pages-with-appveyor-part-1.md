@@ -1,16 +1,17 @@
 ---
-title: "Deploying from ASP.Net MVC to GitHub Pages using AppVeyor part 1"
+title: 'Deploying from ASP.Net MVC to GitHub Pages using AppVeyor part 1'
 authors: johnnyreilly
 tags: [wget, powershell, github pages, AppVeyor]
 hide_table_of_contents: false
 ---
+
 There's a small open source project I'm responsible for called [jQuery Validation Unobtrusive Native](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native). (A catchy name is a must for any good open source project. Alas I'm not quite meeting my own exacting standards on this particular point... I should have gone with my gut and called it "Livingstone" instead. Too late now...)
 
- The project itself is fairly simple in purpose. It's essentially a bridge between ASP.Net MVC's inbuilt support for driving validation from data attributes and jQuery Validation's native support for the same. It is, in the end, a collection of ASP.Net MVC HTML helper extensions. It is not massively complicated.
+The project itself is fairly simple in purpose. It's essentially a bridge between ASP.Net MVC's inbuilt support for driving validation from data attributes and jQuery Validation's native support for the same. It is, in the end, a collection of ASP.Net MVC HTML helper extensions. It is not massively complicated.
 
 I believe it was Tony Blair that said "documentation, documentation, documentation" were his priorities for open source projects. Or maybe it was someone else... Anyway, the point stands. Documentation is supremely important if you want your project to be in any way useful to anyone other than yourself. A project, no matter how fantastic, which lacks decent documentation is a missed opportunity.
 
-Anyway I'm happy to say that jQuery Validation Unobtrusive Native *has* documentation! And pretty good documentation at that. The documentation takes the form of the [jVUNDemo](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/tree/master/jVUNDemo) project which is part of the jQuery Validation Unobtrusive Native repo. jVUNDemo is an ASP.Net MVC web application which is built on top of the jQuery Validation Unobtrusive Native helpers. It demonstrates the helpers in action and documents how you might go about using them. It looks a bit like this:
+Anyway I'm happy to say that jQuery Validation Unobtrusive Native _has_ documentation! And pretty good documentation at that. The documentation takes the form of the [jVUNDemo](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/tree/master/jVUNDemo) project which is part of the jQuery Validation Unobtrusive Native repo. jVUNDemo is an ASP.Net MVC web application which is built on top of the jQuery Validation Unobtrusive Native helpers. It demonstrates the helpers in action and documents how you might go about using them. It looks a bit like this:
 
 ![](../static/blog/2014-12-29-deploying-aspnet-mvc-to-github-pages-with-appveyor-part-1/Screenshot%2B2014-12-29%2B06.22.46.png)
 
@@ -60,7 +61,7 @@ $process = Start-Process 'C:\Program Files (x86)\IIS Express\iisexpress.exe' -No
 write-host "Wait a moment for IIS to startup"
 Start-sleep -s 15
 
-if (Test-Path $staticSitePath) { 
+if (Test-Path $staticSitePath) {
     write-host "Removing $($staticSitePath)..."
     Remove-Item -path $staticSitePath -Recurse -Force
 }
@@ -76,7 +77,7 @@ Pop-Location
 write-host "Shut down jVUNDemo site"
 stop-process -Name iisexpress
 
-if (Test-Path $staticSitePath) { 
+if (Test-Path $staticSitePath) {
     write-host "Contents of $($staticSitePath)"
     ls $staticSitePath
 }
@@ -91,23 +92,21 @@ The above Powershell does the following:
 5. Stops IIS Express
 6. Prints out the contents of the "static-site" directory
 
-
-
 When run, it pumps something like this out:
 
 ```
-jVUNDemo location: C:\projects\jquery-validation-unobtrusive-native\jVUNDemo 
-static site parent location: C:\projects 
-static site location: C:\projects\static-site 
-wget log path: C:\projects\wget.log 
-Spin up jVUNDemo site at http://localhost:57612/ 
-Wait a moment for IIS to startup 
-Create static version of demo site here: C:\projects\static-site 
+jVUNDemo location: C:\projects\jquery-validation-unobtrusive-native\jVUNDemo
+static site parent location: C:\projects
+static site location: C:\projects\static-site
+wget log path: C:\projects\wget.log
+Spin up jVUNDemo site at http://localhost:57612/
+Wait a moment for IIS to startup
+Create static version of demo site here: C:\projects\static-site
 wget.exe : --2014-12-29 07:49:56--  http://localhost:57612/
-Resolving localhost... 
+Resolving localhost...
 127.0.0.1
 Connecting to localhost|127.0.0.1|:57612... connected.
-HTTP request sent, awaiting response... 
+HTTP request sent, awaiting response...
 200 OK
 
 ..... lots of HTTP requests.....
@@ -134,14 +133,14 @@ Converting static-site/Home/GettingStarted.html... 29-0
 Converting static-site/Home/Download.html... 27-0
 Converting static-site/AdvancedDemo/Tooltip.html... 34-0
 Converted 20 files in 0.03 seconds.
- 
-Shut down jVUNDemo site 
-Contents of C:\projects\static-site 
- 
- 
+
+Shut down jVUNDemo site
+Contents of C:\projects\static-site
+
+
     Directory: C:\projects\static-site
- 
- 
+
+
 Mode                LastWriteTime     Length Name
 ----                -------------     ------ ----
 d----        12/29/2014   7:50 AM            AdvancedDemo
@@ -158,5 +157,3 @@ d----        12/29/2014   7:50 AM            Scripts
 And that's it for part 1 my friends! You now have a static version of the ASP.Net MVC site to dazzle the world with. I should say for the purposes of full disclosure that there are 2 pages in the site which are not entirely "static" friendly. For these 2 pages I've put messages in that are displayed when the page is served up in a static format explaining the limitations. Their full glory can still be experienced by cloning the project and running locally.
 
 [Next time](https://blog.johnnyreilly.com/2015/01/deploying-aspnet-mvc-to-github-pages-with-appveyor-part-2.html) we'll take the mechanism detailed above and plug it into AppVeyor for some Continuous Integration happiness.
-
-

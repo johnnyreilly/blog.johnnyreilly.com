@@ -1,12 +1,20 @@
 ---
-title: "Twitter.Bootstrap.MVC4 meet Bootstrap Datepicker"
+title: 'Twitter.Bootstrap.MVC4 meet Bootstrap Datepicker'
 authors: johnnyreilly
-tags: [asp.net mvc, Twitter.Bootstrap.MVC4, Responsive, Twitter Bootstrap, Bootstrap Datepicker]
+tags:
+  [
+    asp.net mvc,
+    Twitter.Bootstrap.MVC4,
+    Responsive,
+    Twitter Bootstrap,
+    Bootstrap Datepicker,
+  ]
 hide_table_of_contents: false
 ---
+
 ## Update 14/01/2013
 
- Since I wrote this I've taken things on a little further - to read about that go [here](http://icanmakethiswork.blogspot.co.uk/2013/01/twitterbootstrapmvc4-meet-bootstrap_14.html).
+Since I wrote this I've taken things on a little further - to read about that go [here](http://icanmakethiswork.blogspot.co.uk/2013/01/twitterbootstrapmvc4-meet-bootstrap_14.html).
 
 ## Getting Responsive
 
@@ -14,22 +22,17 @@ It's the new year, it's time for new things. Long on my list of "things to do" w
 
 Rather than diving straight in myself I'd heard at a user group that it might be worth taking [Twitter Bootstrap](http://twitter.github.com/bootstrap/) as a baseline. I'm a <strike>lazy</strike>
 
- busy fellow so this sounded ideal.
+busy fellow so this sounded ideal.
 
 ## I like ASP.Net MVC...
 
-... and this flavoured my investigations. I quickly stumbled on an [article written by Eric Hexter](http://lostechies.com/erichexter/2012/11/20/twitter-bootstrap-mvc4-the-template-nuget-package-for-asp-net-mvc4-projects/ ). Eric had brought together Twitter Bootstrap and ASP.Net MVC 4 in a [NuGet package](http://nuget.org/packages/twitter.bootstrap.mvc4). Excellent work chap!
+... and this flavoured my investigations. I quickly stumbled on an [article written by Eric Hexter](http://lostechies.com/erichexter/2012/11/20/twitter-bootstrap-mvc4-the-template-nuget-package-for-asp-net-mvc4-projects/). Eric had brought together Twitter Bootstrap and ASP.Net MVC 4 in a [NuGet package](http://nuget.org/packages/twitter.bootstrap.mvc4). Excellent work chap!
 
 To get up and running with Eric's work was a straightforward proposition. I...
 
 1. Created new MVC 4 application in Visual Studio called “BootstrapMvcSample” using the “Empty” Project Template.
 2. Executed the following commands at the NuGet Package Manager Console: - `Install-Package twitter.bootstrap.mvc4`
-    - `Install-Package twitter.bootstrap.mvc4.sample`
-
-    
-
-
-
+   - `Install-Package twitter.bootstrap.mvc4.sample`
 
 Check out the responsive goodness I had when I ran it:
 
@@ -52,8 +55,6 @@ Incorporating the Bootstrap Datepicker into Twitter.Bootstrap.MVC4 was actually 
 - `bootstrap-datepicker.js` was added to `~\Scripts`.
 - `datepicker.css` was added to `~\Content`. I renamed this file to `bootstrap-datepicker.css` to stay in line with the other css files.
 
-
-
 Once this was done I amended the `BootstrapBundleConfig.cs` bundles to include these assets. Once this was done the bundle file looked like this:
 
 <script src="https://gist.github.com/4529746.js?file=BootstrapBundleConfig.cs"></script>
@@ -75,5 +76,3 @@ My thanks to [Eric Hexter](https://twitter.com/ehexter) and Stefan Petre for doi
 ## Still to do
 
 I haven't really tested how this all fits together (if at all) with browsers running a non-English culture. There may still be a little tinkering require to get that working...
-
-

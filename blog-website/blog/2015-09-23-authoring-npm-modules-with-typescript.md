@@ -4,28 +4,27 @@ authors: johnnyreilly
 tags: [npm, DefinitelyTyped, TypeScript, atom-typescript]
 hide_table_of_contents: false
 ---
+
 OK - the title's total clickbait but stay with me; there's a point here.
 
- I'm a member of the Definitely Typed team - and hopefully I won't be kicked out for writing this. My point is this: `.d.ts` files should live with the package they provide typing information for, in npm / GitHub etc. Not separately. TypeScript 1.6 has just been released. Yay! In the [release blog post](https://blogs.msdn.com/b/typescript/archive/2015/09/16/announcing-typescript-1-6.aspx) it says this:
+I'm a member of the Definitely Typed team - and hopefully I won't be kicked out for writing this. My point is this: `.d.ts` files should live with the package they provide typing information for, in npm / GitHub etc. Not separately. TypeScript 1.6 has just been released. Yay! In the [release blog post](https://blogs.msdn.com/b/typescript/archive/2015/09/16/announcing-typescript-1-6.aspx) it says this:
 
 > We’ve changed module resolution when doing CommonJS output to work more closely to how Node does module resolution. If a module name is non-relative, we now follow these steps to find the associated typings:
-> 
+>
 > 1. Check in `node_modules` for `&lt;module name&gt;.d.ts`
 > 2. Search `node_modules\&lt;module name&gt;\package.json` for a `typings` field
 > 3. Look for `node_modules\&lt;module name&gt;\index.d.ts`
 > 4. Then we go one level higher and repeat the process
-> 
-> 
-> 
-> **Please note:** when we search through node\_modules, we assume these are the packaged node modules which have type information and a corresponding `.js` file. As such, we resolve only `.d.ts` files (not `.ts` file) for non-relative names.
-> 
-> Previously, we treated all module names as relative paths, and therefore we would never properly look in node\_modules... We will continue to improve module resolution, including improvements to AMD, in upcoming releases.
+>
+> **Please note:** when we search through node_modules, we assume these are the packaged node modules which have type information and a corresponding `.js` file. As such, we resolve only `.d.ts` files (not `.ts` file) for non-relative names.
+>
+> Previously, we treated all module names as relative paths, and therefore we would never properly look in node_modules... We will continue to improve module resolution, including improvements to AMD, in upcoming releases.
 
 The TL;DR is this: consuming npm packages which come with definition files should JUST WORK™... npm is now a first class citizen in TypeScriptLand. So everyone who has a package on npm should now feel duty bound to include a `.d.ts` when they publish and Definitely Typed can shut up shop. Simple right?
 
 ## Wrong!
 
-Yeah, it's never going to happen. Surprising as it is, there are many people who are quite happy without TypeScript in their lives (I know - mad right?). These poor unfortunates are unlikely to ever take the extra steps necessary to write definition files. For this reason, there will probably *always* be a need for a provider of typings such as Definitely Typed. As well as that, the vast majority of people using TypeScript probably don't use npm to manage dependencies. There are, however, an increasing number of users who are using npm. Some (like me) may even be using tools like [Browserify](http://browserify.org/) (with the [TSIFY plugin](https://github.com/smrq/tsify)) or [WebPack](https://webpack.github.io/) (with the [TS loader](https://github.com/jbrantly/ts-loader)) to bring it all together. My feeling is that, over time, using npm will become more common; particularly given the improvements being made to module resolution in the language.
+Yeah, it's never going to happen. Surprising as it is, there are many people who are quite happy without TypeScript in their lives (I know - mad right?). These poor unfortunates are unlikely to ever take the extra steps necessary to write definition files. For this reason, there will probably _always_ be a need for a provider of typings such as Definitely Typed. As well as that, the vast majority of people using TypeScript probably don't use npm to manage dependencies. There are, however, an increasing number of users who are using npm. Some (like me) may even be using tools like [Browserify](http://browserify.org/) (with the [TSIFY plugin](https://github.com/smrq/tsify)) or [WebPack](https://webpack.github.io/) (with the [TS loader](https://github.com/jbrantly/ts-loader)) to bring it all together. My feeling is that, over time, using npm will become more common; particularly given the improvements being made to module resolution in the language.
 
 An advantage of shipping typings with an npm package is this: those typings should accurately describe their accompanying package. In Definitely Typed we only aim to support the latest and greatest typings. So if you find yourself looking for the typings of an older version of a package you're going to have to pick your way back through the history of a `.d.ts` file and hope you happen upon the version you're looking for. Not a fantastic experience.
 
@@ -53,84 +52,138 @@ At this point globalize-so-what-cha-want consisted of a single `index.js` file i
 /* jshint varstmt: false, esnext: false */
 var DEPENDENCY_TYPES = {
   SHARED_JSON: 'Shared JSON (used by all locales)',
-  LOCALE_JSON: 'Locale specific JSON (supplied for each locale)'
+  LOCALE_JSON: 'Locale specific JSON (supplied for each locale)',
 };
 
 var moduleDependencies = {
-  'core': {
+  core: {
     dependsUpon: [],
-    cldrGlobalizeFiles: ['cldr.js', 'cldr/event.js', 'cldr/supplemental.js', 'globalize.js'],
+    cldrGlobalizeFiles: [
+      'cldr.js',
+      'cldr/event.js',
+      'cldr/supplemental.js',
+      'globalize.js',
+    ],
     json: [
-      { dependencyType: DEPENDENCY_TYPES.SHARED_JSON, dependency: 'cldr/supplemental/likelySubtags.json' }
-    ]
+      {
+        dependencyType: DEPENDENCY_TYPES.SHARED_JSON,
+        dependency: 'cldr/supplemental/likelySubtags.json',
+      },
+    ],
   },
 
-  'currency': {
-    dependsUpon: ['number','plural'],
+  currency: {
+    dependsUpon: ['number', 'plural'],
     cldrGlobalizeFiles: ['globalize/currency.js'],
     json: [
-      { dependencyType: DEPENDENCY_TYPES.LOCALE_JSON, dependency: 'cldr/main/{locale}/currencies.json' },
-      { dependencyType: DEPENDENCY_TYPES.SHARED_JSON, dependency: 'cldr/supplemental/currencyData.json' }
-    ]
+      {
+        dependencyType: DEPENDENCY_TYPES.LOCALE_JSON,
+        dependency: 'cldr/main/{locale}/currencies.json',
+      },
+      {
+        dependencyType: DEPENDENCY_TYPES.SHARED_JSON,
+        dependency: 'cldr/supplemental/currencyData.json',
+      },
+    ],
   },
 
-  'date': {
+  date: {
     dependsUpon: ['number'],
     cldrGlobalizeFiles: ['globalize/date.js'],
     json: [
-      { dependencyType: DEPENDENCY_TYPES.LOCALE_JSON, dependency: 'cldr/main/{locale}/ca-gregorian.json' },
-      { dependencyType: DEPENDENCY_TYPES.LOCALE_JSON, dependency: 'cldr/main/{locale}/timeZoneNames.json' },
-      { dependencyType: DEPENDENCY_TYPES.SHARED_JSON, dependency: 'cldr/supplemental/timeData.json' },
-      { dependencyType: DEPENDENCY_TYPES.SHARED_JSON, dependency: 'cldr/supplemental/weekData.json' }
-    ]
+      {
+        dependencyType: DEPENDENCY_TYPES.LOCALE_JSON,
+        dependency: 'cldr/main/{locale}/ca-gregorian.json',
+      },
+      {
+        dependencyType: DEPENDENCY_TYPES.LOCALE_JSON,
+        dependency: 'cldr/main/{locale}/timeZoneNames.json',
+      },
+      {
+        dependencyType: DEPENDENCY_TYPES.SHARED_JSON,
+        dependency: 'cldr/supplemental/timeData.json',
+      },
+      {
+        dependencyType: DEPENDENCY_TYPES.SHARED_JSON,
+        dependency: 'cldr/supplemental/weekData.json',
+      },
+    ],
   },
 
-  'message': {
+  message: {
     dependsUpon: ['core'],
     cldrGlobalizeFiles: ['globalize/message.js'],
-    json: []
+    json: [],
   },
 
-  'number': {
+  number: {
     dependsUpon: ['core'],
     cldrGlobalizeFiles: ['globalize/number.js'],
     json: [
-      { dependencyType: DEPENDENCY_TYPES.LOCALE_JSON, dependency: 'cldr/main/{locale}/numbers.json' },
-      { dependencyType: DEPENDENCY_TYPES.SHARED_JSON, dependency: 'cldr/supplemental/numberingSystems.json' }
-    ]
+      {
+        dependencyType: DEPENDENCY_TYPES.LOCALE_JSON,
+        dependency: 'cldr/main/{locale}/numbers.json',
+      },
+      {
+        dependencyType: DEPENDENCY_TYPES.SHARED_JSON,
+        dependency: 'cldr/supplemental/numberingSystems.json',
+      },
+    ],
   },
 
-  'plural': {
+  plural: {
     dependsUpon: ['core'],
     cldrGlobalizeFiles: ['globalize/plural.js'],
     json: [
-      { dependencyType: DEPENDENCY_TYPES.SHARED_JSON, dependency: 'cldr/supplemental/plurals.json' },
-      { dependencyType: DEPENDENCY_TYPES.SHARED_JSON, dependency: 'cldr/supplemental/ordinals.json' }
-    ]
+      {
+        dependencyType: DEPENDENCY_TYPES.SHARED_JSON,
+        dependency: 'cldr/supplemental/plurals.json',
+      },
+      {
+        dependencyType: DEPENDENCY_TYPES.SHARED_JSON,
+        dependency: 'cldr/supplemental/ordinals.json',
+      },
+    ],
   },
 
-  'relativeTime': {
-    dependsUpon: ['number','plural'],
+  relativeTime: {
+    dependsUpon: ['number', 'plural'],
     cldrGlobalizeFiles: ['globalize/relative-time.js'],
     json: [
-      { dependencyType: DEPENDENCY_TYPES.LOCALE_JSON, dependency: 'cldr/main/{locale}/dateFields.json' }
-    ]
-  }
+      {
+        dependencyType: DEPENDENCY_TYPES.LOCALE_JSON,
+        dependency: 'cldr/main/{locale}/dateFields.json',
+      },
+    ],
+  },
 };
 
 function determineRequiredCldrData(globalizeOptions) {
-  return determineRequired(globalizeOptions, _populateDependencyCurrier('json', function(json) { return json.dependency; }));
+  return determineRequired(
+    globalizeOptions,
+    _populateDependencyCurrier('json', function (json) {
+      return json.dependency;
+    })
+  );
 }
 
 function determineRequiredCldrGlobalizeFiles(globalizeOptions) {
-  return determineRequired(globalizeOptions, _populateDependencyCurrier('cldrGlobalizeFiles', function(cldrGlobalizeFile) { return cldrGlobalizeFile; }));
+  return determineRequired(
+    globalizeOptions,
+    _populateDependencyCurrier(
+      'cldrGlobalizeFiles',
+      function (cldrGlobalizeFile) {
+        return cldrGlobalizeFile;
+      }
+    )
+  );
 }
 
 function determineRequired(globalizeOptions, populateDependencies) {
   var modules = Object.keys(globalizeOptions);
-  modules.forEach(function(module) {
+  modules.forEach(function (module) {
     if (!moduleDependencies[module]) {
-      throw new TypeError('There is no \'' + module + '\' module');
+      throw new TypeError("There is no '" + module + "' module");
     }
   });
 
@@ -145,14 +198,14 @@ function determineRequired(globalizeOptions, populateDependencies) {
 }
 
 function _populateDependencyCurrier(requiredArray, requiredArrayGetter) {
-  var popDepFn = function(module, requireds) {
+  var popDepFn = function (module, requireds) {
     var dependencies = moduleDependencies[module];
 
-    dependencies.dependsUpon.forEach(function(requiredModule) {
+    dependencies.dependsUpon.forEach(function (requiredModule) {
       popDepFn(requiredModule, requireds);
     });
 
-    dependencies[requiredArray].forEach(function(required) {
+    dependencies[requiredArray].forEach(function (required) {
       var newRequired = requiredArrayGetter(required);
       if (requireds.indexOf(newRequired) === -1) {
         requireds.push(newRequired);
@@ -167,7 +220,7 @@ function _populateDependencyCurrier(requiredArray, requiredArrayGetter) {
 
 module.exports = {
   determineRequiredCldrData: determineRequiredCldrData,
-  determineRequiredCldrGlobalizeFiles: determineRequiredCldrGlobalizeFiles
+  determineRequiredCldrGlobalizeFiles: determineRequiredCldrGlobalizeFiles,
 };
 ```
 
@@ -181,21 +234,19 @@ Now I'm not going to bore you with what I had to do to port the JS to TS (not mu
 
 ```json
 {
-    "compileOnSave": true,
-    "compilerOptions": {
-        "module": "commonjs",
-        "declaration": true,
-        "target": "es5",
-        "noImplicitAny": true,
-        "suppressImplicitAnyIndexErrors": true,
-        "removeComments": false,
-        "preserveConstEnums": true,
-        "sourceMap": false,
-        "outDir": "../../"
-    },
-    "files": [
-        "index.ts"
-    ]
+  "compileOnSave": true,
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "target": "es5",
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "sourceMap": false,
+    "outDir": "../../"
+  },
+  "files": ["index.ts"]
 }
 ```
 
@@ -208,68 +259,109 @@ So now, what do we get when we build in Atom? Well, we're generating an `<a href
 ```js
 var DEPENDENCY_TYPES = {
   SHARED_JSON: 'Shared JSON (used by all locales)',
-  LOCALE_JSON: 'Locale specific JSON (supplied for each locale)'
+  LOCALE_JSON: 'Locale specific JSON (supplied for each locale)',
 };
 var moduleDependencies = {
-  'core': {
+  core: {
     dependsUpon: [],
-    cldrGlobalizeFiles: ['cldr.js', 'cldr/event.js', 'cldr/supplemental.js', 'globalize.js'],
+    cldrGlobalizeFiles: [
+      'cldr.js',
+      'cldr/event.js',
+      'cldr/supplemental.js',
+      'globalize.js',
+    ],
     json: [
-      { dependencyType: DEPENDENCY_TYPES.SHARED_JSON, dependency: 'cldr/supplemental/likelySubtags.json' }
-    ]
+      {
+        dependencyType: DEPENDENCY_TYPES.SHARED_JSON,
+        dependency: 'cldr/supplemental/likelySubtags.json',
+      },
+    ],
   },
-  'currency': {
+  currency: {
     dependsUpon: ['number', 'plural'],
     cldrGlobalizeFiles: ['globalize/currency.js'],
     json: [
-      { dependencyType: DEPENDENCY_TYPES.LOCALE_JSON, dependency: 'cldr/main/{locale}/currencies.json' },
-      { dependencyType: DEPENDENCY_TYPES.SHARED_JSON, dependency: 'cldr/supplemental/currencyData.json' }
-    ]
+      {
+        dependencyType: DEPENDENCY_TYPES.LOCALE_JSON,
+        dependency: 'cldr/main/{locale}/currencies.json',
+      },
+      {
+        dependencyType: DEPENDENCY_TYPES.SHARED_JSON,
+        dependency: 'cldr/supplemental/currencyData.json',
+      },
+    ],
   },
-  'date': {
+  date: {
     dependsUpon: ['number'],
     cldrGlobalizeFiles: ['globalize/date.js'],
     json: [
-      { dependencyType: DEPENDENCY_TYPES.LOCALE_JSON, dependency: 'cldr/main/{locale}/ca-gregorian.json' },
-      { dependencyType: DEPENDENCY_TYPES.LOCALE_JSON, dependency: 'cldr/main/{locale}/timeZoneNames.json' },
-      { dependencyType: DEPENDENCY_TYPES.SHARED_JSON, dependency: 'cldr/supplemental/timeData.json' },
-      { dependencyType: DEPENDENCY_TYPES.SHARED_JSON, dependency: 'cldr/supplemental/weekData.json' }
-    ]
+      {
+        dependencyType: DEPENDENCY_TYPES.LOCALE_JSON,
+        dependency: 'cldr/main/{locale}/ca-gregorian.json',
+      },
+      {
+        dependencyType: DEPENDENCY_TYPES.LOCALE_JSON,
+        dependency: 'cldr/main/{locale}/timeZoneNames.json',
+      },
+      {
+        dependencyType: DEPENDENCY_TYPES.SHARED_JSON,
+        dependency: 'cldr/supplemental/timeData.json',
+      },
+      {
+        dependencyType: DEPENDENCY_TYPES.SHARED_JSON,
+        dependency: 'cldr/supplemental/weekData.json',
+      },
+    ],
   },
-  'message': {
+  message: {
     dependsUpon: ['core'],
     cldrGlobalizeFiles: ['globalize/message.js'],
-    json: []
+    json: [],
   },
-  'number': {
+  number: {
     dependsUpon: ['core'],
     cldrGlobalizeFiles: ['globalize/number.js'],
     json: [
-      { dependencyType: DEPENDENCY_TYPES.LOCALE_JSON, dependency: 'cldr/main/{locale}/numbers.json' },
-      { dependencyType: DEPENDENCY_TYPES.SHARED_JSON, dependency: 'cldr/supplemental/numberingSystems.json' }
-    ]
+      {
+        dependencyType: DEPENDENCY_TYPES.LOCALE_JSON,
+        dependency: 'cldr/main/{locale}/numbers.json',
+      },
+      {
+        dependencyType: DEPENDENCY_TYPES.SHARED_JSON,
+        dependency: 'cldr/supplemental/numberingSystems.json',
+      },
+    ],
   },
-  'plural': {
+  plural: {
     dependsUpon: ['core'],
     cldrGlobalizeFiles: ['globalize/plural.js'],
     json: [
-      { dependencyType: DEPENDENCY_TYPES.SHARED_JSON, dependency: 'cldr/supplemental/plurals.json' },
-      { dependencyType: DEPENDENCY_TYPES.SHARED_JSON, dependency: 'cldr/supplemental/ordinals.json' }
-    ]
+      {
+        dependencyType: DEPENDENCY_TYPES.SHARED_JSON,
+        dependency: 'cldr/supplemental/plurals.json',
+      },
+      {
+        dependencyType: DEPENDENCY_TYPES.SHARED_JSON,
+        dependency: 'cldr/supplemental/ordinals.json',
+      },
+    ],
   },
-  'relativeTime': {
+  relativeTime: {
     dependsUpon: ['number', 'plural'],
     cldrGlobalizeFiles: ['globalize/relative-time.js'],
     json: [
-      { dependencyType: DEPENDENCY_TYPES.LOCALE_JSON, dependency: 'cldr/main/{locale}/dateFields.json' }
-    ]
-  }
+      {
+        dependencyType: DEPENDENCY_TYPES.LOCALE_JSON,
+        dependency: 'cldr/main/{locale}/dateFields.json',
+      },
+    ],
+  },
 };
 function determineRequired(globalizeOptions, populateDependencies) {
   var modules = Object.keys(globalizeOptions);
   modules.forEach(function (module) {
     if (!moduleDependencies[module]) {
-      throw new TypeError('There is no \'' + module + '\' module');
+      throw new TypeError("There is no '" + module + "' module");
     }
   });
   var requireds = [];
@@ -302,7 +394,12 @@ function _populateDependencyCurrier(requiredArray, requiredArrayGetter) {
  * @param options The globalize modules being used.
  */
 function determineRequiredCldrData(globalizeOptions) {
-  return determineRequired(globalizeOptions, _populateDependencyCurrier('json', function (json) { return json.dependency; }));
+  return determineRequired(
+    globalizeOptions,
+    _populateDependencyCurrier('json', function (json) {
+      return json.dependency;
+    })
+  );
 }
 exports.determineRequiredCldrData = determineRequiredCldrData;
 /**
@@ -311,12 +408,21 @@ exports.determineRequiredCldrData = determineRequiredCldrData;
  * @param options The globalize modules being used.
  */
 function determineRequiredCldrGlobalizeFiles(globalizeOptions) {
-  return determineRequired(globalizeOptions, _populateDependencyCurrier('cldrGlobalizeFiles', function (cldrGlobalizeFile) { return cldrGlobalizeFile; }));
+  return determineRequired(
+    globalizeOptions,
+    _populateDependencyCurrier(
+      'cldrGlobalizeFiles',
+      function (cldrGlobalizeFile) {
+        return cldrGlobalizeFile;
+      }
+    )
+  );
 }
-exports.determineRequiredCldrGlobalizeFiles = determineRequiredCldrGlobalizeFiles;
+exports.determineRequiredCldrGlobalizeFiles =
+  determineRequiredCldrGlobalizeFiles;
 ```
 
-Aside from one method moving internally and me adding some JSDoc, the only really notable change is the end of the file. TypeScript, when generating commonjs, doesn't use the `module.exports = {}` approach. Rather, it drops exported functions onto the `exports` object as functions are exported. Functionally this is *identical*.
+Aside from one method moving internally and me adding some JSDoc, the only really notable change is the end of the file. TypeScript, when generating commonjs, doesn't use the `module.exports = {}` approach. Rather, it drops exported functions onto the `exports` object as functions are exported. Functionally this is _identical_.
 
 Now for our big finish: happily sat alongside is `index.js` is the `<a href="https://github.com/johnnyreilly/globalize-so-what-cha-want/blob/master/index.d.ts">index.d.ts</a>` file:
 
@@ -334,13 +440,17 @@ export interface Options {
  *
  * @param options The globalize modules being used.
  */
-export declare function determineRequiredCldrData(globalizeOptions: Options): string[];
+export declare function determineRequiredCldrData(
+  globalizeOptions: Options
+): string[];
 /**
  * The string array returned will contain a list of the required cldr / globalize files you need, listed in the order they are required.
  *
  * @param options The globalize modules being used.
  */
-export declare function determineRequiredCldrGlobalizeFiles(globalizeOptions: Options): string[];
+export declare function determineRequiredCldrGlobalizeFiles(
+  globalizeOptions: Options
+): string[];
 ```
 
 We're there, huzzah! This has been now published to npm - anyone consuming this package can use TypeScript straight out of the box. I really hope that publishing npm packages in this fashion becomes much more commonplace. Time will tell.
@@ -355,7 +465,3 @@ One of the useful things about writing a blog is that you get to learn. Since I 
 
 - [https://github.com/Microsoft/TypeScript/wiki/Typings-for-npm-packages](https://github.com/Microsoft/TypeScript/wiki/Typings-for-npm-packages)
 - [https://basarat.gitbooks.io/typescript/content/docs/node/nodejs.html](https://basarat.gitbooks.io/typescript/content/docs/node/nodejs.html)
-
-
-
-

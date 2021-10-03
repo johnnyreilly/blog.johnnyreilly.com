@@ -1,22 +1,23 @@
 ---
-title: "AngularJS meet ASP.Net Server Validation"
+title: 'AngularJS meet ASP.Net Server Validation'
 authors: johnnyreilly
 tags: [asp.net, directive, TypeScript, server validation, AngularJS]
 hide_table_of_contents: false
 ---
+
 So. You're using AngularJS to build your front end with ASP.Net running on the server side. You're a trustworthy dev - you know that validation on the client will only get you so far. You need to validate on the server.
 
- My particular scenario is where you have a form which you are saving. Angular serves you well when it comes to hooking in your own client side validation. But it doesn't really ship with anything that supports **nicely** presenting server side validation on the client. Invariably when you look around you find people duplicating their server side validation on the client and presenting all their server side validation in a `&lt;div&gt;` at the top of the screen.
+My particular scenario is where you have a form which you are saving. Angular serves you well when it comes to hooking in your own client side validation. But it doesn't really ship with anything that supports **nicely** presenting server side validation on the client. Invariably when you look around you find people duplicating their server side validation on the client and presenting all their server side validation in a `&lt;div&gt;` at the top of the screen.
 
 This works but it's not as helpful to the user as it might be. It groups together all the validation from the server into one place. What I want is field level validation from the server that's presented on a field level basis on the screen. Like this:
 
 ![](https://2.bp.blogspot.com/-vxr6_ajRNj8/U9tQjs3SS3I/AAAAAAAAAr8/1HoOUJdPO0w/s320/server-error.png)
 
-I know. [A thing of beauty is a joy forever.](http://en.wikipedia.org/wiki/Endymion_(poem)) Let us travel together to this promised land...
+I know. [A thing of beauty is a joy forever.](<http://en.wikipedia.org/wiki/Endymion_(poem)>) Let us travel together to this promised land...
 
 ## What do we need client side?
 
-Well, let's start with a directive which I'll call `serverError`. This plants a validation message just *after* the element being validated which is displayed when that element is declared invalid by the server. (That is to say when the `ngModel` has a `$error.server` set.) When the element is changed then the `$error.server` is unset in order that validation can be hidden and the form can be revalidated against the server.
+Well, let's start with a directive which I'll call `serverError`. This plants a validation message just _after_ the element being validated which is displayed when that element is declared invalid by the server. (That is to say when the `ngModel` has a `$error.server` set.) When the element is changed then the `$error.server` is unset in order that validation can be hidden and the form can be revalidated against the server.
 
 I'm using TypeScript with Angular so for my JavaScript examples I'll give you both the TypeScript which I originally wrote and the generated JavaScript as well.
 
@@ -31,7 +32,7 @@ interface serverErrorScope extends ng.IScope {
 app.directive("serverError", [function () {
 
   // Usage:
-  // <input class="col-xs-12 col-sm-9" 
+  // <input class="col-xs-12 col-sm-9"
   //        name="sage.name" ng-model="vm.sage.name" server-error="vm.errors" />
   var directive = {
     link: link,
@@ -71,7 +72,7 @@ app.directive("serverError", [function () {
       decorator.html(errorHtml);
     }
 
-    // wipe the server error message upon keyup or change events so can revalidate with server 
+    // wipe the server error message upon keyup or change events so can revalidate with server
     element.on("keyup change", (event) => {
       scope.$apply(() => { ngModelController.$setValidity("server", true); });
     });
@@ -95,61 +96,70 @@ function safeWatch<t extends="" function="">(expression: T) {
 ### JavaScript
 
 ```js
-app.directive("serverError", [function () {
-  // Usage:
-  // <input class="col-xs-12 col-sm-9" 
-  //        name="sage.name" ng-model="vm.sage.name" server-error="vm.errors" />
-  var directive = {
-    link: link,
-    restrict: "A",
-    require: "ngModel",
-    scope: {
-      name: "@",
-      serverError: "="
-    }
-  };
-  return directive;
+app.directive('serverError', [
+  function () {
+    // Usage:
+    // <input class="col-xs-12 col-sm-9"
+    //        name="sage.name" ng-model="vm.sage.name" server-error="vm.errors" />
+    var directive = {
+      link: link,
+      restrict: 'A',
+      require: 'ngModel',
+      scope: {
+        name: '@',
+        serverError: '=',
+      },
+    };
+    return directive;
 
-  function link(scope, element, attrs, ngModelController) {
-    // Bootstrap alert template for error
-    var template = '<div class="alert alert-danger" role="alert">' +
-                               '<i class="glyphicon glyphicon-warning-sign"></i> ' +
-                               '%error%</div>';
+    function link(scope, element, attrs, ngModelController) {
+      // Bootstrap alert template for error
+      var template =
+        '<div class="alert alert-danger" role="alert">' +
+        '<i class="glyphicon glyphicon-warning-sign"></i> ' +
+        '%error%</div>';
 
-    // Create an element to hold the validation message
-    var decorator = angular.element('<div></div>');
-    element.after(decorator);
+      // Create an element to hold the validation message
+      var decorator = angular.element('<div></div>');
+      element.after(decorator);
 
-    // Watch ngModelController.$error.server & show/hide validation accordingly
-    scope.$watch(safeWatch(function () {
-      return ngModelController.$error.server;
-    }), showHideValidation);
+      // Watch ngModelController.$error.server & show/hide validation accordingly
+      scope.$watch(
+        safeWatch(function () {
+          return ngModelController.$error.server;
+        }),
+        showHideValidation
+      );
 
-    function showHideValidation(serverError) {
-      // Display an error if serverError is true otherwise clear the element
-      var errorHtml = "";
-      if (serverError) {
-        // Aliasing serverError and name to make it more obvious what their purpose is
-        var errorDictionary = scope.serverError;
-        var errorKey = scope.name;
-        errorHtml = template.replace(/%error%/, errorDictionary[errorKey] || "Unknown error occurred...");
+      function showHideValidation(serverError) {
+        // Display an error if serverError is true otherwise clear the element
+        var errorHtml = '';
+        if (serverError) {
+          // Aliasing serverError and name to make it more obvious what their purpose is
+          var errorDictionary = scope.serverError;
+          var errorKey = scope.name;
+          errorHtml = template.replace(
+            /%error%/,
+            errorDictionary[errorKey] || 'Unknown error occurred...'
+          );
+        }
+        decorator.html(errorHtml);
       }
-      decorator.html(errorHtml);
-    }
 
-    // wipe the server error message upon keyup or change events so can revalidate with server
-    element.on("keyup change", function (event) {
-      scope.$apply(function () {
-        ngModelController.$setValidity("server", true);
+      // wipe the server error message upon keyup or change events so can revalidate with server
+      element.on('keyup change', function (event) {
+        scope.$apply(function () {
+          ngModelController.$setValidity('server', true);
+        });
       });
-    });
-  }
-}]);
+    }
+  },
+]);
 
 // Thanks @Basarat! http://stackoverflow.com/a/24863256/761388
 function safeWatch(expression) {
   return function () {
-    try  {
+    try {
       return expression();
     } catch (e) {
       return null;
@@ -163,53 +173,61 @@ If you look closely at this directive you'll see it is restricted to be used as 
 1. The value that the `server-error` attribute is set to should be an object which will contain key / values where the keys represent fields that are being validated.
 2. The element being validated must have a name property (which will be used to look up the validation message in the `server-error` error "dictionary".
 
-
-
 Totally not clear, right? Let's have an example. Here is my "sageEdit" screen which you saw the screenshot of earlier:
 
 ```html
 <section class="mainbar" ng-controller="sageEdit as vm">
-    <section class="matter">
-        <div class="container-fluid">
-            <form name="form" novalidate role="form">
-                <div>
-                    <button class="btn btn-info"
-                            ng-click="vm.save()"
-                            ng-disabled="!vm.canSave">
-                        <i class="glyphicon glyphicon-save"></i>Save
-                    </button>
-                    <span ng-show="vm.hasChanges"
-                          class="dissolve-animation ng-hide">
-                        <i class="glyphicon glyphicon-asterisk orange"></i>
-                    </span>
-                </div>
-                <div class="widget wblue">
-                    <div data-cc-widget-header title="{{vm.title}}"></div>
-                    <div class="widget-content form-horizontal">
-                        <div class="form-group">
-                            <label class="col-xs-12 col-sm-2">Name</label>
-                            <input class="col-xs-12 col-sm-9" 
-                                   name="sage.name" ng-model="vm.sage.name" 
-                                   server-error="vm.errors" />
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-12 col-sm-2">Username</label>
-                            <input class="col-xs-12 col-sm-9" 
-                                   name="sage.userName" ng-model="vm.sage.userName" 
-                                   server-error="vm.errors" />
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-12 col-sm-2">Email</label>
-                            <input class="col-xs-12 col-sm-9"
-                                   type="email"
-                                   name="sage.email" ng-model="vm.sage.email" 
-                                   server-error="vm.errors" />
-                        </div>
-                    </div>
-                </div>
-            </form>
+  <section class="matter">
+    <div class="container-fluid">
+      <form name="form" novalidate role="form">
+        <div>
+          <button
+            class="btn btn-info"
+            ng-click="vm.save()"
+            ng-disabled="!vm.canSave"
+          >
+            <i class="glyphicon glyphicon-save"></i>Save
+          </button>
+          <span ng-show="vm.hasChanges" class="dissolve-animation ng-hide">
+            <i class="glyphicon glyphicon-asterisk orange"></i>
+          </span>
         </div>
-    </section>
+        <div class="widget wblue">
+          <div data-cc-widget-header title="{{vm.title}}"></div>
+          <div class="widget-content form-horizontal">
+            <div class="form-group">
+              <label class="col-xs-12 col-sm-2">Name</label>
+              <input
+                class="col-xs-12 col-sm-9"
+                name="sage.name"
+                ng-model="vm.sage.name"
+                server-error="vm.errors"
+              />
+            </div>
+            <div class="form-group">
+              <label class="col-xs-12 col-sm-2">Username</label>
+              <input
+                class="col-xs-12 col-sm-9"
+                name="sage.userName"
+                ng-model="vm.sage.userName"
+                server-error="vm.errors"
+              />
+            </div>
+            <div class="form-group">
+              <label class="col-xs-12 col-sm-2">Email</label>
+              <input
+                class="col-xs-12 col-sm-9"
+                type="email"
+                name="sage.email"
+                ng-model="vm.sage.email"
+                server-error="vm.errors"
+              />
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
 </section>
 ```
 
@@ -223,8 +241,7 @@ Let's take a look at our sageEdit Angular controller:
 
 ```ts
 module controllers {
-
-  "use strict";
+  'use strict';
 
   interface sageEditRouteParams extends ng.route.IRouteParamsService {
     id: number;
@@ -235,7 +252,6 @@ module controllers {
   }
 
   class SageEdit {
-
     errors: { [field: string]: string };
     log: loggerFunction;
     logError: loggerFunction;
@@ -245,21 +261,26 @@ module controllers {
 
     private _isSaving: boolean;
 
-    static $inject = ["$location", "$routeParams", "$scope", "common", "datacontext"];
+    static $inject = [
+      '$location',
+      '$routeParams',
+      '$scope',
+      'common',
+      'datacontext',
+    ];
     constructor(
       private $location: ng.ILocationService,
       private $routeParams: sageEditRouteParams,
       private $scope: sageEditScope,
       private common: common,
       private datacontext: datacontext
-      ) {
-
+    ) {
       this.errors = {};
       this.log = common.logger.getLogFn(controllerId);
-      this.logError = common.logger.getLogFn(controllerId, "error");
-      this.logSuccess = common.logger.getLogFn(controllerId, "success");
+      this.logError = common.logger.getLogFn(controllerId, 'error');
+      this.logSuccess = common.logger.getLogFn(controllerId, 'success');
       this.sage = undefined;
-      this.title = "Sage Edit";
+      this.title = 'Sage Edit';
 
       this._isSaving = false;
 
@@ -272,36 +293,39 @@ module controllers {
       var id = this.$routeParams.id;
       var dataPromises: ng.IPromise<any>[] = [this.getSage(id)];
 
-      this.common.activateController(dataPromises, controllerId, this.title)
+      this.common
+        .activateController(dataPromises, controllerId, this.title)
         .then(() => {
-          this.log("Activated Sage Edit View");
-          this.title = "Sage Edit: " + this.sage.name;
+          this.log('Activated Sage Edit View');
+          this.title = 'Sage Edit: ' + this.sage.name;
         });
     }
 
     getSage(id: number) {
-      return this.datacontext.sage.getById(id).then(sage => {
+      return this.datacontext.sage.getById(id).then((sage) => {
         this.sage = sage;
       });
     }
 
     save() {
-
       this.errors = {}; //Wipe server errors
       this._isSaving = true;
-      this.datacontext.sage.save(this.sage).then(response => {
-
+      this.datacontext.sage.save(this.sage).then((response) => {
         if (response.success) {
           this.sage = response.entity;
-          this.logSuccess("Saved " + this.sage.name + " [" + this.sage.id + "]");
-          this.$location.path("/sages/detail/" + this.sage.id);
-        }
-        else {
-          this.logError("Failed to save", response.errors);
+          this.logSuccess(
+            'Saved ' + this.sage.name + ' [' + this.sage.id + ']'
+          );
+          this.$location.path('/sages/detail/' + this.sage.id);
+        } else {
+          this.logError('Failed to save', response.errors);
 
           angular.forEach(response.errors, (errors, field) => {
-            (<ng.INgModelController>this.$scope.form[field]).$setValidity("server", false);
-            this.errors[field] = errors.join(",");
+            (<ng.INgModelController>this.$scope.form[field]).$setValidity(
+              'server',
+              false
+            );
+            this.errors[field] = errors.join(',');
           });
         }
 
@@ -320,8 +344,8 @@ module controllers {
     }
   }
 
-  var controllerId = "sageEdit";
-  angular.module("app").controller(controllerId, SageEdit);
+  var controllerId = 'sageEdit';
+  angular.module('app').controller(controllerId, SageEdit);
 }
 ```
 
@@ -330,7 +354,7 @@ module controllers {
 ```js
 var controllers;
 (function (controllers) {
-  "use strict";
+  'use strict';
 
   var SageEdit = (function () {
     function SageEdit($location, $routeParams, $scope, common, datacontext) {
@@ -341,10 +365,10 @@ var controllers;
       this.datacontext = datacontext;
       this.errors = {};
       this.log = common.logger.getLogFn(controllerId);
-      this.logError = common.logger.getLogFn(controllerId, "error");
-      this.logSuccess = common.logger.getLogFn(controllerId, "success");
+      this.logError = common.logger.getLogFn(controllerId, 'error');
+      this.logSuccess = common.logger.getLogFn(controllerId, 'success');
       this.sage = undefined;
-      this.title = "Sage Edit";
+      this.title = 'Sage Edit';
 
       this._isSaving = false;
 
@@ -356,10 +380,12 @@ var controllers;
       var id = this.$routeParams.id;
       var dataPromises = [this.getSage(id)];
 
-      this.common.activateController(dataPromises, controllerId, this.title).then(function () {
-        _this.log("Activated Sage Edit View");
-        _this.title = "Sage Edit: " + _this.sage.name;
-      });
+      this.common
+        .activateController(dataPromises, controllerId, this.title)
+        .then(function () {
+          _this.log('Activated Sage Edit View');
+          _this.title = 'Sage Edit: ' + _this.sage.name;
+        });
     };
 
     SageEdit.prototype.getSage = function (id) {
@@ -376,15 +402,17 @@ var controllers;
       this.datacontext.sage.save(this.sage).then(function (response) {
         if (response.success) {
           _this.sage = response.entity;
-          _this.logSuccess("Saved " + _this.sage.name + " [" + _this.sage.id + "]");
+          _this.logSuccess(
+            'Saved ' + _this.sage.name + ' [' + _this.sage.id + ']'
+          );
 
-          _this.$location.path("/sages/detail/" + _this.sage.id);
+          _this.$location.path('/sages/detail/' + _this.sage.id);
         } else {
-          _this.logError("Failed to save", response.errors);
+          _this.logError('Failed to save', response.errors);
 
           angular.forEach(response.errors, function (errors, field) {
-            _this.$scope.form[field].$setValidity("server", false);
-            _this.errors[field] = errors.join(",");
+            _this.$scope.form[field].$setValidity('server', false);
+            _this.errors[field] = errors.join(',');
           });
         }
 
@@ -392,28 +420,34 @@ var controllers;
       });
     };
 
-    Object.defineProperty(SageEdit.prototype, "hasChanges", {
+    Object.defineProperty(SageEdit.prototype, 'hasChanges', {
       // Properties
       get: function () {
         return this.$scope.form.$dirty;
       },
       enumerable: true,
-      configurable: true
+      configurable: true,
     });
 
-    Object.defineProperty(SageEdit.prototype, "canSave", {
+    Object.defineProperty(SageEdit.prototype, 'canSave', {
       get: function () {
         return this.hasChanges && !this._isSaving && this.$scope.form.$valid;
       },
       enumerable: true,
-      configurable: true
+      configurable: true,
     });
-    SageEdit.$inject = ["$location", "$routeParams", "$scope", "common", "datacontext"];
+    SageEdit.$inject = [
+      '$location',
+      '$routeParams',
+      '$scope',
+      'common',
+      'datacontext',
+    ];
     return SageEdit;
   })();
 
-  var controllerId = "sageEdit";
-  angular.module("app").controller(controllerId, SageEdit);
+  var controllerId = 'sageEdit';
+  angular.module('app').controller(controllerId, SageEdit);
 })(controllers || (controllers = {}));
 ```
 
@@ -423,14 +457,14 @@ Secondly, when we attempt to save our server sends back a JSON payload which, gi
 
 ```json
 {
-  "success":false,
-  "errors":{
-    "sage.name":["The Name field is required."],
-    "sage.userName":[
+  "success": false,
+  "errors": {
+    "sage.name": ["The Name field is required."],
+    "sage.userName": [
       "The UserName field is required.",
       "The field UserName must be a string with a minimum length of 3 and a maximum length of 30."
     ],
-    "sage.email":["The Email field is not a valid e-mail address."]
+    "sage.email": ["The Email field is not a valid e-mail address."]
   }
 }
 ```
@@ -463,19 +497,19 @@ save() {
 
 ```js
 SageEdit.prototype.save = function () {
-      var _this = this;
-      this.errors = {}; //Wipe server errors
-      this.datacontext.sage.save(this.sage).then(function (response) {
-        if (response.success) {
-          _this.sage = response.entity;
-        } else {
-          angular.forEach(response.errors, function (errors, field) {
-            _this.$scope.form[field].$setValidity("server", false);
-            _this.errors[field] = errors.join(",");
-          });
-        }
+  var _this = this;
+  this.errors = {}; //Wipe server errors
+  this.datacontext.sage.save(this.sage).then(function (response) {
+    if (response.success) {
+      _this.sage = response.entity;
+    } else {
+      angular.forEach(response.errors, function (errors, field) {
+        _this.$scope.form[field].$setValidity('server', false);
+        _this.errors[field] = errors.join(',');
       });
-    };
+    }
+  });
+};
 ```
 
 At the point of save we wipe any server error messages that might be stored on the client. Then, if we receive back a payload with errors we store those errors and set the validity of the relevant form element to false. This will trigger the display of the message by our directive.
@@ -540,7 +574,7 @@ As you can see, when `ModelState` is not valid we send back a dictionary of the 
 public static class ModelStateExtensions
 {
   public static Dictionary<string, IEnumerable<string>> ToErrorDictionary(
-    this System.Web.Http.ModelBinding.ModelStateDictionary modelState, bool camelCaseKeyName = true) 
+    this System.Web.Http.ModelBinding.ModelStateDictionary modelState, bool camelCaseKeyName = true)
   {
     var errors = modelState
       .Where(x => x.Value.Errors.Any())
@@ -567,5 +601,3 @@ public static class ModelStateExtensions
 ```
 
 That's it - your solution front to back. It would be quite easy to hook other types of validation in server-side (database level checks etc). I hope you find this useful.
-
-

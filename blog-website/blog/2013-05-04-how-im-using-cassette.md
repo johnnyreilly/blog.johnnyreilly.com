@@ -4,17 +4,16 @@ authors: johnnyreilly
 tags: [asp.net mvc, Andrew Davey, cassette]
 hide_table_of_contents: false
 ---
+
 ## Backing into the light
 
- For a while now, I've been seeking a bulletproof way to handle the following scenarios... all at the same time in the context of an ASP.Net MVC application:
+For a while now, I've been seeking a bulletproof way to handle the following scenarios... all at the same time in the context of an ASP.Net MVC application:
 
 1. How to serve full-fat JavaScript in debug mode and minified in release mode
 2. When debugging, ensure that the full-fat JS being served is definitely the latest version; and \***not**\* from the cache. (The time I've wasted due to [304's](http://en.wikipedia.org/wiki/List_of_HTTP_status_codes#304)...)
 3. How to add Javascript assets that need to be served up from any point in an ASP.Net MVC application (including views, layouts, partial views... even controllers if so desired) whilst preventing duplicate scripts from being served.
 4. How to ensure that Javascript files are served up last to any web page to ensure a speedy feel to users (don't want JS blocking rendering).
 5. And last but certainly not least the need to load Javascript files in dependency order. If `myView.js` depends on jQuery then clearly `jQuery-latest.js` needs to be served before `myView.js`.
-
-
 
 Now the best, most comprehensive and solid looking solution to this problem has for some time seemed to me to be [Andrew Davey's](http://aboutcode.net/)[Cassette](http://getcassette.net/). This addresses all my issues in one way or another, as well as bringing in a raft of other features (support for Coffeescript etc).
 
@@ -28,7 +27,7 @@ Fire up Visual Studio and create a new MVC 4 project (I used the internet templa
 
 Go to the Package Manager Console and key in "`Install-Package Cassette.Aspnet`". Cassette will install itself.
 
-Now you've got Cassette in place you may as well pull out usage of Web Optimization as you're not going to need it any more.Be ruthless, delete App\_Start/BundleConfig.cs and delete the line of code that references it in Global.asax.cs. If you take the time to run the app now you'll see you've miraculously lost your CSS and your JavaScript. The code referencing it is still in place but there's nothing for it to serve up. Don't worry about that - we're going to come back and Cassette-ify things later on...
+Now you've got Cassette in place you may as well pull out usage of Web Optimization as you're not going to need it any more.Be ruthless, delete App_Start/BundleConfig.cs and delete the line of code that references it in Global.asax.cs. If you take the time to run the app now you'll see you've miraculously lost your CSS and your JavaScript. The code referencing it is still in place but there's nothing for it to serve up. Don't worry about that - we're going to come back and Cassette-ify things later on...
 
 You'll also notice you now have a CassetteConfiguration.cs file in your project. Open it. Replace the contents with this (I've just commented out the default code and implemented my own CSS and Script bundles based on what is available in the default template of an MVC 4 app):
 
@@ -49,17 +48,13 @@ If you're more familiar with the workings of Web Optimization than Cassette then
 **Web Optimization**
 
 1. Create bundles as desired.
-2. Serve up bundles and / or straight JavaScript files as you like within your MVC views / partial views / layouts. 
-
-
+2. Serve up bundles and / or straight JavaScript files as you like within your MVC views / partial views / layouts.
 
 **Cassette**
 
-1. Create bundles for \***all**\* JavaScript files you wish to serve up. You may wish to create some bundles which consist of a number of a number of JavaScript files pushed together. But for each individual file you wish to serve you also need to create an individual bundle. (Failure to do so may mean you fall prey to the "*Cannot find an asset bundle containing the path "\~/Scripts/somePath.js".*")
+1. Create bundles for \***all**\* JavaScript files you wish to serve up. You may wish to create some bundles which consist of a number of a number of JavaScript files pushed together. But for each individual file you wish to serve you also need to create an individual bundle. (Failure to do so may mean you fall prey to the "_Cannot find an asset bundle containing the path "\~/Scripts/somePath.js"._")
 2. Reference bundles and / or individual JavaScript files in their individual bundles as you like within your MVC views / partial views / layouts / controllers / HTML helpers... the list goes on!
 3. Render the referenced scripts to the page (typically just before the closing `body` tag)
-
-
 
 ## Making use of our Bundles
 
@@ -80,5 +75,3 @@ To this:
 <script src="https://gist.github.com/johnnyreilly/5393608.js?file=LoginAfter.cshtml"></script>
 
 So now you should be up and running with Cassette. If you want the code behind this then take I've put it on GitHub [here](https://github.com/johnnyreilly/CassetteDemo).
-
-

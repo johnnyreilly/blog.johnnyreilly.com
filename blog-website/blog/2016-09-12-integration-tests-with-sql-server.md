@@ -1,12 +1,13 @@
 ---
-title: "Integration Tests with SQL Server Database Snapshots"
+title: 'Integration Tests with SQL Server Database Snapshots'
 authors: johnnyreilly
 tags: [Database Snapshots, Integration Testing, SQL Server]
 hide_table_of_contents: false
 ---
+
 ## Once More With Feeling
 
- This is a topic that I have written about [before](https://blog.johnnyreilly.com/2014/01/integration-testing-with-entity.html).... But not well. I recently had cause to dust down my notes on how to use snapshotting in your integration tests. To my dismay, referring back to my original blog post was less helpful than I'd hoped. Now I've cracked the enigma code that my original scribings turned out to be, it's time to turn my relearnings back into something genuinely useful.
+This is a topic that I have written about [before](https://blog.johnnyreilly.com/2014/01/integration-testing-with-entity.html).... But not well. I recently had cause to dust down my notes on how to use snapshotting in your integration tests. To my dismay, referring back to my original blog post was less helpful than I'd hoped. Now I've cracked the enigma code that my original scribings turned out to be, it's time to turn my relearnings back into something genuinely useful.
 
 ## What's the Scenario?
 
@@ -16,7 +17,7 @@ So how do we handle this? Well, we could handle this by writing code at the end 
 
 So what's another approach? Perhaps we could take a backup of our database before our first test runs. Then, at the end of each test, we could restore our backup to roll the database back to its initial state. Perfect, right? Less code to write, less scope for errors. So what's the downside? Backups are slowwwww. Restores likewise. We could be waiting minutes between each test that runs. That's not acceptable.
 
-There is another way though: [database snapshots](https://msdn.microsoft.com/en-us/library/ms175158.aspx) \- a feature that's been nestling inside SQL Server for a goodly number of years. For our use case, to all intents and purposes, database snapshots offers the same functionality as backups and restores. You can backup a database (take a snapshot of a database at a point in time), you can restore a database (roll back the database to the point of the snapshot). More importantly, you can do either operation in \**under a second*\*. As it happens, Microsoft advocate using this approach themselves:
+There is another way though: [database snapshots](https://msdn.microsoft.com/en-us/library/ms175158.aspx) \- a feature that's been nestling inside SQL Server for a goodly number of years. For our use case, to all intents and purposes, database snapshots offers the same functionality as backups and restores. You can backup a database (take a snapshot of a database at a point in time), you can restore a database (roll back the database to the point of the snapshot). More importantly, you can do either operation in \*_under a second_\*. As it happens, Microsoft advocate using this approach themselves:
 
 > In a testing environment, it can be useful when repeatedly running a test protocol for the database to contain identical data at the start of each round of testing. Before running the first round, an application developer or tester can create a database snapshot on the test database. After each test run, the database can be quickly returned to its prior state by reverting the database snapshot.
 
@@ -160,5 +161,3 @@ namespace Testing.Shared
 ```
 
 Which restores the database back to the snapshot position at the end of each test. And that... Is that!
-
-

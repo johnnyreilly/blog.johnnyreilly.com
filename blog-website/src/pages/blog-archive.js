@@ -1,8 +1,8 @@
-import React from "react";
-import clsx from "clsx";
-import Layout from "@theme/Layout";
-import Link from "@docusaurus/Link";
-import styles from "./styles.module.css";
+import React from 'react';
+import clsx from 'clsx';
+import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
+import styles from './styles.module.css';
 
 /**
  * @typedef {Object} BlogPost - creates a new type named 'BlogPost'
@@ -18,7 +18,7 @@ const allPosts = ((ctx) => {
   const blogpostNames = ctx.keys();
 
   return blogpostNames.reduce((blogposts, blogpostName, i) => {
-    const module = ctx(blogpostName)
+    const module = ctx(blogpostName);
     const { date, formattedDate, title, permalink } = module.metadata;
     return [
       ...blogposts,
@@ -30,10 +30,10 @@ const allPosts = ((ctx) => {
       },
     ];
   }, /** @type {string[]}>} */ ([]));
-})(require.context("../../blog", false, /.md/));
+})(require.context('../../blog', false, /.md/));
 
 const postsByYear = allPosts.reduceRight((posts, post) => {
-  const year = post.date.split("-")[0];
+  const year = post.date.split('-')[0];
   const yearPosts = posts.get(year) || [];
   return posts.set(year, [post, ...yearPosts]);
 }, /** @type {Map<string, BlogPost[]>}>} */ (new Map()));
@@ -44,13 +44,10 @@ const yearsOfPosts = Array.from(postsByYear, ([year, posts]) => ({
 }));
 
 function Year(
-  /** @type {{ year: string; posts: BlogPost[]}} */ {
-    year,
-    posts,
-  }
+  /** @type {{ year: string; posts: BlogPost[]}} */ { year, posts }
 ) {
   return (
-    <div className={clsx("col col--4", styles.feature)}>
+    <div className={clsx('col col--4', styles.feature)}>
       <h3>{year}</h3>
       <ul>
         {posts.map((post) => (
@@ -68,7 +65,7 @@ function Year(
 function BlogArchive() {
   return (
     <Layout title="Blog Archive">
-      <header className={clsx("hero hero--primary", styles.heroBanner)}>
+      <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
           <h1 className="hero__title">Blog Archive</h1>
           <p className="hero__subtitle">Historic posts</p>

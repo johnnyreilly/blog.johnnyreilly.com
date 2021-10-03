@@ -1,0 +1,5 @@
+build
+coverage
+.docusaurus
+.cache
+node_modules

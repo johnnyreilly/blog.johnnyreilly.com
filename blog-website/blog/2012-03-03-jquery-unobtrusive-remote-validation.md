@@ -1,16 +1,15 @@
 ---
-title: "jQuery Unobtrusive Remote Validation"
+title: 'jQuery Unobtrusive Remote Validation'
 authors: johnnyreilly
 tags: [jquery, jquery remote validation, jquery unobtrusive validation]
 hide_table_of_contents: false
 ---
+
 Just recently I have been particularly needing to make use of remote / server-side validation in my ASP.NET MVC application and found that the unobtrusive way of using this seemed to be rather inadequately documented (of course it's possible that it's well documented and I just didn't find the resources). Anyway I've rambled on much longer than I intended to in this post so here's the TL;DR:
 
- - You \***can**\* use remote validation driven by unobtrusive data attributes
+- You \***can**\* use remote validation driven by unobtrusive data attributes
 - Using remote validation you can supply \***multiple**\* parameters to be evaluated
 - It is possible to block validation and force it to be re-evaluted - although using a slightly hacky method which I document here. For what it's worth I acknowledge up front that this is \***not**\* an ideal solution but it does seem to work. I really hope there is a better solution out there and if anyone knows about it then please get in contact and let me know.
-
-
 
 Off we go... So, jQuery unobtrusive validation; clearly the new cool right?
 
@@ -24,36 +23,59 @@ A good explanation of unobtrusive validation is given by Brad Wilson [here](http
 
 Anyway, to my point: what about remote validation? That is to say, what about validation which needs to go back to the server to perform the necessary tests? Well I struggled to find decent examples of how to use this. Those that I did find seemed to universally be php examples; not so useful for an ASP.NET user. Also, when I did root out an ASP.NET example there seemed to be a fundamental flaw. Namely, if remote validation hadn't been triggered and completed successfully then the submit could fire anyway. This seems to be down to the asynchronous nature of the test; ie because it is \***not**\* synchronous there is no "block" to the submit. And out of the box with unobtrusive validation there seems no way to make this synchronous. I could of course wire this up manually and simply side-step the restrictions of unobtrusive validation but that wasn't what I wanted.
 
-***Your mission John, should you decide to accept it, is this: <u>block the submit until remote validation has completed successfully</u>
+\*\*\*Your mission John, should you decide to accept it, is this: <u>block the submit until remote validation has completed successfully</u>
 
-. As always, should you or any of your I.M. Force be caught or killed, the Secretary will disavow any knowledge of your actions.***
+. As always, should you or any of your I.M. Force be caught or killed, the Secretary will disavow any knowledge of your actions.\*\*\*
 
 So that's what I wanted to do. Make it act like it's synchronous even though it's asynchronous. Bit horrible but I had a deadline to meet and so this is my pragmatic solution. There may be better alternatives but this worked for me.
 
 First of all the HTML:
 
 ```html
-<form action="/Dummy/ValidationDemo.mvc/SaveUser" 
-    id="ValidationForm" method="post">  
+<form
+  action="/Dummy/ValidationDemo.mvc/SaveUser"
+  id="ValidationForm"
+  method="post"
+>
+  First name:
+  <input
+    data-val="true"
+    data-val-required="First Name required"
+    id="FirstName"
+    name="FirstName"
+    type="text"
+    value=""
+  />
 
-  First name: 
-  <input data-val="true" data-val-required="First Name required" 
-      id="FirstName" name="FirstName" type="text" value="" />
+  Last name:
+  <input
+    data-val="true"
+    data-val-required="Last Name required"
+    id="LastName"
+    name="LastName"
+    type="text"
+    value=""
+  />
 
-  Last name: 
-  <input data-val="true" data-val-required="Last Name required" 
-      id="LastName" name="LastName" type="text" value="" />
-
-  User name: 
-  <input id="UserName" name="UserName" type="text" value=""
-    data-val="true" 
+  User name:
+  <input
+    id="UserName"
+    name="UserName"
+    type="text"
+    value=""
+    data-val="true"
     data-val-required="You must enter a user name before we can validate it remotely"
-    data-val-remote="&amp;#39;UserNameInput&amp;#39; is invalid." 
-    data-val-remote-additionalfields="*.FirstName,*.LastName" 
-    data-val-remote-url="/Dummy/ValidationDemo/IsUserNameValid" />
+    data-val-remote="&amp;#39;UserNameInput&amp;#39; is invalid."
+    data-val-remote-additionalfields="*.FirstName,*.LastName"
+    data-val-remote-url="/Dummy/ValidationDemo/IsUserNameValid"
+  />
 
-  <input id="SaveMyDataButton" name="SaveMyDataButton" 
-      type="button" value="Click to Save" />
+  <input
+    id="SaveMyDataButton"
+    name="SaveMyDataButton"
+    type="button"
+    value="Click to Save"
+  />
 </form>
 ```
 
@@ -65,66 +87,57 @@ Next the JavaScript that performs the validation:
 
 ```js
 $(document).ready(function () {
-
   var intervalId = null,
+    //
+    // DECLARE FUNCTION EXPRESSIONS
+    //
 
-  //
-  // DECLARE FUNCTION EXPRESSIONS
-  //
+    //======================================================
+    // function that triggers update when remote validation
+    // completes successfully
+    //======================================================
+    pendingValidationComplete = function () {
+      var i, errorList, errorListForUsers;
+      var $ValidationForm = $('#ValidationForm');
+      if ($ValidationForm.data('validator').pendingRequest === 0) {
+        clearInterval(intervalId);
 
-  //======================================================
-  // function that triggers update when remote validation 
-  // completes successfully
-  //======================================================
-  pendingValidationComplete = function () {
+        //Force validation to present to user
+        //(this will *not* retrigger remote validation)
+        if ($ValidationForm.valid()) {
+          alert('Validation has succeeded - you can now submit');
+        } else {
+          //Validation failed!
+          errorList = $ValidationForm.data('validator').errorList;
+          errorListForUsers = [];
+          for (i = 0; i < errorList.length; i++) {
+            errorListForUsers.push(errorList[i].message);
+          }
 
-    var i, errorList, errorListForUsers;
-    var $ValidationForm = $("#ValidationForm");
-    if ($ValidationForm.data("validator").pendingRequest === 0) {
-
-      clearInterval(intervalId);
-
-      //Force validation to present to user 
-      //(this will *not* retrigger remote validation)
-      if ($ValidationForm.valid()) {
-
-        alert("Validation has succeeded - you can now submit");
-      }
-      else {
-
-        //Validation failed! 
-        errorList = $ValidationForm.data("validator").errorList;
-        errorListForUsers = [];
-        for (i = 0; i < errorList.length; i++) {
-          errorListForUsers.push(errorList[i].message);
+          alert(errorListForUsers.join('\r\n'));
         }
-
-        alert(errorListForUsers.join("\r\n"));
       }
-    }
-  },
+    },
+    //======================================================
+    // Trigger validation
+    //======================================================
+    triggerValidation = function (evt) {
+      //Removed cached values where remote is concerned
+      // so remote validation is retriggered
+      $('#UserName').removeData('previousValue');
 
-  //======================================================
-  // Trigger validation
-  //======================================================
-  triggerValidation = function (evt) {
+      //Trigger validation
+      $('#ValidationForm').valid();
 
-    //Removed cached values where remote is concerned
-    // so remote validation is retriggered
-    $("#UserName").removeData("previousValue");
-
-    //Trigger validation
-    $("#ValidationForm").valid();
-
-    //Setup interval which will evaluate validation 
-    //(this approach because of remote validation)
-    intervalId = setInterval(pendingValidationComplete, 50);
-  };
+      //Setup interval which will evaluate validation
+      //(this approach because of remote validation)
+      intervalId = setInterval(pendingValidationComplete, 50);
+    };
 
   //
   //ASSIGN EVENT HANDLERS
   //
-  $("#SaveMyDataButton").click(triggerValidation);
+  $('#SaveMyDataButton').click(triggerValidation);
 });
 ```
 
@@ -132,7 +145,7 @@ And finally the Controller:
 
 ```cs
 public JsonResult IsUserNameValid(string UserName,
-                                  string FirstName, 
+                                  string FirstName,
                                   string LastName)
 {
   var userNameIsUnique = IsUserNameUnique(UserName);
@@ -141,7 +154,7 @@ public JsonResult IsUserNameValid(string UserName,
   else
     return Json(string.Format(
                   "{0} is already taken I'm afraid {1} {2}",
-                  UserName, FirstName, LastName), 
+                  UserName, FirstName, LastName),
                 JsonRequestBehavior.AllowGet);
 }
 
@@ -153,17 +166,13 @@ private bool IsUserNameUnique(string potentialUserName)
 
 So what happens here exactly? Well it's like this:
 
-1. The user enters their first name, last name and desired user name and hits the "Click to Save" button. 
-2. This forces validation by first removing any cached validation values stored in `previousValue` data attribute and then triggering the `valid` method. Disclaimer: I KNOW THIS IS A LITTLE HACKY. I would have expected there would be some way in the API to manually re-force validation. Unless I've missed something there doesn't appear to be. ([And the good citizens of Stack Overflow would seem to concur.](http://stackoverflow.com/a/3797712/761388)) I would guess that the underlying assumption is that if nothing has changed on the client then that's all that matters. Clearly that's invalid for our remote example given that a username could be "claimed" at any time; eg in between people first entering their username (when validation should have fired automatically) and actually submitting the form. Anyway - this approach seems to get us round the problem. 
+1. The user enters their first name, last name and desired user name and hits the "Click to Save" button.
+2. This forces validation by first removing any cached validation values stored in `previousValue` data attribute and then triggering the `valid` method. Disclaimer: I KNOW THIS IS A LITTLE HACKY. I would have expected there would be some way in the API to manually re-force validation. Unless I've missed something there doesn't appear to be. ([And the good citizens of Stack Overflow would seem to concur.](http://stackoverflow.com/a/3797712/761388)) I would guess that the underlying assumption is that if nothing has changed on the client then that's all that matters. Clearly that's invalid for our remote example given that a username could be "claimed" at any time; eg in between people first entering their username (when validation should have fired automatically) and actually submitting the form. Anyway - this approach seems to get us round the problem.
 3. When validation takes place the IsUserNameValid action / method on our controller will be called. It's important to note that I have set up a method that takes 3 inputs; UserName, which is supplied by default as the UserName input is the one which is decorated with remote validation attributes as well as the 2 extra inputs of FirstName and LastName. In the example I've given I don't actually need these extra attributes. I'm doing this because I know that I have situations in remote validation where I \***need**\* to supply multiple inputs and so essentially I did it here as a proof of concept. The addition of these 2 extra inputs was achieved through the use of the `data-val-remote-additionalfields` attribute. When searching for documentation about this I found absolutely <u>none</u>
 
-. I assume there is some out there - if anyone knows then I'd very pleased to learn about it. I only learned about it in the end by finding an example of someone using this out in the great wide world and understanding how to use it based on their example. To understand how the `data-val-remote-additionalfields` attribute works you can look at jquery.validate.unobtrusive.js. If you're just looking to get up and running then I found that the following works: `data-val-remote-additionalfields="*.FirstName,*.LastName"` You will notice that: - Each parameter is supplied in the format *\*.[InputName]* and inputs are delimited by ","'s - Name is a <u>required</u>
+. I assume there is some out there - if anyone knows then I'd very pleased to learn about it. I only learned about it in the end by finding an example of someone using this out in the great wide world and understanding how to use it based on their example. To understand how the `data-val-remote-additionalfields` attribute works you can look at jquery.validate.unobtrusive.js. If you're just looking to get up and running then I found that the following works: `data-val-remote-additionalfields="*.FirstName,*.LastName"` You will notice that: - Each parameter is supplied in the format _\*.[InputName]_ and inputs are delimited by ","'s - Name is a <u>required</u>
 
- attribute for an input if you wish it to be evaluated with unobtrusive validation. (Completely obvious statement I realise; I'm writing that sentence more for my benefit than yours) - Finally, our validation always fails. That's deliberate - I just wanted to be clear on the approach used to get remote unobtrusive validation with extra parameters up and running. 
-4. Using `setInterval` we intend to trigger the `pendingValidationComplete` function to check if remote validation has completed every 50ms - again I try to avoid setInterval wherever possible but this seems to be the most sensible solution in this case. 
-5. When the remote request finally completes (ie when `pendingRequest` has a value of 0) then we can safely proceed on the basis of our validation results. In the example above I'm simply alerting to the screen based on my results; this is \***not**\* advised for any finished work; I'm just using this mechanism here to demonstrate the principle.
-
-
+attribute for an input if you wish it to be evaluated with unobtrusive validation. (Completely obvious statement I realise; I'm writing that sentence more for my benefit than yours) - Finally, our validation always fails. That's deliberate - I just wanted to be clear on the approach used to get remote unobtrusive validation with extra parameters up and running. 4. Using `setInterval` we intend to trigger the `pendingValidationComplete` function to check if remote validation has completed every 50ms - again I try to avoid setInterval wherever possible but this seems to be the most sensible solution in this case. 5. When the remote request finally completes (ie when `pendingRequest` has a value of 0) then we can safely proceed on the basis of our validation results. In the example above I'm simply alerting to the screen based on my results; this is \***not**\* advised for any finished work; I'm just using this mechanism here to demonstrate the principle.
 
 Validation in action:
 
@@ -173,7 +182,7 @@ Well I've gone on for far too long but I am happy to have an approach that does 
 
 **PS:**Just in case you're in the process of initially getting up and running with unobtrusive validation I've listed below a couple of general helpful bits of config etc:
 
-The following setting is essential for Application\_Start in Global.asax.cs:
+The following setting is essential for Application_Start in Global.asax.cs:
 
 ```cs
 DataAnnotationsModelValidatorProvider.AddImplicitRequiredAttributeForValueTypes = false;
@@ -196,5 +205,3 @@ My example used the following scripts:
 <script src="Scripts/jquery.validate.unobtrusive.js"></script>
 <script src="Scripts/ValidationDemo.js"></script>
 ```
-
-

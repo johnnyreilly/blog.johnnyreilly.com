@@ -1,10 +1,11 @@
 ---
-title: "Bicep meet Azure Pipelines"
+title: 'Bicep meet Azure Pipelines'
 authors: johnnyreilly
 tags: [Bicep, ARM templates, Azure Pipelines, Azure CLI]
 image: blog/2021-03-20-bicep-meet-azure-pipelines/bicep-meet-azure-pipelines.png
 hide_table_of_contents: false
 ---
+
 [Bicep](https://github.com/Azure/bicep) is a terser and more readable alternative language to ARM templates. Running ARM templates in Azure Pipelines is straightforward. However, there isn't yet a first class experience for running Bicep in Azure Pipelines. This post demonstrates an approach that can be used until a Bicep task is available.
 
 ![Bicep meet Azure Pipelines](../static/blog/2021-03-20-bicep-meet-azure-pipelines/bicep-meet-azure-pipelines.png)
@@ -15,7 +16,7 @@ If you've been working with Azure and infrastructure as code, you'll likely have
 
 ARM templates are quite verbose and not the easiest thing to read. This is a consequence of being effectively a language nestled inside another language. Bicep is an alternative language which is far more readable. Bicep transpiles down to ARM templates, in the same way that TypeScript transpiles down to JavaScript.
 
-Bicep is quite new, but already it enjoys feature parity with ARM templates (as of [v0.3](https://github.com/Azure/bicep/releases/tag/v0.3.1)) and ships as part of the [Azure CLI](https://github.com/MicrosoftDocs/azure-docs-cli/blob/master/docs-ref-conceptual/release-notes-azure-cli.md#arm-1). However, as Bicep is new, it doesn't yet have a dedicated Azure Pipelines task for deployment.  This should exist in future, perhaps as soon as the [v0.4 release](https://github.com/Azure/bicep/issues/1341). In the meantime there's an alternative way to achieve this which we'll go through.
+Bicep is quite new, but already it enjoys feature parity with ARM templates (as of [v0.3](https://github.com/Azure/bicep/releases/tag/v0.3.1)) and ships as part of the [Azure CLI](https://github.com/MicrosoftDocs/azure-docs-cli/blob/master/docs-ref-conceptual/release-notes-azure-cli.md#arm-1). However, as Bicep is new, it doesn't yet have a dedicated Azure Pipelines task for deployment. This should exist in future, perhaps as soon as the [v0.4 release](https://github.com/Azure/bicep/issues/1341). In the meantime there's an alternative way to achieve this which we'll go through.
 
 ## App Service with Bicep
 
@@ -95,7 +96,7 @@ resource fullApplicationName 'Microsoft.Web/sites@2018-11-01' = {
 output fullApplicationName string = fullApplicationName_var
 ```
 
-When transpiled down to an ARM template, this Bicep file more than doubles in size: 
+When transpiled down to an ARM template, this Bicep file more than doubles in size:
 
 - `azuredeploy.bicep` - 1782 bytes
 - `azuredeploy.json` - 3863 bytes
@@ -104,22 +105,22 @@ This tells you something of the advantage of Bicep. The template comes with an a
 
 ```json
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "tags": {
-            "value": {
-                "costCenter": "8888",
-                "environment": "stg",
-                "application": "hello-azure",
-                "description": "App Service for hello-azure",
-                "managedBy": "ARM"
-            }
-        },
-        "sku": {
-            "value": "B1"
-        }
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "tags": {
+      "value": {
+        "costCenter": "8888",
+        "environment": "stg",
+        "application": "hello-azure",
+        "description": "App Service for hello-azure",
+        "managedBy": "ARM"
+      }
+    },
+    "sku": {
+      "value": "B1"
     }
+  }
 }
 ```
 
@@ -130,26 +131,26 @@ It's worth remembering that you can use the same parameters files with Bicep tha
 Now we have our Bicep file, we want to execute it from the context of an Azure Pipeline. If we were working directly with the ARM template we'd likely have something like this in place:
 
 ```yml
-        - task: AzureResourceManagerTemplateDeployment@3
-          displayName: "Deploy Hello Azure ARM"
-          inputs:
-            azureResourceManagerConnection: '$(azureSubscription)'
-            action: Create Or Update Resource Group
-            resourceGroupName: '$(resourceGroupName)'
-            location: 'North Europe'
-            templateLocation: Linked artifact
-            csmFile: 'infra/app-service/azuredeploy.json'
-            csmParametersFile: 'infra/app-service/azuredeploy.parameters.json'
-            deploymentMode: Incremental
-            deploymentOutputs: resourceGroupDeploymentOutputs
-            overrideParameters: -applicationName $(Build.Repository.Name)
+- task: AzureResourceManagerTemplateDeployment@3
+  displayName: 'Deploy Hello Azure ARM'
+  inputs:
+    azureResourceManagerConnection: '$(azureSubscription)'
+    action: Create Or Update Resource Group
+    resourceGroupName: '$(resourceGroupName)'
+    location: 'North Europe'
+    templateLocation: Linked artifact
+    csmFile: 'infra/app-service/azuredeploy.json'
+    csmParametersFile: 'infra/app-service/azuredeploy.parameters.json'
+    deploymentMode: Incremental
+    deploymentOutputs: resourceGroupDeploymentOutputs
+    overrideParameters: -applicationName $(Build.Repository.Name)
 
-        - pwsh: |
-            $outputs = ConvertFrom-Json '$(resourceGroupDeploymentOutputs)'
-            foreach ($output in $outputs.PSObject.Properties) {
-                Write-Host "##vso[task.setvariable variable=RGDO_$($output.Name)]$($output.Value.value)"
-            }
-          displayName: "Turn ARM outputs into variables"
+- pwsh: |
+    $outputs = ConvertFrom-Json '$(resourceGroupDeploymentOutputs)'
+    foreach ($output in $outputs.PSObject.Properties) {
+        Write-Host "##vso[task.setvariable variable=RGDO_$($output.Name)]$($output.Value.value)"
+    }
+  displayName: 'Turn ARM outputs into variables'
 ```
 
 There's two tasks above. The first is the native task for ARM deployments which takes our ARM template and our parameters and deploys them. The second task takes the output variables from the first task and converts them into Azure Pipeline variables such that they can be referenced later in the pipeline. In this case this variablifies our `fullApplicationName` output.
@@ -161,36 +162,36 @@ There is, as yet, no `BicepTemplateDeployment@1`. [Though it's coming](https://g
 Let's give it a go!
 
 ```yml
-        - task: AzureCLI@2
-          displayName: "Deploy Hello Azure Bicep"
-          inputs:
-            azureSubscription: '$(azureSubscription)'
-            scriptType: bash
-            scriptLocation: inlineScript
-            inlineScript: |
-              az --version
-              
-              echo "az deployment group create --resource-group '$(resourceGroupName)' --name appservicedeploy"
-              az deployment group create --resource-group '$(resourceGroupName)' --name appservicedeploy \
-                --template-file infra/app-service/azuredeploy.bicep \
-                --parameters infra/app-service/azuredeploy.parameters.json \
-                --parameters applicationName='$(Build.Repository.Name)'
-              
-              echo "az deployment group show --resource-group '$(resourceGroupName)' --name appservicedeploy"
-              deploymentoutputs=$(az deployment group show --resource-group '$(resourceGroupName)' --name appservicedeploy \
-                --query properties.outputs)
-              
-              echo 'convert outputs to variables'
-              echo $deploymentoutputs | jq -c '. | to_entries[] | [.key, .value.value]' |
-                while IFS=$"\n" read -r c; do
-                  outputname=$(echo "$c" | jq -r '.[0]')
-                  outputvalue=$(echo "$c" | jq -r '.[1]')
-                  echo "setting variable RGDO_$outputname=$outputvalue"
-                  echo "##vso[task.setvariable variable=RGDO_$outputname]$outputvalue"
-                done
+- task: AzureCLI@2
+  displayName: 'Deploy Hello Azure Bicep'
+  inputs:
+    azureSubscription: '$(azureSubscription)'
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      az --version
+
+      echo "az deployment group create --resource-group '$(resourceGroupName)' --name appservicedeploy"
+      az deployment group create --resource-group '$(resourceGroupName)' --name appservicedeploy \
+        --template-file infra/app-service/azuredeploy.bicep \
+        --parameters infra/app-service/azuredeploy.parameters.json \
+        --parameters applicationName='$(Build.Repository.Name)'
+
+      echo "az deployment group show --resource-group '$(resourceGroupName)' --name appservicedeploy"
+      deploymentoutputs=$(az deployment group show --resource-group '$(resourceGroupName)' --name appservicedeploy \
+        --query properties.outputs)
+
+      echo 'convert outputs to variables'
+      echo $deploymentoutputs | jq -c '. | to_entries[] | [.key, .value.value]' |
+        while IFS=$"\n" read -r c; do
+          outputname=$(echo "$c" | jq -r '.[0]')
+          outputvalue=$(echo "$c" | jq -r '.[1]')
+          echo "setting variable RGDO_$outputname=$outputvalue"
+          echo "##vso[task.setvariable variable=RGDO_$outputname]$outputvalue"
+        done
 ```
 
-The above is just a single Azure CLI task (as advised).  It invokes `az deployment group create` passing the relevant parameters. It then acquires the output properties using `az deployment group show`.  Finally it once again converts these outputs to Azure Pipeline variables with some [`jq`](https://stedolan.github.io/jq/) smarts.
+The above is just a single Azure CLI task (as advised). It invokes `az deployment group create` passing the relevant parameters. It then acquires the output properties using `az deployment group show`. Finally it once again converts these outputs to Azure Pipeline variables with some [`jq`](https://stedolan.github.io/jq/) smarts.
 
 This works right now, and running it results in something like the output below. So if you're excited about Bicep and don't want to wait for 0.4 to start moving on this, then this can get you going. To track the progress of the custom task, [keep an eye on this issue](https://github.com/Azure/bicep/issues/1341).
 

@@ -1,10 +1,11 @@
 ---
-title: "Definitely Typed: The Movie"
+title: 'Definitely Typed: The Movie'
 authors: johnnyreilly
 tags: [TypeScript, Definitely Typed]
 image: blog/2019-10-08-definitely-typed-movie/title-image.png
 hide_table_of_contents: false
 ---
+
 I'd like to tell you a story. It's the tale of the ecosystem that grew up around a language: TypeScript. TypeScript is, for want of a better description, JavaScript after a trip to Saville Row. Essentially the same language, but a little more together, a little less wild west. JS with a decent haircut and a new suit. These days, the world seems to be written in TypeScript. And when you pause to consider just how young the language is, well, that's kind of amazing.
 
 Who could have predicted it would end up like this? When I was a boy I remember coming down the stairs in my childhood home. Shuffling to the edge of each step on my bottom before thumping down to the one beneath. When I look at those same stairs now they're so small. I barely notice the difference between one step and the next. But back then each step seemed giant, each one so far apart. Definitely Typed had any number of steps in its evolution. They all seemed so significant then; whereas now they're just a memory. Let's remember together…
@@ -17,7 +18,7 @@ When it was first unveiled to the world by Anders Hejlsberg back in 2012, there 
 
 The reason TypeScript has the traction that it does, is a consequence of the latter feature. The JavaScript ecosystem was already a roaring success by 2012. Many useful libraries were out there, authored in vanilla JavaScript. jQuery, Backbone, Knockout were all going concerns. People were building things.
 
-Wisely, having TypeScript able to work with existing JavaScript libraries was a goal of the language right from the off. This made sense; otherwise it would have been like unveiling Netflix to the world whilst saying "sorry you can't use a television set to watch this". Remember, JS was great as is - people wanted static typing so they could be more productive and so they could sleep better at night. ("Oh wait, did I write that unit test to check all the properties? Dammit, it's 3am!") If TypeScript had hove onto the scene requiring that everything was written *in* TypeScript then I would not be writing this. It didn't.
+Wisely, having TypeScript able to work with existing JavaScript libraries was a goal of the language right from the off. This made sense; otherwise it would have been like unveiling Netflix to the world whilst saying "sorry you can't use a television set to watch this". Remember, JS was great as is - people wanted static typing so they could be more productive and so they could sleep better at night. ("Oh wait, did I write that unit test to check all the properties? Dammit, it's 3am!") If TypeScript had hove onto the scene requiring that everything was written _in_ TypeScript then I would not be writing this. It didn't.
 
 Interoperability was made possible by the concept of "type definitions". Analogous to header files in C, these are TypeScript files with a `.d.ts` suffix that tell the compiler about an existing JavaScript library which is in scope. This means you can write TypeScript and use jQuery or [insert your favourite library name here]. Even though they are not written in TypeScript.
 
@@ -35,7 +36,7 @@ Consumption was straightforward, if perhaps quirky. You took the `jquery.d.ts` f
 
 There was no discussion of “how do we type the world”? Even if they wanted to, the TypeScript team didn't really have the resources at that point to support this. They'd got as far as they had on the person power of four or five developers and some testers as well. There was a problem clearly waiting to be solved. As luck would have it, in Bulgaria a man named Boris Yankov had been watching the TypeScript announcement.
 
- ## Boris Yankov
+## Boris Yankov
 
 ![](../static/blog/2019-10-08-definitely-typed-movie/boris_yankov.jpeg)
 
@@ -55,7 +56,7 @@ ES6 had been in the works for some time at this point. The release was shaping u
 
 It's telling that ES5 was for a long time known also as ES3.1; reflecting that it was initially planned to be the stepping stone between ES3 and ES4. In reality it ended up being the stepping stone between ES3 and ES6. As it turned out, it was a vital one too, [it allowed the TC39 to recalibrate after a very public shelving of plans.](https://en.m.wikipedia.org/wiki/ECMAScript)
 
-The band was back together (albeit with a new rhythm section) and ES6 was going to be *massive*. JavaScript was going to get new constructs such as `Map`, `Set`, new scoping possibilities with `let` and `const`, `Promise`s which paved the way for new kinds of async programming, the contentious `class`es…. And who can forget where they were when they first heard about "fat" arrow functions?
+The band was back together (albeit with a new rhythm section) and ES6 was going to be _massive_. JavaScript was going to get new constructs such as `Map`, `Set`, new scoping possibilities with `let` and `const`, `Promise`s which paved the way for new kinds of async programming, the contentious `class`es…. And who can forget where they were when they first heard about "fat" arrow functions?
 
 People salivated at the idea of it all. Such new shiny toys! But how could we use them? Whilst all this new hotness was on the way, where could you actually run your new style code? Complete browser implementations of ES6 wouldn't start to materialise until 2018. Given the slowness of people to upgrade and the need to support the lowest common denominator of browser this could have meant that all the excitement was trapped in a never tomorrow situation.
 
@@ -63,7 +64,7 @@ Back to TypeScript. The team had a solution for this issue. In their wisdom, the
 
 The significance of transpilation to TypeScript cannot be overstated.
 
-You might be thinking to yourself, "that's just Babel, right?" Right. It's just that Babel didn't exist then. 6to5 was still an idea waiting for Sebastian McKenzie to think of. Even if you were kind of "meh" on types, the attraction of using a tool which allowed you to use new JavaScript constructs without breaking your customers was a significant draw. People may have come for types, but once they'd experienced the joy of a lexically bound `this` in a fat arrow function they were *never* going back.
+You might be thinking to yourself, "that's just Babel, right?" Right. It's just that Babel didn't exist then. 6to5 was still an idea waiting for Sebastian McKenzie to think of. Even if you were kind of "meh" on types, the attraction of using a tool which allowed you to use new JavaScript constructs without breaking your customers was a significant draw. People may have come for types, but once they'd experienced the joy of a lexically bound `this` in a fat arrow function they were _never_ going back.
 
 Success has many parents. TypeScript is a successful project. One reason for this is that it's an excellent product that fills a definite need. Another reason is one that can't be banked upon; timing. TypeScript has enjoyed phenomenal timing. Appearing just when JavaScript was going off like a rocket and having the twin benefits of types and future JS today when nothing else offered anything close, that's perfect timing. It got people's curiosity. Now it got Boris's attention.
 
@@ -137,7 +138,7 @@ Boris started adding contributors to Definitely Typed to help him with the work.
 
 ![](../static/blog/2019-10-08-definitely-typed-movie/basarat.jpg)
 
-Basarat Ali Syed was a 27 year old who had recently moved to Melbourne, Australia from Pakistan. You might know of him for a number of reasons, not least being the TypeScript equivalent of Jon Skeet. That, incidentally, is not a coincidence. Basarat had watched Jon Skeet's impressive work, being *the* gold standard in C# answers and thought "there's something worth emulating here".
+Basarat Ali Syed was a 27 year old who had recently moved to Melbourne, Australia from Pakistan. You might know of him for a number of reasons, not least being the TypeScript equivalent of Jon Skeet. That, incidentally, is not a coincidence. Basarat had watched Jon Skeet's impressive work, being _the_ gold standard in C# answers and thought "there's something worth emulating here".
 
 Bas was working for a startup who had a JS frontend. About six months before TypeScript was announced to the world he watched Anders Hejlsberg do a presentation on JavaScript which included Anders saying to the audience "don't you just wish you had type safety?" with a twinkle in his eye. TypeScript was of course well underway by this time; just not yet public. Bas remembered the comment and, when TypeScript was announced, he was ready. He made it his personal mission to be the goto person answering questions about TypeScript on Stack Overflow.
 
@@ -159,7 +160,7 @@ On December 28th 2013 Basarat decided that a regular contributor to Definitely T
 
 ![](../static/blog/2019-10-08-definitely-typed-movie/johnny_reilly.jpg)
 
-That's me. Or [johnny\_reilly on Twitter](https://twitter.com/johnny_reilly) and [johnnyreilly](https://github.com/johnnyreilly) on GitHub (as John Papa and I have learned to our chagrin; GitHub don't support the "\_" character in usernames). Relatively few people call me Johnny. I'm named that online because back when I applied for an email address, someone had already bagsied john\_reilly@popularemailhotness.com. So rather than sully my handle with a number or a middle name I settled for johnny\_reilly. I haven't looked back and have generally tried to keep that nom de plume wherever I lay my hat online.
+That's me. Or [johnny_reilly on Twitter](https://twitter.com/johnny_reilly) and [johnnyreilly](https://github.com/johnnyreilly) on GitHub (as John Papa and I have learned to our chagrin; GitHub don't support the "\_" character in usernames). Relatively few people call me Johnny. I'm named that online because back when I applied for an email address, someone had already bagsied john\_reilly@popularemailhotness.com. So rather than sully my handle with a number or a middle name I settled for johnny_reilly. I haven't looked back and have generally tried to keep that nom de plume wherever I lay my hat online.
 
 In contrast to others I was a relatively late starter to TypeScript. I was intrigued right from the initial announcement, but held off from properly getting my hands dirty until generics was added to the language in 0.9. (This predisposition towards generics in a language perhaps explains why I didn't get too far with Golang.)
 
@@ -183,8 +184,8 @@ I started submitting pull requests. The first problem I decided to solve was Int
 /**
      * Insert every element in the set of matched elements to the end of the target.
      *
-     * @param value A selector, element, HTML string, array of elements, or jQuery 
-     *              object; the matched set of elements will be inserted at the end 
+     * @param value A selector, element, HTML string, array of elements, or jQuery
+     *              object; the matched set of elements will be inserted at the end
      *              of the element(s) specified by this parameter.
      */
     appendTo(target: string): JQuery;
@@ -197,29 +198,27 @@ I'm fairly relentless when I put my mind to something. I work very hard to make 
 I happily accepted Bas' invitation and soon found myself reading this email:
 
 > From: Bas
-> 
-> 
-> 
+>
 > Sent: 28 December 2013 11:47
-> 
+>
 > To: Boris Yankov; johnny\_reilly@hotmail.com; Bas; vvakame; Bart van der Schoor; Diullei Gomes; steve fenton; Jason Jarret Subject: DefinitelyTyped team introduction
-> 
+>
 > Dear All,
-> 
+>
 > Meet John Reilly (github : https://github.com/johnnyreilly , twitter : https://twitter.com/johnny\_reilly) who will be helping with Definitely Typed definitions.
-> 
+>
 > Boris manages the project and he can add you as a collaborator.
-> 
+>
 > Additional team member introductions:
-> 
+>
 > Admin : Boris Yankov
-> 
+>
 > TSD package manager : https://github.com/DefinitelyTyped/tsd : Diullei / Bart van der Schoor
-> 
+>
 > NUGET: https://github.com/DefinitelyTyped/NugetAutomation : Json Jarret
-> 
+>
 > Passionate TypeScript users like yourself: Wakame, Myself and SteveFenton .
-> 
+>
 > Cheers, Bas (Basarat)
 
 Some of those names you'll recognise; some perhaps not. Jason Jarrett wrote the Nuget distribution mechanism for type definitions that ended up existing for far longer than anyone (least of all Jason) anticipated. Steve Fenton was largely a cheerleader for Definitely Typed in its early days. Diullei and Bart, amongst other things, worked on the initial command line tooling for DT: TSD.
@@ -305,7 +304,7 @@ Blake made [typings](https://github.com/typings/typings). Typings was a number o
 It was radical. From centralisation to decentralisation. As Blake described it:
 
 > This decentralization solves the biggest pain point I see with maintaining DefinitelyTyped. How does an author of one typings package maintain their file in DefinitelyTyped when they get notifications on thousands of others? How do you make sure typings maintain quality when you have 1000s to review? The solution in typings is you don’t, the community does. If typings are incorrect, I can just write and install my own from wherever I want, something that TSD doesn’t really allow. There’s no merge or review process you need to wait for (300+ open pull requests!).
-> 
+>
 > However, decentralization comes with the cost of discoverability. To solve this, a registry exists that maintains locations of where the best typing can currently be installed from, for any version. If there’s a newer typing, patches, or the old typing author has somehow disappeared, you can replace the entry with your own so people will be directed to your typings from now on.
 
 The world started to use Typings as the default CLI for type definitions. `typings.json` files started appearing in people's repos. Typings allowed consumption of types both from the Typings registry and from Definitely Typed and so there was an easy on ramp for people to start using Typings.
@@ -405,5 +404,3 @@ The solution for this problem was, as with so many problems, a bot. It would sen
 As Ryan Cavanaugh put it when he looked back upon TypeScripts story, he had this to say: “Definitely Typed is the best thing that could exist from our perspective”.
 
 He was speaking from the perspective of a TypeScript team member. He could as well be speaking for the developer world at large. Definitely Typed is an organic monster of open source goodness; bringing types to the world thanks to nearly 10,000 contributors. Each person of which has donated at least an hour or their time for the greater good. Far more than that in many cases. It’s incredible. I’m glad I get to be part of it. I never would have guessed it would have turned out like this.
-
-

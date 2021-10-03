@@ -1,12 +1,13 @@
 ---
-title: "Auth0, TypeScript and ASP.NET Core"
+title: 'Auth0, TypeScript and ASP.NET Core'
 authors: johnnyreilly
 tags: [ASP.Net Core, Auth0, TypeScript, OAuth, React]
 hide_table_of_contents: false
 ---
+
 Most applications I write have some need for authentication and perhaps authorisation too. In fact, most apps most people write fall into that bracket. Here's the thing: Auth done well is a \*big\* chunk of work. And the minute you start thinking about that you almost invariably lose focus on the thing you actually want to build and ship.
 
- So this Christmas I decided it was time to take a look into offloading that particular problem onto someone else. I knew there were third parties who provided Auth-As-A-Service - time to give them a whirl. On the recommendation of a friend, I made Auth0 my first port of call. Lest you be expecting a full breakdown of the various players in this space, let me stop you now; I liked Auth0 so much I strayed no further. Auth0 kicks AAAS. (I'm so sorry)
+So this Christmas I decided it was time to take a look into offloading that particular problem onto someone else. I knew there were third parties who provided Auth-As-A-Service - time to give them a whirl. On the recommendation of a friend, I made Auth0 my first port of call. Lest you be expecting a full breakdown of the various players in this space, let me stop you now; I liked Auth0 so much I strayed no further. Auth0 kicks AAAS. (I'm so sorry)
 
 ## What I wanted to build
 
@@ -15,15 +16,11 @@ My criteria for "auth success" was this:
 - I want to build a SPA, specifically a React SPA. Ideally, I shouldn't need a back end of my own at all
 - I want to use TypeScript on my client.
 
-
-
 But, for when I do implement a back end:
 
 - I want that to be able to use the client side's Auth tokens to allow access to Auth routes on my server.
 - ‎I want to able to identify the user, given the token, to provide targeted data
 - Oh, and I want to use .NET Core 2 for my server.
-
-
 
 And in achieving all of the I want to add minimal code to my app. Not War and Peace. My code should remain focused on doing what it does.
 
@@ -49,14 +46,10 @@ Here's how to get the app set up with Auth0; you're going to need to sign up for
 - From the new Client Settings page take the Domain and Client ID and update the similarly named properties in the `appsettings.Development.json` and `appsettings.Production.json` files with these settings.
 - To the Allowed Callback URLs setting add the URLs: `http://localhost:3000/callback,http://localhost:5000/callback` \- the first of these faciliates running in Debug mode, the second in Production mode. If you were to deploy this you'd need to add other callback URLs in here too.
 
-
-
 ### API
 
 - Create an API with the name of your choice (I recommend the same as the Client to avoid confusion), an identifier which can be anything you like; I like to use the URL of my app but it's your call.
 - From the new API Settings page take the Identifier and update the Audience property in the `appsettings.Development.json` and `appsettings.Production.json` files with that value.
-
-
 
 ## Running the App
 
@@ -104,7 +97,7 @@ export class AuthStore {
       redirectUri: config.redirectUri,
       audience: config.audience,
       responseType: 'token id_token',
-      scope: 'openid email profile do:admin:thing' // the do:admin:thing scope is custom and defined in the scopes section of our API in the Auth0 dashboard
+      scope: 'openid email profile do:admin:thing', // the do:admin:thing scope is custom and defined in the scopes section of our API in the Auth0 dashboard
     });
   }
 
@@ -125,17 +118,17 @@ export class AuthStore {
     if (event.key === STORAGE_TOKEN) {
       this.setSession(this.parseToken(event.newValue));
     }
-  }
+  };
 
   @computed get isAuthenticated() {
-    // Check whether the current time is past the 
+    // Check whether the current time is past the
     // access token's expiry time
     return this.token && new Date().getTime() < this.token.expiresAt;
   }
 
   login = () => {
     this.auth0.authorize();
-  }
+  };
 
   handleAuthentication = () => {
     this.auth0.parseHash((err, authResult) => {
@@ -144,7 +137,7 @@ export class AuthStore {
           accessToken: authResult.accessToken,
           idToken: authResult.idToken,
           // Set the time that the access token will expire at
-          expiresAt: authResult.expiresIn * 1000 + new Date().getTime()
+          expiresAt: authResult.expiresIn * 1000 + new Date().getTime(),
         };
 
         this.setSession(token);
@@ -154,7 +147,7 @@ export class AuthStore {
         alert(`Error: ${err.error}. Check the console for further details.`);
       }
     });
-  }
+  };
 
   @action
   setSession(token: IStorageToken) {
@@ -168,7 +161,7 @@ export class AuthStore {
       throw new Error('No access token found');
     }
     return accessToken;
-  }
+  };
 
   @action
   loadProfile = async () => {
@@ -178,25 +171,27 @@ export class AuthStore {
     }
 
     this.auth0.client.userInfo(accessToken, (err, profile) => {
-      if (err) { throw err; }
+      if (err) {
+        throw err;
+      }
 
       if (profile) {
-        runInAction(() => this.userProfile = profile);
+        runInAction(() => (this.userProfile = profile));
         return profile;
       }
 
       return undefined;
     });
-  }
+  };
 
   @action
   logout = () => {
     // Clear access token and ID token from local storage
     this.storage.removeItem(STORAGE_TOKEN);
-    
+
     this.token = null;
     this.userProfile = null;
-  }
+  };
 }
 ```
 
@@ -211,7 +206,7 @@ The "Get Server to Retrieve Profile Data" button is interesting as it illustrate
 ```cs
 // Retrieve the access_token claim which we saved in the OnTokenValidated event
     var accessToken = User.Claims.FirstOrDefault(c => c.Type == "access_token").Value;
-            
+
     // If we have an access_token, then retrieve the user's information
     if (!string.IsNullOrEmpty(accessToken))
     {
@@ -336,8 +331,6 @@ The reason we're 403ing at present is because when our `HasScopeHandler` execute
 
 ![](../static/blog/2018-01-14-auth0-typescript-and-aspnet-core/Screenshot%2B2018-01-14%2B08.26.54.png)
 
-
-
 Note that you can control how this scope is acquired using "Rules" in the Auth0 management portal.
 
 You won't be able to access the admin endpoint yet because you're still rocking with the old access token; pre-newly-added scope. But when you next login to Auth0 you'll see a prompt like this:
@@ -347,5 +340,3 @@ You won't be able to access the admin endpoint yet because you're still rocking 
 Which demonstrates that you're being granted an extra scope. With your new shiny access token you can now access the oh-so-secret Admin endpoint.
 
 I had some more questions about Auth0 as I'm still new to it myself. To see my question (and the very helpful answer!) go here: [https://community.auth0.com/questions/13786/get-user-data-server-side-what-is-a-good-approach](https://community.auth0.com/questions/13786/get-user-data-server-side-what-is-a-good-approach)
-
-

@@ -1,12 +1,13 @@
 ---
-title: "Windows Defender Step Away From npm"
+title: 'Windows Defender Step Away From npm'
 authors: johnnyreilly
 tags: [VS Code, code, Windows, failed, npm install, windows defender]
 hide_table_of_contents: false
 ---
+
 ## Update 18/06/2017
 
- Whilst things did improve by fiddling with Windows Defender it wasn't a 100% fix which makes me wary. Interestingly, VS Code was always open when I did experience the issue and I haven't experienced it when it's been closed. So it may be the cause. I've opened [an issue for this against the VS Code repo](https://github.com/Microsoft/vscode/issues/28593) \- it sounds like other people may be affected as I was. Perhaps this is VS Code and not Windows Defender. Watch that space...
+Whilst things did improve by fiddling with Windows Defender it wasn't a 100% fix which makes me wary. Interestingly, VS Code was always open when I did experience the issue and I haven't experienced it when it's been closed. So it may be the cause. I've opened [an issue for this against the VS Code repo](https://github.com/Microsoft/vscode/issues/28593) \- it sounds like other people may be affected as I was. Perhaps this is VS Code and not Windows Defender. Watch that space...
 
 ## Update 12/07/2017
 
@@ -31,5 +32,3 @@ Alas Windows Defender doesn't stay dead for long; it's like a zombie that rises 
 ![](../static/blog/2017-06-11-windows-defender-step-away-from-npm/Screenshot%2B2017-06-11%2B15.05.47.png)
 
 Or switching to Linux...
-
-

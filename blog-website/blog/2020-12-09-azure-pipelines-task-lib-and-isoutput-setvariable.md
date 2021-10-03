@@ -1,9 +1,10 @@
 ---
-title: "azure-pipelines-task-lib and isOutput setVariable"
+title: 'azure-pipelines-task-lib and isOutput setVariable'
 authors: johnnyreilly
 tags: [azure-pipelines-task-lib, Azure Pipelines, custom task]
 hide_table_of_contents: false
 ---
+
 Some blog posts are insightful treatises on the future of web development, some are "here's how I solved my problem". This is most assuredly the latter.
 
 I'm writing an [custom pipelines task extension for Azure Pipelines](https://docs.microsoft.com/en-us/azure/devops/extend/develop/add-build-task?view=azure-devops). It's written with TypeScript and the [azure-pipelines-task-lib](https://github.com/microsoft/azure-pipelines-task-lib).
@@ -27,36 +28,42 @@ import * as os from 'os';
  * @param     secret  whether variable is secret.  Multi-line secrets are not allowed.  Optional, defaults to false
  * @returns   void
  */
-export function setOutputVariable(name: string, val: string, secret = false): void {
-    // use the implementation of setVariable to set all the internals,
-    // then subsequently set the output variable manually
-    tl.setVariable(name, val, secret);
+export function setOutputVariable(
+  name: string,
+  val: string,
+  secret = false
+): void {
+  // use the implementation of setVariable to set all the internals,
+  // then subsequently set the output variable manually
+  tl.setVariable(name, val, secret);
 
-    const varValue = val || '';
+  const varValue = val || '';
 
-    // write the command
-    // see https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#set-a-multi-job-output-variable
-    _command(
-        'task.setvariable',
-        { variable: name || '', isOutput: 'true', issecret: (secret || false).toString() },
-        varValue
-    );
+  // write the command
+  // see https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#set-a-multi-job-output-variable
+  _command(
+    'task.setvariable',
+    {
+      variable: name || '',
+      isOutput: 'true',
+      issecret: (secret || false).toString(),
+    },
+    varValue
+  );
 }
 
 const _outStream = process.stdout;
 
 function _writeLine(str: string): void {
-    _outStream.write(str + os.EOL);
+  _outStream.write(str + os.EOL);
 }
 
 function _command(command: string, properties: any, message: string) {
-    const taskCmd = new tcm.TaskCommand(command, properties, message);
-    _writeLine(taskCmd.toString());
+  const taskCmd = new tcm.TaskCommand(command, properties, message);
+  _writeLine(taskCmd.toString());
 }
 ```
 
 The above is effectively a wrapper for the existing [`setVariable`](https://github.com/microsoft/azure-pipelines-task-lib/blob/90e9cde0e509cba77185a80ef3af2fc898fb026c/node/task.ts#L162). However, once it's called into the initial implementation, `setOutputVariable` then writes out the same variable once more, but this time bolting on `isOutput=true`.
 
 Finally, I've raised a PR to see if `isOutput` can be added directly to the library. [You can track progress on that here.](https://github.com/microsoft/azure-pipelines-task-lib/pull/691)
-
-

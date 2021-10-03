@@ -1,12 +1,19 @@
 ---
-title: "Twitter.Bootstrap.MVC4 meet Bootstrap Datepicker *and* get your Internationalization on..."
+title: 'Twitter.Bootstrap.MVC4 meet Bootstrap Datepicker *and* get your Internationalization on...'
 authors: johnnyreilly
-tags: [Internationalization, Twitter.Bootstrap.MVC4, Globalize JS, Twitter Bootstrap]
+tags:
+  [
+    Internationalization,
+    Twitter.Bootstrap.MVC4,
+    Globalize JS,
+    Twitter Bootstrap,
+  ]
 hide_table_of_contents: false
 ---
+
 [Last time](http://icanmakethiswork.blogspot.co.uk/2013/01/twitterbootstrapmvc4-meet-bootstrap.html) I wrote about marrying up Twitter.Bootstrap.MVC4 and Bootstrap Datepicker. It came together quite nicely but when I took a more in depth look at what I'd done I discovered a problem. The brief work on regionalisation / internationalisation / localisation / globalisation / whatever it's called this week... wasn't really working. We had problems with the validation.
 
- I also discovered that Stefan Petre's Bootstrap Datepicker appears to have been abandoned. Andrew Rowls has taken it on and created a GitHub repository for it [here](https://github.com/eternicode/bootstrap-datepicker). Besides bug fixes he's also introduced the ability for the Bootstrap Datepicker to customised for different cultures.
+I also discovered that Stefan Petre's Bootstrap Datepicker appears to have been abandoned. Andrew Rowls has taken it on and created a GitHub repository for it [here](https://github.com/eternicode/bootstrap-datepicker). Besides bug fixes he's also introduced the ability for the Bootstrap Datepicker to customised for different cultures.
 
 Since these 2 subjects are linked I tackled them together and thought it might be worth writing up here. You can find the conclusion of my work in a GitHub repository I created [here](https://github.com/johnnyreilly/BootstrapMvcSample).
 
@@ -37,8 +44,6 @@ To illustrate how this works, a German user running a machine with the de-DE cul
 - `globalize.culture.de-DE.js`
 - `bootstrap-datepicker.de.js`
 
-
-
 ## Where have we got to?
 
 With all this done we have now fixed the validation issues we were experiencing previously. This was done by including the Globalize library, the accept-language meta tag and the jQuery Validate Globalize extensions.
@@ -59,7 +64,3 @@ In this post we:
 
 1. fixed the validation issues we'd introduced by marrying up Twitter.Bootstrap.MVC4 and the Bootstrap Datepicker
 2. switched over to using the Andrew Rowls fork of Bootstrap Datepicker and made use of the internationalisation functionality it exposes.
-
-
-
-

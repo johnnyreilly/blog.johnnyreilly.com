@@ -1,12 +1,13 @@
 ---
-title: "TypeScript 2.0, ES2016 and Babel"
+title: 'TypeScript 2.0, ES2016 and Babel'
 authors: johnnyreilly
 tags: [TypeScript, Babel, ES2016]
 hide_table_of_contents: false
 ---
+
 [TypeScript 2.0 has shipped!](https://blogs.msdn.microsoft.com/typescript/2016/09/22/announcing-typescript-2-0/) Naturally I'm excited. For some time I've been using TypeScript to emit ES2015 code which I pass onto Babel to transpile to ES "old school". You can see how [here](https://blog.johnnyreilly.com/2015/12/es6-typescript-babel-react-flux-karma.html).
 
- Merely upgrading my `package.json` to use `"typescript": "^2.0.3"` from `"typescript": "^1.8.10"` was painless. TypeScript now supports ES2016 (the previous major release 1.8 supported ES2015). I wanted to move on from writing ES2015 to writing ES2016 using my chosen build process. Fortunately, it's supported. Phew. However, due to some advances in ecmascript feature modularisation within the TypeScript compiler the upgrade path is slightly different. I figured that I'd just be able to update the `<a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html">target</a>` in my `tsconfig.json` to `"es2016"` from `"es2015"`, add in the ES2016 preset for Babel and jobs a good 'un. Not so. There were a few more steps to follow. Here's the recipe:
+Merely upgrading my `package.json` to use `"typescript": "^2.0.3"` from `"typescript": "^1.8.10"` was painless. TypeScript now supports ES2016 (the previous major release 1.8 supported ES2015). I wanted to move on from writing ES2015 to writing ES2016 using my chosen build process. Fortunately, it's supported. Phew. However, due to some advances in ecmascript feature modularisation within the TypeScript compiler the upgrade path is slightly different. I figured that I'd just be able to update the `<a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html">target</a>` in my `tsconfig.json` to `"es2016"` from `"es2015"`, add in the ES2016 preset for Babel and jobs a good 'un. Not so. There were a few more steps to follow. Here's the recipe:
 
 ## `tsconfig.json` changes
 
@@ -46,20 +47,24 @@ module.exports = {
   // ....
 
   module: {
-    loaders: [{
-      // Now transpiling ES2016 TS
-      test: /\.ts(x?)$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader?presets[]=es2016&presets[]=es2015&presets[]=react!ts-loader'
-    }, {
-      // Now transpiling ES2016 JS
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: 'babel',
-      query: {
-        presets: ['es2016', 'es2015', 'react']
-      }
-    }]
+    loaders: [
+      {
+        // Now transpiling ES2016 TS
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        loader:
+          'babel-loader?presets[]=es2016&presets[]=es2015&presets[]=react!ts-loader',
+      },
+      {
+        // Now transpiling ES2016 JS
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          presets: ['es2016', 'es2015', 'react'],
+        },
+      },
+    ],
   },
 
   // ....
@@ -71,16 +76,14 @@ module.exports = {
 And we're there; it works. How do I know? Well; here's the proof:
 
 ```ts
-it("Array.prototype.includes works", () => {
-    const result = [1, 2, 3].includes(2);
-    expect(result).toBe(true);
-  });
+it('Array.prototype.includes works', () => {
+  const result = [1, 2, 3].includes(2);
+  expect(result).toBe(true);
+});
 
-  it("Exponentiation operator works", () => {
-    expect(1 ** 2 === Math.pow(1, 2)).toBe(true);
-  });
+it('Exponentiation operator works', () => {
+  expect(1 ** 2 === Math.pow(1, 2)).toBe(true);
+});
 ```
 
 Much love to the TypeScript team for an awesome job; I can't wait to get stuck into some of the exciting new features of TypeScript 2.0. `strictNullChecks` FTW!
-
-

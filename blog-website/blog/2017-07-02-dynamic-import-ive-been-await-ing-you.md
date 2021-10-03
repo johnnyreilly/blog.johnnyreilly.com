@@ -4,12 +4,13 @@ authors: johnnyreilly
 tags: [await, async, TypeScript, Karma, Babel, Webpack, dynamic import]
 hide_table_of_contents: false
 ---
+
 One of the most exciting features to ship with TypeScript 2.4 was support for the dynamic import expression. To quote the [release blog post](https://blogs.msdn.microsoft.com/typescript/2017/06/27/announcing-typescript-2-4/#dynamic-import-expressions):
 
- > Dynamic `import` expressions are a new feature in ECMAScript that allows you to asynchronously request a module at any arbitrary point in your program. These modules come back as `Promise`s of the module itself, and can be `await`\-ed in an async function, or can be given a callback with `.then`.
-> 
+> Dynamic `import` expressions are a new feature in ECMAScript that allows you to asynchronously request a module at any arbitrary point in your program. These modules come back as `Promise`s of the module itself, and can be `await`\-ed in an async function, or can be given a callback with `.then`.
+>
 > ...
-> 
+>
 > Many bundlers have support for automatically splitting output bundles (a.k.a. “code splitting”) based on these `import()` expressions, so consider using this new feature with the `esnext` module target. Note that this feature won’t work with the `es2015` module target, since the feature is anticipated for ES2018 or later.
 
 As the post makes clear, this adds support for a very bleeding edge ECMAScript feature. This is not fully standardised yet; it's currently at [stage 3](https://github.com/tc39/proposals) on the TC39 proposals list. That means it's at the [Candidate](https://tc39.github.io/process-document/) stage and is unlikely to change further. If you'd like to read more about it then take a look at the official proposal [here](https://github.com/tc39/proposal-dynamic-import).
@@ -24,23 +25,20 @@ Here's a `tsconfig.json` I made earlier which has the relevant settings set:
 
 ```json
 {
-    "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
-        "lib": [
-            "dom",
-            "es2015"
-        ],
-        "target": "es2015",
-        "module": "esnext",
-        "moduleResolution": "node",
-        "noImplicitAny": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "removeComments": false,
-        "preserveConstEnums": true,
-        "sourceMap": true,
-        "skipLibCheck": true
-    }
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "lib": ["dom", "es2015"],
+    "target": "es2015",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "skipLibCheck": true
+  }
 }
 ```
 
@@ -54,15 +52,15 @@ These are the options I'm passing to Babel:
 
 ```js
 var babelOptions = {
-  "plugins": ["syntax-dynamic-import"],
-  "presets": [
+  plugins: ['syntax-dynamic-import'],
+  presets: [
     [
-      "es2015",
+      'es2015',
       {
-        "modules": false
-      }
-    ]
-  ]
+        modules: false,
+      },
+    ],
+  ],
 };
 ```
 
@@ -77,48 +75,51 @@ var path = require('path');
 var webpack = require('webpack');
 
 var babelOptions = {
-  "plugins": ["syntax-dynamic-import"],
-  "presets": [
+  plugins: ['syntax-dynamic-import'],
+  presets: [
     [
-      "es2015",
+      'es2015',
       {
-        "modules": false
-      }
-    ]
-  ]
+        modules: false,
+      },
+    ],
+  ],
 };
 
 module.exports = {
   entry: './app.ts',
   output: {
-      filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   module: {
-    rules: [{
-      test: /\.ts(x?)$/,
-      exclude: /node_modules/,
-      use: [
-        {
-          loader: 'babel-loader',
-          options: babelOptions
-        },
-        {
-          loader: 'ts-loader'
-        }
-      ]
-    }, {
-      test: /\.js$/,
-      exclude: /node_modules/,
-      use: [
-        {
-          loader: 'babel-loader',
-          options: babelOptions
-        }
-      ]
-    }]
+    rules: [
+      {
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: babelOptions,
+          },
+          {
+            loader: 'ts-loader',
+          },
+        ],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: babelOptions,
+          },
+        ],
+      },
+    ],
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
   },
 };
 ```
@@ -183,5 +184,3 @@ As you can see, it's possible to use the dynamic `import` as a `Promise` directl
 If you're looking for a complete example of how to use the new syntax then you could do worse than taking the existing test pack and tweaking it to your own ends. The only change you'd need to make is to strip out the `resolveLoader` statements in `webpack.config.js` and `karma.conf.js`. (They exist to lock the test in case to the freshly built ts-loader stored locally. You'll not need this.)
 
 You can find the test in question [here](https://github.com/TypeStrong/ts-loader/tree/master/test/execution-tests/2.4.1_babel-importCodeSplitting). Happy code splitting!
-
-

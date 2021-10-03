@@ -1,12 +1,13 @@
 ---
-title: "Finding webpack 4 (use a Map)"
+title: 'Finding webpack 4 (use a Map)'
 authors: johnnyreilly
 tags: [webpack 4]
 hide_table_of_contents: false
 ---
+
 ## Update: 03/02/2018
 
- Tobias Koppers has written a migration guide for plugins / loaders as well - take a read [here](https://medium.com/webpack/webpack-4-migration-guide-for-plugins-loaders-20a79b927202). It's very useful.
+Tobias Koppers has written a migration guide for plugins / loaders as well - take a read [here](https://medium.com/webpack/webpack-4-migration-guide-for-plugins-loaders-20a79b927202). It's very useful.
 
 ## webpack 4
 
@@ -22,16 +23,19 @@ Previously, if your plugin was tapping into a compiler hook you'd write code tha
 
 ```js
 this.compiler.plugin('watch-close', () => {
-   // do your thing here
+  // do your thing here
 });
 ```
 
 With webpack 4 things done changed. You'd now write something like this:
 
 ```js
-this.compiler.hooks.watchClose.tap('name-to-identify-your-plugin-goes-here', () => {
-   // do your thing here
-});
+this.compiler.hooks.watchClose.tap(
+  'name-to-identify-your-plugin-goes-here',
+  () => {
+    // do your thing here
+  }
+);
 ```
 
 Hopefully that's fairly clear; we're using the new `hooks` property and tapping into our event of choice by `camelCasing` what was previously `kebab-cased`. So in this case `plugin('watch-close' =&gt; hooks.watchClose.tap`.
@@ -40,18 +44,21 @@ In the example above we were attaching to a sync hook. Now let's look at an asyn
 
 ```js
 this.compiler.plugin('watch-run', (watching, callback) => {
-   // do your thing here
-   callback();
+  // do your thing here
+  callback();
 });
 ```
 
 This would change to be:
 
 ```js
-this.compiler.hooks.watchRun.tapAsync('name-to-identify-your-plugin-goes-here', (compiler, callback) => {
-   // do your thing here
-   callback();
-});
+this.compiler.hooks.watchRun.tapAsync(
+  'name-to-identify-your-plugin-goes-here',
+  (compiler, callback) => {
+    // do your thing here
+    callback();
+  }
+);
 ```
 
 Note that rather than using `tap` here, we're using `tapAsync`. If you're more into promises there's a `tapPromise` you could use instead.
@@ -62,7 +69,7 @@ Prior to webpack 4, you could use your own custom hooks within your plugin. Usag
 
 ```js
 this.compiler.applyPluginsAsync('fork-ts-checker-service-before-start', () => {
-   // do your thing here
+  // do your thing here
 });
 ```
 
@@ -71,48 +78,50 @@ You can still use custom hooks with webpack 4, but there's a little more ceremon
 First of all, you'll need to add the package [`tapable`](https://www.npmjs.com/package/tapable) as a dependency. Then, inside your plugin you'll need to import the type of hook that you want to use; in the case of the `fork-ts-checker-webpack-plugin` we used both a sync and an async hook:
 
 ```js
-const AsyncSeriesHook = require("tapable").AsyncSeriesHook;
-const SyncHook = require("tapable").SyncHook;
+const AsyncSeriesHook = require('tapable').AsyncSeriesHook;
+const SyncHook = require('tapable').SyncHook;
 ```
 
 Then, inside your `apply` method you need to register your hooks:
 
 ```js
-if (this.compiler.hooks.forkTsCheckerServiceBeforeStart
-      || this.compiler.hooks.forkTsCheckerCancel
-      // other hooks...
-      || this.compiler.hooks.forkTsCheckerEmit) {
-      throw new Error('fork-ts-checker-webpack-plugin hooks are already in use');
-    }
-    this.compiler.hooks.forkTsCheckerServiceBeforeStart = new AsyncSeriesHook([]);
+if (
+  this.compiler.hooks.forkTsCheckerServiceBeforeStart ||
+  this.compiler.hooks.forkTsCheckerCancel ||
+  // other hooks...
+  this.compiler.hooks.forkTsCheckerEmit
+) {
+  throw new Error('fork-ts-checker-webpack-plugin hooks are already in use');
+}
+this.compiler.hooks.forkTsCheckerServiceBeforeStart = new AsyncSeriesHook([]);
 
-    this.compiler.hooks.forkTsCheckerCancel = new SyncHook([]);
-    // other sync hooks...
-    this.compiler.hooks.forkTsCheckerDone = new SyncHook([]);
+this.compiler.hooks.forkTsCheckerCancel = new SyncHook([]);
+// other sync hooks...
+this.compiler.hooks.forkTsCheckerDone = new SyncHook([]);
 ```
 
 If you're interested in backwards compatibility then you should use the `_pluginCompat` to wire that in:
 
 ```js
-this.compiler._pluginCompat.tap('fork-ts-checker-webpack-plugin', options => {
-      switch (options.name) {
-        case 'fork-ts-checker-service-before-start':
-          options.async = true;
-          break;
-        case 'fork-ts-checker-cancel':
-        // other sync hooks...
-        case 'fork-ts-checker-done':
-          return true;
-      }
-      return undefined;
-    });
+this.compiler._pluginCompat.tap('fork-ts-checker-webpack-plugin', (options) => {
+  switch (options.name) {
+    case 'fork-ts-checker-service-before-start':
+      options.async = true;
+      break;
+    case 'fork-ts-checker-cancel':
+    // other sync hooks...
+    case 'fork-ts-checker-done':
+      return true;
+  }
+  return undefined;
+});
 ```
 
 With your registration in place, you just need to replace your calls to `compiler.applyPlugins('sync-hook-name', ` and `compiler.applyPluginsAsync('async-hook-name', ` with calls to `compiler.hooks.syncHookName.call(` and `compiler.hooks.asyncHookName.callAsync(`. So to migrate our `fork-ts-checker-service-before-start` hook we'd write:
 
 ```js
 this.compiler.hooks.forkTsCheckerServiceBeforeStart.callAsync(() => {
-   // do your thing here
+  // do your thing here
 });
 ```
 
@@ -121,15 +130,17 @@ this.compiler.hooks.forkTsCheckerServiceBeforeStart.callAsync(() => {
 Loaders are impacted by the changes to the plugin architecture. Mostly this means applying the same plugin changes as discussed above. `ts-loader` hooks into 2 plugin events:
 
 ```js
-loader._compiler.plugin("after-compile", /* callback goes here */);
-    loader._compiler.plugin("watch-run", /* callback goes here */);
+loader._compiler.plugin('after-compile' /* callback goes here */);
+loader._compiler.plugin('watch-run' /* callback goes here */);
 ```
 
 With webpack 4 these become:
 
 ```js
-loader._compiler.hooks.afterCompile.tapAsync("ts-loader", /* callback goes here */);
-    loader._compiler.hooks.watchRun.tapAsync("ts-loader", /* callback goes here */);
+loader._compiler.hooks.afterCompile.tapAsync(
+  'ts-loader' /* callback goes here */
+);
+loader._compiler.hooks.watchRun.tapAsync('ts-loader' /* callback goes here */);
 ```
 
 Note again, we're using the string `"ts-loader"` to identify our loader.
@@ -146,30 +157,29 @@ What this means is, code that would once have looked like this:
 
 ```js
 Object.keys(watching.compiler.fileTimestamps)
- .filter(filePath =>
-  watching.compiler.fileTimestamps[filePath] > lastTimes[filePath]
- )
- .forEach(filePath => {
-  lastTimes[filePath] = times[filePath];
-  // ...
- });
+  .filter(
+    (filePath) =>
+      watching.compiler.fileTimestamps[filePath] > lastTimes[filePath]
+  )
+  .forEach((filePath) => {
+    lastTimes[filePath] = times[filePath];
+    // ...
+  });
 ```
 
 Now looks more like this:
 
 ```js
 for (const [filePath, date] of compiler.fileTimestamps) {
- if (date > lastTimes.get(filePath)) {
-  continue;
- }
+  if (date > lastTimes.get(filePath)) {
+    continue;
+  }
 
- lastTimes.set(filePath, date);
- // ...
+  lastTimes.set(filePath, date);
+  // ...
 }
 ```
 
 ## Happy Porting!
 
 I hope your own port to webpack 4 goes well. Do let me know if there's anything I've missed out / any inaccuracies etc and I'll update this guide.
-
-

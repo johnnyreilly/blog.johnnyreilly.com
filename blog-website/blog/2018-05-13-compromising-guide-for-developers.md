@@ -1,12 +1,13 @@
 ---
-title: "Compromising: A Guide for Developers"
+title: 'Compromising: A Guide for Developers'
 authors: johnnyreilly
 tags: [compromise, empathy, developers, code style, teams]
 hide_table_of_contents: false
 ---
+
 It is a truth universally acknowledged, that a single developer, will not be short of an opinion. Opinions on tabs vs spaces. Upon OOP vs FP. Upon `class`es vs `function`s. Just opinions, opinions, opinions. Opinions that are felt with all the sincerity of a Witchfinder General. And, alas, not always the same level of empathy.
 
- Given the wealth of strongly felt desires, it's kind of amazing that developers ever manage to work together. It's rare to find a fellow dev that agrees entirely with your predilections. So how do people ever get past the "you don't use semi-colons; what's wrong with you"? Well, not easily to be honest. It involves compromise.
+Given the wealth of strongly felt desires, it's kind of amazing that developers ever manage to work together. It's rare to find a fellow dev that agrees entirely with your predilections. So how do people ever get past the "you don't use semi-colons; what's wrong with you"? Well, not easily to be honest. It involves compromise.
 
 ## On Compromise
 
@@ -17,8 +18,6 @@ Then comes the moment of trepidation. You suggest a change. You suggest differen
 - "You've been using 3 spaces?"
 - "Yes we use 3 spaces."
 - "Okay... So we'll be using 3 spaces..." [backs away carefully]
-
-
 
 I've been in this position so many times I've learned to adapt. It helps that I'm a malleable sort anyway. But what if there were another way?
 
@@ -39,5 +38,3 @@ I'll contend that rolling like this makes for more content, happier and more pro
 ![](../static/blog/2018-05-13-compromising-guide-for-developers/Bestival_2008_Increase_the_Peace_banner.jpg)
 
 I've only recently discovered this technique and I can't claim credit for it. I learned it from the awesome [Jamie McCrindle](https://twitter.com/foldr). I commend to you! Be happier!
-
-

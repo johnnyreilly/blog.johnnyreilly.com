@@ -1,18 +1,26 @@
 ---
-title: "WCF - moving from Config to Code, a simple WCF service harness (plus implementing your own Authorization)"
+title: 'WCF - moving from Config to Code, a simple WCF service harness (plus implementing your own Authorization)'
 authors: johnnyreilly
-tags: [ServiceAuthorizationManager, Windows Account, Windows Service, configuration, WCF, authorisation, NetTcpBinding]
+tags:
+  [
+    ServiceAuthorizationManager,
+    Windows Account,
+    Windows Service,
+    configuration,
+    WCF,
+    authorisation,
+    NetTcpBinding,
+  ]
 hide_table_of_contents: false
 ---
+
 Last time I wrote about WCF I was getting up and running with [WCF Transport Windows authentication using NetTcpBinding in an Intranet environment](http://icanmakethiswork.blogspot.com/2012/02/wcf-transport-windows-authentication.html). I ended up with a WCF service hosted in a Windows Service which did pretty much what the previous post name implies.
 
- Since writing that I've taken things on a bit further and I thought it worth recording my approach whilst it's still fresh in my mind. There's 3 things I want to go over:
+Since writing that I've taken things on a bit further and I thought it worth recording my approach whilst it's still fresh in my mind. There's 3 things I want to go over:
 
 1. I've moved away from the standard config driven WCF approach to a more "code-first" style
 2. I've established a basic Windows Service hosted WCF service / client harness which is useful if you're trying to get up and running with a WCF service quickly
 3. I've locked down the WCF authorization to a single Windows account through the use of my own [ServiceAuthorizationManager](http://msdn.microsoft.com/en-us/library/ms731774.aspx)
-
-
 
 ## Moving from Config to Code
 
@@ -59,7 +67,7 @@ public class WcfWindowsService: ServiceBase
   {
     public static string WindowsServiceName = "WCF Windows Service";
     public static string WindowsServiceDescription = "Windows service that hosts a WCF service.";
-    
+
     private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
     public List<ServiceHost> _serviceHosts = null;
@@ -409,5 +417,3 @@ public class WcfServiceAuthorizationManager : ServiceAuthorizationManager
 ```
 
 Phewwww... I know this has ended up as a bit of a brain dump but hopefully people will find it useful. At some point I'll try to put up the above solution on GitHub so people can grab it easily for themselves.
-
-

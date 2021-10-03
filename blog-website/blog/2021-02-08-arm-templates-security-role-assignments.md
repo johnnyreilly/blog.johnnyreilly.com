@@ -1,22 +1,23 @@
 ---
-title: "Azure RBAC: role assignments and ARM templates"
+title: 'Azure RBAC: role assignments and ARM templates'
 authors: johnnyreilly
 image: blog/2021-02-08-arm-templates-security-role-assignments/with-great-power-comes-great-responsibility.jpg
 tags: [Azure, ARM templates, role assignments, permissions]
 hide_table_of_contents: false
 ---
+
 This post is about Azure's role assignments and ARM templates. Role assignments can be thought of as "permissions for Azure".
 
 If you're deploying to Azure, there's a good chance you're using [ARM templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview) to do so. Once you've got past "Hello World", you'll probably find yourself in a situation when you're deploying multiple types of resource to make your solution. For instance, you may be deploying an [App Service](https://docs.microsoft.com/en-us/azure/app-service/quickstart-arm-template?pivots=platform-linux#review-the-template) alongside [Key Vault](https://docs.microsoft.com/en-us/azure/templates/microsoft.keyvault/vaults) and [Storage](https://docs.microsoft.com/en-us/azure/templates/microsoft.storage/storageaccounts).
 
-One of the hardest things when it comes to deploying software and having it work, is permissions. Without adequate permissions configured, the most beautiful code can do *nothing*. Incidentally, this is a good thing. We're deploying to the web; many people are there, not all good. As a different kind of web-head once said:
+One of the hardest things when it comes to deploying software and having it work, is permissions. Without adequate permissions configured, the most beautiful code can do _nothing_. Incidentally, this is a good thing. We're deploying to the web; many people are there, not all good. As a different kind of web-head once said:
 
 ![Spider-man saying with great power, comes great responsibility](../static/blog/2021-02-08-arm-templates-security-role-assignments/with-great-power-comes-great-responsibility.jpg)
 
 Azure has great power and [suggests you use it wisely](https://docs.microsoft.com/en-us/azure/security/fundamentals/identity-management-best-practices#use-role-based-access-control).
 
 > Access management for cloud resources is critical for any organization that uses the cloud. [Azure role-based access control (Azure RBAC)](https://docs.microsoft.com/en-us/azure/role-based-access-control/overview) helps you manage who has access to Azure resources, what they can do with those resources, and what areas they have access to.
-> 
+>
 > Designating groups or individual roles responsible for specific functions in Azure helps avoid confusion that can lead to human and automation errors that create security risks. Restricting access based on the [need to know](https://en.wikipedia.org/wiki/Need_to_know) and [least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege) security principles is imperative for organizations that want to enforce security policies for data access.
 
 This is good advice. With that in mind, how can we ensure that the different resources we're deploying to Azure can talk to one another?
@@ -31,72 +32,72 @@ Whilst this explanation is delightfully simple, the actual implementation when i
 
 ```json
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  // ...
+  "variables": {
     // ...
-    "variables": {
-        // ...
-        "managedIdentity": "[concat('mi-', parameters('applicationName'), '-', parameters('environment'), '-', '001')]",
-        "appInsightsName": "[concat('appi-', parameters('applicationName'), '-', parameters('environment'), '-', '001')]",
-        "keyVaultName": "[concat('kv-', parameters('applicationName'), '-', parameters('environment'), '-', '001')]",
-        "storageAccountName": "[concat('st', parameters('applicationName'), parameters('environment'), '001')]",
-        "storageBlobDataContributor": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')]",
-        "keyVaultSecretsOfficer": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b86a8fe4-44ce-4948-aee5-eccb2c155cd7')]",
-        "keyVaultCryptoOfficer": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '14b46e9e-c2b7-41b4-b07b-48a6ebf60603')]",
-        "uniqueRoleGuidKeyVaultSecretsOfficer": "[guid(resourceId('Microsoft.KeyVault/vaults',  variables('keyVaultName')), variables('keyVaultSecretsOfficer'), resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName')))]",
-        "uniqueRoleGuidKeyVaultCryptoOfficer": "[guid(resourceId('Microsoft.KeyVault/vaults',  variables('keyVaultName')), variables('keyVaultCryptoOfficer'), resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName')))]",
-        "uniqueRoleGuidStorageAccount": "[guid(resourceId('Microsoft.Storage/storageAccounts',  variables('storageAccountName')), variables('storageBlobDataContributor'), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')))]"
+    "managedIdentity": "[concat('mi-', parameters('applicationName'), '-', parameters('environment'), '-', '001')]",
+    "appInsightsName": "[concat('appi-', parameters('applicationName'), '-', parameters('environment'), '-', '001')]",
+    "keyVaultName": "[concat('kv-', parameters('applicationName'), '-', parameters('environment'), '-', '001')]",
+    "storageAccountName": "[concat('st', parameters('applicationName'), parameters('environment'), '001')]",
+    "storageBlobDataContributor": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')]",
+    "keyVaultSecretsOfficer": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b86a8fe4-44ce-4948-aee5-eccb2c155cd7')]",
+    "keyVaultCryptoOfficer": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '14b46e9e-c2b7-41b4-b07b-48a6ebf60603')]",
+    "uniqueRoleGuidKeyVaultSecretsOfficer": "[guid(resourceId('Microsoft.KeyVault/vaults',  variables('keyVaultName')), variables('keyVaultSecretsOfficer'), resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName')))]",
+    "uniqueRoleGuidKeyVaultCryptoOfficer": "[guid(resourceId('Microsoft.KeyVault/vaults',  variables('keyVaultName')), variables('keyVaultCryptoOfficer'), resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName')))]",
+    "uniqueRoleGuidStorageAccount": "[guid(resourceId('Microsoft.Storage/storageAccounts',  variables('storageAccountName')), variables('storageBlobDataContributor'), resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+      "name": "[variables('managedIdentity')]",
+      "apiVersion": "2018-11-30",
+      "location": "[parameters('location')]"
     },
-    "resources": [
-        {
-            "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
-            "name": "[variables('managedIdentity')]",
-            "apiVersion": "2018-11-30",
-            "location": "[parameters('location')]"
-        },
-        // ...
-        {
-            "type": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
-            "apiVersion": "2020-04-01-preview",
-            "name": "[concat(variables('storageAccountName'), '/Microsoft.Authorization/', variables('uniqueRoleGuidStorageAccount'))]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('managedIdentity'))]"
-            ],
-            "properties": {
-                "roleDefinitionId": "[variables('storageBlobDataContributor')]",
-                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('managedIdentity')), '2018-11-30').principalId]",
-                "scope": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
-                "principalType": "ServicePrincipal"
-            }
-        },
-        {
-            "type": "Microsoft.KeyVault/vaults/providers/roleAssignments",
-            "apiVersion": "2018-01-01-preview",
-            "name": "[concat(variables('keyVaultName'), '/Microsoft.Authorization/', variables('uniqueRoleGuidKeyVaultSecretsOfficer'))]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('managedIdentity'))]"
-            ],
-            "properties": {
-                "roleDefinitionId": "[variables('keyVaultSecretsOfficer')]",
-                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('managedIdentity')), '2018-11-30').principalId]",
-                "scope": "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName'))]",
-                "principalType": "ServicePrincipal"
-            }
-        },
-        {
-            "type": "Microsoft.KeyVault/vaults/providers/roleAssignments",
-            "apiVersion": "2018-01-01-preview",
-            "name": "[concat(variables('keyVaultName'), '/Microsoft.Authorization/', variables('uniqueRoleGuidKeyVaultCryptoOfficer'))]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('managedIdentity'))]"
-            ],
-            "properties": {
-                "roleDefinitionId": "[variables('keyVaultCryptoOfficer')]",
-                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('managedIdentity')), '2018-11-30').principalId]",
-                "scope": "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName'))]",
-                "principalType": "ServicePrincipal"
-            }
-        }
-    ]
+    // ...
+    {
+      "type": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
+      "apiVersion": "2020-04-01-preview",
+      "name": "[concat(variables('storageAccountName'), '/Microsoft.Authorization/', variables('uniqueRoleGuidStorageAccount'))]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('managedIdentity'))]"
+      ],
+      "properties": {
+        "roleDefinitionId": "[variables('storageBlobDataContributor')]",
+        "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('managedIdentity')), '2018-11-30').principalId]",
+        "scope": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+        "principalType": "ServicePrincipal"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/providers/roleAssignments",
+      "apiVersion": "2018-01-01-preview",
+      "name": "[concat(variables('keyVaultName'), '/Microsoft.Authorization/', variables('uniqueRoleGuidKeyVaultSecretsOfficer'))]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('managedIdentity'))]"
+      ],
+      "properties": {
+        "roleDefinitionId": "[variables('keyVaultSecretsOfficer')]",
+        "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('managedIdentity')), '2018-11-30').principalId]",
+        "scope": "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName'))]",
+        "principalType": "ServicePrincipal"
+      }
+    },
+    {
+      "type": "Microsoft.KeyVault/vaults/providers/roleAssignments",
+      "apiVersion": "2018-01-01-preview",
+      "name": "[concat(variables('keyVaultName'), '/Microsoft.Authorization/', variables('uniqueRoleGuidKeyVaultCryptoOfficer'))]",
+      "dependsOn": [
+        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('managedIdentity'))]"
+      ],
+      "properties": {
+        "roleDefinitionId": "[variables('keyVaultCryptoOfficer')]",
+        "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('managedIdentity')), '2018-11-30').principalId]",
+        "scope": "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName'))]",
+        "principalType": "ServicePrincipal"
+      }
+    }
+  ]
 }
 ```
 
@@ -152,34 +153,30 @@ So now we understand how you identify the roles in question, let's take the fina
 
 ```json
 {
-            "type": "Microsoft.KeyVault/vaults/providers/roleAssignments",
-            "apiVersion": "2018-01-01-preview",
-            "name": "[concat(variables('keyVaultName'), '/Microsoft.Authorization/', variables('uniqueRoleGuidKeyVaultCryptoOfficer'))]",
-            "dependsOn": [
-                "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('managedIdentity'))]"
-            ],
-            "properties": {
-                "roleDefinitionId": "[variables('keyVaultCryptoOfficer')]",
-                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('managedIdentity')), '2018-11-30').principalId]",
-                "scope": "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName'))]",
-                "principalType": "ServicePrincipal"
-            }
-        }
+  "type": "Microsoft.KeyVault/vaults/providers/roleAssignments",
+  "apiVersion": "2018-01-01-preview",
+  "name": "[concat(variables('keyVaultName'), '/Microsoft.Authorization/', variables('uniqueRoleGuidKeyVaultCryptoOfficer'))]",
+  "dependsOn": [
+    "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', variables('managedIdentity'))]"
+  ],
+  "properties": {
+    "roleDefinitionId": "[variables('keyVaultCryptoOfficer')]",
+    "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('managedIdentity')), '2018-11-30').principalId]",
+    "scope": "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName'))]",
+    "principalType": "ServicePrincipal"
+  }
+}
 ```
 
 Let's go through the above, significant property by significant property (it's also worth checking the official reference [here](https://docs.microsoft.com/en-us/azure/templates/microsoft.authorization/roleassignments)):
 
-- `type` \- the type of role assignment we want to create, for a key vault it's `"Microsoft.KeyVault/vaults/providers/roleAssignments"`, for storage it's `"Microsoft.Storage/storageAccounts/providers/roleAssignments"`. The pattern is that it's the resource type, followed by `"/providers/roleAssignments"`. 
+- `type` \- the type of role assignment we want to create, for a key vault it's `"Microsoft.KeyVault/vaults/providers/roleAssignments"`, for storage it's `"Microsoft.Storage/storageAccounts/providers/roleAssignments"`. The pattern is that it's the resource type, followed by `"/providers/roleAssignments"`.
 - `dependsOn` \- before we can create a role assignment, we need the service principal we desire to permission (in our case a managed identity) to exist
 - `properties.roleDefinitionId` \- the role that we're assigning, provided as an id. So for this example it's the `keyVaultCryptoOfficer` variable, which was earlier defined as `[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')]`. (Note the use of the GUID)
 - `properties.principalId` \- the id of the principal we're adding permissions for. In our case this is a managed identity (a type of service principal).
 - `properties.scope` \- we're modifying another resource; our key vault isn't defined in this ARM template and we want to specify the resource we're granting permissions to.
 - `properties.principalType` \- the type of principal that we're creating an assignment for; in our this is `"ServicePrincipal"` \- our managed identity.
 
-
-
 There is an alternate approach that you can use where the `type` is `"Microsoft.Authorization/roleAssignments"`. Whilst this also works, it displayed errors in the [Azure tooling for VS Code](https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools). As such, we've opted not to use that approach in our ARM templates.
 
 Many thanks to the awesome [John McCormick](https://github.com/jmccor99) who wrangled permissions with me until we bent Azure RBAC to our will.
-
-

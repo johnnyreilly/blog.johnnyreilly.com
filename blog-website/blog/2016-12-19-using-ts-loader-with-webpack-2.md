@@ -1,19 +1,18 @@
 ---
-title: "Using ts-loader with webpack 2"
+title: 'Using ts-loader with webpack 2'
 authors: johnnyreilly
 tags: [ts-loader, webpack 2]
 hide_table_of_contents: false
 ---
+
 Hands up, despite being one of the maintainers of [ts-loader](https://github.com/TypeStrong/ts-loader) (a TypeScript loader for webpack) I have not been tracking webpack v2. My reasons? Well, I'm keen on cutting edge but bleeding edge is often not a ton of fun as dealing with regularly breaking changes is frustrating. I'm generally happy to wait for things to settle down a bit before leaping aboard. However, [webpack 2 RC'd last week](https://github.com/webpack/webpack/releases/tag/v2.2.0-rc.0) and so it's time to take a look!
 
- ## Porting our example
+## Porting our example
 
 Let's take [ts-loader's webpack 1 example](https://github.com/TypeStrong/ts-loader/tree/master/examples/webpack1-gulp-react-flux-babel-karma) and try and port it to webpack 2. Will it work? Probably; I'm aware of other people using ts-loader with webpack 2. It'll be a voyage of discovery. Like Darwin on the Beagle, I shall document our voyage for a couple of reasons:
 
 - I'm probably going to get some stuff wrong. That's fine; one of the best ways to learn is to make mistakes. So do let me know where I go wrong.
 - I'm doing this based on what I've read in the new docs; they're very much a work in progress and the mistakes I make here may lead to those docs improving even more. That matters; **documentation matters**. I'll be leaning heavily on the [Migrating from v1 to v2](https://webpack.js.org/guides/migrating/) guide.
-
-
 
 So here we go. Our example is one which uses TypeScript for static typing and uses Babel to transpile from ES-super-modern (yes - it's a thing) to ES-older-than-that. Our example also uses React; but that's somewhat incidental. It only uses webpack for typescript / javascript and karma. It uses gulp to perform various other tasks; so if you're reliant on webpack for less / sass compilation etc then I have no idea whether that works.
 
@@ -36,37 +35,34 @@ module.exports = {
   cache: true,
   entry: {
     main: './src/main.tsx',
-    vendor: [
-      'babel-polyfill',
-      'fbemitter',
-      'flux',
-      'react',
-      'react-dom'
-    ]
+    vendor: ['babel-polyfill', 'fbemitter', 'flux', 'react', 'react-dom'],
   },
   output: {
     path: path.resolve(__dirname, './dist/scripts'),
     filename: '[name].js',
-    chunkFilename: '[chunkhash].js'
+    chunkFilename: '[chunkhash].js',
   },
   module: {
-    loaders: [{
-      test: /\.ts(x?)$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader?presets[]=es2016&presets[]=es2015&presets[]=react!ts-loader'
-    }, {
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: 'babel',
-      query: {
-        presets: ['es2016', 'es2015', 'react']
-      }
-    }]
+    loaders: [
+      {
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        loader:
+          'babel-loader?presets[]=es2016&presets[]=es2015&presets[]=react!ts-loader',
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          presets: ['es2016', 'es2015', 'react'],
+        },
+      },
+    ],
   },
-  plugins: [
-  ],
+  plugins: [],
   resolve: {
-    extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
+    extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
   },
 };
 ```
@@ -90,12 +86,12 @@ Initially I thought I was supposed to switch to a custom babel preset called `<a
 }
 ```
 
-Looking at our existing config you'll note that for `js` files we're using `query` (`options` in the new world I understand) to configure babel usage. We're using [query parameters](https://webpack.github.io/docs/using-loaders.html#query-parameters) for `ts` files. I have *zero* idea how to configure preset options using query parameters. Fiddling with `query` / `options` didn't seem to work. So, I've decided to abandon using query entirely and drop in a `<a href="http://babeljs.io/docs/usage/babelrc/">.babelrc</a>` file using our presets combined with the `<a href="https://babeljs.io/docs/plugins/#plugin-preset-options">modules</a>` setting:
+Looking at our existing config you'll note that for `js` files we're using `query` (`options` in the new world I understand) to configure babel usage. We're using [query parameters](https://webpack.github.io/docs/using-loaders.html#query-parameters) for `ts` files. I have _zero_ idea how to configure preset options using query parameters. Fiddling with `query` / `options` didn't seem to work. So, I've decided to abandon using query entirely and drop in a `<a href="http://babeljs.io/docs/usage/babelrc/">.babelrc</a>` file using our presets combined with the `<a href="https://babeljs.io/docs/plugins/#plugin-preset-options">modules</a>` setting:
 
 ```js
 {
    "presets": [
-      "react", 
+      "react",
       [
          "es2015",
          {
@@ -120,34 +116,30 @@ module.exports = {
   cache: true,
   entry: {
     main: './src/main.tsx',
-    vendor: [
-      'babel-polyfill',
-      'fbemitter',
-      'flux',
-      'react',
-      'react-dom'
-    ]
+    vendor: ['babel-polyfill', 'fbemitter', 'flux', 'react', 'react-dom'],
   },
   output: {
     path: path.resolve(__dirname, './dist/scripts'),
     filename: '[name].js',
-    chunkFilename: '[chunkhash].js'
+    chunkFilename: '[chunkhash].js',
   },
   module: {
-    loaders: [{
-      test: /\.ts(x?)$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader!ts-loader'
-    }, {
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader'
-    }]
+    loaders: [
+      {
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader!ts-loader',
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+      },
+    ],
   },
-  plugins: [
-  ],
+  plugins: [],
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
   },
 };
 ```
@@ -169,48 +161,52 @@ var packageJson = require('../package.json');
 // .....
 
 function buildProduction(done) {
+  // .....
 
-   // .....
+  myProdConfig.plugins = myProdConfig.plugins.concat(
+    // .....
 
-   myProdConfig.plugins = myProdConfig.plugins.concat(
-      // .....
+    // new webpack.optimize.DedupePlugin(), Not a thing anymore apparently
+    new webpack.optimize.UglifyJsPlugin(),
 
-      // new webpack.optimize.DedupePlugin(), Not a thing anymore apparently
-      new webpack.optimize.UglifyJsPlugin(),
+    // I understand this here matters...
+    // but it doesn't seem to make any difference; perhaps I'm missing something?
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false,
+    }),
 
-      // I understand this here matters...
-      // but it doesn't seem to make any difference; perhaps I'm missing something?
-      new webpack.LoaderOptionsPlugin({
-        minimize: true,
-        debug: false
-      }),
+    failPlugin
+  );
 
-      failPlugin
-   );
-
-   // .....
+  // .....
 }
 
 function createDevCompiler() {
-   var myDevConfig = webpackConfig;
-   myDevConfig.devtool = 'inline-source-map';
-   // myDevConfig.debug = true; - not allowed in webpack 2
+  var myDevConfig = webpackConfig;
+  myDevConfig.devtool = 'inline-source-map';
+  // myDevConfig.debug = true; - not allowed in webpack 2
 
-   myDevConfig.plugins = myDevConfig.plugins.concat(
-      new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js' }),
-      new WebpackNotifierPlugin({ title: 'Webpack build', excludeWarnings: true }),
+  myDevConfig.plugins = myDevConfig.plugins.concat(
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.js',
+    }),
+    new WebpackNotifierPlugin({
+      title: 'Webpack build',
+      excludeWarnings: true,
+    }),
 
-      // this is the Webpack 2 hotness!
-      new webpack.LoaderOptionsPlugin({
-         debug: true,
-         options: myDevConfig
-      })
-      // it ends here - there wasn't much really....
+    // this is the Webpack 2 hotness!
+    new webpack.LoaderOptionsPlugin({
+      debug: true,
+      options: myDevConfig,
+    })
+    // it ends here - there wasn't much really....
+  );
 
-   );
-
-   // create a single instance of the compiler to allow caching
-   return webpack(myDevConfig);
+  // create a single instance of the compiler to allow caching
+  return webpack(myDevConfig);
 }
 
 // .....
@@ -222,35 +218,37 @@ After a little more experimentation it seems that the `LoaderOptionsPlugin` is n
 
 ```js
 function buildProduction(done) {
+  // .....
 
-   // .....
+  myProdConfig.plugins = myProdConfig.plugins.concat(
+    // .....
 
-   myProdConfig.plugins = myProdConfig.plugins.concat(
-      // .....
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: true,
+      },
+    }),
 
-      new webpack.optimize.UglifyJsPlugin({
-         compress: {
-            warnings: true
-         }
-      }),
+    failPlugin
+  );
 
-      failPlugin
-   );
-
-   // .....
+  // .....
 }
 
 function createDevCompiler() {
-   var myDevConfig = webpackConfig;
-   myDevConfig.devtool = 'inline-source-map';
+  var myDevConfig = webpackConfig;
+  myDevConfig.devtool = 'inline-source-map';
 
-   myDevConfig.plugins = myDevConfig.plugins.concat(
-      new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'vendor.js' }),
-      new WebpackNotifierPlugin({ title: 'Webpack build', excludeWarnings: true }),
-   );
+  myDevConfig.plugins = myDevConfig.plugins.concat(
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.js',
+    }),
+    new WebpackNotifierPlugin({ title: 'Webpack build', excludeWarnings: true })
+  );
 
-   // create a single instance of the compiler to allow caching
-   return webpack(myDevConfig);
+  // create a single instance of the compiler to allow caching
+  return webpack(myDevConfig);
 }
 
 // .....
@@ -266,38 +264,38 @@ Finally Karma. Our `karma.conf.js` with webpack 1 looked like this:
 
 var webpackConfig = require('./webpack.config.js');
 
-module.exports = function(config) {
+module.exports = function (config) {
   // Documentation: https://karma-runner.github.io/0.13/config/configuration-file.html
   config.set({
-    browsers: [ 'PhantomJS' ],
+    browsers: ['PhantomJS'],
 
     files: [
       // This ensures we have the es6 shims in place and then loads all the tests
-      'test/main.js'
+      'test/main.js',
     ],
 
     port: 9876,
 
-    frameworks: [ 'jasmine' ],
+    frameworks: ['jasmine'],
 
     logLevel: config.LOG_INFO, //config.LOG_DEBUG
 
     preprocessors: {
-      'test/main.js': [ 'webpack', 'sourcemap' ]
+      'test/main.js': ['webpack', 'sourcemap'],
     },
 
     webpack: {
       devtool: 'inline-source-map',
       debug: true,
       module: webpackConfig.module,
-      resolve: webpackConfig.resolve
+      resolve: webpackConfig.resolve,
     },
 
     webpackMiddleware: {
       quiet: true,
       stats: {
-        colors: true
-      }
+        colors: true,
+      },
     },
 
     // reporter options
@@ -306,9 +304,9 @@ module.exports = function(config) {
         success: 'bgGreen',
         info: 'cyan',
         warning: 'bgBlue',
-        error: 'bgRed'
-      }
-    }
+        error: 'bgRed',
+      },
+    },
   });
 };
 ```
@@ -377,5 +375,3 @@ vendor.33e0d70eeec29206e9b6.js   233 kB       1  [emitted]  vendor
 ```
 
 To my surprise this looks pretty much unchanged before and after as well. This may be a sign I have missed something crucial out. Or maybe that's to be expected. Do give me a heads up if I've missed something...
-
-

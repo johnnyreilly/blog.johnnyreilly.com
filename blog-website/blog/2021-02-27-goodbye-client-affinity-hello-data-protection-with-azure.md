@@ -1,18 +1,19 @@
 ---
-title: "Goodbye Client Affinity, Hello Data Protection with Azure"
-description: "How to use ASP.NET Data Protection to remove the need for sticky sessions with Client Affinity"
+title: 'Goodbye Client Affinity, Hello Data Protection with Azure'
+description: 'How to use ASP.NET Data Protection to remove the need for sticky sessions with Client Affinity'
 authors: johnnyreilly
 tags: [Azure, Data Protection, Easy Auth, ASP.NET, Client Affinity]
 image: blog/2021-02-27-goodbye-client-affinity-hello-data-protection-with-azure/traffic-to-app-service.png
 hide_table_of_contents: false
 ---
+
 I've written lately about [zero downtime releases with Azure App Service](./2021-02-11-azure-app-service-health-checks-and-zero-downtime-deployments.md). Zero downtime releases are only successful if your authentication mechanism survives a new deployment. We looked in my last post at [how to achieve this with Azure's in-built authentication mechanism; Easy Auth](./2021-02-16-easy-auth-tokens-survive-releases-on-linux-azure-app-service.md).
 
 We're now going to look at how the same goal can be achieved if your ASP.NET application is authenticating another way. We achieve this through use of the [ASP.NET Data Protection](https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/configuration/overview) system. Andrew Lock has written [an excellent walkthrough on the topic](https://andrewlock.net/an-introduction-to-the-data-protection-system-in-asp-net-core/) and I encourage you to read it.
 
-We're interested in the ASP.NET data-protection system because it encrypts and decrypts sensitive data including the authentication cookie. It's wonderful that the data protection does this, but at the same time it presents a problem. We would like to route traffic to *multiple* instances of our application… So traffic could go to instance 1, instance 2 of our app etc.
+We're interested in the ASP.NET data-protection system because it encrypts and decrypts sensitive data including the authentication cookie. It's wonderful that the data protection does this, but at the same time it presents a problem. We would like to route traffic to _multiple_ instances of our application… So traffic could go to instance 1, instance 2 of our app etc.
 
- ![traffic to app service](../static/blog/2021-02-27-goodbye-client-affinity-hello-data-protection-with-azure/traffic-to-app-service.png)
+![traffic to app service](../static/blog/2021-02-27-goodbye-client-affinity-hello-data-protection-with-azure/traffic-to-app-service.png)
 
 How can we ensure the different instances of our app can read the authentication cookies regardless of the instance that produced them? How can we ensure that instance 1 can read cookies produced by instance 2 and vice versa? And for that matter, we'd like all instances to be able to read cookies whether they were produced by an instance in a production or staging slot.
 
@@ -26,7 +27,7 @@ The problem here is the data protection keys (the key ring) is being stored loca
 
 ## Sharing is caring
 
-What we need to do is move away from storing keys locally, and to storing it in a *shared* place instead. We're going to store data protection keys in Azure Blob Storage and protect the keys with Azure Key Vault:
+What we need to do is move away from storing keys locally, and to storing it in a _shared_ place instead. We're going to store data protection keys in Azure Blob Storage and protect the keys with Azure Key Vault:
 
 ![persist keys to azure blob](../static/blog/2021-02-27-goodbye-client-affinity-hello-data-protection-with-azure/data-protection-zero-downtime.png)
 
@@ -34,8 +35,6 @@ All instances of the application can access the key ring and consequently sharin
 
 - [`Azure.Extensions.AspNetCore.DataProtection.Blobs`](https://www.nuget.org/packages/Azure.Extensions.AspNetCore.DataProtection.Blobs)
 - [`Azure.Extensions.AspNetCore.DataProtection.Keys`](https://www.nuget.org/packages/Azure.Extensions.AspNetCore.DataProtection.Keys)
-
-
 
 And adding the following to the `ConfigureServices` in your ASP.NET app:
 
@@ -55,5 +54,3 @@ In the above example you can see we're passing the name of our Storage account a
 There's one more crucial piece of the puzzle here; and it's role assignments, better known as permissions. Your App Service needs to be able to read and write to Azure Key Vault and the Azure Blob Storage. The permissions of [Storage Blob Data Contributor](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#storage-blob-data-contributor) and [Key Vault Crypto Officer](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#key-vault-crypto-officer-preview) are sufficient to enable this. (If you'd like to see what configuring that looks like via ARM templates then [check out this post](./2021-02-08-arm-templates-security-role-assignments.md).)
 
 With this in place we're able to route traffic to any instance of our application, secure in the knowledge that it will be able to read the cookies. Furthermore, we've enabled zero downtime releases as a direct consequence.
-
-

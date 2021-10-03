@@ -1,12 +1,13 @@
 ---
-title: "Giving OData to CRM 4.0"
+title: 'Giving OData to CRM 4.0'
 authors: johnnyreilly
 tags: [OData, WCF Data Services, CRM 4.0, LINQ]
 hide_table_of_contents: false
 ---
+
 Just recently I was tasked with seeing if we could provide a way to access our Dynamics CRM instance via OData. My initial investigations made it seem like there was nothing for me to do; [CRM 2011 provides OData support out of the box](http://msdn.microsoft.com/en-us/library/gg309461.aspx). Small problem. We were running CRM 4.0.
 
- It could well have ended there apart from the fact that Microsoft makes it astonishingly easy to to create your own OData service using WCF Data Services. Because it's so straightforward I was able to get an OData solution for CRM 4.0 up and running with very little heavy lifting at all. Want to know how it's done?
+It could well have ended there apart from the fact that Microsoft makes it astonishingly easy to to create your own OData service using WCF Data Services. Because it's so straightforward I was able to get an OData solution for CRM 4.0 up and running with very little heavy lifting at all. Want to know how it's done?
 
 ## LINQ to CRM
 
@@ -19,8 +20,6 @@ In order to get a LINQ to CRM provider that caters for your own customised CRM i
 - [CRM blog site](http://www.dynamicscrmtrickbag.com/)
 - [Another site listing examples of LINQ to CRM](http://community.adxstudio.com/products/adxstudio-portals/developers-guide/archive/linq-to-crm-22/)
 
-
-
 You should end up with custom generated data context classes which look not dissimilar to similar classes that you may already have in place for Entity Framework etc. With your `Xrm.DataContext` in hand (a subclass of `Microsoft.Xrm.Client.Data.Services.CrmDataContext`) you'll be ready to move forwards.
 
 ## Make me an OData Service
@@ -30,18 +29,15 @@ As I said, Microsoft makes it fantastically easy to get an OData service up and 
 1. Create a new ASP.NET Web Application called "CrmOData" (in case it's relevant I was using Visual Studio 2010 to do this).
 2. Remove all ASPXs / JavaScript / CSS files etc leaving you with an essentially empty project.
 3. Add references to the following DLLs that come with the SDK: - microsoft.crm.sdk.dll
-    - microsoft.crm.sdktypeproxy.dll
-    - microsoft.crm.sdktypeproxy.xmlserializers.dll
-    - microsoft.xrm.client.dll
-    - microsoft.xrm.portal.dll
-    - microsoft.xrm.portal.files.dll
 
-    
+   - microsoft.crm.sdktypeproxy.dll
+   - microsoft.crm.sdktypeproxy.xmlserializers.dll
+   - microsoft.xrm.client.dll
+   - microsoft.xrm.portal.dll
+   - microsoft.xrm.portal.files.dll
 
 4. Add the `&lt;microsoft.xrm.client&gt;` config section to your web.config (not forgetting the associated Xrm connection string)
 5. Add this new file below to the root of the project:
-
-
 
 <script src="https://gist.github.com/3765280.js?file=Crm.svc.cs"></script>
 
@@ -53,7 +49,7 @@ You may have noticed that I have made use of caching for my OData service follow
 
 Okay - not so much a warning as a limitation. Whilst most aspects of the OData service work as you would hope there is no support for the $select operator. I had a frustrating time trying to discover why and then came upon this explanation:
 
-*"$select statements are not supported. This problem is being discussed here [http://social.msdn.microsoft.com/Forums/en/adodotnetdataservices/thread/366086ee-dcef-496a-ad15-f461788ae678](http://social.msdn.microsoft.com/Forums/en/adodotnetdataservices/thread/366086ee-dcef-496a-ad15-f461788ae678) and is caused by the fact that CrmDataContext implements the IExpandProvider interface which in turn causes the DataService to lose support for $select projections"*
+_"$select statements are not supported. This problem is being discussed here [http://social.msdn.microsoft.com/Forums/en/adodotnetdataservices/thread/366086ee-dcef-496a-ad15-f461788ae678](http://social.msdn.microsoft.com/Forums/en/adodotnetdataservices/thread/366086ee-dcef-496a-ad15-f461788ae678) and is caused by the fact that CrmDataContext implements the IExpandProvider interface which in turn causes the DataService to lose support for $select projections"_
 
 You can also see [here](http://social.microsoft.com/Forums/en/crmdevelopment/thread/31daedb4-3d75-483a-8d7f-269af3375d74) for the original post discussing this.
 
@@ -62,5 +58,3 @@ You can also see [here](http://social.microsoft.com/Forums/en/crmdevelopment/thr
 In the example I set out here I used the version of WCF Data Services that shipped with Visual Studio 2010. WCF Data Services now ships separately from the .NET Framework and you can [pick up the latest and greatest from Nuget](http://nuget.org/packages?q=wcf+data+services). I understand that you could easily switch over to using the latest versions but since I didn't see any feature that I needed on this occasion I haven't.
 
 I hope you find this useful.
-
-

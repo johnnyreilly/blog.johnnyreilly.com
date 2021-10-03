@@ -1,9 +1,10 @@
 ---
-title: "Safari: The Mysterious Case of the Empty Download"
+title: 'Safari: The Mysterious Case of the Empty Download'
 authors: johnnyreilly
 tags: [Safari, Content-Type, Content-Length]
 hide_table_of_contents: false
 ---
+
 Safari wants a `Content-Type` header in responses. Even if the response is `Content-Length: 0`. Without this, Safari can attempt to trigger an empty download. Don't argue; just go with it; some browsers are strange.
 
 ## The longer version
@@ -19,5 +20,3 @@ As a team we could not fathom why this should be the case; it just didn't make s
 Hennie noticed that there was no `Content-Type` set and wondered if that was significant. It didn't seem like it would be a necessary header given there was no content. But Safari reckons not with logic. As an experiment we tried setting the response header to `Content-Type: text/html`. It worked! No mystery download, no failed redirect (which it turned out was actually a successful redirect which wasn't being surfaced in Safari's network request tab).
 
 It appears that always providing a `Content-Type` header in your responses is wise if only for the case of Safari. In fact, it's generally unlikely that this won't be set anyway, but it can happen as we have experienced. Hopefully we've suffered so you don't have to.
-
-

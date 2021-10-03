@@ -1,19 +1,21 @@
 ---
-title: "Azurite and Table Storage in a dev container"
+title: 'Azurite and Table Storage in a dev container'
 authors: johnnyreilly
-tags: [Azurite, Azure Table Storage, VS Code, dev container, devcontainer, Docker]
+tags:
+  [Azurite, Azure Table Storage, VS Code, dev container, devcontainer, Docker]
 image: blog/2021-05-15-azurite-and-table-storage-dev-container/dev-container-start.gif
 hide_table_of_contents: false
 ---
+
 It's great to be able to develop locally without needing a "real" database to connect to. [Azurite](https://github.com/Azure/Azurite) is an Azure Storage emulator which exists to support just that. This post demonstrates how to run Azurite v3 in a [dev container](https://code.visualstudio.com/docs/remote/containers), such that you can access the Table Storage API, which is currently in preview.
 
 ## Azurite in VS Code
 
-[Azurite v3.12.0](https://github.com/Azure/Azurite/releases/tag/v3.12.0) recently shipped, and with it came: 
+[Azurite v3.12.0](https://github.com/Azure/Azurite/releases/tag/v3.12.0) recently shipped, and with it came:
 
 > Preview of Table Service in npm package and docker image. (Visual Studio Code extension doesn't support Table Service in this release)
 
-You'll note that whilst there's a VS Code extension for Azurite, it doesn't have support for the Table Service yet.  However, we do have it available in the form of a Docker image.  So whilst we may not be able to directly use the Table APIs of Azurite in VS Code, what we could do instead is use a dev container.
+You'll note that whilst there's a VS Code extension for Azurite, it doesn't have support for the Table Service yet. However, we do have it available in the form of a Docker image. So whilst we may not be able to directly use the Table APIs of Azurite in VS Code, what we could do instead is use a dev container.
 
 We'll start by making ourselves a new directory and open VS Code in that location:
 
@@ -22,7 +24,7 @@ mkdir azurite-devcontainer
 code azurite-devcontainer
 ```
 
-We're going to initialise a dev container there for function apps based upon [the example Azure Functions & C# - .NET Core 3.1 container](https://github.com/microsoft/vscode-dev-containers/tree/master/containers/azure-functions-dotnetcore-3.1).  We'll use it later to test our Azurite connectivity.  To do that let's create ourselves a `.devcontainer` directory:
+We're going to initialise a dev container there for function apps based upon [the example Azure Functions & C# - .NET Core 3.1 container](https://github.com/microsoft/vscode-dev-containers/tree/master/containers/azure-functions-dotnetcore-3.1). We'll use it later to test our Azurite connectivity. To do that let's create ourselves a `.devcontainer` directory:
 
 ```bash
 mkdir .devcontainer
@@ -34,28 +36,28 @@ And inside there we'll add a `devcontainer.json`:
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.177.0/containers/azure-functions-dotnetcore-3.1
 {
-	"name": "Azurite and Azure Functions & C# - .NET Core 3.1",
-	"dockerComposeFile": "docker-compose.yml",
-	"service": "app",
-    "workspaceFolder": "/workspace",
-	"forwardPorts": [ 7071 ],
+  "name": "Azurite and Azure Functions & C# - .NET Core 3.1",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "forwardPorts": [7071],
 
-	// Set *default* container specific settings.json values on container create.
-	"settings": {
-		"terminal.integrated.defaultProfile.linux": "/bin/bash"
-	},
+  // Set *default* container specific settings.json values on container create.
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "/bin/bash"
+  },
 
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"ms-azuretools.vscode-azurefunctions",
-		"ms-dotnettools.csharp"
-	],
+  // Add the IDs of extensions you want installed when the container is created.
+  "extensions": [
+    "ms-azuretools.vscode-azurefunctions",
+    "ms-dotnettools.csharp"
+  ],
 
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "dotnet restore",
+  // Use 'postCreateCommand' to run commands after the container is created.
+  // "postCreateCommand": "dotnet restore",
 
-	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode"
+  // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  "remoteUser": "vscode"
 }
 ```
 
@@ -66,7 +68,7 @@ version: '3'
 
 services:
   app:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
       args:
@@ -79,33 +81,33 @@ services:
       - ..:/workspace:cached
 
     # Overrides default command so things don't shut down after the process ends.
-    command: sleep infinity 
+    command: sleep infinity
 
     # Uncomment the next line to use a non-root user for all processes.
     user: vscode
 
   # run azurite and expose the relevant ports
   azurite:
-    image: "mcr.microsoft.com/azure-storage/azurite"
+    image: 'mcr.microsoft.com/azure-storage/azurite'
     ports:
-      - "10000:10000"
-      - "10001:10001"
-      - "10002:10002"
+      - '10000:10000'
+      - '10001:10001'
+      - '10002:10002'
 ```
 
-It consists of two services; `app` and `azurite`.  `azurite` is the Docker image of Azurite, which exposes the Azurite ports so `app` can access it. Note the name of `azurite`; that will turn out to be significant later. We're actually only going to use the Table Storage port of `10002`, but this would allow us to use Blobs and Queues also. The `azurite` service is effectively going to be executing this command for us when it runs:
+It consists of two services; `app` and `azurite`. `azurite` is the Docker image of Azurite, which exposes the Azurite ports so `app` can access it. Note the name of `azurite`; that will turn out to be significant later. We're actually only going to use the Table Storage port of `10002`, but this would allow us to use Blobs and Queues also. The `azurite` service is effectively going to be executing this command for us when it runs:
 
 ```bash
 docker run -p 10000:10000 -p 10001:10001 -p 10002:10002 mcr.microsoft.com/azure-storage/azurite
 ```
 
-Now let's look at `app`.  This is our Azure Functions container.  It references a `Dockerfile` which we need to add:
+Now let's look at `app`. This is our Azure Functions container. It references a `Dockerfile` which we need to add:
 
 ```dockerfile
 # Find the Dockerfile for mcr.microsoft.com/azure-functions/dotnet:3.0-dotnet3-core-tools at this URL
 # https://github.com/Azure/azure-functions-docker/blob/master/host/3.0/buster/amd64/dotnet/dotnet-core-tools.Dockerfile
 FROM mcr.microsoft.com/azure-functions/dotnet:3.0-dotnet3-core-tools
-``` 
+```
 
 We now have ourselves a dev container! VS Code should prompt us to reopen inside the container:
 
@@ -129,9 +131,9 @@ dotnet restore
 dotnet add package Microsoft.Azure.Cosmos.Table --version 1.0.8
 ```
 
-The name is somewhat misleading, as it's both for Cosmos *and* for Table Storage. Famously, naming things is hard 😉.
+The name is somewhat misleading, as it's both for Cosmos _and_ for Table Storage. Famously, naming things is hard 😉.
 
-Our mission is to be able to write and read from Azurite Table Storage. We need something to read and write that we care about.  I like to visit [Kew Gardens](https://www.kew.org/kew-gardens) and so let's imagine ourselves a system which tracks visitors to Kew.
+Our mission is to be able to write and read from Azurite Table Storage. We need something to read and write that we care about. I like to visit [Kew Gardens](https://www.kew.org/kew-gardens) and so let's imagine ourselves a system which tracks visitors to Kew.
 
 We're going to add a class called `KewGardensVisit`:
 
@@ -175,12 +177,12 @@ namespace TableStorage
     public static class HelloAzuriteTableStorage
     {
         // Note how we're addressing our azurite service
-        const string AZURITE_TABLESTORAGE_CONNECTIONSTRING = 
-            "DefaultEndpointsProtocol=http;" + 
-            "AccountName=devstoreaccount1;" + 
-            "AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;" + 
-            "BlobEndpoint=http://azurite:10000/devstoreaccount1;" + 
-            "QueueEndpoint=http://azurite:10001/devstoreaccount1;" + 
+        const string AZURITE_TABLESTORAGE_CONNECTIONSTRING =
+            "DefaultEndpointsProtocol=http;" +
+            "AccountName=devstoreaccount1;" +
+            "AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;" +
+            "BlobEndpoint=http://azurite:10000/devstoreaccount1;" +
+            "QueueEndpoint=http://azurite:10001/devstoreaccount1;" +
             "TableEndpoint=http://azurite:10002/devstoreaccount1;";
         const string TABLE_NAME = "KewGardenVisits";
 
@@ -248,7 +250,7 @@ namespace TableStorage
             // Create a table client for interacting with the table service
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient(new TableClientConfiguration());
 
-            // Create a table client for interacting with the table service 
+            // Create a table client for interacting with the table service
             CloudTable table = tableClient.GetTableReference(TABLE_NAME);
             if (await table.CreateIfNotExistsAsync())
                 log.LogInformation("Created Table named: {0}", TABLE_NAME);
@@ -263,7 +265,7 @@ namespace TableStorage
 
 There's a couple of things to draw attention to here:
 
-- `AZURITE_TABLESTORAGE_CONNECTIONSTRING` - this mega string is based upon the [Azurite connection string docs](https://github.com/Azure/Azurite#connection-strings). The account name and key are the [Azurite default storage accounts](https://github.com/Azure/Azurite#default-storage-account). You'll note we target `TableEndpoint=http://azurite:10002/devstoreaccount1`. The `azurite` here is replacing the standard `127.0.0.1` where Azurite typically listens.  This `azurite` name comes from the name of our service in the `docker-compose.yml` file.
+- `AZURITE_TABLESTORAGE_CONNECTIONSTRING` - this mega string is based upon the [Azurite connection string docs](https://github.com/Azure/Azurite#connection-strings). The account name and key are the [Azurite default storage accounts](https://github.com/Azure/Azurite#default-storage-account). You'll note we target `TableEndpoint=http://azurite:10002/devstoreaccount1`. The `azurite` here is replacing the standard `127.0.0.1` where Azurite typically listens. This `azurite` name comes from the name of our service in the `docker-compose.yml` file.
 
 - We're creating two functions `SaveVisit` and `GetTodaysVisits`. `SaveVisit` creates an entry in our storage to represent someone's visit. It's a hardcoded value representing me, and we're exposing a write operation at a `GET` endpoint which is not very RESTful. But this is a demo and Roy Fielding would forgive us. `GetTodaysVisits` allows us to read back the visits that have happened today.
 
@@ -271,7 +273,7 @@ Let's see if it works by entering `func start` and browsing to `http://localhost
 
 ![a screenshot of the response from the savevisits endpoint](../static/blog/2021-05-15-azurite-and-table-storage-dev-container/savevisits.png)
 
-Looking good.  Now let's see if we can query them at `http://localhost:7071/api/gettodaysvisits`:
+Looking good. Now let's see if we can query them at `http://localhost:7071/api/gettodaysvisits`:
 
 ![a screenshot of the response from the gettodaysvisits endpoint](../static/blog/2021-05-15-azurite-and-table-storage-dev-container/gettodaysvisits.png)
 
@@ -279,6 +281,6 @@ Disco.
 
 ## Can we swap out Azurite for The Real Thing™️?
 
-You may be thinking *"This is great! But in the end I need to write to Azure Table Storage itself; not Azurite."*
+You may be thinking _"This is great! But in the end I need to write to Azure Table Storage itself; not Azurite."_
 
-That's a fair point.  Fortunately, it's only the connection string that determines where you read and write to.  It would be fairly easy to dependency inject the appropriate connection string, or indeed a service that is connected to the storage you wish to target. If you want to make that happen, you can.
+That's a fair point. Fortunately, it's only the connection string that determines where you read and write to. It would be fairly easy to dependency inject the appropriate connection string, or indeed a service that is connected to the storage you wish to target. If you want to make that happen, you can.

@@ -1,15 +1,16 @@
 ---
-title: "Elvis and King Concat"
+title: 'Elvis and King Concat'
 authors: johnnyreilly
 tags: [Enumerable, Concat]
 hide_table_of_contents: false
 ---
+
 I hate LINQ's `<a href="https://msdn.microsoft.com/en-us/library/bb302894%28v=vs.110%29.aspx?f=255&amp;MSPPError=-2147217396">Enumerable.Concat</a>` when bringing together `IEnumerable`s. Not the behaviour (I love that!) but rather how code ends up looking when you use it. Consider this:
 
- ```cs
+```cs
 var concatenated = myCollection?.Select(x => new ConcatObj(x)) ?? new ConcatObj[0].Concat(
-    myOtherCollection?.Select(x => new ConcatObj(x)) ?? new ConcatObj[0]
- );
+   myOtherCollection?.Select(x => new ConcatObj(x)) ?? new ConcatObj[0]
+);
 ```
 
 In this example I'm bringing together 2 collections, either of which may be null (more on that later). I think we can all agree this doesn't represent a world of readability. I've also had to create a custom class `ConcatObj` because you can't create an empty array for an anonymous type in C#.
@@ -44,8 +45,6 @@ Wouldn't it be nice to have both:
 
 1. Readable code and
 2. Anonymous objects?
-
-
 
 ## Attempt #2: `EnumerableExtensions.Create`
 
@@ -88,5 +87,3 @@ That's right; anonymous types are back! Strictly speaking the `Concat` method ab
 If you look closely at the implementation you'll notice that I purge all `null`s when I'm bringing together the `Enumerable`s. For why? Some may legitimately argue this is a bad idea. However, there is method in my "bad practice".
 
 I've chosen to treat `null` as "not important" for this use case. I'm doing this because it emerges that ASP.NET MVC deserialises empty collections as nulls. (See [here](http://aspnetwebstack.codeplex.com/SourceControl/latest#src/System.Web.Mvc/ValueProviderResult.cs) and play spot the `return null;`) Which is a pain. But thanks to the null purging behaviour of `EnumerableExtensions.Create` I can trust in the [null-conditional (Elvis)](https://csharp.today/c-6-features-null-conditional-and-and-null-coalescing-operators/) operator to not do me wrong.
-
-
