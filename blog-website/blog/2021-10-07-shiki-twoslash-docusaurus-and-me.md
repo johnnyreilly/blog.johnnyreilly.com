@@ -17,10 +17,14 @@ Apart from anything else, [shiki-twoslash](https://shikijs.github.io/twoslash/) 
 
 It's worth drawing out that shiki-twoslash is actually two things combined:
 
-- [Shiki](https://github.com/shikijs/shiki) is VS Code's syntax highlighter packaged for running in a web browser and statically via Node.js.
-- Twoslash can pile on top of that and enrich TypeScript / JavaScript code blocks using the same compiler APIs as VS Code to provide type-driven hover information, accurate errors and type callouts.
+1. [Shiki](https://github.com/shikijs/shiki) is VS Code's syntax highlighter packaged for running in a web browser and statically via Node.js.
+2. Twoslash can pile on top of that and enrich TypeScript / JavaScript code blocks using the same compiler APIs as VS Code to provide type-driven hover information, accurate errors and type callouts.
 
-So bringing these things together we can have beautiful code samples, which in the case of TS / JS are super powered! 
+To be as clear as possible, using shiki-twoslash will:
+- use Shiki to perform syntax highlighting for your code samples
+- use twoslash *as well* (where you have used the ` twoslash` suffix in your code sample) to enrich TS / JS code samples with more hovery type-based goodness.
+
+A truly exciting thing about shiki-twoslash is that it does the work at build time; the result being syntax highlighted code samples with *no reliance* that the user can run JavaScript! So bringing these things together we can have beautiful code samples, which in the case of TS / JS are super powered!
 
 ## shiki-twoslash meet Docusaurus
 
