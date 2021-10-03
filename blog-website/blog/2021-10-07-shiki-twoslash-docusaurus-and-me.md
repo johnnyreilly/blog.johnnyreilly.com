@@ -21,3 +21,34 @@ It's worth drawing out that shiki-twoslash is actually two things combined:
 - Twoslash can pile on top of that and enrich TypeScript / JavaScript code blocks using the same compiler APIs as VS Code to provide type-driven hover information, accurate errors and type callouts.
 
 So bringing these things together we can have beautiful code samples, which in the case of TS / JS are super powered! 
+
+## shiki-twoslash meet Docusaurus
+
+The hard work of integrating shiki-twoslash and Docusaurus has been handled by a marvellous npm package named [`docusaurus-preset-shiki-twoslash`](https://www.npmjs.com/package/docusaurus-preset-shiki-twoslash). We're going to use it to migrate my blog to using shiki-twoslash.
+
+First up, we'll add that package to our dependencies:
+
+```
+yarn add docusaurus-preset-shiki-twoslash
+```
+
+Next we're going to reference that package in our `docusaurus.config.js`, in the `presets` section: 
+
+```js twoslash
+/** @type {import('@docusaurus/types').DocusaurusConfig} */
+module.exports = {
+  //...
+  presets: [
+    //...
+    [
+      "docusaurus-preset-shiki-twoslash",
+      {
+        themes: ['min-light', 'nord'],
+        defaultCompilerOptions: {
+          types: ['node'],
+        },
+      },
+    ],
+  ],
+}
+```
