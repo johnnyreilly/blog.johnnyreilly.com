@@ -16,49 +16,55 @@ Yes the title of this post is \***painfully**\* verbose. Sorry about that. Coupl
 
 ## The Problem
 
-Well, the above thoughts occurred to me just recently. I had a situation where I was working on an MVC project and needed to build up quite large objects within JavaScript representing various models. The models in question were already implemented on the server side using classes and made extensive use of inheritance because many of the properties were shared between the various models. That is to say we would have models which were implemented through the use of a class inheriting a base class which in turn inherits a further base class. With me? Good. Perhaps I can make it a little clearer with an example. Here are my 3 classes. First BaseReilly.cs: ```cs
+Well, the above thoughts occurred to me just recently. I had a situation where I was working on an MVC project and needed to build up quite large objects within JavaScript representing various models. The models in question were already implemented on the server side using classes and made extensive use of inheritance because many of the properties were shared between the various models. That is to say we would have models which were implemented through the use of a class inheriting a base class which in turn inherits a further base class. With me? Good. Perhaps I can make it a little clearer with an example. Here are my 3 classes. First BaseReilly.cs:
+
+```cs
 public class BaseReilly
 {
-public string LastName { get; set; }
+    public string LastName { get; set; }
 
         public BaseReilly()
         {
             LastName = "Reilly";
         }
     }
+```
 
-````
+Next BoyReilly.cs (which inherits from BaseReilly):
 
-Next BoyReilly.cs (which inherits from BaseReilly): ```cs
+```cs
 public class BoyReilly : BaseReilly
+{
+    public string Sex { get; set; }
+
+    public BoyReilly()
+        : base()
     {
-        public string Sex { get; set; }
-
-        public BoyReilly()
-            : base()
-        {
-            Sex = "It is a manchild";
-        }
+        Sex = "It is a manchild";
     }
-````
+}
+```
 
-And finally JohnReilly.cs (which inherits from BoyReilly which in turn inherits from BaseReilly): ```cs
+And finally JohnReilly.cs (which inherits from BoyReilly which in turn inherits from BaseReilly):
+
+```cs
 public class JohnReilly : BoyReilly
 {
-public string FirstName { get; set; }
+    public string FirstName { get; set; }
 
-        public JohnReilly()
-            : base()
-        {
-            FirstName = "John";
-        }
+    public JohnReilly()
+        : base()
+    {
+        FirstName = "John";
     }
+}
+```
 
-````
+Using the above I can create myself my very own "JohnReilly" like so:
 
-Using the above I can create myself my very own "JohnReilly" like so: ```cs
+```cs
 var johnReilly = new JohnReilly();
-````
+```
 
 And it will look like this: ![](../static/blog/2012-03-17-using-pubsub-observer-pattern-to/C%2523%2Bversion%2Bof%2BJohnReilly.png)
 
@@ -68,65 +74,64 @@ For a while I've been making use explicit use of the [Observer pattern](http://e
 
 \*\* Now this struck me as a pretty useful approach. It's not rock solid secure as it's always possible that someone could subscribe to your events and get access to your object as you published out. However, that's pretty unlikely to happen accidentally; certainly far less likely than someone else's global object clashing with your global object. ## What might this look like in practice?
 
-So this is what it ended up looking like when I turned my 3 classes into JavaScript files / modules. First BaseReilly.js: ```js
+So this is what it ended up looking like when I turned my 3 classes into JavaScript files / modules. First BaseReilly.js:
+
+```js
 $(function () {
-
-    $.subscribe("PubSub.Inheritance.Emulation", function (obj) {
-        obj.LastName = "Reilly";
-    });
-
+  $.subscribe('PubSub.Inheritance.Emulation', function (obj) {
+    obj.LastName = 'Reilly';
+  });
 });
+```
 
-````
+Next BoyReilly.js:
 
-Next BoyReilly.js: ```js
+```js
 $(function () {
-
-    $.subscribe("PubSub.Inheritance.Emulation", function (obj) {
-        obj.Sex = "It is a manchild";
-    });
+  $.subscribe('PubSub.Inheritance.Emulation', function (obj) {
+    obj.Sex = 'It is a manchild';
+  });
 });
-````
+```
 
-And finally JohnReilly.js: ```js
+And finally JohnReilly.js:
+
+```js
 $(function () {
-
-    $.subscribe("PubSub.Inheritance.Emulation", function (obj) {
-        obj.FirstName = "John";
-    });
-
+  $.subscribe('PubSub.Inheritance.Emulation', function (obj) {
+    obj.FirstName = 'John';
+  });
 });
+```
 
-````
+If the above scripts have been included in a page I can create myself my very own "JohnReilly" in JavaScript like so:
 
-If the above scripts have been included in a page I can create myself my very own "JohnReilly" in JavaScript like so: ```js
+```js
 var oJohnReilly = {}; //Empty object
 
-    $.publish("PubSub.Inheritance.Emulation", [oJohnReilly]); //Empty object "published" so it can be enriched by subscribers
+$.publish('PubSub.Inheritance.Emulation', [oJohnReilly]); //Empty object "published" so it can be enriched by subscribers
 
-    console.log(JSON.stringify(oJohnReilly)); //Show me this thing you call "JohnReilly"
-````
+console.log(JSON.stringify(oJohnReilly)); //Show me this thing you call "JohnReilly"
+```
 
 And it will look like this: ![](../static/blog/2012-03-17-using-pubsub-observer-pattern-to/JavaScript%2Bversion%2Bof%2BJohnReilly.png)
 
 And it works. Obviously the example I've given above it somewhat naive - in reality my object properties are driven by GUI components rather than hard-coded. But I hope this illustrates the point. This technique allows you to simply share functionality between different JavaScript files and so keep your codebase tight. I certainly wouldn't recommend it for all circumstances but when you're doing something as simple as building up an object to be used to pass data around (as I am) then it works very well indeed. ## A Final Thought on Script Ordering
 
-A final thing that maybe worth mentioning is script ordering. The order in which functions are called is driven by the order in which subscriptions are made. In my example I was registering the scripts in this order: ```html
+A final thing that maybe worth mentioning is script ordering. The order in which functions are called is driven by the order in which subscriptions are made. In my example I was registering the scripts in this order:
 
+```html
 <script src="/Scripts/PubSubInheritanceDemo/BaseReilly.js"></script>
-
-        <script src="/Scripts/PubSubInheritanceDemo/BoyReilly.js"></script>
-        <script src="/Scripts/PubSubInheritanceDemo/JohnReilly.js"<>/script>
-
+<script src="/Scripts/PubSubInheritanceDemo/BoyReilly.js"></script>
+<script src="/Scripts/PubSubInheritanceDemo/JohnReilly.js"<>/script>
 ```
 
-So when my event was published out the functions in the above JS files would be called in this order: 1. BaseReilly.js
-2. BoyReilly.js
-3. JohnReilly.js
-
-
+So when my event was published out the functions in the above JS files would be called in this order: 1. BaseReilly.js 2. BoyReilly.js 3. JohnReilly.js
 
 If you were so inclined you could use this to emulate inheritance in behaviour. Eg you could set a property in `BaseReilly.js` which was subsequently overridden in `JohnReilly.js` or `BoyReilly.js` if you so desired. I'm not doing that myself but it occurred as a possibility. ## PS
 
 If you're interested in learning more about JavaScript stabs at inheritance you could do far worse than look at Bob Inces in depth StackOverflow [answer](http://stackoverflow.com/a/1598077/761388).
+
+```
+
 ```

@@ -383,76 +383,74 @@ This file does a number of things each time it is run. First of all it deletes a
 
 1. It copies the `ts`, `js.map` and `js` files declared in `filesAndFolders.scripts` to the `build/debug` folder preserving their original folder structure. (So, for example, `app/app.ts`, `app/app.js.map` and `app/app.js` will all end up at `build/debug/app/app.ts`, `build/debug/app/app.js.map` and `build/debug/app/app.js` respectively.) This is done to allow the continued debugging of the original TypeScript files when running in debug mode.
 2. It copies the `css` files declared in `filesAndFolders.styles` to the `build/debug` folder preserving their original folder structure. (So `content/bootstrap.css` will end up at `build/debug/content/bootstrap.css`.)
-3. It creates a `build/manifest-debug.json` file which contains details of all the script and style files that have been packaged up: ```json
-   {
-   "scripts":[
-   "scripts/angular.js",
-   "scripts/angular-animate.js",
-   "scripts/angular-route.js",
-   "scripts/angular-sanitize.js",
-   "scripts/angular-ui/ui-bootstrap-tpls.js",
-   "scripts/toastr.js",
-   "scripts/moment.js",
-   "scripts/spin.js",
-   "scripts/underscore.js",
-   "app/app.js",
-   "app/config.route.js",
-   "app/common/common.js",
-   "app/common/logger.js",
-   "app/common/spinner.js",
-   "app/common/bootstrap/bootstrap.dialog.js",
-   "app/directives/imgPerson.js",
-   "app/directives/serverError.js",
-   "app/directives/sidebar.js",
-   "app/directives/spinner.js",
-   "app/directives/waiter.js",
-   "app/directives/widgetClose.js",
-   "app/directives/widgetHeader.js",
-   "app/directives/widgetMinimize.js",
-   "app/services/datacontext.js",
-   "app/services/repositories.js",
-   "app/services/repository.sage.js",
-   "app/services/repository.saying.js",
-   "app/about/about.js",
-   "app/admin/admin.js",
-   "app/dashboard/dashboard.js",
-   "app/layout/shell.js",
-   "app/layout/sidebar.js",
-   "app/layout/topnav.js",
-   "app/sages/sageDetail.js",
-   "app/sages/sageEdit.js",
-   "app/sages/sages.js",
-   "app/sayings/sayingEdit.js",
-   "app/sayings/sayings.js"
-   ],
-   "styles":[
-   "content/ie10mobile.css",
-   "content/bootstrap.css",
-   "content/font-awesome.css",
-   "content/toastr.css",
-   "content/styles.css"
-   ]
-   }
+3. It creates a `build/manifest-debug.json` file which contains details of all the script and style files that have been packaged up:
 
-   ```
-
-   ```
+```json
+{
+  "scripts": [
+    "scripts/angular.js",
+    "scripts/angular-animate.js",
+    "scripts/angular-route.js",
+    "scripts/angular-sanitize.js",
+    "scripts/angular-ui/ui-bootstrap-tpls.js",
+    "scripts/toastr.js",
+    "scripts/moment.js",
+    "scripts/spin.js",
+    "scripts/underscore.js",
+    "app/app.js",
+    "app/config.route.js",
+    "app/common/common.js",
+    "app/common/logger.js",
+    "app/common/spinner.js",
+    "app/common/bootstrap/bootstrap.dialog.js",
+    "app/directives/imgPerson.js",
+    "app/directives/serverError.js",
+    "app/directives/sidebar.js",
+    "app/directives/spinner.js",
+    "app/directives/waiter.js",
+    "app/directives/widgetClose.js",
+    "app/directives/widgetHeader.js",
+    "app/directives/widgetMinimize.js",
+    "app/services/datacontext.js",
+    "app/services/repositories.js",
+    "app/services/repository.sage.js",
+    "app/services/repository.saying.js",
+    "app/about/about.js",
+    "app/admin/admin.js",
+    "app/dashboard/dashboard.js",
+    "app/layout/shell.js",
+    "app/layout/sidebar.js",
+    "app/layout/topnav.js",
+    "app/sages/sageDetail.js",
+    "app/sages/sageEdit.js",
+    "app/sages/sages.js",
+    "app/sayings/sayingEdit.js",
+    "app/sayings/sayings.js"
+  ],
+  "styles": [
+    "content/ie10mobile.css",
+    "content/bootstrap.css",
+    "content/font-awesome.css",
+    "content/toastr.css",
+    "content/styles.css"
+  ]
+}
+```
 
 For release our gulpfile works with the same resources but has a different aim. Namely to minimise the the number of HTTP requests, obfuscate the code and version the files produced to prevent caching issues. To achieve those lofty aims it does the following:
 
 1. It concatenates together all the `js` files declared in `filesAndFolders.scripts`, minifies them and writes them to a single `build/release/app-{xxxxx}.js` file (where `-{xxxxx}` represents a version created by gulp-rev).
 2. It concatenates together all the `css` files declared in `filesAndFolders.styles`, minifies them and writes them to a single `build/release/css/app-{xxxxx}.css` file. The file is placed in a css subfolder because of relative paths specified in the CSS file.
-3. It creates a `build/manifest-release.json` file which contains details of all the script and style files that have been packaged up: ```json
-   {
-   "scripts":["app-95d1e06d.js"],
-   "styles":["css/app-1a6256ea.css"]
-   }
+3. It creates a `build/manifest-release.json` file which contains details of all the script and style files that have been packaged up:
 
-````
+```json
+{
+  "scripts": ["app-95d1e06d.js"],
+  "styles": ["css/app-1a6256ea.css"]
+}
+```
 
- As you can see, the number of files included are reduced down to 2; 1 for JavaScript and 1 for CSS.
-
-
+As you can see, the number of files included are reduced down to 2; 1 for JavaScript and 1 for CSS.
 
 Finally, for both the debug and release packages the contents of the `fonts` folder is copied across wholesale, preserving the original folder structure. This is because the CSS files contain relative references that point to the font files. If I had image files which were referenced by my CSS I'd similarly need to include these in the build process.
 
@@ -462,7 +460,7 @@ The eagle eyed amongst you will also have noticed a peculiar first line to our `
 
 ```js
 /// <vs AfterBuild='default' />
-````
+```
 
 This mysterious comment is actually how the Task Runner Explorer hooks our `gulpfile.js` into the Visual Studio build process. Our "magic comment" ensures that on the `AfterBuild` event, Task Runner Explorer runs the `default` task in our `gulpfile.js`. The reason we're using the `AfterBuild` event rather than the `BeforeBuild` event is because our project contains TypeScript and we need the transpiled JavaScript to be created before we can usefully run our package tasks. If we were using JavaScript alone then that wouldn't be an issue and either build event would do.
 

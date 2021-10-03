@@ -40,22 +40,21 @@ With this in place I could parse ISO 8601 Dates just like anyone else. Great stu
 
 Subsequent to writing this post I thought I'd check that IE 9 had implemented a JavaScript Date constructor that would process an ISO 8601 date string like this: `new Date("2011-01-01T00:00:00.0000000Z")`. It hasn't. Take a look: ![](../static/blog/2012-04-28-beg-steal-or-borrow-decent-javascript/IE9%2B%2528shakes%2Bfist%2529.png)
 
-This is slightly galling as the above code works dandy in Firefox and Chrome. As you can see from the screenshot you can get the JavaScript IE 9 Date constructor to play nice by trimming off the final 4 "0"'s from the string. Frustrating. Obviously we can still use Nathan's solution but it's a shame that we can't use the native support. Based on what I've read [here](http://msdn.microsoft.com/en-us/library/az4se3k1.aspx#Roundtrip) I think it would be possible to amend Sebastians serializer to fall in line with IE 9's pendantry by changing this: ```cs
+This is slightly galling as the above code works dandy in Firefox and Chrome. As you can see from the screenshot you can get the JavaScript IE 9 Date constructor to play nice by trimming off the final 4 "0"'s from the string. Frustrating. Obviously we can still use Nathan's solution but it's a shame that we can't use the native support. Based on what I've read [here](http://msdn.microsoft.com/en-us/library/az4se3k1.aspx#Roundtrip) I think it would be possible to amend Sebastians serializer to fall in line with IE 9's pendantry by changing this:
+
+```cs
 return new CustomString(((DateTime)obj).ToUniversalTime()
-
-.ToString(<b>"O"</b>)
-
+  .ToString(<b>"O"</b>)
 );
+```
 
-````
+To this:
 
- To this: ```cs
+```cs
 return new CustomString(((DateTime)obj).ToUniversalTime()
-
   .ToString(<b>"yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffzzz"</b>)
-
 );
-````
+```
 
 I've held off from doing this myself as I rather like Sebastian's idea of being able to use Microsoft's Round-trip ("O", "o") Format Specifier. And it seems perverse that we should have to move away from using Microsoft's Round-trip Format Specifier purely because of (Microsoft's) IE! But it's a possibility to consider and so I put it out there. I would hope that MS will improve their JavaScript Date constructor with IE 10. A missed opportunity if they don't I think. ## PPS Just when you thought is over... IE 9 was right!
 

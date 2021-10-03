@@ -5,19 +5,20 @@ tags: [javascript, c#, elijah manor, douglas crockford]
 hide_table_of_contents: false
 ---
 
-So it's 2010 and I've started using jQuery. jQuery is a JavaScript library. This means that I'm writing JavaScript... Gulp! I should say that at this point in time I \***hated**\* JavaScript (I have mentioned this previously). But what I know now is that I barely understood the language at all. All the JavaScript I knew was the result of copying and pasting after I'd hit "view source". I don't feel too bad about this - not because my ignorance was laudable but because I certainly wasn't alone in this. It seems that up until recently hardly anyone knew anything about JavaScript. It puzzles me now that I thought this was okay. I suppose like many people I didn't think JavaScript was capable of much and hence felt time spent researching it would be wasted. Just to illustrate where I was then, here is 2009 John's idea of some pretty "advanced" JavaScript: ```html
-function GiveMeASum(iNum1, iNum2)
-{
-var dteDate = new Date();
-var iTotal = iNum1 + iNum2;
-return "This is your total: " + iTotal + ", at this time: " + dteDate.toString();
-}
+So it's 2010 and I've started using jQuery. jQuery is a JavaScript library. This means that I'm writing JavaScript... Gulp! I should say that at this point in time I \***hated**\* JavaScript (I have mentioned this previously). But what I know now is that I barely understood the language at all. All the JavaScript I knew was the result of copying and pasting after I'd hit "view source". I don't feel too bad about this - not because my ignorance was laudable but because I certainly wasn't alone in this. It seems that up until recently hardly anyone knew anything about JavaScript. It puzzles me now that I thought this was okay. I suppose like many people I didn't think JavaScript was capable of much and hence felt time spent researching it would be wasted. Just to illustrate where I was then, here is 2009 John's idea of some pretty "advanced" JavaScript:
+
+```html
+function GiveMeASum(iNum1, iNum2) { var dteDate = new Date(); var iTotal = iNum1
++ iNum2; return "This is your total: " + iTotal + ", at this time: " +
+dteDate.toString(); }
 
 <input type="text" id="Number1" value="4" />
 <input type="text" id="Number2" value="6" />
-<input type="button" 
-  value="Click Me To Add" 
-  onclick="alert(GiveMeASum(parseInt(document.getElementById(Number1).value, 10), parseInt(document.getElementById(Number2).value, 10)))" />
+<input
+  type="button"
+  value="Click Me To Add"
+  onclick="alert(GiveMeASum(parseInt(document.getElementById(Number1).value, 10), parseInt(document.getElementById(Number2).value, 10)))"
+/>
 ```
 
 I know - I'm not to proud of it... Certainly if it was a horse you'd shoot it. Basically, at that point I knew the following: - JavaScript had functions (but I knew only one way to use them - see above)

@@ -10,35 +10,37 @@ This post originally started out as an explanation of JSON. However as I wrote t
 - The only valid return type was a single string. And so if you wanted to return a number of numeric values (as we did) the only way to do this was to package up return values into a very long string with delimiters in and (you guessed it!) [split](<http://en.wikipedia.org/wiki/Comparison_of_programming_languages_(string_functions)#split>) and unpackage as your first step on the client.
 - The only thing that you could (or would want to) send back and forth between client and server was XML
 
-So to recap, I'm now aware that it's possible for JavaScript to interact with the server through the use of web services. It's possible, but ugly, not that quick and requires an awful lot of manual serialization / deserialization operations. It's clearly powerful but not much fun at all. And that's where I left it for a number of years. Let's fade to black... It's now 2007 and Microsoft have released ASP.NET Ajax, the details of which are well explained in this [article](http://msdn.microsoft.com/en-us/magazine/cc163499.aspx) (which I have only recently discovered). Now I'm always interested in "the new" and so I was naturally interested in this. Just to be completely upfront about this I should confess that when I first discovered ASP.NET Ajax I didn't clock the power of it at all. Initially I just switched over from using webservice.htc to ASP.NET Ajax. This alone gave us a \***massive**\* performance improvement (I know it was massive since we actually received a "well done" email from our users which is testament to the difference it was making to their experience of the system). But we were still performing our manual serialisation / deserialisation of values on the client and the server. ie. Using Ajax was now much faster but still not too much fun. Let's jump forward in time again to around 2010 to the point in time when I was discovering jQuery and that JavaScript wasn't actually evil. It's not unusual for me to play around with "what if" scenarios in my code, just to see what might might be possible. Sometimes I discover things. So it was with JSON. We had a web service in the system that allowed us to look up a counterparty (ie a bank account) with an identifier. Once we looked it up we packaged up the counterparty details (eg name, location etc) into a big long string with delimiters and sent it back to client. One day I decided to change the return type on the web service from a string to the actual counterparty class. So we went from something like this: ```cs
+So to recap, I'm now aware that it's possible for JavaScript to interact with the server through the use of web services. It's possible, but ugly, not that quick and requires an awful lot of manual serialization / deserialization operations. It's clearly powerful but not much fun at all. And that's where I left it for a number of years. Let's fade to black... It's now 2007 and Microsoft have released ASP.NET Ajax, the details of which are well explained in this [article](http://msdn.microsoft.com/en-us/magazine/cc163499.aspx) (which I have only recently discovered). Now I'm always interested in "the new" and so I was naturally interested in this. Just to be completely upfront about this I should confess that when I first discovered ASP.NET Ajax I didn't clock the power of it at all. Initially I just switched over from using webservice.htc to ASP.NET Ajax. This alone gave us a \***massive**\* performance improvement (I know it was massive since we actually received a "well done" email from our users which is testament to the difference it was making to their experience of the system). But we were still performing our manual serialisation / deserialisation of values on the client and the server. ie. Using Ajax was now much faster but still not too much fun. Let's jump forward in time again to around 2010 to the point in time when I was discovering jQuery and that JavaScript wasn't actually evil. It's not unusual for me to play around with "what if" scenarios in my code, just to see what might might be possible. Sometimes I discover things. So it was with JSON. We had a web service in the system that allowed us to look up a counterparty (ie a bank account) with an identifier. Once we looked it up we packaged up the counterparty details (eg name, location etc) into a big long string with delimiters and sent it back to client. One day I decided to change the return type on the web service from a string to the actual counterparty class. So we went from something like this:
+
+```cs
 [WebService(Namespace = "http://tempuri.org/")]
 [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
 [ScriptService]
 public class CounterpartyWebService : System.Web.Services.WebService
 {
-[WebMethod]
-public string GetCounterparty(string parameters)
-{
-string[] aParameters = parameters.Split("|");
-int counterpartyId = int.Parse(aParameters[0]);
-bool includeLocation = (aParameters[1] == "1");
-Counterparty counterparty = \_counterpartyDb
-.GetCounterparty(counterpartyId);
+  [WebMethod]
+  public string GetCounterparty(string parameters)
+  {
+    string[] aParameters = parameters.Split("|");
+    int counterpartyId = int.Parse(aParameters[0]);
+    bool includeLocation = (aParameters[1] == "1");
+    Counterparty counterparty = \_counterpartyDb
+    .GetCounterparty(counterpartyId);
 
-    string returnValue = counterparty.Id +
-                       "|" + counterparty.Name +
-                       (includeLocation
-                         ? "|" + counterparty.Location
-                         : "");
+        string returnValue = counterparty.Id +
+                          "|" + counterparty.Name +
+                          (includeLocation
+                            ? "|" + counterparty.Location
+                            : "");
 
-    return returnValue;
-
+        return returnValue;
+  }
 }
-}
+```
 
-````
+To something like this:
 
-To something like this: ```cs
+```cs
 [WebMethod]
 public Counterparty GetCounterparty(string parameters)
 {
@@ -50,26 +52,28 @@ public Counterparty GetCounterparty(string parameters)
 
   return counterparty;
 }
-````
+```
 
-I genuinely expected that this was just going to break. It didn't. Suddenly on the client I'm sat there with a full blown object that looks just like the object I had on the server. **WHAT BLACK MAGIC COULD THIS BE??????????** Certain that I'd discovered witchcraft I decided to try something else. What would happen if I changed the signature on the method so it received individual parameters and passed my individual parameters to the web service instead of packaging them up into a string? I tried this: ```cs
+I genuinely expected that this was just going to break. It didn't. Suddenly on the client I'm sat there with a full blown object that looks just like the object I had on the server. **WHAT BLACK MAGIC COULD THIS BE??????????** Certain that I'd discovered witchcraft I decided to try something else. What would happen if I changed the signature on the method so it received individual parameters and passed my individual parameters to the web service instead of packaging them up into a string? I tried this:
+
+```cs
 [WebMethod]
-public Counterparty GetCounterparty(int counterpartyId,
-bool includeLocation)
+public Counterparty GetCounterparty(int counterpartyId, bool includeLocation)
 {
-Counterparty counterparty = \_counterpartyDb
-.GetCounterparty(counterpartyId);
+  Counterparty counterparty = \_counterpartyDb
+  .GetCounterparty(counterpartyId);
 
-return counterparty;
+  return counterparty;
 }
-
 ```
 
 And it worked! **[IT WORKED!!!!!!!!!!!!!!!!!!!!!](http://www.youtube.com/watch?v=N_dWpCy8rdc&feature=related)** (And yes I know I wasn't actually using the includeLocation parameter - but the point was it was being passed to the server and I could have used it if I'd wanted to.) I couldn't believe it. For **years** I'd been using Ajax and without **any** idea of the power available to me. The ignorance! The stupidity of the man! To my complete surprise it turned out that: - Ajax could be quick! ASP.NET Ajax was lightening fast when compared to webservice.htc
+
 - You could send multiple arguments to a web service without all that packaging nonsense
 - You could return complex objects without the need for packaging it all up yourself.
 
+Essentially the source of all this goodness was the magic of JSON. I wouldn't really come to comprehend this until I moved away from using the ASP.NET Ajax client libraries in favour of using the [jQuery.ajax](http://api.jquery.com/jQuery.ajax/) functionality. (Yes, having mostly rattled on about using webservice.htc and ASP.NET Ajax I should clarify that I have now forsaken both for jQuery as I find it more powerful and more configurable - but it's the journey that counts I guess!) It's abysmal that I didn't discover the power of Ajax sooner but the difference this discovery made to me was immense. Approaches that I would have dismissed or shied away from previously because of the amount of "plumbing" involved now became easy. This massively contributed to my [programmer joy](http://www.hanselman.com/blog/HanselminutesPodcast260NETAPIDesignThatOptimizesForProgrammerJoyWithJonathanCarter.aspx)! Next time I promise I'll aim to actually get onto JSON.
 
+```
 
- Essentially the source of all this goodness was the magic of JSON. I wouldn't really come to comprehend this until I moved away from using the ASP.NET Ajax client libraries in favour of using the [jQuery.ajax](http://api.jquery.com/jQuery.ajax/) functionality. (Yes, having mostly rattled on about using webservice.htc and ASP.NET Ajax I should clarify that I have now forsaken both for jQuery as I find it more powerful and more configurable - but it's the journey that counts I guess!) It's abysmal that I didn't discover the power of Ajax sooner but the difference this discovery made to me was immense. Approaches that I would have dismissed or shied away from previously because of the amount of "plumbing" involved now became easy. This massively contributed to my [programmer joy](http://www.hanselman.com/blog/HanselminutesPodcast260NETAPIDesignThatOptimizesForProgrammerJoyWithJonathanCarter.aspx)! Next time I promise I'll aim to actually get onto JSON.
 ```

@@ -31,10 +31,11 @@ In fact there are only 2 differences in the end:
 return r.config.settings && r.config.settings.nav;
 ```
 
-to this: ```ts
-return (r.config.settings && r.config.settings.nav) ? true : false;
+to this:
 
-````
+```ts
+return r.config.settings && r.config.settings.nav ? true : false;
+```
 
 This was necessary as TypeScript insists that the array `filter` predicate returns a `boolean`. John's original method returns a number (`nav`'s value to be clear) which actually seems to work fine. My assumption is that JavaScript's filter method is happy with a truth-y / false-y test which John's implementation would satisfy.
 
@@ -44,10 +45,10 @@ This was necessary as TypeScript insists that the array `filter` predicate retur
 
 ```js
 var args = [];
-    for (var _i = 0; _i < (arguments.length - 0); _i++) {
-        args[_i] = arguments[_i + 0];
-    }
-````
+for (var _i = 0; _i < arguments.length - 0; _i++) {
+  args[_i] = arguments[_i + 0];
+}
+```
 
 ## If you want to use this
 

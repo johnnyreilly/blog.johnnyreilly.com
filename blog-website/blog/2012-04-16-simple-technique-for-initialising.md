@@ -115,7 +115,9 @@ We toyed with 3 approaches and since each has merits I thought it worth going th
 
    Because of the snags it still felt like we were in nutcracking territory...
 
-3. ... and this took us to the approach that we ended up adopting: a special mocking constructor for each class we wanted to test, for example: ```cs
+3. ... and this took us to the approach that we ended up adopting: a special mocking constructor for each class we wanted to test, for example:
+
+   ```cs
    /// <summary>
    /// Mocking constructor used to initialise internal properties
    /// </summary>
@@ -126,7 +128,7 @@ We toyed with 3 approaches and since each has merits I thought it worth going th
    OrderedByLastName = orderedByLastName;
    }
 
-   ````
+   ```
 
    Thanks to the ever lovely [Named and Optional Arguments](http://msdn.microsoft.com/en-us/library/dd264739.aspx) feature of C# combined with [Object Initializers](http://msdn.microsoft.com/en-us/library/bb397680.aspx) it meant it was possible to write quite expressive, succinct code using this approach; for example:
 
@@ -140,7 +142,7 @@ We toyed with 3 approaches and since each has merits I thought it worth going th
            ProductOrdered = "Packet of coffee",
            OrderedById = 987456
          };
-   ````
+   ```
 
    Here we're calling the mocking constructor to set the internally set properties and subsequently initialising the other properties using the object initialiser mechanism.
 
