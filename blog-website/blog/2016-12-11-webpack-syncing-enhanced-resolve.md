@@ -23,7 +23,7 @@ Nestled inside enhanced-resolve is the `<a href="https://github.com/webpack/enha
 
 What you want is an example of how you could make a sync resolver. Well, surprise surprise it's right in front of your nose. Tucked away in `<a href="https://github.com/webpack/enhanced-resolve/blob/3f3f4cd1fcbafa1e98c3c6470fed1277817ed607/lib/node.js">node.js</a>` (I do \***not**\* get the name) is exactly what you're after. It contains a number of factory functions which will construct a ready-made resolver for you; sync or async. Perfect! So here's how I'm rolling:
 
-```js
+```js twoslash
 const node = require('enhanced-resolve/lib/node');
 
 function makeSyncResolver(options) {
@@ -41,7 +41,7 @@ What you're left with at this point is a function; a `resolveSync` function if y
 
 Put it all together and what have you got?
 
-```js
+```js twoslash
 const resolvedFileName = resolveSync(
   undefined,
   'C:source\ts-loader.test\babel-issue92',

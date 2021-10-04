@@ -18,7 +18,8 @@ So here we go. Our example is one which uses TypeScript for static typing and us
 
 First of all, let's install the latest RC of webpack:
 
-```ts
+```ts twoslash
+
 npm install webpack@2.2.0-rc.1 --save-dev
 ```
 
@@ -26,7 +27,7 @@ npm install webpack@2.2.0-rc.1 --save-dev
 
 Let's look at our existing `webpack.config.js`:
 
-```js
+```js twoslash
 'use strict';
 
 var path = require('path');
@@ -73,7 +74,8 @@ Now I could start renaming `loaders` to `rules` as the terminology is changing. 
 
 Initially I thought I was supposed to switch to a custom babel preset called `<a href="https://www.npmjs.com/package/babel-preset-es2015-webpack">babel-preset-es2015-webpack</a>`. However it has a big "DEPRECATED" mark at the top and it says I should just use `babel-preset-es2015` (which I already am) with the following option specified:
 
-```js
+```js twoslash
+
 {
     "presets": [
         [
@@ -88,7 +90,8 @@ Initially I thought I was supposed to switch to a custom babel preset called `<a
 
 Looking at our existing config you'll note that for `js` files we're using `query` (`options` in the new world I understand) to configure babel usage. We're using [query parameters](https://webpack.github.io/docs/using-loaders.html#query-parameters) for `ts` files. I have _zero_ idea how to configure preset options using query parameters. Fiddling with `query` / `options` didn't seem to work. So, I've decided to abandon using query entirely and drop in a `<a href="http://babeljs.io/docs/usage/babelrc/">.babelrc</a>` file using our presets combined with the `<a href="https://babeljs.io/docs/plugins/#plugin-preset-options">modules</a>` setting:
 
-```js
+```js twoslash
+
 {
    "presets": [
       "react",
@@ -107,7 +110,7 @@ As an aside; apparently these are applied in reverse order. So `es2016` is appli
 
 With our query options extracted we're down to a simpler `webpack.config.js`:
 
-```js
+```js twoslash
 'use strict';
 
 var path = require('path');
@@ -152,7 +155,7 @@ As we introduce our `LoaderOptionsPlugin` we also need to make sure that we prov
 
 Either way, to get up and running we just need the `LoaderOptionsPlugin` in play. Consequently, most of what follows in our `webpack.js` file is unchanged:
 
-```js
+```js twoslash
 // .....
 
 var webpackConfig = require('../webpack.config.js');
@@ -216,7 +219,7 @@ function createDevCompiler() {
 
 After a little more experimentation it seems that the `LoaderOptionsPlugin` is not necessary at all for our own use case. In fact it's probably not best practice to get used to using it as it's only intended to live a short while whilst people move from webpack 1 to webpack 2. In that vein let's tweak our `webpack.js` file once more:
 
-```js
+```js twoslash
 function buildProduction(done) {
   // .....
 
@@ -258,7 +261,7 @@ function createDevCompiler() {
 
 Finally Karma. Our `karma.conf.js` with webpack 1 looked like this:
 
-```js
+```js twoslash
 /* eslint-disable no-var, strict */
 'use strict';
 
@@ -313,7 +316,8 @@ module.exports = function (config) {
 
 We just need to chop out the `debug` statement from the `webpack` section like so:
 
-```js
+```js twoslash
+
 module.exports = function(config) {
 
   // .....
@@ -336,7 +340,8 @@ We now have a repo that works with webpack 2 rc 1. Yay! If you'd like to see it 
 
 I thought I'd compare performance / output size of compiling with webpack 1 to webpack 2. First of all in debug / development mode:
 
-```ts
+```ts twoslash
+
 // webpack 1
 
 Version: webpack 1.14.0
@@ -356,7 +361,8 @@ vendor.js  2.63 MB       1  [emitted]  [big]  vendor
 
 Size and compilation time is not massively different from webpack 1 to webpack 2. It's all about the same. I'm not sure if that's to be expected or not.... Though I've a feeling in production mode I'm supposed to feel the benefits of tree shaking so let's have a go:
 
-```ts
+```ts twoslash
+
 // webpack 1
 
 Version: webpack 1.14.0

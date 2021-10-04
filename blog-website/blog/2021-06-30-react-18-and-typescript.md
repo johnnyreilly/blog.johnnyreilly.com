@@ -24,7 +24,8 @@ yarn add react@next react-dom@next
 
 Which will leave you with entries in the `package.json` which use React 18. It will likely look something like this:
 
-```json
+```json twoslash
+
     "react": "^18.0.0-alpha-e6be2d531",
     "react-dom": "^18.0.0-alpha-e6be2d531",
 ```
@@ -71,7 +72,7 @@ We might reasonably hope that everything should work now. Alas it does not. The 
 
 If we take a look at the [PR that added support for the APIs](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/53685), we'll find some tips. If you look at one of the [`next.d.ts`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/a07e9cfb005682fb6be0a2e85113eac131c3006f/types/react/next.d.ts) you'll find this info, courtesy of [Sebastian Silbermann](https://twitter.com/sebsilbermann):
 
-````ts
+````ts twoslash
 /**
  * These are types for things that are present in the upcoming React 18 release.
  *
@@ -84,13 +85,15 @@ If we take a look at the [PR that added support for the APIs](https://github.com
  * Alternatively, a specific import syntax can to be used from a typescript file.
  * This module does not exist in reality, which is why the {} is important:
  *
- * ```ts
+ * ```ts twoslash
+
  * import {} from 'react/next'
  * ```
  *
  * It is also possible to include it through a triple-slash reference:
  *
- * ```ts
+ * ```ts twoslash
+
  * /// <reference types="react/next" />
  * ```
  *
@@ -100,7 +103,8 @@ If we take a look at the [PR that added support for the APIs](https://github.com
 
 Let's try the first item on the list. We'll edit our `tsconfig.json` and add a new entry to the `"compilerOptions"` section:
 
-```json
+```json twoslash
+
     "types": ["react/next", "react-dom/next"]
 ```
 

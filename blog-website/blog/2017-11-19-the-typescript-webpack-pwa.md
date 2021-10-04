@@ -33,7 +33,7 @@ Not very user friendly. Once we're done, we should be able to refresh and still 
 
 `yarn add workbox-webpack-plugin --dev` adds the plugin to our project. To make use of it, punt your way over to the `webpack.production.config.js` and add an entry for the plugin. We also need to set the `hash` parameter of the html-webpack-plugin to be false; if it's true it'll cause problems for the ServiceWorker.
 
-```js
+```js twoslash
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
 //...
@@ -82,7 +82,7 @@ module.exports = {
 
 With this in place, `yarn build` will generate a ServiceWorker. Now to alter our code to register it. Open up `index.tsx` and add this to the end of the file:
 
-```js
+```js twoslash
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker

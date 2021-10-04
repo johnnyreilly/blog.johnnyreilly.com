@@ -95,7 +95,7 @@ What you need to do now is to take the new and shiny `data.json` file and move i
 
 Then within your unit tests you can write code like this:
 
-```ts
+```ts twoslash
 var dummyData = Stubs.Load<ComplexDataType>('Stubs/data.json');
 ```
 

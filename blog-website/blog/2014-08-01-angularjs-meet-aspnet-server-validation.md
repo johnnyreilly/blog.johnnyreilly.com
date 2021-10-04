@@ -23,7 +23,8 @@ I'm using TypeScript with Angular so for my JavaScript examples I'll give you bo
 
 ### TypeScript
 
-```ts
+```ts twoslash
+
 interface serverErrorScope extends ng.IScope {
     name: string;
     serverError: { [field: string]: string };
@@ -95,7 +96,7 @@ function safeWatch<t extends="" function="">(expression: T) {
 
 ### JavaScript
 
-```js
+```js twoslash
 app.directive('serverError', [
   function () {
     // Usage:
@@ -239,7 +240,7 @@ Let's take a look at our sageEdit Angular controller:
 
 ### TypeScript
 
-```ts
+```ts twoslash
 module controllers {
   'use strict';
 
@@ -351,7 +352,7 @@ module controllers {
 
 ### JavaScript
 
-```js
+```js twoslash
 var controllers;
 (function (controllers) {
   'use strict';
@@ -455,7 +456,7 @@ Okay - this is a shedload of code and most of it isn't relevant to you. I share 
 
 Secondly, when we attempt to save our server sends back a JSON payload which, given a validation failure, looks something like this:
 
-```json
+```json twoslash
 {
   "success": false,
   "errors": {
@@ -473,7 +474,8 @@ So let's pare back our `save` function to the bare necessities (those simple bar
 
 ### TypeScript
 
-```ts
+```ts twoslash
+
 save() {
 
       this.errors = {}; //Wipe server errors
@@ -495,7 +497,7 @@ save() {
 
 ### JavaScript
 
-```js
+```js twoslash
 SageEdit.prototype.save = function () {
   var _this = this;
   this.errors = {}; //Wipe server errors

@@ -11,7 +11,7 @@ Never neglect the possibilities of a code review. There are times when you raise
 
 This week afforded me that opportunity. I was walking through a somewhat complicated PR on a call and someone said "what's this?". They'd spotted an expression much like this in my code:
 
-```ts
+```ts twoslash
 const myValues = [...new Set(allTheValuesSupplied)];
 ```
 
@@ -38,7 +38,7 @@ Further to that, it's "noisy". Even if the reader does have this knowledge, as t
 
 I wrote a very simple `uniq` function which looked like this:
 
-```ts
+```ts twoslash
 /**
  * Return the unique values found in the passed iterable
  */
@@ -49,7 +49,7 @@ function uniq<TElement>(iterableToGetUniqueValuesOf: Iterable<TElement>) {
 
 Usage of this was simple:
 
-```ts
+```ts twoslash
 uniq([1, 1, 1, 3, 1, 1, 2]); // produces [1, 3, 2]
 uniq(['John', 'Guida', 'Ollie', 'Divya', 'John']); // produces ["John", "Guida", "Ollie", "Divya"]
 ```
@@ -60,7 +60,7 @@ And I thought this was tremendous. I committed and pushed. I assumed there was n
 
 She was right! If a caller was to, say, pass a collection of objects to `uniq` then they'd end up highly disappointed. Consider:
 
-```ts
+```ts twoslash
 uniq([{ name: 'John' }, { name: 'John' }]); // produces [{ name: "John" }, { name: "John" }]
 ```
 
@@ -70,7 +70,7 @@ We can do better!
 
 I like compilers shouting at me. Or more accurately, I like compilers telling me when something isn't valid / supported / correct. I wanted `uniq` to mirror the behaviour of `Set` \- to only support primitives such as `string`, `number` etc. So I made a new version of `uniq` that hardened up the generic contraints:
 
-```ts
+```ts twoslash
 /**
  * Return the unique values found in the passed iterable
  */

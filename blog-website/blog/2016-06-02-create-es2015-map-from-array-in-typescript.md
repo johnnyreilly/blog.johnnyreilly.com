@@ -11,7 +11,7 @@ I'm a great lover of ES2015's `<a href="https://developer.mozilla.org/en-US/docs
 
 We're going try to something like this: (pilfered from the MDN docs)
 
-```ts
+```ts twoslash
 var kvArray = [
   ['key1', 'value1'],
   ['key2', 'value2'],
@@ -23,7 +23,8 @@ var myMap = new Map(kvArray);
 
 Simple enough right? Well I'd rather assumed that I should be able to do something like this in TypeScript:
 
-```ts
+```ts twoslash
+
 const iAmAnArray [
   { value: "value1", text: "hello" }
   { value: "value2", text: "map" }
@@ -56,7 +57,8 @@ It emerges that there is a way to do this though; you just need to give the comp
 
 So a working version of the code looks like this:
 
-```ts
+```ts twoslash
+
 const iAmAnArray [
   { value: "value1", text: "hello" }
   { value: "value2", text: "map" }
@@ -69,7 +71,8 @@ const iAmAMap = new Map<string, string>(
 
 Or, to be terser, this:
 
-```ts
+```ts twoslash
+
 const iAmAnArray [
   { value: "value1", text: "hello" }
   { value: "value2", text: "map" }

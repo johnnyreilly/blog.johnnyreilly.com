@@ -41,19 +41,19 @@ yarn add react-virtual
 
 Change your imports from:
 
-```ts
+```ts twoslash
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 ```
 
 to:
 
-```ts
+```ts twoslash
 import { useVirtual } from 'react-virtual';
 ```
 
 Change your component code from:
 
-```ts
+```ts twoslash
 type ImportantDataListProps = {
   classes: ReturnType<typeof useStyles>;
   importants: ImportantData[];
@@ -95,7 +95,7 @@ Of the above you can delete the `ListItemProps` type and the associate `RenderRo
 
 Replace the `ImportantDataList` component with this:
 
-```ts
+```ts twoslash
 const ImportantDataList: React.FC<ImportantDataListProps> = React.memo(
   (props) => {
     const parentRef = React.useRef<HTMLDivElement>(null);

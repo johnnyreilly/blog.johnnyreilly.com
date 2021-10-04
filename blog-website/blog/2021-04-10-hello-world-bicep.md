@@ -46,7 +46,7 @@ Gosh is it ever simple. It's easy to read and it's simple to understand. Even if
 
 Let's compare this with the [`main.json`](https://github.com/Azure/bicep/blob/187d4d2047dc83c69695ba79761f552bcb00c319/docs/examples/000/01-hello-world/main.json) that `main.bicep` is transpiled into:
 
-```json
+```json twoslash
 {
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",

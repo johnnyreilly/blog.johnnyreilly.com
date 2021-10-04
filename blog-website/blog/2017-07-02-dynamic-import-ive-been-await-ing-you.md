@@ -23,7 +23,7 @@ First of all, you need to install TypeScript 2.4. With that in place you need to
 
 Here's a `tsconfig.json` I made earlier which has the relevant settings set:
 
-```json
+```json twoslash
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
@@ -50,7 +50,7 @@ You'll need to decide for yourself how much you want Babel to do for you. In my 
 
 These are the options I'm passing to Babel:
 
-```js
+```js twoslash
 var babelOptions = {
   plugins: ['syntax-dynamic-import'],
   presets: [
@@ -70,7 +70,7 @@ You're also going to need something that actually execute the `import`s. In my c
 
 webpack 2 supports [`import()`](https://webpack.js.org/api/module-methods/#import-). So if you webpack set up with [ts-loader](https://github.com/TypeStrong/ts-loader) (or awesome-typescript-loader etc), chaining into [babel-loader](https://github.com/babel/babel-loader) you should find you have a setup that supports dynamic `import`. That means a `webpack.config.js` that looks something like this:
 
-```js
+```js twoslash
 var path = require('path');
 var webpack = require('webpack');
 
@@ -132,7 +132,8 @@ We have 2 test packs for ts-loader, one of which is our "execution" test pack. I
 
 This is the test pack for dynamic `import`s:
 
-```js
+```js twoslash
+
 import a from "../src/a";
 import b from "../src/b";
 

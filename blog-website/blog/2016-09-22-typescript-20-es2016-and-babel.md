@@ -13,7 +13,7 @@ Merely upgrading my `package.json` to use `"typescript": "^2.0.3"` from `"typesc
 
 Well, there's no `"es2016"` target for TypeScript. You carry on with a target of `"es2015"`. What I need is a new entry: `"lib": ["dom", "es2015", "es2016"]`. This tells the compiler that we're expecting to be emitting to an environment which supports a browser (`"dom"`), and both ES2016 and ES2015. Our "environment" is Babel and it's going to pick up the baton from this point. My complete `tsconfig.json` looks like this:
 
-```json
+```json twoslash
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -40,7 +40,7 @@ I needed the Babel preset for ES2016; with a quick `<a href="https://www.npmjs.c
 
 My webpack config plugs together TypeScript and Babel with the help of [ts-loader](https://www.npmjs.com/package/ts-loader) and [babel-loader](https://www.npmjs.com/package/babel-loader). It allows the transpilation of my (few) JavaScript files so I can write ES2015. However, mainly it allows the transpilation of my (many) TypeScript files so I can write ES2015-flavoured TypeScript. I'll now tweak the `loaders` so they cater for ES2016 as well.
 
-```js
+```js twoslash
 var webpack = require('webpack');
 
 module.exports = {
@@ -75,7 +75,7 @@ module.exports = {
 
 And we're there; it works. How do I know? Well; here's the proof:
 
-```ts
+```ts twoslash
 it('Array.prototype.includes works', () => {
   const result = [1, 2, 3].includes(2);
   expect(result).toBe(true);

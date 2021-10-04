@@ -43,7 +43,7 @@ Time to find out what's going on. I dropped that URL into my browser to see what
 
 So, to disk. I took a look at what was actually on the server in that location. Sure enough, the file existed. When I opened it up I found this:
 
-```js
+```js twoslash
 /**
  * A better abstraction over CSS.
  *
@@ -103,7 +103,8 @@ It turned out the the issue was related to the [`terser-webpack-plugin`](https:/
 
 The simplest solution was simply this: wave goodbye to `LICENSE` files. If you haven't ejected from your `create-react-app` then this might be a problem. But since I had, I was able to make this tweak to the terser settings in the `webpack.config.js`:
 
-```js
+```js twoslash
+
 new TerserPlugin({
     /* TURN OFF LICENSE FILES - SEE https://github.com/facebook/create-react-app/issues/6441 */
     extractComments: false,

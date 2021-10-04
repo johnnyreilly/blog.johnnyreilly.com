@@ -53,7 +53,8 @@ Try as I might, I couldn't locate `Parameters.RestoreBuildProjects`. So no worki
 
 This is a powerful idea and one I decided to put to work. My project is React and TypeScript on the front end, and ASP.Net Core on the back. I wanted a `package.json` in the root of the repo which I could install dependencies, build, test and publish my whole app. I could call into that from my `.vsts-ci.yml` file. Something like this:
 
-```json
+```json twoslash
+
 {
   "name": "my-amazing-project",
   "version": "1.0.0",

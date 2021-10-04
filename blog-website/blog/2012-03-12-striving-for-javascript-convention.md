@@ -17,7 +17,7 @@ Now I've come to love it but what I realised pretty quickly when getting into Ja
 
 . But JavaScript is forgiving. Some would say too forgiving. Let's do something mad:
 
-```js
+```js twoslash
 var iAmANumber = 77;
 
 console.log(iAmANumber); //Logs a number
@@ -56,7 +56,7 @@ I'd started making more and more extensive use of JavaScript. I was beginning to
 
 As I started doing this sort of work I made no changes to my coding style. Wherever possible I did \***exactly**\* what I would have been doing in C# in JavaScript. And it worked fine. Until.... Okay there is no "until" as such, it did work fine. But what I found was that I would do a piece of work, check it into source control, get users to test it, release the work into Production and promptly move onto the next thing. However, a little way down the line there would be a request to add a new feature or perhaps a bug was reported and I'd find myself back looking at the code. And, as is often the case, despite the comments I would realise that it wasn't particularly clear why something worked in the way it did. (Happily it's not just me that has this experience, paranoia has lead me to ask many a fellow developer and they have confessed to similar) When it came to bug hunting in particular I found myself cursing the lack of friendly tooltips and the like. Each time I wanted to look at a variable I'd find myself tracking back through the function, looking for the initial use of the variable to determine the type. Then I'd be tracking forward through the function for each subsequent use to ensure that it conformed. Distressingly, I would find examples of where it looked like I'd forgotten the type of the variable towards the end of a function (for which I can only, regrettably, blame myself). Most commonly I would have a situation like this:
 
-```js
+```js twoslash
 var tableCell = $('#ItIsMostDefinitelyATableCell'); //I jest ;-)
 
 /* ...THERE WOULD BE SOME CODE DOING SOMETHING HERE... */
@@ -68,7 +68,7 @@ You see what happened above? I forgot I had a jQuery object and instead treated 
 
 After I'd experienced a few of the situations described above I decided that steps needed to be taken to minimise the risk of this. In this case, I decided that "steps" meant [Hungarian notation](http://en.wikipedia.org/wiki/Hungarian_notation). I know. I bet you're wincing right now. For those of you that don't remember HN was pretty much the standard way of coding at one point (although at the point that I started coding professionally it had already started to decline). It was adopted in simpler times long before the modern IDE's that tell you what each variable is became the norm. Back when you couldn't be sure of the types you were dealing with. In short, kind of like my situation with JavaScript right now. There's not much to it. By and large HN simply means having a lowercase prefix of 1-3 characters on all your variables indicating type. It doesn't solve all your problems. It doesn't guarantee to stop bugs. But because each instance of the variables use implicitly indicates it's type it makes bugs more glaringly obvious. This means when writing code I'm less likely to misuse a variable (eg `iNum = "JIKJ"`) because part of my brain would be bellowing: "that just looks wrong... pay better attention lad!". Likewise, if I'm scanning through some JavaScript and searching for a bug then this can make it more obvious. Here's some examples of different types of variables declared using the style I have adopted:
 
-```js
+```js twoslash
 var iInteger = 4;
 var dDecimal = 10.5;
 var sString = 'I am a string';
@@ -88,13 +88,15 @@ Some of you have read this and thought "hold on a minute... JavaScript doesn't h
 
 I would be the first to say that alternative approaches are available. And here's one I recently happened upon that I rather like the look of: look 2/3rds down at the parameters section of [the DOJO styleguide](http://dojotoolkit.org/community/styleGuide) Essentially they advise specifying parameter types through the use of prefixed comments. See the examples below:
 
-```js
+```js twoslash
+
 function(/*String*/ foo, /*int*/ bar)...
 ```
 
 or
 
-```js
+```js twoslash
+
 function(/_String?_/ foo, /_int_/ bar, /_String[]?_/ baz)...
 ```
 

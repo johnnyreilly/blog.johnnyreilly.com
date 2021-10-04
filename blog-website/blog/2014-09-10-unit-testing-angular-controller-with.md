@@ -32,7 +32,7 @@ The controller is written in TypeScript and looks like this:
 
 ### sagesDetail.ts
 
-```ts
+```ts twoslash
 module controllers {
   'use strict';
 
@@ -93,7 +93,7 @@ When compiled to JavaScript it looks like this:
 
 ### sageDetail.js
 
-```js
+```js twoslash
 var controllers;
 (function (controllers) {
   'use strict';
@@ -151,7 +151,7 @@ I have put very comments in the test code to make clear the intent to you, dear 
 
 ### Jasmine tests for sageDetail.js
 
-```js
+```js twoslash
 describe('Proverb.Web -> app-> controllers ->', function () {
   // Before each test runs we're going to need ourselves an Angular App to test - go fetch!
   beforeEach(function () {

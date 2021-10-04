@@ -22,7 +22,7 @@ The [Angular UI Bootstrap Datepicker](https://angular-ui.github.io/bootstrap/#/d
 </div>
 ```
 
-```js
+```js twoslash
 angular
   .module('peskyDatepicker', ['ui.bootstrap'])
   .controller('DatepickerDemoCtrl', [
@@ -71,7 +71,7 @@ But I want something a little prettier - I want to use the lovely calendar glyph
 
 Miraculously, this _doesn't_ work. Which is strange - I mean it ought to... The same `ng-click` directive is sat on our new calendar button as is in place on the datepicker itself. So what's happening? Well let's do some investigation. If you take a look at the docs you'll see that their example with the calendar glyph is subtly different to our own. Namely, when the opener function is invoked, the official docs pass along `$event`. To what end? Well, the docs opener function does something that our own does not. This:
 
-```js
+```js twoslash
 $scope.open = function ($event) {
   $event.preventDefault();
   $event.stopPropagation();

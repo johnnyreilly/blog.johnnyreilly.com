@@ -44,7 +44,8 @@ Background explanation over. It may still be a little unclear but I hope you get
 
 I was writing unit tests for the controllers in our main web application and was having problems with my arrangements. I was mocking the database calls in my controllers much in the manner that you might expect:
 
-```ts
+```ts twoslash
+
 // Arrange
   var orderDb = new Mock<IOrderDb>();
   orderDb

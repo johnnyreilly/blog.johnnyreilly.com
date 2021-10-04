@@ -7,7 +7,8 @@ hide_table_of_contents: false
 
 I spent today digging through our webpack 4 config trying to work out why a production bundle contained code like this:
 
-```js
+```js twoslash
+
 if("production"!==e.env.NODE_ENV){//...
 ```
 
@@ -23,7 +24,7 @@ It turns out that the way you use `mobx-react-devtools` reliably makes the diffe
 
 On a dummy project I had the `mobx-react-devtools` advised code in place:
 
-```js
+```js twoslash
 import * as React from 'react';
 import { Layout } from './components/layout';
 import DevTools from 'mobx-react-devtools';
@@ -42,7 +43,7 @@ With this I had a build size of 311kb. Closer examination of my bundle revealed 
 
 Then I tried this instead:
 
-```js
+```js twoslash
 import * as React from 'react';
 import { Layout } from './components/layout';
 const { Fragment } = React;

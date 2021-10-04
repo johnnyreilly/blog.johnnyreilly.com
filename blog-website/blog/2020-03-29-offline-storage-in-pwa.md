@@ -63,7 +63,7 @@ yarn add idb-keyval
 
 Then, let's update the `index.tsx` file to add a function that tests using IDB-Keyval:
 
-```tsx
+```tsx twoslash
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { set, get } from 'idb-keyval';
@@ -104,7 +104,7 @@ We successfully wrote something into IndexedDB, read it back and printed that va
 
 What we've done so far is slightly abstract. It would be good to implement a real-world use case. Let's create an application which gives users the choice between using a "Dark mode" version of the app or not. To do that we'll replace our `App.tsx` with this:
 
-```tsx
+```tsx twoslash
 import React, { useState } from 'react';
 import './App.css';
 
@@ -159,7 +159,7 @@ Looking at the code you'll be able to see that this is implemented using React's
 
 We'll change the code like so:
 
-```tsx
+```tsx twoslash
 import React, { useState, useEffect } from 'react';
 import { set, get } from 'idb-keyval';
 import './App.css';
@@ -240,7 +240,7 @@ Finally it's time for bonus points. Wouldn't it be nice if we could move this fu
 
 Let's create a new `usePersistedState.ts` file:
 
-```ts
+```ts twoslash
 import { useState, useEffect, useCallback } from 'react';
 import { set, get } from 'idb-keyval';
 
@@ -273,7 +273,7 @@ This new hook is modelled after the API of [`useState`](https://reactjs.org/docs
 
 It returns (just like `useState`) a stateful value, and a function to update it. Finally, let's switch over our `App.tsx` to use our shiny new hook:
 
-```tsx
+```tsx twoslash
 import React from 'react';
 import './App.css';
 import { usePersistedState } from './usePersistedState';

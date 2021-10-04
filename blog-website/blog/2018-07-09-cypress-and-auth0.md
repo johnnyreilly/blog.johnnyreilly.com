@@ -27,13 +27,14 @@ The application uses [`authorize`](https://github.com/auth0/auth0.js#api) to log
 
 What we're going to do is automate our login by using `login` instead. First of all, we need to add `auth0-js` as a dependency of our e2e tests:
 
-```js
+```js twoslash
+
 yarn add auth0-js --dev
 ```
 
 Next, we're going to create ourselves a custom command called loginAsAdmin:
 
-```js
+```js twoslash
 const auth0 = require('auth0-js');
 
 Cypress.Commands.add('loginAsAdmin', (overrides = {}) => {
@@ -80,7 +81,7 @@ Cypress.Commands.add('loginAsAdmin', (overrides = {}) => {
 
 This command logs in using the `auth0-js` API and then sets the result into `sessionStorage` in the same way that our app does. This allows our app to read the value out of `sessionStorage` and use it. We're also going to put together one other command:
 
-```js
+```js twoslash
 Cypress.Commands.add('visitHome', (overrides = {}) => {
   cy.visit('/', {
     onBeforeLoad: (win) => {
@@ -96,7 +97,7 @@ This visits the root of our application and wipes the `sessionStorage`. This is 
 
 Let's write a test that uses our new commands to see if it gets access to our admin functionality:
 
-```js
+```js twoslash
 describe('access secret admin functionality', () => {
   it('should be able to navigate to', () => {
     cy.visitHome()
@@ -111,7 +112,8 @@ describe('access secret admin functionality', () => {
 
 Well, the test looks good but it's failing. If I fire up the Chrome Dev Tools in Cypress (did I mention that Cypress is absolutely fabulous?) then I see this response tucked away in the network tab:
 
-```json
+```json twoslash
+
 {error: "unauthorized_client",…} error : "unauthorized_client" error_description : "Grant type 'http://auth0.com/oauth/grant-type/password-realm' not allowed for the client."
 ```
 

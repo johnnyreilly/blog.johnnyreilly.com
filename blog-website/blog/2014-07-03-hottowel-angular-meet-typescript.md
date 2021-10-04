@@ -27,13 +27,13 @@ In fact there are only 2 differences in the end:
 
 ...had the filtering changed from this:
 
-```ts
+```ts twoslash
 return r.config.settings && r.config.settings.nav;
 ```
 
 to this:
 
-```ts
+```ts twoslash
 return r.config.settings && r.config.settings.nav ? true : false;
 ```
 
@@ -43,7 +43,7 @@ This was necessary as TypeScript insists that the array `filter` predicate retur
 
 ...had to be given a rest parameter to satisfy the TS compiler. John's original method exposed no parameters as it just forwards on whatever arguments are passed to it. This means that `$broadcast` has a bit of unused code in the head of the generated method:
 
-```js
+```js twoslash
 var args = [];
 for (var _i = 0; _i < arguments.length - 0; _i++) {
   args[_i] = arguments[_i + 0];

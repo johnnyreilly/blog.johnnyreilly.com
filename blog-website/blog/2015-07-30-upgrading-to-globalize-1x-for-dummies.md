@@ -65,7 +65,8 @@ Let's see how we go about migrating this super simple example.
 
 First things first, we want to move Globalize from 0.1.x to 1.x using Bower. To do that we update our `bower.json`:
 
-```js
+```js twoslash
+
 "dependencies": {
     "globalize": "^1.0.0"
   }
@@ -106,7 +107,8 @@ I'm using Bower for my client side package management and so I'll use that. Look
 
 To the documentation Batman. It says you need a `.bowerrc` file in your repo which contains this:
 
-```js
+```js twoslash
+
 {
   "scripts": {
     "preinstall": "npm install cldr-data-downloader@0.2.x",
@@ -307,7 +309,7 @@ We've gone from not a lot of code to... well, more than a little. A medium amoun
 
 Loading the data via ajax isn't mandatory by the way. If you wanted to you could create your own style of `globalize.culture.de.js` files which would allow you load the page without recourse to post-page load HTTP requests. Something like this Gulp task I've knocked up would do the trick:
 
-```js
+```js twoslash
 gulp.task('make-globalize-culture-de-js', function () {
   var locale = 'de';
   var jsonWeNeed = [

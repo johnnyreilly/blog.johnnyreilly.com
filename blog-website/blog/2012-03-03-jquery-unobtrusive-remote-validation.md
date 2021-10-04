@@ -85,7 +85,7 @@ But for the purposes of seeing what's "under the bonnet" I thought it would be m
 
 Next the JavaScript that performs the validation:
 
-```js
+```js twoslash
 $(document).ready(function () {
   var intervalId = null,
     //

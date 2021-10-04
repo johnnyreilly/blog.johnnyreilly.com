@@ -9,7 +9,8 @@ I was recently checking out a [very good post](https://css-tricks.com/image-uplo
 
 It's a brilliant post; you should totally read it. Even if you hate images, uploads and JavaScript. However, there was one thing in there that I didn't want; SuperAgent. It's lovely but I'm a [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) guy. That's just how I roll. The question is, how do I do the below using Fetch?
 
-```js
+```js twoslash
+
 handleImageUpload(file) {
     let upload = request.post(CLOUDINARY_UPLOAD_URL)
                      .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
@@ -31,7 +32,8 @@ handleImageUpload(file) {
 
 Well it actually took me longer to work out than I'd like to admit. But now I have, let me save you the bother. To do the above using Fetch you just need this:
 
-```js
+```js twoslash
+
 handleImageUpload(file) {
     const formData = new FormData();
     formData.append("file", file);

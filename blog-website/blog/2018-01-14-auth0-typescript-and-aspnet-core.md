@@ -71,7 +71,7 @@ All this is powered by Auth0's [auth0-js](https://www.npmjs.com/package/auth0-js
 
 ### authStore.ts
 
-```ts
+```ts twoslash
 import { Auth0UserProfile, WebAuth } from 'auth0-js';
 import { action, computed, observable, runInAction } from 'mobx';
 import { IAuth0Config } from '../../config';

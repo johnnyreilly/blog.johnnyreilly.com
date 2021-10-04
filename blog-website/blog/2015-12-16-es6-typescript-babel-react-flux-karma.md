@@ -31,7 +31,7 @@ So I've talked about what I want and I've alluded to some of the solutions that 
 
 ## gulpfile.js
 
-```js
+```js twoslash
 /* eslint-disable no-var, strict, prefer-arrow-callback */
 'use strict';
 
@@ -141,7 +141,7 @@ Let's take a look at what's happening under the covers of `webpack.build()` and 
 
 Our `gulpfile.js` above uses the following task:
 
-```js
+```js twoslash
 'use strict';
 
 var gulp = require('gulp');
@@ -264,7 +264,7 @@ module.exports = {
 
 Hopefully this is fairly self-explanatory; essentially `buildDevelopment` performs the development build (providing sourcemap support) and `buildProduction` builds for Production (providing minification support). Both are driven by this `webpack.config.js`:
 
-```js
+```js twoslash
 /* eslint-disable no-var, strict, prefer-arrow-callback */
 'use strict';
 
@@ -356,7 +356,7 @@ Which is no more than a boilerplate HTML page with a couple of key features:
 
 This is fed into our inject task in `inject.build()` and `inject.watch()`. They take css and javascript and, using our shell template, create a new page which has the css and javascript dropped into their respective placeholders:
 
-```js
+```js twoslash
 'use strict';
 
 var gulp = require('gulp');
@@ -449,7 +449,7 @@ This also triggers the server to serve up the new content.
 
 Your app will likely rely on a number of static assets; images, fonts and whatnot. This script picks up the static assets you've defined and places them in the `dist` folder ready for use:
 
-```js
+```js twoslash
 'use strict';
 
 var gulp = require('gulp');
@@ -500,7 +500,7 @@ module.exports = {
 
 Finally, we're ready to get our tests set up to run continually with Karma. `tests.watch()` triggers the following task:
 
-```js
+```js twoslash
 'use strict';
 
 var Server = require('karma').Server;
@@ -539,7 +539,7 @@ When running in watch mode it's possible to debug the tests by going to: `<a hre
 
 Whichever approach we use for running tests, we use the following `karma.conf.js` file to configure Karma:
 
-```js
+```js twoslash
 /* eslint-disable no-var, strict */
 'use strict';
 

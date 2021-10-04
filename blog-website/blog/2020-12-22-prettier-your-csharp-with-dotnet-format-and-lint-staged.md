@@ -38,7 +38,8 @@ dotnet tool install -g dotnet-format
 
 The [VS Code C# extension will make use of this formatter](https://github.com/dotnet/format/issues/648#issuecomment-614905524), we just need to set the following in our `settings.json`:
 
-```json
+```json twoslash
+
 "omnisharp.enableRoslynAnalyzers": true,
 "omnisharp.enableEditorConfigSupport": true
 ```
@@ -89,7 +90,8 @@ Within that file we should replace `npm test` with `npx lint-staged --relative`.
 
 Finally we add the following entry to the `package.json`:
 
-```json
+```json twoslash
+
   "lint-staged": {
     "*.cs": "dotnet format --include"
   }
@@ -101,7 +103,7 @@ This is the task that will be invoked by `lint-staged` against files with a `.cs
 
 We should end up with a `package.json` that looks something like this:
 
-```json
+```json twoslash
 {
   "name": "app",
   "version": "1.0.0",

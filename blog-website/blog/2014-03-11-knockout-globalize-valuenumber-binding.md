@@ -14,7 +14,7 @@ Like so much development we start by standing on the shoulders of giants. In thi
 
 Essentially his approach provides an “interceptor” mechanism that allows you to validate numeric data entry on input and format numeric data going out as well. Very nice. Into this I plugged Globalize to handle the parsing and formatting. I ended up with the “valueNumber” binding handler:
 
-```js
+```js twoslash
 ko.bindingHandlers.valueNumber = {
   init: function (
     element,

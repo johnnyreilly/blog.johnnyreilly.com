@@ -16,7 +16,7 @@ If you haven't used [`react-query`](https://react-query.tanstack.com/) then I he
 
 With version 3 of `react-query`, a new hook was added: [`useQueries`](https://react-query.tanstack.com/reference/useQueries). This hook allows you fetch a variable number of queries at the same time. An example of what usage looks like is this ([borrowed from the excellent docs](https://react-query.tanstack.com/guides/parallel-queries#dynamic-parallel-queries-with-usequeries)):
 
-```tsx
+```tsx twoslash
 function App({ users }) {
   const userQueries = useQueries(
     users.map((user) => {
@@ -31,13 +31,14 @@ function App({ users }) {
 
 Whilst `react-query` is written in TypeScript, the way that `useQueries` is presently written strips the types that are supplied to it. Consider [the signature of the `useQueries`](https://github.com/tannerlinsley/react-query/blob/d25ab3ef8260ea1c02b52b7082c3ce4120596b31/src/react/useQueries.ts#L8):
 
-```ts
+```ts twoslash
+
 export function useQueries(queries: UseQueryOptions[]): UseQueryResult[] {
 ```
 
 This returns an array of [`UseQueryResult`](https://github.com/tannerlinsley/react-query/blob/d25ab3ef8260ea1c02b52b7082c3ce4120596b31/src/react/types.ts#L42):
 
-```ts
+```ts twoslash
 export type UseQueryResult<
   TData = unknown,
   TError = unknown
@@ -52,7 +53,7 @@ What if there was a way to strongly type `useQueries` so we neither risked speci
 
 It's possible to wrap the `useQueries` hook with our own `useQueriesTyped` hook which exposes a strongly typed API. It looks like this:
 
-```ts
+```ts twoslash
 import { useQueries, UseQueryOptions, UseQueryResult } from 'react-query';
 
 type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T;
@@ -83,13 +84,14 @@ export function useQueriesTyped<TQueries extends readonly UseQueryOptions[]>(
 
 Let's unpack this. The first and most significant thing to note here is that `queries` moves from being `UseQueryOptions[]` to being `TQueries extends readonly UseQueryOptions[]` \- far more fancy! The reason for this change is we want the type parameters to flow through on an element by element basis in the supplied array. [TypeScript 4's variadic tuple types](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#variadic-tuple-types) should allow us to support this. So the new array signature looks like this:
 
-```ts
+```ts twoslash
 queries: [...TQueries];
 ```
 
 Where `TQueries` is
 
-```ts
+```ts twoslash
+
 TQueries extends readonly UseQueryOptions[]
 ```
 
@@ -97,7 +99,8 @@ What this means is, that each element of the rest parameters array must have a t
 
 So that's what's coming in.... What's going out? Well the return type of `useQueriesTyped` is the tremendously verbose:
 
-```ts
+```ts twoslash
+
 {
   [ArrayElement in keyof TQueries]: UseQueryResult<
     TQueries[ArrayElement] extends { select: infer TSelect }
@@ -117,7 +120,8 @@ So that's what's coming in.... What's going out? Well the return type of `useQue
 
 Let's walk this through. First of all we'll look at this bit:
 
-```ts
+```ts twoslash
+
 { [ArrayElement in keyof TQueries]: /* the type has been stripped to protect your eyes */ }
 ```
 
@@ -125,7 +129,7 @@ On the face of it, it looks like we're returning an `Object`, not an `Array`. Th
 
 More specifically, by approaching the signature this way, we can acquire the `ArrayElement` type which represents each of the keys of the array. Consider this array:
 
-```ts
+```ts twoslash
 [1, 'two', new Date()];
 ```
 
@@ -133,7 +137,8 @@ For the above, `ArrayElement` would take the values `0`, `1` and `2`. And this i
 
 Now let's look at the return type for each element. The signature of that looks like this:
 
-```ts
+```ts twoslash
+
 UseQueryResult<
     TQueries[ArrayElement] extends { select: infer TSelect }
       ? TSelect extends (data: any) => any
@@ -151,37 +156,41 @@ UseQueryResult<
 
 Gosh... Well there's a lot going on here. Let's start in the middle and work our way out.
 
-```ts
+```ts twoslash
 TQueries[ArrayElement];
 ```
 
 The above code indexes into our `TQueries` array for each element of our strongly typed indexer `ArrayElement`. So it might resolve the first element of an array to `{ queryKey: 'key1', queryFn: () =&gt; 1 }`, for example. Next:
 
-```ts
+```ts twoslash
 Extract < TQueries[ArrayElement], UseQueryOptions > ['queryFn'];
 ```
 
 We're now taking the type of each element provided, and grabbing the type of the `queryFn` property. It's this type which contains the type of the data that will be passed back, that we want to make use of. So for an examples of `[{ queryKey: 'key1', queryFn: () =&gt; 1 }, { queryKey: 'key2', queryFn: () =&gt; 'two' }, { queryKey: 'key3', queryFn: () =&gt; new Date() }]` we'd have the type: `const result: [() =&gt; number, () =&gt; string, () =&gt; Date]`.
 
-```ts
+```ts twoslash
+
 NonNullable<Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']>
 ```
 
 The next stage is using `NonNullable` on our `queryFn`, given that on `UseQueryOptions` it's an optional type. In our use case it is not optional / nullable and so we need to enforce that.
 
-```ts
+```ts twoslash
+
 ReturnType<NonNullable<Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']>>
 ```
 
 Now we want to get the return type of our `queryFn` \- as that's the data type we're interested. So we use TypeScript's `ReturnType` for that.
 
-```ts
+```ts twoslash
+
 ReturnType<NonNullable<Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']>>
 ```
 
 Here we're using [TypeScript 4.1's recursive conditional types](https://devblogs.microsoft.com/typescript/announcing-typescript-4-1/#recursive-conditional-types) to unwrap a `Promise` (or not) to the relevant type. This allows us to get the actual type we're interested in, as opposed to the `Promise` of that type. Finally we have the type we need! So we can do this:
 
-```ts
+```ts twoslash
+
 type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T;
 
 Awaited<ReturnType<NonNullable<Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']>>>
@@ -194,7 +203,8 @@ It's at this point where we reach a conditional type in our type definition. Ess
 
 We've been unpacking the first of these so far. Now we encounter the conditional type that chooses between them:
 
-```ts
+```ts twoslash
+
 TQueries[ArrayElement] extends { select: infer TSelect }
       ? TSelect extends (data: any) => any
         ? ReturnType<TSelect>
@@ -216,7 +226,7 @@ So what does using our `useQueriesTyped` hook look like?
 
 Well, supplying `queryFn`s with different signatures looks like this:
 
-```ts
+```ts twoslash
 const result = useQueriesTyped(
   { queryKey: 'key1', queryFn: () => 1 },
   { queryKey: 'key2', queryFn: () => 'two' }
@@ -235,7 +245,7 @@ As you can see, we're being returned a `Tuple` and the exact types are flowing t
 
 Next let's look at a `.map` example with identical types in our supplied array:
 
-```ts
+```ts twoslash
 const resultWithAllTheSameTypes = useQueriesTyped(
   ...[1, 2].map((x) => ({ queryKey: `${x}`, queryFn: () => x }))
 );
@@ -250,7 +260,7 @@ The return type of `number` is flowing through for each element.
 
 Finally let's look at how `.map` handles arrays with different types of elements:
 
-```ts
+```ts twoslash
 const resultWithDifferentTypes = useQueriesTyped(
   ...[1, 'two', new Date()].map((x) => ({ queryKey: `${x}`, queryFn: () => x }))
 );

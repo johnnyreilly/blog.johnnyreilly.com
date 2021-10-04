@@ -69,10 +69,14 @@ It's rather nagging at me that behaviour has changed without warning. This has b
 >
 > This is what the present code does:
 >
-> ```js
+> ```js twoslash
+>
+> ```
+
 > const watcher =
->   watching.compiler.watchFileSystem.watcher ||
->   watching.compiler.watchFileSystem.wfs.watcher;
+> watching.compiler.watchFileSystem.watcher ||
+> watching.compiler.watchFileSystem.wfs.watcher;
+>
 > ```
 >
 > And then `.mtimes`
@@ -90,6 +94,7 @@ It's rather nagging at me that behaviour has changed without warning. This has b
 > #### johnny_reilly
 >
 > Thanks @sokra - when I get to a keyboard I'll swap `mtimes` for `getTimes()` and report back.
+> ```
 
 ### 17:28
 

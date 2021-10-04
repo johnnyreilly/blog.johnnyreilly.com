@@ -18,7 +18,7 @@ So back to JSON. For those of you that don't know JSON stands for JavaScript Obj
 
 As mentioned in my previous [post on Ajax](http://icanmakethiswork.blogspot.com/2012/02/potted-history-of-using-ajax-on.html) I came upon JSON quite by accident and was actually using it for some time without having any idea. But let's pull back a bit. Let's start with the JavaScript Object Literal. Some years ago I came upon this article by Christan Heilmann about the JavaScript Object Literal which had been published all the way back in 2006: [Show love to the JavaScript Object Literal](http://christianheilmann.com/2006/02/16/show-love-to-the-object-literal/) Now when I read this it was a revelation to me. I hadn't really used JavaScript objects a great deal at this point (yes I am one of those people that started using JavaScript without actually learning the thing) and when I had used them is was through the `var obj = new Object()` pattern (as that's the only approach I knew). So it was wonderful to discover that instead of the needlessly verbose:
 
-```js
+```js twoslash
 var myCar = new Object();
 myCar.wheels = 4;
 myCar.colour = 'blue';
@@ -26,7 +26,7 @@ myCar.colour = 'blue';
 
 I could simply use the much more concise object literal syntax to declare an object instead:
 
-```js
+```js twoslash
 var myCar = { wheels: 4, colour: 'blue' };
 ```
 
@@ -36,7 +36,7 @@ Lovely. Henceforth I adopted this approach in my code as I'm generally a believe
 
 Let me illustrate the above method names using the myCar example from earlier:
 
-```js
+```js twoslash
 var myCar = { wheels: 4, colour: 'blue' };
 // myCar is an object
 

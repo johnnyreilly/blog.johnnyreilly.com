@@ -99,7 +99,7 @@ This target triggers our external builds. One by one it runs the following comma
 
 As you've no doubt gathered, I'm following the convention of using the `scripts` element of my `package.json` as repository for the various build tasks I might have for a web project. It looks like this:
 
-```json
+```json twoslash
 {
   // ...
   "scripts": {

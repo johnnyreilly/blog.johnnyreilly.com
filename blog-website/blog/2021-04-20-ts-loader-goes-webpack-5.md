@@ -62,7 +62,7 @@ I was feeling at a low ebb. And I wasn't sure what to do next. So, feeling tired
 
 Time passed. In March [Alexander Akait](https://github.com/alexander-akait) checked in to see how things were going and volunteered to help. He also [suggested what turned out to be the fix](https://github.com/TypeStrong/ts-loader/pull/1251#issuecomment-799531375); namely replacing usage of `'\'` with `'/'` in the assets supplied back to webpack. But crucially I implemented this wrong. Observe [this commit](https://github.com/TypeStrong/ts-loader/pull/1251/commits/4bcc5c9623acfd7ffbaf028781a8353b37243804):
 
-```ts
+```ts twoslash
 const assetPath = path
   .relative(compilation.compiler.outputPath, outputFile.name)
   // According to @alexander-akait we should always '/' https://github.com/TypeStrong/ts-loader/pull/1251#issuecomment-799606985

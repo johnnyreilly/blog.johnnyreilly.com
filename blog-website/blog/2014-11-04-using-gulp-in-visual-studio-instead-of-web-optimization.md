@@ -112,7 +112,8 @@ npm install gulp --save-dev
 
 This installs gulp local to the project as a development dependency. As a result we now have a "node_modules" folder sat in our root which contains our node packages. Currently, as our `package.json` reveals, this is only gulp:
 
-```json
+```json twoslash
+
 "devDependencies": {
     "gulp": "^3.8.8"
   }
@@ -126,7 +127,8 @@ npm install gulp-concat gulp-uglify gulp-rev del path gulp-ignore gulp-asset-man
 
 This installs the packages as dev dependencies (as you've probably guessed) and leaves us with a list of dev dependencies like this:
 
-```json
+```json twoslash
+
 "devDependencies": {
     "del": "^0.1.3",
     "gulp": "^3.8.8",
@@ -144,7 +146,7 @@ This installs the packages as dev dependencies (as you've probably guessed) and 
 
 So now I was ready. I had everything I needed to replace my `BundleConfig.cs`. I created a new file called `gulpfile.js` in the root of my web project that looked like this:
 
-```js
+```js twoslash
 /// <vs AfterBuild='default' />
 var gulp = require('gulp');
 
@@ -385,7 +387,7 @@ This file does a number of things each time it is run. First of all it deletes a
 2. It copies the `css` files declared in `filesAndFolders.styles` to the `build/debug` folder preserving their original folder structure. (So `content/bootstrap.css` will end up at `build/debug/content/bootstrap.css`.)
 3. It creates a `build/manifest-debug.json` file which contains details of all the script and style files that have been packaged up:
 
-```json
+```json twoslash
 {
   "scripts": [
     "scripts/angular.js",
@@ -443,7 +445,7 @@ For release our gulpfile works with the same resources but has a different aim. 
 2. It concatenates together all the `css` files declared in `filesAndFolders.styles`, minifies them and writes them to a single `build/release/css/app-{xxxxx}.css` file. The file is placed in a css subfolder because of relative paths specified in the CSS file.
 3. It creates a `build/manifest-release.json` file which contains details of all the script and style files that have been packaged up:
 
-```json
+```json twoslash
 {
   "scripts": ["app-95d1e06d.js"],
   "styles": ["css/app-1a6256ea.css"]
@@ -458,7 +460,7 @@ Finally, for both the debug and release packages the contents of the `fonts` fol
 
 The eagle eyed amongst you will also have noticed a peculiar first line to our `gulpfile.js`:
 
-```js
+```js twoslash
 /// <vs AfterBuild='default' />
 ```
 

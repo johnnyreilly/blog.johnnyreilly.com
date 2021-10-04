@@ -9,7 +9,8 @@ Sometimes you write a post for the ages. Sometimes you write one you hope is out
 
 There's a [bug](https://github.com/webpack/enhanced-resolve/issues/41) in webpack's enhanced-resolve. It means that you cannot configure an aliased loader using the `query` (or `options` in the webpack 2 nomenclature). Let me illustrate; consider the following code:
 
-```js
+```js twoslash
+
 module.exports = {
   // ...
   module: {
@@ -30,7 +31,7 @@ module.exports.resolveLoader = { alias: { 'ts-loader': require('path').join(__di
 
 At the time of writing, if you alias a loader as above, then the `query` / `options` will \*_not_\* be passed along. This is bad, particularly given the requirement in webpack 2 that configuration is no longer possible through extending the [`webpack.config.js`](https://webpack.js.org/guides/migrating/#loader-configuration-is-through-options). So what to do? Well, when this was a problem previously the marvellous [James Brantly](https://www.twitter.com/jbrantly) had a [workaround](https://github.com/webpack/webpack/issues/1289#issuecomment-125767499). I've taken that and run with it:
 
-```js
+```js twoslash
 var config = {
   // ...
   module: {

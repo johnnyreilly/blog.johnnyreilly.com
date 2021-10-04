@@ -129,7 +129,8 @@ Now we're going add some dependencies which our scripts will use: `npm install c
 
 We'll also add ourselves some `scripts` to our `package.json`:
 
-```json
+```json twoslash
+
 "scripts": {
     "postinstall": "npm run install:client-app && npm run install:server-app",
     "install:client-app": "cd src/client-app && npm install",
@@ -274,7 +275,8 @@ Let's make that.
 
 In the root of the project we're going to add the following `scripts`:
 
-```json
+```json twoslash
+
 "generate-client:server-app": "start-server-and-test generate-client:server-app:serve http-get://localhost:5000/swagger/v1/swagger.json generate-client:server-app:generate",
     "generate-client:server-app:serve": "cross-env ASPNETCORE_URLS=http://*:5000 ASPNETCORE_ENVIRONMENT=Development dotnet run --project src/server-app/API --no-launch-profile",
     "generate-client:server-app:generate": "dotnet run --project src/server-app/APIClientGenerator http://localhost:5000/swagger/v1/swagger.json src/client-app/src/clients.ts TypeScript",
@@ -287,7 +289,8 @@ Let's walk through what's happening here. Running `npm run generate-client:serve
 
 If you were wanting to generate a C# client (say if you were writing a [Blazor](https://blog.logrocket.com/js-free-frontends-blazor/) app) then you could change the `generate-client:server-app:generate` script as follows:
 
-```json
+```json twoslash
+
 "generate-client:server-app:generate": "dotnet run --project src/server-app/ApiClientGenerator http://localhost:5000/swagger/v1/swagger.json clients.cs CSharp",
 ```
 
@@ -295,13 +298,15 @@ If you were wanting to generate a C# client (say if you were writing a [Blazor](
 
 Let's run the `npm run generate-client:server-app` command. It creates a `clients.ts` file which nestles nicely inside our `client-app`. We're going to exercise that in a moment. First of all, let's enable proxying from our `client-app` to our `server-app` following the instructions in the [Create React App docs](https://create-react-app.dev/docs/proxying-api-requests-in-development/) and adding the following to our `client-app/package.json`:
 
-```json
+```json twoslash
+
 "proxy": "http://localhost:5000"
 ```
 
 Now let's start our apps with `npm run start`. We'll then replace the contents of `App.tsx` with:
 
-```jsx
+```jsx twoslash
+
 import React from "react";
 import "./App.css";
 import { WeatherForecast, WeatherForecastClient } from "./clients";

@@ -42,7 +42,7 @@ Once it's created, you'll be able to download the Client ID from the Google Clou
 
 When you download it, it should look something like this:
 
-```json
+```json twoslash
 {
   "installed": {
     "client_id": "CLIENT_ID",
@@ -82,7 +82,7 @@ We've added a number of dependencies that will allow us to write a TypeScript No
 
 We're going to make use of the OAuth 2.0 part. We'll start our journey by creating a file called `google-api-auth.ts`:
 
-```ts
+```ts twoslash
 import { getArgs, makeOAuth2Client } from './shared';
 
 async function getToken() {
@@ -118,7 +118,7 @@ getToken();
 
 And a common file named `shared.ts` which `google-api-auth.ts` imports and which we'll re-use later:
 
-```ts
+```ts twoslash
 import { google } from 'googleapis';
 import yargs from 'yargs/yargs';
 const { hideBin } = require('yargs/helpers');
@@ -167,7 +167,8 @@ The `getToken` function above does these things:
 
 We'll add an entry to our `package.json` which will allow us to run our console app:
 
-```json
+```json twoslash
+
     "google-api-auth": "ts-node google-api-auth.ts"
 ```
 
@@ -195,7 +196,7 @@ It's worth taking a moment to reflect on what we've done. We've acquired a refre
 
 Let's test out our refresh token by attempting to access the Google Calendar API. We'll create a `calendar.ts` file
 
-```ts
+```ts twoslash
 import { google } from 'googleapis';
 import { getArgs, makeOAuth2Client } from './shared';
 
@@ -232,7 +233,8 @@ The `getCalendar` function above uses the `client_id`, `client_secret` and `refr
 
 We'll add an entry to our `package.json` which will allow us to run this function:
 
-```json
+```json twoslash
+
     "calendar": "ts-node calendar.ts",
 ```
 

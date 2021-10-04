@@ -84,7 +84,8 @@ There's two notable things happening above:
 1. In the `SASGen` job, a PowerShell script runs that [generates a SaS token URL](https://docs.microsoft.com/en-us/powershell/module/az.storage/new-azstoragecontainersastoken?view=azps-5.5.0) with read, write and list permissions that will last for 90 days. (Incidentally, there is a way to do this via [ARM templates, and without PowerShell](https://stackoverflow.com/a/56127006/761388) \- but alas it didn't seem to work when we experimented with it.)
 2. The generated (secret) token URL (`sasUrl`) is passed as a parameter to our App Service ARM template. The ARM template sets an appsetting for the app service:
 
-```json
+```json twoslash
+
 {
     "apiVersion": "2020-09-01",
     "name": "appsettings",
@@ -105,7 +106,7 @@ With this in place, every time someone logs into your app a JSON token is writte
 
 If you take the trouble to look inside you'll find something like this tucked away:
 
-```json
+```json twoslash
 {
   "encrypted": true,
   "tokens": {

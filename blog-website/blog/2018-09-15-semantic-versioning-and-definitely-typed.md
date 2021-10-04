@@ -56,7 +56,8 @@ An example of this is [a PR I submitted to DefinitelyTyped earlier this week](ht
 
 My PR enforces this at type level by changing this:
 
-```ts
+```ts twoslash
+
 export interface match<P> {
   params: P;
   ...
@@ -65,7 +66,8 @@ export interface match<P> {
 
 To this
 
-```ts
+```ts twoslash
+
 export interface match<Params extends { [K in keyof Params]?: string } = {}> {
   params: Params;
 ```

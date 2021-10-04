@@ -18,7 +18,7 @@ A particular difference is that this is targeting SPAs. Famously, cache invalida
 
 The first thing we're going to do is to inject our build details into two identical `buildinfo.json` files; one that sits in the server codebase and which will be used to drive the server build information, and one that sits in the client codebase to drive the client equivalent. They'll end up looking something like this:
 
-```json
+```json twoslash
 {
   "buildNumber": "20210130.1",
   "buildId": "123456",
@@ -50,7 +50,7 @@ As you can see, we're placing the following variables that are available at buil
 
 Our pipeline is dropping the `buildinfo.json` over pre-existing stub `buildinfo.json` files in both our client and server codebases. The stub files look like this:
 
-```json
+```json twoslash
 {
   "buildNumber": "yyyyMMdd.x",
   "buildId": "xxxxxx",
@@ -143,7 +143,8 @@ Our server now lets the world know which version it is running and this is treme
 
 Very little is required to achieve this. Again we have a `buildinfo.json` sat in the root of our codebase. We're able to import it as a module in TypeScript because we've set the following property in our `tsconfig.json`:
 
-```json
+```json twoslash
+
 "resolveJsonModule": true,
 ```
 
@@ -166,7 +167,7 @@ type ClientBuildInfo = {
 
 How you choose to use that information is entirely your choice. We're going to add ourselves an "about" screen in our app, which displays both client info (loaded using the mechanism above) and server info (`fetch`ed from the `/api/build` endpoint).
 
-```tsx
+```tsx twoslash
 import {
   Card,
   CardContent,

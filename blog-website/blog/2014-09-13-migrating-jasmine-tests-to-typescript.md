@@ -20,7 +20,7 @@ I did manage it this time... Sort of. Unfortunately there was a problem which I 
 
 I'm going to use one of the test files in my my side project [Proverb](https://github.com/johnnyreilly/Proverb). It's the tests for an AngularJS controller called `sageDetail` \- I've written about it [before](http://icanmakethiswork.blogspot.co.uk/2014/09/unit-testing-angular-controller-with.html). Here it is in all it's JavaScript-y glory:
 
-```ts
+```ts twoslash
 describe('Proverb.Web -> app-> controllers ->', function () {
   beforeEach(function () {
     module('app');
@@ -173,13 +173,13 @@ Bingo bango - a difference. I no longer have red squigglies under the Jasmine st
 
 Once again TypeScript picks up the hidden bugs in my JavaScript:
 
-```ts
+```ts twoslash
 $q = _$q_;
 ```
 
 That's right it's an implicit global. Quickly fixed:
 
-```ts
+```ts twoslash
 var $q = _$q_;
 ```
 
@@ -198,7 +198,7 @@ We need more types. We're going to need the types created by our application; ou
 
 Now we need to work our way through the "variable 'x' implicitly has an 'any' type" messages. One thing we need to do is to amend our original sageDetails.ts file so that the `sageDetailRouteParams` interface and `SageDetail` class are exported from the controllers module. We can't use the types otherwise. Now we can add typings to our file - once finished it looks like this:
 
-```ts
+```ts twoslash
 /// <reference path="../../../proverb.web/scripts/typings/angularjs/angular.d.ts" />
 /// <reference path="../../../proverb.web/scripts/typings/angularjs/angular-mocks.d.ts" />
 /// <reference path="../../../proverb.web/app/sages/sagedetail.ts" />
@@ -361,7 +361,7 @@ Thanks to the help of [Mohamed Hegazy](https://github.com/mhegazy) it emerged th
 
 The important thing to take away from this (and the thing I had overlooked) was that Proverb.Web.JavaScript uses `reference` comments to pull in Proverb.Web TypeScript files. Those files have dependencies which are \***not**\* stated using `reference` comments. So the compiler trips up when it tries to walk the dependency tree - there are no `reference` comments to be followed! So for example, `common.ts` has a dependency upon `logger.ts`. Fixing the TypeScript Language Service involves ensuring that the full dependency list is included in the `sageDetail` controller tests file, like so:
 
-```ts
+```ts twoslash
 /// <reference path="../../../proverb.web/scripts/typings/angularjs/angular.d.ts" />
 /// <reference path="../../../proverb.web/scripts/typings/angularjs/angular-mocks.d.ts" />
 /// <reference path="../../../proverb.web/scripts/typings/angularjs/angular-route.d.ts" />

@@ -19,7 +19,7 @@ Well, I initially got this slightly wrong; I thought it was about the formatting
 
 Yup, the colour change between the path and the line number / column number is the problem. I've submitted a [PR to fix this](https://github.com/Realytics/fork-ts-checker-webpack-plugin/pull/48) that I hope will get merged. In the meantime you can avoid this issue by dropping this code into your `webpack.config.js`:
 
-```js
+```js twoslash
 var chalk = require('chalk');
 var os = require('os');
 

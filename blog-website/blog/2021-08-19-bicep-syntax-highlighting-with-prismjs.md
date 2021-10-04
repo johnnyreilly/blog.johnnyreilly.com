@@ -27,7 +27,8 @@ If you have any code snippets that start with three backticks and the word `bice
 
 ... then ideally you'd like to see some syntax highlighting in your post. Since Bicep isn't "in the box" for Docusaurus you need to [explicitly opt into support like so:](https://docusaurus.io/docs/next/markdown-features/code-blocks#supported-languages)
 
-```js
+```js twoslash
+
     prism: {
       additionalLanguages: ["powershell", "csharp", "docker", "bicep"],
     },
@@ -41,7 +42,8 @@ With this in place, you would typically get all the syntax highlighting support 
 
 I'm writing this post before the latest version of PrismJS has shipped. As such, Bicep support isn't available by default yet. But if you're an early adopter, you can get support right now. The secret is adding a `resolutions` section to your `package.json` which points to the GitHub Repo [where Prism lives](https://github.com/PrismJS/prism):
 
-```json
+```json twoslash
+
   "resolutions": {
     "prismjs": "PrismJS/prism"
   },

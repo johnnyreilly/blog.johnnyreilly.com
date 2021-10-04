@@ -88,7 +88,7 @@ We'll replace the `App.css` file with this:
 
 Then we'll replace the `App.tsx` contents with this:
 
-```tsx
+```tsx twoslash
 import React, { useState } from 'react';
 import { useAsync } from 'react-use';
 import './App.css';
@@ -165,7 +165,7 @@ In summary, the problems with the current approach are:
 
 Instead of hammering the browser by firing all the requests at once, we could instead implement a throttle. A throttle is a mechanism which allows you to limit the rate at which operations are performed. In this case we want to limit the rate at which HTTP requests are made. A throttle will tackle problems 1 and 2 - essentially keeping the browser free and easy and ensuring that requests are all successfully sent. We also want to keep our users informed around how progress is going. It's time to unveil the `useThrottleRequests` hook:
 
-```ts
+```ts twoslash
 import { useMemo, useReducer } from 'react';
 import { AsyncState } from 'react-use/lib/useAsync';
 
@@ -390,7 +390,7 @@ The `useThrottleRequests` hook returns 2 properties:
 
 That's a lot of words to describe our `useThrottleRequests` hook. Let's look at what it looks like by migrating our `use10_000Requests` hook to (no pun intended) use it. Here's a new implementation of `App.tsx`:
 
-```tsx
+```tsx twoslash
 import React, { useState } from 'react';
 import { useAsync } from 'react-use';
 import { useThrottleRequests } from './useThrottleRequests';
@@ -487,7 +487,7 @@ We can build this thanks to the excellent [GitHub REST API](https://docs.github.
 
 [List repository contributors](https://docs.github.com/en/free-pro-team@latest/rest/reference/repos#list-repository-contributors) lists contributors to the specified repository at this URL: `GET https://api.github.com/repos/{owner}/{repo}/contributors`. The response is an array of objects, crucially featuring a `url` property that points to the user in question's API endpoint:
 
-```js
+```js twoslash
 [
   // ...
   {
@@ -503,7 +503,8 @@ We can build this thanks to the excellent [GitHub REST API](https://docs.github.
 
 [Get a user](https://docs.github.com/en/free-pro-team@latest/rest/reference/users#get-a-user) is the API that the `url` property above is referring to. When called it returns an object representing the publicly available information about a user:
 
-```js
+```js twoslash
+
 {
   // ...
   "name": "The Octocat",
@@ -517,7 +518,7 @@ We can build this thanks to the excellent [GitHub REST API](https://docs.github.
 
 We're now ready to build our blogging devs app; let's replace the existing `App.tsx` with:
 
-```tsx
+```tsx twoslash
 import React, { useCallback, useMemo, useState } from 'react';
 import { useAsync } from 'react-use';
 import { useThrottleRequests } from './useThrottleRequests';

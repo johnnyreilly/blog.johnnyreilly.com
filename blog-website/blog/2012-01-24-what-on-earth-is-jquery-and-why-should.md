@@ -47,7 +47,7 @@ My CSS (filter, by the way, is just linear gradients in IE 6-9):
 
 My jQuery:
 
-```js
+```js twoslash
 $(document).ready(function () {
   //Add hover behaviour on picker buttons for IE6
   if ($.browser.msie && parseInt($.browser.version, 10) < 7) {

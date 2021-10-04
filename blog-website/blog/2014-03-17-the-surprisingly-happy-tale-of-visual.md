@@ -33,7 +33,7 @@ What I’m after is the Chutzpah test adapter for Visual Studio 2012/2013 which 
 
 All fail. This makes me sad. All the errors say “Can’t find variable: Player in file”. Hmmm. Why? Dammit I’m actually going to have to read the [documentation](https://chutzpah.codeplex.com/wikipage?title=Chutzpah%20File%20References&referringTitle=Documentation)... It turns out the issue can be happily resolved by adding these 3 references to the top of PlayerSpec.js:
 
-```js
+```js twoslash
 /// <reference path="../src/Player.js" />
 /// <reference path="../src/Song.js" />
 /// <reference path="SpecHelper.js" />

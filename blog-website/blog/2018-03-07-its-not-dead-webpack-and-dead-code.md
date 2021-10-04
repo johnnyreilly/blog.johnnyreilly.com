@@ -11,7 +11,8 @@ Webpack has long supported the notion of dead code elimination. webpack facilita
 
 A (pre-webpack 4) production config file will typically contain this code:
 
-```js
+```js twoslash
+
 new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('production')
 }),
@@ -22,7 +23,7 @@ The result of the above config is that webpack will inject the value 'production
 
 What this means is, if you've written:
 
-```js
+```js twoslash
 if (process.env.NODE_ENV !== 'production') {
   // Do a development mode only thing
 }
@@ -30,7 +31,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 webpack can and will turn this into
 
-```js
+```js twoslash
 if ('production' !== 'production') {
   // Do a development mode only thing
 }
@@ -44,7 +45,7 @@ You can read more about this [in the webpack docs](https://webpack.js.org/guides
 
 Given what I've said, consider the following code:
 
-```js
+```js twoslash
 export class Config {
   // Other properties
 

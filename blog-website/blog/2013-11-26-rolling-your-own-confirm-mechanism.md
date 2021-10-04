@@ -29,7 +29,7 @@ When we show our dialog we are in asynchronous land; waiting for the user to cli
 
 Here's my custom confirm dialog:
 
-```js
+```js twoslash
 /**
  * Show a "confirm" dialog to the user (using jQuery UI's dialog)
  *
@@ -94,7 +94,7 @@ Finally we return the promise from our deferred object.
 
 It's very simple to move from using `window.confirm` to `confirmDialog`. Take this example:
 
-```js
+```js twoslash
 if (window.confirm('Are you sure?')) {
   // Do something
 }
@@ -102,7 +102,7 @@ if (window.confirm('Are you sure?')) {
 
 Becomes:
 
-```js
+```js twoslash
 confirmDialog('Are you sure?').then(function (confirmed) {
   if (confirmed) {
     // Do something

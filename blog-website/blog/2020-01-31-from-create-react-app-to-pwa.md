@@ -36,7 +36,7 @@ yarn start
 
 From web app to PWA is incredibly simple; it’s just a question of opting in to offline behaviour. If you open up the `index.tsx` file in your newly created project you'll find this code:
 
-```ts
+```ts twoslash
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
@@ -70,14 +70,16 @@ All of the above is "in the box" with `create-react-app`. Let's start customizin
 
 First of all, we'll give our app a name. Fire up `index.html` and replace `&lt;title&gt;React App&lt;/title&gt;` with `&lt;title&gt;My PWA&lt;/title&gt;`. (Feel free to concoct a more imaginative name than the one I've suggested.) Next open up `manifest.json` and replace:
 
-```json
+```json twoslash
+
 "short_name": "React App",
   "name": "Create React App Sample",
 ```
 
 with:
 
-```json
+```json twoslash
+
 "short_name": "My PWA",
   "name": "My PWA",
 ```
@@ -90,7 +92,7 @@ Your app now has a name. The question you might be asking is: what is this `mani
 
 So the `manifest.json` is essentially metadata about your app. Here's what it should look like right now:
 
-```json
+```json twoslash
 {
   "short_name": "My PWA",
   "name": "My PWA",
@@ -136,7 +138,7 @@ yarn add react-router-dom @types/react-router-dom
 
 Now let's split up our app into a couple of pages. We'll replace the existing `App.tsx` with this:
 
-```tsx
+```tsx twoslash
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import About from './About';
@@ -172,7 +174,7 @@ This will be our root page. It has the responsiblity of using `react-router` to 
 
 Replace the `App.test.tsx` with this:
 
-```tsx
+```tsx twoslash
 import React from 'react';
 import { render } from '@testing-library/react';
 import App from './App';
@@ -186,7 +188,7 @@ test('renders about link', () => {
 
 You'll have noticed that in our new `App.tsx` we import two new components (or pages); `About` and `Home`. Let's create those. First `About.tsx`:
 
-```tsx
+```tsx twoslash
 import React from 'react';
 
 const About: React.FC = () => <h1>This is a PWA</h1>;
@@ -196,7 +198,7 @@ export default About;
 
 Then `Home.tsx`:
 
-```tsx
+```tsx twoslash
 import React from 'react';
 
 const Home: React.FC = () => <h1>Welcome to your PWA!</h1>;
@@ -221,14 +223,14 @@ Notice the `build/static/js/main.bc740179.chunk.js` file. This is our `single-fi
 
 Where we previously had:
 
-```tsx
+```tsx twoslash
 import About from './About';
 import Home from './Home';
 ```
 
 Let's replace with:
 
-```tsx
+```tsx twoslash
 const About = lazy(() => import('./About'));
 const Home = lazy(() => import('./Home'));
 ```
@@ -237,7 +239,7 @@ This is the syntax to lazily load components in React. You'll note that it inter
 
 Let's also give React something to render whilst it waits for the dynamic imports to be resolved. Just inside our `&lt;Router&gt;` component we'll add a `&lt;Suspense&gt;` component too:
 
-```tsx
+```tsx twoslash
 <Router>
   <Suspense fallback={<div>Loading...</div>}>{/*...*/}</Suspense>
 </Router>
@@ -245,7 +247,7 @@ Let's also give React something to render whilst it waits for the dynamic import
 
 The `&lt;Suspense&gt;` component will render the `&lt;div&gt;Loading...&lt;/div&gt;` whilst it waits for a routes code to be dynamically loaded. So our final `App.tsx` component ends up looking like this:
 
-```tsx
+```tsx twoslash
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 const About = lazy(() => import('./About'));

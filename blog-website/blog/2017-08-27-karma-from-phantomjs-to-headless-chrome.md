@@ -19,13 +19,15 @@ You no longer need `phantomjs-prebuilt` as a dev dependency of your project. Tha
 
 You need to tell Karma to use Chrome Headless instead of PhantomJS. You do that by replacing
 
-```js
+```js twoslash
+
 browsers: [ 'PhantomJS' ],
 ```
 
 with
 
-```js
+```js twoslash
+
 browsers: [ 'ChromeHeadless' ],
 ```
 

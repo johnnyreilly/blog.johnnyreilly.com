@@ -118,7 +118,8 @@ Opening up `app.ts` we're presented with a few red squigglies:
 
 These red squigglies are the direct result of my earlier opting in to `NoImplicitAny`. So in my view it's already paid for itself as it's telling me where I could start using typings. So to get things working nicely I'll give `$routeProvider` the type of `ng.route.IRouteProvider` and I'll explicitly specify the type of `any` for the 2 `params` parameters:
 
-```ts
+```ts twoslash
+
 // ...
     function ($routeProvider: ng.route.IRouteProvider) {
 
@@ -147,7 +148,7 @@ This error is easily remedied by giving `path` the type of `string`.
 
 What's more interesting / challenging is thinking about how we want to enforce the definition of `siteSectionService`. Remember, this is a service and as such it will be re-used elsewhere in the application (in both `navController` and `mainController`). What we need is an interface that describes what our (revealing module pattern) service exposes:
 
-```ts
+```ts twoslash
 'use strict';
 
 interface ISiteSectionService {
@@ -200,7 +201,7 @@ This is fixed up by defining `$http` as `ng.IHttpService` and `email` and `prayF
 
 As with `siteSectionService` we need to create an interface to define what `prayerRequestService` exposes. This leaves us with this:
 
-```ts
+```ts twoslash
 'use strict';
 
 interface IPrayerRequestService {
@@ -248,7 +249,7 @@ Opening up `prayerRequestController.ts` leads me to the conclusion that I have *
 
 We'll define `$scope` as `ng.IScope`, `prayerRequestService` as `IPrayerRequestService` (which we created just now) and `prayerRequest` as `{ email: string; prayFor: string }`. Which leaves me with this:
 
-```ts
+```ts twoslash
 'use strict';
 
 angular.module('poorClaresApp.controllers').controller(
@@ -293,7 +294,7 @@ I could move on but let's go for bonus points (and now you'll see why the unit t
 
 So let's see if we can swap over our vanilla contructor function for a TypeScript class. This will (in my view) better express the intention of the code. To do this I am essentially following the example laid down by my Definitely Typed colleague [Basarat](https://twitter.com/basarat). I highly recommend his [screencast on the topic](https://www.youtube.com/watch?v=WdtVn_8K17E). Also kudos to [Andrew Davey](https://twitter.com/andrewdavey) whose [post on the topic](http://aboutcode.net/2013/10/20/typescript-angularjs-controller-classes.html) also fed into this.
 
-```ts
+```ts twoslash
 'use strict';
 
 module poorClaresApp.controllers {
@@ -348,7 +349,7 @@ For a small class this seems to add a little noise but as classes grow in comple
 
 `navController` can be simply converted like so:
 
-```ts
+```ts twoslash
 'use strict';
 
 interface INavControllerScope extends ng.IScope {
@@ -384,7 +385,7 @@ I'd draw your attention to the creation of a the `INavControllerScope` interface
 
 Let's also switch this over to the class based approach (there is less of a reason to on this occasion just looking at the size of the codebase but I'm all about consistency of approach):
 
-```ts
+```ts twoslash
 'use strict';
 
 module poorClaresApp.controllers {
@@ -421,7 +422,7 @@ module poorClaresApp.controllers {
 
 Finally, `mainController` can be converted as follows:
 
-```ts
+```ts twoslash
 'use strict';
 
 angular.module('poorClaresApp.controllers').controller(
@@ -442,7 +443,7 @@ angular.module('poorClaresApp.controllers').controller(
 
 Again it's just a case of assigning the undeclared types. For completeness lets also switch this over to the class based approach:
 
-```ts
+```ts twoslash
 'use strict';
 
 module poorClaresApp.controllers {

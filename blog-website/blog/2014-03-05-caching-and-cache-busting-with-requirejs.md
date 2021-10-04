@@ -13,13 +13,13 @@ So there I was, delighted with the TypeScript / RequireJS demo. It was working j
 
 Let’s find out. I'll open up alerter.ts and change this:
 
-```ts
+```ts twoslash
 var name = 'John';
 ```
 
 to this:
 
-```js
+```js twoslash
 var name = 'Bobby';
 ```
 
@@ -40,13 +40,18 @@ As with any set of answers there are different and conflicting views. [Phil McCu
 
 > \*"urlArgs: Extra query string arguments appended to URLs that RequireJS uses to fetch resources. Most useful to cache bust when the browser or server is not configured correctly. Example cache bust setting for urlArgs:
 >
-> ```js
+> ```js twoslash
+>
+> ```
+
 > urlArgs: 'bust=' + new Date().getTime();
+>
 > ```
 >
 > During development it can be useful to use this, however be sure to remove it before deploying your code."
 >
 > -
+> ```
 
 Phil’s answer suggests using urlArgs \***both**\* for Production and for Development in 2 different ways. Using what amounts to a random number in the Development environment (as in the official docs) for cache-busting. For the Production environment he suggests using a specific version number which allows for client-side caching between different build versions.
 
@@ -93,7 +98,7 @@ Oh yeah! We’re cache-busting like gangbusters!
 
 So now let’s comment out our existing urlArgs (which represents the Development solution from Phil’s answer) and replace it with a fixed value like this:
 
-```js
+```js twoslash
 //urlArgs: "v=" +  (new Date()).getTime()
 urlArgs: 'v=1';
 ```
@@ -104,7 +109,7 @@ This represents the Production solution from Phil’s answer. Now let’s run, r
 
 It does! Now let’s increment the value:
 
-```js
+```js twoslash
 urlArgs: 'v=2';
 ```
 

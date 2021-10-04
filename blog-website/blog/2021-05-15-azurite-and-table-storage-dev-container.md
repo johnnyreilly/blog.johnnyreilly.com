@@ -32,7 +32,7 @@ mkdir .devcontainer
 
 And inside there we'll add a `devcontainer.json`:
 
-```json
+```json twoslash
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.177.0/containers/azure-functions-dotnetcore-3.1
 {
