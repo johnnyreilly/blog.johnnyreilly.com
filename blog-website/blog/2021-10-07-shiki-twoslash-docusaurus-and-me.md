@@ -59,6 +59,20 @@ module.exports = {
 };
 ```
 
+And following the instructions in the `README.md` we'll set up light/dark mode CSS in our `src/css/custom.css`:
+
+```css
+[data-theme='light'] .shiki.nord {
+  display: none;
+}
+
+[data-theme='dark'] .shiki.min-light {
+  display: none;
+}
+```
+
+At this point we have shiki-twoslash set up, and all our code samples will no longer be handled by Prism, they'll be handled by Shiki.
+
 ## Opt-in to twoslash with search and replace
 
 regex:
