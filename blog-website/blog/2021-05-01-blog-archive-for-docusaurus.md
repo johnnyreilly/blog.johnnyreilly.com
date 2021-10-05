@@ -102,7 +102,7 @@ const postsByYear = allPosts.reduceRight((posts, post) => {
   const year = post.date.split('-')[0];
   const yearPosts = posts.get(year) || [];
   return posts.set(year, [post, ...yearPosts]);
-}, /** @type {Map<string, BlogPost[]>}>} */ new Map());
+}, /** @type {Map<string, BlogPost[]>} */ new Map());
 
 const yearsOfPosts = Array.from(postsByYear, ([year, posts]) => ({
   year,
