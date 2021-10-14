@@ -8,6 +8,14 @@ hide_table_of_contents: false
 
 An exciting feature is shipping with TypeScript 4.4. It has the name ["Control Flow Analysis of Aliased Conditions"](https://devblogs.microsoft.com/typescript/announcing-typescript-4-4-beta/#cfa-aliased-conditions) which is quite a mouthful. This post unpacks what this feature is, and demonstrates the contribution it makes to improving the readability of code.
 
+## Updated 30th September 2021
+
+This blog evolved to become a talk:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LxZx3ycrxI0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<!--truncate-->
+
 ## Indirect type narrowing via `const`
 
 On June 24th 2021, an issue on the TypeScript GitHub repository with the title "Indirect type narrowing via `const`" was closed by [Anders Hejlsberg](https://www.twitter.com/ahejlsberg). The issue had been open since 2016 and it was closed as it was covered by [a pull request addressing control flow analysis of aliased conditional expressions and discriminants](https://github.com/microsoft/TypeScript/pull/44730).
