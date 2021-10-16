@@ -10,6 +10,11 @@ const talks = [
     formattedDate: 'September 30th, 2021',
     title: 'LogRocket TypeScript Meetup: Write more readable code with TS 4.4',
   },
+  {
+    permalink: 'https://blog.logrocket.com/logrocket-react-meetup-react-structured-data-and-seo/',
+    formattedDate: 'October 27th, 2021',
+    title: 'Upcoming talk: Structured data, SEO and React',
+  },
 ];
 
 function Talks() {
