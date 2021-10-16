@@ -7,6 +7,8 @@ hide_table_of_contents: false
 ---
 People being able to discover your website when they search is important. This post is about how you can add structured data to a site. Adding structured data will help search engines like Google understand your content, and get it in front of more eyeballs. We'll illustrate this by making a simple React app which incorporates structured data.
 
+This post is evolving into a talk; [sign up here](https://blog.logrocket.com/logrocket-react-meetup-react-structured-data-and-seo/).
+
 ![title image reading "Structured data, SEO and React" with a screenshot of the rich results tool in the background](../static/blog/2021-10-15-structured-data-seo-and-react/structured-data-seo-and-react.png)
 
 ## What is structured data?
