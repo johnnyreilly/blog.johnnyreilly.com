@@ -147,3 +147,5 @@ We hit the "TEST CODE" button and we see results that look like this:
 So we've been successful in building a website that renders structured data. More than that, we're doing it in a way that we know Google will recognise and can use to render rich results in search. That's a really useful way to drive traffic to our website.
 
 This post has illustrated what it looks like to create an `Article`.  Google has some [great resources](https://developers.google.com/search/docs/advanced/structured-data/search-gallery) on other types that it supports and prioritises for rich results which should help you build the structured data you need for your particular content.
+
+[This post was originally published on LogRocket.](https://blog.logrocket.com/react-structured-data-and-seo/)
