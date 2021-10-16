@@ -9,8 +9,6 @@ People being able to discover your website when they search is important. This p
 
 This post is evolving into a talk; [sign up here](https://blog.logrocket.com/logrocket-react-meetup-react-structured-data-and-seo/).
 
-<!--truncate-->
-
 ![title image reading "Structured data, SEO and React" with a screenshot of the rich results tool in the background](../static/blog/2021-10-15-structured-data-seo-and-react/structured-data-seo-and-react.png)
 
 ## What is structured data?
