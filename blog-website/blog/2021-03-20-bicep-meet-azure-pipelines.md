@@ -103,7 +103,7 @@ When transpiled down to an ARM template, this Bicep file more than doubles in si
 
 This tells you something of the advantage of Bicep. The template comes with an associated `azuredeploy.parameters.json` file:
 
-```json
+```json twoslash
 {
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",

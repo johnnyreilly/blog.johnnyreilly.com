@@ -20,13 +20,14 @@ Well, first of all you need the latest and greatest `fork-ts-checker-webpack-plu
 
 You need to change the options you supply to the plugin in your `webpack.config.js` to look something like this:
 
-```js
+```js twoslash
 new ForkTsCheckerWebpackPlugin({ eslint: true });
 ```
 
 You'll also need the various ESLint related packages to your `package.json`:
 
-```js
+```js twoslash
+
 yarn add eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin --dev
 ```
 
@@ -40,7 +41,7 @@ If you want, you can pass options to ESLint using the `eslintOptions` option as 
 
 Now you're ready to use ESLint, you just need to give it some configuration. Typically, an `.eslintrc.js` is what you want here.
 
-```js
+```js twoslash
 const path = require('path');
 module.exports = {
   parser: '@typescript-eslint/parser', // Specifies the ESLint parser
@@ -69,7 +70,7 @@ module.exports = {
 
 If you're a React person (and I am!) then you'll also need: `yarn add eslint-plugin-react`. Then enrich your `eslintrc.js` a little:
 
-```js
+```js twoslash
 const path = require('path');
 module.exports = {
   parser: '@typescript-eslint/parser', // Specifies the ESLint parser

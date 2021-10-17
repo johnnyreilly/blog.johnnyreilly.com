@@ -40,19 +40,19 @@ As you can see MVC has done the hard work of translating these data annotations 
 
 To validate a form it’s as simple as this:
 
-```js
+```js twoslash
 $('form').validate();
 ```
 
 Or if you wanted to validate a single element:
 
-```js
+```js twoslash
 $('form').validate().element('elementSelector');
 ```
 
 Or if you wanted to prevent default form submission until validation was passed:
 
-```js
+```js twoslash
 $('form').submit(function (event) {
   var isValid = $(this).validate().valid();
 

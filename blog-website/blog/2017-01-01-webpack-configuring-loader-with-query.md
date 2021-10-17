@@ -15,7 +15,8 @@ There are 2 ways to configure loader options for ts-loader (and in fact this sta
 
 The implicatations of the breaking change are: with webpack 2 you can **no longer** configure ts-loader (or any other loader) with a `ts` (insert the name of alternative loaders here) property in the `webpack.config.js`. It **must** be done through the `query` / `options`. The following code is no longer valid with webpack 2:
 
-```js
+```js twoslash
+
 module.exports = {
   ...
   module: {
@@ -37,7 +38,8 @@ This change means that we have needed to adjust how our test pack works. We can 
 
 Good question. Well, strictly speaking it's 2 possible things; both ways to configure a webpack loader. Classically `query` was a string which could be appended to the name of the loader much like a `<a href="https://en.wikipedia.org/wiki/Query_string">query string</a>` but actually with [greater powers](https://github.com/webpack/loader-utils#parsequery):
 
-```js
+```js twoslash
+
 module.exports = {
   ...
   module: {
@@ -53,7 +55,8 @@ module.exports = {
 
 But it can also be a separately specified object that's supplied alongside a loader (I understand this is relatively new behaviour):
 
-```js
+```js twoslash
+
 module.exports = {
   ...
   module: {

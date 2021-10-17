@@ -23,7 +23,7 @@ Looking at the above there's two things you need:
 1. A personal access token. You can make one of those here: https://dev.azure.com/organisation-name/_usersSettings/tokens (where `organisation-name` is the name of your organisation)
 2. A `makepipeline.json` file, which contains the details of the pipeline you want to create:
 
-```json
+```json twoslash
 {
   "folder": null,
   "name": "pipeline-made-by-api",
@@ -49,7 +49,7 @@ Let's talk through the significant properties above:
 
 When you execute your curl you should be returned some JSON along these lines:
 
-```json
+```json twoslash
 {
   "_links": {
     "self": {

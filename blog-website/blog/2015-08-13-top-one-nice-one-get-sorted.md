@@ -29,7 +29,7 @@ Before we get going it's worth saying that LINQ's `OrderBy` and JavaScript's `so
 
 Let's start with ordering by string properties:
 
-```js
+```js twoslash
 function stringComparer(propLambda) {
   return (obj1, obj2) => {
     const obj1Val = propLambda(obj1) || '';
@@ -41,7 +41,7 @@ function stringComparer(propLambda) {
 
 We need some example data to sort: (I can only apologise for my lack of inspiration here)
 
-```js
+```js twoslash
 const foodInTheHouse = [
   { what: 'cake', daysSincePurchase: 2 },
   { what: 'apple', daysSincePurchase: 8 },
@@ -52,13 +52,13 @@ const foodInTheHouse = [
 
 If we were doing a sort by strings in LINQ we wouldn't need to implement our own comparer. And the code we'd write would look something like this:
 
-```js
+```js twoslash
 var foodInTheHouseSorted = foodInTheHouse.OrderBy((x) => x.what);
 ```
 
 With that in mind, here's how it would look to use our shiny and new `stringComparer`:
 
-```js
+```js twoslash
 const foodInTheHouseSorted = foodInTheHouse.sort(stringComparer((x) => x.what));
 
 // foodInTheHouseSorted: [
@@ -86,7 +86,7 @@ const foodInTheHouseSlicedAndSorted = foodInTheHouse
 
 Well that's strings sorted (quite literally). Now, what about numbers?
 
-```js
+```js twoslash
 function numberComparer(propLambda) {
   return (obj1, obj2) => {
     const obj1Val = propLambda(obj1);
@@ -103,7 +103,7 @@ function numberComparer(propLambda) {
 
 If we use the `numberComparer` on our original array it looks like this:
 
-```js
+```js twoslash
 const foodInTheHouseSorted = foodInTheHouse.sort(
   numberComparer((x) => x.daysSincePurchase)
 );
@@ -120,7 +120,7 @@ const foodInTheHouseSorted = foodInTheHouse.sort(
 
 Well this is all kinds of fabulous. But something's probably nagging at you... What about `OrderByDescending`? What about when I want to sort in the reverse order? May I present the `reverse` function:
 
-```js
+```js twoslash
 function reverse(comparer) {
   return (obj1, obj2) => comparer(obj1, obj2) * -1;
 }
@@ -134,7 +134,7 @@ As the name suggests, this function takes a given comparer that's handed to it a
 
 Our `reverse` function takes the comparer it is given and returns a new comparer that will return a positive value where the old one would have returned a negative and vica versa. (Equality is unaffected.) An alternative implementation would have been this:
 
-```js
+```js twoslash
 function reverse(comparer) {
   return (obj1, obj2) => comparer(obj2, obj1);
 }
@@ -142,7 +142,7 @@ function reverse(comparer) {
 
 Which is more optimal and even simpler as it just swaps the values supplied to the comparer. Whatever tickles your fancy. Either way, when used it looks like this:
 
-```js
+```js twoslash
 const foodInTheHouseSorted = foodInTheHouse.sort(
   reverse(stringComparer((x) => x.what))
 );
@@ -163,7 +163,7 @@ So far we can sort arrays by strings, we can sort arrays by numbers and we can d
 
 It's time to compose our comparers together. May I present... drum roll.... the `composeComparers` function:
 
-```js
+```js twoslash
 function composeComparers(...comparers) {
   return (obj1, obj2) => {
     const comparer = comparers.find((c) => c(obj1, obj2) !== 0);
@@ -174,7 +174,7 @@ function composeComparers(...comparers) {
 
 This fine function takes any number of comparers that have been supplied to it. It then returns a comparer function which, when called, iterates through each of the original comparers and executes them until it finds one that returns a value that is not 0 (ie represents that the 2 items are not equal). It then sends that non-zero value back or if all was equal then sends back 0.
 
-```js
+```js twoslash
 const foodInTheHouseSorted = foodInTheHouse.sort(
   composeComparers(
     stringComparer((x) => x.what),
@@ -194,7 +194,7 @@ const foodInTheHouseSorted = foodInTheHouse.sort(
 
 I'm not gonna lie - I was feeling quite pleased with this approach. I shared it with my friend (and repeated colleague) [Peter Foldi](http://blog.peterfoldi.com/). The next day I found this in my inbox:
 
-```js
+```js twoslash
 function composeComparers(...comparers) {
   return (obj1, obj2) =>
     comparers.reduce((prev, curr) => prev || curr(obj1, obj2), 0);
@@ -209,7 +209,7 @@ The only criticism I can make of it is that it iterates through each of the comp
 
 So naturally I thought I was done. Showing Peter's improvements to the estimable Matthew Horsley I learned that this was not so. Because he reached for the keyboard and entered this:
 
-```js
+```js twoslash
 function composeComparers(...comparers) {
   // README: <a href="https://wiki.haskell.org/Function_composition">https://wiki.haskell.org/Function_composition</a>
   return comparers.reduce((prev, curr) => (a, b) => prev(a, b) || curr(a, b));
@@ -230,7 +230,7 @@ I'll get my coat...
 
 You want to do this with TypeScript? Use this:
 
-```ts
+```ts twoslash
 type Comparer<TObject> = (obj1: TObject, obj2: TObject) => number;
 
 export function stringComparer<TObject>(

@@ -39,7 +39,8 @@ That post was written back in the days of webpack 2 / 3. It advocated use of bot
 
 Jan quickly identified the problem. He did that rarest of things; he read the documentation which said:
 
-```js
+```js twoslash
+
 // timeout for killing the worker processes when idle
       // defaults to 500 (ms)
       // can be set to Infinity for watching builds to keep workers alive

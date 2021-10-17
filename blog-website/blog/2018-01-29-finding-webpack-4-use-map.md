@@ -21,7 +21,7 @@ One of the notable changes to webpack with v4 is the change to the plugin archit
 
 Previously, if your plugin was tapping into a compiler hook you'd write code that looked something like this:
 
-```js
+```js twoslash
 this.compiler.plugin('watch-close', () => {
   // do your thing here
 });
@@ -29,7 +29,7 @@ this.compiler.plugin('watch-close', () => {
 
 With webpack 4 things done changed. You'd now write something like this:
 
-```js
+```js twoslash
 this.compiler.hooks.watchClose.tap(
   'name-to-identify-your-plugin-goes-here',
   () => {
@@ -42,7 +42,7 @@ Hopefully that's fairly clear; we're using the new `hooks` property and tapping 
 
 In the example above we were attaching to a sync hook. Now let's look at an async hook:
 
-```js
+```js twoslash
 this.compiler.plugin('watch-run', (watching, callback) => {
   // do your thing here
   callback();
@@ -51,7 +51,7 @@ this.compiler.plugin('watch-run', (watching, callback) => {
 
 This would change to be:
 
-```js
+```js twoslash
 this.compiler.hooks.watchRun.tapAsync(
   'name-to-identify-your-plugin-goes-here',
   (compiler, callback) => {
@@ -67,7 +67,7 @@ Note that rather than using `tap` here, we're using `tapAsync`. If you're more i
 
 Prior to webpack 4, you could use your own custom hooks within your plugin. Usage was as simple as this:
 
-```js
+```js twoslash
 this.compiler.applyPluginsAsync('fork-ts-checker-service-before-start', () => {
   // do your thing here
 });
@@ -77,14 +77,14 @@ You can still use custom hooks with webpack 4, but there's a little more ceremon
 
 First of all, you'll need to add the package [`tapable`](https://www.npmjs.com/package/tapable) as a dependency. Then, inside your plugin you'll need to import the type of hook that you want to use; in the case of the `fork-ts-checker-webpack-plugin` we used both a sync and an async hook:
 
-```js
+```js twoslash
 const AsyncSeriesHook = require('tapable').AsyncSeriesHook;
 const SyncHook = require('tapable').SyncHook;
 ```
 
 Then, inside your `apply` method you need to register your hooks:
 
-```js
+```js twoslash
 if (
   this.compiler.hooks.forkTsCheckerServiceBeforeStart ||
   this.compiler.hooks.forkTsCheckerCancel ||
@@ -102,7 +102,7 @@ this.compiler.hooks.forkTsCheckerDone = new SyncHook([]);
 
 If you're interested in backwards compatibility then you should use the `_pluginCompat` to wire that in:
 
-```js
+```js twoslash
 this.compiler._pluginCompat.tap('fork-ts-checker-webpack-plugin', (options) => {
   switch (options.name) {
     case 'fork-ts-checker-service-before-start':
@@ -119,7 +119,7 @@ this.compiler._pluginCompat.tap('fork-ts-checker-webpack-plugin', (options) => {
 
 With your registration in place, you just need to replace your calls to `compiler.applyPlugins('sync-hook-name', ` and `compiler.applyPluginsAsync('async-hook-name', ` with calls to `compiler.hooks.syncHookName.call(` and `compiler.hooks.asyncHookName.callAsync(`. So to migrate our `fork-ts-checker-service-before-start` hook we'd write:
 
-```js
+```js twoslash
 this.compiler.hooks.forkTsCheckerServiceBeforeStart.callAsync(() => {
   // do your thing here
 });
@@ -129,14 +129,14 @@ this.compiler.hooks.forkTsCheckerServiceBeforeStart.callAsync(() => {
 
 Loaders are impacted by the changes to the plugin architecture. Mostly this means applying the same plugin changes as discussed above. `ts-loader` hooks into 2 plugin events:
 
-```js
+```js twoslash
 loader._compiler.plugin('after-compile' /* callback goes here */);
 loader._compiler.plugin('watch-run' /* callback goes here */);
 ```
 
 With webpack 4 these become:
 
-```js
+```js twoslash
 loader._compiler.hooks.afterCompile.tapAsync(
   'ts-loader' /* callback goes here */
 );
@@ -155,7 +155,7 @@ Secondly, with webpack 4 it's "ES2015 all the things!" That is to say, with webp
 
 What this means is, code that would once have looked like this:
 
-```js
+```js twoslash
 Object.keys(watching.compiler.fileTimestamps)
   .filter(
     (filePath) =>
@@ -169,7 +169,7 @@ Object.keys(watching.compiler.fileTimestamps)
 
 Now looks more like this:
 
-```js
+```js twoslash
 for (const [filePath, date] of compiler.fileTimestamps) {
   if (date > lastTimes.get(filePath)) {
     continue;

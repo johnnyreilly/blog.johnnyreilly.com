@@ -140,7 +140,8 @@ It so happens that using [Health checks, App Service caters for this beautifully
 
 This approach is very similar to [liveness, readiness and startup probes in Kubernetes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/). To make use of Health checks, in our ARM template for our App Service we have configured a `healthCheckPath`:
 
-```json
+```json twoslash
+
 "siteConfig": {
     "linuxFxVersion": "[parameters('linuxFxVersion')]",
     "alwaysOn": true,

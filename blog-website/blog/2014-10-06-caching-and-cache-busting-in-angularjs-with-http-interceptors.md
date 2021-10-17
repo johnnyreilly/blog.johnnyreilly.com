@@ -18,7 +18,7 @@ I have exactly the same use cases when I'm using AngularJS for views. Out of the
 
 It turns out that's pretty easy thanks to [HTTP interceptors](https://docs.angularjs.org/api/ng/service/$http#interceptors). They allow you to step into the pipeline and access and modify requests and responses made by your application. When AngularJS loads a view it's the HTTP service doing the heavy lifting. So to deal with my own use case, I just need to add in an HTTP interceptor that amends the get request. This is handled in the example that follows in the `configureHttpProvider` function: (The example that follows is TypeScript - though if you just chopped out the interface and the type declarations you'd find this is pretty much idiomatic JavaScript)
 
-```js
+```js twoslash
 interface config {
   appRoot: string; // eg "/"
   inDebug: boolean; // eg true or false

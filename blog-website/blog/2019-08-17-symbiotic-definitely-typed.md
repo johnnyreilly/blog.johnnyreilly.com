@@ -61,13 +61,15 @@ When I [tweeted this article](https://twitter.com/johnny_reilly/status/116284391
 
 Andrew makes the useful point that if you are adding support for TypeScript via an `@types/...` dependency then it's wise to do so with a loose version range. [In the case of RTL we did it like this:](https://github.com/testing-library/react-testing-library/blob/c4ba755e42938018ec67dbc716037cfafca15e03/package.json#L46)
 
-```json
+```json twoslash
+
 "@types/testing-library__react": "^9.1.0"
 ```
 
 i.e. Any type definition with a version of `9.1` or greater (whilst still lower than `10.0.0`) is considered valid. You could go even looser than that. If you really don't want to think about TypeScript beyond adding the dependency then a completely loose version range would do:
 
-```json
+```json twoslash
+
 "@types/testing-library__react": "*"
 ```
 

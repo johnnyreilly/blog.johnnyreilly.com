@@ -24,20 +24,21 @@ Once upon a time we decided to use [big.js](https://github.com/MikeMcl/big.js/) 
 
 My usage code was as simple as this:
 
-```js
+```js twoslash
 import * as BigJs from 'big.js';
 const lookABigJs = new BigJs(1);
 ```
 
 If you execute it in a browser it works. It makes me a `Big`. However the TypeScript compiler is \*\*not\*\* happy. No siree. Nope. It's bellowing at me:
 
-```ts
+```ts twoslash
+
 [ts] Cannot use 'new' with an expression whose type lacks a call or construct signature.
 ```
 
 So I think: "Huh! I guess Miika just missed something off when he updated the definition files. No bother. I'll fix it." I take a look at how `big.js` exposes itself to the outside world. At the time, thusly:
 
-```js
+```js twoslash
 //AMD.
 if (typeof define === 'function' && define.amd) {
   define(function () {
@@ -58,7 +59,8 @@ Now, we were using webpack as our script bundler / loader. webpack is supersmart
 
 Now this turns out to be super-relevant. I took a look at the relevant portion of the definition file and found this:
 
-```js
+```js twoslash
+
 export const Big: BigConstructor;
 ```
 

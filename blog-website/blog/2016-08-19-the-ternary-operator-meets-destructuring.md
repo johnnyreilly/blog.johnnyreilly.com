@@ -7,13 +7,13 @@ hide_table_of_contents: false
 
 I'm addicted to the [ternary operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator). For reasons I can't explain, I cannot get enough of:
 
-```js
+```js twoslash
 const thisOrThat = someCondition ? 'this' : 'or that';
 ```
 
 The occasion regularly arises where I need to turn my lovely terse code into an if statement in order to set 2 variables instead of 1. I've been heartbroken; I hate doing:
 
-```ts
+```ts twoslash
 let legWear: string, coat: boolean;
 if (weather === 'good') {
   legWear = 'shorts';
@@ -32,7 +32,7 @@ Just going from setting one variable to setting two has been really traumatic:
 
 ES2015 gives us another option. We can move back to the ternary operator if we change the return type of each branch to be an object sharing the same signature. Then, using destructuring, we can pull out those object properties into `const`s:
 
-```ts
+```ts twoslash
 const { legWear, coat } =
   weather === 'good'
     ? { legWear: 'shorts', coat: false }
@@ -53,7 +53,7 @@ I thought I was done and then I saw this:
 
 [Daniel](https://twitter.com/Rickenhacker) helpfully points out that there's an even terser syntax available to us:
 
-```ts
+```ts twoslash
 const [legWear, coat] =
   weather === 'good' ? ['shorts', false] : ['jeans', true];
 ```

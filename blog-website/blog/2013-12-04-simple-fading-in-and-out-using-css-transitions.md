@@ -63,7 +63,7 @@ Andrew Davey tweeted me the suggestion below:
 
 So I thought I'd give it a go. However, whilst we've a `transitionend` event to play with we don't have a corresponding `transitionstart` or `transitionbegin`. So I tried this:
 
-```js
+```js twoslash
 $('#showHideButton').click(function () {
   var $alertDiv = $('#alertDiv');
   if ($alertDiv.hasClass('fadedOut')) {

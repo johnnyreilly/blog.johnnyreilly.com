@@ -15,7 +15,7 @@ The bad news is that the lib [doesn't presently support `isOutput=true`](https:/
 
 For now we can hack ourselves a workaround:
 
-```ts
+```ts twoslash
 import * as tl from 'azure-pipelines-task-lib/task';
 import * as tcm from 'azure-pipelines-task-lib/taskcommand';
 import * as os from 'os';

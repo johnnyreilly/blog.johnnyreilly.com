@@ -11,7 +11,7 @@ JavaScript is famously single threaded. However, if you're developing for the we
 
 Given that there is a way to use other threads for background processing, why doesn't this happen all the time? Well there's a number of reasons; not the least of which is the ceremony involved in interacting with Web Workers. Consider the following example that illustrates moving a calculation into a worker:
 
-```js
+```js twoslash
 // main.js
 function add2NumbersUsingWebWorker() {
   const myWorker = new Worker('worker.js');
@@ -42,7 +42,7 @@ onmessage = function (e) {
 
 _This is not simple._ It's hard to understand what's happening. Also, this approach only supports a single method call. I'd much rather write something that looked more like this:
 
-```js
+```js twoslash
 // main.js
 function add2NumbersUsingWebWorker() {
   const myWorker = new Worker('worker.js');
@@ -72,7 +72,7 @@ npx create-react-app webworkers-comlink-typescript-react --template typescript
 
 Create a `takeALongTimeToDoSomething.ts` file alongside `index.tsx`:
 
-```ts
+```ts twoslash
 export function takeALongTimeToDoSomething() {
   console.log('Start our long running job...');
   const seconds = 5;
@@ -90,7 +90,7 @@ export function takeALongTimeToDoSomething() {
 
 To `index.tsx` add this code:
 
-```ts
+```ts twoslash
 import { takeALongTimeToDoSomething } from './takeALongTimeToDoSomething';
 
 // ...
@@ -127,7 +127,8 @@ yarn add comlink worker-plugin
 
 We now need to tweak our `webpack.config.js` to use the `worker-plugin`:
 
-```js
+```js twoslash
+
 const WorkerPlugin = require('worker-plugin');
 
 // ....
@@ -167,7 +168,7 @@ This file exists to tell TypeScript that this is a Web Worker. Do note the `"lib
 
 Alongside the `tsconfig.json` file, let's create an `index.ts` file. This will be our worker:
 
-```ts
+```ts twoslash
 import { expose } from 'comlink';
 import { takeALongTimeToDoSomething } from '../takeALongTimeToDoSomething';
 
@@ -181,19 +182,19 @@ expose(exports);
 
 There's a number of things happening in our small worker file. Let's go through this statement by statement:
 
-```ts
+```ts twoslash
 import { expose } from 'comlink';
 ```
 
 Here we're importing the `expose` method from comlink. Comlink’s goal is to make *expose*d values from one thread available in the other. The `expose` method can be viewed as the comlink equivalent of `export`. It is used to export the RPC style signature of our worker. We'll see it's use later.
 
-```ts
+```ts twoslash
 import { takeALongTimeToDoSomething } from '../takeALongTimeToDoSomething';
 ```
 
 Here we're going to import our `takeALongTimeToDoSomething` function that we wrote previously, so we can use it in our worker.
 
-```ts
+```ts twoslash
 const exports = {
   takeALongTimeToDoSomething,
 };
@@ -201,25 +202,25 @@ const exports = {
 
 Here we're creating the public facing API that we're going to expose.
 
-```ts
+```ts twoslash
 export type MyFirstWorker = typeof exports;
 ```
 
 We're going to want our worker to be strongly typed. This line creates a type called `MyFirstWorker` which is derived from our `exports` object literal.
 
-```ts
+```ts twoslash
 expose(exports);
 ```
 
 Finally we expose the `exports` using comlink. We're done; that's our worker finished. Now let's consume it. Let's change our `index.tsx` file to use it. Replace our import of `takeALongTimeToDoSomething`:
 
-```ts
+```ts twoslash
 import { takeALongTimeToDoSomething } from './takeALongTimeToDoSomething';
 ```
 
 With an import of `wrap` from comlink that creates a local `takeALongTimeToDoSomething` function that wraps interacting with our worker:
 
-```ts
+```ts twoslash
 import { wrap } from 'comlink';
 
 function takeALongTimeToDoSomething() {
@@ -247,7 +248,7 @@ The example we've showed so far demostrates how you could use Web Workers and wh
 
 We'll return `index.tsx` back to it's initial state. Then we'll make a simple adder function that takes some values and returns their total. To our `takeALongTimeToDoSomething.ts` module let's add:
 
-```ts
+```ts twoslash
 export function takeALongTimeToAddTwoNumbers(number1: number, number2: number) {
   console.log('Start to add...');
   const seconds = 5;
@@ -266,7 +267,7 @@ export function takeALongTimeToAddTwoNumbers(number1: number, number2: number) {
 
 Let's start using our long running calculator in a React component. We'll update our `App.tsx` to use this function and create a simple adder component:
 
-```tsx
+```tsx twoslash
 import React, { useState } from 'react';
 import './App.css';
 import { takeALongTimeToAddTwoNumbers } from './takeALongTimeToDoSomething';
@@ -313,7 +314,7 @@ So far, so classic. Let's Web Workerify this!
 
 We'll update our `my-first-worker/index.ts` to import this new function:
 
-```ts
+```ts twoslash
 import { expose } from 'comlink';
 import {
   takeALongTimeToDoSomething,
@@ -331,7 +332,7 @@ expose(exports);
 
 Alongside our `App.tsx` file let's create an `App.hooks.ts` file.
 
-```ts
+```ts twoslash
 import { wrap, releaseProxy } from 'comlink';
 import { useEffect, useState, useMemo } from 'react';
 
@@ -407,7 +408,7 @@ The `useWorker` and `makeWorkerApiAndCleanup` functions make up the basis of a s
 
 Time to test! We'll change our `App.tsx` to use the new `useTakeALongTimeToAddTwoNumbers` hook:
 
-```tsx
+```tsx twoslash
 import React, { useState } from 'react';
 import './App.css';
 import { useTakeALongTimeToAddTwoNumbers } from './App.hooks';

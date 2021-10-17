@@ -27,7 +27,8 @@ npx tsc --init
 
 This will give us a `tsconfig.json` file that will drive configuration of TypeScript. By default TypeScript transpiles to an older version of JavaScript that predates classes. So we'll update the config to target a newer version of the language that does include them:
 
-```json
+```json twoslash
+
     "target": "es2020",
     "lib": ["es2020"],
 ```
@@ -36,7 +37,8 @@ Let's create ourselves a TypeScript file called `index.ts`. The name is not sign
 
 Finally we'll add a script to our `package.json` that compiles our TypeScript to JavaScript, and then runs the JS with node:
 
-```json
+```json twoslash
+
 "start": "tsc --project \".\" && node index.js"
 ```
 
@@ -44,7 +46,7 @@ Finally we'll add a script to our `package.json` that compiles our TypeScript to
 
 Now we're ready. Let's add an abstract class with a constructor to our `index.ts` file:
 
-```ts
+```ts twoslash
 abstract class ViewModel {
   id: string;
 
@@ -84,7 +86,7 @@ const viewModel = new ViewModel('my-id');
 
 Tremendous. However, it's worth remembering that `abstract` is a TypeScript concept. When we compile our TS, although it's throwing a compilation error, it still transpiles an `index.js` file that looks like this:
 
-```js
+```js twoslash
 'use strict';
 class ViewModel {
   constructor(id) {
@@ -107,7 +109,7 @@ So the transpiled code is valid JavaScript even if the source code isn't valid T
 
 Let's now create our first subclass of `ViewModel` and attempt to instantiate it:
 
-```ts
+```ts twoslash
 class NoNewConstructorViewModel extends ViewModel {}
 
 // error TS2554: Expected 1 arguments, but got 0.
@@ -124,7 +126,7 @@ As the TypeScript compiler tells us, the second of these instantiations is legit
 
 Having done that, let's try subclassing and implementing a new constructor which has two parameters (to differentiate from the constructor we're overriding):
 
-```ts
+```ts twoslash
 class NewConstructorViewModel extends ViewModel {
   data: string;
   constructor(id: string, data: string) {

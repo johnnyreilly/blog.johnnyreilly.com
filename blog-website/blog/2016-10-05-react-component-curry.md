@@ -17,7 +17,7 @@ The advantage of these components is that they can reduce the amount of code you
 
 There is another advantage of this syntax. If you have a number of components which share similar implementation you can easily make component factories by currying:
 
-```jsx
+```jsx twoslash
 function iconMaker(fontAwesomeClassName: string) {
   return (props) => <i className={`fa ${fontAwesomeClassName}`} />;
 }

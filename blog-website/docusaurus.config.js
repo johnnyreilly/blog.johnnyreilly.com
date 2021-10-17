@@ -231,5 +231,15 @@ module.exports = {
         },
       },
     ],
+    [
+      'docusaurus-preset-shiki-twoslash',
+      {
+        themes: ['min-light', 'nord'],
+        includeJSDocInHover: true,
+        defaultCompilerOptions: {
+          types: ['node'],
+        },
+      },
+    ],
   ],
 };

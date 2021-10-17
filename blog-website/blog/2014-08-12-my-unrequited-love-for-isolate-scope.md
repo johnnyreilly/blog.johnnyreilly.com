@@ -20,7 +20,7 @@ So ladies and gentlemen, let me present serverError 2.0 – this time without is
 
 ### serverError.ts
 
-```ts
+```ts twoslash
 (function () {
   'use strict';
 
@@ -104,7 +104,7 @@ So ladies and gentlemen, let me present serverError 2.0 – this time without is
 
 ### serverError.js
 
-```js
+```js twoslash
 (function () {
   'use strict';
 

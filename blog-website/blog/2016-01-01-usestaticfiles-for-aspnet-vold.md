@@ -28,13 +28,18 @@ The ASP.Net team know this and things are changing with ASP.Net 5. With the new 
 
 > By default, static files are stored in the webroot of your project. The location of the webroot is defined in the project’s `project.json` file where the default is wwwroot.
 >
-> ```json
+> ```json twoslash
+>
+> ```
+
 > "webroot": "wwwroot"
+>
 > ```
 >
 > Static files can be stored in any folder under the webroot and accessed with a relative path to that root. For example, when you create a default Web application project using Visual Studio, there are several folders created within the webroot folder - `css`, `images` and `js`. In order to directly access an image in the images subfolder, the URL would look like the following:
 >
 > `http://&lt;yourApp&gt;/images/&lt;imageFileName&gt;`
+> ```
 
 So how do we get this behaviour with ASP.Net vOld? Well, it's just a matter of `web.config` URL rewrite twiddling:
 

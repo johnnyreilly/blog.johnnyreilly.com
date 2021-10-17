@@ -43,7 +43,8 @@ By the way, check out the \*_entirely_\* intuitive URL. Now you've clocked just 
 
 Let's take a look at what `val` looked like [before JSDoc](https://github.com/borisyankov/DefinitelyTyped/blob/c98eebb13724b5156f12318b68fc2d875ca6e4a3/jquery/jquery.d.ts#L364-L368) in the first version of the typing available on GitHub. (By the way, remember the original `jquery.d.ts`[ came out of the TypeScript team](https://typescript.codeplex.com/sourcecontrol/latest#samples/jquery/jquery.d.ts)):
 
-```ts
+```ts twoslash
+
 val(): any;
     val(value: string[]): JQuery;
     val(value: string): JQuery;
@@ -53,7 +54,8 @@ val(): any;
 
 And now let's look at `jquery.d.ts`[after JSDoc](https://github.com/borisyankov/DefinitelyTyped/blob/c259dba094121a389b41c573d5000dda7bdf2092/jquery/jquery.d.ts#L1494-L1545):
 
-```ts
+```ts twoslash
+
 /**
      * Get the current value of the first element in the set of matched elements.
      */
@@ -114,7 +116,8 @@ Many changes yes? Let's break it down a little.
 
 The first thing to note is the `number` setter method:
 
-```ts
+```ts twoslash
+
 val(value: number): JQuery;
 ```
 
@@ -130,7 +133,7 @@ Let's have a look at the jQuery documentation for the simple setter:
 
 See the problem? There is \*_no_\* `number` setter. The typings are wrong. So let's remedy this:
 
-```ts
+```ts twoslash
 <strike>val(value: number): JQuery;</strike>
 ```
 
@@ -138,14 +141,16 @@ See the problem? There is \*_no_\* `number` setter. The typings are wrong. So le
 
 The documentation states that we have setters which accept `String` and `Array of String`. These are already modeled in the existing typings by the `string` and `string[]` overloads:
 
-```ts
+```ts twoslash
+
 val(value: string[]): JQuery;
     val(value: string): JQuery;
 ```
 
 So let's enrich these typings with some JSDoc:
 
-```ts
+```ts twoslash
+
 /**
      * Set the value of each element in the set of matched elements.
      *
@@ -166,7 +171,8 @@ If you look you can see we've added a related JSDoc style comment block prior to
 
 It's worth noting that I could have taken the choice to customise the `@param value` comments based on the overload I was JSDoc-ing. Arguably it would have been more useful to have something like this instead:
 
-```ts
+```ts twoslash
+
 /**
      * Set the value of each element in the set of matched elements.
      *
@@ -199,7 +205,8 @@ So the `val()` overload can return a `string`, a `number` or a `string[]`. Unfor
 
 The final getter typing with JSDoc applied ends up looking like this:
 
-```ts
+```ts twoslash
+
 /**
      * Get the current value of the first element in the set of matched elements.
      */
@@ -226,7 +233,8 @@ Finally we're going to take a look at the `Function` setter which is documented 
 
 If you cast your eyes back to the original typings for the `Function` setter you'll see they look like this:
 
-```ts
+```ts twoslash
+
 val(func: (index: any, value: any) => any): JQuery;
 ```
 
@@ -238,7 +246,8 @@ This is a good start but it's less accurate than it could be in a number of ways
 
 So, we've got a little tidy up to do for #1 and extra overloads to add for #2 and #3. We're going to replace the single `Function` setter with 3 overloads to cater for #2. Then for #3 we're going to take each of the 3 overloads we've just created and make 2 overloads place of each to handle the different return types. This will lead us with the grand total of 6 overloads to model our `Function` setter!
 
-```ts
+```ts twoslash
+
 /**
      * Set the value of each element in the set of matched elements.
      *

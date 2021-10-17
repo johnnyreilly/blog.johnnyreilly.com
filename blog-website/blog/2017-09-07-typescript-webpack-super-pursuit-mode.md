@@ -46,7 +46,7 @@ The approach used here is similar to that employed by awesome-typescript-loader.
 
 How do we use it? Add fork-ts-checker-webpack-plugin as a `devDependency` of your project and then amend the `webpack.config.js` to set ts-loader into `transpileOnly` mode and drop the plugin into the mix:
 
-```js
+```js twoslash
 var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 var webpackConfig = {
@@ -86,7 +86,7 @@ It would be hard to recommend using HappyPack as is because, as with `transpileO
 
 Enough with the chitter chatter; how can we achieve this? Add HappyPack as a `devDependency` of your project and then amend the `webpack.config.js` as follows:
 
-```js
+```js twoslash
 var HappyPack = require('happypack');
 var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
@@ -132,7 +132,7 @@ What if there were a way to parallelise our builds which dealt with these issues
 
 What would that config look like? This:
 
-```js
+```js twoslash
 var ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {

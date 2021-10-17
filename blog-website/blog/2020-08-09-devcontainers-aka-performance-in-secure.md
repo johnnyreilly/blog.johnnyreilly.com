@@ -33,7 +33,7 @@ The "cloned into a container" above is key to what we're going to do. We're _not
 
 Enough talk... We're going to need a `.devcontainer/devcontainer.json`:
 
-```json
+```json twoslash
 {
   "name": "my devcontainer",
   "dockerComposeFile": "../docker-compose.devcontainer.yml",

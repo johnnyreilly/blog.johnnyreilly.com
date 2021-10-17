@@ -142,7 +142,7 @@ This includes the snapshots in the compile output for when tests are being run.
 
 Now let's run the test. It will generate a `leopardsSnapshot.json` file:
 
-```json
+```json twoslash
 [
   {
     "name": "Nimoy",
@@ -176,7 +176,7 @@ Boom! We are protected!
 
 Since this is a change we're completely happy with we want to update our `leopardsSnapshot.json` file. We could make our test pass by manually updating the JSON. That'd be fine. But why work when you don't have to? Let's uncomment our `Snapshot.Make...` line and run the test the once.
 
-```json
+```json twoslash
 [
   {
     "name": "Nimoy",

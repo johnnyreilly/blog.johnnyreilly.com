@@ -17,7 +17,7 @@ The `reference` comments aren't necessary when using Visual Studio because the V
 
 The upshot of this is that, at time of writing, you can generally look at a TypeScript codebase and tell whether it was written using Visual Studio by opening it up a file at random and eyeballing for something like this at the top:
 
-```ts
+```ts twoslash
 /// <reference path="other-file.ts" />
 ```
 

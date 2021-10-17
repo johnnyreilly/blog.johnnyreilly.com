@@ -115,7 +115,7 @@ If we used `dotnet add package IsExternalInit`, we might be using a different sy
 
 Now we can theoretically use C# 9.... Let's use C# 9. We'll tweak our `HelloRecord.cs` file, add in a simple `record` named `MessageRecord` and tweak the `Run` method to use it:
 
-```cs
+```csharp
 using System;
 using System.IO;
 using System.Threading.Tasks;

@@ -63,7 +63,7 @@ We're using:
 
 Now we have all the packages we need, it's time to write our script.
 
-```ts
+```ts twoslash
 import fs from 'fs';
 import path from 'path';
 import showdown from 'showdown';

@@ -29,13 +29,14 @@ So you've checked in your changes and kicked off a build on the server. You're p
 
 Checkout the `DefaultTemplate.11.1.xaml` file from TFS and open it in your text editor of choice. It's _find and replace_ time! (There are probably 2 instances that need replacement.) Perform a _find_ for the below
 
-```js
+```js twoslash
+
 [String.Format(&quot;/p:SkipInvalidConfigurations=true {0}&quot;, MSBuildArguments)]
 ```
 
 And _replace_ it with this:
 
-```js
+```js twoslash
 [
   String.Format(
     '/p:SkipInvalidConfigurations=true /p:BuildNumber={1} /p:BuildDefinitionName={2} {0}',
@@ -48,7 +49,8 @@ And _replace_ it with this:
 
 Pretty long line eh? Let's try breaking that up to make it more readable: (but remember in the XAML it needs to be a one liner)
 
-```js
+```js twoslash
+
 [String.Format("/p:SkipInvalidConfigurations=true
     /p:BuildNumber={1}
     /p:BuildDefinitionName={2} {0}", MSBuildArguments, BuildDetail.BuildNumber, BuildDetail.BuildDefinition.Name)]
@@ -126,7 +128,8 @@ Finally in `FailBuildIfThereAreTestFailures` we parse the `test-results.trx` fil
 
 If you've read a [previous post of mine](https://blog.johnnyreilly.com/2016/02/visual-studio-tsconfigjson-and-external.html) you'll be aware that it's possible to get MSBuild to kick off npm build tasks. Specifically I have MSBuild kicking off an `npm run build`. My `package.json` looks like this:
 
-```json
+```json twoslash
+
 "scripts": {
     "test": "karma start --reporters mocha,trx --single-run --browsers PhantomJS",
     "clean": "gulp delete-dist-contents",

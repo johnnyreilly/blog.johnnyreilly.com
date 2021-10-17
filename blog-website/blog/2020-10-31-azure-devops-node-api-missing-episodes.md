@@ -40,7 +40,8 @@ But when I attempted this I found my requests erroring out with 203 Non-Authorit
 
 The answer ended up being an authorization one-liner:
 
-```ts
+```ts twoslash
+
 const request = await axios({
         url,
         headers: {
@@ -56,7 +57,7 @@ const request = await axios({
 
 With this in hand everything started to work and I found myself able to write my own clients to fill in the missing pieces from the client lib:
 
-```ts
+```ts twoslash
 import axios from 'axios';
 import {
   WikiPage,
@@ -161,7 +162,7 @@ function makeBaseApiUrl({
 
 With this I was able to write code like this:
 
-```ts
+```ts twoslash
 let topLevelPage = await getWikiPage({
   adoUrl,
   adoProject,

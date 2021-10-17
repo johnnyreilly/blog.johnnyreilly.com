@@ -22,13 +22,13 @@ I write a lot of TypeScript. Because I like modularity, I split up my codebases 
 
 Take a look at this `import`:
 
-```ts
+```ts twoslash
 import * as utils from '../../../../../../../shared/utils';
 ```
 
 Now take a look at this import:
 
-```ts
+```ts twoslash
 import * as utils from 'shared/utils';
 ```
 
@@ -53,7 +53,7 @@ projectRoot
 
 We would like `page.tsx` to import `'shared/utils'` instead of `'../shared/utils'`. We can, if we augment our `tsconfig.json` with the following properties:
 
-```json
+```json twoslash
 {
   "compilerOptions": {
     "baseUrl": ".",
@@ -67,7 +67,7 @@ We would like `page.tsx` to import `'shared/utils'` instead of `'../shared/utils
 
 Then we can use option 2. We can happily write:
 
-```ts
+```ts twoslash
 import * as utils from 'shared/utils';
 ```
 
@@ -85,7 +85,7 @@ This same functionality has existed in webpack for a long time; actually much lo
 
 So, looking at that I should be able to augment my `webpack.config.js` like so:
 
-```js
+```js twoslash
 module.exports = {
   //...
   resolve: {
@@ -107,7 +107,7 @@ The declarations you make in the `tsconfig.json` are re-stated in the `webpack.c
 
 Fortunately, you don't have to. There's the [`tsconfig-paths-webpack-plugin`](https://github.com/dividab/tsconfig-paths-webpack-plugin) for webpack which will do the job for you. You can replace your verbose `resolve.alias` with this:
 
-```ts
+```ts twoslash
 module.exports = {
   //...
   resolve: {

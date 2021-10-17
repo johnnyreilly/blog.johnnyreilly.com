@@ -17,7 +17,8 @@ I cd my way to the root of my new ASP.Net Core Web Application and type the magi
 
 When it comes back up I see the following entries in the "output" tab:
 
-```ts
+```ts twoslash
+
 Updating C# dependencies...
 Platform: win32, x86_64 (win7-x64)
 
@@ -34,7 +35,8 @@ Note that mention of "debugger" there? Sounds super-promising. There's also some
 
 So it wants me to `dotnet restore`. It's even offering to do that for me! Have at you; I let it.
 
-```ts
+```ts twoslash
+
 Welcome to .NET Core!
 ---------------------
 Learn more about .NET Core @ https://aka.ms/dotnet-docs. Use dotnet --help to see available commands or go to https://aka.ms/dotnet-cli-docs.

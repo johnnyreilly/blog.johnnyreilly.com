@@ -114,7 +114,8 @@ npm install @craco/craco esbuild-loader --save-dev
 
 Then we'll swap over our various `scripts` in our `package.json` to use `CRACO`:
 
-```json
+```json twoslash
+
 "start": "craco start",
 "build": "craco build",
 "test": "craco test",
@@ -122,7 +123,7 @@ Then we'll swap over our various `scripts` in our `package.json` to use `CRACO`:
 
 Our app now uses CRACO, but we haven't yet configured it. So we'll add a `craco.config.js` file to the root of our project. This is where we swap out `babel-loader` for `esbuild-loader`:
 
-```js
+```js twoslash
 const {
   addAfterLoader,
   removeLoaders,

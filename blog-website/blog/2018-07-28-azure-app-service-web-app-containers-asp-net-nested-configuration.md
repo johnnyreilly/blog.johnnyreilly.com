@@ -18,7 +18,7 @@ I cannot over-emphasise just how easy this makes getting a Docker image into Pro
 
 Applications need configuration. ASP.Net Core applications are typically configured by an `appsettings.json` file which might look like so:
 
-```json
+```json twoslash
 {
   "Parent": {
     "ChildOne": "I'm a little teapot",

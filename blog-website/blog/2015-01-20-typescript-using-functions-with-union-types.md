@@ -13,19 +13,24 @@ In the [1\.4 announcement](https://blogs.msdn.com/b/typescript/archive/2015/01/1
 
 > JavaScript functions may take a number of possible argument types. Up to now, we’ve supported this using function overloads. Starting with TypeScript 1.4, we’ve generalized this capability and now allow you to specify that that a value is one of a number of different types using a union type:
 >
-> ```ts
+> ```ts twoslash
+>
+> ```
+
 > function f(x: number | number[]) {
->   if (typeof x === 'number') {
->     return x + 10;
->   } else {
->     // return sum of numbers
->   }
+> if (typeof x === 'number') {
+> return x + 10;
+> } else {
+> // return sum of numbers
 > }
+> }
+>
 > ```
 >
 > Once you have a value of a union type, you can use a typeof and instanceof checks to use the value in a type-safe way. You'll notice we use this in the above example and can treat x as a number type inside of the if-block.
 >
 > Union types are a new kind of type and work any place you specify a type.
+> ```
 
 Lovely right? But what's missing? Well, to my mind, the most helpful aspect of Union Types. Definition file creation.
 
@@ -53,7 +58,7 @@ There's the rub. Whilst it was possible to overload functions in TypeScript pre 
 
 possible to overload interface members. This meant the only way to model these sorts of properties was by seeking out a best common type which would fit all scenarios. This invariably meant using the `any` type. Whilst that worked it didn't lend any consuming code a great deal of type safety. Let's look at a truncated version of `<a href="https://github.com/borisyankov/DefinitelyTyped/blob/c71628e0765eb8e240d8eabd2225f64ea2e2fdb8/angularjs/angular-route.d.ts">angular-route.d.ts</a>` for these properties prior to union types:
 
-```ts
+```ts twoslash
 declare module ng.route {
   // ...
 
@@ -91,7 +96,7 @@ It's `any` city... Kind of sticks in the craw doesn't it?
 
 TypeScript 1.4 has shipped and Union Types are with us. We can do better than `any`. So what does `<a href="https://github.com/borisyankov/DefinitelyTyped/blob/30ce45e0e706322f34608ab6fa5de141bba59c90/angularjs/angular-route.d.ts">angular-route.d.ts</a>` look like now we have Union Types?
 
-```ts
+```ts twoslash
 declare module ng.route {
   // ...
 
@@ -131,7 +136,8 @@ Let's dig in a little. If you look at the `controller` definition it's pretty st
 
 Now let's look at the `template` definition by itself:
 
-```ts
+```ts twoslash
+
 template?: string | { ($routeParams?: ng.route.IRouteParamsService) : string; }
 ```
 
@@ -147,13 +153,15 @@ The thing that prompted me first to write this post was seeing that there don't 
 
 As [Daniel](https://twitter.com/Rickenhacker) helpfully points out in the comments there is an alternate syntax - lambda style. So instead of this:
 
-```ts
+```ts twoslash
+
 template?: string | { ($routeParams?: ng.route.IRouteParamsService) : string; }
 ```
 
 You could write this:
 
-```ts
+```ts twoslash
+
 template?: string | (($routeParams?: ng.route.IRouteParamsService) => string);
 ```
 

@@ -55,7 +55,7 @@ With the above in place, either the Microsoft Identity platform will directly be
 
 It turns out that directly using the Microsoft Identity platform, we see roles claims coming through like so:
 
-```json
+```json twoslash
 [
   // ...
   {
@@ -72,7 +72,7 @@ It turns out that directly using the Microsoft Identity platform, we see roles c
 
 But in Azure we see roles claims showing up with a different `type`:
 
-```json
+```json twoslash
 [
   // ...
   {
@@ -210,7 +210,7 @@ Now the significant change:
 
 Where the middleware encounters claims in the `X-MS-CLIENT-PRINCIPAL` header with the `Type` of `"roles"` it creates brand new claims for each, with the same `Value` but with the official `Type` supplied by `ClaimsTypes.Role` of `"http://schemas.microsoft.com/ws/2008/06/identity/claims/role"`. The upshot of this, is that when the processed claims are inspected in Azure they now look more like this:
 
-```json
+```json twoslash
 [
   // ...
   {

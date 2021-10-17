@@ -27,7 +27,8 @@ First hurdle jumped, the upgrade continues simple enough. Then the fun starts...
 
 Having upgraded my plugin I opened up the project I'm working on in Visual Studio. I used NuGet to upgrade all the Definitely Typed packages to the latest (TS 0.9.5) versions. Then I tried, and failed, to compile. It was the the most obscure error I've seen in a while:
 
-```ts
+```ts twoslash
+
 VSTSC : tsc.js(37574, 25) Microsoft JScript runtime error : Unable to get value of the property 'wrapsSomeTypeParameter': object is null or undefined
 ```
 
@@ -39,7 +40,7 @@ I decided to take a look at the Q typings at this point to see what was so upset
 
 Roughly speaking I went from:
 
-```ts
+```ts twoslash
 declare function Q<T>(promise: Q.IPromise<T>): Q.Promise<T>;
 declare function Q<T>(promise: JQueryPromise<T>): Q.Promise<T>;
 declare function Q<T>(value: T): Q.Promise<T>;
@@ -55,7 +56,8 @@ declare module 'q' {
 
 To:
 
-```ts
+```ts twoslash
+
 interface QIPromise<T> {
     //… functions etc in here
 }

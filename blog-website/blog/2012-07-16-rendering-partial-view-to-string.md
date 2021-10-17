@@ -13,7 +13,7 @@ Just last week I was thinking about `Partial Views`. Some background. I'm workin
 
 The wonderful thing about approach 2 is that it allows me to massively simplify my `success` to this:
 
-```js
+```js twoslash
 $('myRowSelector').empty().html(data.RowHTML); //Where RowHTML is the property that
 //contains my stringified PartialView
 ```

@@ -30,7 +30,7 @@ The answer is roles. There's a number of roles that exist in Azure that can be a
 
 Whilst this explanation is delightfully simple, the actual implementation when it comes to ARM templates is a little more involved. Because now it's time to talk "magic" GUIDs. Consider the following truncated ARM template, which gives our managed identity (and hence our App Service which uses this identity) access to Key Vault and Storage:
 
-```json
+```json twoslash
 {
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   // ...
@@ -103,7 +103,8 @@ Whilst this explanation is delightfully simple, the actual implementation when i
 
 Let's take a look at these three variables:
 
-```json
+```json twoslash
+
 "storageBlobDataContributor": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')]",
 "keyVaultSecretsOfficer": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', 'b86a8fe4-44ce-4948-aee5-eccb2c155cd7')]",
 "keyVaultCryptoOfficer": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '14b46e9e-c2b7-41b4-b07b-48a6ebf60603')]",
@@ -151,7 +152,7 @@ As you can see, the `Actions` section of the output above (and in even more deta
 
 So now we understand how you identify the roles in question, let's take the final leap and look at assigning those roles to our managed identity. For each role assignment, you'll need a `roleAssignments` resource defined that looks like this:
 
-```json
+```json twoslash
 {
   "type": "Microsoft.KeyVault/vaults/providers/roleAssignments",
   "apiVersion": "2018-01-01-preview",

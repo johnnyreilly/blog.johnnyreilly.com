@@ -83,7 +83,7 @@ The application I'm working on is plugging into an existing system which uses We
 
 Finally, React and Flux. I was completely new to these when I came onto the project and I quickly came to love them. There was a prejudice for me to overcome and that was JSX. When I first saw it I felt a little sick. "Have we learned _NOTHING_???" I wailed. "Don't we know that embedding strings in our controllers is a _BAD_ thing?" I was wrong. I had an epiphany. I discovered that JSX is not, as I first imagined, embedded HTML strings. Actually it's syntactic sugar for object creation. A simple example:
 
-```jsx
+```jsx twoslash
 var App;
 
 // Some JSX:

@@ -69,7 +69,7 @@ It's not. Let me show you how easily this is accomplished. First of all, wrap al
 
 Next, where you initialise your modals you need to make a little tweak:
 
-```js
+```js twoslash
 document.addEventListener('DOMContentLoaded', function () {
   M.Modal.init(document.querySelectorAll('.modal'), {
     onOpenStart: (modalDiv) => {

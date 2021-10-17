@@ -11,7 +11,8 @@ I'm lying. Mostly this goes out to me. I have a select box. I need it to render 
 
 Amongst the various gems on the GitHub issue are shared CodeSandboxes illustrating ways to integrate react-select with react-window. That's great and they do improve things. However, they don't do much to improve the laggy typing feel. There's [brief mention](https://github.com/JedWatson/react-select/issues/3128#issuecomment-431397942) of a props tweak you can make to react-select; this:
 
-```js
+```js twoslash
+
 filterOption={createFilter({ ignoreAccents: false })}
 ```
 
@@ -23,7 +24,7 @@ Here's a CodeSandbox which also includes the `ignoreAccents: false` tweak. Enjoy
 
 [![Edit johnnyreilly/react-window-with-react-select-less-laggy](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/zn70lqp31m?fontsize=14)
 
-```js
+```js twoslash
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Select, { createFilter } from 'react-select';

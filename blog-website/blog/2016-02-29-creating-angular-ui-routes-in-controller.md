@@ -26,7 +26,7 @@ Actually, that's not exactly what you want to do. If you look at the [Angular UI
 
 So what we actually want to do is use the `$state.href()` method in our controller. To take our example above we'll create another method on our controller called `getEditUrl`
 
-```js
+```js twoslash
 export class EntityController {
   $state: angular.ui.IStateService;
 

@@ -30,7 +30,7 @@ This means we can have a Markdown file in our repo which documents our task. To 
 
 So the simple addition of this:
 
-```json
+```json twoslash
 {
   //...
   "content": {
@@ -54,7 +54,7 @@ If we are referencing images in our `README.md` then, as it stands right now, th
 
 This is entirely correct and supported, but won't work by default. This is because these images need to be specified in the [`files` property](https://docs.microsoft.com/en-us/azure/devops/extend/develop/manifest?view=azure-devops#files) of the `vss-extension.json`.
 
-```json
+```json twoslash
 {
   //...
   "content": {

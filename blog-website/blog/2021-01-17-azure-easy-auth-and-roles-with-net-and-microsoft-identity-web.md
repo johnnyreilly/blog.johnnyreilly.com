@@ -42,7 +42,7 @@ Whilst the authentication works, authorization does not. So whilst my app knows 
 
 When directly using `Microsoft.Identity.Web` when running locally, we see these claims:
 
-```json
+```json twoslash
 [
   // ...
   {
@@ -59,7 +59,7 @@ When directly using `Microsoft.Identity.Web` when running locally, we see these 
 
 However, we get different behaviour with EasyAuth; it provides roles related claims with a **different type**:
 
-```json
+```json twoslash
 [
   // ...
   {

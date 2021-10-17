@@ -105,7 +105,8 @@ public interface ISageService
 
 To this:
 
-```ts
+```ts twoslash
+
 public interface ISageService
     {
         Task DeleteAsync(int id);

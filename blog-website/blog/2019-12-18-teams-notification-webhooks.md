@@ -36,7 +36,7 @@ Let's see if we can make this more interesting. It turns out that the the webhoo
 
 So if we have a notification payload file called `down.json`:
 
-```json
+```json twoslash
 {
   "title": "Your Notification Title",
   "textFormat": "markdown",

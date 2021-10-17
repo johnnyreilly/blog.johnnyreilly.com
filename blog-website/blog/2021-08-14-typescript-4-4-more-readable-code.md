@@ -40,7 +40,7 @@ Rather than starting with an explanation of what this new language feature is, l
 
 Here's a simple function that adds all the parameters it receives and returns the total. It's a tolerant function and will allow people to supply numbers in the form of strings as well; so it would successfully process `'2'` as it would `2`. This is, of course, a slightly contrived example, but should be useful for demonstrating the new feature.
 
-```ts
+```ts twoslash
 function add(...thingsToAdd: (string | number)[]): number {
   let total = 0;
   for (const thingToAdd of thingsToAdd) {
@@ -65,7 +65,7 @@ If we look at this function, whilst it works, it's not super expressive. The `ty
 
 You can infer this from reading the code. However, what if we were to re-write it to capture intent? Let's try creating a `shouldCoerceToNumber` constant which expresses the action we need to take:
 
-```ts
+```ts twoslash
 function add(...thingsToAdd: (string | number)[]): number {
   let total = 0;
   for (const thingToAdd of thingsToAdd) {

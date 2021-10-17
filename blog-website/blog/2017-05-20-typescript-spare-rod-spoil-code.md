@@ -13,7 +13,8 @@ The project that I am working on has the dial set fairly low; it's pretty much u
 
 I made the below changes to the `tsconfig.json` file. Details of what each of these settings does can be found in the documentation [here](https://www.typescriptlang.org/docs/handbook/compiler-options.html).
 
-```json
+```json twoslash
+
 "noImplicitAny": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
@@ -23,7 +24,7 @@ I made the below changes to the `tsconfig.json` file. Details of what each of th
 
 I said I found a bug. The nature of the bug was an unused variable; a variable was created in a function but then not used. Here's a super simple example:
 
-```ts
+```ts twoslash
 function sayHi(name: string) {
   const greeting = `Hi ${name}`;
   return name;

@@ -76,7 +76,7 @@ For a while I've been making use explicit use of the [Observer pattern](http://e
 
 So this is what it ended up looking like when I turned my 3 classes into JavaScript files / modules. First BaseReilly.js:
 
-```js
+```js twoslash
 $(function () {
   $.subscribe('PubSub.Inheritance.Emulation', function (obj) {
     obj.LastName = 'Reilly';
@@ -86,7 +86,7 @@ $(function () {
 
 Next BoyReilly.js:
 
-```js
+```js twoslash
 $(function () {
   $.subscribe('PubSub.Inheritance.Emulation', function (obj) {
     obj.Sex = 'It is a manchild';
@@ -96,7 +96,7 @@ $(function () {
 
 And finally JohnReilly.js:
 
-```js
+```js twoslash
 $(function () {
   $.subscribe('PubSub.Inheritance.Emulation', function (obj) {
     obj.FirstName = 'John';
@@ -106,7 +106,7 @@ $(function () {
 
 If the above scripts have been included in a page I can create myself my very own "JohnReilly" in JavaScript like so:
 
-```js
+```js twoslash
 var oJohnReilly = {}; //Empty object
 
 $.publish('PubSub.Inheritance.Emulation', [oJohnReilly]); //Empty object "published" so it can be enriched by subscribers

@@ -48,7 +48,7 @@ At this point globalize-so-what-cha-want consisted of a single `index.js` file i
 
 `index.js`[before](https://github.com/johnnyreilly/globalize-so-what-cha-want/tree/6cce84289134a555fe8462247b43eddb051303e3) looked like this:
 
-```js
+```js twoslash
 /* jshint varstmt: false, esnext: false */
 var DEPENDENCY_TYPES = {
   SHARED_JSON: 'Shared JSON (used by all locales)',
@@ -232,7 +232,7 @@ I fired up Atom and created a new folder `src/lib` and inside there I created `i
 
 Now I'm not going to bore you with what I had to do to port the JS to TS (not much). If you're interested, the source is [here](https://github.com/johnnyreilly/globalize-so-what-cha-want/blob/master/src/lib/index.ts). What's more interesting is the `tsconfig.json` \- as it's this that is going to lead the generation of the JS and TS that we need:
 
-```json
+```json twoslash
 {
   "compileOnSave": true,
   "compilerOptions": {
@@ -256,7 +256,7 @@ The things to notice are:
 
 So now, what do we get when we build in Atom? Well, we're generating an `<a href="https://github.com/johnnyreilly/globalize-so-what-cha-want/blob/master/index.js">index.js</a>` file which looks like this:
 
-```js
+```js twoslash
 var DEPENDENCY_TYPES = {
   SHARED_JSON: 'Shared JSON (used by all locales)',
   LOCALE_JSON: 'Locale specific JSON (supplied for each locale)',
@@ -426,7 +426,7 @@ Aside from one method moving internally and me adding some JSDoc, the only reall
 
 Now for our big finish: happily sat alongside is `index.js` is the `<a href="https://github.com/johnnyreilly/globalize-so-what-cha-want/blob/master/index.d.ts">index.d.ts</a>` file:
 
-```ts
+```ts twoslash
 export interface Options {
   currency?: boolean;
   date?: boolean;

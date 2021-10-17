@@ -89,7 +89,7 @@ Install-Package requirejs.TypeScript.DefinitelyTyped
 
 Right – looking at index.html we can see from the data-main tag that the first file loaded by RequireJS, our bootstrapper if you will, is main.js. So let’s add ourselves a main.ts based on [John's example](https://github.com/johnpapa/kis-requirejs-demo/blob/master/ModularDemo/Scripts3/main.js) (which will in turn generate a main.js):
 
-```ts
+```ts twoslash
 (function () {
   requirejs.config({
     baseUrl: 'scripts',
@@ -106,7 +106,7 @@ Right – looking at index.html we can see from the data-main tag that the first
 
 main.ts depends upon [alerter](https://github.com/johnpapa/kis-requirejs-demo/blob/master/ModularDemo/Scripts3/alerter.js) so let’s add ourselves an alerter.ts as well:
 
-```ts
+```ts twoslash
 define('alerter', ['jquery', 'dataservice'], function ($, dataservice) {
   var name = 'John',
     showMessage = function () {
@@ -123,7 +123,7 @@ define('alerter', ['jquery', 'dataservice'], function ($, dataservice) {
 
 And a [dataservice.ts](https://github.com/johnpapa/kis-requirejs-demo/blob/master/ModularDemo/Scripts3/dataservice.js):
 
-```ts
+```ts twoslash
 define('dataservice', [], function () {
   var msg = 'Welcome to Code Camp',
     getMessage = function () {
@@ -138,7 +138,7 @@ define('dataservice', [], function () {
 
 That all compiles fine. But we’re missing a trick. We’re supposed to be using TypeScripts AMD support so let’s change the code to do just that. First dataservice.ts:
 
-```ts
+```ts twoslash
 var msg = 'Welcome to Code Camp';
 
 export function getMessage() {
@@ -148,7 +148,7 @@ export function getMessage() {
 
 Then alerter.ts:
 
-```ts
+```ts twoslash
 import $ = require('jquery');
 import dataservice = require('dataservice');
 

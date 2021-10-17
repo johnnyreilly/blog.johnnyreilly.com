@@ -19,7 +19,7 @@ So I was wondering; in this modular world what would be the equivalent approach?
 
 raw-loader allows you load file content using `require` statements. This works well with the use case of inlining html. So I drop it into my `webpack.config.js` like so:
 
-```js
+```js twoslash
 var path = require('path');
 
 module.exports = {
@@ -75,7 +75,7 @@ module.exports = {
 
 With this in place, if someone requires a file with the `html` suffix then raw-loader comes in. So now we can swap this:
 
-```js
+```js twoslash
 $stateProvider.state('state1', {
   url: '/state1',
   templateUrl: 'partials/state1.html',
@@ -84,7 +84,7 @@ $stateProvider.state('state1', {
 
 For this:
 
-```js
+```js twoslash
 $stateProvider.state('state1', {
   url: '/state1',
   template: require('./partials/state1.html'),
@@ -93,7 +93,7 @@ $stateProvider.state('state1', {
 
 Now initially TypeScript is going to complain about your `require` statement. That's fair; outside of node-land it doesn't know what `require` is. No bother, you just need to drop in a one line simple definition file to sort this out; let me present `webpack-require.d.ts`:
 
-```ts
+```ts twoslash
 declare var require: (filename: string) => any;
 ```
 
@@ -103,7 +103,7 @@ You've now inlined your template. And for bonus points, if you were to make a mi
 
 The one use case that this doesn't cover is where your templates import other templates through use of the [ng-include](https://docs.angularjs.org/api/ng/directive/ngInclude) directive. They will still trigger http requests as the templates are served. The simple way to prevent that is by priming the angular `<a href="https://docs.angularjs.org/api/ng/service/$templateCache">$templateCache</a>` like so:
 
-```js
+```js twoslash
 app.run([
   '$templateCache',
   ($templateCache: ng.ITemplateCacheService) => {

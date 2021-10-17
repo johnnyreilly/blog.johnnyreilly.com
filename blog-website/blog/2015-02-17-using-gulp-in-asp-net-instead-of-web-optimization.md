@@ -105,7 +105,7 @@ The other thing to notice here is that our launch page has become oh so much sim
 
 Now before we start looking at our gulpfile I want to split out the configuration into a standalone file called gulpfile.config.js:
 
-```js
+```js twoslash
 var tsjsmapjsSuffix = '.{ts,js.map,js}';
 
 var bower = 'bower_components/';
@@ -177,7 +177,7 @@ module.exports = config;
 
 Now to the meat of the matter - let me present the gulpfile:
 
-```js
+```js twoslash
 /// <vs AfterBuild='default' />
 var gulp = require('gulp');
 

@@ -22,7 +22,7 @@ yarn add @fortawesome/react-fontawesome
 
 Now usage:
 
-```jsx
+```jsx twoslash
 import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faReact } from '@fortawesome/free-brands-svg-icons';

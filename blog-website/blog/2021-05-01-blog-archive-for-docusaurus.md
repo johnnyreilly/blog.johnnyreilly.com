@@ -30,7 +30,8 @@ Let's create our own blog archive in the land of the Docusaurus.
 
 We'll create a new page under the `pages` directory called `blog-archive.js` and we'll add a link to it in our `docusaurus.config.js`:
 
-```json
+```json twoslash
+
     navbar: {
       // ...
       items: [
@@ -45,7 +46,7 @@ We'll create a new page under the `pages` directory called `blog-archive.js` and
 
 This page will be powered by webpack's [`require.context`](https://webpack.js.org/guides/dependency-management/#requirecontext) function. `require.context` allows us to use webpack to obtain all of the blog modules:
 
-```js
+```js twoslash
 require.context('../../blog', false, /.md/);
 ```
 
@@ -53,7 +54,7 @@ The code snippet above looks in the `blog` directory for files / modules ending 
 
 By reducing over that data we can construct an array of objects called `allPosts` that could drive a blog archive screen. Let's do this below, and we'll use [TypeScripts JSDoc support](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html) to type our JavaScript:
 
-```tsx
+```tsx twoslash
 /**
  * @typedef {Object} BlogPost - creates a new type named 'BlogPost'
  * @property {string} date - eg "2021-04-24T00:00:00.000Z"
@@ -96,12 +97,12 @@ This gives us a flavour of the data available in the modules and shows how we pu
 
 Now we have our data in the form of `allPosts`, let's display it. We'd like to break it up into posts by year, which we can do by reducing and looking at the `date` property which is an ISO-8601 style date string taking a format that begins `yyyy-mm-dd`:
 
-```tsx
+```tsx twoslash
 const postsByYear = allPosts.reduceRight((posts, post) => {
   const year = post.date.split('-')[0];
   const yearPosts = posts.get(year) || [];
   return posts.set(year, [post, ...yearPosts]);
-}, /** @type {Map<string, BlogPost[]>}>} */ new Map());
+}, /** @type {Map<string, BlogPost[]>} */ new Map());
 
 const yearsOfPosts = Array.from(postsByYear, ([year, posts]) => ({
   year,
@@ -114,7 +115,7 @@ Now we're ready to blast it onto the screen. We'll create two components:
 - `Year` - which is a list of the posts for a given year and
 - `BlogArchive` - which is the overall page and maps over `yearsOfPosts` to render `Year`s
 
-```tsx
+```tsx twoslash
 function Year(
   /** @type {{ year: string; posts: BlogPost[]}} */ { year, posts }
 ) {
@@ -171,7 +172,7 @@ It is possible that a blog archive may become natively available in Docusaurus i
 
 Here's the final code - which you can see [powering this screen](https://blog.johnnyreilly.com/blog-archive). And you can see the code that backs it [here](https://github.com/johnnyreilly/blog.johnnyreilly.com/blob/main/blog-website/src/pages/blog-archive.js):
 
-```tsx
+```tsx twoslash
 import React from 'react';
 import clsx from 'clsx';
 import Layout from '@theme/Layout';
@@ -213,7 +214,7 @@ const postsByYear = allPosts.reduceRight((posts, post) => {
   const year = post.date.split('-')[0];
   const yearPosts = posts.get(year) || [];
   return posts.set(year, [post, ...yearPosts]);
-}, /** @type {Map<string, BlogPost[]>}>} */ new Map());
+}, /** @type {Map<string, BlogPost[]>} */ new Map());
 
 const yearsOfPosts = Array.from(postsByYear, ([year, posts]) => ({
   year,

@@ -49,7 +49,7 @@ When executed, they each load the same Change Request from Service Now with a di
 
 `sysparm_display_value=all`:
 
-```json
+```json twoslash
 {
   "state": {
     "display_value": "Closed",
@@ -77,7 +77,7 @@ When executed, they each load the same Change Request from Service Now with a di
 
 `sysparm_display_value=true`:
 
-```json
+```json twoslash
 {
   "state": "Closed",
   "sys_id": "4d54d7481b37e010d315cbb5464bcb95",
@@ -92,7 +92,7 @@ When executed, they each load the same Change Request from Service Now with a di
 
 `sysparm_display_value=false`:
 
-```json
+```json twoslash
 {
   "state": "3",
   "sys_id": "4d54d7481b37e010d315cbb5464bcb95",
@@ -119,7 +119,7 @@ What can we do? Well, if all of the underlying properties were of the same type,
 
 Let's begin by creating a string literal type of the possible values of `sysparm_display_value`:
 
-```ts
+```ts twoslash
 export type DisplayValue = 'all' | 'true' | 'false';
 ```
 
@@ -134,7 +134,7 @@ Next we need to create a type that models the object with `display_value` and `v
 
 :::
 
-```ts
+```ts twoslash
 export interface ValueAndDisplayValue<TValue = string, TDisplayValue = string> {
   display_value: TDisplayValue;
   value: TValue;
@@ -145,7 +145,7 @@ Note that this is a generic property with a default type of `string` for both `d
 
 Now we're going to create our first conditional type:
 
-```ts
+```ts twoslash
 export type PropertyValue<
   TAllTrueFalse extends DisplayValue,
   TValue = string,
@@ -159,7 +159,7 @@ export type PropertyValue<
 
 The `PropertyValue` will either be a `ValueAndDisplayValue`, a `TDisplayValue` or a `TValue`, depending upon whether `PropertyValue` is `'all'`, `'true'` or `'false'` respectively. That's hard to grok. Let's look at an example of each of those cases using the `reason` property, which allows a `TValue` of `string` and a `TDisplayValue` of `string | null`:
 
-```ts
+```ts twoslash
 const reasonAll: PropertyValue<'all', string, string | null> = {
   display_value: null,
   value: '',
@@ -174,7 +174,7 @@ Consider the type on the left and the value on the right. We're successfully mod
 
 Let's look at another usage. We'll create a type that repesents the possible values of a Change Request's `state` in Service Now. Do take a moment to appreciate these values. Many engineers were lost in the numerous missions to obtain these rare and secret enums. Alas, the Service Now API docs have some significant gaps.
 
-```ts
+```ts twoslash
 /** represents the possible Change Request "State" values in Service Now */
 export const STATE = {
   NEW: '-5',
@@ -194,7 +194,7 @@ export type State = typeof STATE[keyof typeof STATE];
 
 By combining `State` and `PropertyValue`, we can strongly type the `state` property of Change Requests. Consider:
 
-```ts
+```ts twoslash
 const stateAll: PropertyValue<'all', State> = {
   display_value: 'Closed',
   value: '3',
@@ -213,7 +213,7 @@ With that in place, let's turn our attention to our other natural type that the 
 
 :::
 
-```ts
+```ts twoslash
 interface Link {
   link: string;
 }
@@ -236,7 +236,7 @@ export interface LinkValueAndDisplayValue
 
 The three types above model the different scenarios. Now we need a conditional type to make use of them:
 
-```ts
+```ts twoslash
 export type LinkValue<TAllTrueFalse extends DisplayValue> =
   TAllTrueFalse extends 'all'
     ? LinkValueAndDisplayValue
@@ -247,7 +247,7 @@ export type LinkValue<TAllTrueFalse extends DisplayValue> =
 
 This is hopefully simpler to read than the `PropertyValue` type, and if you look at the examples below you can see what usage looks like:
 
-```ts
+```ts twoslash
 const requested_byAll: LinkValue<'all'> = {
   display_value: 'Sally Omer',
   link: 'https://ourcompanyinstance.service-now.com/api/now/table/sys_user/b15cf3ebdbe11300f196f3651d961999',
@@ -267,7 +267,7 @@ const requested_byFalse: LinkValue<'false'> = {
 
 With these primitives in place, we can now build ourself a (cut-down) type that models a Change Request:
 
-```ts
+```ts twoslash
 export interface ServiceNowChangeRequest<TAllTrueFalse extends DisplayValue> {
   state: PropertyValue<TAllTrueFalse, State>;
   sys_id: PropertyValue<TAllTrueFalse>;
@@ -282,7 +282,7 @@ This is a generic type which will accept `'all'`, `'true'` or `'false'` and will
 
 To test it out, let's take the JSON responses we got back from our curls at the start, and see if we can make `ServiceNowChangeRequest`s with them.
 
-```ts
+```ts twoslash
 const changeRequestFalse: ServiceNowChangeRequest<'false'> = {
   state: '3',
   sys_id: '4d54d7481b37e010d315cbb5464bcb95',

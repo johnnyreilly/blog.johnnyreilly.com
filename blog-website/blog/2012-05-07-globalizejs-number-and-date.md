@@ -101,7 +101,8 @@ The long and short of which was:
 
 Globalize.js clearly has a rosy future in front of it. Using the new Globalize.js library was still simplicity itself. Here's some examples of localising dates / numbers using the German culture:
 
-```js
+```js twoslash
+
 <script
   src="/Scripts/Globalize/globalize.js"
   type="text/javascript"></script>

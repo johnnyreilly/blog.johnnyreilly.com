@@ -12,27 +12,35 @@ As a user (and big fan) of TypeScript I read the post with interest and picked u
 
 > Classes make the unchanged behaviour of the `this` keyword more confusing. For example, in a class like `Greeter` from the [TypeScript playground](http://www.typescriptlang.org/Playground), the use of `this` is confusing:
 >
-> ```ts
-> class Greeter {
->   greeting: string;
->   constructor(message: string) {
->     this.greeting = message;
->   }
->   greet() {
->     return 'Hello, ' + this.greeting;
->   }
-> }
+> ```ts twoslash
+>
 > ```
+
+> class Greeter {
+> greeting: string;
+> constructor(message: string) {
+> this.greeting = message;
+> }
+> greet() {
+> return 'Hello, ' + this.greeting;
+> }
+> }
+>
+> ````
 >
 > One can’t help but feel the `this` keyword in the methods of `Greeter` should always reference a `Greeter` instance. However, the semantics of this are unchanged from JavaScript:
 >
-> ```js
+> ```js twoslash
+> ````
+
 > var greeter = new Greeter('world');
 > var unbound = greeter.greet;
 > alert(unbound());
+>
 > ```
 >
 > The above code displays “Hello, undefined” instead of the naively expected “Hello, world”.
+> ```
 
 Now Jeff is quite correct in everything he says above. However, he's also missing a trick. Or rather, he's missing out on a very useful feature of TypeScript.
 
@@ -48,7 +56,7 @@ Instance Methods are lexically scoped; bound to a specific instance of a JavaScr
 
 So, if we take the `Greeter` example, how do we apply Instance Methods to it? Well, like this:
 
-```ts
+```ts twoslash
 class Greeter {
   greeting: string;
   constructor(message: string) {
@@ -64,7 +72,7 @@ Can you tell the difference? It's subtle. That's right; the mere swapping out of
 
 Observant readers will have noticed that we are using TypeScript / [ES6's Arrow Function syntax](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/arrow_functions). In fact with that in mind I could actually have gone super-terse if I was so inclined:
 
-```ts
+```ts twoslash
 class Greeter {
   greeting: string;
   constructor(message: string) {
@@ -76,7 +84,7 @@ class Greeter {
 
 But either way, both of the above class declarations compile down to the following JavaScript:
 
-```js
+```js twoslash
 var Greeter = (function () {
   function Greeter(message) {
     var _this = this;
@@ -91,7 +99,7 @@ var Greeter = (function () {
 
 Which differs from the pre-Instance Methods generated JavaScript:
 
-```js
+```js twoslash
 var Greeter = (function () {
   function Greeter(message) {
     this.greeting = message;
@@ -107,7 +115,7 @@ As you can see the Instance Methods approach does \***not**\* make use of the `p
 
 So with Instance Methods we can repeat Jeff's experiment from earlier:
 
-```js
+```js twoslash
 var greeter = new Greeter('world');
 var bound = greeter.greet;
 alert(bound());
@@ -121,7 +129,7 @@ But this time round the code displays “Hello, world” and no longer “Hello,
 
 What I’ve come to realise is that it comes down to problem that you’re trying to solve. Instance methods are bulletproof in terms of relying on a specific instance of `this` regardless of how a method is invoked. But for many of my use cases that’s overkill. Let’s take the original (`prototype` methods) `Greeter` example:
 
-```js
+```js twoslash
 var Greeter = (function () {
   function Greeter(message) {
     this.greeting = message;

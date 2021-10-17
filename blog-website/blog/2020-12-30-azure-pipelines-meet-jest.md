@@ -29,7 +29,8 @@ The above will, when run, trigger a `npm run test` in the `src/client-app` folde
 
 In our `src/client-app/package.json` let's create a new script that runs the tests but _not_ in watch mode:
 
-```json
+```json twoslash
+
 "test:ci": "npm run test -- --watchAll=false",
 ```
 
@@ -65,13 +66,15 @@ npm install jest-junit --save-dev
 
 And we'll tweak our `test:ci` script to use the `jest-junit` reporter as well:
 
-```json
+```json twoslash
+
 "test:ci": "npm run test -- --watchAll=false --reporters=default --reporters=jest-junit",
 ```
 
 We also need to add some configuration to our `package.json` in the form of a `jest-junit` element:
 
-```json
+```json twoslash
+
 "jest-junit": {
         "suiteNameTemplate": "{filepath}",
         "outputDirectory": ".",

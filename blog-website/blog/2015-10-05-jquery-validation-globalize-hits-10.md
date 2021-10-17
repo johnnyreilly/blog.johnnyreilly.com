@@ -9,7 +9,7 @@ This is just a quick post - the tl;dr is this: jQuery Validation Globalize has b
 
 The code did not change drastically - essentially it was just a question of swapping `parseFloat` for `parseNumber` and `parseDate` for a slightly different `parseDate`. So, we went from this:
 
-```js
+```js twoslash
 (function ($, Globalize) {
   // Clone original methods we want to call into
   var originalMethods = {
@@ -54,7 +54,7 @@ The code did not change drastically - essentially it was just a question of swap
 
 To this:
 
-```js
+```js twoslash
 (function ($, Globalize) {
   // Clone original methods we want to call into
   var originalMethods = {
@@ -106,7 +106,8 @@ To this:
 
 All of which is pretty self-explanatory. The only thing I'd like to draw out is that Globalize 0.1.x didn't force you to specify a date parsing format and, as I recall, would attempt various methods of parsing. For that reason jQuery Validation Globalize 1.0 exposes a `$.validator.methods.dateGlobalizeOptions` which allows you to specify the data parsing format you want to use. This means, should you be using a different format than the out of the box one then you can tweak it like so:
 
-```js
+```js twoslash
+
 $.validator.methods.dateGlobalizeOptions.dateParseFormat = // your data parsing format goes here...
 ```
 
