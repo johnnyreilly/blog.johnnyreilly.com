@@ -4,8 +4,8 @@ const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
-/** @type {import('@docusaurus/types').DocusaurusConfig} */
-module.exports = {
+/** @type {import('@docusaurus/types').Config} */
+const config = {
   title: 'I CAN MAKE THIS WORK',
   tagline: 'The blog of johnnyreilly ❤️🌻',
   url: 'https://blog.johnnyreilly.com',
@@ -15,6 +15,36 @@ module.exports = {
   favicon: 'img/favicon.ico',
   organizationName: 'johnnyreilly', // Usually your GitHub org/user name.
   projectName: 'blog.johnnyreilly.com', // Usually your repo name.
+
+  presets: [
+    [
+      '@docusaurus/preset-classic',
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      {
+        docs: false,
+        blog: {
+          blogTitle: 'I CAN MAKE THIS WORK',
+          blogDescription: 'The blog of johnnyreilly',
+          /**
+           * Number of blog post elements to show in the blog sidebar
+           * 'ALL' to show all blog posts
+           * 0 to disable
+           */
+          blogSidebarCount: 5,
+          postsPerPage: 1,
+          path: './blog',
+          routeBasePath: '/', // Set this value to '/'.
+          showReadingTime: true,
+          editUrl:
+            'https://github.com/johnnyreilly/blog.johnnyreilly.com/edit/main/blog-website/blog/',
+        },
+        theme: {
+          customCss: require.resolve('./src/css/custom.css'),
+        },
+      },
+    ],
+  ],
+
   plugins: [
     [
       '@docusaurus/plugin-ideal-image',
@@ -112,26 +142,28 @@ module.exports = {
       },
     ],
   ],
-  themeConfig: {
-    // <meta name="robots" content="max-image-preview:large">
-    metadatas: [{ name: 'robots', content: 'max-image-preview:large' }],
+  themeConfig:
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    ({
+      // <meta name="robots" content="max-image-preview:large">
+      metadatas: [{ name: 'robots', content: 'max-image-preview:large' }],
 
-    // Relative to your site's 'static' directory.
-    // Cannot be SVGs. Can be external URLs too.
-    image: 'img/profile.png',
-    googleAnalytics: {
-      trackingID: 'UA-51754530-2',
-      // Optional fields.
-      anonymizeIP: true, // Should IPs be anonymized?
-    },
-    navbar: {
-      title: 'I CAN MAKE THIS WORK',
-      logo: {
-        alt: 'I CAN MAKE THIS WORK',
-        src: 'img/profile.jpg',
+      // Relative to your site's 'static' directory.
+      // Cannot be SVGs. Can be external URLs too.
+      image: 'img/profile.png',
+      googleAnalytics: {
+        trackingID: 'UA-51754530-2',
+        // Optional fields.
+        anonymizeIP: true, // Should IPs be anonymized?
       },
-      items: [
-        /*
+      navbar: {
+        title: 'I CAN MAKE THIS WORK',
+        logo: {
+          alt: 'I CAN MAKE THIS WORK',
+          src: 'img/profile.jpg',
+        },
+        items: [
+          /*
         {
           type: 'doc',
           docId: 'intro',
@@ -139,100 +171,62 @@ module.exports = {
           label: 'Tutorial',
         },
         */
-        { to: 'about', label: 'About', position: 'left' },
-        { to: 'blog-archive', label: 'Blog Archive', position: 'left' },
-        { to: 'talks', label: 'Talks', position: 'left' },
-        {
-          href: 'https://polywork.johnnyreilly.com/',
-          label: 'Polywork',
-          position: 'right',
-        },
-        {
-          href: 'https://github.com/johnnyreilly',
-          label: 'GitHub',
-          position: 'right',
-        },
-        {
-          href: 'https://twitter.com/johnny_reilly',
-          label: 'Twitter',
-          position: 'right',
-        },
-      ],
-    },
-    footer: {
-      style: 'dark',
-      links: [
-        {
-          title: 'Support me',
-          items: [
-            {
-              html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
-            },
-            {
-              html: `<div style="display: flex; align-items: center;"><iframe src="https://github.com/sponsors/johnnyreilly/button" title="Sponsor johnnyreilly" height="35" width="116" style="border: 0;"></iframe><div>&nbsp;on GitHub</div></div>`,
-            },
-          ],
-        },
-        {
-          title: 'Feeds',
-          items: [
-            {
-              label: 'RSS',
-              href: 'https://blog.johnnyreilly.com/rss.xml',
-            },
-            {
-              label: 'Atom',
-              href: 'https://blog.johnnyreilly.com/atom.xml',
-            },
-          ],
-        },
-        // {
-        //   title: 'More',
-        //   items: [
-        //     {
-        //       label: 'Blog',
-        //       to: 'blog',
-        //     },
-        //     {
-        //       label: 'GitHub',
-        //       href: 'https://github.com/facebook/docusaurus',
-        //     },
-        //   ],
-        // },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
-    },
-    prism: {
-      theme: lightCodeTheme,
-      darkTheme: darkCodeTheme,
-      additionalLanguages: ['powershell', 'csharp', 'docker', 'bicep'],
-    },
-  },
-  presets: [
-    [
-      '@docusaurus/preset-classic',
-      {
-        docs: false,
-        blog: {
-          blogTitle: 'I CAN MAKE THIS WORK',
-          blogDescription: 'The blog of johnnyreilly',
-          /**
-           * Number of blog post elements to show in the blog sidebar
-           * 'ALL' to show all blog posts
-           * 0 to disable
-           */
-          blogSidebarCount: 5,
-          postsPerPage: 1,
-          path: './blog',
-          routeBasePath: '/', // Set this value to '/'.
-          showReadingTime: true,
-          editUrl:
-            'https://github.com/johnnyreilly/blog.johnnyreilly.com/edit/main/blog-website/blog/',
-        },
-        theme: {
-          customCss: require.resolve('./src/css/custom.css'),
-        },
+          { to: 'about', label: 'About', position: 'left' },
+          { to: 'blog-archive', label: 'Blog Archive', position: 'left' },
+          { to: 'talks', label: 'Talks', position: 'left' },
+          {
+            href: 'https://polywork.johnnyreilly.com/',
+            label: 'Polywork',
+            position: 'right',
+          },
+          {
+            href: 'https://github.com/johnnyreilly',
+            label: 'GitHub',
+            position: 'right',
+          },
+          {
+            href: 'https://twitter.com/johnny_reilly',
+            label: 'Twitter',
+            position: 'right',
+          },
+        ],
       },
-    ],
-  ],
+      footer: {
+        style: 'dark',
+        links: [
+          {
+            title: 'Support me',
+            items: [
+              {
+                html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
+              },
+              {
+                html: `<div style="display: flex; align-items: center;"><iframe src="https://github.com/sponsors/johnnyreilly/button" title="Sponsor johnnyreilly" height="35" width="116" style="border: 0;"></iframe><div>&nbsp;on GitHub</div></div>`,
+              },
+            ],
+          },
+          {
+            title: 'Feeds',
+            items: [
+              {
+                label: 'RSS',
+                href: 'https://blog.johnnyreilly.com/rss.xml',
+              },
+              {
+                label: 'Atom',
+                href: 'https://blog.johnnyreilly.com/atom.xml',
+              },
+            ],
+          },
+        ],
+        copyright: `Copyright © ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
+      },
+      prism: {
+        theme: lightCodeTheme,
+        darkTheme: darkCodeTheme,
+        additionalLanguages: ['powershell', 'csharp', 'docker', 'bicep'],
+      },
+    }),
 };
+
+module.exports = config;

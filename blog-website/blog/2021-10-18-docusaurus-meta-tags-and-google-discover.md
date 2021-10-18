@@ -2,7 +2,7 @@
 title: 'Docusaurus, meta tags and Google Discover'
 authors: johnnyreilly
 tags: [Docusaurus, meta tags, max-image-preview, Google Discover]
-image: blog/2021-10-18-docusaurus-meta-tags-and-google-discover/structured-data-seo-and-react.png
+image: blog/2021-10-18-docusaurus-meta-tags-and-google-discover/title-image.png
 hide_table_of_contents: false
 ---
 

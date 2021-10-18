@@ -1169,7 +1169,7 @@
     "@docsearch/css" "3.0.0-alpha.40"
     algoliasearch "^4.0.0"
 
-"@docusaurus/core@2.0.0-beta.7", "@docusaurus/core@^2.0.0-beta.5":
+"@docusaurus/core@2.0.0-beta.7", "@docusaurus/core@^2.0.0-beta.7":
   version "2.0.0-beta.7"
   resolved "https://registry.yarnpkg.com/@docusaurus/core/-/core-2.0.0-beta.7.tgz#cdfcb57c6737c51122e6b1c009f58cc5570f896b"
   integrity sha512-owJDhldpimQBOCr6YbGJiQRQufK3A9zmA3lyDnbtipAGV+sDRQNiYKUDtwnbESCchA4vhKj7suvcLvA4sSEVIQ==
@@ -1297,7 +1297,7 @@
     url-loader "^4.1.1"
     webpack "^5.40.0"
 
-"@docusaurus/plugin-client-redirects@^2.0.0-beta.5":
+"@docusaurus/plugin-client-redirects@^2.0.0-beta.7":
   version "2.0.0-beta.7"
   resolved "https://registry.yarnpkg.com/@docusaurus/plugin-client-redirects/-/plugin-client-redirects-2.0.0-beta.7.tgz#cbe1831ed9e21a001f92241ed1202b463c328dab"
   integrity sha512-F98HKcLaR33Q2gcF116WAz5Pz5GMXiDQaWTlzeTDCvtLsOpdu1NZDMo9kMwUg7q9rTDaS5Wy1igEdI5ayk9FSA==
@@ -1406,7 +1406,7 @@
   dependencies:
     "@docusaurus/core" "2.0.0-beta.7"
 
-"@docusaurus/plugin-ideal-image@^2.0.0-beta.5":
+"@docusaurus/plugin-ideal-image@^2.0.0-beta.7":
   version "2.0.0-beta.7"
   resolved "https://registry.yarnpkg.com/@docusaurus/plugin-ideal-image/-/plugin-ideal-image-2.0.0-beta.7.tgz#9ca1f66ce6e51652d9de39721f09e7611766af18"
   integrity sha512-kGJ9ploYjOX3NzCundgAWMr5tBYfCKT3KtHnUg2co19lCvHsMwI9exi7Bd9cuY1646RIYgTQ/O+pPx2j0Q0iSw==
@@ -1421,7 +1421,7 @@
     tslib "^2.3.1"
     webpack "^5.40.0"
 
-"@docusaurus/plugin-pwa@^2.0.0-beta.5":
+"@docusaurus/plugin-pwa@^2.0.0-beta.7":
   version "2.0.0-beta.7"
   resolved "https://registry.yarnpkg.com/@docusaurus/plugin-pwa/-/plugin-pwa-2.0.0-beta.7.tgz#45f18bdfb6bc9df7afaedfed4b597e4edf2b606b"
   integrity sha512-vYJiLRIbo9+7BKrJMwSp5kZxp50qbp9LluOnbCTFiWHzCLJgHMxsm2rHL/ENE6ZcGWIAYdZ82xLBjAmD0MCT1A==
@@ -1457,7 +1457,7 @@
     sitemap "^7.0.0"
     tslib "^2.3.1"
 
-"@docusaurus/preset-classic@^2.0.0-beta.5":
+"@docusaurus/preset-classic@^2.0.0-beta.7":
   version "2.0.0-beta.7"
   resolved "https://registry.yarnpkg.com/@docusaurus/preset-classic/-/preset-classic-2.0.0-beta.7.tgz#7340144e1ed486ef14cdbfd4366e2d7fc350ff13"
   integrity sha512-lrIpgjrcea3AxroU7G1q1cMFxYNBJleNWCMJ+3Ed1cwn6yRmOQAtUJPQzhPX67Uay5Wl6d2K8/cPpMdAT3E0Fg==
