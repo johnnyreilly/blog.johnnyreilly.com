@@ -13,11 +13,11 @@ Google Discover is a way that people can find your content. To make your content
 
 ## Google Discover
 
-I'm an Android user. Google will present articles to me in various places on my phone. [According to the docs](https://developers.google.com/search/docs/advanced/mobile/google-discover):
+I'm an Android user. Google Discover will present articles to me in various places on my phone. [According to the docs](https://developers.google.com/search/docs/advanced/mobile/google-discover):
 
 > With Discover, you can get updates for your interests, like your favorite sports team or news site, without searching for them. You can choose the types of updates you want to see in Discover in the Google app or when you’re browsing the web on your phone.
 
-To be completely honest, much of the content in Google Discover isn't interesting to me. But some is. It turns out that my own content is showing up in Discover. I (ahem) discovered this by looking at the Google search console and noticing a discover tab:
+It turns out that my own content is showing up in Discover. I (ahem) discovered this by looking at the Google search console and noticing a "Discover" tab:
 
 ![screenshot of the Google search console featuring a "discover" image](../static/blog/2021-10-18-docusaurus-meta-tags-and-google-discover/screenshot-of-discover-in-search-console.png)
 
@@ -61,7 +61,7 @@ With that in place, we find our expected `meta` tag is now part of our rendered 
 
 ![screenshot of the <meta name="robots" content="max-image-preview:large"> tag taken from Chrome Devtools](../static/blog/2021-10-18-docusaurus-meta-tags-and-google-discover/screenshot-of-meta-tag.png)
 
-## Meta-meta
+## Meta meta
 
 We should now have a more Google Discover-friendly website which is tremendous!
 
