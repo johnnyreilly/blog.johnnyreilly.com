@@ -11,41 +11,41 @@ It's only now that I've got round to taking at look at this marvellous feature. 
 
 ## Turning on nullable reference types
 
-To turn on nullable reference types in a C# project you should pop open the `.csproj` file and ensure it contains a `&lt;Nullable&gt;enable&lt;/Nullable&gt;`. So if you had a .NET Core 3.1 codebase it might look like this:
+To turn on nullable reference types in a C# project you should pop open the `.csproj` file and ensure it contains a `<Nullable>enable</Nullable>`. So if you had a .NET Core 3.1 codebase it might look like this:
 
 ```xml
 <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Nullable>enable</Nullable>
-  </PropertyGroup>
+</PropertyGroup>
 ```
 
 When you compile from this point forward, possible null reference types are reported as warnings. Consider this C#:
 
 ```cs
 [ApiController]
-    public class UserController : ControllerBase
+public class UserController : ControllerBase
+{
+    private readonly ILogger<UserController> _logger;
+
+    public UserController(ILogger<UserController> logger)
     {
-        private readonly ILogger<UserController> _logger;
-
-        public UserController(ILogger<UserController> logger)
-        {
-            _logger = logger;
-        }
-
-        [AllowAnonymous]
-        [HttpGet("UserName")]
-        public string GetUserName()
-        {
-            if (User.Identity.IsAuthenticated) {
-                _logger.LogInformation("{User} is getting their username", User.Identity.Name);
-                return User.Identity.Name;
-            }
-
-            _logger.LogInformation("The user is not authenticated");
-            return null;
-        }
+        _logger = logger;
     }
+
+    [AllowAnonymous]
+    [HttpGet("UserName")]
+    public string GetUserName()
+    {
+        if (User.Identity.IsAuthenticated) {
+            _logger.LogInformation("{User} is getting their username", User.Identity.Name);
+            return User.Identity.Name;
+        }
+
+        _logger.LogInformation("The user is not authenticated");
+        return null;
+    }
+}
 ```
 
 A `dotnet build` results in this:
@@ -82,7 +82,7 @@ This is good - information is being surfaced up. But it's a warning. I could ign
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Nullable>enable</Nullable>
     <WarningsAsErrors>nullable</WarningsAsErrors>
-  </PropertyGroup>
+</PropertyGroup>
 ```
 
 And a `dotnet build` will result in this:
@@ -114,17 +114,17 @@ Yay! Errors!
 
 ```cs
 [AllowAnonymous]
-        [HttpGet("UserName")]
-        public string GetUserName()
-        {
-            if (User.Identity.IsAuthenticated) {
-                _logger.LogInformation("{User} is getting their username", User.Identity.Name);
-                return User.Identity.Name;
-            }
+[HttpGet("UserName")]
+public string GetUserName()
+{
+    if (User.Identity.IsAuthenticated) {
+        _logger.LogInformation("{User} is getting their username", User.Identity.Name);
+        return User.Identity.Name;
+    }
 
-            _logger.LogInformation("The user is not authenticated");
-            return null;
-        }
+    _logger.LogInformation("The user is not authenticated");
+    return null;
+}
 ```
 
 We're getting that error reported where we're returning `null` and where we're returning `User.Identity.Name` which _may_ be `null`. And we're getting that because as far as the compiler is concerned `string` has changed. Before we turned on nullable reference types the compiler considered `string` to mean `string` _OR_`null`. Now, `string` means `string`.
