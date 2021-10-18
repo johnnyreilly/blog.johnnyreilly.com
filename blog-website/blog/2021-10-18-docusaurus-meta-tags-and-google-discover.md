@@ -58,10 +58,10 @@ module.exports = {
 
 With that in place, we find our expected `meta` tag is now part of our rendered HTML:
 
-ß
+![screenshot of the <meta name="robots" content="max-image-preview:large"> tag taken from Chrome Devtools](../static/blog/2021-10-18-docusaurus-meta-tags-and-google-discover/screenshot-of-meta-tag.png)
 
-Fun fact: the PR that published this blog post is the same PR that added `max-image-preview:standard` to my blog. [Peep it here]() - meta in so many ways 😉
+## Meta-meta
 
-https://developers.google.com/search/docs/advanced/mobile/google-discover
+We should now have a more Google Discover-friendly website which is tremendous!
 
-https://developers.google.com/search/docs/advanced/robots/robots_meta_tag#max-image-preview
+Before signing off, here's a fun fact: the PR that published this blog post is the _same_ PR that added `max-image-preview:standard` to my blog. [Peep it here](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/114) - meta in so many ways 😉
