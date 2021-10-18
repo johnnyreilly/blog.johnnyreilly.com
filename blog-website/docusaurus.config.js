@@ -113,6 +113,9 @@ module.exports = {
     ],
   ],
   themeConfig: {
+    // <meta name="robots" content="max-image-preview:large">
+    metadatas: [{ name: 'robots', content: 'max-image-preview:large' }],
+
     // Relative to your site's 'static' directory.
     // Cannot be SVGs. Can be external URLs too.
     image: 'img/profile.png',
