@@ -2,21 +2,44 @@
 title: 'Docusaurus, meta tags and Google Discover'
 authors: johnnyreilly
 tags: [Docusaurus, meta tags, max-image-preview, Google Discover]
-image: blog/2021-10-15-structured-data-seo-and-react/structured-data-seo-and-react.png
+image: blog/2021-10-18-docusaurus-meta-tags-and-google-discover/structured-data-seo-and-react.png
 hide_table_of_contents: false
 ---
 
 Google Discover is a way that people can find your content. To make your content more attractive, Google encourage using high quality images which are enabled by setting the `max-image-preview:large` meta tag. This post shows you how to achieve that with Docusaurus.
 
+![title image reading "Docusaurus, meta tags and Google Discover" with a Docusaurus logo and the Google Discover phone photo taken from https://developers.google.com/search/docs/advanced/mobile/google-discover](../static/blog/2021-10-18-docusaurus-meta-tags-and-google-discover/title-image.png)
+
 ## Google Discover
 
-People being able to discover your website when they search is important. This post is about how you can add structured data to a site. Adding structured data will help search engines like Google understand your content, and get it in front of more eyeballs. We'll illustrate this by making a simple React app which incorporates structured data.
-
-This post is evolving into a talk; [sign up here](https://blog.logrocket.com/logrocket-react-meetup-react-structured-data-and-seo/).
-
-![title image reading "Structured data, SEO and React" with a screenshot of the rich results tool in the background](../static/blog/2021-10-15-structured-data-seo-and-react/structured-data-seo-and-react.png)
+I'm an Android user. Google will present articles to me in various places on my phone. [According to the docs](https://developers.google.com/search/docs/advanced/mobile/google-discover):
 
 > With Discover, you can get updates for your interests, like your favorite sports team or news site, without searching for them. You can choose the types of updates you want to see in Discover in the Google app or when you’re browsing the web on your phone.
+
+To be completely honest, much of the content in Google Discover isn't interesting to me. But some is. It turns out that my own content is showing up in Discover. I (ahem) discovered this by looking at the Google search console and noticing a discover tab:
+
+![screenshot of the Google search console featuring a "discover" image](../static/blog/2021-10-18-docusaurus-meta-tags-and-google-discover/screenshot-of-discover-in-search-console.png)
+
+As I read up about Discover I noticed this:
+
+> To increase the likelihood of your content appearing in Discover, we recommend the following:
+> ...
+>
+> - Include compelling, high-quality images in your content, especially large images that are more likely to generate visits from Discover. Large images need to be at least 1200 px wide and enabled by the `max-image-preview:large` setting...
+
+I try and include images as described... But `max-image-preview:large` was news to me. [Reading up further](https://developers.google.com/search/docs/advanced/robots/robots_meta_tag#max-image-preview) revealed that it was simply a meta tag that looked like this:
+
+```html
+<meta name="robots" content="max-image-preview:standard" />
+```
+
+Incidentally, applying this setting will affect to all forms of search results. So not just Discover, but Google web search, Google Images and Assistant as well.
+
+## Docusaurus let's get meta
+
+Now we understand what we want (an extra meta tag on all our pages), how do we apply this to Docusaurus?
+
+Fun fact: the PR that published this blog post is the same PR that added `max-image-preview:standard` to my blog. [Peep it here]() - meta in so many ways 😉
 
 https://developers.google.com/search/docs/advanced/mobile/google-discover
 
@@ -53,17 +76,17 @@ As well as there being different types of structured data, there also a variety 
 
 Whilst structured data is helpful for search engines in general, it can also make a difference to the way your content is rendered _inside_ search results. For instance, let's search for "best brownie recipe" in Google and see what shows up:
 
-![screenshot of google search results for "best brownie recipe" including a rich text results set at the top of the list showing recipes from various sources](../static/blog/2021-10-15-structured-data-seo-and-react/screenshot-of-rich-text-results.png)
+![screenshot of google search results for "best brownie recipe" including a rich text results set at the top of the list showing recipes from various sources](../static/blog/2021-10-18-docusaurus-meta-tags-and-google-discover/screenshot-of-rich-text-results.png)
 
 When you look at the screenshot above, you'll notice that at the top of the list (before the main search results) there's a carousel which shows various brownie recipe links, with dedicated pictures, titles and descriptions. Where did this come from? The answer, unsurprisingly, is structured data.
 
 If we click on the first link, we're taken to the recipe in question. Looking at the HTML of that page we find a number of JSON-LD sections:
 
-![screenshot of JSON-LD sections in the BBC Good Food website](../static/blog/2021-10-15-structured-data-seo-and-react/structured-data-in-action.png)
+![screenshot of JSON-LD sections in the BBC Good Food website](../static/blog/2021-10-18-docusaurus-meta-tags-and-google-discover/structured-data-in-action.png)
 
 If we grab the content of one JSON-LD section and paste it into the devtools console, it becomes much easier to read:
 
-![screenshot of JSON-LD section transformed into a JavaScript Object Literal](../static/blog/2021-10-15-structured-data-seo-and-react/single-structured-data-as-JSON.png)
+![screenshot of JSON-LD section transformed into a JavaScript Object Literal](../static/blog/2021-10-18-docusaurus-meta-tags-and-google-discover/single-structured-data-as-JSON.png)
 
 If we look at the `@type` property we can see it's a `"Recipe"`. This means it's an example of the https://schema.org/Recipe schema. If we look further at the `headline` property, it reads `"Best ever chocolate brownies recipe"`. That matches up with headline that was displayed in the search results.
 
@@ -139,7 +162,7 @@ If we look at the code above, we can see we're creating a JavaScript object lite
 
 When we run our site locally with `npm start` we see a simple article site that looks like this:
 
-![screenshot of article page](../static/blog/2021-10-15-structured-data-seo-and-react/screenshot-of-article.png)
+![screenshot of article page](../static/blog/2021-10-18-docusaurus-meta-tags-and-google-discover/screenshot-of-article.png)
 
 Now let's see if it supports structured data in the way we hope.
 
@@ -149,11 +172,11 @@ If we go to https://search.google.com/test/rich-results we find the Rich Results
 
 In devtools we'll use the "copy outerHTML" feature to grab the HTML, then we'll paste it into Rich Results:
 
-![screenshot of rich results tool in code view](../static/blog/2021-10-15-structured-data-seo-and-react/screenshot-of-rich-results-tool.png)
+![screenshot of rich results tool in code view](../static/blog/2021-10-18-docusaurus-meta-tags-and-google-discover/screenshot-of-rich-results-tool.png)
 
 We hit the "TEST CODE" button and we see results that look like this:
 
-![screenshot of the results of testing our site using the rich results tool](../static/blog/2021-10-15-structured-data-seo-and-react/screenshot-of-rich-results-tool-test.png)
+![screenshot of the results of testing our site using the rich results tool](../static/blog/2021-10-18-docusaurus-meta-tags-and-google-discover/screenshot-of-rich-results-tool-test.png)
 
 So we've been successful in building a website that renders structured data. More than that, we're doing it in a way that we know Google will recognise and can use to render rich results in search. That's a really useful way to drive traffic to our website.
 
