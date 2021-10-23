@@ -75,7 +75,7 @@ You see the two `"Possible null reference return."` warnings? Bingo
 
 ## Really make it hurt
 
-This is good - information is being surfaced up. But it's a warning. I could ignore it. I like compilers to get really up in my face and force me to make a change. I'm not into warnings; I'm into errors. Know what works for you. If you're similarly minded, you can upgrade nullable reference warnings to errors by tweaking the `.csproj` a touch further. Add yourself a `&lt;WarningsAsErrors&gt;nullable&lt;/WarningsAsErrors&gt;` element. So maybe your `.csproj` now looks like this:
+This is good - information is being surfaced up. But it's a warning. I could ignore it. I like compilers to get really up in my face and force me to make a change. I'm not into warnings; I'm into errors. Know what works for you. If you're similarly minded, you can upgrade nullable reference warnings to errors by tweaking the `.csproj` a touch further. Add yourself a `<WarningsAsErrors>nullable</WarningsAsErrors>` element. So maybe your `.csproj` now looks like this:
 
 ```xml
 <PropertyGroup>
