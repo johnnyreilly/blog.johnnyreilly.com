@@ -8,12 +8,12 @@ const talks = [
   {
     permalink: 'https://youtu.be/LxZx3ycrxI0',
     formattedDate: 'September 30th, 2021',
-    title: 'LogRocket TypeScript Meetup: Write more readable code with TS 4.4',
+    title: 'LogRocket Meetup: Write more readable code with TS 4.4',
   },
   {
-    permalink: 'https://blog.logrocket.com/logrocket-react-meetup-react-structured-data-and-seo/',
+    permalink: 'https://youtu.be/zi1CHB-eVck?start=282',
     formattedDate: 'October 27th, 2021',
-    title: 'Upcoming talk: Structured data, SEO and React',
+    title: 'LogRocket Meetup: Structured data, SEO and React',
   },
 ];
 
