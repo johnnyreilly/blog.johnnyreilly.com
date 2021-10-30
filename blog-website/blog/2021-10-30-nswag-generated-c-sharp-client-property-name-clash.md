@@ -353,3 +353,104 @@ Now before we did this
 ## Use `decimal` not `double` with `DoubleToDecimalVisitor`
 
 Borrowed a long time ago from https://github.com/RicoSuter/NSwag/issues/1814#issuecomment-448752684
+
+
+```cs
+using System;
+using System.IO;
+using System.Reflection;
+using System.Threading.Tasks;
+using NJsonSchema;
+using NJsonSchema.Visitors;
+using NSwag.CodeGeneration.CSharp;
+
+namespace NSwag {
+    class Program {
+        static async Task Main(string[] args) {
+            Console.WriteLine("Generating client...");
+            await ClientGenerator.GenerateCSharpClient();
+            Console.WriteLine("Generated client...");
+        }
+    }
+
+    public static class ClientGenerator {
+
+        public async static Task GenerateCSharpClient() =>
+            GenerateClient(
+                // https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v2.0/json/petstore-simple.json
+                document: await GetDocumentFromFile("petstore-simple.json"),
+                generatedLocation: "GeneratedClient.cs",
+                generateCode: (OpenApiDocument document) => {
+                    new DoubleToDecimalVisitor().Visit(document); // we want decimals not doubles
+
+                    var settings = new CSharpClientGeneratorSettings {
+                        CSharpGeneratorSettings = {
+                            PropertyNameGenerator = new HandleAtCSharpPropertyNameGenerator() // @ shouldn't cause us problems
+                        }
+                    };
+
+                    var generator = new CSharpClientGenerator(document, settings);
+                    var code = generator.GenerateFile();
+                    return code;
+                }
+            );
+
+        private static void GenerateClient(OpenApiDocument document, string generatedLocation, Func<OpenApiDocument, string> generateCode) {
+            var root = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var location = Path.GetFullPath(Path.Join(root, @"../../../", generatedLocation));
+
+            Console.WriteLine($"Generating {location}...");
+
+            var code = generateCode(document);
+
+            System.IO.File.WriteAllText(location, code);
+        }
+
+        private static async Task<OpenApiDocument> GetDocumentFromFile(string swaggerJsonFilePath) {
+            var root = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var swaggerJson = await File.ReadAllTextAsync(Path.GetFullPath(Path.Join(root, swaggerJsonFilePath)));
+            var document = await OpenApiDocument.FromJsonAsync(swaggerJson);
+
+            return document;
+        }
+    }
+
+    /// <summary>
+    /// By default the C# decimal number type used is double; this makes it decimal 
+    /// </summary>
+    public class DoubleToDecimalVisitor : JsonSchemaVisitorBase {
+        protected override JsonSchema VisitSchema(JsonSchema schema, string path, string typeNameHint) {
+            if (schema.Type == JsonObjectType.Number)
+                schema.Format = JsonFormatStrings.Decimal;
+
+            return schema;
+        }
+    }
+
+    /// <summary>
+    /// Replace characters which will not comply with C# syntax with something that will
+    /// </summary>
+    public class HandleAtCSharpPropertyNameGenerator : NJsonSchema.CodeGeneration.IPropertyNameGenerator {
+        /// <summary>Generates the property name.</summary>
+        /// <param name="property">The property.</param>
+        /// <returns>The new name.</returns>
+        public virtual string Generate(JsonSchemaProperty property) =>
+            ConversionUtilities.ConvertToUpperCamelCase(property.Name
+                .Replace("\"", string.Empty)
+                .Replace("@", "__") // make "@" => "__", so "@type" => "__type"
+                .Replace("?", string.Empty)
+                .Replace("$", string.Empty)
+                .Replace("[", string.Empty)
+                .Replace("]", string.Empty)
+                .Replace("(", "_")
+                .Replace(")", string.Empty)
+                .Replace(".", "-")
+                .Replace("=", "-")
+                .Replace("+", "plus"), true)
+                .Replace("*", "Star")
+                .Replace(":", "_")
+                .Replace("-", "_")
+                .Replace("#", "_");
+    }
+}
+```
