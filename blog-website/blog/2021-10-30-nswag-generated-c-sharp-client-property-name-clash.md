@@ -6,7 +6,7 @@ image: blog/2021-10-30-nswag-generated-c-sharp-client-property-name-clash/title-
 hide_table_of_contents: false
 ---
 
-NSwag is a great tool for generating client libraries in C# and TypeScript from Open API / Swagger definitions. You can bump where Open API property names collide due to the nature of the C# language, and when you want to use `decimal` for your floating point numeric type over `double`. This post demostrates how to get over both issues.
+NSwag is a great tool for generating client libraries in C# and TypeScript from Open API / Swagger definitions. You can face issues where Open API property names collide due to the nature of the C# language, and when you want to use `decimal` for your floating point numeric type over `double`. This post demonstrates how to get over both issues.
 
 ![title image reading "Docusaurus, meta tags and Google Discover" with a Docusaurus logo and the Google Discover phone photo taken from https://developers.google.com/search/docs/advanced/mobile/google-discover](../static/blog/2021-10-30-nswag-generated-c-sharp-client-property-name-clash/title-image.png)
 
@@ -303,9 +303,9 @@ namespace NSwag {
 }
 ```
 
-If we perform a `dotnet run` we now pump out a `GeneratedClient.cs` file.
+If we perform a `dotnet run` we now pump out a `GeneratedClient.cs` file which is a C# client library for the pet store. Fabulous.
 
-So far so dandy. We're taking an Open API `json` file and generating a C# client from it.
+So far so dandy. We're taking an Open API `json` file and generating a C# client library from it.
 
 ## Collision time
 
@@ -347,6 +347,8 @@ We're going to take our `Pet` definition in the `petstore-simple.json` file, and
             ]
         },
 ```
+
+For why? Because this is a scenario that can present. It's not unknown to encounter properties which are identical, save for an `@` prefix.
 
 Now before we did this
 
