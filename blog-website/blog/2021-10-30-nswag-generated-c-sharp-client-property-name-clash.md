@@ -364,7 +364,11 @@ What do we get if we run our generator over that?
     }
 ```
 
-We get code that doesn't compile. You can't have two properties in a C# class with the same name. You also cannot have `@` as a character in a C# property or variable name.
+We get code that doesn't compile. You can't have two properties in a C# class with the same name. You also cannot have `@` as a character in a C# property or variable name. To quote the [docs](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/verbatim):
+
+> The @ special character serves as a verbatim identifier.
+
+It so happens that, by default, NSwag purges `@` characters from property names. If there isn't another property which is named the same save for an `@` prefix, this is a fine strategy. If there is, you're toast.
 
 ## Use `decimal` not `double` with `DoubleToDecimalVisitor`
 
