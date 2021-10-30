@@ -370,6 +370,60 @@ We get code that doesn't compile. You can't have two properties in a C# class wi
 
 It so happens that, by default, NSwag purges `@` characters from property names. If there isn't another property which is named the same save for an `@` prefix, this is a fine strategy. If there is, you're toast.
 
+There's a workaround. We'll create a new `HandleAtCSharpPropertyNameGenerator` class:
+
+```cs
+    /// <summary>
+    /// Replace characters which will not comply with C# syntax with something that will
+    /// </summary>
+    public class HandleAtCSharpPropertyNameGenerator : NJsonSchema.CodeGeneration.IPropertyNameGenerator {
+        /// <summary>Generates the property name.</summary>
+        /// <param name="property">The property.</param>
+        /// <returns>The new name.</returns>
+        public virtual string Generate(JsonSchemaProperty property) =>
+            ConversionUtilities.ConvertToUpperCamelCase(property.Name
+                .Replace("\"", string.Empty)
+                .Replace("@", "__") // make "@" => "__", so "@type" => "__type"
+                .Replace("?", string.Empty)
+                .Replace("$", string.Empty)
+                .Replace("[", string.Empty)
+                .Replace("]", string.Empty)
+                .Replace("(", "_")
+                .Replace(")", string.Empty)
+                .Replace(".", "-")
+                .Replace("=", "-")
+                .Replace("+", "plus"), true)
+                .Replace("*", "Star")
+                .Replace(":", "_")
+                .Replace("-", "_")
+                .Replace("#", "_");
+    }
+}
+```
+
+This is a replacement for
+And we'll make use of it:
+
+```cs
+        public async static Task GenerateCSharpClient() =>
+            GenerateClient(
+                // https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v2.0/json/petstore-simple.json
+                document: await GetDocumentFromFile("petstore-simple.json"),
+                generatedLocation: "GeneratedClient.cs",
+                generateCode: (OpenApiDocument document) => {
+                    var settings = new CSharpClientGeneratorSettings {
+                        CSharpGeneratorSettings = {
+                            PropertyNameGenerator = new HandleAtCSharpPropertyNameGenerator() // @ shouldn't cause us problems
+                        }
+                    };
+
+                    var generator = new CSharpClientGenerator(document, settings);
+                    var code = generator.GenerateFile();
+                    return code;
+                }
+            );
+```
+
 ## Use `decimal` not `double` with `DoubleToDecimalVisitor`
 
 Borrowed a long time ago from https://github.com/RicoSuter/NSwag/issues/1814#issuecomment-448752684
