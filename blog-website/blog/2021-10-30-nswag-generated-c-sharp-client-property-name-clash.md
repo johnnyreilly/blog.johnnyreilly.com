@@ -307,7 +307,7 @@ If we perform a `dotnet run` we now pump out a `GeneratedClient.cs` file which i
 
 So far so dandy. We're taking an Open API `json` file and generating a C# client library from it.
 
-## Collision time
+## When properties collide
 
 It's time to break things. We're presently generating a `Pet` class that looks like this:
 
@@ -348,9 +348,23 @@ We're going to take our `Pet` definition in the `petstore-simple.json` file, and
         },
 ```
 
-For why? Because this is a scenario that can present. It's not unknown to encounter properties which are identical, save for an `@` prefix.
+For why? Whilst this may seem esoteric, this is a scenario that can present. It's not unknown to encounter properties which are identical, save for an `@` prefix. This is often the case for meta-properties.
 
-Now before we did this
+What do we get if we run our generator over that?
+
+```cs
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    public partial class Pet : NewPet
+    {
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
+        public long Id { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("@id", Required = Newtonsoft.Json.Required.Always)]
+        public long Id { get; set; }
+    }
+```
+
+We get code that doesn't compile. You can't have two properties in a C# class with the same name. You also cannot have `@` as a character in a C# property or variable name.
 
 ## Use `decimal` not `double` with `DoubleToDecimalVisitor`
 
