@@ -12,7 +12,7 @@ NSwag is a great tool for generating client libraries in C# and TypeScript from 
 
 ## Make a C# Client Generator
 
-Before we can demonstrate the problems, let's get a console app set up that will allow us to generate a C# client using an Open API file:
+Let's get a console app set up that will allow us to generate a C# client using an Open API file:
 
 ```sh
 dotnet new console -o NSwag
