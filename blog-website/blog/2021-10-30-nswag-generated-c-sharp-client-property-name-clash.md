@@ -368,7 +368,7 @@ We get code that doesn't compile. You can't have two properties in a C# class wi
 
 > The @ special character serves as a verbatim identifier.
 
-It so happens that, by default, NSwag purges `@` characters from property names. If there isn't another property which is named the same save for an `@` prefix, this is a fine strategy. If there is, you're toast.
+It so happens that, by default, NSwag purges `@` characters from property names. If there isn't another property which is named the same save for an `@` prefix, this is a fine strategy. If there is, as for us now, you're toast.
 
 There's a workaround. We'll create a new `HandleAtCSharpPropertyNameGenerator` class:
 
@@ -401,8 +401,9 @@ There's a workaround. We'll create a new `HandleAtCSharpPropertyNameGenerator` c
 }
 ```
 
-This is a replacement for
-And we'll make use of it:
+This is a replacement for the `CSharpPropertyNameGenerator` that NSwag ships with. Rather than purging the `@` character, it replaces usage with a double underscore: `__`. 
+
+We'll make use of our new `PropertyNameGenerator`:
 
 ```cs
         public async static Task GenerateCSharpClient() =>
@@ -423,6 +424,24 @@ And we'll make use of it:
                 }
             );
 ```
+
+With this in place, when we `dotnet run` we create a class that looks like this:
+
+```cs
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    public partial class Pet : NewPet
+    {
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
+        public long Id { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("@id", Required = Newtonsoft.Json.Required.Always)]
+        public long __id { get; set; }
+    }
+```
+
+So the newly generated property name is `__id` rather than the clashing `Id`. Rather wonderfully, this works. It resolves the issue we faced. We've chosen to use `__` as our prefix - we could choose something else if that worked better for us.
+
+Knowing that this hook exists is super useful.
 
 ## Use `decimal` not `double` with `DoubleToDecimalVisitor`
 
