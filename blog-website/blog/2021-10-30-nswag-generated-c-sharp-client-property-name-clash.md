@@ -445,6 +445,17 @@ Knowing that this hook exists is super useful.
 
 ## Use `decimal` not `double` with `DoubleToDecimalVisitor`
 
+Another common problem with generated C# clients is the number type used to represent floating point numbers. The default for C# is `double`.
+
+This is a reasonable choice when you consider the [official format](https://swagger.io/docs/specification/data-models/data-types/#numbers) for highly precise floating point numbers is `double`:
+
+> OpenAPI has two numeric types, `number` and `integer`, where `number` includes both integer and floating-point numbers. An optional `format` keyword serves as a hint for the tools to use a specific numeric type:
+>
+> `float` - Floating-point numbers.
+> `double` - Floating-point numbers with double precision.
+
+C# developers may well rather work with a [`decimal`](https://docs.microsoft.com/en-us/dotnet/api/system.decimal?view=net-5.0) type which better handles financial amounts.
+
 Borrowed a long time ago from https://github.com/RicoSuter/NSwag/issues/1814#issuecomment-448752684
 
 
