@@ -8,7 +8,7 @@ hide_table_of_contents: false
 
 NSwag is a great tool for generating client libraries in C# and TypeScript from Open API / Swagger definitions. You can face issues where Open API property names collide due to the nature of the C# language, and when you want to use `decimal` for your floating point numeric type over `double`. This post demonstrates how to get over both issues.
 
-![title image reading "NSwag generated C# client: Open API property name clashes and decimal types rather than double" with a C# logo and Open API logos](../static/blog/2021-10-30-nswag-generated-c-sharp-client-property-name-clash/title-image2.png)
+![title image reading "NSwag generated C# client: Open API property name clashes and decimal types rather than double" with a C# logo and Open API logos](../static/blog/2021-10-30-nswag-generated-c-sharp-client-property-name-clash/title-image.png)
 
 ## Make a C# Client Generator
 
@@ -261,7 +261,7 @@ namespace NSwag {
         static async Task Main(string[] args) {
             Console.WriteLine("Generating client...");
             await ClientGenerator.GenerateCSharpClient();
-            Console.WriteLine("Generated client...");
+            Console.WriteLine("Generated client.");
         }
     }
 
@@ -401,7 +401,7 @@ There's a workaround. We'll create a new `HandleAtCSharpPropertyNameGenerator` c
 }
 ```
 
-This is a replacement for the `CSharpPropertyNameGenerator` that NSwag ships with. Rather than purging the `@` character, it replaces usage with a double underscore: `__`. 
+This is a replacement for the `CSharpPropertyNameGenerator` that NSwag ships with. Rather than purging the `@` character, it replaces usage with a double underscore: `__`.
 
 We'll make use of our new `PropertyNameGenerator`:
 
@@ -504,7 +504,7 @@ It uses the [visitor pattern](https://en.m.wikipedia.org/wiki/Visitor_pattern) a
 
 ```cs
     /// <summary>
-    /// By default the C# decimal number type used is double; this makes it decimal 
+    /// By default the C# decimal number type used is double; this makes it decimal
     /// </summary>
     public class DoubleToDecimalVisitor : JsonSchemaVisitorBase {
         protected override JsonSchema VisitSchema(JsonSchema schema, string path, string typeNameHint) {
@@ -546,7 +546,7 @@ namespace NSwag {
         static async Task Main(string[] args) {
             Console.WriteLine("Generating client...");
             await ClientGenerator.GenerateCSharpClient();
-            Console.WriteLine("Generated client...");
+            Console.WriteLine("Generated client.");
         }
     }
 
@@ -593,7 +593,7 @@ namespace NSwag {
     }
 
     /// <summary>
-    /// By default the C# decimal number type used is double; this makes it decimal 
+    /// By default the C# decimal number type used is double; this makes it decimal
     /// </summary>
     public class DoubleToDecimalVisitor : JsonSchemaVisitorBase {
         protected override JsonSchema VisitSchema(JsonSchema schema, string path, string typeNameHint) {
@@ -635,5 +635,6 @@ namespace NSwag {
 ## Conclusion
 
 This post takes the tremendous NSwag, and demonstrates a mechanism for using it to create C# clients from an Open API / Swagger documents which:
+
 - can handle property names with an `@` prefix which might collide with the same property without the prefix
 - use `decimal` as the preferred number type for floating point numbers
