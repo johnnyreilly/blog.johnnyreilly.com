@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[62679],{30417:function(a){a.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/dual-authentication","name":"dual authentication","count":1,"permalink":"/tags/dual-authentication"}')}}]);

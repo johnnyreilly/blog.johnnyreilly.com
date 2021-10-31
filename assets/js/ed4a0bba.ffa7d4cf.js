@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[80619],{4446:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/react-router","name":"react-router","count":1,"permalink":"/tags/react-router"}')}}]);

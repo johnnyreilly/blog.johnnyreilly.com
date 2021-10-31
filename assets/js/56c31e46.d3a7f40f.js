@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[73637],{50029:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/coded-ui","name":"Coded UI","count":2,"permalink":"/tags/coded-ui"}')}}]);

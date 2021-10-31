@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[381],{89557:function(a){a.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/web-matrix","name":"WebMatrix","count":1,"permalink":"/tags/web-matrix"}')}}]);

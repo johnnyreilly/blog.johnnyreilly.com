@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[19077],{6494:function(l){l.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/git-clone","name":"git clone","count":1,"permalink":"/tags/git-clone"}')}}]);

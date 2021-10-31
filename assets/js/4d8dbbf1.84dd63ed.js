@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[62773],{21798:function(a){a.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/azure-devops-api","name":"azure devops api","count":1,"permalink":"/tags/azure-devops-api"}')}}]);

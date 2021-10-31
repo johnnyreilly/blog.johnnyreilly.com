@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[29170],{83245:function(l){l.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/arundel","name":"Arundel","count":1,"permalink":"/tags/arundel"}')}}]);

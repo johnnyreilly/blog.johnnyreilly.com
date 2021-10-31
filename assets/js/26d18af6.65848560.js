@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[35020],{988:function(a){a.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/database-snapshot-backups","name":"Database Snapshot Backups","count":1,"permalink":"/tags/database-snapshot-backups"}')}}]);

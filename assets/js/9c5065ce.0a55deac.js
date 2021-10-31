@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[3741],{52435:function(l){l.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/babel-loader","name":"babel-loader","count":1,"permalink":"/tags/babel-loader"}')}}]);

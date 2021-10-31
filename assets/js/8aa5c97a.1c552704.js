@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[15879],{74678:function(s){s.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/static-code-analysis","name":"static code analysis","count":1,"permalink":"/tags/static-code-analysis"}')}}]);

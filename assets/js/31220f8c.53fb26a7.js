@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[90271],{8918:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/nomerge","name":"nomerge","count":1,"permalink":"/tags/nomerge"}')}}]);

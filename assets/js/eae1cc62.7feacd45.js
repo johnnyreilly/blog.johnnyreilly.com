@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[24826],{53076:function(n){n.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/client-affinity","name":"Client Affinity","count":1,"permalink":"/tags/client-affinity"}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[7180],{87616:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/azure-app-service","name":"Azure App Service","count":1,"permalink":"/tags/azure-app-service"}')}}]);

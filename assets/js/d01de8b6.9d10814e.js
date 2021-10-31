@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[80626],{19262:function(s){s.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/use-static-files","name":"UseStaticFiles","count":1,"permalink":"/tags/use-static-files"}')}}]);

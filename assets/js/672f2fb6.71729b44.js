@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[2419],{1478:function(n){n.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/nathan-vonnahme","name":"Nathan Vonnahme","count":1,"permalink":"/tags/nathan-vonnahme"}')}}]);

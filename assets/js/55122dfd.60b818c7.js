@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[32950],{36314:function(l){l.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/gulp-inject","name":"gulp-inject","count":1,"permalink":"/tags/gulp-inject"}')}}]);

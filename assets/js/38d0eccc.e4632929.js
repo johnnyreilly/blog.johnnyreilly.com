@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[2397],{54541:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/open-xml","name":"Open XML","count":1,"permalink":"/tags/open-xml"}')}}]);
