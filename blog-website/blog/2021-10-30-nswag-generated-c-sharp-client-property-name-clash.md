@@ -1,8 +1,9 @@
 ---
 title: 'NSwag generated C# client: Open API property name clashes and decimal types rather than double'
 authors: johnnyreilly
-tags: [nswag, c sharp]
-image: blog/2021-10-30-nswag-generated-c-sharp-client-property-name-clash/title-image.png
+tags: [nswag, CSharp]
+image: https://deploy-preview-118--johnnyreilly-preview.netlify.app/assets/images/title-image-74a4e4d5f912772285c839bfd47029ee.png
+# image: blog/2021-10-30-nswag-generated-c-sharp-client-property-name-clash/title-image.png
 hide_table_of_contents: false
 ---
 
@@ -443,7 +444,7 @@ So the newly generated property name is `__id` rather than the clashing `Id`. Ra
 
 Knowing that this hook exists is super useful.
 
-## Use `decimal` not `double` with `DoubleToDecimalVisitor`
+## Use `decimal` not `double` for floating point numbers
 
 Another common problem with generated C# clients is the number type used to represent floating point numbers. The default for C# is `double`.
 
