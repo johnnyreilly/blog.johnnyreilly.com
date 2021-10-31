@@ -516,7 +516,19 @@ It uses the [visitor pattern](https://en.m.wikipedia.org/wiki/Visitor_pattern) a
     }
 ```
 
-The code above, when invoked upon our `OpenApiDocument`, changes the format of all number types to be `decimal`.
+The code above, when invoked upon our `OpenApiDocument`, changes the format of all number types to be `decimal`. Which results in code along these lines:
+
+```cs
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    public partial class Pet : NewPet
+    {
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
+        public decimal Id { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("@id", Required = Newtonsoft.Json.Required.Always)]
+        public decimal __id { get; set; }
+    }
+```
 
 If we take all the code, and put it together, we end up with this:
 
