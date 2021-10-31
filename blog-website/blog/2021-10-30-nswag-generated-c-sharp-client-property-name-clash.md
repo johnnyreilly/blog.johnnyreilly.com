@@ -578,6 +578,8 @@ namespace NSwag {
 }
 ```
 
-Here we have a mechanism for creating a C# client from an Open API / Swagger document which:
+## Conclusion
+
+This post takes the tremendous NSwag, and demonstrates a mechanism for using it to create C# clients from an Open API / Swagger documents which:
 - can handle property names with an `@` prefix which might collide with the same property without the prefix
-- uses `decimal` as the preferred number type for floating point numbers
+- use `decimal` as the preferred number type for floating point numbers
