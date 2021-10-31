@@ -1,5 +1,5 @@
 ---
-title: 'NSwag generated C# client: Open API property name clashes and decimal over double'
+title: 'NSwag generated C# client: Open API property name clashes and decimal types rather than double'
 authors: johnnyreilly
 tags: [nswag, c sharp]
 image: blog/2021-10-30-nswag-generated-c-sharp-client-property-name-clash/title-image.png
@@ -454,10 +454,29 @@ This is a reasonable choice when you consider the [official format](https://swag
 > `float` - Floating-point numbers.
 > `double` - Floating-point numbers with double precision.
 
-C# developers may well rather work with a [`decimal`](https://docs.microsoft.com/en-us/dotnet/api/system.decimal?view=net-5.0) type which better handles financial amounts.
+C# developers may well rather work with a [`decimal`](https://docs.microsoft.com/en-us/dotnet/api/system.decimal?view=net-5.0) type which can handle "financial calculations that require large numbers of significant integral and fractional digits and no round-off errors".
 
-Borrowed a long time ago from https://github.com/RicoSuter/NSwag/issues/1814#issuecomment-448752684
+There is a way to switch from using `double` to `decimal` in your generated clients. I've been using the approach for some years, and I suspect I first adapted it from [a comment on GitHub](https://github.com/RicoSuter/NSwag/issues/1814#issuecomment-448752684).
 
+It uses the [visitor pattern](https://en.m.wikipedia.org/wiki/Visitor_pattern) and looks like this:
+
+```cs
+    /// <summary>
+    /// By default the C# decimal number type used is double; this makes it decimal 
+    /// </summary>
+    public class DoubleToDecimalVisitor : JsonSchemaVisitorBase {
+        protected override JsonSchema VisitSchema(JsonSchema schema, string path, string typeNameHint) {
+            if (schema.Type == JsonObjectType.Number)
+                schema.Format = JsonFormatStrings.Decimal;
+
+            return schema;
+        }
+    }
+```
+
+The code above, when invoked upon our `OpenApiDocument`, changes the format of all number types to be `decimal`.
+
+If we take all the code, and put it together, we end up with this:
 
 ```cs
 using System;
@@ -558,3 +577,7 @@ namespace NSwag {
     }
 }
 ```
+
+Here we have a mechanism for creating a C# client from an Open API / Swagger document which:
+- can handle property names with an `@` prefix which might collide with the same property without the prefix
+- uses `decimal` as the preferred number type for floating point numbers
