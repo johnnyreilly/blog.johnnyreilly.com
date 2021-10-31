@@ -447,6 +447,13 @@ Knowing that this hook exists is super useful.
 
 Another common problem with generated C# clients is the number type used to represent floating point numbers. The default for C# is `double`.
 
+This is a reasonable choice when you consider the [official format](https://swagger.io/docs/specification/data-models/data-types/#numbers) for highly precise floating point numbers is `double`:
+
+> OpenAPI has two numeric types, `number` and `integer`, where `number` includes both integer and floating-point numbers. An optional `format` keyword serves as a hint for the tools to use a specific numeric type:
+>
+> `float` - Floating-point numbers.
+> `double` - Floating-point numbers with double precision.
+
 Let's tweak our pet definition to reflect this:
 
 ```json
@@ -475,12 +482,19 @@ Let's tweak our pet definition to reflect this:
         },
 ```
 
-This is a reasonable choice when you consider the [official format](https://swagger.io/docs/specification/data-models/data-types/#numbers) for highly precise floating point numbers is `double`:
+With this in place, when we `dotnet run` we create a class that looks like this:
 
-> OpenAPI has two numeric types, `number` and `integer`, where `number` includes both integer and floating-point numbers. An optional `format` keyword serves as a hint for the tools to use a specific numeric type:
->
-> `float` - Floating-point numbers.
-> `double` - Floating-point numbers with double precision.
+```cs
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v13.0.0.0)")]
+    public partial class Pet : NewPet
+    {
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
+        public double Id { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("@id", Required = Newtonsoft.Json.Required.Always)]
+        public double __id { get; set; }
+    }
+```
 
 C# developers may well rather work with a [`decimal`](https://docs.microsoft.com/en-us/dotnet/api/system.decimal?view=net-5.0) type which can handle "financial calculations that require large numbers of significant integral and fractional digits and no round-off errors".
 
