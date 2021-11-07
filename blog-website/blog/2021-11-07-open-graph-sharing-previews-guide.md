@@ -1,12 +1,12 @@
 ---
-title: 'Open Graph: a guide to sharing previews'
+title: 'Open Graph: a guide to sharable social media previews'
 authors: johnnyreilly
 tags: [Open Graph]
 image: blog/2021-11-07-open-graph-sharing-previews-guide/title-image.png
 hide_table_of_contents: false
 ---
 
-The Open Graph protocol has become the standard mechanism for sharing rich content on the web. This post looks at what implementing Open Graph tags for sharing previews looks like, the tools you can use and also an examines the different platform rendering issue.
+The Open Graph protocol has become the standard mechanism for sharing rich content on the web. This post looks at what implementing Open Graph tags for sharable previews (often called social media previews) looks like, the tools you can use and also an examines the different platform rendering issue.
 
 ![title image reading "NSwag generated C# client: Open API property name clashes and decimal types rather than double" with a C# logo and Open API logos](../static/blog/2021-11-07-open-graph-sharing-previews-guide/title-image.png)
 
@@ -148,6 +148,11 @@ Above I'm sharing a link to a blog post. The image is to the left, the title and
 
 [![screenshot of a tweet where the image in the share preview card has been cropped making the title unreadable](../static/blog/2021-11-07-open-graph-sharing-previews-guide/screenshot-of-tweet-demonstrating-sharing-with-a-cropped-image.png)](https://twitter.com/AzureWeekly/status/1436733027489652743)
 
-Here the image is above the title and the description. More distressingly, the image has been cropped which renders the title slightly unreadable. To avoid this, we need to test thoroughly on all the platforms where we want to share our links to ensure the sharable preview looks acceptable.
+Here the image is above the title and the description. More distressingly, the image has been cropped which renders the title slightly unreadable.
 
-So whilst the mechanism for sharing is roughly standardised, the rendering is not. It's like the web in the year 2000. Back then, a single piece of HTML could be rendered in many different ways, depending upon the browser. The same statement is true now for Open Graph sharing. Sharing can look very different depending upon the platform which is displaying the preview.
+So whilst the mechanism for sharing is roughly standardised, the rendering is not. It's not dissimilar to the web in the year 2000. Back then, a single piece of HTML could be rendered in many different ways, depending upon the browser. The same statement is true now for Open Graph sharing. Sharing can look very different depending upon the platform which is displaying the preview. The only way to avoid this at present is to thoroughly on all the platforms where we want to share links; ensuring the sharable previews look acceptable.
+
+## Conclusion
+
+In this post we've understood what sharable previews are, how to add them to a website, how to test them and some of the rough edges to be aware of.
+
