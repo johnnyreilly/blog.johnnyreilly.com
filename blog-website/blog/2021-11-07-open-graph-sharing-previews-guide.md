@@ -129,6 +129,7 @@ There's also a number of unoffical "aggregator" tools that attempt to render the
 
 - https://www.opengraph.xyz/
 - https://metatags.io/
+- https://socialsharepreview.com/
 
 Let's test out the Twitter validator:
 
