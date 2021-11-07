@@ -8,7 +8,7 @@ hide_table_of_contents: false
 
 The Open Graph protocol has become the standard mechanism for sharing rich content on the web. This post looks at what implementing Open Graph tags for sharable previews (often called social media previews) looks like, the tools you can use and also an examines the different platform rendering issue.
 
-![title image reading "NSwag generated C# client: Open API property name clashes and decimal types rather than double" with a C# logo and Open API logos](../static/blog/2021-11-07-open-graph-sharing-previews-guide/title-image.png)
+![title image reading "Open Graph: a guide to sharable social media previews" with the open graph logo and screenshots of twitter shared cards](../static/blog/2021-11-07-open-graph-sharing-previews-guide/title-image.png)
 
 ## Open Graph protocol and sharing
 
@@ -156,4 +156,3 @@ So whilst the mechanism for sharing is roughly standardised, the rendering is no
 ## Conclusion
 
 In this post we've understood what sharable previews are, how to add them to a website, how to test them and some of the rough edges to be aware of.
-
