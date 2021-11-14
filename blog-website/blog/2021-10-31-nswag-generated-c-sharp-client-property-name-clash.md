@@ -312,40 +312,40 @@ So far so dandy. We're taking an Open API `json` file and generating a C# client
 It's time to break things. We're presently generating a `Pet` class that looks like this:
 
 ```cs
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v13.0.0.0)")]
-    public partial class Pet : NewPet
-    {
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
-        public long Id { get; set; }
-    }
+[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v13.0.0.0)")]
+public partial class Pet : NewPet
+{
+    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
+    public long Id { get; set; }
+}
 ```
 
 We're going to take our `Pet` definition in the `petstore-simple.json` file, and add a new `@id` property alongside the `id` property:
 
 ```json
-        "Pet": {
-            "type": "object",
-            "allOf": [
-                {
-                    "$ref": "#/definitions/NewPet"
-                },
-                {
-                    "required": [
-                        "id"
-                    ],
-                    "properties": {
-                        "id": {
-                            "type": "integer",
-                            "format": "int64"
-                        },
-                        "@id": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
-                    }
-                }
-            ]
+"Pet": {
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "#/definitions/NewPet"
         },
+        {
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "@id": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        }
+    ]
+},
 ```
 
 For why? Whilst this may seem esoteric, this is a scenario that can present. It's not unknown to encounter properties which are identical, save for an `@` prefix. This is often the case for meta-properties.
@@ -353,15 +353,15 @@ For why? Whilst this may seem esoteric, this is a scenario that can present. It'
 What do we get if we run our generator over that?
 
 ```cs
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v13.0.0.0)")]
-    public partial class Pet : NewPet
-    {
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
-        public long Id { get; set; }
+[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v13.0.0.0)")]
+public partial class Pet : NewPet
+{
+    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
+    public long Id { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("@id", Required = Newtonsoft.Json.Required.Always)]
-        public long Id { get; set; }
-    }
+    [Newtonsoft.Json.JsonProperty("@id", Required = Newtonsoft.Json.Required.Always)]
+    public long Id { get; set; }
+}
 ```
 
 We get code that doesn't compile. You can't have two properties in a C# class with the same name. You also cannot have `@` as a character in a C# property or variable name. To quote the [docs](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/verbatim):
@@ -373,31 +373,30 @@ It so happens that, by default, NSwag purges `@` characters from property names.
 There's a workaround. We'll create a new `HandleAtCSharpPropertyNameGenerator` class:
 
 ```cs
-    /// <summary>
-    /// Replace characters which will not comply with C# syntax with something that will
-    /// </summary>
-    public class HandleAtCSharpPropertyNameGenerator : NJsonSchema.CodeGeneration.IPropertyNameGenerator {
-        /// <summary>Generates the property name.</summary>
-        /// <param name="property">The property.</param>
-        /// <returns>The new name.</returns>
-        public virtual string Generate(JsonSchemaProperty property) =>
-            ConversionUtilities.ConvertToUpperCamelCase(property.Name
-                .Replace("\"", string.Empty)
-                .Replace("@", "__") // make "@" => "__", so "@type" => "__type"
-                .Replace("?", string.Empty)
-                .Replace("$", string.Empty)
-                .Replace("[", string.Empty)
-                .Replace("]", string.Empty)
-                .Replace("(", "_")
-                .Replace(")", string.Empty)
-                .Replace(".", "-")
-                .Replace("=", "-")
-                .Replace("+", "plus"), true)
-                .Replace("*", "Star")
-                .Replace(":", "_")
-                .Replace("-", "_")
-                .Replace("#", "_");
-    }
+/// <summary>
+/// Replace characters which will not comply with C# syntax with something that will
+/// </summary>
+public class HandleAtCSharpPropertyNameGenerator : NJsonSchema.CodeGeneration.IPropertyNameGenerator {
+    /// <summary>Generates the property name.</summary>
+    /// <param name="property">The property.</param>
+    /// <returns>The new name.</returns>
+    public virtual string Generate(JsonSchemaProperty property) =>
+        ConversionUtilities.ConvertToUpperCamelCase(property.Name
+            .Replace("\"", string.Empty)
+            .Replace("@", "__") // make "@" => "__", so "@type" => "__type"
+            .Replace("?", string.Empty)
+            .Replace("$", string.Empty)
+            .Replace("[", string.Empty)
+            .Replace("]", string.Empty)
+            .Replace("(", "_")
+            .Replace(")", string.Empty)
+            .Replace(".", "-")
+            .Replace("=", "-")
+            .Replace("+", "plus"), true)
+            .Replace("*", "Star")
+            .Replace(":", "_")
+            .Replace("-", "_")
+            .Replace("#", "_");
 }
 ```
 
@@ -406,37 +405,37 @@ This is a replacement for the `CSharpPropertyNameGenerator` that NSwag ships wit
 We'll make use of our new `PropertyNameGenerator`:
 
 ```cs
-        public async static Task GenerateCSharpClient() =>
-            GenerateClient(
-                // https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v2.0/json/petstore-simple.json
-                document: await GetDocumentFromFile("petstore-simple.json"),
-                generatedLocation: "GeneratedClient.cs",
-                generateCode: (OpenApiDocument document) => {
-                    var settings = new CSharpClientGeneratorSettings {
-                        CSharpGeneratorSettings = {
-                            PropertyNameGenerator = new HandleAtCSharpPropertyNameGenerator() // @ shouldn't cause us problems
-                        }
-                    };
-
-                    var generator = new CSharpClientGenerator(document, settings);
-                    var code = generator.GenerateFile();
-                    return code;
+public async static Task GenerateCSharpClient() =>
+    GenerateClient(
+        // https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v2.0/json/petstore-simple.json
+        document: await GetDocumentFromFile("petstore-simple.json"),
+        generatedLocation: "GeneratedClient.cs",
+        generateCode: (OpenApiDocument document) => {
+            var settings = new CSharpClientGeneratorSettings {
+                CSharpGeneratorSettings = {
+                    PropertyNameGenerator = new HandleAtCSharpPropertyNameGenerator() // @ shouldn't cause us problems
                 }
-            );
+            };
+
+            var generator = new CSharpClientGenerator(document, settings);
+            var code = generator.GenerateFile();
+            return code;
+        }
+    );
 ```
 
 With this in place, when we `dotnet run` we create a class that looks like this:
 
 ```cs
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v13.0.0.0)")]
-    public partial class Pet : NewPet
-    {
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
-        public long Id { get; set; }
+[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v13.0.0.0)")]
+public partial class Pet : NewPet
+{
+    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
+    public long Id { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("@id", Required = Newtonsoft.Json.Required.Always)]
-        public long __id { get; set; }
-    }
+    [Newtonsoft.Json.JsonProperty("@id", Required = Newtonsoft.Json.Required.Always)]
+    public long __id { get; set; }
+}
 ```
 
 So the newly generated property name is `__id` rather than the clashing `Id`. Rather wonderfully, this works. It resolves the issue we faced. We've chosen to use `__` as our prefix - we could choose something else if that worked better for us.
@@ -457,43 +456,43 @@ This is a reasonable choice when you consider the [official format](https://swag
 Let's tweak our pet definition to reflect this:
 
 ```json
-        "Pet": {
-            "type": "object",
-            "allOf": [
-                {
-                    "$ref": "#/definitions/NewPet"
-                },
-                {
-                    "required": [
-                        "id"
-                    ],
-                    "properties": {
-                        "id": {
-                            "type": "number",
-                            "format": "double"
-                        },
-                        "@id": {
-                            "type": "number",
-                            "format": "double"
-                        }
-                    }
-                }
-            ]
+"Pet": {
+    "type": "object",
+    "allOf": [
+        {
+            "$ref": "#/definitions/NewPet"
         },
+        {
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "@id": {
+                    "type": "number",
+                    "format": "double"
+                }
+            }
+        }
+    ]
+},
 ```
 
 With this in place, when we `dotnet run` we create a class that looks like this:
 
 ```cs
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v13.0.0.0)")]
-    public partial class Pet : NewPet
-    {
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
-        public double Id { get; set; }
+[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v13.0.0.0)")]
+public partial class Pet : NewPet
+{
+    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
+    public double Id { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("@id", Required = Newtonsoft.Json.Required.Always)]
-        public double __id { get; set; }
-    }
+    [Newtonsoft.Json.JsonProperty("@id", Required = Newtonsoft.Json.Required.Always)]
+    public double __id { get; set; }
+}
 ```
 
 C# developers may well rather work with a [`decimal`](https://docs.microsoft.com/en-us/dotnet/api/system.decimal?view=net-5.0) type which can handle "financial calculations that require large numbers of significant integral and fractional digits and no round-off errors".
@@ -503,31 +502,31 @@ There is a way to switch from using `double` to `decimal` in your generated clie
 It uses the [visitor pattern](https://en.m.wikipedia.org/wiki/Visitor_pattern) and looks like this:
 
 ```cs
-    /// <summary>
-    /// By default the C# decimal number type used is double; this makes it decimal
-    /// </summary>
-    public class DoubleToDecimalVisitor : JsonSchemaVisitorBase {
-        protected override JsonSchema VisitSchema(JsonSchema schema, string path, string typeNameHint) {
-            if (schema.Type == JsonObjectType.Number)
-                schema.Format = JsonFormatStrings.Decimal;
+/// <summary>
+/// By default the C# decimal number type used is double; this makes it decimal
+/// </summary>
+public class DoubleToDecimalVisitor : JsonSchemaVisitorBase {
+    protected override JsonSchema VisitSchema(JsonSchema schema, string path, string typeNameHint) {
+        if (schema.Type == JsonObjectType.Number)
+            schema.Format = JsonFormatStrings.Decimal;
 
-            return schema;
-        }
+        return schema;
     }
+}
 ```
 
 The code above, when invoked upon our `OpenApiDocument`, changes the format of all number types to be `decimal`. Which results in code along these lines:
 
 ```cs
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v13.0.0.0)")]
-    public partial class Pet : NewPet
-    {
-        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
-        public decimal Id { get; set; }
+[System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.2.0 (Newtonsoft.Json v13.0.0.0)")]
+public partial class Pet : NewPet
+{
+    [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
+    public decimal Id { get; set; }
 
-        [Newtonsoft.Json.JsonProperty("@id", Required = Newtonsoft.Json.Required.Always)]
-        public decimal __id { get; set; }
-    }
+    [Newtonsoft.Json.JsonProperty("@id", Required = Newtonsoft.Json.Required.Always)]
+    public decimal __id { get; set; }
+}
 ```
 
 If we take all the code, and put it together, we end up with this:
