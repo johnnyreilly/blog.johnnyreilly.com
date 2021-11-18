@@ -2,11 +2,162 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.johnnyreilly.com/</id>
     <title>I CAN MAKE THIS WORK Blog</title>
-    <updated>2021-10-31T00:00:00.000Z</updated>
+    <updated>2021-11-18T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.johnnyreilly.com/"/>
     <subtitle>I CAN MAKE THIS WORK Blog</subtitle>
     <icon>https://blog.johnnyreilly.com/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Azure standard availability tests with Bicep]]></title>
+        <id>Azure standard availability tests with Bicep</id>
+        <link href="https://blog.johnnyreilly.com/2021/11/18/azure-standard-tests-with-bicep"/>
+        <updated>2021-11-18T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Azure standard tests are a tremendous way to monitor the uptime of your services in Azure. Sometimes also called availability tests, web tests and ping tests, this post goes through how to deploy one using Bicep. It also looks at some of the gotchas that you may encounter as you're setting it up.]]></summary>
+        <content type="html"><![CDATA[<p>Azure standard tests are a tremendous way to monitor the uptime of your services in Azure. Sometimes also called availability tests, web tests and ping tests, this post goes through how to deploy one using Bicep. It also looks at some of the gotchas that you may encounter as you&#x27;re setting it up.</p><p><img src="../static/blog/2021-11-18-azure-standard-tests-with-bicep/title-image.png" alt="title image reading &quot;Azure standard availability tests with Bicep&quot; with a Bicep logo and Azure logos"/></p><h2>What are standard tests?</h2><p>To quote the <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/app/availability-standard-tests">docs</a>:</p><blockquote><p>Standard tests are a single request test that is similar to the URL ping test but more advanced. In addition to validating whether an endpoint is responding and measuring the performance, Standard tests also includes SSL certificate validity, proactive lifetime check, HTTP request verb (for example GET,HEAD,POST, etc.), custom headers, and custom data associated with your HTTP request.</p></blockquote><p>So we can use these to:</p><ul><li>send requests to a URL</li><li>from a variety of geographic locations</li><li>and determine if it is responding with a 200 status code</li></ul><p>The URL may be one of our own service URLs, but it could be checking any kind of URL. It&#x27;s web specific, not Azure specific.</p><h2>Standard test Bicep</h2><p>Now we&#x27;re going to write a Bicep module that provisions a standard test named <code>standard-test.bicep</code>:</p><pre><code class="language-bicep">@description(&#x27;Tags that our resources need&#x27;)
+param tags object
+
+@description(&#x27;The resource id of the app insights which the webtest will reference&#x27;)
+param appInsightsResourceId string
+
+@description(&#x27;The name of the webtest to create&#x27;)
+param standardTestName string
+
+@description(&#x27;URL to test&#x27;)
+param urlToTest string
+
+@description(&#x27;Interval in seconds between test runs for this WebTest. Default value is 300.&#x27;)
+param frequency int = 300
+
+@description(&#x27;Seconds until this WebTest will timeout and fail. Default value is 30.&#x27;)
+param timeout int = 30
+
+// useful reference:
+// https://docs.microsoft.com/en-us/azure/azure-monitor/app/monitor-web-app-availability#azure
+@allowed([
+  &#x27;emea-au-syd-edge&#x27; // Australia East
+  &#x27;latam-br-gru-edge&#x27; // Brazil South
+  &#x27;us-fl-mia-edge&#x27; // Central US
+  &#x27;apac-hk-hkn-azr&#x27; // East Asia
+  &#x27;us-va-ash-azr&#x27; // East US
+  &#x27;emea-ch-zrh-edge&#x27; // France South (Formerly France Central)
+  &#x27;emea-fr-pra-edge&#x27; // France Central
+  &#x27;apac-jp-kaw-edge&#x27; // Japan East
+  &#x27;emea-gb-db3-azr&#x27; // North Europe
+  &#x27;us-il-ch1-azr&#x27; // North Central US
+  &#x27;us-tx-sn1-azr&#x27; // South Central US
+  &#x27;apac-sg-sin-azr&#x27; // Southeast Asia
+  &#x27;emea-se-sto-edge&#x27; // UK West
+  &#x27;emea-nl-ams-azr&#x27; // West Europe
+  &#x27;us-ca-sjc-azr&#x27; // West US
+  &#x27;emea-ru-msa-edge&#x27; // UK South
+])
+@description(&#x27;The populations (locations) for the test&#x27;)
+param testPopulations array = [
+  &#x27;emea-se-sto-edge&#x27; // UK West
+  &#x27;emea-ru-msa-edge&#x27; // UK South
+  &#x27;emea-gb-db3-azr&#x27; // North Europe
+  &#x27;us-va-ash-azr&#x27; // East US
+  &#x27;apac-sg-sin-azr&#x27; // Southeast Asia
+]
+
+var tagsWithHiddenLink = union({
+  &#x27;hidden-link:${appInsightsResourceId}&#x27;: &#x27;Resource&#x27;
+}, tags)
+
+resource standardWebTest &#x27;Microsoft.Insights/webtests@2018-05-01-preview&#x27; = {
+  name: standardTestName
+  location: resourceGroup().location
+  tags: tagsWithHiddenLink
+  kind: &#x27;ping&#x27;
+  properties: {
+    SyntheticMonitorId: urlToTest
+    Name: urlToTest
+    Description: null
+    Enabled: true
+    Frequency: frequency
+    Timeout: timeout
+    Kind: &#x27;standard&#x27;
+    RetryEnabled: true
+    Locations: [for testPopulation in testPopulations: {
+      Id: testPopulation
+    }]
+    Configuration: null
+    Request: {
+      RequestUrl: urlToTest
+      Headers: null
+      HttpVerb: &#x27;GET&#x27;
+      RequestBody: null
+      ParseDependentRequests: false
+      FollowRedirects: null
+    }
+    ValidationRules: {
+      ExpectedHttpStatusCode: 200
+      IgnoreHttpsStatusCode: false
+      ContentValidation: null
+      SSLCheck: true
+      SSLCertRemainingLifetimeCheck: 7
+    }
+  }
+}
+
+output standardWebTestName string = standardWebTest.name
+output standardWebTestId string = standardWebTest.id
+</code></pre><h3>Locations / populations</h3><p>You&#x27;ll note that a parameter to the Bicep module is <code>testPopulations</code>. These are the geographical places where requests will be sent from. You&#x27;ll note we have a default value of five populations, but these could be any of the (presently) sixteen valid values. If you were wondering where those are sourced from, <a href="https://docs.microsoft.com/en-us/azure/azure-monitor/app/availability-standard-tests#location-population-tags">here is the link to the Azure docs</a>.</p><h3>The <code>hidden-link</code> tag</h3><p>Another significant call out should go to the <code>hidden-link</code> tag. The <code>hidden-link</code> tag is a mandatory tag that connects the test (known in Azure as a &quot;webtest&quot;) to an app insights instance.</p><p>If you do not provide a <code>hidden-link</code> tag, or if you try to specify a resource group other than the app insights resource group, Azure will fail to deploy your test and you may find yourself presented with an error like this in the deployments section of the Azure Portal.</p><blockquote><p>Resource should exist in the same resource group as the linked component</p></blockquote><p><img src="../static/blog/2021-11-18-azure-standard-tests-with-bicep/screenshot-azure-portal-deployments-resource-should-exist-in-the-same-resource-group.png" alt="screenshot of the Azure Portal Deployments section saying &quot;Resource should exist in the same resource group as the linked component&quot;"/></p><p>In our module we set both the <code>hidden-link</code> tag as well as the tags that have been supplied via the <code>tags</code> parameter.</p><h3>App insights and standard tests share a resource group</h3><p>Another thing that can cause issues is the deployment of your app insights resource. It&#x27;s not unusual to spin up Azure resources on demand, for a given branch of your source code. Those resources will be named in relation to the branch and will depend upon one another. I&#x27;ve never managed to successfully create an app insights resource, and reference it from a standard test within the same Bicep file. It appears to be necessary to separate the two actions, such that Azure recognises the existence of the app insights resource when the standard test is deployed.</p><p>If you are working with long-lived app insights it won&#x27;t be an issue for you, but if you aren&#x27;t it&#x27;s worth being aware of.</p><h2>Using <code>standard-test.bicep</code></h2><p>Our Bicep module can be invoked from another Bicep module named <code>ping-them.bicep</code> like so:</p><pre><code class="language-bicep">@description(&#x27;Tags that our resources need&#x27;)
+param tags object
+
+@description(&#x27;The name of the app insights&#x27;)
+param appInsightsName string
+
+@description(&#x27;An object where the keys are the name of the web test and the values are the URL eg {&quot;my-standard-test&quot;: &quot;https://status.azure.com/en-gb/status&quot;} &#x27;)
+param standardTests object
+
+var appInsightsResourceId = resourceId(&#x27;Microsoft.Insights/components&#x27;, appInsightsName)
+
+module standardTestsToCreate &#x27;standard-test.bicep&#x27; = [for standardTest in items(standardTests): {
+  name: standardTest.key
+  params: {
+    tags: tags
+    appInsightsResourceId: appInsightsResourceId
+    standardTestName: standardTest.key
+    urlToTest: standardTest.value
+  }
+}]
+</code></pre><p>As you can see, this module itself takes a number of parameters, and will typically be invoked from some kind of continuous integration mechanism such as Azure Pipelines or GitHub Actions.</p><p>This module is written in the expectation that multiple URLs will need to be pinged, and so it has a parameter named <code>standardTests</code> which is effectively a dictionary of key-value pairs, where the key is the name of the standard test, and the value is the URL to test.</p><p>The module makes use of the <a href="https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-functions-array#items"><code>items</code></a> array helper in Bicep to convert the object into an array that can be iterated over.</p><h2>Azure Pipelines test</h2><p>We&#x27;re going to use Azure Pipelines to test this out. Here&#x27;s an <code>azure-pipelines.yml</code> file:</p><pre><code class="language-yml">trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - checkout: self
+    submodules: true
+
+  - bash: az bicep build --file ping-them.bicep
+    displayName: &#x27;Compile Bicep to ARM&#x27;
+
+  - task: AzureResourceManagerTemplateDeployment@3
+    name: DeploySharedWebTests
+    displayName: Deploy Shared Web Tests
+    inputs:
+      deploymentScope: Resource Group
+      azureResourceManagerConnection: ${{ variables.serviceConnection }}
+      subscriptionId: $(subscriptionId)
+      action: Create Or Update Resource Group
+      resourceGroupName: $(resourceGroup)
+      location: $(location)
+      templateLocation: Linked artifact
+      csmFile: &#x27;ping-them.json&#x27; # created by bash script
+      overrideParameters: &gt;-
+        -tags {&quot;owner&quot;: &quot;@johnny_reilly&quot;, &quot;branch&quot;: &quot;$(Build.SourceBranchName)&quot;}
+        -appInsightsName $(appInsightsName)
+        -standardTests {&quot;my-standard-test&quot;: &quot;https://status.azure.com/en-gb/status&quot;}
+      deploymentMode: Incremental
+</code></pre><p>When run, it invokes our <code>ping-them.bicep</code> module, passing two URLs to test.</p><p>When executed, you end up with a delightful &quot;availability test&quot; (which is your standard test) in Azure:</p><p><img src="../static/blog/2021-11-18-azure-standard-tests-with-bicep/screenshot-azure-portal-availability.png" alt="screenshot of an Availability test in the Azure Portal"/></p>]]></content>
+        <author>
+            <name>John Reilly</name>
+            <uri>https://twitter.com/johnny_reilly</uri>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[NSwag generated C# client: Open API property name clashes and decimal types rather than double]]></title>
         <id>NSwag generated C# client: Open API property name clashes and decimal types rather than double</id>
