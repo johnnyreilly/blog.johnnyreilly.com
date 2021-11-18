@@ -2,11 +2,13 @@
 title: 'Azure standard availability tests with Bicep'
 authors: johnnyreilly
 tags: [Azure, Bicep, standard tests]
-image: blog/2021-10-31-nswag-generated-c-sharp-client-property-name-clash/title-image.png
+image: blog/2021-11-18-azure-standard-tests-with-bicep/title-image.png
 hide_table_of_contents: false
 ---
 
 Azure standard tests are a tremendous way to monitor the uptime of your services in Azure. Sometimes also called availability tests, web tests and ping tests, this post goes through how to deploy one using Bicep. It also looks at some of the gotchas that you may encounter as you're setting it up.
+
+![title image reading "NSwag generated C# client: Open API property name clashes and decimal types rather than double" with a C# logo and Open API logos](../static/blog/2021-11-18-azure-standard-tests-with-bicep/title-image.png)
 
 ## What are standard tests?
 
@@ -127,7 +129,7 @@ If you do not provide a `hidden-link` tag, or if you try to specify a resource g
 
 > Resource should exist in the same resource group as the linked component
 
-![screenshot of the Azure Portal Deployments section saying "Resource should exist in the same resource group as the linked component"](../static/blog/2021-11-20-azure-standard-tests-with-bicep/screenshot-azure-portal-deployments-resource-should-exist-in-the-same-resource-group.png)
+![screenshot of the Azure Portal Deployments section saying "Resource should exist in the same resource group as the linked component"](../static/blog/2021-11-18-azure-standard-tests-with-bicep/screenshot-azure-portal-deployments-resource-should-exist-in-the-same-resource-group.png)
 
 Another thing that can cause issues here is the deployment of your app insights resource. It's not unusual to spin up Azure resources for a given branch of your source code. Those resources will be named in relation to the branch and will depend upon one another. I've never managed to successfully create an app insights resource, and reference it from a standard test in the same Bicep file. It's always been necessary to separate the two actions, such that Azure recognises the existence of the app insights resource when the standard test is deployed.
 
@@ -205,4 +207,4 @@ When run, it invokes our `ping-them.bicep` module, passing two URLs to test.
 
 When executed, you end up with a delightful "Availability test" (which is your standard test) in Azure:
 
-![screenshot of an Availability test in the Azure Portal](../static/blog/2021-11-20-azure-standard-tests-with-bicep/screenshot-azure-portal-availability.png)
+![screenshot of an Availability test in the Azure Portal](../static/blog/2021-11-18-azure-standard-tests-with-bicep/screenshot-azure-portal-availability.png)
