@@ -47,9 +47,8 @@ param frequency int = 300
 @description('Seconds until this WebTest will timeout and fail. Default value is 30.')
 param timeout int = 30
 
-// useful references:
+// useful reference:
 // https://docs.microsoft.com/en-us/azure/azure-monitor/app/monitor-web-app-availability#azure
-// https://github.com/TimoWilhelm/bicep-tk/blob/main/v1/webtest.bicep
 @allowed([
   'emea-au-syd-edge' // Australia East
   'latam-br-gru-edge' // Brazil South
@@ -121,9 +120,13 @@ output standardWebTestName string = standardWebTest.name
 output standardWebTestId string = standardWebTest.id
 ```
 
+### Locations / populations
+
 You'll note that a parameter to the Bicep module is `testPopulations`. These are the geographical places where requests will be sent from. You'll note we have a default value of five populations, but these could be any of the (presently) sixteen valid values. If you were wondering where those are sourced from, [here is the link to the Azure docs](https://docs.microsoft.com/en-us/azure/azure-monitor/app/availability-standard-tests#location-population-tags).
 
-Another significant call out should go to the `hidden-link` tag. This tag is amalgamated with other optional tags which are essentially metadata. The `hidden-link` tag is mandatory though, as it connects the test (known in Azure as a "webtest") to an app insights instance.
+### The `hidden-link` tag
+
+Another significant call out should go to the `hidden-link` tag. The `hidden-link` tag is a mandatory tag that connects the test (known in Azure as a "webtest") to an app insights instance.
 
 If you do not provide a `hidden-link` tag, or if you try to specify a resource group other than the app insights resource group, Azure will fail to deploy your test and you may find yourself presented with an error like this in the deployments section of the Azure Portal.
 
@@ -131,9 +134,15 @@ If you do not provide a `hidden-link` tag, or if you try to specify a resource g
 
 ![screenshot of the Azure Portal Deployments section saying "Resource should exist in the same resource group as the linked component"](../static/blog/2021-11-18-azure-standard-tests-with-bicep/screenshot-azure-portal-deployments-resource-should-exist-in-the-same-resource-group.png)
 
-Another thing that can cause issues here is the deployment of your app insights resource. It's not unusual to spin up Azure resources for a given branch of your source code. Those resources will be named in relation to the branch and will depend upon one another. I've never managed to successfully create an app insights resource, and reference it from a standard test in the same Bicep file. It's always been necessary to separate the two actions, such that Azure recognises the existence of the app insights resource when the standard test is deployed.
+In our module we set both the `hidden-link` and also the other tags have been supplied, that are optional and essentially metadata.
 
-## Using the module
+### App insights and standard tests share a resource group
+
+Another thing that can cause issues is the deployment of your app insights resource. It's not unusual to spin up Azure resources on demand, for a given branch of your source code. Those resources will be named in relation to the branch and will depend upon one another. I've never managed to successfully create an app insights resource, and reference it from a standard test within the same Bicep file. It appears to be necessary to separate the two actions, such that Azure recognises the existence of the app insights resource when the standard test is deployed.
+
+If you are working with long-lived app insights it won't be an issue for you, but if you aren't it's worth being aware of.
+
+## Using `standard-test.bicep`
 
 Our Bicep module can be invoked from another Bicep module named `ping-them.bicep` like so:
 
