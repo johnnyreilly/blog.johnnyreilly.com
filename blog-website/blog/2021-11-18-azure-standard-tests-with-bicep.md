@@ -24,7 +24,7 @@ So we can use these to:
 
 The URL may be one of our own service URLs, but it could be checking any kind of URL. It's web specific, not Azure specific.
 
-## Standard test Bicep
+## Standard test Bicep
 
 Now we're going to write a Bicep module that provisions a standard test named `standard-test.bicep`:
 
