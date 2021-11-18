@@ -8,7 +8,7 @@ hide_table_of_contents: false
 
 Azure standard tests are a tremendous way to monitor the uptime of your services in Azure. Sometimes also called availability tests, web tests and ping tests, this post goes through how to deploy one using Bicep. It also looks at some of the gotchas that you may encounter as you're setting it up.
 
-![title image reading "NSwag generated C# client: Open API property name clashes and decimal types rather than double" with a C# logo and Open API logos](../static/blog/2021-11-18-azure-standard-tests-with-bicep/title-image.png)
+![title image reading "Azure standard availability tests with Bicep" with a Bicep logo and Azure logos](../static/blog/2021-11-18-azure-standard-tests-with-bicep/title-image.png)
 
 ## What are standard tests?
 
@@ -35,7 +35,7 @@ param tags object
 @description('The resource id of the app insights which the webtest will reference')
 param appInsightsResourceId string
 
-@description('The name of the test to create')
+@description('The name of the webtest to create')
 param standardTestName string
 
 @description('URL to test')
@@ -201,7 +201,7 @@ steps:
       azureResourceManagerConnection: ${{ variables.serviceConnection }}
       subscriptionId: $(subscriptionId)
       action: Create Or Update Resource Group
-      resourceGroupName: $(storageResourceGroup)
+      resourceGroupName: $(resourceGroup)
       location: $(location)
       templateLocation: Linked artifact
       csmFile: 'ping-them.json' # created by bash script
