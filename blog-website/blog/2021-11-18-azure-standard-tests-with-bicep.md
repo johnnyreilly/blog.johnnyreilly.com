@@ -35,8 +35,8 @@ param tags object
 @description('The resource id of the app insights which the webtest will reference')
 param appInsightsResourceId string
 
-@description('The name of the webtest to create')
-param webTestName string
+@description('The name of the test to create')
+param standardTestName string
 
 @description('URL to test')
 param urlToTest string
@@ -81,7 +81,7 @@ var tagsWithHiddenLink = union({
 }, tags)
 
 resource standardWebTest 'Microsoft.Insights/webtests@2018-05-01-preview' = {
-  name: webTestName
+  name: standardTestName
   location: resourceGroup().location
   tags: tagsWithHiddenLink
   kind: 'ping'
@@ -158,13 +158,13 @@ param standardTests object
 
 var appInsightsResourceId = resourceId('Microsoft.Insights/components', appInsightsName)
 
-module webTestsToCreate 'standard-test.bicep' = [for webTest in items(standardTests): {
-  name: webTest.key
+module standardTestsToCreate 'standard-test.bicep' = [for standardTest in items(standardTests): {
+  name: standardTest.key
   params: {
     tags: tags
     appInsightsResourceId: appInsightsResourceId
-    webTestName: webTest.key
-    urlToTest: webTest.value
+    standardTestName: standardTest.key
+    urlToTest: standardTest.value
   }
 }]
 ```
@@ -214,6 +214,6 @@ steps:
 
 When run, it invokes our `ping-them.bicep` module, passing two URLs to test.
 
-When executed, you end up with a delightful "Availability test" (which is your standard test) in Azure:
+When executed, you end up with a delightful "availability test" (which is your standard test) in Azure:
 
 ![screenshot of an Availability test in the Azure Portal](../static/blog/2021-11-18-azure-standard-tests-with-bicep/screenshot-azure-portal-availability.png)
