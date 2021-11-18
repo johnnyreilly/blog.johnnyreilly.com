@@ -134,7 +134,7 @@ If you do not provide a `hidden-link` tag, or if you try to specify a resource g
 
 ![screenshot of the Azure Portal Deployments section saying "Resource should exist in the same resource group as the linked component"](../static/blog/2021-11-18-azure-standard-tests-with-bicep/screenshot-azure-portal-deployments-resource-should-exist-in-the-same-resource-group.png)
 
-In our module we set both the `hidden-link` and also the other tags have been supplied, that are optional and essentially metadata.
+In our module we set both the `hidden-link` tag as well as the tags that have been supplied via the `tags` parameter.
 
 ### App insights and standard tests share a resource group
 
@@ -171,7 +171,7 @@ module webTestsToCreate 'standard-test.bicep' = [for webTest in items(standardTe
 
 As you can see, this module itself takes a number of parameters, and will typically be invoked from some kind of continuous integration mechanism such as Azure Pipelines or GitHub Actions.
 
-This module is written in the expectation that multiple URLs will need to be pinged, and so it has a parameter named `` which is effectively a dictionary of key-value pairs, where the key is the name of the standard test, and the value is the URL to test.
+This module is written in the expectation that multiple URLs will need to be pinged, and so it has a parameter named `standardTests` which is effectively a dictionary of key-value pairs, where the key is the name of the standard test, and the value is the URL to test.
 
 The module makes use of the [`items`](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-functions-array#items) array helper in Bicep to convert the object into an array that can be iterated over.
 
