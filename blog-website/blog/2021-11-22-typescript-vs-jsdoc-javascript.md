@@ -2,13 +2,15 @@
 title: 'TypeScript vs JSDoc JavaScript'
 authors: johnnyreilly
 tags: [JavaScript, TypeScript, JSDoc]
-image: blog/2021-11-20-typescript-vs-jsdoc-javascript/title-image.png
+image: blog/2021-11-22-typescript-vs-jsdoc-javascript/title-image.png
 hide_table_of_contents: false
 ---
 
 There's a debate to be had about whether using JavaScript or TypeScript leads to better outcomes when building a project. The introduction of using JSDoc annotations to type a JavaScript codebase introduces a new dynamic to this discussion. This post will investigate what that looks like, and come to an (opinionated) conclusion.
 
-![title image reading "JSDoc JavaScript vs TypeScript" with a JavaScript logo and TypeScript logo](../static/blog/2021-11-20-typescript-vs-jsdoc-javascript/title-image.png)
+![title image reading "JSDoc JavaScript vs TypeScript" with a JavaScript logo and TypeScript logo](../static/blog/2021-11-22-typescript-vs-jsdoc-javascript/title-image.png)
+
+_This blog is evolving into meetup talk. Join us on Dec 1st at 2pm EDT / 7pm GMT - [sign up here](https://blog.logrocket.com/logrocket-typescript-meetup-typescript-alternatives-jsdoc-javascript/)_
 
 If you'd talked to me in 2018, I would have solidly recommended using TypeScript, and steering away from JavaScript. The rationale is simple: I'm exceedingly convinced of the value that static typing provides in terms of productivity / avoiding bugs in production. I appreciate this can be a contentious issue, but that is my settled opinion on the subject. Other opinions are available.
 
