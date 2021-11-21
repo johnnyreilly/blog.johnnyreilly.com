@@ -8143,7 +8143,7 @@ action &quot;publish&quot; {
         <link href="https://blog.johnnyreilly.com/2018/12/10/cache-rules-everything-around-me"/>
         <updated>2018-12-10T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[One thing that ASP.Net Core really got right was caching. IMemoryCache is a caching implementation that does just what I want. I love it. I take it everywhere. I've introduced it to my family.]]></summary>
-        <content type="html"><![CDATA[<p>One thing that ASP.Net Core really got right was caching. <code>&lt;a href=&quot;https://docs.microsoft.com/en-us/aspnet/core/performance/caching/memory&quot;&gt;IMemoryCache&lt;/a&gt;</code> is a caching implementation that does just what I want. I love it. I take it everywhere. I&#x27;ve introduced it to my family.</p><h2>TimeSpan, TimeSpan Expiration Y&#x27;all</h2><p>To make usage of the <code>IMemoryCache</code><em>even</em> more lovely I&#x27;ve written an extension method. I follow pretty much one cache strategy: <code>SetAbsoluteExpiration</code> and I just vary the expiration by an amount of time. This extension method implements that in a simple way; I call it <code>GetOrCreateForTimeSpanAsync</code> <!-- -->-<!-- --> catchy right? It looks like this:</p><pre><code class="language-cs">using System;
+        <content type="html"><![CDATA[<p>One thing that ASP.Net Core really got right was caching. <a href="https://docs.microsoft.com/en-us/aspnet/core/performance/caching/memory"><code>IMemoryCache</code></a> is a caching implementation that does just what I want. I love it. I take it everywhere. I&#x27;ve introduced it to my family.</p><h2>TimeSpan, TimeSpan Expiration Y&#x27;all</h2><p>To make usage of the <code>IMemoryCache</code> <em>even</em> more lovely I&#x27;ve written an extension method. I follow pretty much one cache strategy: <code>SetAbsoluteExpiration</code> and I just vary the expiration by an amount of time. This extension method implements that in a simple way; I call it <code>GetOrCreateForTimeSpanAsync</code> - catchy right? It looks like this:</p><pre><code class="language-cs">using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -8172,13 +8172,12 @@ namespace My.Helpers {
         }
     }
 }
-</code></pre><p>Usage looks like this:</p><pre><code class="language-cs">private Task&lt;superinterestingthing&gt; GetSuperInterestingThingFromCache(Guid superInterestingThingId) =&gt;
+</code></pre><p>Usage looks like this:</p><pre><code class="language-cs">private Task&lt;SuperInterestingThing&gt; GetSuperInterestingThingFromCache(Guid superInterestingThingId) =&gt;
     _cache.GetOrCreateForTimeSpanAsync(
         key: $&quot;{nameof(MyClass)}:GetSuperInterestingThing:{superInterestingThingId}&quot;,
         itemGetterAsync: () =&gt; GetSuperInterestingThing(superInterestingThingId),
         timeToCache: TimeSpan.FromMinutes(5)
     );
-&lt;/superinterestingthing&gt;
 </code></pre><p>This helper allows the consumer to provide three things:</p><ul><li>The <code>key</code> key for the item to be cached with</li><li>A <code>itemGetterAsync</code> which is the method that is used to retrieve a new value if an item cannot be found in the cache</li><li>A <code>timeToCache</code> which is the period of time that an item should be cached</li></ul><p>If an item can&#x27;t be looked up by the <code>itemGetterAsync</code> then <em>nothing</em> will be cached and a the <code>default</code> value of the expected type will be returned. This is important because lookups can fail, and there&#x27;s nothing worse than a lookup failing and you caching <code>null</code> as a result.</p><p>Go on, ask me how I know.</p><p>This is a simple, clear and helpful API which makes interacting with <code>IMemoryCache</code> even more lovely than it was. Peep it y&#x27;all.</p>]]></content>
         <author>
             <name>John Reilly</name>
