@@ -32,13 +32,13 @@ I was hanging out for something like TypeScript. I'd been busily developing rich
 
 When TypeScript was announced, it was important that the world could see that interop with JS was a first class citizen. Accordingly, a jQuery type definition was demonstrated as well. At the time, jQuery was the number one JavaScript library downloaded on the internet. So naturally it was the obvious choice for a demo. The type definition was fairly rough and ready but it worked. [You can see Anders Hejlsberg showing off the jQuery definition 45 minutes into this presentation introducing TypeScript.](https://channel9.msdn.com/posts/Anders-Hejlsberg-Introducing-TypeScript)
 
-Consumption was straightforward, if perhaps quirky. You took the `jquery.d.ts` file, copied it into your project location. Back then, to let the compiler know that a JS library had come to the party you had to use a kind of comment pragma in the header of your TypeScript files. For example: `/// &lt;reference path="jquery/jquery.d.ts" /&gt;`. This let TypeScript know that the type definition living at that path was relevant for the current script and it should scope it in.
+Consumption was straightforward, if perhaps quirky. You took the `jquery.d.ts` file, copied it into your project location. Back then, to let the compiler know that a JS library had come to the party you had to use a kind of comment pragma in the header of your TypeScript files. For example: `/// <reference path="jquery/jquery.d.ts" />`. This let TypeScript know that the type definition living at that path was relevant for the current script and it should scope it in.
 
 There was no discussion of “how do we type the world”? Even if they wanted to, the TypeScript team didn't really have the resources at that point to support this. They'd got as far as they had on the person power of four or five developers and some testers as well. There was a problem clearly waiting to be solved. As luck would have it, in Bulgaria a man named Boris Yankov had been watching the TypeScript announcement.
 
 ## Boris Yankov
 
-![](../static/blog/2019-10-08-definitely-typed-movie/boris_yankov.jpeg)
+![photograph of Boris Yankov looking mean, moody and magnificent](../static/blog/2019-10-08-definitely-typed-movie/boris_yankov.jpeg)
 
 Boris Yankov was a handsome thirty year old man, living in the historic Bulgarian city of Plovdiv. He was swarthy with dark hair; like Ben Affleck if had been hanging out in Eastern Europe for a couple of years.
 
@@ -70,7 +70,7 @@ Success has many parents. TypeScript is a successful project. One reason for thi
 
 ## Definitely Typed
 
-![](../static/blog/2019-10-08-definitely-typed-movie/dt-logo-smallish.png)
+![The Definitely Typed logo](../static/blog/2019-10-08-definitely-typed-movie/dt-logo-smallish.png)
 
 Boris had been feeling unproductive. He would build applications in JS and watch them unaccountably break as he made simple tweaks to them. He was constantly changing things, breaking them, fixing them and hoping he hadn't broken something else along the way. It was exhausting. He saw the promise in what TypeScript was offering and decided to give it a go.
 
@@ -82,7 +82,7 @@ Boris took his type definitions and put them into this repository. Were you ever
 
 [https://github.com/DefinitelyTyped/DefinitelyTyped/commits?after=4a4cf23ff4301835a45bb138bbb62bf5f0759255+699&author=borisyankov](https://github.com/DefinitelyTyped/DefinitelyTyped/commits?after=4a4cf23ff4301835a45bb138bbb62bf5f0759255+699&author=borisyankov)
 
-![](../static/blog/2019-10-08-definitely-typed-movie/Initial-CommitsDefinitelyTyped.png)
+![A screenshot of the initial commits to Definitely Typed on GitHub](../static/blog/2019-10-08-definitely-typed-movie/Initial-CommitsDefinitelyTyped.png)
 
 It wasn't complicated; it was just a folder with subfolders underneath; each folder representing a project. One for jQuery, one for jQuery UI, one for Knockout.... You get the idea. It's not so different now.
 
@@ -98,13 +98,13 @@ So if Boris had written a definition called `mylib.d.ts`, he'd write a file that
 
 So, imagine your definition looked like this:
 
-```
+```ts
 declare function turnANumberIntoAString (numberToMakeStringOutOf: number): string
 ```
 
 You might write a compilation test that looks like this:
 
-```
+```ts
 const itIsAString: string = turnANumberIntoAString(42);
 ```
 
@@ -136,7 +136,7 @@ Boris started adding contributors to Definitely Typed to help him with the work.
 
 ## Basarat Ali Syed
 
-![](../static/blog/2019-10-08-definitely-typed-movie/basarat.jpg)
+![A photograph of Basarat](../static/blog/2019-10-08-definitely-typed-movie/basarat.jpg)
 
 Basarat Ali Syed was a 27 year old who had recently moved to Melbourne, Australia from Pakistan. You might know of him for a number of reasons, not least being the TypeScript equivalent of Jon Skeet. That, incidentally, is not a coincidence. Basarat had watched Jon Skeet's impressive work, being _the_ gold standard in C# answers and thought "there's something worth emulating here".
 
@@ -154,11 +154,11 @@ Bas had the level of self knowledge required to realise that getting others invo
 
 On December 28th 2013 Basarat decided that a regular contributor to Definitely Typed might be a potential team member. Bas opened up Twitter and sent a Direct Message to John Reilly.
 
-![](../static/blog/2019-10-08-definitely-typed-movie/2019-10-02%2B21_51_58-basarat%2B_%2BTwitter.png)
+![A screenshot of direct message Basarat sent to John Reilly in Twitter](../static/blog/2019-10-08-definitely-typed-movie/2019-10-02%2B21_51_58-basarat%2B_%2BTwitter.png)
 
 ## John Reilly
 
-![](../static/blog/2019-10-08-definitely-typed-movie/johnny_reilly.jpg)
+![A photograph of John Reilly](../static/blog/2019-10-08-definitely-typed-movie/johnny_reilly.jpg)
 
 That's me. Or [johnny_reilly on Twitter](https://twitter.com/johnny_reilly) and [johnnyreilly](https://github.com/johnnyreilly) on GitHub (as John Papa and I have learned to our chagrin; GitHub don't support the "\_" character in usernames). Relatively few people call me Johnny. I'm named that online because back when I applied for an email address, someone had already bagsied john\_reilly@popularemailhotness.com. So rather than sully my handle with a number or a middle name I settled for johnny_reilly. I haven't looked back and have generally tried to keep that nom de plume wherever I lay my hat online.
 
@@ -180,15 +180,15 @@ I could make it better.
 
 I started submitting pull requests. The first problem I decided to solve was IntelliSense. I wanted IntelliSense for jQuery. If you went to [https://api.jquery.com](https://api.jquery.com) there was rich documentation for every method jQuery exposed. I wanted to see that documentation inside Visual Studio as I coded. If I keyed in `$.appendTo(` I wanted VS to be filled with the content from [https://api.jquery.com/appendTo/](https://api.jquery.com/appendTo/) . That was my mission. For each overload of the method I'd add something akin to this to the type definition file:
 
-```
+```ts
 /**
-     * Insert every element in the set of matched elements to the end of the target.
-     *
-     * @param value A selector, element, HTML string, array of elements, or jQuery
-     *              object; the matched set of elements will be inserted at the end
-     *              of the element(s) specified by this parameter.
-     */
-    appendTo(target: string): JQuery;
+ * Insert every element in the set of matched elements to the end of the target.
+ *
+ * @param value A selector, element, HTML string, array of elements, or jQuery
+ *              object; the matched set of elements will be inserted at the end
+ *              of the element(s) specified by this parameter.
+ */
+appendTo(target: string): JQuery;
 ```
 
 It was a tedious task plugging it all in, but the pleasure I got from having rich IntelliSense in VS more than made up for it to me. Along the way I added and fixed sections of the jQuery API that hadn't been implemented, or had been implemented incorrectly. It got to a point where jQuery was a good example of what a type definition should look like. That remains the case to this day; surprisingly few type definitions enjoy the JSDoc richness of jQuery. [I have tried to encourage more use of this with blog posts code reviews and the like, but it's never got the traction I'd hoped.](https://blog.johnnyreilly.com/2014/05/typescript-jsdoc-and-intellisense.html)
@@ -241,7 +241,7 @@ The compiler was changing too fast and there were too few people involved to all
 
 ## Masahiro Wakame
 
-![](../static/blog/2019-10-08-definitely-typed-movie/masahiro_wakame.jpg)
+![A photograph of Masahiro Wakame](../static/blog/2019-10-08-definitely-typed-movie/masahiro_wakame.jpg)
 
 Time passed. Autumn turned into winter, winter into spring. TypeScript reached 1.0. It wasn't beta anymore. As each release came, the changes in the compiler became more gradual. This was a blessing for the Definitely Typed team. The projects popularity was ticking up and up. New definitions were added each day. The trickle of issues and PRs had become a stream, then a river. A river very much ready to burst its banks.
 
@@ -263,7 +263,7 @@ As Masahiro kept the lights on, in a hotel room in Buenos Aires an Australian na
 
 ## Blake Embrey
 
-![](../static/blog/2019-10-08-definitely-typed-movie/blake_embrey.jpeg)
+![A photograph of Blake Embrey](../static/blog/2019-10-08-definitely-typed-movie/blake_embrey.jpeg)
 
 Blake was a 21 year old Australian. He was a nomadic developer, travelling around the world and working remotely. He travelled from country to country armed with a suitcase and his trusty MacBook in search of WiFi. He found himself dialing into standups from cafés in Vietnam at 1am to provide Jira updates, coding from airports as he criss-crossed the globe. It was an unusual life.
 
@@ -297,7 +297,7 @@ How could we have a world where external modules and global were treated distinc
 
 ## Typings
 
-![](../static/blog/2019-10-08-definitely-typed-movie/typings.jpg)
+![A screenshot of the Typings project](../static/blog/2019-10-08-definitely-typed-movie/typings.jpg)
 
 Blake made [typings](https://github.com/typings/typings). Typings was a number of things; it was a new command line tool to replace TSD, it was a new approach to distributing type definitions and it was a registry. But Typings was a registry which pointed out to the web. Typings installation was entirely decentralized and the typings themselves could be downloaded from almost anywhere - GitHub, NPM, Bower and even over HTTP or the filesystem. Those type definitions could be external modules or globals.
 
@@ -313,7 +313,7 @@ Little by little, people started consuming type definitions that came from the t
 
 ## The TypeScript Team
 
-![](../static/blog/2019-10-08-definitely-typed-movie/TypeScriptTeam.jpg)
+![A photograph of the TypeScript team](../static/blog/2019-10-08-definitely-typed-movie/TypeScriptTeam.jpg)
 
 Over in Seattle, the TypeScript team was thinking hard about the type definition ecosystem. About Definitely Typed and Typings. And about tooling and distribution.
 
@@ -335,13 +335,13 @@ There was one more factor in play. The TypeScript team were aware that for the l
 
 The TypeScript team reached out to Blake Embrey and started to talk about ways forward. They started collaborating over Slack.
 
-![](../static/blog/2019-10-08-definitely-typed-movie/typings_typescript_collaboration.jpg)
+![A screenshot of the collaboration on Slack](../static/blog/2019-10-08-definitely-typed-movie/typings_typescript_collaboration.jpg)
 
 The TypeScript team had also been in contact with the Definitely Typed team. They were, at this point, aware that Definitely Typed was being kept going mainly due to the hard graft of Masahiro Wakame. As Daniel observed “vvakame was a champ”.
 
 At this point I have to stick my own hand up and confess to thinking that Definitely Typed was not long for this world. Steve Ognibene (another DT member) and others were all feeling similarly. It seemed inevitable.
 
-![](../static/blog/2019-10-08-definitely-typed-movie/steveognibe.png)
+![A photograph of Steve Ognibe](../static/blog/2019-10-08-definitely-typed-movie/steveognibe.png)
 
 The TypeScript team were about to change that. After talking, thinking, thinking and talking they put together a plan. It was going to change TypeScript and change Definitely Typed. It was also going to effectively end Typings.
 
@@ -377,13 +377,13 @@ A young Australian man had helped change the direction of TypeScript. It was tim
 
 In the meantime, the TypeScript team was starting to get stuck into the work of giving Definitely Typed a make-over.
 
-![](../static/blog/2019-10-08-definitely-typed-movie/rotation.png)
+![Screenshot of the rota for Definitely Typed work for the TypeScript team](../static/blog/2019-10-08-definitely-typed-movie/rotation.png)
 
 At this point, Definitely Typed had more than 500 open pull requests. Most of which had been open for a very long time. The most urgent and pressing problem was getting that down. The TypeScript team committed to, in perpetuity, a weekly rotation where one team member would review PRs. This would, in future, mean that PRs were handled in a timely fashion and that the number of open PRs was generally kept beneath 100.
 
 Alongside this, changes were being made to the TypeScript compiler. In large part these related to enabling automatic type acquisition through the @types scope. To make that work, the TypeScript team realised pretty quickly that many of the type definitions would not work as is. Ryan wrote up this report:
 
-![](../static/blog/2019-10-08-definitely-typed-movie/RyansDefTypReport.png)
+![Ryan Cavanagh's report on what to do in Definitely Typed](../static/blog/2019-10-08-definitely-typed-movie/RyansDefTypReport.png)
 
 At this point in time there were around 1700 type definitions. Pretty much all of them required some massaging. Roughly speaking, with TS 2.0, the language was going to move from a name based type acquisition approach to a file based one. New features were added to TypeScript 2.0 such as the `export as namespace` syntax to support a type definition supporting both being used in modules (where there are `import` / `export`s) but also in script files (where there aren't)
 
@@ -393,7 +393,7 @@ This was one of the reasons why going with the centralised approach of Definitel
 
 It took a long time to get the types 2.0 branch to a point where CI went green. All this time, merges we're taking place between the master branch and the future one. It was hard, unglamorous work. As Ryan put it, "I partied hard when CI went green for the first time on types 2.0."
 
-![](../static/blog/2019-10-08-definitely-typed-movie/types20goinggreen.png)
+![Screenshot of @types going green](../static/blog/2019-10-08-definitely-typed-movie/types20goinggreen.png)
 
 The first and most obvious addition was the automation of TypeScript definitions being published out to npm.
 
