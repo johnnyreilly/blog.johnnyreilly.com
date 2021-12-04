@@ -1278,10 +1278,7 @@ steps:
           $value = $_.Value.value
 
           # Creates a standard pipeline variable
-          Write-Output &quot;##vso[task.setvariable variable=$keyName;]$value&quot;
-
-          # Creates an output variable
-          Write-Output &quot;##vso[task.setvariable variable=$keyName;issecret=true;isOutput=true]$value&quot;
+          Write-Output &quot;##vso[task.setvariable variable=$keyName;issecret=true]$value&quot;
 
           # Display keys in pipeline
           Write-Output &quot;output variable: $keyName&quot;
@@ -1293,7 +1290,7 @@ steps:
     displayName: Deploy Static Web App
     inputs:
       app_location: &#x27;static-web-app&#x27;
-      # api_location: &#x27;api&#x27;
+      # api_location: &#x27;api&#x27; # we don&#x27;t have an API
       output_location: &#x27;build&#x27;
       azure_static_web_apps_api_token: $(deployment_token) # captured from deploymentOutputs
 </code></pre><p>When the pipeline is run, it does the following:</p><ol><li>Compiles our Bicep into an ARM template</li><li>Deploys the compiled ARM template to Azure</li><li>Captures the deployment outputs (essentially the <code>deployment_token</code>) and converts them into variables to use in the pipeline</li><li>Deploys our Static Web App using the <code>deployment_token</code></li></ol><p>The pipeline depends upon a number of variables:</p><ul><li><code>azureResourceGroup</code> - the name of your resource group in Azure where the app will be deployed</li><li><code>location</code> - where your app is deployed, eg <code>northeurope</code></li><li><code>repo</code> - the URL of your repository in Azure DevOps, eg <a href="https://dev.azure.com/johnnyreilly/_git/azure-static-web-apps">https://dev.azure.com/johnnyreilly/_git/azure-static-web-apps</a></li><li><code>serviceConnection</code> - the name of your AzureRM service connection in Azure DevOps</li><li><code>staticWebAppName</code> - the name of your static web app, eg <code>azure-static-web-apps-johnnyreilly</code></li><li><code>subscriptionId</code> - your Azure subscription id from the <a href="https://portal.azure.com">Azure Portal</a></li></ul><p>A successful pipeline looks something like this:</p><p><img src="../static/blog/2021-08-15-bicep-azure-static-web-apps-azure-devops/successful-azure-pipelines-run-screenshot.png" alt="Screenshot of successfully running Azure Pipeline"/></p><p>What you might notice is that the <code>AzureStaticWebApp</code> is itself installing and building our application. This is handled by <a href="https://github.com/Microsoft/Oryx">Microsoft Oryx</a>. The upshot of this is that we don&#x27;t need to manually run <code>npm install</code> and <code>npm build</code> ourselves; the <code>AzureStaticWebApp</code> task will take care of it for us.</p><p>Finally, let&#x27;s see if we&#x27;ve deployed something successfully...</p><p><img src="../static/blog/2021-08-15-bicep-azure-static-web-apps-azure-devops/deployed-azure-static-web-app-screenshot.png" alt="Screenshot of deployed Azure Static Web App"/></p><p>We have! It&#x27;s worth noting that you&#x27;ll likely want to give your Azure Static Web App a lovelier URL, and perhaps even put it behind Azure Front Door as well.</p><h2><code>Provider is invalid</code> workaround 2</h2><p><a href="https://www.linkedin.com/in/shaneneff/">Shane Neff</a> was attempting to follow the instructions in this post and encountered issues. He shared his struggles with me as he encountered the <a href="https://github.com/Azure/static-web-apps/issues/516">&quot;Provider is invalid. Cannot change the Provider. Please detach your static site first if you wish to use to another deployment provider.&quot; issue</a>.</p><p>He was good enough to share his solution as well, which is inserting this task at the start of the pipeline (before the <code>az bicep build</code> step):</p><pre><code class="language-yml">- task: AzureCLI@2
