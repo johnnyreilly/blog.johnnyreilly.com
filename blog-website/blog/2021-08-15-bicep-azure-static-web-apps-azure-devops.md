@@ -116,10 +116,7 @@ steps:
           $value = $_.Value.value
 
           # Creates a standard pipeline variable
-          Write-Output "##vso[task.setvariable variable=$keyName;]$value"
-
-          # Creates an output variable
-          Write-Output "##vso[task.setvariable variable=$keyName;issecret=true;isOutput=true]$value"
+          Write-Output "##vso[task.setvariable variable=$keyName;issecret=true]$value"
 
           # Display keys in pipeline
           Write-Output "output variable: $keyName"
@@ -131,7 +128,7 @@ steps:
     displayName: Deploy Static Web App
     inputs:
       app_location: 'static-web-app'
-      # api_location: 'api'
+      # api_location: 'api' # we don't have an API
       output_location: 'build'
       azure_static_web_apps_api_token: $(deployment_token) # captured from deploymentOutputs
 ```
