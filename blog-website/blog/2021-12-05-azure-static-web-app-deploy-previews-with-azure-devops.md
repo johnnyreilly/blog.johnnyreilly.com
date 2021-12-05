@@ -25,11 +25,11 @@ It's worth bearing in mind that there's a very similar feature to what we're goi
 
 It's possible that in future the deployment environment aspect of this blog post may be rendered redundant by staging environments landing in Azure DevOps. However, the second part, which updates a PR in ADO with a link is probably generally useful. And it may be the case that the approach of provisioning an environment on demand and extracting a URL could be reworked to work with App Service and similar too.
 
-I wrote about using [SWAs with Azure DevOps earlier this year](./2021-08-15-bicep-azure-static-web-apps-azure-devops.md). This blog post will take the form of a PR on the [code written in that post](https://dev.azure.com/johnnyreilly/_git/azure-static-web-apps).
+I wrote about using [SWAs with Azure DevOps earlier this year](./2021-08-15-bicep-azure-static-web-apps-azure-devops.md). This blog post will take the form of a [pull request on the code written in that post](https://dev.azure.com/johnnyreilly/azure-static-web-apps/_git/azure-static-web-apps/pullrequest/3).
 
 ## Getting `defaultHostName` from Static Web Apps
 
-The first thing we're going to do is take the Bicep from that post an tweak it to the following:
+The first thing we're going to do is take the Bicep from that post and tweak it to the following:
 
 ```bicep
 param appName string
@@ -63,13 +63,52 @@ output staticWebAppId string = staticWebApp.id
 output staticWebAppName string = staticWebApp.name
 ```
 
-There's only a couple of changes in here. First of all we're using a newer version of the `staticSites` resource in Azure. Secondly, you'll see the output of the Bicep file has changed. Previously we were outputting the `apiKey` that we used for deployment. This isn't the securest of approaches as this data can be accessed by people who share access with your Azure portal and so we're going to use a different approach to acquire this in our pipeline later.
+There's some changes in here. First of all we're using a newer version of the `staticSites` resource in Azure. You'll also see that we name the resource conditionally now. If we're on the `main` branch we name it as we did before with `appName`. But if we aren't then we suffix the `name` with the `repositoryBranch`. It's worth knowing that [there are restrictions and conventions for Azure resource naming](https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations#compute-and-web). If you have a branch name that is just alphanumerics and hyphens you'll be fine.
 
-More significantly, we are now outputting the `staticWebAppDefaultHostName` of our newly provisioned SWA. This is the location where people will be able to view the deployment preview. Since we want to pump that into our pull request text somehow, so people can click on the link, we are going to need this. We're also pumping out the `staticWebAppId` and `staticWebAppName`. We'll use the `staticWebAppName` to acquire the `apiKey` in our pipeline.
+You'll see the output of the Bicep file has changed. Previously we were outputting the `apiKey` that we used for deployment. This isn't the securest of approaches as this data can be accessed by people who share access with your Azure portal and so we're going to use a different approach to acquire this in our pipeline later.
+
+More significantly, we are now outputting the `staticWebAppDefaultHostName` of our newly provisioned SWA. This is the location where people will be able to view the deployment preview. Since we want to pump that into our pull request description, so people can click on the link, we are going to need this. We're also pumping out the `staticWebAppId` and `staticWebAppName`. We'll use the `staticWebAppName` to acquire the `apiKey` in our pipeline.
 
 ## Azure Pipelines tweaks
 
-Now to the pipeline. In addition to what it already does, our updated pipeline is going to acquire the `apiKey` for deployment and it's going to run a custom script that will update the PR with the preview URL. The updated pipeline looks like this:
+Now to the pipeline. After the deployment, our updated pipeline is going to acquire the `apiKey` for deployment like so:
+
+```yml
+- task: AzureCLI@2
+  displayName: 'Acquire API key for deployment'
+  inputs:
+    azureSubscription: $(serviceConnection)
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      APIKEY=$(az staticwebapp secrets list --name $(staticWebAppName) | jq -r '.properties.apiKey')
+      echo "##vso[task.setvariable variable=apiKey;issecret=true]$APIKEY"
+```
+
+The above uses the [Azure CLI task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-cli?view=azure-devops) to acquire the `apiKey`. It uses [jq](https://stedolan.github.io/jq/) to pull out the required property from the JSON and writes it as a secret variable in the pipeline to be used in the deployment.
+
+At the end of the pipeline, if we're not on the `main` branch, the the pipeline is going to run a custom script that will update the PR with the preview URL:
+
+```yml
+- task: Npm@1
+  displayName: 'Pull request preview install'
+  condition: and(succeeded(), ne(variables.isMain, 'true'))
+  inputs:
+    command: 'install'
+    workingDir: pull-request-preview
+
+- task: Npm@1
+  displayName: 'Pull request preview'
+  condition: and(succeeded(), ne(variables.isMain, 'true'))
+  inputs:
+    command: 'custom'
+    customCommand: 'run pull-request-preview -- --sat "$(System.AccessToken)" --project "$(System.TeamProject)" --repository "$(Build.Repository.Name)" --systemCollectionUri "$(System.CollectionUri)" --pullRequestId $(System.PullRequest.PullRequestId) --previewUrl "https://$(staticWebAppDefaultHostName)"'
+    workingDir: pull-request-preview
+```
+
+We haven't written that script yet; we will in a moment.
+
+The complete `azure-piplines.yml` is below, and you'll notice we've moved all variables save for the `subscriptionId` into the `azure-pipelines.yml` and we're using a `westeurope` location / resource group as at present `staticSites` is not available everywhere:
 
 ```yml
 pool:
@@ -394,10 +433,11 @@ function makePreviewDescriptionMarkdown(desc: string, previewUrl: string) {
 }
 ```
 
-The above code does the following:
+The above code does two things:
 
-- Looks up the pull request, using the details supplied from the pipeline. It's worth noting that the `System.PullRequest.PullRequestId` variable is [initialized only if the build ran because of a Git PR affected by a branch policy](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml). If you don't have that set up, the script falls back to using the latest active pull request. This is generally useful when you're getting set up in the first place; you won't want to rely on this behaviour.
-- Updates the pull request description with a prefix piece of markdown that provides the link to the preview URL.
+1. Looks up the pull request, using the details supplied from the pipeline. It's worth noting that the `System.PullRequest.PullRequestId` variable is [initialized only if the build ran because of a Git PR affected by a branch policy](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml). If you don't have that set up, the script falls back to using the latest active pull request. This is generally useful when you're getting set up in the first place; you won't want to rely on this behaviour.
+2. Updates the pull request description with a prefix piece of markdown that provides the link to the preview URL.
+   ![screenshot of rendered markdown with the preview link](../static/blog/2021-12-05-azure-static-web-app-deploy-previews-with-azure-devops/screenshot-of-deploy-preview-small.png)
 
 ## Permissions
 
@@ -411,10 +451,14 @@ To remedy this you need to give your build service the relevant permissions to u
 
 ![Screenshot of "Contribute to pull requests" permission in Azure DevOps Git security being set to "Allow" ](../static/blog/2021-12-05-azure-static-web-app-deploy-previews-with-azure-devops/screenshot-of-git-repository-security-settings.png)
 
-## Enjoy! (and remember to clean up)
+## Enjoy! (and keep Azure tidy)
 
 When the pipeline is now run you can see that a deployment preview link is now updated onto the PR description:
 
-![Screenshot of deployment preview on PR])(../static/blog/2021-12-05-azure-static-web-app-deploy-previews-with-azure-devops/screenshot-of-deploy-preview.png)
+![Screenshot of deployment preview on PR](../static/blog/2021-12-05-azure-static-web-app-deploy-previews-with-azure-devops/screenshot-of-deploy-preview.png)
 
-This will happen whenever a PR is raised which is tremendous. A thing to remember, is that there's nothing in this post that tears down the temporary deployment after it's been created. It's important that you have something like that in your arsenal. We happen to be using free resources in this post, but if we weren't there would be cost implications. Either way, you'll want to clean up unused environments as a matter of course. So be tidy and cost aware with this approach.
+This will happen whenever a PR is raised which is tremendous.
+
+A thing to remember, is that there's nothing in this post that tears down the temporary deployment after the pull request has been merged. It will hang around. We happen to be using free resources in this post, but if we weren't there would be cost implications. Either way, you'll want to clean up unused environments as a matter of course. And I'd advise automating that.
+
+So be tidy and cost aware with this approach.
