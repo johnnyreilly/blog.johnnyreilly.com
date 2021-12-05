@@ -14,7 +14,7 @@ Having a build of your latest pull request which is deployed and clickable from 
 
 ![screenshot of a Netlify deploy preview on my latest blog post](../static/blog/2021-12-05-azure-static-web-app-deploy-previews-with-azure-devops/screenshot-of-netlify-deploy-preview-in-pull-request.png)
 
-I love this and I wanted to implement the "browse the preview" mechanism in Azure DevOps as well, using Azure Static Web Apps. This blog post will contain two things:
+I love this and I wanted to implement the "browse the preview" mechanism in Azure DevOps as well, using Azure Static Web Apps. This blog post contains two things:
 
 1. A pull request deployment environment mechanism using Azure and Azure Pipelines with Bicep.
 2. A mechanism for updating a pull request in Azure DevOps with a link to the deployment environment (the "browse the preview")
@@ -65,7 +65,7 @@ output staticWebAppName string = staticWebApp.name
 
 There's some changes in here. First of all we're using a newer version of the `staticSites` resource in Azure. You'll also see that we name the resource conditionally now. If we're on the `main` branch we name it as we did before with `appName`. But if we aren't then we suffix the `name` with the `repositoryBranch`. It's worth knowing that [there are restrictions and conventions for Azure resource naming](https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations#compute-and-web). If you have a branch name that is just alphanumerics and hyphens you'll be fine.
 
-You'll see the output of the Bicep file has changed. Previously we were outputting the `apiKey` that we used for deployment. This isn't the securest of approaches as this data can be accessed by people who share access with your Azure portal and so we're going to use a different approach to acquire this in our pipeline later.
+You'll see the output of the Bicep file has changed. Previously we were outputting the `apiKey` that we used for deployment. This isn't the securest of approaches as, by having this as a deployment output, this data can be accessed by people who share access with your Azure portal. So we're going to use a different (and more secure) approach to acquire this in our pipeline later.
 
 More significantly, we are now outputting the `staticWebAppDefaultHostName` of our newly provisioned SWA. This is the location where people will be able to view the deployment preview. Since we want to pump that into our pull request description, so people can click on the link, we are going to need this. We're also pumping out the `staticWebAppId` and `staticWebAppName`. We'll use the `staticWebAppName` to acquire the `apiKey` in our pipeline.
 
@@ -211,7 +211,7 @@ We want to be able to update our pull request with our deploy URL. To make that 
 
 Let's create our app:
 
-```
+```bash
 mkdir pull-request-preview
 cd pull-request-preview
 npm init --yes
@@ -436,8 +436,10 @@ function makePreviewDescriptionMarkdown(desc: string, previewUrl: string) {
 The above code does two things:
 
 1. Looks up the pull request, using the details supplied from the pipeline. It's worth noting that the `System.PullRequest.PullRequestId` variable is [initialized only if the build ran because of a Git PR affected by a branch policy](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml). If you don't have that set up, the script falls back to using the latest active pull request. This is generally useful when you're getting set up in the first place; you won't want to rely on this behaviour.
-2. Updates the pull request description with a prefix piece of markdown that provides the link to the preview URL.
+2. Updates the pull request description with a prefix piece of markdown that provides the link to the preview URL. This is our "browse the preview":
    ![screenshot of rendered markdown with the preview link](../static/blog/2021-12-05-azure-static-web-app-deploy-previews-with-azure-devops/screenshot-of-deploy-preview-small.png)
+
+This script could be refactored into a dedicated Azure Pipelines custom task.
 
 ## Permissions
 
