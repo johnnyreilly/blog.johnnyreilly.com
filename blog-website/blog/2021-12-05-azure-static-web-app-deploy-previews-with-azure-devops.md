@@ -1,7 +1,7 @@
 ---
 title: 'Azure Static Web App Deploy Previews with Azure DevOps'
 authors: johnnyreilly
-tags: [JavaScript, TypeScript, JSDoc]
+tags: [Azure Static Web Apps, Azure DevOps, Netlify deploy previews]
 image: blog/2021-12-05-azure-static-web-app-deploy-previews-with-azure-devops/title-image.png
 hide_table_of_contents: false
 ---
