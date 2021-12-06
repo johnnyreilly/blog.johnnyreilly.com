@@ -1,10 +1,11 @@
 ---
-title: "Structured data, SEO and React"
+title: 'Structured data, SEO and React'
 authors: johnnyreilly
 tags: [structured data, SEO, React]
 image: blog/2021-10-15-structured-data-seo-and-react/structured-data-seo-and-react.png
 hide_table_of_contents: false
 ---
+
 People being able to discover your website when they search is important. This post is about how you can add structured data to a site. Adding structured data will help search engines like Google understand your content, and get it in front of more eyeballs. We'll illustrate this by making a simple React app which incorporates structured data.
 
 ![title image reading "Structured data, SEO and React" with a screenshot of the rich results tool in the background](../static/blog/2021-10-15-structured-data-seo-and-react/structured-data-seo-and-react.png)
@@ -13,7 +14,7 @@ People being able to discover your website when they search is important. This p
 
 This blog evolved to become a talk:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/zi1CHB-eVck?start=282" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zi1CHB-eVck?start=282" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## What is structured data?
 
@@ -23,28 +24,28 @@ So let's say you've written an article, you can reliably state in a language tha
 
 It's worth knowing that whilst there are many types of structured data available to choose from, there are definitely more popular options and those that are more niche. So [Article](https://schema.org/Article) is likely to be used a great deal more than, perhaps, [MolecularEntity](https://schema.org/MolecularEntity).
 
-As well as there being different types of structured data, there also a variety of formats which can be used to provide it; these include [JSON-LD](http://json-ld.org/), [Microdata](https://www.w3.org/TR/microdata/) and [RDFa](https://rdfa.info/). Google explicitly prefer JSON-LD and so that's what we'll focus on. JSON-LD is effectively a rending of a piece of JSON inside a `script` tag with the custom type of `application/ld+json`.  For example: 
+As well as there being different types of structured data, there also a variety of formats which can be used to provide it; these include [JSON-LD](http://json-ld.org/), [Microdata](https://www.w3.org/TR/microdata/) and [RDFa](https://rdfa.info/). Google explicitly prefer JSON-LD and so that's what we'll focus on. JSON-LD is effectively a rending of a piece of JSON inside a `script` tag with the custom type of `application/ld+json`. For example:
 
 ```html
 <script type="application/ld+json">
-{
+  {
     "@context": "https://schema.org/",
     "@type": "Recipe",
     "name": "Chocolate Brownie",
     "author": {
-        "@type": "Person",
-        "name": "John Reilly"
+      "@type": "Person",
+      "name": "John Reilly"
     },
     "datePublished": "2014-09-01",
     "description": "The most amazing chocolate brownie recipe",
     "prepTime": "PT60M"
-}
+  }
 </script>
 ```
 
 ## Structured data in action
 
-Whilst structured data is helpful for search engines in general, it can also make a difference to the way your content is rendered *inside* search results. For instance, let's search for "best brownie recipe" in Google and see what shows up:
+Whilst structured data is helpful for search engines in general, it can also make a difference to the way your content is rendered _inside_ search results. For instance, let's search for "best brownie recipe" in Google and see what shows up:
 
 ![screenshot of google search results for "best brownie recipe" including a rich text results set at the top of the list showing recipes from various sources](../static/blog/2021-10-15-structured-data-seo-and-react/screenshot-of-rich-text-results.png)
 
@@ -62,11 +63,11 @@ If we look at the `@type` property we can see it's a `"Recipe"`. This means it's
 
 Now we have a sense of what the various search engines are using as they categorise the page, and we understand exactly what is powering the carousel in the Google search results.
 
-Incidentally, there's a special name for this "carousel"; it is a "rich result". A rich result is a search result singled out for special treatment when it is displayed.  Google provide a [Rich Results Test tool](https://search.google.com/test/rich-results) which allows you to validate if a site provides structured data which is eligible to be featured in rich results.  We'll make use of this later.
+Incidentally, there's a special name for this "carousel"; it is a "rich result". A rich result is a search result singled out for special treatment when it is displayed. Google provide a [Rich Results Test tool](https://search.google.com/test/rich-results) which allows you to validate if a site provides structured data which is eligible to be featured in rich results. We'll make use of this later.
 
 ## Adding structured data to a website
 
-Now we'll make ourselves a React app and add structured data to it.  In the console we'll execute the following command:
+Now we'll make ourselves a React app and add structured data to it. In the console we'll execute the following command:
 
 ```
 npx create-react-app my-app
@@ -76,21 +77,21 @@ We now have a simple React app which consists of a single page. Let's replace th
 
 ```jsx
 //@ts-check
-import "./App.css";
+import './App.css';
 
 function App() {
   // https://schema.org/Article
   const articleStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    headline: "Structured data for you",
-    description: "This is an article that demonstrates structured data.",
-    image: "https://upload.wikimedia.org/wikipedia/commons/4/40/JSON-LD.svg",
-    datePublished: new Date("2021-09-04T09:25:01.340Z").toISOString(),
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Structured data for you',
+    description: 'This is an article that demonstrates structured data.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/4/40/JSON-LD.svg',
+    datePublished: new Date('2021-09-04T09:25:01.340Z').toISOString(),
     author: {
-      "@type": "Person",
-      name: "John Reilly",
-      url: "https://twitter.com/johnny_reilly",
+      '@type': 'Person',
+      name: 'John Reilly',
+      url: 'https://twitter.com/johnny_reilly',
     },
   };
 
@@ -102,15 +103,15 @@ function App() {
 
       <h1>{articleStructuredData.headline}</h1>
       <h3>
-        by{" "}
+        by{' '}
         <a href={articleStructuredData.author.url}>
           {articleStructuredData.author.name}
-        </a>{" "}
+        </a>{' '}
         on {articleStructuredData.datePublished}
       </h3>
 
       <img
-        style={{ width: "5em" }}
+        style={{ width: '5em' }}
         alt="https://json-ld.org/ - Website content released under a Creative Commons CC0 Public Domain Dedication except where an alternate is specified., CC0, via Wikimedia Commons"
         src={articleStructuredData.image}
       />
@@ -125,7 +126,7 @@ function App() {
 export default App;
 ```
 
-If we look at the code above, we can see we're creating a JavaScript object literal named `articleStructuredData` which contains the data of an https://schema.org/Article.  `articleStructuredData` is then used to do two things:
+If we look at the code above, we can see we're creating a JavaScript object literal named `articleStructuredData` which contains the data of an https://schema.org/Article. `articleStructuredData` is then used to do two things:
 
 1. to contribute to the content of the page
 2. to render a JSON-LD script tag: `<script type="application/ld+json">` which is populated by calling `JSON.stringify(articleStructuredData)`
@@ -138,7 +139,7 @@ Now let's see if it supports structured data in the way we hope.
 
 ## Using the Rich Results Test
 
-If we go to https://search.google.com/test/rich-results we find the Rich Results Test tool. There's two ways you can test; providing a URL or providing code.  In our case we don't have a public facing URL and so we're going to use the HTML that React is rendering.
+If we go to https://search.google.com/test/rich-results we find the Rich Results Test tool. There's two ways you can test; providing a URL or providing code. In our case we don't have a public facing URL and so we're going to use the HTML that React is rendering.
 
 In devtools we'll use the "copy outerHTML" feature to grab the HTML, then we'll paste it into Rich Results:
 
@@ -150,6 +151,6 @@ We hit the "TEST CODE" button and we see results that look like this:
 
 So we've been successful in building a website that renders structured data. More than that, we're doing it in a way that we know Google will recognise and can use to render rich results in search. That's a really useful way to drive traffic to our website.
 
-This post has illustrated what it looks like to create an `Article`.  Google has some [great resources](https://developers.google.com/search/docs/advanced/structured-data/search-gallery) on other types that it supports and prioritises for rich results which should help you build the structured data you need for your particular content.
+This post has illustrated what it looks like to create an `Article`. Google has some [great resources](https://developers.google.com/search/docs/advanced/structured-data/search-gallery) on other types that it supports and prioritises for rich results which should help you build the structured data you need for your particular content.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/react-structured-data-and-seo/)
