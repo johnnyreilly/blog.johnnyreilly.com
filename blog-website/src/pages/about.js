@@ -79,7 +79,13 @@ const features = [
   },
 ];
 
-function Feature({ imageUrl, title, description }) {
+function Feature(
+  /** @type {{ imageUrl?: string, title: String, description: JSX.Element }} */ {
+    imageUrl,
+    title,
+    description,
+  }
+) {
   const imgUrl = useBaseUrl(imageUrl);
   return (
     <div className={clsx('col col--4', styles.feature)}>
@@ -97,7 +103,7 @@ function Feature({ imageUrl, title, description }) {
 function About() {
   const imgUrl = useBaseUrl('img/profile.jpg');
   const context = useDocusaurusContext();
-  const { siteConfig = {} } = context;
+  const { siteConfig = { title: '', tagline: '' } } = context;
 
   // details on structured data support: https://developers.google.com/search/docs/data-types/article#non-amp
   // and https://schema.org/Person
@@ -157,7 +163,11 @@ function About() {
               <div className="container">
                 <div className="row">
                   {features.map((props, idx) => (
-                    <Feature key={idx} {...props} />
+                    <Feature
+                      key={idx}
+                      title={props.title}
+                      description={props.description}
+                    />
                   ))}
                 </div>
               </div>
