@@ -29,7 +29,8 @@ const allPosts = ((ctx) => {
         permalink,
       },
     ];
-  }, /** @type {string[]}>} */ ([]));
+  }, /** @type {BlogPost[]}>} */ ([]));
+  // @ts-ignore
 })(require.context('../../blog', false, /.md/));
 
 const postsByYear = allPosts.reduceRight((posts, post) => {

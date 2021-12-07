@@ -15,6 +15,11 @@ const talks = [
     formattedDate: 'October 27th, 2021',
     title: 'LogRocket Meetup: Structured data, SEO and React',
   },
+  {
+    permalink: 'https://youtu.be/5MZoAcheyE4?t=240',
+    formattedDate: 'December 1st, 2021',
+    title: 'LogRocket Meetup: TypeScript Alternatives – JSDoc JavaScript',
+  },
 ];
 
 function Talks() {

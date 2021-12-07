@@ -12,7 +12,7 @@ An exciting feature is shipping with TypeScript 4.4. It has the name ["Control F
 
 This blog evolved to become a talk:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/LxZx3ycrxI0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LxZx3ycrxI0" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <!--truncate-->
 

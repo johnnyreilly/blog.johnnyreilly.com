@@ -194,7 +194,7 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
       // bigger titles
       .replace(/#### /g, '## ')
 
-      // <div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe src="https://giphy.com/embed/l7JDTHpsXM26k" width="100%" height="100%" style="position:absolute" frameborder="0" class="giphy-embed" allowfullscreen=""></iframe></div>
+      // <div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe src="https://giphy.com/embed/l7JDTHpsXM26k" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowfullscreen=""></iframe></div>
 
       // The mechanism below extracts the underlying iframe
       .replace(/<div.*(<iframe.*">).*<\/div>/g, (replacer) => {
@@ -213,7 +213,7 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
       })
 
       // capitalise appropriately
-      .replace(/frameborder/g, 'frameBorder')
+      .replace(/frameBorder/g, 'frameBorder')
       .replace(/allowfullscreen/g, 'allowFullScreen')
       .replace(/charset/g, 'charSet')
 
