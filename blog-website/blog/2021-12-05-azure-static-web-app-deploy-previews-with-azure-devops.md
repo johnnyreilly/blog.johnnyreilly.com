@@ -6,7 +6,7 @@ image: blog/2021-12-05-azure-static-web-app-deploy-previews-with-azure-devops/ti
 hide_table_of_contents: false
 ---
 
-I love [Netlify deploy previews](https://www.netlify.com/products/deploy-previews/). This post implements a pull request deployment preview mechanism for Azure Static Web Apps in the context of Azure DevOps which is very much inspired by the Netflix offering.
+I love [Netlify deploy previews](https://www.netlify.com/products/deploy-previews/). This post implements a pull request deployment preview mechanism for Azure Static Web Apps in the context of Azure DevOps which is very much inspired by the Netlify offering.
 
 ![title image reading "Azure Static Web App Deploy Previews with Azure DevOps" with a Azure, Bicep and Azure DevOps logos](../static/blog/2021-12-05-azure-static-web-app-deploy-previews-with-azure-devops/title-image.png)
 
