@@ -156,3 +156,5 @@ So whilst the mechanism for sharing is roughly standardised, the rendering is no
 ## Conclusion
 
 In this post we've understood what sharable previews are, how to add them to a website, how to test them and some of the rough edges to be aware of.
+
+[This post was originally published on LogRocket.](https://blog.logrocket.com/open-graph-sharable-social-media-previews/)
