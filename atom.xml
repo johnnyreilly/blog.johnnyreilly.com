@@ -2,11 +2,68 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.johnnyreilly.com/</id>
     <title>I CAN MAKE THIS WORK Blog</title>
-    <updated>2021-12-05T00:00:00.000Z</updated>
+    <updated>2021-12-12T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.johnnyreilly.com/"/>
     <subtitle>I CAN MAKE THIS WORK Blog</subtitle>
     <icon>https://blog.johnnyreilly.com/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Open Graph: a guide to sharable social media previews]]></title>
+        <id>Open Graph: a guide to sharable social media previews</id>
+        <link href="https://blog.johnnyreilly.com/2021/12/12/open-graph-sharing-previews-guide"/>
+        <updated>2021-12-12T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[The Open Graph protocol has become the standard mechanism for sharing rich content on the web. This post looks at what implementing Open Graph tags for sharable previews (often called social media previews) looks like, the tools you can use and also an examines the different platform rendering issue.]]></summary>
+        <content type="html"><![CDATA[<p>The Open Graph protocol has become the standard mechanism for sharing rich content on the web. This post looks at what implementing Open Graph tags for sharable previews (often called social media previews) looks like, the tools you can use and also an examines the different platform rendering issue.</p><p><img src="../static/blog/2021-12-12-open-graph-sharing-previews-guide/title-image.png" alt="title image reading &quot;Open Graph: a guide to sharable social media previews&quot; with the open graph logo and screenshots of twitter shared cards"/></p><h2>Open Graph protocol and sharing</h2><p>You may have noticed, that when you share a URL, the platform on which you&#x27;re sharing may display a kind of &quot;preview&quot; of the link. Here&#x27;s an example of sharing a link to a blog on Twitter:</p><p><a href="https://twitter.com/johnny_reilly/status/1454092877722800131"><img src="../static/blog/2021-12-12-open-graph-sharing-previews-guide/screenshot-of-tweet-demonstrating-sharing.png" alt="screenshot of tweet demonstrating sharing"/></a></p><p>Sharing a link has automagically generated a preview &quot;card&quot; at the bottom of the tweet. It contains an image, it has the title of the blog and it has a description of the post as well.</p><p>This looks pretty fabulous and it gives the reader of that tweet some fairly rich information about what might be in that post. It potentially saves readers a click if it&#x27;s obvious that the post isn&#x27;t particularly interesting to them. Conversely, it makes it more likely that the reader will click if it does seem intriguing. Sharing previews are an asset.</p><p>Twitter made this card using a combination of Open Graph metatags (and some custom tags) which my blog surfaces.</p><h2>Open Graph meta tags</h2><p>The <a href="https://ogp.me/">Open Graph protocol</a> came out of Facebook and it describes itself thusly:</p><blockquote><p>The Open Graph protocol enables any web page to become a rich object in a social graph. For instance, this is used on Facebook to allow any web page to have the same functionality as any other object on Facebook.</p></blockquote><p>What Open Graph is all about, is meta tags. Adding meta tags to an HTML page to explicitly define pieces of standardised information. Now there&#x27;s many purposes for this, and we&#x27;re interested in just one: sharing.</p><p>Now that we understand what sharing previews give us, let&#x27;s understand how they work. The <a href="https://ogp.me/#metadata">Open Graph</a> website has a great walkthrough of the minimum requirement for Open Graph:</p><blockquote><ul><li><code>og:title</code> - The title of your object as it should appear within the graph, e.g., &quot;The Rock&quot;.</li><li><code>og:type</code> - The type of your object, e.g., &quot;video.movie&quot;. Depending on the type you specify, other properties may also be required.</li><li><code>og:image</code> - An image URL which should represent your object within the graph.</li><li><code>og:url</code> - The canonical URL of your object that will be used as its permanent ID in the graph, e.g., &quot;<a href="https://www.imdb.com/title/tt0117500/%22">https://www.imdb.com/title/tt0117500/&quot;</a>.</li></ul><p>As an example, the following is the Open Graph protocol markup for The Rock on IMDB:</p><pre><code class="language-html">&lt;html prefix=&quot;og: https://ogp.me/ns#&quot;&gt;
+  &lt;head&gt;
+    &lt;title&gt;The Rock (1996)&lt;/title&gt;
+    &lt;meta property=&quot;og:title&quot; content=&quot;The Rock&quot; /&gt;
+    &lt;meta property=&quot;og:type&quot; content=&quot;video.movie&quot; /&gt;
+    &lt;meta property=&quot;og:url&quot; content=&quot;https://www.imdb.com/title/tt0117500/&quot; /&gt;
+    &lt;meta
+      property=&quot;og:image&quot;
+      content=&quot;https://ia.media-imdb.com/images/rock.jpg&quot;
+    /&gt;
+    ...
+  &lt;/head&gt;
+  ...
+&lt;/html&gt;
+</code></pre></blockquote><p>Sharing previews have very similar, but crucially slightly different, requirements. Five tags are required to generate a sharable preview:</p><ul><li><code>og:title</code> - The title of your page</li><li><code>og:description</code> - A description of the content of that page</li><li><code>og:image</code> - An image URL which should appear in the social media share.</li><li><code>og:url</code> - The canonical URL of your web page.</li><li><code>twitter:card</code> - A <a href="https://developer.twitter.com/en/docs/twitter-for-websites/cards/guides/getting-started#started">custom tag which is only required by Twitter</a> indicating the type of share, be it <code>&quot;summary&quot;</code>, <code>&quot;summary_large_image&quot;</code>, <code>&quot;app&quot;</code>, or <code>&quot;player&quot;</code>. Probably <code>&quot;summary&quot;</code> or <code>&quot;summary_large_image&quot;</code> for most use cases.</li></ul><p>If we implement these, then our page will offer sharable previews.</p><p>With this understanding in place; we can take a look at what it would look like to add sharable previews to a website. We&#x27;ll make ourselves a React website with:</p><pre><code>npx react-static create
+</code></pre><p>When prompted, name the site <code>demo</code> and select the <code>blank</code> template.</p><p>Please note, nothing that we&#x27;re doing here is React specific; it&#x27;s applicable to all websites regardless of the technology they&#x27;re built with; this is just a straightforward way to demo a website.</p><p>We&#x27;re using <a href="https://github.com/react-static/react-static"><code>react-static</code></a> for this demo because it is a static site generator. This is significant because, as a general rule, many platforms that support sharing, do not crawl dynamically generated meta tags. By this we mean, tags generated by JavaScript at runtime. Rather, these tags must be baked into the HTML that is served up, so a static site generator like <code>react-static</code> fits the brief well as it takes care of this.</p><p>We&#x27;re going to replace the <code>App.js</code> that is scaffolded out with our own <code>App.js</code>:</p><pre><code class="language-jsx">import * as React from &#x27;react&#x27;;
+import { Head } from &#x27;react-static&#x27;;
+import &#x27;./app.css&#x27;;
+
+function App() {
+  const openGraphData = {
+    title: &#x27;Open Graph: a guide to sharing previews&#x27;,
+    description:
+      &#x27;This page features the Open Graph protocol markup for sharing previews.&#x27;,
+    url: &#x27;https://johnnyreilly.github.io/open-graph-sharing-previews/&#x27;,
+    image:
+      &#x27;https://upload.wikimedia.org/wikipedia/commons/7/72/Open_Graph_protocol_logo.png&#x27;,
+  };
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;Head&gt;
+        &lt;meta property=&quot;og:title&quot; content={openGraphData.title} /&gt;
+        &lt;meta property=&quot;og:description&quot; content={openGraphData.description} /&gt;
+        &lt;meta property=&quot;og:url&quot; content={openGraphData.url} /&gt;
+        &lt;meta property=&quot;og:image&quot; content={openGraphData.image} /&gt;
+        &lt;meta name=&quot;twitter:card&quot; content=&quot;summary&quot; /&gt;
+      &lt;/Head&gt;
+      &lt;h1&gt;{openGraphData.title}&lt;/h1&gt;
+      &lt;img src={openGraphData.image} alt=&quot;The Open Graph protocol logo&quot; /&gt;
+      &lt;h2&gt;Share it and see!&lt;/h2&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default App;
+</code></pre><p>The code above renders the required meta tags for sharing previews. When we build and deploy this we can see they show up like so:</p><p><img src="../static/blog/2021-12-12-open-graph-sharing-previews-guide/screenshot-of-demo-with-devtools-open.png" alt="screenshot of demo with devtools open illustrating the meta tags"/></p><h2>Tools for testing sharing</h2><p>Now we have a demo, it would be tremendous to be able to test it out. There&#x27;s various official tools to test your URLs:</p><ul><li><a href="https://cards-dev.twitter.com/validator">Twitter</a></li><li><a href="https://developers.facebook.com/tools/debug/">Facebook</a></li><li><a href="https://www.linkedin.com/post-inspector/inspect/">LinkedIn</a></li></ul><p>There&#x27;s also a number of unoffical &quot;aggregator&quot; tools that attempt to render the appearance of your social previews across multiple platforms to save you going to each tool in turn:</p><ul><li><a href="https://www.opengraph.xyz/">https://www.opengraph.xyz/</a></li><li><a href="https://metatags.io/">https://metatags.io/</a></li><li><a href="https://socialsharepreview.com/">https://socialsharepreview.com/</a></li></ul><p>Let&#x27;s test out the Twitter validator:</p><p><img src="../static/blog/2021-12-12-open-graph-sharing-previews-guide/screenshot-of-twitter-validator.png" alt="screenshot of testing out our site using the twitter validator"/></p><p>Terrific! We have sharable previews enabled for the site we&#x27;ve made.</p><h2>Sharable preview rendering: not yet standard</h2><p>Now we have a sense of what sharing previews look like, what powers them and how to implement them. So far we&#x27;ve looked just at Twitter for examples of sharing previews. However, support for Open Graph sharing previews is widespread. Examples of other places where you can use them include: Facebook, Polywork, Slack, Teams, Linked In, Outlook.com, Discord... The list is now very long indeed.</p><p>However, each platform implements sharing previews according to their own standard. What does mean? Well, a link shared on Twitter will look different to one shared on Outlook.com. For example:</p><p><img src="../static/blog/2021-12-12-open-graph-sharing-previews-guide/screenshot-of-email-demonstrating-sharing-with-a-non-cropped-image.png" alt="screenshot of an email being sent in outlook with a share preview card to the same blog showing the untruncated title"/></p><p>Above I&#x27;m sharing a link to a blog post. The image is to the left, the title and description is to the right. Now let&#x27;s look at the same link shared on Twitter:</p><p><a href="https://twitter.com/AzureWeekly/status/1436733027489652743"><img src="../static/blog/2021-12-12-open-graph-sharing-previews-guide/screenshot-of-tweet-demonstrating-sharing-with-a-cropped-image.png" alt="screenshot of a tweet where the image in the share preview card has been cropped making the title unreadable"/></a></p><p>Here the image is above the title and the description. More distressingly, the image has been cropped which renders the title slightly unreadable.</p><p>So whilst the mechanism for sharing is roughly standardised, the rendering is not. It&#x27;s not dissimilar to the web in the year 2000. Back then, a single piece of HTML could be rendered in many different ways, depending upon the browser. The same statement is true now for Open Graph sharing. Sharing can look very different depending upon the platform which is displaying the preview. The only way to avoid this at present is to thoroughly on all the platforms where we want to share links; ensuring the sharable previews look acceptable.</p><h2>Conclusion</h2><p>In this post we&#x27;ve understood what sharable previews are, how to add them to a website, how to test them and some of the rough edges to be aware of.</p><p><a href="https://blog.logrocket.com/open-graph-sharable-social-media-previews/">This post was originally published on LogRocket.</a></p>]]></content>
+        <author>
+            <name>John Reilly</name>
+            <uri>https://twitter.com/johnny_reilly</uri>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Azure Static Web App Deploy Previews with Azure DevOps]]></title>
         <id>Azure Static Web App Deploy Previews with Azure DevOps</id>
