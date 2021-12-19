@@ -4,9 +4,139 @@
         <title>I CAN MAKE THIS WORK Blog</title>
         <link>https://blog.johnnyreilly.com/</link>
         <description>I CAN MAKE THIS WORK Blog</description>
-        <lastBuildDate>Sun, 12 Dec 2021 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 19 Dec 2021 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
+        <item>
+            <title><![CDATA[Azure Container Apps, Bicep and GitHub Actions]]></title>
+            <link>https://blog.johnnyreilly.com/2021/12/19/azure-container-apps-bicep-and-github-actions</link>
+            <guid>Azure Container Apps, Bicep and GitHub Actions</guid>
+            <pubDate>Sun, 19 Dec 2021 00:00:00 GMT</pubDate>
+            <description><![CDATA[Azure Container Apps are an exciting way to deploy containers to Azure. This post shows how to deploy the infrastructure for an Azure Container App to Azure using Bicep and GitHub Actions. The Azure Container App documentation features quickstarts for deploying your first container app using both the Azure Portal and the Azure CLI. These are great, but there's a gap if you prefer to deploy using Bicep and you'd like to get your CI/CD setup right from the beginning. This post aims to fill that gap.]]></description>
+            <content:encoded><![CDATA[<p>Azure Container Apps are an exciting way to deploy containers to Azure. This post shows how to deploy the infrastructure for an Azure Container App to Azure using Bicep and GitHub Actions. The <a href="https://docs.microsoft.com/en-us/azure/container-apps/">Azure Container App documentation</a> features quickstarts for deploying your first container app using both the Azure Portal and the Azure CLI. These are great, but there&#x27;s a gap if you prefer to deploy using Bicep and you&#x27;d like to get your CI/CD setup right from the beginning. This post aims to fill that gap.</p><p><img src="../static/blog/2021-12-19-azure-container-apps-bicep-and-github-actions/title-image.png" alt="title image reading &quot;Azure Container Apps, Bicep and GitHub Actions&quot; with the Bicep, Azure Container Apps and GitHub Actions logos"/></p><h2>Bicep</h2><p>Let&#x27;s begin with the Bicep required to deploy an Azure Container App.</p><p>In our new repository we&#x27;ll create an <code>infra</code> directory, into which we&#x27;ll place a <code>main.bicep</code> file which will contain our Bicep template.</p><p>I&#x27;ve pared this down to the simplest Bicep template that I can; it only requires a name and the subscription to which it&#x27;s going to be deployed:</p><pre><code class="language-bicep">param subscriptionId string
+param name string
+param secrets array = []
+
+var location = resourceGroup().location
+var kubeEnvironmentId = &#x27;/subscriptions/${subscriptionId}/resourceGroups/${resourceGroup().name}/providers/Microsoft.Web/kubeEnvironments/Production&#x27;
+var environmentName = &#x27;Production&#x27;
+var workspaceName = &#x27;${name}-log-analytics&#x27;
+
+resource workspace &#x27;Microsoft.OperationalInsights/workspaces@2020-08-01&#x27; = {
+  name: workspaceName
+  location: location
+  properties: {
+    sku: {
+      name: &#x27;PerGB2018&#x27;
+    }
+    retentionInDays: 30
+    workspaceCapping: {}
+  }
+}
+
+resource environment &#x27;Microsoft.Web/kubeEnvironments@2021-03-01&#x27; = {
+  name: environmentName
+  location: location
+  properties: {
+    type: &#x27;managed&#x27;
+    internalLoadBalancerEnabled: false
+    appLogsConfiguration: {
+      destination: &#x27;log-analytics&#x27;
+      logAnalyticsConfiguration: {
+        customerId: workspace.properties.customerId
+        sharedKey: listKeys(workspace.id, workspace.apiVersion).primarySharedKey
+      }
+    }
+  }
+}
+
+resource containerApp &#x27;Microsoft.Web/containerapps@2021-03-01&#x27; = {
+  name: name
+  kind: &#x27;containerapps&#x27;
+  location: location
+  properties: {
+    kubeEnvironmentId: kubeEnvironmentId
+    configuration: {
+      secrets: secrets
+      registries: []
+      ingress: {
+        &#x27;external&#x27;:true
+        &#x27;targetPort&#x27;:80
+      }
+    }
+    template: {
+      containers: [
+        {
+          &#x27;name&#x27;:&#x27;simple-hello-world-container&#x27;
+          &#x27;image&#x27;:&#x27;mcr.microsoft.com/azuredocs/containerapps-helloworld:latest&#x27;
+          &#x27;command&#x27;:[]
+          &#x27;resources&#x27;:{
+            &#x27;cpu&#x27;:&#x27;.25&#x27;
+            &#x27;memory&#x27;:&#x27;.5Gi&#x27;
+          }
+        }
+      ]
+    }
+  }
+  dependsOn: [
+    environment
+  ]
+}
+</code></pre><p>Some things to note from the template:</p><ul><li>We&#x27;re deploying three resources; a container app, a kube environment and an operational insights.</li><li>Just like the official quickstarts we&#x27;re going to use the <code>containerapps-helloworld</code> image.</li></ul><h2>Setting up a resource group</h2><p>In order that you can deploy your Bicep, we&#x27;re going to need a resource group to send it to. Right now, Azure Container Apps aren&#x27;t available everywhere. So we&#x27;re going to create ourselves a resource group in North Europe which does support ACAs:</p><pre><code class="language-shell">az group create -g rg-aca -l northeurope
+</code></pre><h2>Deploying with the Azure CLI</h2><p>With this resource group in place, we could simply deploy using the Azure CLI like so:</p><pre><code class="language-shell">az deployment group create \
+  --resource-group rg-aca \
+  --template-file ./infra/main.bicep \
+  --parameters \
+    subscriptionId=&#x27;your-subscription-id-here&#x27; \
+    name=&#x27;container-app&#x27;
+</code></pre><h2>Deploying with GitHub Actions</h2><p>However, we&#x27;re aiming to set up a GitHub Action to do this for us. We&#x27;ll create a <code>.github/workflows/deploy.yaml</code> file in our repository:</p><pre><code class="language-yaml">name: Deploy
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  RESOURCE_GROUP: rg-aca
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy bicep
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az deployment group create \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --template-file ./infra/main.bicep \
+              --parameters \
+                subscriptionId=&#x27;${{ secrets.SUBSCRIPTION_ID }}&#x27; \
+                name=&#x27;container-app&#x27;
+</code></pre><p>The above GitHub action is very simple. It:</p><ol><li>Logs into Azure using some <code>AZURE_CREDENTIALS</code> we&#x27;ll set up in a moment.</li><li>Invokes the Azure CLI to deploy our Bicep template, passing the <code>SUBSCRIPTION_ID</code> which is (as the name suggests) the Azure subscription id.</li></ol><p>Let&#x27;s create those two secrets in GitHub:</p><p><img src="../static/blog/2021-12-19-azure-container-apps-bicep-and-github-actions/screenshot-github-secrets.png" alt="Screenshot of GitHub Secrets in the GitHub website that we need to create"/></p><p>The subscription id can be found by looking up your subscription inside the Azure Portal:</p><p><img src="../static/blog/2021-12-19-azure-container-apps-bicep-and-github-actions/screenshot-azure-portal-subscription.png" alt="Screenshot of the Azure Portal displaying the subscription id"/></p><p>Save that away as the <code>SUBSCRIPTION_ID</code> secret in GitHub.</p><p>Then you need create the <code>AZURE_CREDENTIALS</code>, for which we&#x27;ll use the Azure CLI once more:</p><pre><code class="language-shell">az ad sp create-for-rbac --name &quot;myApp&quot; --role contributor \
+    --scopes /subscriptions/{subscription-id}/resourceGroups/{resource-group} \
+    --sdk-auth
+</code></pre><p>Remember to replace the <code>{subscription-id}</code> with your subscription id and <code>{resource-group}</code> with the name of your resource group (<code>rg-aca</code> if you&#x27;re following along). This command will pump out a lump of JSON that looks something like this:</p><pre><code class="language-json">{
+  &quot;clientId&quot;: &quot;a-client-id&quot;,
+  &quot;clientSecret&quot;: &quot;a-client-secret&quot;,
+  &quot;subscriptionId&quot;: &quot;a-subscription-id&quot;,
+  &quot;tenantId&quot;: &quot;a-tenant-id&quot;,
+  &quot;activeDirectoryEndpointUrl&quot;: &quot;https://login.microsoftonline.com&quot;,
+  &quot;resourceManagerEndpointUrl&quot;: &quot;https://management.azure.com/&quot;,
+  &quot;activeDirectoryGraphResourceId&quot;: &quot;https://graph.windows.net/&quot;,
+  &quot;sqlManagementEndpointUrl&quot;: &quot;https://management.core.windows.net:8443/&quot;,
+  &quot;galleryEndpointUrl&quot;: &quot;https://gallery.azure.com/&quot;,
+  &quot;managementEndpointUrl&quot;: &quot;https://management.core.windows.net/&quot;
+}
+</code></pre><p>Take this and save it as the <code>AZURE_CREDENTIALS</code> secret in Azure.</p><h2>Running it</h2><p>When the GitHub Action has been run you&#x27;ll find that Azure Container App is now showing up inside the Azure Portal:</p><p><img src="../static/blog/2021-12-19-azure-container-apps-bicep-and-github-actions/screenshot-azure-portal-container-app.png" alt="screenshot of the Azure Container App in the Azure Portal"/></p><p>You&#x27;ll see a URL is displayed, when you go that URL you&#x27;ll find the hello world image is running!</p><p><img src="../static/blog/2021-12-19-azure-container-apps-bicep-and-github-actions/screenshot-of-running-container-app.png" alt="screenshot of the running Azure Container App"/></p>]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[Open Graph: a guide to sharable social media previews]]></title>
             <link>https://blog.johnnyreilly.com/2021/12/12/open-graph-sharing-previews-guide</link>
