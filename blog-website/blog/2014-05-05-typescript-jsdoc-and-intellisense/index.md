@@ -189,7 +189,7 @@ The jQuery documentation for the getter looks like this:
 
 > [`.val()`](http://api.jquery.com/val/#val)
 >
-> Returns: <a href="http://api.jquery.com/Types/#String">String</a> or <a href="http://api.jquery.com/Types/#Number">Number</a> or <a href="http://api.jquery.com/Types/#Array">Array</a></span>
+> Returns: <a href="http://api.jquery.com/Types/#String">String</a> or <a href="http://api.jquery.com/Types/#Number">Number</a> or <a href="http://api.jquery.com/Types/#Array">Array</a>
 >
 > **Description: **Get the current value of the first element in the set of matched elements.
 
