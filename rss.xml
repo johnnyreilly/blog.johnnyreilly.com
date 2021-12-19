@@ -1293,7 +1293,7 @@ function App() {
     &#x27;@type&#x27;: &#x27;Article&#x27;,
     headline: &#x27;Structured data for you&#x27;,
     description: &#x27;This is an article that demonstrates structured data.&#x27;,
-    image: &#x27;https://upload.wikimedia.org/wikipedia/commons/4/40/JSON-LD.svg&#x27;,
+    image: ./&#x27;https://upload.wikimedia.org/wikipedia/commons/4/40/JSON-LD.svg&#x27;,
     datePublished: new Date(&#x27;2021-09-04T09:25:01.340Z&#x27;).toISOString(),
     author: {
       &#x27;@type&#x27;: &#x27;Person&#x27;,
@@ -2664,7 +2664,7 @@ services:
 
   # run azurite and expose the relevant ports
   azurite:
-    image: &#x27;mcr.microsoft.com/azure-storage/azurite&#x27;
+    image: ./&#x27;mcr.microsoft.com/azure-storage/azurite&#x27;
     ports:
       - &#x27;10000:10000&#x27;
       - &#x27;10001:10001&#x27;
