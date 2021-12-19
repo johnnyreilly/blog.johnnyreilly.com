@@ -29,26 +29,26 @@ jobs:
           fi
           npm run build
 
-  checks-blogger:
-    if: github.event_name != 'push'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '16.x'
+  # checks-blogger:
+  #   if: github.event_name != 'push'
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: '16.x'
 
-      - name: Test Blogger Publish
-        run: |
-          cd from-docusaurus-to-blogger
-          if [ -e yarn.lock ]; then
-          yarn install --frozen-lockfile
-          elif [ -e package-lock.json ]; then
-          npm ci
-          else
-          npm i
-          fi
-          yarn publish-blogs --clientId ${{ secrets.BLOGGER_CLIENT_ID }} --clientSecret ${{ secrets.BLOGGER_CLIENT_SECRET }} --refreshToken ${{ secrets.BLOGGER_REFRESH_TOKEN }} --test
+  #     - name: Test Blogger Publish
+  #       run: |
+  #         cd from-docusaurus-to-blogger
+  #         if [ -e yarn.lock ]; then
+  #         yarn install --frozen-lockfile
+  #         elif [ -e package-lock.json ]; then
+  #         npm ci
+  #         else
+  #         npm i
+  #         fi
+  #         yarn publish-blogs --clientId ${{ secrets.BLOGGER_CLIENT_ID }} --clientSecret ${{ secrets.BLOGGER_CLIENT_SECRET }} --refreshToken ${{ secrets.BLOGGER_REFRESH_TOKEN }} --test
 
   deploy-to-github:
     if: github.event_name != 'pull_request'
@@ -92,24 +92,24 @@ jobs:
           fi
           npx docusaurus deploy
 
-  deploy-to-blogger:
-    if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '16.x'
+  # deploy-to-blogger:
+  #   if: github.event_name != 'pull_request'
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: '16.x'
 
-      - name: Publish to Blogger
-        run: |
-          cd from-docusaurus-to-blogger
-          if [ -e yarn.lock ]; then
-          # yarn install --frozen-lockfile
-          yarn install
-          elif [ -e package-lock.json ]; then
-          npm ci
-          else
-          npm i
-          fi
-          yarn publish-blogs --clientId ${{ secrets.BLOGGER_CLIENT_ID }} --clientSecret ${{ secrets.BLOGGER_CLIENT_SECRET }} --refreshToken ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+  #     - name: Publish to Blogger
+  #       run: |
+  #         cd from-docusaurus-to-blogger
+  #         if [ -e yarn.lock ]; then
+  #         # yarn install --frozen-lockfile
+  #         yarn install
+  #         elif [ -e package-lock.json ]; then
+  #         npm ci
+  #         else
+  #         npm i
+  #         fi
+  #         yarn publish-blogs --clientId ${{ secrets.BLOGGER_CLIENT_ID }} --clientSecret ${{ secrets.BLOGGER_CLIENT_SECRET }} --refreshToken ${{ secrets.BLOGGER_REFRESH_TOKEN }}
