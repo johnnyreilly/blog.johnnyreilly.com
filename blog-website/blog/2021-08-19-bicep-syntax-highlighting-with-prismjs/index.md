@@ -2,7 +2,7 @@
 title: 'Bicep: syntax highlighting with PrismJS (and Docusaurus)'
 authors: johnnyreilly
 tags: [Bicep, PrismJS]
-image: bicep-syntax-highlighting-with-prismjs.png
+image: ./bicep-syntax-highlighting-with-prismjs.png
 hide_table_of_contents: false
 ---
 

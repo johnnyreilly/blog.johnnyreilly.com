@@ -2,7 +2,7 @@
 title: 'NSwag generated C# client: Open API property name clashes and decimal types rather than double'
 authors: johnnyreilly
 tags: [nswag, CSharp]
-image: title-image.png
+image: ./title-image.png
 hide_table_of_contents: false
 ---
 

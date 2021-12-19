@@ -2,7 +2,7 @@
 title: 'Visual Studio Marketplace: images in Markdown!'
 authors: johnnyreilly
 tags: [Azure DevOps Marketplace, Visual Studio Marketplace, markdown, images]
-image: azure-devops-marketplace.png
+image: ./azure-devops-marketplace.png
 description: 'Publish your README/index.md and associated images to Visual Studio Marketplace.'
 hide_table_of_contents: false
 ---

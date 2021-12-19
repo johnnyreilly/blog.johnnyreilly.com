@@ -2,7 +2,7 @@
 title: 'Google APIs: authentication with TypeScript'
 authors: johnnyreilly
 tags: [Google APIs, TypeScript]
-image: app-registration.png
+image: ./app-registration.png
 hide_table_of_contents: false
 ---
 

@@ -2,7 +2,7 @@
 title: 'From Blogger to Docusaurus'
 authors: johnnyreilly
 tags: [Blogger, Docusaurus]
-image: docusaurus.png
+image: ./docusaurus.png
 hide_table_of_contents: false
 ---
 

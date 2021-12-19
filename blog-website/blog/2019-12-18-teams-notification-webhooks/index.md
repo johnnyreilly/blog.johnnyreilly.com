@@ -2,7 +2,7 @@
 title: 'Teams notification webhooks'
 authors: johnnyreilly
 tags: [Microsoft Teams, connectors, notifications, webhook]
-image: teams-notification.gif
+image: ./teams-notification.gif
 hide_table_of_contents: false
 ---
 

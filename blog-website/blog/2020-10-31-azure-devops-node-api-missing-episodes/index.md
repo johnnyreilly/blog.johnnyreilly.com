@@ -2,7 +2,7 @@
 title: 'Azure DevOps Client for Node.js - working around limitations'
 authors: johnnyreilly
 tags: [azure devops api, '203', node.js]
-image: title-image.png
+image: ./title-image.png
 hide_table_of_contents: false
 ---
 

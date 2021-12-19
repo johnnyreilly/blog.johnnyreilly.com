@@ -1,7 +1,7 @@
 ---
 title: 'Azure Pipelines Build Info in an ASP.NET React app'
 authors: johnnyreilly
-image: about-page.png
+image: ./about-page.png
 tags: [build information, azure pipelines]
 hide_table_of_contents: false
 ---

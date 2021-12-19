@@ -2,7 +2,7 @@
 title: 'React 18 and TypeScript'
 authors: johnnyreilly
 tags: [React, TypeScript, React 18]
-image: createNode-error.png
+image: ./createNode-error.png
 hide_table_of_contents: false
 ---
 

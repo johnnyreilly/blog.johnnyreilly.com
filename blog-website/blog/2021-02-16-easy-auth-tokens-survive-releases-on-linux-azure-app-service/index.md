@@ -1,7 +1,7 @@
 ---
 title: 'Making Easy Auth tokens survive releases on Linux Azure App Service'
 authors: johnnyreilly
-image: easy-auth-zero-downtime-deployment.png
+image: ./easy-auth-zero-downtime-deployment.png
 tags: [Azure, Easy Auth, tokens, SAS, Blob Storage]
 hide_table_of_contents: false
 ---

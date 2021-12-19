@@ -1,7 +1,7 @@
 ---
 title: 'dotnet-format: Prettier your CSharp with lint-staged and husky'
 authors: johnnyreilly
-image: title-image.png
+image: ./title-image.png
 tags: [Prettier, dotnet-format, lint-staged, husky, CSharpier]
 hide_table_of_contents: false
 ---

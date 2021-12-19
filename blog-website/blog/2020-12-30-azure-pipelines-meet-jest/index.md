@@ -1,7 +1,7 @@
 ---
 title: 'Azure Pipelines meet Jest'
 authors: johnnyreilly
-image: test-results.png
+image: ./test-results.png
 tags: [azure-pipelines, jest]
 hide_table_of_contents: false
 ---

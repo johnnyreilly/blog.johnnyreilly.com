@@ -1,7 +1,7 @@
 ---
 title: 'ASP.NET, Serilog and Application Insights'
 authors: johnnyreilly
-image: application-insights-properties.png
+image: ./application-insights-properties.png
 tags: [asp.net, Azure, Application Insights, Serilog]
 hide_table_of_contents: false
 ---

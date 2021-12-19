@@ -2,7 +2,7 @@
 title: 'C# 9 in-process Azure Functions'
 authors: johnnyreilly
 tags: [C# 9, Azure Functions, .NET, in-process]
-image: title-image.png
+image: ./title-image.png
 hide_table_of_contents: false
 ---
 

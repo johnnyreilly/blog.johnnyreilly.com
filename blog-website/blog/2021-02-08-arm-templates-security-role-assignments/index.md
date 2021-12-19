@@ -1,7 +1,7 @@
 ---
 title: 'Azure RBAC: role assignments and ARM templates'
 authors: johnnyreilly
-image: with-great-power-comes-great-responsibility.jpg
+image: ./with-great-power-comes-great-responsibility.jpg
 tags: [Azure, ARM templates, role assignments, permissions]
 hide_table_of_contents: false
 ---

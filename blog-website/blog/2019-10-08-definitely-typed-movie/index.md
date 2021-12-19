@@ -2,7 +2,7 @@
 title: 'Definitely Typed: The Movie'
 authors: johnnyreilly
 tags: [TypeScript, Definitely Typed]
-image: title-image.png
+image: ./title-image.png
 hide_table_of_contents: false
 ---
 

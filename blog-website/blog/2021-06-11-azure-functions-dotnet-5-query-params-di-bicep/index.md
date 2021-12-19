@@ -10,7 +10,7 @@ tags:
     dependency injection,
     Bicep,
   ]
-image: title-image.png
+image: ./title-image.png
 description: 'The upgrade of Azure Functions from .NET Core 3.1 to .NET 5 is significant. This post shows part of the upgrade: Query params, Dependency Injection, Bicep & Build'
 hide_table_of_contents: false
 ---

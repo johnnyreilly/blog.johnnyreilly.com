@@ -2,7 +2,7 @@
 title: 'Azure App Service: nested configuration for ASP.NET running in Web App for Containers using Application Settings'
 authors: johnnyreilly
 tags: []
-image: appservice_classic.png
+image: ./appservice_classic.png
 hide_table_of_contents: false
 ---
 

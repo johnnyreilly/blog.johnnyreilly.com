@@ -2,7 +2,7 @@
 title: 'Autofac 6, integration tests and .NET generic hosting'
 authors: johnnyreilly
 tags: [autofac, asp.net, ConfigureTestContainer, Integration Testing]
-image: autofac-integration-tests.png
+image: ./autofac-integration-tests.png
 hide_table_of_contents: false
 ---
 

@@ -2,7 +2,7 @@
 title: 'Docusaurus, meta tags and Google Discover'
 authors: johnnyreilly
 tags: [Docusaurus, meta tags, max-image-preview, Google Discover]
-image: title-image.png
+image: ./title-image.png
 hide_table_of_contents: false
 ---
 

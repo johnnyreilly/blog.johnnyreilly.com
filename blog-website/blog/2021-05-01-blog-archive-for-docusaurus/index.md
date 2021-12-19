@@ -2,7 +2,7 @@
 title: 'Blog Archive for Docusaurus'
 authors: johnnyreilly
 tags: [Docusaurus, blog archive, webpack]
-image: docusaurus-blog-archive.png
+image: ./docusaurus-blog-archive.png
 hide_table_of_contents: false
 ---
 

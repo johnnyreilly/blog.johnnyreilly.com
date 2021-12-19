@@ -2,7 +2,7 @@
 title: 'Bicep meet Azure Pipelines 2'
 authors: johnnyreilly
 tags: [Bicep, ARM templates, Azure Pipelines, Azure CLI]
-image: bicep-meet-azure-pipelines.png
+image: ./bicep-meet-azure-pipelines.png
 hide_table_of_contents: false
 ---
 

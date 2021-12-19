@@ -2,7 +2,7 @@
 title: 'NSwag: TypeScript and CSharp client generation based on an API'
 authors: johnnyreilly
 tags: [NSwag, TypeScript, CSharp, API]
-image: use-generated-client.gif
+image: ./use-generated-client.gif
 hide_table_of_contents: false
 ---
 
