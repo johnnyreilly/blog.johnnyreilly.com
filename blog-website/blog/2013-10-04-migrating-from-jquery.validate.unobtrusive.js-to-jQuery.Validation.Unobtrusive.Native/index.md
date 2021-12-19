@@ -26,7 +26,9 @@ What you've just witnessed is jquery.validate.unobtrusive.js doing its thing. Bo
 
 Time to dive into NuGet and install jQuery.Validation.Unobtrusive.Native. We'll install the MVC 4 version using this command:
 
-<div class="nuget-badge"><p><code>PM&gt; Install-Package jQuery.Validation.Unobtrusive.Native.MVC4</code></p></div>
+```shell
+Install-Package jQuery.Validation.Unobtrusive.Native.MVC4
+```
 
 What has this done to my project? Well 2 things
 

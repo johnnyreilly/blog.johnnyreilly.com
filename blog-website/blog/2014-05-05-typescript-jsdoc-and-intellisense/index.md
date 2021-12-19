@@ -33,7 +33,7 @@ As the above screenshot demonstrates [TypeScript supports Intellisense](https://
 
 Partly as an exercise in getting better acquainted with TypeScript and partly responding to my instinctive need to have nicely documented APIs I decided to start adding JSDoc comments to the world's most popular typings file `<a href="https://github.com/borisyankov/DefinitelyTyped/blob/master/jquery/jquery.d.ts">jquery.d.ts</a>`.
 
-<div class="digression getOutOfMySight"><h4>Why <code>jquery.d.ts</code>?</h4><p>Well a number of reasons:</p><ol><li>I used <code>jquery.d.ts</code> already myself and I'm a firm believer in <a href="http://en.wikipedia.org/wiki/Eating_your_own_dog_food">eating your own dogfood</a></li><li>jQuery is well documented. I needed a source of information to power my JSDoc and <a href="//api.jquery.com">api.jquery.com</a> had my back.</li><li><code>jquery.d.ts</code> was widely used. Given how ubiquitous jQuery has become this typing file was unsurprisingly the most popular in the world. That was key for me as I wanted feedback - if I was making a mess of the typings I wanted someone to pitch in and tell me.</li></ol><p>Just to digress once more, points #2 and #3 turned out to be of particular note.</p><p>Concerning point #2, I did find the occasional <a href="https://github.com/borisyankov/DefinitelyTyped/pull/1471#issuecomment-31204115">error</a> or <a href="https://github.com/borisyankov/DefinitelyTyped/pull/1835#issuecomment-37533088">inconsistency</a> in the jQuery API documentation. These were definitely the exception rather than the rule though. And thanks to the very helpful <a href="https://github.com/dmethvin">Dave Methvin</a> these actually lead to <a href="https://github.com/jquery/api.jquery.com/pull/460">minor improvements to the jQuery API documentation</a>.</p><blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/search?q=%23TypeScript&amp;src=hash">#TypeScript</a> definitions pointing out errors in JavaScript docs of a project <a href="https://twitter.com/search?q=%23Jquery&amp;src=hash">#Jquery</a> : <a href="https://t.co/v6rzCdBwmi">https://t.co/v6rzCdBwmi</a> caught by <a href="https://twitter.com/johnny_reilly">@johnny_reilly</a></p>— basarat (@basarat) <a href="https://twitter.com/basarat/statuses/416309213430689792">December 26, 2013</a></blockquote><script async="" src="//platform.twitter.com/widgets.js" charSet="utf-8"></script><p>Concerning point #3 I did indeed get feedback. As well as enriching <code>jquery.d.ts</code> with JSDoc goodness I also found myself fixing slight errors in the typings. Here and there I would find examples where <code>jquery.d.ts</code> was out of line the with API documentation. Where this was the case I would amend the typings to bring them into line - trying to make <code>jquery.d.ts</code> entirely API-compliant. This was <a href="https://github.com/borisyankov/DefinitelyTyped/issues/1499">not always popular</a>. But despite the heat it generated I think it ended up leading to a better typing file. I'm again grateful for Dave Methvin's thoughtful contributions.</p></div>
+<h4>Why <code>jquery.d.ts</code>?</h4><p>Well a number of reasons:</p><ol><li>I used <code>jquery.d.ts</code> already myself and I'm a firm believer in <a href="http://en.wikipedia.org/wiki/Eating_your_own_dog_food">eating your own dogfood</a></li><li>jQuery is well documented. I needed a source of information to power my JSDoc and <a href="//api.jquery.com">api.jquery.com</a> had my back.</li><li><code>jquery.d.ts</code> was widely used. Given how ubiquitous jQuery has become this typing file was unsurprisingly the most popular in the world. That was key for me as I wanted feedback - if I was making a mess of the typings I wanted someone to pitch in and tell me.</li></ol><p>Just to digress once more, points #2 and #3 turned out to be of particular note.</p><p>Concerning point #2, I did find the occasional <a href="https://github.com/borisyankov/DefinitelyTyped/pull/1471#issuecomment-31204115">error</a> or <a href="https://github.com/borisyankov/DefinitelyTyped/pull/1835#issuecomment-37533088">inconsistency</a> in the jQuery API documentation. These were definitely the exception rather than the rule though. And thanks to the very helpful <a href="https://github.com/dmethvin">Dave Methvin</a> these actually lead to <a href="https://github.com/jquery/api.jquery.com/pull/460">minor improvements to the jQuery API documentation</a>.</p><blockquote className="twitter-tweet" lang="en"><p><a href="https://twitter.com/search?q=%23TypeScript&amp;src=hash">#TypeScript</a> definitions pointing out errors in JavaScript docs of a project <a href="https://twitter.com/search?q=%23Jquery&amp;src=hash">#Jquery</a> : <a href="https://t.co/v6rzCdBwmi">https://t.co/v6rzCdBwmi</a> caught by <a href="https://twitter.com/johnny_reilly">@johnny_reilly</a></p>— basarat (@basarat) <a href="https://twitter.com/basarat/statuses/416309213430689792">December 26, 2013</a></blockquote><script async="" src="//platform.twitter.com/widgets.js" charSet="utf-8"></script><p>Concerning point #3 I did indeed get feedback. As well as enriching <code>jquery.d.ts</code> with JSDoc goodness I also found myself fixing slight errors in the typings. Here and there I would find examples where <code>jquery.d.ts</code> was out of line the with API documentation. Where this was the case I would amend the typings to bring them into line - trying to make <code>jquery.d.ts</code> entirely API-compliant. This was <a href="https://github.com/borisyankov/DefinitelyTyped/issues/1499">not always popular</a>. But despite the heat it generated I think it ended up leading to a better typing file. I'm again grateful for Dave Methvin's thoughtful contributions.</p>
 
 ## Turning API documentation into JSDoc
 
@@ -110,7 +110,7 @@ And now let's look at `jquery.d.ts`[after JSDoc](https://github.com/borisyankov/
 
 Many changes yes? Let's break it down a little.
 
-## 1\. You have 20 seconds to comply (with the API)
+## 1. You have 20 seconds to comply (with the API)
 
 The first thing to note is the `number` setter method:
 
@@ -120,7 +120,7 @@ val(value: number): JQuery;
 
 Let's have a look at the jQuery documentation for the simple setter:
 
-> ## [.val( value )](http://api.jquery.com/val/#val-value)
+> ## [`.val( value )`](http://api.jquery.com/val/#val-value)
 >
 > <div><strong>value</strong></div>
 >
@@ -134,7 +134,7 @@ See the problem? There is \*_no_\* `number` setter. The typings are wrong. So le
 <strike>val(value: number): JQuery;</strike>
 ```
 
-## 2\. `String` and `Array of String` setters
+## 2. `String` and `Array of String` setters
 
 The documentation states that we have setters which accept `String` and `Array of String`. These are already modeled in the existing typings by the `string` and `string[]` overloads:
 
@@ -183,15 +183,13 @@ It's worth noting that I could have taken the choice to customise the `@param va
 
 After some pondering I decided not to take this approach, just to maintain that close relationship between `jquery.d.ts` and [api.jquery.com](http://api.jquery.com/). It's open to debate how useful that relationship actually is so I thought I'd just highlight this as a choice I made.
 
-## 3\. Getter
+## 3. Getter
 
 The jQuery documentation for the getter looks like this:
 
-> ## [<span class="icon-link"></span>
+> [`.val()`](http://api.jquery.com/val/#val)
 >
-> <span class="name">.val()</span>
->
-> ](<http://api.jquery.com/val/#val>)<span class="returns">Returns: <a href="http://api.jquery.com/Types/#String">String</a> or <a href="http://api.jquery.com/Types/#Number">Number</a> or <a href="http://api.jquery.com/Types/#Array">Array</a></span>
+> Returns: <a href="http://api.jquery.com/Types/#String">String</a> or <a href="http://api.jquery.com/Types/#Number">Number</a> or <a href="http://api.jquery.com/Types/#Array">Array</a></span>
 >
 > **Description: **Get the current value of the first element in the set of matched elements.
 
@@ -210,15 +208,13 @@ As you can see the _"Get the current value..."_ from the API docs has been used 
 
 ![](https://4.bp.blogspot.com/-7PG3jVXPWdM/U2D-BvxwYYI/AAAAAAAAAks/_ZTRQWBt7L8/s640/Intellisense-Getter.png)
 
-## 4\. The `Function` setter
+## 4. The `Function` setter
 
 Finally we're going to take a look at the `Function` setter which is documented as follows:
 
-> ## [<span class="icon-link"></span>
+> [`.val( function(index, value) )`](http://api.jquery.com/val/#val-functionindex--value)
 >
-> .val( function(index, value) )](<http://api.jquery.com/val/#val-functionindex--value>)
->
-> <div><strong>function(index, value)</strong></div>
+> `function(index, value)`
 >
 > <div>Type: <a href="http://api.jquery.com/Types/#Function">Function</a>()</div>
 >
