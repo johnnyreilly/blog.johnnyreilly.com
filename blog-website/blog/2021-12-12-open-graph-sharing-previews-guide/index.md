@@ -2,7 +2,7 @@
 title: 'Open Graph: a guide to sharable social media previews'
 authors: johnnyreilly
 tags: [Open Graph]
-image: title-image.png
+image: ./title-image.png
 hide_table_of_contents: false
 ---
 

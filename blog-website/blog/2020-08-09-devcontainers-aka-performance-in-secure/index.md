@@ -71,7 +71,7 @@ Now the `docker-compose.devcontainer.yml` which lives in the root of the project
 version: "3.7"
 services:
   my-devcontainer:
-    image: my-devcontainer
+    image: ./my-devcontainer
     build:
       context: .
       dockerfile: Dockerfile.devcontainer
@@ -89,7 +89,7 @@ services:
     depends_on:
       - db
   db:
-    image: mcr.microsoft.com/mssql/server:2019-latest
+    image: ./mcr.microsoft.com/mssql/server:2019-latest
     privileged: true
     ports:
       - 1433:1433

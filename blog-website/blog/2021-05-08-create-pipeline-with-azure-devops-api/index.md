@@ -2,7 +2,7 @@
 title: 'Create a Pipeline with the Azure DevOps API'
 authors: johnnyreilly
 tags: [Azure Pipelines, Azure DevOps API]
-image: new-pipeline.png
+image: ./new-pipeline.png
 hide_table_of_contents: false
 ---
 

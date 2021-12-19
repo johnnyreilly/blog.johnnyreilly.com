@@ -10,7 +10,7 @@ tags:
     redirect,
     ASP.NET,
   ]
-image: Forbidden.png
+image: ./Forbidden.png
 hide_table_of_contents: false
 ---
 

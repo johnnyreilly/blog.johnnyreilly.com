@@ -9,7 +9,7 @@ tags:
     ConfigureTestContainer,
     Integration Testing,
   ]
-image: autofac-webapplicationfactory-tests.png
+image: ./autofac-webapplicationfactory-tests.png
 hide_table_of_contents: false
 ---
 

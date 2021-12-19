@@ -11,7 +11,7 @@ tags:
     TypeScript,
     conditional types,
   ]
-image: ts-ervice-now.png
+image: ./ts-ervice-now.png
 hide_table_of_contents: false
 ---
 

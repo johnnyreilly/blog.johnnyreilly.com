@@ -8,7 +8,7 @@ tags:
     entity framework,
     Microsoft.Data.SqlClient,
   ]
-image: entity-framework-core-nuget.png
+image: ./entity-framework-core-nuget.png
 hide_table_of_contents: false
 ---
 

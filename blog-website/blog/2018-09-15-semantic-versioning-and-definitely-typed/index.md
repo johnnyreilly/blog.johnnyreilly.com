@@ -10,7 +10,7 @@ tags:
     react-router,
     Ivan Drago,
   ]
-image: i-must-break-you.jpg
+image: ./i-must-break-you.jpg
 hide_table_of_contents: false
 ---
 

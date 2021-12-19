@@ -3,7 +3,7 @@ title: 'Azurite and Table Storage in a dev container'
 authors: johnnyreilly
 tags:
   [Azurite, Azure Table Storage, VS Code, dev container, devcontainer, Docker]
-image: dev-container-start.gif
+image: ./dev-container-start.gif
 hide_table_of_contents: false
 ---
 
@@ -88,7 +88,7 @@ services:
 
   # run azurite and expose the relevant ports
   azurite:
-    image: 'mcr.microsoft.com/azure-storage/azurite'
+    image: ./'mcr.microsoft.com/azure-storage/azurite'
     ports:
       - '10000:10000'
       - '10001:10001'

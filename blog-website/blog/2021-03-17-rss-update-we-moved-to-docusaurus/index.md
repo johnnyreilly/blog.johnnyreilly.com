@@ -2,7 +2,7 @@
 title: 'RSS update; we moved to Docusaurus'
 authors: johnnyreilly
 tags: [Blogger, Docusaurus, RSS, Atom]
-image: rss.png
+image: ./rss.png
 hide_table_of_contents: false
 ---
 

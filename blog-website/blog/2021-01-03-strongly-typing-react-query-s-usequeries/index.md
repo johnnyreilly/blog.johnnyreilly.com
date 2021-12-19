@@ -1,7 +1,7 @@
 ---
 title: 'react-query: strongly typing useQueries'
 authors: johnnyreilly
-image: strongly-typing-usequeries.png
+image: ./strongly-typing-usequeries.png
 tags: [useQueries, react-query]
 hide_table_of_contents: false
 ---

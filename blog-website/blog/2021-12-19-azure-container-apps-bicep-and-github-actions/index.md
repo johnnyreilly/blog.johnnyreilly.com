@@ -2,7 +2,7 @@
 title: 'Azure Container Apps, Bicep and GitHub Actions'
 authors: johnnyreilly
 tags: [Azure Container Apps, Bicep, GitHub Actions]
-image: title-image.png
+image: ./title-image.png
 hide_table_of_contents: false
 ---
 

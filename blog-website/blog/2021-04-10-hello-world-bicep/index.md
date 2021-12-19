@@ -2,7 +2,7 @@
 title: 'Hello World Bicep'
 authors: johnnyreilly
 tags: [Bicep, ARM templates]
-image: hello-world-bicep.png
+image: ./hello-world-bicep.png
 hide_table_of_contents: false
 ---
 
