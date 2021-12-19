@@ -47,7 +47,8 @@ function colocate(file: string) {
 
   const updated = blogPostContent
     .replaceAll(`blog/${nameWithoutMd}/`, '')
-    .replaceAll('../static/', '');
+    .replaceAll('../static/', '')
+    .replaceAll('.md', '/index.md');
 
   fs.writeFileSync(blogPostPath, updated);
 }
