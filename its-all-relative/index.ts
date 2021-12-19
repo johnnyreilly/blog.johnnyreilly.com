@@ -14,6 +14,7 @@ async function run() {
           .isDirectory()
     );
 
+  // colocate(files[files.length - 1]);
   files.forEach(colocate);
 }
 
@@ -31,10 +32,6 @@ function colocate(file: string) {
 
   const images = fs.existsSync(imagesDir) ? fs.readdirSync(imagesDir) : [];
 
-  // console.log(images);
-  // return;
-  // throw new Error('dfghj')
-
   if (!fs.existsSync(directoryTo)) {
     fs.mkdirSync(directoryTo);
   }
@@ -43,14 +40,14 @@ function colocate(file: string) {
   fs.renameSync(path.resolve(docusaurusDirectory, 'blog', file), blogPostPath);
 
   images.forEach((image) =>
-    fs.renameSync(path.resolve(imagesDir, image), `${directoryTo}/image`)
+    fs.renameSync(path.resolve(imagesDir, image), `${directoryTo}/${image}`)
   );
 
   const blogPostContent = fs.readFileSync(blogPostPath, 'utf-8');
 
   const updated = blogPostContent
     .replaceAll(`blog/${nameWithoutMd}/`, '')
-    .replaceAll('../static', '');
+    .replaceAll('../static/', '');
 
   fs.writeFileSync(blogPostPath, updated);
 }
