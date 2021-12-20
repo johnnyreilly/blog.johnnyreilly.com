@@ -1,0 +1,22 @@
+{
+  "link.title.Support me": {
+    "message": "Support me",
+    "description": "The title of the footer links column with title=Support me in the footer"
+  },
+  "link.title.Feeds": {
+    "message": "Feeds",
+    "description": "The title of the footer links column with title=Feeds in the footer"
+  },
+  "link.item.label.RSS": {
+    "message": "RSS",
+    "description": "The label of footer link with label=RSS linking to https://blog.johnnyreilly.com/rss.xml"
+  },
+  "link.item.label.Atom": {
+    "message": "Atom",
+    "description": "The label of footer link with label=Atom linking to https://blog.johnnyreilly.com/atom.xml"
+  },
+  "copyright": {
+    "message": "Copyright © 2021 John Reilly. Built with Docusaurus.",
+    "description": "The footer copyright"
+  }
+}

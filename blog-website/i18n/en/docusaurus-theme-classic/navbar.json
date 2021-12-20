@@ -1,0 +1,30 @@
+{
+  "title": {
+    "message": "I CAN MAKE THIS WORK",
+    "description": "The title in the navbar"
+  },
+  "item.label.About": {
+    "message": "About",
+    "description": "Navbar item with label About"
+  },
+  "item.label.Blog Archive": {
+    "message": "Blog Archive",
+    "description": "Navbar item with label Blog Archive"
+  },
+  "item.label.Talks": {
+    "message": "Talks",
+    "description": "Navbar item with label Talks"
+  },
+  "item.label.Polywork": {
+    "message": "Polywork",
+    "description": "Navbar item with label Polywork"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  },
+  "item.label.Twitter": {
+    "message": "Twitter",
+    "description": "Navbar item with label Twitter"
+  }
+}
