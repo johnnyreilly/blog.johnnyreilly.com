@@ -108,7 +108,7 @@ const config = {
       {
         debug: true,
         offlineModeActivationStrategies: [
-          //'appInstalled',
+          'appInstalled',
           'standalone',
           'queryString',
         ],
@@ -126,7 +126,7 @@ const config = {
           {
             tagName: 'meta',
             name: 'theme-color',
-            content: 'rgb(37, 194, 160)',
+            content: '#3578e5',
           },
           {
             tagName: 'meta',
