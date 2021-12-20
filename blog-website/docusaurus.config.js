@@ -16,6 +16,11 @@ const config = {
   organizationName: 'johnnyreilly', // Usually your GitHub org/user name.
   projectName: 'blog.johnnyreilly.com', // Usually your repo name.
 
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en'],
+  },
+
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -172,7 +177,7 @@ const config = {
         },
         */
           { to: 'about', label: 'About', position: 'left' },
-          { to: 'blog-archive', label: 'Blog Archive', position: 'left' },
+          { to: 'archive', label: 'Blog Archive', position: 'left' },
           { to: 'talks', label: 'Talks', position: 'left' },
           {
             href: 'https://polywork.johnnyreilly.com/',
