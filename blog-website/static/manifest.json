@@ -1,7 +1,7 @@
 {
   "name": "I CAN MAKE THIS WORK",
   "short_name": "I CAN MAKE THIS WORK",
-  "theme_color": "#2196f3",
+  "theme_color": "#3578e5",
   "background_color": "#424242",
   "display": "standalone",
   "scope": "./",
