@@ -155,7 +155,7 @@ const config = {
 
       // Relative to your site's 'static' directory.
       // Cannot be SVGs. Can be external URLs too.
-      image: 'img/profile.png',
+      image: 'img/profile.jpg',
       googleAnalytics: {
         trackingID: 'UA-51754530-2',
         // Optional fields.
