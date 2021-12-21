@@ -39,7 +39,7 @@ Incidentally, applying this setting will affect all forms of search results. So 
 
 Now we understand what we want (an extra meta tag on all our pages), how do we apply this to Docusaurus?
 
-Well, it's remarkably simple. There's an optional [`metadatas`](https://docusaurus.io/docs/api/themes/configuration#metadatas) property in `docusaurus.config.js`. This property allows you to configure additional html metadatas (and override existing ones). The property is an array of `Metadata`, each entry of which will be directly passed to the `<meta />` tag.
+Well, it's remarkably simple. There's an optional [`metadata`](https://docusaurus.io/docs/api/themes/configuration#metadata) property in `docusaurus.config.js`. This property allows you to configure additional html metadata (and override existing ones). The property is an array of `Metadata`, each entry of which will be directly passed to the `<meta />` tag.
 
 So in our case we'd want to pass an object with `name: 'robots'` and `content: 'max-image-preview:large'` to render our desired meta tag. Which looks like this:
 
@@ -49,7 +49,7 @@ module.exports = {
   //...
   themeConfig: {
     // <meta name="robots" content="max-image-preview:large">
-    metadatas: [{ name: 'robots', content: 'max-image-preview:large' }],
+    metadata: [{ name: 'robots', content: 'max-image-preview:large' }],
     //...
   },
   //...

@@ -16,15 +16,13 @@ Let's begin with the Bicep required to deploy an Azure Container App.
 
 In our new repository we'll create an `infra` directory, into which we'll place a `main.bicep` file which will contain our Bicep template.
 
-I've pared this down to the simplest Bicep template that I can; it only requires a name and the subscription to which it's going to be deployed:
+I've pared this down to the simplest Bicep template that I can; it only requires a name parameter:
 
 ```bicep
-param subscriptionId string
 param name string
 param secrets array = []
 
 var location = resourceGroup().location
-var kubeEnvironmentId = '/subscriptions/${subscriptionId}/resourceGroups/${resourceGroup().name}/providers/Microsoft.Web/kubeEnvironments/Production'
 var environmentName = 'Production'
 var workspaceName = '${name}-log-analytics'
 
@@ -61,7 +59,7 @@ resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
   kind: 'containerapps'
   location: location
   properties: {
-    kubeEnvironmentId: kubeEnvironmentId
+    kubeEnvironmentId: environment.id
     configuration: {
       secrets: secrets
       registries: []
@@ -84,9 +82,6 @@ resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
       ]
     }
   }
-  dependsOn: [
-    environment
-  ]
 }
 ```
 
@@ -112,7 +107,6 @@ az deployment group create \
   --resource-group rg-aca \
   --template-file ./infra/main.bicep \
   --parameters \
-    subscriptionId='your-subscription-id-here' \
     name='container-app'
 ```
 
@@ -150,14 +144,13 @@ jobs:
               --resource-group ${{ env.RESOURCE_GROUP }} \
               --template-file ./infra/main.bicep \
               --parameters \
-                subscriptionId='${{ secrets.SUBSCRIPTION_ID }}' \
                 name='container-app'
 ```
 
 The above GitHub action is very simple. It:
 
 1. Logs into Azure using some `AZURE_CREDENTIALS` we'll set up in a moment.
-2. Invokes the Azure CLI to deploy our Bicep template, passing the `SUBSCRIPTION_ID` which is (as the name suggests) the Azure subscription id.
+2. Invokes the Azure CLI to deploy our Bicep template.
 
 Let's create those two secrets in GitHub:
 
