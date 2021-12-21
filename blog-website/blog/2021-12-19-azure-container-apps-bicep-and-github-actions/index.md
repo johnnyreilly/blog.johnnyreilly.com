@@ -152,17 +152,11 @@ The above GitHub action is very simple. It:
 1. Logs into Azure using some `AZURE_CREDENTIALS` we'll set up in a moment.
 2. Invokes the Azure CLI to deploy our Bicep template.
 
-Let's create those two secrets in GitHub:
+Let's create that `AZURE_CREDENTIALS` secret in GitHub:
 
-![Screenshot of GitHub Secrets in the GitHub website that we need to create](screenshot-github-secrets.png)
+![Screenshot of `AZURE_CREDENTIALS` secret in the GitHub website that we need to create](screenshot-github-secrets.png)
 
-The subscription id can be found by looking up your subscription inside the Azure Portal:
-
-![Screenshot of the Azure Portal displaying the subscription id](screenshot-azure-portal-subscription.png)
-
-Save that away as the `SUBSCRIPTION_ID` secret in GitHub.
-
-Then you need create the `AZURE_CREDENTIALS`, for which we'll use the Azure CLI once more:
+We'll use the Azure CLI once more:
 
 ```shell
 az ad sp create-for-rbac --name "myApp" --role contributor \
