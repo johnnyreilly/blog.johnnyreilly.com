@@ -151,7 +151,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // <meta name="robots" content="max-image-preview:large">
-      metadatas: [{ name: 'robots', content: 'max-image-preview:large' }],
+      metadata: [{ name: 'robots', content: 'max-image-preview:large' }],
 
       // Relative to your site's 'static' directory.
       // Cannot be SVGs. Can be external URLs too.
