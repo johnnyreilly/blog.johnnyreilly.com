@@ -32,7 +32,7 @@ const allPosts = ((ctx) => {
     ];
   }, /** @type {BlogPost[]}>} */ ([]));
   // @ts-ignore
-})(require.context('../../blog', false, /.md/));
+})(require.context('../../blog', true, /index.md/));
 
 const postsByYear = allPosts.reduceRight((posts, post) => {
   const year = post.date.split('-')[0];
