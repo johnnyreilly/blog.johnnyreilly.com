@@ -10,11 +10,11 @@ Azure Container Apps are an exciting way to deploy containers to Azure. This pos
 
 ![title image reading "Azure Container Apps: build and deploy with Bicep and GitHub Actions" with the Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
 
-## The container convent
+## The containerised convent
 
 I learn the most about a technology when I'm using it to build something. I have an aunt that's a nun, and long ago she persuaded me to build her convent a website. Since that time I've been merrily overengineering it for fun and non-profit.
 
-The website is [here](https://www.poorclaresarundel.org/) and it is open source. The website is a node app that is containerised and runs on [Azure App Service Web App for Containers](https://azure.microsoft.com/en-gb/services/app-service/containers/). Given that it is already in a container, this makes it a great candidate for porting to Azure Container Apps.
+My aunts website is a node app that is containerised and runs on [Azure App Service Web App for Containers](https://azure.microsoft.com/en-gb/services/app-service/containers/). Given that it is already in a container, this makes it a great candidate for porting to Azure Container Apps.
 
 So that's what we'll do in this post. But where I'm dropping in my aunts container, you could equally be dropping in your own.
 
@@ -22,21 +22,41 @@ So that's what we'll do in this post. But where I'm dropping in my aunts contain
 
 Let's begin with the Bicep required to deploy our Azure Container App.
 
-In our new repository we'll create an `infra` directory, into which we'll place a `main.bicep` file which will contain our Bicep template.
-
-I've pared this down to the simplest Bicep template that I can; it only requires a name parameter:
+In our repository we'll create an `infra` directory, into which we'll place a `main.bicep` file which will contain our Bicep template:
 
 ```bicep
-param name string
-param secrets array = []
+param nodeImage string
+param nodePort int
+param nodeIsExternalIngress bool
+
+param containerRegistry string
+param containerRegistryUsername string
+@secure()
+param containerRegistryPassword string
+
+param tags object
+
+@secure()
+param APPSETTINGS_API_KEY string
+param APPSETTINGS_DOMAIN string
+param APPSETTINGS_FROM_EMAIL string
+param APPSETTINGS_RECIPIENT_EMAIL string
 
 var location = resourceGroup().location
-var environmentName = 'Production'
-var workspaceName = '${name}-log-analytics'
+var environmentName = 'env-${uniqueString(resourceGroup().id)}'
+var minReplicas = 0
+
+var nodeServiceAppName = 'node-app'
+var workspaceName = '${nodeServiceAppName}-log-analytics'
+var appInsightsName = '${nodeServiceAppName}-app-insights'
+
+var containerRegistryPasswordRef = 'container-registry-password'
+var mailgunApiKeyRef = 'mailgun-api-key'
 
 resource workspace 'Microsoft.OperationalInsights/workspaces@2020-08-01' = {
   name: workspaceName
   location: location
+  tags: tags
   properties: {
     sku: {
       name: 'PerGB2018'
@@ -46,9 +66,21 @@ resource workspace 'Microsoft.OperationalInsights/workspaces@2020-08-01' = {
   }
 }
 
+resource appInsights 'Microsoft.Insights/components@2020-02-02-preview' = {
+  name: appInsightsName
+  location: location
+  tags: tags
+  kind: 'web'
+  properties: {
+    Application_Type: 'web'
+    Flow_Type: 'Bluefield'
+  }
+}
+
 resource environment 'Microsoft.Web/kubeEnvironments@2021-03-01' = {
   name: environmentName
   location: location
+  tags: tags
   properties: {
     type: 'managed'
     internalLoadBalancerEnabled: false
@@ -59,38 +91,105 @@ resource environment 'Microsoft.Web/kubeEnvironments@2021-03-01' = {
         sharedKey: listKeys(workspace.id, workspace.apiVersion).primarySharedKey
       }
     }
+    containerAppsConfiguration: {
+      daprAIInstrumentationKey: appInsights.properties.InstrumentationKey
+    }
   }
 }
 
 resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
-  name: name
+  name: nodeServiceAppName
   kind: 'containerapps'
+  tags: tags
   location: location
   properties: {
     kubeEnvironmentId: environment.id
     configuration: {
-      secrets: secrets
-      registries: []
+      secrets: [
+        {
+          name: containerRegistryPasswordRef
+          value: containerRegistryPassword
+        }
+        {
+          name: mailgunApiKeyRef
+          value: APPSETTINGS_API_KEY
+        }
+      ]
+      registries: [
+        {
+          server: containerRegistry
+          username: containerRegistryUsername
+          passwordSecretRef: containerRegistryPasswordRef
+        }
+      ]
       ingress: {
-        'external':true
-        'targetPort':80
+        'external': nodeIsExternalIngress
+        'targetPort': nodePort
       }
     }
     template: {
       containers: [
         {
-          'name':'simple-hello-world-container'
-          'image':'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
-          'command':[]
-          'resources':{
-            'cpu':'.25'
-            'memory':'.5Gi'
-          }
+          image: nodeImage
+          name: nodeServiceAppName
+          transport: 'auto'
+          env: [
+            {
+              name: 'APPSETTINGS_API_KEY'
+              secretref: mailgunApiKeyRef
+            }
+            {
+              name: 'APPSETTINGS_DOMAIN'
+              value: APPSETTINGS_DOMAIN
+            }
+            {
+              name: 'APPSETTINGS_FROM_EMAIL'
+              value: APPSETTINGS_FROM_EMAIL
+            }
+            {
+              name: 'APPSETTINGS_RECIPIENT_EMAIL'
+              value: APPSETTINGS_RECIPIENT_EMAIL
+            }
+          ]
         }
       ]
+      scale: {
+        minReplicas: minReplicas
+      }
     }
   }
 }
+```
+
+Let's talk through this template. First of all, let's consider the parameters:
+
+```bicep
+param nodeImage string
+param nodePort int
+param nodeIsExternalIngress bool
+```
+
+The above parameters relate to the node application that represents the website. The `nodeImage` is the container image which should be deployed to a container app. The `nodePort` is the port from the app which should be exposed (`3000` in our case). `nodeIsExternalIngress` is [whether the container should be accessible on the internet](https://docs.microsoft.com/en-us/azure/container-apps/ingress?tabs=bash#configuration). (Always `true` in this case.)
+
+```bicep
+param containerRegistry string
+param containerRegistryUsername string
+@secure()
+param containerRegistryPassword string
+
+param tags object
+```
+
+With the exception of the `tags` object which is metadata to apply to resources, these parameters are related to the container registry where our images will be stored. What we deploy to Azure Container Apps is container images. There's a multitude of container registries out there, we're going to be using the one directly available in GitHub.
+
+fdsf
+
+```bicep
+@secure()
+param APPSETTINGS_API_KEY string
+param APPSETTINGS_DOMAIN string
+param APPSETTINGS_FROM_EMAIL string
+param APPSETTINGS_RECIPIENT_EMAIL string
 ```
 
 Some things to note from the template:
