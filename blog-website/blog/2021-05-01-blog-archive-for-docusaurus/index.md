@@ -83,7 +83,7 @@ const allPosts = ((ctx) => {
     },
     /** @type {string[]}>} */ []
   );
-})(require.context('../../blog', false, //index.md/));
+})(require.context('../../blog', true, /index.md/));
 ```
 
 Observe the `metadata` property in the screenshot below:
@@ -205,9 +205,10 @@ const allPosts = ((ctx) => {
         },
       ];
     },
-    /** @type {string[]}>} */ []
+    /** @type {BlogPost[]}>} */ []
   );
-})(require.context('../../blog', false, //index.md/));
+  // @ts-ignore
+})(require.context('../../blog', true, /index.md/));
 
 const postsByYear = allPosts.reduceRight((posts, post) => {
   const year = post.date.split('-')[0];
