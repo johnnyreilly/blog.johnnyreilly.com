@@ -1,20 +1,26 @@
 ---
-title: 'Azure Container Apps, Bicep and GitHub Actions'
+title: 'Azure Container Apps: build and deploy with Bicep and GitHub Actions'
 authors: johnnyreilly
-tags: [Azure Container Apps, Bicep, GitHub Actions]
+tags: [Azure Container Apps, Bicep, GitHub Actions, GitHub container registry]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-Azure Container Apps are an exciting way to deploy containers to Azure. This post shows how to deploy the infrastructure for an Azure Container App to Azure using Bicep and GitHub Actions. The [Azure Container App documentation](https://docs.microsoft.com/en-us/azure/container-apps/) features quickstarts for deploying your first container app using both the Azure Portal and the Azure CLI. These are great, but there's a gap if you prefer to deploy using Bicep and you'd like to get your CI/CD setup right from the beginning. This post aims to fill that gap.
+Azure Container Apps are an exciting way to deploy containers to Azure. This post shows how to build and deploy a simple web application to Azure Container Apps using Bicep and GitHub Actions. It follows on from the [previous post](../2021-12-19-azure-container-apps-bicep-and-github-actions/index.md) which deployed infrastructure and a "hello world" container, this time introducing the building of your container and storing it in the [GitHub container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
 
-If you're interested in building your own containers as well, it's worth looking at [this follow up post](../2021-12-27-azure-container-apps-build-and-deploy-with-bicep-and-github-actions/index.md).
+![title image reading "Azure Container Apps: build and deploy with Bicep and GitHub Actions" with the Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
 
-![title image reading "Azure Container Apps, Bicep and GitHub Actions" with the Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
+## The container convent
+
+I learn the most about a technology when I'm using it to build something. I have an aunt that's a nun, and long ago she persuaded me to build her convent a website. Since that time I've been merrily overengineering it for fun and non-profit.
+
+The website is [here](https://www.poorclaresarundel.org/) and it is open source. The website is a node app that is containerised and runs on [Azure App Service Web App for Containers](https://azure.microsoft.com/en-gb/services/app-service/containers/). Given that it is already in a container, this makes it a great candidate for porting to Azure Container Apps.
+
+So that's what we'll do in this post. But where I'm dropping in my aunts container, you could equally be dropping in your own.
 
 ## Bicep
 
-Let's begin with the Bicep required to deploy an Azure Container App.
+Let's begin with the Bicep required to deploy our Azure Container App.
 
 In our new repository we'll create an `infra` directory, into which we'll place a `main.bicep` file which will contain our Bicep template.
 
