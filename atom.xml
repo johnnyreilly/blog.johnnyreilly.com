@@ -2969,7 +2969,7 @@ const allPosts = ((ctx) =&gt; {
     },
     /** @type {string[]}&gt;} */ []
   );
-})(require.context(&#x27;../../blog&#x27;, false, //index.md/));
+})(require.context(&#x27;../../blog&#x27;, true, /index.md/));
 </code></pre><p>Observe the <code>metadata</code> property in the screenshot below:</p><p><img src="require.context.png" alt="require.context"/></p><p>This gives us a flavour of the data available in the modules and shows how we pull out the bits that we need; <code>date</code>, <code>formattedDate</code>, <code>title</code> and <code>permalink</code>.</p><h2>Presenting it</h2><p>Now we have our data in the form of <code>allPosts</code>, let&#x27;s display it. We&#x27;d like to break it up into posts by year, which we can do by reducing and looking at the <code>date</code> property which is an ISO-8601 style date string taking a format that begins <code>yyyy-mm-dd</code>:</p><pre><code class="language-tsx">const postsByYear = allPosts.reduceRight((posts, post) =&gt; {
   const year = post.date.split(&#x27;-&#x27;)[0];
   const yearPosts = posts.get(year) || [];
@@ -3057,9 +3057,10 @@ const allPosts = ((ctx) =&gt; {
         },
       ];
     },
-    /** @type {string[]}&gt;} */ []
+    /** @type {BlogPost[]}&gt;} */ []
   );
-})(require.context(&#x27;../../blog&#x27;, false, //index.md/));
+  // @ts-ignore
+})(require.context(&#x27;../../blog&#x27;, true, /index.md/));
 
 const postsByYear = allPosts.reduceRight((posts, post) =&gt; {
   const year = post.date.split(&#x27;-&#x27;)[0];
