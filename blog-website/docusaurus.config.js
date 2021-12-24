@@ -26,6 +26,12 @@ const config = {
       '@docusaurus/preset-classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       {
+        googleAnalytics: {
+          trackingID: 'UA-51754530-2',
+        },
+        gtag: {
+          trackingID: '297675200',
+        },
         docs: false,
         blog: {
           blogTitle: 'I CAN MAKE THIS WORK',
@@ -156,11 +162,6 @@ const config = {
       // Relative to your site's 'static' directory.
       // Cannot be SVGs. Can be external URLs too.
       image: 'img/profile.jpg',
-      googleAnalytics: {
-        trackingID: 'UA-51754530-2',
-        // Optional fields.
-        anonymizeIP: true, // Should IPs be anonymized?
-      },
       navbar: {
         title: 'I CAN MAKE THIS WORK',
         logo: {
