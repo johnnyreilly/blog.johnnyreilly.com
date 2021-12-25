@@ -6,13 +6,13 @@ image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-Azure Container Apps are an exciting way to deploy containers to Azure. This post shows how to build and deploy a simple web application to Azure Container Apps using Bicep and GitHub Actions. It follows on from the [previous post](../2021-12-19-azure-container-apps-bicep-and-github-actions/index.md) which deployed infrastructure and a "hello world" container, this time introducing the building of your container and storing it in the [GitHub container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
+Azure Container Apps are an exciting way to deploy containers to Azure. This post shows how to build and deploy a simple web application to Azure Container Apps using Bicep and GitHub Actions. It follows on from the [previous post](../2021-12-19-azure-container-apps-bicep-and-github-actions/index.md) which deployed infrastructure and a "hello world" container, this time introducing the building of a container and storing it in the [GitHub container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
 
 ![title image reading "Azure Container Apps: build and deploy with Bicep and GitHub Actions" with the Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
 
 ## The containerised convent
 
-I learn the most about a technology when I'm using it to build something. I have an aunt that's a nun, and long ago she persuaded me to build her convent a website. Since that time I've been merrily overengineering it for fun and non-profit.
+I learn the most about a technology when I'm using it to build something. It so happens that I have an aunt that's a nun, and long ago she persuaded me to build her convent a website. I'm a good nephew and I complied. Since that time I've been merrily overengineering it for fun and non-profit.
 
 My aunts website is a node app that is containerised and runs on [Azure App Service Web App for Containers](https://azure.microsoft.com/en-gb/services/app-service/containers/). Given that it is already in a container, this makes it a great candidate for porting to Azure Container Apps.
 
@@ -161,7 +161,11 @@ resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
 }
 ```
 
-Let's talk through this template. First of all, let's consider the parameters:
+Let's talk through this template. The environment, workspace and app insights resources are fairly self explanatory. The `containerApp` resource is where the action is. We'll drill into that resource and the parameters used to configure it.
+
+### The node container app
+
+We're going to create a single container app for our node web application. This is configured like so:
 
 ```bicep
 param nodeImage string
@@ -169,7 +173,37 @@ param nodePort int
 param nodeIsExternalIngress bool
 ```
 
-The above parameters relate to the node application that represents the website. The `nodeImage` is the container image which should be deployed to a container app. The `nodePort` is the port from the app which should be exposed (`3000` in our case). `nodeIsExternalIngress` is [whether the container should be accessible on the internet](https://docs.microsoft.com/en-us/azure/container-apps/ingress?tabs=bash#configuration). (Always `true` in this case.)
+The above parameters relate to the node application that represents the website. The `nodeImage` is the container image which should be deployed to a container app. The `nodePort` is the port from the app which should be exposed (`3000` in our case). `nodeIsExternalIngress` is [whether the container should be accessible on the internet](https://docs.microsoft.com/en-us/azure/container-apps/ingress?tabs=bash#configuration). (Always `true` incidentally.)
+
+```bicep
+var nodeServiceAppName = 'node-app'
+
+resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
+  // ...
+  properties: {
+      // ...
+      ingress: {
+        'external': nodeIsExternalIngress
+        'targetPort': nodePort
+      }
+    }
+    template: {
+      containers: [
+        {
+          image: nodeImage
+          name: nodeServiceAppName
+          // ...
+        }
+      ]
+      // ...
+    }
+  }
+}
+```
+
+### Accessing the GitHub Container Registry
+
+Our template takes these parameters:
 
 ```bicep
 param containerRegistry string
@@ -180,9 +214,44 @@ param containerRegistryPassword string
 param tags object
 ```
 
-With the exception of the `tags` object which is metadata to apply to resources, these parameters are related to the container registry where our images will be stored. What we deploy to Azure Container Apps is container images. There's a multitude of container registries out there, we're going to be using the one directly available in GitHub.
+With the exception of the `tags` object which is metadata to apply to resources, these parameters are related to the container registry where our images will be stored. GitHub's in our case. Remember, what we deploy to Azure Container Apps are container images. To get something running in an ACA, it first has to reside in a container registry. There's a multitude of container registries out there and we're going using the one directly available in GitHub.
 
-fdsf
+Do note the [`@secure()`](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters#secure-parameters) decorator. This marks the `containerRegistryPassword` parameter as secure. The value for a secure parameter isn't saved to the deployment history and isn't logged. Typically you'll want to mark secrets like this with `@secure()`.
+
+You can see below that we use these to configure the `registries` property of our container app. This tells the ACA where it can go to collect the image it needs. You can also see our first usage of secrets here. We declare the `containerRegistryPassword` as a secret which is stored against the ref `'container-registry-password'`; captured as the variable `containerRegistryPasswordRef`. That variable is then referenced in the `passwordSecretRef` property - thus telling ACA where it can find the password.
+
+```bicep
+var containerRegistryPasswordRef = 'container-registry-password'
+
+resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
+  // ...
+  properties: {
+    // ...
+    configuration: {
+      secrets: [
+        {
+          name: containerRegistryPasswordRef
+          value: containerRegistryPassword
+        }
+        // ...
+      ]
+      registries: [
+        {
+          server: containerRegistry
+          username: containerRegistryUsername
+          passwordSecretRef: containerRegistryPasswordRef
+        }
+      ]
+      // ...
+    }
+    // ...
+  }
+}
+```
+
+### Secrets / Configuration
+
+The final collection of parameters are unrelated to the infrastructure of deployment, rather they are the things required to configure our running application:
 
 ```bicep
 @secure()
@@ -192,10 +261,56 @@ param APPSETTINGS_FROM_EMAIL string
 param APPSETTINGS_RECIPIENT_EMAIL string
 ```
 
-Some things to note from the template:
+Again we've got a secret marked with `@secure()` in the form of our `APPSETTINGS_API_KEY`. Just as we did with `containerRegistryPassword`, we declare `APPSETTINGS_API_KEY` to be a secret, which is stored against the ref `'mailgun-api-key'`; captured as the variable `mailgunApiKeyRef`.
 
-- We're deploying three resources; a container app, a kube environment and an operational insights.
-- Just like the official quickstarts we're going to use the `containerapps-helloworld` image.
+All of our configuration is exposed to the running application through environment variables. By and large this is achieved through the mechanism of key / value pairs (well technically `name` / `value`) with a slight variation for secrets. Similar to the `passwordSecretRef` mechanism we used for the registry password, we use a `secretref` in place of `value` when passing a secret, and the value will be the ref that was set up in the `secrets` section; `mailgunApiKeyRef` in this case.
+
+```bicep
+var mailgunApiKeyRef = 'mailgun-api-key'
+
+resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
+  // ...
+  properties: {
+    // ...
+    configuration: {
+      secrets: [
+        // ...
+        {
+          name: mailgunApiKeyRef
+          value: APPSETTINGS_API_KEY
+        }
+      ]
+      // ...
+    }
+    template: {
+      containers: [
+        {
+          // ...
+          env: [
+            {
+              name: 'APPSETTINGS_API_KEY'
+              secretref: mailgunApiKeyRef
+            }
+            {
+              name: 'APPSETTINGS_DOMAIN'
+              value: APPSETTINGS_DOMAIN
+            }
+            {
+              name: 'APPSETTINGS_FROM_EMAIL'
+              value: APPSETTINGS_FROM_EMAIL
+            }
+            {
+              name: 'APPSETTINGS_RECIPIENT_EMAIL'
+              value: APPSETTINGS_RECIPIENT_EMAIL
+            }
+          ]
+        }
+      ]
+      // ...
+    }
+  }
+}
+```
 
 ## Setting up a resource group
 
