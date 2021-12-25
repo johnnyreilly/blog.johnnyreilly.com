@@ -316,41 +316,96 @@ resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
 
 ## Setting up a resource group
 
-In order that you can deploy your Bicep, we're going to need a resource group to send it to. Right now, Azure Container Apps aren't available everywhere. So we're going to create ourselves a resource group in North Europe which does support ACAs:
+With our Bicep in place, we're going to need a resource group to send it to. Right now, Azure Container Apps aren't available everywhere. So we're going to create ourselves a resource group in North Europe which does support ACAs:
 
 ```shell
 az group create -g rg-aca -l northeurope
 ```
 
-## Deploying with the Azure CLI
-
-With this resource group in place, we could simply deploy using the Azure CLI like so:
-
-```shell
-az deployment group create \
-  --resource-group rg-aca \
-  --template-file ./infra/main.bicep \
-  --parameters \
-    name='container-app'
-```
-
 ## Deploying with GitHub Actions
 
-However, we're aiming to set up a GitHub Action to do this for us. We'll create a `.github/workflows/deploy.yaml` file in our repository:
+We're aiming to set up a GitHub Action to handle our deployment. The pipeline here is heavily inspired by [Jeff Hollan](https://twitter.com/jeffhollan)'s [Azure sample app](https://github.com/Azure-Samples/container-apps-store-api-microservice).
+
+We'll create a `.github/workflows/deploy.yaml` file in our repository:
 
 ```yaml
-name: Deploy
+# yaml-language-server: $schema=./build.yaml
+name: Build and Deploy
 on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
   push:
-    branches: [main]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    # Publish semver tags as releases.
+    tags: ['v*.*.*']
   workflow_dispatch:
 
 env:
   RESOURCE_GROUP: rg-aca
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        services:
+          [{ 'imageName': 'node-service', 'directory': './node-service' }]
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      containerImage-node: ${{ steps.image-tag.outputs.image-node-service }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Login against a Docker registry except on PR
+      # https://github.com/docker/login-action
+      - name: Log into registry ${{ env.REGISTRY }}
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Extract metadata (tags, labels) for Docker
+      # https://github.com/docker/metadata-action
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.services.imageName }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=ref,event=branch
+            type=sha
+
+      # Build and push Docker image with Buildx (don't push on PR)
+      # https://github.com/docker/build-push-action
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ${{ matrix.services.directory }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Output image tag
+        id: image-tag
+        run: echo "::set-output name=image-${{ matrix.services.imageName }}::${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.services.imageName }}:sha-$(git rev-parse --short HEAD)" | tr '[:upper:]' '[:lower:]'
+
   deploy:
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -362,25 +417,58 @@ jobs:
 
       - name: Deploy bicep
         uses: azure/CLI@v1
+        if: github.event_name != 'pull_request'
         with:
           inlineScript: |
+            tags='{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
             az deployment group create \
               --resource-group ${{ env.RESOURCE_GROUP }} \
               --template-file ./infra/main.bicep \
               --parameters \
-                name='container-app'
+                  nodeImage='${{ needs.build.outputs.containerImage-node }}' \
+                  nodePort=3000 \
+                  nodeIsExternalIngress=true \
+                  containerRegistry=${{ env.REGISTRY }} \
+                  containerRegistryUsername=${{ github.actor }} \
+                  containerRegistryPassword=${{ secrets.PACKAGES_TOKEN }} \
+                  tags="$tags" \
+                  APPSETTINGS_API_KEY="${{ secrets.APPSETTINGS_API_KEY }}" \
+                  APPSETTINGS_DOMAIN="${{ secrets.APPSETTINGS_DOMAIN }}" \
+                  APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL }}" \
+                  APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL }}"
+
+      - name: What-if bicep
+        uses: azure/CLI@v1
+        if: github.event_name == 'pull_request'
+        with:
+          inlineScript: |
+            tags='{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
+            az deployment group what-if \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --template-file ./infra/main.bicep \
+              --parameters \
+                  nodeImage='${{ needs.build.outputs.containerImage-node }}' \
+                  nodePort=3000 \
+                  nodeIsExternalIngress=true \
+                  containerRegistry=${{ env.REGISTRY }} \
+                  containerRegistryUsername=${{ github.actor }} \
+                  containerRegistryPassword=${{ secrets.PACKAGES_TOKEN }} \
+                  tags="$tags" \
+                  APPSETTINGS_API_KEY="${{ secrets.APPSETTINGS_API_KEY }}" \
+                  APPSETTINGS_DOMAIN="${{ secrets.APPSETTINGS_DOMAIN }}" \
+                  APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL }}" \
+                  APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL }}"
 ```
 
-The above GitHub action is very simple. It:
+The above GitHub action depends upon a number of secrets:
 
-1. Logs into Azure using some `AZURE_CREDENTIALS` we'll set up in a moment.
-2. Invokes the Azure CLI to deploy our Bicep template.
+![Screenshot of the secrets in the GitHub website that we need to create](screenshot-github-secrets.png)
 
-Let's create that `AZURE_CREDENTIALS` secret in GitHub:
+We'll need to create each of these secrets.
 
-![Screenshot of `AZURE_CREDENTIALS` secret in the GitHub website that we need to create](screenshot-github-secrets.png)
+### `AZURE_CREDENTIALS` - GitHub logging into Azure
 
-We'll use the Azure CLI once more:
+So GitHub can interact with Azure on our behalf, we need to provide it with some credentials. We'll use the Azure CLI to create these:
 
 ```shell
 az ad sp create-for-rbac --name "myApp" --role contributor \
@@ -406,6 +494,19 @@ Remember to replace the `{subscription-id}` with your subscription id and `{reso
 ```
 
 Take this and save it as the `AZURE_CREDENTIALS` secret in Azure.
+
+### `PACKAGES_TOKEN` - Azure accessing the GitHub container registry
+
+We also need a secret for accessing packages from Azure. We're going to be publishing packages to the GitHub container registry. Azure is going to need to be able to access this when we're deploying; so we'll set up a `PACKAGES_TOKEN` secret. This is a GitHub personal access token with the `read:packages` scope. [Learn more](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+
+### Secrets for the app
+
+The app also needs a number of secrets created:
+
+- `APPSETTINGS_API_KEY` - an API key for Mailgun which will be used to send emails
+- `APPSETTINGS_DOMAIN` - the domain for the email eg `mg.poorclaresarundel.org`
+- `APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL` - who automated emails should come from eg `noreply@mg.poorclaresarundel.org`
+- `APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL` - the email address emails should be sent to
 
 ## Running it
 
