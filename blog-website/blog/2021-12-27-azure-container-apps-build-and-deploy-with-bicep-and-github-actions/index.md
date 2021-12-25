@@ -216,7 +216,7 @@ param containerRegistryPassword string
 param tags object
 ```
 
-With the exception of the `tags` object which is metadata to apply to resources, these parameters are related to the container registry where our images will be stored. GitHub's in our case. Remember, what we deploy to Azure Container Apps are container images. To get something running in an ACA, it first has to reside in a container registry. There's a multitude of container registries out there and we're going using the one directly available in GitHub.
+With the exception of the `tags` object which is metadata to apply to resources, these parameters are related to the container registry where our images will be stored. GitHub's in our case. Remember, what we deploy to Azure Container Apps are container images. To get something running in an ACA, it first has to reside in a container registry. There's a multitude of container registries out there and we're using the one directly available in GitHub. As an alternative, we could use an [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/), or [Docker Hub](https://hub.docker.com/) - or something else entirely!
 
 Do note the [`@secure()`](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters#secure-parameters) decorator. This marks the `containerRegistryPassword` parameter as secure. The value for a secure parameter isn't saved to the deployment history and isn't logged. Typically you'll want to mark secrets like this with `@secure()`.
 
