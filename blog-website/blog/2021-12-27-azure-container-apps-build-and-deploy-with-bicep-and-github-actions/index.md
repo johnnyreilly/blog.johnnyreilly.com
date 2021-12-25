@@ -165,7 +165,7 @@ Let's talk through this template. The environment, workspace and app insights re
 
 ### The node container app
 
-We're going to create a single container app for our node web application. This is configured like so:
+We're going to create a single container app for our node web application. This is configured with these parameters:
 
 ```bicep
 param nodeImage string
@@ -174,6 +174,8 @@ param nodeIsExternalIngress bool
 ```
 
 The above parameters relate to the node application that represents the website. The `nodeImage` is the container image which should be deployed to a container app. The `nodePort` is the port from the app which should be exposed (`3000` in our case). `nodeIsExternalIngress` is [whether the container should be accessible on the internet](https://docs.microsoft.com/en-us/azure/container-apps/ingress?tabs=bash#configuration). (Always `true` incidentally.)
+
+When these parameters are applied to the `containerApp` resource, it looks like this:
 
 ```bicep
 var nodeServiceAppName = 'node-app'
@@ -203,7 +205,7 @@ resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
 
 ### Accessing the GitHub Container Registry
 
-Our template takes these parameters:
+Given that we've told Bicep to deploy an `image`, we're going to need to tell it what registry it can use to acquire that image. Our template takes these parameters:
 
 ```bicep
 param containerRegistry string
