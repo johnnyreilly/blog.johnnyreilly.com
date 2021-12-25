@@ -16,7 +16,7 @@ I learn the most about a technology when I'm using it to build something. It so 
 
 My aunts website is a node app that is containerised and runs on [Azure App Service Web App for Containers](https://azure.microsoft.com/en-gb/services/app-service/containers/). Given that it is already in a container, this makes it a great candidate for porting to Azure Container Apps.
 
-So that's what we'll do in this post. But where I'm dropping in my aunts container, you could equally be dropping in your own.
+So that's what we'll do in this post. But where I'm building and deploying my aunt's container, you could equally be substituting your own.
 
 ## Bicep
 
