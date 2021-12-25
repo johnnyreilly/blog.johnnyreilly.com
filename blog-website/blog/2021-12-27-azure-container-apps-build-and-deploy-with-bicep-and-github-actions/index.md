@@ -322,11 +322,63 @@ With our Bicep in place, we're going to need a resource group to send it to. Rig
 az group create -g rg-aca -l northeurope
 ```
 
+## Secrets for GitHub Actions
+
+We're aiming to set up a GitHub Action to handle our deployment. This will depend upon a number of secrets:
+
+![Screenshot of the secrets in the GitHub website that we need to create](screenshot-github-secrets.png)
+
+We'll need to create each of these secrets.
+
+### `AZURE_CREDENTIALS` - GitHub logging into Azure
+
+So GitHub can interact with Azure on our behalf, we need to provide it with some credentials. We'll use the Azure CLI to create these:
+
+```shell
+az ad sp create-for-rbac --name "myApp" --role contributor \
+    --scopes /subscriptions/{subscription-id}/resourceGroups/{resource-group} \
+    --sdk-auth
+```
+
+Remember to replace the `{subscription-id}` with your subscription id and `{resource-group}` with the name of your resource group (`rg-aca` if you're following along). This command will pump out a lump of JSON that looks something like this:
+
+```json
+{
+  "clientId": "a-client-id",
+  "clientSecret": "a-client-secret",
+  "subscriptionId": "a-subscription-id",
+  "tenantId": "a-tenant-id",
+  "activeDirectoryEndpointUrl": "https://login.microsoftonline.com",
+  "resourceManagerEndpointUrl": "https://management.azure.com/",
+  "activeDirectoryGraphResourceId": "https://graph.windows.net/",
+  "sqlManagementEndpointUrl": "https://management.core.windows.net:8443/",
+  "galleryEndpointUrl": "https://gallery.azure.com/",
+  "managementEndpointUrl": "https://management.core.windows.net/"
+}
+```
+
+Take this and save it as the `AZURE_CREDENTIALS` secret in Azure.
+
+### `PACKAGES_TOKEN` - Azure accessing the GitHub container registry
+
+We also need a secret for accessing packages from Azure. We're going to be publishing packages to the GitHub container registry. Azure is going to need to be able to access this when we're deploying; so we'll set up a `PACKAGES_TOKEN` secret. This is a GitHub personal access token with the `read:packages` scope. [Learn more](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+
+### Secrets for the app
+
+Alongside these infrastructure / deployment related secrets, we'll need ones to configure the app at runtime:
+
+- `APPSETTINGS_API_KEY` - an API key for Mailgun which will be used to send emails
+- `APPSETTINGS_DOMAIN` - the domain for the email eg `mg.poorclaresarundel.org`
+- `APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL` - who automated emails should come from eg `noreply@mg.poorclaresarundel.org`
+- `APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL` - the email address emails should be sent to
+
+Strictly speaking, only the API key is a secret. But to simplify this post we'll configure all of these as secrets in GitHub.
+
 ## Deploying with GitHub Actions
 
-We're aiming to set up a GitHub Action to handle our deployment. The pipeline here is heavily inspired by [Jeff Hollan](https://twitter.com/jeffhollan)'s [Azure sample app](https://github.com/Azure-Samples/container-apps-store-api-microservice).
+With our secrets configured, we're now well placed to write our GitHub Action. The GitHub Action we're going to write is heavily inspired by [Jeff Hollan](https://twitter.com/jeffhollan)'s [Azure sample app GHA](https://github.com/Azure-Samples/container-apps-store-api-microservice).
 
-We'll create a `.github/workflows/deploy.yaml` file in our repository:
+We'll create a `.github/workflows/deploy.yaml` file in our repository and populate it thusly:
 
 ```yaml
 # yaml-language-server: $schema=./build.yaml
@@ -460,55 +512,11 @@ jobs:
                   APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL }}"
 ```
 
-The above GitHub action depends upon a number of secrets:
+There's a lot in this pipeline. Let's dig into the `build` and `deploy` jobs to see what's happening.
 
-![Screenshot of the secrets in the GitHub website that we need to create](screenshot-github-secrets.png)
+### `build` - building our image
 
-We'll need to create each of these secrets.
-
-### `AZURE_CREDENTIALS` - GitHub logging into Azure
-
-So GitHub can interact with Azure on our behalf, we need to provide it with some credentials. We'll use the Azure CLI to create these:
-
-```shell
-az ad sp create-for-rbac --name "myApp" --role contributor \
-    --scopes /subscriptions/{subscription-id}/resourceGroups/{resource-group} \
-    --sdk-auth
-```
-
-Remember to replace the `{subscription-id}` with your subscription id and `{resource-group}` with the name of your resource group (`rg-aca` if you're following along). This command will pump out a lump of JSON that looks something like this:
-
-```json
-{
-  "clientId": "a-client-id",
-  "clientSecret": "a-client-secret",
-  "subscriptionId": "a-subscription-id",
-  "tenantId": "a-tenant-id",
-  "activeDirectoryEndpointUrl": "https://login.microsoftonline.com",
-  "resourceManagerEndpointUrl": "https://management.azure.com/",
-  "activeDirectoryGraphResourceId": "https://graph.windows.net/",
-  "sqlManagementEndpointUrl": "https://management.core.windows.net:8443/",
-  "galleryEndpointUrl": "https://gallery.azure.com/",
-  "managementEndpointUrl": "https://management.core.windows.net/"
-}
-```
-
-Take this and save it as the `AZURE_CREDENTIALS` secret in Azure.
-
-### `PACKAGES_TOKEN` - Azure accessing the GitHub container registry
-
-We also need a secret for accessing packages from Azure. We're going to be publishing packages to the GitHub container registry. Azure is going to need to be able to access this when we're deploying; so we'll set up a `PACKAGES_TOKEN` secret. This is a GitHub personal access token with the `read:packages` scope. [There's instructions on how to do this here.](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
-
-### Secrets for the app
-
-The app also needs a number of secrets created:
-
-- `APPSETTINGS_API_KEY` - an API key for Mailgun which will be used to send emails
-- `APPSETTINGS_DOMAIN` - the domain for the email eg `mg.poorclaresarundel.org`
-- `APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL` - who automated emails should come from eg `noreply@mg.poorclaresarundel.org`
-- `APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL` - the email address emails should be sent to
-
-Strictly speaking, only the API key is a secret. But to simplify this post we'll configure all of these as secrets in GitHub.
+### `deploy` - shipping our image to Azure
 
 ## Running it
 
