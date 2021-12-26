@@ -371,8 +371,8 @@ Alongside these infrastructure / deployment related secrets, we'll need ones to 
 
 - `APPSETTINGS_API_KEY` - an API key for Mailgun which will be used to send emails
 - `APPSETTINGS_DOMAIN` - the domain for the email eg `mg.poorclaresarundel.org`
-- `APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL` - who automated emails should come from eg `noreply@mg.poorclaresarundel.org`
-- `APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL` - the email address emails should be sent to
+- `APPSETTINGS_FROM_EMAIL` - who automated emails should come from eg `noreply@mg.poorclaresarundel.org`
+- `APPSETTINGS_RECIPIENT_EMAIL` - the email address emails should be sent to
 
 Strictly speaking, only the API key is a secret. But to simplify this post we'll configure all of these as secrets in GitHub.
 
@@ -486,8 +486,8 @@ jobs:
                   tags="$tags" \
                   APPSETTINGS_API_KEY="${{ secrets.APPSETTINGS_API_KEY }}" \
                   APPSETTINGS_DOMAIN="${{ secrets.APPSETTINGS_DOMAIN }}" \
-                  APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL }}" \
-                  APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL }}"
+                  APPSETTINGS_FROM_EMAIL="${{ secrets.APPSETTINGS_FROM_EMAIL }}" \
+                  APPSETTINGS_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_RECIPIENT_EMAIL }}"
 
       - name: What-if bicep
         uses: azure/CLI@v1
@@ -508,8 +508,8 @@ jobs:
                   tags="$tags" \
                   APPSETTINGS_API_KEY="${{ secrets.APPSETTINGS_API_KEY }}" \
                   APPSETTINGS_DOMAIN="${{ secrets.APPSETTINGS_DOMAIN }}" \
-                  APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL }}" \
-                  APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL }}"
+                  APPSETTINGS_FROM_EMAIL="${{ secrets.APPSETTINGS_FROM_EMAIL }}" \
+                  APPSETTINGS_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_RECIPIENT_EMAIL }}"
 ```
 
 There's a lot in this pipeline. Let's dig into the `build` and `deploy` jobs to see what's happening.
@@ -564,8 +564,8 @@ In the case of a pull request, it runs the [`az deployment group what-if`](https
             tags="$tags" \
             APPSETTINGS_API_KEY="${{ secrets.APPSETTINGS_API_KEY }}" \
             APPSETTINGS_DOMAIN="${{ secrets.APPSETTINGS_DOMAIN }}" \
-            APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL }}" \
-            APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL }}"
+            APPSETTINGS_FROM_EMAIL="${{ secrets.APPSETTINGS_FROM_EMAIL }}" \
+            APPSETTINGS_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_RECIPIENT_EMAIL }}"
 ```
 
 When it's not a pull request, it runs the [`az deployment group create`](https://docs.microsoft.com/en-us/cli/azure/deployment/group?view=azure-cli-latest#az_deployment_group_create) command which performs a deployment of our `main.bicep` file.
@@ -590,8 +590,8 @@ When it's not a pull request, it runs the [`az deployment group create`](https:/
             tags="$tags" \
             APPSETTINGS_API_KEY="${{ secrets.APPSETTINGS_API_KEY }}" \
             APPSETTINGS_DOMAIN="${{ secrets.APPSETTINGS_DOMAIN }}" \
-            APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL }}" \
-            APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL }}"
+            APPSETTINGS_FROM_EMAIL="${{ secrets.APPSETTINGS_FROM_EMAIL }}" \
+            APPSETTINGS_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_RECIPIENT_EMAIL }}"
 ```
 
 In either case we pass the same set of parameters:
@@ -606,8 +606,8 @@ containerRegistryPassword=${{ secrets.PACKAGES_TOKEN }} \
 tags="$tags" \
 APPSETTINGS_API_KEY="${{ secrets.APPSETTINGS_API_KEY }}" \
 APPSETTINGS_DOMAIN="${{ secrets.APPSETTINGS_DOMAIN }}" \
-APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL }}" \
-APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL }}"
+APPSETTINGS_FROM_EMAIL="${{ secrets.APPSETTINGS_FROM_EMAIL }}" \
+APPSETTINGS_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_RECIPIENT_EMAIL }}"
 ```
 
 These are either:
