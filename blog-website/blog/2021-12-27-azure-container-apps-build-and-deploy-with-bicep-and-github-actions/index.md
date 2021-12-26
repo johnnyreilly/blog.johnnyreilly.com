@@ -6,7 +6,9 @@ image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-Azure Container Apps are an exciting way to deploy containers to Azure. This post shows how to build and deploy a simple web application to Azure Container Apps using Bicep and GitHub Actions. It follows on from the [previous post](../2021-12-19-azure-container-apps-bicep-and-github-actions/index.md) which deployed infrastructure and a "hello world" container, this time introducing the building of a container and storing it in the [GitHub container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
+Azure Container Apps are an exciting way to deploy containers to Azure. This post shows how to build and deploy a simple web application to Azure Container Apps using Bicep and GitHub Actions. It includes deployment and configuration of secrets.
+
+This post follows on from the [previous post](../2021-12-19-azure-container-apps-bicep-and-github-actions/index.md) which deployed infrastructure and a "hello world" container, this time introducing the building of an image and storing it in the [GitHub container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) so it can be deployed.
 
 ![title image reading "Azure Container Apps: build and deploy with Bicep and GitHub Actions" with the Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
 
@@ -376,9 +378,7 @@ Strictly speaking, only the API key is a secret. But to simplify this post we'll
 
 ## Deploying with GitHub Actions
 
-With our secrets configured, we're now well placed to write our GitHub Action. The GitHub Action we're going to write is heavily inspired by [Jeff Hollan](https://twitter.com/jeffhollan)'s [Azure sample app GHA](https://github.com/Azure-Samples/container-apps-store-api-microservice).
-
-We'll create a `.github/workflows/deploy.yaml` file in our repository and populate it thusly:
+With our secrets configured, we're now well placed to write our GitHub Action. We'll create a `.github/workflows/deploy.yaml` file in our repository and populate it thusly:
 
 ```yaml
 # yaml-language-server: $schema=./build.yaml
@@ -516,14 +516,110 @@ There's a lot in this pipeline. Let's dig into the `build` and `deploy` jobs to 
 
 ### `build` - building our image
 
+The `build` job is all about building our container images and pushing then to the GitHub registry. It's heavily inspired by [Jeff Hollan](https://twitter.com/jeffhollan)'s [Azure sample app GHA](https://github.com/Azure-Samples/container-apps-store-api-microservice). When we look at the `strategy` we can see a `matrix` of `services` consisting of a single service; our node app:
+
+```yaml
+strategy:
+  matrix:
+    services: [{ 'imageName': 'node-service', 'directory': './node-service' }]
+```
+
+This is a matrix because a typical use case of an Azure Container App will be multicontainer, so we're starting generic from the beginning. The `outputs` pumps out the details of our `containerImage-node` image to be used later:
+
+```yaml
+outputs:
+  containerImage-node: ${{ steps.image-tag.outputs.image-node-service }}
+```
+
+With that understanding in place, let's examine what each of the steps in the `build` job does
+
+- `Log into registry` - logs into the GitHub container registry
+- `Extract Docker metadata` - acquire tags which will be used for versioning
+- `Build and push Docker image` - build the docker image and if this is not a PR: tag, label and push it to the registry
+- `Output image tag` - write out the image tag for usage in deployment
+
 ### `deploy` - shipping our image to Azure
+
+The `deploy` job does two possible things with our Bicep template; `main.bicep`.
+
+In the case of a pull request, it runs the [`az deployment group what-if`](https://docs.microsoft.com/en-us/cli/azure/deployment/group?view=azure-cli-latest#az_deployment_group_what_if) - this allows us to see what the effect would be of applying a PR to our infrastructure.
+
+```yaml
+- name: What-if bicep
+  uses: azure/CLI@v1
+  if: github.event_name == 'pull_request'
+  with:
+    inlineScript: |
+      tags='{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
+      az deployment group what-if \
+        --resource-group ${{ env.RESOURCE_GROUP }} \
+        --template-file ./infra/main.bicep \
+        --parameters \
+            nodeImage='${{ needs.build.outputs.containerImage-node }}' \
+            nodePort=3000 \
+            nodeIsExternalIngress=true \
+            containerRegistry=${{ env.REGISTRY }} \
+            containerRegistryUsername=${{ github.actor }} \
+            containerRegistryPassword=${{ secrets.PACKAGES_TOKEN }} \
+            tags="$tags" \
+            APPSETTINGS_API_KEY="${{ secrets.APPSETTINGS_API_KEY }}" \
+            APPSETTINGS_DOMAIN="${{ secrets.APPSETTINGS_DOMAIN }}" \
+            APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL }}" \
+            APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL }}"
+```
+
+When it's not a pull request, it runs the [`az deployment group create`](https://docs.microsoft.com/en-us/cli/azure/deployment/group?view=azure-cli-latest#az_deployment_group_create) command which performs a deployment of our `main.bicep` file.
+
+```yaml
+- name: Deploy bicep
+  uses: azure/CLI@v1
+  if: github.event_name != 'pull_request'
+  with:
+    inlineScript: |
+      tags='{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
+      az deployment group create \
+        --resource-group ${{ env.RESOURCE_GROUP }} \
+        --template-file ./infra/main.bicep \
+        --parameters \
+            nodeImage='${{ needs.build.outputs.containerImage-node }}' \
+            nodePort=3000 \
+            nodeIsExternalIngress=true \
+            containerRegistry=${{ env.REGISTRY }} \
+            containerRegistryUsername=${{ github.actor }} \
+            containerRegistryPassword=${{ secrets.PACKAGES_TOKEN }} \
+            tags="$tags" \
+            APPSETTINGS_API_KEY="${{ secrets.APPSETTINGS_API_KEY }}" \
+            APPSETTINGS_DOMAIN="${{ secrets.APPSETTINGS_DOMAIN }}" \
+            APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL }}" \
+            APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL }}"
+```
+
+In either case we pass the same set of parameters:
+
+```shell
+nodeImage='${{ needs.build.outputs.containerImage-node }}' \
+nodePort=3000 \
+nodeIsExternalIngress=true \
+containerRegistry=${{ env.REGISTRY }} \
+containerRegistryUsername=${{ github.actor }} \
+containerRegistryPassword=${{ secrets.PACKAGES_TOKEN }} \
+tags="$tags" \
+APPSETTINGS_API_KEY="${{ secrets.APPSETTINGS_API_KEY }}" \
+APPSETTINGS_DOMAIN="${{ secrets.APPSETTINGS_DOMAIN }}" \
+APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_FROM_EMAIL }}" \
+APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_PRAYER_REQUEST_RECIPIENT_EMAIL }}"
+```
+
+These are either:
+
+- secrets we set up earlier
+- environment variables declared at the start of the script or
+- outputs from the build step - this is where we acquire our node image
 
 ## Running it
 
-When the GitHub Action has been run you'll find that Azure Container App is now showing up inside the Azure Portal:
+When the GitHub Action has been run you'll find that Azure Container App is now showing up inside the Azure Portal in your resource group, alongside the other resources:
 
 ![screenshot of the Azure Container App in the Azure Portal](screenshot-azure-portal-container-app.png)
 
-You'll see a URL is displayed, when you go that URL you'll find the hello world image is running!
-
-![screenshot of the running Azure Container App](screenshot-of-running-container-app.png)
+Congratulations! You've built and deployed a simple web app to Azure Container Apps with Bicep and GitHub Actions and secrets.
