@@ -620,6 +620,10 @@ These are either:
 
 When the GitHub Action has been run you'll find that Azure Container App is now showing up inside the Azure Portal in your resource group, alongside the other resources:
 
-![screenshot of the Azure Container App in the Azure Portal](screenshot-azure-portal-container-app.png)
+![screenshot of the Azure Container App's resource group in the Azure Portal](screenshot-azure-portal-container-app.png)
+
+And when we take a closer look at the container app, we find a URL we can navigate to:
+
+![screenshot of the Azure Container App in the Azure Portal revealing it's URL](screenshot-azure-portal-container-app-url.png)
 
 Congratulations! You've built and deployed a simple web app to Azure Container Apps with Bicep and GitHub Actions and secrets.
