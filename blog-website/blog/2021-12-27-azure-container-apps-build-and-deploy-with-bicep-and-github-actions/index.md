@@ -6,7 +6,7 @@ image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-Azure Container Apps are an exciting way to deploy containers to Azure. This post shows how to build and deploy a simple web application to Azure Container Apps using Bicep and GitHub Actions. It includes deployment and configuration of secrets.
+This post shows how to build and deploy a simple web application to Azure Container Apps using Bicep and GitHub Actions. This includes the configuration and deployment of secrets.
 
 This post follows on from the [previous post](../2021-12-19-azure-container-apps-bicep-and-github-actions/index.md) which deployed infrastructure and a "hello world" container, this time introducing the building of an image and storing it in the [GitHub container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) so it can be deployed.
 
@@ -16,9 +16,9 @@ This post follows on from the [previous post](../2021-12-19-azure-container-apps
 
 I learn the most about a technology when I'm using it to build something. It so happens that I have an aunt that's a nun, and long ago she persuaded me to build her convent a website. I'm a good nephew and I complied. Since that time I've been merrily overengineering it for fun and non-profit.
 
-My aunts website is a node app that is containerised and runs on [Azure App Service Web App for Containers](https://azure.microsoft.com/en-gb/services/app-service/containers/). Given that it is already in a container, this makes it a great candidate for porting to Azure Container Apps.
+My aunts website is a pretty vanilla node app. Significantly it is already containerised and runs on [Azure App Service Web App for Containers](https://azure.microsoft.com/en-gb/services/app-service/containers/). Given it lives in the context of a container, this makes it a great candidate for porting to Azure Container Apps.
 
-So that's what we'll do in this post. But where I'm building and deploying my aunt's container, you could equally be substituting your own.
+So that's what we'll do in this post. But where I'm building and deploying my aunt's container, you could equally be substituting your own; with some minimal changes.
 
 ## Bicep
 
@@ -218,9 +218,9 @@ param containerRegistryPassword string
 param tags object
 ```
 
-With the exception of the `tags` object which is metadata to apply to resources, these parameters are related to the container registry where our images will be stored. GitHub's in our case. Remember, what we deploy to Azure Container Apps are container images. To get something running in an ACA, it first has to reside in a container registry. There's a multitude of container registries out there and we're using the one directly available in GitHub. As an alternative, we could use an [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/), or [Docker Hub](https://hub.docker.com/) - or something else entirely!
+With the exception of the `tags` object which is metadata to apply to resources, these parameters are related to the container registry where our images will be stored. GitHub's in our case. Remember, what we deploy to Azure Container Apps are container images. To get something running in an ACA, it first has to reside in a container registry. There's a multitude of container registries out there and we're using the one directly available in GitHub. As an alternative, we could use an [Azure Container Registry](https://azure.microsoft.com/en-us/services/container-registry/), or [Docker Hub](https://hub.docker.com/) - or something else entirely.
 
-Do note the [`@secure()`](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters#secure-parameters) decorator. This marks the `containerRegistryPassword` parameter as secure. The value for a secure parameter isn't saved to the deployment history and isn't logged. Typically you'll want to mark secrets with `@secure()` for this very reason.
+Do note the [`@secure()`](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters#secure-parameters) decorator. This marks the `containerRegistryPassword` parameter as secure. The value for a secure parameter isn't saved to the deployment history and isn't logged. Typically you'll want to mark secrets with the `@secure()` decorator for this very reason.
 
 We use the parameters to configure the `registries` property of our container app. This tells the ACA where it can go to collect the image it needs. You can also see our first usage of secrets here. We declare the `containerRegistryPassword` as a secret which is stored against the ref `'container-registry-password'`; captured as the variable `containerRegistryPasswordRef`. That variable is then referenced in the `passwordSecretRef` property - thus telling ACA where it can find the password.
 
@@ -334,7 +334,7 @@ We'll need to create each of these secrets.
 
 ### `AZURE_CREDENTIALS` - GitHub logging into Azure
 
-So GitHub can interact with Azure on our behalf, we need to provide it with some credentials. We'll use the Azure CLI to create these:
+So GitHub Actions can interact with Azure on our behalf, we need to provide it with some credentials. We'll use the Azure CLI to create these:
 
 ```shell
 az ad sp create-for-rbac --name "myApp" --role contributor \
@@ -363,7 +363,7 @@ Take this and save it as the `AZURE_CREDENTIALS` secret in Azure.
 
 ### `PACKAGES_TOKEN` - Azure accessing the GitHub container registry
 
-We also need a secret for accessing packages from Azure. We're going to be publishing packages to the GitHub container registry. Azure is going to need to be able to access this when we're deploying; so we'll set up a `PACKAGES_TOKEN` secret. This is a GitHub personal access token with the `read:packages` scope. [Learn more](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+We also need a secret for accessing packages from Azure. We're going to be publishing packages to the GitHub container registry. Azure is going to need to be able to access this when we're deploying. ACA deployment works by telling Azure where to look for an image and providing any necessary credentials to do the acquisition. To facilitate this we'll set up a `PACKAGES_TOKEN` secret. This is a GitHub personal access token with the `read:packages` scope. [Follow the instructions here to create the token.](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
 
 ### Secrets for the app
 
@@ -524,7 +524,7 @@ strategy:
     services: [{ 'imageName': 'node-service', 'directory': './node-service' }]
 ```
 
-This is a matrix because a typical use case of an Azure Container App will be multicontainer, so we're starting generic from the beginning. The `outputs` pumps out the details of our `containerImage-node` image to be used later:
+This is a matrix because a typical use case of an Azure Container App will be multi-container, so we're starting generic from the beginning. The `outputs` pumps out the details of our `containerImage-node` image to be used later:
 
 ```yaml
 outputs:
