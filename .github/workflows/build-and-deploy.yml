@@ -1,4 +1,4 @@
-name: blog
+name: Build and Deploy
 
 on:
   pull_request:
