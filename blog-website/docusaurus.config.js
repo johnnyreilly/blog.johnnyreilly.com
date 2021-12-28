@@ -1,6 +1,7 @@
 //@ts-check
 const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 
+const FontPreloadPlugin = require('webpack-font-preload-plugin');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
@@ -57,6 +58,17 @@ const config = {
   ],
 
   plugins: [
+    function preloadFontPlugin(context, options) {
+      // ...
+      return {
+        name: 'my-plugin',
+        configureWebpack(_config, _isServer) {
+          return {
+            plugins: [new FontPreloadPlugin()],
+          };
+        },
+      };
+    },
     [
       '@docusaurus/plugin-ideal-image',
       {
