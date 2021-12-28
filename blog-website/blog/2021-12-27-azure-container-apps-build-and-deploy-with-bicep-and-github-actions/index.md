@@ -512,7 +512,7 @@ jobs:
                   APPSETTINGS_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_RECIPIENT_EMAIL }}"
 ```
 
-There's a lot in this pipeline. Let's dig into the `build` and `deploy` jobs to see what's happening.
+There's a lot in this workflow. Let's dig into the `build` and `deploy` jobs to see what's happening.
 
 ### `build` - building our image
 
