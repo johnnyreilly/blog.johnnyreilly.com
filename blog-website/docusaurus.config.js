@@ -58,10 +58,9 @@ const config = {
   ],
 
   plugins: [
-    function preloadFontPlugin(context, options) {
-      // ...
+    function preloadFontPlugin(_context, _options) {
       return {
-        name: 'my-plugin',
+        name: 'preload-font-plugin',
         configureWebpack(_config, _isServer) {
           return {
             plugins: [new FontPreloadPlugin()],
