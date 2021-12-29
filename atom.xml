@@ -2,11 +2,53 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.johnnyreilly.com/</id>
     <title>I CAN MAKE THIS WORK Blog</title>
-    <updated>2021-12-28T00:00:00.000Z</updated>
+    <updated>2021-12-29T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.johnnyreilly.com/"/>
     <subtitle>I CAN MAKE THIS WORK Blog</subtitle>
     <icon>https://blog.johnnyreilly.com/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Preload fonts with Docusaurus]]></title>
+        <id>/2021/12/29/preload-fonts-with-docusaurus</id>
+        <link href="https://blog.johnnyreilly.com/2021/12/29/preload-fonts-with-docusaurus"/>
+        <updated>2021-12-29T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[When we're using custom fonts in our websites, it's good practice to preload the fonts to minimise the flash of unstyled text. This post shows how to achieve this with Docusaurus and Satyendra Singh's excellent webpack-font-preload-plugin]]></summary>
+        <content type="html"><![CDATA[<p>When we&#x27;re using custom fonts in our websites, it&#x27;s good practice to preload the fonts to minimise the <a href="https://css-tricks.com/fout-foit-foft/">flash of unstyled text</a>. This post shows how to achieve this with Docusaurus and <a href="https://github.com/sn-satyendra">Satyendra Singh</a>&#x27;s excellent <a href="https://github.com/sn-satyendra/webpack-font-preload-plugin"><code>webpack-font-preload-plugin</code></a></p><p><img src="title-image.png" alt="title image reading &quot;Preload fonts with Docusaurus&quot; in a ridiculous font with the Docusaurus logo and a screenshot of a preload link HTML element"/></p><h2>Preload web fonts with Docusaurus</h2><p>To quote the docs of the <code>webpack-font-preload-plugin</code>:</p><blockquote><p>The <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content">preload</a> value of the <code>&lt;link&gt;</code> element&#x27;s <code>rel</code> attribute lets you declare fetch requests in the HTML&#x27;s <code>&lt;head&gt;</code>, specifying resources that your page will need very soon, which you want to start loading early in the page lifecycle, before browsers&#x27; main rendering machinery kicks in. This ensures they are available earlier and are less likely to block the page&#x27;s render, improving performance.</p><p>This plugin specifically targets fonts used with the application which are bundled using webpack. The plugin would add <code>&lt;link&gt;</code> tags in the begining of <code>&lt;head&gt;</code> of your html:</p><pre><code class="language-html">&lt;link rel=&quot;preload&quot; href=&quot;/font1.woff&quot; as=&quot;font&quot; crossorigin /&gt;
+&lt;link rel=&quot;preload&quot; href=&quot;/font2.woff&quot; as=&quot;font&quot; crossorigin /&gt;
+</code></pre></blockquote><p>If you want to learn more about preloading web fonts, it&#x27;s also worth <a href="https://web.dev/codelab-preload-web-fonts/">reading this excellent article</a>.</p><p>The blog you&#x27;re reading is built with <a href="https://docusaurus.io/">Docusaurus</a>. Our mission: for the HTML our Docusaurus build pumps out to feature preload <code>link</code> elements. Something like this:</p><pre><code class="language-html">&lt;link
+  rel=&quot;preload&quot;
+  href=&quot;/assets/fonts/Poppins-Regular-8081832fc5cfbf634aa664a9eff0350e.ttf&quot;
+  as=&quot;font&quot;
+  crossorigin=&quot;&quot;
+/&gt;
+</code></pre><p>This <code>link</code> element has the <code>rel=&quot;preload&quot;</code> attribute set, which triggers font preloading.</p><p>But the thing to take from the above text is that the filename features a hash in the name. This demonstrates that the font is being pumped through the Docusaurus build, which is powered by webpack. So we need some webpack whispering to get font preloading going.</p><h2>Making a plugin</h2><p>We&#x27;re going to make a minimal <a href="https://docusaurus.io/docs/using-plugins#creating-plugins">Docusaurus plugin</a> using <code>webpack-font-preload-plugin</code>. Let&#x27;s add it to our project:</p><pre><code class="language-shell">yarn add webpack-font-preload-plugin
+</code></pre><p>Now in the <code>docusaurus.config.js</code> we can create our minimal plugin:</p><pre><code class="language-js">const FontPreloadPlugin = require(&#x27;webpack-font-preload-plugin&#x27;);
+
+//...
+/** @type {import(&#x27;@docusaurus/types&#x27;).Config} */
+const config = {
+  //...
+  plugins: [
+    function preloadFontPlugin(_context, _options) {
+      return {
+        name: &#x27;preload-font-plugin&#x27;,
+        configureWebpack(_config, _isServer) {
+          return {
+            plugins: [new FontPreloadPlugin()],
+          };
+        },
+      };
+    },
+    // ...
+  ],
+  //...
+};
+</code></pre><p>It&#x27;s a super simple plugin, it does nothing more than <code>new</code> up an instance of the plugin, inside the context of the <code>configureWebpack</code> method. That&#x27;s all that&#x27;s required.</p><p>With this in place we&#x27;re now seeing the <code>&lt;link rel=&quot;preload&quot; ... /&gt;</code> elements being included in the HTML pumped out of our Docusaurus build. This means we have font preloading working:</p><p><img src="screenshot-preload-devtools.png" alt="screenshot of the Chrome devtools featuring link rel=&quot;preload&quot; elements"/></p><p>Huzzah!</p>]]></content>
+        <author>
+            <name>John Reilly</name>
+            <uri>https://twitter.com/johnny_reilly</uri>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Query deployment outputs with the Azure CLI]]></title>
         <id>/2021/12/28/azure-cli-show-query-output-properties</id>
