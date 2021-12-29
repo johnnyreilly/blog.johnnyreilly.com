@@ -2,6 +2,8 @@
 const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 
 const FontPreloadPlugin = require('webpack-font-preload-plugin');
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
@@ -68,15 +70,85 @@ const config = {
         },
       };
     },
-    [
-      '@docusaurus/plugin-ideal-image',
-      {
-        quality: 70,
-        max: 1030, // max resized image's size.
-        min: 640, // min resized image's size. if original is lower, use that size.
-        steps: 2, // the max number of images generated between min and max (inclusive)
-      },
-    ],
+    function imageMinPlugin(_context, _options) {
+      return {
+        name: 'imagemin-font-plugin',
+        configureWebpack(_config, _isServer) {
+          return {
+            module: {
+              rules: [
+                // You need this, if you are using `import file from "file.ext"`, for `new URL(...)` syntax you don't need it
+                {
+                  test: /\.(jpe?g|png|gif|svg)$/i,
+                  type: 'asset',
+                },
+                // We recommend using only for the "production" mode
+                {
+                  test: /\.(jpe?g|png|gif|svg)$/i,
+                  enforce: 'pre',
+                  use: [
+                    {
+                      loader: ImageMinimizerPlugin.loader,
+                      options: {
+                        minimizer: {
+                          implementation: ImageMinimizerPlugin.imageminMinify,
+                          options: {
+                            plugins: [
+                              'imagemin-gifsicle',
+                              'imagemin-mozjpeg',
+                              'imagemin-pngquant',
+                              'imagemin-svgo',
+                            ],
+                          },
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          };
+          /* didn't work
+          return {
+            module: {
+              rules: [
+                {
+                  test: /\.(jpe?g|png|gif)$/i,
+                  type: "asset",
+                },
+              ],
+            },
+            optimization: {
+              minimizer: [
+                new ImageMinimizerPlugin({
+                  minimizer: {
+                    implementation: ImageMinimizerPlugin.imageminMinify,
+                    options: {
+                      // Lossless optimization with custom option
+                      // Feel free to experiment with options for better result for you
+                      plugins: [
+                        ["gifsicle", { interlaced: true }],
+                        ["jpegtran", { progressive: true }],
+                        ["optipng", { optimizationLevel: 5 }],
+                      ],
+                    },
+                  },
+                }),
+              ],
+            },
+          };*/
+        },
+      };
+    },
+    // [
+    //   '@docusaurus/plugin-ideal-image',
+    //   {
+    //     quality: 70,
+    //     max: 1030, // max resized image's size.
+    //     min: 640, // min resized image's size. if original is lower, use that size.
+    //     steps: 2, // the max number of images generated between min and max (inclusive)
+    //   },
+    // ],
     [
       '@docusaurus/plugin-client-redirects',
       {
