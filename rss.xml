@@ -67,7 +67,10 @@ john@Azure:~$ echo $NODE_URL
 </code></pre><p>The value we capture in the <code>NODE_URL</code> variable above is surrounded by quotes. These will probably get in the way when we&#x27;re scripting something with this. Rather than purging them with bash, I tend to use <a href="https://stedolan.github.io/jq/manual/"><code>jq</code>&#x27;s <code>--raw-output / -r</code> option</a> to grab the raw string.</p><pre><code class="language-bash">john@Azure:~$ NODE_URL=$(az deployment group show -g rg-aca -n our-deployment --query properties.outputs | jq -r &#x27;.nodeUrl.value&#x27;)
 john@Azure:~$ echo $NODE_URL
 some.url.northeurope.azurecontainerapps.io
-</code></pre><p>Perfect!</p><h2>Convert deployment outputs to GitHub Action job outputs</h2><p>Before wrapping up, here&#x27;s one more useful script, if you find yourself automating in the context of GitHub Actions. It&#x27;s often useful to take the deployment outputs, and convert them into GHA job outputs that can be used in other jobs.</p><p>With JSON and <a href="https://stedolan.github.io/jq/">jq</a> in hand, it&#x27;s possible to expose these like so:</p><pre><code class="language-bash">DEPLOYMENT_OUTPUTS=$(az deployment group show \
+</code></pre><p>Perfect!</p><p>There&#x27;s another approach you could use which <a href="https://twitter.com/alexandair/status/1476554234543890437">Aleksandar Nikolić shared</a>, which means jq needn&#x27;t be used at all; using the <code>tsv</code> output formatter:</p><pre><code class="language-bash">john@Azure:~$ NODE_URL=$(az deployment group show -g rg-aca -n our-deployment --query properties.outputs.nodeUrl.value -o tsv)
+john@Azure:~$ echo $NODE_URL
+some.url.northeurope.azurecontainerapps.io
+</code></pre><h2>Convert deployment outputs to GitHub Action job outputs</h2><p>Before wrapping up, here&#x27;s one more useful script, if you find yourself automating in the context of GitHub Actions. It&#x27;s often useful to take the deployment outputs, and convert them into GHA job outputs that can be used in other jobs.</p><p>With JSON and <a href="https://stedolan.github.io/jq/">jq</a> in hand, it&#x27;s possible to expose these like so:</p><pre><code class="language-bash">DEPLOYMENT_OUTPUTS=$(az deployment group show \
   --resource-group ${{ env.RESOURCE_GROUP }} \
   --name $DEPLOYMENT_NAME \
   --query properties.outputs)
