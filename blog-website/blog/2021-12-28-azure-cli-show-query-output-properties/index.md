@@ -60,6 +60,14 @@ some.url.northeurope.azurecontainerapps.io
 
 Perfect!
 
+There's another approach you could use which [Aleksandar Nikolić shared](https://twitter.com/alexandair/status/1476554234543890437), which means jq needn't be used at all; using the `tsv` output formatter:
+
+```bash
+john@Azure:~$ NODE_URL=$(az deployment group show -g rg-aca -n our-deployment --query properties.outputs.nodeUrl.value -o tsv)
+john@Azure:~$ echo $NODE_URL
+some.url.northeurope.azurecontainerapps.io
+```
+
 ## Convert deployment outputs to GitHub Action job outputs
 
 Before wrapping up, here's one more useful script, if you find yourself automating in the context of GitHub Actions. It's often useful to take the deployment outputs, and convert them into GHA job outputs that can be used in other jobs.
