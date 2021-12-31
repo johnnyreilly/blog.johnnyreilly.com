@@ -43,9 +43,7 @@ However I resisted. As much as I like LINQ to XML I turned to use [Xsd.exe](<htt
 
 Excited? Thought not. But what this means is we can hurl our XSD at this tool and it will toss back a nicely formatted C# class for me to use. Good stuff! So how's it done? Well MSDN is roughly as informative as it ever is (which is to say, not terribly) but fortunately there's not a great deal to it. You fire up the Visual Studio Command Prompt (and I advise doing this in Administrator mode to escape permissions pain). Then you enter a command to generate your class. Here's an example using the Contact.xsd file we generated earlier:
 
-`xsd.exe "C:\\Contact.xsd" /classes /out:"C:\\" /namespace:"MyNameSpace"`Generation looks like this:
-
-![](https://1.bp.blogspot.com/-TR-eaxshZo8/UJPclxs8JjI/AAAAAAAAAWg/TNKZuyi-8NU/s400/XsdInAction.png)
+`xsd.exe "C:\\Contact.xsd" /classes /out:"C:\\" /namespace:"MyNameSpace"`
 
 And you're left with the lovely Contact.cs class:
 

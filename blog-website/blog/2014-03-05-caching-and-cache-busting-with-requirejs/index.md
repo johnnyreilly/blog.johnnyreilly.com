@@ -58,9 +58,7 @@ I’m not so worried about the proxy caching issue. My users tend to be people w
 
 If you want to go a little deeper I recommend reading [Steve Souders post](http://www.stevesouders.com/blog/2008/08/23/revving-filenames-dont-use-querystring/) on the topic (in case you’re not aware Steve is Google’s Mr Performance). Interestingly, looking at the comments on the post it sounds like the lack of support for proxy caching with querystrings may that may be starting to change.
 
-But either way, I’m happy with this approach. As I always say, if it’s good enough for Stack Overflow then it’s good enough for me:
-
-![](https://4.bp.blogspot.com/-pG0ahnzaPJM/UxcP7f6ENII/AAAAAAAAAhY/VVahRmEe5_0/s320/IfItsGoodEnoughForStackOverflow.png)
+But either way, I’m happy with this approach. As I always say, if it’s good enough for Stack Overflow then it’s good enough for me.
 
 ## Implementation
 
@@ -85,9 +83,7 @@ Let’s take a look at our index.html. First we’ll drop our usage of `main.ts`
 </script>
 ```
 
-Spinning up the site all runs as you would expect. The question is: does this work as a cache-buster? Let’s tweak `alerter.ts` / `alerter.js`. And:
-
-![](https://1.bp.blogspot.com/-WTNrPPyeMTY/UxcRTQpqM3I/AAAAAAAAAhk/ICvFXxji3FY/s320/newDateSolution.png)
+Spinning up the site all runs as you would expect. The question is: does this work as a cache-buster? Let’s tweak `alerter.ts` / `alerter.js`.
 
 Oh yeah! We’re cache-busting like gangbusters!
 
@@ -98,9 +94,7 @@ So now let’s comment out our existing urlArgs (which represents the Developmen
 urlArgs: 'v=1';
 ```
 
-This represents the Production solution from Phil’s answer. Now let’s run, refresh a couple of times and ensure that our fixed querystring value results in a 304 status code (indicating “Not Modified” and cached item used):
-
-![](https://4.bp.blogspot.com/-Yy138lKDkuE/UxcRr7EpiXI/AAAAAAAAAhs/QVPcUF-rdgw/s320/FixedQuerystring304.png)
+This represents the Production solution from Phil’s answer. Now let’s run, refresh a couple of times and ensure that our fixed querystring value results in a 304 status code (indicating “Not Modified” and cached item used).
 
 It does! Now let’s increment the value:
 
@@ -109,8 +103,6 @@ urlArgs: 'v=2';
 ```
 
 When we refresh the browser this should result in 200 status codes (indicating the cached version has not been used and the client has picked up a new version from the server).
-
-![](https://2.bp.blogspot.com/-qx7Ya1MZNC8/UxcSBwKjM_I/AAAAAAAAAh0/aywHMXHUrwI/s320/NewFixedQuerystring200.png)
 
 Success! That’s our premise tested – both Development and Production scenarios. Now we want to turn this into a slightly more sophisticated reusable solution like this:
 
@@ -210,11 +202,7 @@ Let’s clone our `index.html` page and call it `serverUrlArgs.cshtml` (note the
 
 Which drives `urlArgs` from the `RequireJSHelpers.Version` property. If we fire it up now (with debug set to true in our web.config) then we see requests like this:
 
-![](https://1.bp.blogspot.com/-N9TIJO1jzU4/UxcUW8z2uaI/AAAAAAAAAiA/-vo6wVx2NoI/s320/DebugEqualsTrue.png)
-
 And if we set debug to false in our web.config then (after the initial requests have been cached) we see requests like this:
-
-![](https://4.bp.blogspot.com/-xv40UDHgJfk/UxcUe4SZrUI/AAAAAAAAAiI/euLoArWTPLw/s320/DebugEqualsFalse.png)
 
 This leaves us with a simple mechanism to drive our RequireJS caching. If debug is set to `true` in our `web.config` then Require will perform cache-busting. If debug is set to `false` then RequireJS will perform only version-changing cache-busting and will, whilst the version remains constant, support client-side caching.
 

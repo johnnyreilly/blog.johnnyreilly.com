@@ -16,9 +16,7 @@ So, you're looking at [jQuery.Validation.Unobtrusive.Native](https://github.com/
 
 ## I need something to migrate
 
-So let's File > New Project ourselves a new MVC 4 application using the Internet Application template. I've picked this template as I know it ships with account registration / login screens in place which make use of jquery.validate.unobtrusive.js. To demo this just run the project, click the "Log in" link and then click the "Log in" button - you should see something like this:
-
-![](https://1.bp.blogspot.com/-7JxyO2uaVow/Uk5373yDbaI/AAAAAAAAAdk/gD8h47ObQcg/s400/BeforeLoginScreen.png)
+So let's File > New Project ourselves a new MVC 4 application using the Internet Application template. I've picked this template as I know it ships with account registration / login screens in place which make use of jquery.validate.unobtrusive.js. To demo this just run the project, click the "Log in" link and then click the "Log in" button.
 
 What you've just witnessed is jquery.validate.unobtrusive.js doing its thing. Both the `UserName` and `Password` properties on the `LoginModel` are decorated with the `Required` data annotation which, in the above scenario, causes the validation to be triggered on the client thanks to MVC rendering data attributes in the HTML which jquery.validate.unobtrusive.js picks up on. The question is, how can we take the log in screen above and migrate it across to to using jQuery.Validation.Unobtrusive.Native?
 
@@ -34,8 +32,6 @@ What has this done to my project? Well 2 things
 
 1. It's upgraded jQuery Validation ([jquery.validate.js](http://jqueryvalidation.org/)) from v1.10.0 (the version that is currently part of the MVC 4 template) to v1.11.1 (the latest and greatest jQuery Validation as of the time of writing)
 2. It's added a reference to the jQuery.Validation.Unobtrusive.Native.MVC4 assembly, like so:
-
-![](https://3.bp.blogspot.com/-V-21V1Ypo3E/Uk583DTbegI/AAAAAAAAAd0/O0nv7w6kmew/s400/NewReference.png)
 
 In case you were wondering, doing this hasn't broken the existing jquery.validate.unobtrusive.js - if you head back to the Log in screen you'll still see the same behaviour as before.
 
@@ -105,16 +101,12 @@ Which renders the following script:
 </script>
 ```
 
-And, pretty much, that's it. If you run the app now and go to the Log in screen and try to log in without credentials you'll get this:
-
-![](https://2.bp.blogspot.com/-nD3-3jW1_Yo/Uk7G5sTpsGI/AAAAAAAAAeE/NDNf4jqhJSk/s400/AfterLoginScreen.png)
+And, pretty much, that's it. If you run the app now and go to the Log in screen and try to log in without credentials.
 
 Which is functionally exactly the same as previously. The eagle eyed will notice some styling differences but that's all it comes down to really; style. And if you were so inclined you could easily style this up as you liked using CSS and the options you can pass to jQuery Validation (in fact a quick rummage through jquery.validate.unobtrusive.js should give you everything you need).
 
 ## Rounding off
 
-Before I sign off I'd like to illustrate how little we've had to change the code to start using jQuery.Validation.Unobtrusive.Native. Just take a look at this code comparison:
-
-![](https://2.bp.blogspot.com/-vnA84f1JXHw/Uk7HoDPGqMI/AAAAAAAAAeM/qZVlRak92_o/s400/WhatsTheDifference.png)
+Before I sign off I'd like to illustrate how little we've had to change the code to start using jQuery.Validation.Unobtrusive.Native.
 
 As you see, it takes very little effort to migrate from one approach to the other. And it's \***your**\* choice. If you want to have one screen that uses jQuery.Validation.Unobtrusive.Native and one screen that uses jquery.validation.unobtrusive.js then you can! Including jQuery.Validation.Unobtrusive.Native in your project gives you the **option** to use it. It doesn't force you to, you can do so as you need to and when you want to. It's down to you.

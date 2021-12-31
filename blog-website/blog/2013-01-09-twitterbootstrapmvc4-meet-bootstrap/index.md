@@ -34,12 +34,6 @@ To get up and running with Eric's work was a straightforward proposition. I...
 2. Executed the following commands at the NuGet Package Manager Console: - `Install-Package twitter.bootstrap.mvc4`
    - `Install-Package twitter.bootstrap.mvc4.sample`
 
-Check out the responsive goodness I had when I ran it:
-
-![](https://4.bp.blogspot.com/-2ytMlGLGRpo/UO1mqfi7yQI/AAAAAAAAAYs/RRuVGbr8nAg/s400/TwitterBootstrapFullSize.png)
-
-![](https://3.bp.blogspot.com/-780OCEuXoLw/UO1maRJ-CZI/AAAAAAAAAYg/chBHgYMAIJk/s400/TwitterBootstrapTitchyTiny.png)
-
 This is just 1 page, with `@media` queries doing the heavy lifting.
 
 ## Bootstrap Datepicker
@@ -68,8 +62,6 @@ And finally I amended the `Create.cshtml` View (which perhaps more accurately mi
 <script src="https://gist.github.com/4529746.js?file=Create.cshtml"></script>
 
 Et voilà - it works!
-
-![](https://4.bp.blogspot.com/-_SfaYN2dfuk/UO2JmrqO_gI/AAAAAAAAAZA/Y904hmwcqaI/s400/TwitterBootstrapDatepicker.png)
 
 My thanks to [Eric Hexter](https://twitter.com/ehexter) and Stefan Petre for doing all the hard work!
 

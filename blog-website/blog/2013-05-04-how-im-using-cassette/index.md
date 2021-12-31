@@ -37,9 +37,7 @@ In the script above I've created 4 bundles, 1 stylesheet bundle and 3 JavaScript
 
 <dl><dt>~/bundles/css</dt><dd>Our site CSS - this includes both our own CSS and the jQuery UI CSS as well. This is the rough equivalent of the Web Optimization bundles <em>~/Content/css</em> and <em>~/Content/themes/base/css</em> brought together.</dd><dt>~/bundles/head</dt><dd>What scripts we want served in the head tag - Modernizr basically. Do note the setting of the <em>PageLocation</em> property - the purpose of this will become apparent later. This is the direct equivalent of the Web Optimization bundle: <em>~/bundles/modernizr</em>.</dd><dt>~/bundles/core</dt><dd>The scripts we want served on every page. For this example project I've picked jQuery and jQuery UI. This is the rough equivalent of the Web Optimization bundles <em>~/bundles/jquery</em> and <em>~/bundles/jqueryui</em> brought together.</dd><dt>~/bundles/validate</dt><dd>The validation scripts (that are dependent on the core scripts). This is the rough equivalent of the Web Optimization bundle: <em>~/bundles/jqueryval</em>.</dd></dl>
 
-At this point we've set up Cassette in our project - although we're not making use of it yet. If you want to double check that everything is working properly then you can fire up your project and browse to "Cassette.axd" in the root. You should see something a bit like this:
-
-![](https://1.bp.blogspot.com/-xM9iU6HjB7o/UWzjAN5EieI/AAAAAAAAAaA/EAXTTnD6vdY/s320/CassetteScripts.png)
+At this point we've set up Cassette in our project - although we're not making use of it yet. If you want to double check that everything is working properly then you can fire up your project and browse to "Cassette.axd" in the root.
 
 ## How Web Optimization and Cassette Differ
 

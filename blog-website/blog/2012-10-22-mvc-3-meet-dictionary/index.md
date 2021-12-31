@@ -27,8 +27,6 @@ With this C#:
 
 You get a null `null` dictionary.
 
-![](https://3.bp.blogspot.com/-Lsz_lrqsLF8/UIVcfCzfGrI/AAAAAAAAAVM/gkq0qsVZTMw/s400/MyDictionaryIsNull.png)
-
 After a long time googling around on the topic I eventually discovered, much to my surprise, that I was actually tripping over a bug in MVC 3. It was filed by [Darin Dimitrov](http://stackoverflow.com/users/29407/darin-dimitrov) of Stack Overflow fame and I found details about it filed as an official bug [here](http://connect.microsoft.com/VisualStudio/feedback/details/636647/make-jsonvalueproviderfactory-work-with-dictionary-types-in-asp-net-mvc). To quote Darin:
 
 "_The System.Web.Mvc.JsonValueProviderFactory introduced in ASP.NET MVC 3 enables action methods to send and receive JSON-formatted text and to model-bind the JSON text to parameters of action methods. Unfortunately it doesn't work with dictionaries_"
@@ -48,9 +46,7 @@ Then the C#:
 
 <script src="https://gist.github.com/3931778.js?file=HomeControllerWorkaround.cs"></script>
 
-And now we're able to get a dictionary:
-
-![](https://1.bp.blogspot.com/-7_sHRAsZjbY/UIVnwqH7tRI/AAAAAAAAAVg/jkYd3aHKPF4/s400/MyDictionaryIsNotNull.png)
+And now we're able to get a dictionary.
 
 ## Summary and a PS
 

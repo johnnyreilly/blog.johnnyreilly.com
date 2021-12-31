@@ -30,11 +30,7 @@ I should say that this service is arguably \*\*not\*\* completely RESTful as eac
 
 ## Good behaviour
 
-It's worth noting that `automaticFormatSelectionEnabled` set to true on the behaviour so that content negotiation is enabled. Obviously for the `GetPdf` action this is rather meaningless as it's a stream that's passed back. However, for the `GetPdfUrl` action the returned string can either be JSON or XML. The Fiddler screenshots below demonstrate this in action:
-
-![](https://4.bp.blogspot.com/-CX7w0jI0jTE/UOVaDP5Ae-I/AAAAAAAAAXk/H7zhyYYjPGA/s400/GetPdfUrl%2B-%2BJSON.png)
-
-![](https://4.bp.blogspot.com/-78GBDqI596I/UOVaTchTbBI/AAAAAAAAAXw/rz2Dg4g8BRs/s400/GetPdfUrl%2B-%2BXML.png)
+It's worth noting that `automaticFormatSelectionEnabled` set to true on the behaviour so that content negotiation is enabled. Obviously for the `GetPdf` action this is rather meaningless as it's a stream that's passed back. However, for the `GetPdfUrl` action the returned string can either be JSON or XML. The Fiddler screenshots below demonstrate this in action.
 
 ## Test Harness
 

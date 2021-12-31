@@ -21,15 +21,11 @@ Let’s new up a new (empty) ASP.NET project. Yes, I know ASP.NET has nothing to
 
 First up, download Jasmine from [GitHub](http://jasmine.github.io/) \- I'll use [v2.0](https://github.com/pivotal/jasmine/blob/master/dist/jasmine-standalone-2.0.0.zip). Unzip it and fire up SpecRunner.html and whaddya know... It works!
 
-![](https://4.bp.blogspot.com/-M-Qct1e8Ofo/UxiT5wHICLI/AAAAAAAAAiY/tHUQemETCGI/s320/LookItWorksRightOutTheBox.png)
-
 As well it might. I’d be worried if it didn’t. So I’ll move the contents of the release package into my empty project. Now let’s see if we can get those tests running inside Visual Studio. I’d heard of [Chutzpah](https://chutzpah.codeplex.com/) which describes itself thusly:
 
 > _“Chutzpah is an open source JavaScript test runner which enables you to run unit tests using QUnit, Jasmine, Mocha, CoffeeScript and TypeScript.” _
 
 What I’m after is the Chutzpah test adapter for Visual Studio 2012/2013 which can be found [here](http://visualstudiogallery.msdn.microsoft.com/f8741f04-bae4-4900-81c7-7c9bfb9ed1fe). I download the VSIX and install. Pretty painless. Once I restart Visual Studio I can see my unit tests in the test explorer. Nice! Run them and...
-
-![](https://2.bp.blogspot.com/-Ns9-ZoCzyxU/UxiVe83GQAI/AAAAAAAAAik/9rJiv7c3gOA/s320/EverythingFails.png)
 
 All fail. This makes me sad. All the errors say “Can’t find variable: Player in file”. Hmmm. Why? Dammit I’m actually going to have to read the [documentation](https://chutzpah.codeplex.com/wikipage?title=Chutzpah%20File%20References&referringTitle=Documentation)... It turns out the issue can be happily resolved by adding these 3 references to the top of PlayerSpec.js:
 
@@ -39,9 +35,7 @@ All fail. This makes me sad. All the errors say “Can’t find variable: Player
 /// <reference path="SpecHelper.js" />
 ```
 
-Now the tests pass:
-
-![](https://1.bp.blogspot.com/-n020yJN-tpA/UxiWLRegm5I/AAAAAAAAAis/TJHqYn08MZ4/s320/EverythingPasses.png)
+Now the tests pass.
 
 The question is: can we get this working with Visual Studio Online?
 
@@ -69,8 +63,6 @@ In step 5 the blog tells me to edit my build definition. Well I don’t have one
 
 Rather than following step 6 (which essentially nukes the running of any .NET tests you might have) I chose to add another row by clicking "Add". In the dialog presented I changed the Test assembly specification to \*\*\\\*.js and checked the "Fail build on test failure" checkbox.
 
-![](https://3.bp.blogspot.com/-4lbMIsT9jFQ/Ux3ATwBrPgI/AAAAAAAAAjY/4XSY0u0RpOE/s320/AutomatedTests.png)
-
 Step 7 says:
 
 > \*7\. Create your Web application in Visual Studio and add your Qunit or Jasmine unit tests to them. <u>Make sure that the js files (that contain the tests) are getting copied to the build output directory.</u>
@@ -81,11 +73,7 @@ The picture below step 7 suggests that you should be setting your test / spec fi
 
 Finally I checked everything into source control and queued a build. I honestly did not expect this to work. It couldn’t be this easy could it? And...
 
-![](https://2.bp.blogspot.com/-gEDIyMV7M_g/Uxibt99tuwI/AAAAAAAAAi8/G4I6XQp0aN0/s320/ItOnlyBlimminWellWorked.png)
-
 Wow! It did! Here’s me cynically expecting some kind of “permission denied” error and it actually works! Brilliant! Look up in the cloud it says the same thing!
-
-![](https://2.bp.blogspot.com/-A67cTSkzIDg/Uxib6wVnaWI/AAAAAAAAAjE/ZwbUdBJmi0w/s320/InTheCloudToo.png)
 
 Fantastic!
 

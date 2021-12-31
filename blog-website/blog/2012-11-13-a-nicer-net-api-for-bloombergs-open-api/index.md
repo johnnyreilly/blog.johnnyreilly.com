@@ -47,10 +47,6 @@ The project also contained this class which demonstrates how I made use of my wr
 
 <script src="https://gist.github.com/4065815.js?file=NicerBloombergApiDemo.cs"></script>
 
-And here's what the output looked like:
-
-![](https://1.bp.blogspot.com/-1ghUYqbl0AE/UKJ_3vsuKqI/AAAAAAAAAXI/pPKR5dup48U/s400/Bloomberg.png)
-
 This covered my bases. It was simple, it was easy to consume and it didn't require any custom types. My mini-API is only really catering for my own needs (unsurprisingly). However, there's lots more to the Bloomberg Open API and I may end up taking this further in the future if I encounter use cases that my current API doesn't cover.
 
 ## Update (07/12/2012)
