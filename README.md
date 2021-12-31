@@ -1,10 +1,10 @@
 # [blog.johnnyreilly.com](https://blog.johnnyreilly.com)
 
-[![blog status badge](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/blog.yml/badge.svg)](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/blog.yml)
+[![Build and Deploy](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/build-and-deploy.yml)
+[![Lighthouse Report](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/lighthouse.yml)
 
-This repo contains the source code for John Reilly's blog. It is published to two locations:
+This repo contains the source code for John Reilly's blog. The blog can be found here: https://blog.johnnyreilly.com
 
-- https://blog.johnnyreilly.com - the primary deployment of the blog to GitHub Pages using [Docusaurus](https://v2.docusaurus.io/)
-- https://icanmakethiswork.blogspot.com - the historic home of the blog on Blogger; lived there from 2012-2021. Only exists for reference at this point.
+The blog is hosted on GitHub Pages and built with [Docusaurus](https://v2.docusaurus.io/). [GitHub Actions do the publication.](.github/workflows/build-and-deploy.yml)
 
-[GitHub Actions do the publication.](.github/workflows/blog.yml)
+Historically the blog lived on Blogger; from 2012-2021. It only exists there for reference at this point: https://icanmakethiswork.blogspot.com
