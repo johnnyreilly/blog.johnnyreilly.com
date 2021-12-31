@@ -86,7 +86,7 @@ async function processImageFiles(imageFiles: IndexMdAndImagePaths[]) {
       console.log(`❌ Failed to process ${file}`);
       failed.push(file);
     }
-    await sleep(1000);
+    // await sleep(1000);
   }
 
   if (failed.length > 0) console.log('Failed to process', failed.length);
