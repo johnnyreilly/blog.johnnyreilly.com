@@ -2,17 +2,17 @@
 title: 'Azure Static Web App Deploy Previews with Azure DevOps'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, Azure DevOps, Netlify deploy previews]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
 I love [Netlify deploy previews](https://www.netlify.com/products/deploy-previews/). This post implements a pull request deployment preview mechanism for Azure Static Web Apps in the context of Azure DevOps which is very much inspired by the Netlify offering.
 
-![title image reading "Azure Static Web App Deploy Previews with Azure DevOps" with a Azure, Bicep and Azure DevOps logos](title-image.png)
+![title image reading "Azure Static Web App Deploy Previews with Azure DevOps" with a Azure, Bicep and Azure DevOps logos](title-image.webp)
 
 Having a build of your latest pull request which is deployed and clickable from the PR itself is a wonderful developer experience. It reduces friction for testing out changes by allowing you to see the impact from within the PR itself. No checking to see if an environment is free with the rest of the team, then manually running a pipeline and waiting whilst a deployment happens. No. It's all there without you having to lift a finger. I use Netlify deploy previews on my blog and have become accustomed to the delight that is this:
 
-![screenshot of a Netlify deploy preview on my latest blog post](screenshot-of-netlify-deploy-preview-in-pull-request.png)
+![screenshot of a Netlify deploy preview on my latest blog post](screenshot-of-netlify-deploy-preview-in-pull-request.webp)
 
 I love this and I wanted to implement the "browse the preview" mechanism in Azure DevOps as well, using Azure Static Web Apps. This blog post contains two things:
 
@@ -21,7 +21,7 @@ I love this and I wanted to implement the "browse the preview" mechanism in Azur
 
 It's worth bearing in mind that there's a very similar feature to what we're going to build for **1.** in SWAs now called "staging environments" that is presently only available on GitHub and not Azure DevOps:
 
-[![screenshot of Anthony Chu at Microsoft saying "Unfortunately environments is not yet available for Azure DevOps."](screenshot-of-staging-environments-not-available-yet.png)](https://docs.microsoft.com/en-us/answers/questions/574288/creating-environments-for-azure-static-web-app.html)
+[![screenshot of Anthony Chu at Microsoft saying "Unfortunately environments is not yet available for Azure DevOps."](screenshot-of-staging-environments-not-available-yet.webp)](https://docs.microsoft.com/en-us/answers/questions/574288/creating-environments-for-azure-static-web-app.html)
 
 It's possible that in future the deployment environment aspect of this blog post may be rendered redundant by staging environments landing in Azure DevOps. However, the second part, which updates a PR in ADO with a link is probably generally useful. And it may be the case that the approach of provisioning an environment on demand and extracting a URL could be reworked to work with App Service and similar too.
 
@@ -437,7 +437,7 @@ The above code does two things:
 
 1. Looks up the pull request, using the details supplied from the pipeline. It's worth noting that the `System.PullRequest.PullRequestId` variable is [initialized only if the build ran because of a Git PR affected by a branch policy](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml). If you don't have that set up, the script falls back to using the latest active pull request. This is generally useful when you're getting set up in the first place; you won't want to rely on this behaviour.
 2. Updates the pull request description with a prefix piece of markdown that provides the link to the preview URL. This is our "browse the preview":
-   ![screenshot of rendered markdown with the preview link](screenshot-of-deploy-preview-small.png)
+   ![screenshot of rendered markdown with the preview link](screenshot-of-deploy-preview-small.webp)
 
 This script could be refactored into a dedicated Azure Pipelines custom task.
 
@@ -451,13 +451,13 @@ Error: TF401027: You need the Git 'PullRequestContribute' permission to perform 
 
 To remedy this you need to give your build service the relevant permissions to update a pull request. You can do that by going to the security settings of your repo and setting "Contribute to pull requests" to "Allow" for your build service:
 
-![Screenshot of "Contribute to pull requests" permission in Azure DevOps Git security being set to "Allow" ](screenshot-of-git-repository-security-settings.png)
+![Screenshot of "Contribute to pull requests" permission in Azure DevOps Git security being set to "Allow" ](screenshot-of-git-repository-security-settings.webp)
 
 ## Enjoy! (and keep Azure tidy)
 
 When the pipeline is now run you can see that a deployment preview link is now updated onto the PR description:
 
-![Screenshot of deployment preview on PR](screenshot-of-deploy-preview.png)
+![Screenshot of deployment preview on PR](screenshot-of-deploy-preview.webp)
 
 This will happen whenever a PR is raised which is tremendous.
 

@@ -39,7 +39,7 @@ Robski challenged my plans. "We don't need it. Have one pod that does both sorts
 
 I loved the idea but I didn't think that ASP.Net Core supported it. "It's just not a thing Robski; ASP.Net Core doesn't suppport it." Robski didn't believe me. That turned out to a _very good thing_. There followed a period of much googling and experimentation. One day of hunting in, I was still convinced there was no way to do it that would allow me to look in the mirror without self loathing. Then Robski sent me this:
 
-![screenshot of WhatsApp message with a link in it](robski-dynamic-auth.png)
+![screenshot of WhatsApp message with a link in it](robski-dynamic-auth.webp)
 
 It was a link to the amazing [David Fowler](https://twitter.com/davidfowl) talking about [some API I'd never heard of called `SchemeSelector`](https://github.com/aspnet/Security/issues/1469#issuecomment-335027005). It turned out that this was the starting point for exactly what we needed; a way to dynamically select an authentication scheme at runtime.
 

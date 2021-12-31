@@ -2,13 +2,13 @@
 title: 'Azure DevOps Client for Node.js - working around limitations'
 authors: johnnyreilly
 tags: [azure devops api, '203', node.js]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
 The Azure DevOps Client library for Node.js has limitations and missing features, such as the ability to paginate git refs and create wiki posts. This post details some of these issues and illustrates a workaround using the Azure DevOps REST API.
 
-![A title image that reads "Azure DevOps Client for Node.js - working around limitations"](title-image.png)
+![A title image that reads "Azure DevOps Client for Node.js - working around limitations"](title-image.webp)
 
 ## The Azure DevOps REST API and Client Libraries
 

@@ -21,6 +21,6 @@ I think I'd like it better if I was a better developer than my subconscious. I'd
 
 I draw some comfort from the knowledge that I'm not alone in my experience. I've chatted to other devs in the same boat. There's probably two of you as well. Amarite? There's probably three of Jon Skeet; each more brilliant than the last...
 
-![a poster from the film Being John Malkovich](beingjohnm.png)
+![a poster from the film Being John Malkovich](beingjohnm.webp)
 
 PS I posted this to Hacker News and [the comments left by people are pretty fascinating](https://news.ycombinator.com/item?id=12942461).

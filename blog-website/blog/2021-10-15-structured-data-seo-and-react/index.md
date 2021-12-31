@@ -2,13 +2,13 @@
 title: 'Structured data, SEO and React'
 authors: johnnyreilly
 tags: [structured data, SEO, React]
-image: ./structured-data-seo-and-react.png
+image: ./structured-data-seo-and-react.webp
 hide_table_of_contents: false
 ---
 
 People being able to discover your website when they search is important. This post is about how you can add structured data to a site. Adding structured data will help search engines like Google understand your content, and get it in front of more eyeballs. We'll illustrate this by making a simple React app which incorporates structured data.
 
-![title image reading "Structured data, SEO and React" with a screenshot of the rich results tool in the background](structured-data-seo-and-react.png)
+![title image reading "Structured data, SEO and React" with a screenshot of the rich results tool in the background](structured-data-seo-and-react.webp)
 
 ## Updated 28th October 2021
 
@@ -47,17 +47,17 @@ As well as there being different types of structured data, there also a variety 
 
 Whilst structured data is helpful for search engines in general, it can also make a difference to the way your content is rendered _inside_ search results. For instance, let's search for "best brownie recipe" in Google and see what shows up:
 
-![screenshot of google search results for "best brownie recipe" including a rich text results set at the top of the list showing recipes from various sources](screenshot-of-rich-text-results.png)
+![screenshot of google search results for "best brownie recipe" including a rich text results set at the top of the list showing recipes from various sources](screenshot-of-rich-text-results.webp)
 
 When you look at the screenshot above, you'll notice that at the top of the list (before the main search results) there's a carousel which shows various brownie recipe links, with dedicated pictures, titles and descriptions. Where did this come from? The answer, unsurprisingly, is structured data.
 
 If we click on the first link, we're taken to the recipe in question. Looking at the HTML of that page we find a number of JSON-LD sections:
 
-![screenshot of JSON-LD sections in the BBC Good Food website](structured-data-in-action.png)
+![screenshot of JSON-LD sections in the BBC Good Food website](structured-data-in-action.webp)
 
 If we grab the content of one JSON-LD section and paste it into the devtools console, it becomes much easier to read:
 
-![screenshot of JSON-LD section transformed into a JavaScript Object Literal](single-structured-data-as-JSON.png)
+![screenshot of JSON-LD section transformed into a JavaScript Object Literal](single-structured-data-as-JSON.webp)
 
 If we look at the `@type` property we can see it's a `"Recipe"`. This means it's an example of the https://schema.org/Recipe schema. If we look further at the `headline` property, it reads `"Best ever chocolate brownies recipe"`. That matches up with headline that was displayed in the search results.
 
@@ -133,7 +133,7 @@ If we look at the code above, we can see we're creating a JavaScript object lite
 
 When we run our site locally with `npm start` we see a simple article site that looks like this:
 
-![screenshot of article page](screenshot-of-article.png)
+![screenshot of article page](screenshot-of-article.webp)
 
 Now let's see if it supports structured data in the way we hope.
 
@@ -143,11 +143,11 @@ If we go to https://search.google.com/test/rich-results we find the Rich Results
 
 In devtools we'll use the "copy outerHTML" feature to grab the HTML, then we'll paste it into Rich Results:
 
-![screenshot of rich results tool in code view](screenshot-of-rich-results-tool.png)
+![screenshot of rich results tool in code view](screenshot-of-rich-results-tool.webp)
 
 We hit the "TEST CODE" button and we see results that look like this:
 
-![screenshot of the results of testing our site using the rich results tool](screenshot-of-rich-results-tool-test.png)
+![screenshot of the results of testing our site using the rich results tool](screenshot-of-rich-results-tool-test.webp)
 
 So we've been successful in building a website that renders structured data. More than that, we're doing it in a way that we know Google will recognise and can use to render rich results in search. That's a really useful way to drive traffic to our website.
 

@@ -7,11 +7,11 @@ hide_table_of_contents: false
 
 Code First Migrations. They look a little like this in Visual Studio:
 
-![](Migrations.png)
+![](Migrations.webp)
 
 The thing I want you to notice about the image above is not the pithily named migrations. It isn't the natty opacity on everything but the migration files (which I can assure you took me to the very limits of my [GIMP](http://www.gimp.org/) expertise). No, whilst exciting in themselves what I want you to think about is _the order in which migrations are applied_. Essentially how the `__MigrationHistory` table in SQL Server ends up being populated in this manner:
 
-![](MigrationHistory.png)
+![](MigrationHistory.webp)
 
 Because, myself, I didn't really think about this until it came time for me to try and change the ordering of some migrations manually. Do you know how migrations end up the order they do? I bet you don't. But either way, let's watch and see what happens to the pre-enlightenment me as I attempt to take a migration which appears _before_ a migration I have created locally and move it to _after_ that same migration.
 
@@ -19,11 +19,11 @@ Because, myself, I didn't really think about this until it came time for me to t
 
 That's right - it's blindingly obvious to me. All I need do is take the migration I want to move forwards in time and rename it in Visual Studio. So take our old migration ("2014 is so passé darling"):
 
-![](Screenshot%2B2015-06-19%2B13.07.50.png)
+![](Screenshot%2B2015-06-19%2B13.07.50.webp)
 
 And rename it to make it new and shiny ("2015! Gorgeous - I love it sweetie!"):
 
-![](Screenshot%2B2015-06-19%2B13.08.46.png)
+![](Screenshot%2B2015-06-19%2B13.08.46.webp)
 
 Perfection right? Wrong! What you've done makes not the slightest jot of difference.
 
@@ -37,12 +37,12 @@ Well, I'm glad we sorted that out. A quick test to reassure myself of my astuten
 
 ## Designer.cs... Your kids are gonna love it
 
-![](Screenshot%2B2015-06-19%2B13.35.40.png)
+![](Screenshot%2B2015-06-19%2B13.35.40.webp)
 
 I want you to look very carefully at this and tell me what you see. We're looking at the mysterious `201508121401253_AddSagacityToSage.Designer.cs` file that sits underneath the main `201508121401253_AddSagacityToSage.cs` file. What could it be.... Give in?
 
 The `IMigrationMetadata.Id` property is returning `<u>201408121401253</u>_AddSagacityToSage`. That is the _old_ date! Remember? The passé one. If you change that property to line up with the file name change you're done. It works.
 
-![](where-were-going.jpg)
+![](where-were-going.webp)
 
 Let's say it together: "Automatic Migrations? Where we're going, we don't need Automatic Migrations."

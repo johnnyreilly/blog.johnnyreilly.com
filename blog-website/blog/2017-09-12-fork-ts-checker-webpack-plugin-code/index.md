@@ -9,7 +9,7 @@ My name is John Reilly and I'm a VS Code addict. There I said it. I'm also a big
 
 One thing I love is using VS Code both as my editor and my terminal. Using the fork-ts-checker-webpack-plugin I noticed a problem when TypeScript errors showed up in the terminal:
 
-![](Screenshot%2B2017-09-12%2B06.12.25.png)
+![](Screenshot%2B2017-09-12%2B06.12.25.webp)
 
 Take a look at the red file location in the console above. What's probably not obvious from the above screenshot is that it is **not clickable**. I'm used to being able to click on link in the console and bounce straight to the error location. It's a really productive workflow; see a problem, click on it, be taken to the cause, fix it.
 
@@ -68,6 +68,6 @@ module.exports = {
 
 With that in place, what do you we have? This:
 
-![](Screenshot%2B2017-09-12%2B06.35.48.png)
+![](Screenshot%2B2017-09-12%2B06.35.48.webp)
 
 VS Code clickability; it's a beautiful thing.

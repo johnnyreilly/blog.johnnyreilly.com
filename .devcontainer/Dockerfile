@@ -5,8 +5,8 @@ ARG VARIANT="14-buster"
 FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:0-${VARIANT}
 
 # [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends webp
 
 # [Optional] Uncomment if you want to install an additional version of node using nvm
 # ARG EXTRA_NODE_VERSION=10
@@ -14,3 +14,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:0-${VARIANT}
 
 # [Optional] Uncomment if you want to install more global node packages
 # RUN su node -c "npm install -g <your-package-list -here>"
+
+# cwebp title-image.png -lossless -m 6 -q 100 -o title-image.webp
+# find . -name '*' -exec file {} \; | grep -o -P '^.+: \w+ image' | cut -d':' -f1 | xargs -I % sh -c 'echo %; echo %.webp'
+# find . -name '*' -exec file {} \; | grep -o -P '^.+: \w+ image' | cut -d':' -f1 | xargs -I % sh -c 'cwebp % -lossless -m 6 -q 100 -o %.webp'

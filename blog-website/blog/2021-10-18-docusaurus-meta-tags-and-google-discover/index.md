@@ -2,13 +2,13 @@
 title: 'Docusaurus, meta tags and Google Discover'
 authors: johnnyreilly
 tags: [Docusaurus, meta tags, max-image-preview, Google Discover]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
 Google Discover is a way that people can find your content. To make your content more attractive, Google encourage using high quality images which are enabled by setting the `max-image-preview:large` meta tag. This post shows you how to achieve that with Docusaurus.
 
-![title image reading "Docusaurus, meta tags and Google Discover" with a Docusaurus logo and the Google Discover phone photo taken from https://developers.google.com/search/docs/advanced/mobile/google-discover](title-image.png)
+![title image reading "Docusaurus, meta tags and Google Discover" with a Docusaurus logo and the Google Discover phone photo taken from https://developers.google.com/search/docs/advanced/mobile/google-discover](title-image.webp)
 
 ## Google Discover
 
@@ -18,7 +18,7 @@ I'm an Android user. Google Discover will present articles to me in various plac
 
 It turns out that my own content is showing up in Discover. I (ahem) discovered this by looking at the Google search console and noticing a "Discover" tab:
 
-![screenshot of the Google search console featuring a "discover" image](screenshot-of-discover-in-search-console.png)
+![screenshot of the Google search console featuring a "discover" image](screenshot-of-discover-in-search-console.webp)
 
 As I read up about Discover I noticed this:
 
@@ -58,7 +58,7 @@ module.exports = {
 
 With that in place, we find our expected `meta` tag is now part of our rendered HTML:
 
-![screenshot of the <meta name="robots" content="max-image-preview:large"> tag taken from Chrome Devtools](screenshot-of-meta-tag.png)
+![screenshot of the <meta name="robots" content="max-image-preview:large"> tag taken from Chrome Devtools](screenshot-of-meta-tag.webp)
 
 ## Meta meta
 

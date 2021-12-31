@@ -8,7 +8,7 @@ tags:
     entity framework,
     Microsoft.Data.SqlClient,
   ]
-image: ./entity-framework-core-nuget.png
+image: ./entity-framework-core-nuget.webp
 hide_table_of_contents: false
 ---
 
@@ -85,7 +85,7 @@ Regardless of the approach, you can see that none of the connection strings have
 If you're using Entity Framework Core, you might be struggling to get this working and encountering strange error messages. In my ASP.NET project I had a dependendency on
 [Microsoft.EntityFrameworkCore.SqlServer@5](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/5.0.4).
 
-![Microsoft.EntityFrameworkCore.SqlServer@5 in NuGet](entity-framework-core-nuget.png)
+![Microsoft.EntityFrameworkCore.SqlServer@5 in NuGet](entity-framework-core-nuget.webp)
 
 If you look close above, you'll see that the package has a dependency on Microsoft.Data.SqlClient, but crucially on 2.0.1 or greater. So if `dotnet` has installed a version of Microsoft.Data.SqlClient which is _less_ than 2.1 then the functionality required will not be installed. The resolution is simple, ensure that the required version is installed:
 
@@ -99,7 +99,7 @@ The version which we want to use is 2.1 (or greater) and fortunately that is com
 
 If you're using user assigned managed identity, you'll need to supply the object id of your managed identity, which you can find in the [Azure Portal](https://portal.azure.com/):
 
-![Managed Identity object id](managed-identity-object-id.png)
+![Managed Identity object id](managed-identity-object-id.webp)
 
 You can configure this in ARM as well, but cryptically, the object id goes by the nom de plume of `principalId` (thanks to my partner in crime [John McCormick](https://github.com/jmccor99) for puzzling that out):
 

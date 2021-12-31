@@ -2,13 +2,13 @@
 title: 'Bicep: syntax highlighting with PrismJS (and Docusaurus)'
 authors: johnnyreilly
 tags: [Bicep, PrismJS]
-image: ./bicep-syntax-highlighting-with-prismjs.png
+image: ./bicep-syntax-highlighting-with-prismjs.webp
 hide_table_of_contents: false
 ---
 
 Bicep is an amazing language, it's also very new. If you want to write attractive code snippets about Bicep, you can by using PrismJS (and Docusaurus). This post shows you how.
 
-![title image reading "Publish Azure Static Web Apps with Bicep and Azure DevOps" and some Azure logos](bicep-syntax-highlighting-with-prismjs.png)
+![title image reading "Publish Azure Static Web Apps with Bicep and Azure DevOps" and some Azure logos](bicep-syntax-highlighting-with-prismjs.webp)
 
 ## Syntax highlighting
 

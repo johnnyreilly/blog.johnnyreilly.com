@@ -2,13 +2,13 @@
 title: 'Autofac 6, integration tests and .NET generic hosting'
 authors: johnnyreilly
 tags: [autofac, asp.net, ConfigureTestContainer, Integration Testing]
-image: ./autofac-integration-tests.png
+image: ./autofac-integration-tests.webp
 hide_table_of_contents: false
 ---
 
 I [blogged a little while ago around to support integration tests using Autofac](./2020-05-21-autofac-webapplicationfactory-integration-tests/index.md). This was specific to Autofac but documented a workaround for a [long standing issue with `ConfigureTestContainer` that was introduced into .NET core 3.0](https://github.com/dotnet/aspnetcore/issues/14907) which affects [all third-party containers](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1#default-service-container-replacement) that use `ConfigureTestContainer` in their tests.
 
-![A title image for the blog featuring the Autofac logo](autofac-integration-tests.png)
+![A title image for the blog featuring the Autofac logo](autofac-integration-tests.webp)
 
 I'll not repeat the contents of the previous post - it all still stands. However, with Autofac 6 the approach documented there will cease to work. This is because the previous approach relied upon `ContainerBuilder` not being sealed. [As of Autofac 6 it is.](https://github.com/autofac/Autofac/issues/1120)
 

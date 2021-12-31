@@ -65,7 +65,7 @@ Run the client app using webpack-dev-server using `yarn start` in the `ClientApp
 
 When you fire up the app you're presented with "you are not logged in!" message and the option to login. Do it, it'll take you to the Auth0 "lock" screen where you can sign up / login. Once you do that you'll be asked to confirm access:
 
-![](Screenshot%2B2018-01-13%2B18.40.21.png)
+![](Screenshot%2B2018-01-13%2B18.40.21.webp)
 
 All this is powered by Auth0's [auth0-js](https://www.npmjs.com/package/auth0-js) npm package. (Excellent type definition files are available from Definitely Typed; I'm using the [@types/auth0-js](https://www.npmjs.com/package/@types/auth0-js) package DT publishes.) Usage of which is super simple; it exposes an `authorize` method that when called triggers the Auth0 lock screen. Once you've "okayed" you'll be taken back to the app which will use the `parseHash` method to extract the access token that Auth0 has provided. Take a look at how our `authStore` makes use of auth0-js: (don't be scared; it uses mobx - but you could use anything)
 
@@ -197,7 +197,7 @@ export class AuthStore {
 
 Once you're logged in the app offers you more in the way of navigation options. A "Profile" screen shows you the details your React app has retrieved from Auth0 about you. This is backed by the `client.userInfo` method on `auth0-js`. There's also a "Ping" screen which is where your React app talks to your ASP.NET Core server. The screenshot below illustrates the result of hitting the "Get Private Data" button:
 
-![](Screenshot%2B2018-01-13%2B18.47.49.png)
+![](Screenshot%2B2018-01-13%2B18.47.49.webp)
 
 The "Get Server to Retrieve Profile Data" button is interesting as it illustrates that the server can get access to your profile data as well. There's nothing insecure here; it gets the details using the access token retrieved from Auth0 by the ClientApp and passed to the server. It's the API we set up in Auth0 that is in play here. The app uses the Domain and the access token to talk to Auth0 like so:
 
@@ -329,13 +329,13 @@ public class HasScopeHandler : AuthorizationHandler<hasscoperequirement>
 
 The reason we're 403ing at present is because when our `HasScopeHandler` executes, `requirement.Scope` has the value of `"do:admin:thing"` and our `scopes` do not contain that value. To add it, go to your API in the Auth0 management console and add it:
 
-![](Screenshot%2B2018-01-14%2B08.26.54.png)
+![](Screenshot%2B2018-01-14%2B08.26.54.webp)
 
 Note that you can control how this scope is acquired using "Rules" in the Auth0 management portal.
 
 You won't be able to access the admin endpoint yet because you're still rocking with the old access token; pre-newly-added scope. But when you next login to Auth0 you'll see a prompt like this:
 
-![](Screenshot%2B2018-01-14%2B08.32.59.png)
+![](Screenshot%2B2018-01-14%2B08.32.59.webp)
 
 Which demonstrates that you're being granted an extra scope. With your new shiny access token you can now access the oh-so-secret Admin endpoint.
 

@@ -136,7 +136,7 @@ $(System.DefaultWorkingDirectory)/my-awesome-project-YAML/drop/MigrateDatabase
 
 Do note that the command uses the `ConnectionStrings.MyAwesomeProjectDatabaseConnection` variable which you need to create and set to the value of your connection string.
 
-![](Screenshot%2B2018-06-24%2B10.55.27.png)
+![](Screenshot%2B2018-06-24%2B10.55.27.webp)
 
 ## Give It A Whirl
 
@@ -179,7 +179,7 @@ dotnet ef migrations add TestOurMigrationsApproach
 
 Commit my change, push it to VSTS, wait for the build to run and a deployment to take place.... Okay. It's done. Looks good.
 
-![](Screenshot%2B2018-06-24%2B09.02.22.png)
+![](Screenshot%2B2018-06-24%2B09.02.22.webp)
 
 Let's take a look in the database:
 
@@ -188,7 +188,7 @@ select * from NewHotnesses
 go
 ```
 
-![](Screenshot%2B2018-06-24%2B08.59.00.png)
+![](Screenshot%2B2018-06-24%2B08.59.00.webp)
 
 It's there! We are migrating our database upon deployment; and not in our ASP.Net Core app itself. I feel a burden lifted.
 

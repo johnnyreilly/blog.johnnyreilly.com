@@ -15,15 +15,15 @@ So this is the plan kids. Let's take a simple TypeScript, webpack setup and make
 
 How to begin? Well first comes the plagiarism; [here's a simple TypeScript webpack setup](https://github.com/TypeStrong/ts-loader/tree/master/examples/core-js). Rob it. Stick a gun to its head and order it onto your hard drive. `yarn install` to pick up your dependencies and then `yarn start` to see what you've got. Something like this:
 
-![](Screenshot%2B2017-11-19%2B18.29.15.png)
+![](Screenshot%2B2017-11-19%2B18.29.15.webp)
 
 Beautiful right? And if we `yarn build` we end up with a simple output:
 
-![](Screenshot%2B2017-11-19%2B18.34.12.png)
+![](Screenshot%2B2017-11-19%2B18.34.12.webp)
 
 To test what we've built out we want to use a simple web server to serve up the `dist` folder. I've got the npm package [http-server](https://www.npmjs.com/package/http-server) installed globally for just such an eventuality. So let's `http-server ./dist` and I'm once again looking at our simple app; it looks exactly the same as when I `yarn start`. Smashing. What would we see if we were offline? Well thanks to the magic of Chrome DevTools we can find out. Offline and refresh our browser...
 
-![](Screenshot%2B2017-11-19%2B20.05.19.png)
+![](Screenshot%2B2017-11-19%2B20.05.19.webp)
 
 Not very user friendly. Once we're done, we should be able to refresh and still see our app.
 
@@ -104,14 +104,14 @@ Put it together and...
 
 Let's `yarn build` again.
 
-![](Screenshot%2B2017-11-19%2B21.55.18.png)
+![](Screenshot%2B2017-11-19%2B21.55.18.webp)
 
 Oooohh look! A service worker is with us. Does it work? Let's find out... `http-server ./dist` Browse to [http://localhost:8080](http://localhost:8080) and let's have a look at the console.
 
-![](Screenshot%2B2017-11-19%2B21.34.54.png)
+![](Screenshot%2B2017-11-19%2B21.34.54.webp)
 
 Looks very exciting. So now the test; let's go offline and refresh:
 
-![](Screenshot%2B2017-11-19%2B22.01.37.png)
+![](Screenshot%2B2017-11-19%2B22.01.37.webp)
 
 You are looking at the 200s of success. You're now running with webpack and TypeScript and you have built a Progressive Web Application. Feel good about life.

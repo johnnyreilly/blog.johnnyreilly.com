@@ -2,7 +2,7 @@
 title: 'TypeScript 4.4 and more readable code'
 authors: johnnyreilly
 tags: [TypeScript, Control Flow Analysis of Aliased Conditions]
-image: ./reactions-on-github.png
+image: ./reactions-on-github.webp
 hide_table_of_contents: false
 ---
 
@@ -22,11 +22,11 @@ On June 24th 2021, an issue on the TypeScript GitHub repository with the title "
 
 It's fair to say that the TypeScript community was very excited about this, both judging from reactions on the issue:
 
-[![Screenshot of reactions on GitHub](reactions-on-github.png)](https://github.com/microsoft/TypeScript/issues/12184#issuecomment-867928408)
+[![Screenshot of reactions on GitHub](reactions-on-github.webp)](https://github.com/microsoft/TypeScript/issues/12184#issuecomment-867928408)
 
 And also the general delight on Twitter:
 
-[![Screenshot of reactions on Twitter](reactions-on-twitter.png)](https://www.twitter.com/johnny_reilly/status/1408162514504933378)
+[![Screenshot of reactions on Twitter](reactions-on-twitter.webp)](https://www.twitter.com/johnny_reilly/status/1408162514504933378)
 
 What Zeh said is a great explanation of the significance of this feature:
 
@@ -86,7 +86,7 @@ console.log(add(1, '7', '3', 9));
 
 This is valid code; however TypeScript 4.3 is choking with an error:
 
-![Screenshot of the TypeScript playground running TypeScript 4.3 and throwing an error on our new code](doesnt-work-in-typescript-4-3.png)
+![Screenshot of the TypeScript playground running TypeScript 4.3 and throwing an error on our new code](doesnt-work-in-typescript-4-3.webp)
 
 The error being surfaced is:
 
@@ -96,7 +96,7 @@ What's happening here, is TypeScript _does not remember_ that `shouldCoerceToNum
 
 This has terrible consequences. It means we can't write this more expressive code that we're interested in, and would be better for maintainers of our codebase. And this is what TypeScript 4.4, with our new feature, unlocks. Let's change the playground to use TypeScript 4.4 instead:
 
-![Screenshot of the TypeScript playground running TypeScript 4.4 and working with our new code - it shows the `thingToAdd` variable has been narrowed to a `string`](does-work-in-typescript-4-4.png)
+![Screenshot of the TypeScript playground running TypeScript 4.4 and working with our new code - it shows the `thingToAdd` variable has been narrowed to a `string`](does-work-in-typescript-4-4.webp)
 
 [Try it out in the TypeScript playground.](https://www.typescriptlang.org/play?ts=4.4.0-beta#code/GYVwdgxgLglg9mABAQwCaoBQDodQBYxgDmAzgCpwCC6AXIhiVAE6FGIA+iYIAtgEYBTJgEoA2gF1hdbvyGIA3gChEKxABsBURFDhRkaxAF5EABgDcy1cDhN6EBI20FiFaqkRxgT1uSrphCpaqqvZgjiR4cCBqqADCcEIQAhQAcryCtsZQAJ4ADgKe3i5+7oZliADkjCzEFRbBwTBeDJHRcQlMSanpQgFKDQPauvqIANTGabJMGPisrv71gwC+iAJqJAKBgw06egbjRUTzqIsDS0GI58FMmiBMSLv6FueKoSRwGlhqcEQYaJgARgANJUAOwVEEVADMEMQAE5hMIgA)
 

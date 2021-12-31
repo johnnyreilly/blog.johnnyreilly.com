@@ -27,11 +27,11 @@ When I started testing it out I found things to like and some things I didn't un
 
 You can get to "Hello World" by looking at [the docs here](https://docs.microsoft.com/en-us/vsts/pipelines/build/yaml?view=vsts) and [the examples here](https://github.com/Microsoft/vsts-agent/blob/master/docs/preview/yamlgettingstarted/index.md). But what you really want is your existing build, configured in the UI, exported to YAML. That doesn't seem to quite exist, but there's something that gets you part way. Take a look:
 
-![screenshot of restore task in VSTS](vsts-screenshot-of-restore-task.png)
+![screenshot of restore task in VSTS](vsts-screenshot-of-restore-task.webp)
 
 If you notice, in the top right of the screen, each task now allows you click on a new "View YAML" button. It's kinda [Ronseal](https://en.wikipedia.org/wiki/Ronseal):
 
-![screenshot of copy to clipboard in VSTS](vsts-screenshot-of-copy-to-clipboard.png)
+![screenshot of copy to clipboard in VSTS](vsts-screenshot-of-copy-to-clipboard.webp)
 
 Using this hotness you can build yourself a `.vsts-ci.yml` file task by task.
 

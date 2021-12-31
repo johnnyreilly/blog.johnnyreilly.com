@@ -2,7 +2,7 @@
 title: 'Azure Container Apps: build and deploy with Bicep and GitHub Actions'
 authors: johnnyreilly
 tags: [Azure Container Apps, Bicep, GitHub Actions, GitHub container registry]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
@@ -10,7 +10,7 @@ This post shows how to build and deploy a simple web application to Azure Contai
 
 This post follows on from the [previous post](../2021-12-19-azure-container-apps-bicep-and-github-actions/index.md) which deployed infrastructure and a "hello world" container, this time introducing the building of an image and storing it in the [GitHub container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) so it can be deployed.
 
-![title image reading "Azure Container Apps: build and deploy with Bicep and GitHub Actions" with the Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
+![title image reading "Azure Container Apps: build and deploy with Bicep and GitHub Actions" with the Bicep, Azure Container Apps and GitHub Actions logos](title-image.webp)
 
 ## The containerised convent
 
@@ -328,7 +328,7 @@ az group create -g rg-aca -l northeurope
 
 We're aiming to set up a GitHub Action to handle our deployment. This will depend upon a number of secrets:
 
-![Screenshot of the secrets in the GitHub website that we need to create](screenshot-github-secrets.png)
+![Screenshot of the secrets in the GitHub website that we need to create](screenshot-github-secrets.webp)
 
 We'll need to create each of these secrets.
 
@@ -620,10 +620,10 @@ These are either:
 
 When the GitHub Action has been run you'll find that Azure Container App is now showing up inside the Azure Portal in your resource group, alongside the other resources:
 
-![screenshot of the Azure Container App's resource group in the Azure Portal](screenshot-azure-portal-container-app.png)
+![screenshot of the Azure Container App's resource group in the Azure Portal](screenshot-azure-portal-container-app.webp)
 
 And when we take a closer look at the container app, we find a URL we can navigate to:
 
-![screenshot of the Azure Container App in the Azure Portal revealing it's URL](screenshot-azure-portal-container-app-url.png)
+![screenshot of the Azure Container App in the Azure Portal revealing it's URL](screenshot-azure-portal-container-app-url.webp)
 
 Congratulations! You've built and deployed a simple web app to Azure Container Apps with Bicep and GitHub Actions and secrets.

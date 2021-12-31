@@ -35,6 +35,6 @@ It's because of situations like this that weighting votes becomes useful. Out of
 
 I'll contend that rolling like this makes for more content, happier and more productive teams. Making strength of feeling a factor in choices reduces friction and increases the peace.
 
-![](Bestival_2008_Increase_the_Peace_banner.jpg)
+![](Bestival_2008_Increase_the_Peace_banner.webp)
 
 I've only recently discovered this technique and I can't claim credit for it. I learned it from the awesome [Jamie McCrindle](https://twitter.com/foldr). I commend to you! Be happier!

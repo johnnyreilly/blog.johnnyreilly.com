@@ -1,7 +1,7 @@
 ---
 title: 'Azure Pipelines Build Info in an ASP.NET React app'
 authors: johnnyreilly
-image: ./about-page.png
+image: ./about-page.webp
 tags: [build information, azure pipelines]
 hide_table_of_contents: false
 ---
@@ -135,7 +135,7 @@ namespace Server.Controllers {
 
 This exposes an `api/build` endpoint in our .NET app that, when hit, will display the following JSON:
 
-![screenshot of api/build output](api-build-screenshot.png)
+![screenshot of api/build output](api-build-screenshot.webp)
 
 ## Surfacing the client build info
 
@@ -294,6 +294,6 @@ export default AboutPage;
 
 When the above page is viewed it looks like this:
 
-![screenshot of our web app surfacing up the build information](about-page.png)
+![screenshot of our web app surfacing up the build information](about-page.webp)
 
 And that's it! Our app is clearly telling us what version is being run, both on the server and in the client. Thanks to Scott Hanselman for his work which inspired this.

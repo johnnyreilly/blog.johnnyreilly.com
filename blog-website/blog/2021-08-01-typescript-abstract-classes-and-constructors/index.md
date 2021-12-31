@@ -2,7 +2,7 @@
 title: 'TypeScript, abstract classes, and constructors'
 authors: johnnyreilly
 tags: [TypeScript, abstract, constructors, classes]
-image: ./vs-code-abstract-screenshot.png
+image: ./vs-code-abstract-screenshot.webp
 hide_table_of_contents: false
 ---
 
@@ -80,7 +80,7 @@ index.ts:9:19 - error TS2511: Cannot create an instance of an abstract class.
 const viewModel = new ViewModel('my-id');
 ```
 
-![Screenshot of "Cannot create an instance of an abstract class." error in VS Code](vs-code-abstract-screenshot.png)
+![Screenshot of "Cannot create an instance of an abstract class." error in VS Code](vs-code-abstract-screenshot.webp)
 
 Tremendous. However, it's worth remembering that `abstract` is a TypeScript concept. When we compile our TS, although it's throwing a compilation error, it still transpiles an `index.js` file that looks like this:
 
@@ -116,7 +116,7 @@ const viewModel1 = new NoNewConstructorViewModel();
 const viewModel2 = new NoNewConstructorViewModel('my-id');
 ```
 
-![Screenshot of "error TS2554: Expected 1 arguments, but got 0." error in VS Code](vs-code-no-new-constructor.png)
+![Screenshot of "error TS2554: Expected 1 arguments, but got 0." error in VS Code](vs-code-no-new-constructor.webp)
 
 As the TypeScript compiler tells us, the second of these instantiations is legitimate as it relies upon the constructor from the base class as we'd hope. The first is not as there is no parameterless constructor.
 
@@ -142,7 +142,7 @@ const viewModel4 = new NewConstructorViewModel('my-id');
 const viewModel5 = new NewConstructorViewModel('my-id', 'important info');
 ```
 
-![Screenshot of "error TS2554: Expected 1 arguments, but got 1." error in VS Code](vs-code-new-constructor.png)
+![Screenshot of "error TS2554: Expected 1 arguments, but got 1." error in VS Code](vs-code-new-constructor.webp)
 
 Again, only one of the attempted instantiations is legitimate. `viewModel3` is not as there is no parameterless constructor. `viewModel4` is not as we have overridden the base class constructor with our new one that has two parameters. Hence `viewModel5` is our "Goldilocks" instantiation; it's just right!
 

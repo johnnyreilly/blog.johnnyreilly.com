@@ -2,13 +2,13 @@
 title: 'Directory.Build.props: C# 9 for all your projects'
 authors: johnnyreilly
 tags: [Directory.Build.props, C# 9, .NET Core]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
 .NET Core can make use of C# 9 by making some changes to your `.csproj` files. There is a way to opt all projects in a solution into this behaviour in a _single_ place, through using a `Directory.Build.props` file and / or a `Directory.Build.targets` file. Here's how to do it.
 
-![title image showing name of post and the C# logo](title-image.png)
+![title image showing name of post and the C# logo](title-image.webp)
 
 ## "have you the good news about `Directory.Build.props`"?
 
@@ -16,7 +16,7 @@ hide_table_of_contents: false
 
 One of the best things about blogging, is all that you get to learn along the way. After I put up that post, [Daniel Earwicker](https://twitter.com/danielearwicker) was kind enough to send this message:
 
-[![title image showing name of post and the C# logo](daniel-earwicker-tweet.png)](https://twitter.com/danielearwicker/status/1412678642203828226)
+[![title image showing name of post and the C# logo](daniel-earwicker-tweet.webp)](https://twitter.com/danielearwicker/status/1412678642203828226)
 
 I was intrigued that Daniel was able to configure all the projects in a solution to use the same approach using some strange incantations named `Directory.Build.props` and `Directory.Build.targets`. [Microsoft describes them thusly](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2019#directorybuildprops-and-directorybuildtargets):
 

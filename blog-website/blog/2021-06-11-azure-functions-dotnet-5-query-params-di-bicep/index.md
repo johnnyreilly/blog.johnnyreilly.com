@@ -10,7 +10,7 @@ tags:
     dependency injection,
     Bicep,
   ]
-image: ./title-image.png
+image: ./title-image.webp
 description: 'The upgrade of Azure Functions from .NET Core 3.1 to .NET 5 is significant. This post shows part of the upgrade: Query params, Dependency Injection, Bicep & Build'
 hide_table_of_contents: false
 ---
@@ -24,7 +24,7 @@ The upgrade of Azure Functions from .NET Core 3.1 to .NET 5 is significant. Ther
 
 This post will show how to tackle these.
 
-![title image showing name of post and the Azure Functions logo](title-image.png)
+![title image showing name of post and the Azure Functions logo](title-image.webp)
 
 ## Query params
 
@@ -45,7 +45,7 @@ var from = query["from"]
 
 Dependency Injection is a much more familiar shape in .NET 5 if you're familiar with .NET Core web apps. Once again we have a `Program.cs` file. To get the configuration built in such a way to support both local development and when deployed to Azure, there's a few things to do. When deployed to Azure you'll likely want to read from Azure Application Settings:
 
-![screenshot of Azure Application Settings](application-settings.png)
+![screenshot of Azure Application Settings](application-settings.webp)
 
 To tackle both of these, you'll want to use `AddJsonFile` and `AddEnvironmentVariables` in `ConfigureAppConfiguration`. A final `Program.cs` might look something like this:
 

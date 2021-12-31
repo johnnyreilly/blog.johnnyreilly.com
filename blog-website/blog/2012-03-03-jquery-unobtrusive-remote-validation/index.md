@@ -176,7 +176,7 @@ attribute for an input if you wish it to be evaluated with unobtrusive validatio
 
 Validation in action:
 
-![](validation-screenshot2.png)
+![](validation-screenshot2.webp)
 
 Well I've gone on for far too long but I am happy to have an approach that does what I need. It does feel like a slightly hacky solution and I expect that there is a better approach for this that I'm not aware of. As much as anything else I've written this post in the hope that someone who knows this better approach will set me straight. In summary, this works. But if you're aware of a better solution then please do get in contact - I'd love to know!
 

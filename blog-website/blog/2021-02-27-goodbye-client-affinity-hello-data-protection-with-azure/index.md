@@ -3,7 +3,7 @@ title: 'Goodbye Client Affinity, Hello Data Protection with Azure'
 description: 'How to use ASP.NET Data Protection to remove the need for sticky sessions with Client Affinity'
 authors: johnnyreilly
 tags: [Azure, Data Protection, Easy Auth, ASP.NET, Client Affinity]
-image: ./traffic-to-app-service.png
+image: ./traffic-to-app-service.webp
 hide_table_of_contents: false
 ---
 
@@ -13,7 +13,7 @@ We're now going to look at how the same goal can be achieved if your ASP.NET app
 
 We're interested in the ASP.NET data-protection system because it encrypts and decrypts sensitive data including the authentication cookie. It's wonderful that the data protection does this, but at the same time it presents a problem. We would like to route traffic to _multiple_ instances of our application… So traffic could go to instance 1, instance 2 of our app etc.
 
-![traffic to app service](traffic-to-app-service.png)
+![traffic to app service](traffic-to-app-service.webp)
 
 How can we ensure the different instances of our app can read the authentication cookies regardless of the instance that produced them? How can we ensure that instance 1 can read cookies produced by instance 2 and vice versa? And for that matter, we'd like all instances to be able to read cookies whether they were produced by an instance in a production or staging slot.
 
@@ -29,7 +29,7 @@ The problem here is the data protection keys (the key ring) is being stored loca
 
 What we need to do is move away from storing keys locally, and to storing it in a _shared_ place instead. We're going to store data protection keys in Azure Blob Storage and protect the keys with Azure Key Vault:
 
-![persist keys to azure blob](data-protection-zero-downtime.png)
+![persist keys to azure blob](data-protection-zero-downtime.webp)
 
 All instances of the application can access the key ring and consequently sharing cookies is enabled. [As the documentation attests](https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/configuration/overview?view=aspnetcore-5.0#protectkeyswithazurekeyvault), enabling this is fairly simple. It amounts to adding the following packages to your ASP.NET app:
 
