@@ -83,7 +83,7 @@ async function processImageFiles(imageFiles: IndexMdAndImagePaths[]) {
 
       console.log(`✅ Processed! (${++processed} of ${imageFiles.length})`);
     } catch (e) {
-      console.log(`❌ Failed to process ${file}`);
+      console.log(`❌ Failed to process ${file.imagePath}`, e);
       failed.push(file);
     }
     // await sleep(1000);
