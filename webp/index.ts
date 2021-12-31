@@ -82,7 +82,6 @@ async function processImageFiles(imageFiles: IndexMdAndImagePaths[]) {
       await fs.promises.unlink(file.imagePath);
 
       console.log(`✅ Processed! (${++processed} of ${imageFiles.length})`);
-      break;
     } catch (e) {
       console.log(`❌ Failed to process ${file}`);
       failed.push(file);
