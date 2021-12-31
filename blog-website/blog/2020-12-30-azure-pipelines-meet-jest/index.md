@@ -1,7 +1,7 @@
 ---
 title: 'Azure Pipelines meet Jest'
 authors: johnnyreilly
-image: ./test-results.png
+image: ./test-results.webp
 tags: [azure-pipelines, jest]
 hide_table_of_contents: false
 ---
@@ -100,8 +100,8 @@ Now our CI is producing our test results, how do we get them into Pipelines? For
 
 This will read the test results from our `src/client-app/junit.xml` file and pump them into Pipelines. Do note that we're _always_ running this step; so if the previous step failed (as it would in the case of a failing test) we still pump out the details of what that failure was. Like so:
 
-![screenshot of test results being published to Azure Pipelines regardless of passing or failing tests](test-and-publish-steps.png)
+![screenshot of test results being published to Azure Pipelines regardless of passing or failing tests](test-and-publish-steps.webp)
 
 And that's it! Azure Pipelines and Jest integrated.
 
-![screenshot of test results published to Azure Pipelines](test-results.png)
+![screenshot of test results published to Azure Pipelines](test-results.webp)

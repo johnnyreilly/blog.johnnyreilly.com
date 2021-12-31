@@ -152,7 +152,7 @@ Let's walk through what the above scripts provide us with:
 
 Once `npm run start` has been run, you will find a Swagger endpoint at [http://localhost:5000/swagger](http://localhost:5000/swagger):
 
-![swagger screenshot](swagger.png)
+![swagger screenshot](swagger.webp)
 
 ## The client generator project
 

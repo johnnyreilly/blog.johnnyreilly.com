@@ -2,13 +2,13 @@
 title: 'Blog Archive for Docusaurus'
 authors: johnnyreilly
 tags: [Docusaurus, blog archive, webpack]
-image: ./docusaurus-blog-archive.png
+image: ./docusaurus-blog-archive.webp
 hide_table_of_contents: false
 ---
 
 Docusaurus doesn't ship with "blog archive" functionality. By which I mean, something that allows you to look at an overview of your historic blog posts. It turns out it is fairly straightforward to implement your own. This post does just that.
 
-![Docusaurus blog archive](docusaurus-blog-archive.png)
+![Docusaurus blog archive](docusaurus-blog-archive.webp)
 
 ## Update 2021-09-01
 
@@ -20,7 +20,7 @@ If you'd like to know how to build your own, read on... But you may not need to!
 
 I recently went through the exercise of [migrating my blog from Blogger to Docusaurus](./2021-03-15-from-blogger-to-docusaurus/index.md). I found that [Docusaurus](https://docusaurus.io/) was a tremendous platform upon which to build a blog, but it was missing a feature from Blogger that I valued highly; the blog archive:
 
-![Blogger blog archive](blogger-blog-archive-small.png)
+![Blogger blog archive](blogger-blog-archive-small.webp)
 
 The blog archive is a way by which you can browse through your historic blog posts. A place where you can see all that you've written and when. I find this very helpful. I didn't really want to make the jump without having something like that around.
 
@@ -88,7 +88,7 @@ const allPosts = ((ctx) => {
 
 Observe the `metadata` property in the screenshot below:
 
-![require.context](require.context.png)
+![require.context](require.context.webp)
 
 This gives us a flavour of the data available in the modules and shows how we pull out the bits that we need; `date`, `formattedDate`, `title` and `permalink`.
 
@@ -165,7 +165,7 @@ function BlogArchive() {
 
 We're finished! We have a delightful looking blog archive plumbed into our blog:
 
-![Docusaurus blog archive](docusaurus-blog-archive.png)
+![Docusaurus blog archive](docusaurus-blog-archive.webp)
 
 It is possible that a blog archive may become natively available in Docusaurus in future. If you're interested in this, you can track [this issue](https://github.com/facebook/docusaurus/issues/4431).
 

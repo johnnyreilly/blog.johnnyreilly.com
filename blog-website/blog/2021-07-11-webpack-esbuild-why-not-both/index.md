@@ -2,13 +2,13 @@
 title: 'webpack? esbuild? Why not both?'
 authors: johnnyreilly
 tags: [webpack, esbuild, esbuild-loader, ts-loader, babel-loader]
-image: ./webpack-esbuild-why-not-both.jpg
+image: ./webpack-esbuild-why-not-both.webp
 hide_table_of_contents: false
 ---
 
 Builds can be made faster using tools like [esbuild](https://github.com/evanw/esbuild). However, if you're invested in [webpack](https://github.com/webpack/webpack) but would still like to take advantage of speedier builds, there is a way. This post takes us through using esbuild alongside webpack using [esbuild-loader](https://github.com/privatenumber/esbuild-loader).
 
-![A screenshot of the "why not both" meme adapted to include webpack and esbuild](webpack-esbuild-why-not-both.jpg)
+![A screenshot of the "why not both" meme adapted to include webpack and esbuild](webpack-esbuild-why-not-both.webp)
 
 ## Web development
 
@@ -96,7 +96,7 @@ CRA also uses the [fork-ts-checker-webpack-plugin](https://github.com/TypeStrong
 
 So we can understand the advantage of moving to esbuild, we first need a baseline to understand what performance looks like with babel-loader. We'll run `time npm run build` to execute a build of our simple app:
 
-![A screenshot of the completed build for Create React App](create-react-app-raw.png)
+![A screenshot of the completed build for Create React App](create-react-app-raw.webp)
 
 Our complete build, TypeScript type checking, transpilation, minification and so on, all took 22.08 seconds. The question now is, what will happen if we drop esbuild into the mix?
 
@@ -209,7 +209,7 @@ Finally we'll swap out using Terser for JavaScript minification for esbuild as w
 
 Our migration is complete. The next time we build we'll have Create React App running using `esbuild-loader` _without_ having ejected. Once again we'll run `time npm run build` to execute a build of our simple app and determine how long it takes:
 
-![A screenshot of the completed build for Create React App with esbuild](create-react-app-esbuild.png)
+![A screenshot of the completed build for Create React App with esbuild](create-react-app-esbuild.webp)
 
 Our complete build, TypeScript type checking, transpilation, minification and so on, all took 13.85 seconds. By migrating to `esbuild-loader` we've reduced our overall compilation time by approximately one third; this is a tremendous improvement!
 

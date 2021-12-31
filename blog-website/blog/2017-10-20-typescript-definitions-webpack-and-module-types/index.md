@@ -14,7 +14,7 @@ When modules are imported, your loader will decide which module format it wants 
 1. You want to be able to reliably use the module regardless of the choice that your loader has made for which export to use.
 2. Because when it comes to writing type definition files for modules, there is support for a _single_ external definition. Not one for each module format.
 
-![](one-definition-to-rule-them-all.jpg)
+![](one-definition-to-rule-them-all.webp)
 
 ## The DR
 

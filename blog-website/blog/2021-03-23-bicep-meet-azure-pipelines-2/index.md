@@ -2,13 +2,13 @@
 title: 'Bicep meet Azure Pipelines 2'
 authors: johnnyreilly
 tags: [Bicep, ARM templates, Azure Pipelines, Azure CLI]
-image: ./bicep-meet-azure-pipelines.png
+image: ./bicep-meet-azure-pipelines.webp
 hide_table_of_contents: false
 ---
 
 [Last time](./2021-03-20-bicep-meet-azure-pipelines/index.md) I wrote about how to use the Azure CLI to run Bicep within the context of an Azure Pipeline. The solution was relatively straightforward, and involved using `az deployment group create` in a task. There's an easier way.
 
-![Bicep meet Azure Pipelines](bicep-meet-azure-pipelines.png)
+![Bicep meet Azure Pipelines](bicep-meet-azure-pipelines.webp)
 
 ## The easier way
 
@@ -51,6 +51,6 @@ In fact this simple task could even be a one-liner if you didn't fancy using the
 
 And when it's run, it may result in something along these lines:
 
-![Bicep in an Azure Pipeline](azure-pipeline-with-bicep.png)
+![Bicep in an Azure Pipeline](azure-pipeline-with-bicep.webp)
 
 So if you want to get using Bicep right now with minimal effort, this an on ramp that could work for you! Props to [Jamie McCrindle](https://twitter.com/foldr) for suggesting this.

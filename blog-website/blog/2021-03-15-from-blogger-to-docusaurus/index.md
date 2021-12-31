@@ -2,7 +2,7 @@
 title: 'From Blogger to Docusaurus'
 authors: johnnyreilly
 tags: [Blogger, Docusaurus]
-image: ./docusaurus.png
+image: ./docusaurus.webp
 hide_table_of_contents: false
 ---
 
@@ -32,7 +32,7 @@ npx @docusaurus/init@latest init blog-website classic
 
 The first thing to do, was obtain my blog content. This is a mass of HTML that lived inside Blogger's database. (One assumes they have a database; I haven't actually checked.) There's a "Back up content" option inside Blogger to allow this:
 
-![Download content from Blogger](blogger-back-up-your-content.png)
+![Download content from Blogger](blogger-back-up-your-content.webp)
 
 It provides you with an XML file with a dispiritingly small size. Ten years blogging? You'll get change out of 4Mb it turns out.
 
@@ -341,13 +341,13 @@ To run the script, we add the following script to the `package.json`:
 
 And have ourselves a merry little `yarn start` to kick off the process. In a very short period of time, if you crack open the `blogs` directory of your Docusaurus site you'll see a collection of Markdown files which represent your blog and are ready to power Docusaurus:
 
-![Markdown files](blogs-as-markdown.png)
+![Markdown files](blogs-as-markdown.webp)
 
 I have slightly papered over some details here. For my own case I discovered that I hadn't always written perfect HTML when blogging. I had to go in and fix the HTML in a number of historic blogs such that the mechanism would work. I also learned that a number of my screenshots that I use to illustrate posts have vanished from Blogger at some point. This makes me all the more convinced that storing your blog in a repo is a good idea. Things should not "go missing".
 
 Congratulations! We're now the proud owners of a Docusaurus blog site based upon our Blogger content that looks something like this:
 
-![Blog in Docusaurus](docusaurus.png)
+![Blog in Docusaurus](docusaurus.webp)
 
 ## Making the move?
 

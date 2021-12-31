@@ -2,13 +2,13 @@
 title: 'Permissioning Azure Pipelines with Bicep and Azure RBAC Role Assignments'
 authors: johnnyreilly
 tags: [Role Assignments, Bicep, Azure DevOps, Azure Pipelines]
-image: ./permissioning-azure-pipelines-with-bicep-and-role-assignments.png
+image: ./permissioning-azure-pipelines-with-bicep-and-role-assignments.webp
 hide_table_of_contents: false
 ---
 
 How can we deploy resources to Azure, and then run an integration test through them in the context of an Azure Pipeline? This post will show how to do this by permissioning our Azure Pipeline to access these resources using Azure RBAC role assignments. It will also demonstrate a dotnet test that runs in the context of the pipeline and makes use of those role assignments.
 
-![title image reading "Permissioning Azure Pipelines with Bicep and Role Assignments" and some Azure logos](permissioning-azure-pipelines-with-bicep-and-role-assignments.png)
+![title image reading "Permissioning Azure Pipelines with Bicep and Role Assignments" and some Azure logos](permissioning-azure-pipelines-with-bicep-and-role-assignments.webp)
 
 We're following this approach as an alternative to [exporting connection strings](./2021-07-07-output-connection-strings-and-keys-from-azure-bicep/index.md), as these can be viewed in the Azure Portal; which may be an security issue if you have many people who are able to access the portal and view deployment outputs.
 
@@ -32,7 +32,7 @@ Without this in place, we may encounter errors of the type:
 
 We do this by going to "Resource Providers" in the [Azure Portal](https://portal.azure.com) and registering the resources you need. Lots are registered by default, but not all.
 
-![Screenshot of the Azure Portal, subscriptions -> resource providers section, showing that Event Hubs have been registered](screenshot-azure-portal-subscription-resource-providers.png)
+![Screenshot of the Azure Portal, subscriptions -> resource providers section, showing that Event Hubs have been registered](screenshot-azure-portal-subscription-resource-providers.webp)
 
 ## Permission our service connection / service principal
 
@@ -46,23 +46,23 @@ Essentially, we want to be able to run pipelines that say "hey Azure, we want to
 
 To grant that permission / add that role assignment, we go to the service connection in Azure Devops:
 
-![Screenshot of the service connection in Azure DevOps](screenshot-azure-devops-service-connection.png)
+![Screenshot of the service connection in Azure DevOps](screenshot-azure-devops-service-connection.webp)
 
 We can see there's two links here; first we'll click on "Manage Service Principal", which will take us to the service principal in the Azure Portal:
 
-![Screenshot of the service principal in the Azure Portal](screenshot-azure-portal-service-principal.png)
+![Screenshot of the service principal in the Azure Portal](screenshot-azure-portal-service-principal.webp)
 
 Take note of the display name of the service principal; we'll need that as we click on the "Manage service connection roles" link, which will take us to the resource groups IAM page in the Azure Portal:
 
-![Screenshot of the resource groups IAM page in the Azure Portal](screenshot-azure-portal-service-principal-access-control.png)
+![Screenshot of the resource groups IAM page in the Azure Portal](screenshot-azure-portal-service-principal-access-control.webp)
 
 Here we can click on "Add role assignment", select "Owner":
 
-![Screenshot of the add role assignment IAM page in the Azure Portal](screenshot-azure-portal-add-role-assignment.png)
+![Screenshot of the add role assignment IAM page in the Azure Portal](screenshot-azure-portal-add-role-assignment.webp)
 
 Then when selecting members we should be able to look up the service principal to assign it:
 
-![Screenshot of the add role assignment select member IAM page in the Azure Portal](screenshot-azure-portal-add-role-assignment-member.png)
+![Screenshot of the add role assignment select member IAM page in the Azure Portal](screenshot-azure-portal-add-role-assignment-member.webp)
 
 We now have a service connection which we should be able to use for granting permissions / role assignments, which is what we need.
 
@@ -344,7 +344,7 @@ We'll create a pipeline in Azure DevOps pointing to this file, and we'll also cr
 
 Now we're ready to run our pipeline:
 
-![screenshot of pipeline running successfully](screenshot-azure-pipelines-tests-passing.png)
+![screenshot of pipeline running successfully](screenshot-azure-pipelines-tests-passing.webp)
 
 Here we can see that the pipeline runs and the test passes. That means we've successfully provisioned the Event Hub and permissioned our pipeline to be able to access it using Azure RBAC role assignments. We then wrote a test which used the pipeline credentials to interact with the Event Hub. To see the repo that demostrates this, [look here](https://dev.azure.com/johnnyreilly/blog-demos/_git/permissioning-azure-pipelines-bicep-role-assignments).
 

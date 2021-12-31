@@ -2,7 +2,7 @@
 title: 'React 18 and TypeScript'
 authors: johnnyreilly
 tags: [React, TypeScript, React 18]
-image: ./createNode-error.png
+image: ./createNode-error.webp
 hide_table_of_contents: false
 ---
 
@@ -55,7 +55,7 @@ If we were running JavaScript alone, this would work. However, because we're usi
 
 > `Property 'createRoot' does not exist on type 'typeof import("/code/my-app/node_modules/@types/react-dom/index")'. TS2339`
 
-![a screenshot of the Property 'createRoot' does not exist error](createNode-error.png)
+![a screenshot of the Property 'createRoot' does not exist error](createNode-error.webp)
 
 This is the TypeScript compiler complaining that it doesn't know anything about `ReactDOM.createRoot`. This is because the type definitions that are currently in place in our application don't have that API defined.
 
@@ -108,7 +108,7 @@ If we restart our build with `yarn start` we're now presented with a _different_
 
 > `Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element | Document | DocumentFragment | Comment'. Type 'null' is not assignable to type 'Element | Document | DocumentFragment | Comment'. TS2345`
 
-![a screenshot of the null is not assignable error](null_is_not_assignable-error.png)
+![a screenshot of the null is not assignable error](null_is_not_assignable-error.webp)
 
 Now this is actually nothing to do with issues with our new React type definitions. They are fine. This is TypeScript saying "it's not guaranteed that `document.getElementById('root')` returns something that is not `null`... since we're in `strictNullChecks` mode you need to be sure `root` is not null".
 

@@ -10,7 +10,7 @@ tags:
     react-router,
     Ivan Drago,
   ]
-image: ./i-must-break-you.jpg
+image: ./i-must-break-you.webp
 hide_table_of_contents: false
 ---
 
@@ -20,7 +20,7 @@ This a tale of things that are and things that aren't. It's a tale of semantic v
 
 This is often the experience people have of using type definitions from Definitely Typed:
 
-![Ivan Drago saying "I must break you"](i-must-break-you.jpg)
+![Ivan Drago saying "I must break you"](i-must-break-you.webp)
 
 Specifically, people are used to the idea of semantic versioning and expect it from types published to npm by Definitely Typed. They wait in vain. [I've written before about the Definitely Typed / @types semantic version compromise.](./2017-02-14-typescript-types-and-repeatable-builds/index.md) And I wanted to talk about it a little further as (watching the issues raised on DT) I don't think the message has quite got out there. To summarise:
 
@@ -44,7 +44,7 @@ My own personal preference is [yarn](https://yarnpkg.com/lang/en/). Mother, I'm 
 
 This has some value in that when I upgrade I probably want to upgrade to a newer version following the semantic versioning convention. I should just expect that I'll need to check valid compilation when I do so. yarn even has it's own built in utility that tells you when things are out of date: `yarn outdated`:
 
-![Screenshot of outdated dependencies in yarn](yarn-outdated.png)
+![Screenshot of outdated dependencies in yarn](yarn-outdated.webp)
 
 So lovely.
 

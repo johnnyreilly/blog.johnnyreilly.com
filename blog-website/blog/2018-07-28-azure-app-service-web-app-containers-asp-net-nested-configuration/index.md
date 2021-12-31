@@ -2,7 +2,7 @@
 title: 'Azure App Service: nested configuration for ASP.NET running in Web App for Containers using Application Settings'
 authors: johnnyreilly
 tags: []
-image: ./appservice_classic.png
+image: ./appservice_classic.webp
 hide_table_of_contents: false
 ---
 
@@ -29,15 +29,15 @@ Applications need configuration. ASP.Net Core applications are typically configu
 
 With a classic App Service you could override a setting in the `appsettings.json` by updating "Application settings" within the Azure portal. You'd do this in the style of creating an Application setting called `Parent:ChildOne` or `Parent:ChildTwo`. To be clear: using colons to target a specific piece of config.
 
-![screenshot of an App Service Application Settings in the Azure Portal, nested properties configured using colons](appservice_classic.png)
+![screenshot of an App Service Application Settings in the Azure Portal, nested properties configured using colons](appservice_classic.webp)
 
 You can read about this approach [here](https://blogs.msdn.microsoft.com/waws/2018/06/12/asp-net-core-settings-for-azure-app-service/). Now there's something I want you to notice; consider the colons below:
 
-![screenshot of an App Service specific Application Setting nested property configured using colons - all good](appservice_colons_fine.png)
+![screenshot of an App Service specific Application Setting nested property configured using colons - all good](appservice_colons_fine.webp)
 
 If you try and follow the same steps when you're using Web App for Containers / i.e. [a Docker image deployed to an Azure App Service on Linux ](https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro) you **cannot** use colons:
 
-![screenshot of a Web App for Containers specific Application Setting nested property configured using colons - errors](appservice_container_colons_bad.png)
+![screenshot of a Web App for Containers specific Application Setting nested property configured using colons - errors](appservice_container_colons_bad.webp)
 
 When you hover over the error you see this message: `This field can only contain letters, numbers (0-9), periods ("."), and underscores ("_")`. Using `.` does not work alas.
 

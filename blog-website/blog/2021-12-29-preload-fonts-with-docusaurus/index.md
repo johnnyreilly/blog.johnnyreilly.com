@@ -2,13 +2,13 @@
 title: 'Preload fonts with Docusaurus'
 authors: johnnyreilly
 tags: [Docusaurus, preload, webpack, fonts, plugin, configureWebpack]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
 When we're using custom fonts in our websites, it's good practice to preload the fonts to minimise the [flash of unstyled text](https://css-tricks.com/fout-foit-foft/). This post shows how to achieve this with Docusaurus. It does so by building a Docusaurus plugin which makes use of [Satyendra Singh](https://github.com/sn-satyendra)'s excellent [`webpack-font-preload-plugin`](https://github.com/sn-satyendra/webpack-font-preload-plugin)
 
-![title image reading "Preload fonts with Docusaurus" in a ridiculous font with the Docusaurus logo and a screenshot of a preload link HTML element](title-image.png)
+![title image reading "Preload fonts with Docusaurus" in a ridiculous font with the Docusaurus logo and a screenshot of a preload link HTML element](title-image.webp)
 
 ## Preload web fonts with Docusaurus
 
@@ -78,6 +78,6 @@ It's a super simple plugin, it does nothing more than `new` up an instance of th
 
 With this in place we're now seeing the `<link rel="preload" ... />` elements being included in the HTML pumped out of our Docusaurus build. This means we have font preloading working:
 
-![screenshot of the Chrome devtools featuring link rel="preload" elements](screenshot-preload-devtools.png)
+![screenshot of the Chrome devtools featuring link rel="preload" elements](screenshot-preload-devtools.webp)
 
 Huzzah!

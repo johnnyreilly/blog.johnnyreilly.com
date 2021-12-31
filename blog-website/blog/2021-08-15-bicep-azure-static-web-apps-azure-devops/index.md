@@ -2,13 +2,13 @@
 title: 'Publish Azure Static Web Apps with Bicep and Azure DevOps'
 authors: johnnyreilly
 tags: [Azure Static Web App, Bicep, Azure DevOps, Azure Pipelines]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
 This post demonstrates how to deploy [Azure Static Web Apps](https://docs.microsoft.com/en-us/azure/static-web-apps/overview) using Bicep and Azure DevOps. It includes a few workarounds for the ["Provider is invalid. Cannot change the Provider. Please detach your static site first if you wish to use to another deployment provider." issue](https://github.com/Azure/static-web-apps/issues/516).
 
-![title image reading "Publish Azure Static Web Apps with Bicep and Azure DevOps" and some Azure logos](title-image.png)
+![title image reading "Publish Azure Static Web Apps with Bicep and Azure DevOps" and some Azure logos](title-image.webp)
 
 ## Bicep template
 
@@ -151,13 +151,13 @@ The pipeline depends upon a number of variables:
 
 A successful pipeline looks something like this:
 
-![Screenshot of successfully running Azure Pipeline](successful-azure-pipelines-run-screenshot.png)
+![Screenshot of successfully running Azure Pipeline](successful-azure-pipelines-run-screenshot.webp)
 
 What you might notice is that the `AzureStaticWebApp` is itself installing and building our application. This is handled by [Microsoft Oryx](https://github.com/Microsoft/Oryx). The upshot of this is that we don't need to manually run `npm install` and `npm build` ourselves; the `AzureStaticWebApp` task will take care of it for us.
 
 Finally, let's see if we've deployed something successfully...
 
-![Screenshot of deployed Azure Static Web App](deployed-azure-static-web-app-screenshot.png)
+![Screenshot of deployed Azure Static Web App](deployed-azure-static-web-app-screenshot.webp)
 
 We have! It's worth noting that you'll likely want to give your Azure Static Web App a lovelier URL, and perhaps even put it behind Azure Front Door as well.
 

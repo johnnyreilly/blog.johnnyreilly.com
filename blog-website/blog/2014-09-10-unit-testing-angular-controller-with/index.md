@@ -19,7 +19,7 @@ Whilst I'm at it I thought it might prove helpful if I wrote up how I approached
 
 I have an Angular controller called `sagesDetail`. It powers this screen:
 
-![](sageDetailScreen.png)
+![](sageDetailScreen.webp)
 
 `sagesDetail` is a very simple controller. It does these things:
 

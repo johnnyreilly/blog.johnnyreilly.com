@@ -71,10 +71,10 @@ The other prompt says `"Required assets to build and debug are missing from 'Web
 
 So lets try that F5 thing again... http://localhost:5000/ is now serving the same app. That looks pretty good. So lets add a breakpoint to the `HomeController` and see if we can hit it:
 
-![](firstgo.png)
+![](firstgo.webp)
 
 Well I can certainly add a breakpoint but all those red squigglies are unnerving me. Let's clean the slate. If you want to simply do that in VS Code hold down `CTRL+SHIFT+P` and then type "reload". Pick "Reload window". A couple of seconds later we're back in and Code is looking much happier. Can we hit our breakpoint?
 
-![](secondgo.png)
+![](secondgo.webp)
 
 Yes we can! So you're free to develop in either Code or VS; the choice is yours. I think that's pretty awesome - and well done to all the peeople behind Code who've made this a pretty seamless experience!

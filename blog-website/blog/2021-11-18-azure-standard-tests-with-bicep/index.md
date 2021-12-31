@@ -2,13 +2,13 @@
 title: 'Azure standard availability tests with Bicep'
 authors: johnnyreilly
 tags: [Azure, Bicep, standard tests]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
 Azure standard tests are a tremendous way to monitor the uptime of your services in Azure. Sometimes also called availability tests, web tests and ping tests, this post goes through how to deploy one using Bicep. It also looks at some of the gotchas that you may encounter as you're setting it up.
 
-![title image reading "Azure standard availability tests with Bicep" with a Bicep logo and Azure logos](title-image.png)
+![title image reading "Azure standard availability tests with Bicep" with a Bicep logo and Azure logos](title-image.webp)
 
 ## What are standard tests?
 
@@ -132,7 +132,7 @@ If you do not provide a `hidden-link` tag, or if you try to specify a resource g
 
 > Resource should exist in the same resource group as the linked component
 
-![screenshot of the Azure Portal Deployments section saying "Resource should exist in the same resource group as the linked component"](screenshot-azure-portal-deployments-resource-should-exist-in-the-same-resource-group.png)
+![screenshot of the Azure Portal Deployments section saying "Resource should exist in the same resource group as the linked component"](screenshot-azure-portal-deployments-resource-should-exist-in-the-same-resource-group.webp)
 
 In our module we set both the `hidden-link` tag as well as the tags that have been supplied via the `tags` parameter.
 
@@ -216,4 +216,4 @@ When run, it invokes our `ping-them.bicep` module, passing two URLs to test.
 
 When executed, you end up with a delightful "availability test" (which is your standard test) in Azure:
 
-![screenshot of an Availability test in the Azure Portal](screenshot-azure-portal-availability.png)
+![screenshot of an Availability test in the Azure Portal](screenshot-azure-portal-availability.webp)

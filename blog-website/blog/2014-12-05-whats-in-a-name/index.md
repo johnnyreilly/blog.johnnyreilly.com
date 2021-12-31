@@ -23,13 +23,13 @@ Why indeed? And why the ".io" suffix? Doesn't that just make you a desperate fol
 
 Good questions all, and "no, I hope not". My original plans were to use the domain name "icanmakethiswork.com". icanmakethiswork was the name of the blog and it made sense to keep it in the URL. So off I went to register the domain name when to my surprise I discovered this:
 
-![](Screenshot%2B2014-12-05%2B05.39.00.png)
+![](Screenshot%2B2014-12-05%2B05.39.00.webp)
 
 My domain is being [cybersquatted](https://en.wikipedia.org/wiki/Cybersquatting)! I mean.... What??!!!!
 
 I started to wonder "is there another icanmakethiswork out there"? Am I not the [one and only](http://youtu.be/z8f2mW1GFSI)? So I checked with DuckDuckGo ("The search engine that doesn't track you.") and look what I found:
 
-![](Screenshot%2B2014-12-05%2B05.41.59.png)
+![](Screenshot%2B2014-12-05%2B05.41.59.webp)
 
 A whole screen of me. Just me.
 

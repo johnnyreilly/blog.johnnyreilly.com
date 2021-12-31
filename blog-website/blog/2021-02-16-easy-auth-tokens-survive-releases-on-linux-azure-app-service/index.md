@@ -1,7 +1,7 @@
 ---
 title: 'Making Easy Auth tokens survive releases on Linux Azure App Service'
 authors: johnnyreilly
-image: ./easy-auth-zero-downtime-deployment.png
+image: ./easy-auth-zero-downtime-deployment.webp
 tags: [Azure, Easy Auth, tokens, SAS, Blob Storage]
 hide_table_of_contents: false
 ---
@@ -29,7 +29,7 @@ This is really significant. You may well have "zero downtime deployment", but it
 
 To turn that into something visual, what's suggested is this:
 
-![diagram of Easy Auth with blog storage](easy-auth-zero-downtime-deployment.png)
+![diagram of Easy Auth with blog storage](easy-auth-zero-downtime-deployment.webp)
 
 ## SaS-sy ARM Templates
 
@@ -101,7 +101,7 @@ If you google `WEBSITE_AUTH_TOKEN_CONTAINER_SASURL` you will not find a geat dea
 
 With this in place, every time someone logs into your app a JSON token is written to the storage like so:
 
-![token in storage account](token.png)
+![token in storage account](token.webp)
 
 If you take the trouble to look inside you'll find something like this tucked away:
 

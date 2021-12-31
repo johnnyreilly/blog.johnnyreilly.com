@@ -271,11 +271,11 @@ There's a couple of things to draw attention to here:
 
 Let's see if it works by entering `func start` and browsing to `http://localhost:7071/api/savevisit`
 
-![a screenshot of the response from the savevisits endpoint](savevisits.png)
+![a screenshot of the response from the savevisits endpoint](savevisits.webp)
 
 Looking good. Now let's see if we can query them at `http://localhost:7071/api/gettodaysvisits`:
 
-![a screenshot of the response from the gettodaysvisits endpoint](gettodaysvisits.png)
+![a screenshot of the response from the gettodaysvisits endpoint](gettodaysvisits.webp)
 
 Disco.
 
