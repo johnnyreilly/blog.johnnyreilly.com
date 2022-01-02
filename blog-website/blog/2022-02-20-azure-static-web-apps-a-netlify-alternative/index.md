@@ -219,12 +219,10 @@ Then we'll commit and push our branch to GitHub and create a pull request. This 
 
 ![Screenshot of the pull request in GitHub including a comment from the GitHub Actions bot which says: "Azure Static Web Apps: Your stage site is ready! Visit it here: https://ambitious-island-05069ea10-2.centralus.azurestaticapps.net"](screenshot-github-pull-request-deploy-preview.png)
 
-This is the equivalent of Netlify Deploy Previews, implemented with Azure Static Web Apps and GitHub Actions.
+This is the equivalent of Netlify Deploy Previews, implemented with Azure Static Web Apps and GitHub Actions. Given the allowances for GitHub Actions currently sit at [2,000 free minutes per month](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions) as compared with Netlify's [300 free minutes per month](https://www.netlify.com/pricing/), you're less likely to receive a bill for using Static Web Apps.
 
-This environment will last only until the pull request is closed. At that point the environment is torn down by the GitHub Action.
+This staging environment will last only until the pull request is closed. At that point the environment is torn down by the GitHub Action.
 
 ## Conclusion
 
 In this post we've deployed a website to a Static Web App using GitHub Actions and implemented authentication. We've also demonstrated Azure's equivalent of Netlify's deploy previews; staging environments.
-
-Given the allowances for GitHub Actions currently sit at [2,000 free minutes per month](https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions) as compared with Netlify's [300 free minutes per month](https://www.netlify.com/pricing/), you're less likely to receive a bill for using Static Web Apps.
