@@ -173,3 +173,58 @@ The above will:
 - install dapr when the container starts
 
 We're ready! Reopen your repo in a container (it will take a while first time out) and you'll be ready to go.
+
+## Create a dotnet service
+
+Now we're going to create a dotnet service. The aim of this post is not to build a specific application, but rather to demonstrate how simple service to service communication is with dapr. So we'll use the web api template that ships with dotnet 6. That arrives with a fake weather API included, so we'll name our service accordingly:
+
+```sh
+dotnet new webapi -o WeatherService
+```
+
+Inside the created `Program.cs`, find the following line and delete it:
+
+```cs
+app.UseHttpsRedirection();
+```
+
+HTTPS is important, however Azure Container Apps are going to tackle that for us.
+
+## Create a Node.js service (with Koa)
+
+We want to call our dotnet service from a Node.js service. So let's make that service:
+
+```sh
+mkdir WebService
+cd WebService
+npm init -y
+npm install koa --save
+npm install @types/koa @types/node typescript --save-dev
+```
+
+We'll create a `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "target": "es2017",
+    "noImplicitAny": true,
+    "outDir": "./dist",
+    "strict": true,
+    "sourceMap": true
+  }
+}
+```
+
+Finally we'll update the `scripts` section of our `package.json` like so:
+
+```json
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+```
+
+So we can build and start our web app. Now let's write it!
