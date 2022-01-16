@@ -192,15 +192,23 @@ HTTPS is important, however Azure Container Apps are going to tackle that for us
 
 ## Create a Node.js service (with Koa)
 
-We want to call our dotnet service from a Node.js service. So let's make that service:
+Creating our dotnet service was very simple. We're now going to create a web app with Node.js and Koa that calls our dotnet service. This will be a little more complicated - but still surprisingly simple thanks to the great API choices of dapr.
+
+Let's make that service:
 
 ```sh
 mkdir WebService
 cd WebService
 npm init -y
-npm install koa --save
-npm install @types/koa @types/node typescript --save-dev
+npm install koa axios --save
+npm install @types/koa @types/node @types/axios typescript --save-dev
 ```
+
+We're installing the following:
+
+- [koa](https://koajs.com/) - the web framework we're going to use
+- [axios](https://axios-http.com/) - to make calls to our dotnet service via HTTP / dapr
+- [TypeScript](https://www.typescriptlang.org/) and associated type definitions, so we can take advantage of static typing. Admittedly since we're building a minimal example this is not super beneficial; but TS makes me happy and I'd certainly want static typing in place if going beyond a simple example. Start as you mean to go on.
 
 We'll create a `tsconfig.json`:
 
@@ -218,7 +226,7 @@ We'll create a `tsconfig.json`:
 }
 ```
 
-Finally we'll update the `scripts` section of our `package.json` like so:
+We'll update the `scripts` section of our `package.json` like so:
 
 ```json
   "scripts": {
@@ -228,3 +236,65 @@ Finally we'll update the `scripts` section of our `package.json` like so:
 ```
 
 So we can build and start our web app. Now let's write it!
+
+We're going to create an `index.ts` file:
+
+```ts
+import Koa from 'koa';
+import axios from 'axios';
+
+// How we connect to the dotnet service with dapr
+const daprSidecarBaseUrl = `http://localhost:${
+  process.env.DAPR_HTTP_PORT || 3501
+}`;
+const weatherService =
+  process.env.WEATHER_SERVICE_NAME || 'WEATHER_SERVICE_NAME';
+const weatherServiceAppIdHeaders = { 'dapr-app-id': weatherService }; // app name for service discovery
+
+const app = new Koa();
+
+app.use(async (ctx) => {
+  try {
+    const data = await axios.get<WeatherForecast[]>(
+      `${daprSidecarBaseUrl}/weatherForecast`,
+      {
+        headers: { ...weatherServiceAppIdHeaders },
+      }
+    );
+
+    ctx.body = `And the weather today will be ${data.data[0].summary}`;
+  } catch (exc) {
+    console.error('Problem calling weather service', exc);
+    ctx.body = 'Something went wrong!';
+  }
+});
+
+const portNumber = 3000;
+app.listen(portNumber);
+console.log(`listening on port ${portNumber}`);
+
+interface WeatherForecast {
+  date: string;
+  temperatureC: number;
+  temperatureF: number;
+  summary: string;
+}
+```
+
+The above code is fairly simple but is achieving quite a lot. It:
+
+- uses various environment variables to construct the URLs / headers which allow connecting to dapr, and consequently to the weather service through dapr. We're going to set up the environment variables which this code relies upon later.
+- spins up a web server with koa on port 3000
+- that web server, when sent an HTTP request, will call the `weatherForecast` endpoint of the dotnet app. It will grab what comes back, take the first entry in there and surface that up as the weather forecast.
+- We're also defining a `WeatherForecast` interface to represent the type of the data that comes back from the dotnet service
+
+It's worth dwelling for a moment on the simplicity that dapr is affording us here. We're able to make HTTP requests to our dotnet service just like they were any other service running locally. What's actually happening is illustrated by the diagram below:
+
+![a diagram showing traffic going from the web service to the weather service and back again via dapr](./dapr-sidecar.drawio.svg)
+
+We're making HTTP requests from the web service, which look like they're going directly to the weather service. But in actual fact, they're being routed through dapr sidecars until they reach their destination. Why is this fantastic? Well there's two things we aren't having to think about here:
+
+- certificates
+- authentication
+
+Both of these can be complex and burn a large amount of engineering time. Because we're using dapr it's not a problem we have to solve. Isn't that great?
