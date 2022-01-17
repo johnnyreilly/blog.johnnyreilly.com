@@ -247,9 +247,10 @@ import axios from 'axios';
 const daprSidecarBaseUrl = `http://localhost:${
   process.env.DAPR_HTTP_PORT || 3501
 }`;
-const weatherService =
-  process.env.WEATHER_SERVICE_NAME || 'WEATHER_SERVICE_NAME';
-const weatherServiceAppIdHeaders = { 'dapr-app-id': weatherService }; // app name for service discovery
+// app id header for service discovery
+const weatherServiceAppIdHeaders = {
+  'dapr-app-id': process.env.WEATHER_SERVICE_NAME || 'dotnet-app',
+};
 
 const app = new Koa();
 
@@ -258,7 +259,7 @@ app.use(async (ctx) => {
     const data = await axios.get<WeatherForecast[]>(
       `${daprSidecarBaseUrl}/weatherForecast`,
       {
-        headers: { ...weatherServiceAppIdHeaders },
+        headers: weatherServiceAppIdHeaders,
       }
     );
 
@@ -283,7 +284,7 @@ interface WeatherForecast {
 
 The above code is fairly simple but is achieving quite a lot. It:
 
-- uses various environment variables to construct the URLs / headers which allow connecting to dapr, and consequently to the weather service through dapr. We're going to set up the environment variables which this code relies upon later.
+- uses various environment variables to construct the URLs / headers which allow connecting to the dapr sidecar running alongside the app, and consequently to the weather service through the dapr sidecar running alongside the weather service. We're going to set up the environment variables which this code relies upon later.
 - spins up a web server with koa on port 3000
 - that web server, when sent an HTTP request, will call the `weatherForecast` endpoint of the dotnet app. It will grab what comes back, take the first entry in there and surface that up as the weather forecast.
 - We're also defining a `WeatherForecast` interface to represent the type of the data that comes back from the dotnet service
@@ -295,6 +296,167 @@ It's worth dwelling for a moment on the simplicity that dapr is affording us her
 We're making HTTP requests from the web service, which look like they're going directly to the weather service. But in actual fact, they're being routed through dapr sidecars until they reach their destination. Why is this fantastic? Well there's two things we aren't having to think about here:
 
 - certificates
-- authentication
+- inter-service authentication
 
 Both of these can be complex and burn a large amount of engineering time. Because we're using dapr it's not a problem we have to solve. Isn't that great?
+
+## Debugging dapr in VS Code
+
+We want to be able to debug this code. We can achieve that in VS Code by setting a [`launch.json`](https://code.visualstudio.com/docs/editor/debugging#_launchjson-attributes) and a [`tasks.json`](https://code.visualstudio.com/docs/editor/tasks) file.
+
+First of all we'll create a `launch.json` file in the `.vscode` folder of our repo:
+
+```json
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "All Container Apps",
+      "configurations": ["WeatherService", "WebService"],
+      "presentation": {
+        "hidden": false,
+        "group": "Containers",
+        "order": 1
+      }
+    }
+  ],
+  "configurations": [
+    {
+      "name": "WeatherService",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "daprd-debug-dotnet",
+      "postDebugTask": "daprd-down-dotnet",
+      "program": "${workspaceFolder}/WeatherService/bin/Debug/net6.0/WeatherService.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "env": {
+        "DOTNET_ENVIRONMENT": "Development",
+        "DOTNET_URLS": "http://localhost:5000",
+        "DAPR_HTTP_PORT": "3500",
+        "DAPR_GRPC_PORT": "50000",
+        "DAPR_METRICS_PORT": "9090"
+      }
+    },
+
+    {
+      "name": "WebService",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "daprd-debug-node",
+      "postDebugTask": "daprd-down-node",
+      "program": "${workspaceFolder}/WebService/index.ts",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "NODE_ENV": "development",
+        "PORT": "3000",
+        "DAPR_HTTP_PORT": "3501",
+        "DAPR_GRPC_PORT": "50001",
+        "DAPR_METRICS_PORT": "9091",
+        "WEATHER_SERVICE_NAME": "dotnet-app"
+      },
+      "protocol": "inspector",
+      "outFiles": ["${workspaceFolder}/WebService/dist/**/*.js"],
+      "serverReadyAction": {
+        "action": "openExternally"
+      }
+    }
+  ]
+}
+```
+
+The things to note about this are:
+
+- we create a Node.js ("WebService") and a dotnet ("WeatherService") configuration. These are referenced by the `All Container Apps` compound. Kicking off that will start both the Node.js and the dotnet apps.
+- The Node.js app runs a `daprd-debug-node` task prior to launch and a `daprd-down-node` task when debugging completes. Comparable tasks are run by the dotnet container - we'll look at these in a moment.
+- Various environment variables are configured, most of which control the behaviour of dapr. When we're debugging locally we'll be using some non-typical ports to accomodate multiple dapr sidecars being in play at the same time. Note also the `"WEATHER_SERVICE_NAME": "dotnet-app"` - it's this that allows the WebService to communicate with the WeatherService - `dotnet-app` is the `appId` used to identify a service with dapr. We'll see that as we configure our `tasks.json`.
+
+Here's the `tasks.json` we must make:
+
+```json
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dotnet-build",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/WeatherService/WeatherService.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "daprd-debug-dotnet",
+      "appId": "dotnet-app",
+      "appPort": 5000,
+      "httpPort": 3500,
+      "grpcPort": 50000,
+      "metricsPort": 9090,
+      "type": "daprd",
+      "dependsOn": ["dotnet-build"]
+    },
+    {
+      "label": "daprd-down-dotnet",
+      "appId": "dotnet-app",
+      "type": "daprd-down"
+    },
+
+    {
+      "label": "npm-install",
+      "type": "shell",
+      "command": "npm install",
+      "options": {
+        "cwd": "${workspaceFolder}/WebService"
+      }
+    },
+    {
+      "label": "webservice-build",
+      "type": "typescript",
+      "tsconfig": "WebService/tsconfig.json",
+      "problemMatcher": ["$tsc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": ["npm-install"]
+    },
+    {
+      "label": "daprd-debug-node",
+      "appId": "node-app",
+      "appPort": 3000,
+      "httpPort": 3501,
+      "grpcPort": 50001,
+      "metricsPort": 9091,
+      "type": "daprd",
+      "dependsOn": ["webservice-build"]
+    },
+    {
+      "label": "daprd-down-node",
+      "appId": "node-app",
+      "type": "daprd-down"
+    }
+  ]
+}
+```
+
+There's two sets of tasks here; one for the WeatherService and one for the WebService. You'll see some commonalities here. For each service there's a `daprd` task that depends upon the relevant service being built and passes the various ports for the dapr sidecar to run on that runs just before debugging kicks off. To go with that, there's a `daprd-down` task for each service that runs when debugging finishes and shuts down dapr.
+
+We're now ready to debug our app. Let's hit F5.
+
+![screenshot of debugging the index.ts file in VS Code](./debugging.png)
+
+And if we look at our browser:
+
+![screenshot of browsing Firefox at http://localhost:3000 and seeing "And the weather today will be Freezing" in the output](./app-running.png)
+
+It works! We're running a Node.js WebService which, when called, is communicating with our dotnet WeatherService and surfacing up the results. Brilliant!
