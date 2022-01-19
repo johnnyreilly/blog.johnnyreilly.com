@@ -460,3 +460,130 @@ And if we look at our browser:
 ![screenshot of browsing Firefox at http://localhost:3000 and seeing "And the weather today will be Freezing" in the output](./app-running.png)
 
 It works! We're running a Node.js WebService which, when called, is communicating with our dotnet WeatherService and surfacing up the results. Brilliant!
+
+## Containerising our services with Docker
+
+Before we can deploy each of our services, they need to be containerised.
+
+First let's add a `Dockerfile` to the `WeatherService` folder:
+
+```Dockerfile
+FROM mcr.microsoft.com/dotnet/sdk:6.0 as build
+WORKDIR /app
+COPY . .
+RUN dotnet restore
+RUN dotnet publish -o /app/publish
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 as runtime
+WORKDIR /app
+COPY --from=build /app/publish /app
+
+ENV DOTNET_ENVIRONMENT=Production
+ENV ASPNETCORE_URLS='http://+:5000'
+EXPOSE 5000
+ENTRYPOINT [ "dotnet", "/app/WeatherService.dll" ]
+```
+
+Then we'll add a `Dockerfile` to the `WebService` folder:
+
+```Dockerfile
+FROM node:16 AS build
+WORKDIR /app
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+FROM node:16 AS runtime
+WORKDIR /app
+COPY --from=build /app/dist /app
+COPY --from=build /app/package.json /app
+COPY --from=build /app/package-lock.json /app
+RUN npm install
+
+ENV NODE_ENV production
+EXPOSE 3000
+ENTRYPOINT [ "node", "/app/index.js" ]
+```
+
+Likely these `Dockerfile`s could be optimised further; but we're not focussed on that just now. What we have now are two simple `Dockerfile`s that will give us images we can run. Given that one depends on the other it makes sense to bring them together with a `docker-compose.yml` file which we'll place in the root of the repo:
+
+```yml
+version: '3.4'
+
+services:
+  weatherservice:
+    image: ${REGISTRY:-weatherservice}:${TAG:-latest}
+    build:
+      context: ./WeatherService
+      dockerfile: Dockerfile
+    ports:
+      - '50000:50000' # Dapr instances communicate over gRPC so we need to expose the gRPC port
+    environment:
+      DOTNET_ENVIRONMENT: 'Development'
+      ASPNETCORE_URLS: 'http://+:5000'
+      DAPR_HTTP_PORT: 3500
+      DAPR_GRPC_PORT: 50000
+      DAPR_METRICS_PORT: 9090
+
+  weatherservice-dapr:
+    image: 'daprio/daprd:latest'
+    command:
+      [
+        './daprd',
+        '-app-id',
+        'dotnet-app',
+        '-app-port',
+        '5000',
+        '-dapr-http-port',
+        '3500',
+        '-placement-host-address',
+        'placement:50006',
+      ]
+    network_mode: 'service:weatherservice'
+    depends_on:
+      - weatherservice
+
+  webservice:
+    image: ${REGISTRY:-webservice}:${TAG:-latest}
+    ports:
+      - '3000:3000' # The web front end port
+      - '50001:50001' # Dapr instances communicate over gRPC so we need to expose the gRPC port
+    build:
+      context: ./WebService
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: 'development'
+      PORT: '3000'
+      DAPR_HTTP_PORT: 3501
+      DAPR_GRPC_PORT: 50001
+      DAPR_METRICS_PORT: 9091
+      WEATHER_SERVICE_NAME: 'dotnet-app'
+
+  webservice-dapr:
+    image: 'daprio/daprd:latest'
+    command: [
+        './daprd',
+        '-app-id',
+        'node-app',
+        '-app-port',
+        '3000',
+        '-dapr-http-port',
+        '3501',
+        '-placement-host-address',
+        'placement:50006', # Dapr's placement service can be reach via the docker DNS entry
+      ]
+    network_mode: 'service:webservice'
+    depends_on:
+      - webservice
+
+  dapr-placement:
+    image: 'daprio/dapr:latest'
+    command: ['./placement', '-port', '50006']
+    ports:
+      - '50006:50006'
+```
+
+With this in place we can run `docker-compose up` and bring up our application locally.
