@@ -587,3 +587,465 @@ services:
 ```
 
 With this in place we can run `docker-compose up` and bring up our application locally.
+
+And now we have docker images built, we can look at deploying them.
+
+## Deploying to Azure
+
+At this point we have pretty much everything we need in terms of application code and the ability to build and debug it. Now we'd like to deploy it to Azure.
+
+Let's begin with the Bicep required to deploy our Azure Container Apps.
+
+In our repository we'll create an `infra` directory, into which we'll place a `main.bicep` file which will contain our Bicep template:
+
+```bicep
+param branchName string
+
+param webServiceImage string
+param webServicePort int
+param webServiceIsExternalIngress bool
+
+param weatherServiceImage string
+param weatherServicePort int
+param weatherServiceIsExternalIngress bool
+
+param containerRegistry string
+param containerRegistryUsername string
+@secure()
+param containerRegistryPassword string
+
+param tags object
+
+var location = resourceGroup().location
+var minReplicas = 0
+var maxReplicas = 1
+
+var branch = toLower(last(split(branchName, '/')))
+
+var environmentName = '${branch}-env'
+var workspaceName = '${branch}-log-analytics'
+var appInsightsName = '${branch}-app-insights'
+var webServiceContainerAppName = '${branch}-web'
+var weatherServiceContainerAppName = '${branch}-mailer'
+
+var containerRegistryPasswordRef = 'container-registry-password'
+
+resource workspace 'Microsoft.OperationalInsights/workspaces@2020-08-01' = {
+  name: workspaceName
+  location: location
+  tags: tags
+  properties: {
+    sku: {
+      name: 'PerGB2018'
+    }
+    retentionInDays: 30
+    workspaceCapping: {}
+  }
+}
+
+resource appInsights 'Microsoft.Insights/components@2020-02-02-preview' = {
+  name: appInsightsName
+  location: location
+  tags: tags
+  kind: 'web'
+  properties: {
+    Application_Type: 'web'
+    Flow_Type: 'Bluefield'
+  }
+}
+
+resource environment 'Microsoft.Web/kubeEnvironments@2021-02-01' = {
+  name: environmentName
+  kind: 'containerenvironment'
+  location: location
+  tags: tags
+  properties: {
+    type: 'managed'
+    internalLoadBalancerEnabled: false
+    appLogsConfiguration: {
+      destination: 'log-analytics'
+      logAnalyticsConfiguration: {
+        customerId: workspace.properties.customerId
+        sharedKey: listKeys(workspace.id, workspace.apiVersion).primarySharedKey
+      }
+    }
+    containerAppsConfiguration: {
+      daprAIInstrumentationKey: appInsights.properties.InstrumentationKey
+    }
+  }
+}
+
+resource weatherServiceContainerApp 'Microsoft.Web/containerapps@2021-03-01' = {
+  name: weatherServiceContainerAppName
+  kind: 'containerapps'
+  tags: tags
+  location: location
+  properties: {
+    kubeEnvironmentId: environment.id
+    configuration: {
+      secrets: [
+        {
+          name: containerRegistryPasswordRef
+          value: containerRegistryPassword
+        }
+      ]
+      registries: [
+        {
+          server: containerRegistry
+          username: containerRegistryUsername
+          passwordSecretRef: containerRegistryPasswordRef
+        }
+      ]
+      ingress: {
+        external: weatherServiceIsExternalIngress
+        targetPort: weatherServicePort
+      }
+    }
+    template: {
+      containers: [
+        {
+          image: weatherServiceImage
+          name: weatherServiceContainerAppName
+          transport: 'auto'
+        }
+      ]
+      scale: {
+        minReplicas: minReplicas
+        maxReplicas: maxReplicas
+      }
+      dapr: {
+        enabled: true
+        appPort: weatherServicePort
+        appId: weatherServiceContainerAppName
+      }
+    }
+  }
+}
+
+resource webServiceContainerApp 'Microsoft.Web/containerapps@2021-03-01' = {
+  name: webServiceContainerAppName
+  kind: 'containerapps'
+  tags: tags
+  location: location
+  properties: {
+    kubeEnvironmentId: environment.id
+    configuration: {
+      secrets: [
+        {
+          name: containerRegistryPasswordRef
+          value: containerRegistryPassword
+        }
+      ]
+      registries: [
+        {
+          server: containerRegistry
+          username: containerRegistryUsername
+          passwordSecretRef: containerRegistryPasswordRef
+        }
+      ]
+      ingress: {
+        external: webServiceIsExternalIngress
+        targetPort: webServicePort
+      }
+    }
+    template: {
+      containers: [
+        {
+          image: webServiceImage
+          name: webServiceContainerAppName
+          transport: 'auto'
+          env: [
+            {
+              name: 'WEATHER_SERVICE_NAME'
+              value: weatherServiceContainerAppName
+            }
+          ]
+        }
+      ]
+      scale: {
+        minReplicas: minReplicas
+        maxReplicas: maxReplicas
+      }
+      dapr: {
+        enabled: true
+        appPort: webServicePort
+        appId: webServiceContainerAppName
+      }
+    }
+  }
+}
+
+output webServiceUrl string = webServiceContainerApp.properties.latestRevisionFqdn
+```
+
+This will deploy two container apps - one for our `WebService` and one for our `WeatherService`. Alongside that we've resources for logging and environments.
+
+## Setting up a resource group
+
+With our Bicep in place, we're going to need a resource group to send it to. Right now, Azure Container Apps aren't available everywhere. So we're going to create ourselves a resource group in North Europe which does support ACAs:
+
+```shell
+az group create -g rg-aca -l northeurope
+```
+
+## Secrets for GitHub Actions
+
+We're aiming to set up a GitHub Action to handle our deployment. This will depend upon a number of secrets:
+
+![Screenshot of the secrets in the GitHub website that we need to create](screenshot-github-secrets.png)
+
+We'll need to create each of these secrets.
+
+### `AZURE_CREDENTIALS` - GitHub logging into Azure
+
+So GitHub Actions can interact with Azure on our behalf, we need to provide it with some credentials. We'll use the Azure CLI to create these:
+
+```shell
+az ad sp create-for-rbac --name "myApp" --role contributor \
+    --scopes /subscriptions/{subscription-id}/resourceGroups/{resource-group} \
+    --sdk-auth
+```
+
+Remember to replace the `{subscription-id}` with your subscription id and `{resource-group}` with the name of your resource group (`rg-aca` if you're following along). This command will pump out a lump of JSON that looks something like this:
+
+```json
+{
+  "clientId": "a-client-id",
+  "clientSecret": "a-client-secret",
+  "subscriptionId": "a-subscription-id",
+  "tenantId": "a-tenant-id",
+  "activeDirectoryEndpointUrl": "https://login.microsoftonline.com",
+  "resourceManagerEndpointUrl": "https://management.azure.com/",
+  "activeDirectoryGraphResourceId": "https://graph.windows.net/",
+  "sqlManagementEndpointUrl": "https://management.core.windows.net:8443/",
+  "galleryEndpointUrl": "https://gallery.azure.com/",
+  "managementEndpointUrl": "https://management.core.windows.net/"
+}
+```
+
+Take this and save it as the `AZURE_CREDENTIALS` secret in Azure.
+
+### `PACKAGES_TOKEN` - Azure accessing the GitHub container registry
+
+We also need a secret for accessing packages from Azure. We're going to be publishing packages to the GitHub container registry. Azure is going to need to be able to access this when we're deploying. ACA deployment works by telling Azure where to look for an image and providing any necessary credentials to do the acquisition. To facilitate this we'll set up a `PACKAGES_TOKEN` secret. This is a GitHub personal access token with the `read:packages` scope. [Follow the instructions here to create the token.](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+
+## Deploying with GitHub Actions
+
+With our secrets configured, we're now well placed to write our GitHub Action. We'll create a `.github/workflows/build-and-deploy.yaml` file in our repository and populate it thusly:
+
+```yaml
+# yaml-language-server: $schema=./build.yaml
+name: Build and Deploy
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    # Publish semver tags as releases.
+    tags: ['v*.*.*']
+  workflow_dispatch:
+
+env:
+  RESOURCE_GROUP: rg-aca
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        services:
+          [
+            { 'imageName': 'node-service', 'directory': './WebService' },
+            { 'imageName': 'dotnet-service', 'directory': './WeatherService' },
+          ]
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image-node: ${{ steps.image-tag.outputs.image-node-service }}
+      image-dotnet: ${{ steps.image-tag.outputs.image-dotnet-service }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Login against a Docker registry except on PR
+      # https://github.com/docker/login-action
+      - name: Log into registry ${{ env.REGISTRY }}
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Extract metadata (tags, labels) for Docker
+      # https://github.com/docker/metadata-action
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.services.imageName }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=ref,event=branch
+            type=sha
+
+      # Build and push Docker image with Buildx (don't push on PR)
+      # https://github.com/docker/build-push-action
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ${{ matrix.services.directory }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Output image tag
+        id: image-tag
+        run: echo "::set-output name=image-${{ matrix.services.imageName }}::${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.services.imageName }}:sha-$(git rev-parse --short HEAD)" | tr '[:upper:]' '[:lower:]'
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy bicep
+        uses: azure/CLI@v1
+        if: github.event_name != 'pull_request'
+        with:
+          inlineScript: |
+            REF_SHA='${{ github.ref }}.${{ github.sha }}'
+            DEPLOYMENT_NAME="${REF_SHA////-}"
+            echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME"
+
+            TAGS='{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
+            az deployment group create \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --name "$DEPLOYMENT_NAME" \
+              --template-file ./infra/main.bicep \
+              --parameters \
+                  branchName='${{ github.head_ref }}' \
+                  webServiceImage='${{ needs.build.outputs.image-node }}' \
+                  webServicePort=3000 \
+                  webServiceIsExternalIngress=true \
+                  weatherServiceImage='${{ needs.build.outputs.image-dotnet }}' \
+                  weatherServicePort=5000 \
+                  weatherServiceIsExternalIngress=false \
+                  containerRegistry=${{ env.REGISTRY }} \
+                  containerRegistryUsername=${{ github.actor }} \
+                  containerRegistryPassword=${{ secrets.PACKAGES_TOKEN }} \
+                  tags="$TAGS"
+```
+
+There's a lot in this workflow. Let's dig into the `build` and `deploy` jobs to see what's happening.
+
+### `build` - building our image
+
+The `build` job is all about building our container images and pushing then to the GitHub registry. It's heavily inspired by [Jeff Hollan](https://twitter.com/jeffhollan)'s [Azure sample app GHA](https://github.com/Azure-Samples/container-apps-store-api-microservice). When we look at the `strategy` we can see a `matrix` of `services` consisting of two services; our node app and our dotnet app:
+
+```yaml
+strategy:
+  matrix:
+    services:
+      [
+        { 'imageName': 'node-service', 'directory': './WebService' },
+        { 'imageName': 'dotnet-service', 'directory': './WeatherService' },
+      ]
+```
+
+This is a matrix because a typical use case of an Azure Container Apps will be multi-container - just as this is. The `outputs` pumps out the details of our `image-node` and `image-dotnet` images to be used later:
+
+```yaml
+outputs:
+  image-node: ${{ steps.image-tag.outputs.image-node-service }}
+  image-dotnet: ${{ steps.image-tag.outputs.image-dotnet-service }}
+```
+
+With that understanding in place, let's examine what each of the steps in the `build` job does
+
+- `Log into registry` - logs into the GitHub container registry
+- `Extract Docker metadata` - acquire tags which will be used for versioning
+- `Build and push Docker image` - build the docker image and if this is not a PR: tag, label and push it to the registry
+- `Output image tag` - write out the image tag for usage in deployment
+
+### `deploy` - shipping our image to Azure
+
+The `deploy` job runs the [`az deployment group create`](https://docs.microsoft.com/en-us/cli/azure/deployment/group?view=azure-cli-latest#az_deployment_group_create) command which performs a deployment of our `main.bicep` file.
+
+```yaml
+- name: Deploy bicep
+  uses: azure/CLI@v1
+  if: github.event_name != 'pull_request'
+  with:
+    inlineScript: |
+      REF_SHA='${{ github.ref }}.${{ github.sha }}'
+      DEPLOYMENT_NAME="${REF_SHA////-}"
+      echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME"
+
+      TAGS='{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
+      az deployment group create \
+        --resource-group ${{ env.RESOURCE_GROUP }} \
+        --name "$DEPLOYMENT_NAME" \
+        --template-file ./infra/main.bicep \
+        --parameters \
+            branchName='${{ github.head_ref }}' \
+            webServiceImage='${{ needs.build.outputs.image-node }}' \
+            webServicePort=3000 \
+            webServiceIsExternalIngress=true \
+            weatherServiceImage='${{ needs.build.outputs.image-dotnet }}' \
+            weatherServicePort=5000 \
+            weatherServiceIsExternalIngress=false \
+            containerRegistry=${{ env.REGISTRY }} \
+            containerRegistryUsername=${{ github.actor }} \
+            containerRegistryPassword=${{ secrets.PACKAGES_TOKEN }} \
+            tags="$TAGS"
+```
+
+In either case we pass the same set of parameters:
+
+```shell
+branchName='${{ github.head_ref }}' \
+webServiceImage='${{ needs.build.outputs.image-node }}' \
+webServicePort=3000 \
+webServiceIsExternalIngress=true \
+weatherServiceImage='${{ needs.build.outputs.image-dotnet }}' \
+weatherServicePort=5000 \
+weatherServiceIsExternalIngress=true \
+containerRegistry=${{ env.REGISTRY }} \
+containerRegistryUsername=${{ github.actor }} \
+containerRegistryPassword=${{ secrets.PACKAGES_TOKEN }} \
+tags="$tags"
+```
+
+These are either:
+
+- secrets we set up earlier
+- environment variables declared at the start of the script or
+- outputs from the build step - this is where we acquire our node image
+
+## Running it
+
+When the GitHub Action has been run you'll find that Azure Container App is now showing up inside the Azure Portal in your resource group, alongside the other resources:
+
+![screenshot of the Azure Container App's resource group in the Azure Portal](screenshot-azure-portal-container-app.png)
+
+And when we take a closer look at the container app, we find a URL we can navigate to:
+
+![screenshot of the Azure Container App in the Azure Portal revealing it's URL](screenshot-azure-portal-container-app-url.png)
+
+Congratulations! You've built and deployed a simple web app to Azure Container Apps with Bicep and GitHub Actions and secrets.
