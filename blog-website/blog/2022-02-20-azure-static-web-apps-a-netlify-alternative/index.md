@@ -226,3 +226,5 @@ This staging environment will last only until the pull request is closed. At tha
 ## Conclusion
 
 In this post we've deployed a website to a Static Web App using GitHub Actions and implemented authentication. We've also demonstrated Azure's equivalent of Netlify's deploy previews; staging environments.
+
+[This post was originally published on LogRocket.](https://blog.logrocket.com/azure-static-web-apps-netlify-alternative/)
