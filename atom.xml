@@ -2,11 +2,781 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.johnnyreilly.com/</id>
     <title>I CAN MAKE THIS WORK Blog</title>
-    <updated>2021-12-29T00:00:00.000Z</updated>
+    <updated>2022-01-22T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.johnnyreilly.com/"/>
     <subtitle>I CAN MAKE THIS WORK Blog</subtitle>
     <icon>https://blog.johnnyreilly.com/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Azure Container Apps: dapr, devcontainer, debug and deploy]]></title>
+        <id>/2022/01/22/azure-container-apps-dapr-bicep-github-actions-debug-devcontainer</id>
+        <link href="https://blog.johnnyreilly.com/2022/01/22/azure-container-apps-dapr-bicep-github-actions-debug-devcontainer"/>
+        <updated>2022-01-22T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[This post shows how to build and deploy two Azure Container Apps using Bicep and GitHub Actions. These apps will communicate using dapr, be built in VS Code using a devcontainer. It will be possible to debug in VS Code and run with docker-compose.]]></summary>
+        <content type="html"><![CDATA[<p>This post shows how to build and deploy two Azure Container Apps using Bicep and GitHub Actions. These apps will communicate using <a href="https://docs.dapr.io/">dapr</a>, be built in <a href="https://code.visualstudio.com/docs/remote/containers">VS Code using a devcontainer</a>. It will be possible to debug in VS Code and run with <code>docker-compose</code>.</p><p>This follows on from the <a href="../2021-12-27-azure-container-apps-build-and-deploy-with-bicep-and-github-actions/index.md">previous post</a> which built and deployed a simple web application to Azure Container Apps using Bicep and GitHub Actions using the GitHub container registry.</p><p><img src="title-image.png" alt="title image reading &quot;Azure Container Apps dapr, devcontainer, debug and deploy&quot;  with the dapr, Bicep, Azure Container Apps and GitHub Actions logos"/></p><h2>What we&#x27;re going to build</h2><p>As an engineer, I&#x27;m productive when:</p><ul><li>Integrating different services together is a turnkey experience and</li><li>I&#x27;m able to easily debug my code</li></ul><p>I&#x27;ve found that using dapr and VS Code I&#x27;m able to achieve both of these goals. I can build an application made up of multiple services, compose them together using dapr and deploy them to Azure Container Apps with relative ease.</p><p>In this post we&#x27;re going to build an example of that from scratch, with a <a href="https://koajs.com/">koa/node.js</a> (built with TypeScript) front end that will communicate with a <a href="https://dotnet.microsoft.com/en-us/">dotnet</a> service via dapr.</p><p>All the work done in this post can be found in the <a href="https://github.com/johnnyreilly/dapr-devcontainer-debug-and-deploy"><code>dapr-devcontainer-debug-and-deploy</code></a> repo. As a note, if you&#x27;re interested in this topic it&#x27;s also worth looking at the <a href="https://github.com/Azure-Samples/container-apps-store-api-microservice"><code>Azure-Samples/container-apps-store-api-microservice</code></a> repo.</p><h2>Setting up our devcontainer</h2><p>The first thing we&#x27;ll do is set up our devcontainer. We&#x27;re going to use a tweaked version of the <a href="https://github.com/microsoft/vscode-dev-containers/tree/main/containers/docker-in-docker">docker-in-docker</a> image from the <a href="https://github.com/microsoft/vscode-dev-containers">vscode-dev-containers</a> repo.</p><p>In the root of our project we&#x27;ll create a <code>.devcontainer</code> folder, and within that a <code>library-scripts</code> folder. There&#x27;s a number of communal scripts from the <a href="https://github.com/microsoft/vscode-dev-containers"><code>vscode-dev-containers</code></a> repo which we&#x27;re going to lift and shift into in our <code>library-scripts</code> folder:</p><ul><li><a href="https://github.com/microsoft/vscode-dev-containers/blob/d93de4632781372d4b4da1699e27ae3a2404c96c/script-library/docker-in-docker-debian.sh">docker-in-docker-debian.sh</a> - for installing Docker in Docker</li><li><a href="https://github.com/microsoft/vscode-dev-containers/blob/d93de4632781372d4b4da1699e27ae3a2404c96c/script-library/azcli-debian.sh">azcli-debian.sh</a> - for installing the Azure CLI</li></ul><p>In the <code>.devcontainer</code> folder we want to create a <code>Dockerfile</code>:</p><pre><code class="language-docker"># [Choice] .NET version: 6.0, 5.0, 3.1, 2.1
+ARG VARIANT=3.1
+FROM mcr.microsoft.com/vscode/devcontainers/dotnet:0-${VARIANT}
+RUN su vscode -c &quot;umask 0002 &amp;&amp; dotnet tool install -g Microsoft.Tye --version \&quot;0.10.0-alpha.21420.1\&quot; 2&gt;&amp;1&quot;
+
+# [Choice] Node.js version: none, lts/*, 16, 14, 12, 10
+ARG NODE_VERSION=&quot;14&quot;
+RUN if [ &quot;${NODE_VERSION}&quot; != &quot;none&quot; ]; then su vscode -c &quot;umask 0002 &amp;&amp; . /usr/local/share/nvm/nvm.sh &amp;&amp; nvm install ${NODE_VERSION} 2&gt;&amp;1&quot;; fi
+
+# [Option] Install Azure CLI
+ARG INSTALL_AZURE_CLI=&quot;false&quot;
+COPY library-scripts/azcli-debian.sh /tmp/library-scripts/
+RUN if [ &quot;$INSTALL_AZURE_CLI&quot; = &quot;true&quot; ]; then bash /tmp/library-scripts/azcli-debian.sh; fi \
+    &amp;&amp; apt-get clean -y &amp;&amp; rm -rf /var/lib/apt/lists/* /tmp/library-scripts \
+    &amp;&amp; az bicep install
+
+# [Option] Enable non-root Docker access in container
+ARG ENABLE_NONROOT_DOCKER=&quot;true&quot;
+# [Option] Use the OSS Moby CLI instead of the licensed Docker CLI
+ARG USE_MOBY=&quot;true&quot;
+# [Option] Engine/CLI Version
+ARG DOCKER_VERSION=&quot;latest&quot;
+
+# Enable new &quot;BUILDKIT&quot; mode for Docker CLI
+ENV DOCKER_BUILDKIT=1
+
+ARG USERNAME=vscode
+
+# Install needed packages and setup non-root user. Use a separate RUN statement to add your
+# own dependencies. A user of &quot;automatic&quot; attempts to reuse an user ID if one already exists.
+COPY library-scripts/docker-in-docker-debian.sh /tmp/library-scripts/
+RUN apt-get update \
+    &amp;&amp; apt-get install python3-pip -y \
+# Use Docker script from script library to set things up
+    &amp;&amp; /bin/bash /tmp/library-scripts/docker-in-docker-debian.sh &quot;${ENABLE_NONROOT_DOCKER}&quot; &quot;${USERNAME}&quot; &quot;${USE_MOBY}&quot; &quot;${DOCKER_VERSION}&quot;
+
+# Install Dapr
+RUN wget -q https://raw.githubusercontent.com/dapr/cli/master/install/install.sh -O - | /bin/bash \
+    # Clean up
+    &amp;&amp; apt-get autoremove -y &amp;&amp; apt-get clean -y &amp;&amp; rm -rf /var/lib/apt/lists/* /tmp/library-scripts/
+
+# Add daprd to the path for the VS Code Dapr extension.
+ENV PATH=&quot;${PATH}:/home/${USERNAME}/.dapr/bin&quot;
+
+# Install Tye
+ENV PATH=/home/${USERNAME}/.dotnet/tools:$PATH
+
+VOLUME [ &quot;/var/lib/docker&quot; ]
+
+# Setting the ENTRYPOINT to docker-init.sh will configure non-root access
+# to the Docker socket. The script will also execute CMD as needed.
+ENTRYPOINT [ &quot;/usr/local/share/docker-init.sh&quot; ]
+CMD [ &quot;sleep&quot;, &quot;infinity&quot; ]
+
+# [Optional] Uncomment this section to install additional OS packages.
+# RUN apt-get update &amp;&amp; export DEBIAN_FRONTEND=noninteractive \
+#     &amp;&amp; apt-get -y install --no-install-recommends &lt;your-package-list-here&gt;
+</code></pre><p>The above is a loose riff on the <a href="https://github.com/microsoft/vscode-dev-containers/blob/main/containers/docker-in-docker/.devcontainer/Dockerfile">docker-in-docker Dockerfile</a>, lovingly mixed with the <a href="https://github.com/Azure-Samples/container-apps-store-api-microservice/blob/main/.devcontainer/Dockerfile">Azure-Samples container-apps Dockerfile</a>.</p><p>It installs the following:</p><ul><li>Dot Net</li><li>Node.js</li><li>the Azure CLI</li><li>Docker</li><li>Bicep</li><li>Dapr</li></ul><p>Now we have our <code>Dockerfile</code>, we need a <code>devcontainer.json</code> to go with it:</p><pre><code class="language-json">// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.205.0/containers/dapr-dotnet
+{
+  &quot;name&quot;: &quot;dapr&quot;,
+  &quot;build&quot;: {
+    &quot;dockerfile&quot;: &quot;Dockerfile&quot;,
+    &quot;args&quot;: {
+      // Update &#x27;VARIANT&#x27; to pick a .NET Core version: 3.1, 5.0, 6.0
+      &quot;VARIANT&quot;: &quot;6.0&quot;,
+      // Options
+      &quot;NODE_VERSION&quot;: &quot;lts/*&quot;,
+      &quot;INSTALL_AZURE_CLI&quot;: &quot;true&quot;
+    }
+  },
+  &quot;runArgs&quot;: [&quot;--init&quot;, &quot;--privileged&quot;],
+  &quot;mounts&quot;: [&quot;source=dind-var-lib-docker,target=/var/lib/docker,type=volume&quot;],
+  &quot;overrideCommand&quot;: false,
+
+  // Use this environment variable if you need to bind mount your local source code into a new container.
+  &quot;remoteEnv&quot;: {
+    &quot;LOCAL_WORKSPACE_FOLDER&quot;: &quot;${localWorkspaceFolder}&quot;,
+    &quot;PATH&quot;: &quot;/home/vscode/.dapr/bin/:/home/vscode/.dotnet/tools:$PATH${containerEnv:PATH}&quot;
+  },
+
+  // Set *default* container specific settings.json values on container create.
+  &quot;settings&quot;: {},
+
+  // Add the IDs of extensions you want installed when the container is created.
+  &quot;extensions&quot;: [
+    &quot;ms-azuretools.vscode-dapr&quot;,
+    &quot;ms-azuretools.vscode-docker&quot;,
+    &quot;ms-dotnettools.csharp&quot;,
+    &quot;ms-vscode.azurecli&quot;,
+    &quot;ms-azuretools.vscode-bicep&quot;
+  ],
+
+  // Use &#x27;forwardPorts&#x27; to make a list of ports inside the container available locally.
+  // &quot;forwardPorts&quot;: [],
+
+  // Ensure Dapr is running on opening the container
+  &quot;postCreateCommand&quot;: &quot;dapr uninstall --all &amp;&amp; dapr init&quot;,
+
+  // Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  &quot;remoteUser&quot;: &quot;vscode&quot;,
+  &quot;features&quot;: {
+    &quot;azure-cli&quot;: &quot;latest&quot;
+  }
+}
+</code></pre><p>The above will:</p><ul><li>install Node 16 / dotnet 6 and the latest Azure CLI</li><li>install a number of VS Code extensions related to dapr / Docker / Bicep / Azure / C#</li><li>install dapr when the container starts</li></ul><p>We&#x27;re ready! Reopen your repo in a container (it will take a while first time out) and you&#x27;ll be ready to go.</p><h2>Create a dotnet service</h2><p>Now we&#x27;re going to create a dotnet service. The aim of this post is not to build a specific application, but rather to demonstrate how simple service to service communication is with dapr. So we&#x27;ll use the web api template that ships with dotnet 6. That arrives with a fake weather API included, so we&#x27;ll name our service accordingly:</p><pre><code class="language-shell">dotnet new webapi -o WeatherService
+</code></pre><p>Inside the created <code>Program.cs</code>, find the following line and delete it:</p><pre><code class="language-cs">app.UseHttpsRedirection();
+</code></pre><p>HTTPS is important, however Azure Container Apps are going to tackle that for us.</p><h2>Create a Node.js service (with Koa)</h2><p>Creating our dotnet service was very simple. We&#x27;re now going to create a web app with Node.js and Koa that calls our dotnet service. This will be a little more complicated - but still surprisingly simple thanks to the great API choices of dapr.</p><p>Let&#x27;s make that service:</p><pre><code class="language-shell">mkdir WebService
+cd WebService
+npm init -y
+npm install koa axios --save
+npm install @types/koa @types/node @types/axios typescript --save-dev
+</code></pre><p>We&#x27;re installing the following:</p><ul><li><a href="https://koajs.com/">koa</a> - the web framework we&#x27;re going to use</li><li><a href="https://axios-http.com/">axios</a> - to make calls to our dotnet service via HTTP / dapr</li><li><a href="https://www.typescriptlang.org/">TypeScript</a> and associated type definitions, so we can take advantage of static typing. Admittedly since we&#x27;re building a minimal example this is not super beneficial; but TS makes me happy and I&#x27;d certainly want static typing in place if going beyond a simple example. Start as you mean to go on.</li></ul><p>We&#x27;ll create a <code>tsconfig.json</code>:</p><pre><code class="language-json">{
+  &quot;compilerOptions&quot;: {
+    &quot;esModuleInterop&quot;: true,
+    &quot;module&quot;: &quot;commonjs&quot;,
+    &quot;target&quot;: &quot;es2017&quot;,
+    &quot;noImplicitAny&quot;: true,
+    &quot;outDir&quot;: &quot;./dist&quot;,
+    &quot;strict&quot;: true,
+    &quot;sourceMap&quot;: true
+  }
+}
+</code></pre><p>We&#x27;ll update the <code>scripts</code> section of our <code>package.json</code> like so:</p><pre><code class="language-json">  &quot;scripts&quot;: {
+    &quot;build&quot;: &quot;tsc&quot;,
+    &quot;start&quot;: &quot;node dist/index.js&quot;
+  },
+</code></pre><p>So we can build and start our web app. Now let&#x27;s write it!</p><p>We&#x27;re going to create an <code>index.ts</code> file:</p><pre><code class="language-ts">import Koa from &#x27;koa&#x27;;
+import axios from &#x27;axios&#x27;;
+
+// How we connect to the dotnet service with dapr
+const daprSidecarBaseUrl = `http://localhost:${
+  process.env.DAPR_HTTP_PORT || 3501
+}`;
+// app id header for service discovery
+const weatherServiceAppIdHeaders = {
+  &#x27;dapr-app-id&#x27;: process.env.WEATHER_SERVICE_NAME || &#x27;dotnet-app&#x27;,
+};
+
+const app = new Koa();
+
+app.use(async (ctx) =&gt; {
+  try {
+    const data = await axios.get&lt;WeatherForecast[]&gt;(
+      `${daprSidecarBaseUrl}/weatherForecast`,
+      {
+        headers: weatherServiceAppIdHeaders,
+      }
+    );
+
+    ctx.body = `And the weather today will be ${data.data[0].summary}`;
+  } catch (exc) {
+    console.error(&#x27;Problem calling weather service&#x27;, exc);
+    ctx.body = &#x27;Something went wrong!&#x27;;
+  }
+});
+
+const portNumber = 3000;
+app.listen(portNumber);
+console.log(`listening on port ${portNumber}`);
+
+interface WeatherForecast {
+  date: string;
+  temperatureC: number;
+  temperatureF: number;
+  summary: string;
+}
+</code></pre><p>The above code is fairly simple but is achieving quite a lot. It:</p><ul><li>uses various environment variables to construct the URLs / headers which allow connecting to the dapr sidecar running alongside the app, and consequently to the weather service through the dapr sidecar running alongside the weather service. We&#x27;re going to set up the environment variables which this code relies upon later.</li><li>spins up a web server with koa on port 3000</li><li>that web server, when sent an HTTP request, will call the <code>weatherForecast</code> endpoint of the dotnet app. It will grab what comes back, take the first entry in there and surface that up as the weather forecast.</li><li>We&#x27;re also defining a <code>WeatherForecast</code> interface to represent the type of the data that comes back from the dotnet service</li></ul><p>It&#x27;s worth dwelling for a moment on the simplicity that dapr is affording us here. We&#x27;re able to make HTTP requests to our dotnet service just like they were any other service running locally. What&#x27;s actually happening is illustrated by the diagram below:</p><p><img src="./dapr-sidecar.drawio.svg" alt="a diagram showing traffic going from the web service to the weather service and back again via dapr"/></p><p>We&#x27;re making HTTP requests from the web service, which look like they&#x27;re going directly to the weather service. But in actual fact, they&#x27;re being routed through dapr sidecars until they reach their destination. Why is this fantastic? Well there&#x27;s two things we aren&#x27;t having to think about here:</p><ul><li>certificates</li><li>inter-service authentication</li></ul><p>Both of these can be complex and burn a large amount of engineering time. Because we&#x27;re using dapr it&#x27;s not a problem we have to solve. Isn&#x27;t that great?</p><h2>Debugging dapr in VS Code</h2><p>We want to be able to debug this code. We can achieve that in VS Code by setting a <a href="https://code.visualstudio.com/docs/editor/debugging#_launchjson-attributes"><code>launch.json</code></a> and a <a href="https://code.visualstudio.com/docs/editor/tasks"><code>tasks.json</code></a> file.</p><p>First of all we&#x27;ll create a <code>launch.json</code> file in the <code>.vscode</code> folder of our repo:</p><pre><code class="language-json">{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  &quot;version&quot;: &quot;0.2.0&quot;,
+  &quot;compounds&quot;: [
+    {
+      &quot;name&quot;: &quot;All Container Apps&quot;,
+      &quot;configurations&quot;: [&quot;WeatherService&quot;, &quot;WebService&quot;],
+      &quot;presentation&quot;: {
+        &quot;hidden&quot;: false,
+        &quot;group&quot;: &quot;Containers&quot;,
+        &quot;order&quot;: 1
+      }
+    }
+  ],
+  &quot;configurations&quot;: [
+    {
+      &quot;name&quot;: &quot;WeatherService&quot;,
+      &quot;type&quot;: &quot;coreclr&quot;,
+      &quot;request&quot;: &quot;launch&quot;,
+      &quot;preLaunchTask&quot;: &quot;daprd-debug-dotnet&quot;,
+      &quot;postDebugTask&quot;: &quot;daprd-down-dotnet&quot;,
+      &quot;program&quot;: &quot;${workspaceFolder}/WeatherService/bin/Debug/net6.0/WeatherService.dll&quot;,
+      &quot;args&quot;: [],
+      &quot;cwd&quot;: &quot;${workspaceFolder}&quot;,
+      &quot;stopAtEntry&quot;: false,
+      &quot;env&quot;: {
+        &quot;DOTNET_ENVIRONMENT&quot;: &quot;Development&quot;,
+        &quot;DOTNET_URLS&quot;: &quot;http://localhost:5000&quot;,
+        &quot;DAPR_HTTP_PORT&quot;: &quot;3500&quot;,
+        &quot;DAPR_GRPC_PORT&quot;: &quot;50000&quot;,
+        &quot;DAPR_METRICS_PORT&quot;: &quot;9090&quot;
+      }
+    },
+
+    {
+      &quot;name&quot;: &quot;WebService&quot;,
+      &quot;type&quot;: &quot;node&quot;,
+      &quot;request&quot;: &quot;launch&quot;,
+      &quot;preLaunchTask&quot;: &quot;daprd-debug-node&quot;,
+      &quot;postDebugTask&quot;: &quot;daprd-down-node&quot;,
+      &quot;program&quot;: &quot;${workspaceFolder}/WebService/index.ts&quot;,
+      &quot;cwd&quot;: &quot;${workspaceFolder}&quot;,
+      &quot;env&quot;: {
+        &quot;NODE_ENV&quot;: &quot;development&quot;,
+        &quot;PORT&quot;: &quot;3000&quot;,
+        &quot;DAPR_HTTP_PORT&quot;: &quot;3501&quot;,
+        &quot;DAPR_GRPC_PORT&quot;: &quot;50001&quot;,
+        &quot;DAPR_METRICS_PORT&quot;: &quot;9091&quot;,
+        &quot;WEATHER_SERVICE_NAME&quot;: &quot;dotnet-app&quot;
+      },
+      &quot;protocol&quot;: &quot;inspector&quot;,
+      &quot;outFiles&quot;: [&quot;${workspaceFolder}/WebService/dist/**/*.js&quot;],
+      &quot;serverReadyAction&quot;: {
+        &quot;action&quot;: &quot;openExternally&quot;
+      }
+    }
+  ]
+}
+</code></pre><p>The things to note about this are:</p><ul><li>we create a Node.js (&quot;WebService&quot;) and a dotnet (&quot;WeatherService&quot;) configuration. These are referenced by the <code>All Container Apps</code> compound. Kicking off that will start both the Node.js and the dotnet apps.</li><li>The Node.js app runs a <code>daprd-debug-node</code> task prior to launch and a <code>daprd-down-node</code> task when debugging completes. Comparable tasks are run by the dotnet container - we&#x27;ll look at these in a moment.</li><li>Various environment variables are configured, most of which control the behaviour of dapr. When we&#x27;re debugging locally we&#x27;ll be using some non-typical ports to accomodate multiple dapr sidecars being in play at the same time. Note also the <code>&quot;WEATHER_SERVICE_NAME&quot;: &quot;dotnet-app&quot;</code> - it&#x27;s this that allows the WebService to communicate with the WeatherService - <code>dotnet-app</code> is the <code>appId</code> used to identify a service with dapr. We&#x27;ll see that as we configure our <code>tasks.json</code>.</li></ul><p>Here&#x27;s the <code>tasks.json</code> we must make:</p><pre><code class="language-json">{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  &quot;version&quot;: &quot;2.0.0&quot;,
+  &quot;tasks&quot;: [
+    {
+      &quot;label&quot;: &quot;dotnet-build&quot;,
+      &quot;command&quot;: &quot;dotnet&quot;,
+      &quot;type&quot;: &quot;process&quot;,
+      &quot;args&quot;: [
+        &quot;build&quot;,
+        &quot;${workspaceFolder}/WeatherService/WeatherService.csproj&quot;,
+        &quot;/property:GenerateFullPaths=true&quot;,
+        &quot;/consoleloggerparameters:NoSummary&quot;
+      ],
+      &quot;problemMatcher&quot;: &quot;$msCompile&quot;
+    },
+    {
+      &quot;label&quot;: &quot;daprd-debug-dotnet&quot;,
+      &quot;appId&quot;: &quot;dotnet-app&quot;,
+      &quot;appPort&quot;: 5000,
+      &quot;httpPort&quot;: 3500,
+      &quot;grpcPort&quot;: 50000,
+      &quot;metricsPort&quot;: 9090,
+      &quot;type&quot;: &quot;daprd&quot;,
+      &quot;dependsOn&quot;: [&quot;dotnet-build&quot;]
+    },
+    {
+      &quot;label&quot;: &quot;daprd-down-dotnet&quot;,
+      &quot;appId&quot;: &quot;dotnet-app&quot;,
+      &quot;type&quot;: &quot;daprd-down&quot;
+    },
+
+    {
+      &quot;label&quot;: &quot;npm-install&quot;,
+      &quot;type&quot;: &quot;shell&quot;,
+      &quot;command&quot;: &quot;npm install&quot;,
+      &quot;options&quot;: {
+        &quot;cwd&quot;: &quot;${workspaceFolder}/WebService&quot;
+      }
+    },
+    {
+      &quot;label&quot;: &quot;webservice-build&quot;,
+      &quot;type&quot;: &quot;typescript&quot;,
+      &quot;tsconfig&quot;: &quot;WebService/tsconfig.json&quot;,
+      &quot;problemMatcher&quot;: [&quot;$tsc&quot;],
+      &quot;group&quot;: {
+        &quot;kind&quot;: &quot;build&quot;,
+        &quot;isDefault&quot;: true
+      },
+      &quot;dependsOn&quot;: [&quot;npm-install&quot;]
+    },
+    {
+      &quot;label&quot;: &quot;daprd-debug-node&quot;,
+      &quot;appId&quot;: &quot;node-app&quot;,
+      &quot;appPort&quot;: 3000,
+      &quot;httpPort&quot;: 3501,
+      &quot;grpcPort&quot;: 50001,
+      &quot;metricsPort&quot;: 9091,
+      &quot;type&quot;: &quot;daprd&quot;,
+      &quot;dependsOn&quot;: [&quot;webservice-build&quot;]
+    },
+    {
+      &quot;label&quot;: &quot;daprd-down-node&quot;,
+      &quot;appId&quot;: &quot;node-app&quot;,
+      &quot;type&quot;: &quot;daprd-down&quot;
+    }
+  ]
+}
+</code></pre><p>There&#x27;s two sets of tasks here; one for the WeatherService and one for the WebService. You&#x27;ll see some commonalities here. For each service there&#x27;s a <code>daprd</code> task that depends upon the relevant service being built and passes the various ports for the dapr sidecar to run on that runs just before debugging kicks off. To go with that, there&#x27;s a <code>daprd-down</code> task for each service that runs when debugging finishes and shuts down dapr.</p><p>We&#x27;re now ready to debug our app. Let&#x27;s hit F5.</p><p><img src="./debugging.png" alt="screenshot of debugging the index.ts file in VS Code"/></p><p>And if we look at our browser:</p><p><img src="./app-running.png" alt="screenshot of browsing Firefox at http://localhost:3000 and seeing &quot;And the weather today will be Freezing&quot; in the output"/></p><p>It works! We&#x27;re running a Node.js WebService which, when called, is communicating with our dotnet WeatherService and surfacing up the results. Brilliant!</p><h2>Containerising our services with Docker</h2><p>Before we can deploy each of our services, they need to be containerised.</p><p>First let&#x27;s add a <code>Dockerfile</code> to the <code>WeatherService</code> folder:</p><pre><code class="language-docker">FROM mcr.microsoft.com/dotnet/sdk:6.0 as build
+WORKDIR /app
+COPY . .
+RUN dotnet restore
+RUN dotnet publish -o /app/publish
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 as runtime
+WORKDIR /app
+COPY --from=build /app/publish /app
+
+ENV DOTNET_ENVIRONMENT=Production
+ENV ASPNETCORE_URLS=&#x27;http://+:5000&#x27;
+EXPOSE 5000
+ENTRYPOINT [ &quot;dotnet&quot;, &quot;/app/WeatherService.dll&quot; ]
+</code></pre><p>Then we&#x27;ll add a <code>Dockerfile</code> to the <code>WebService</code> folder:</p><pre><code class="language-docker">FROM node:16 AS build
+WORKDIR /app
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+FROM node:16 AS runtime
+WORKDIR /app
+COPY --from=build /app/dist /app
+COPY --from=build /app/package.json /app
+COPY --from=build /app/package-lock.json /app
+RUN npm install
+
+ENV NODE_ENV production
+EXPOSE 3000
+ENTRYPOINT [ &quot;node&quot;, &quot;/app/index.js&quot; ]
+</code></pre><p>Likely these <code>Dockerfile</code>s could be optimised further; but we&#x27;re not focussed on that just now. What we have now are two simple <code>Dockerfile</code>s that will give us images we can run. Given that one depends on the other it makes sense to bring them together with a <code>docker-compose.yml</code> file which we&#x27;ll place in the root of the repo:</p><pre><code class="language-yml">version: &#x27;3.4&#x27;
+
+services:
+  weatherservice:
+    image: ${REGISTRY:-weatherservice}:${TAG:-latest}
+    build:
+      context: ./WeatherService
+      dockerfile: Dockerfile
+    ports:
+      - &#x27;50000:50000&#x27; # Dapr instances communicate over gRPC so we need to expose the gRPC port
+    environment:
+      DOTNET_ENVIRONMENT: &#x27;Development&#x27;
+      ASPNETCORE_URLS: &#x27;http://+:5000&#x27;
+      DAPR_HTTP_PORT: 3500
+      DAPR_GRPC_PORT: 50000
+      DAPR_METRICS_PORT: 9090
+
+  weatherservice-dapr:
+    image: &#x27;daprio/daprd:latest&#x27;
+    command:
+      [
+        &#x27;./daprd&#x27;,
+        &#x27;-app-id&#x27;,
+        &#x27;dotnet-app&#x27;,
+        &#x27;-app-port&#x27;,
+        &#x27;5000&#x27;,
+        &#x27;-dapr-http-port&#x27;,
+        &#x27;3500&#x27;,
+        &#x27;-placement-host-address&#x27;,
+        &#x27;placement:50006&#x27;,
+      ]
+    network_mode: &#x27;service:weatherservice&#x27;
+    depends_on:
+      - weatherservice
+
+  webservice:
+    image: ${REGISTRY:-webservice}:${TAG:-latest}
+    ports:
+      - &#x27;3000:3000&#x27; # The web front end port
+      - &#x27;50001:50001&#x27; # Dapr instances communicate over gRPC so we need to expose the gRPC port
+    build:
+      context: ./WebService
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: &#x27;development&#x27;
+      PORT: &#x27;3000&#x27;
+      DAPR_HTTP_PORT: 3501
+      DAPR_GRPC_PORT: 50001
+      DAPR_METRICS_PORT: 9091
+      WEATHER_SERVICE_NAME: &#x27;dotnet-app&#x27;
+
+  webservice-dapr:
+    image: &#x27;daprio/daprd:latest&#x27;
+    command: [
+        &#x27;./daprd&#x27;,
+        &#x27;-app-id&#x27;,
+        &#x27;node-app&#x27;,
+        &#x27;-app-port&#x27;,
+        &#x27;3000&#x27;,
+        &#x27;-dapr-http-port&#x27;,
+        &#x27;3501&#x27;,
+        &#x27;-placement-host-address&#x27;,
+        &#x27;placement:50006&#x27;, # Dapr&#x27;s placement service can be reach via the docker DNS entry
+      ]
+    network_mode: &#x27;service:webservice&#x27;
+    depends_on:
+      - webservice
+
+  dapr-placement:
+    image: &#x27;daprio/dapr:latest&#x27;
+    command: [&#x27;./placement&#x27;, &#x27;-port&#x27;, &#x27;50006&#x27;]
+    ports:
+      - &#x27;50006:50006&#x27;
+</code></pre><p>With this in place we can run <code>docker-compose up</code> and bring up our application locally.</p><p>And now we have docker images built, we can look at deploying them.</p><h2>Deploying to Azure</h2><p>At this point we have pretty much everything we need in terms of application code and the ability to build and debug it. Now we&#x27;d like to deploy it to Azure.</p><p>Let&#x27;s begin with the Bicep required to deploy our Azure Container Apps.</p><p>In our repository we&#x27;ll create an <code>infra</code> directory, into which we&#x27;ll place a <code>main.bicep</code> file which will contain our Bicep template:</p><pre><code class="language-bicep">param branchName string
+
+param webServiceImage string
+param webServicePort int
+param webServiceIsExternalIngress bool
+
+param weatherServiceImage string
+param weatherServicePort int
+param weatherServiceIsExternalIngress bool
+
+param containerRegistry string
+param containerRegistryUsername string
+@secure()
+param containerRegistryPassword string
+
+param tags object
+
+var location = resourceGroup().location
+var minReplicas = 0
+var maxReplicas = 1
+
+var branch = toLower(last(split(branchName, &#x27;/&#x27;)))
+
+var environmentName = &#x27;${branch}-env&#x27;
+var workspaceName = &#x27;${branch}-log-analytics&#x27;
+var appInsightsName = &#x27;${branch}-app-insights&#x27;
+var webServiceContainerAppName = &#x27;${branch}-web&#x27;
+var weatherServiceContainerAppName = &#x27;${branch}-weather&#x27;
+
+var containerRegistryPasswordRef = &#x27;container-registry-password&#x27;
+
+resource workspace &#x27;Microsoft.OperationalInsights/workspaces@2020-08-01&#x27; = {
+  name: workspaceName
+  location: location
+  tags: tags
+  properties: {
+    sku: {
+      name: &#x27;PerGB2018&#x27;
+    }
+    retentionInDays: 30
+    workspaceCapping: {}
+  }
+}
+
+resource appInsights &#x27;Microsoft.Insights/components@2020-02-02-preview&#x27; = {
+  name: appInsightsName
+  location: location
+  tags: tags
+  kind: &#x27;web&#x27;
+  properties: {
+    Application_Type: &#x27;web&#x27;
+    Flow_Type: &#x27;Bluefield&#x27;
+  }
+}
+
+resource environment &#x27;Microsoft.Web/kubeEnvironments@2021-02-01&#x27; = {
+  name: environmentName
+  kind: &#x27;containerenvironment&#x27;
+  location: location
+  tags: tags
+  properties: {
+    type: &#x27;managed&#x27;
+    internalLoadBalancerEnabled: false
+    appLogsConfiguration: {
+      destination: &#x27;log-analytics&#x27;
+      logAnalyticsConfiguration: {
+        customerId: workspace.properties.customerId
+        sharedKey: listKeys(workspace.id, workspace.apiVersion).primarySharedKey
+      }
+    }
+    containerAppsConfiguration: {
+      daprAIInstrumentationKey: appInsights.properties.InstrumentationKey
+    }
+  }
+}
+
+resource weatherServiceContainerApp &#x27;Microsoft.Web/containerapps@2021-03-01&#x27; = {
+  name: weatherServiceContainerAppName
+  kind: &#x27;containerapps&#x27;
+  tags: tags
+  location: location
+  properties: {
+    kubeEnvironmentId: environment.id
+    configuration: {
+      secrets: [
+        {
+          name: containerRegistryPasswordRef
+          value: containerRegistryPassword
+        }
+      ]
+      registries: [
+        {
+          server: containerRegistry
+          username: containerRegistryUsername
+          passwordSecretRef: containerRegistryPasswordRef
+        }
+      ]
+      ingress: {
+        external: weatherServiceIsExternalIngress
+        targetPort: weatherServicePort
+      }
+    }
+    template: {
+      containers: [
+        {
+          image: weatherServiceImage
+          name: weatherServiceContainerAppName
+          transport: &#x27;auto&#x27;
+        }
+      ]
+      scale: {
+        minReplicas: minReplicas
+        maxReplicas: maxReplicas
+      }
+      dapr: {
+        enabled: true
+        appPort: weatherServicePort
+        appId: weatherServiceContainerAppName
+      }
+    }
+  }
+}
+
+resource webServiceContainerApp &#x27;Microsoft.Web/containerapps@2021-03-01&#x27; = {
+  name: webServiceContainerAppName
+  kind: &#x27;containerapps&#x27;
+  tags: tags
+  location: location
+  properties: {
+    kubeEnvironmentId: environment.id
+    configuration: {
+      secrets: [
+        {
+          name: containerRegistryPasswordRef
+          value: containerRegistryPassword
+        }
+      ]
+      registries: [
+        {
+          server: containerRegistry
+          username: containerRegistryUsername
+          passwordSecretRef: containerRegistryPasswordRef
+        }
+      ]
+      ingress: {
+        external: webServiceIsExternalIngress
+        targetPort: webServicePort
+      }
+    }
+    template: {
+      containers: [
+        {
+          image: webServiceImage
+          name: webServiceContainerAppName
+          transport: &#x27;auto&#x27;
+          env: [
+            {
+              name: &#x27;WEATHER_SERVICE_NAME&#x27;
+              value: weatherServiceContainerAppName
+            }
+          ]
+        }
+      ]
+      scale: {
+        minReplicas: minReplicas
+        maxReplicas: maxReplicas
+      }
+      dapr: {
+        enabled: true
+        appPort: webServicePort
+        appId: webServiceContainerAppName
+      }
+    }
+  }
+}
+
+output webServiceUrl string = webServiceContainerApp.properties.latestRevisionFqdn
+</code></pre><p>This will deploy two container apps - one for our <code>WebService</code> and one for our <code>WeatherService</code>. Alongside that we&#x27;ve resources for logging and environments.</p><h2>Setting up a resource group</h2><p>With our Bicep in place, we&#x27;re going to need a resource group to send it to. Right now, Azure Container Apps aren&#x27;t available everywhere. So we&#x27;re going to create ourselves a resource group in North Europe which does support ACAs:</p><pre><code class="language-shell">az group create -g rg-aca -l northeurope
+</code></pre><h2>Secrets for GitHub Actions</h2><p>We&#x27;re aiming to set up a GitHub Action to handle our deployment. This will depend upon a number of secrets:</p><p><img src="screenshot-github-secrets.png" alt="Screenshot of the secrets in the GitHub website that we need to create"/></p><p>We&#x27;ll need to create each of these secrets.</p><h3><code>AZURE_CREDENTIALS</code> - GitHub logging into Azure</h3><p>So GitHub Actions can interact with Azure on our behalf, we need to provide it with some credentials. We&#x27;ll use the Azure CLI to create these:</p><pre><code class="language-shell">az ad sp create-for-rbac --name &quot;myApp&quot; --role contributor \
+    --scopes /subscriptions/{subscription-id}/resourceGroups/{resource-group} \
+    --sdk-auth
+</code></pre><p>Remember to replace the <code>{subscription-id}</code> with your subscription id and <code>{resource-group}</code> with the name of your resource group (<code>rg-aca</code> if you&#x27;re following along). This command will pump out a lump of JSON that looks something like this:</p><pre><code class="language-json">{
+  &quot;clientId&quot;: &quot;a-client-id&quot;,
+  &quot;clientSecret&quot;: &quot;a-client-secret&quot;,
+  &quot;subscriptionId&quot;: &quot;a-subscription-id&quot;,
+  &quot;tenantId&quot;: &quot;a-tenant-id&quot;,
+  &quot;activeDirectoryEndpointUrl&quot;: &quot;https://login.microsoftonline.com&quot;,
+  &quot;resourceManagerEndpointUrl&quot;: &quot;https://management.azure.com/&quot;,
+  &quot;activeDirectoryGraphResourceId&quot;: &quot;https://graph.windows.net/&quot;,
+  &quot;sqlManagementEndpointUrl&quot;: &quot;https://management.core.windows.net:8443/&quot;,
+  &quot;galleryEndpointUrl&quot;: &quot;https://gallery.azure.com/&quot;,
+  &quot;managementEndpointUrl&quot;: &quot;https://management.core.windows.net/&quot;
+}
+</code></pre><p>Take this and save it as the <code>AZURE_CREDENTIALS</code> secret in Azure.</p><h3><code>PACKAGES_TOKEN</code> - Azure accessing the GitHub container registry</h3><p>We also need a secret for accessing packages from Azure. We&#x27;re going to be publishing packages to the GitHub container registry. Azure is going to need to be able to access this when we&#x27;re deploying. ACA deployment works by telling Azure where to look for an image and providing any necessary credentials to do the acquisition. To facilitate this we&#x27;ll set up a <code>PACKAGES_TOKEN</code> secret. This is a GitHub personal access token with the <code>read:packages</code> scope. <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">Follow the instructions here to create the token.</a></p><h2>Deploying with GitHub Actions</h2><p>With our secrets configured, we&#x27;re now well placed to write our GitHub Action. We&#x27;ll create a <code>.github/workflows/build-and-deploy.yaml</code> file in our repository and populate it thusly:</p><pre><code class="language-yaml"># yaml-language-server: $schema=./build.yaml
+name: Build and Deploy
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    # Publish semver tags as releases.
+    tags: [&#x27;v*.*.*&#x27;]
+  workflow_dispatch:
+
+env:
+  RESOURCE_GROUP: rg-aca
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        services:
+          [
+            { &#x27;imageName&#x27;: &#x27;node-service&#x27;, &#x27;directory&#x27;: &#x27;./WebService&#x27; },
+            { &#x27;imageName&#x27;: &#x27;dotnet-service&#x27;, &#x27;directory&#x27;: &#x27;./WeatherService&#x27; },
+          ]
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image-node: ${{ steps.image-tag.outputs.image-node-service }}
+      image-dotnet: ${{ steps.image-tag.outputs.image-dotnet-service }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Login against a Docker registry except on PR
+      # https://github.com/docker/login-action
+      - name: Log into registry ${{ env.REGISTRY }}
+        if: github.event_name != &#x27;pull_request&#x27;
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Extract metadata (tags, labels) for Docker
+      # https://github.com/docker/metadata-action
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.services.imageName }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=ref,event=branch
+            type=sha
+
+      # Build and push Docker image with Buildx (don&#x27;t push on PR)
+      # https://github.com/docker/build-push-action
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ${{ matrix.services.directory }}
+          push: ${{ github.event_name != &#x27;pull_request&#x27; }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Output image tag
+        id: image-tag
+        run: echo &quot;::set-output name=image-${{ matrix.services.imageName }}::${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.services.imageName }}:sha-$(git rev-parse --short HEAD)&quot; | tr &#x27;[:upper:]&#x27; &#x27;[:lower:]&#x27;
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy bicep
+        uses: azure/CLI@v1
+        if: github.event_name != &#x27;pull_request&#x27;
+        with:
+          inlineScript: |
+            REF_SHA=&#x27;${{ github.ref }}.${{ github.sha }}&#x27;
+            DEPLOYMENT_NAME=&quot;${REF_SHA////-}&quot;
+            echo &quot;DEPLOYMENT_NAME=$DEPLOYMENT_NAME&quot;
+
+            TAGS=&#x27;{&quot;owner&quot;:&quot;johnnyreilly&quot;, &quot;email&quot;:&quot;johnny_reilly@hotmail.com&quot;}&#x27;
+            az deployment group create \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --name &quot;$DEPLOYMENT_NAME&quot; \
+              --template-file ./infra/main.bicep \
+              --parameters \
+                  branchName=&#x27;${{ github.event.number == 0 &amp;&amp; &#x27;main&#x27; ||  format(&#x27;pr-{0}&#x27;, github.event.number) }}&#x27; \
+                  webServiceImage=&#x27;${{ needs.build.outputs.image-node }}&#x27; \
+                  webServicePort=3000 \
+                  webServiceIsExternalIngress=true \
+                  weatherServiceImage=&#x27;${{ needs.build.outputs.image-dotnet }}&#x27; \
+                  weatherServicePort=5000 \
+                  weatherServiceIsExternalIngress=false \
+                  containerRegistry=${{ env.REGISTRY }} \
+                  containerRegistryUsername=${{ github.actor }} \
+                  containerRegistryPassword=${{ secrets.PACKAGES_TOKEN }} \
+                  tags=&quot;$TAGS&quot;
+</code></pre><p>There&#x27;s a lot in this workflow. Let&#x27;s dig into the <code>build</code> and <code>deploy</code> jobs to see what&#x27;s happening.</p><h3><code>build</code> - building our image</h3><p>The <code>build</code> job is all about building our container images and pushing then to the GitHub registry. It&#x27;s heavily inspired by <a href="https://twitter.com/jeffhollan">Jeff Hollan</a>&#x27;s <a href="https://github.com/Azure-Samples/container-apps-store-api-microservice">Azure sample app GHA</a>. When we look at the <code>strategy</code> we can see a <code>matrix</code> of <code>services</code> consisting of two services; our node app and our dotnet app:</p><pre><code class="language-yaml">strategy:
+  matrix:
+    services:
+      [
+        { &#x27;imageName&#x27;: &#x27;node-service&#x27;, &#x27;directory&#x27;: &#x27;./WebService&#x27; },
+        { &#x27;imageName&#x27;: &#x27;dotnet-service&#x27;, &#x27;directory&#x27;: &#x27;./WeatherService&#x27; },
+      ]
+</code></pre><p>This is a matrix because a typical use case of an Azure Container Apps will be multi-container - just as this is. The <code>outputs</code> pumps out the details of our <code>image-node</code> and <code>image-dotnet</code> images to be used later:</p><pre><code class="language-yaml">outputs:
+  image-node: ${{ steps.image-tag.outputs.image-node-service }}
+  image-dotnet: ${{ steps.image-tag.outputs.image-dotnet-service }}
+</code></pre><p>With that understanding in place, let&#x27;s examine what each of the steps in the <code>build</code> job does</p><ul><li><code>Log into registry</code> - logs into the GitHub container registry</li><li><code>Extract Docker metadata</code> - acquire tags which will be used for versioning</li><li><code>Build and push Docker image</code> - build the docker image and if this is not a PR: tag, label and push it to the registry</li><li><code>Output image tag</code> - write out the image tag for usage in deployment</li></ul><h3><code>deploy</code> - shipping our image to Azure</h3><p>The <code>deploy</code> job runs the <a href="https://docs.microsoft.com/en-us/cli/azure/deployment/group?view=azure-cli-latest#az_deployment_group_create"><code>az deployment group create</code></a> command which performs a deployment of our <code>main.bicep</code> file.</p><pre><code class="language-yaml">- name: Deploy bicep
+  uses: azure/CLI@v1
+  if: github.event_name != &#x27;pull_request&#x27;
+  with:
+    inlineScript: |
+      REF_SHA=&#x27;${{ github.ref }}.${{ github.sha }}&#x27;
+      DEPLOYMENT_NAME=&quot;${REF_SHA////-}&quot;
+      echo &quot;DEPLOYMENT_NAME=$DEPLOYMENT_NAME&quot;
+
+      TAGS=&#x27;{&quot;owner&quot;:&quot;johnnyreilly&quot;, &quot;email&quot;:&quot;johnny_reilly@hotmail.com&quot;}&#x27;
+      az deployment group create \
+        --resource-group ${{ env.RESOURCE_GROUP }} \
+        --name &quot;$DEPLOYMENT_NAME&quot; \
+        --template-file ./infra/main.bicep \
+        --parameters \
+            branchName=&#x27;${{ github.event.number == 0 &amp;&amp; &#x27;main&#x27; ||  format(&#x27;pr-{0}&#x27;, github.event.number) }}&#x27; \
+            webServiceImage=&#x27;${{ needs.build.outputs.image-node }}&#x27; \
+            webServicePort=3000 \
+            webServiceIsExternalIngress=true \
+            weatherServiceImage=&#x27;${{ needs.build.outputs.image-dotnet }}&#x27; \
+            weatherServicePort=5000 \
+            weatherServiceIsExternalIngress=false \
+            containerRegistry=${{ env.REGISTRY }} \
+            containerRegistryUsername=${{ github.actor }} \
+            containerRegistryPassword=${{ secrets.PACKAGES_TOKEN }} \
+            tags=&quot;$TAGS&quot;
+</code></pre><p>In either case we pass the same set of parameters:</p><pre><code class="language-shell">branchName=&#x27;${{ github.event.number == 0 &amp;&amp; &#x27;main&#x27; ||  format(&#x27;pr-{0}&#x27;, github.event.number) }}&#x27; \
+webServiceImage=&#x27;${{ needs.build.outputs.image-node }}&#x27; \
+webServicePort=3000 \
+webServiceIsExternalIngress=true \
+weatherServiceImage=&#x27;${{ needs.build.outputs.image-dotnet }}&#x27; \
+weatherServicePort=5000 \
+weatherServiceIsExternalIngress=true \
+containerRegistry=${{ env.REGISTRY }} \
+containerRegistryUsername=${{ github.actor }} \
+containerRegistryPassword=${{ secrets.PACKAGES_TOKEN }} \
+tags=&quot;$tags&quot;
+</code></pre><p>These are either:</p><ul><li>secrets we set up earlier</li><li><a href="https://docs.github.com/en/actions/learn-github-actions/contexts">special github variables</a></li><li>environment variables declared at the start of the script or</li><li>outputs from the build step - this is where we acquire our node and dotnet images</li></ul><h2>Running it</h2><p>When the GitHub Action has been run you&#x27;ll find that Azure Container Apps are now showing up inside the Azure Portal in your resource group, alongside the other resources:</p><p><img src="screenshot-azure-portal-resource-group.png" alt="screenshot of the Azure Container App&#x27;s resource group in the Azure Portal"/></p><p>If we take a look at our web ACA we&#x27;ll see</p><p><img src="screenshot-azure-portal-container-app.png" alt="screenshot of the web Azure Container App&#x27;s in the Azure Portal"/></p><p>And when we take a closer look at the container app, we find a URL we can navigate to:</p><p><img src="screenshot-working-app.png" alt="screenshot of the Azure Container App in the Azure Portal revealing it&#x27;s URL"/></p><p>Congratulations! You&#x27;ve built and deployed a simple web app to Azure Container Apps with Bicep and GitHub Actions and secrets.</p><h2><code>The subscription &#x27;***&#x27; cannot have more than 2 environments.</code></h2><p>Before signing off, it&#x27;s probably worth sharing this gotcha. If you&#x27;ve been playing with Azure Container Apps you may have already deployed an &quot;environment&quot; (<code>Microsoft.Web/kubeEnvironments</code>). It&#x27;s fairly common to have a limit of one environment per subscription, which is what this message is saying. So either delete other environments, share the one you have or arrange to raise the limit on your subscription.</p>]]></content>
+        <author>
+            <name>John Reilly</name>
+            <uri>https://twitter.com/johnny_reilly</uri>
+        </author>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Preload fonts with Docusaurus]]></title>
         <id>/2021/12/29/preload-fonts-with-docusaurus</id>
@@ -99,7 +869,7 @@ echo $DEPLOYMENT_OUTPUTS | jq -c &#x27;. | to_entries[] | [.key, .value.value]&#
         <link href="https://blog.johnnyreilly.com/2021/12/27/azure-container-apps-build-and-deploy-with-bicep-and-github-actions"/>
         <updated>2021-12-27T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[This post shows how to build and deploy a simple web application to Azure Container Apps using Bicep and GitHub Actions. This includes the configuration and deployment of secrets.]]></summary>
-        <content type="html"><![CDATA[<p>This post shows how to build and deploy a simple web application to Azure Container Apps using Bicep and GitHub Actions. This includes the configuration and deployment of secrets.</p><p>This post follows on from the <a href="../2021-12-19-azure-container-apps-bicep-and-github-actions/index.md">previous post</a> which deployed infrastructure and a &quot;hello world&quot; container, this time introducing the building of an image and storing it in the <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry">GitHub container registry</a> so it can be deployed.</p><p><img src="title-image.png" alt="title image reading &quot;Azure Container Apps: build and deploy with Bicep and GitHub Actions&quot; with the Bicep, Azure Container Apps and GitHub Actions logos"/></p><h2>The containerised convent</h2><p>I learn the most about a technology when I&#x27;m using it to build something. It so happens that I have an aunt that&#x27;s a nun, and long ago she persuaded me to build her convent a website. I&#x27;m a good nephew and I complied. Since that time I&#x27;ve been merrily overengineering it for fun and non-profit.</p><p>My aunts website is a pretty vanilla node app. Significantly it is already containerised and runs on <a href="https://azure.microsoft.com/en-gb/services/app-service/containers/">Azure App Service Web App for Containers</a>. Given it lives in the context of a container, this makes it a great candidate for porting to Azure Container Apps.</p><p>So that&#x27;s what we&#x27;ll do in this post. But where I&#x27;m building and deploying my aunt&#x27;s container, you could equally be substituting your own; with some minimal changes.</p><h2>Bicep</h2><p>Let&#x27;s begin with the Bicep required to deploy our Azure Container App.</p><p>In our repository we&#x27;ll create an <code>infra</code> directory, into which we&#x27;ll place a <code>main.bicep</code> file which will contain our Bicep template:</p><pre><code class="language-bicep">param nodeImage string
+        <content type="html"><![CDATA[<p>This post shows how to build and deploy a simple web application to Azure Container Apps using Bicep and GitHub Actions. This includes the configuration and deployment of secrets.</p><p>This post follows on from the <a href="../2021-12-19-azure-container-apps-bicep-and-github-actions/index.md">previous post</a> which deployed infrastructure and a &quot;hello world&quot; container, this time introducing the building of an image and storing it in the <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry">GitHub container registry</a> so it can be deployed.</p><p>If you&#x27;d like to learn more about using dapr with Azure Container Apps then you might want to read <a href="../2022-01-22-azure-container-apps-dapr-bicep-github-actions-debug-devcontainer/index.md">this post</a>.</p><p><img src="title-image.png" alt="title image reading &quot;Azure Container Apps: build and deploy with Bicep and GitHub Actions&quot; with the Bicep, Azure Container Apps and GitHub Actions logos"/></p><h2>The containerised convent</h2><p>I learn the most about a technology when I&#x27;m using it to build something. It so happens that I have an aunt that&#x27;s a nun, and long ago she persuaded me to build her convent a website. I&#x27;m a good nephew and I complied. Since that time I&#x27;ve been merrily overengineering it for fun and non-profit.</p><p>My aunts website is a pretty vanilla node app. Significantly it is already containerised and runs on <a href="https://azure.microsoft.com/en-gb/services/app-service/containers/">Azure App Service Web App for Containers</a>. Given it lives in the context of a container, this makes it a great candidate for porting to Azure Container Apps.</p><p>So that&#x27;s what we&#x27;ll do in this post. But where I&#x27;m building and deploying my aunt&#x27;s container, you could equally be substituting your own; with some minimal changes.</p><h2>Bicep</h2><p>Let&#x27;s begin with the Bicep required to deploy our Azure Container App.</p><p>In our repository we&#x27;ll create an <code>infra</code> directory, into which we&#x27;ll place a <code>main.bicep</code> file which will contain our Bicep template:</p><pre><code class="language-bicep">param nodeImage string
 param nodePort int
 param nodeIsExternalIngress bool
 
