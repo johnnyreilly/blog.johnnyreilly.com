@@ -44,7 +44,7 @@ In the root of our project we'll create a `.devcontainer` folder, and within tha
 
 In the `.devcontainer` folder we want to create a `Dockerfile`:
 
-```Dockerfile
+```docker
 # [Choice] .NET version: 6.0, 5.0, 3.1, 2.1
 ARG VARIANT=3.1
 FROM mcr.microsoft.com/vscode/devcontainers/dotnet:0-${VARIANT}
@@ -469,7 +469,7 @@ Before we can deploy each of our services, they need to be containerised.
 
 First let's add a `Dockerfile` to the `WeatherService` folder:
 
-```Dockerfile
+```docker
 FROM mcr.microsoft.com/dotnet/sdk:6.0 as build
 WORKDIR /app
 COPY . .
@@ -941,7 +941,7 @@ jobs:
               --name "$DEPLOYMENT_NAME" \
               --template-file ./infra/main.bicep \
               --parameters \
-                  branchName='${{ github.head_ref }}' \
+                  branchName='${{ github.event.number == 0 && 'main' ||  format('pr-{0}', github.event.number) }}' \
                   webServiceImage='${{ needs.build.outputs.image-node }}' \
                   webServicePort=3000 \
                   webServiceIsExternalIngress=true \
@@ -1021,7 +1021,7 @@ The `deploy` job runs the [`az deployment group create`](https://docs.microsoft.
 In either case we pass the same set of parameters:
 
 ```shell
-branchName='${{ github.head_ref }}' \
+branchName='${{ github.event.number == 0 && 'main' ||  format('pr-{0}', github.event.number) }}' \
 webServiceImage='${{ needs.build.outputs.image-node }}' \
 webServicePort=3000 \
 webServiceIsExternalIngress=true \
