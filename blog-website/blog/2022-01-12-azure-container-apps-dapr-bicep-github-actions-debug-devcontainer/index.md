@@ -488,7 +488,7 @@ ENTRYPOINT [ "dotnet", "/app/WeatherService.dll" ]
 
 Then we'll add a `Dockerfile` to the `WebService` folder:
 
-```Dockerfile
+```docker
 FROM node:16 AS build
 WORKDIR /app
 COPY package.json ./
