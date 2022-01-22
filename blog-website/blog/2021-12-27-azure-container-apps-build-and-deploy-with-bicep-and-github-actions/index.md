@@ -10,7 +10,7 @@ This post shows how to build and deploy a simple web application to Azure Contai
 
 This post follows on from the [previous post](../2021-12-19-azure-container-apps-bicep-and-github-actions/index.md) which deployed infrastructure and a "hello world" container, this time introducing the building of an image and storing it in the [GitHub container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry) so it can be deployed.
 
-If you'd like to learn more about using dapr with Azure Container Apps then you might want to read [this post](../2022-01-12-azure-container-apps-dapr-bicep-github-actions-debug-devcontainer/index.md).
+If you'd like to learn more about using dapr with Azure Container Apps then you might want to read [this post](../2022-01-22-azure-container-apps-dapr-bicep-github-actions-debug-devcontainer/index.md).
 
 ![title image reading "Azure Container Apps: build and deploy with Bicep and GitHub Actions" with the Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
 
