@@ -18,6 +18,10 @@ This post shows how to build and deploy two Azure Container Apps using Bicep and
 
 This post follows on from the [previous post](../2021-12-27-azure-container-apps-build-and-deploy-with-bicep-and-github-actions/index.md) which built and deployed a simple web application to Azure Container Apps using Bicep and GitHub Actions using the GitHub container registry.
 
+![title image reading "Azure Container Apps dapr, devcontainer, debug and deploy"  with the dapr, Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
+
+## What we're going to build
+
 As an engineer, I'm productive when:
 
 - I'm able to easily debug my code
@@ -28,8 +32,6 @@ I've found that using dapr and VS Code I'm able to achieve that. I'm can build a
 In this post we're going to build an example of that from scratch, with a [koa/node.js](https://koajs.com/) (built with TypeScript) front end that will communicate with a [dotnet](https://dotnet.microsoft.com/en-us/) service via dapr.
 
 All the work done in this post can be found in the [`dapr-devcontainer-debug-and-deploy`](https://github.com/johnnyreilly/dapr-devcontainer-debug-and-deploy) repo. As a note, if you're interested in this topic it's also worth looking at the [`Azure-Samples/container-apps-store-api-microservice`](https://github.com/Azure-Samples/container-apps-store-api-microservice) repo.
-
-![title image reading "Azure Container Apps dapr, devcontainer, debug and deploy"  with the dapr, Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
 
 ## Setting up our devcontainer
 
