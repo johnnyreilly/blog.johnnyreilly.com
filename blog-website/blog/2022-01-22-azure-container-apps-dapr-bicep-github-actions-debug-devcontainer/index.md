@@ -16,7 +16,7 @@ hide_table_of_contents: false
 
 This post shows how to build and deploy two Azure Container Apps using Bicep and GitHub Actions. These apps will communicate using [dapr](https://docs.dapr.io/), be built in [VS Code using a devcontainer](https://code.visualstudio.com/docs/remote/containers). It will be possible to debug in VS Code and run with `docker-compose`.
 
-This post follows on from the [previous post](../2021-12-27-azure-container-apps-build-and-deploy-with-bicep-and-github-actions/index.md) which built and deployed a simple web application to Azure Container Apps using Bicep and GitHub Actions using the GitHub container registry.
+This follows on from the [previous post](../2021-12-27-azure-container-apps-build-and-deploy-with-bicep-and-github-actions/index.md) which built and deployed a simple web application to Azure Container Apps using Bicep and GitHub Actions using the GitHub container registry.
 
 ![title image reading "Azure Container Apps dapr, devcontainer, debug and deploy"  with the dapr, Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
 
@@ -24,10 +24,10 @@ This post follows on from the [previous post](../2021-12-27-azure-container-apps
 
 As an engineer, I'm productive when:
 
+- Integrating different services together is a turnkey experience and
 - I'm able to easily debug my code
-- Integrating different services together is a turnkey experience
 
-I've found that using dapr and VS Code I'm able to achieve that. I'm can build an application made up of multiple services, compose them together using dapr and deploy them to Azure Container Apps with relative ease.
+I've found that using dapr and VS Code I'm able to achieve both of these goals. I can build an application made up of multiple services, compose them together using dapr and deploy them to Azure Container Apps with relative ease.
 
 In this post we're going to build an example of that from scratch, with a [koa/node.js](https://koajs.com/) (built with TypeScript) front end that will communicate with a [dotnet](https://dotnet.microsoft.com/en-us/) service via dapr.
 
@@ -37,7 +37,7 @@ All the work done in this post can be found in the [`dapr-devcontainer-debug-and
 
 The first thing we'll do is set up our devcontainer. We're going to use a tweaked version of the [docker-in-docker](https://github.com/microsoft/vscode-dev-containers/tree/main/containers/docker-in-docker) image from the [vscode-dev-containers](https://github.com/microsoft/vscode-dev-containers) repo.
 
-In the root of our project we'll create a `.devcontainer` folder, and within that a `library-scripts` folder. There's a number of communal scripts from the vscode-dev-containers repo which we're going to want to copy into in our `library-scripts` folder:
+In the root of our project we'll create a `.devcontainer` folder, and within that a `library-scripts` folder. There's a number of communal scripts from the [`vscode-dev-containers`](https://github.com/microsoft/vscode-dev-containers) repo which we're going to lift and shift into in our `library-scripts` folder:
 
 - [docker-in-docker-debian.sh](https://github.com/microsoft/vscode-dev-containers/blob/d93de4632781372d4b4da1699e27ae3a2404c96c/script-library/docker-in-docker-debian.sh) - for installing Docker in Docker
 - [azcli-debian.sh](https://github.com/microsoft/vscode-dev-containers/blob/d93de4632781372d4b4da1699e27ae3a2404c96c/script-library/azcli-debian.sh) - for installing the Azure CLI
@@ -180,7 +180,7 @@ We're ready! Reopen your repo in a container (it will take a while first time ou
 
 Now we're going to create a dotnet service. The aim of this post is not to build a specific application, but rather to demonstrate how simple service to service communication is with dapr. So we'll use the web api template that ships with dotnet 6. That arrives with a fake weather API included, so we'll name our service accordingly:
 
-```sh
+```shell
 dotnet new webapi -o WeatherService
 ```
 
@@ -198,7 +198,7 @@ Creating our dotnet service was very simple. We're now going to create a web app
 
 Let's make that service:
 
-```sh
+```shell
 mkdir WebService
 cd WebService
 npm init -y
@@ -628,7 +628,7 @@ var environmentName = '${branch}-env'
 var workspaceName = '${branch}-log-analytics'
 var appInsightsName = '${branch}-app-insights'
 var webServiceContainerAppName = '${branch}-web'
-var weatherServiceContainerAppName = '${branch}-mailer'
+var weatherServiceContainerAppName = '${branch}-weather'
 
 var containerRegistryPasswordRef = 'container-registry-password'
 
@@ -1037,8 +1037,9 @@ tags="$tags"
 These are either:
 
 - secrets we set up earlier
+- [special github variables](https://docs.github.com/en/actions/learn-github-actions/contexts)
 - environment variables declared at the start of the script or
-- outputs from the build step - this is where we acquire our node image
+- outputs from the build step - this is where we acquire our node and dotnet images
 
 ## Running it
 
