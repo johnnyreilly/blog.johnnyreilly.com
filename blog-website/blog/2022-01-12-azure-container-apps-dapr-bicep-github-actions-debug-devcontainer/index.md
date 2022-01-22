@@ -14,7 +14,7 @@ image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-This post shows how to build and deploy two Azure Container Apps using Bicep and GitHub Actions. These apps will communicate using [dapr](https://docs.dapr.io/), be built in [VS Code using a devcontainer](https://code.visualstudio.com/docs/remote/containers) and be entirely debuggable.
+This post shows how to build and deploy two Azure Container Apps using Bicep and GitHub Actions. These apps will communicate using [dapr](https://docs.dapr.io/), be built in [VS Code using a devcontainer](https://code.visualstudio.com/docs/remote/containers). It will be possible to debug in VS Code and run with `docker-compose`.
 
 This post follows on from the [previous post](../2021-12-27-azure-container-apps-build-and-deploy-with-bicep-and-github-actions/index.md) which built and deployed a simple web application to Azure Container Apps using Bicep and GitHub Actions using the GitHub container registry.
 
@@ -1003,7 +1003,7 @@ The `deploy` job runs the [`az deployment group create`](https://docs.microsoft.
         --name "$DEPLOYMENT_NAME" \
         --template-file ./infra/main.bicep \
         --parameters \
-            branchName='${{ github.head_ref }}' \
+            branchName='${{ github.event.number == 0 && 'main' ||  format('pr-{0}', github.event.number) }}' \
             webServiceImage='${{ needs.build.outputs.image-node }}' \
             webServicePort=3000 \
             webServiceIsExternalIngress=true \
@@ -1040,12 +1040,20 @@ These are either:
 
 ## Running it
 
-When the GitHub Action has been run you'll find that Azure Container App is now showing up inside the Azure Portal in your resource group, alongside the other resources:
+When the GitHub Action has been run you'll find that Azure Container Apps are now showing up inside the Azure Portal in your resource group, alongside the other resources:
 
-![screenshot of the Azure Container App's resource group in the Azure Portal](screenshot-azure-portal-container-app.png)
+![screenshot of the Azure Container App's resource group in the Azure Portal](screenshot-azure-portal-resource-group.png)
+
+If we take a look at our web ACA we'll see
+
+![screenshot of the web Azure Container App's in the Azure Portal](screenshot-azure-portal-container-app.png)
 
 And when we take a closer look at the container app, we find a URL we can navigate to:
 
-![screenshot of the Azure Container App in the Azure Portal revealing it's URL](screenshot-azure-portal-container-app-url.png)
+![screenshot of the Azure Container App in the Azure Portal revealing it's URL](screenshot-working-app.png)
 
 Congratulations! You've built and deployed a simple web app to Azure Container Apps with Bicep and GitHub Actions and secrets.
+
+## `The subscription '***' cannot have more than 2 environments.`
+
+Before signing off, it's probably worth sharing this gotcha. If you've been playing with Azure Container Apps you may have already deployed an "environment" (`Microsoft.Web/kubeEnvironments`). It's fairly common to have a limit of one environment per subscription, which is what this message is saying. So either delete other environments, share the one you have or arrange to raise the limit on your subscription.
