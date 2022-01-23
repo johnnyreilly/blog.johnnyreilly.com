@@ -40,7 +40,7 @@ jobs:
               --name "$DEPLOYMENT_NAME" \
               --template-file ./infra/main.bicep \
               --parameters \
-                  branch='${{ github.ref_name }}' \
+                  branch='main' # '${{ github.ref_name }}' \
                   name="$STATICWEBAPPNAME" \
                   tags="$TAGS" \
                   repositoryToken="${{ secrets.WORKFLOW_TOKEN }}"
