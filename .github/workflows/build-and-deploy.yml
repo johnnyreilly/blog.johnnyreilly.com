@@ -42,11 +42,11 @@ jobs:
               --parameters \
                   name="$STATICWEBAPPNAME" \
                   tags="$TAGS" \
-                  repositoryToken="${{ secrets.GITHUB_TOKEN }}"
+                  repositoryToken="${{ secrets.WORKFLOWS_TOKEN }}"
 
             echo "deployed"
-            # APIKEY=$(az staticwebapp secrets list --name $STATICWEBAPPNAME | jq -r '.properties.apiKey')
-            # echo "::set-output name=APIKEY::$APIKEY"
+            APIKEY=$(az staticwebapp secrets list --name $STATICWEBAPPNAME | jq -r '.properties.apiKey')
+            echo "::set-output name=APIKEY::$APIKEY"
 
       - name: Build And Deploy to Azure Static Web Apps
         id: builddeploy
