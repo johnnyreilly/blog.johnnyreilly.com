@@ -13,7 +13,7 @@ jobs:
   build_and_deploy_swa_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
-    name: Build and Deploy Job
+    name: Build and deploy static web app
     steps:
       - uses: actions/checkout@v2
         with:
@@ -29,8 +29,9 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            REF_SHA='${{ github.ref }}.${{ github.sha }}'
-            DEPLOYMENT_NAME="${REF_SHA////-}"
+            # REF_SHA='${{ github.ref }}.${{ github.sha }}'
+            # DEPLOYMENT_NAME="${REF_SHA////-}"
+            DEPLOYMENT_NAME="staic-web-app"
             STATICWEBAPPNAME='blog.johnnyreilly.com'
             TAGS='{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
 
@@ -41,9 +42,10 @@ jobs:
               --parameters \
                   name="$STATICWEBAPPNAME" \
                   tags="$TAGS"
-                
-            APIKEY=$(az staticwebapp secrets list --name $STATICWEBAPPNAME | jq -r '.properties.apiKey')
-            echo "::set-output name=APIKEY::$APIKEY"
+
+            echo "deployed"
+            # APIKEY=$(az staticwebapp secrets list --name $STATICWEBAPPNAME | jq -r '.properties.apiKey')
+            # echo "::set-output name=APIKEY::$APIKEY"
 
       - name: Build And Deploy to Azure Static Web Apps
         id: builddeploy
