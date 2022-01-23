@@ -1,5 +1,7 @@
 param name string
 param tags object
+@secure()
+param repositoryToken string
 
 resource staticWebApp 'Microsoft.Web/staticSites@2021-02-01' = {
   name: name
@@ -11,6 +13,7 @@ resource staticWebApp 'Microsoft.Web/staticSites@2021-02-01' = {
   }
   properties: {
     repositoryUrl: 'https://github.com/johnnyreilly/blog.johnnyreilly.com'
+    repositoryToken: repositoryToken
     branch: 'main'
     stagingEnvironmentPolicy: 'Enabled'
     allowConfigFileUpdates: true
