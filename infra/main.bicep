@@ -1,3 +1,4 @@
+param branch string
 param name string
 param tags object
 @secure()
@@ -14,7 +15,8 @@ resource staticWebApp 'Microsoft.Web/staticSites@2021-02-01' = {
   properties: {
     repositoryUrl: 'https://github.com/johnnyreilly/blog.johnnyreilly.com'
     repositoryToken: repositoryToken
-    branch: 'main'
+    branch: branch
+    provider: 'GitHub'
     stagingEnvironmentPolicy: 'Enabled'
     allowConfigFileUpdates: true
   }
