@@ -3,7 +3,7 @@ param tags object
 
 resource staticWebApp 'Microsoft.Web/staticSites@2021-02-01' = {
   name: name
-  location: resourceGroup().location
+  location: resourceGroup().location // westeurope
   tags: tags
   sku: {
     name: 'Free'
