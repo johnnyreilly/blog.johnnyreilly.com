@@ -29,6 +29,8 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
+            REF_SHA='${{ github.ref }}.${{ github.sha }}'
+            DEPLOYMENT_NAME="${REF_SHA////-}"
             STATICWEBAPPNAME='blog.johnnyreilly.com'
             TAGS='{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
 
