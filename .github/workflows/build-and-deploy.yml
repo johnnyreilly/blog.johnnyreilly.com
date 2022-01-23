@@ -29,15 +29,18 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
+            STATICWEBAPPNAME='blog.johnnyreilly.com'
             TAGS='{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
+
             az deployment group create \
-              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --resource-group rg-blog-johnnyreilly-com \
               --name "$DEPLOYMENT_NAME" \
               --template-file ./infra/main.bicep \
               --parameters \
+                  name="$STATICWEBAPPNAME" \
                   tags="$TAGS"
                 
-            APIKEY=$(az staticwebapp secrets list --name $(staticWebAppName) | jq -r '.properties.apiKey')
+            APIKEY=$(az staticwebapp secrets list --name $STATICWEBAPPNAME | jq -r '.properties.apiKey')
             echo "::set-output name=APIKEY::$APIKEY"
 
       - name: Build And Deploy to Azure Static Web Apps

@@ -1,7 +1,8 @@
+param name string
 param tags object
 
 resource staticWebApp 'Microsoft.Web/staticSites@2021-02-01' = {
-  name: 'blog.johnnyreilly.com'
+  name: name
   location: resourceGroup().location
   tags: tags
   sku: {
