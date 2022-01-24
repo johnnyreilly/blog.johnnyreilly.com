@@ -29,6 +29,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
+            RESOURCE_GROUP='rg-blog-johnnyreilly-com'
             REF_SHA='${{ github.ref }}.${{ github.sha }}'
             DEPLOYMENT_NAME="${REF_SHA////-}"
             # DEPLOYMENT_NAME="static-web-app"
@@ -36,7 +37,7 @@ jobs:
             TAGS='{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
 
             az deployment group create \
-              --resource-group rg-blog-johnnyreilly-com \
+              --resource-group $RESOURCE_GROUP \
               --name "$DEPLOYMENT_NAME" \
               --template-file ./infra/main.bicep \
               --parameters \
@@ -44,6 +45,9 @@ jobs:
                   name="$STATICWEBAPPNAME" \
                   tags="$TAGS" \
                   repositoryToken="${{ secrets.WORKFLOW_TOKEN }}"
+
+            DEFAULTHOSTNAME=$(az deployment group show -g $RESOURCE_GROUP -n $DEPLOYMENT_NAME --query properties.outputs.staticWebAppDefaultHostName.value -o tsv)
+            echo $DEFAULTHOSTNAME
 
             APIKEY=$(az staticwebapp secrets list --name $STATICWEBAPPNAME | jq -r '.properties.apiKey')
             echo "::set-output name=APIKEY::$APIKEY"
