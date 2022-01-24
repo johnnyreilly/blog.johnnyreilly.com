@@ -14,7 +14,7 @@ resource staticWebApp 'Microsoft.Web/staticSites@2021-02-01' = {
   }
   properties: {
     repositoryUrl: 'https://github.com/johnnyreilly/blog.johnnyreilly.com'
-    // repositoryToken: repositoryToken
+    repositoryToken: repositoryToken
     branch: branch
     provider: 'GitHub'
     stagingEnvironmentPolicy: 'Enabled'
