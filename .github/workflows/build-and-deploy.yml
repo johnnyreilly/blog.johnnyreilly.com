@@ -48,14 +48,14 @@ jobs:
                   tags="$TAGS" \
                   repositoryToken="${{ secrets.WORKFLOW_TOKEN }}"
 
-            DEFAULTHOSTNAME=$(az deployment group show -g $RESOURCE_GROUP -n $DEPLOYMENT_NAME --query properties.outputs.staticWebAppDefaultHostName.value -o tsv)
-            echo $DEFAULTHOSTNAME
+            # DEFAULTHOSTNAME=$(az deployment group show -g $RESOURCE_GROUP -n $DEPLOYMENT_NAME --query properties.outputs.staticWebAppDefaultHostName.value -o tsv)
+            # echo $DEFAULTHOSTNAME
 
-            DEFAULTHOSTNAME=$(az staticwebapp show -n $STATICWEBAPPNAME | jq -r '.defaultHostname')
-            echo $DEFAULTHOSTNAME
+            # DEFAULTHOSTNAME=$(az staticwebapp show -n $STATICWEBAPPNAME | jq -r '.defaultHostname')
+            # echo $DEFAULTHOSTNAME
 
-            PREVIEW_URL="${DEFAULTHOSTNAME/.[1-9]./-$PULL_REQUEST_NUMBER.$LOCATION.1.}"
-            echo $PREVIEW_URL
+            # PREVIEW_URL="${DEFAULTHOSTNAME/.[1-9]./-$PULL_REQUEST_NUMBER.$LOCATION.1.}"
+            # echo $PREVIEW_URL
 
             APIKEY=$(az staticwebapp secrets list --name $STATICWEBAPPNAME | jq -r '.properties.apiKey')
             echo "::set-output name=APIKEY::$APIKEY"
