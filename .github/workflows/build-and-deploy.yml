@@ -29,11 +29,12 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            RESOURCE_GROUP='rg-blog-johnnyreilly-com'
             REF_SHA='${{ github.ref }}.${{ github.sha }}'
             DEPLOYMENT_NAME="${REF_SHA////-}"
-            # DEPLOYMENT_NAME="static-web-app"
+            RESOURCE_GROUP='rg-blog-johnnyreilly-com'
+            LOCATION='westeurope'
             STATICWEBAPPNAME='blog.johnnyreilly.com'
+            PULL_REQUEST_NUMBER={{github.event.pull_request.number }}
             TAGS='{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
 
             az deployment group create \
@@ -42,12 +43,19 @@ jobs:
               --template-file ./infra/main.bicep \
               --parameters \
                   branch='main' \
+                  location="$LOCATION" \
                   name="$STATICWEBAPPNAME" \
                   tags="$TAGS" \
                   repositoryToken="${{ secrets.WORKFLOW_TOKEN }}"
 
             DEFAULTHOSTNAME=$(az deployment group show -g $RESOURCE_GROUP -n $DEPLOYMENT_NAME --query properties.outputs.staticWebAppDefaultHostName.value -o tsv)
             echo $DEFAULTHOSTNAME
+
+            DEFAULTHOSTNAME=$(az staticwebapp show -n $STATICWEBAPPNAME | jq -r '.defaultHostname')
+            echo $DEFAULTHOSTNAME
+
+            PREVIEW_URL="${DEFAULTHOSTNAME/.[1-9]./-$PULL_REQUEST_NUMBER.$LOCATION.1.}"
+            echo $PREVIEW_URL
 
             APIKEY=$(az staticwebapp secrets list --name $STATICWEBAPPNAME | jq -r '.properties.apiKey')
             echo "::set-output name=APIKEY::$APIKEY"
