@@ -45,10 +45,10 @@ jobs:
               --template-file ./infra/main.bicep \
               --parameters \
                   branch='main' \
-                  location="${{ env.LOCATION }}" \
-                  name="${{ env.STATICWEBAPPNAME }}" \
+                  location='${{ env.LOCATION }}' \
+                  name='${{ env.STATICWEBAPPNAME }}' \
                   tags='${{ env.TAGS }}' \
-                  repositoryToken="${{ secrets.WORKFLOW_TOKEN }}'
+                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}'
 
       - name: Deploy Static Web App / get API key for deployment
         id: apikey
