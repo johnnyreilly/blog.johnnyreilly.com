@@ -9,12 +9,12 @@ on:
     branches:
       - main
 
-env:
-  RESOURCE_GROUP: rg-blog-johnnyreilly-com
-  LOCATION: westeurope
-  STATICWEBAPPNAME: blog.johnnyreilly.com
-  PULL_REQUEST_NUMBER: ${{github.event.pull_request.number }}
-  TAGS: { 'owner': 'johnnyreilly', 'email': 'johnny_reilly@hotmail.com' }
+# env:
+#   RESOURCE_GROUP: rg-blog-johnnyreilly-com
+#   LOCATION: westeurope
+#   STATICWEBAPPNAME: blog.johnnyreilly.com
+#   PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
+#   TAGS: { 'owner': 'johnnyreilly', 'email': 'johnny_reilly@hotmail.com' }
 
 jobs:
   build_and_deploy_swa_job:
@@ -65,14 +65,14 @@ jobs:
             TAGS='{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
 
             az deployment group create \
-              --resource-group ${{ env.RESOURCE_GROUP }} \
-              --name "${{ env.DEPLOYMENT_NAME }}" \
+              --resource-group $RESOURCE_GROUP \
+              --name "$DEPLOYMENT_NAME" \
               --template-file ./infra/main.bicep \
               --parameters \
                   branch='main' \
-                  location="${{ env.LOCATION }}" \
-                  name="${{ env.STATICWEBAPPNAME }}" \
-                  tags="${{ env.TAGS }}" \
+                  location="$LOCATION" \
+                  name="$STATICWEBAPPNAME" \
+                  tags="$TAGS" \
                   repositoryToken="${{ secrets.WORKFLOW_TOKEN }}"
 
             DEFAULTHOSTNAME=$(az deployment group show -g $RESOURCE_GROUP -n $DEPLOYMENT_NAME --query properties.outputs.staticWebAppDefaultHostName.value -o tsv)
