@@ -47,7 +47,7 @@ jobs:
                   branch='main' \
                   location="${{ env.LOCATION }}" \
                   name="${{ env.STATICWEBAPPNAME }}" \
-                  tags='${{ env.TAGS }}" \
+                  tags='${{ env.TAGS }}' \
                   repositoryToken="${{ secrets.WORKFLOW_TOKEN }}'
 
       - name: Deploy Static Web App / get API key for deployment
