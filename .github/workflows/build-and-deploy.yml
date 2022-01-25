@@ -14,6 +14,7 @@ env:
   LOCATION: westeurope
   STATICWEBAPPNAME: blog.johnnyreilly.com
   TAGS: '{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
+  REF_SHA: '${{ github.ref }}.${{ github.sha }}'
 
 jobs:
   build_and_deploy_swa_job:
@@ -36,12 +37,11 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            REF_SHA='${{ github.ref }}.${{ github.sha }}'
-            DEPLOYMENT_NAME="${REF_SHA////-}"
+            DEPLOYMENT_NAME="${${{ env.REF_SHA }}////-}"
 
             az deployment group what-if \
               --resource-group ${{ env.RESOURCE_GROUP }} \
-              --name "${{ env.DEPLOYMENT_NAME }}" \
+              --name "$DEPLOYMENT_NAME" \
               --template-file ./infra/main.bicep \
               --parameters \
                   branch='main' \
