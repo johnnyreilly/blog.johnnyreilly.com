@@ -34,7 +34,7 @@ jobs:
             RESOURCE_GROUP='rg-blog-johnnyreilly-com'
             LOCATION='westeurope'
             STATICWEBAPPNAME='blog.johnnyreilly.com'
-            PULL_REQUEST_NUMBER='${{github.event.pull_request.number }}''
+            PULL_REQUEST_NUMBER='${{github.event.pull_request.number }}'
             TAGS='{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
 
             az deployment group create \
