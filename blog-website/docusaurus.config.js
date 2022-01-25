@@ -170,6 +170,27 @@ const config = {
       // <meta name="robots" content="max-image-preview:large">
       metadata: [{ name: 'robots', content: 'max-image-preview:large' }],
 
+      algolia: {
+        // If Algolia did not provide you any appId, use 'BH4D9OD16A'
+        appId: 'J3MYR1INLT',
+
+        // Public API key: it is safe to commit it
+        apiKey: '34a2848ab8caa017d6393fb23f31c655',
+
+        indexName: 'blog-johnnyreilly',
+
+        // Optional: see doc section below
+        // contextualSearch: true,
+
+        // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
+        // externalUrlRegex: 'external\\.com|domain\\.com',
+
+        // Optional: Algolia search parameters
+        // searchParameters: {},
+
+        //... other Algolia params
+      },
+
       // Relative to your site's 'static' directory.
       // Cannot be SVGs. Can be external URLs too.
       image: 'img/profile.jpg',
