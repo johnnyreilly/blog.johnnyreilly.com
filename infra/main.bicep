@@ -1,3 +1,4 @@
+param location string
 param branch string
 param name string
 param tags object
@@ -6,7 +7,7 @@ param repositoryToken string
 
 resource staticWebApp 'Microsoft.Web/staticSites@2021-02-01' = {
   name: name
-  location: resourceGroup().location // westeurope
+  location: location
   tags: tags
   sku: {
     name: 'Free'
