@@ -9,12 +9,11 @@ on:
     branches:
       - main
 
-# env:
-#   RESOURCE_GROUP: rg-blog-johnnyreilly-com
-#   LOCATION: westeurope
-#   STATICWEBAPPNAME: blog.johnnyreilly.com
-#   PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
-#   TAGS: { 'owner': 'johnnyreilly', 'email': 'johnny_reilly@hotmail.com' }
+env:
+  RESOURCE_GROUP: rg-blog-johnnyreilly-com
+  LOCATION: westeurope
+  STATICWEBAPPNAME: blog.johnnyreilly.com
+  TAGS: '{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
 
 jobs:
   build_and_deploy_swa_job:
