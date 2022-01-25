@@ -31,37 +31,25 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Static Web App change details
-        id: apikey
-        if: github.event_name == 'pull_request'
-        uses: azure/CLI@v1
-        with:
-          inlineScript: |
-            REF_SHA='${{ github.ref }}.${{ github.sha }}'
-            DEPLOYMENT_NAME="${REF_SHA////-}"
+      # - name: Static Web App change details
+      #   id: whatif
+      #   if: github.event_name == 'pull_request'
+      #   uses: azure/CLI@v1
+      #   with:
+      #     inlineScript: |
+      #       REF_SHA='${{ github.ref }}.${{ github.sha }}'
+      #       DEPLOYMENT_NAME="${REF_SHA////-}"
 
-            az deployment group what-if \
-              --resource-group ${{ env.RESOURCE_GROUP }} \
-              --name "${{ env.DEPLOYMENT_NAME }}" \
-              --template-file ./infra/main.bicep \
-              --parameters \
-                  branch='main' \
-                  location="${{ env.LOCATION }}" \
-                  name="${{ env.STATICWEBAPPNAME }}" \
-                  tags="${{ env.TAGS }}" \
-                  repositoryToken="${{ secrets.WORKFLOW_TOKEN }}"
-
-      #       DEFAULTHOSTNAME=$(az deployment group show -g $RESOURCE_GROUP -n $DEPLOYMENT_NAME --query properties.outputs.staticWebAppDefaultHostName.value -o tsv)
-      #       echo $DEFAULTHOSTNAME
-
-      #       DEFAULTHOSTNAME=$(az staticwebapp show -n $STATICWEBAPPNAME | jq -r '.defaultHostname')
-      #       echo $DEFAULTHOSTNAME
-
-      #       PREVIEW_URL="${DEFAULTHOSTNAME/.[1-9]./-$PULL_REQUEST_NUMBER.$LOCATION.1.}"
-      #       echo $PREVIEW_URL
-
-      #       APIKEY=$(az staticwebapp secrets list --name $STATICWEBAPPNAME | jq -r '.properties.apiKey')
-      #       echo "::set-output name=APIKEY::$APIKEY"
+      #       az deployment group what-if \
+      #         --resource-group ${{ env.RESOURCE_GROUP }} \
+      #         --name "${{ env.DEPLOYMENT_NAME }}" \
+      #         --template-file ./infra/main.bicep \
+      #         --parameters \
+      #             branch='main' \
+      #             location="${{ env.LOCATION }}" \
+      #             name="${{ env.STATICWEBAPPNAME }}" \
+      #             tags="${{ env.TAGS }}" \
+      #             repositoryToken="${{ secrets.WORKFLOW_TOKEN }}"
 
       - name: Deploy Bicep / get API key for deployment
         id: apikey
