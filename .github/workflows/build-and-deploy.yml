@@ -30,6 +30,13 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Set Deployment Name
+        id: deployment-name
+        run: |
+          REF_SHA='${{ github.ref }}.${{ github.sha }}'
+          DEPLOYMENT_NAME="${REF_SHA////-}"
+          echo "::set-output name=DEPLOYMENT_NAME::$DEPLOYMENT_NAME"
+
       - name: Static Web App change details
         id: static-web-app-what-if
         if: github.event_name == 'pull_request'
@@ -41,7 +48,7 @@ jobs:
 
             az deployment group what-if \
               --resource-group ${{ env.RESOURCE_GROUP }} \
-              --name "$DEPLOYMENT_NAME" \
+              --name "${{ steps.deployment-name.outputs.DEPLOYMENT_NAME }}" \
               --template-file ./infra/main.bicep \
               --parameters \
                   branch='main' \
@@ -80,7 +87,7 @@ jobs:
 
             az deployment group create \
               --resource-group ${{ env.RESOURCE_GROUP }} \
-              --name "$DEPLOYMENT_NAME" \
+              --name "${{ steps.deployment-name.outputs.DEPLOYMENT_NAME }}" \
               --template-file ./infra/main.bicep \
               --parameters \
                   branch='main' \
