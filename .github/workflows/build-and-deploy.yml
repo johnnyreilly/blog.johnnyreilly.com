@@ -104,18 +104,6 @@ jobs:
           output_location: 'build' # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
 
-  lighthouse-report:
-    name: Lighthouse Report
-    if: github.event_name == 'pull_request' && github.event.action != 'closed'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
       - name: Static Web App - get preview URL
         id: static-web-app-preview-url
         uses: azure/CLI@v1
@@ -129,11 +117,22 @@ jobs:
 
             echo "::set-output name=PREVIEW_URL::$PREVIEW_URL"
 
+    outputs:
+      preview-url: ${{steps.static-web-app-preview-url.outputs.PREVIEW_URL}}
+
+  lighthouse-report:
+    name: Lighthouse Report
+    needs: build_and_deploy_swa_job
+    if: github.event_name == 'pull_request' && github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
       - name: Static Web App - wait for preview
         id: static-web-app-wait-for-preview
         uses: nev7n/wait_for_response@v1
         with:
-          url: '${{ steps.static-web-app-preview-url.outputs.PREVIEW_URL }}'
+          url: '${{ needs.build_and_deploy_swa_job.outputs.PREVIEW_URL }}'
           responseCode: 200
           timeout: 600000
           interval: 1000
@@ -143,7 +142,7 @@ jobs:
         uses: treosh/lighthouse-ci-action@v3
         with:
           urls: |
-            ${{ steps.static-web-app-preview-url.outputs.PREVIEW_URL }}
+            ${{ needs.build_and_deploy_swa_job.outputs.PREVIEW_URL }}
           configPath: ./.github/workflows/lighthousesrc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
