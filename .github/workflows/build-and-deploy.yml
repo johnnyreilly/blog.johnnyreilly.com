@@ -121,18 +121,18 @@ jobs:
       preview-url: ${{steps.static-web-app-preview-url.outputs.PREVIEW_URL}}
 
   lighthouse-report:
-    name: Lighthouse Report
+    name: Lighthouse report
     needs: build_and_deploy_swa_job
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - name: Static Web App - wait for preview
+      - name: Static Web App - wait for preview ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
         id: static-web-app-wait-for-preview
         uses: nev7n/wait_for_response@v1
         with:
-          url: '${{ needs.build_and_deploy_swa_job.outputs.PREVIEW_URL }}'
+          url: '${{ needs.build_and_deploy_swa_job.outputs.preview-url }}'
           responseCode: 200
           timeout: 600000
           interval: 1000
@@ -142,7 +142,7 @@ jobs:
         uses: treosh/lighthouse-ci-action@v3
         with:
           urls: |
-            ${{ needs.build_and_deploy_swa_job.outputs.PREVIEW_URL }}
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
           configPath: ./.github/workflows/lighthousesrc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
