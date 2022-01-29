@@ -223,7 +223,7 @@ jobs:
         with:
           script: |
             const lighthouseOutputs = {
-              manifest: ${{ steps.lighthouse_audit.outputs.manifest }}
+              manifest: ${{ steps.lighthouse_audit.outputs.manifest }},
               links: ${{ steps.lighthouse_audit.outputs.links }}
             };
             console.log('lighthouseOutputs', lighthouseOutputs);
