@@ -61,34 +61,34 @@ function makeComment(lighthouseOutputs) {
   return comment;
 }
 
-module.exports = (lighthouseOutputs) => {
+module.exports = ({ lighthouseOutputs }) => {
   return makeComment(lighthouseOutputs);
 };
 
-/** @type {LighthouseOutputs} */
-const exampleOutputs = {
-  resultsPath:
-    '/home/runner/work/blog.johnnyreilly.com/blog.johnnyreilly.com/.lighthouseci',
-  links: {
-    'https://thankful-sky-0bfc7e803-165.westeurope.1.azurestaticapps.net/':
-      'https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1643437420055-58011.report.html',
-  },
-  assertionResults: '',
-  manifest: [
-    {
-      url: 'https://thankful-sky-0bfc7e803-165.westeurope.1.azurestaticapps.net/',
-      isRepresentativeRun: true,
-      htmlPath:
-        '/home/runner/work/blog.johnnyreilly.com/blog.johnnyreilly.com/.lighthouseci/thankful_sky_0bfc7e803_165_westeurope_1_azurestaticapps_net-_-2022_01_29_06_23_27.report.html',
-      jsonPath:
-        '/home/runner/work/blog.johnnyreilly.com/blog.johnnyreilly.com/.lighthouseci/thankful_sky_0bfc7e803_165_westeurope_1_azurestaticapps_net-_-2022_01_29_06_23_27.report.json',
-      summary: {
-        performance: 0.27,
-        accessibility: 0.97,
-        'best-practices': 0.93,
-        seo: 1,
-        pwa: 0.64,
-      },
-    },
-  ],
-};
+// /** @type {LighthouseOutputs} */
+// const exampleOutputs = {
+//   resultsPath:
+//     '/home/runner/work/blog.johnnyreilly.com/blog.johnnyreilly.com/.lighthouseci',
+//   links: {
+//     'https://thankful-sky-0bfc7e803-165.westeurope.1.azurestaticapps.net/':
+//       'https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1643437420055-58011.report.html',
+//   },
+//   assertionResults: '',
+//   manifest: [
+//     {
+//       url: 'https://thankful-sky-0bfc7e803-165.westeurope.1.azurestaticapps.net/',
+//       isRepresentativeRun: true,
+//       htmlPath:
+//         '/home/runner/work/blog.johnnyreilly.com/blog.johnnyreilly.com/.lighthouseci/thankful_sky_0bfc7e803_165_westeurope_1_azurestaticapps_net-_-2022_01_29_06_23_27.report.html',
+//       jsonPath:
+//         '/home/runner/work/blog.johnnyreilly.com/blog.johnnyreilly.com/.lighthouseci/thankful_sky_0bfc7e803_165_westeurope_1_azurestaticapps_net-_-2022_01_29_06_23_27.report.json',
+//       summary: {
+//         performance: 0.27,
+//         accessibility: 0.97,
+//         'best-practices': 0.93,
+//         seo: 1,
+//         pwa: 0.64,
+//       },
+//     },
+//   ],
+// };

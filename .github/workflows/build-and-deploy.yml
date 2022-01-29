@@ -95,21 +95,21 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Set Deployment Name
-        id: deployment-name
+        id: deployment_name
         run: |
           REF_SHA='${{ github.ref }}.${{ github.sha }}'
           DEPLOYMENT_NAME="${REF_SHA////-}"
           echo "::set-output name=DEPLOYMENT_NAME::$DEPLOYMENT_NAME"
 
       - name: Static Web App - change details
-        id: static-web-app-what-if
+        id: static_web_app_what_if
         if: github.event_name == 'pull_request'
         uses: azure/CLI@v1
         with:
           inlineScript: |
             az deployment group what-if \
               --resource-group ${{ env.RESOURCE_GROUP }} \
-              --name "${{ steps.deployment-name.outputs.DEPLOYMENT_NAME }}" \
+              --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
               --template-file ./infra/main.bicep \
               --parameters \
                   branch='main' \
@@ -119,14 +119,14 @@ jobs:
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}'
 
       - name: Static Web App - deploy infra
-        id: static-web-app-deploy
+        id: static_web_app_deploy
         if: github.event_name != 'pull_request'
         uses: azure/CLI@v1
         with:
           inlineScript: |
             az deployment group create \
               --resource-group ${{ env.RESOURCE_GROUP }} \
-              --name "${{ steps.deployment-name.outputs.DEPLOYMENT_NAME }}" \
+              --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
               --template-file ./infra/main.bicep \
               --parameters \
                   branch='main' \
@@ -136,13 +136,13 @@ jobs:
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}'
 
       - name: Static Web App - get API key for deployment
-        id: static-web-app-apikey
+        id: static_web_app_apikey
         uses: azure/CLI@v1
         with:
           inlineScript: |
             az deployment group create \
               --resource-group ${{ env.RESOURCE_GROUP }} \
-              --name "${{ steps.deployment-name.outputs.DEPLOYMENT_NAME }}" \
+              --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
               --template-file ./infra/main.bicep \
               --parameters \
                   branch='main' \
@@ -158,7 +158,7 @@ jobs:
         id: static_web_app_build_and_deploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ steps.static-web-app-apikey.outputs.APIKEY }}
+          azure_static_web_apps_api_token: ${{ steps.static_web_app_apikey.outputs.APIKEY }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: 'upload'
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
@@ -222,15 +222,13 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            const lighthouseCommentMaker = require('./.github/workflows/lighthouseCommentMaker.js');
-            const outputs1 = ${{ toJSON(steps.lighthouse_audit.outputs) }};
-            console.log('outputs1', outputs1);
             const outputs = {
               manifest: ${{ steps.lighthouse_audit.outputs.manifest }}
               links: ${{ steps.lighthouse_audit.outputs.links }}
             };
             console.log('outputs', outputs);
-            const comment = lighthouseCommentMaker(outputs);
+            const lighthouseCommentMaker = require('./.github/workflows/lighthouseCommentMaker.js');
+            const comment = lighthouseCommentMaker({ lighthouseOutputs: outputs });
             core.setOutput("comment", comment);
 
       # - name: Format lighthouse score
