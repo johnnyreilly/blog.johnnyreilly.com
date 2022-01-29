@@ -16,6 +16,70 @@ env:
   TAGS: '{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
 
 jobs:
+  docusaurus_build_job:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    name: Docusaurus build
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+
+      - name: Test Docusaurus Build
+        run: |
+          cd blog-website
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi
+          npm run build
+
+  deploy_to_github_pages_job:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    name: Deploy to GitHub Pages
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+
+      - name: Add key to allow access to repository
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          cd blog-website
+          mkdir -p ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          echo "${{ secrets.GH_PAGES_DEPLOY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          cat <<EOT >> ~/.ssh/config
+          Host github.com
+          HostName github.com
+          IdentityFile ~/.ssh/id_rsa
+          EOT
+
+      - name: Release to GitHub Pages
+        env:
+          USE_SSH: true
+          GIT_USER: git
+        run: |
+          cd blog-website
+          git config --global user.email "actions@gihub.com"
+          git config --global user.name "gh-actions"
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi
+          npx docusaurus deploy
+
   build_and_deploy_swa_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
@@ -91,7 +155,7 @@ jobs:
             echo "::set-output name=APIKEY::$APIKEY"
 
       - name: Static Web App - build and deploy
-        id: static-web-app-build-and-deploy
+        id: static_web_app_build_and_deploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ steps.static-web-app-apikey.outputs.APIKEY }}
@@ -105,7 +169,7 @@ jobs:
           ###### End of Repository/Build Configurations ######
 
       - name: Static Web App - get preview URL
-        id: static-web-app-preview-url
+        id: static_web_app_preview_url
         uses: azure/CLI@v1
         with:
           inlineScript: |
@@ -118,9 +182,9 @@ jobs:
             echo "::set-output name=PREVIEW_URL::$PREVIEW_URL"
 
     outputs:
-      preview-url: ${{steps.static-web-app-preview-url.outputs.PREVIEW_URL}}
+      preview-url: ${{steps.static_web_app_preview_url.outputs.PREVIEW_URL}}
 
-  lighthouse-report:
+  lighthouse_report_job:
     name: Lighthouse report
     needs: build_and_deploy_swa_job
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
@@ -129,7 +193,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Static Web App - wait for preview ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
-        id: static-web-app-wait-for-preview
+        id: static_web_app_wait_for_preview
         uses: nev7n/wait_for_response@v1
         with:
           url: '${{ needs.build_and_deploy_swa_job.outputs.preview-url }}'
@@ -161,11 +225,11 @@ jobs:
             const lighthouseCommentMaker = require('./.github/workflows/lighthouseCommentMaker.js');
             const outputs1 = ${{ toJSON(steps.lighthouse_audit.outputs) }};
             console.log('outputs1', outputs1);
-            const outputs2 = {
+            const outputs = {
               manifest: ${{ steps.lighthouse_audit.outputs.manifest }}
               links: ${{ steps.lighthouse_audit.outputs.links }}
             };
-            console.log('outputs2', outputs2);
+            console.log('outputs', outputs);
             const comment = lighthouseCommentMaker(outputs);
             core.setOutput("comment", comment);
 
@@ -206,7 +270,7 @@ jobs:
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
-    name: Close Pull Request Job
+    name: Cleanup Pull Request staging environment
     steps:
       - name: Azure Login
         uses: azure/login@v1
@@ -228,67 +292,3 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ steps.apikey.outputs.APIKEY }}
           action: 'close'
-
-  docusaurus-build:
-    if: github.event_name != 'push'
-    runs-on: ubuntu-latest
-    name: Docusaurus build
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '16.x'
-
-      - name: Test Docusaurus Build
-        run: |
-          cd blog-website
-          if [ -e yarn.lock ]; then
-          yarn install --frozen-lockfile
-          elif [ -e package-lock.json ]; then
-          npm ci
-          else
-          npm i
-          fi
-          npm run build
-
-  deploy-to-github:
-    if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
-    name: Deploy to GitHub Pages
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '16.x'
-
-      - name: Add key to allow access to repository
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: |
-          cd blog-website
-          mkdir -p ~/.ssh
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-          echo "${{ secrets.GH_PAGES_DEPLOY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          cat <<EOT >> ~/.ssh/config
-          Host github.com
-          HostName github.com
-          IdentityFile ~/.ssh/id_rsa
-          EOT
-
-      - name: Release to GitHub Pages
-        env:
-          USE_SSH: true
-          GIT_USER: git
-        run: |
-          cd blog-website
-          git config --global user.email "actions@gihub.com"
-          git config --global user.name "gh-actions"
-          if [ -e yarn.lock ]; then
-          yarn install --frozen-lockfile
-          elif [ -e package-lock.json ]; then
-          npm ci
-          else
-          npm i
-          fi
-          npx docusaurus deploy
