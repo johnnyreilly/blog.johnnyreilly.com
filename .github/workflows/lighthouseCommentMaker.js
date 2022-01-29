@@ -26,40 +26,40 @@
  * @prop {Manifest[]} manifest
  */
 
-// const formatResult = (res) => Math.round(res * 100);
-// const score = (res) => (res >= 90 ? '🟢' : res >= 50 ? '🟠' : '🔴');
+const formatResult = (res) => Math.round(res * 100);
+const score = (res) => (res >= 90 ? '🟢' : res >= 50 ? '🟠' : '🔴');
 
 /**
  * @param {LighthouseOutputs} lighthouseOutputs
  */
 function makeComment(lighthouseOutputs) {
-  return 'works!';
-  //   const result = lighthouseOutputs.manifest[0].summary;
-  //   const links = lighthouseOutputs.links;
-  //   Object.keys(result).forEach(
-  //     (key) => (result[key] = formatResult(result[key]))
-  //   );
+  console.log('lighthouseOutputs', lighthouseOutputs);
+  const result = lighthouseOutputs.manifest[0].summary;
+  const links = lighthouseOutputs.links;
+  Object.keys(result).forEach(
+    (key) => (result[key] = formatResult(result[key]))
+  );
 
-  //   const comment = [
-  //     `⚡️ [Lighthouse report](${
-  //       Object.values(links)[0]
-  //     }) for the changes in this PR:`,
-  //     '| Category | Score |',
-  //     '| --- | --- |',
-  //     `| ${score(result.performance)} Performance | ${result.performance} |`,
-  //     `| ${score(result.accessibility)} Accessibility | ${
-  //       result.accessibility
-  //     } |`,
-  //     `| ${score(result['best-practices'])} Best practices | ${
-  //       result['best-practices']
-  //     } |`,
-  //     `| ${score(result.seo)} SEO | ${result.seo} |`,
-  //     `| ${score(result.pwa)} PWA | ${result.pwa} |`,
-  //     ' ',
-  //     `*Lighthouse ran on [${Object.keys(links)[0]}](${Object.keys(links)[0]})*`,
-  //   ].join('\n');
+  const comment = [
+    `⚡️ [Lighthouse report](${
+      Object.values(links)[0]
+    }) for the changes in this PR:`,
+    '| Category | Score |',
+    '| --- | --- |',
+    `| ${score(result.performance)} Performance | ${result.performance} |`,
+    `| ${score(result.accessibility)} Accessibility | ${
+      result.accessibility
+    } |`,
+    `| ${score(result['best-practices'])} Best practices | ${
+      result['best-practices']
+    } |`,
+    `| ${score(result.seo)} SEO | ${result.seo} |`,
+    `| ${score(result.pwa)} PWA | ${result.pwa} |`,
+    ' ',
+    `*Lighthouse ran on [${Object.keys(links)[0]}](${Object.keys(links)[0]})*`,
+  ].join('\n');
 
-  //   return comment;
+  return comment;
 }
 
 module.exports = ({ lighthouseOutputs }) => {

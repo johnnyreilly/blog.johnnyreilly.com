@@ -227,8 +227,8 @@ jobs:
               links: ${{ steps.lighthouse_audit.outputs.links }}
             };
             console.log('lighthouseOutputs', lighthouseOutputs);
+
             const lighthouseCommentMaker = require('./.github/workflows/lighthouseCommentMaker.js');
-            console.log('lighthouseCommentMaker', lighthouseCommentMaker);
             const comment = lighthouseCommentMaker({ lighthouseOutputs });
             core.setOutput("comment", comment);
 
