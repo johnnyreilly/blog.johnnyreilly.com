@@ -159,7 +159,9 @@ jobs:
         with:
           script: |
             const lighthouseCommentMaker = require('./.github/workflows/lighthouseCommentMaker.js');
-            const comment = lighthouseCommentMaker(${{ steps.lighthouse_audit.outputs }});
+            const outputs = ${{ steps.lighthouse_audit.outputs }};
+            console.log('outputs', outputs);
+            const comment = lighthouseCommentMaker(outputs);
             core.setOutput("comment", comment);
 
       # - name: Format lighthouse score
