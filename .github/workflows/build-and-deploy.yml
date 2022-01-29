@@ -158,7 +158,7 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            const lighthouseCommentMaker = require('./lighthouseCommentMaker.js');
+            const lighthouseCommentMaker = require('./.github/workflows/lighthouseCommentMaker.js');
             const comment = lighthouseCommentMaker(${{ steps.lighthouse_audit.outputs }});
             core.setOutput("comment", comment);
 
