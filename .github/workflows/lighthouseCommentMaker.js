@@ -20,9 +20,7 @@
 
 /**
  * @typedef {Object} LighthouseOutputs
- * @prop {string} resultsPath
  * @prop {Record<string, string>} links
- * @prop {string} assertionResults
  * @prop {Manifest[]} manifest
  */
 
@@ -39,19 +37,18 @@ const scoreRow = (
  * @param {LighthouseOutputs} lighthouseOutputs
  */
 function makeComment(lighthouseOutputs) {
-  console.log('lighthouseOutputs', lighthouseOutputs);
-  const result = lighthouseOutputs.manifest[0].summary;
+  const { summary } = lighthouseOutputs.manifest[0];
   const [[testedUrl, reportUrl]] = Object.entries(lighthouseOutputs.links);
 
   const comment = `⚡️🏠 [Lighthouse report](${reportUrl}) for the changes in this PR:
 
 | Category | Score |
 | -------- | ----- |
-${scoreRow('Performance', result.performance)}
-${scoreRow('Accessibility', result.accessibility)}
-${scoreRow('Best practices', result['best-practices'])}
-${scoreRow('SEO', result.seo)}
-${scoreRow('PWA', result.pwa)}
+${scoreRow('Performance', summary.performance)}
+${scoreRow('Accessibility', summary.accessibility)}
+${scoreRow('Best practices', summary['best-practices'])}
+${scoreRow('SEO', summary.seo)}
+${scoreRow('PWA', summary.pwa)}
 
 *Lighthouse ran on [${testedUrl}](${testedUrl})*
 `;
@@ -63,30 +60,26 @@ module.exports = ({ lighthouseOutputs }) => {
   return makeComment(lighthouseOutputs);
 };
 
-// /** @type {LighthouseOutputs} */
-// const exampleOutputs = {
-//   resultsPath:
-//     '/home/runner/work/blog.johnnyreilly.com/blog.johnnyreilly.com/.lighthouseci',
-//   links: {
-//     'https://thankful-sky-0bfc7e803-165.westeurope.1.azurestaticapps.net/':
-//       'https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1643437420055-58011.report.html',
-//   },
-//   assertionResults: '',
-//   manifest: [
-//     {
-//       url: 'https://thankful-sky-0bfc7e803-165.westeurope.1.azurestaticapps.net/',
-//       isRepresentativeRun: true,
-//       htmlPath:
-//         '/home/runner/work/blog.johnnyreilly.com/blog.johnnyreilly.com/.lighthouseci/thankful_sky_0bfc7e803_165_westeurope_1_azurestaticapps_net-_-2022_01_29_06_23_27.report.html',
-//       jsonPath:
-//         '/home/runner/work/blog.johnnyreilly.com/blog.johnnyreilly.com/.lighthouseci/thankful_sky_0bfc7e803_165_westeurope_1_azurestaticapps_net-_-2022_01_29_06_23_27.report.json',
-//       summary: {
-//         performance: 0.27,
-//         accessibility: 0.97,
-//         'best-practices': 0.93,
-//         seo: 1,
-//         pwa: 0.64,
-//       },
-//     },
-//   ],
-// };
+/** @type {LighthouseOutputs} */
+const _exampleOutputs = {
+  links: {
+    'https://url-to-test/': 'https://report.html',
+  },
+  manifest: [
+    {
+      url: 'https://url-to-test/',
+      isRepresentativeRun: true,
+      htmlPath:
+        '/home/runner/work/blog.johnnyreilly.com/blog.johnnyreilly.com/.lighthouseci/thankful_sky_0bfc7e803_165_westeurope_1_azurestaticapps_net-_-2022_01_29_06_23_27.report.html',
+      jsonPath:
+        '/home/runner/work/blog.johnnyreilly.com/blog.johnnyreilly.com/.lighthouseci/thankful_sky_0bfc7e803_165_westeurope_1_azurestaticapps_net-_-2022_01_29_06_23_27.report.json',
+      summary: {
+        performance: 0.27,
+        accessibility: 0.97,
+        'best-practices': 0.93,
+        seo: 1,
+        pwa: 0.64,
+      },
+    },
+  ],
+};

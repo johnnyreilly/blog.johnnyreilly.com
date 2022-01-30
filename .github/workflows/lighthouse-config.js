@@ -2,13 +2,11 @@
 module.exports = {
   extends: 'lighthouse:default',
   settings: {
-    // skipAudits: [
-    //   'robots-txt',
-    //   'canonical',
-    //   'tap-targets',
-    //   'is-crawlable',
-    //   'works-offline',
-    //   'offline-start-url',
-    // ],
+    skipAudits: [
+      //   'robots-txt',
+      //   'canonical',
+      //   'works-offline',
+      'offline-start-url',
+    ],
   },
 };
