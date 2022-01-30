@@ -42,7 +42,7 @@ function makeComment(lighthouseOutputs) {
 
   const comment = `## ⚡️🏠 Lighthouse report
 
-We ran Lighthouse against the changes in this PR and produced this [report](${reportUrl}). Here's the summary:
+We ran Lighthouse against the changes and produced this [report](${reportUrl}). Here's the summary:
 
 | Category | Score |
 | -------- | ----- |
