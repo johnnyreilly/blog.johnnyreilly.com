@@ -26,8 +26,14 @@
  * @prop {Manifest[]} manifest
  */
 
-const formatResult = (res) => Math.round(res * 100);
-const score = (res) => (res >= 90 ? '🟢' : res >= 50 ? '🟠' : '🔴');
+const formatScore = (/** @type { number } */ score) => Math.round(score * 100);
+const emojiScore = (/** @type { number } */ score) =>
+  score >= 0.9 ? '🟢' : score >= 0.5 ? '🟠' : '🔴';
+
+const scoreRow = (
+  /** @type { string } */ label,
+  /** @type { number } */ score
+) => `| ${emojiScore(score)} ${label} | ${formatScore(score)} |`;
 
 /**
  * @param {LighthouseOutputs} lighthouseOutputs
@@ -35,29 +41,20 @@ const score = (res) => (res >= 90 ? '🟢' : res >= 50 ? '🟠' : '🔴');
 function makeComment(lighthouseOutputs) {
   console.log('lighthouseOutputs', lighthouseOutputs);
   const result = lighthouseOutputs.manifest[0].summary;
-  const links = lighthouseOutputs.links;
-  Object.keys(result).forEach(
-    (key) => (result[key] = formatResult(result[key]))
-  );
+  const [[testedUrl, reportUrl]] = Object.entries(lighthouseOutputs.links);
 
-  const comment = [
-    `⚡️ [Lighthouse report](${
-      Object.values(links)[0]
-    }) for the changes in this PR:`,
-    '| Category | Score |',
-    '| --- | --- |',
-    `| ${score(result.performance)} Performance | ${result.performance} |`,
-    `| ${score(result.accessibility)} Accessibility | ${
-      result.accessibility
-    } |`,
-    `| ${score(result['best-practices'])} Best practices | ${
-      result['best-practices']
-    } |`,
-    `| ${score(result.seo)} SEO | ${result.seo} |`,
-    `| ${score(result.pwa)} PWA | ${result.pwa} |`,
-    ' ',
-    `*Lighthouse ran on [${Object.keys(links)[0]}](${Object.keys(links)[0]})*`,
-  ].join('\n');
+  const comment = `⚡️🏠 [Lighthouse report](${reportUrl}) for the changes in this PR:
+
+| Category | Score |
+| -------- | ----- |
+${scoreRow('Performance', result.performance)}
+${scoreRow('Accessibility', result.accessibility)}
+${scoreRow('Best practices', result['best-practices'])}
+${scoreRow('SEO', result.seo)}
+${scoreRow('PWA', result.pwa)}
+
+*Lighthouse ran on [${testedUrl}](${testedUrl})*
+`;
 
   return comment;
 }
