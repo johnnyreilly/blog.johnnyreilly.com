@@ -6,15 +6,15 @@ image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-This post uses Bicep and GitHub Actions to show how to migrate from hosting a static website on GitHub Pages to Azure Static Web Apps .
+You can use Bicep and GitHub Actions to build and deploy to a static website on Azure Static Web Apps. This post demonstrates how.
 
 ![title image reading "Migrating from GitHub Pages to Azure Static Web Apps" with GitHub and Azure Static Web Apps logos](title-image.png)
 
 ## Why migrate?
 
-This blog has been hosted on GitHub Pages for some time. It also makes use of Netlify for deployment previews. [Azure Static Web Apps](https://azure.microsoft.com/en-us/services/app-service/static/) supports both hosting static websites and deployment previews (known as "staging environments"). It's generally desirable to simplify.
+This blog has been hosted on GitHub Pages for some time. It also makes use of Netlify for deployment previews. [Azure Static Web Apps](https://azure.microsoft.com/en-us/services/app-service/static/) supports both hosting static websites and deployment previews (known as "staging environments"). These are both great, but it's always niggled that there's two mechanisms in play; each separately configured. It's time to simplify.
 
-This post looks at migrating across to use Static Web Apps in place of both of GitHub Pages and Netlify, in order this blog has a unified deployment story. I'm choosing to use Bicep to do this as I tend towards using infrastructure as code. If you wanted to roll with a more "point and click" approach in the Azure Portal, you could do that too.
+So we're going to migrate across to use Static Web Apps in place of both of GitHub Pages and Netlify. I'm choosing to use Bicep to do this as I tend towards using infrastructure as code. If you wanted to roll with a more "point and click" approach in the Azure Portal, you could do that too.
 
 ## Bicep
 
@@ -100,7 +100,7 @@ Remember to replace the `{subscription-id}` with your subscription id and `{reso
 }
 ```
 
-Take this and save it as the `AZURE_CREDENTIALS` secret in Azure.
+Take this and save it as the `AZURE_CREDENTIALS` secret in GitHub.
 
 ### `WORKFLOW_TOKEN` - Azure accessing the GitHub container registry
 
