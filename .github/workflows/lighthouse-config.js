@@ -4,7 +4,7 @@ module.exports = {
   settings: {
     skipAudits: [
       //   'robots-txt',
-      //   'canonical',
+      'canonical', // for staging sites this will always be incorrect
       //   'works-offline',
       'offline-start-url',
     ],

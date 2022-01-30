@@ -40,7 +40,9 @@ function makeComment(lighthouseOutputs) {
   const { summary } = lighthouseOutputs.manifest[0];
   const [[testedUrl, reportUrl]] = Object.entries(lighthouseOutputs.links);
 
-  const comment = `⚡️🏠 [Lighthouse report](${reportUrl}) for the changes in this PR:
+  const comment = `## ⚡️🏠 Lighthouse report
+
+We ran Lighthouse against the changes in this PR and produced this [report](${reportUrl}). Here's the summary:
 
 | Category | Score |
 | -------- | ----- |
@@ -50,7 +52,7 @@ ${scoreRow('Best practices', summary['best-practices'])}
 ${scoreRow('SEO', summary.seo)}
 ${scoreRow('PWA', summary.pwa)}
 
-*Lighthouse ran on [${testedUrl}](${testedUrl})*
+*Lighthouse ran against [${testedUrl}](${testedUrl})*
 `;
 
   return comment;
