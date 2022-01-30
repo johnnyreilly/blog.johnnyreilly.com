@@ -210,7 +210,7 @@ jobs:
           configPath: ./.github/workflows/lighthousesrc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
-          runs: 3
+          runs: 5
 
       - name: Dump steps.lighthouse_audit.outputs
         id: github_context_step
