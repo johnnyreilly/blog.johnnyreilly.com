@@ -4,18 +4,17 @@ authors: johnnyreilly
 tags: [Azure Static Web Apps, Bicep, GitHub Actions, GitHub Pages]
 image: ./title-image.png
 hide_table_of_contents: false
-draft: true
 ---
 
-This post shows how to migrate from hosting a static website on GitHub Pages to Azure Static Web Apps whilst using Bicep and GitHub Actions.
+This post uses Bicep and GitHub Actions to show how to migrate from hosting a static website on GitHub Pages to Azure Static Web Apps .
 
-![title image reading "Azure Static Web App Deploy Previews with Azure DevOps" with a Azure, Bicep and Azure DevOps logos](title-image.png)
+![title image reading "Migrating from GitHub Pages to Azure Static Web Apps" with GitHub and Azure Static Web Apps logos](title-image.png)
 
 ## Why migrate?
 
 This blog has been hosted on GitHub Pages for some time. It also makes use of Netlify for deployment previews. [Azure Static Web Apps](https://azure.microsoft.com/en-us/services/app-service/static/) supports both hosting static websites and deployment previews (known as "staging environments"). It's generally desirable to simplify.
 
-This post looks at migrating across to use Static Web Apps so this blog has a unified deployment story. I'm choosing to use Bicep for this approach as I tend towards using infrastructure as code. If you wanted to roll with a more "point and click" approach in the Azure Portal, you could do that too.
+This post looks at migrating across to use Static Web Apps in place of both of GitHub Pages and Netlify, in order this blog has a unified deployment story. I'm choosing to use Bicep to do this as I tend towards using infrastructure as code. If you wanted to roll with a more "point and click" approach in the Azure Portal, you could do that too.
 
 ## Bicep
 
@@ -235,3 +234,7 @@ jobs:
           azure_static_web_apps_api_token: ${{ steps.apikey.outputs.APIKEY }}
           action: 'close'
 ```
+
+The above workflow does the following:
+
+-
