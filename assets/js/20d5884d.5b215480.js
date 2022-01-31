@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[89432],{46633:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/dependency-injection","name":"dependency injection","count":1,"permalink":"/tags/dependency-injection"}')}}]);
