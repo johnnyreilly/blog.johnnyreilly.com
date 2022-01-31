@@ -4,7 +4,6 @@ authors: johnnyreilly
 tags: [Azure Static Web Apps, Bicep, GitHub Actions, GitHub Pages]
 image: ./title-image.png
 hide_table_of_contents: false
-draft: true
 ---
 
 You can use Bicep and GitHub Actions to build and deploy to a static website on Azure Static Web Apps. This post demonstrates how.
