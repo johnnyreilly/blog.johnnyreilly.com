@@ -237,7 +237,6 @@ jobs:
       - name: Get API key for deployment
         id: apikey
         uses: azure/CLI@v1
-        if: github.event_name != 'pull_request'
         with:
           inlineScript: |
             APIKEY=$(az staticwebapp secrets list --name $(staticWebAppName) | jq -r '.properties.apiKey')
