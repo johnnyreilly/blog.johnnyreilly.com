@@ -4,6 +4,7 @@ authors: johnnyreilly
 tags: [Azure Static Web Apps, Bicep, GitHub Actions, GitHub Pages]
 image: ./title-image.png
 hide_table_of_contents: false
+draft: true
 ---
 
 You can use Bicep and GitHub Actions to build and deploy to a static website on Azure Static Web Apps. This post demonstrates how.
@@ -14,7 +15,7 @@ You can use Bicep and GitHub Actions to build and deploy to a static website on 
 
 This blog has been hosted on GitHub Pages for some time. It also makes use of Netlify for deployment previews. [Azure Static Web Apps](https://azure.microsoft.com/en-us/services/app-service/static/) supports both hosting static websites and deployment previews (known as "staging environments"). These are both great, but it's always niggled that there's two mechanisms in play; each separately configured. It's time to simplify.
 
-So we're going to migrate across to use Static Web Apps in place of both of GitHub Pages and Netlify. I'm choosing to use Bicep to do this as I tend towards using infrastructure as code. If you wanted to roll with a more "point and click" approach in the Azure Portal, you could do that too.
+So we're going to migrate across to use Static Web Apps in place of both of GitHub Pages and Netlify. I'm choosing to use Bicep to do this as I tend towards using infrastructure as code. If you wanted to roll with a more "point and click" approach in the Azure Portal, you could do that too. Simply ignore the Bicep related portions of the post.
 
 ## Bicep
 
@@ -63,7 +64,7 @@ Most of the Bicep template above is self-explanatory. There's a few things to hi
 
 ## Setting up a resource group
 
-With our Bicep in place, we're going to need a resource group to send it to. We're going to create ourselves a resource group in North Europe:
+With our Bicep in place, we're going to need a resource group to send it to. We're going to create ourselves a resource group in West Europe:
 
 ```shell
 az group create -g rg-blog-johnnyreilly-com -l westeurope
@@ -83,7 +84,7 @@ az ad sp create-for-rbac --name "myApp" --role contributor \
     --sdk-auth
 ```
 
-Remember to replace the `{subscription-id}` with your subscription id and `{resource-group}` with the name of your resource group (`rg-aca` if you're following along). This command will pump out a lump of JSON that looks something like this:
+Remember to replace the `{subscription-id}` with your subscription id and `{resource-group}` with the name of your resource group (`rg-blog-johnnyreilly-com` if you're following along). This command will pump out a lump of JSON that looks something like this:
 
 ```json
 {
@@ -208,6 +209,22 @@ jobs:
           output_location: 'build' # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
 
+      - name: Static Web App - get preview URL
+        id: static_web_app_preview_url
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATICWEBAPPNAME }}' | jq -r '.defaultHostname')
+            echo $DEFAULTHOSTNAME
+
+            PREVIEW_URL="https://${DEFAULTHOSTNAME/.[1-9]./-${{github.event.pull_request.number }}.${{ env.LOCATION }}.1.}"
+            echo $PREVIEW_URL
+
+            echo "::set-output name=PREVIEW_URL::$PREVIEW_URL"
+
+    outputs:
+      preview-url: ${{steps.static_web_app_preview_url.outputs.PREVIEW_URL}}
+
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
@@ -237,4 +254,8 @@ jobs:
 
 The above workflow does the following:
 
--
+- For main branch deployments it releases our static web app making use of Bicep. For pull requests it tells us if there's any changes that the current PR would make to our SWA as a consequence.
+- It acquires an API Key from Azure which can then be used to perform a deployment.
+- It deploys [using the dedicated GitHub Action for SWAs](https://github.com/Azure/static-web-apps-deploy)
+- It calculates the preview URL for a given pull request (it isn't used as yet, but could be)
+- When a pull request is closed it triggers the GitHub Action to clean up the preview environment.
