@@ -51,7 +51,7 @@ const config = {
           showReadingTime: true,
           editUrl:
             'https://github.com/johnnyreilly/blog.johnnyreilly.com/edit/main/blog-website/blog/',
-          beforeDefaultRehypePlugins /* rehypePlugins*/: [imageLazyRemark],
+          rehypePlugins: [imageLazyRemark],
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
