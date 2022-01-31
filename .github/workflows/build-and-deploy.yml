@@ -1,15 +1,25 @@
 name: Build and Deploy
 
 on:
-  pull_request:
-    branches: [main]
   push:
-    branches: [main]
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - main
+
+env:
+  RESOURCE_GROUP: rg-blog-johnnyreilly-com
+  LOCATION: westeurope
+  STATICWEBAPPNAME: blog.johnnyreilly.com
+  TAGS: '{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
 
 jobs:
-  checks-docusaurus:
+  docusaurus_build_job:
     if: github.event_name != 'push'
     runs-on: ubuntu-latest
+    name: Docusaurus build
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -20,8 +30,7 @@ jobs:
         run: |
           cd blog-website
           if [ -e yarn.lock ]; then
-          # yarn install --frozen-lockfile
-          yarn install
+          yarn install --frozen-lockfile
           elif [ -e package-lock.json ]; then
           npm ci
           else
@@ -29,30 +38,10 @@ jobs:
           fi
           npm run build
 
-  # checks-blogger:
-  #   if: github.event_name != 'push'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v1
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: '16.x'
-
-  #     - name: Test Blogger Publish
-  #       run: |
-  #         cd from-docusaurus-to-blogger
-  #         if [ -e yarn.lock ]; then
-  #         yarn install --frozen-lockfile
-  #         elif [ -e package-lock.json ]; then
-  #         npm ci
-  #         else
-  #         npm i
-  #         fi
-  #         yarn publish-blogs --clientId ${{ secrets.BLOGGER_CLIENT_ID }} --clientSecret ${{ secrets.BLOGGER_CLIENT_SECRET }} --refreshToken ${{ secrets.BLOGGER_REFRESH_TOKEN }} --test
-
-  deploy-to-github:
+  deploy_to_github_pages_job:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    name: Deploy to GitHub Pages
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -83,7 +72,6 @@ jobs:
           git config --global user.email "actions@gihub.com"
           git config --global user.name "gh-actions"
           if [ -e yarn.lock ]; then
-          # yarn install --frozen-lockfile
           yarn install --frozen-lockfile
           elif [ -e package-lock.json ]; then
           npm ci
@@ -92,24 +80,188 @@ jobs:
           fi
           npx docusaurus deploy
 
-  # deploy-to-blogger:
-  #   if: github.event_name != 'pull_request'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v1
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: '16.x'
+  build_and_deploy_swa_job:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    name: Build and deploy
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
 
-  #     - name: Publish to Blogger
-  #       run: |
-  #         cd from-docusaurus-to-blogger
-  #         if [ -e yarn.lock ]; then
-  #         # yarn install --frozen-lockfile
-  #         yarn install
-  #         elif [ -e package-lock.json ]; then
-  #         npm ci
-  #         else
-  #         npm i
-  #         fi
-  #         yarn publish-blogs --clientId ${{ secrets.BLOGGER_CLIENT_ID }} --clientSecret ${{ secrets.BLOGGER_CLIENT_SECRET }} --refreshToken ${{ secrets.BLOGGER_REFRESH_TOKEN }}
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set Deployment Name
+        id: deployment_name
+        run: |
+          REF_SHA='${{ github.ref }}.${{ github.sha }}'
+          DEPLOYMENT_NAME="${REF_SHA////-}"
+          echo "::set-output name=DEPLOYMENT_NAME::$DEPLOYMENT_NAME"
+
+      - name: Static Web App - change details
+        id: static_web_app_what_if
+        if: github.event_name == 'pull_request'
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az deployment group what-if \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
+              --template-file ./infra/main.bicep \
+              --parameters \
+                  branch='main' \
+                  location='${{ env.LOCATION }}' \
+                  name='${{ env.STATICWEBAPPNAME }}' \
+                  tags='${{ env.TAGS }}' \
+                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}'
+
+      - name: Static Web App - deploy infra
+        id: static_web_app_deploy
+        if: github.event_name != 'pull_request'
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az deployment group create \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
+              --template-file ./infra/main.bicep \
+              --parameters \
+                  branch='main' \
+                  location='${{ env.LOCATION }}' \
+                  name='${{ env.STATICWEBAPPNAME }}' \
+                  tags='${{ env.TAGS }}' \
+                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}'
+
+      - name: Static Web App - get API key for deployment
+        id: static_web_app_apikey
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az deployment group create \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
+              --template-file ./infra/main.bicep \
+              --parameters \
+                  branch='main' \
+                  location='${{ env.LOCATION }}' \
+                  name='${{ env.STATICWEBAPPNAME }}' \
+                  tags='${{ env.TAGS }}' \
+                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}'
+
+            APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
+            echo "::set-output name=APIKEY::$APIKEY"
+
+      - name: Static Web App - build and deploy
+        id: static_web_app_build_and_deploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ steps.static_web_app_apikey.outputs.APIKEY }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          action: 'upload'
+          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
+          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
+          app_location: '/blog-website' # App source code path
+          api_location: '' # Api source code path - optional
+          output_location: 'build' # Built app content directory - optional
+          ###### End of Repository/Build Configurations ######
+
+      - name: Static Web App - get preview URL
+        id: static_web_app_preview_url
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATICWEBAPPNAME }}' | jq -r '.defaultHostname')
+            echo $DEFAULTHOSTNAME
+
+            PREVIEW_URL="https://${DEFAULTHOSTNAME/.[1-9]./-${{github.event.pull_request.number }}.${{ env.LOCATION }}.1.}"
+            echo $PREVIEW_URL
+
+            echo "::set-output name=PREVIEW_URL::$PREVIEW_URL"
+
+    outputs:
+      preview-url: ${{steps.static_web_app_preview_url.outputs.PREVIEW_URL}}
+
+  lighthouse_report_job:
+    name: Lighthouse report
+    needs: build_and_deploy_swa_job
+    if: github.event_name == 'pull_request' && github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Static Web App - wait for preview ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
+        id: static_web_app_wait_for_preview
+        uses: nev7n/wait_for_response@v1
+        with:
+          url: '${{ needs.build_and_deploy_swa_job.outputs.preview-url }}'
+          responseCode: 200
+          timeout: 600000
+          interval: 1000
+
+      - name: Audit URLs using Lighthouse
+        id: lighthouse_audit
+        uses: treosh/lighthouse-ci-action@v8
+        with:
+          urls: |
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
+          configPath: ./.github/workflows/lighthousesrc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          runs: 5
+
+      - name: Dump steps.lighthouse_audit.outputs
+        id: github_context_step
+        run: echo '${{ toJSON(steps.lighthouse_audit.outputs) }}'
+
+      - name: Format lighthouse score
+        id: format_lighthouse_score
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const lighthouseCommentMaker = require('./.github/workflows/lighthouseCommentMaker.js');
+
+            const lighthouseOutputs = {
+              manifest: ${{ steps.lighthouse_audit.outputs.manifest }},
+              links: ${{ steps.lighthouse_audit.outputs.links }}
+            };
+
+            const comment = lighthouseCommentMaker({ lighthouseOutputs });
+            core.setOutput("comment", comment);
+
+      - name: Add Lighthouse stats as comment
+        id: comment_to_pr
+        uses: marocchino/sticky-pull-request-comment@v2.0.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ github.event.pull_request.number }}
+          header: lighthouse
+          message: ${{ steps.format_lighthouse_score.outputs.comment }}
+
+  close_pull_request_job:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    name: Cleanup Pull Request staging environment
+    steps:
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Get API key for deployment
+        id: apikey
+        uses: azure/CLI@v1
+        if: github.event_name != 'pull_request'
+        with:
+          inlineScript: |
+            APIKEY=$(az staticwebapp secrets list --name $(staticWebAppName) | jq -r '.properties.apiKey')
+            echo "::set-output name=APIKEY::$APIKEY"
+
+      - name: Close Pull Request
+        id: closepullrequest
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ steps.apikey.outputs.APIKEY }}
+          action: 'close'
