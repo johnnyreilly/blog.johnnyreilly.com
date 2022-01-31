@@ -8,7 +8,8 @@ function lazyLoadImagesPlugin() {
         node.properties.loading = 'lazy';
       }
       if (node.type === 'jsx' && node.value.includes('<img ')) {
-        node.value = node.value.replaceAll('<img ', '<img loading="lazy" ');
+        node.value = node.value.replace(/<img /g, '<img loading="lazy" ');
+        //.replaceAll('<img ', '<img loading="lazy" '); - requires node 16+
       }
     });
   };
