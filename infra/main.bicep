@@ -30,7 +30,6 @@ resource staticWebApp 'Microsoft.Web/staticSites@2021-02-01' = {
 resource customDomain 'Microsoft.Web/staticSites/customDomains@2021-02-01' = {
   parent: staticWebApp
   name: customDomainName
-  location: location
   properties: {}
 }
 
