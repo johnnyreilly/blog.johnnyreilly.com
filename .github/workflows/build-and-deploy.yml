@@ -116,7 +116,8 @@ jobs:
                   location='${{ env.LOCATION }}' \
                   name='${{ env.STATICWEBAPPNAME }}' \
                   tags='${{ env.TAGS }}' \
-                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}'
+                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
+                  customDomainName='${{ env.STATICWEBAPPNAME }}'
 
       - name: Static Web App - deploy infra
         id: static_web_app_deploy
@@ -133,7 +134,8 @@ jobs:
                   location='${{ env.LOCATION }}' \
                   name='${{ env.STATICWEBAPPNAME }}' \
                   tags='${{ env.TAGS }}' \
-                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}'
+                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
+                  customDomainName='${{ env.STATICWEBAPPNAME }}'
 
       - name: Static Web App - get API key for deployment
         id: static_web_app_apikey

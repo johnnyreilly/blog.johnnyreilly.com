@@ -4,6 +4,7 @@ param name string
 param tags object
 @secure()
 param repositoryToken string
+param customDomainName string
 
 resource staticWebApp 'Microsoft.Web/staticSites@2021-02-01' = {
   name: name
@@ -24,6 +25,13 @@ resource staticWebApp 'Microsoft.Web/staticSites@2021-02-01' = {
       skipGithubActionWorkflowGeneration: true
     }
   }
+}
+
+resource customDomain 'Microsoft.Web/staticSites/customDomains@2021-02-01' = {
+  parent: staticWebApp
+  name: customDomainName
+  location: location
+  properties: {}
 }
 
 output staticWebAppDefaultHostName string = staticWebApp.properties.defaultHostname // eg gentle-bush-0db02ce03.azurestaticapps.net
