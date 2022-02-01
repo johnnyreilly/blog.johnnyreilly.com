@@ -288,8 +288,20 @@ After a while (I think about twenty minutes in my case), this lead to the domain
 
 ![screenshot of the Azure Portal Add Custom Domain screen with domain validated](./custom-domain-code-validated.png)
 
+Now that we have a custom domain set up in Azure, we want to uncomment the `resource customDomain` portion of the Bicep template now as well:
+
+```bicep
+resource customDomain 'Microsoft.Web/staticSites/customDomains@2021-02-01' = {
+  parent: staticWebApp
+  name: customDomainName
+  properties: {}
+}
+```
+
+This will mean that subsequent deployments to Azure do _not_ wipe out our newly configured domain name.
+
 We're now ready to start pointing our DNS to the Static Web Apps instance. We jump back across to Cloudflare and we amend the CNAME record that currently points to johnnyreilly.github.io, and switch it to point to the auto-generated domain in Azure:
 
-![screenshot of Cloudflare with the CNAME record set](./cloudflare-dns.png)
+![screenshot of Cloudflare with the CNAME record set](./cloudflare-dns-cname.png)
 
 And just like that, we're hosted on Static Web Apps!
