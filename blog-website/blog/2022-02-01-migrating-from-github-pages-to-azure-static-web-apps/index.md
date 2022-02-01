@@ -12,9 +12,9 @@ You can use Bicep and GitHub Actions to build and deploy to a static website on 
 
 ## Why migrate?
 
-This blog has been hosted on GitHub Pages for some time. It also makes use of Netlify for deployment previews. [Azure Static Web Apps](https://azure.microsoft.com/en-us/services/app-service/static/) supports both hosting static websites and deployment previews (known as "staging environments"). These are both great, but it's always niggled that there's two mechanisms in play; each separately configured. It's time to simplify.
+This blog has been hosted on GitHub Pages for some time. It also makes use of Netlify for deployment previews. These are both great, but it's always niggled that there's two mechanisms in play; each separately configured. It's time to simplify.
 
-So we're going to migrate across to use Static Web Apps in place of both of GitHub Pages and Netlify. I'm choosing to use Bicep to do this as I tend towards using infrastructure as code. If you wanted to roll with a more "point and click" approach in the Azure Portal, you could do that too. Simply ignore the Bicep related portions of the post.
+[Azure Static Web Apps](https://azure.microsoft.com/en-us/services/app-service/static/) supports both hosting static websites and deployment previews (known as "staging environments"). So we're going to migrate across to use Static Web Apps in place of both of GitHub Pages and Netlify. I'm choosing to use Bicep to do this as I tend towards using infrastructure as code. If you wanted to roll with a more "point and click" approach in the Azure Portal, you could do that too. Simply ignore the Bicep related portions of the post.
 
 ## Bicep
 
