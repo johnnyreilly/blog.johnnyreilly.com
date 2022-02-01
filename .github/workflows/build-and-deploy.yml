@@ -17,7 +17,7 @@ env:
 
 jobs:
   docusaurus_build_job:
-    if: github.event_name != 'push'
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Docusaurus build
     steps:
@@ -246,7 +246,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            APIKEY=$(az staticwebapp secrets list --name $(staticWebAppName) | jq -r '.properties.apiKey')
+            APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
             echo "::set-output name=APIKEY::$APIKEY"
 
       - name: Close Pull Request
