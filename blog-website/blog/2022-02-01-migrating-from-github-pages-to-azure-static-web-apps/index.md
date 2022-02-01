@@ -27,6 +27,7 @@ param name string
 param tags object
 @secure()
 param repositoryToken string
+param customDomainName string
 
 resource staticWebApp 'Microsoft.Web/staticSites@2021-02-01' = {
   name: name
@@ -49,6 +50,12 @@ resource staticWebApp 'Microsoft.Web/staticSites@2021-02-01' = {
   }
 }
 
+// resource customDomain 'Microsoft.Web/staticSites/customDomains@2021-02-01' = {
+//   parent: staticWebApp
+//   name: customDomainName
+//   properties: {}
+// }
+
 output staticWebAppDefaultHostName string = staticWebApp.properties.defaultHostname // eg gentle-bush-0db02ce03.azurestaticapps.net
 output staticWebAppId string = staticWebApp.id
 output staticWebAppName string = staticWebApp.name
@@ -60,6 +67,7 @@ Most of the Bicep template above is self-explanatory. There's a few things to hi
 - We need to provide a `repositoryToken` - this is a little surprising as you'll see later in the template that we supply the `skipGithubActionWorkflowGeneration: true` which means we're _not_ requiring our SWA to interact with GitHub on our behalf - but it seems that there's a requirement for a GitHub token anyway. We'll roll with it.
 - We're enabling deployment previews / staging environments with `stagingEnvironmentPolicy: 'Enabled'`
 - The `branch` is always set to `main` - we have to let Azure know this so it knows which branch is the primary branch and hence which other ones will have staging environments.
+- It also includes a section for the custom domain which is commented out - we'll uncomment that later once we've set up our custom domain / DNS.
 
 ## Setting up a resource group
 
@@ -167,7 +175,8 @@ jobs:
                   location='${{ env.LOCATION }}' \
                   name='${{ env.STATICWEBAPPNAME }}' \
                   tags='${{ env.TAGS }}' \
-                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}'
+                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
+                  customDomainName='${{ env.STATICWEBAPPNAME }}'
 
       - name: Static Web App - deploy infra
         id: static_web_app_deploy
@@ -184,7 +193,8 @@ jobs:
                   location='${{ env.LOCATION }}' \
                   name='${{ env.STATICWEBAPPNAME }}' \
                   tags='${{ env.TAGS }}' \
-                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}'
+                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
+                  customDomainName='${{ env.STATICWEBAPPNAME }}'
 
       - name: Static Web App - get API key for deployment
         id: static_web_app_apikey
@@ -239,7 +249,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            APIKEY=$(az staticwebapp secrets list --name $(staticWebAppName) | jq -r '.properties.apiKey')
+            APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
             echo "::set-output name=APIKEY::$APIKEY"
 
       - name: Close Pull Request
@@ -257,3 +267,29 @@ The above workflow does the following:
 - It deploys [using the dedicated GitHub Action for SWAs](https://github.com/Azure/static-web-apps-deploy)
 - It calculates the preview URL for a given pull request (it isn't used as yet, but could be)
 - When a pull request is closed it triggers the GitHub Action to clean up the preview environment.
+
+## DNS and custom domains
+
+Once our GitHub Action has run for the first time on the main branch, we'll be deploying to Azure Static Web Apps.
+
+Once we've started deploying there, we want to get our custom domain set up to point to it. To do this, we're going to fire up the [Azure Portal](https://portal.azure.com) and go to add a custom domain:
+
+![screenshot of the Azure Portal Add Custom Domain screen](./custom-domain.png)
+
+We're going to add a TXT record for my blog. Azure generates a code for us:
+
+![screenshot of the Azure Portal Add Custom Domain screen](./custom-domain-code.png)
+
+We need to take that code and go a register it with our DNS provider. In my case that's Cloudflare, so we can go there and add it:
+
+![screenshot of Cloudflare](./cloudflare-dns.png)
+
+After a while (I think about twenty minutes in my case), this lead to the domain name being validated:
+
+![screenshot of the Azure Portal Add Custom Domain screen with domain validated](./custom-domain-code-validated.png)
+
+We're now ready to start pointing our DNS to the Static Web Apps instance. We jump back across to Cloudflare and we amend the CNAME record that currently points to johnnyreilly.github.io, and switch it to point to the auto-generated domain in Azure:
+
+![screenshot of Cloudflare with the CNAME record set](./cloudflare-dns.png)
+
+And just like that, we're hosted on Static Web Apps!
