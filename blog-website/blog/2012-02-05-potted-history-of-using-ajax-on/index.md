@@ -54,7 +54,9 @@ public Counterparty GetCounterparty(string parameters)
 }
 ```
 
-I genuinely expected that this was just going to break. It didn't. Suddenly on the client I'm sat there with a full blown object that looks just like the object I had on the server. **WHAT BLACK MAGIC COULD THIS BE??????????** Certain that I'd discovered witchcraft I decided to try something else. What would happen if I changed the signature on the method so it received individual parameters and passed my individual parameters to the web service instead of packaging them up into a string? I tried this:
+I genuinely expected that this was just going to break. It didn't. Suddenly on the client I'm sat there with a full blown object that looks just like the object I had on the server.
+
+**WHAT STRANGE MAGIC COULD THIS BE??????????** Certain that I'd discovered witchcraft I decided to try something else. What would happen if I changed the signature on the method so it received individual parameters and passed my individual parameters to the web service instead of packaging them up into a string? I tried this:
 
 ```cs
 [WebMethod]
@@ -73,7 +75,3 @@ And it worked! **[IT WORKED!!!!!!!!!!!!!!!!!!!!!](http://www.youtube.com/watch?v
 - You could return complex objects without the need for packaging it all up yourself.
 
 Essentially the source of all this goodness was the magic of JSON. I wouldn't really come to comprehend this until I moved away from using the ASP.NET Ajax client libraries in favour of using the [jQuery.ajax](http://api.jquery.com/jQuery.ajax/) functionality. (Yes, having mostly rattled on about using webservice.htc and ASP.NET Ajax I should clarify that I have now forsaken both for jQuery as I find it more powerful and more configurable - but it's the journey that counts I guess!) It's abysmal that I didn't discover the power of Ajax sooner but the difference this discovery made to me was immense. Approaches that I would have dismissed or shied away from previously because of the amount of "plumbing" involved now became easy. This massively contributed to my [programmer joy](http://www.hanselman.com/blog/HanselminutesPodcast260NETAPIDesignThatOptimizesForProgrammerJoyWithJonathanCarter.aspx)! Next time I promise I'll aim to actually get onto JSON.
-
-```
-
-```
