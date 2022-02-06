@@ -8,6 +8,8 @@ hide_table_of_contents: false
 
 Lighthouse is a tremendous tool for auditing the performance and usability of websites. Rather than having to perform these audits manually, it's helpful to be able to plug it into your CI pipeline. This post illustrates how to integrate Lighthouse into a GitHub Actions workflow, and report findings directly in pull requests that are raised.
 
+![title image reading "Lighthouse meet GitHub Actions" with the Lighthouse logo and a screenshot of the results in a GitHub comment`](title-image.png)
+
 ## What we'll do
 
 This post isn't a walkthrough of how to use Lighthouse effectively. There is already [great guidance out there on this topic](https://blog.logrocket.com/lighthouse-and-how-to-use-it-more-effectively/).
@@ -15,6 +17,8 @@ This post isn't a walkthrough of how to use Lighthouse effectively. There is alr
 Instead, we're going build a simple web application, in the context of a GitHub repo. We'll wire it up to deploy via GitHub Actions to Azure Static Web Apps. Static Web Apps is a free hosting option for static websites and it comes with [staging environments](https://docs.microsoft.com/en-us/azure/static-web-apps/review-publish-pull-requests) or deployment previews built in. This feature deploys a fully functional version of a site each time a pull request is raised, built upon the changes implemented in that pull request.
 
 The staging environment is a perfect place to implement our Lighthouse checks. If a pull request impacts usability or performance, seeing those details in the context of our pull request is exactly where we'd like to learn this. This kind of check gives us the opportunity to ensure we only merge when we're happy that the changes do not negatively impact our Lighthouse scores.
+
+In this post we'll start from the point of an empty GitHub repo and build up from there.
 
 ## Create our application
 
@@ -72,115 +76,13 @@ And when that finishes running you'll be able to see your deployed Static Web Ap
 
 ![Screenshot of your Static Web App running in a browser](screenshot-static-web-app.png)
 
-We've gone from having nothing, to having a brand new website in Azure, shipped via continous deployment in GitHub Actions in a matter of minutes. This is low friction and high value!
+We now have:
 
-## Authentication
-
-Now we've done our initial deployment, let's take it a stage further and add authentication.
-
-One of the awesome features of Static Web Apps is the fact that [authentication is available straight out of the box](https://docs.microsoft.com/en-us/azure/static-web-apps/authentication-authorization?tabs=invitations#login). We can pick from GitHub, Azure Active Directory and Twitter as identity providers. Let's roll with GitHub and amend our `website/src/pages/index.js` to support authentication:
-
-```jsx
-import React, { useState, useEffect } from 'react';
-import clsx from 'clsx';
-import Layout from '@theme/Layout';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import styles from './index.module.css';
-
-/**
- * @typedef {object} UserInfo
- * @prop {"github"} identityProvider
- * @prop {string} userId
- * @prop {string} userDetails
- * @prop {string[]} userRoles
- */
-
-/**
- * @return {UserInfo | null}
- */
-function useUserInfo() {
-  const [userInfo, setUserInfo] = useState(null);
-
-  useEffect(() => {
-    async function getUserInfo() {
-      const response = await fetch('/.auth/me');
-      const payload = await response.json();
-      const { clientPrincipal } = payload;
-      return clientPrincipal;
-    }
-
-    getUserInfo().then((ui) => setUserInfo(ui));
-  }, []);
-
-  return userInfo;
-}
-
-export default function Home() {
-  const { siteConfig } = useDocusaurusContext();
-  const userInfo = useUserInfo();
-
-  return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
-    >
-      <header className={clsx('hero hero--primary', styles.heroBanner)}>
-        <div className="container">
-          <h1 className="hero__title">{siteConfig.title}</h1>
-          <p className="hero__subtitle">{siteConfig.tagline}</p>
-          <div className={styles.buttons}>
-            {userInfo ? (
-              <p>Hello {userInfo.userDetails}</p>
-            ) : (
-              <a
-                className="button button--secondary button--lg"
-                href="/.auth/login/github"
-              >
-                Click here to login
-              </a>
-            )}
-          </div>
-        </div>
-      </header>
-    </Layout>
-  );
-}
-```
-
-The above code does the following:
-
-- Implements a React hook named `useUserInfo` which calls the `/.auth/me` endpoint of your SWA. This returns `null` when not authenticated, and the `UserInfo` when authenticated.
-- For users who are not authenticated, display a link button which takes people to `/.auth/login/github`, thus triggering the GitHub authentication flow.
-- For users who are authenticated, display the users `userDetails`; the GitHub username.
-
-Let's commit and push this and (when our build has finished running) browse to our Static Web App once again:
-
-![Screenshot of Static Web App now featuring a login button](screenshot-static-web-app-login.png)
-
-If we click to login, we're taken through the GitHub authentication flow:
-
-![Screenshot of Static Web App now featuring a login button](screenshot-static-web-app-login-github.png)
-
-Once you've authorised and granted consent you'll be redirected to your app and see that you're logged in:
-
-![Screenshot of Static Web App showing I'm logged in](screenshot-static-web-app-logged-in.png)
-
-If we pop open the devtools of Chrome we'll see what comes back from the `/.auth/me` endpoint:
-
-![Screenshot of Chrome devtools displaying a JSON structure](screenshot-static-web-app-devtools-me.png)
-
-```json
-{
-  "clientPrincipal": {
-    "identityProvider": "github",
-    "userId": "1f5b4b7de7d445e29dd6188bcc7ee052",
-    "userDetails": "johnnyreilly",
-    "userRoles": ["anonymous", "authenticated"]
-  }
-}
-```
-
-We've now implemented and demonstrated authentication with Azure Static Web Apps with very little effort on our behalf. This is tremendous!
+- a GitHub repo
+- which contains a simple web application
+- and a GitHub Actions workflow which:
+  - deploys to an Azure Static Web App
+  - spins up a staging environment for pull requests
 
 ## Staging Environments
 
