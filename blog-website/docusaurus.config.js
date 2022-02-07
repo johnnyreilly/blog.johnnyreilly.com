@@ -1,4 +1,6 @@
 //@ts-check
+const imageLazyRemarkPlugin = require('./image-lazy-remark-plugin');
+
 const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 
 const FontPreloadPlugin = require('webpack-font-preload-plugin');
@@ -26,7 +28,7 @@ const config = {
     [
       '@docusaurus/preset-classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
-      {
+      ({
         googleAnalytics: {
           trackingID: 'UA-51754530-2',
         },
@@ -49,11 +51,12 @@ const config = {
           showReadingTime: true,
           editUrl:
             'https://github.com/johnnyreilly/blog.johnnyreilly.com/edit/main/blog-website/blog/',
+          rehypePlugins: [imageLazyRemarkPlugin],
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-      },
+      }),
     ],
   ],
 
@@ -68,15 +71,15 @@ const config = {
         },
       };
     },
-    [
-      '@docusaurus/plugin-ideal-image',
-      {
-        quality: 70,
-        max: 1030, // max resized image's size.
-        min: 640, // min resized image's size. if original is lower, use that size.
-        steps: 2, // the max number of images generated between min and max (inclusive)
-      },
-    ],
+    // [
+    //   '@docusaurus/plugin-ideal-image',
+    //   {
+    //     quality: 70,
+    //     max: 1030, // max resized image's size.
+    //     min: 640, // min resized image's size. if original is lower, use that size.
+    //     steps: 2, // the max number of images generated between min and max (inclusive)
+    //   },
+    // ],
     [
       '@docusaurus/plugin-client-redirects',
       {
@@ -170,6 +173,27 @@ const config = {
       // <meta name="robots" content="max-image-preview:large">
       metadata: [{ name: 'robots', content: 'max-image-preview:large' }],
 
+      algolia: {
+        // If Algolia did not provide you any appId, use 'BH4D9OD16A'
+        appId: 'J3MYR1INLT',
+
+        // Public API key: it is safe to commit it
+        apiKey: '34a2848ab8caa017d6393fb23f31c655',
+
+        indexName: 'blog-johnnyreilly',
+
+        // Optional: see doc section below
+        // contextualSearch: true,
+
+        // Optional: Specify domains where the navigation should occur through window.location instead on history.push. Useful when our Algolia config crawls multiple documentation sites and we want to navigate with window.location.href to them.
+        // externalUrlRegex: 'external\\.com|domain\\.com',
+
+        // Optional: Algolia search parameters
+        // searchParameters: {},
+
+        //... other Algolia params
+      },
+
       // Relative to your site's 'static' directory.
       // Cannot be SVGs. Can be external URLs too.
       image: 'img/profile.jpg',
@@ -215,7 +239,7 @@ const config = {
             title: 'Support me',
             items: [
               {
-                html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
+                html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" rel="noopener" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" loading="lazy" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
               },
               {
                 html: `<div style="display: flex; align-items: center;"><iframe src="https://github.com/sponsors/johnnyreilly/button" title="Sponsor johnnyreilly" height="35" width="116" style="border: 0;"></iframe><div>&nbsp;on GitHub</div></div>`,

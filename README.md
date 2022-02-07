@@ -1,7 +1,6 @@
 # [blog.johnnyreilly.com](https://blog.johnnyreilly.com)
 
 [![Build and Deploy](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/build-and-deploy.yml)
-[![Lighthouse Report](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/lighthouse.yml)
 
 This repo contains the source code for John Reilly's blog. The blog can be found here: https://blog.johnnyreilly.com
 
