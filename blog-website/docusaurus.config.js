@@ -1,6 +1,4 @@
 //@ts-check
-const imageLazyRemarkPlugin = require('./image-lazy-remark-plugin');
-
 const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 
 const FontPreloadPlugin = require('webpack-font-preload-plugin');
@@ -51,7 +49,6 @@ const config = {
           showReadingTime: true,
           editUrl:
             'https://github.com/johnnyreilly/blog.johnnyreilly.com/edit/main/blog-website/blog/',
-          rehypePlugins: [imageLazyRemarkPlugin],
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

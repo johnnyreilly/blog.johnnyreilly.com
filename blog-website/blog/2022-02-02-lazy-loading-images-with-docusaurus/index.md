@@ -1,14 +1,20 @@
 ---
 title: 'Lazy loading images with Docusaurus'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, Bicep, GitHub Actions, GitHub Pages]
+tags: [Docusaurus, lazy load images, rehype, rehype plugin]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-If you'd like to improve the performance of a Docusaurus website by implementing native lazy-loading of images, you can. This post shows you how you too can have `<img loading="lazy" ` on your images.
+If you'd like to improve the performance of a Docusaurus website by implementing native lazy-loading of images, you can. This post shows you how you too can have `<img loading="lazy" ` on your images by writing a Rehype plugin.
 
 ![title image reading "Lazy loading images with Docusaurus" with a Docusaurus logo and an image that reads `<img loading="lazy" `](title-image.png)
+
+## Update 26/02/2022
+
+You don't need this anymore. As of Docusaurus [v2.0.0-beta.16](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.16) Docusaurus lazy loads markdown images by default. You can see the commit where it was added [here](https://github.com/facebook/docusaurus/pull/6598). Isn't that wonderful?
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Now <a href="https://twitter.com/docusaurus?ref_src=twsrc%5Etfw">@docusaurus</a> beta 16 has shipped, all sites using it will start to *automatically* lazy load images. This is a big deal:<br><br>✅cumulative no of network requests for <a href="https://twitter.com/docusaurus?ref_src=twsrc%5Etfw">@docusaurus</a> sites will go 👇<br>✅perceived performance will go ☝️<br>✅hosting costs will go 👇<a href="https://t.co/tNILygqwTe">https://t.co/tNILygqwTe</a></p>&mdash; John Reilly ❤️🌻 (@johnny_reilly) <a href="https://twitter.com/johnny_reilly/status/1497304876824637441?ref_src=twsrc%5Etfw">February 25, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ## Lazy loading images
 
