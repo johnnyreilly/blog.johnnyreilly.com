@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[50182],{61487:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/vs-code","name":"VS Code","count":4,"permalink":"/tags/vs-code"}')}}]);

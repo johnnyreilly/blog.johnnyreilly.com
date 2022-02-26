@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[61535],{48405:function(s){s.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/role-assignments","name":"Role Assignments","count":2,"permalink":"/tags/role-assignments"}')}}]);

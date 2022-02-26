@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[85453],{46083:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/andrew-davey","name":"Andrew Davey","count":2,"permalink":"/tags/andrew-davey"}')}}]);

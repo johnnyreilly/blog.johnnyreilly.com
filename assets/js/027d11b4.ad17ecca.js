@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[35741],{29898:function(t){t.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/web-optimization","name":"Web Optimization","count":2,"permalink":"/tags/web-optimization"}')}}]);

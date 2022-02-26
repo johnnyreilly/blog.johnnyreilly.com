@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[78680],{3716:function(a){a.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/lazy-load-images","name":"lazy load images","count":1,"permalink":"/tags/lazy-load-images"}')}}]);
