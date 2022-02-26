@@ -1,14 +1,22 @@
 ---
 title: 'Lazy loading images with Docusaurus'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, Bicep, GitHub Actions, GitHub Pages]
+tags: [Docusaurus, lazy load images, rehype, rehype plugin]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-If you'd like to improve the performance of a Docusaurus website by implementing native lazy-loading of images, you can. This post shows you how you too can have `<img loading="lazy" ` on your images.
+If you'd like to improve the performance of a Docusaurus website by implementing native lazy-loading of images, you can. This post shows you how you too can have `<img loading="lazy" ` on your images by writing a Rehype plugin.
 
 ![title image reading "Lazy loading images with Docusaurus" with a Docusaurus logo and an image that reads `<img loading="lazy" `](title-image.png)
+
+## Update 26/02/2022
+
+You don't need this anymore. As of Docusaurus [v2.0.0-beta.16](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.16) Docusaurus lazy loads markdown images by default. You can see the commit where it was added [here](https://github.com/facebook/docusaurus/pull/6598). Isn't that wonderful?
+
+✅cumulative no of network requests for Docusaurus sites will go 👇
+✅perceived performance will go ☝️
+✅hosting costs will go 👇
 
 ## Lazy loading images
 
