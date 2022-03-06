@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[15792],{27864:function(n){n.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/discriminated-unions","name":"discriminated unions","count":1,"permalink":"/tags/discriminated-unions"}')}}]);
