@@ -1,5 +1,5 @@
 ---
-title: 'Swashbuckle and inheritance: Give. Me. The. Types'
+title: 'Swashbuckle & inheritance: Give. Me. The. Types'
 authors: johnnyreilly
 tags:
   [
