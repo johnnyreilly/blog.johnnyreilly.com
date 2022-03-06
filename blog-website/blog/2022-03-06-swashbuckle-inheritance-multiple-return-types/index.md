@@ -1,30 +1,37 @@
 ---
-title: 'Swashbuckle, .NET, inheritance and multiple return types'
+title: 'Swashbuckle and inheritance: Give. Me. The. Types'
 authors: johnnyreilly
 tags:
-  [Swashbuckle, .NET, inheritance, multiple return types, discriminated unions]
+  [
+    Swashbuckle,
+    .NET,
+    inheritance,
+    UseOneOfForPolymorphism,
+    multiple return types,
+    discriminated unions,
+  ]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-For API endpoints that return multiple types, you can use inheritance with Swashbuckle to get a Swagger / Open API that serves up multiple types. It's not the default behaviour. This post shows you how to make it work.
+For API endpoints that return multiple types, you can use inheritance with Swashbuckle to get create a Swagger / Open API definition featuring the variety of available types. Serving all these types is not the default behaviour. This post shows you how opt in.
 
-![title image reading "Migrating from GitHub Pages to Azure Static Web Apps" with GitHub and Azure Static Web Apps logos](title-image.png)
+![title image reading "Swashbuckle and inheritance: Give. Me. The. Types" with Sid Swashbuckle the Pirate and Open API logos](title-image.png)
 
 ## Making a simple API
+
+The first thing we're going to need is an API, which we'll build with the .NET 6 SDK:
 
 ```bash
 dotnet new webapi
 dotnet add package Swashbuckle.AspNetCore
 ```
 
-http://127.0.0.1:5000/swagger/index.html
+When we run this with `dotnet run` we find this Swashbuckle at http://localhost:5000/swagger/index.html for our web api that serves up a WeatherForecast:
 
-So we've a simple web api that serves up a WeatherForecast:
+[screenshot of swagger UI including `WeatherForecast`](screenshot-initial-swagger-ui.png)
 
-screenshot
-
-If we look at the `swagger.json` created at our `http://127.0.0.1:5000/swagger/v1/swagger.json` endpoint we see the following:
+If we look at the `swagger.json` created at our `http://localhost:5000/swagger/v1/swagger.json` endpoint we see the following:
 
 ```json
 {
@@ -126,26 +133,26 @@ public class WeatherForecastWithLocation : WeatherForecast
 
 We now have both a `WeatherForecast` and a `WeatherForecastWithLocation` that inherits from `WeatherForecast` and adds in a `Location` property.
 
-We'll also update the `GetWeatherForecast` endpoint to return multiple types:
+We'll also update the `GetWeatherForecast` endpoint to surface both these types:
 
 ```cs
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get() =>
-        DateTime.Now.Minute < 30
-            ? Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            : Enumerable.Range(1, 5).Select(index => new WeatherForecastWithLocation
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)],
-                Location = "London"
-            })
-            .ToArray();
+[HttpGet(Name = "GetWeatherForecast")]
+public IEnumerable<WeatherForecast> Get() =>
+    DateTime.Now.Minute < 30
+        ? Enumerable.Range(1, 5).Select(index => new WeatherForecast
+        {
+            Date = DateTime.Now.AddDays(index),
+            TemperatureC = Random.Shared.Next(-20, 55),
+            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+        })
+        : Enumerable.Range(1, 5).Select(index => new WeatherForecastWithLocation
+        {
+            Date = DateTime.Now.AddDays(index),
+            TemperatureC = Random.Shared.Next(-20, 55),
+            Summary = Summaries[Random.Shared.Next(Summaries.Length)],
+            Location = "London"
+        })
+        .ToArray();
 ```
 
 We've amended the endpoint to return `WeatherForecast`s for the first thirty minutes of each hour, and `WeatherForecastWithLocation`s for the second thirty minutes. This is plainly a contrived example, but it demonstrates what it looks like to have an API endpoint with multiple return types.
@@ -204,18 +211,18 @@ Whilst we've got behaviour that handles multiple return types, what we don't hav
 
 ## Serving up subtypes
 
-In a perfect world, C# would have support for discriminated unions, and we'd be using [`oneOf`](https://swagger.io/docs/specification/data-models/oneof-anyof-allof-not/) to represent that. [The day may come where C# supports discriminated unions](https://github.com/dotnet/csharplang/issues/113), but until that time we'll be hacking with inheritance.
+In a perfect world, C# would have support for discriminated unions, and we'd be using [`oneOf`](https://swagger.io/docs/specification/data-models/oneof-anyof-allof-not/) to represent the multiple types being surfaced. [The day may come where C# supports discriminated unions](https://github.com/dotnet/csharplang/issues/113), but until that time we'll be achieving this behaviour with inheritance. We do this by having an endpoint that surfaces up a base type, and all our possible return types must either subclass that base type, or be that base type.
 
 To be clearer: we want our served up Swagger / Open API definition to serve up the definitions of our subclasses. It needs to shout about `WeatherForecastWithLocation` in the same way it shouts about `WeatherForecast`.
 
-It turns out that this is eminently achievable with Swashbuckle, but you do need to know where to look. [Look here](https://github.com/domaindrivendev/Swashbuckle.AspNetCore#detecting-subtypes).
+It turns out that this is eminently achievable with Swashbuckle, but you do need to know where to look. [Look here](https://github.com/domaindrivendev/Swashbuckle.AspNetCore#describing-discriminators).
 
 To apply this tweak to our own `Program.cs` we simply update the `AddSwaggerGen` as follows:
 
 ```cs
 builder.Services.AddSwaggerGen(swaggerGenOptions =>
 {
-    swaggerGenOptions.UseAllOfForInheritance();
+    swaggerGenOptions.UseOneOfForPolymorphism();
 
     swaggerGenOptions.SelectSubTypesUsing(baseType =>
         typeof(Program).Assembly.GetTypes().Where(type => type.IsSubclassOf(baseType))
@@ -225,9 +232,9 @@ builder.Services.AddSwaggerGen(swaggerGenOptions =>
 
 Then next time we `dotnet run` we see that we're serving up both `WeatherForecast` and `WeatherForecastWithLocation`:
 
-screenshot
+[screenshot of swagger UI including `WeatherForecast` and `WeatherForecastWithLocation`](screenshot-swagger-ui-with-location.png)
 
-We can also see this directly in the `swagger.json` created at our `http://127.0.0.1:5000/swagger/v1/swagger.json` endpoint:
+We can also see this directly in the `swagger.json` created at our `http://localhost:5000/swagger/v1/swagger.json` endpoint:
 
 ```json
 {
@@ -249,7 +256,14 @@ We can also see this directly in the `swagger.json` created at our `http://127.0
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/WeatherForecast"
+                      },
+                      {
+                        "$ref": "#/components/schemas/WeatherForecastWithLocation"
+                      }
+                    ]
                   }
                 }
               },
@@ -257,7 +271,14 @@ We can also see this directly in the `swagger.json` created at our `http://127.0
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/WeatherForecast"
+                      },
+                      {
+                        "$ref": "#/components/schemas/WeatherForecastWithLocation"
+                      }
+                    ]
                   }
                 }
               },
@@ -265,7 +286,14 @@ We can also see this directly in the `swagger.json` created at our `http://127.0
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/WeatherForecast"
+                      },
+                      {
+                        "$ref": "#/components/schemas/WeatherForecastWithLocation"
+                      }
+                    ]
                   }
                 }
               }
@@ -319,3 +347,21 @@ We can also see this directly in the `swagger.json` created at our `http://127.0
   }
 }
 ```
+
+There's two things to note about the new definition:
+
+1. The `WeatherForecastWithLocation` type is included in the `schemas`
+2. The return type has widened to include `WeatherForecastWithLocation` as well
+
+   ```json
+   "oneOf": [
+       {
+           "$ref": "#/components/schemas/WeatherForecast"
+       },
+       {
+           "$ref": "#/components/schemas/WeatherForecastWithLocation"
+       }
+   ]
+   ```
+
+Success!
