@@ -14,7 +14,7 @@ image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-For API endpoints that return multiple types, you can use inheritance with Swashbuckle to get create a Swagger / Open API definition featuring the variety of available types. Serving all these types is not the default behaviour. This post shows you how opt in.
+For API endpoints that return multiple types, you can use inheritance with Swashbuckle to get create a Swagger / Open API definition featuring the variety of available types. Serving all these types is not the default behaviour. This post shows you how to opt in.
 
 ![title image reading "Swashbuckle and inheritance: Give. Me. The. Types" with Sid Swashbuckle the Pirate and Open API logos](title-image.png)
 
@@ -27,11 +27,11 @@ dotnet new webapi
 dotnet add package Swashbuckle.AspNetCore
 ```
 
-When we run this with `dotnet run` we find this Swashbuckle at http://localhost:5000/swagger/index.html for our web api that serves up a WeatherForecast:
+When we run this with `dotnet run` we find Swashbuckle living at http://localhost:5000/swagger/index.html defining our web api that serves up a WeatherForecast:
 
-[screenshot of swagger UI including `WeatherForecast`](screenshot-initial-swagger-ui.png)
+![screenshot of swagger UI including `WeatherForecast`](screenshot-initial-swagger-ui.png)
 
-If we look at the `swagger.json` created at our `http://localhost:5000/swagger/v1/swagger.json` endpoint we see the following:
+If we look at the `swagger.json` created at our `http://localhost:5000/swagger/v1/swagger.json` endpoint we see the following definition:
 
 ```json
 {
@@ -109,9 +109,11 @@ If we look at the `swagger.json` created at our `http://localhost:5000/swagger/v
 }
 ```
 
+Only a single return type is defined: `WeatherForecast`.
+
 ## Multiple return types
 
-Now we've got our simple API, let's evolve it to serve up a multiple types. We're going to do this by updating our `WeatherForecast.cs` as follows:
+Now we've got our simple API, let's evolve it to serve up multiple types. We're going to do this by updating our `WeatherForecast.cs` as follows:
 
 ```cs
 public class WeatherForecast
@@ -162,7 +164,7 @@ Incidentally, the reason we're able to achieve this without the compiler shoutin
 To prove that it works, we wait for half past the hour and enter:
 
 ```bash
-curl -X 'GET' 'http://127.0.0.1:5000/WeatherForecast'
+curl -X 'GET' 'http://localhost:5000/WeatherForecast'
 ```
 
 We see back JSON that includes the `Location` property. Huzzah!
@@ -232,7 +234,7 @@ builder.Services.AddSwaggerGen(swaggerGenOptions =>
 
 Then next time we `dotnet run` we see that we're serving up both `WeatherForecast` and `WeatherForecastWithLocation`:
 
-[screenshot of swagger UI including `WeatherForecast` and `WeatherForecastWithLocation`](screenshot-swagger-ui-with-location.png)
+![screenshot of swagger UI including `WeatherForecast` and `WeatherForecastWithLocation`](screenshot-swagger-ui-with-location.png)
 
 We can also see this directly in the `swagger.json` created at our `http://localhost:5000/swagger/v1/swagger.json` endpoint:
 
@@ -351,7 +353,7 @@ We can also see this directly in the `swagger.json` created at our `http://local
 There's two things to note about the new definition:
 
 1. The `WeatherForecastWithLocation` type is included in the `schemas`
-2. The return type has widened to include `WeatherForecastWithLocation` as well
+2. The return type has widened to include `WeatherForecastWithLocation` as well using `oneOf`
 
    ```json
    "oneOf": [
