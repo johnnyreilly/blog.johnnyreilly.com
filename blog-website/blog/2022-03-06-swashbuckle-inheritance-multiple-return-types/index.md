@@ -224,6 +224,7 @@ To apply this tweak to our own `Program.cs` we simply update the `AddSwaggerGen`
 ```cs
 builder.Services.AddSwaggerGen(swaggerGenOptions =>
 {
+    swaggerGenOptions.UseAllOfForInheritance();
     swaggerGenOptions.UseOneOfForPolymorphism();
 
     swaggerGenOptions.SelectSubTypesUsing(baseType =>
