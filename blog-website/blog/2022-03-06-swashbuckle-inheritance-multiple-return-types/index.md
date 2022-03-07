@@ -233,6 +233,12 @@ builder.Services.AddSwaggerGen(swaggerGenOptions =>
 });
 ```
 
+There's three things we're doing here:
+
+1. With [`UseAllOfForInheritance`](https://github.com/domaindrivendev/Swashbuckle.AspNetCore#enabling-inheritance) we're enabling inheritance - this allows us to maintain the inheritance hierarchy in any generated client models.
+2. With [`UseOneOfForPolymorphism`](https://github.com/domaindrivendev/Swashbuckle.AspNetCore#enabling-polymorphism) we're listing the possible subtypes for an action that accepts/returns base types.
+3. With [`SelectSubTypesUsing`](https://github.com/domaindrivendev/Swashbuckle.AspNetCore#detecting-subtypes) we're pointing Swashbuckle at the type hierarchies it exposes in the generated Swagger.
+
 Then next time we `dotnet run` we see that we're serving up both `WeatherForecast` and `WeatherForecastWithLocation`:
 
 ![screenshot of swagger UI including `WeatherForecast` and `WeatherForecastWithLocation`](screenshot-swagger-ui-with-location.png)
