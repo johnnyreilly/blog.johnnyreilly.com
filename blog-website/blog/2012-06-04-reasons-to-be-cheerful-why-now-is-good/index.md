@@ -9,7 +9,9 @@ I've been a working as a developer in some way, shape or form for just over 10 y
 
 . This year was better than last year. Last year was better than the year before. This is a happily recurring theme. So why? Well I guess there are a whole host of reasons; this is my effort to identify just some of them... ## Google and the World Wide Web (other search providers are available)
 
-When I first started out as a humble Delphi developer back in 1999 learning was not the straightforward proposition it is today. If you want to know how to do something these days a good place to start is firing up your browser and putting your question into Google. If I was to ask the question _"how do I use AJAX"_ of a search engine 10 years ago and now I would see very different things. ![](AJAX-bleach.jpg)
+When I first started out as a humble Delphi developer back in 1999 learning was not the straightforward proposition it is today. If you want to know how to do something these days a good place to start is firing up your browser and putting your question into Google. If I was to ask the question _"how do I use AJAX"_ of a search engine 10 years ago and now I would see very different things.
+
+![](AJAX-bleach.jpg)
 
 On the left the past, on the right the present. Do try not to let the presence of W3Schools in the search results detract... And also best ignore that the term AJAX wasn't coined until 2006... What I'm getting at is that finding out information these days is can be done really quickly. Excellent search engines are now the norm. Back when I started out this was not the case and you were essentially reliant on what had been written down in books and the kindliness of more experienced developers. Google (and others like them) have done us a great service. They've made it easier to learn. ## Blogs / Screencasts / Training websites
 
