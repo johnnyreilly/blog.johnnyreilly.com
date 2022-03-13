@@ -29,6 +29,6 @@ I didn't really expect this to work - Windows Defender has been running in the b
 
 Alas Windows Defender doesn't stay dead for long; it's like a zombie that rises from the grave no matter how many times you kill it. So you might want to try configuring it to ignore node.exe:
 
-![](Screenshot%2B2017-06-11%2B15.05.47.png)
+![](Screenshot-2017-06-11-15.05.47.png)
 
 Or switching to Linux...

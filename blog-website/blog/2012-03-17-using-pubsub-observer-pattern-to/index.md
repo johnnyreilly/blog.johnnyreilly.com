@@ -66,7 +66,7 @@ Using the above I can create myself my very own "JohnReilly" like so:
 var johnReilly = new JohnReilly();
 ```
 
-And it will look like this: ![](C%2523%2Bversion%2Bof%2BJohnReilly.png)
+And it will look like this: ![](C%2523-version-of-JohnReilly.png)
 
 I was looking to implement something similar on the client and within JavaScript. I was keen to ensure [code reuse](http://en.wikipedia.org/wiki/Code_reuse). And my inclination to keep things simple made me wary of making use of the [prototype](http://bonsaiden.github.com/JavaScript-Garden/#object.prototype). It is undoubtedly powerful but I don't think even the mighty [Crockford](http://javascript.crockford.com/prototypal.html) would consider it "simple". Also I had the reservation of exposing my object to the global scope. So what to do? I had an idea.... ## The Big Idea
 
@@ -114,7 +114,7 @@ $.publish('PubSub.Inheritance.Emulation', [oJohnReilly]); //Empty object "publis
 console.log(JSON.stringify(oJohnReilly)); //Show me this thing you call "JohnReilly"
 ```
 
-And it will look like this: ![](JavaScript%2Bversion%2Bof%2BJohnReilly.png)
+And it will look like this: ![](JavaScript-version-of-JohnReilly.png)
 
 And it works. Obviously the example I've given above it somewhat naive - in reality my object properties are driven by GUI components rather than hard-coded. But I hope this illustrates the point. This technique allows you to simply share functionality between different JavaScript files and so keep your codebase tight. I certainly wouldn't recommend it for all circumstances but when you're doing something as simple as building up an object to be used to pass data around (as I am) then it works very well indeed. ## A Final Thought on Script Ordering
 

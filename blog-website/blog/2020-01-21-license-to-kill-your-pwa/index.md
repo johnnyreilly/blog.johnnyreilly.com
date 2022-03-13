@@ -29,7 +29,7 @@ Once I realised that I was repeatedly being served up an old version of my PWA, 
 
 Then I hit refresh and took a look at console. I saw this:
 
-![](LICENSE%2Bcannot%2Bbe%2Bcached.png)
+![](LICENSE-cannot-be-cached.png)
 
 What does this mean? Something about a "bad-precaching-response". And apparently this was happening whilst trying to load this resource: `/static/js/6.20102e99.chunk.js.LICENSE?__WB_REVISION__=e2fc36`
 
@@ -39,7 +39,7 @@ This `404` was preventing pre-caching from executing successfully. This was what
 
 Time to find out what's going on. I dropped that URL into my browser to see what would happen. `404` city man:
 
-![](LICENSE%2Bfile%2Bscrewing%2Bme%2Bover.png)
+![](LICENSE-file-screwing-me-over.png)
 
 So, to disk. I took a look at what was actually on the server in that location. Sure enough, the file existed. When I opened it up I found this:
 
