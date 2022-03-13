@@ -66,7 +66,7 @@ Using the above I can create myself my very own "JohnReilly" like so:
 var johnReilly = new JohnReilly();
 ```
 
-And it will look like this: ![](C%2523-version-of-JohnReilly.png)
+And it will look like this: ![](CSharp-version-of-JohnReilly.png)
 
 I was looking to implement something similar on the client and within JavaScript. I was keen to ensure [code reuse](http://en.wikipedia.org/wiki/Code_reuse). And my inclination to keep things simple made me wary of making use of the [prototype](http://bonsaiden.github.com/JavaScript-Garden/#object.prototype). It is undoubtedly powerful but I don't think even the mighty [Crockford](http://javascript.crockford.com/prototypal.html) would consider it "simple". Also I had the reservation of exposing my object to the global scope. So what to do? I had an idea.... ## The Big Idea
 
