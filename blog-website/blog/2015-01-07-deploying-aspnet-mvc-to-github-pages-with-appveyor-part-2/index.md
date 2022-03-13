@@ -30,7 +30,7 @@ In order to complete our chosen mission we're going to need a GitHub Personal Ac
 
 The token I'm using for my project has the following scopes selected:
 
-![](GitHub%2BPersonal%2BAccess%2BToken.png)
+![](GitHub-Personal-Access-Token.png)
 
 ## `appveyor.yml`
 
@@ -80,7 +80,7 @@ There's a number of things you should notice from the yml file:
 
 We pass 4 arguments to `pushStatic.ps1`: the build folder, my email address, my username and my personal access token. For the sake of security the GithubPersonalAccessToken has been encrypted as indicated by the `secure` keyword. This is a capability available in AppVeyor [here](https://ci.appveyor.com/tools/encrypt).
 
-![](AppVeyor%2Bencrypt.png)
+![](AppVeyor-encrypt.png)
 
 This allows me to mask my personal access token rather than have it available as free text for anyone to grab.
 

@@ -19,11 +19,11 @@ Because, myself, I didn't really think about this until it came time for me to t
 
 That's right - it's blindingly obvious to me. All I need do is take the migration I want to move forwards in time and rename it in Visual Studio. So take our old migration ("2014 is so passé darling"):
 
-![](Screenshot%2B2015-06-19%2B13.07.50.png)
+![](Screenshot-2015-06-19-13.07.50.png)
 
 And rename it to make it new and shiny ("2015! Gorgeous - I love it sweetie!"):
 
-![](Screenshot%2B2015-06-19%2B13.08.46.png)
+![](Screenshot-2015-06-19-13.08.46.png)
 
 Perfection right? Wrong! What you've done makes not the slightest jot of difference.
 
@@ -37,7 +37,7 @@ Well, I'm glad we sorted that out. A quick test to reassure myself of my astuten
 
 ## Designer.cs... Your kids are gonna love it
 
-![](Screenshot%2B2015-06-19%2B13.35.40.png)
+![](Screenshot-2015-06-19-13.35.40.png)
 
 I want you to look very carefully at this and tell me what you see. We're looking at the mysterious `201508121401253_AddSagacityToSage.Designer.cs` file that sits underneath the main `201508121401253_AddSagacityToSage.cs` file. What could it be.... Give in?
 
