@@ -10,6 +10,8 @@ Recently, a new ECMAScript proposal called ["Types as Comments"](https://github.
 
 It's a contentious topic. As a regular (and longtime) TypeScript user, here's a description of the proposal and some thoughts.
 
+![title image reading "Types as comments: strong types, weakly held" with the JavaScript logo](title-image.png)
+
 ## What is the proposal?
 
 Types as comments (or "tomments" as some have dubbed it) is a proposal which would allow for the inclusion of types in JavaScript code. Consider the following piece of TypeScript:
