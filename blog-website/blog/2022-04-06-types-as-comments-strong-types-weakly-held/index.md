@@ -73,7 +73,47 @@ So by subsetting the features of TypeScript, I'm using only those features that 
 
 JSDoc is great, but it's undeniably more verbose than writing TypeScript. If types as comments was to be adopted, we'd able to write TypeScript in our JavaScript files. We'd be able to use TypeScript to type check that. But we wouldn't need to transpile our code prior to running. Brilliant!
 
-## Generic invocations - who moved the cheese?
+## Generic invocations - TypeScript a change is coming
+
+Up until now as we've looked at the proposal, the story has been one of JavaScript becoming "types tolerant" and the likes of Flow / TypeScript syntax in future being considered valid JavaScript. In actual fact, this is a two way street; TypeScript has some changes to make to its own world when it comes to generic invocation. [To quote the proposal](https://github.com/giltayar/proposal-types-as-comments#generic-invocations):
+
+> One can explicitly specify the type arguments of a generic function invocation or generic class instantiation [in TypeScript](https://www.typescriptlang.org/docs/handbook/2/functions.html#specifying-type-arguments).
+>
+> ```ts
+> // TypeScript
+> add<number>(4, 5);
+> new Point<bigint>(4n, 5n);
+> ```
+>
+> The above syntax is already valid JavaScript that users may rely on, so we cannot use this syntax as-is.
+
+So if this proposal was to land, writing today's style TypeScript in JavaScript would _not_ work in the case of generic invocations.
+
+If we read on in the proposal it says;
+
+> We expect some form of new syntax that could be used to resolve this ambiguity.
+> No specific solution is proposed at this point of time, but one example option is to use a syntactic prefix such as `::`
+>
+> ```ts
+> // Types as Comments - example syntax solution
+> add::<number>(4, 5)
+> new Point::<bigint>(4n, 5n)
+> ```
+>
+> These type arguments (`::<type>`) would be ignored by the JavaScript runtime.
+> It would be reasonable for this non-ambiguous syntax to be adopted in TypeScript as well.
+
+This last sentence is significant. Let's read it again:
+
+> It would be reasonable for this non-ambiguous syntax to be adopted in TypeScript as well
+
+Whilst not being an absolute commitment, this certainly suggests that TypeScript would be willing to change its own syntax to align with something that was standardised as typed JavaScript.
+
+Speaking personally, I don't love the proposed new syntax; but I understand the rationale. Certainly a new generic invocation syntax is something I could come to terms with. It's good of the TypeScript team to be open to the idea of making changes to the language to align with the proposal. This is not zero cost to them.
+
+## Conclusion
+
+Shipit.
 
 Generally this means I'm writing TypeScript, or quite possibly TSX if I'm working with React (more on this later). My desire
 
@@ -82,5 +122,3 @@ Just write JS
 Jsx
 
 Enums etc
-
-https://github.com/giltayar/proposal-types-as-comments#generic-invocations
