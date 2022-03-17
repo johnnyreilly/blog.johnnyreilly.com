@@ -67,7 +67,15 @@ I really like JSDoc. Let me articulate why.
 
 What I wanted, way back before TypeScript existed, was JavaScript with static typing. TypeScript _mostly_ is that. At least in the way I choose to use it.
 
-I don't use enums, namespaces, generators etc. Generally this means I'm writing TypeScript, or quite possibly TSX if I'm working with React (more on this later)
+I don't use enums, namespaces, decorators etc. This is significant as each of those features steps has an emit aspect; using one of these will create special JavaScript to represent a custom TypeScript implemented feature.
+
+So by subsetting the features of TypeScript, I'm using only those features that do not have an emit aspect. I'm using "pure" JavaScript. As a consequence, it's possible to use just JavaScript, if I'm willing to commit to using JSDoc syntax in favour of TypeScript. Often I am. More than that, there's other people out there who are doing this on sizeable projects like [webpack](https://github.com/webpack/webpack).
+
+JSDoc is great, but it's undeniably more verbose than writing TypeScript. If types as comments was to be adopted, we'd able to write TypeScript in our JavaScript files. We'd be able to use TypeScript to type check that. But we wouldn't need to transpile our code prior to running. Brilliant!
+
+## Generic invocations - who moved the cheese?
+
+Generally this means I'm writing TypeScript, or quite possibly TSX if I'm working with React (more on this later). My desire
 
 Just write JS
 
