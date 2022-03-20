@@ -156,7 +156,7 @@ Bas had the level of self knowledge required to realise that getting others invo
 
 On December 28th 2013 Basarat decided that a regular contributor to Definitely Typed might be a potential team member. Bas opened up Twitter and sent a Direct Message to John Reilly.
 
-![A screenshot of direct message Basarat sent to John Reilly in Twitter](2019-10-02%2B21_51_58-basarat%2B_%2BTwitter.png)
+![A screenshot of direct message Basarat sent to John Reilly in Twitter](2019-10-02-21_51_58-basarat-_-Twitter.png)
 
 ## John Reilly
 

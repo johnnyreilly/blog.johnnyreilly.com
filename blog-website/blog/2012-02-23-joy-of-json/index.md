@@ -47,7 +47,9 @@ var anotherCarMadeFromMyJSON = JSON.parse(myCarJSON);
 //anotherCarMadeFromMyJSON will be a brand new "car" object
 ```
 
-I've also demonstrated this using the Chrome Console: ![](Using%2BJSON.png)
+I've also demonstrated this using the Chrome Console:
+
+![](Using-JSON.png)
 
 Crockford initially invented/discovered JSON himself and wrote a little helper library which provided a JSON object to be used by all and sundry. This can be found here: [JSON on GitHub](https://github.com/douglascrockford/JSON-js) Because JSON was so clearly wonderful, glorious and useful it ended up becoming a part of the EcmaScript 5 spec (in fact it's worth reading the brilliant [John Resig's blog post](http://ejohn.org/blog/ecmascript-5-strict-mode-json-and-more/) on this). This has lead to JSON being offered [natively in browsers](http://en.wikipedia.org/wiki/JSON#Native_encoding_and_decoding_in_browsers) for quite some time. However, for those of us (and I am one alas) still supporting IE 6 and the like we still have Crockfords JSON2.js to fall back on.
 

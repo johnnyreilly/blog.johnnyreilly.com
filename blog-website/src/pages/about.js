@@ -69,6 +69,7 @@ const features = [
           I write the occasional{' '}
           <a href="https://reillysontour.johnnyreilly.com/">travel blog(ish)</a>{' '}
           as well.
+          <a href="https://www.kirstykissellfurnishings.com/">My sister makes curtains and cushions!</a>
         </p>
 
         <p>

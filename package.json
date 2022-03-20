@@ -20,8 +20,8 @@
   "homepage": "https://github.com/johnnyreilly/blog.johnnyreilly.com#readme",
   "devDependencies": {
     "husky": "^7.0.4",
-    "lint-staged": "^12.1.7",
-    "prettier": "2.5.1"
+    "lint-staged": "^12.3.7",
+    "prettier": "2.6.0"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"

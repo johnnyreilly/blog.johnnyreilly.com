@@ -4,53 +4,46 @@ import path from 'path';
 const docusaurusDirectory = '../blog-website';
 
 async function run() {
-  const files = fs
+  const blogDirectories = fs
     .readdirSync(path.resolve(docusaurusDirectory, 'blog'))
-    .filter(
-      (file) =>
-        file.endsWith('.md') &&
-        !fs
-          .statSync(path.resolve(docusaurusDirectory, 'blog', file))
-          .isDirectory()
+    .filter((file) =>
+      fs.statSync(path.resolve(docusaurusDirectory, 'blog', file)).isDirectory()
     );
 
   // colocate(files[files.length - 1]);
-  files.forEach(colocate);
+  blogDirectories.forEach(fixUp);
 }
 
-function colocate(file: string) {
-  const nameWithoutMd = file.split('.md')[0];
-  const directoryTo = path.resolve(docusaurusDirectory, 'blog', nameWithoutMd);
-  console.log(`Creating directory: ${directoryTo}`);
+function fixUp(blogDir: string) {
+  const blogPath = path.resolve(docusaurusDirectory, 'blog', blogDir);
 
-  const imagesDir = path.resolve(
-    docusaurusDirectory,
-    'static',
-    'blog',
-    nameWithoutMd
-  );
-
-  const images = fs.existsSync(imagesDir) ? fs.readdirSync(imagesDir) : [];
-
-  if (!fs.existsSync(directoryTo)) {
-    fs.mkdirSync(directoryTo);
+  if (!fs.existsSync(blogPath)) {
+    console.log(`Creating directory: ${blogPath}`);
+    fs.mkdirSync(blogPath);
   }
 
-  const blogPostPath = `${directoryTo}/index.md`;
-  fs.renameSync(path.resolve(docusaurusDirectory, 'blog', file), blogPostPath);
+  const blogPostPath = `${blogPath}/index.md`;
 
-  images.forEach((image) =>
-    fs.renameSync(path.resolve(imagesDir, image), `${directoryTo}/${image}`)
-  );
+  const images = fs
+    .readdirSync(blogPath)
+    .filter((file) => !file.endsWith('.md') && file.includes('%2B'));
+
+  const oldToTheNew = images.map((oldName) => {
+    const newName = oldName.replaceAll('%2B', '-');
+    console.log(`renaming ${oldName} to ${newName}`);
+    fs.renameSync(path.resolve(blogPath, oldName), `${blogPath}/${newName}`);
+    console.log(`✅ renamed ${oldName} to ${newName}`);
+
+    return { oldName, newName };
+  });
 
   const blogPostContent = fs.readFileSync(blogPostPath, 'utf-8');
 
-  const updated = blogPostContent
-    .replaceAll(`blog/${nameWithoutMd}/`, '')
-    .replaceAll('../static/', '')
-    .replaceAll('.md', '/index.md');
+  console.log(`updating blog ${blogDir}`);
+  const updated = blogPostContent.replaceAll('%2B', '-');
 
   fs.writeFileSync(blogPostPath, updated);
+  console.log(`✅ updating blog ${blogDir}`);
 }
 
 // do it!
