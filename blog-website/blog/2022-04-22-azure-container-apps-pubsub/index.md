@@ -24,6 +24,17 @@ This will build upon code written in a [previous post](../2022-01-22-azure-conta
 
 ## You've got mail
 
+Right now we have a:
+
+- Node.js web app and a
+- .NET app
+
+The web app, when called, uses dapr service invocation to acquire a weather forecast from a .NET app.
+
+What we want to investigate is dapr's pubsub building block. But there's pubsub doesn't really "fit" into our current app. Let's alter it. Instead of showing users a weather forecast when they browse to the site, we'll instead look for our users to provide an email address, and we'll mail them a weather forecast.
+
+This kind of app could work both using dapr service invocation or using pubsub. We're going to implement using our current service invocation approach first. Once that works, we'll then pivot that into using dapr pubsub.
+
 ## What we're going to build
 
 As an engineer, I'm productive when:
