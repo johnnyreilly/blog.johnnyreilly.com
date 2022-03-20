@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[80082],{91185:function(s){s.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/docusaurus","name":"Docusaurus","count":8,"permalink":"/tags/docusaurus"}')}}]);
