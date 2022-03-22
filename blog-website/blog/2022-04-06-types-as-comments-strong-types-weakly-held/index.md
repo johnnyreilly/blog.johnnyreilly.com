@@ -63,21 +63,63 @@ This is neither TypeScript or Flow. Both would complain about the above. JavaScr
 
 To reiterate: the proposal is not an endorsement of any given type system and it follows that there is no runtime type checking being introduced to JavaScript.
 
+## Why do this at all?
+
+It's worth taking a look at [Daniel Rosenwasser](https://devblogs.microsoft.com/typescript/a-proposal-for-type-syntax-in-javascript/)'s post where he announces the proposal. Daniel is part of the TypeScript team and one of champions of this proposal, along with [Rob Palmer](https://twitter.com/robpalmer2) at Bloomberg and [Romulo Cintra](https://twitter.com/romulocintra) at Igalia.
+
+He says:
+
+> Today, you can create a .js file in your editor and start sprinkling in types in the form of JSDoc comments.
+>
+> ```js
+> /**
+>  * @param a {number}
+>  * @param b {number}
+>  */
+> function add(a, b) {
+>   return a + b;
+> }
+> ```
+>
+> Because these are just comments, they don’t change how your code runs at all – they’re just a form of documentation, but TypeScript uses them to give you a better JavaScript editing experience ... This feature makes it incredibly convenient to get some of the TypeScript experience without a build step, and you can use it for small scripts, basic web pages, server code in Node.js, etc.
+>
+> Still, you’ll notice that this is a little verbose – we love how lightweight the inner-loop is for writing JavaScript, but we’re missing how convenient TypeScript makes it to just write types.
+>
+> _So what if we had both?_
+>
+> What if we could have something like TypeScript syntax which was totally ignored – sort of like comments – in JavaScript.
+>
+> ```ts
+> function add(a: number, b: number) {
+>   return a + b;
+> }
+> ```
+
+What I take from this, is that JavaScript with types as comments, would be a more developer friendly JSDoc.
+
 ## "It's the JSDoc I always wanted!"
 
-I really like JSDoc. Let me articulate why.
+This idea really resonates with me. I'm a longtime user of JSDoc. Let me articulate why I find it useful.
 
 What I wanted, way back before TypeScript existed, was JavaScript with static typing. TypeScript _mostly_ is that. At least in the way I choose to use it.
 
 I don't use `enum`s, `namespace`s, `decorator`s etc. This is significant as each of those features steps has an emit aspect; using one of these will require transpilation to create special JavaScript to represent a custom TypeScript implemented feature. All other TypeScript features are _erased_ by transpilation; there's no execution characteristics.
 
-So by subsetting the features of TypeScript, we can choose to use only those features that do not have an emit aspect. By making that choice, it's possible to use just JavaScript, if we're willing to commit to using JSDoc syntax in favour of TypeScript. There's many in the community who are doing this on sizeable projects like [webpack](https://github.com/webpack/webpack) already.
+So by subsetting the features of TypeScript, we can choose to use only those features that do not have an emit aspect. By making that choice, it's possible to use just JavaScript, if we're willing to commit to using JSDoc syntax within JavaScript _instead_ of TypeScript. There's many in the community who are doing this on sizeable projects like [webpack](https://github.com/webpack/webpack) already. We don't lose type checking, we don't lose refactoring possibilities thanks to editors like VS Code.
 
 JSDoc is great, but it's undeniably more verbose than writing TypeScript. If types as comments was to be adopted, we'd able to write TypeScript in our JavaScript files. We'd be able to use TypeScript to type check that **if we wanted to**. But we wouldn't need to transpile our code prior to running. We could run our source code directly. Brilliant!
 
-## Generic invocations - TypeScript... a change is coming?
+## Controversy and Compromise
 
-Up until now as we've looked at the proposal, the story has been one of JavaScript becoming "types tolerant" and the likes of Flow / TypeScript syntax in future being considered valid JavaScript. In actual fact, this is a two way street; to comply with types become JavaScript native, TypeScript would have to make changes to make to its own world. There's a few cases which apply, the one that seems most significant is that of generic invocation. [To quote the proposal](https://github.com/giltayar/proposal-types-as-comments#generic-invocations):
+Up until now, as we've looked at the proposal, the story has been one of JavaScript becoming "types tolerant". And as a consequence, the syntax of Flow / TypeScript / Hegel et al would in future being considered valid JavaScript.
+
+This paints a picture of JavaScript, a dynamic language, being changed to accomodate the sensibilities of those who favour static typing. If you should glance at the discussions on Hacker News and in the issues of the proposal it's clear there's a very vocal section of JavaScript developers who consider this proposal to be thoroughly unwanted.
+
+Whilst it's unlikely that the most fervent dynamic language advocate will change their mind, it's worth considering the nuance of this proposal. In actual fact, the proposal is a two way street; to comply with types becoming JavaScript native, languages like TypeScript would likely make changes to accomodate.
+
+## Generic invocations and TypeScript
+
+There's a few cases which apply, the one that seems most significant is that of generic invocation. [To quote the proposal](https://github.com/giltayar/proposal-types-as-comments#generic-invocations):
 
 > One can explicitly specify the type arguments of a generic function invocation or generic class instantiation [in TypeScript](https://www.typescriptlang.org/docs/handbook/2/functions.html#specifying-type-arguments).
 >
@@ -118,3 +160,5 @@ Speaking personally, I don't love the proposed new syntax; but I understand the 
 When you see the various discussions on this topic online, it's clear there are many strong feelings. The proposal hasn't even reached stage 1 (of the potential 4 stages required for adoption). This may be a feature that doesn't make it. Or perhaps takes a long time to land on a mutually agreed design.
 
 Speaking personally I'm hopeful that this does end up being part of the language. Not only do I like running raw JS, I see the benefits of being able to onboard people from JavaScript to TypeScript by allowing types to live directly in JavaScript.
+
+It's said that prediction is very difficult, especially if it's about the future. So it is hard to know for sure what the long term effects on the language and the ecosystem of this proposal might be. It would certainly lower the barrier to entry for using static typing with JavaScript, and as consequence, would likely lead to greater adoption and hence less bugs in userland. Time will tell.
