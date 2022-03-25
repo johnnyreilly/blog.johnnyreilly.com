@@ -31,7 +31,7 @@ const config = {
           trackingID: 'UA-51754530-2',
         },
         gtag: {
-          trackingID: '297675200',
+          trackingID: 'G-226F0LR9KE',
         },
         docs: false,
         blog: {
