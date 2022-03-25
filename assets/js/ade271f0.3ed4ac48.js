@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[63378],{2573:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","name":"lint-staged","count":1,"permalink":"/tags/lint-staged"}')}}]);

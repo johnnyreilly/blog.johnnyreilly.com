@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[31568],{78378:function(n){n.exports=JSON.parse('{"allTagsPath":"/tags","name":"NetTcpBinding","count":2,"permalink":"/tags/net-tcp-binding"}')}}]);

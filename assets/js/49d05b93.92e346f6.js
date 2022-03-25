@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[24340],{22374:function(t){t.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/git-hub-container-registry","name":"GitHub container registry","count":2,"permalink":"/tags/git-hub-container-registry"}')}}]);

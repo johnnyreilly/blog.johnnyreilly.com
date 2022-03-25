@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[13112],{23597:function(t){t.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/validation-attribute","name":"ValidationAttribute","count":1,"permalink":"/tags/validation-attribute"}')}}]);

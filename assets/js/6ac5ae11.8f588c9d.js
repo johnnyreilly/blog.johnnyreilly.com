@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[51793],{97906:function(a){a.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/sebastian-markbage","name":"Sebastian Markb\xe5ge","count":1,"permalink":"/tags/sebastian-markbage"}')}}]);

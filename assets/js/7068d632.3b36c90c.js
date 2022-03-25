@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[12972],{37043:function(l){l.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/bloomberg","name":"Bloomberg","count":1,"permalink":"/tags/bloomberg"}')}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[95746],{56828:function(n){n.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/mocking","name":"mocking","count":1,"permalink":"/tags/mocking"}')}}]);

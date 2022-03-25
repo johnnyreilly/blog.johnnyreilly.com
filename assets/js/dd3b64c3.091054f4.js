@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[16401],{74597:function(s){s.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/es-6","name":"ES6","count":3,"permalink":"/tags/es-6"}')}}]);

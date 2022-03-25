@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[5891],{12844:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","name":"delphi","count":1,"permalink":"/tags/delphi"}')}}]);

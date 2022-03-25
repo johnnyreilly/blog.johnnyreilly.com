@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[36662],{94279:function(e){e.exports=JSON.parse('{"permalink":"/tags/wcf","page":1,"postsPerPage":1,"totalPages":3,"totalCount":3,"nextPage":"/tags/wcf/page/2","blogDescription":"The blog of johnnyreilly","blogTitle":"I CAN MAKE THIS WORK"}')}}]);

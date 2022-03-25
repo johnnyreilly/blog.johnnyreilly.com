@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[8374],{82625:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/project-references","name":"project references","count":1,"permalink":"/tags/project-references"}')}}]);

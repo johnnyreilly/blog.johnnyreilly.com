@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[28194],{58330:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/font-awesome","name":"font awesome","count":1,"permalink":"/tags/font-awesome"}')}}]);

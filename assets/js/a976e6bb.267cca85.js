@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[57315],{64890:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/windows-service","name":"Windows Service","count":1,"permalink":"/tags/windows-service"}')}}]);

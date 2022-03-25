@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[40519],{97619:function(e){e.exports=JSON.parse('{"permalink":"/tags/bicep","page":1,"postsPerPage":1,"totalPages":13,"totalCount":13,"previousPage":null,"nextPage":"/tags/bicep/page/2","blogDescription":"The blog of johnnyreilly","blogTitle":"I CAN MAKE THIS WORK"}')}}]);

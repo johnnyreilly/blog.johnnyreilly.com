@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[71681],{65459:function(s){s.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/asp-net","name":"ASP.NET","count":12,"permalink":"/tags/asp-net"}')}}]);

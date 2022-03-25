@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[22948],{81592:function(s){s.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/destructuring","name":"Destructuring","count":1,"permalink":"/tags/destructuring"}')}}]);

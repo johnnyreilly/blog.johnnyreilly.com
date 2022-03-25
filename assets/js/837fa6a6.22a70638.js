@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[12794],{48635:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","name":"CRM 4.0","count":1,"permalink":"/tags/crm-4-0"}')}}]);

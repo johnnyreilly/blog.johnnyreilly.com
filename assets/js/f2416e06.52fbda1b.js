@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[84481],{6737:function(a){a.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/azure-ad","name":"azure AD","count":3,"permalink":"/tags/azure-ad"}')}}]);

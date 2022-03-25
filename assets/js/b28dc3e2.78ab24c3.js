@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[21890],{24952:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/i-enumerable-vs-i-queryable","name":"IEnumerable vs IQueryable","count":1,"permalink":"/tags/i-enumerable-vs-i-queryable"}')}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[79664],{55326:function(a){a.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/wu-tang","name":"wu-tang","count":1,"permalink":"/tags/wu-tang"}')}}]);

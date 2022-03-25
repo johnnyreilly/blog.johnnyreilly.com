@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[72913],{53992:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","name":"Azure DevOps Marketplace","count":1,"permalink":"/tags/azure-dev-ops-marketplace"}')}}]);

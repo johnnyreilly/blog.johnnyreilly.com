@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[94629],{27383:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/web-sockets","name":"WebSockets","count":1,"permalink":"/tags/web-sockets"}')}}]);

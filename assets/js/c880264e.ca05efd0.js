@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[87899],{30737:function(l){l.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/compatibility-mode","name":"compatibility mode","count":1,"permalink":"/tags/compatibility-mode"}')}}]);

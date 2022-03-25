@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[39515],{93489:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","name":"SQL Server","count":2,"permalink":"/tags/sql-server"}')}}]);

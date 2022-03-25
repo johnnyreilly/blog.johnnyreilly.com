@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[5915],{14664:function(s){s.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/option-bags","name":"Option bags","count":1,"permalink":"/tags/option-bags"}')}}]);

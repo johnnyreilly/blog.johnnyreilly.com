@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[83730],{60651:function(s){s.exports=JSON.parse('{"allTagsPath":"/tags","slug":"/tags/css-3","name":"CSS 3","count":1,"permalink":"/tags/css-3"}')}}]);
