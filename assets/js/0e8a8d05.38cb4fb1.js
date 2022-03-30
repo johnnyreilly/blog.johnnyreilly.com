@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[66849],{28356:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","name":"Azure DevOps","count":3,"permalink":"/tags/azure-dev-ops"}')}}]);
