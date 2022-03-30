@@ -49,7 +49,7 @@ Types as comments isn't an endorsement of a particular type system. Furthermore,
 
 Let's consider each of these. There's a number of languages which allow us to type check JavaScript. TypeScript, Flow, Hegel and others all play in this space. They are all similar, but different. They have different syntax and they do different things.
 
-What they have in common, is the space where types live in their syntax or grammar. The proposal essentially says "hey we might not have different approaches to describing types, but we agree about where the types ought to live - let's standardise that".
+What they have in common, is the space where types live in their syntax or grammar. The proposal essentially says "hey we might have different approaches to describing types, but we agree about where the types ought to live - let's standardise that".
 
 This is why the name "types as comments" is key; these types would be ignored by JavaScript runtimes. The fact they would be ignored is an indication that no existing type system would be "anointed" by this proposal.
 
