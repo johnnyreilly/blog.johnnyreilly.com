@@ -6,7 +6,7 @@ image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-Private Azure Artifact feeds in in Azure DevOps can be used to serve NuGet packages. To build applications both locally and in an Azure Pipelines using those packages, there are a few steps to follow which this post will demonstrate.
+Private Azure Artifact feeds in in Azure DevOps can be used to serve NuGet packages. To build applications both locally and in an Azure Pipeline using those packages, there are a few steps to follow which this post will demonstrate.
 
 ![title image reading "Azure DevOps: consume a private artifact feed" with the Azure DevOps and Azure Pipelines logos`](title-image.png)
 
@@ -99,11 +99,18 @@ A workaround in this situation is to invoke .NET through a bash script directly 
     echo "dotnet publish --configuration Release --no-restore --output $(Build.ArtifactStagingDirectory)/App /p:SourceRevisionId=$(Build.SourceVersion)"
     dotnet publish --configuration Release --no-restore --output $(Build.ArtifactStagingDirectory)/App /p:SourceRevisionId=$(Build.SourceVersion)
   displayName: 'dotnet publish'
+
+- task: ArchiveFiles@2
+  displayName: "Create $(Build.ArtifactStagingDirectory)/App.zip"
+  inputs:
+    rootFolderOrFile: "$(Build.ArtifactStagingDirectory)/App"
+    includeRootFolder: false
+    archiveFile: "$(Build.ArtifactStagingDirectory)/App.zip"
 ```
 
 And note that after publishing we use the [Archive Files task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/archive-files) to zip up the output of our publishing.
 
-You may be tempted to use the zip command line utility to make your zip. Do not do this. I did this. I learned, through no small amount of suffering, that there is a problem with this. Whilst you can make a zip this way that will be consumed happily by Mac and OSX, when it comes to being deployed to Azure (even if you're deploying to Linux) via zip deploy it will not work. I can't tell you why, just that it won't. So use the dedicated task.
+You may be tempted to use the zip command line utility to make your zip. Do not do this. I did this. I learned, through no small amount of suffering, that there is a problem with this. Whilst you can make a zip this way that will be consumed happily by Mac and OSX, when it comes to being deployed to Azure (even if you're deploying to Linux within Azure) via zip deploy it will not work. I can't tell you why, just that it won't. So use the dedicated task.
 
 ## Summing up
 
