@@ -189,9 +189,9 @@ I realise this is a little ["Who moved my cheese"](https://en.wikipedia.org/wiki
 
 So. What do we actually need? Well I've consulted the [documentation](https://github.com/jquery/globalize#pick-the-modules-you-need) and I think I'm clear. Our simple demo cares about dates and numbers. So I'm going to guess that means I need:
 
-- `<a href="https://github.com/jquery/globalize#core-module">globalize.js</a>`
-- `<a href="https://github.com/jquery/globalize#date-module">globalize/date.js</a>`
-- `<a href="https://github.com/jquery/globalize#number-module">globalize/number.js</a>`
+- [`globalize.js`](https://github.com/jquery/globalize#core-module)
+- [`globalize/date.js`](https://github.com/jquery/globalize#date-module)
+- [`globalize/number.js`](https://github.com/jquery/globalize#number-module)
 
 On top of that I'm also going to need the various cldr dependencies too. That's not all. Given that I've decided which modules I will use I now need to acquire the associated cldr data. According to the docs [here](https://github.com/jquery/globalize#2-cldr-content) we're going to need:
 

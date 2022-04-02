@@ -31,7 +31,7 @@ As the above screenshot demonstrates [TypeScript supports Intellisense](https://
 >
 > You can now document a variety of language constructs (including classes, modules, interfaces, and functions) with comments that become part of the information displayed to the user. We’ve also started extending lib.d.ts, the default JS and DOM API library, with JSDoc comments.
 
-Partly as an exercise in getting better acquainted with TypeScript and partly responding to my instinctive need to have nicely documented APIs I decided to start adding JSDoc comments to the world's most popular typings file `<a href="https://github.com/borisyankov/DefinitelyTyped/blob/master/jquery/jquery.d.ts">jquery.d.ts</a>`.
+Partly as an exercise in getting better acquainted with TypeScript and partly responding to my instinctive need to have nicely documented APIs I decided to start adding JSDoc comments to the world's most popular typings file [`jquery.d.ts`](https://github.com/borisyankov/DefinitelyTyped/blob/master/jquery/jquery.d.ts).
 
 ## Why `jquery.d.ts`?
 

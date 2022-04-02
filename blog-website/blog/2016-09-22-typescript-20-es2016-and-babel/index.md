@@ -7,7 +7,7 @@ hide_table_of_contents: false
 
 [TypeScript 2.0 has shipped!](https://blogs.msdn.microsoft.com/typescript/2016/09/22/announcing-typescript-2-0/) Naturally I'm excited. For some time I've been using TypeScript to emit ES2015 code which I pass onto Babel to transpile to ES "old school". You can see how [here](https://blog.johnnyreilly.com/2015/12/es6-typescript-babel-react-flux-karma.html).
 
-Merely upgrading my `package.json` to use `"typescript": "^2.0.3"` from `"typescript": "^1.8.10"` was painless. TypeScript now supports ES2016 (the previous major release 1.8 supported ES2015). I wanted to move on from writing ES2015 to writing ES2016 using my chosen build process. Fortunately, it's supported. Phew. However, due to some advances in ecmascript feature modularisation within the TypeScript compiler the upgrade path is slightly different. I figured that I'd just be able to update the `<a href="https://www.typescriptlang.org/docs/handbook/compiler-options.html">target</a>` in my `tsconfig.json` to `"es2016"` from `"es2015"`, add in the ES2016 preset for Babel and jobs a good 'un. Not so. There were a few more steps to follow. Here's the recipe:
+Merely upgrading my `package.json` to use `"typescript": "^2.0.3"` from `"typescript": "^1.8.10"` was painless. TypeScript now supports ES2016 (the previous major release 1.8 supported ES2015). I wanted to move on from writing ES2015 to writing ES2016 using my chosen build process. Fortunately, it's supported. Phew. However, due to some advances in ecmascript feature modularisation within the TypeScript compiler the upgrade path is slightly different. I figured that I'd just be able to update the [`target`](https://www.typescriptlang.org/docs/handbook/compiler-options.html) in my `tsconfig.json` to `"es2016"` from `"es2015"`, add in the ES2016 preset for Babel and jobs a good 'un. Not so. There were a few more steps to follow. Here's the recipe:
 
 ## `tsconfig.json` changes
 
@@ -34,7 +34,7 @@ Well, there's no `"es2016"` target for TypeScript. You carry on with a target of
 
 ## Babel changes
 
-I needed the Babel preset for ES2016; with a quick `<a href="https://www.npmjs.com/package/babel-preset-es2016">npm install --save-dev babel-preset-es2016</a>` that was sorted. Now just to kick Webpack into gear...
+I needed the Babel preset for ES2016; with a quick [`npm install --save-dev babel-preset-es2016`](https://www.npmjs.com/package/babel-preset-es2016) that was sorted. Now just to kick Webpack into gear...
 
 ## Webpack changes
 

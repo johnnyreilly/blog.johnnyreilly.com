@@ -51,7 +51,7 @@ Both of these properties can be of more than 1 type.
 
 There's the rub. Whilst it was possible to overload functions in TypeScript pre 1.4, it was <u>not</u>
 
-possible to overload interface members. This meant the only way to model these sorts of properties was by seeking out a best common type which would fit all scenarios. This invariably meant using the `any` type. Whilst that worked it didn't lend any consuming code a great deal of type safety. Let's look at a truncated version of `<a href="https://github.com/borisyankov/DefinitelyTyped/blob/c71628e0765eb8e240d8eabd2225f64ea2e2fdb8/angularjs/angular-route.d.ts">angular-route.d.ts</a>` for these properties prior to union types:
+possible to overload interface members. This meant the only way to model these sorts of properties was by seeking out a best common type which would fit all scenarios. This invariably meant using the `any` type. Whilst that worked it didn't lend any consuming code a great deal of type safety. Let's look at a truncated version of [`angular-route.d.ts`](https://github.com/borisyankov/DefinitelyTyped/blob/c71628e0765eb8e240d8eabd2225f64ea2e2fdb8/angularjs/angular-route.d.ts) for these properties prior to union types:
 
 ```ts
 declare module ng.route {
@@ -89,7 +89,7 @@ It's `any` city... Kind of sticks in the craw doesn't it?
 
 ## A new dawn
 
-TypeScript 1.4 has shipped and Union Types are with us. We can do better than `any`. So what does `<a href="https://github.com/borisyankov/DefinitelyTyped/blob/30ce45e0e706322f34608ab6fa5de141bba59c90/angularjs/angular-route.d.ts">angular-route.d.ts</a>` look like now we have Union Types?
+TypeScript 1.4 has shipped and Union Types are with us. We can do better than `any`. So what does [`angular-route.d.ts`](https://github.com/borisyankov/DefinitelyTyped/blob/30ce45e0e706322f34608ab6fa5de141bba59c90/angularjs/angular-route.d.ts) look like now we have Union Types?
 
 ```ts
 declare module ng.route {
@@ -163,4 +163,4 @@ Just remember to place parentheses around the lambda to clearly delineate it.
 
 Before I sign off I should mention the ability Union Types give you to define a much terser definition file. Basically the "\|" operator makes for a bonfire of the overloads. Where you previously may have had 6 overloads for the same method (each with identical JSDoc) you now only need 1. Which is beautiful (and DRY).
 
-It's surprising just what a difference it makes. This is `<a href="https://github.com/borisyankov/DefinitelyTyped/blob/9bd7fe69d98337db56144c3da131d413f5b7e895/jquery/jquery.d.ts">jQuery.d.ts</a>` last week (pre TypeScript 1.4). This is `<a href="https://github.com/borisyankov/DefinitelyTyped/blob/9f64372a065541fe2b8f6c5c5cd9b55a1d631f19/jquery/jquery.d.ts">jQuery.d.ts</a>` now - with Union Types aplenty. Last week it was \~4000 lines of code. This week it's \~3200 lines of code. With the same functionality. Union Types are _FANTASTIC_!
+It's surprising just what a difference it makes. This is [`jQuery.d.ts`](https://github.com/borisyankov/DefinitelyTyped/blob/9bd7fe69d98337db56144c3da131d413f5b7e895/jquery/jquery.d.ts) last week (pre TypeScript 1.4). This is [`jQuery.d.ts`](https://github.com/borisyankov/DefinitelyTyped/blob/9f64372a065541fe2b8f6c5c5cd9b55a1d631f19/jquery/jquery.d.ts) now - with Union Types aplenty. Last week it was \~4000 lines of code. This week it's \~3200 lines of code. With the same functionality. Union Types are _FANTASTIC_!

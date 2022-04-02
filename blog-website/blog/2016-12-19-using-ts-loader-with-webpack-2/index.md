@@ -71,7 +71,7 @@ There's a number of things we need to do here. First of all, we can get rid of t
 
 Now I could start renaming `loaders` to `rules` as the terminology is changing. But I'd like to deal with that later since I know the old school names are still supported at present. More interestingly, I seem to remember hearing that one of the super exciting things about webpack is that it supports modules directly now. (I think that's supposed to be good for tree-shaking but I'm not totally certain.)
 
-Initially I thought I was supposed to switch to a custom babel preset called `<a href="https://www.npmjs.com/package/babel-preset-es2015-webpack">babel-preset-es2015-webpack</a>`. However it has a big "DEPRECATED" mark at the top and it says I should just use `babel-preset-es2015` (which I already am) with the following option specified:
+Initially I thought I was supposed to switch to a custom babel preset called [`babel-preset-es2015-webpack`](https://www.npmjs.com/package/babel-preset-es2015-webpack). However it has a big "DEPRECATED" mark at the top and it says I should just use `babel-preset-es2015` (which I already am) with the following option specified:
 
 ```js
 {
@@ -86,7 +86,7 @@ Initially I thought I was supposed to switch to a custom babel preset called `<a
 }
 ```
 
-Looking at our existing config you'll note that for `js` files we're using `query` (`options` in the new world I understand) to configure babel usage. We're using [query parameters](https://webpack.github.io/docs/using-loaders.html#query-parameters) for `ts` files. I have _zero_ idea how to configure preset options using query parameters. Fiddling with `query` / `options` didn't seem to work. So, I've decided to abandon using query entirely and drop in a `<a href="http://babeljs.io/docs/usage/babelrc/">.babelrc</a>` file using our presets combined with the `<a href="https://babeljs.io/docs/plugins/#plugin-preset-options">modules</a>` setting:
+Looking at our existing config you'll note that for `js` files we're using `query` (`options` in the new world I understand) to configure babel usage. We're using [query parameters](https://webpack.github.io/docs/using-loaders.html#query-parameters) for `ts` files. I have _zero_ idea how to configure preset options using query parameters. Fiddling with `query` / `options` didn't seem to work. So, I've decided to abandon using query entirely and drop in a [`.babelrc`](http://babeljs.io/docs/usage/babelrc/) file using our presets combined with the [`modules`](https://babeljs.io/docs/plugins/#plugin-preset-options) setting:
 
 ```js
 {

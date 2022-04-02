@@ -5,7 +5,7 @@ tags: [TypeScript, ES6, Array, ES2015, Map]
 hide_table_of_contents: false
 ---
 
-I'm a great lover of ES2015's `<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map">Map</a>`. However, just recently I tumbled over something I find a touch inconvenient about how you initialise a new `Map` from the contents of an `Array` in TypeScript.
+I'm a great lover of ES2015's [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map). However, just recently I tumbled over something I find a touch inconvenient about how you initialise a new `Map` from the contents of an `Array` in TypeScript.
 
 ## This Doesn't Work
 
