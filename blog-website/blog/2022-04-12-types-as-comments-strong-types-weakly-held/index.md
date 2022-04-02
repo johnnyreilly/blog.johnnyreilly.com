@@ -162,3 +162,5 @@ When you see the various discussions on this topic online, it's clear there are 
 Speaking personally I'm hopeful that this does end up being part of the language. Not only do I like running raw JS, I see the benefits of being able to onboard people from JavaScript to TypeScript by allowing types to live directly in JavaScript.
 
 It's said that prediction is very difficult, especially if it's about the future. So it is hard to know for sure what the long term effects on the language and the ecosystem of this proposal might be. It would certainly lower the barrier to entry for using static typing with JavaScript, and as consequence, would likely lead to greater adoption and hence less bugs in userland. Time will tell.
+
+[This post was originally published on LogRocket.](https://blog.logrocket.com/types-as-comments-strong-types-weakly-held/)
