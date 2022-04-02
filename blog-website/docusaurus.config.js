@@ -29,9 +29,11 @@ const config = {
       ({
         googleAnalytics: {
           trackingID: 'UA-51754530-2',
+          anonymizeIP: true,
         },
         gtag: {
-          trackingID: '297675200',
+          trackingID: 'G-226F0LR9KE',
+          anonymizeIP: true,
         },
         docs: false,
         blog: {
