@@ -1,5 +1,5 @@
 ---
-title: 'dotnet-format: Prettier your CSharp with lint-staged and husky'
+title: 'dotnet-format: Prettier your C# with lint-staged & husky'
 authors: johnnyreilly
 image: ./title-image.png
 tags: [Prettier, dotnet-format, lint-staged, husky, CSharpier]

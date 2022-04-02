@@ -33,7 +33,17 @@ As the above screenshot demonstrates [TypeScript supports Intellisense](https://
 
 Partly as an exercise in getting better acquainted with TypeScript and partly responding to my instinctive need to have nicely documented APIs I decided to start adding JSDoc comments to the world's most popular typings file `<a href="https://github.com/borisyankov/DefinitelyTyped/blob/master/jquery/jquery.d.ts">jquery.d.ts</a>`.
 
-<h4>Why <code>jquery.d.ts</code>?</h4><p>Well a number of reasons:</p><ol><li>I used <code>jquery.d.ts</code> already myself and I'm a firm believer in <a href="http://en.wikipedia.org/wiki/Eating_your_own_dog_food">eating your own dogfood</a></li><li>jQuery is well documented. I needed a source of information to power my JSDoc and <a href="//api.jquery.com">api.jquery.com</a> had my back.</li><li><code>jquery.d.ts</code> was widely used. Given how ubiquitous jQuery has become this typing file was unsurprisingly the most popular in the world. That was key for me as I wanted feedback - if I was making a mess of the typings I wanted someone to pitch in and tell me.</li></ol><p>Just to digress once more, points #2 and #3 turned out to be of particular note.</p><p>Concerning point #2, I did find the occasional <a href="https://github.com/borisyankov/DefinitelyTyped/pull/1471#issuecomment-31204115">error</a> or <a href="https://github.com/borisyankov/DefinitelyTyped/pull/1835#issuecomment-37533088">inconsistency</a> in the jQuery API documentation. These were definitely the exception rather than the rule though. And thanks to the very helpful <a href="https://github.com/dmethvin">Dave Methvin</a> these actually lead to <a href="https://github.com/jquery/api.jquery.com/pull/460">minor improvements to the jQuery API documentation</a>.</p><blockquote className="twitter-tweet" lang="en"><p><a href="https://twitter.com/search?q=%23TypeScript&amp;src=hash">#TypeScript</a> definitions pointing out errors in JavaScript docs of a project <a href="https://twitter.com/search?q=%23Jquery&amp;src=hash">#Jquery</a> : <a href="https://t.co/v6rzCdBwmi">https://t.co/v6rzCdBwmi</a> caught by <a href="https://twitter.com/johnny_reilly">@johnny_reilly</a></p>— basarat (@basarat) <a href="https://twitter.com/basarat/statuses/416309213430689792">December 26, 2013</a></blockquote><script async="" src="//platform.twitter.com/widgets.js" charSet="utf-8"></script><p>Concerning point #3 I did indeed get feedback. As well as enriching <code>jquery.d.ts</code> with JSDoc goodness I also found myself fixing slight errors in the typings. Here and there I would find examples where <code>jquery.d.ts</code> was out of line the with API documentation. Where this was the case I would amend the typings to bring them into line - trying to make <code>jquery.d.ts</code> entirely API-compliant. This was <a href="https://github.com/borisyankov/DefinitelyTyped/issues/1499">not always popular</a>. But despite the heat it generated I think it ended up leading to a better typing file. I'm again grateful for Dave Methvin's thoughtful contributions.</p>
+## Why `jquery.d.ts`?
+
+Well a number of reasons:
+
+1. I used `jquery.d.ts` already myself and I'm a firm believer in <a href="http://en.wikipedia.org/wiki/Eating_your_own_dog_food">eating your own dogfood</a>
+2. jQuery is well documented. I needed a source of information to power my JSDoc and <a href="//api.jquery.com">api.jquery.com</a> had my back.
+3. `jquery.d.ts` was widely used. Given how ubiquitous jQuery has become this typing file was unsurprisingly the most popular in the world. That was key for me as I wanted feedback - if I was making a mess of the typings I wanted someone to pitch in and tell me.</li></ol><p>Just to digress once more, points #2 and #3 turned out to be of particular note.</p><p>Concerning point #2, I did find the occasional <a href="https://github.com/borisyankov/DefinitelyTyped/pull/1471#issuecomment-31204115">error</a> or <a href="https://github.com/borisyankov/DefinitelyTyped/pull/1835#issuecomment-37533088">inconsistency</a> in the jQuery API documentation. These were definitely the exception rather than the rule though. And thanks to the very helpful <a href="https://github.com/dmethvin">Dave Methvin</a> these actually lead to <a href="https://github.com/jquery/api.jquery.com/pull/460">minor improvements to the jQuery API documentation</a>.
+
+> <a href="https://twitter.com/search?q=%23TypeScript&amp;src=hash">#TypeScript</a> definitions pointing out errors in JavaScript docs of a project <a href="https://twitter.com/search?q=%23Jquery&amp;src=hash">#Jquery</a> : <a href="https://t.co/v6rzCdBwmi">https://t.co/v6rzCdBwmi</a> caught by <a href="https://twitter.com/johnny_reilly">@johnny_reilly</a> — basarat (@basarat) <a href="https://twitter.com/basarat/statuses/416309213430689792">December 26, 2013</a>
+
+Concerning point #3 I did indeed get feedback. As well as enriching `jquery.d.ts` with JSDoc goodness I also found myself fixing slight errors in the typings. Here and there I would find examples where `jquery.d.ts` was out of line the with API documentation. Where this was the case I would amend the typings to bring them into line - trying to make `jquery.d.ts` entirely API-compliant. This was <a href="https://github.com/borisyankov/DefinitelyTyped/issues/1499">not always popular</a>. But despite the heat it generated I think it ended up leading to a better typing file. I'm again grateful for Dave Methvin's thoughtful contributions.
 
 ## Turning API documentation into JSDoc
 
@@ -45,67 +55,67 @@ Let's take a look at what `val` looked like [before JSDoc](https://github.com/bo
 
 ```ts
 val(): any;
-    val(value: string[]): JQuery;
-    val(value: string): JQuery;
-    val(value: number): JQuery;
-    val(func: (index: any, value: any) => any): JQuery;
+val(value: string[]): JQuery;
+val(value: string): JQuery;
+val(value: number): JQuery;
+val(func: (index: any, value: any) => any): JQuery;
 ```
 
 And now let's look at `jquery.d.ts`[after JSDoc](https://github.com/borisyankov/DefinitelyTyped/blob/c259dba094121a389b41c573d5000dda7bdf2092/jquery/jquery.d.ts#L1494-L1545):
 
 ```ts
 /**
-     * Get the current value of the first element in the set of matched elements.
-     */
-    val(): any;
-    /**
-     * Set the value of each element in the set of matched elements.
-     *
-     * @param value A string of text or an array of strings corresponding to the value of each matched element to set as selected/checked.
-     */
-    val(value: string): JQuery;
-    /**
-     * Set the value of each element in the set of matched elements.
-     *
-     * @param value A string of text or an array of strings corresponding to the value of each matched element to set as selected/checked.
-     */
-    val(value: string[]): JQuery;
-    /**
-     * Set the value of each element in the set of matched elements.
-     *
-     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
-     */
-    val(func: (index: number, value: string) => string): JQuery;
-    /**
-     * Set the value of each element in the set of matched elements.
-     *
-     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
-     */
-    val(func: (index: number, value: string[]) => string): JQuery;
-    /**
-     * Set the value of each element in the set of matched elements.
-     *
-     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
-     */
-    val(func: (index: number, value: number) => string): JQuery;
-    /**
-     * Set the value of each element in the set of matched elements.
-     *
-     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
-     */
-    val(func: (index: number, value: string) => string[]): JQuery;
-    /**
-     * Set the value of each element in the set of matched elements.
-     *
-     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
-     */
-    val(func: (index: number, value: string[]) => string[]): JQuery;
-    /**
-     * Set the value of each element in the set of matched elements.
-     *
-     * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
-     */
-    val(func: (index: number, value: number) => string[]): JQuery;
+ * Get the current value of the first element in the set of matched elements.
+ */
+val(): any;
+/**
+ * Set the value of each element in the set of matched elements.
+ *
+ * @param value A string of text or an array of strings corresponding to the value of each matched element to set as selected/checked.
+ */
+val(value: string): JQuery;
+/**
+ * Set the value of each element in the set of matched elements.
+ *
+ * @param value A string of text or an array of strings corresponding to the value of each matched element to set as selected/checked.
+ */
+val(value: string[]): JQuery;
+/**
+ * Set the value of each element in the set of matched elements.
+ *
+ * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+ */
+val(func: (index: number, value: string) => string): JQuery;
+/**
+ * Set the value of each element in the set of matched elements.
+ *
+ * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+ */
+val(func: (index: number, value: string[]) => string): JQuery;
+/**
+ * Set the value of each element in the set of matched elements.
+ *
+ * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+ */
+val(func: (index: number, value: number) => string): JQuery;
+/**
+ * Set the value of each element in the set of matched elements.
+ *
+ * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+ */
+val(func: (index: number, value: string) => string[]): JQuery;
+/**
+ * Set the value of each element in the set of matched elements.
+ *
+ * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+ */
+val(func: (index: number, value: string[]) => string[]): JQuery;
+/**
+ * Set the value of each element in the set of matched elements.
+ *
+ * @param func A function returning the value to set. this is the current element. Receives the index position of the element in the set and the old value as arguments.
+ */
+val(func: (index: number, value: number) => string[]): JQuery;
 ```
 
 Many changes yes? Let's break it down a little.
@@ -147,17 +157,17 @@ So let's enrich these typings with some JSDoc:
 
 ```ts
 /**
-     * Set the value of each element in the set of matched elements.
-     *
-     * @param value A string of text or an array of strings corresponding to the value of each matched element to set as selected/checked.
-     */
-    val(value: string): JQuery;
-    /**
-     * Set the value of each element in the set of matched elements.
-     *
-     * @param value A string of text or an array of strings corresponding to the value of each matched element to set as selected/checked.
-     */
-    val(value: string[]): JQuery;
+ * Set the value of each element in the set of matched elements.
+ *
+ * @param value A string of text or an array of strings corresponding to the value of each matched element to set as selected/checked.
+ */
+val(value: string): JQuery;
+/**
+ * Set the value of each element in the set of matched elements.
+ *
+ * @param value A string of text or an array of strings corresponding to the value of each matched element to set as selected/checked.
+ */
+val(value: string[]): JQuery;
 ```
 
 If you look you can see we've added a related JSDoc style comment block prior to each overload. The first part of the comment (_"Set the value of..."_) is the overarching Intellisense that is displayed. Each of the `@param` statements represents each of the parameters and it's associated comment. By comparing the [API documentation](http://api.jquery.com/val/#val-value) to the JSDoc it's pretty clear how the API has been transformed into useful JSDoc.
