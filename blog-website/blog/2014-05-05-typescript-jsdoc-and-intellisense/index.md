@@ -21,9 +21,9 @@ If you can convey information about the API that you're building then I'd say yo
 
 When I started getting involved with the [Definitely Typed project](https://github.com/DefinitelyTyped) my focus was on giving good Intellisense. Where there was documentation for an API I wanted to get that popping in front of users when they hit the "." key:
 
-![](https://blogs.msdn.com/cfs-filesystemfile.ashx/__key/communityserver-blogs-components-weblogfiles/00-00-01-56-67/1200.JSDoc_5F00_in_5F00_VS.png)
+![screenshot of intellisense in visual studio](1200.JSDoc_in_VS.png-486x314.png)
 
-As the above screenshot demonstrates [TypeScript supports Intellisense](https://blogs.msdn.com/b/typescript/archive/2013/01/21/announcing-typescript-0-8-2.aspx) through a slightly tweaked implementation of [JSDoc](http://en.wikipedia.org/wiki/JSDoc):
+As the above screenshot demonstrates [TypeScript supports Intellisense](https://devblogs.microsoft.com/typescript/announcing-typescript-0-8-2/) through a slightly tweaked implementation of [JSDoc](http://en.wikipedia.org/wiki/JSDoc):
 
 > With 0.8.2, the TypeScript compiler and tools now support JSDoc comments.
 >
