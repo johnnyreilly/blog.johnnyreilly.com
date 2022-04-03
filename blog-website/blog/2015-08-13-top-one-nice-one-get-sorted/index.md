@@ -21,7 +21,7 @@ JavaScript arrays have a [sort](https://developer.mozilla.org/en-US/docs/Web/Jav
 
 We want to use the `sort` function to introduce some LINQ-ish ordering goodness. Sort of. See what I did there?
 
-Before we get going it's worth saying that LINQ's `OrderBy` and JavaScript's `sort` are not the same thing. `sort` actually changes the order of the array. However, `OrderBy` returns an `IOrderedEnumerable` which when iterated returns the items of the collection in a particular order. An important difference. If preserving the original order of my array was important to me (spoiler: mostly it isn't) then I could make a call to `<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice">slice</a>` prior to calling `sort`.
+Before we get going it's worth saying that LINQ's `OrderBy` and JavaScript's `sort` are not the same thing. `sort` actually changes the order of the array. However, `OrderBy` returns an `IOrderedEnumerable` which when iterated returns the items of the collection in a particular order. An important difference. If preserving the original order of my array was important to me (spoiler: mostly it isn't) then I could make a call to [`slice`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) prior to calling `sort`.
 
 `sort` also returns the array to the caller which is nice for chaining and means we can use it in a similar fashion to the way we use `OrderBy`. With that in mind, we're going to create comparer functions which will take a lambda / arrow function (ES6 alert!) and return a function which will compare based on the supplied lambda.
 
@@ -201,7 +201,7 @@ function composeComparers(...comparers) {
 }
 ```
 
-Dammit he's improved it. It's down to 1 line of code, it doesn't execute a non-zero returning comparer twice and it doesn't rely on `<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find">find</a>` which only arrives with ES6. So if you wanted to backport to ES5 then this is a better choice.
+Dammit he's improved it. It's down to 1 line of code, it doesn't execute a non-zero returning comparer twice and it doesn't rely on [`find`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find) which only arrives with ES6. So if you wanted to backport to ES5 then this is a better choice.
 
 The only criticism I can make of it is that it iterates through each of the comparers even when it doesn't need to execute them. But that's just carping really.
 

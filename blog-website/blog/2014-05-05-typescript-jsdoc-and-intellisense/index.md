@@ -31,17 +31,21 @@ As the above screenshot demonstrates [TypeScript supports Intellisense](https://
 >
 > You can now document a variety of language constructs (including classes, modules, interfaces, and functions) with comments that become part of the information displayed to the user. We’ve also started extending lib.d.ts, the default JS and DOM API library, with JSDoc comments.
 
-Partly as an exercise in getting better acquainted with TypeScript and partly responding to my instinctive need to have nicely documented APIs I decided to start adding JSDoc comments to the world's most popular typings file `<a href="https://github.com/borisyankov/DefinitelyTyped/blob/master/jquery/jquery.d.ts">jquery.d.ts</a>`.
+Partly as an exercise in getting better acquainted with TypeScript and partly responding to my instinctive need to have nicely documented APIs I decided to start adding JSDoc comments to the world's most popular typings file [`jquery.d.ts`](https://github.com/borisyankov/DefinitelyTyped/blob/master/jquery/jquery.d.ts).
 
 ## Why `jquery.d.ts`?
 
 Well a number of reasons:
 
-1. I used `jquery.d.ts` already myself and I'm a firm believer in <a href="http://en.wikipedia.org/wiki/Eating_your_own_dog_food">eating your own dogfood</a>
+1. I used `jquery.d.ts` already myself and I'm a firm believer in [eating your own dogfood](https://en.wikipedia.org/wiki/Eating_your_own_dog_food)
 2. jQuery is well documented. I needed a source of information to power my JSDoc and <a href="//api.jquery.com">api.jquery.com</a> had my back.
-3. `jquery.d.ts` was widely used. Given how ubiquitous jQuery has become this typing file was unsurprisingly the most popular in the world. That was key for me as I wanted feedback - if I was making a mess of the typings I wanted someone to pitch in and tell me.</li></ol><p>Just to digress once more, points #2 and #3 turned out to be of particular note.</p><p>Concerning point #2, I did find the occasional <a href="https://github.com/borisyankov/DefinitelyTyped/pull/1471#issuecomment-31204115">error</a> or <a href="https://github.com/borisyankov/DefinitelyTyped/pull/1835#issuecomment-37533088">inconsistency</a> in the jQuery API documentation. These were definitely the exception rather than the rule though. And thanks to the very helpful <a href="https://github.com/dmethvin">Dave Methvin</a> these actually lead to <a href="https://github.com/jquery/api.jquery.com/pull/460">minor improvements to the jQuery API documentation</a>.
+3. `jquery.d.ts` was widely used. Given how ubiquitous jQuery has become this typing file was unsurprisingly the most popular in the world. That was key for me as I wanted feedback - if I was making a mess of the typings I wanted someone to pitch in and tell me.
 
-> <a href="https://twitter.com/search?q=%23TypeScript&amp;src=hash">#TypeScript</a> definitions pointing out errors in JavaScript docs of a project <a href="https://twitter.com/search?q=%23Jquery&amp;src=hash">#Jquery</a> : <a href="https://t.co/v6rzCdBwmi">https://t.co/v6rzCdBwmi</a> caught by <a href="https://twitter.com/johnny_reilly">@johnny_reilly</a> — basarat (@basarat) <a href="https://twitter.com/basarat/statuses/416309213430689792">December 26, 2013</a>
+Just to digress once more, points #2 and #3 turned out to be of particular note.
+
+Concerning point #2, I did find the occasional [error](https://github.com/borisyankov/DefinitelyTyped/pull/1471#issuecomment-31204115) or [inconsistency](https://github.com/borisyankov/DefinitelyTyped/pull/1835#issuecomment-37533088) in the jQuery API documentation. These were definitely the exception rather than the rule though. And thanks to the very helpful [Dave Methvin](https://github.com/dmethvin) these actually lead to [minor improvements to the jQuery API documentation](https://github.com/jquery/api.jquery.com/pull/460).
+
+![Tweet by @basarat at 8:47 PM on Dec 26, 2013 reading "#TypeScript definitions pointing out errors in JavaScript docs of a project #Jquery : https://github.com/borisyankov/DefinitelyTyped/pull/1471#issuecomment-31204115 caught by @johnny_reilly" original tweet here: https://twitter.com/basarat/status/416309213430689792](jquery-type-definition-tweet.png)
 
 Concerning point #3 I did indeed get feedback. As well as enriching `jquery.d.ts` with JSDoc goodness I also found myself fixing slight errors in the typings. Here and there I would find examples where `jquery.d.ts` was out of line the with API documentation. Where this was the case I would amend the typings to bring them into line - trying to make `jquery.d.ts` entirely API-compliant. This was <a href="https://github.com/borisyankov/DefinitelyTyped/issues/1499">not always popular</a>. But despite the heat it generated I think it ended up leading to a better typing file. I'm again grateful for Dave Methvin's thoughtful contributions.
 

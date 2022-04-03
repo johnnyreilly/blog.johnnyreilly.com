@@ -35,7 +35,7 @@ This change means that we have needed to adjust how our test pack works. We can 
 
 ## What exactly is `query` / `options`?
 
-Good question. Well, strictly speaking it's 2 possible things; both ways to configure a webpack loader. Classically `query` was a string which could be appended to the name of the loader much like a `<a href="https://en.wikipedia.org/wiki/Query_string">query string</a>` but actually with [greater powers](https://github.com/webpack/loader-utils#parsequery):
+Good question. Well, strictly speaking it's 2 possible things; both ways to configure a webpack loader. Classically `query` was a string which could be appended to the name of the loader much like a [`query string`](https://en.wikipedia.org/wiki/Query_string) but actually with [greater powers](https://github.com/webpack/loader-utils#parsequery):
 
 ```js
 module.exports = {

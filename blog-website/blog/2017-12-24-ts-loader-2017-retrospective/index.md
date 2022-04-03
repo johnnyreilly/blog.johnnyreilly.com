@@ -73,7 +73,7 @@ I'm really grateful to all of you. Thanks so much! (Apologies for those I've mis
 
 ## `fork-ts-checker-webpack-plugin` build speed improvements
 
-Alongside other's direct contributions to `ts-loader`, other projects improved the experience of using `ts-loader`. [Piotr Oleś](https://github.com/piotr-oles) dropped his `<a href="https://github.com/Realytics/fork-ts-checker-webpack-plugin">fork-ts-checker-webpack-plugin</a>` this year which nicely increased build speed when used with `ts-loader`.
+Alongside other's direct contributions to `ts-loader`, other projects improved the experience of using `ts-loader`. [Piotr Oleś](https://github.com/piotr-oles) dropped his [`fork-ts-checker-webpack-plugin`](https://github.com/Realytics/fork-ts-checker-webpack-plugin) this year which nicely increased build speed when used with `ts-loader`.
 
 That opened up the possibility of adding [HappyPack](https://github.com/amireh/happypack) support. I had the good fortune to work with webpack's [Tobias Koppers](https://github.com/sokra) and ExtraHop's [Alex Birmingham](https://github.com/abirmingham) on [improving TypeScript build speed further](https://www.extrahop.com/company/blog/2017/extrahop-webpack-accelerating-build-times/).
 
@@ -97,7 +97,7 @@ The codebase can be made simpler if we drop support for older versions of TypeSc
 
 ### webpack v4 is in alpha now
 
-If any changes need to happen to ts-loader to support webpack 4 then they will be. Personally I'm planning to help out with `<a href="https://github.com/Realytics/fork-ts-checker-webpack-plugin">fork-ts-checker-webpack-plugin</a>` as there will likely be some changes required there.
+If any changes need to happen to ts-loader to support webpack 4 then they will be. Personally I'm planning to help out with [`fork-ts-checker-webpack-plugin`](https://github.com/Realytics/fork-ts-checker-webpack-plugin) as there will likely be some changes required there.
 
 ### `contextAsConfigBasePath` will be replaced with a `context`
 

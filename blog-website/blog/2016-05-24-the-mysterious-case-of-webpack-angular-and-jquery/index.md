@@ -44,7 +44,7 @@ new webpack.ProvidePlugin({
       }),
 ```
 
-This uses the webpack `<a href="https://github.com/webpack/docs/wiki/list-of-plugins#provideplugin">ProvidePlugin</a>` and, at the point of webpackification (© 2016 John Reilly) all references in the code to `window.jQuery` will be replaced with a reference to the webpack module that contains jQuery. So when you look at the bundled file you'll see that the code that checks the `window` object for `jQuery` has become this:
+This uses the webpack [`ProvidePlugin`](https://github.com/webpack/docs/wiki/list-of-plugins#provideplugin) and, at the point of webpackification (© 2016 John Reilly) all references in the code to `window.jQuery` will be replaced with a reference to the webpack module that contains jQuery. So when you look at the bundled file you'll see that the code that checks the `window` object for `jQuery` has become this:
 
 ```ts
 jQuery = isUndefined(jqName)

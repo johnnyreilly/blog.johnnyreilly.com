@@ -77,4 +77,4 @@ Probably the most helpful approach is the approach followed by RTL; fixing the m
 
 ## Update 2: Further Discussions!
 
-The technique used in this blog post sparked an interesting conversation with members of the TypeScript team when it was applied to `<a href="https://github.com/testing-library/jest-dom">https://github.com/testing-library/jest-dom</a>`. [The conversation can be read here](https://github.com/testing-library/jest-dom/issues/123#issuecomment-523586977).
+The technique used in this blog post sparked an interesting conversation with members of the TypeScript team when it was applied to [`https://github.com/testing-library/jest-dom`](https://github.com/testing-library/jest-dom). [The conversation can be read here](https://github.com/testing-library/jest-dom/issues/123#issuecomment-523586977).
