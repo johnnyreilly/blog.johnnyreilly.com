@@ -22,9 +22,10 @@ jobs:
     name: Docusaurus build
     steps:
       - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
-          node-version: '16.x'
+          node-version: '16'
+          cache: 'yarn'
 
       - name: Test Docusaurus Build
         run: |
@@ -44,9 +45,10 @@ jobs:
     name: Deploy to GitHub Pages
     steps:
       - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2
         with:
-          node-version: '16.x'
+          node-version: '16'
+          cache: 'yarn'
 
       - name: Add key to allow access to repository
         env:
@@ -194,7 +196,7 @@ jobs:
 
       - name: Audit URLs using Lighthouse
         id: lighthouse_audit
-        uses: treosh/lighthouse-ci-action@v8
+        uses: treosh/lighthouse-ci-action@v9
         with:
           urls: |
             ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
