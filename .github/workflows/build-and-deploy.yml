@@ -194,7 +194,7 @@ jobs:
 
       - name: Audit URLs using Lighthouse
         id: lighthouse_audit
-        uses: treosh/lighthouse-ci-action@v8
+        uses: treosh/lighthouse-ci-action@v9
         with:
           urls: |
             ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
