@@ -10,6 +10,10 @@ hide_table_of_contents: false
 
 ![title image that says "react-query: strongly typings useQueries"](strongly-typing-usequeries.png)
 
+## Update April 2022
+
+You don't need this blog post! Just use a new version https://github.com/tannerlinsley/react-query/pull/2634
+
 If you haven't used [`react-query`](https://react-query.tanstack.com/) then I heartily recommend it. It provides (to quote the docs):
 
 > Hooks for fetching, caching and updating asynchronous data in React
