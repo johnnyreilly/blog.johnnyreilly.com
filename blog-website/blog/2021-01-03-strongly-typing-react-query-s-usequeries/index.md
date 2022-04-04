@@ -12,7 +12,9 @@ hide_table_of_contents: false
 
 ## Update April 2022
 
-You don't need this blog post! Just use a new version https://github.com/tannerlinsley/react-query/pull/2634
+You don't need this blog post! Just use a `react-query@3.28.0` or greater; [artysidorenko](https://github.com/artysidorenko) [contributed a PR that moved this behaviour into the package](https://github.com/tannerlinsley/react-query/pull/2634).
+
+## What is `useQueries`?
 
 If you haven't used [`react-query`](https://react-query.tanstack.com/) then I heartily recommend it. It provides (to quote the docs):
 
