@@ -18,7 +18,7 @@ Remember to use this in concert with the webpack 4. To see a working example tak
 
 ## `fork-ts-checker-webpack-plugin`
 
-There's more! You may like to use the `<a href="https://github.com/Realytics/fork-ts-checker-webpack-plugin">fork-ts-checker-webpack-plugin</a>`, (aka the ts-loader turbo-booster). The webpack compatible version has been [released to npm as 0.4.1](https://github.com/Realytics/fork-ts-checker-webpack-plugin/releases/tag/v0.4.1):
+There's more! You may like to use the [`fork-ts-checker-webpack-plugin`](https://github.com/Realytics/fork-ts-checker-webpack-plugin), (aka the ts-loader turbo-booster). The webpack compatible version has been [released to npm as 0.4.1](https://github.com/Realytics/fork-ts-checker-webpack-plugin/releases/tag/v0.4.1):
 
 - When using `yarn`: `yarn add fork-ts-checker-webpack-plugin@0.4.1 -D`
 - When using `npm`: `npm install fork-ts-checker-webpack-plugin@0.4.1 -D`

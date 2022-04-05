@@ -17,7 +17,7 @@ This was all very exciting, but until the release of TypeScript 3.6 there were n
 
 This was the handiwork of the very excellent [@sheetalkamat](https://twitter.com/sheetalkamat) of the TypeScript team - you can see her PR here: [https://github.com/microsoft/TypeScript/pull/31432](https://github.com/microsoft/TypeScript/pull/31432)
 
-What's more, Sheetal took the PR for a test drive using `ts-loader`, and her hard work has just shipped with `<a href="https://github.com/TypeStrong/ts-loader/releases/tag/v6.2.0">v6.2.0</a>`:
+What's more, Sheetal took the PR for a test drive using `ts-loader`, and her hard work has just shipped with [`v6.2.0`](https://github.com/TypeStrong/ts-loader/releases/tag/v6.2.0):
 
 - [https://github.com/TypeStrong/ts-loader/pull/1012](https://github.com/TypeStrong/ts-loader/pull/1012)
 - [https://github.com/TypeStrong/ts-loader/pull/1017](https://github.com/TypeStrong/ts-loader/pull/1017)

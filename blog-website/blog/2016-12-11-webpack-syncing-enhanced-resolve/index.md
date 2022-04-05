@@ -5,9 +5,9 @@ tags: [enhanced-resolve, mild trolling, resolver, Webpack, sync]
 hide_table_of_contents: false
 ---
 
-Like Captain Ahab I resolve to sync the white whale that is webpack's `<a href="https://github.com/webpack/enhanced-resolve">enhanced-resolve</a>`... English you say? Let me start again:
+Like Captain Ahab I resolve to sync the white whale that is webpack's [`enhanced-resolve`](https://github.com/webpack/enhanced-resolve)... English you say? Let me start again:
 
-So, you're working on a webpack loader. (In my case the typescript loader; `<a href="https://github.com/TypeStrong/ts-loader">ts-loader</a>`) You have need of webpack's resolve capabilities. You dig around and you discover that that superpower is lodged in the very heart of the enhanced-resolve package. Fantastic. But wait, there's more: your needs are custom. You need a sync, not an async resolver. (Try saying that quickly.) You regard the description of `enhanced-resolve` with some concern:
+So, you're working on a webpack loader. (In my case the typescript loader; [`ts-loader`](https://github.com/TypeStrong/ts-loader)) You have need of webpack's resolve capabilities. You dig around and you discover that that superpower is lodged in the very heart of the enhanced-resolve package. Fantastic. But wait, there's more: your needs are custom. You need a sync, not an async resolver. (Try saying that quickly.) You regard the description of `enhanced-resolve` with some concern:
 
 > "Offers an async require.resolve function. It's highly configurable."
 
@@ -19,9 +19,9 @@ In all fairness, things are beginning to change on that front. In fact the [new 
 
 ## Sync, for lack of a better word, is good
 
-Nestled inside enhanced-resolve is the `<a href="https://github.com/webpack/enhanced-resolve/blob/3f3f4cd1fcbafa1e98c3c6470fed1277817ed607/lib/ResolverFactory.js">ResolverFactory.js</a>` which can be used to make a resolver. However, you can supply it with a million options and that's just like giving someone a gun with a predilection for feet.
+Nestled inside enhanced-resolve is the [`ResolverFactory.js`](https://github.com/webpack/enhanced-resolve/blob/3f3f4cd1fcbafa1e98c3c6470fed1277817ed607/lib/ResolverFactory.js) which can be used to make a resolver. However, you can supply it with a million options and that's just like giving someone a gun with a predilection for feet.
 
-What you want is an example of how you could make a sync resolver. Well, surprise surprise it's right in front of your nose. Tucked away in `<a href="https://github.com/webpack/enhanced-resolve/blob/3f3f4cd1fcbafa1e98c3c6470fed1277817ed607/lib/node.js">node.js</a>` (I do \***not**\* get the name) is exactly what you're after. It contains a number of factory functions which will construct a ready-made resolver for you; sync or async. Perfect! So here's how I'm rolling:
+What you want is an example of how you could make a sync resolver. Well, surprise surprise it's right in front of your nose. Tucked away in [`node.js`](https://github.com/webpack/enhanced-resolve/blob/3f3f4cd1fcbafa1e98c3c6470fed1277817ed607/lib/node.js) (I do \***not**\* get the name) is exactly what you're after. It contains a number of factory functions which will construct a ready-made resolver for you; sync or async. Perfect! So here's how I'm rolling:
 
 ```js
 const node = require('enhanced-resolve/lib/node');
