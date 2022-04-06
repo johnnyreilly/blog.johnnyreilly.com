@@ -18,11 +18,11 @@ hide_table_of_contents: false
 
 This post shows how to build and deploy two Azure Container Apps using Bicep and GitHub Actions. These apps will communicate using [dapr](https://docs.dapr.io/)'s [publish & subscribe (pubsub) building block](https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/).
 
-This will build upon code written in a [previous post](../2022-01-22-azure-container-apps-dapr-bicep-github-actions-debug-devcontainer/index.md) which built and deployed a simple web application to Azure Container Apps using Bicep and GitHub Actions using the GitHub container registry. Behind the scenes, that app was made up of a .NET app and a Node.js app communicating via dapr's [service invocation building block](https://docs.dapr.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/).
-
 ![title image reading "Azure Container Apps: dapr pubsub"  with the dapr, Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
 
 ## You've got mail
+
+This post will build upon code written in a [previous post](../2022-01-22-azure-container-apps-dapr-bicep-github-actions-debug-devcontainer/index.md) which built and deployed a simple web application to Azure Container Apps using Bicep and GitHub Actions using the GitHub container registry. Behind the scenes, that app was made up of a .NET app and a Node.js app communicating via dapr's [service invocation building block](https://docs.dapr.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/).
 
 Right now we have a:
 
@@ -31,9 +31,23 @@ Right now we have a:
 
 The web app, when called, uses dapr service invocation to acquire a weather forecast from a .NET app.
 
-What we want to investigate is dapr's pubsub building block. But there's pubsub doesn't really "fit" into our current app. Let's alter it. Instead of showing users a weather forecast when they browse to the site, we'll instead look for our users to provide an email address, and we'll mail them a weather forecast.
+What we want to investigate is dapr's pubsub building block. But pubsub doesn't really "fit" into our current app. Let's alter it. Instead of showing users a weather forecast when they browse to the site, we'll instead look for our users to provide an email address, and we'll mail them a weather forecast.
 
 This kind of app could work both using dapr service invocation or using pubsub. We're going to implement using our current service invocation approach first. Once that works, we'll then pivot that into using dapr pubsub.
+
+This isn't rocket surgery; this is playing around with dapr and Azure Container Apps and seeing how they all hang together.
+
+## .NET meet mailgun
+
+Our existing .NET app needs the ability to send email. For that we're going to reach for [mailgun](https://app.mailgun.com/app/dashboard), and we'll use [RestSharp](https://restsharp.dev/) to call it. Let's add RestSharp as a dependency:
+
+```shell
+dotnet add package RestSharp
+```
+
+With that in place, let's turn to our `WeatherForecastController` and make it send an email.
+
+## CONTINUE HERE
 
 ## What we're going to build
 
