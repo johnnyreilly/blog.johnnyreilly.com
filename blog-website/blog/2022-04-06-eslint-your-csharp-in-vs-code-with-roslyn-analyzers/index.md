@@ -209,7 +209,11 @@ dotnet_diagnostic.IDE0160.severity = none
 dotnet_diagnostic.IDE0052.severity = warning
 ```
 
-If we run the build, there it is!
+Once OmniSharp notices:
+
+![screenshot of our information now a warning](screenshot-information-as-warning.png)
+
+And if we run the build, there it is!
 
 ```
 dotnet build
