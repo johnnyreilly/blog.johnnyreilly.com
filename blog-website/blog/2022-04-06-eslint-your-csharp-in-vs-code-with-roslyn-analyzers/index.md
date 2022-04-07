@@ -57,9 +57,7 @@ Then, excitingly, we start to see code analysis, or linting, messages in the pro
 
 This is all very exciting - we've a world of extra linting at our fingertips! But what's a touch disappointing, is that the above information isn't surfaced in my build. What if as a team we commit to a particular code style? If I can't enforce that in the build, it's likely not going to happen.
 
-So what do I do? Well, the information is out there on how to do this, but it's easy to miss. [You can find the details here](https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview#enable-on-build).
-
-We update our `AnalyseThis.csproj` to include an `EnforceCodeStyleInBuild` setting like so:
+So what do I do? Well, the information is out there on how to do this, but it's easy to miss. [You can find the details here](https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview#enable-on-build). We update our `AnalyseThis.csproj` to include an `EnforceCodeStyleInBuild` setting like so:
 
 ```xml
   <PropertyGroup>
@@ -82,9 +80,7 @@ root = true
 dotnet_analyzer_diagnostic.category-Style.severity = warning
 ```
 
-Do you see what we did here? We told our build to treat "style" diagnostics (lints) as warnings.
-
-Once OmniSharp picks this up, more linting messages start to appear in the problems pane of VS Code:
+Do you see what we did here? We told our build to treat "style" diagnostics (lints) as warnings. Once OmniSharp picks this up, more linting messages start to appear in the problems pane of VS Code:
 
 ![screenshot of more linting messages](screenshot-extra-problems.png)
 
@@ -164,7 +160,7 @@ Build FAILED.
 Time Elapsed 00:00:04.22
 ```
 
-Yes! Our style messages are now failing the built. This is terrific!
+Yes! Our style diagnostics are now failing the build. This is terrific!
 
 ## Opt out of rules
 
