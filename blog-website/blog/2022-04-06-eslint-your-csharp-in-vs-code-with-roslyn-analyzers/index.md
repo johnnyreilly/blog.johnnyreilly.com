@@ -263,3 +263,5 @@ And now we can opt out of that rule in this specific place - whilst maintaining 
 ## Conclusion
 
 There's powerful linting tools in C#, hopefully this guide has made it easier for you to surface them, control them and apply them both to VS Code and to your build.
+
+If there's one thing that I would love to have (and maybe it exists), it would be a way to surface the informational diagnostics that the Roslyn Analyzers display in the problems pane of VS Code _by default_ within the `dotnet build` results. [I've raised an issue against the repo to discuss this](https://github.com/dotnet/roslyn/issues/60620).
