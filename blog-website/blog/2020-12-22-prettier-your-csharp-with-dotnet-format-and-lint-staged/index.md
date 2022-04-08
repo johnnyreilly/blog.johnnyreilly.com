@@ -14,6 +14,10 @@ Consistent formatting in a codebase is a good thing. We can achieve this in dotn
 
 This has been updated to work with the latest versions of `lint-staged` and `husky`.
 
+## Update linting 07/04/2022
+
+If you're interested in formatting, you might be interested in linting; formatting's big sister. C# has linting too; [read about it here](../2022-04-06-eslint-your-csharp-in-vs-code-with-roslyn-analyzers/index.md).
+
 ## Why format?
 
 Consistent formatting makes code less confusing to newcomers and it allows whoever is working on the codebase to reliably focus on the task at hand. Not "fixing curly braces because Janice messed them up with her last commit". (A `git commit` message that would be tragic in so many ways.)
