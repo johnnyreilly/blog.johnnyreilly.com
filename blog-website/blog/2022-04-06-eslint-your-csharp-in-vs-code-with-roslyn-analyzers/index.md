@@ -32,7 +32,13 @@ dotnet new webapi -o AnalyseThis
 
 We have the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) installed already, but we're getting no feedback on the code. Maybe it's already beautiful?
 
-Or maybe not. We just need to set the following in our `settings.json`:
+Or maybe not. We're going to need an `.editorconfig` file to control all the code style settings. You can create this directly using the `dotnet` CLI like so;
+
+```shell
+dotnet new editorconfig
+```
+
+Once this runs, it creates a file with all of the settings in with their default values. Alongside that, we need to wake VS Code up to our brave new world by setting the following in our `settings.json`:
 
 ```json
 {
@@ -53,6 +59,26 @@ Then, excitingly, we start to see code analysis, or linting, messages in the pro
 
 ![screenshot of a first linting message and the code to which it applies](screenshot-initial-problems.png)
 
+It's possible to use the `dotnet-format` command to surface this information:
+
+```shell
+dotnet format style -v detailed --severity info --verify-no-changes
+  The dotnet runtime version is '6.0.2'.
+  Formatting code files in workspace '/workspaces/AnalyseThis.csproj'.
+    Determining projects to restore...
+  All projects are up-to-date for restore.
+  Project AnalyseThis is using configuration from '/workspaces/.editorconfig'.
+  Project AnalyseThis is using configuration from '/workspaces/obj/Debug/net6.0/AnalyseThis.GeneratedMSBuildEditorConfig.editorconfig'.
+  Project AnalyseThis is using configuration from '/usr/share/dotnet/sdk/6.0.200/Sdks/Microsoft.NET.Sdk/analyzers/build/config/analysislevel_6_default.editorconfig'.
+  Running 45 analyzers on AnalyseThis.
+/workspaces/Controllers/WeatherForecastController.cs(14,57): info IDE0052: Private member 'WeatherForecastController._logger' can be removed as the value assigned to it is never read [/workspaces/AnalyseThis.csproj]
+  Formatted code file '/workspaces/Controllers/WeatherForecastController.cs'.
+  Formatted 1 of 6 files.
+  Format complete in 7993ms.
+```
+
+Note the `IDE0052: Private member 'WeatherForecastController._logger' can be removed as the value assigned to it is never read` message above.
+
 ## Now fail my build!
 
 This is all very exciting - we've a world of extra linting at our fingertips! But what's a touch disappointing, is that the above information isn't surfaced in my build. What if as a team we commit to a particular code style? If I can't enforce that in the build, it's likely not going to happen.
@@ -69,7 +95,7 @@ So what do I do? Well, the information is out there on how to do this, but it's 
   </PropertyGroup>
 ```
 
-We create ourselves an `.editorconfig` file in the root of our project with this contents:
+We're going to replace our exhaustive `.editorconfig` file with a much simpler one:
 
 ```ini
 # Remove the line below if you want to inherit .editorconfig settings from higher directories
@@ -80,7 +106,7 @@ root = true
 dotnet_analyzer_diagnostic.category-Style.severity = warning
 ```
 
-Do you see what we did here? We told our build to treat "style" diagnostics (lints) as warnings. Once OmniSharp picks this up, more linting messages start to appear in the problems pane of VS Code:
+Do you see what we did here? We told our build to treat `Style` diagnostics (lints) as warnings. Once OmniSharp picks this up, more linting messages start to appear in the problems pane of VS Code:
 
 ![screenshot of more linting messages](screenshot-extra-problems.png)
 
@@ -161,6 +187,39 @@ Time Elapsed 00:00:04.22
 ```
 
 Yes! Our style diagnostics are now failing the build. This is terrific!
+
+## Categories
+
+It's worth pausing a second and considering the category upgrade we did here:
+
+```ini
+dotnet_analyzer_diagnostic.category-Style.severity = error
+```
+
+There's a number of different categories that encapsulate groups of rules, [they're documented here](https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/categories). Taken from there you can see the wealth of different categories that exist:
+
+> | Category                                                                             | Description                                                                                                                                                                                                                                                            | EditorConfig value                                              |
+> | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+> | [Design rules](quality-rules/design-warnings.md)                                     | Design rules support adherence to the [.NET Framework Design Guidelines](../../standard/design-guidelines/index.md).                                                                                                                                                   | `dotnet_analyzer_diagnostic.category-Design.severity`           |
+> | [Documentation rules](quality-rules/documentation-warnings.md)                       | Documentation rules support writing well-documented libraries through the correct use of XML documentation comments for externally visible APIs.                                                                                                                       | `dotnet_analyzer_diagnostic.category-Documentation.severity`    |
+> | [Globalization rules](quality-rules/globalization-warnings.md)                       | Globalization rules support world-ready libraries and applications.                                                                                                                                                                                                    | `dotnet_analyzer_diagnostic.category-Globalization.severity`    |
+> | [Portability and interoperability rules](quality-rules/interoperability-warnings.md) | Portability rules support portability across different platforms. Interoperability rules support interaction with COM clients.                                                                                                                                         | `dotnet_analyzer_diagnostic.category-Interoperability.severity` |
+> | [Maintainability rules](quality-rules/maintainability-warnings.md)                   | Maintainability rules support library and application maintenance.                                                                                                                                                                                                     | `dotnet_analyzer_diagnostic.category-Maintainability.severity`  |
+> | [Naming rules](quality-rules/naming-warnings.md)                                     | Naming rules support adherence to the naming conventions of the .NET design guidelines.                                                                                                                                                                                | `dotnet_analyzer_diagnostic.category-Naming.severity`           |
+> | [Performance rules](quality-rules/performance-warnings.md)                           | Performance rules support high-performance libraries and applications.                                                                                                                                                                                                 | `dotnet_analyzer_diagnostic.category-Performance.severity`      |
+> | [SingleFile rules](../../core/deploying/single-file/warnings/overview.md)            | Single-file rules support single-file applications.                                                                                                                                                                                                                    | `dotnet_analyzer_diagnostic.category-SingleFile.severity`       |
+> | [Reliability rules](quality-rules/reliability-warnings.md)                           | Reliability rules support library and application reliability, such as correct memory and thread usage.                                                                                                                                                                | `dotnet_analyzer_diagnostic.category-Reliability.severity`      |
+> | [Security rules](quality-rules/security-warnings.md)                                 | Security rules support safer libraries and applications. These rules help prevent security flaws in your program.                                                                                                                                                      | `dotnet_analyzer_diagnostic.category-Security.severity`         |
+> | [Style rules](style-rules/index.md)                                                  | Style rules support consistent code style in your codebase. These rules start with the "IDE" prefix.                                                                                                                                                                   | `dotnet_analyzer_diagnostic.category-Style.severity`            |
+> | [Usage rules](quality-rules/usage-warnings.md)                                       | Usage rules support proper usage of .NET.                                                                                                                                                                                                                              | `dotnet_analyzer_diagnostic.category-Usage.severity`            |
+> | N/A                                                                                  | You can use this EditorConfig value to enable the following rules: [IDE0051](style-rules/ide0051.md), [IDE0064](style-rules/ide0064.md), [IDE0076](style-rules/ide0076.md). While these rules start with "IDE", they are not technically part of the `Style` category. | `dotnet_analyzer_diagnostic.category-CodeQuality.severity`      |
+
+The `IDE0052` information we saw when we used `dotnet format` earlier is technically part of the `CodeQuality` category. If we wanted to, we we could dial that up that category to an error like so:
+
+```ini
+# Default severity for analyzer diagnostics with category 'CodeQuality' (escalated to build errors)
+dotnet_analyzer_diagnostic.category-CodeQuality.severity = error
+```
 
 ## Opt out of rules
 
@@ -264,4 +323,4 @@ And now we can opt out of that rule in this specific place - whilst maintaining 
 
 There's powerful linting tools in C#, hopefully this guide has made it easier for you to surface them, control them and apply them both to VS Code and to your build.
 
-If there's one thing that I would love to have (and maybe it exists), it would be a way to surface the informational diagnostics that the Roslyn Analyzers display in the problems pane of VS Code _by default_ within the `dotnet build` results. [I've raised an issue against the repo to discuss this](https://github.com/dotnet/roslyn/issues/60620).
+Thanks to [Joey Robichaud](https://twitter.com/JoeyRobichaud), [Tim Heuer](https://twitter.com/timheuer) and [Youssef Victor](https://twitter.com/YoussefV1313) for some excellent pointers that fed into the writing of this post. [You can see the help they provided here.](https://github.com/dotnet/roslyn/issues/60620).
