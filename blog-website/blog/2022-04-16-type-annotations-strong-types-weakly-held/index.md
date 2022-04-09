@@ -1,20 +1,20 @@
 ---
-title: 'Types as comments: strong types, weakly held'
+title: 'Type annotations: strong types, weakly held'
 authors: johnnyreilly
-tags: [types-as-comments, JSDoc, ECMAScript, types, proposal]
+tags: [type-annotations, types-as-comments, JSDoc, ECMAScript, types, proposal]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-Recently, a new ECMAScript proposal called ["Types as Comments"](https://github.com/giltayar/proposal-types-as-comments) was revealed. The purpose is to allow type annotations to be valid JavaScript syntax. Albeit syntax that is ignored by JavaScript engines. The proposal is being worked on by Gil Tayar, Daniel Rosenwasser, Romulo Cintra, Rob Palmer, and others. Many of these people are from TypeScript community - however this proposal intentionally does not exist to benefit TypeScript alone.
+Recently, a new ECMAScript proposal called ["Type Annotations"](https://github.com/tc39/proposal-type-annotations) (originally named ["Types as Comments"](https://github.com/giltayar/proposal-types-as-comments)) was revealed. The purpose is to allow type annotations to be valid JavaScript syntax. Albeit syntax that is ignored by JavaScript engines. The proposal is being worked on by Gil Tayar, Daniel Rosenwasser, Romulo Cintra, Rob Palmer, and others. Many of these people are from TypeScript community - however this proposal intentionally does not exist to benefit TypeScript alone.
 
 It's a contentious topic. As a regular (and longtime) TypeScript user, here's a description of the proposal and some thoughts.
 
-![title image reading "Types as comments: strong types, weakly held" with the JavaScript logo](title-image.png)
+![title image reading "Type annotations: strong types, weakly held" with the JavaScript logo](title-image.png)
 
 ## What is the proposal?
 
-Types as comments (or "tomments" as some have dubbed it) is a proposal which would allow for the inclusion of types in JavaScript code. Consider the following piece of TypeScript:
+Types annotations is a proposal which would allow for the inclusion of types in JavaScript code. Consider the following piece of TypeScript:
 
 ```ts
 const theAnswer: number = 42;
@@ -45,13 +45,13 @@ That's what the proposal amounts to.
 
 Now that we understand what the proposal is, let's consider what it isn't.
 
-Types as comments isn't an endorsement of a particular type system. Furthermore, it is not type checking in the browser or type checking in Node.js.
+Types annotations isn't an endorsement of a particular type system. Furthermore, it is not type checking in the browser or type checking in Node.js.
 
 Let's consider each of these. There's a number of languages which allow us to type check JavaScript. TypeScript, Flow, Hegel and others all play in this space. They are all similar, but different. They have different syntax and they do different things.
 
 What they have in common, is the space where types live in their syntax or grammar. The proposal essentially says "hey we might have different approaches to describing types, but we agree about where the types ought to live - let's standardise that".
 
-This is why the name "types as comments" is key; these types would be ignored by JavaScript runtimes. The fact they would be ignored is an indication that no existing type system would be "anointed" by this proposal.
+This is why the original proposal name of "types as comments" is instructive; these types would be ignored by JavaScript runtimes. The fact they would be ignored is an indication that no existing type system would be "anointed" by this proposal.
 
 Consider the following:
 
@@ -95,7 +95,7 @@ He says:
 > }
 > ```
 
-What I take from this, is that JavaScript with types as comments, would be a more developer friendly JSDoc.
+What I take from this, is that JavaScript with types annotations, would be a more developer friendly JSDoc.
 
 ## "It's the JSDoc I always wanted!"
 
@@ -107,7 +107,7 @@ I don't use `enum`s, `namespace`s, `decorator`s etc. This is significant as each
 
 So by subsetting the features of TypeScript, we can choose to use only those features that do not have an emit aspect. By making that choice, it's possible to use just JavaScript, if we're willing to commit to using JSDoc syntax within JavaScript _instead_ of TypeScript. There's many in the community who are doing this on sizeable projects like [webpack](https://github.com/webpack/webpack) already. We don't lose type checking, we don't lose refactoring possibilities thanks to editors like VS Code.
 
-JSDoc is great, but it's undeniably more verbose than writing TypeScript. If types as comments was to be adopted, we'd able to write TypeScript in our JavaScript files. We'd be able to use TypeScript to type check that **if we wanted to**. But we wouldn't need to transpile our code prior to running. We could run our source code directly. Brilliant!
+JSDoc is great, but it's undeniably more verbose than writing TypeScript. If types annotations was to be adopted, we'd able to write TypeScript in our JavaScript files. We'd be able to use TypeScript to type check that **if we wanted to**. But we wouldn't need to transpile our code prior to running. We could run our source code directly. Brilliant!
 
 ## Controversy and Compromise
 
