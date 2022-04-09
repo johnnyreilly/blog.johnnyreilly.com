@@ -198,21 +198,21 @@ dotnet_analyzer_diagnostic.category-Style.severity = error
 
 There's a number of different categories that encapsulate groups of rules, [they're documented here](https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/categories). Taken from there you can see the wealth of different categories that exist:
 
-> | Category                               | Description                                                                                                                                                                              | EditorConfig value                                              |
-> | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-> | Design rules                           | Design rules support adherence to the .NET Framework Design Guidelines.                                                                                                                  | `dotnet_analyzer_diagnostic.category-Design.severity`           |
-> | Documentation rules                    | Documentation rules support writing well-documented libraries through the correct use of XML documentation comments for externally visible APIs.                                         | `dotnet_analyzer_diagnostic.category-Documentation.severity`    |
-> | Globalization rules                    | Globalization rules support world-ready libraries and applications.                                                                                                                      | `dotnet_analyzer_diagnostic.category-Globalization.severity`    |
-> | Portability and interoperability rules | Portability rules support portability across different platforms. Interoperability rules support interaction with COM clients.                                                           | `dotnet_analyzer_diagnostic.category-Interoperability.severity` |
-> | Maintainability rules                  | Maintainability rules support library and application maintenance.                                                                                                                       | `dotnet_analyzer_diagnostic.category-Maintainability.severity`  |
-> | Naming rules                           | Naming rules support adherence to the naming conventions of the .NET design guidelines.                                                                                                  | `dotnet_analyzer_diagnostic.category-Naming.severity`           |
-> | Performance rules                      | Performance rules support high-performance libraries and applications.                                                                                                                   | `dotnet_analyzer_diagnostic.category-Performance.severity`      |
-> | SingleFile rules                       | Single-file rules support single-file applications.                                                                                                                                      | `dotnet_analyzer_diagnostic.category-SingleFile.severity`       |
-> | Reliability rules                      | Reliability rules support library and application reliability, such as correct memory and thread usage.                                                                                  | `dotnet_analyzer_diagnostic.category-Reliability.severity`      |
-> | Security rules                         | Security rules support safer libraries and applications. These rules help prevent security flaws in your program.                                                                        | `dotnet_analyzer_diagnostic.category-Security.severity`         |
-> | Style rules                            | Style rules support consistent code style in your codebase. These rules start with the "IDE" prefix.                                                                                     | `dotnet_analyzer_diagnostic.category-Style.severity`            |
-> | Usage rules                            | Usage rules support proper usage of .NET.                                                                                                                                                | `dotnet_analyzer_diagnostic.category-Usage.severity`            |
-> | N/A                                    | You can use this EditorConfig value to enable the following rules: IDE0051, IDE0064, IDE0076. While these rules start with "IDE", they are not technically part of the `Style` category. | `dotnet_analyzer_diagnostic.category-CodeQuality.severity`      |
+| Category                               | Description                                                                                                                                                                              | EditorConfig value                                              |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| Design rules                           | Design rules support adherence to the .NET Framework Design Guidelines.                                                                                                                  | `dotnet_analyzer_diagnostic.category-Design.severity`           |
+| Documentation rules                    | Documentation rules support writing well-documented libraries through the correct use of XML documentation comments for externally visible APIs.                                         | `dotnet_analyzer_diagnostic.category-Documentation.severity`    |
+| Globalization rules                    | Globalization rules support world-ready libraries and applications.                                                                                                                      | `dotnet_analyzer_diagnostic.category-Globalization.severity`    |
+| Portability and interoperability rules | Portability rules support portability across different platforms. Interoperability rules support interaction with COM clients.                                                           | `dotnet_analyzer_diagnostic.category-Interoperability.severity` |
+| Maintainability rules                  | Maintainability rules support library and application maintenance.                                                                                                                       | `dotnet_analyzer_diagnostic.category-Maintainability.severity`  |
+| Naming rules                           | Naming rules support adherence to the naming conventions of the .NET design guidelines.                                                                                                  | `dotnet_analyzer_diagnostic.category-Naming.severity`           |
+| Performance rules                      | Performance rules support high-performance libraries and applications.                                                                                                                   | `dotnet_analyzer_diagnostic.category-Performance.severity`      |
+| SingleFile rules                       | Single-file rules support single-file applications.                                                                                                                                      | `dotnet_analyzer_diagnostic.category-SingleFile.severity`       |
+| Reliability rules                      | Reliability rules support library and application reliability, such as correct memory and thread usage.                                                                                  | `dotnet_analyzer_diagnostic.category-Reliability.severity`      |
+| Security rules                         | Security rules support safer libraries and applications. These rules help prevent security flaws in your program.                                                                        | `dotnet_analyzer_diagnostic.category-Security.severity`         |
+| Style rules                            | Style rules support consistent code style in your codebase. These rules start with the "IDE" prefix.                                                                                     | `dotnet_analyzer_diagnostic.category-Style.severity`            |
+| Usage rules                            | Usage rules support proper usage of .NET.                                                                                                                                                | `dotnet_analyzer_diagnostic.category-Usage.severity`            |
+| N/A                                    | You can use this EditorConfig value to enable the following rules: IDE0051, IDE0064, IDE0076. While these rules start with "IDE", they are not technically part of the `Style` category. | `dotnet_analyzer_diagnostic.category-CodeQuality.severity`      |
 
 The `IDE0052` information we saw when we used `dotnet format` earlier is technically part of the `CodeQuality` category. If we wanted to, we we could dial that up that category to an error like so:
 
@@ -237,6 +237,8 @@ dotnet_diagnostic.IDE0008.severity = none
 dotnet_diagnostic.IDE0058.severity = none
 dotnet_diagnostic.IDE0160.severity = none
 ```
+
+What we're doing here is saying "upgrade all [style rules](https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/) to be errors, but `IDE0008`, `IDE0058` and `IDE0160` (which are style rules) - ignore those; don't tell me about them".
 
 Now I'm not going to be bothered by those errors in future. Great.
 
@@ -291,7 +293,7 @@ Time Elapsed 00:00:02.21
 
 ## Deactivate linting partially
 
-Let's say we want to ignore that one warning. We'd like the equivalent functionality to `// eslint-disable-next-line`. That does't exist alas. However, what does is the equivalent to this:
+Let's say we want to ignore that one warning. We'd like the equivalent functionality to `// eslint-disable-next-line`. That doesn't exist alas. However, what does is the equivalent to this:
 
 ```js
 /* eslint-disable */
@@ -323,4 +325,4 @@ And now we can opt out of that rule in this specific place - whilst maintaining 
 
 There's powerful linting tools in C#, hopefully this guide has made it easier for you to surface them, control them and apply them both to VS Code and to your build.
 
-Thanks to [Joey Robichaud](https://twitter.com/JoeyRobichaud), [Tim Heuer](https://twitter.com/timheuer) and [Youssef Victor](https://twitter.com/YoussefV1313) for some excellent pointers that fed into the writing of this post. [You can see the help they provided here.](https://github.com/dotnet/roslyn/issues/60620).
+Thanks to [Joey Robichaud](https://twitter.com/JoeyRobichaud), [Tim Heuer](https://twitter.com/timheuer) and [Youssef Victor](https://twitter.com/YoussefV1313) for some excellent pointers that fed into the writing of this post. [You can see the help they provided here](https://github.com/dotnet/roslyn/issues/60620).
