@@ -254,7 +254,7 @@ The things to notice are:
 
 <dl><dt>module</dt><dd>Publishing a commonjs module means it will play well with npm</dd><dt>declaration</dt><dd>This is what makes TypeScript generate <code>index.d.ts</code></dd><dt>outDir</dt><dd>We want to regenerate the <code>index.js</code> in the root (2 directories above this)</dd></dl>
 
-So now, what do we get when we build in Atom? Well, we're generating an `<a href="https://github.com/johnnyreilly/globalize-so-what-cha-want/blob/master/index.js">index.js</a>` file which looks like this:
+So now, what do we get when we build in Atom? Well, we're generating an [`index.js`](https://github.com/johnnyreilly/globalize-so-what-cha-want/blob/master/index.js) file which looks like this:
 
 ```js
 var DEPENDENCY_TYPES = {
@@ -424,7 +424,7 @@ exports.determineRequiredCldrGlobalizeFiles =
 
 Aside from one method moving internally and me adding some JSDoc, the only really notable change is the end of the file. TypeScript, when generating commonjs, doesn't use the `module.exports = {}` approach. Rather, it drops exported functions onto the `exports` object as functions are exported. Functionally this is _identical_.
 
-Now for our big finish: happily sat alongside is `index.js` is the `<a href="https://github.com/johnnyreilly/globalize-so-what-cha-want/blob/master/index.d.ts">index.d.ts</a>` file:
+Now for our big finish: happily sat alongside is `index.js` is the [`index.d.ts`](https://github.com/johnnyreilly/globalize-so-what-cha-want/blob/master/index.d.ts) file:
 
 ```ts
 export interface Options {

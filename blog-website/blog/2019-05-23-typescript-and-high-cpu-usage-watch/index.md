@@ -46,7 +46,7 @@ As you can see, the default performs poorly. On the other hand, an option like `
 
 To get this better experience into your world now, you could just set an environment variable on your machine. However, that doesn't scale; let's instead look at introducing the environment variable into your project explicitly.
 
-We're going to do this in a cross platform way using `<a href="https://github.com/kentcdodds/cross-env">cross-env</a>`. This is a mighty useful utility by Kent C Dodds which allows you to set environment variables in a way that will work on Windows, Mac and Linux. Imagine it as the jQuery of the environment variables world :-)
+We're going to do this in a cross platform way using [`cross-env`](https://github.com/kentcdodds/cross-env). This is a mighty useful utility by Kent C Dodds which allows you to set environment variables in a way that will work on Windows, Mac and Linux. Imagine it as the jQuery of the environment variables world :-)
 
 Let's add it as a `devDependency`:
 

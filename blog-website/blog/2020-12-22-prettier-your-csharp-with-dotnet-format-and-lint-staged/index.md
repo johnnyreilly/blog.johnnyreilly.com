@@ -1,5 +1,5 @@
 ---
-title: 'dotnet-format: Prettier your CSharp with lint-staged and husky'
+title: 'dotnet-format: Prettier your C# with lint-staged & husky'
 authors: johnnyreilly
 image: ./title-image.png
 tags: [Prettier, dotnet-format, lint-staged, husky, CSharpier]
@@ -13,6 +13,10 @@ Consistent formatting in a codebase is a good thing. We can achieve this in dotn
 ## Update 17/09/2021
 
 This has been updated to work with the latest versions of `lint-staged` and `husky`.
+
+## Update linting 07/04/2022
+
+If you're interested in formatting, you might be interested in linting; formatting's big sister. C# has linting too; [read about it here](../2022-04-06-eslint-your-csharp-in-vs-code-with-roslyn-analyzers/index.md).
 
 ## Why format?
 

@@ -7,12 +7,12 @@ hide_table_of_contents: false
 
 Love me some [Font Awesome](https://fontawesome.com). Absolutely wonderful. However, I came a cropper when following the instructions [on using the all new Font Awesome 5 with React](https://fontawesome.com/how-to-use/on-the-web/using-with/react). The instructions for standard icons work _fine_. But if you want to use brand icons then this does not help you out much. There's 2 problems:
 
-1. Font Awesome's brand icons are not part of `<a href="https://www.npmjs.com/package/@fortawesome/free-solid-svg-icons">@fortawesome/free-solid-svg-icons</a>` package
+1. Font Awesome's brand icons are not part of [`@fortawesome/free-solid-svg-icons`](https://www.npmjs.com/package/@fortawesome/free-solid-svg-icons) package
 2. The method of icon usage illustrated (i.e. with the `FontAwesomeIcon` component) doesn't work. It doesn't render owt.
 
 ## Brand Me Up Buttercup
 
-You want brands? Well you need the `<a href="https://www.npmjs.com/package/@fortawesome/free-brands-svg-icons">@fortawesome/free-brands-svg-icons</a>`. Obvs, right?
+You want brands? Well you need the [`@fortawesome/free-brands-svg-icons`](https://www.npmjs.com/package/@fortawesome/free-brands-svg-icons). Obvs, right?
 
 ```sh
 yarn add @fortawesome/fontawesome-svg-core

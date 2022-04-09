@@ -54,4 +54,4 @@ Now we've added the `getEditUrl` method we just need to reference it in our view
 <a class="contains-icon" ng-href="{{vm.getEditUrl()}}"><i class="fa fa-pencil"></i>Edit</a>
 ```
 
-Note we've ditched usage of the `ui-sref` directive and gone with Angular's native `<a href="https://docs.angularjs.org/api/ng/directive/ngHref">ng-href</a>`. Within that directive we execute our `getEditUrl` as an expression which gives us our route. As a bonus, our view is much less cluttered and comprehensible as a result. How lovely.
+Note we've ditched usage of the `ui-sref` directive and gone with Angular's native [`ng-href`](https://docs.angularjs.org/api/ng/directive/ngHref). Within that directive we execute our `getEditUrl` as an expression which gives us our route. As a bonus, our view is much less cluttered and comprehensible as a result. How lovely.
