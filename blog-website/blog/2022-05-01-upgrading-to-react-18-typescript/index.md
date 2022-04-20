@@ -82,9 +82,12 @@ Now that your install has completed, we start to see the following error message
 
 ```tsx
 interface LoadingProps {
+  // you'll note there's no `children` prop here - this is what's prompting the error message
   noHeader?: boolean;
 }
 
+// if props.noHeader is true then this component returns just the icon and a message
+// if props.noHeader is true then this component returns the same but wrapped in an h1
 const Loading: React.FunctionComponent<LoadingProps> = (props) =>
   props.noHeader ? (
     <>
