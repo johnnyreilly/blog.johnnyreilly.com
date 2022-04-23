@@ -86,7 +86,7 @@ interface LoadingProps {
   noHeader?: boolean;
 }
 
-// if props.noHeader is true then this component returns just the icon and a message
+// if props.noHeader is false then this component returns just the icon and a message
 // if props.noHeader is true then this component returns the same but wrapped in an h1
 const Loading: React.FunctionComponent<LoadingProps> = (props) =>
   props.noHeader ? (
