@@ -47,6 +47,236 @@ dotnet add package RestSharp
 
 With that in place, let's turn to our `WeatherForecastController` and make it send an email.
 
+```cs
+using Config;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+
+using RestSharp;
+using RestSharp.Authenticators;
+
+namespace WeatherService.Controllers;
+
+[ApiController]
+public class WeatherForecastController : ControllerBase
+{
+    private static readonly string[] Summaries = new[]
+    {
+        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    };
+
+    private readonly ILogger<WeatherForecastController> _logger;
+    private readonly MailConfig _options;
+
+    public WeatherForecastController(
+        ILogger<WeatherForecastController> logger,
+        IOptions<MailConfig> options
+    )
+    {
+        _logger = logger;
+        _options = options.Value;
+    }
+
+    public record SendWeatherForecastBody(string Email);
+
+    [HttpPost("SendWeatherForecast")]
+    public async Task<string> SendWeatherForecast(SendWeatherForecastBody body)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(body.Email)) throw new Exception("Email required");
+
+            var weatherForecast = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = Random.Shared.Next(-20, 55),
+                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+            })
+            .ToArray();
+
+            var toEmailAddress = body.Email;
+            var text = $@"The weather forecast is:
+
+{string.Join("\n", weatherForecast.Select(wf => $"On {wf.Date} the weather will be {wf.Summary}"))}
+";
+
+            await SendSimpleMessage(
+                toEmailAddress: toEmailAddress,
+                text: text
+            );
+
+            return $"We have mailed {toEmailAddress} with the following:\n\n{text}";
+        }
+        catch (Exception exc)
+        {
+            _logger.LogError(exc, $"Problem!");
+
+            return exc.Message;
+        }
+    }
+
+    async Task<RestResponse> SendSimpleMessage(string toEmailAddress, string text)
+    {
+        RestClient client = new(new RestClientOptions
+        {
+            BaseUrl = new Uri("https://api.mailgun.net/v3")
+        })
+        {
+            Authenticator =
+            new HttpBasicAuthenticator("api", _options.MailgunApiKey)
+        };
+        RestRequest request = new();
+        request.AddParameter("domain", "mg.priou.co.uk", ParameterType.UrlSegment);
+        request.Resource = "{domain}/messages";
+        request.AddParameter("from", "John Reilly <johnny_reilly@hotmail.com>");
+        request.AddParameter("to", toEmailAddress);
+        request.AddParameter("subject", "Weather forecast");
+        request.AddParameter("text", text);
+
+        return await client.PostAsync(request);
+    }
+}
+```
+
+In our new and improved controller we:
+
+- Switch our `GET` endpoint to be a `POST` one instead, to reflect that we're going to take an action (sending an email) each time it's hit. (RESTful to the end)
+- Rather than returning the weather forecast to our caller, we take the email address supplied and we send the weather forecast to it
+
+You'll also notice we're passing a `IOptions<MailConfig>` to the constructor of our class, it's in this configuration object we store our Mailgun api key. So we're going to need to define a `MailConfig` class:
+
+```cs
+public class MailConfig
+{
+    public string MailgunApiKey { get; set; } = string.Empty;
+}
+```
+
+And we need to update our `Program.cs` so it recognises `MailConfig` and configures it:
+
+```cs
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<MailConfig>(builder.Configuration.GetSection("Mail"));
+// ...
+```
+
+Thanks to the default setup of .NET, we'll now be able to populate this using `appsettings.json` files and environment variables. Since our API key is a secret we'll avoid putting it in source control, and instead populate an environment variable that .NET can read:
+
+```
+MAIL__MAILGUNAPIKEY=key-goes-here
+```
+
+The `__` above is the convention that .NET follows for nesting with environment variables; this is equivalent to the following structure in an `appsettings.json` file:
+
+```json
+{
+  "Mail": {
+    "MailgunApiKey": "api-key-goes-here"
+  }
+  // ...
+}
+```
+
+## Webservice gets a form
+
+Now that we've tweaked our WeatherService, we need to tweak the web site that calls it. We'll do that by first adding some dependencies that allow our Koa web service to handle routing a little easier:
+
+```shell
+npm install @koa/router koa-body --save
+npm install @types/koa__router --save-dev
+```
+
+Then we'll tweak our `index.ts` like so:
+
+```ts
+import Koa from 'koa';
+import Router from '@koa/router';
+import koaBody from 'koa-body';
+import axios from 'axios';
+
+// How we connect to the dotnet service with dapr
+const daprSidecarBaseUrl = `http://localhost:${
+  process.env.DAPR_HTTP_PORT || 3501
+}`;
+// app id header for service discovery
+const weatherServiceAppIdHeaders = {
+  'dapr-app-id': process.env.WEATHER_SERVICE_NAME || 'dotnet-app',
+};
+
+const app = new Koa();
+const router = new Router();
+
+app.use(async (ctx, next) => {
+  try {
+    await next();
+    const status = ctx.status || 404;
+    if (status === 404) ctx.throw(404);
+  } catch (err: any) {
+    ctx.status = err.status || 500;
+    ctx.body = ctx.status === 404 ? 'not found alas' : `hmmm: ${ctx.status}`;
+  }
+});
+
+const formHtml = (header: string) => `<!DOCTYPE html>
+<html>
+<head>
+<title>Email me!</title>
+</head>
+<body>
+<form method="post">
+    <h1>${header}</h1>
+    <label for="email">Enter your email:</label>
+    <input type="email" id="email" name="email" required>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>
+`;
+
+router.get('/', async (ctx, next) => {
+  ctx.body = formHtml("We'd like to email you");
+});
+
+router.post('/', koaBody(), async (ctx, next) => {
+  try {
+    if (ctx.request.body.email) {
+      await axios.post(
+        `${daprSidecarBaseUrl}/SendWeatherForecast`,
+        {
+          email: ctx.request.body.email,
+        },
+        {
+          headers: weatherServiceAppIdHeaders,
+        }
+      );
+
+      ctx.body = formHtml('Message sent');
+    } else {
+      ctx.body = formHtml('No email supplied');
+    }
+  } catch (exc) {
+    console.error('Problem calling weather service', exc);
+    ctx.body = 'Something went wrong!';
+  }
+});
+
+app.use(router.routes()).use(router.allowedMethods());
+
+const portNumber = 3000;
+app.listen(portNumber);
+console.log(`listening on port ${portNumber}`);
+```
+
+The above leaves us with a very simple form based web app that sends an email containing weather forecast:
+
+![A gif that demos entering an email address in the form, submitting it and seeing an email arrive with a weather forecast in](demo-send-email.gif)
+
+## PubSub time!
+
+So we're now at the point where we have a pubsub style app - but still implemented using the service invocation approach. It's time to start migrating to using dapr's pubsub capabilities.
+
 ## CONTINUE HERE
 
 ## What we're going to build
