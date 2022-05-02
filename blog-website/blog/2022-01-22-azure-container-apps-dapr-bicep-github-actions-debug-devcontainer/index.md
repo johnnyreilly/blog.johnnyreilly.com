@@ -20,6 +20,10 @@ This follows on from the [previous post](../2021-12-27-azure-container-apps-buil
 
 ![title image reading "Azure Container Apps dapr, devcontainer, debug and deploy"  with the dapr, Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
 
+## Update 02/05/2022
+
+This post has been updated to reflect the migration of Azure Container Apps from the Microsoft.Web namespace to the Microsoft.App namespace in March 2022. See: https://github.com/microsoft/azure-container-apps/issues/109
+
 ## What we're going to build
 
 As an engineer, I'm productive when:
@@ -334,7 +338,7 @@ First of all we'll create a `launch.json` file in the `.vscode` folder of our re
       "postDebugTask": "daprd-down-dotnet",
       "program": "${workspaceFolder}/WeatherService/bin/Debug/net6.0/WeatherService.dll",
       "args": [],
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/WeatherService",
       "stopAtEntry": false,
       "env": {
         "DOTNET_ENVIRONMENT": "Development",
@@ -352,7 +356,7 @@ First of all we'll create a `launch.json` file in the `.vscode` folder of our re
       "preLaunchTask": "daprd-debug-node",
       "postDebugTask": "daprd-down-node",
       "program": "${workspaceFolder}/WebService/index.ts",
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/WebService",
       "env": {
         "NODE_ENV": "development",
         "PORT": "3000",
@@ -618,13 +622,14 @@ param containerRegistryPassword string
 
 param tags object
 
-var location = resourceGroup().location
+param location string = resourceGroup().location
+
 var minReplicas = 0
 var maxReplicas = 1
 
 var branch = toLower(last(split(branchName, '/')))
 
-var environmentName = '${branch}-env'
+var environmentName = 'shared-env'
 var workspaceName = '${branch}-log-analytics'
 var appInsightsName = '${branch}-app-insights'
 var webServiceContainerAppName = '${branch}-web'
@@ -632,7 +637,7 @@ var weatherServiceContainerAppName = '${branch}-weather'
 
 var containerRegistryPasswordRef = 'container-registry-password'
 
-resource workspace 'Microsoft.OperationalInsights/workspaces@2020-08-01' = {
+resource workspace 'Microsoft.OperationalInsights/workspaces@2021-12-01-preview' = {
   name: workspaceName
   location: location
   tags: tags
@@ -645,7 +650,7 @@ resource workspace 'Microsoft.OperationalInsights/workspaces@2020-08-01' = {
   }
 }
 
-resource appInsights 'Microsoft.Insights/components@2020-02-02-preview' = {
+resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   name: appInsightsName
   location: location
   tags: tags
@@ -656,14 +661,12 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02-preview' = {
   }
 }
 
-resource environment 'Microsoft.Web/kubeEnvironments@2021-02-01' = {
+resource environment 'Microsoft.App/managedEnvironments@2022-01-01-preview' = {
   name: environmentName
-  kind: 'containerenvironment'
   location: location
   tags: tags
   properties: {
-    type: 'managed'
-    internalLoadBalancerEnabled: false
+    daprAIInstrumentationKey: appInsights.properties.InstrumentationKey
     appLogsConfiguration: {
       destination: 'log-analytics'
       logAnalyticsConfiguration: {
@@ -671,20 +674,22 @@ resource environment 'Microsoft.Web/kubeEnvironments@2021-02-01' = {
         sharedKey: listKeys(workspace.id, workspace.apiVersion).primarySharedKey
       }
     }
-    containerAppsConfiguration: {
-      daprAIInstrumentationKey: appInsights.properties.InstrumentationKey
-    }
   }
 }
 
-resource weatherServiceContainerApp 'Microsoft.Web/containerapps@2021-03-01' = {
+resource weatherServiceContainerApp 'Microsoft.App/containerApps@2022-01-01-preview' = {
   name: weatherServiceContainerAppName
   kind: 'containerapps'
   tags: tags
   location: location
   properties: {
-    kubeEnvironmentId: environment.id
+    managedEnvironmentId: environment.id
     configuration: {
+      dapr: {
+        enabled: true
+        appPort: weatherServicePort
+        appId: weatherServiceContainerAppName
+      }
       secrets: [
         {
           name: containerRegistryPasswordRef
@@ -715,23 +720,23 @@ resource weatherServiceContainerApp 'Microsoft.Web/containerapps@2021-03-01' = {
         minReplicas: minReplicas
         maxReplicas: maxReplicas
       }
-      dapr: {
-        enabled: true
-        appPort: weatherServicePort
-        appId: weatherServiceContainerAppName
-      }
     }
   }
 }
 
-resource webServiceContainerApp 'Microsoft.Web/containerapps@2021-03-01' = {
+resource webServiceContainerApp 'Microsoft.App/containerApps@2022-01-01-preview' = {
   name: webServiceContainerAppName
   kind: 'containerapps'
   tags: tags
   location: location
   properties: {
-    kubeEnvironmentId: environment.id
+    managedEnvironmentId: environment.id
     configuration: {
+      dapr: {
+        enabled: true
+        appPort: webServicePort
+        appId: webServiceContainerAppName
+      }
       secrets: [
         {
           name: containerRegistryPasswordRef
@@ -767,11 +772,6 @@ resource webServiceContainerApp 'Microsoft.Web/containerapps@2021-03-01' = {
       scale: {
         minReplicas: minReplicas
         maxReplicas: maxReplicas
-      }
-      dapr: {
-        enabled: true
-        appPort: webServicePort
-        appId: webServiceContainerAppName
       }
     }
   }

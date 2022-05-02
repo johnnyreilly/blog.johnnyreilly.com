@@ -14,6 +14,10 @@ If you'd like to learn more about using dapr with Azure Container Apps then you 
 
 ![title image reading "Azure Container Apps: build and deploy with Bicep and GitHub Actions" with the Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
 
+## Update 02/05/2022
+
+This post has been updated to reflect the migration of Azure Container Apps from the Microsoft.Web namespace to the Microsoft.App namespace in March 2022. See: https://github.com/microsoft/azure-container-apps/issues/109
+
 ## The containerised convent
 
 I learn the most about a technology when I'm using it to build something. It so happens that I have an aunt that's a nun, and long ago she persuaded me to build her convent a website. I'm a good nephew and I complied. Since that time I've been merrily overengineering it for fun and non-profit.
@@ -57,7 +61,7 @@ var appInsightsName = '${nodeServiceAppName}-app-insights'
 var containerRegistryPasswordRef = 'container-registry-password'
 var mailgunApiKeyRef = 'mailgun-api-key'
 
-resource workspace 'Microsoft.OperationalInsights/workspaces@2020-08-01' = {
+resource workspace 'Microsoft.OperationalInsights/workspaces@2021-12-01-preview' = {
   name: workspaceName
   location: location
   tags: tags
@@ -70,7 +74,7 @@ resource workspace 'Microsoft.OperationalInsights/workspaces@2020-08-01' = {
   }
 }
 
-resource appInsights 'Microsoft.Insights/components@2020-02-02-preview' = {
+resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   name: appInsightsName
   location: location
   tags: tags
@@ -81,13 +85,11 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02-preview' = {
   }
 }
 
-resource environment 'Microsoft.Web/kubeEnvironments@2021-03-01' = {
+resource environment 'Microsoft.App/managedEnvironments@2022-01-01-preview' = {
   name: environmentName
   location: location
   tags: tags
   properties: {
-    type: 'managed'
-    internalLoadBalancerEnabled: false
     appLogsConfiguration: {
       destination: 'log-analytics'
       logAnalyticsConfiguration: {
@@ -101,13 +103,13 @@ resource environment 'Microsoft.Web/kubeEnvironments@2021-03-01' = {
   }
 }
 
-resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
+resource containerApp 'Microsoft.App/containerApps@2022-01-01-preview' = {
   name: nodeServiceAppName
   kind: 'containerapps'
   tags: tags
   location: location
   properties: {
-    kubeEnvironmentId: environment.id
+    managedEnvironmentId: environment.id
     configuration: {
       secrets: [
         {
@@ -184,7 +186,7 @@ When these parameters are applied to the `containerApp` resource, it looks like 
 ```bicep
 var nodeServiceAppName = 'node-app'
 
-resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
+resource containerApp 'Microsoft.App/containerApps@2022-01-01-preview' = {
   // ...
   properties: {
       // ...
@@ -229,7 +231,7 @@ We use the parameters to configure the `registries` property of our container ap
 ```bicep
 var containerRegistryPasswordRef = 'container-registry-password'
 
-resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
+resource containerApp 'Microsoft.App/containerApps@2022-01-01-preview' = {
   // ...
   properties: {
     // ...
@@ -274,7 +276,7 @@ All of our configuration is exposed to the running application through environme
 ```bicep
 var mailgunApiKeyRef = 'mailgun-api-key'
 
-resource containerApp 'Microsoft.Web/containerapps@2021-03-01' = {
+resource containerApp 'Microsoft.App/containerApps@2022-01-01-preview' = {
   // ...
   properties: {
     // ...
