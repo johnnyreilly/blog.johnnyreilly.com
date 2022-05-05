@@ -459,7 +459,7 @@ There's two sets of tasks here; one for the WeatherService and one for the WebSe
 
 We're now ready to debug our app. Let's hit F5.
 
-![screenshot of debugging the index.ts file in VS Code](../debugging.png)
+![screenshot of debugging the index.ts file in VS Code](./debugging.png)
 
 And if we look at our browser:
 
