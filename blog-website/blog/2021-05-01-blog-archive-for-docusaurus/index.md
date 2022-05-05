@@ -18,7 +18,7 @@ If you'd like to know how to build your own, read on... But you may not need to!
 
 ## Blogger's blog archive
 
-I recently went through the exercise of [migrating my blog from Blogger to Docusaurus](./2021-03-15-from-blogger-to-docusaurus/index.md). I found that [Docusaurus](https://docusaurus.io/) was a tremendous platform upon which to build a blog, but it was missing a feature from Blogger that I valued highly; the blog archive:
+I recently went through the exercise of [migrating my blog from Blogger to Docusaurus](../2021-03-15-from-blogger-to-docusaurus/index.md). I found that [Docusaurus](https://docusaurus.io/) was a tremendous platform upon which to build a blog, but it was missing a feature from Blogger that I valued highly; the blog archive:
 
 ![Blogger blog archive](blogger-blog-archive-small.png)
 

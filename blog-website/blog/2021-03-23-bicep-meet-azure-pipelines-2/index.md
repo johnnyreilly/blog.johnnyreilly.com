@@ -6,7 +6,7 @@ image: ./bicep-meet-azure-pipelines.png
 hide_table_of_contents: false
 ---
 
-[Last time](./2021-03-20-bicep-meet-azure-pipelines/index.md) I wrote about how to use the Azure CLI to run Bicep within the context of an Azure Pipeline. The solution was relatively straightforward, and involved using `az deployment group create` in a task. There's an easier way.
+[Last time](../2021-03-20-bicep-meet-azure-pipelines/index.md) I wrote about how to use the Azure CLI to run Bicep within the context of an Azure Pipeline. The solution was relatively straightforward, and involved using `az deployment group create` in a task. There's an easier way.
 
 ![Bicep meet Azure Pipelines](bicep-meet-azure-pipelines.png)
 

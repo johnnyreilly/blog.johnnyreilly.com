@@ -25,7 +25,7 @@ It's worth bearing in mind that there's a very similar feature to what we're goi
 
 It's possible that in future the deployment environment aspect of this blog post may be rendered redundant by staging environments landing in Azure DevOps. However, the second part, which updates a PR in ADO with a link is probably generally useful. And it may be the case that the approach of provisioning an environment on demand and extracting a URL could be reworked to work with App Service and similar too.
 
-I wrote about using [SWAs with Azure DevOps earlier this year](./2021-08-15-bicep-azure-static-web-apps-azure-devops/index.md). This blog post will take the form of a [pull request on the code written in that post](https://dev.azure.com/johnnyreilly/azure-static-web-apps/_git/azure-static-web-apps/pullrequest/3).
+I wrote about using [SWAs with Azure DevOps earlier this year](../2021-08-15-bicep-azure-static-web-apps-azure-devops/index.md). This blog post will take the form of a [pull request on the code written in that post](https://dev.azure.com/johnnyreilly/azure-static-web-apps/_git/azure-static-web-apps/pullrequest/3).
 
 ## Getting `defaultHostName` from Static Web Apps
 

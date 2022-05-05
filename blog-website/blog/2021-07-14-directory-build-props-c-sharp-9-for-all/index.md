@@ -12,7 +12,7 @@ hide_table_of_contents: false
 
 ## "have you the good news about `Directory.Build.props`"?
 
-[I wrote recently about using C# 9 with in-process Azure Functions.](./2021-07-01-c-sharp-9-azure-functions-in-process/index.md) What that amounted to, was using C# 9 with .NET Core.
+[I wrote recently about using C# 9 with in-process Azure Functions.](../2021-07-01-c-sharp-9-azure-functions-in-process/index.md) What that amounted to, was using C# 9 with .NET Core.
 
 One of the best things about blogging, is all that you get to learn along the way. After I put up that post, [Daniel Earwicker](https://twitter.com/danielearwicker) was kind enough to send this message:
 

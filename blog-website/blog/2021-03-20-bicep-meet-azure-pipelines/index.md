@@ -199,4 +199,4 @@ This works right now, and running it results in something like the output below.
 
 ## Update: an even simpler alternative
 
-There is even a simpler way to do this which I discovered subsequent to writing this. [Have a read](./2021-03-23-bicep-meet-azure-pipelines-2/index.md).
+There is even a simpler way to do this which I discovered subsequent to writing this. [Have a read](../2021-03-23-bicep-meet-azure-pipelines-2/index.md).
