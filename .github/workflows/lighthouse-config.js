@@ -6,6 +6,7 @@ module.exports = {
     // https://github.com/GoogleChrome/lighthouse/blob/eba2a4d19c5786dc37e993858ff4b663181f81e5/lighthouse-core/config/default-config.js#L174
     skipAudits: [
       'canonical', // for staging sites this will always be incorrect
+      'seo/is-crawlable', // for staging sites the x-robots-tag: none is served to prevent the staging site being indexed
       'maskable-icon',
       'valid-source-maps',
       'unsized-images',
