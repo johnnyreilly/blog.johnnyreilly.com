@@ -73,6 +73,6 @@ The first consumer of the newsfeed was to be our own mini analytics platform, wh
 So that's it! We've built a (primitive) news feed. We can now see in real time how are users are getting on. We're closer to them, we understand them better as a consequence. If we want to take it further there's a number of things we could do:
 
 1. We could make the feed auto-update
-2. We could push news stories to other destinations. Markdown is a gloriously portable format which can be used in a variety of environments. For instance the likes of Slack and [Teams](./2019-12-18-teams-notification-webhooks/index.md) accept it and apps like these are generally open on people's desktops and phones all the time anyway. Another way to narrow the gap between us and and our users.
+2. We could push news stories to other destinations. Markdown is a gloriously portable format which can be used in a variety of environments. For instance the likes of Slack and [Teams](../2019-12-18-teams-notification-webhooks/index.md) accept it and apps like these are generally open on people's desktops and phones all the time anyway. Another way to narrow the gap between us and and our users.
 
 It's very exciting!

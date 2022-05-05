@@ -7,7 +7,7 @@ image: ./traffic-to-app-service.png
 hide_table_of_contents: false
 ---
 
-I've written lately about [zero downtime releases with Azure App Service](./2021-02-11-azure-app-service-health-checks-and-zero-downtime-deployments/index.md). Zero downtime releases are only successful if your authentication mechanism survives a new deployment. We looked in my last post at [how to achieve this with Azure's in-built authentication mechanism; Easy Auth](./2021-02-16-easy-auth-tokens-survive-releases-on-linux-azure-app-service/index.md).
+I've written lately about [zero downtime releases with Azure App Service](../2021-02-11-azure-app-service-health-checks-and-zero-downtime-deployments/index.md). Zero downtime releases are only successful if your authentication mechanism survives a new deployment. We looked in my last post at [how to achieve this with Azure's in-built authentication mechanism; Easy Auth](../2021-02-16-easy-auth-tokens-survive-releases-on-linux-azure-app-service/index.md).
 
 We're now going to look at how the same goal can be achieved if your ASP.NET application is authenticating another way. We achieve this through use of the [ASP.NET Data Protection](https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/configuration/overview) system. Andrew Lock has written [an excellent walkthrough on the topic](https://andrewlock.net/an-introduction-to-the-data-protection-system-in-asp-net-core/) and I encourage you to read it.
 
@@ -51,6 +51,6 @@ services.AddDataProtection().SetApplicationName("OurWebApp")
 
 In the above example you can see we're passing the name of our Storage account and Key Vault via configuration.
 
-There's one more crucial piece of the puzzle here; and it's role assignments, better known as permissions. Your App Service needs to be able to read and write to Azure Key Vault and the Azure Blob Storage. The permissions of [Storage Blob Data Contributor](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#storage-blob-data-contributor) and [Key Vault Crypto Officer](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#key-vault-crypto-officer-preview) are sufficient to enable this. (If you'd like to see what configuring that looks like via ARM templates then [check out this post](./2021-02-08-arm-templates-security-role-assignments/index.md).)
+There's one more crucial piece of the puzzle here; and it's role assignments, better known as permissions. Your App Service needs to be able to read and write to Azure Key Vault and the Azure Blob Storage. The permissions of [Storage Blob Data Contributor](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#storage-blob-data-contributor) and [Key Vault Crypto Officer](https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles#key-vault-crypto-officer-preview) are sufficient to enable this. (If you'd like to see what configuring that looks like via ARM templates then [check out this post](../2021-02-08-arm-templates-security-role-assignments/index.md).)
 
 With this in place we're able to route traffic to any instance of our application, secure in the knowledge that it will be able to read the cookies. Furthermore, we've enabled zero downtime releases as a direct consequence.

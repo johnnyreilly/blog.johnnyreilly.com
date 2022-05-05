@@ -274,19 +274,19 @@ Once our GitHub Action has run for the first time on the main branch, we'll be d
 
 Once we've started deploying there, we want to get our custom domain set up to point to it. To do this, we're going to fire up the [Azure Portal](https://portal.azure.com) and go to add a custom domain:
 
-![screenshot of the Azure Portal Add Custom Domain screen](./custom-domain.png)
+![screenshot of the Azure Portal Add Custom Domain screen](../custom-domain.png)
 
 We're going to add a TXT record for my blog. Azure generates a code for us:
 
-![screenshot of the Azure Portal Add Custom Domain screen](./custom-domain-code.png)
+![screenshot of the Azure Portal Add Custom Domain screen](../custom-domain-code.png)
 
 We need to take that code and go a register it with our DNS provider. In my case that's Cloudflare, so we can go there and add it:
 
-![screenshot of Cloudflare](./cloudflare-dns.png)
+![screenshot of Cloudflare](../cloudflare-dns.png)
 
 After a while (I think about twenty minutes in my case), this lead to the domain name being validated:
 
-![screenshot of the Azure Portal Add Custom Domain screen with domain validated](./custom-domain-code-validated.png)
+![screenshot of the Azure Portal Add Custom Domain screen with domain validated](../custom-domain-code-validated.png)
 
 Now that we have a custom domain set up in Azure, we want to uncomment the `resource customDomain` portion of the Bicep template now as well:
 
@@ -302,6 +302,6 @@ This will mean that subsequent deployments to Azure do _not_ wipe out our newly 
 
 We're now ready to start pointing our DNS to the Static Web Apps instance. We jump back across to Cloudflare and we amend the CNAME record that currently points to johnnyreilly.github.io, and switch it to point to the auto-generated domain in Azure:
 
-![screenshot of Cloudflare with the CNAME record set](./cloudflare-dns-cname.png)
+![screenshot of Cloudflare with the CNAME record set](../cloudflare-dns-cname.png)
 
 And just like that, we're hosted on Static Web Apps!
