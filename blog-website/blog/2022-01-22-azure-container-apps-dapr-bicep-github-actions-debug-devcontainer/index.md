@@ -297,7 +297,7 @@ The above code is fairly simple but is achieving quite a lot. It:
 
 It's worth dwelling for a moment on the simplicity that dapr is affording us here. We're able to make HTTP requests to our dotnet service just like they were any other service running locally. What's actually happening is illustrated by the diagram below:
 
-![a diagram showing traffic going from the web service to the weather service and back again via dapr](../dapr-sidecar.drawio.svg)
+![a diagram showing traffic going from the web service to the weather service and back again via dapr](./dapr-sidecar.drawio.svg)
 
 We're making HTTP requests from the web service, which look like they're going directly to the weather service. But in actual fact, they're being routed through dapr sidecars until they reach their destination. Why is this fantastic? Well there's two things we aren't having to think about here:
 
@@ -463,7 +463,7 @@ We're now ready to debug our app. Let's hit F5.
 
 And if we look at our browser:
 
-![screenshot of browsing Firefox at http://localhost:3000 and seeing "And the weather today will be Freezing" in the output](../app-running.png)
+![screenshot of browsing Firefox at http://localhost:3000 and seeing "And the weather today will be Freezing" in the output](./app-running.png)
 
 It works! We're running a Node.js WebService which, when called, is communicating with our dotnet WeatherService and surfacing up the results. Brilliant!
 

@@ -14,7 +14,7 @@ It's often desirable to query the outputs of deployments to Azure. This post dem
 
 When we deploy something to Azure, we frequently have outputs which we want to use. Let's consider the canonical case, whereby a website is created and we want to use the URL of where it has been deployed. We can see these values in the Azure Portal:
 
-![a screenshot of the Azure portal demostrating deployment outputs, there is a single output of "nodeUrl"](../screenshot-azure-portal-deployment-outputs.png)
+![a screenshot of the Azure portal demostrating deployment outputs, there is a single output of "nodeUrl"](./screenshot-azure-portal-deployment-outputs.png)
 
 The above deployment has a single output of `nodeUrl`. Rather than logging into the portal to acquire this value, how can we do so using the Azure CLI and bash?
 
