@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[38096],{51167:function(n){n.exports=JSON.parse('{"allTagsPath":"/tags","name":"stateless functional components","count":1,"permalink":"/tags/stateless-functional-components"}')}}]);

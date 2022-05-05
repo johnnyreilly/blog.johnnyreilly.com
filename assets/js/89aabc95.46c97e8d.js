@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[74812],{75544:function(s){s.exports=JSON.parse('{"allTagsPath":"/tags","name":"Microsoft Teams","count":1,"permalink":"/tags/microsoft-teams"}')}}]);

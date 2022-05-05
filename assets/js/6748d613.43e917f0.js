@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[21809],{6496:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","name":"powershell","count":4,"permalink":"/tags/powershell"}')}}]);

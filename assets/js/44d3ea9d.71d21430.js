@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[68228],{45898:function(e){e.exports=JSON.parse('{"label":"URL Rewrite","permalink":"/tags/url-rewrite","allTagsPath":"/tags","count":1}')}}]);

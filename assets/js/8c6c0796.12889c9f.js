@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[2816],{59123:function(e){e.exports=JSON.parse('{"label":"retrospective","permalink":"/tags/retrospective","allTagsPath":"/tags","count":1}')}}]);

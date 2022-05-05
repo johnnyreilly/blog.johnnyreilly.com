@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[35399],{84876:function(a){a.exports=JSON.parse('{"allTagsPath":"/tags","name":"Azure Artifacts","count":1,"permalink":"/tags/azure-artifacts"}')}}]);

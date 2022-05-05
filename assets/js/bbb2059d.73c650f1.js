@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[31762],{13246:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","name":"Change Request","count":1,"permalink":"/tags/change-request"}')}}]);

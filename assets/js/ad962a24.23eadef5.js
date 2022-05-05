@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[2224],{20347:function(l){l.exports=JSON.parse('{"label":"scott gu","permalink":"/tags/scott-gu","allTagsPath":"/tags","count":1}')}}]);

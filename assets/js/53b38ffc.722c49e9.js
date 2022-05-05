@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[12315],{92121:function(l){l.exports=JSON.parse('{"allTagsPath":"/tags","name":"Microsoft.Data.SqlClient","count":1,"permalink":"/tags/microsoft-data-sql-client"}')}}]);

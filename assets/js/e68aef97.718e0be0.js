@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[10822],{63369:function(e){e.exports=JSON.parse('{"label":"Azure Static Web App","permalink":"/tags/azure-static-web-app","allTagsPath":"/tags","count":1}')}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[75261],{19574:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","name":"HotTowel","count":1,"permalink":"/tags/hot-towel"}')}}]);

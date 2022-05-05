@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[65862],{35957:function(a){a.exports=JSON.parse('{"label":"Data Protection","permalink":"/tags/data-protection","allTagsPath":"/tags","count":1}')}}]);

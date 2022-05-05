@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[78115],{70152:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","name":"ASP.Net Web API","count":1,"permalink":"/tags/asp-net-web-api"}')}}]);

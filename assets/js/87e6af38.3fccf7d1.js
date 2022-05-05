@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[55791],{98512:function(l){l.exports=JSON.parse('{"label":"MVC 3","permalink":"/tags/mvc-3","allTagsPath":"/tags","count":2}')}}]);

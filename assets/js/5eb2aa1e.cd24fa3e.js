@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[62991],{47748:function(s){s.exports=JSON.parse('{"label":"metaphysics","permalink":"/tags/metaphysics","allTagsPath":"/tags","count":1}')}}]);

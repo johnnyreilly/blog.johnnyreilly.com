@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[91426],{92604:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","name":"WCF","count":3,"permalink":"/tags/wcf"}')}}]);

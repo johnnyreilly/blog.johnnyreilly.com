@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[29904],{89505:function(n){n.exports=JSON.parse('{"allTagsPath":"/tags","name":"Hungarian Notation","count":1,"permalink":"/tags/hungarian-notation"}')}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[23665],{53105:function(n){n.exports=JSON.parse('{"allTagsPath":"/tags","name":"Second monitor","count":1,"permalink":"/tags/second-monitor"}')}}]);

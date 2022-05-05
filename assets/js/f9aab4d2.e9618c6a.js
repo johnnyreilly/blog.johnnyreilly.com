@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[55491],{4753:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","name":"Directory.Build.props","count":1,"permalink":"/tags/directory-build-props"}')}}]);

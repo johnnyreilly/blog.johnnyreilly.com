@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[69929],{8359:function(e){e.exports=JSON.parse('{"allTagsPath":"/tags","name":"ASP.Net Core","count":8,"permalink":"/tags/asp-net-core"}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[99500],{21668:function(t){t.exports=JSON.parse('{"label":"atom-typescript","permalink":"/tags/atom-typescript","allTagsPath":"/tags","count":1}')}}]);
