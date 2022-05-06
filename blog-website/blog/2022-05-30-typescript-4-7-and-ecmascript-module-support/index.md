@@ -30,3 +30,81 @@ In this post we'll test drive that support by attempting to build a simple modul
 Let's go!
 
 ## Making a module
+
+We're going to make a module named `greeter` - let's initialise it:
+
+```shell
+mkdir greeter
+cd greeter
+npm init --yes
+```
+
+We now have a `package.json` that looks something like this:
+
+```json
+{
+  "name": "greeter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+```
+
+Node.js supports a new setting in `package.json` called `type`. [This can be set to either "module" or "commonjs"](https://nodejs.org/api/packages.html#type). To quote the docs:
+
+> Files ending with `.js` are loaded as ES modules when the nearest parent package.json file contains a top-level field `"type"` with a value of `"module"`.
+
+With that in mind, we'll add a `"type": "module"` to our `package.json`.
+
+We're now ECMAScript module support compliant, let's start adding some TypeScript.
+
+## Adding TypeScript 4.7
+
+In order that we can make use of TypeScript ECMAScript modules support we're going to install TypeScript 4.7 (currently in beta):
+
+```
+npm install typescript@4.7.0-beta --save
+```
+
+With this in place we'll initialise a TypeScript project:
+
+```
+npx tsc --init
+```
+
+This will create a `tsconfig.json` file which contains many options. We will tweak the `module` option to be `nodenext` to opt into ECMAScript module support:
+
+```json
+{
+  "compilerOptions": {
+    // ...
+    "module": "nodenext",
+    "outDir": "./lib"
+    // ...
+  }
+}
+```
+
+We've also set the `outDir` option, such that compiled JavaScript will go into that directory. We'll also update the `"scripts"` section of our `package.json` to include `build` and `start` scripts:
+
+```json
+  "scripts": {
+    "build": "tsc",
+    "start": "node lib/index.js"
+  },
+```
+
+## Writing TypeScript ECMAScript modules
+
+index.ts
+greeter.ts
+
+```
+npm run build && npm start
+```
