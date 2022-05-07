@@ -28,7 +28,10 @@ const features = [
     title: 'What do I do?',
     description: (
       <>
-        <p>I blog and I work on a number of open source projects including:</p>
+        <p>
+          I blog and work / have worked on a number of open source projects
+          including:
+        </p>
         <ul>
           <li>
             <a href="https://github.com/DefinitelyTyped">Definitely Typed</a>
@@ -47,6 +50,11 @@ const features = [
           <a href="https://blog.johnnyreilly.com/2019/10/08/definitely-typed-movie">
             history of Definitely Typed
           </a>
+        </p>
+        <p>
+          I was part of the merry band that started{' '}
+          <a href="https://typescriptcongress.com/">TypeScript Congress</a> and
+          was part of the initial Program Committee and an MC.
         </p>
         <p>
           Some of my blogs are available on{' '}

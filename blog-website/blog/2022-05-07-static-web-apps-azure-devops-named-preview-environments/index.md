@@ -16,7 +16,7 @@ The [announcement](https://docs.microsoft.com/en-gb/azure/static-web-apps/named-
 
 > You can configure your site to deploy every change to a named environment. This preview deployment is published at a stable URL that includes the environment name. For example, if the environment is named `release`, then the preview is available at a location like `<DEFAULT_HOST_NAME>-release.<LOCATION>.azurestaticapps.net`.
 
-Let's see if we can test them out.
+[I'd previously written about how to hand roll preview environments with Azure DevOps using Bicep](../2021-12-05-azure-static-web-app-deploy-previews-with-azure-devops/index.md). But now there's dedicated functionality that covers this, let's see if we can test it out.
 
 ## Deploy Static Web App with Bicep
 
