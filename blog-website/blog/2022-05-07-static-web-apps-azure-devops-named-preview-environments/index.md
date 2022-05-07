@@ -208,7 +208,7 @@ Upon the initial commit of our main branch we end up with a website, once the pi
 
 Note the URL:
 
-![screenshot of Docusaurus site deployed to Azure Static Web Apps](screenscreenshot-of-main-static-web-app.png)
+![screenshot of Docusaurus site deployed to Azure Static Web Apps](screenshot-of-main-static-web-app.png)
 
 ## Testing the preview
 
@@ -224,7 +224,7 @@ And we'll update the `pages.index.js` file to include this message: "Hello from 
 
 Note that this time we are deploying to our preview environment instead.
 
-![screenshot of Docusaurus site deployed to Azure Static Web Apps](screenscreenshot-of-preview-static-web-app.png)
+![screenshot of Docusaurus site deployed to Azure Static Web Apps](screenshot-of-preview-static-web-app.png)
 
 As we can see, this preview is showing our "Hello from preview environment!" changes as well; whilst the main environment is unchanged.
 
