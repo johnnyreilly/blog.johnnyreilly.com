@@ -5,7 +5,7 @@ tags: [Azure Static Web Apps, GitHub Actions, Docusaurus, Node.js, Oryx]
 hide_table_of_contents: false
 ---
 
-Azure Static Web Apps presently fixes to Node.js 14 when building. If you require a different version of Node to build, this can be a problem? This post outlines a workaround.
+Azure Static Web Apps presently fixes to Node.js 14 when building. If you require a different version of Node to build, this can be a problem. This post outlines a workaround.
 
 ![title image reading "Azure Static Web Apps: Node.js 16 and Oryx" with Azure and Node.js logos](title-image.png)
 
@@ -22,7 +22,7 @@ error Found incompatible module.
 Oryx has failed to build the solution.
 ```
 
-Docusaurus now requires Node 16. Frustratingly, the GitHub Action does not allow explicit configuration of the Node version. Happily, there is a way to resolve this - and it's pretty simple.
+[Oryx](https://github.com/microsoft/Oryx), which performs the build for Static Web Apps, is fixed to Node 14 it seems. Or it may actually be that the GitHub Action is fixed to use Node.js 14 - I'm not completely sure. Either way, Docusaurus now requires Node 16. Frustratingly, the GitHub Action does not allow explicit configuration of the Node version. Happily, there is a way to resolve this - and it's pretty simple.
 
 ## `engines` to the rescue!
 
