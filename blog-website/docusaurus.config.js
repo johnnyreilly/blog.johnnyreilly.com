@@ -50,7 +50,7 @@ const config = {
           routeBasePath: '/', // Set this value to '/'.
           showReadingTime: true,
           editUrl:
-            'https://github.com/johnnyreilly/blog.johnnyreilly.com/edit/main/blog-website/blog/',
+            'https://github.com/johnnyreilly/blog.johnnyreilly.com/edit/main/blog-website/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
