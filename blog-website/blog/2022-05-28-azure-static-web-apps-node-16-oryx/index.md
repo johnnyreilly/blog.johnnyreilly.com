@@ -1,11 +1,13 @@
 ---
-title: 'Azure Static Web Apps - Node.js 16 and Oryx'
+title: 'Azure Static Web Apps: Node.js 16 and Oryx'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, GitHub Actions, Docusaurus, Node.js, Oryx]
 hide_table_of_contents: false
 ---
 
 Azure Static Web Apps presently fixes to Node.js 14 when building. If you require a different version of Node to build, this can be a problem? This post outlines a workaround.
+
+![title image reading "Azure Static Web Apps: Node.js 16 and Oryx" with Azure and Node.js logos](title-image.png)
 
 ## The engine "node" is incompatible
 
@@ -35,3 +37,5 @@ You can specify the node version you require in your `package.json` with the [`e
 And have the version of Node.js you require installed by Oryx.
 
 Thanks to [Cormac McCarthy](https://github.com/cormacpayne) for his [comment](https://github.com/Azure/static-web-apps/issues/694#issuecomment-1137492562) which lead me to try this approach out.
+
+[You can see the PR where I made this change for my blog here.](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/228)
