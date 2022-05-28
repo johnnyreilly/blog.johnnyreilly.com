@@ -151,22 +151,22 @@ jobs:
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   customDomainName='${{ env.STATICWEBAPPNAME }}'
 
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-          cache: 'yarn'
+      # - uses: actions/setup-node@v2
+      #   with:
+      #     node-version: '16'
+      #     cache: 'yarn'
 
-      - name: Docusaurus Build
-        run: |
-          cd blog-website
-          if [ -e yarn.lock ]; then
-          yarn install --frozen-lockfile
-          elif [ -e package-lock.json ]; then
-          npm ci
-          else
-          npm i
-          fi
-          npm run build
+      # - name: Docusaurus Build
+      #   run: |
+      #     cd blog-website
+      #     if [ -e yarn.lock ]; then
+      #     yarn install --frozen-lockfile
+      #     elif [ -e package-lock.json ]; then
+      #     npm ci
+      #     else
+      #     npm i
+      #     fi
+      #     npm run build
 
       - name: Static Web App - get API key for deployment
         id: static_web_app_apikey
@@ -183,15 +183,15 @@ jobs:
           azure_static_web_apps_api_token: ${{ steps.static_web_app_apikey.outputs.APIKEY }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: 'upload'
-          skip_app_build: true # as building in previous step
-          output_location: 'blog-website/build' # output location from previous build
+          # if using build in previous step
+          # skip_app_build: true # as building in previous step
+          # output_location: '/blog-website/build' # output location from previous build
+          # if using Oryx to build
+          app_location: '/blog-website' # App source code path
+          output_location: 'build' # Built app content directory - optional
 
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          # app_location: '/blog-website' # App source code path
           api_location: '' # Api source code path - optional
-          # output_location: 'build' # Built app content directory - optional
-          ###### End of Repository/Build Configurations ######
 
       - name: Static Web App - get preview URL
         id: static_web_app_preview_url
