@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[74433],{44501:function(e){e.exports=JSON.parse('{"permalink":"/tags/docusaurus/page/9","page":9,"postsPerPage":1,"totalPages":9,"totalCount":9,"previousPage":"/tags/docusaurus/page/8","blogDescription":"The blog of johnnyreilly","blogTitle":"I CAN MAKE THIS WORK"}')}}]);
