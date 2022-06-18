@@ -101,11 +101,11 @@ A workaround in this situation is to invoke .NET through a bash script directly 
   displayName: 'dotnet publish'
 
 - task: ArchiveFiles@2
-  displayName: "Create $(Build.ArtifactStagingDirectory)/App.zip"
+  displayName: 'Create $(Build.ArtifactStagingDirectory)/App.zip'
   inputs:
-    rootFolderOrFile: "$(Build.ArtifactStagingDirectory)/App"
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/App'
     includeRootFolder: false
-    archiveFile: "$(Build.ArtifactStagingDirectory)/App.zip"
+    archiveFile: '$(Build.ArtifactStagingDirectory)/App.zip'
 ```
 
 And note that after publishing we use the [Archive Files task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/utility/archive-files) to zip up the output of our publishing.
