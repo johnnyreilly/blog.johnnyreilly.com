@@ -8,4 +8,4 @@ The blog is hosted on Azure Static Web Apps. [Learn how we migrated there from G
 
 Auth between GitHub and Azure is handled by https://github.com/jongio/github-azure-oidc
 
-Historically this lived on Blogger; from 2012-2021. It only exists there for reference at this point: https://icanmakethiswork.blogspot.com
+Historically this lived on Blogger; from 2012-2021. It only exists there for reference now; you can find it here: https://icanmakethiswork.blogspot.com
