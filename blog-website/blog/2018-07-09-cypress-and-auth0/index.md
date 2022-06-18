@@ -127,4 +127,4 @@ You now have a test which automates your Auth0 login using Cypress and goes on t
 
 It's worth saying that it's worth setting up different tenants in Auth0 to support your testing scenarios. This is generally a good idea so you can separate your testing accounts from Production accounts. Further to that, you don't need to have your Production setup supporting the ` Password``Grant Type `.
 
-Also, if you're curious about what the application under test is like then read [this](./2018-01-14-auth0-typescript-and-aspnet-core/index.md).
+Also, if you're curious about what the application under test is like then read [this](../2018-01-14-auth0-typescript-and-aspnet-core/index.md).

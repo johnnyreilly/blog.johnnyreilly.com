@@ -13,7 +13,7 @@ image: ./autofac-webapplicationfactory-tests.png
 hide_table_of_contents: false
 ---
 
-**Updated 2nd Oct 2020:** _for an approach that works with Autofac 6 and `ConfigureTestContainer` see [this post](./2020-10-02-autofac-6-integration-tests-and-generic-hosting/index.md)._
+**Updated 2nd Oct 2020:** _for an approach that works with Autofac 6 and `ConfigureTestContainer` see [this post](../2020-10-02-autofac-6-integration-tests-and-generic-hosting/index.md)._
 
 ![A title image for the blog featuring the Autofac logo](autofac-webapplicationfactory-tests.png)
 

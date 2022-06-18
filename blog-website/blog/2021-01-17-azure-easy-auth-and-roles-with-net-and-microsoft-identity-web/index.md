@@ -5,7 +5,7 @@ tags: [Azure, Easy Auth, Roles, ASP.NET, Microsoft.Identity.Web]
 hide_table_of_contents: false
 ---
 
-[I wrote recently about how to get Azure Easy Auth to work with roles](./2021-01-14-azure-easy-auth-and-roles-with-dotnet-and-core/index.md). This involved borrowing the approach used by [MaximeRouiller.Azure.AppService.EasyAuth](https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth).
+[I wrote recently about how to get Azure Easy Auth to work with roles](../2021-01-14-azure-easy-auth-and-roles-with-dotnet-and-core/index.md). This involved borrowing the approach used by [MaximeRouiller.Azure.AppService.EasyAuth](https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth).
 
 As a consequence of writing that post I came to learn that official support for Azure Easy Auth had landed in October 2020 in v1.2 of [Microsoft.Identity.Web](https://github.com/AzureAD/microsoft-identity-web/wiki/1.2.0#integration-with-azure-app-services-authentication-of-web-apps-running-with-microsoftidentityweb). This was great news; I was delighted.
 
