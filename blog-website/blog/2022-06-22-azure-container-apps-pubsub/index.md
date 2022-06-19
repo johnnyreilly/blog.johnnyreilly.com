@@ -831,6 +831,84 @@ These three files are fairly self-explanatory. It's drawing attention to the fol
 2. We're granting access in these components to our node-app (WebService) and our dotnet-app (WeatherService)
 3. We're wiring up our subscription in `subscription.yaml`- it's this that will be used to route traffic from publishing to subscription.
 
+With the above in place we're almost ready to be able to run this locally and debug using VS Code. The final tweak is to make our apps aware of the dapr components. This is achieved by adding `"componentsPath": "./components",` to the entries in our `tasks.json` file. In full it looks like this:
+
+```json
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "dotnet-build",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/WeatherService/WeatherService.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "daprd-debug-dotnet",
+      "appId": "dotnet-app",
+      "appPort": 5000,
+      "httpPort": 3500,
+      "grpcPort": 50000,
+      "metricsPort": 9090,
+      "componentsPath": "./components",
+      "type": "daprd",
+      "dependsOn": ["dotnet-build"]
+    },
+    {
+      "label": "daprd-down-dotnet",
+      "appId": "dotnet-app",
+      "type": "daprd-down"
+    },
+
+    {
+      "label": "npm-install",
+      "type": "shell",
+      "command": "npm install",
+      "options": {
+        "cwd": "${workspaceFolder}/WebService"
+      }
+    },
+    {
+      "label": "webservice-build",
+      "type": "typescript",
+      "tsconfig": "WebService/tsconfig.json",
+      "problemMatcher": ["$tsc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": ["npm-install"]
+    },
+    {
+      "label": "daprd-debug-node",
+      "appId": "node-app",
+      "appPort": 3000,
+      "httpPort": 3501,
+      "grpcPort": 50001,
+      "metricsPort": 9091,
+      "componentsPath": "./components",
+      "type": "daprd",
+      "dependsOn": ["webservice-build"]
+    },
+    {
+      "label": "daprd-down-node",
+      "appId": "node-app",
+      "type": "daprd-down"
+    }
+  ]
+}
+```
+
+With this in place we're ready to run our apps locally.
+
 ```shell
 curl -X POST http://localhost:3501/v1.0/publish/weather-forecast-pub-sub/weather-forecasts -H 'Content-Type: application/json' -d '{"email":"johnny_reilly@hotmail.com"}'
 ```
