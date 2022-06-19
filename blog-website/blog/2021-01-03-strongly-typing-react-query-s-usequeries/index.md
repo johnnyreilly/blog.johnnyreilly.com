@@ -141,18 +141,18 @@ Now let's look at the return type for each element. The signature of that looks 
 
 ```ts
 UseQueryResult<
-    TQueries[ArrayElement] extends { select: infer TSelect }
-      ? TSelect extends (data: any) => any
-        ? ReturnType<TSelect>
-        : never
-      : Awaited<
-          ReturnType<
-            NonNullable<
-              Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']
-            >
+  TQueries[ArrayElement] extends { select: infer TSelect }
+    ? TSelect extends (data: any) => any
+      ? ReturnType<TSelect>
+      : never
+    : Awaited<
+        ReturnType<
+          NonNullable<
+            Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']
           >
         >
-  >
+      >
+>;
 ```
 
 Gosh... Well there's a lot going on here. Let's start in the middle and work our way out.
@@ -170,19 +170,23 @@ Extract < TQueries[ArrayElement], UseQueryOptions > ['queryFn'];
 We're now taking the type of each element provided, and grabbing the type of the `queryFn` property. It's this type which contains the type of the data that will be passed back, that we want to make use of. So for an examples of `[{ queryKey: 'key1', queryFn: () =&gt; 1 }, { queryKey: 'key2', queryFn: () =&gt; 'two' }, { queryKey: 'key3', queryFn: () =&gt; new Date() }]` we'd have the type: `const result: [() =&gt; number, () =&gt; string, () =&gt; Date]`.
 
 ```ts
-NonNullable<Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']>
+NonNullable<Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']>;
 ```
 
 The next stage is using `NonNullable` on our `queryFn`, given that on `UseQueryOptions` it's an optional type. In our use case it is not optional / nullable and so we need to enforce that.
 
 ```ts
-ReturnType<NonNullable<Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']>>
+ReturnType<
+  NonNullable<Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']>
+>;
 ```
 
 Now we want to get the return type of our `queryFn` \- as that's the data type we're interested. So we use TypeScript's `ReturnType` for that.
 
 ```ts
-ReturnType<NonNullable<Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']>>
+ReturnType<
+  NonNullable<Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']>
+>;
 ```
 
 Here we're using [TypeScript 4.1's recursive conditional types](https://devblogs.microsoft.com/typescript/announcing-typescript-4-1/#recursive-conditional-types) to unwrap a `Promise` (or not) to the relevant type. This allows us to get the actual type we're interested in, as opposed to the `Promise` of that type. Finally we have the type we need! So we can do this:
@@ -190,7 +194,11 @@ Here we're using [TypeScript 4.1's recursive conditional types](https://devblogs
 ```ts
 type Awaited<T> = T extends PromiseLike<infer U> ? Awaited<U> : T;
 
-Awaited<ReturnType<NonNullable<Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']>>>
+Awaited<
+  ReturnType<
+    NonNullable<Extract<TQueries[ArrayElement], UseQueryOptions>['queryFn']>
+  >
+>;
 ```
 
 It's at this point where we reach a conditional type in our type definition. Essentially, we have two different typing behaviours in play:
