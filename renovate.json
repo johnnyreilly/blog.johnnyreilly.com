@@ -1,4 +1,4 @@
 {
   "extends": ["config:base"],
-  "ignoreDeps": ["@mdx-js/react", "fast-xml-parser", "jsdom"]
+  "ignoreDeps": ["@mdx-js/react", "fast-xml-parser", "jsdom", "googleapis"]
 }
