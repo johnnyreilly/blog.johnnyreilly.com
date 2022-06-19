@@ -766,6 +766,71 @@ The real difference to call out in what we've done so far, is that both our publ
 
 ### Components
 
+In order to communicate via pubsub, dapr needs some [components](https://docs.dapr.io/concepts/components-concept/) in place. We'll create a folder in the root of our project named `components`, and in there create three files:
+
+#### `pubsub.yaml`
+
+```yml
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: weather-forecast-pub-sub
+  namespace: default
+spec:
+  type: pubsub.redis
+  version: v1
+  metadata:
+    - name: redisHost
+      value: localhost:6379
+    - name: redisPassword
+      value: ''
+scopes:
+  - node-app
+  - dotnet-app
+```
+
+#### `statestore.yaml`
+
+```yml
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: statestore
+  namespace: default
+spec:
+  type: state.redis
+  version: v1
+  metadata:
+    - name: redisHost
+      value: localhost:6379
+    - name: redisPassword
+      value: ''
+    - name: actorStateStore
+      value: 'true'
+```
+
+#### `subscription.yaml`
+
+```yml
+apiVersion: dapr.io/v1alpha1
+kind: Subscription
+metadata:
+  name: weather-forecast-pub-sub
+spec:
+  topic: weather-forecasts
+  route: /SendWeatherForecast
+  pubsubname: weather-forecast-pub-sub
+scopes:
+  - node-app
+  - dotnet-app
+```
+
+These three files are fairly self-explanatory. It's drawing attention to the following though:
+
+1. We're going to use these when running locally and so we'll use Redis for our persistance. When we deploy to Azure Container Apps we'll use something more Azure specific.
+2. We're granting access in these components to our node-app (WebService) and our dotnet-app (WeatherService)
+3. We're wiring up our subscription in `subscription.yaml`- it's this that will be used to route traffic from publishing to subscription.
+
 ```shell
 curl -X POST http://localhost:3501/v1.0/publish/weather-forecast-pub-sub/weather-forecasts -H 'Content-Type: application/json' -d '{"email":"johnny_reilly@hotmail.com"}'
 ```
