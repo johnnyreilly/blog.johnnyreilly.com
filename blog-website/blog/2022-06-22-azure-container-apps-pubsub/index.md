@@ -337,14 +337,12 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   }
 }
 
-resource environment 'Microsoft.Web/kubeEnvironments@2021-03-01' = {
+resource environment 'Microsoft.App/managedEnvironments@2022-01-01-preview' = {
   name: environmentName
-  kind: 'containerenvironment'
   location: location
   tags: tags
   properties: {
-    type: 'managed'
-    internalLoadBalancerEnabled: false
+    daprAIInstrumentationKey: appInsights.properties.InstrumentationKey
     appLogsConfiguration: {
       destination: 'log-analytics'
       logAnalyticsConfiguration: {
@@ -352,15 +350,11 @@ resource environment 'Microsoft.Web/kubeEnvironments@2021-03-01' = {
         sharedKey: listKeys(workspace.id, workspace.apiVersion).primarySharedKey
       }
     }
-    containerAppsConfiguration: {
-      daprAIInstrumentationKey: appInsights.properties.InstrumentationKey
-    }
   }
 }
 
-resource weatherServiceContainerApp 'Microsoft.Web/containerapps@2021-03-01' = {
+resource weatherServiceContainerApp 'Microsoft.App/containerApps@2022-01-01-preview' = {
   name: weatherServiceContainerAppName
-  kind: 'containerapps'
   tags: tags
   location: location
   properties: {
@@ -393,7 +387,6 @@ resource weatherServiceContainerApp 'Microsoft.Web/containerapps@2021-03-01' = {
         {
           image: weatherServiceImage
           name: weatherServiceContainerAppName
-          transport: 'auto'
           env: [
             {
               name: 'MAIL__MAILGUNAPIKEY'
@@ -415,9 +408,8 @@ resource weatherServiceContainerApp 'Microsoft.Web/containerapps@2021-03-01' = {
   }
 }
 
-resource webServiceContainerApp 'Microsoft.Web/containerapps@2021-03-01' = {
+resource webServiceContainerApp 'Microsoft.App/containerApps@2022-01-01-preview' = {
   name: webServiceContainerAppName
-  kind: 'containerapps'
   tags: tags
   location: location
   properties: {
@@ -446,7 +438,6 @@ resource webServiceContainerApp 'Microsoft.Web/containerapps@2021-03-01' = {
         {
           image: webServiceImage
           name: webServiceContainerAppName
-          transport: 'auto'
           env: [
             {
               name: 'WEATHER_SERVICE_NAME'
@@ -530,3 +521,6 @@ curl -X POST http://localhost:3501/v1.0/publish/weather-forecast-pub-sub/weather
 ```
 
 ## CONTINUE HERE
+
+git reset --soft HEAD~5 &&
+git commit -m "pubsub"
