@@ -20,9 +20,11 @@ This post shows how to build and deploy two Azure Container Apps using Bicep and
 
 ![title image reading "Azure Container Apps: dapr pubsub"  with the dapr, Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
 
-## You've got mail
-
 This post will build upon code written in a [previous post](../2022-01-22-azure-container-apps-dapr-bicep-github-actions-debug-devcontainer/index.md) which built and deployed a simple web application to Azure Container Apps using Bicep and GitHub Actions using the GitHub container registry. Behind the scenes, that app was made up of a .NET app and a Node.js app communicating via dapr's [service invocation building block](https://docs.dapr.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/).
+
+There's a good chance you've just googled "pubsub dapr azure container apps" and you don't want to read through all this. You just want the code. That's fine. The code for this blogpost is [here](https://github.com/johnnyreilly/dapr-devcontainer-debug-and-deploy).
+
+## You got mail: service invocation
 
 Right now we have a:
 
@@ -37,7 +39,7 @@ This kind of app could work both using dapr service invocation or using pubsub. 
 
 This isn't rocket surgery; this is playing around with dapr and Azure Container Apps and seeing how they all hang together.
 
-## .NET meet mailgun
+### .NET meet mailgun
 
 Our existing .NET app needs the ability to send email. For that we're going to reach for [mailgun](https://app.mailgun.com/app/dashboard), and we'll use [RestSharp](https://restsharp.dev/) to call it. Let's add RestSharp as a dependency:
 
@@ -179,7 +181,7 @@ The `__` above is the convention that .NET follows for nesting with environment 
 }
 ```
 
-## Webservice gets a form
+### Webservice gets a form
 
 Now that we've tweaked our WeatherService, we need to tweak the web site that calls it. We'll do that by first adding some dependencies that allow our Koa web service to handle routing a little easier:
 
@@ -273,7 +275,7 @@ The above leaves us with a very simple form based web app that sends an email co
 
 ![A gif that demos entering an email address in the form, submitting it and seeing an email arrive with a weather forecast in](demo-send-email.gif)
 
-## Secrets in Bicep
+### Secrets in Bicep
 
 Whilst we can run locally, we want to be able to deploy this. So we need to update our Bicep template to receive a `MAIL__MAILGUNAPIKEY` parameter:
 
@@ -512,9 +514,257 @@ And we'll need to create the associated secret as well:
 
 ![Screenshot of the secrets in the GitHub website that we need to create including MAIL__MAILGUNAPIKEY](screenshot-github-secrets.png)
 
-## PubSub time!
+## You got mail: pubsub!
 
-So we're now at the point where we have a pubsub style app - but still implemented using the service invocation approach. It's time to start migrating to using dapr's pubsub capabilities.
+So we're now at the point where we have a pubsub style app - but still implemented using the service invocation approach. It's time to start migrating to using dapr's pubsub capabilities. Now, caveat emptor, pivoting from service invocation involves a fair amount of code. I'll try and be as brief as I can as we make the switch. However there will be big ol' lumps of code blocks as we do this. You may find it easier to just examine the finished code. I will in no way feel bad if that's the path you follow.
+
+### Publishing with dapr-client
+
+The first thing we need, is for our Node.js app to publish using the dapr pubsub mechanism. The easiest way to do that is with the [dapr-client](https://docs.dapr.io/developing-applications/sdks/js/):
+
+```shell
+npm install dapr-client --save
+```
+
+We then switch out using axios to send our email command, to use `dapr-client` instead:
+
+```ts
+import Koa from 'koa';
+import Router from '@koa/router';
+import koaBody from 'koa-body';
+
+import { DaprClient } from 'dapr-client';
+
+const daprHost = 'localhost'; // Dapr Sidecar Host
+const daprPort = `${process.env.DAPR_HTTP_PORT || 3501}`; // Dapr Sidecar Port
+
+const client = new DaprClient(daprHost, daprPort);
+
+const app = new Koa();
+const router = new Router();
+
+app.use(async (ctx, next) => {
+  try {
+    await next();
+    const status = ctx.status || 404;
+    if (status === 404) ctx.throw(404);
+  } catch (err: any) {
+    ctx.status = err.status || 500;
+    ctx.body = ctx.status === 404 ? 'not found alas' : `hmmm: ${ctx.status}`;
+  }
+});
+
+const formHtml = (header: string) => `<!DOCTYPE html>
+<html>
+<head>
+<title>Email me!</title>
+</head>
+<body>
+<form method="post">
+    <h1>${header}</h1>
+    <label for="email">Enter your email:</label>
+    <input type="email" id="email" name="email" required>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>
+`;
+
+router.get('/', async (ctx, next) => {
+  ctx.body = formHtml("We'd like to email you");
+});
+
+router.post('/', koaBody(), async (ctx, next) => {
+  try {
+    if (ctx.request.body.email) {
+      // Send a message
+      const sent = await client.pubsub.publish(
+        /* pubSubName */ 'weather-forecast-pub-sub',
+        /* topic */ 'weather-forecasts',
+        /* data */ {
+          email: ctx.request.body.email,
+        }
+      );
+
+      ctx.body = formHtml(`Message sent: ${sent}`);
+    } else {
+      ctx.body = formHtml('No email supplied');
+    }
+  } catch (exc) {
+    console.error('Problem calling weather service', exc);
+    ctx.body = 'Something went wrong!';
+  }
+});
+
+app.use(router.routes()).use(router.allowedMethods());
+
+const portNumber = 3000;
+app.listen(portNumber);
+console.log(`listening on port ${portNumber}`);
+```
+
+Our WebService now be publishing using pubsub, instead of using service invocation.
+
+### Subscribing
+
+Our WeatherService needs to be able to receive what is published. To make that happen, we'll make use of the following NuGet package in WeatherService:
+
+```shell
+dotnet add package Dapr.AspNetCore --version 1.7.0
+```
+
+Our `Program.cs` is adjusted to cater for this:
+
+```cs
+using Config;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<MailConfig>(builder.Configuration.GetSection("Mail"));
+
+builder.Services.AddControllers().AddDapr();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseAuthorization();
+
+app.UseCloudEvents();
+
+app.MapSubscribeHandler(); // This is the Dapr subscribe handler
+app.MapControllers();
+
+app.Run();
+```
+
+The significant pieces above are:
+
+```cs
+builder.Services.AddControllers().AddDapr();
+
+// ...
+
+app.UseCloudEvents();
+app.MapSubscribeHandler(); // This is the Dapr subscribe handler
+```
+
+We'll also need to update our `WeatherForecastController.cs`:
+
+```cs
+using Config;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+
+using RestSharp;
+using RestSharp.Authenticators;
+
+using Dapr;
+
+namespace WeatherService.Controllers;
+
+[ApiController]
+public class WeatherForecastController : ControllerBase
+{
+    private static readonly string[] Summaries = new[]
+    {
+        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    };
+
+    private readonly ILogger<WeatherForecastController> _logger;
+    private readonly MailConfig _options;
+
+    public WeatherForecastController(
+        ILogger<WeatherForecastController> logger,
+        IOptions<MailConfig> options
+    )
+    {
+        _logger = logger;
+        _options = options.Value;
+    }
+
+    public record SendWeatherForecastBody(string? Email);
+
+    [Topic(pubsubName: "weather-forecast-pub-sub", name: "weather-forecasts")]
+    [HttpPost("SendWeatherForecast")]
+    public async Task<ActionResult<string>> SendWeatherForecast(SendWeatherForecastBody body)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(body.Email)) throw new Exception("Email required");
+
+            var weatherForecast = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = Random.Shared.Next(-20, 55),
+                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+            })
+            .ToArray();
+
+            var toEmailAddress = body.Email;
+            var text = $@"The weather forecast is:
+
+{string.Join("\n", weatherForecast.Select(wf => $"On {wf.Date} the weather will be {wf.Summary}"))}
+";
+
+            await SendSimpleMessage(
+                toEmailAddress: toEmailAddress,
+                text: text
+            );
+
+            return Ok($"We have mailed {toEmailAddress} with the following:\n\n{text})");
+        }
+        catch (Exception exc)
+        {
+            _logger.LogError(exc, $"Problem!");
+
+            return BadRequest(exc.Message);
+        }
+    }
+
+    async Task<RestResponse> SendSimpleMessage(string toEmailAddress, string text)
+    {
+        RestClient client = new(new RestClientOptions
+        {
+            BaseUrl = new Uri("https://api.mailgun.net/v3")
+        })
+        {
+            Authenticator =
+            new HttpBasicAuthenticator("api", _options.MailgunApiKey)
+        };
+        RestRequest request = new();
+        request.AddParameter("domain", "mg.priou.co.uk", ParameterType.UrlSegment);
+        request.Resource = "{domain}/messages";
+        request.AddParameter("from", "John Reilly <johnny_reilly@hotmail.com>");
+        request.AddParameter("to", toEmailAddress);
+        request.AddParameter("subject", "Weather forecast");
+        request.AddParameter("text", text);
+
+        return await client.PostAsync(request);
+    }
+}
+```
+
+Really the only new thing here is the `Topic` attribute on the `SendWeatherForecast` endpoint:
+
+```cs
+[Topic(pubsubName: "weather-forecast-pub-sub", name: "weather-forecasts")]
+```
+
+This is used (as you might imagine) to route messages.
+
+The real difference to call out in what we've done so far, is that both our publisher (Node.js) and our subscriber (.NET) have become "dapr aware". Although there have been changes in our code to achieve this, they have not been extensive. Noisy, yes. But not big changes.
+
+### Components
 
 ```shell
 curl -X POST http://localhost:3501/v1.0/publish/weather-forecast-pub-sub/weather-forecasts -H 'Content-Type: application/json' -d '{"email":"johnny_reilly@hotmail.com"}'
