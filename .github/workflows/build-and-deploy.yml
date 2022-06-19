@@ -27,7 +27,7 @@ jobs:
     name: Docusaurus build
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: '16'
           cache: 'yarn'
@@ -50,7 +50,7 @@ jobs:
     name: Deploy to GitHub Pages
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: '16'
           cache: 'yarn'
@@ -222,7 +222,7 @@ jobs:
 
       - name: Format lighthouse score
         id: format_lighthouse_score
-        uses: actions/github-script@v5
+        uses: actions/github-script@v6
         with:
           script: |
             const lighthouseCommentMaker = require('./.github/workflows/lighthouseCommentMaker.js');
