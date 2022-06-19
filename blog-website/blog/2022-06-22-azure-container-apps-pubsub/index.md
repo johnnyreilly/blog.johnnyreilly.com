@@ -907,11 +907,11 @@ With the above in place we're almost ready to be able to run this locally and de
 }
 ```
 
-With this in place we're ready to run our apps locally.
+With this in place we're ready to run our apps locally using pubsub. We can publish from the WebService and receive in the WeatherService. This results in the expected email being sent, as we would hope.
 
-```shell
-curl -X POST http://localhost:3501/v1.0/publish/weather-forecast-pub-sub/weather-forecasts -H 'Content-Type: application/json' -d '{"email":"johnny_reilly@hotmail.com"}'
-```
+### Bicep
+
+The missing piece is Azure. How do we deploy this to Azure Container Apps? Well, we have everything we need to do this, save for the Bicep.
 
 ## CONTINUE HERE
 
