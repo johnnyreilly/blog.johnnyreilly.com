@@ -1205,6 +1205,8 @@ Now this is undeniably a big lump of Bicep. Let's drill into the significant dif
 3. Underneath our managed environment, we're creating a statestore (using the storage account) which is the Azure equivalent of our `statestore.yml`, but using Azure storage.
 4. Also underneath our managed environment, we're creating a pubsub (using the service bus) which is the Azure equivalent of our `pubsub.yml`, but using our Azure ServiceBus.
 
+It's also worth noting that we always have an instance of the services running; `minReplicas: 1`. This is because when we dial it down to 0, the Weather Service will stop running. Probably there's a fancy KEDA trigger that prevents this; I haven't figured it out.
+
 ### No declarative pubsub subscription support
 
 Whilst you might be thinking "we're home free now!" - it turns out we're not. Whilst we'd created Azure equivalents of our `statestore.yml` and `pubsub.yml`, you'll note there didn't seem to be an equivalent of the `subscriptions` component in Bicep.
