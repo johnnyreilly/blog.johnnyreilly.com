@@ -301,7 +301,7 @@ param tags object
 param MAIL__MAILGUNAPIKEY string
 
 param location string = resourceGroup().location
-var minReplicas = 0
+var minReplicas = 1
 var maxReplicas = 1
 
 var branch = toLower(last(split(branchName, '/')))
@@ -911,9 +911,449 @@ With this in place we're ready to run our apps locally using pubsub. We can publ
 
 ### Bicep
 
-The missing piece is Azure. How do we deploy this to Azure Container Apps? Well, we have everything we need to do this, save for the Bicep.
+The missing piece is Azure. How do we deploy this to Azure Container Apps? Well, we have everything we need to do this, save for the Bicep. We need to augment the Bicep we already have to include our Azure Container Apps dapr components. The full template looks like this:
 
-## CONTINUE HERE
+```bicep
+param branchName string
 
-git reset --soft HEAD~5 &&
-git commit -m "pubsub"
+param webServiceImage string
+param webServicePort int
+param webServiceIsExternalIngress bool
+
+param weatherServiceImage string
+param weatherServicePort int
+param weatherServiceIsExternalIngress bool
+
+param containerRegistry string
+param containerRegistryUsername string
+@secure()
+param containerRegistryPassword string
+
+param tags object
+
+@secure()
+param MAIL__MAILGUNAPIKEY string
+
+param location string = resourceGroup().location
+
+@description('Storage Account type')
+@allowed([
+  'Premium_LRS'
+  'Premium_ZRS'
+  'Standard_GRS'
+  'Standard_GZRS'
+  'Standard_LRS'
+  'Standard_RAGRS'
+  'Standard_RAGZRS'
+  'Standard_ZRS'
+])
+param storageAccountType string = 'Standard_LRS'
+
+@description('The name of the Storage Account')
+param storageAccountName string = 'store${uniqueString(resourceGroup().id)}'
+
+param serviceBusNamespace string = 'pubsub-namespace'
+
+resource storageAccount 'Microsoft.Storage/storageAccounts@2021-06-01' = {
+  name: storageAccountName
+  location: location
+  sku: {
+    name: storageAccountType
+  }
+  kind: 'StorageV2'
+  properties: {}
+}
+
+resource serviceBus 'Microsoft.ServiceBus/namespaces@2021-06-01-preview' = {
+  name: serviceBusNamespace
+  location: location
+}
+
+resource servicebus_authrule 'Microsoft.ServiceBus/namespaces/AuthorizationRules@2021-06-01-preview' existing = {
+  name: 'RootManageSharedAccessKey'
+  parent: serviceBus
+}
+
+resource topic 'Microsoft.ServiceBus/namespaces/topics@2021-06-01-preview' = {
+  name: 'weather-forecasts'
+  parent: serviceBus
+}
+
+var minReplicas = 1
+var maxReplicas = 1
+
+var branch = toLower(last(split(branchName, '/')))
+
+var environmentName = 'shared-env'
+var workspaceName = '${branch}-log-analytics'
+var appInsightsName = '${branch}-app-insights'
+var webServiceContainerAppName = '${branch}-web'
+var weatherServiceContainerAppName = '${branch}-weather'
+
+var containerRegistryPasswordRef = 'container-registry-password'
+var mailgunApiKeyRef = 'mailgun-api-key'
+
+resource workspace 'Microsoft.OperationalInsights/workspaces@2021-12-01-preview' = {
+  name: workspaceName
+  location: location
+  tags: tags
+  properties: {
+    sku: {
+      name: 'PerGB2018'
+    }
+    retentionInDays: 30
+    workspaceCapping: {}
+  }
+}
+
+resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
+  name: appInsightsName
+  location: location
+  tags: tags
+  kind: 'web'
+  properties: {
+    Application_Type: 'web'
+    Flow_Type: 'Bluefield'
+  }
+}
+
+resource environment 'Microsoft.App/managedEnvironments@2022-01-01-preview' = {
+  name: environmentName
+  location: location
+  tags: tags
+  properties: {
+    daprAIInstrumentationKey: appInsights.properties.InstrumentationKey
+    appLogsConfiguration: {
+      destination: 'log-analytics'
+      logAnalyticsConfiguration: {
+        customerId: workspace.properties.customerId
+        sharedKey: listKeys(workspace.id, workspace.apiVersion).primarySharedKey
+      }
+    }
+  }
+  resource statestoreComponent 'daprComponents@2022-03-01' = {
+    name: 'statestore'
+    properties: {
+      componentType: 'state.azure.blobstorage'
+      version: 'v1'
+      ignoreErrors: false
+      initTimeout: '5s'
+      secrets: [
+        {
+          name: 'storageaccountkey'
+          value: listKeys(resourceId('Microsoft.Storage/storageAccounts/', storageAccount.name), storageAccount.apiVersion).keys[0].value
+        }
+      ]
+      metadata: [
+        {
+          name: 'accountName'
+          value: storageAccount.name
+        }
+        {
+          name: 'containerName'
+          value: 'storage_container_name'
+        }
+        {
+          name: 'accountKey'
+          secretRef: 'storageaccountkey'
+        }
+      ]
+      scopes: [
+        weatherServiceContainerAppName
+        webServiceContainerAppName
+      ]
+    }
+  }
+  resource pubsubComponent 'daprComponents@2022-03-01' = {
+    name: 'weather-forecast-pub-sub'
+    properties: {
+      componentType: 'pubsub.azure.servicebus'
+      version: 'v1'
+      metadata: [
+        {
+          name: 'connectionString'
+          secretRef: 'sb-root-connectionstring'
+        }
+      ]
+      secrets: [
+        {
+          name: 'sb-root-connectionstring'
+          value: listKeys('${serviceBus.id}/AuthorizationRules/RootManageSharedAccessKey', serviceBus.apiVersion).primaryConnectionString
+        }
+      ]
+      scopes: [
+        weatherServiceContainerAppName
+        webServiceContainerAppName
+      ]
+    }
+  }
+}
+
+resource weatherServiceContainerApp 'Microsoft.App/containerApps@2022-01-01-preview' = {
+  name: weatherServiceContainerAppName
+  tags: tags
+  location: location
+  properties: {
+    managedEnvironmentId: environment.id
+    configuration: {
+      dapr: {
+        enabled: true
+        appPort: weatherServicePort
+        appId: weatherServiceContainerAppName
+      }
+      secrets: [
+        {
+          name: containerRegistryPasswordRef
+          value: containerRegistryPassword
+        }
+        {
+          name: mailgunApiKeyRef
+          value: MAIL__MAILGUNAPIKEY
+        }
+      ]
+      registries: [
+        {
+          server: containerRegistry
+          username: containerRegistryUsername
+          passwordSecretRef: containerRegistryPasswordRef
+        }
+      ]
+      ingress: {
+        external: weatherServiceIsExternalIngress
+        targetPort: weatherServicePort
+      }
+    }
+    template: {
+      containers: [
+        {
+          image: weatherServiceImage
+          name: weatherServiceContainerAppName
+          env: [
+            {
+              name: 'MAIL__MAILGUNAPIKEY'
+              secretRef: mailgunApiKeyRef
+            }
+          ]
+        }
+      ]
+      scale: {
+        minReplicas: minReplicas
+        maxReplicas: maxReplicas
+      }
+    }
+  }
+}
+
+resource webServiceContainerApp 'Microsoft.App/containerApps@2022-01-01-preview' = {
+  name: webServiceContainerAppName
+  tags: tags
+  location: location
+  properties: {
+    managedEnvironmentId: environment.id
+    configuration: {
+      dapr: {
+        enabled: true
+        appPort: webServicePort
+        appId: webServiceContainerAppName
+      }
+      secrets: [
+        {
+          name: containerRegistryPasswordRef
+          value: containerRegistryPassword
+        }
+      ]
+      registries: [
+        {
+          server: containerRegistry
+          username: containerRegistryUsername
+          passwordSecretRef: containerRegistryPasswordRef
+        }
+      ]
+      ingress: {
+        external: webServiceIsExternalIngress
+        targetPort: webServicePort
+      }
+    }
+    template: {
+      containers: [
+        {
+          image: webServiceImage
+          name: webServiceContainerAppName
+          env: [
+            {
+              name: 'WEATHER_SERVICE_NAME'
+              value: weatherServiceContainerAppName
+            }
+          ]
+        }
+      ]
+      scale: {
+        minReplicas: minReplicas
+        maxReplicas: maxReplicas
+      }
+    }
+  }
+}
+
+output webServiceUrl string = webServiceContainerApp.properties.latestRevisionFqdn
+```
+
+Now this is undeniably a big lump of Bicep. Let's drill into the significant differences:
+
+1. We're creating an Azure storage account.
+2. We're creating an Azure Service Bus and a topic under it named `'weather-forecasts'`.
+3. Underneath our managed environment, we're creating a statestore (using the storage account) which is the Azure equivalent of our `statestore.yml`, but using Azure components.
+4. Also underneath our managed environment, we're creating a pubsub (using the service bus) which is the Azure equivalent of our `pubsub.yml`, but using Azure components.
+
+### No declarative pubsub subscription support
+
+Whilst you might be thinking "we're home free now!" - it turns out we're not. Whilst we'd created Azure equivalents of our `statestore.yml` and `pubsub.yml`, you'll note there didn't seem to be an equivalent of the `subscriptions` component in Bicep.
+
+[It turns out support for declarative pub/sub subscriptions is not yet available](https://docs.microsoft.com/en-us/azure/container-apps/dapr-overview?tabs=bicep1%2Cyaml#known-limitations):
+
+> Known limitations
+> Declarative pub/sub subscriptions
+
+So whilst we can take the code we have here and run locally, we cannot deploy it to Azure.
+
+However, whilst there's no declaritive support for subscriptions, there is programmatic support. It involves more of a pivot in how we put together our code. But since it's the only game in town, we'll give it a go.
+
+## You got mail: programmatic subscriptions!
+
+We're going to replace our `WeatherForecastController.cs` with a `WeatherForecastEndpoints.cs` which contains very similar code, but uses the .NET 6 minimal API approach instead: (There appears to be a way to work with MVC but it's not clear how to use it, and it appears to be a more confusing approach than the .NET 6 minimal API approach.)
+
+```cs
+using Config;
+
+using Microsoft.Extensions.Options;
+
+using RestSharp;
+using RestSharp.Authenticators;
+
+using Dapr;
+
+namespace WeatherService.Endpoints;
+
+public static class WeatherForecastEndpoints
+{
+    private static readonly string[] Summaries = new[]
+    {
+        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    };
+
+    public record SendWeatherForecastBody(string? Email);
+
+    public static IEndpointRouteBuilder MapWeatherForecastEndpoints(this IEndpointRouteBuilder endpoints)
+    {
+        endpoints.MapPost("/SendWeatherForecast",
+            [Topic("weather-forecast-pub-sub", "weather-forecasts")]
+            async (
+                SendWeatherForecastBody body,
+                ILogger<SendWeatherForecastBody> logger,
+                IOptions<MailConfig> options
+            ) =>
+            {
+                try
+                {
+                    if (string.IsNullOrEmpty(body.Email)) throw new Exception("Email required");
+
+                    var weatherForecast = Enumerable.Range(1, 5).Select(index => new WeatherForecast
+                    {
+                        Date = DateTime.Now.AddDays(index),
+                        TemperatureC = Random.Shared.Next(-20, 55),
+                        Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+                    })
+                    .ToArray();
+
+                    var toEmailAddress = body.Email;
+                    var text = $@"The weather forecast is:
+
+{string.Join("\n", weatherForecast.Select(wf => $"On {wf.Date} the weather will be {wf.Summary}"))}
+";
+
+                    await SendSimpleMessage(
+                        mailgunApiKey: options.Value.MailgunApiKey,
+                        toEmailAddress: toEmailAddress,
+                        text: text
+                    );
+
+                    return Results.Ok($"We have mailed {toEmailAddress} with the following:\n\n{text})");
+                }
+                catch (Exception exc)
+                {
+                    logger.LogError(exc, $"Problem!");
+
+                    return Results.BadRequest(exc.Message);
+                }
+            });
+
+        return endpoints;
+    }
+
+    static async Task<RestResponse> SendSimpleMessage(string mailgunApiKey, string toEmailAddress, string text)
+    {
+        RestClient client = new(new RestClientOptions
+        {
+            BaseUrl = new Uri("https://api.mailgun.net/v3")
+        })
+        {
+            Authenticator =
+            new HttpBasicAuthenticator("api", mailgunApiKey)
+        };
+        RestRequest request = new();
+        request.AddParameter("domain", "mg.priou.co.uk", ParameterType.UrlSegment);
+        request.Resource = "{domain}/messages";
+        request.AddParameter("from", "John Reilly <johnny_reilly@hotmail.com>");
+        request.AddParameter("to", toEmailAddress);
+        request.AddParameter("subject", "Weather forecast");
+        request.AddParameter("text", text);
+
+        return await client.PostAsync(request);
+    }
+}
+```
+
+The significant thing to note above is the `[Topic("weather-forecast-pub-sub", "weather-forecasts")]` that we're adding to our `MapPost` in the `MapWeatherForecastEndpoints` method. This is the equivalent of the `subscriptions` component in Bicep.
+
+We also need to tweak our `Program.cs` to cater for the new `WeatherForecastEndpoints` class:
+
+```cs
+using Config;
+using WeatherService.Endpoints;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<MailConfig>(builder.Configuration.GetSection("Mail"));
+
+builder.Services.AddControllers().AddDapr();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseAuthorization();
+
+app.UseCloudEvents();
+
+app.MapSubscribeHandler(); // This is the Dapr subscribe handler
+
+app.MapWeatherForecastEndpoints();
+
+app.Run();
+```
+
+So the `app.MapWeatherForecastEndpoints();` is what wires up our `WeatherForecastEndpoints` class.
+
+With that in place, we're ready to deploy to Azure.
+
+![A gif that demos entering an email address in the form, submitting it and seeing an email arrive with a weather forecast in](demo-send-email-with-pubsub.gif)
+
+We now have Azure Container Apps running in Azure, using the dapr pubsub component.
