@@ -603,7 +603,7 @@ app.listen(portNumber);
 console.log(`listening on port ${portNumber}`);
 ```
 
-Our WebService now be publishing using pubsub, instead of using service invocation.
+The thing to note above is the `client.pubsub.publish`; our WebService will now be publishing using pubsub, instead of using axios and service invocation.
 
 ### Subscribing
 
@@ -825,9 +825,9 @@ scopes:
   - dotnet-app
 ```
 
-These three files are fairly self-explanatory. It's drawing attention to the following though:
+These three files are fairly self-explanatory. It's worth drawing attention to the following though:
 
-1. We're going to use these when running locally and so we'll use Redis for our persistance. When we deploy to Azure Container Apps we'll use something more Azure specific.
+1. We're going to use these components when running locally and so we'll use Redis for our persistence. When we deploy to Azure Container Apps we'll use something more Azure specific.
 2. We're granting access in these components to our node-app (WebService) and our dotnet-app (WeatherService)
 3. We're wiring up our subscription in `subscription.yaml`- it's this that will be used to route traffic from publishing to subscription.
 
@@ -1202,8 +1202,8 @@ Now this is undeniably a big lump of Bicep. Let's drill into the significant dif
 
 1. We're creating an Azure storage account.
 2. We're creating an Azure Service Bus and a topic under it named `'weather-forecasts'`.
-3. Underneath our managed environment, we're creating a statestore (using the storage account) which is the Azure equivalent of our `statestore.yml`, but using Azure components.
-4. Also underneath our managed environment, we're creating a pubsub (using the service bus) which is the Azure equivalent of our `pubsub.yml`, but using Azure components.
+3. Underneath our managed environment, we're creating a statestore (using the storage account) which is the Azure equivalent of our `statestore.yml`, but using Azure storage.
+4. Also underneath our managed environment, we're creating a pubsub (using the service bus) which is the Azure equivalent of our `pubsub.yml`, but using our Azure ServiceBus.
 
 ### No declarative pubsub subscription support
 
@@ -1315,7 +1315,7 @@ public static class WeatherForecastEndpoints
 }
 ```
 
-The significant thing to note above is the `[Topic("weather-forecast-pub-sub", "weather-forecasts")]` that we're adding to our `MapPost` in the `MapWeatherForecastEndpoints` method. This is the equivalent of the `subscriptions` component in Bicep.
+The significant thing to note above is the `[Topic("weather-forecast-pub-sub", "weather-forecasts")]` that we're adding to our `MapPost` in the `MapWeatherForecastEndpoints` method. This is the equivalent of the `subscriptions` component that we wanted to create in Bicep but couldn't. This is our programmatic subscription.
 
 We also need to tweak our `Program.cs` to cater for the new `WeatherForecastEndpoints` class:
 
