@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[59863],{2923:function(e){e.exports=JSON.parse('{"label":"Azure Container Apps","permalink":"/tags/azure-container-apps","allTagsPath":"/tags","count":3}')}}]);
