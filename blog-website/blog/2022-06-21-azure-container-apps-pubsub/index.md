@@ -22,7 +22,7 @@ This post shows how to build and deploy two Azure Container Apps using Bicep and
 
 This post will build upon code written in a [previous post](../2022-01-22-azure-container-apps-dapr-bicep-github-actions-debug-devcontainer/index.md) which built and deployed a simple web application to Azure Container Apps using Bicep and GitHub Actions using the GitHub container registry. Behind the scenes, that app was made up of a .NET app and a Node.js app communicating via dapr's [service invocation building block](https://docs.dapr.io/developing-applications/building-blocks/service-invocation/howto-invoke-discover-services/).
 
-There's a good chance you've just googled "pubsub dapr azure container apps" and you don't want to read through all this. You just want the code. That's fine. The code for this blogpost is [here](https://github.com/johnnyreilly/dapr-devcontainer-debug-and-deploy).
+There's a good chance you've just googled "pubsub dapr azure container apps" and you don't want to read through all this. You just want the code. That's fine. The code for this blogpost is [here](https://github.com/johnnyreilly/dapr-devcontainer-debug-and-deploy/releases/tag/v2.0.0).
 
 ## You got mail: service invocation
 
