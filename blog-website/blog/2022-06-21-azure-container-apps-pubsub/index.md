@@ -1220,6 +1220,8 @@ However, whilst there's no declaritive support for subscriptions, there is progr
 
 ## You got mail: programmatic subscriptions!
 
+We can get rid of our `subscriptions.yaml` file now - we're going programmatic instead of declarative.
+
 We're going to replace our `WeatherForecastController.cs` with a `WeatherForecastEndpoints.cs` which contains very similar code, but uses the .NET 6 minimal API approach instead: (There appears to be a way to work with MVC but it's not clear how to use it, and it appears to be a more confusing approach than the .NET 6 minimal API approach.)
 
 ```cs
@@ -1356,4 +1358,4 @@ With that in place, we're ready to deploy to Azure.
 
 ![A gif that demos entering an email address in the form, submitting it and seeing an email arrive with a weather forecast in](demo-send-email-with-pubsub.gif)
 
-We now have Azure Container Apps running in Azure, using the dapr pubsub component.
+We now have Azure Container Apps running in Azure, using the dapr pubsub component. Hopefully in future declarative subscribtions will be available also, but for now we can use the programmatic approach.
