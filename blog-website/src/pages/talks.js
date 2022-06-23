@@ -6,9 +6,14 @@ import styles from './styles.module.css';
 
 const talks = [
   {
-    permalink: 'https://youtu.be/LxZx3ycrxI0',
-    formattedDate: 'September 30th, 2021',
-    title: 'LogRocket Meetup: Write more readable code with TS 4.4',
+    permalink: 'https://youtu.be/Kl9M7eut5Yo',
+    formattedDate: 'June 22nd, 2022',
+    title: 'LogRocket Meetup: How to start a blog using Docusaurus, GitHub Actions, and Azure Static Web Apps'    
+  },
+  {
+    permalink: 'https://youtu.be/5MZoAcheyE4?t=240',
+    formattedDate: 'December 1st, 2021',
+    title: 'LogRocket Meetup: TypeScript Alternatives – JSDoc JavaScript',
   },
   {
     permalink: 'https://youtu.be/zi1CHB-eVck?start=282',
@@ -16,9 +21,9 @@ const talks = [
     title: 'LogRocket Meetup: Structured data, SEO and React',
   },
   {
-    permalink: 'https://youtu.be/5MZoAcheyE4?t=240',
-    formattedDate: 'December 1st, 2021',
-    title: 'LogRocket Meetup: TypeScript Alternatives – JSDoc JavaScript',
+    permalink: 'https://youtu.be/LxZx3ycrxI0',
+    formattedDate: 'September 30th, 2021',
+    title: 'LogRocket Meetup: Write more readable code with TS 4.4',
   },
 ];
 
@@ -35,7 +40,6 @@ function Talks() {
           <div className="container">
             <div className="row">
               <div className={clsx('col col--12', styles.feature)}>
-                <h3>2021</h3>
                 <ul>
                   {talks.map((talk) => (
                     <li key={talk.formattedDate}>
