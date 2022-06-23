@@ -40,7 +40,6 @@ function Talks() {
           <div className="container">
             <div className="row">
               <div className={clsx('col col--12', styles.feature)}>
-                <h3>2021</h3>
                 <ul>
                   {talks.map((talk) => (
                     <li key={talk.formattedDate}>
