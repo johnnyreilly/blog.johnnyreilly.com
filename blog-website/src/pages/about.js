@@ -29,9 +29,29 @@ const features = [
     description: (
       <>
         <p>
-          I blog and work / have worked on a number of open source projects
-          including:
+          I blog and work on open source software.{' '}
+          <a href="https://twitter.com/johnny_reilly/status/1541020953299128320">
+            My OSS work has been used by GitHub
+          </a>
+          !
         </p>
+        <p>
+          I wrote the{' '}
+          <a href="https://blog.johnnyreilly.com/2019/10/08/definitely-typed-movie">
+            history of Definitely Typed
+          </a>
+          .
+        </p>
+        <p>
+          I was part of the merry band that started{' '}
+          <a href="https://typescriptcongress.com/">TypeScript Congress</a> and
+          was part of the initial Program Committee and an MC.
+        </p>
+        <p>
+          Some of my blogs are available on{' '}
+          <a href="https://blog.logrocket.com/author/johnreilly/">LogRocket</a>
+        </p>
+        <p>Some OSS I have contributed to:</p>
         <ul>
           <li>
             <a href="https://github.com/DefinitelyTyped">Definitely Typed</a>
@@ -44,22 +64,10 @@ const features = [
               fork-ts-checker-webpack-plugin
             </a>
           </li>
+          <li>
+            <a href="https://github.com/facebook/docusaurus">Docusaurus</a>
+          </li>
         </ul>
-        <p>
-          I also wrote the{' '}
-          <a href="https://blog.johnnyreilly.com/2019/10/08/definitely-typed-movie">
-            history of Definitely Typed
-          </a>
-        </p>
-        <p>
-          I was part of the merry band that started{' '}
-          <a href="https://typescriptcongress.com/">TypeScript Congress</a> and
-          was part of the initial Program Committee and an MC.
-        </p>
-        <p>
-          Some of my blogs are available on{' '}
-          <a href="https://blog.logrocket.com/author/johnreilly/">LogRocket</a>
-        </p>
       </>
     ),
   },
