@@ -201,6 +201,8 @@ const config = {
         logo: {
           alt: 'I CAN MAKE THIS WORK',
           src: 'img/profile.jpg',
+          width: 32,
+          height: 32,
         },
         items: [
           /*
