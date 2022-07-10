@@ -6,13 +6,13 @@ image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-Build validations are a great way to protect your branches in Azure DevOps. It's possible to use the Azure DevOps API to acquire build validations a project uses. This post shows you how using CURL and the Node.js API.
+Build validations are a great way to protect your branches in Azure DevOps. It's possible to use the Azure DevOps API to acquire the build validations a project uses. This post shows you how using CURL and the Node.js API.
 
 ![title image reading "Azure Static Web Apps: Failed to deploy the Azure Functions" with an Azure Functions logo](title-image.png)
 
 ## Build validations
 
-We care about our `main` branch. We only want to allow changes to be made to it, if they meet some kind of quality benchmark. In Azure DevOps these come in the form of branch policies. We're interested in a particular type of these called [build validations](https://docs.microsoft.com/en-us/azure/devops/repos/git/branch-policies?view=azure-devops&tabs=browser#build-validation):
+We care about our `main` branch. Before changes can be made to it, we want them to meet some kind of quality benchmark. In Azure DevOps these come in the form of branch policies. We're interested in a particular type of these called [build validations](https://docs.microsoft.com/en-us/azure/devops/repos/git/branch-policies?view=azure-devops&tabs=browser#build-validation):
 
 > A build validation policy queues a new build when a new PR is created or changes are pushed to an existing PR that targets the branch. The build policy evaluates the build results to determine whether the PR can be completed.
 
@@ -92,7 +92,7 @@ Note the `type` property with the `displayName` of `"Build"`. That's how we iden
 curl  --user '':'PERSONAL_ACCESS_TOKEN' --header "Content-Type: application/json" --header "Accept:application/json" https://dev.azure.com/{organisation}/{project}/_apis/policy/configurations?api-version=7.1-preview.1 | jq -c '.value[] | select(.type.displayName == "Build")'
 ```
 
-## Node.js API
+## Node.js API
 
 If you'd like to achieve the same using TypeScript, you can. The [Azure DevOps Client for Node.js](https://github.com/microsoft/azure-devops-node-api) provides an API and (in large part) the types. Let's obtain the build validations for a project in Node.js using the client:
 
@@ -149,6 +149,8 @@ interface BuildValidation {
   repositoryId: string | undefined;
 }
 ```
+
+Which leaves us with a delightfully strongly typed array of build validations!
 
 ## Conclusion
 
