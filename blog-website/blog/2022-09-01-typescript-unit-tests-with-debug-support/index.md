@@ -6,40 +6,42 @@ image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-Unit tests are an important part of the development process. They are used to verify that the code is working as intended. This post will outline how to write unit tests using TypeScript. The post will also cover how to debug unit tests.
+Unit tests are an important part of the development process. They are used to verify that the code is working as intended. This post will outline how to write unit tests using TypeScript and how to debug them as well.
 
 ![title image reading "TypeScript Unit Tests with Debug Support" with TypeScript and Jest logos](title-image.png)
 
 ## Unit Tests
 
-A description / explanation of the problem to solve. We want to run / debug tests and why.
+When writing unit tests to verify system behaviour, choices must be made. There are many different test frameworks that can be used. In the JavaScript world these include Jest, Mocha, tape, Jasmine and others. There are numerous other testing tools like Cypress and Playwright which cover broader automated testing needs, but we're intentionally just thinking about unit tests right now.
 
-## What framework to use?
+Of the various choices available, Jest is (at time of writing) very much the most popular. Since there's no particular reason to favour one of the less popular frameworks for what we want to tackle, we're going to use Jest for this piece.
 
-An identification of the tools we're going to use and rationale for selection
+Tests are a wonderful tool for asserting system behaviour. However, they can fail for mysterious reasons. When that happens, it can be helpful to see what the computer can see. It can be helpful to be able to debug your tests in the way you might hope to debug your other code. In this post:
 
-## Setting up our tests
+1. We'll set up a TypeScript Node.js project, containing some code we'd like to test.
+2. We'll configure our project to work with Jest and we'll write a test.
+3. We'll debug our unit test.
 
-Doing it. Working through how to set up a typescript project in VS Code which has code, tests and a mechanism for running/ debugging them. This will likely be split into say 3 sections; getting the TS project in place, getting a test in place and the ability to run that test, finally how to get debugging set up
+Let's begin.
 
-### Set up the TypeScript project
+## Setting up our TypeScript project
 
-Let's create ourselves new project Node.js project:
+First we'll create ourselves a new Node.js project:
 
 ```shell
-typescript-unit-tests-with-debug-support
+mkdir typescript-unit-tests-with-debug-support
 cd typescript-unit-tests-with-debug-support
 npm init --yes
 ```
 
-At this point we have an empty Node.js project. Let's bring TypeScript into the mix also:
+At this point we have an empty Node.js project. Let's add TypeScript to it as a dependency and initialise our TypeScript project:
 
 ```shell
 npm install typescript
 npx -p typescript tsc --init
 ```
 
-We're now ready to start writing some code!
+We now have a fully working TypeScript Node.js project and we're ready to start writing some code!
 
 This is a post about demonstrating unit testing with TypeScript. So naturally we need something to test. We're going write a simple module called `greeter.ts` which has the following content:
 
@@ -51,13 +53,13 @@ export function makeGreeting(name: string): string {
 }
 ```
 
-It contains a single simple function named `makeGreeting` which takes a single string parameter and constructs a greeting from that. The nature of the greeting is inconsequential, but remember later we want to be able to debug our test. So we want more than one line in our implementation.
+`greeter.ts` is a TypeScript file that contains a single simple function. The `makeGreeting` function takes a single string parameter and, over a number of lines, constructs a greeting from that which the function returns. The nature of the greeting is inconsequential. However, remember later we want to be able to debug our test. We've intentionally written a function featuring more than one line of code, so we can demonstrate the benefits of debugging; in the form of the built up debug context.
 
-### Set up the Jest project
+## Setting up the Jest project
 
 The next step after setting up our TypeScript Node.js project, is adding tests, and the ability to run them, using Jest.
 
-First of all we're going to need to add jest to our project and initialise it:
+First of all we're going to need to add Jest to our project and initially configure it:
 
 ```shell
 npm install --save-dev jest
@@ -78,7 +80,9 @@ The following questions will help Jest to create a suitable configuration for yo
 ✔ Automatically clear mock calls, instances, contexts and results before every test? … no
 ```
 
-We'll select all the defaults. Next, we'll update our `package.json` `scripts` section to invoke Jest:
+We'll select all the defaults; including _not_ using TypeScript for the configuration file. We don't require a TypeScript configuration file to be able to write TypeScript tests. The initialisation will create a `jest.config.js` file which contains the configuration used to run our tests.
+
+Next, we'll update the `scripts` section of our `package.json` to invoke Jest:
 
 ```json
   "scripts": {
@@ -86,7 +90,7 @@ We'll select all the defaults. Next, we'll update our `package.json` `scripts` s
   },
 ```
 
-At this point we're in a place where we can run tests on JavaScript. But we want to run tests against TypeScript. [Jest supports this scenario well](https://jestjs.io/docs/getting-started#using-typescript), using Babel. So we'll add the dependencies we need:
+At this point we're in a place where we can run tests written in JavaScript. But we want to run tests written in TypeScript. [Jest supports this scenario well](https://jestjs.io/docs/getting-started#using-typescript), using Babel. So we'll add the dependencies we need:
 
 ```shell
 npm install --save-dev babel-jest @babel/core @babel/preset-env @babel/preset-typescript @types/jest
@@ -104,30 +108,40 @@ test('given a name produces the expected greeting', () => {
 });
 ```
 
-Then, let's see if we can run our tests with `npm run test`:
+This simple test, invokes the `makeGreeting` function in our `greeter.ts` file and asserts the return value is as expected. Let us see if we can run our test with `npm run test`:
 
 ![screenshot of tests running and passing in the terminal](./screenshot-of-tests-passing.png)
 
-Success! We've now created a TypeScript project, written some code, writen a test for that code and we have the ability to run it.
+Success! We've now created a TypeScript project, written a function, written a test for that function and we have the ability to run it.
 
-### Set up debugging support
+## Set up debugging support
 
-The final thing we wanted to tackle was adding debug support. In times past, this was often quite hard to set up. However it's become much easier due to the excellent [`vscode-jest`](https://github.com/jest-community/vscode-jest) project, which is dedicated to making "testing more intuitive and fun".
+The final thing we wanted to tackle was adding debug support. In times past, this was often quite tricky to configure. However, debugging has become much easier due to the excellent [`vscode-jest`](https://github.com/jest-community/vscode-jest) project, which is dedicated to making "testing more intuitive and fun". In fact, with this extension the experience is now very "plug and play" which is a great thing.
 
-Inside VS Code, install the vscode-jest extension:
+Inside VS Code, we will install the vscode-jest extension:
 
 ![screenshot of the VS Code Jest extension](./screenshot-of-vscode-jest.png)
 
-Once it's installed, you'll need to restart VS Code, and you may also need to enter the `Jest: Start All Runners` command:
+Once it's installed, we'll need to restart VS Code, and we may also need to enter the `Jest: Start All Runners` command in VS Codes power bar:
 
 ![screenshot of the Jest: Start All Runners command in VS Code](./screenshot-jest-start-all-runners.png)
 
-![](./screenshot-jest-test-explorer.png)
-![](./screenshot-jest-test-explorer-debug-test.png)
-![](./screenshot-jest-debug-test.png)
+Once the Jest runners have started, we start to see the benefits that the VS Code Jest plugin offers. Where tests exist in our code, they are detected by the plugin and run. Depending upon whether tests are passing or failing we will be presented with a red cross or a green tick denoting failure or success directly alongside the code:
+
+![screenshot of the jest test explorer with a green tick next to a passing test](./screenshot-jest-test-explorer.png)
+
+Using the test explorer, it's possible to run tests on demand. Even more excitingly, it's now possible to debug them too. If you examine the test explorer and right / command click on a given test, you'll be presented with the option to debug a test:
+
+![screenshot of the context menu in the Jest explorer featuring the words "Debug Test"](./screenshot-jest-test-explorer-debug-test.png)
+
+Excitingly this means exactly what we might hope. If we put breakpoints in our code, when the test runs we'll now hit them. We'll be able to debug and introspect each test that runs:
+
+![screenshot of a test being debugged](./screenshot-jest-debug-test.png)
+
+If you look at the screenshot above you'll see we've stopped on a breakpoint, we're able to examine the context of the program at the point that it has paused. We can step further on in our code, we can do all the useful things that debugging affords us. We have succeeded in debugging.
 
 ## Conclusion
 
-Conclusion
+In this piece we've taken a look at how to get up and running with a unit testable TypeScript project. Beyond that, we've demonstrated how we can debug our TypeScript tests using the VS Code editor.
 
 [This post was originally published on Meticulous.](https://meticulous.ai/blog/)
