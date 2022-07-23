@@ -22,6 +22,8 @@ https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/273
 
 `staticwebappconfig.json` in root of app
 
+https://docs.microsoft.com/en-us/azure/static-web-apps/configuration#global-headers
+
 ```json
 {
   "globalHeaders": {
