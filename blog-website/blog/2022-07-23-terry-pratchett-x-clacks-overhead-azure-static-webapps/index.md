@@ -10,6 +10,14 @@ Build validations are a great way to protect your branches in Azure DevOps. It's
 
 ![title image reading "Get Build Validations with the Azure DevOps API" with Azure Pipelines and Azure DevOps logo](title-image.png)
 
+Chrome Devtools showing the `X-Clacks-Overhead` header:
+
+![screenshot of Chrome Devtools showing the `x-clacks-overhead` header on this blog](./screenshot-x-clacks-overhead-response-header.png)
+
+https://xclacksoverhead.org/listing/the-signal
+
+![screenshot of https://xclacksoverhead.org/listing/the-signal showing this blog being listed](./screenshot-x-clacks-overhead-listing.png)
+
 https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/273
 
 `staticwebappconfig.json` in root of app
