@@ -6,7 +6,7 @@ image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-Terry Pratchett is remembered on the internet. A non-standardised HTTP header: `X-Clacks-Overhead` is broadcast by websites seeking to pay tribute to the great man. This post shows how to make Azure Static Web Apps join in.
+Terry Pratchett is remembered on the internet. A non-standardised HTTP header: `X-Clacks-Overhead` is broadcast by websites seeking to pay tribute to the great man. This post shows how we can make Azure Static Web Apps join in.
 
 ![title image reading "Terry Pratchett and the Azure Static Web Apps" with the Azure Static Web Apps logo and a Terry Pratchett icon by Lisa Krymova from NounProject.com](title-image.png)
 
@@ -44,7 +44,7 @@ The above screenshot shows this very blog broadcasting the `X-Clacks-Overhead` h
 
 ## Who else is out there?
 
-It's great to know you're in good company. [This page](https://xclacksoverhead.org/listing/the-signal) tracks websites that are broadcasting the `X-Clacks-Overhead` header. You can see from the image below that it's found this website too!
+It's great to know you're in good company. [This page](https://xclacksoverhead.org/listing/the-signal) tracks websites that are broadcasting the `X-Clacks-Overhead` header. You can see from the image below that it has found this website too!
 
 ![screenshot of https://xclacksoverhead.org/listing/the-signal showing this blog being listed](./screenshot-x-clacks-overhead-listing.png)
 
