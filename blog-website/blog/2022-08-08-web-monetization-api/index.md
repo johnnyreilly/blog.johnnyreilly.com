@@ -17,3 +17,28 @@ I recently attended the [HalfStack at the Beach](https://halfstackconf.com/newqu
 I was intrigued. Alex was kind enough to share some links with me, and I decided to take the Web Monetization API for a spin, and see what it was like. So this post is going to be exactly that. I'm a noob; I don't know how to use the Web Monetization API (or much about it TBH). Over the course of this post I'll try and integrate it into my blog. As I do that I'll share what I'm doing and how I found things; to try to provide a useful resource (and some feedback) on what adoption feels like.
 
 ## Getting started
+
+Alex shared a link to https://webmonetization.org/ - in there I found a [quick start](https://webmonetization.org/docs/getting-started) which I decided to work through.
+
+### Wallet
+
+The first thing to do is [setting up a wallet](https://webmonetization.org/docs/getting-started#1-set-up-a-web-monetized-wallet). I imagine that this is comparable to having a bank account in a bank. There appear to be two options for this:
+
+- [uphold](https://wallet.uphold.com/)
+- [gatehub](https://gatehub.net/)
+
+[Right now, uphold offers a greater number of features](https://webmonetization.org/docs/ilp-wallets/#digital-wallets), so I'll create a wallet with them.
+
+The signup process was pretty straightforward. I got slightly confused was seeing this prompt:
+
+![screenshot reading "How will you use Uphold? ... Trade cryptocurrencies, Currency conversion, Deposit or withdraw cryptocurrencies, Transfers between users"](./screenshot-uphold-purpose.png)
+
+I wasn't entirely sure what I needed. The Web Monetization API seemed most likely to be about transfers between users, so I went with that.
+
+When it asked this question:
+
+![screenshot reading "International payments/transfers Tell us where you'll be moving money. Select from the regions below."](./screenshot-uphold-transfers.png)
+
+I opted to accept all regions. After the usual signup process, I was able to see able to see my new (empty) account:
+
+![screenshot of the dashboard of uphold with a balance of £0](./screenshot-uphold-dashboard.png)
