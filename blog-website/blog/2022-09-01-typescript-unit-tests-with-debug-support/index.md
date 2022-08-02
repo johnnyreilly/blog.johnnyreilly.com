@@ -82,7 +82,7 @@ The following questions will help Jest to create a suitable configuration for yo
 ✔ Automatically clear mock calls, instances, contexts and results before every test? … no
 ```
 
-We'll select all the defaults; including _not_ using TypeScript for the configuration file. We don't require a TypeScript configuration file to be able to write TypeScript tests. The initialisation will create a `jest.config.js` file which contains the configuration used to run our tests.
+We'll select all the defaults; including _not_ using TypeScript for the configuration file. We don't require a configuration file written in TypeScript to be able to write TypeScript tests. The initialisation will create a `jest.config.js` file which contains the configuration used to run our tests.
 
 Next, we'll update the `scripts` section of our `package.json` to invoke Jest:
 
