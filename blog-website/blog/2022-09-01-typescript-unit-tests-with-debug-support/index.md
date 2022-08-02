@@ -12,9 +12,9 @@ Unit tests are an important part of the development process. They are used to ve
 
 ## Unit Tests
 
-When writing unit tests to verify system behaviour, choices must be made. There are many different test frameworks that can be used. In the JavaScript world these include Jest, Mocha, tape, Jasmine and others. There are numerous other testing tools like Cypress and Playwright which cover broader automated testing needs, but we're intentionally just thinking about unit tests right now.
+When we are writing unit tests to verify system behaviour, we have to make choices. We need to choose the test framework that we'll use to run our tests. In the JavaScript world we'll be choosing from options including Jest, Mocha, tape, Jasmine and others. There are numerous other testing tools like Cypress and Playwright which cover broader automated testing needs, but we're intentionally just thinking about unit tests right now and so we'll exclude those.
 
-Of the various choices available, Jest is (at time of writing) very much the most popular. Since there's no particular reason to favour one of the less popular frameworks for what we want to tackle, we're going to use Jest for this piece.
+Of the various choices available, Jest is (at time of writing) very much the most popular. Since we have do not have a particular reason for favouring one of the frameworks that isn't as popular as Jest, that's what we'll use.
 
 Tests are a wonderful tool for asserting system behaviour. However, they can fail for mysterious reasons. When that happens, it can be helpful to see what the computer can see. It can be helpful to be able to debug your tests in the way you might hope to debug your other code. In this post:
 
