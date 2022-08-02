@@ -16,7 +16,9 @@ When we are writing unit tests to verify system behaviour, we have to make choic
 
 Of the various choices available, Jest is (at time of writing) very much the most popular. Since we have do not have a particular reason for favouring one of the frameworks that isn't as popular as Jest, that's what we'll use.
 
-Tests are a wonderful tool for asserting system behaviour. However, they can fail for mysterious reasons. When that happens, it can be helpful to see what the computer can see. It can be helpful to be able to debug your tests in the way you might hope to debug your other code. In this post:
+Tests are a wonderful tool for asserting system behaviour. However, they can fail for mysterious reasons. When that happens, it can be helpful to see what the computer can see. It can be helpful to be able to debug your tests in the way you might hope to debug your other code.
+
+In this post:
 
 1. We'll set up a TypeScript Node.js project, containing some code we'd like to test.
 2. We'll configure our project to work with Jest and we'll write a test.
@@ -53,7 +55,7 @@ export function makeGreeting(name: string): string {
 }
 ```
 
-`greeter.ts` is a TypeScript file that contains a single simple function. The `makeGreeting` function takes a single string parameter and, over a number of lines, constructs a greeting from that which the function returns. The nature of the greeting is inconsequential. However, remember later we want to be able to debug our test. We've intentionally written a function featuring more than one line of code, so we can demonstrate the benefits of debugging; in the form of the built up debug context.
+`greeter.ts` is a TypeScript file that contains a single simple function. The `makeGreeting` function takes a string parameter and, over a number of lines, constructs a greeting string which the function returns. The nature of the greeting is inconsequential. However, remember later we want to be able to debug our test. We've intentionally written a function featuring more than one line of code. We've done this so we can demonstrate the benefits of debugging by showing the program state as it is in the process of executing.
 
 ## Setting up the Jest project
 
