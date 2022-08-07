@@ -1,3 +1,11 @@
+The React `useState` hook is a great way to persist state inside the context of a component in React.
+
+However, there is a disadvantage to using `useState`; that state is not shareable. So if you want someone else to see what you can see in an application, you're reliant on them carrying out the same actions that got your current app into that state.
+
+https://reactrouter.com/docs/en/v6/hooks/use-search-params
+
+
+
 ```ts
 import { useSearchParams } from "react-router-dom";
 
