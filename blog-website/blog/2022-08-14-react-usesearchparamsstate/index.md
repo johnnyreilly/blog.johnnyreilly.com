@@ -1,11 +1,15 @@
-The React [`useState`](https://reactjs.org/docs/hooks-reference.html#usestate) hook is a great way to persist state inside the context of a component in React.
+The React [`useState`](https://reactjs.org/docs/hooks-reference.html#usestate) hook is a great way to persist state inside the context of a component in React. This post demonstrates a simple React hook that stores state in the URL querystring.
+
+## `useState`
+
+Usage of the `useState` hook looks like this:
 
 ```ts
-const [total, setTotal] = useState(0);
+const [greeting, setGreeting] = useState('hello world');
 
 // ....
 
-setTotal(42); // will set total to 42
+setTotal('hello John'); // will set greeting to 'hello John '
 ```
 
 However, there is a disadvantage to using `useState`; that state is not shareable. So if you want someone else to see what you can see in an application, you're reliant on them carrying out the same actions that got your app into its current state. This can be time consuming and error prone.
