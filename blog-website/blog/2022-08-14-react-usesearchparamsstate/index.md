@@ -12,11 +12,11 @@ const [greeting, setGreeting] = useState('hello world');
 setTotal('hello John'); // will set greeting to 'hello John '
 ```
 
-However, there is a disadvantage to using `useState`; that state is not shareable. So if you want someone else to see what you can see in an application, you're reliant on them carrying out the same actions that got your app into its current state. This can be time consuming and error prone.
+However, there is a disadvantage to using `useState`; that state is not persistent and not shareable. So if you want someone else to see what you can see in an application, you're reliant on them carrying out the same actions that got your application into its current state. Doing that can be time consuming and error prone. Wouldn't it be great if there was a simple way to share state? 
 
-An effective way to share state between users, without needing a backend for persistence, is with the URL. A URL can contain the required state in the form of the route and the query or search parameters. The search parameters are particularly powerful as they are entirely generic and hence customisable. As long as the URL limit (around [2000 chars](https://stackoverflow.com/a/417184/761388)) is not exceeded, you're free to persist state in your URL. Imagine:
+An effective way to share state between users, without needing a backend for persistence, is with the URL. A URL can contain the required state in the form of the route and the querystring / search parameters. The search parameters are particularly powerful as they are entirely generic and hence customisable. As long as the URL limit (around [2000 chars](https://stackoverflow.com/a/417184/761388)) is not exceeded, you're free to persist state in your URL. Imagine:
 
-https://our-app.com?total=42
+https://our-app.com?greeting=hi
 
 If you're working with React, the [React Router](https://reactrouter.com/) project makes consuming search parameters straightforward with the [`useSearchParams`](https://reactrouter.com/docs/en/v6/hooks/use-search-params) hook:
 
@@ -25,11 +25,11 @@ import { useSearchParams } from "react-router-dom";
 
 const [searchParams, setSearchParams] = useSearchParams();
 
-const total = searchParams.get('total');
+const greeting = searchParams.get('greeting');
 
 // ...
 
-setSearchParams({ 'total': 42 }); // will set URL like so https://our-app.com?total=42 - this value will feed through to anything driven by the URL
+setSearchParams({ 'greeting': 'bonjour' }); // will set URL like so https://our-app.com?greeting=bonjour - this value will feed through to anything driven by the URL
 ```
 
 This is a great mechanism for persisting state both locally and in a shareable way.
