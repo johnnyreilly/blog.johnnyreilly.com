@@ -16,11 +16,19 @@ However, there is a disadvantage to using `useState`; that state is not persiste
 
 ## A stateful URL
 
-An effective way to share state between users, without needing a backend for persistence, is with the URL. A URL can contain the required state in the form of the route and the querystring / search parameters. The search parameters are particularly powerful as they are entirely generic and hence customisable. As long as the URL limit (around [2000 chars](https://stackoverflow.com/a/417184/761388)) is not exceeded, you're free to persist state in your URL. Imagine:
+An effective way to share state between users, without needing a backend for persistence, is with the URL. A URL can contain the required state in the form of the route and the querystring / search parameters. The search parameters are particularly powerful as they are entirely generic and customisable. As long as the URL limit (around [2000 chars](https://stackoverflow.com/a/417184/761388)) is not exceeded, you're free to persist state in your URL. Consider:
 
 https://our-app.com?greeting=hi
 
-If you're working with React, the [React Router](https://reactrouter.com/) project makes consuming search parameters straightforward with the [`useSearchParams`](https://reactrouter.com/docs/en/v6/hooks/use-search-params) hook:
+The URL above is storing a single piece of state; the `greeting`. Consider:
+
+https://our-app.com?greeting=hi&name=john
+
+The URL above is going further and storing multiple pieces of state; the `greeting` and `name`.
+
+## `useSearchParams`
+
+If you're working with React, the [React Router](https://reactrouter.com/) project makes consuming state in the URL, particularly in the form of querystring or search parameters, straightforward. It achieves this with the [`useSearchParams`](https://reactrouter.com/docs/en/v6/hooks/use-search-params) hook:
 
 ```ts
 import { useSearchParams } from "react-router-dom";
