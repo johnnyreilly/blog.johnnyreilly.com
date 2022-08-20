@@ -91,4 +91,20 @@ With all this in place, we have a hook that can be used like so:
 const [greeting, setGreeting] = useSearchParamsState("greeting", "hello");
 ```
 
-An exciting bonus of this approach is that routes rendered by React Router.
+## Persisting querystring across your site
+
+Now we have this exciting mechanism set up which allows us to store state in our URL and consequently easily share state by sending someone our URL. 
+
+What would also be useful is a way to navigate around our site *without* losing that state. Imagine I've got a date range selected and stored in my URL. As I click around from screen to screen, I want to persist that. I don't want to have to reselect the date range on each screen.
+
+How can we do this? Well, it turns out to be quite easy. All we need is the `useLocation` hook and the corresponding `location.search` property. That represents the querystring, hence every time we render a link we just include that like so:
+
+```ts
+const [location] = useLocation();
+
+return (<Link to={`/my-page${location.search}`}>Page</>)
+```
+
+## Conclusion
+
+In this post we've created a `useSearchParamsState` hook, which allows state to be persisted to URLs for sharing purposes.
