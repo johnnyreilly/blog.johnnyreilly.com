@@ -14,7 +14,7 @@ setTotal('hello John'); // will set greeting to 'hello John '
 
 However, there is a disadvantage to using `useState`; that state is not persistent and not shareable. So if you want someone else to see what you can see in an application, you're reliant on them carrying out the same actions that got your application into its current state. Doing that can be time consuming and error prone. Wouldn't it be great if there was a simple way to share state? 
 
-## URL and `useState`
+## The URL and `useSearchParams()`
 
 An effective way to share state between users, without needing a backend for persistence, is with the URL. A URL can contain the required state in the form of the route and the querystring / search parameters. The search parameters are particularly powerful as they are entirely generic and hence customisable. As long as the URL limit (around [2000 chars](https://stackoverflow.com/a/417184/761388)) is not exceeded, you're free to persist state in your URL. Imagine:
 
@@ -36,7 +36,11 @@ setSearchParams({ 'greeting': 'bonjour' }); // will set URL like so https://our-
 
 This is a great mechanism for persisting state both locally and in a shareable way.
 
-What it doesn't do 
+A significant benefit of this approach is that it doesn't require posting to the server. It's just using browser APIs like the History API. Changing a query string parameter happens entirely locally and instantaneously.
+
+## The URL and `useSearchParamsState`
+
+What the `useSearchParams` hook doesn't do, is maintain other query parameters.
 
 ```ts
 import { useSearchParams } from "react-router-dom";
