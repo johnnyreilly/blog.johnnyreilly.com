@@ -83,6 +83,8 @@ Let's think about how it works. When initialised, the hook takes two parameters:
 
 The hook then goes on to wrap the `useSearchParams` hook. It interrogates the `searchParams` for the supplied `searchParamName`, and if it isn't present, falls back to the `defaultValue`.
 
+The `setSearchParamsState` method definition looks somewhat complicated but essentially all it does is get the contents of the existing search parameters, and applies the new state for the current property. It's probably worth pausing here a second to observe an opinion that's lurking in this implementation. It is actually valid to have multiple values for the same search parameter. Whilst this is possible, it's somewhat rare for this to be used. This implementation only allows for a single value for any given parameter.
+
 ```ts
 const [tabIndex, setTabIndex] = useSearchParamsState("tabIndex", "0");
 ```
