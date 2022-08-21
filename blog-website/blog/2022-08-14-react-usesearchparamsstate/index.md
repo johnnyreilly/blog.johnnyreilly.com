@@ -16,7 +16,9 @@ However, there is a disadvantage to using `useState`; that state is not persiste
 
 ## A stateful URL
 
-An effective way to share state between users, without needing a backend for persistence, is with the URL. A URL can contain the required state in the form of the route and the querystring / search parameters. The search parameters are particularly powerful as they are entirely generic and customisable. As long as the URL limit (around [2000 chars](https://stackoverflow.com/a/417184/761388)) is not exceeded, you're free to persist state in your URL. Consider:
+An effective way to share state between users, without needing a backend for persistence, is with the URL. A URL can contain the required state in the form of the route and the querystring / search parameters. The search parameters are particularly powerful as they are entirely generic and customisable.
+
+Thanks to the [URLSearchParams API](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams), it's possible to manipulate the querystring *without* going to the server. This is a primitive upon which we can build; as long as the URL limit (around [2000 chars](https://stackoverflow.com/a/417184/761388)) is not exceeded, we're free to persist state in your URL. Consider:
 
 https://our-app.com?greeting=hi
 
