@@ -1,4 +1,4 @@
-The React [`useState`](https://reactjs.org/docs/hooks-reference.html#usestate) hook is a great way to persist state inside the context of a component in React. This post demonstrates a simple React hook that stores state in the URL querystring.
+The React [`useState`](https://reactjs.org/docs/hooks-reference.html#usestate) hook is a great way to persist state inside the context of a component in React. This post demonstrates a simple React hook that stores state in the URL querystring, building on top of React Routers `useSearchParams` hook.
 
 ## `useState`
 
@@ -9,7 +9,7 @@ const [greeting, setGreeting] = useState('hello world');
 
 // ....
 
-setTotal('hello John'); // will set greeting to 'hello John '
+setTotal('hello John'); // will set greeting to 'hello John'
 ```
 
 However, there is a disadvantage to using `useState`; that state is not persistent and not shareable. So if you want someone else to see what you can see in an application, you're reliant on them carrying out the same actions that got your application into its current state. Doing that can be time consuming and error prone. Wouldn't it be great if there was a simple way to share state? 
@@ -18,7 +18,7 @@ However, there is a disadvantage to using `useState`; that state is not persiste
 
 An effective way to share state between users, without needing a backend for persistence, is with the URL. A URL can contain the required state in the form of the route and the querystring / search parameters. The search parameters are particularly powerful as they are entirely generic and customisable.
 
-Thanks to the [URLSearchParams API](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams), it's possible to manipulate the querystring *without* going to the server. This is a primitive upon which we can build; as long as the URL limit (around [2000 chars](https://stackoverflow.com/a/417184/761388)) is not exceeded, we're free to persist state in your URL. Consider:
+Thanks to the [URLSearchParams API](https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams), it's possible to manipulate the querystring *without* round-tripping to the server. This is a primitive upon which we can build; as long as the URL limit (around [2000 chars](https://stackoverflow.com/a/417184/761388)) is not exceeded, we're free to persist state in your URL. Consider:
 
 https://our-app.com?greeting=hi
 
@@ -46,13 +46,13 @@ setSearchParams({ 'greeting': 'bonjour' }); // will set URL like so https://our-
 
 This is a great mechanism for persisting state both locally and in a shareable way.
 
-A significant benefit of this approach is that it doesn't require posting to the server. It's just using browser APIs like the History API. Changing a query string parameter happens entirely locally and instantaneously.
+A significant benefit of this approach is that it doesn't require posting to the server. It's just using browser APIs like the URLSearchParams API. Changing a query string parameter happens entirely locally and instantaneously.
 
 ## The `useSearchParamsState` hook
 
-What the `useSearchParams` hook doesn't do, is maintain other query parameters.
+What the `useSearchParams` hook doesn't do, is maintain other query string or search parameters.
 
-If you are maintaining multiple pieces of state in your application, that will likely mean multiple query string parameters. What would be quite useful, is a hook which allows us the update state *without* losing other state. Furthermore, it would be great if we didn't have to first acquire the `searchParams` object and then manipulate it. It's time for our `useSearchParamsState` hook:
+If you are maintaining multiple pieces of state in your application, that will likely mean multiple query string or search parameters. What would be quite useful, is a hook which allows us the update state *without* losing other state. Furthermore, it would be great if we didn't have to first acquire the `searchParams` object and then manipulate it. It's time for our `useSearchParamsState` hook:
 
 ```ts
 import { useSearchParams } from "react-router-dom";
@@ -101,6 +101,8 @@ With all this in place, we have a hook that can be used like so:
 const [greeting, setGreeting] = useSearchParamsState("greeting", "hello");
 ```
 
+The above code returns back a `greeting` value which is derived from the `greeting` search parameter. It also returns a `setGreeting` function which allows setting the `greeting` value. This is the same API as `useState` and so should feel idiomatic to a user of React. Tremendous!
+
 ## Persisting querystring across your site
 
 Now we have this exciting mechanism set up which allows us to store state in our URL and consequently easily share state by sending someone our URL. 
@@ -114,6 +116,8 @@ const [location] = useLocation();
 
 return (<Link to={`/my-page${location.search}`}>Page</>)
 ```
+
+Now as we navigate around our site, that state will be maintained.
 
 ## Conclusion
 
