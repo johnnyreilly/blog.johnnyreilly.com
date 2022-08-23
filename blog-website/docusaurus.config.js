@@ -216,11 +216,11 @@ const config = {
           { to: 'about', label: 'About', position: 'left' },
           { to: 'archive', label: 'Blog Archive', position: 'left' },
           { to: 'talks', label: 'Talks', position: 'left' },
-          {
-            href: 'https://polywork.johnnyreilly.com/',
-            label: 'Polywork',
-            position: 'right',
-          },
+          // {
+          //   href: 'https://polywork.johnnyreilly.com/',
+          //   label: 'Polywork',
+          //   position: 'right',
+          // },
           {
             href: 'https://github.com/johnnyreilly',
             label: 'GitHub',
