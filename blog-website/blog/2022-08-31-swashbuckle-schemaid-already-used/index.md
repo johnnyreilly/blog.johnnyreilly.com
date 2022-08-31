@@ -81,4 +81,4 @@ services.AddSwaggerGen(options =>
 });
 ```
 
-The result of using this approach is that you'll start to generate multiple types: `MyType` and `MyType2`.
+The result of using this approach is that you'll start to generate multiple types: `MyType` and `MyType2`, and importantly a goodbye to the "The same schemaId is already used..." message.
