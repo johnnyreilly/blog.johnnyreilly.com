@@ -76,7 +76,7 @@ Usage of this looks like this:
 ```cs
 services.AddSwaggerGen(options =>
 {
-    var schemaHelper = new MaaS.Shared.SwaggerClients.SwashbuckleSchemaHelper();
+    var schemaHelper = new SwashbuckleSchemaHelper();
     options.CustomSchemaIds(type => schemaHelper.GetSchemaId(type));
 });
 ```
