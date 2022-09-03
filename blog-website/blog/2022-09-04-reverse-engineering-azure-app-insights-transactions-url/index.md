@@ -266,145 +266,148 @@ using Newtonsoft.Json;
 
 namespace AzureApplicationInsightsTransactionSearchUrl
 {
-    public static string? MakeAzureApplicationInsightsTransactionUrl(
-        string applicationInsightsId,
-        DateTime startDate,
-        DateTime endDate
+  public static class UrlBuilder
+  {
+    public static string MakeAzureApplicationInsightsTransactionUrl(
+      string applicationInsightsId,
+      DateTime startDate,
+      DateTime endDate
     )
     {
-        var endDateAsString = endDate.ToAzureLogsString();
-        var startDateAsString = startDate.ToAzureLogsString();
-        var durationMs = Convert.ToInt32((endDate - startDate).TotalMilliseconds);
+      var endDateAsString = endDate.ToAzureLogsString();
+      var startDateAsString = startDate.ToAzureLogsString();
+      var durationMs = Convert.ToInt32((endDate - startDate).TotalMilliseconds);
 
-        var logsQuery = new LogsQuery(
-            Tables: new List<string> {
-                "availabilityResults",
-                "requests",
-                "exceptions",
-                "pageViews",
-                "traces",
-                "customEvents",
-                "dependencies"
-             },
-            TimeContextWhereClause: $"| where timestamp > datetime(\"{startDateAsString}\") and timestamp < datetime(\"{endDateAsString}\")",
-            FilterWhereClause: $"| order by timestamp desc",
-                OriginalParams: new OriginalParams(
-                    EventTypes: new List<EventType>
-                    {
-                        new (
-                            Value: "availabilityResult",
-                            TableName: "availabilityResults",
-                            Label: "Availability"
-                        ),
-                        new (
-                            Value: "request",
-                            TableName: "requests",
-                            Label: "Request"
-                        ),
-                        new (
-                            Value: "exception",
-                            TableName: "exceptions",
-                            Label: "Exception"
-                        ),
-                        new (
-                            Value: "pageView",
-                            TableName: "pageViews",
-                            Label: "Page View"
-                        ),
-                        new (
-                            Value: "trace",
-                            TableName: "traces",
-                            Label: "Trace"
-                        ),
-                        new (
-                            Value: "customEvent",
-                            TableName: "customEvents",
-                            Label: "Custom Event"
-                        ),
-                        new (
-                            Value: "dependency",
-                            TableName: "dependencies",
-                            Label: "Dependency"
-                        ),
-                    },
-                    TimeContext: new TimeContext(
-                        DurationMs: durationMs,
-                        EndTime: endDateAsString
-                    ),
-                    Filter: new List<Filter>(),
-                    SearchPhrase: new SearchPhrase(
-                        OriginalPhrase: "",
-                        Tokens: new List<Token>()
-                    ),
-                    Sort: "desc"
-                )
-            );
+      var logsQuery = new LogsQuery(
+        Tables: new List<string> {
+            "availabilityResults",
+            "requests",
+            "exceptions",
+            "pageViews",
+            "traces",
+            "customEvents",
+            "dependencies"
+          },
+        TimeContextWhereClause: $"| where timestamp > datetime(\"{startDateAsString}\") and timestamp < datetime(\"{endDateAsString}\")",
+        FilterWhereClause: $"| order by timestamp desc",
+        OriginalParams: new OriginalParams(
+            EventTypes: new List<EventType>
+            {
+                new (
+                    Value: "availabilityResult",
+                    TableName: "availabilityResults",
+                    Label: "Availability"
+                ),
+                new (
+                    Value: "request",
+                    TableName: "requests",
+                    Label: "Request"
+                ),
+                new (
+                    Value: "exception",
+                    TableName: "exceptions",
+                    Label: "Exception"
+                ),
+                new (
+                    Value: "pageView",
+                    TableName: "pageViews",
+                    Label: "Page View"
+                ),
+                new (
+                    Value: "trace",
+                    TableName: "traces",
+                    Label: "Trace"
+                ),
+                new (
+                    Value: "customEvent",
+                    TableName: "customEvents",
+                    Label: "Custom Event"
+                ),
+                new (
+                    Value: "dependency",
+                    TableName: "dependencies",
+                    Label: "Dependency"
+                ),
+            },
+        TimeContext: new TimeContext(
+            DurationMs: durationMs,
+            EndTime: endDateAsString
+        ),
+        Filter: new List<Filter>(),
+        SearchPhrase: new SearchPhrase(
+            OriginalPhrase: "",
+            Tokens: new List<Token>()
+        ),
+        Sort: "desc"
+        )
+      );
 
-        var baseUrl = "https://portal.azure.com/#blade/AppInsightsExtension/BladeRedirect/BladeName/searchV1/ResourceId/";
-        var encodedApplicationInsightsId = WebUtility.UrlEncode(applicationInsightsId);
-        var moreRouting = "/BladeInputs/";
-        var encodedLogsQuery = WebUtility.UrlEncode(JsonConvert.SerializeObject(logsQuery));
-        var logsUrl = $"{baseUrl}{encodedApplicationInsightsId}{moreRouting}{encodedLogsQuery}";
+      var baseUrl = "https://portal.azure.com/#blade/AppInsightsExtension/BladeRedirect/BladeName/searchV1/ResourceId/";
+      var encodedApplicationInsightsId = WebUtility.UrlEncode(applicationInsightsId);
+      var moreRouting = "/BladeInputs/";
+      var encodedLogsQuery = WebUtility.UrlEncode(JsonConvert.SerializeObject(logsQuery));
+      var logsUrl = $"{baseUrl}{encodedApplicationInsightsId}{moreRouting}{encodedLogsQuery}";
 
-        return logsUrl;
+      return logsUrl;
     }
+  }
 
-    public record EventType(
-        [property: JsonProperty("value")] string Value,
-        [property: JsonProperty("tableName")] string TableName,
-        [property: JsonProperty("label")] string Label
-    );
+  public record EventType(
+      [property: JsonProperty("value")] string Value,
+      [property: JsonProperty("tableName")] string TableName,
+      [property: JsonProperty("label")] string Label
+  );
 
-    public record TimeContext(
-        [property: JsonProperty("durationMs")] int DurationMs,
-        [property: JsonProperty("endTime")] string EndTime
-    );
+  public record TimeContext(
+      [property: JsonProperty("durationMs")] int DurationMs,
+      [property: JsonProperty("endTime")] string EndTime
+  );
 
-    public record Dimension(
-        [property: JsonProperty("displayName")] string DisplayName,
-        [property: JsonProperty("tables")] IReadOnlyList<string> Tables,
-        [property: JsonProperty("name")] string Name,
-        [property: JsonProperty("draftKey")] string DraftKey
-    );
+  public record Dimension(
+      [property: JsonProperty("displayName")] string DisplayName,
+      [property: JsonProperty("tables")] IReadOnlyList<string> Tables,
+      [property: JsonProperty("name")] string Name,
+      [property: JsonProperty("draftKey")] string DraftKey
+  );
 
-    public record Operator(
-        [property: JsonProperty("label")] string Label,
-        [property: JsonProperty("value")] string Value,
-        [property: JsonProperty("isSelected")] bool IsSelected
-    );
+  public record Operator(
+      [property: JsonProperty("label")] string Label,
+      [property: JsonProperty("value")] string Value,
+      [property: JsonProperty("isSelected")] bool IsSelected
+  );
 
-    public record Filter(
-        [property: JsonProperty("dimension")] Dimension Dimension,
-        [property: JsonProperty("values")] IReadOnlyList<string> Values,
-        [property: JsonProperty("operator")] Operator Operator
-    );
+  public record Filter(
+      [property: JsonProperty("dimension")] Dimension Dimension,
+      [property: JsonProperty("values")] IReadOnlyList<string> Values,
+      [property: JsonProperty("operator")] Operator Operator
+  );
 
-    public record Token(
-        [property: JsonProperty("conjunction")] string Conjunction,
-        [property: JsonProperty("value")] string Value,
-        [property: JsonProperty("isNot")] bool IsNot,
-        [property: JsonProperty("kql")] string Kql
-    );
+  public record Token(
+      [property: JsonProperty("conjunction")] string Conjunction,
+      [property: JsonProperty("value")] string Value,
+      [property: JsonProperty("isNot")] bool IsNot,
+      [property: JsonProperty("kql")] string Kql
+  );
 
-    public record SearchPhrase(
-        [property: JsonProperty("originalPhrase")] string OriginalPhrase,
-        [property: JsonProperty("_tokens")] IReadOnlyList<Token> Tokens
-    );
+  public record SearchPhrase(
+      [property: JsonProperty("originalPhrase")] string OriginalPhrase,
+      [property: JsonProperty("_tokens")] IReadOnlyList<Token> Tokens
+  );
 
-    public record OriginalParams(
-        [property: JsonProperty("eventTypes")] IReadOnlyList<EventType> EventTypes,
-        [property: JsonProperty("timeContext")] TimeContext TimeContext,
-        [property: JsonProperty("filter")] IReadOnlyList<Filter> Filter,
-        [property: JsonProperty("searchPhrase")] SearchPhrase SearchPhrase,
-        [property: JsonProperty("sort")] string Sort
-    );
+  public record OriginalParams(
+      [property: JsonProperty("eventTypes")] IReadOnlyList<EventType> EventTypes,
+      [property: JsonProperty("timeContext")] TimeContext TimeContext,
+      [property: JsonProperty("filter")] IReadOnlyList<Filter> Filter,
+      [property: JsonProperty("searchPhrase")] SearchPhrase SearchPhrase,
+      [property: JsonProperty("sort")] string Sort
+  );
 
-    public record LogsQuery(
-        [property: JsonProperty("tables")] IReadOnlyList<string> Tables,
-        [property: JsonProperty("timeContextWhereClause")] string TimeContextWhereClause,
-        [property: JsonProperty("filterWhereClause")] string FilterWhereClause,
-        [property: JsonProperty("originalParams")] OriginalParams OriginalParams
-    );
+  public record LogsQuery(
+      [property: JsonProperty("tables")] IReadOnlyList<string> Tables,
+      [property: JsonProperty("timeContextWhereClause")] string TimeContextWhereClause,
+      [property: JsonProperty("filterWhereClause")] string FilterWhereClause,
+      [property: JsonProperty("originalParams")] OriginalParams OriginalParams
+  );
 }
 ```
 
