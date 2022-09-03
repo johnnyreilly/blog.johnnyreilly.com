@@ -268,6 +268,12 @@ namespace AzureApplicationInsightsTransactionSearchUrl
 {
   public static class UrlBuilder
   {
+    /// <summary>
+    /// eg 2022-05-03T14:22:51.180Z
+    /// </summary>
+    public static string ToAzureLogsString(this DateTime value) =>
+        value.ToString("yyyy-MM-ddTHH:mm:ss.fffK", CultureInfo.InvariantCulture);
+
     public static string MakeAzureApplicationInsightsTransactionUrl(
       string applicationInsightsId,
       DateTime startDate,
@@ -280,65 +286,65 @@ namespace AzureApplicationInsightsTransactionSearchUrl
 
       var logsQuery = new LogsQuery(
         Tables: new List<string> {
-            "availabilityResults",
-            "requests",
-            "exceptions",
-            "pageViews",
-            "traces",
-            "customEvents",
-            "dependencies"
-          },
+          "availabilityResults",
+          "requests",
+          "exceptions",
+          "pageViews",
+          "traces",
+          "customEvents",
+          "dependencies"
+        },
         TimeContextWhereClause: $"| where timestamp > datetime(\"{startDateAsString}\") and timestamp < datetime(\"{endDateAsString}\")",
         FilterWhereClause: $"| order by timestamp desc",
         OriginalParams: new OriginalParams(
-            EventTypes: new List<EventType>
-            {
-                new (
-                    Value: "availabilityResult",
-                    TableName: "availabilityResults",
-                    Label: "Availability"
-                ),
-                new (
-                    Value: "request",
-                    TableName: "requests",
-                    Label: "Request"
-                ),
-                new (
-                    Value: "exception",
-                    TableName: "exceptions",
-                    Label: "Exception"
-                ),
-                new (
-                    Value: "pageView",
-                    TableName: "pageViews",
-                    Label: "Page View"
-                ),
-                new (
-                    Value: "trace",
-                    TableName: "traces",
-                    Label: "Trace"
-                ),
-                new (
-                    Value: "customEvent",
-                    TableName: "customEvents",
-                    Label: "Custom Event"
-                ),
-                new (
-                    Value: "dependency",
-                    TableName: "dependencies",
-                    Label: "Dependency"
-                ),
-            },
-        TimeContext: new TimeContext(
-            DurationMs: durationMs,
-            EndTime: endDateAsString
-        ),
-        Filter: new List<Filter>(),
-        SearchPhrase: new SearchPhrase(
-            OriginalPhrase: "",
-            Tokens: new List<Token>()
-        ),
-        Sort: "desc"
+          EventTypes: new List<EventType>
+          {
+            new (
+                Value: "availabilityResult",
+                TableName: "availabilityResults",
+                Label: "Availability"
+            ),
+            new (
+                Value: "request",
+                TableName: "requests",
+                Label: "Request"
+            ),
+            new (
+                Value: "exception",
+                TableName: "exceptions",
+                Label: "Exception"
+            ),
+            new (
+                Value: "pageView",
+                TableName: "pageViews",
+                Label: "Page View"
+            ),
+            new (
+                Value: "trace",
+                TableName: "traces",
+                Label: "Trace"
+            ),
+            new (
+                Value: "customEvent",
+                TableName: "customEvents",
+                Label: "Custom Event"
+            ),
+            new (
+                Value: "dependency",
+                TableName: "dependencies",
+                Label: "Dependency"
+            ),
+          },
+          TimeContext: new TimeContext(
+              DurationMs: durationMs,
+              EndTime: endDateAsString
+          ),
+          Filter: new List<Filter>(),
+          SearchPhrase: new SearchPhrase(
+              OriginalPhrase: "",
+              Tokens: new List<Token>()
+          ),
+          Sort: "desc"
         )
       );
 
