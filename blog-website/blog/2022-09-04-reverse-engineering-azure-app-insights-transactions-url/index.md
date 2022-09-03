@@ -1,14 +1,14 @@
 ---
-title: 'Azure Application Insights Transaction Search URL'
+title: 'Reverse engineering the Azure Application Insights Transactions URL'
 authors: johnnyreilly
 tags: [Azure Application Insights, Transaction Search, URL, TypeScript, C#]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
-Logs matter. In Azure, logs generally live in Application Insights, in the Transaction Search section. This post details how to construct a link to take you directly there, using both TypeScript and C#.
+Logs matter. In Azure, logs generally live in Application Insights, in the Transaction Search section. This post reverse engineers the Azure Application Insights Transactions URL, and details how to construct a link to take you directly there, using both TypeScript and C#.
 
-![title image reading "Swashbuckle and schemaId is already used" with the Azure Static Web Apps logo and a Terry Pratchett icon by Lisa Krymova from NounProject.com](title-image.png)
+![title image reading "Swashbuckle and schemaId is already used" with the Azure Static Web Apps logo and a Terry Pratchett icon by Lisa Krymova from NounProject.com](title-image.webp)
 
 ## Bring me the logs!
 
