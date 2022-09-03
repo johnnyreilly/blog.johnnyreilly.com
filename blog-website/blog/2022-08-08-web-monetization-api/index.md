@@ -42,3 +42,11 @@ When it asked this question:
 I opted to accept all regions. After the usual signup process, I was able to see able to see my new (empty) account:
 
 ![screenshot of the dashboard of uphold with a balance of £0](./screenshot-uphold-dashboard.png)
+
+### Payment pointer
+
+The next thing we need to do is acquire our payment pointer. I found this tricky to track down and eventually Alex showed me where to go. On the right hand side of the dashboard, there is an "anything to anything" section:
+
+![gif of the payment pointer found in uphold](./payment-pointer.gif)
+
+Clicking on the "copy" button copies the payment pointer to the clipboard. I'll need this later. In my case that is: `$ilp.uphold.com/LwQQhXdpwxeJ`
