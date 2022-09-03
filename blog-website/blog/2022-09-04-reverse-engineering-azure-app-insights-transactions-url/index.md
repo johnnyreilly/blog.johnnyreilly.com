@@ -16,9 +16,11 @@ If you've ever supported a production system, you will know this to be true: log
 
 ![Screenshot of the Azure Application Insights Transaction Search screen](screenshot-application-insights-transaction-search.png)
 
-Whilst Transaction Search is very powerful, it can also be a little tough to find the things that you need. In a system I'm working on now, we've found ourselves building a techops application that allows to provide support. We use it to bring together disparate pieces of information across our estate. As we use it, we're usually looking at a particular slice of time. If we don't find what we need in our application we'll find a need to dig into the logs for the same period.
+Whilst Transaction Search is very powerful, it can also be a little tough to find the things that you need. In a system I'm working on now, we've found ourselves building an application that allows us to provide support. We use it to bring together disparate pieces of information across our estate. As we use it, we're usually looking at a particular slice of time. If we don't find what we need in our application we'll find a need to dig into the logs for the same period.
 
-Rather than logging into Azure, finding Application Insights, going to Transactions and entering the time period, what if we could just go there? We can. Look at the screenshot above, do you see the "Copy link" button? That button copies a URL to the clipboard which encapsulates the current search criteria. And it turns out we can reverse engineer it!
+Rather than manually logging into Azure, finding Application Insights, going to Transactions and entering the time period, what if we could just go there at the click of a link? We can.
+
+Look at the screenshot above, do you see the "Copy link" button? That button copies a URL to the clipboard which encapsulates the current search criteria. And it turns out we can reverse engineer it!
 
 ## Breaking down the link
 
@@ -42,7 +44,7 @@ This is a recognisable base URL and takes us to the relevant part of the Azure P
 
 ### 2. ResourceId
 
-Next we have a URL encoded RescourceId:
+Next we have a URL encoded ResourceId:
 
 ```text
 %2Fsubscriptions%2F4e41a677-9a57-4a7c-9c4c-e71bae5d998e%2Fresourcegroups%2Frg-maas-shared-storage-dev-001%2Fproviders%2Fmicrosoft.insights%2Fcomponents%2Fappi-maas-shared-dev
@@ -72,7 +74,7 @@ The next part of the URL is just some more Azure Portal routing:
 
 ### 4. The query
 
-Finally we have the query:
+Finally we have the (very long) query:
 
 ```text
 %7B%22tables%22%3A%5B%22traces%22%5D%2C%22timeContextWhereClause%22%3A%22%7C+where+timestamp+%3E+datetime(%5C%222022-05-03T10%3A04%3A33.267Z%5C%22)+and+timestamp+%3C+datetime(%5C%222022-05-03T10%3A34%3A33.267Z%5C%22)%22%2C%22filterWhereClause%22%3A%22%7C+where+severityLevel+in+(%5C%223%5C%22)%7C+where+_+has+%5C%22healthcheck%5C%22%7C+order+by+timestamp+desc%22%2C%22originalParams%22%3A%7B%22eventTypes%22%3A%5B%7B%22value%22%3A%22availabilityResult%22%2C%22tableName%22%3A%22availabilityResults%22%2C%22label%22%3A%22Availability%22%7D%2C%7B%22value%22%3A%22request%22%2C%22tableName%22%3A%22requests%22%2C%22label%22%3A%22Request%22%7D%2C%7B%22value%22%3A%22exception%22%2C%22tableName%22%3A%22exceptions%22%2C%22label%22%3A%22Exception%22%7D%2C%7B%22value%22%3A%22pageView%22%2C%22tableName%22%3A%22pageViews%22%2C%22label%22%3A%22Page+View%22%7D%2C%7B%22value%22%3A%22trace%22%2C%22tableName%22%3A%22traces%22%2C%22label%22%3A%22Trace%22%7D%2C%7B%22value%22%3A%22customEvent%22%2C%22tableName%22%3A%22customEvents%22%2C%22label%22%3A%22Custom+Event%22%7D%2C%7B%22value%22%3A%22dependency%22%2C%22tableName%22%3A%22dependencies%22%2C%22label%22%3A%22Dependency%22%7D%5D%2C%22timeContext%22%3A%7B%22durationMs%22%3A1800000%2C%22endTime%22%3A%222022-05-03T10%3A34%3A33.267Z%22%7D%2C%22filter%22%3A%5B%5D%2C%22searchPhrase%22%3A%7B%22originalPhrase%22%3A%22healthcheck%22%2C%22_tokens%22%3A%5B%7B%22conjunction%22%3A%22and%22%2C%22value%22%3A%22healthcheck%22%2C%22isNot%22%3Afalse%2C%22kql%22%3A%22+_+has+%5C%22healthcheck%5C%22%22%7D%5D%7D%2C%22sort%22%3A%22desc%22%7D%7D
@@ -154,7 +156,7 @@ And if we parse that JSON object we get:
 }
 ```
 
-We can clearly see in the object above the aspects that contribute to our query. It's probably worth drawing to your attention that when I generated the above query, I had the `traces` table selected and I was searching for the phrase "healthcheck" in our logs. If I had selected `requests` instead, the `tables` array would have contained `requests` instead of `traces`. If I had been searching for a different phrase, the `searchPhrase` and `filterWhereClause` objects would have contained different values.
+We can clearly see in the object above the aspects that contribute to our query. It's worth highlighting that when I generated the above query, I had the `traces` table selected and I was searching for the phrase "healthcheck". If I had selected `requests` instead, the `tables` array would have contained `requests` instead of `traces`. If I had been searching for a different phrase, the `searchPhrase` and `filterWhereClause` objects would have contained different values.
 
 ## Reverse engineering a link
 
@@ -232,9 +234,13 @@ function makeAzureApplicationInsightsTransactionUrl({
     },
   };
 
-  const logsUrl = `https://portal.azure.com/#blade/AppInsightsExtension/BladeRedirect/BladeName/searchV1/ResourceId/${encodeURIComponent(
+  const baseUrl = `https://portal.azure.com/#blade/AppInsightsExtension/BladeRedirect/BladeName/searchV1/ResourceId/`;
+  const encodedApplicationInsightsId = encodeURIComponent(
     applicationInsightsId
-  )}/BladeInputs/${encodeURIComponent(JSON.stringify(logsQuery))}`;
+  );
+  const moreRouting = `/BladeInputs/`;
+  const encodedLogsQuery = encodeURIComponent(JSON.stringify(logsQuery));
+  const logsUrl = `${baseUrl}${encodedApplicationInsightsId}${moreRouting}${encodedLogsQuery}`;
 
   return logsUrl;
 }
@@ -246,11 +252,13 @@ The above code is a function that takes in an object with the following properti
 - `startDate` - the start date of the time range
 - `endDate` - the end date of the time range
 
+You can see that it takes these inputs and uses them to build up a URL made up of the four sections we identified earlier.
+
 The URL it generates is the URL that will open the Application Insights logs blade in the Azure portal with the time range selected. This code is not including any kind of search phrase, but it could easily be adjusted to cater for that.
 
 ## C# URL builder
 
-We can do the same thing in C#. It's a bit more verbose than the TypeScript version, but it's still pretty straightforward:
+We can do the same thing in C#. It's a bit more verbose than the TypeScript version, but it's still pretty straightforward. We'll create a new file called `UrlBuilder.cs` and add the following code:
 
 ```cs
 using System.Collections.Generic;
@@ -332,8 +340,13 @@ namespace AzureApplicationInsightsTransactionSearchUrl
                 )
             );
 
-        string appInsights = ;
-        var logsUrl = $"https://portal.azure.com/#blade/AppInsightsExtension/BladeRedirect/BladeName/searchV1/ResourceId/{WebUtility.UrlEncode(applicationInsightsId)}/BladeInputs/{WebUtility.UrlEncode(JsonConvert.SerializeObject(MakeLogsQuery(azureMonitorCommonAlert, searchFor)))}";
+        var baseUrl = "https://portal.azure.com/#blade/AppInsightsExtension/BladeRedirect/BladeName/searchV1/ResourceId/";
+        var encodedApplicationInsightsId = WebUtility.UrlEncode(applicationInsightsId);
+        var moreRouting = "/BladeInputs/";
+        var encodedLogsQuery = WebUtility.UrlEncode(JsonConvert.SerializeObject(logsQuery));
+        var logsUrl = $"{baseUrl}{encodedApplicationInsightsId}{moreRouting}{encodedLogsQuery}";
+
+        return logsUrl;
     }
 
     public record EventType(
