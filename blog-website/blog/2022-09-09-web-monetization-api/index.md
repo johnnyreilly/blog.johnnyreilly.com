@@ -51,6 +51,8 @@ The next thing we need to do is acquire our payment pointer. I found this tricky
 
 Clicking on the "copy" button copies the payment pointer to the clipboard. I'll need this later. In my case that is: `$ilp.uphold.com/LwQQhXdpwxeJ`
 
+### Meta tag
+
 The next thing to do is to make a meta tag using the payment pointer. This is the tag that will tell the browser that the page supports Web Monetization. The tag looks like this:
 
 ```html
@@ -58,6 +60,8 @@ The next thing to do is to make a meta tag using the payment pointer. This is th
 ```
 
 As you can see, the content attribute is the payment pointer I just acquired.
+
+### Meta tag with Docusaurus
 
 The final step here would be adding this meta tag to the pages served up by my site. I'm using Docusaurus for my blog, so I'll need to add it to the [`docusaurus.config.js` file](https://docusaurus.io/docs/next/seo#global-metadata):
 
@@ -72,4 +76,4 @@ module.exports = {
 };
 ```
 
-With that done, I'm ready to try out the Web Monetization API.
+With that done, my site is web monetized! Or at least... I think it is? What does that mean? Well, I'm not entirely sure. I'm going to try and find out.
