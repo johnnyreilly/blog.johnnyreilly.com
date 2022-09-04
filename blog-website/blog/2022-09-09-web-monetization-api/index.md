@@ -50,3 +50,26 @@ The next thing we need to do is acquire our payment pointer. I found this tricky
 ![gif of the payment pointer found in uphold](./payment-pointer.gif)
 
 Clicking on the "copy" button copies the payment pointer to the clipboard. I'll need this later. In my case that is: `$ilp.uphold.com/LwQQhXdpwxeJ`
+
+The next thing to do is to make a meta tag using the payment pointer. This is the tag that will tell the browser that the page supports Web Monetization. The tag looks like this:
+
+```html
+<meta name="monetization" content="$ilp.uphold.com/LwQQhXdpwxeJ" />
+```
+
+As you can see, the content attribute is the payment pointer I just acquired.
+
+The final step here would be adding this meta tag to the pages served up by my site. I'm using Docusaurus for my blog, so I'll need to add it to the [`docusaurus.config.js` file](https://docusaurus.io/docs/next/seo#global-metadata):
+
+```js
+module.exports = {
+  themeConfig: {
+    metadata: [
+      { name: 'monetization', content: '$ilp.uphold.com/LwQQhXdpwxeJ' },
+    ],
+    // This would become <meta name="monetization" content="$ilp.uphold.com/LwQQhXdpwxeJ"> in the generated HTML
+  },
+};
+```
+
+With that done, I'm ready to try out the Web Monetization API.

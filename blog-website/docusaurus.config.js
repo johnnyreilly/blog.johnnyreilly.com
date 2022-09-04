@@ -175,7 +175,7 @@ const config = {
         { name: 'monetization', content: '$ilp.uphold.com/LwQQhXdpwxeJ' },
         // This would become <meta name="monetization" content="$ilp.uphold.com/LwQQhXdpwxeJ"> in the generated HTML
       ],
-      
+
       algolia: {
         // If Algolia did not provide you any appId, use 'BH4D9OD16A'
         appId: 'J3MYR1INLT',
