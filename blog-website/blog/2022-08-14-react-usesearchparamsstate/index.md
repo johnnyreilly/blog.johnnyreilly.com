@@ -9,7 +9,7 @@ const [greeting, setGreeting] = useState('hello world');
 
 // ....
 
-setTotal('hello John'); // will set greeting to 'hello John'
+setGreeting('hello John'); // will set greeting to 'hello John'
 ```
 
 However, there is a disadvantage to using `useState`; that state is not persistent and not shareable. So if you want someone else to see what you can see in an application, you're reliant on them carrying out the same actions that got your application into its current state. Doing that can be time consuming and error prone. Wouldn't it be great if there was a simple way to share state? 
