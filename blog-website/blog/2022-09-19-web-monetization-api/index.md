@@ -1,5 +1,5 @@
 ---
-title: 'Web Monetization API - getting started'
+title: 'Getting started with the Web Monetization API'
 authors: johnnyreilly
 tags: [Web Monetization]
 image: ./title-image.png
@@ -20,11 +20,9 @@ I recently attended the [HalfStack at the Beach](https://halfstackconf.com/newqu
 
 I was intrigued. Alex was kind enough to share some links with me, and I decided to take the Web Monetization API for a spin, and see what it was like. So this post is going to be exactly that. I'm a noob; I don't know how to use the Web Monetization API (or much about it TBH). Over the course of this post I'll try and integrate it into my blog. As I do that I'll share what I'm doing and how I found things; to try to provide a useful resource (and some feedback) on what adoption feels like.
 
-## Getting started
-
 Alex shared a link to https://webmonetization.org/ - in there I found a [quick start](https://webmonetization.org/docs/getting-started) which I decided to work through.
 
-### Wallet
+## Wallet
 
 The first thing to do is [setting up a wallet](https://webmonetization.org/docs/getting-started#1-set-up-a-web-monetized-wallet). I imagine that this is comparable to having a bank account in a bank. There appear to be two options for this:
 
@@ -32,6 +30,8 @@ The first thing to do is [setting up a wallet](https://webmonetization.org/docs/
 - [gatehub](https://gatehub.net/)
 
 [Right now, uphold offers a greater number of features](https://webmonetization.org/docs/ilp-wallets/#digital-wallets), so I'll create a wallet with them.
+
+## Uphold
 
 The signup process was pretty straightforward. I got slightly confused was seeing this prompt:
 
@@ -47,7 +47,7 @@ I opted to accept all regions. After the usual signup process, I was able to see
 
 ![screenshot of the dashboard of uphold with a balance of £0](./screenshot-uphold-dashboard.png)
 
-### Payment pointer
+## Payment pointer
 
 The next thing we need to do is acquire our payment pointer. I found this tricky to track down and eventually Alex showed me where to go. On the right hand side of the dashboard, there is an "anything to anything" section:
 
@@ -55,7 +55,7 @@ The next thing we need to do is acquire our payment pointer. I found this tricky
 
 Clicking on the "copy" button copies the payment pointer to the clipboard. I'll need this later. In my case that is: `$ilp.uphold.com/LwQQhXdpwxeJ`
 
-### Meta tag
+## Meta tag
 
 The next thing to do is to make a meta tag using the payment pointer. This is the tag that will tell the browser that the page supports Web Monetization. The tag looks like this:
 
@@ -65,7 +65,7 @@ The next thing to do is to make a meta tag using the payment pointer. This is th
 
 As you can see, the content attribute is the payment pointer I just acquired.
 
-### Meta tag with Docusaurus
+## Meta tag with Docusaurus
 
 The final step here would be adding this meta tag to the pages served up by my site. I'm using Docusaurus for my blog, so I'll need to add it to the [`docusaurus.config.js` file](https://docusaurus.io/docs/next/seo#global-metadata):
 
@@ -80,4 +80,22 @@ module.exports = {
 };
 ```
 
-With that done, my site is web monetized! Or at least... I think it is? What does that mean? Well, I'm not entirely sure. I'm going to try and find out.
+With that done, my site is web monetized! Or at least... I think it is... What does that mean? Well, I wasn't entirely sure. I reached out to Alex again, showed him my site and said "does this work?" He said:
+
+![screenshot of conversation with Alex on Twitter, him saying "Hey John. That's it! I just sent you a little tip on uphold, if you've set that up correctly, you'll see it in your account"](screenshot-am-i-doing-it-right-alex.png)
+
+And sure enough, I found Alex had indeed sent me the princely sum of 83 pence on Uphold! (I'm pretty sure he sent $1 - otherwise that specific amount would be a touch peculiar!)
+
+## Coil
+
+It turned out that Alex had used a browser extension called [Coil](https://coil.com/) to send me the money. It's a browser extension that allows you to send money to websites that support Web Monetization. It's a bit like a browser based Patreon or Buy Me a Coffee.
+
+I'd set up an Uphold account so I could receive money from other people. Coil is like the flipside of that it seems, it lets you send money to others. It turned out that I could set up a Coil account using the Uphold account I'd just created to _send_ money:
+
+![screenshot of entering my uphold payment pointer into my coil account](screenshot-setting-up-coil.png)
+
+So that's what I did. I entered my payment pointer into Coil and now I can send money to other people's sites that support Web Monetization. But what does that look like? Well, I decided to try it out on my own site. I installed the [Coil browser extension](https://coil.com/) and then went to my site and gave it a whirl:
+
+![GIF of tipping myself $1 using Coil](tipping-with-coil.gif)
+
+I went to my blog and sure enough, I was able to send a tip to myself. I sent myself 83 pence again. I'm not sure what the difference is between this and the money Alex sent me, but I'm sure I'll find out.
