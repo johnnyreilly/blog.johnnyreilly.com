@@ -98,4 +98,6 @@ So that's what I did. I entered my payment pointer into Coil and now I can send 
 
 ![GIF of tipping myself $1 using Coil](tipping-with-coil.gif)
 
-I went to my blog and sure enough, I was able to send a tip to myself. I sent myself 83 pence again. I'm not sure what the difference is between this and the money Alex sent me, but I'm sure I'll find out.
+I went to my blog and sure enough, I was able to send a tip to myself.
+
+BUT THE MONEY DIDN'T TURN UP!
