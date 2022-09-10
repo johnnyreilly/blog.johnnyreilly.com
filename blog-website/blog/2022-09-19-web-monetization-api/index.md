@@ -98,6 +98,8 @@ So that's what I did. I entered my payment pointer into Coil and now I can send 
 
 ![GIF of tipping myself $1 using Coil](tipping-with-coil.gif)
 
-I went to my blog and sure enough, I was able to send a tip to myself.
+I went to my blog and sure enough, I was able to send a tip to myself. When I flipped over to my Uphold account, I could see that the money was on its way!
 
-BUT THE MONEY DIDN'T TURN UP!
+![screenshot of uphold including details of an incoming payment of $1 or 93 pence](screenshot-uphold-incoming-tip.png)
+
+Just as Alex had been able to send me $1 on September 4th, I was able to send myself $1 on September 10th. (Incidentally, the shift in amount from 83 pence to 93 pence between transactions is purely due to the changing value exchange rate between GBP and USD. At present the Pound is decreasing in value against the Dollar, so the amount of money I received in GBP when I tipped myself $1 worked out to be more than when Alex did.)
