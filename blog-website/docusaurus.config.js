@@ -169,9 +169,13 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // <meta name="robots" content="max-image-preview:large">
-      metadata: [{ name: 'robots', content: 'max-image-preview:large' }],
-
+      metadata: [
+        { name: 'robots', content: 'max-image-preview:large' },
+        // This would become <meta name="robots" content="max-image-preview:large"> in the generated HTML
+        { name: 'monetization', content: '$ilp.uphold.com/LwQQhXdpwxeJ' },
+        // This would become <meta name="monetization" content="$ilp.uphold.com/LwQQhXdpwxeJ"> in the generated HTML
+      ],
+      
       algolia: {
         // If Algolia did not provide you any appId, use 'BH4D9OD16A'
         appId: 'J3MYR1INLT',
