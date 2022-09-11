@@ -6,10 +6,6 @@ image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-<head>
-  <link rel="monetization" href="https://ilp.uphold.com/LwQQhXdpwxeJ" />
-</head>
-
 The Web Monetization API is a JavaScript browser API that allows the creation of a payment stream from the user agent to the website. This post walks through getting started adding it to a site.
 
 ![title image reading "Web Monetization API - getting started" with the Web Monetization logo](title-image.png)
@@ -57,36 +53,57 @@ Clicking on the "copy" button copies the payment pointer to the clipboard. I'll 
 
 You might be looking at the payment pointer and thinking, "that looks kinda URL-y" ... And you'd be be right! Because `$ilp.uphold.com/LwQQhXdpwxeJ` is equivalent to this URL: `https://ilp.uphold.com/LwQQhXdpwxeJ`. We just swap out the `$` for `https://`.
 
-## Meta tag
+## Monetization link tag
 
-The next thing to do is to make a meta tag using the payment pointer. This is the tag that will tell the browser that the page supports Web Monetization. The tag looks like this:
+The next thing to do is to make a `link` tag using the payment pointer. This is the tag that will tell the browser that the page supports Web Monetization. The tag looks like this:
 
 ```html
-<meta name="monetization" content="$ilp.uphold.com/LwQQhXdpwxeJ" />
+<link rel="monetization" content="https://ilp.uphold.com/LwQQhXdpwxeJ" />
 ```
 
-As you can see, the content attribute is the payment pointer I just acquired.
+As you can see, the content attribute is the payment pointer I just acquired, in its "https" form.
 
-## Meta tag with Docusaurus
+## Docusaurus link tag
 
-The final step here would be adding this meta tag to the pages served up by my site. I'm using Docusaurus for my blog, so I'll need to add it to the [`docusaurus.config.js` file](https://docusaurus.io/docs/next/seo#global-metadata):
+The final step here would be adding this link tag to the pages served up by my site. I'm using Docusaurus for my blog, so I'll need to add it to the [`docusaurus.config.js` file](https://docusaurus.io/docs/next/seo#global-metadata).
+
+The syntax for adding an extra link tag in the head comes in the form of a mini plugin:
 
 ```js
 module.exports = {
-  themeConfig: {
-    metadata: [
-      { name: 'monetization', content: '$ilp.uphold.com/LwQQhXdpwxeJ' },
-    ],
-    // This would become <meta name="monetization" content="$ilp.uphold.com/LwQQhXdpwxeJ"> in the generated HTML
-  },
+  plugins: [
+    function extraHeadTagsPlugin(context, options) {
+      return {
+        name: 'extra-head-tags-plugin',
+        injectHtmlTags({ content }) {
+          return {
+            headTags: [
+              {
+                tagName: 'link',
+                attributes: {
+                  rel: 'monetization',
+                  href: 'https://ilp.uphold.com/LwQQhXdpwxeJ',
+                },
+                // This will become <link rel="monetization" content="https://ilp.uphold.com/LwQQhXdpwxeJ" /> in the generated HTML
+              },
+            ],
+          };
+        },
+      };
+    },
+  ],
 };
 ```
 
-With that done, my site is web monetized! Or at least... I think it is... What does that mean? Well, I wasn't entirely sure. I reached out to Alex again, showed him my site and said "does this work?" He said:
+It's possible the code required to add this link will become simpler [if this pull request lands](https://github.com/facebook/docusaurus/pull/8077). Until then, we will need to use a plugin.
+
+## Hello world Web Monetization API?
+
+With this done, my site is web monetized! Or at least... I think it is... What does that mean? Well, I wasn't entirely sure. I reached out to Alex again, showed him my site and said "does this work?" He said:
 
 ![screenshot of conversation with Alex on Twitter, him saying "Hey John. That's it! I just sent you a little tip on uphold, if you've set that up correctly, you'll see it in your account"](screenshot-am-i-doing-it-right-alex.png)
 
-And sure enough, I found Alex had indeed sent me the princely sum of 83 pence on Uphold! (I'm pretty sure he sent $1 - otherwise that specific amount would be a touch peculiar!)
+And sure enough, I found Alex had indeed sent me the princely sum of 83 pence ($1) on Uphold... It had worked!
 
 ## Coil
 
