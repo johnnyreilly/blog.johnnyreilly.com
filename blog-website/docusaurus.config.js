@@ -70,18 +70,22 @@ const config = {
         },
       };
     },
-    // [
-    //   '@docusaurus/plugin-ideal-image',
-    //   {
-    //     quality: 70,
-    //     max: 1030, // max resized image's size.
-    //     min: 640, // min resized image's size. if original is lower, use that size.
-    //     steps: 2, // the max number of images generated between min and max (inclusive)
-    //   },
-    // ],
     [
-      '@docusaurus/plugin-client-redirects',
-      {
+      'ideal-image',
+      /** @type {import('@docusaurus/plugin-ideal-image').PluginOptions} */
+      ({
+        quality: 70,
+        max: 1030,
+        min: 640,
+        steps: 2,
+        // Use false to debug, but it incurs huge perf costs
+        disableInDev: true,
+      }),
+    ],
+    [
+      'client-redirects',
+      /** @type {import('@docusaurus/plugin-client-redirects').Options} */
+      ({
         redirects: [
           {
             to: '/2018/07/28/azure-app-service-web-app-containers-asp-net-nested-configuration',
@@ -120,10 +124,10 @@ const config = {
             return [oldUrl, `/${year}/${month}/${slug}`];
           }
         },
-      },
+      }),
     ],
     [
-      '@docusaurus/plugin-pwa',
+      'pwa',
       {
         debug: true,
         offlineModeActivationStrategies: [
