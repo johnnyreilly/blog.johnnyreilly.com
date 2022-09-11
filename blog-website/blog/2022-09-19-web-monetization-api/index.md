@@ -16,7 +16,7 @@ The Web Monetization API is a JavaScript browser API that allows the creation of
 
 ## The Web Monetization API
 
-I recently attended the [HalfStack at the Beach](https://halfstackconf.com/newquay/) conference and heard a talk from [Alex Lakatos](https://twitter.com/avolakatos) on the Web Monetization API. I hadn't heard about this previously, but my rough understanding of the concept was that it was a way to monetize a website. My blog already features a [Buy Me a Coffee](https://www.buymeacoffee.com/qUBm0Wh) link, which allows generous people to send me small amounts of money if they've found something I've written useful. The Web Monetization API appears to be that, but built into the browser and proposed proposed as a W3C standard at the [Web Platform Incubator Community Group](https://discourse.wicg.io/t/proposal-web-monetization-a-new-revenue-model-for-the-web/3785).
+I recently attended the [HalfStack at the Beach](https://halfstackconf.com/newquay/) conference and heard a talk from [Alex Lakatos](https://twitter.com/avolakatos) on the Web Monetization API. I hadn't heard about this previously, and I learned that it was a new way to monetize a website. My blog already features a [Buy Me a Coffee](https://www.buymeacoffee.com/qUBm0Wh) link, which allows generous people to send me small amounts of money if they've found something I've written useful. The Web Monetization API appears to be that, but built into the browser and proposed proposed as a W3C standard at the [Web Platform Incubator Community Group](https://discourse.wicg.io/t/proposal-web-monetization-a-new-revenue-model-for-the-web/3785).
 
 I was intrigued. Alex was kind enough to share some links with me, and I decided to take the Web Monetization API for a spin, and see what it was like. So this post is going to be exactly that. I'm a noob; I don't know how to use the Web Monetization API (or much about it TBH). Over the course of this post I'll try and integrate it into my blog. As I do that I'll share what I'm doing and how I found things; to try to provide a useful resource (and some feedback) on what adoption feels like.
 
@@ -53,7 +53,9 @@ The next thing we need to do is acquire our payment pointer. I found this tricky
 
 ![gif of the payment pointer found in uphold](./payment-pointer.gif)
 
-Clicking on the "copy" button copies the payment pointer to the clipboard. I'll need this later. In my case that is: `$ilp.uphold.com/LwQQhXdpwxeJ`
+Clicking on the "copy" button copies the payment pointer to the clipboard. I'll need this later. In my case that is: `$ilp.uphold.com/LwQQhXdpwxeJ`.
+
+You might be looking at the payment pointer and thinking, "that looks kinda URL-y" ... And you'd be be right! Because `$ilp.uphold.com/LwQQhXdpwxeJ` is equivalent to this URL: `https://ilp.uphold.com/LwQQhXdpwxeJ`. We just swap out the `$` for `https://`.
 
 ## Meta tag
 
@@ -88,9 +90,13 @@ And sure enough, I found Alex had indeed sent me the princely sum of 83 pence on
 
 ## Coil
 
-It turned out that Alex had used a browser extension called [Coil](https://coil.com/) to send me the money. It's a browser extension that allows you to send money to websites that support Web Monetization. It's a bit like a browser based Patreon or Buy Me a Coffee.
+It turned out that Alex had used a browser extension called [Coil](https://coil.com/) to send me the money. It's a browser extension that allows you to send money to websites that support Web Monetization. It's a bit like a browser based Patreon or Buy Me a Coffee. But slightly different; [to quote their docs](https://help.coil.com/docs/general-info/intro-to-coil/index.html#how-is-coil-different-from-other-membership-services-like-patreon-and-flattr):
 
-I'd set up an Uphold account so I could receive money from other people. Coil is like the flipside of that it seems, it lets you send money to others. It turned out that I could set up a Coil account using the Uphold account I'd just created to _send_ money:
+> With services like Patreon, you select which creators to support, then pay each creator separately, depending on the membership plans they offer. Coil streams payments in real time to any web monetized sites you visit.
+
+So people can explicitly tip a website using Coil, or they can just use Coil to browse the web and the website will get a small amount of money from Coil. For years I've heard whispers of "micropayments are the missing piece of the web" - this seemed to be solving that problem and I was intrigued.
+
+I'd set up an Uphold account so I could receive money from other people. Coil is like the flipside of that; it would let me send money to other people. You need that money to come from somewhere. It turned out that I could set up a Coil account using the Uphold account I'd just created:
 
 ![screenshot of entering my uphold payment pointer into my coil account](screenshot-setting-up-coil.png)
 
@@ -102,4 +108,10 @@ I went to my blog and sure enough, I was able to send a tip to myself. When I fl
 
 ![screenshot of uphold including details of an incoming payment of $1 or 93 pence](screenshot-uphold-incoming-tip.png)
 
-Just as Alex had been able to send me $1 on September 4th, I was able to send myself $1 on September 10th. (Incidentally, the shift in amount from 83 pence to 93 pence between transactions is purely due to the changing value exchange rate between GBP and USD. At present the Pound is decreasing in value against the Dollar, so the amount of money I received in GBP when I tipped myself $1 worked out to be more than when Alex did.)
+Just as Alex had been able to send me $1 on September 4th, I was able to send myself $1 on September 10th! (Incidentally, the shift in amount from 83 pence to 93 pence between transactions is purely due to the changing value exchange rate between GBP and USD. At present the Pound is decreasing in value against the Dollar, so the amount of money I received in GBP when I tipped myself $1 worked out to be more than when Alex did.)
+
+## Conclusion
+
+In this post we have got to know the Web Monetization API, we've used it to monetize our own site and we've used it to tip ourselves. We've also seen how Coil works and how it can be used to tip other people's sites. I'm excited to see how this develops. It feels like a way to support people who are making things we care about on the web.
+
+Thanks so much to [Alex Lakatos](https://twitter.com/avolakatos) for telling me about this in the first place and for answering all my questions!
