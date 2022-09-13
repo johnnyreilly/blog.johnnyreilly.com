@@ -67,7 +67,7 @@ As you can see, the content attribute is the payment pointer I just acquired, in
 
 The final step here would be adding this link tag to the pages served up by my site. I'm using Docusaurus for my blog, so I'll need to add it to the [`docusaurus.config.js` file](https://docusaurus.io/docs/next/seo#global-metadata).
 
-The syntax for adding an extra link tag in the head comes in the form of a mini plugin:
+The syntax for adding an extra `link` tag in the head comes in the form of a mini plugin:
 
 ```js
 module.exports = {
@@ -96,6 +96,14 @@ module.exports = {
 ```
 
 It's possible the code required to add this link will become simpler [if this pull request lands](https://github.com/facebook/docusaurus/pull/8077). Until then, we will need to use a plugin.
+
+It's also worth knowing that historically the Web Monetization API used a `meta` tag instead of a `link` tag - and that tag used the `$` prefix instead of `https://`. That tag looked like this:
+
+```html
+<meta name="monetization" content="$ilp.uphold.com/LwQQhXdpwxeJ" />
+```
+
+But the `link` tag is the current standard, and that's what you should look to adopt.
 
 ## Hello world Web Monetization API?
 
