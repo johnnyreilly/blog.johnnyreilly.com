@@ -12,20 +12,20 @@ The Web Monetization API is a JavaScript browser API that allows the creation of
 
 ## The Web Monetization API
 
-I recently attended the [HalfStack at the Beach](https://halfstackconf.com/newquay/) conference and heard a talk from [Alex Lakatos](https://twitter.com/avolakatos) on the Web Monetization API. I hadn't heard about this previously, and I learned that it was a new way to monetize a website. My blog already features a [Buy Me a Coffee](https://www.buymeacoffee.com/qUBm0Wh) link, which allows generous people to send me small amounts of money if they've found something I've written useful. The Web Monetization API appears to be that, but built into the browser and proposed proposed as a W3C standard at the [Web Platform Incubator Community Group](https://discourse.wicg.io/t/proposal-web-monetization-a-new-revenue-model-for-the-web/3785).
+Over the summer I attended the [HalfStack at the Beach](https://halfstackconf.com/newquay/) conference and heard a talk from [Alex Lakatos](https://twitter.com/avolakatos) on the Web Monetization API. I hadn't heard about this API previously; it turns out it is a new way to monetize a website. My own blog already featured a [Buy Me a Coffee](https://www.buymeacoffee.com/qUBm0Wh) link, which allows generous people to send me small amounts of money if they've found something I've written useful. The Web Monetization API appears to be that, but built into the browser and proposed as a W3C standard at the [Web Platform Incubator Community Group](https://discourse.wicg.io/t/proposal-web-monetization-a-new-revenue-model-for-the-web/3785).
 
-I was intrigued. Alex was kind enough to share some links with me, and I decided to take the Web Monetization API for a spin, and see what it was like. So this post is going to be exactly that. I'm a noob; I don't know how to use the Web Monetization API (or much about it TBH). Over the course of this post I'll try and integrate it into my blog. As I do that I'll share what I'm doing and how I found things; to try to provide a useful resource (and some feedback) on what adoption feels like.
+I was intrigued by the Web Monetization API. Alex was kind enough to share some links with me, and I decided to take it for a spin; to try out using it and to document the findings. This post is going to be exactly that. It's written from the perspective of someone who doesn't know the Web Monetization API save for what they've heard in a talk. Over the course of this post I'll try to get to know it a little better, and try to integrate it into [my blog](https://blog.johnnyreilly.com). As I do that I'll share what I'm doing and how I found things; to try to provide a useful resource (and some feedback) on what adoption feels like.
 
-Alex shared a link to https://webmonetization.org/ - in there I found a [quick start](https://webmonetization.org/docs/getting-started) which I decided to work through.
+I'll start with the https://webmonetization.org/ site - in there I found a [quick start](https://webmonetization.org/docs/getting-started) which I decided to work through.
 
 ## Wallet
 
-The first thing to do is [setting up a wallet](https://webmonetization.org/docs/getting-started#1-set-up-a-web-monetized-wallet). I imagine that this is comparable to having a bank account in a bank. There appear to be two options for this:
+The first thing to do, if you'd like to adopt Web Monetization, is [set up a wallet](https://webmonetization.org/docs/getting-started#1-set-up-a-web-monetized-wallet). This allows you to receive money from people - it's a bank account essentially; one that supports integration with Web Monetization. There appeared to be two options for this:
 
 - [uphold](https://wallet.uphold.com/)
 - [gatehub](https://gatehub.net/)
 
-[Right now, uphold offers a greater number of features](https://webmonetization.org/docs/ilp-wallets/#digital-wallets), so I'll create a wallet with them.
+[Right now, uphold offers a greater number of features](https://webmonetization.org/docs/ilp-wallets/#digital-wallets), so decided to create a wallet with them.
 
 ## Uphold
 
@@ -45,7 +45,7 @@ I opted to accept all regions. After the usual signup process, I was able to see
 
 ## Payment pointer
 
-The next thing we need to do is acquire our payment pointer. I found this tricky to track down and eventually Alex showed me where to go. On the right hand side of the dashboard, there is an "anything to anything" section:
+The next thing we needed to do was acquire our payment pointer. This was a little tricky to track down and eventually Alex showed me where to go. On the right hand side of the dashboard, there is an "anything to anything" section:
 
 ![gif of the payment pointer found in uphold](./payment-pointer.gif)
 
@@ -55,23 +55,25 @@ You might be looking at the payment pointer and thinking, "that looks kinda URL-
 
 ## Monetization link tag
 
-The next thing to do is to make a `link` tag using the payment pointer. This is the tag that will tell the browser that the page supports Web Monetization. The tag looks like this:
+The next thing to do is to make a `link` tag using the payment pointer. This is the tag that will tell the browser that the page supports Web Monetization. That `link` tag should live in every page of our Web Monetized site. The tag looks like this:
 
 ```html
 <link rel="monetization" content="https://ilp.uphold.com/LwQQhXdpwxeJ" />
 ```
 
-As you can see, the content attribute is the payment pointer I just acquired, in its "https" form.
+As you can see, the content attribute is the payment pointer we just acquired; in its "https" form.
 
 ## Docusaurus link tag
 
-The final step here would be adding this link tag to the pages served up by my site. I'm using Docusaurus for my blog, so I'll need to add it to the [`docusaurus.config.js` file](https://docusaurus.io/docs/next/seo#global-metadata).
+The final step here would be adding this `link` tag to the pages served up by our site. In my case, I use Docusaurus to power my blog. To add an extra `link` tag with Docusaurus we need to add it to the [`docusaurus.config.js`](https://docusaurus.io/docs/next/seo#global-metadata) file.
 
 The syntax for adding an extra `link` tag in the head comes in the form of a mini plugin:
 
 ```js
 module.exports = {
+  // ...
   plugins: [
+    // ...
     function extraHeadTagsPlugin(context, options) {
       return {
         name: 'extra-head-tags-plugin',
@@ -91,11 +93,12 @@ module.exports = {
         },
       };
     },
+    // ...
   ],
 };
 ```
 
-It's possible the code required to add this link will become simpler [if this pull request lands](https://github.com/facebook/docusaurus/pull/8077). Until then, we will need to use a plugin.
+It's possible the code required to add a `link` tag will become simpler [if this pull request lands](https://github.com/facebook/docusaurus/pull/8077). Until then, we will need to use a plugin.
 
 It's also worth knowing that historically the Web Monetization API used a `meta` tag instead of a `link` tag - and that tag used the `$` prefix instead of `https://`. That tag looked like this:
 
