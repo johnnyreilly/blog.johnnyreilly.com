@@ -58,10 +58,10 @@ You might be looking at the payment pointer and thinking, "that looks kinda URL-
 The next thing to do is to make a `link` tag using the payment pointer. This is the tag that will tell the browser that the page supports Web Monetization. That `link` tag should live in every page of our Web Monetized site. The tag looks like this:
 
 ```html
-<link rel="monetization" content="https://ilp.uphold.com/LwQQhXdpwxeJ" />
+<link rel="monetization" href="https://ilp.uphold.com/LwQQhXdpwxeJ" />
 ```
 
-As you can see, the content attribute is the payment pointer we just acquired; in its "https" form.
+As you can see, the `href` attribute is the payment pointer we just acquired; in its "https" form.
 
 ## Docusaurus link tag
 
@@ -86,7 +86,7 @@ module.exports = {
                   rel: 'monetization',
                   href: 'https://ilp.uphold.com/LwQQhXdpwxeJ',
                 },
-                // This will become <link rel="monetization" content="https://ilp.uphold.com/LwQQhXdpwxeJ" /> in the generated HTML
+                // This will become <link rel="monetization" href="https://ilp.uphold.com/LwQQhXdpwxeJ" /> in the generated HTML
               },
             ],
           };
