@@ -189,15 +189,6 @@ const config = {
     ],
   ],
 
-  // // new version of web monetization uses a link tag
-  // // the below will make <link rel="monetization" content="https://ilp.uphold.com/LwQQhXdpwxeJ" />
-  // stylesheets: [
-  //   {
-  //     rel: 'monetization',
-  //     content: 'https://ilp.uphold.com/LwQQhXdpwxeJ',
-  //   },
-  // ],
-
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
