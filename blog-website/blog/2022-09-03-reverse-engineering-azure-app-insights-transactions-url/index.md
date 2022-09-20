@@ -8,7 +8,7 @@ hide_table_of_contents: false
 
 Logs matter. In Azure, logs generally live in Application Insights, in the Transaction Search section. This post reverse engineers the Azure Application Insights Transactions URL, and details how to construct a link to take you directly there, using both TypeScript and C#.
 
-![title image reading "Swashbuckle and schemaId is already used" with the Azure Static Web Apps logo and a Terry Pratchett icon by Lisa Krymova from NounProject.com](title-image.webp)
+![title image reading "Reverse engineering the Azure Application Insights Transactions URL" with a screenshot of the Transactions screen in the Azure Portal](title-image.webp)
 
 ## Bring me the logs!
 
