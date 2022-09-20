@@ -2,6 +2,7 @@
 title: "But you can't die... I love you!"
 authors: johnnyreilly
 tags: [open source, TypeScript, ts-loader]
+image: ./caretaker.png
 hide_table_of_contents: false
 ---
 
