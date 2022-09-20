@@ -2,7 +2,6 @@
 title: 'React: storing state in URL with URLSearchParams'
 authors: johnnyreilly
 tags: [React, QueryString, URLSearchParams, TypeScript, React Router]
-image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
