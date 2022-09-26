@@ -38,38 +38,42 @@ However, the types created using the above approach can be verbose. Wouldn't it 
 We can do exactly this. What we'll do is put together a class called `SwashbuckleSchemaHelper`:
 
 ```cs
-  public class SwashbuckleSchemaHelper
-  {
-      private readonly Dictionary<string, int> _schemaNameRepetition = new();
+public class SwashbuckleSchemaHelper
+{
+    private readonly Dictionary<string, List<string>> _schemaNameRepetition = new();
 
-      // borrowed from https://github.com/domaindrivendev/Swashbuckle.AspNetCore/blob/95cb4d370e08e54eb04cf14e7e6388ca974a686e/src/Swashbuckle.AspNetCore.SwaggerGen/SchemaGenerator/SchemaGeneratorOptions.cs#L44
-      private string DefaultSchemaIdSelector(Type modelType)
-      {
-          if (!modelType.IsConstructedGenericType) return modelType.Name.Replace("[]", "Array");
+    // borrowed from https://github.com/domaindrivendev/Swashbuckle.AspNetCore/blob/95cb4d370e08e54eb04cf14e7e6388ca974a686e/src/Swashbuckle.AspNetCore.SwaggerGen/SchemaGenerator/SchemaGeneratorOptions.cs#L44
+    private string DefaultSchemaIdSelector(Type modelType)
+    {
+        if (!modelType.IsConstructedGenericType) return modelType.Name.Replace("[]", "Array");
 
-          var prefix = modelType.GetGenericArguments()
-              .Select(genericArg => DefaultSchemaIdSelector(genericArg))
-              .Aggregate((previous, current) => previous + current);
+        var prefix = modelType.GetGenericArguments()
+            .Select(genericArg => DefaultSchemaIdSelector(genericArg))
+            .Aggregate((previous, current) => previous + current);
 
-          return prefix + modelType.Name.Split('`').First();
-      }
+        return prefix + modelType.Name.Split('`').First();
+    }
 
-      public string GetSchemaId(Type modelType)
-      {
-          string id = DefaultSchemaIdSelector(modelType);
+    public string GetSchemaId(Type modelType)
+    {
+        string id = DefaultSchemaIdSelector(modelType);
 
-          if (!_schemaNameRepetition.ContainsKey(id))
-              _schemaNameRepetition.Add(id, 0);
+        if (!_schemaNameRepetition.ContainsKey(id))
+            _schemaNameRepetition.Add(id, new List<string>());
 
-          int count = _schemaNameRepetition[id] + 1;
-          _schemaNameRepetition[id] = count;
+        var modelNameList = _schemaNameRepetition[id];
+        var fullName = modelType.FullName ?? "";
+        if (!string.IsNullOrEmpty(fullName) && !modelNameList.Contains(fullName))
+            modelNameList.Add(fullName);
 
-          return $"{id}{(count > 1 ? count.ToString() : "")}";
-      }
-  }
+        int index = modelNameList.IndexOf(fullName);
+
+        return $"{id}{(index >= 1 ? index.ToString() : "")}";
+    }
+}
 ```
 
-The above class borrows the [`DefaultSchemaIdSelector`](https://github.com/domaindrivendev/Swashbuckle.AspNetCore/blob/95cb4d370e08e54eb04cf14e7e6388ca974a686e/src/Swashbuckle.AspNetCore.SwaggerGen/SchemaGenerator/SchemaGeneratorOptions.cs#L44) implementation from Swashbuckle itself. It creates the type name using that, and then uses a `Dictionary` to track the numbers of usages of it; suffixing a number for duplicates. This number suffix is inspired [by an answer on Stack Overflow](https://stackoverflow.com/a/72677918/761388).
+The above class borrows the [`DefaultSchemaIdSelector`](https://github.com/domaindrivendev/Swashbuckle.AspNetCore/blob/95cb4d370e08e54eb04cf14e7e6388ca974a686e/src/Swashbuckle.AspNetCore.SwaggerGen/SchemaGenerator/SchemaGeneratorOptions.cs#L44) implementation from Swashbuckle itself. It creates the type name using that, and then uses a `Dictionary` to track the numbers of usages of it; suffixing a number where there are duplicates to indicate which duplicate is in play on this occasion. This number suffix is inspired [by an answer on Stack Overflow](https://stackoverflow.com/a/72677918/761388) and also by [Glenn Piper's comment here](https://github.com/domaindrivendev/Swashbuckle.AspNetCore/issues/1607#issuecomment-1258337736).
 
 Usage of this looks like this:
 
