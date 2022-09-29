@@ -20,7 +20,7 @@ We're going to make use of [SWC (Speedy Web Compiler)](https://swc.rs/) to speed
 >
 > 🏎 SWC is 20x faster than Babel on a single thread and 70x faster on four cores.
 
-We like faster! Interestingly, the Docusaurus site itself is built with SWC and has been since 19th March 2022. You can see [Josh Cena](@SidaChen63)'s [PR implementing SWC for Docusaurus here](https://github.com/facebook/docusaurus/pull/6944).
+We like faster! Interestingly, the Docusaurus site itself is built with SWC and has been since 19th March 2022. You can see [Josh Cena](https://twitter.com/SidaChen63)'s [PR implementing SWC for Docusaurus here](https://github.com/facebook/docusaurus/pull/6944).
 
 However, by default, Docusaurus is built using Babel. This post will demonstrate how to make the switch. In fact as part of the PR that implements this post, this blog (also platformed on Docusaurus) will migrate from Babel to SWC. [See the blog post PR here](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/288).
 
