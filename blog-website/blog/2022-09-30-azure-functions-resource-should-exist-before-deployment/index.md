@@ -10,7 +10,7 @@ This post demonstrates a speculative workaround for the Azure deployment issue t
 
 ## The error
 
-A common error that presents itself when deploying Azure Functions is: `Resource should exist before deployment`. And it rights itself in the longer term. The function appears and everything works. But it's annoying. Your pipeline fails, you have to rerun failed jobs. It's a pain.
+A common error that presents itself when deploying Azure Functions is: `Resource should exist before deployment`. And it rights itself in the longer term. Eventual consistency means the function appears in the end and deployment to it can succeed. But it's annoying. Your pipeline fails, you have to rerun failed jobs until it succeeds. It's a pain.
 
 You can see people talking about this issue here: https://github.com/microsoft/azure-pipelines-tasks/issues/15532
 
@@ -51,7 +51,7 @@ The workaround is an extra step in your pipeline that you put in place _after_ y
     azurePowerShellVersion: 'LatestVersion'
 ```
 
-## The explanation
+## The explanation
 
 Based upon repeated testing, this appears to work. Why? There's a theory:
 
@@ -65,4 +65,4 @@ Based upon repeated testing, this appears to work. Why? There's a theory:
 
 ## Conclusion
 
-Should we need to do this? No. But it does seem to work. If you have a better solution, please let me know.
+Should we need to do this? No. But it does seem to work. If you're facing this issue, give it a try.
