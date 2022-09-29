@@ -417,7 +417,7 @@ namespace AzureApplicationInsightsTransactionSearchUrl
 }
 ```
 
-Note that most of the verbosity comes from the fact that we're using C# 9 record types to represent the JSON objects that we're serializing. If you're not familiar with C# 9 record types, you can read more about them [here](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9#record-types). We're also using JSON.Net for our serialization, but you could use System.Text.Json if you wanted to. You would need to amend the `JsonProperty` attributes to be `JsonPropertyName` attributes instead.
+Note that most of the verbosity comes from the fact that we're using C# 9 record types to represent the JSON objects that we're serializing. If you're not familiar with C# 9 [record types](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9#record-types). We're also using JSON.Net for our serialization, but you could use System.Text.Json if you wanted to. You would need to amend the `JsonProperty` attributes to be `JsonPropertyName` attributes instead.
 
 ## Conclusion
 
