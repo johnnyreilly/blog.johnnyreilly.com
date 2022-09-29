@@ -2,7 +2,7 @@
 title: 'Azure Functions: Resource should exist before deployment'
 authors: bob
 tags: [Azure Functions, Azure, Deployment]
-# image: ./title-image.webp
+image: https://avatars.githubusercontent.com/u/31248736
 hide_table_of_contents: false
 ---
 
