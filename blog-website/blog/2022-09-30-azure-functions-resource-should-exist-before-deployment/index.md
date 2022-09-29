@@ -44,9 +44,9 @@ The workaround is an extra step in your pipeline that you put in place _after_ y
         # Asia Pacific
         "australiaeast", "centralindia", "japaneast", "koreacentral", "southeastasia", "eastasia"
       )
-      foreach ($location in $locations) {
+      $locations | foreach-Object -Parallel {
           $restUrl = "https://$location.management.azure.com/subscriptions/$(subscriptionId)/resourceGroups/$(azureResourceGroup)/providers/Microsoft.Web/sites/$(namerWapiFunctionApp)?api-version=2022-03-01";
-          (Invoke-WebRequest -Uri $restUrl -Method GET -Headers $authHeader).Headers
+          ((((Invoke-WebRequest -Uri $restUrl -Method GET -Headers $($using:authHeader)).Headers).GetEnumerator() | Where-Object {$_.Key -ieq "x-ms-routing-request-id"}).Value).Split(":")[0]
       }
     azurePowerShellVersion: 'LatestVersion'
 ```
