@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[23419],{97363:function(o){o.exports=JSON.parse('{"label":"UseOneOfForPolymorphism","permalink":"/tags/use-one-of-for-polymorphism","allTagsPath":"/tags","count":1}')}}]);
