@@ -146,4 +146,4 @@ If you look at the screenshot above you'll see we've stopped on a breakpoint, we
 
 In this piece we've taken a look at how to get up and running with a unit testable TypeScript project. Beyond that, we've demonstrated how we can debug our TypeScript tests using the VS Code editor.
 
-[This post was originally published on Meticulous.](https://meticulous.ai/blog/)
+[This post was originally published on Meticulous.](https://meticulous.ai/blog/typescript-unit-tests-with-debugging/)
