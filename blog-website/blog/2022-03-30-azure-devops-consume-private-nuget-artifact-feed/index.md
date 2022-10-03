@@ -2,13 +2,13 @@
 title: 'Azure DevOps: consume a private artifact feed'
 authors: johnnyreilly
 tags: [Azure DevOps, NuGet, Azure Artifacts, .NET]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
 Private Azure Artifact feeds in in Azure DevOps can be used to serve NuGet packages. To build applications both locally and in an Azure Pipeline using those packages, there are a few steps to follow which this post will demonstrate.
 
-![title image reading "Azure DevOps: consume a private artifact feed" with the Azure DevOps and Azure Pipelines logos`](title-image.png)
+![title image reading "Azure DevOps: consume a private artifact feed" with the Azure DevOps and Azure Pipelines logos`](title-image.webp)
 
 ## Make a `nuget.config`
 
