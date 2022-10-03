@@ -1,14 +1,14 @@
 ---
 title: 'dotnet-format: Prettier your C# with lint-staged & husky'
 authors: johnnyreilly
-image: ./title-image.png
+image: ./title-image.webp
 tags: [Prettier, dotnet-format, lint-staged, husky, CSharpier]
 hide_table_of_contents: false
 ---
 
 Consistent formatting in a codebase is a good thing. We can achieve this in dotnet using `dotnet format`, used in combination with the npm packages `husky` and `lint-staged`. This post shows how.
 
-![title image reading "dotnet-format: Prettier your CSharp with lint-staged and husky" and the dotnet-format logo](title-image.png)
+![title image reading "dotnet-format: Prettier your CSharp with lint-staged and husky" and the dotnet-format logo](title-image.webp)
 
 ## Update 17/09/2021
 
