@@ -1,4 +1,14 @@
 {
   "extends": ["config:base"],
-  "ignoreDeps": ["@mdx-js/react", "fast-xml-parser", "jsdom", "googleapis", "@types/showdown", "showdown", "@types/yargs", "yargs"]
+  "ignoreDeps": [
+    "@mdx-js/react",
+    "@types/showdown",
+    "@types/yargs",
+    "fast-xml-parser",
+    "googleapis",
+    "jsdom",
+    "showdown",
+    "yargs"
+  ],
+  "stabilityDays": 7
 }
