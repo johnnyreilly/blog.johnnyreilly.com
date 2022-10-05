@@ -74,10 +74,11 @@ async function processImageFiles(imageFiles: string[]) {
       const source = tinify.fromFile(imageFilePath);
       const converted = source.convert({ type: ['image/webp', 'image/png'] });
       const convertedExtension = await converted.result().extension();
-      const newImageFileName = `${originalImageFilePrefix}.${convertedExtension}`;
-      converted.toFile(newImageFileName);
+      const newImageFilePath = `${originalImageFilePrefix}.${convertedExtension}`;
+      await converted.toFile(newImageFilePath);
 
       const imageFileName = path.basename(imageFilePath);
+      const newImageFileName = path.basename(newImageFilePath);
       if (imageFileName !== newImageFileName) {
         await updateBlogPostImageReferences({
           originalImageFileExtension,
