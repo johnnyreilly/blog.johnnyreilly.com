@@ -143,3 +143,5 @@ Just as Alex had been able to send me $1 on September 4th, I was able to send my
 In this post we have got to know the Web Monetization API, we've used it to monetize our own site and we've used it to tip ourselves. We've also seen how Coil works and how it can be used to tip other people's sites. I'm excited to see how this develops. It feels like a way to support people who are making things we care about on the web.
 
 Thanks so much to [Alex Lakatos](https://twitter.com/avolakatos) for telling me about this in the first place and for answering all my questions!
+
+[This post was originally published on LogRocket.](https://blog.logrocket.com/getting-started-web-monetization-api/)
