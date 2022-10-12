@@ -100,9 +100,9 @@ async function processImageFiles(imageFiles: string[]) {
         });
       }
 
-      console.log(`- 🔴  ${originalSizeKb}kb - ${imageFileName}
-- 🟢  ${newSizeKb}kb - ${newImageFileName}
-- 🔽  ${(
+      console.log(`- 🔴 ${originalSizeKb}kb - ${imageFileName}
+- 🟢 ${newSizeKb}kb - ${newImageFileName}
+- 🔽 ${(
         ((Number(originalSizeKb) - Number(newSizeKb)) /
           Number(originalSizeKb)) *
         100
@@ -115,7 +115,7 @@ async function processImageFiles(imageFiles: string[]) {
       console.log(`\n❌ Failed to process ${imageFilePath}`);
       failed.push(imageFilePath);
     }
-    await sleep(1000);
+    // await sleep(1000);
   }
 
   if (failed.length > 0) console.log('Failed to process', failed);

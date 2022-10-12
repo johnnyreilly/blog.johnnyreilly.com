@@ -2,13 +2,13 @@
 title: 'Getting started with the Web Monetization API'
 authors: johnnyreilly
 tags: [Web Monetization]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
 The Web Monetization API is a JavaScript browser API that allows the creation of a payment stream from the user agent to the website. This post walks through getting started adding it to a site.
 
-![title image reading "Web Monetization API - getting started" with the Web Monetization logo](title-image.png)
+![title image reading "Web Monetization API - getting started" with the Web Monetization logo](title-image.webp)
 
 ## The Web Monetization API
 
@@ -31,17 +31,17 @@ The first thing to do, if you'd like to adopt Web Monetization, is [set up a wal
 
 The signup process was pretty straightforward. I got slightly confused was seeing this prompt:
 
-![screenshot reading "How will you use Uphold? ... Trade cryptocurrencies, Currency conversion, Deposit or withdraw cryptocurrencies, Transfers between users"](./screenshot-uphold-purpose.png)
+![screenshot reading "How will you use Uphold? ... Trade cryptocurrencies, Currency conversion, Deposit or withdraw cryptocurrencies, Transfers between users"](./screenshot-uphold-purpose.webp)
 
 I wasn't entirely sure what I needed. The Web Monetization API seemed most likely to be about transfers between users, so I went with that.
 
 When it asked this question:
 
-![screenshot reading "International payments/transfers Tell us where you'll be moving money. Select from the regions below."](./screenshot-uphold-transfers.png)
+![screenshot reading "International payments/transfers Tell us where you'll be moving money. Select from the regions below."](./screenshot-uphold-transfers.webp)
 
 I opted to accept all regions. After the usual signup process, I was able to see able to see my new (empty) account:
 
-![screenshot of the dashboard of uphold with a balance of £0](./screenshot-uphold-dashboard.png)
+![screenshot of the dashboard of uphold with a balance of £0](./screenshot-uphold-dashboard.webp)
 
 ## Payment pointer
 
@@ -112,7 +112,7 @@ But the `link` tag is the current standard, and that's what you should look to a
 
 With this done, my site is web monetized! Or at least... I think it is... What does that mean? Well, I wasn't entirely sure. I reached out to Alex again, showed him my site and said "does this work?" He said:
 
-![screenshot of conversation with Alex on Twitter, him saying "Hey John. That's it! I just sent you a little tip on uphold, if you've set that up correctly, you'll see it in your account"](screenshot-am-i-doing-it-right-alex.png)
+![screenshot of conversation with Alex on Twitter, him saying "Hey John. That's it! I just sent you a little tip on uphold, if you've set that up correctly, you'll see it in your account"](screenshot-am-i-doing-it-right-alex.webp)
 
 And sure enough, I found Alex had indeed sent me the princely sum of 83 pence ($1) on Uphold... It had worked!
 
@@ -134,7 +134,7 @@ So that's what I did. I entered my payment pointer into Coil and now I can send 
 
 I went to my blog and sure enough, I was able to send a tip to myself. When I flipped over to my Uphold account, I could see that the money was on its way!
 
-![screenshot of uphold including details of an incoming payment of $1 or 93 pence](screenshot-uphold-incoming-tip.png)
+![screenshot of uphold including details of an incoming payment of $1 or 93 pence](screenshot-uphold-incoming-tip.webp)
 
 Just as Alex had been able to send me $1 on September 4th, I was able to send myself $1 on September 10th! (Incidentally, the shift in amount from 83 pence to 93 pence between transactions is purely due to the changing value exchange rate between GBP and USD. At present the Pound is decreasing in value against the Dollar, so the amount of money I received in GBP when I tipped myself $1 worked out to be more than when Alex did.)
 
