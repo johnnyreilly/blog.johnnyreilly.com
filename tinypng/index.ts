@@ -100,11 +100,17 @@ async function processImageFiles(imageFiles: string[]) {
         });
       }
 
-      console.log(
-        `\n✅ Processed! ${imageFileName} ${originalSizeKb}kb -> ${newImageFileName} ${newSizeKb}kb (${++processed} of ${
-          imageFiles.length
-        })`
-      );
+      console.log(`- 🔴  ${originalSizeKb}kb - ${imageFileName}
+- 🟢  ${newSizeKb}kb - ${newImageFileName}
+- 🔽  ${(
+        ((Number(originalSizeKb) - Number(newSizeKb)) /
+          Number(originalSizeKb)) *
+        100
+      ).toFixed(2)}% reduction
+
+✅ Processed! (${++processed} of ${imageFiles.length})
+
+----------------------`);
     } catch (e) {
       console.log(`\n❌ Failed to process ${imageFilePath}`);
       failed.push(imageFilePath);
@@ -140,13 +146,13 @@ async function updateBlogPostImageReferences({
     blogPostContent.replaceAll(imageFileName, newImageFileName)
   );
   console.log(
-    `Image converted from ${originalImageFileExtension} to ${convertedExtension}. References updated in ${path.basename(
+    `- Image converted from ${originalImageFileExtension} to ${convertedExtension}. References updated in ${path.basename(
       indexMdPath
     )}`
   );
 
   await fs.promises.unlink(imageFilePath);
-  console.log(`Deleted original image: ${path.basename(imageFilePath)}`);
+  console.log(`- Deleted original image: ${path.basename(imageFilePath)}`);
 }
 
 async function run() {
