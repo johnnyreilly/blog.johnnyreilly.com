@@ -22,6 +22,24 @@ const config = {
     locales: ['en'],
   },
 
+  webpack: {
+    jsLoader: (isServer) => ({
+      loader: require.resolve('swc-loader'),
+      options: {
+        jsc: {
+          parser: {
+            syntax: 'typescript',
+            tsx: true,
+          },
+          target: 'es2017',
+        },
+        module: {
+          type: isServer ? 'commonjs' : 'es6',
+        },
+      },
+    }),
+  },
+
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -104,36 +122,12 @@ const config = {
       'client-redirects',
       /** @type {import('@docusaurus/plugin-client-redirects').Options} */
       ({
-        redirects: [
-          {
-            to: '/2018/07/28/azure-app-service-web-app-containers-asp-net-nested-configuration',
-            from: '/2018/07/28/configuring-docker-azure-web-app-containers',
-          },
-          {
-            to: '/2018/08/21/typescript-webpack-alias-goodbye-relative-paths',
-            from: '/2018/08/21/killing-relative-paths-with-typescript-and',
-          },
-          {
-            to: '/2019/02/22/aspnet-core-allowlist-proxying-http-requests',
-            from: '/2019/02/22/whitelist-proxying-with-aspnet-core',
-          },
-          {
-            to: '/2019/03/06/fork-ts-checker-webpack-plugin-v1',
-            from: '/2019/03/06/the-big-one-point-oh',
-          },
-          {
-            to: '/2019/08/02/asp-net-authentication-hard-coding-claims',
-            from: '/2019/08/02/hard-coding-claim-in-development-mode',
-          },
-          {
-            to: '/2019/12/18/teams-notification-webhooks',
-            from: '/2019/12/18/automating-teams-notifications-recently',
-          },
-          {
-            to: '/2020/05/21/autofac-webapplicationfactory-integration-tests',
-            from: '/2020/05/21/autofac-webapplicationfactory-and',
-          },
-        ],
+        // redirects: [
+        //   {
+        //     to: '/2018/07/28/azure-app-service-web-app-containers-asp-net-nested-configuration',
+        //     from: '/2018/07/28/configuring-docker-azure-web-app-containers',
+        //   },
+        // ],
         createRedirects: function (existingPath) {
           if (existingPath.match(urlRegex)) {
             const [, year, month, date, slug] = existingPath.split('/');
@@ -270,7 +264,7 @@ const config = {
                 html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" rel="noopener" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" loading="lazy" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
               },
               {
-                html: `<div style="display: flex; align-items: center;"><iframe src="https://github.com/sponsors/johnnyreilly/button" title="Sponsor johnnyreilly" height="35" width="116" style="border: 0;"></iframe><div>&nbsp;on GitHub</div></div>`,
+                html: `<iframe src="https://github.com/sponsors/johnnyreilly/card" title="Sponsor johnnyreilly" height="125" width="600" style="border: 0; border-radius: 10px; background-color: white;"></iframe>`,
               },
             ],
           },
@@ -288,7 +282,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
+        copyright: `Copyright © 2012 - ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
