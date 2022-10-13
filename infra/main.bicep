@@ -33,6 +33,14 @@ resource customDomain 'Microsoft.Web/staticSites/customDomains@2021-02-01' = {
   properties: {}
 }
 
+// resource staticAppBackend 'Microsoft.Web/staticSites/linkedBackends@2022-03-01' = {
+//   name: '${name}/backend'
+//   properties: {
+//     backendResourceId: microscopeFunctionApp.outputs.functionAppResourceId
+//     region: location
+//   }
+// }
+
 output staticWebAppDefaultHostName string = staticWebApp.properties.defaultHostname // eg gentle-bush-0db02ce03.azurestaticapps.net
 output staticWebAppId string = staticWebApp.id
 output staticWebAppName string = staticWebApp.name
