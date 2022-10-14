@@ -47,7 +47,7 @@ resource customDomain 'Microsoft.Web/staticSites/customDomains@2021-02-01' = {
   properties: {}
 }
 
-resource staticAppBackend 'Microsoft.Web/staticSites/linkedBackends@2022-03-01' = {
+resource staticWebAppBackend 'Microsoft.Web/staticSites/linkedBackends@2022-03-01' = {
   name: '${staticWebAppName}/backend'
   properties: {
     backendResourceId: functionApp.outputs.functionAppResourceId
