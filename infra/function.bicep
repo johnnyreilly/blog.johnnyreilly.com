@@ -2,13 +2,26 @@ param functionAppName string
 param location string
 param hostingPlanName string
 param storageAccountName string
-param tags object
+// param tags object
+
+/*
+az deployment group create \
+  --resource-group rg-blog-johnnyreilly-com \
+  --name manual \
+  --template-file ./infra/function.bicep \
+  --parameters \
+      location='westeurope' \
+      functionAppName='func-blog-johnnyreilly-com' \
+      hostingPlanName='ASP-rgblogjohnnyreillycom-a345' \
+      storageAccountName='stblogjohnnyreilly'
+*/
 
 resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
   name: functionAppName
   kind: 'functionapp,linux'
   location: location
-  tags: tags
+  tags: {}
+  // tags: tags
   properties: {
     // name: name
     siteConfig: {
