@@ -20,7 +20,6 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
   name: functionAppName
   kind: 'functionapp,linux'
   location: location
-  tags: {}
   tags: tags
   properties: {
     siteConfig: {
