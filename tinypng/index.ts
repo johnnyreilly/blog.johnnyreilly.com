@@ -27,16 +27,6 @@ async function getBlogDirsOrderedDescending() {
   return blogDirs;
 }
 
-async function getImageFiles() {
-  const blogDirs = await getBlogDirsOrderedDescending();
-
-  const imageFiles = blogDirs.flatMap((dir) => getImageFilesFromDirectory(dir));
-
-  imageFiles.reverse();
-
-  return imageFiles;
-}
-
 function getImageFilesFromDirectory(dir: string) {
   return fs
     .readdirSync(path.resolve(docusaurusDirectory, 'blog', dir))
@@ -49,10 +39,6 @@ function getImageFilesFromDirectory(dir: string) {
     )
     .map((file) => path.resolve(docusaurusDirectory, 'blog', dir, file))
     .filter((file) => fs.statSync(file).size > 0);
-}
-
-async function sleep(millis: number) {
-  return new Promise((resolve) => setTimeout(resolve, millis));
 }
 
 async function processImageFiles(imageFiles: string[]) {
@@ -115,7 +101,6 @@ async function processImageFiles(imageFiles: string[]) {
       console.log(`\n❌ Failed to process ${imageFilePath}`);
       failed.push(imageFilePath);
     }
-    // await sleep(1000);
   }
 
   if (failed.length > 0) console.log('Failed to process', failed);
@@ -179,3 +164,14 @@ async function run() {
 
 // do it!
 run();
+
+// delete this as unused? Could compress everything in the blog directory
+async function getImageFiles() {
+  const blogDirs = await getBlogDirsOrderedDescending();
+
+  const imageFiles = blogDirs.flatMap((dir) => getImageFilesFromDirectory(dir));
+
+  imageFiles.reverse();
+
+  return imageFiles;
+}
