@@ -19,9 +19,6 @@ env:
   RESOURCE_GROUP: rg-blog-johnnyreilly-com
   LOCATION: westeurope
   STATICWEBAPPNAME: blog.johnnyreilly.com
-  FUNCTIONAPPNAME: func-blog-johnnyreilly-com
-  HOSTINGPLANNAME: ASP-rgblogjohnnyreillycom-a345
-  STORAGEACCOUNTNAME: stblogjohnnyreilly
   CUSTOMDOMAINNAME: blog.johnnyreilly.com
   TAGS: '{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
 
@@ -114,9 +111,6 @@ jobs:
                   branch='main' \
                   location='${{ env.LOCATION }}' \
                   staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
-                  functionAppName='${{ env.FUNCTIONAPPNAME }}' \
-                  hostingPlanName='${{ env.HOSTINGPLANNAME }}' \
-                  storageAccountName='${{ env.STORAGEACCOUNTNAME }}' \
                   tags='${{ env.TAGS }}' \
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   customDomainName='${{ env.CUSTOMDOMAINNAME }}'
@@ -135,9 +129,6 @@ jobs:
                   branch='main' \
                   location='${{ env.LOCATION }}' \
                   staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
-                  functionAppName='${{ env.FUNCTIONAPPNAME }}' \
-                  hostingPlanName='${{ env.HOSTINGPLANNAME }}' \
-                  storageAccountName='${{ env.STORAGEACCOUNTNAME }}' \
                   tags='${{ env.TAGS }}' \
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   customDomainName='${{ env.CUSTOMDOMAINNAME }}'
