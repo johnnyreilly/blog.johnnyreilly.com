@@ -2,21 +2,21 @@
 title: 'Bicep: Static Web Apps and Linked Backends'
 authors: johnnyreilly
 tags: [Bicep, Azure, Static Web Apps, Linked Backends]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
 Azure Static Web Apps can be linked to Azure Functions, Azure Container Apps etc to provide the linked backend for a site. This post will demonstrate how to do this with Bicep.
 
-![title image reading "TypeScript Unit Tests with Debug Support" with TypeScript and Jest logos](title-image.png)
+![title image reading "Bicep: Static Web Apps and Linked Backends" with Bicep and Static Web App logos](title-image.webp)
 
 ## Introduction
 
-While Azure Static Web Apps ship with their own Azure Functions backend, you can also link to an existing Azure Functions instance.  This is known as the "bring your own functions" approach and is [documented here](https://learn.microsoft.com/en-us/azure/static-web-apps/functions-bring-your-own).  You can also do the same with Azure Container Apps.  This post will demonstrate how to do this with functions, with Bicep.
+While Azure Static Web Apps ship with their own Azure Functions backend, you can also link to an existing Azure Functions instance. This is known as the "bring your own functions" approach and is [documented here](https://learn.microsoft.com/en-us/azure/static-web-apps/functions-bring-your-own). You can also do the same with Azure Container Apps. This post will demonstrate how to do this with functions, with Bicep.
 
 ## The Function App Bicep
 
-You're going to need to create an Azure Function in your Bicep template.  We'll do this here with a Bicep module called `function.bicep`:
+You're going to need to create an Azure Function in your Bicep template. We'll do this here with a Bicep module called `function.bicep`:
 
 ```bicep
 param functionAppName string
@@ -101,11 +101,11 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2022-05-01' = {
 output functionAppResourceId string = functionApp.id
 ```
 
-It also creates a storage account and a server farm to support the function app.  You'll note it exports the resource name of the function app.  We'll use this in the next step.
+It also creates a storage account and a server farm to support the function app. You'll note it exports the resource name of the function app. We'll use this in the next step.
 
 ## The Static Web App Bicep
 
-In our main Bicep template we'll create a static web app and link it to the function app we created in the previous step.  We'll do this with a Bicep module called `main.bicep`:
+In our main Bicep template we'll create a static web app and link it to the function app we created in the previous step. We'll do this with a Bicep module called `main.bicep`:
 
 ```bicep
 param location string
@@ -183,9 +183,10 @@ resource staticWebAppBackend 'Microsoft.Web/staticSites/linkedBackends@2022-03-0
 }
 ```
 
-This links the static web app to the function app we created in the previous step.  We use the `functionApp.outputs.functionAppResourceId` to get the resource ID of the function app from our module.
+This links the static web app to the function app we created in the previous step. We use the `functionApp.outputs.functionAppResourceId` to get the resource ID of the function app from our module.
 
 ## The Deployment
 
 Once this is deployed to Azure, if you click on the APIs section of the static web app you'll see the function app is now linked:
 
+![The function app is now linked to the static web app as demonstrated in the Azure Portal](screenshot-azure-portal-linked-backend.png)
