@@ -11,8 +11,8 @@ resource staticWebApp 'Microsoft.Web/staticSites@2021-02-01' = {
   location: location
   tags: tags
   sku: {
-    name: 'Standard'
-    tier: 'Standard'
+    name: 'Free'
+    tier: 'Free'
   }
   properties: {
     repositoryUrl: 'https://github.com/johnnyreilly/blog.johnnyreilly.com'
