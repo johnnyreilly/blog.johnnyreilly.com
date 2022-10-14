@@ -16,6 +16,7 @@ az deployment group create \
       storageAccountName='stblogjohnnyreilly'
 */
 
+
 resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
   name: functionAppName
   kind: 'functionapp,linux'
