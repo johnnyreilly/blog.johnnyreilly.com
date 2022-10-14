@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[25382],{489:function(e){e.exports=JSON.parse('{"label":"Bicep","permalink":"/tags/bicep","allTagsPath":"/tags","count":15}')}}]);
