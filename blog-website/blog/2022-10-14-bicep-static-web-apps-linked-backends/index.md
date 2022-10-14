@@ -189,4 +189,4 @@ This links the static web app to the function app we created in the previous ste
 
 Once this is deployed to Azure, if you click on the APIs section of the static web app you'll see the function app is now linked:
 
-![The function app is now linked to the static web app as demonstrated in the Azure Portal](screenshot-azure-portal-linked-backend.png)
+![The function app is now linked to the static web app as demonstrated in the Azure Portal](screenshot-azure-portal-linked-backend.webp)
