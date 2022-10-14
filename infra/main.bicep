@@ -1,13 +1,27 @@
 param location string
 param branch string
-param name string
+param staticWebAppName string
+param functionAppName string
+param hostingPlanName string
+param storageAccountName string
 param tags object
 @secure()
 param repositoryToken string
 param customDomainName string
 
+module functionApp 'function.bicep' = {
+  name: 'functionApp'
+  params: {
+    location: location
+    tags: tags
+    functionAppName: functionAppName
+    hostingPlanName: hostingPlanName
+    storageAccountName: storageAccountName
+  }
+}
+
 resource staticWebApp 'Microsoft.Web/staticSites@2021-02-01' = {
-  name: name
+  name: staticWebAppName
   location: location
   tags: tags
   sku: {
@@ -33,13 +47,13 @@ resource customDomain 'Microsoft.Web/staticSites/customDomains@2021-02-01' = {
   properties: {}
 }
 
-// resource staticAppBackend 'Microsoft.Web/staticSites/linkedBackends@2022-03-01' = {
-//   name: '${name}/backend'
-//   properties: {
-//     backendResourceId: microscopeFunctionApp.outputs.functionAppResourceId
-//     region: location
-//   }
-// }
+resource staticAppBackend 'Microsoft.Web/staticSites/linkedBackends@2022-03-01' = {
+  name: '${staticWebAppName}/backend'
+  properties: {
+    backendResourceId: functionApp.outputs.functionAppResourceId
+    region: location
+  }
+}
 
 output staticWebAppDefaultHostName string = staticWebApp.properties.defaultHostname // eg gentle-bush-0db02ce03.azurestaticapps.net
 output staticWebAppId string = staticWebApp.id
