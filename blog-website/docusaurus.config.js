@@ -1,6 +1,7 @@
 //@ts-check
 const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 
+const fontaine = require('fontaine');
 const FontPreloadPlugin = require('webpack-font-preload-plugin');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
@@ -84,6 +85,34 @@ const config = {
         configureWebpack(_config, _isServer) {
           return {
             plugins: [new FontPreloadPlugin()],
+          };
+        },
+      };
+    },
+    function fontainePlugin(_context, _options) {
+      return {
+        name: 'fontaine-plugin',
+        configureWebpack(_config, _isServer) {
+          return {
+            plugins: [
+              fontaine.FontaineTransform.webpack({
+                fallbacks: [
+                  'system-ui',
+                  '-apple-system',
+                  'BlinkMacSystemFont',
+                  'Segoe UI',
+                  'Roboto',
+                  'Oxygen',
+                  'Ubuntu',
+                  'Cantarell',
+                  'Open Sans',
+                  'Helvetica Neue',
+                  'sans-serif',
+                ],
+                // You may need to resolve assets like `/fonts/Roboto.woff2` to a particular directory
+                resolvePath: (id) => '../fonts/' + id,
+              }),
+            ],
           };
         },
       };
