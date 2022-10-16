@@ -32,7 +32,7 @@ npx @docusaurus/init@latest init blog-website classic
 
 The first thing to do, was obtain my blog content. This is a mass of HTML that lived inside Blogger's database. (One assumes they have a database; I haven't actually checked.) There's a "Back up content" option inside Blogger to allow this:
 
-![Download content from Blogger](blogger-back-up-your-content.png)
+![Download content from Blogger](blogger-back-up-your-content.webp)
 
 It provides you with an XML file with a dispiritingly small size. Ten years blogging? You'll get change out of 4Mb it turns out.
 

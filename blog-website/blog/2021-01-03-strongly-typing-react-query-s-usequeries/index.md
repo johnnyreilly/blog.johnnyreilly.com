@@ -1,14 +1,14 @@
 ---
 title: 'react-query: strongly typing useQueries'
 authors: johnnyreilly
-image: ./strongly-typing-usequeries.png
+image: ./strongly-typing-usequeries.webp
 tags: [useQueries, react-query]
 hide_table_of_contents: false
 ---
 
 `react-query` has a weakly typed hook named `useQueries`. It's possible to turn that into a strong typed hook; this post shows you how.
 
-![title image that says "react-query: strongly typings useQueries"](strongly-typing-usequeries.png)
+![title image that says "react-query: strongly typings useQueries"](strongly-typing-usequeries.webp)
 
 ## Update April 2022
 

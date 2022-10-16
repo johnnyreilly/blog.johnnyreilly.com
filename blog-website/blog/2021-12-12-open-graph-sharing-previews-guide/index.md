@@ -2,19 +2,19 @@
 title: 'Open Graph: a guide to sharable social media previews'
 authors: johnnyreilly
 tags: [Open Graph]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
 The Open Graph protocol has become the standard mechanism for sharing rich content on the web. This post looks at what implementing Open Graph tags for sharable previews (often called social media previews) looks like, the tools you can use and also an examines the different platform rendering issue.
 
-![title image reading "Open Graph: a guide to sharable social media previews" with the open graph logo and screenshots of twitter shared cards](title-image.png)
+![title image reading "Open Graph: a guide to sharable social media previews" with the open graph logo and screenshots of twitter shared cards](title-image.webp)
 
 ## Open Graph protocol and sharing
 
 You may have noticed, that when you share a URL, the platform on which you're sharing may display a kind of "preview" of the link. Here's an example of sharing a link to a blog on Twitter:
 
-[![screenshot of tweet demonstrating sharing](screenshot-of-tweet-demonstrating-sharing.png)](https://twitter.com/johnny_reilly/status/1454092877722800131)
+[![screenshot of tweet demonstrating sharing](screenshot-of-tweet-demonstrating-sharing.webp)](https://twitter.com/johnny_reilly/status/1454092877722800131)
 
 Sharing a link has automagically generated a preview "card" at the bottom of the tweet. It contains an image, it has the title of the blog and it has a description of the post as well.
 
@@ -133,7 +133,7 @@ There's also a number of unoffical "aggregator" tools that attempt to render the
 
 Let's test out the Twitter validator:
 
-![screenshot of testing out our site using the twitter validator](screenshot-of-twitter-validator.png)
+![screenshot of testing out our site using the twitter validator](screenshot-of-twitter-validator.webp)
 
 Terrific! We have sharable previews enabled for the site we've made.
 
@@ -147,7 +147,7 @@ However, each platform implements sharing previews according to their own standa
 
 Above I'm sharing a link to a blog post. The image is to the left, the title and description is to the right. Now let's look at the same link shared on Twitter:
 
-[![screenshot of a tweet where the image in the share preview card has been cropped making the title unreadable](screenshot-of-tweet-demonstrating-sharing-with-a-cropped-image.png)](https://twitter.com/AzureWeekly/status/1436733027489652743)
+[![screenshot of a tweet where the image in the share preview card has been cropped making the title unreadable](screenshot-of-tweet-demonstrating-sharing-with-a-cropped-image.webp)](https://twitter.com/AzureWeekly/status/1436733027489652743)
 
 Here the image is above the title and the description. More distressingly, the image has been cropped which renders the title slightly unreadable.
 
