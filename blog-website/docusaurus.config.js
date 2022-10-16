@@ -162,7 +162,7 @@ const config = {
           {
             tagName: 'link',
             rel: 'icon',
-            href: '/img/favicon/profile.jpg',
+            href: '/img/profile-64x64.jpg',
           },
           {
             tagName: 'link',
@@ -231,7 +231,7 @@ const config = {
         title: 'I CAN MAKE THIS WORK',
         logo: {
           alt: 'I CAN MAKE THIS WORK',
-          src: 'img/profile.jpg',
+          src: 'img/profile-64x64.jpg',
           width: 32,
           height: 32,
         },
