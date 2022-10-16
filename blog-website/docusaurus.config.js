@@ -173,7 +173,7 @@ const config = {
         { name: 'monetization', content: '$ilp.uphold.com/LwQQhXdpwxeJ' },
         // This would become <meta name="monetization" content="$ilp.uphold.com/LwQQhXdpwxeJ"> in the generated HTML
       ],
-      
+
       algolia: {
         // If Algolia did not provide you any appId, use 'BH4D9OD16A'
         appId: 'J3MYR1INLT',
@@ -245,7 +245,7 @@ const config = {
                 html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" rel="noopener" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" loading="lazy" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
               },
               {
-                html: `<iframe src="https://github.com/sponsors/johnnyreilly/card" title="Sponsor johnnyreilly" height="125" width="600" style="border: 0; border-radius: 10px; background-color: white;"></iframe>`,
+                html: `<iframe src="https://github.com/sponsors/johnnyreilly/card" title="Sponsor johnnyreilly" style="border: 0; border-radius: 10px; background-color: white; min-height: 200px;"></iframe>`,
               },
             ],
           },
