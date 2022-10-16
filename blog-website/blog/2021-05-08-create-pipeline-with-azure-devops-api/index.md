@@ -2,7 +2,7 @@
 title: 'Create a Pipeline with the Azure DevOps API'
 authors: johnnyreilly
 tags: [Azure Pipelines, Azure DevOps API]
-image: ./new-pipeline.png
+image: ./new-pipeline.webp
 hide_table_of_contents: false
 ---
 
@@ -77,4 +77,4 @@ When you execute your curl you should be returned some JSON along these lines:
 
 And inside Azure DevOps you'll now have a shiny new pipeline:
 
-![The new pipeline](new-pipeline.png)
+![The new pipeline](new-pipeline.webp)

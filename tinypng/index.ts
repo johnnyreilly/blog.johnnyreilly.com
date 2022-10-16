@@ -27,16 +27,6 @@ async function getBlogDirsOrderedDescending() {
   return blogDirs;
 }
 
-async function getImageFiles() {
-  const blogDirs = await getBlogDirsOrderedDescending();
-
-  const imageFiles = blogDirs.flatMap((dir) => getImageFilesFromDirectory(dir));
-
-  imageFiles.reverse();
-
-  return imageFiles;
-}
-
 function getImageFilesFromDirectory(dir: string) {
   return fs
     .readdirSync(path.resolve(docusaurusDirectory, 'blog', dir))
@@ -51,10 +41,6 @@ function getImageFilesFromDirectory(dir: string) {
     .filter((file) => fs.statSync(file).size > 0);
 }
 
-async function sleep(millis: number) {
-  return new Promise((resolve) => setTimeout(resolve, millis));
-}
-
 async function processImageFiles(imageFiles: string[]) {
   let processed = 0;
   let failed: string[] = [];
@@ -62,7 +48,8 @@ async function processImageFiles(imageFiles: string[]) {
   for (const imageFilePath of imageFiles) {
     try {
       console.log(`
-- Processing ${imageFilePath}`);
+🖼️  Processing ${imageFilePath}
+`);
       const originalImageFilePrefix = imageFilePath.substring(
         0,
         imageFilePath.lastIndexOf('.')
@@ -71,11 +58,21 @@ async function processImageFiles(imageFiles: string[]) {
         imageFilePath.lastIndexOf('.') + 1
       );
 
+      const originalStats = await fs.promises.stat(imageFilePath, {
+        bigint: true,
+      });
+      const originalSizeKb = originalStats.size / 1024n;
+
       const source = tinify.fromFile(imageFilePath);
       const converted = source.convert({ type: ['image/webp', 'image/png'] });
       const convertedExtension = await converted.result().extension();
       const newImageFilePath = `${originalImageFilePrefix}.${convertedExtension}`;
       await converted.toFile(newImageFilePath);
+
+      const newStats = await fs.promises.stat(newImageFilePath, {
+        bigint: true,
+      });
+      const newSizeKb = newStats.size / 1024n;
 
       const imageFileName = path.basename(imageFilePath);
       const newImageFileName = path.basename(newImageFilePath);
@@ -89,12 +86,21 @@ async function processImageFiles(imageFiles: string[]) {
         });
       }
 
-      console.log(`✅ Processed! (${++processed} of ${imageFiles.length})`);
+      console.log(`- 🔴 ${originalSizeKb}kb - ${imageFileName}
+- 🟢 ${newSizeKb}kb - ${newImageFileName}
+- 🔽 ${(
+        ((Number(originalSizeKb) - Number(newSizeKb)) /
+          Number(originalSizeKb)) *
+        100
+      ).toFixed(2)}% reduction
+
+✅ Processed! (${++processed} of ${imageFiles.length})
+
+----------------------`);
     } catch (e) {
-      console.log(`❌ Failed to process ${imageFilePath}`);
+      console.log(`\n❌ Failed to process ${imageFilePath}`);
       failed.push(imageFilePath);
     }
-    await sleep(1000);
   }
 
   if (failed.length > 0) console.log('Failed to process', failed);
@@ -115,9 +121,6 @@ async function updateBlogPostImageReferences({
   imageFileName: string;
   newImageFileName: string;
 }) {
-  console.log(
-    `File converted from ${originalImageFileExtension} to ${convertedExtension} - will update blog post`
-  );
   const directory = path.dirname(imageFilePath);
 
   const indexMdPath = path.join(directory, 'index.md');
@@ -127,10 +130,14 @@ async function updateBlogPostImageReferences({
     indexMdPath,
     blogPostContent.replaceAll(imageFileName, newImageFileName)
   );
-  console.log(`Blog post updated: ${indexMdPath}`);
+  console.log(
+    `- Image converted from ${originalImageFileExtension} to ${convertedExtension}. References updated in ${path.basename(
+      indexMdPath
+    )}`
+  );
 
   await fs.promises.unlink(imageFilePath);
-  console.log(`Deleted original image: ${imageFilePath}`);
+  console.log(`- Deleted original image: ${path.basename(imageFilePath)}`);
 }
 
 async function run() {
@@ -157,3 +164,14 @@ async function run() {
 
 // do it!
 run();
+
+// delete this as unused? Could compress everything in the blog directory
+async function getImageFiles() {
+  const blogDirs = await getBlogDirsOrderedDescending();
+
+  const imageFiles = blogDirs.flatMap((dir) => getImageFilesFromDirectory(dir));
+
+  imageFiles.reverse();
+
+  return imageFiles;
+}

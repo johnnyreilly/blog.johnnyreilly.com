@@ -2,7 +2,7 @@
 title: 'TypeScript 4.4 and more readable code'
 authors: johnnyreilly
 tags: [TypeScript, Control Flow Analysis of Aliased Conditions]
-image: ./reactions-on-github.png
+image: ./reactions-on-github.webp
 hide_table_of_contents: false
 ---
 
@@ -22,11 +22,11 @@ On June 24th 2021, an issue on the TypeScript GitHub repository with the title "
 
 It's fair to say that the TypeScript community was very excited about this, both judging from reactions on the issue:
 
-[![Screenshot of reactions on GitHub](reactions-on-github.png)](https://github.com/microsoft/TypeScript/issues/12184#issuecomment-867928408)
+[![Screenshot of reactions on GitHub](reactions-on-github.webp)](https://github.com/microsoft/TypeScript/issues/12184#issuecomment-867928408)
 
 And also the general delight on Twitter:
 
-[![Screenshot of reactions on Twitter](reactions-on-twitter.png)](https://www.twitter.com/johnny_reilly/status/1408162514504933378)
+[![Screenshot of reactions on Twitter](reactions-on-twitter.webp)](https://www.twitter.com/johnny_reilly/status/1408162514504933378)
 
 What Zeh said is a great explanation of the significance of this feature:
 

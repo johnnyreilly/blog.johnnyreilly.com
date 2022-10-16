@@ -2,13 +2,13 @@
 title: 'webpack? esbuild? Why not both?'
 authors: johnnyreilly
 tags: [webpack, esbuild, esbuild-loader, ts-loader, babel-loader]
-image: ./webpack-esbuild-why-not-both.jpg
+image: ./webpack-esbuild-why-not-both.webp
 hide_table_of_contents: false
 ---
 
 Builds can be made faster using tools like [esbuild](https://github.com/evanw/esbuild). However, if you're invested in [webpack](https://github.com/webpack/webpack) but would still like to take advantage of speedier builds, there is a way. This post takes us through using esbuild alongside webpack using [esbuild-loader](https://github.com/privatenumber/esbuild-loader).
 
-![A screenshot of the "why not both" meme adapted to include webpack and esbuild](webpack-esbuild-why-not-both.jpg)
+![A screenshot of the "why not both" meme adapted to include webpack and esbuild](webpack-esbuild-why-not-both.webp)
 
 ## Web development
 
