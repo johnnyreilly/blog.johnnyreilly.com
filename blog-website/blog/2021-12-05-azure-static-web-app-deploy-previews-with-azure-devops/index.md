@@ -2,13 +2,13 @@
 title: 'Azure Static Web App Deploy Previews with Azure DevOps'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, Azure DevOps, Netlify deploy previews]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
 I love [Netlify deploy previews](https://www.netlify.com/products/deploy-previews/). This post implements a pull request deployment preview mechanism for Azure Static Web Apps in the context of Azure DevOps which is very much inspired by the Netlify offering.
 
-![title image reading "Azure Static Web App Deploy Previews with Azure DevOps" with a Azure, Bicep and Azure DevOps logos](title-image.png)
+![title image reading "Azure Static Web App Deploy Previews with Azure DevOps" with a Azure, Bicep and Azure DevOps logos](title-image.webp)
 
 Having a build of your latest pull request which is deployed and clickable from the PR itself is a wonderful developer experience. It reduces friction for testing out changes by allowing you to see the impact from within the PR itself. No checking to see if an environment is free with the rest of the team, then manually running a pipeline and waiting whilst a deployment happens. No. It's all there without you having to lift a finger. I use Netlify deploy previews on my blog and have become accustomed to the delight that is this:
 
@@ -451,13 +451,13 @@ Error: TF401027: You need the Git 'PullRequestContribute' permission to perform 
 
 To remedy this you need to give your build service the relevant permissions to update a pull request. You can do that by going to the security settings of your repo and setting "Contribute to pull requests" to "Allow" for your build service:
 
-![Screenshot of "Contribute to pull requests" permission in Azure DevOps Git security being set to "Allow" ](screenshot-of-git-repository-security-settings.png)
+![Screenshot of "Contribute to pull requests" permission in Azure DevOps Git security being set to "Allow" ](screenshot-of-git-repository-security-settings.webp)
 
 ## Enjoy! (and keep Azure tidy)
 
 When the pipeline is now run you can see that a deployment preview link is now updated onto the PR description:
 
-![Screenshot of deployment preview on PR](screenshot-of-deploy-preview.png)
+![Screenshot of deployment preview on PR](screenshot-of-deploy-preview.webp)
 
 This will happen whenever a PR is raised which is tremendous.
 

@@ -2,13 +2,13 @@
 title: 'C# 9 in-process Azure Functions'
 authors: johnnyreilly
 tags: [C# 9, Azure Functions, .NET, in-process]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
 C# 9 has some amazing features. Azure Functions are have two modes: isolated and in-process. Whilst isolated supports .NET 5 (and hence C# 9), in-process supports .NET Core 3.1 (C# 8). This post shows how we can use C# 9 with in-process Azure Functions running on .NET Core 3.1.
 
-![title image showing name of post and the Azure Functions logo](title-image.png)
+![title image showing name of post and the Azure Functions logo](title-image.webp)
 
 ## Azure Functions: in-process and isolated
 
@@ -22,7 +22,7 @@ However, the initial launch of isolated functions [does not have the full level 
 
 In the future, in-process functions will be retired in favour of isolated functions. However, it will be .NET 7 (scheduled to ship in November 2022) before that takes place:
 
-![the Azure Functions roadmap image illustrating the future of .NET functions taken from https://techcommunity.microsoft.com/t5/apps-on-azure/net-on-azure-functions-roadmap/ba-p/2197916](dotnet-functions-roadmap.png)
+![the Azure Functions roadmap image illustrating the future of .NET functions taken from https://techcommunity.microsoft.com/t5/apps-on-azure/net-on-azure-functions-roadmap/ba-p/2197916](dotnet-functions-roadmap.webp)
 
 As the image taken from the roadmap shows, when .NET 5 shipped, it did not support in-process Azure Functions. When .NET 6 ships in November, it should.
 
@@ -157,7 +157,7 @@ namespace tmp
 
 If we kick off our function with `func start`:
 
-![screenshot of the output of the HelloRecord function](calling-hello-record.png)
+![screenshot of the output of the HelloRecord function](calling-hello-record.webp)
 
 We can see we can compile, and output is as we might expect and hope. Likewise if we try and debug in VS Code, we can:
 

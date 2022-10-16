@@ -2,7 +2,7 @@
 title: 'Azure Container Apps, Bicep and GitHub Actions'
 authors: johnnyreilly
 tags: [Azure Container Apps, Bicep, GitHub Actions]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
@@ -10,7 +10,7 @@ Azure Container Apps are an exciting way to deploy containers to Azure. This pos
 
 If you're interested in building your own containers as well, it's worth looking at [this follow up post](../2021-12-27-azure-container-apps-build-and-deploy-with-bicep-and-github-actions/index.md).
 
-![title image reading "Azure Container Apps, Bicep and GitHub Actions" with the Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
+![title image reading "Azure Container Apps, Bicep and GitHub Actions" with the Bicep, Azure Container Apps and GitHub Actions logos](title-image.webp)
 
 ## Update 02/05/2022
 
@@ -158,7 +158,7 @@ The above GitHub action is very simple. It:
 
 Let's create that `AZURE_CREDENTIALS` secret in GitHub:
 
-![Screenshot of `AZURE_CREDENTIALS` secret in the GitHub website that we need to create](screenshot-github-secrets.png)
+![Screenshot of `AZURE_CREDENTIALS` secret in the GitHub website that we need to create](screenshot-github-secrets.webp)
 
 We'll use the Azure CLI once more:
 

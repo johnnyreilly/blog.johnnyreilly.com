@@ -116,7 +116,7 @@ const viewModel1 = new NoNewConstructorViewModel();
 const viewModel2 = new NoNewConstructorViewModel('my-id');
 ```
 
-![Screenshot of "error TS2554: Expected 1 arguments, but got 0." error in VS Code](vs-code-no-new-constructor.png)
+![Screenshot of "error TS2554: Expected 1 arguments, but got 0." error in VS Code](vs-code-no-new-constructor.webp)
 
 As the TypeScript compiler tells us, the second of these instantiations is legitimate as it relies upon the constructor from the base class as we'd hope. The first is not as there is no parameterless constructor.
 
