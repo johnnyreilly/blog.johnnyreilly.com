@@ -18,7 +18,7 @@
   --ifm-footer-link-hover-color: #9998e2;
 
   --ifm-code-font-size: 95%;
-  --ifm-font-family-base: 'Poppins';
+  --ifm-font-family-base: 'Poppins', 'Poppins override';
 }
 
 @font-face {
