@@ -5821,7 +5821,7 @@ follow-redirects@^1.0.0, follow-redirects@^1.14.7:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.1.tgz#0ca6a452306c9b276e4d3127483e29575e207ad5"
   integrity sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==
 
-fontaine@^0.1.2:
+fontaine@0.1.3:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/fontaine/-/fontaine-0.1.3.tgz#b73c40b12d1ec450bb100b38fcf05e77e0fe7f92"
   integrity sha512-o/JZmPzzz9DO/x1HODGUgLDIxXesfGNO5xE4W+EYuwXIpmiBJJ0Zpxob66Y9+Y8xsxPeohFByutF5La7IlhY4Q==
