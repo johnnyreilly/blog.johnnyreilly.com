@@ -42,7 +42,7 @@ I've taken steps to reduce the jank, such as [font preloading](../2021-12-29-pre
 
 One evening I was vaguely browsing Twitter when I came across a tweet from [Daniel Roe](https://twitter.com/danielcroe) which [announced a new tool called fontaine](https://twitter.com/danielcroe/status/1581428654479138817):
 
-![screenshot of tweet saying: "⚡️ Announcing `fontaine`! It's a zero-runtime, cross-framework library that significantly & automatically reduces layout shift caused by custom fonts."](screenshot-tweet-about-fontaine.png)
+![screenshot of tweet saying: "⚡️ Announcing `fontaine`! It's a zero-runtime, cross-framework library that significantly & automatically reduces layout shift caused by custom fonts."](screenshot-tweet-about-fontaine.webp)
 
 I was intrigued. I wanted to try it out. I wanted to see if it could reduce the jank on my blog.
 
