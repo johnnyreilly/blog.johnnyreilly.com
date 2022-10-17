@@ -20,7 +20,7 @@ You may well know it as "jank". It's the jank that you see when a page loads and
 
 For the rest of this post I'm going to refer to CLS as "jank", as it's a more relatable term.
 
-## My jank
+## What "jank" looks like
 
 My blog uses a custom font called [Poppins](https://fonts.google.com/specimen/Poppins). Lovely though it is, using the font introduces jank to my site. It's particularly noticeable on mobile phones. Here's a gif of the jank in action:
 
