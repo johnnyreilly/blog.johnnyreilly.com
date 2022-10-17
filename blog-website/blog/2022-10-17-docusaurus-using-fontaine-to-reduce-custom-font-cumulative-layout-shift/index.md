@@ -1,14 +1,14 @@
 ---
-title: 'Docusaurus: Using Fontaine to reduce custom font cumulative layout shift'
+title: 'Docusaurus: Using fontaine to reduce custom font cumulative layout shift'
 authors: johnnyreilly
-tags: [Docusaurus, Fontaine, fonts, CLS, cumulative layout shift]
-image: ./title-image.png
+tags: [Docusaurus, fontaine, fonts, CLS, cumulative layout shift]
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
-Custom font usage can introduce cumulative layout shift (CLS) to your website. This post shows how to use [Fontaine](https://github.com/unjs/fontaine) to reduce this with Docusaurus sites.
+Custom font usage can introduce cumulative layout shift (CLS) to your website. This post shows how to use [fontaine](https://github.com/unjs/fontaine) to reduce this with Docusaurus sites.
 
-![title image reading "Docusaurus: Using Fontaine to reduce custom font cumulative layout shift" in a ridiculous font with the Docusaurus logo and a screenshot of a preload link HTML element](title-image.png)
+![title image reading "Docusaurus: Using fontaine to reduce custom font cumulative layout shift" in a ridiculous font with the Docusaurus logo and a screenshot of a preload link HTML element](title-image.webp)
 
 ## What is cumulative layout shift?
 
@@ -38,23 +38,23 @@ It's very noticeable.
 
 I've taken steps to reduce the jank, such as [font preloading](../2021-12-29-preload-fonts-with-docusaurus/index.md). But it's still there. I thought I was about done with the improvements I could make. But then....
 
-## Fontaine
+## fontaine
 
-One evening I was vaguely browsing Twitter when I came across a tweet from [Daniel Roe](https://twitter.com/danielcroe) which [announced a new tool called Fontaine](https://twitter.com/danielcroe/status/1581428654479138817):
+One evening I was vaguely browsing Twitter when I came across a tweet from [Daniel Roe](https://twitter.com/danielcroe) which [announced a new tool called fontaine](https://twitter.com/danielcroe/status/1581428654479138817):
 
 ![screenshot of tweet saying: "⚡️ Announcing `fontaine`! It's a zero-runtime, cross-framework library that significantly & automatically reduces layout shift caused by custom fonts."](screenshot-tweet-about-fontaine.png)
 
 I was intrigued. I wanted to try it out. I wanted to see if it could reduce the jank on my blog.
 
-## Using Fontaine with Docusaurus
+## Using fontaine with Docusaurus
 
-I added Fontaine as a dependency to my blog:
+I added fontaine as a dependency to my blog:
 
 ```bash
 yarn add -D fontaine
 ```
 
-I then added cracked open my `docusaurus.config.js` file and wrote a small plugin to make use of Fontaine:
+I then added cracked open my `docusaurus.config.js` file and wrote a small plugin to make use of fontaine:
 
 ```js
 const fontaine = require('fontaine');
@@ -73,7 +73,7 @@ const config = {
         configureWebpack(_config, _isServer) {
           return {
             plugins: [
-              fontaine.FontaineTransform.webpack({
+              fontaine.fontaineTransform.webpack({
                 fallbacks: [
                   'system-ui',
                   '-apple-system',
@@ -103,8 +103,8 @@ const config = {
 
 This didn't initially seem to make any difference. I put it up as a [work-in-progress PR](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/305) and wrote up my findings as best I could. Daniel was kind enough to take a look. He uncovered two issues:
 
-- There was a bug in Fontaine around how it handled CSS variables; [he implemented a fix](https://github.com/unjs/fontaine/commit/a708bb07ccc48f385c67ccc3b1eed280d8ee47fc)
-- I needed to add update my font family to add the override font family to the CSS variable (as Fontaine isn't yet able to connect the dots that this is being used as a font family).
+- There was a bug in fontaine around how it handled CSS variables; [he implemented a fix](https://github.com/unjs/fontaine/commit/a708bb07ccc48f385c67ccc3b1eed280d8ee47fc)
+- I needed to add update my font family to add the override font family to the CSS variable (as fontaine isn't yet able to connect the dots that this is being used as a font family).
 
 ```diff
 -  --ifm-font-family-base: 'Poppins';
@@ -119,7 +119,7 @@ Look at that! You can see the font loading, but there's no more jumping of words
 
 ## Conclusion
 
-Fontaine can improve your CLS score. It's a great tool.
+fontaine can improve your CLS score. It's a great tool.
 
 Prior to using it my blogs Cumulative Layout Shift was logged as 0.019, after using it it's logged as 0. This is good news.
 
