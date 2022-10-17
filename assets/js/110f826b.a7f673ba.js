@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[75613],{66663:o=>{o.exports=JSON.parse('{"label":"tony tomov","permalink":"/tags/tony-tomov","allTagsPath":"/tags","count":1}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[25160],{50393:e=>{e.exports=JSON.parse('{"label":"Terry Pratchett","permalink":"/tags/terry-pratchett","allTagsPath":"/tags","count":1}')}}]);

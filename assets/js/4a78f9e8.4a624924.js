@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[15200],{51569:e=>{e.exports=JSON.parse('{"label":"web workers","permalink":"/tags/web-workers","allTagsPath":"/tags","count":1}')}}]);

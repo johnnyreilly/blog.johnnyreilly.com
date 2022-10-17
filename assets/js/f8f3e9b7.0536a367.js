@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[24720],{26829:function(l){l.exports=JSON.parse('{"label":"android","permalink":"/tags/android","allTagsPath":"/tags","count":1}')}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[15718],{15024:function(e){e.exports=JSON.parse('{"permalink":"/tags/azure-dev-ops","page":1,"postsPerPage":1,"totalPages":5,"totalCount":5,"nextPage":"/tags/azure-dev-ops/page/2","blogDescription":"The blog of johnnyreilly","blogTitle":"I CAN MAKE THIS WORK"}')}}]);

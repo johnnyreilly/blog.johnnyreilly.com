@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[15667],{5070:function(e){e.exports=JSON.parse('{"label":"webservice.htc","permalink":"/tags/webservice-htc","allTagsPath":"/tags","count":1}')}}]);

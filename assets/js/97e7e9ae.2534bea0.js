@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[16116],{25023:function(l){l.exports=JSON.parse('{"label":"Hanselman","permalink":"/tags/hanselman","allTagsPath":"/tags","count":1}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[83036],{41164:e=>{e.exports=JSON.parse('{"label":"json.net","permalink":"/tags/json-net","allTagsPath":"/tags","count":1}')}}]);

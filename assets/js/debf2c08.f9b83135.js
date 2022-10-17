@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[83730],{60651:function(l){l.exports=JSON.parse('{"label":"CSS 3","permalink":"/tags/css-3","allTagsPath":"/tags","count":1}')}}]);

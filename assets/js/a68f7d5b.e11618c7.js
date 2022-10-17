@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[2002],{64353:e=>{e.exports=JSON.parse('{"permalink":"/tags/visual-studio","page":1,"postsPerPage":1,"totalPages":5,"totalCount":5,"nextPage":"/tags/visual-studio/page/2","blogDescription":"The blog of johnnyreilly","blogTitle":"I CAN MAKE THIS WORK"}')}}]);

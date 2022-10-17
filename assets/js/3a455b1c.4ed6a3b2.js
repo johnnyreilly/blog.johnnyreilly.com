@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[93738],{54697:function(a){a.exports=JSON.parse('{"label":"Dave Ward","permalink":"/tags/dave-ward","allTagsPath":"/tags","count":2}')}}]);

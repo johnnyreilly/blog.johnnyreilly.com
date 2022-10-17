@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[6748],{34857:function(l){l.exports=JSON.parse('{"label":"NSwag","permalink":"/tags/n-swag","allTagsPath":"/tags","count":1}')}}]);

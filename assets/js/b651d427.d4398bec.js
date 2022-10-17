@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[81712],{18414:function(l){l.exports=JSON.parse('{"label":"MOQ","permalink":"/tags/moq","allTagsPath":"/tags","count":4}')}}]);

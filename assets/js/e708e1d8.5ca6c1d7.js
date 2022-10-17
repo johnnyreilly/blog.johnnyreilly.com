@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[12360],{8042:function(n){n.exports=JSON.parse('{"label":"semantic versioning","permalink":"/tags/semantic-versioning","allTagsPath":"/tags","count":2}')}}]);

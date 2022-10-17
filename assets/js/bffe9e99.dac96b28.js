@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[19385],{55997:function(e){e.exports=JSON.parse('{"label":"Materialized","permalink":"/tags/materialized","allTagsPath":"/tags","count":1}')}}]);

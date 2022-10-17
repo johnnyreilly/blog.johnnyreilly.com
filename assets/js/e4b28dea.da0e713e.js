@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[22277],{91980:function(l){l.exports=JSON.parse('{"label":"IE 10","permalink":"/tags/ie-10","allTagsPath":"/tags","count":2}')}}]);

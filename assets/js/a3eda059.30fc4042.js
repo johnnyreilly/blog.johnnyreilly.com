@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[71159],{71034:l=>{l.exports=JSON.parse('{"label":"DOJO","permalink":"/tags/dojo","allTagsPath":"/tags","count":1}')}}]);

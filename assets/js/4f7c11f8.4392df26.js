@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[66803],{52471:l=>{l.exports=JSON.parse('{"label":"CommonJS","permalink":"/tags/common-js","allTagsPath":"/tags","count":1}')}}]);

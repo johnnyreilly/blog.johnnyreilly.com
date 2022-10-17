@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[65566],{82850:function(l){l.exports=JSON.parse('{"label":"paul irish","permalink":"/tags/paul-irish","allTagsPath":"/tags","count":1}')}}]);

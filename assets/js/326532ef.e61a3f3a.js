@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[10589],{58225:e=>{e.exports=JSON.parse('{"label":"GitHub Pages","permalink":"/tags/git-hub-pages","allTagsPath":"/tags","count":1}')}}]);

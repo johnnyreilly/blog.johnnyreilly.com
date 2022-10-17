@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[2975],{96508:e=>{e.exports=JSON.parse('{"label":"compromise","permalink":"/tags/compromise","allTagsPath":"/tags","count":1}')}}]);

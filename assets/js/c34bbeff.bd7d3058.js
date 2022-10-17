@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[28173],{36616:e=>{e.exports=JSON.parse('{"label":"jQuery UI","permalink":"/tags/j-query-ui","allTagsPath":"/tags","count":2}')}}]);

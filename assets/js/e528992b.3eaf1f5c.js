@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[6215],{39117:function(l){l.exports=JSON.parse('{"label":"Encosia","permalink":"/tags/encosia","allTagsPath":"/tags","count":2}')}}]);

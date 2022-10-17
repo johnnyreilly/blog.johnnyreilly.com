@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[7076],{29651:function(e){e.exports=JSON.parse('{"label":"entity framework","permalink":"/tags/entity-framework","allTagsPath":"/tags","count":5}')}}]);

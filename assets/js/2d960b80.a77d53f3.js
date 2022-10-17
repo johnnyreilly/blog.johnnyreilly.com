@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[21405],{40813:function(a){a.exports=JSON.parse('{"label":"EMCAScript standard","permalink":"/tags/emca-script-standard","allTagsPath":"/tags","count":1}')}}]);

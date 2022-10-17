@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[16111],{28099:l=>{l.exports=JSON.parse('{"label":"TFS","permalink":"/tags/tfs","allTagsPath":"/tags","count":3}')}}]);

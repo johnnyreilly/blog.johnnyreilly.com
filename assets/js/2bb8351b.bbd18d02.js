@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[16166],{19110:function(a){a.exports=JSON.parse('{"label":"Marc Talary","permalink":"/tags/marc-talary","allTagsPath":"/tags","count":1}')}}]);

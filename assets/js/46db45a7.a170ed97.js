@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[39578],{98721:e=>{e.exports=JSON.parse('{"label":"Microsoft.Identity.Web","permalink":"/tags/microsoft-identity-web","allTagsPath":"/tags","count":2}')}}]);

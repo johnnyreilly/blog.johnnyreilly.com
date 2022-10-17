@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[87935],{86098:function(n){n.exports=JSON.parse('{"label":"Docking station","permalink":"/tags/docking-station","allTagsPath":"/tags","count":1}')}}]);

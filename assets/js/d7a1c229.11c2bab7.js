@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[7180],{87616:e=>{e.exports=JSON.parse('{"label":"Azure App Service","permalink":"/tags/azure-app-service","allTagsPath":"/tags","count":1}')}}]);

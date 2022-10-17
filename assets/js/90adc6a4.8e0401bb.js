@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[8130],{21670:l=>{l.exports=JSON.parse('{"label":"Troy Hunt","permalink":"/tags/troy-hunt","allTagsPath":"/tags","count":1}')}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[83395],{85788:function(e){e.exports=JSON.parse('{"label":"jquery unobtrusive validation","permalink":"/tags/jquery-unobtrusive-validation","allTagsPath":"/tags","count":2}')}}]);

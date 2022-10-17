@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[53833],{69003:function(e){e.exports=JSON.parse('{"label":"dead code elimination","permalink":"/tags/dead-code-elimination","allTagsPath":"/tags","count":1}')}}]);

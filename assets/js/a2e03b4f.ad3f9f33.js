@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[6359],{7535:e=>{e.exports=JSON.parse('{"label":"Bootstrap Datepicker","permalink":"/tags/bootstrap-datepicker","allTagsPath":"/tags","count":1}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[25272],{7471:l=>{l.exports=JSON.parse('{"label":"Azure Application Insights","permalink":"/tags/azure-application-insights","allTagsPath":"/tags","count":1}')}}]);
