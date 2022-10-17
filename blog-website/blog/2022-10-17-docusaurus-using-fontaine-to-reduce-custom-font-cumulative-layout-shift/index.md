@@ -111,7 +111,7 @@ This didn't initially seem to make any difference. I put it up as a [work-in-pro
 +  --ifm-font-family-base: 'Poppins', 'Poppins override';
 ```
 
-I'll be honest, I didn't fully understand the second point. But Daniel was kind enough to [raise a PR incorporating both the tweaks](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/307). When I merged that PR, I saw the following:
+Daniel was kind enough to [raise a PR incorporating both the tweaks](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/307). When I merged that PR, I saw the following:
 
 ![A gif of the mobile view of my blog loading and shifting in layout as the custom font arrives](my-jank-fixed.gif)
 
@@ -119,8 +119,8 @@ Look at that! You can see the font loading, but there's no more jumping of words
 
 ## Conclusion
 
-fontaine can improve your CLS score. It's a great tool.
+If you want to improve your CLS score, fontaine is a great tool. This post demonstrates using it with Docusaurus. But please note that this is a generally useful tool that you can use with Vite, Next.js and others. It's not specific to Docusaurus.
 
-Prior to using it my blogs Cumulative Layout Shift was logged as 0.019, after using it it's logged as 0. This is good news.
+Prior to using fontaine, my blogs Cumulative Layout Shift was logged as **0.019**, after using it it's logged as **0**. This is good news!
 
 I'm very grateful to Daniel for his help in getting it working with my blog. He went above and beyond, so thank you Daniel!
