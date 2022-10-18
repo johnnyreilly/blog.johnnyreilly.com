@@ -104,12 +104,14 @@ const config = {
 This didn't initially seem to make any difference. I put it up as a [work-in-progress PR](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/305) and wrote up my findings as best I could. Daniel was kind enough to take a look. He uncovered two issues:
 
 - There was a bug in fontaine around how it handled CSS variables; [he implemented a fix](https://github.com/unjs/fontaine/commit/a708bb07ccc48f385c67ccc3b1eed280d8ee47fc)
-- I needed to add update my font family to add the override font family to the CSS variable (as fontaine isn't yet able to connect the dots that this is being used as a font family).
+- Docusaurus uses custom fonts through the mechanism of CSS variables. This indirection confuses fontaine as it can't read those variables. To accomodate this, we needed to update my CSS variable to add the override font family to the CSS variable:
 
 ```diff
 -  --ifm-font-family-base: 'Poppins';
 +  --ifm-font-family-base: 'Poppins', 'Poppins override';
 ```
+
+Behind the scenes, there is a 'Poppins override' `@font-face` rule that has been created by fontaine. By manually adding this override font family to our CSS variable, we make our site use the fallback 'Poppins override' `@font-face` rule with the correct font metrics that fontaine generates.
 
 Daniel was kind enough to [raise a PR incorporating both the tweaks](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/307). When I merged that PR, I saw the following:
 
