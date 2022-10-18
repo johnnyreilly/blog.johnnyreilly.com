@@ -9,13 +9,13 @@ tags:
     ConfigureTestContainer,
     Integration Testing,
   ]
-image: ./autofac-webapplicationfactory-tests.png
+image: ./autofac-webapplicationfactory-tests.webp
 hide_table_of_contents: false
 ---
 
 **Updated 2nd Oct 2020:** _for an approach that works with Autofac 6 and `ConfigureTestContainer` see [this post](../2020-10-02-autofac-6-integration-tests-and-generic-hosting/index.md)._
 
-![A title image for the blog featuring the Autofac logo](autofac-webapplicationfactory-tests.png)
+![A title image for the blog featuring the Autofac logo](autofac-webapplicationfactory-tests.webp)
 
 This is one of those occasions where I'm not writing up my own work so much as my discovery after in depth googling.
 
