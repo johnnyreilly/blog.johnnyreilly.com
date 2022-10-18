@@ -2,7 +2,7 @@
 title: 'ASP.NET Core: Proxying HTTP Requests with an AllowList'
 authors: johnnyreilly
 tags: [asp net core, proxy, http requests, allowlist]
-image: ./hang-on-lads-ive-got-a-great-idea.jpg
+image: ./hang-on-lads-ive-got-a-great-idea.webp
 hide_table_of_contents: false
 ---
 
@@ -16,7 +16,7 @@ The team felt they had good answers to InfoSec's questions. However, just as the
 
 The team, with one foot in the air, paused. They swallowed and said "can you give us five minutes?"
 
-![image taken from the end of the classic movie "The Italian Job" of the bus hanging half off a mountainside](hang-on-lads-ive-got-a-great-idea.jpg)
+![image taken from the end of the classic movie "The Italian Job" of the bus hanging half off a mountainside](hang-on-lads-ive-got-a-great-idea.webp)
 
 ## The Proxy Regroup
 

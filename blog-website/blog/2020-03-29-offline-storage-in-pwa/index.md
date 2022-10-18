@@ -96,7 +96,7 @@ You'll also note that `testIDBKeyval` is an `async` function. This is so that we
 
 What happens when we run our application with `yarn start`? Let's do that and take a look at the devtools:
 
-![](hello_world_idb_keyval.png)
+![](hello_world_idb_keyval.webp)
 
 We successfully wrote something into IndexedDB, read it back and printed that value to the console. Amazing!
 

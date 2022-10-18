@@ -2,14 +2,14 @@
 title: 'Visual Studio Marketplace: images in Markdown!'
 authors: johnnyreilly
 tags: [Azure DevOps Marketplace, Visual Studio Marketplace, markdown, images]
-image: ./azure-devops-marketplace.png
+image: ./azure-devops-marketplace.webp
 description: 'Publish your README/index.md and associated images to Visual Studio Marketplace.'
 hide_table_of_contents: false
 ---
 
 I've recently found myself developing [custom pipelines task extensions for Azure DevOps](https://docs.microsoft.com/en-us/azure/devops/extend/develop/add-build-task?view=azure-devops). The extensions being developed end up in the [Azure DevOps Marketplace](https://marketplace.visualstudio.com/azuredevops). What you see there when you look at existing extensions is some pretty lovely documentation.
 
-![screenshot of a rich Markdown powered screen with images in Visual Studio Marketplace](azure-devops-marketplace.png)
+![screenshot of a rich Markdown powered screen with images in Visual Studio Marketplace](azure-devops-marketplace.webp)
 
 ## How can our tasks look as lovely?
 

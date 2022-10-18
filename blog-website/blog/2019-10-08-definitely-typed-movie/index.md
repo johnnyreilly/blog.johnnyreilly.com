@@ -2,7 +2,7 @@
 title: 'Definitely Typed: The Movie'
 authors: johnnyreilly
 tags: [TypeScript, Definitely Typed]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
@@ -10,7 +10,7 @@ I'd like to tell you a story. It's the tale of the ecosystem that grew up around
 
 Who could have predicted it would end up like this? When I was a boy I remember coming down the stairs in my childhood home. Shuffling to the edge of each step on my bottom before thumping down to the one beneath. When I look at those same stairs now they're so small. I barely notice the difference between one step and the next. But back then each step seemed giant, each one so far apart. Definitely Typed had any number of steps in its evolution. They all seemed so significant then; whereas now they're just a memory. Let's remember together…
 
-![A title image that reads "Definitely Typed: The Movie"](title-image.png)
+![A title image that reads "Definitely Typed: The Movie"](title-image.webp)
 
 ## Prolog(ue)
 
@@ -38,7 +38,7 @@ There was no discussion of “how do we type the world”? Even if they wanted t
 
 ## Boris Yankov
 
-![photograph of Boris Yankov looking mean, moody and magnificent](boris_yankov.jpeg)
+![photograph of Boris Yankov looking mean, moody and magnificent](boris_yankov.webp)
 
 Boris Yankov was a handsome thirty year old man, living in the historic Bulgarian city of Plovdiv. He was swarthy with dark hair; like Ben Affleck if had been hanging out in Eastern Europe for a couple of years.
 
@@ -70,7 +70,7 @@ Success has many parents. TypeScript is a successful project. One reason for thi
 
 ## Definitely Typed
 
-![The Definitely Typed logo](dt-logo-smallish.png)
+![The Definitely Typed logo](dt-logo-smallish.webp)
 
 Boris had been feeling unproductive. He would build applications in JS and watch them unaccountably break as he made simple tweaks to them. He was constantly changing things, breaking them, fixing them and hoping he hadn't broken something else along the way. It was exhausting. He saw the promise in what TypeScript was offering and decided to give it a go.
 
@@ -82,7 +82,7 @@ Boris took his type definitions and put them into this repository. Were you ever
 
 [https://github.com/DefinitelyTyped/DefinitelyTyped/commits?after=4a4cf23ff4301835a45bb138bbb62bf5f0759255+699&author=borisyankov](https://github.com/DefinitelyTyped/DefinitelyTyped/commits?after=4a4cf23ff4301835a45bb138bbb62bf5f0759255+699&author=borisyankov)
 
-![A screenshot of the initial commits to Definitely Typed on GitHub](Initial-CommitsDefinitelyTyped.png)
+![A screenshot of the initial commits to Definitely Typed on GitHub](Initial-CommitsDefinitelyTyped.webp)
 
 It wasn't complicated; it was just a folder with subfolders underneath; each folder representing a project. One for jQuery, one for jQuery UI, one for Knockout.... You get the idea. It's not so different now.
 
@@ -138,7 +138,7 @@ Boris started adding contributors to Definitely Typed to help him with the work.
 
 ## Basarat Ali Syed
 
-![A photograph of Basarat](basarat.jpg)
+![A photograph of Basarat](basarat.webp)
 
 Basarat Ali Syed was a 27 year old who had recently moved to Melbourne, Australia from Pakistan. You might know of him for a number of reasons, not least being the TypeScript equivalent of Jon Skeet. That, incidentally, is not a coincidence. Basarat had watched Jon Skeet's impressive work, being _the_ gold standard in C# answers and thought "there's something worth emulating here".
 
@@ -156,11 +156,11 @@ Bas had the level of self knowledge required to realise that getting others invo
 
 On December 28th 2013 Basarat decided that a regular contributor to Definitely Typed might be a potential team member. Bas opened up Twitter and sent a Direct Message to John Reilly.
 
-![A screenshot of direct message Basarat sent to John Reilly in Twitter](2019-10-02-21_51_58-basarat-_-Twitter.png)
+![A screenshot of direct message Basarat sent to John Reilly in Twitter](2019-10-02-21_51_58-basarat-_-Twitter.webp)
 
 ## John Reilly
 
-![A photograph of John Reilly](johnny_reilly.jpg)
+![A photograph of John Reilly](johnny_reilly.webp)
 
 That's me. Or [johnny_reilly on Twitter](https://twitter.com/johnny_reilly) and [johnnyreilly](https://github.com/johnnyreilly) on GitHub (as John Papa and I have learned to our chagrin; GitHub don't support the "\_" character in usernames). Relatively few people call me Johnny. I'm named that online because back when I applied for an email address, someone had already bagsied john\_reilly@popularemailhotness.com. So rather than sully my handle with a number or a middle name I settled for johnny_reilly. I haven't looked back and have generally tried to keep that nom de plume wherever I lay my hat online.
 
@@ -243,7 +243,7 @@ The compiler was changing too fast and there were too few people involved to all
 
 ## Masahiro Wakame
 
-![A photograph of Masahiro Wakame](masahiro_wakame.jpg)
+![A photograph of Masahiro Wakame](masahiro_wakame.webp)
 
 Time passed. Autumn turned into winter, winter into spring. TypeScript reached 1.0. It wasn't beta anymore. As each release came, the changes in the compiler became more gradual. This was a blessing for the Definitely Typed team. The projects popularity was ticking up and up. New definitions were added each day. The trickle of issues and PRs had become a stream, then a river. A river very much ready to burst its banks.
 
@@ -265,7 +265,7 @@ As Masahiro kept the lights on, in a hotel room in Buenos Aires an Australian na
 
 ## Blake Embrey
 
-![A photograph of Blake Embrey](blake_embrey.jpeg)
+![A photograph of Blake Embrey](blake_embrey.webp)
 
 Blake was a 21 year old Australian. He was a nomadic developer, travelling around the world and working remotely. He travelled from country to country armed with a suitcase and his trusty MacBook in search of WiFi. He found himself dialing into standups from cafés in Vietnam at 1am to provide Jira updates, coding from airports as he criss-crossed the globe. It was an unusual life.
 
@@ -299,7 +299,7 @@ How could we have a world where external modules and global were treated distinc
 
 ## Typings
 
-![A screenshot of the Typings project](typings.jpg)
+![A screenshot of the Typings project](typings.webp)
 
 Blake made [typings](https://github.com/typings/typings). Typings was a number of things; it was a new command line tool to replace TSD, it was a new approach to distributing type definitions and it was a registry. But Typings was a registry which pointed out to the web. Typings installation was entirely decentralized and the typings themselves could be downloaded from almost anywhere - GitHub, NPM, Bower and even over HTTP or the filesystem. Those type definitions could be external modules or globals.
 
@@ -315,7 +315,7 @@ Little by little, people started consuming type definitions that came from the t
 
 ## The TypeScript Team
 
-![A photograph of the TypeScript team](TypeScriptTeam.jpg)
+![A photograph of the TypeScript team](TypeScriptTeam.webp)
 
 Over in Seattle, the TypeScript team was thinking hard about the type definition ecosystem. About Definitely Typed and Typings. And about tooling and distribution.
 
@@ -337,13 +337,13 @@ There was one more factor in play. The TypeScript team were aware that for the l
 
 The TypeScript team reached out to Blake Embrey and started to talk about ways forward. They started collaborating over Slack.
 
-![A screenshot of the collaboration on Slack](typings_typescript_collaboration.jpg)
+![A screenshot of the collaboration on Slack](typings_typescript_collaboration.webp)
 
 The TypeScript team had also been in contact with the Definitely Typed team. They were, at this point, aware that Definitely Typed was being kept going mainly due to the hard graft of Masahiro Wakame. As Daniel observed “vvakame was a champ”.
 
 At this point I have to stick my own hand up and confess to thinking that Definitely Typed was not long for this world. Steve Ognibene (another DT member) and others were all feeling similarly. It seemed inevitable.
 
-![A photograph of Steve Ognibe](steveognibe.png)
+![A photograph of Steve Ognibe](steveognibe.webp)
 
 The TypeScript team were about to change that. After talking, thinking, thinking and talking they put together a plan. It was going to change TypeScript and change Definitely Typed. It was also going to effectively end Typings.
 
@@ -385,7 +385,7 @@ At this point, Definitely Typed had more than 500 open pull requests. Most of wh
 
 Alongside this, changes were being made to the TypeScript compiler. In large part these related to enabling automatic type acquisition through the @types scope. To make that work, the TypeScript team realised pretty quickly that many of the type definitions would not work as is. Ryan wrote up this report:
 
-![Ryan Cavanagh's report on what to do in Definitely Typed](RyansDefTypReport.png)
+![Ryan Cavanagh's report on what to do in Definitely Typed](RyansDefTypReport.webp)
 
 At this point in time there were around 1700 type definitions. Pretty much all of them required some massaging. Roughly speaking, with TS 2.0, the language was going to move from a name based type acquisition approach to a file based one. New features were added to TypeScript 2.0 such as the `export as namespace` syntax to support a type definition supporting both being used in modules (where there are `import` / `export`s) but also in script files (where there aren't)
 
@@ -395,7 +395,7 @@ This was one of the reasons why going with the centralised approach of Definitel
 
 It took a long time to get the types 2.0 branch to a point where CI went green. All this time, merges we're taking place between the master branch and the future one. It was hard, unglamorous work. As Ryan put it, "I partied hard when CI went green for the first time on types 2.0."
 
-![Screenshot of @types going green](types20goinggreen.png)
+![Screenshot of @types going green](types20goinggreen.webp)
 
 The first and most obvious addition was the automation of TypeScript definitions being published out to npm.
 
