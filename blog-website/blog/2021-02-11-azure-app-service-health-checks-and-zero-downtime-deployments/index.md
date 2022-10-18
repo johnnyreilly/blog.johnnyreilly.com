@@ -136,7 +136,7 @@ When I first considered this, the question rattling around in the back of my min
 
 It so happens that using [Health checks, App Service caters for this beautifully](https://docs.microsoft.com/en-us/azure/app-service/monitor-instances-health-check). A health check endpoint is a URL in your application which, when hit, checks the dependencies of your application. "Is the database accessible?" "Are the APIs I depend upon accessible?" The diagram from the docs expresses it very well:
 
-![diagram of traffic hitting the health check endpoint](health-check-failure-diagram.png)
+![diagram of traffic hitting the health check endpoint](health-check-failure-diagram.webp)
 
 This approach is very similar to [liveness, readiness and startup probes in Kubernetes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/). To make use of Health checks, in our ARM template for our App Service we have configured a `healthCheckPath`:
 

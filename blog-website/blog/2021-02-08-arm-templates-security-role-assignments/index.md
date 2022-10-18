@@ -1,7 +1,7 @@
 ---
 title: 'Azure RBAC: role assignments and ARM templates'
 authors: johnnyreilly
-image: ./with-great-power-comes-great-responsibility.jpg
+image: ./with-great-power-comes-great-responsibility.webp
 tags: [Azure, ARM templates, role assignments, permissions]
 hide_table_of_contents: false
 ---
@@ -12,7 +12,7 @@ If you're deploying to Azure, there's a good chance you're using [ARM templates]
 
 One of the hardest things when it comes to deploying software and having it work, is permissions. Without adequate permissions configured, the most beautiful code can do _nothing_. Incidentally, this is a good thing. We're deploying to the web; many people are there, not all good. As a different kind of web-head once said:
 
-![Spider-man saying with great power, comes great responsibility](with-great-power-comes-great-responsibility.jpg)
+![Spider-man saying with great power, comes great responsibility](with-great-power-comes-great-responsibility.webp)
 
 Azure has great power and [suggests you use it wisely](https://docs.microsoft.com/en-us/azure/security/fundamentals/identity-management-best-practices#use-role-based-access-control).
 

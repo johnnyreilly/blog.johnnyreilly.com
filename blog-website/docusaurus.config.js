@@ -1,6 +1,7 @@
 //@ts-check
 const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 
+const fontaine = require('fontaine');
 const FontPreloadPlugin = require('webpack-font-preload-plugin');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
@@ -88,6 +89,34 @@ const config = {
         },
       };
     },
+    function fontainePlugin(_context, _options) {
+      return {
+        name: 'fontaine-plugin',
+        configureWebpack(_config, _isServer) {
+          return {
+            plugins: [
+              fontaine.FontaineTransform.webpack({
+                fallbacks: [
+                  'system-ui',
+                  '-apple-system',
+                  'BlinkMacSystemFont',
+                  'Segoe UI',
+                  'Roboto',
+                  'Oxygen',
+                  'Ubuntu',
+                  'Cantarell',
+                  'Open Sans',
+                  'Helvetica Neue',
+                  'sans-serif',
+                ],
+                // You may need to resolve assets like `/fonts/Roboto.woff2` to a particular directory
+                resolvePath: (id) => '../fonts/' + id,
+              }),
+            ],
+          };
+        },
+      };
+    },
     [
       'ideal-image',
       /** @type {import('@docusaurus/plugin-ideal-image').PluginOptions} */
@@ -104,36 +133,12 @@ const config = {
       'client-redirects',
       /** @type {import('@docusaurus/plugin-client-redirects').Options} */
       ({
-        redirects: [
-          {
-            to: '/2018/07/28/azure-app-service-web-app-containers-asp-net-nested-configuration',
-            from: '/2018/07/28/configuring-docker-azure-web-app-containers',
-          },
-          {
-            to: '/2018/08/21/typescript-webpack-alias-goodbye-relative-paths',
-            from: '/2018/08/21/killing-relative-paths-with-typescript-and',
-          },
-          {
-            to: '/2019/02/22/aspnet-core-allowlist-proxying-http-requests',
-            from: '/2019/02/22/whitelist-proxying-with-aspnet-core',
-          },
-          {
-            to: '/2019/03/06/fork-ts-checker-webpack-plugin-v1',
-            from: '/2019/03/06/the-big-one-point-oh',
-          },
-          {
-            to: '/2019/08/02/asp-net-authentication-hard-coding-claims',
-            from: '/2019/08/02/hard-coding-claim-in-development-mode',
-          },
-          {
-            to: '/2019/12/18/teams-notification-webhooks',
-            from: '/2019/12/18/automating-teams-notifications-recently',
-          },
-          {
-            to: '/2020/05/21/autofac-webapplicationfactory-integration-tests',
-            from: '/2020/05/21/autofac-webapplicationfactory-and',
-          },
-        ],
+        // redirects: [
+        //   {
+        //     to: '/2018/07/28/azure-app-service-web-app-containers-asp-net-nested-configuration',
+        //     from: '/2018/07/28/configuring-docker-azure-web-app-containers',
+        //   },
+        // ],
         createRedirects: function (existingPath) {
           if (existingPath.match(urlRegex)) {
             const [, year, month, date, slug] = existingPath.split('/');
@@ -157,7 +162,7 @@ const config = {
           {
             tagName: 'link',
             rel: 'icon',
-            href: '/img/favicon/profile.jpg',
+            href: '/img/profile-64x64.jpg',
           },
           {
             tagName: 'link',
@@ -197,7 +202,7 @@ const config = {
         { name: 'monetization', content: '$ilp.uphold.com/LwQQhXdpwxeJ' },
         // This would become <meta name="monetization" content="$ilp.uphold.com/LwQQhXdpwxeJ"> in the generated HTML
       ],
-      
+
       algolia: {
         // If Algolia did not provide you any appId, use 'BH4D9OD16A'
         appId: 'J3MYR1INLT',
@@ -226,7 +231,7 @@ const config = {
         title: 'I CAN MAKE THIS WORK',
         logo: {
           alt: 'I CAN MAKE THIS WORK',
-          src: 'img/profile.jpg',
+          src: 'img/profile-64x64.jpg',
           width: 32,
           height: 32,
         },
@@ -269,7 +274,7 @@ const config = {
                 html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" rel="noopener" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" loading="lazy" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
               },
               {
-                html: `<div style="display: flex; align-items: center;"><iframe src="https://github.com/sponsors/johnnyreilly/button" title="Sponsor johnnyreilly" height="35" width="116" style="border: 0;"></iframe><div>&nbsp;on GitHub</div></div>`,
+                html: `<iframe src="https://github.com/sponsors/johnnyreilly/card" title="Sponsor johnnyreilly" style="border: 0; border-radius: 10px; background-color: white; min-height: 200px;"></iframe>`,
               },
             ],
           },
@@ -287,7 +292,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
+        copyright: `Copyright © 2012 - ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,

@@ -1,7 +1,7 @@
 ---
 title: 'ASP.NET, Serilog and Application Insights'
 authors: johnnyreilly
-image: ./application-insights-properties.png
+image: ./application-insights-properties.webp
 tags: [asp.net, Azure, Application Insights, Serilog]
 hide_table_of_contents: false
 ---
@@ -130,7 +130,7 @@ Take a moment to admire the salmon pinks. Is it not lovely?
 
 Finally we come to the main act. Plugging in Application Insights is as simple as dropping in `loggerConfiguration.WriteTo.ApplicationInsights` into our configuration. You'll note that this depends upon the existence of an application setting of `APPINSIGHTS_INSTRUMENTATIONKEY` - this is the secret sauce that we need to be in place so we can pipe logs merrily to Application Insights. So you'll need this configuration in place so this works.
 
-![screenshot of application insights with our output](application-insights-properties.png)
+![screenshot of application insights with our output](application-insights-properties.webp)
 
 As you can see, we now have the likes of `BuildNumber`, `CommitHash` and friends visible on each log. Happy diagnostic days!
 

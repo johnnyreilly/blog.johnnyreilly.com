@@ -99,7 +99,7 @@ The version which we want to use is 2.1 (or greater) and fortunately that is com
 
 If you're using user assigned managed identity, you'll need to supply the object id of your managed identity, which you can find in the [Azure Portal](https://portal.azure.com/):
 
-![Managed Identity object id](managed-identity-object-id.png)
+![Managed Identity object id](managed-identity-object-id.webp)
 
 You can configure this in ARM as well, but cryptically, the object id goes by the nom de plume of `principalId` (thanks to my partner in crime [John McCormick](https://github.com/jmccor99) for puzzling that out):
 

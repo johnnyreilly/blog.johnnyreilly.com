@@ -2,7 +2,7 @@
 title: 'Output connection strings and keys from Azure Bicep'
 authors: johnnyreilly
 tags: [Bicep, Azure, connection string, keys]
-image: ./title-image.jpg
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
@@ -10,7 +10,7 @@ If we're provisioning resources in Azure with Bicep, we may have a need to acqui
 
 Please note that exporting keys / connection strings etc from Bicep / ARM templates is generally considered to be a less secure approach. This is because these values will be visible inside the deployments section of the Azure Portal. Anyone who has access to this will be able to see them. An alternative approach would be permissioning our pipeline to access the resources directly. You can read about that approach [here](2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/index.md).
 
-![image which contains the blog title](title-image.jpg)
+![image which contains the blog title](title-image.webp)
 
 ## Event Hub connection string
 
@@ -66,7 +66,7 @@ resource eventHubNamespaceName_eventHubName_ListenSend 'Microsoft.EventHub/names
 
 When this is deployed to Azure, it will result in creating something like this:
 
-![screenshot of event hub connection strings in the Azure Portal](event-hub-connection-string.png)
+![screenshot of event hub connection strings in the Azure Portal](event-hub-connection-string.webp)
 
 As we can see, there are connection strings available which can be used to access the event hub. How do we get a connection string that we can play with? It's easily achieved by appending the following to our Bicep:
 

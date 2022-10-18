@@ -1,13 +1,13 @@
 param location string
 param branch string
-param name string
+param staticWebAppName string
 param tags object
 @secure()
 param repositoryToken string
 param customDomainName string
 
 resource staticWebApp 'Microsoft.Web/staticSites@2021-02-01' = {
-  name: name
+  name: staticWebAppName
   location: location
   tags: tags
   sku: {
