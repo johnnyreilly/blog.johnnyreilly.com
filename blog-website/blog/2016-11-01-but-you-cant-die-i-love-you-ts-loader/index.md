@@ -2,7 +2,7 @@
 title: "But you can't die... I love you!"
 authors: johnnyreilly
 tags: [open source, TypeScript, ts-loader]
-image: ./caretaker.png
+image: ./caretaker.webp
 hide_table_of_contents: false
 ---
 
@@ -50,4 +50,4 @@ I've got plans to do a lot more. I'm in the process of [refactoring ts-loader to
 
 I'm working with [Herrington Darkholme](https://github.com/HerringtonDarkholme) (awesome name BTW!) to [add a hook-in point](https://github.com/TypeStrong/ts-loader/issues/270) that will allow ts-loader to support [vuejs](http://vuejs.org/). Stuff is happening and will continue to. But don't be shy; be part of this! ts-loader awaits your PRs and is happy to have as many caretakers as possible!
 
-![](caretaker.png)
+![](caretaker.webp)
