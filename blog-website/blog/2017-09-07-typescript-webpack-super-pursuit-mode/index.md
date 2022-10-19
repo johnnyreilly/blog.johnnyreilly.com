@@ -19,11 +19,11 @@ If you're like me then you'll like TypeScript and you'll like module bundling wi
 
 I'm the primary maintainer of ts-loader, a TypeScript loader for webpack. Just recently a couple of PRs were submitted that said, in other words: ts-loader is like this:
 
-![](KITT.jpg)
+![](KITT.webp)
 
 But it could be like this:
 
-![](webkitt.jpg)
+![](webkitt.webp)
 
 Apologies for the image quality above; there appear to be no high quality pictures out there of KITT in Super Pursuit Mode for me to defame with [Garan Jenkin](https://github.com/plemont)'s atrocious puns.
 
