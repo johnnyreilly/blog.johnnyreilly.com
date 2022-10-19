@@ -13,7 +13,7 @@ So, you're working on a webpack loader. (In my case the typescript loader; [`ts-
 
 Well that doesn't sound too promising. Let's have a look at the docs. Ah. Hmmm. You know how it goes with webpack. Why document anything clearly when people could just guess wildly until they near insanity and gibber? Right? It's well established that webpack's attitude to docs has been traditionally akin to Gordon Gecko's view on lunch.
 
-![](documentation-is-for-wimps.png)
+![](documentation-is-for-wimps.webp)
 
 In all fairness, things are beginning to change on that front. In fact the [new docs](https://webpack.js.org/) look very promising. But regrettably, the docs on the enhanced-resolve repo are old school. Which is to say: opaque. However, I'm here to tell you that if a sync resolver is your baby then, contrary to appearances, `enhanced-resolve` has your back.
 

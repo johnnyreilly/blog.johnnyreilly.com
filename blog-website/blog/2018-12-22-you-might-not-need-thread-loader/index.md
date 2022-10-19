@@ -62,7 +62,7 @@ When I tested using `thread-loader` in watch mode with `poolTimeout: Infinity` o
 
 A likely reason for this benefit is that typically when you're developing, you're working on one file at a time. Hence you only transpile one file at a time:
 
-![](ts-profile2.png)
+![](ts-profile2.webp)
 
 So there's not a great deal of value that `thread-loader` can add here; mostly it's twiddling thumbs and adding an overhead. [To quote the docs:](https://github.com/webpack-contrib/thread-loader/blob/master/README/index.md#usage)
 
