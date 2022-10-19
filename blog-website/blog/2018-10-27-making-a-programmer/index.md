@@ -21,7 +21,7 @@ We (by which I mean myself and the other course organisers) are interested in fe
 
 We're heavily invested in feedback in both what we build and how we build it. So we were totally going to apply this to doing something we'd never done before. So seized were we of this that we made feedback part of the session. For the last five minutes each week we'd run a short retrospective. We'd stick up happy, sad and "meh" emojis to the wall, hand out post-its and everyone got to stick up their thoughts.
 
-![](not-so-sure-about-this-feedback.jpg)
+![](not-so-sure-about-this-feedback.webp)
 
 From that we learned what was working, what wasn't and when we were very lucky there were suggestions too. We listened to all the feedback and the next week's session would be informed by what we'd just learned.
 
@@ -43,7 +43,7 @@ Then we'd move onto the main content. The initial plan was to make use of the ex
 
 One week we tried something different. It turns out that the amazing [JMac](https://twitter.com/foldr) has quite the skill for writing programming exercises. Small coding challenges that people can tackle independently. JMac put together a [repl.it](https://repl.it/) of exercises and encouraged the class to get stuck in. They did. So much so that at the end of the session it was hard to get everyone's attention to let them know the session was over. They were in the zone. When we did finally disrupt their flow, the feedback was pretty unanimous: we'd hit paydirt.
 
-![](we-dug-this-feedback.jpg)
+![](we-dug-this-feedback.webp)
 
 Consequently, that was the format going onwards. JMac would come up with a number of exercises for the class. Wisely they were constructed so that they gently levelled up in terms of complexity as you went on. You'd get the dopamine hit of satisfaction as you did the earliest challenges that would give you the confidence to tackle the more complex later problems. If peeps got stuck they could ask someone to advise them, a facilitator or a peer. Or they could google it.... Like any other dev.
 

@@ -119,7 +119,7 @@ Hmmm... So sad. If you go to [https://manage.auth0.com/#/applications](https://m
 
 Select it, Save Changes and try again.
 
-![](auth0-enable-password-grant-type.png)
+![](auth0-enable-password-grant-type.webp)
 
 You now have a test which automates your Auth0 login using Cypress and goes on to test your application functionality with it!
 
