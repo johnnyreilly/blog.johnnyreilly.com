@@ -1,6 +1,7 @@
 //@ts-check
 const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 
+const fontaine = require('fontaine');
 const FontPreloadPlugin = require('webpack-font-preload-plugin');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
@@ -88,6 +89,36 @@ const config = {
         },
       };
     },
+
+    function fontainePlugin(_context, _options) {
+      return {
+        name: 'fontaine-plugin',
+        configureWebpack(_config, _isServer) {
+          return {
+            plugins: [
+              fontaine.FontaineTransform.webpack({
+                fallbacks: [
+                  'system-ui',
+                  '-apple-system',
+                  'BlinkMacSystemFont',
+                  'Segoe UI',
+                  'Roboto',
+                  'Oxygen',
+                  'Ubuntu',
+                  'Cantarell',
+                  'Open Sans',
+                  'Helvetica Neue',
+                  'sans-serif',
+                ],
+                // You may need to resolve assets like `/fonts/Roboto.woff2` to a particular directory
+                resolvePath: (id) => '../fonts/' + id,
+              }),
+            ],
+          };
+        },
+      };
+    },
+
     function extraHeadTagsPlugin(context, options) {
       return {
         name: 'extra-head-tags-plugin',
@@ -151,7 +182,7 @@ const config = {
           {
             tagName: 'link',
             rel: 'icon',
-            href: '/img/favicon/profile.jpg',
+            href: '/img/profile-64x64.jpg',
           },
           {
             tagName: 'link',
@@ -221,7 +252,7 @@ const config = {
         title: 'I CAN MAKE THIS WORK',
         logo: {
           alt: 'I CAN MAKE THIS WORK',
-          src: 'img/profile.jpg',
+          src: 'img/profile-64x64.jpg',
           width: 32,
           height: 32,
         },

@@ -43,6 +43,8 @@ function getImageFilesFromDirectory(dir: string) {
 
 async function processImageFiles(imageFiles: string[]) {
   let processed = 0;
+  let totalOriginalSizeKb = 0n;
+  let totalNewSizeKb = 0n;
   let failed: string[] = [];
 
   for (const imageFilePath of imageFiles) {
@@ -86,13 +88,14 @@ async function processImageFiles(imageFiles: string[]) {
         });
       }
 
+      totalOriginalSizeKb += originalSizeKb;
+      totalNewSizeKb += newSizeKb;
+
       console.log(`- 🔴 ${originalSizeKb}kb - ${imageFileName}
 - 🟢 ${newSizeKb}kb - ${newImageFileName}
-- 🔽 ${(
-        ((Number(originalSizeKb) - Number(newSizeKb)) /
-          Number(originalSizeKb)) *
-        100
-      ).toFixed(2)}% reduction
+- 🔽 ${calculatePercentageReduction({ originalSizeKb, newSizeKb }).toFixed(
+        2
+      )}% reduction
 
 ✅ Processed! (${++processed} of ${imageFiles.length})
 
@@ -103,9 +106,32 @@ async function processImageFiles(imageFiles: string[]) {
     }
   }
 
-  if (failed.length > 0) console.log('Failed to process', failed);
+  console.log(`
+************************************************
+* Total savings for ${imageFiles.length} images 
+- 🔴 ${totalOriginalSizeKb}kb
+- 🟢 ${totalNewSizeKb}kb
+- 🔽 ${calculatePercentageReduction({
+    originalSizeKb: totalOriginalSizeKb,
+    newSizeKb: totalNewSizeKb,
+  }).toFixed(2)}% reduction
+************************************************
+`);
 
-  console.log('Done!');
+  if (failed.length > 0) console.log('Failed to process', failed);
+}
+
+function calculatePercentageReduction({
+  originalSizeKb,
+  newSizeKb,
+}: {
+  originalSizeKb: bigint;
+  newSizeKb: bigint;
+}) {
+  return (
+    ((Number(originalSizeKb) - Number(newSizeKb)) / Number(originalSizeKb)) *
+    100
+  );
 }
 
 async function updateBlogPostImageReferences({
