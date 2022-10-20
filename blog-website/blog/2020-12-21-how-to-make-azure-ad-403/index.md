@@ -10,7 +10,7 @@ tags:
     redirect,
     ASP.NET,
   ]
-image: ./Forbidden.png
+image: ./Forbidden.webp
 hide_table_of_contents: false
 ---
 
@@ -24,7 +24,7 @@ services.AddMicrosoftIdentityWebAppAuthentication(Configuration);
 
 Which (combined with configuration in our `appsettings.json` files) hooks us up with Azure AD for authentication. This is 95% awesome. The 5% is what we're here for. Here's a screenshot of the scenario that troubles us:
 
-![a screenshot of Chrome Devtools showing a 302](AccessDenied.png)
+![a screenshot of Chrome Devtools showing a 302](AccessDenied.webp)
 
 We've made a request to `/WeatherForecast`; a secured endpoint (a controller decorated with the `Authorize` attribute). We're authenticated; the app knows who we are. But we're not authorized / allowed to access this endpoint. We don't have permission. The HTTP specification caters directly for this scenario with [status code `403 Forbidden`](https://tools.ietf.org/html/rfc7231#section-6.5.3):
 
@@ -51,7 +51,7 @@ services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefaults.Aut
 
 This code hijacks the redirect to AccessDenied and transforms it into a `403` instead. Tremendous! What does this look like?
 
-![a screenshot of Chrome Devtools showing a 403](Forbidden.png)
+![a screenshot of Chrome Devtools showing a 403](Forbidden.webp)
 
 This is the behaviour we want!
 

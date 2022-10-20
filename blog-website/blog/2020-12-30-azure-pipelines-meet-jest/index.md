@@ -1,7 +1,7 @@
 ---
 title: 'Azure Pipelines meet Jest'
 authors: johnnyreilly
-image: ./test-results.png
+image: ./test-results.webp
 tags: [azure-pipelines, jest]
 hide_table_of_contents: false
 ---
@@ -104,4 +104,4 @@ This will read the test results from our `src/client-app/junit.xml` file and pum
 
 And that's it! Azure Pipelines and Jest integrated.
 
-![screenshot of test results published to Azure Pipelines](test-results.png)
+![screenshot of test results published to Azure Pipelines](test-results.webp)
