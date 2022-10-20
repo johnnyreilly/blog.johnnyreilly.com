@@ -98,7 +98,7 @@ module.exports = {
 };
 ```
 
-It's possible the code required to add a `link` tag will become simpler [if this pull request lands](https://github.com/facebook/docusaurus/pull/8077). Until then, we will need to use a plugin.
+The code required to add a `link` tag will become simpler [once the changes in this pull request are released](https://github.com/facebook/docusaurus/pull/8151). Until then, we will need to use a plugin.
 
 It's also worth knowing that historically the Web Monetization API used a `meta` tag instead of a `link` tag - and that tag used the `$` prefix instead of `https://`. That tag looked like this:
 
