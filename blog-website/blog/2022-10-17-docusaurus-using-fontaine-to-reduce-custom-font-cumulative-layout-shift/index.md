@@ -6,19 +6,19 @@ image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
-Custom font usage can introduce cumulative layout shift (CLS) to your website. This post shows how to use [fontaine](https://github.com/unjs/fontaine) to reduce this with Docusaurus sites.
+Custom font usage can introduce cumulative layout shift (or "jank") to your website. This post shows how to use [fontaine](https://github.com/unjs/fontaine) to reduce this with Docusaurus sites.
 
 ![title image reading "Docusaurus: Using fontaine to reduce custom font cumulative layout shift" in a ridiculous font with the Docusaurus logo and a screenshot of a preload link HTML element](title-image.webp)
 
 ## What is cumulative layout shift?
 
-Cumulative layout shift (CLS) is a metric that measures the instability of content on a web page. It's a [Core Web Vitals](https://web.dev/vitals/) metric. It's a metric that's important to get right. It's a metric that's easy to get wrong.
+Cumulative layout shift (CLS) is a metric that measures the instability of content on a web page. It's a [Core Web Vitals](https://web.dev/vitals/) metric.
 
-You may well know it as "jank". It's the jank that you see when a page loads and the text moves around. It's an irritation. There's a great description of it in [this post on the topic](https://web.dev/cls/); let me quote it here:
+You may well know it as "jank". It's jank that you see when a page loads and the text moves around. It's an irritation. There's a great description of it in [this post on the topic](https://web.dev/cls/); let me quote it here:
 
 > Have you ever been reading an article online when something suddenly changes on the page? Without warning, the text moves, and you've lost your place. Or even worse: you're about to tap a link or a button, but in the instant before your finger lands—BOOM—the link moves, and you end up clicking something else!
 
-For the rest of this post I'm going to refer to CLS as "jank", as it's a more relatable term.
+For the rest of this post I'll generally to refer to CLS as jank, as it's a more relatable term.
 
 ## What "jank" looks like
 
@@ -34,9 +34,11 @@ You see how the text shifts around as the custom font arrives? On the first line
 
 - the custom font (Poppins) rendering three words on one line: _"Bicep: Static Web"_
 
-It's very noticeable.
+It's very noticeable. You can actually put a number on it. The number is the CLS score which you can determine with [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/). The CLS score is the sum of the layout shifts that occur on the page. The higher the score, the more jank there is. Cumulative Layout Shift was logged as **0.019** for the page above. That's not great.
 
-I've taken steps to reduce the jank, such as [font preloading](../2021-12-29-preload-fonts-with-docusaurus/index.md). But it's still there. I thought I was about done with the improvements I could make. But then....
+I'd taken steps to reduce the issues experienced, such as [font preloading](../2021-12-29-preload-fonts-with-docusaurus/index.md). But the issues still remained, particularly on mobile networks where speed of loading is decreased, and it takes a longer time for the custom font to load.
+
+I had rather given up on improving things further. But then....
 
 ## fontaine
 
@@ -113,6 +115,8 @@ This didn't initially seem to make any difference. I put it up as a [work-in-pro
 
 Behind the scenes, there is a 'Poppins override' `@font-face` rule that has been created by fontaine. By manually adding this override font family to our CSS variable, we make our site use the fallback 'Poppins override' `@font-face` rule with the correct font metrics that fontaine generates.
 
+It's worth emphasising that for the typical user of fontaine, this is not something they need to do. It's only necessary for Docusaurus users because they use custom fonts through CSS variables. Using fontaine is very "plug and play" for most users.
+
 Daniel was kind enough to [raise a PR incorporating both the tweaks](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/307). When I merged that PR, I saw the following:
 
 ![A gif of the mobile view of my blog loading and shifting in layout as the custom font arrives](my-jank-fixed.gif)
@@ -123,6 +127,6 @@ Look at that! You can see the font loading, but there's no more jumping of words
 
 If you want to improve your CLS score, fontaine is a great tool. This post demonstrates using it with Docusaurus. But please note that this is a generally useful tool that you can use with Vite, Next.js and others. It's not specific to Docusaurus.
 
-Prior to using fontaine, my blogs Cumulative Layout Shift was logged as **0.019**, after using it it's logged as **0**. This is good news!
+Prior to using fontaine, my blogs Cumulative Layout Shift was logged as **0.019**. After incorporating it, the same score is logged as **0**. This is good news!
 
 I'm very grateful to Daniel for his help in getting it working with my blog. He went above and beyond, so thank you Daniel!
