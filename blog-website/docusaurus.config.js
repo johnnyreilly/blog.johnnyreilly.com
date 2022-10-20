@@ -89,6 +89,7 @@ const config = {
         },
       };
     },
+
     function fontainePlugin(_context, _options) {
       return {
         name: 'fontaine-plugin',
@@ -117,18 +118,37 @@ const config = {
         },
       };
     },
-    [
-      'ideal-image',
-      /** @type {import('@docusaurus/plugin-ideal-image').PluginOptions} */
-      ({
-        quality: 70,
-        max: 1030,
-        min: 640,
-        steps: 2,
-        // Use false to debug, but it incurs huge perf costs
-        disableInDev: true,
-      }),
-    ],
+
+    function extraHeadTagsPlugin(context, options) {
+      return {
+        name: 'extra-head-tags-plugin',
+        injectHtmlTags({ content }) {
+          return {
+            headTags: [
+              {
+                tagName: 'link',
+                attributes: {
+                  rel: 'monetization',
+                  href: 'https://ilp.uphold.com/LwQQhXdpwxeJ',
+                },
+              },
+            ],
+          };
+        },
+      };
+    },
+    // [
+    //   'ideal-image',
+    //   /** @type {import('@docusaurus/plugin-ideal-image').PluginOptions} */
+    //   ({
+    //     quality: 70,
+    //     max: 1030,
+    //     min: 640,
+    //     steps: 2,
+    //     // Use false to debug, but it incurs huge perf costs
+    //     disableInDev: true,
+    //   }),
+    // ],
     [
       'client-redirects',
       /** @type {import('@docusaurus/plugin-client-redirects').Options} */
@@ -193,6 +213,7 @@ const config = {
       },
     ],
   ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
