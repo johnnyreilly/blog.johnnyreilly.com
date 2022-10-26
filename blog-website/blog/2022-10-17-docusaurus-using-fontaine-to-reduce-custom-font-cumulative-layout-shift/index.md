@@ -130,3 +130,5 @@ If you want to improve your CLS score, fontaine is a great tool. This post demon
 Prior to using fontaine, my blogs Cumulative Layout Shift was logged as **0.019**. After incorporating it, the same score is logged as **0**. This is good news!
 
 I'm very grateful to Daniel for his help in getting it working with my blog. He went above and beyond, so thank you Daniel!
+
+In testament to what a great idea fontaine is built upon, in the time I've been writing this post [`@next/font`](https://nextjs.org/blog/next-13#nextfont) has been announced, which is based upon a similar idea.
