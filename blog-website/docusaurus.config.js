@@ -131,7 +131,7 @@ const config = {
                   'sans-serif',
                 ],
                 // You may need to resolve assets like `/fonts/Roboto.woff2` to a particular directory
-                resolvePath: (id) => '../fonts/' + id,
+                resolvePath: (id) => '../static/fonts/' + id,
               }),
             ],
           };
