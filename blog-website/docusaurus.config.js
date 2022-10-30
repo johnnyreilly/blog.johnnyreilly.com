@@ -2,7 +2,6 @@
 const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 
 const fontaine = require('fontaine');
-const FontPreloadPlugin = require('webpack-font-preload-plugin');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
@@ -79,6 +78,28 @@ const config = {
   ],
 
   headTags: [
+    // <link rel="preload" href="/fonts/Poppins-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preload',
+        href: '/fonts/Poppins-Regular.ttf',
+        as: 'font',
+        type: 'font/ttf',
+        crossorigin: 'anonymous',
+      },
+    },
+    // <link rel="preload" href="/fonts/Poppins-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preload',
+        href: '/fonts/Poppins-Bold.ttf',
+        as: 'font',
+        type: 'font/ttf',
+        crossorigin: 'anonymous',
+      },
+    },
     {
       tagName: 'link',
       attributes: {
@@ -89,17 +110,6 @@ const config = {
   ],
 
   plugins: [
-    function preloadFontPlugin(_context, _options) {
-      return {
-        name: 'preload-font-plugin',
-        configureWebpack(_config, _isServer) {
-          return {
-            plugins: [new FontPreloadPlugin()],
-          };
-        },
-      };
-    },
-
     function fontainePlugin(_context, _options) {
       return {
         name: 'fontaine-plugin',
