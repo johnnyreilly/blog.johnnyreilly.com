@@ -13,7 +13,7 @@ I believe it was Tony Blair that said "documentation, documentation, documentati
 
 Anyway I'm happy to say that jQuery Validation Unobtrusive Native _has_ documentation! And pretty good documentation at that. The documentation takes the form of the [jVUNDemo](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/tree/master/jVUNDemo) project which is part of the jQuery Validation Unobtrusive Native repo. jVUNDemo is an ASP.Net MVC web application which is built on top of the jQuery Validation Unobtrusive Native helpers. It demonstrates the helpers in action and documents how you might go about using them. It looks a bit like this:
 
-![](Screenshot-2014-12-29-06.22.46.png)
+![](Screenshot-2014-12-29-06.22.46.webp)
 
 When I first put jVUNDemo together I hosted it on Azure so the world could see it in all it's finery. And that worked just fine. However, there's something you ought to know about me:
 

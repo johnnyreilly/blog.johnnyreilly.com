@@ -57,7 +57,7 @@ To kick things off I've set up a very [simple repo](https://github.com/johnnyrei
 
 When it's run it looks like this:
 
-![](Screenshot-2015-07-29-06.03.04.png)
+![](Screenshot-2015-07-29-06.03.04.webp)
 
 Let's see how we go about migrating this super simple example.
 
@@ -352,7 +352,7 @@ The above is standard node/io type code by the way; just take the contents of th
 
 And here is the page in all its post migration glory:
 
-![](Screenshot-2015-07-30-20.21.19.png)
+![](Screenshot-2015-07-30-20.21.19.webp)
 
 It looks exactly the same except 'de-DE' has become simply 'de' (since that's how the cldr rolls).
 

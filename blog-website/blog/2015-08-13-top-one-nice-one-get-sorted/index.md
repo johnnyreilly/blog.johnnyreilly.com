@@ -220,7 +220,7 @@ That's right, he's created a function which takes a number of comparers and redu
 
 I know.
 
-![](3qknmj.jpg)
+![animated gif with the heading "mind-equals-blown"](mind-equals-blown.gif)
 
 I'll get my coat...
 

@@ -76,9 +76,9 @@ What this does is:
 
 That's a wrap - We now have CI which includes our JavaScript tests! That's right we get to see beautiful screens like these:
 
-![](Screenshot-2014-09-06-21.43.15.png)
+![](Screenshot-2014-09-06-21.43.15.webp)
 
-![](Screenshot-2014-09-06-21.49.38.png)
+![](Screenshot-2014-09-06-21.49.38.webp)
 
 ## Thanks to...
 

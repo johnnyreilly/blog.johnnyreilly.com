@@ -26,11 +26,11 @@ So the obvious thing to do is to take this process and plug in the generation of
 
 In order to complete our chosen mission we're going to need a GitHub Personal Access Token. We're going to use it when we clone, update and push our GitHub Pages branch. To get one we biff over to Settings / Applications in GitHub and click the "Generate New Token" button.
 
-![](GitHubApplicationSettings.png)
+![](GitHubApplicationSettings.webp)
 
 The token I'm using for my project has the following scopes selected:
 
-![](GitHub-Personal-Access-Token.png)
+![](GitHub-Personal-Access-Token.webp)
 
 ## `appveyor.yml`
 
@@ -80,7 +80,7 @@ There's a number of things you should notice from the yml file:
 
 We pass 4 arguments to `pushStatic.ps1`: the build folder, my email address, my username and my personal access token. For the sake of security the GithubPersonalAccessToken has been encrypted as indicated by the `secure` keyword. This is a capability available in AppVeyor [here](https://ci.appveyor.com/tools/encrypt).
 
-![](AppVeyor-encrypt.png)
+![](AppVeyor-encrypt.webp)
 
 This allows me to mask my personal access token rather than have it available as free text for anyone to grab.
 
