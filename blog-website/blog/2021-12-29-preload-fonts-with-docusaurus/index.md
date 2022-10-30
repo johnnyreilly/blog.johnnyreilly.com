@@ -1,12 +1,16 @@
 ---
-title: 'Preload fonts with Docusaurus'
+title: 'Preload fonts with Docusaurus (updated 30/10/2022)'
 authors: johnnyreilly
-tags: [Docusaurus, preload, webpack, fonts, plugin, configureWebpack]
+tags: [Docusaurus, preload, webpack, fonts, plugin, configureWebpack, headTags]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-When we're using custom fonts in our websites, it's good practice to preload the fonts to minimise the [flash of unstyled text](https://css-tricks.com/fout-foit-foft/). This post shows how to achieve this with Docusaurus. It does so by building a Docusaurus plugin which makes use of [Satyendra Singh](https://github.com/sn-satyendra)'s excellent [`webpack-font-preload-plugin`](https://github.com/sn-satyendra/webpack-font-preload-plugin)
+When we're using custom fonts in our websites, it's good practice to preload the fonts to minimise the [flash of unstyled text](https://css-tricks.com/fout-foit-foft/). This post shows how to achieve this with Docusaurus.
+
+It does so by building a Docusaurus plugin which makes use of [Satyendra Singh](https://github.com/sn-satyendra)'s excellent [`webpack-font-preload-plugin`](https://github.com/sn-satyendra/webpack-font-preload-plugin).
+
+**Updated 30/10/2022:** Subsequently this post demonstrates how to achieve font preloading directly, by using the the `headTags` API.
 
 ![title image reading "Preload fonts with Docusaurus" in a ridiculous font with the Docusaurus logo and a screenshot of a preload link HTML element](title-image.png)
 
@@ -81,3 +85,40 @@ With this in place we're now seeing the `<link rel="preload" ... />` elements be
 ![screenshot of the Chrome devtools featuring link rel="preload" elements](screenshot-preload-devtools.png)
 
 Huzzah!
+
+## Using the `headTags` API
+
+If you're using [Docusaurus 2.2 or greater](https://docusaurus.io/blog/releases/2.2#config-headtags) you can use the new [`headTags` API](https://docusaurus.io/docs/api/docusaurus-config#headTags) and bypass using an extra dependency entirely. Usage looks like this:
+
+```js
+module.exports = {
+  // ...
+  headTags: [
+    // the entry below will make this tag: <link rel="preload" href="/fonts/Poppins-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preload',
+        href: '/fonts/Poppins-Regular.ttf',
+        as: 'font',
+        type: 'font/ttf',
+        crossorigin: 'anonymous',
+      },
+    },
+    // the entry below will make this tag: <link rel="preload" href="/fonts/Poppins-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preload',
+        href: '/fonts/Poppins-Bold.ttf',
+        as: 'font',
+        type: 'font/ttf',
+        crossorigin: 'anonymous',
+      },
+    },
+  ],
+  // ...
+};
+```
+
+This blog post was migrated to the `headTags` API approach with the release of Docusaurus 2.2.0. [You can see the PR here](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/318).
