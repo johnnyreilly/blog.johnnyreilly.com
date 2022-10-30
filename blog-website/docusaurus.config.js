@@ -78,6 +78,16 @@ const config = {
     ],
   ],
 
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'monetization',
+        href: 'https://ilp.uphold.com/LwQQhXdpwxeJ',
+      },
+    },
+  ],
+
   plugins: [
     function preloadFontPlugin(_context, _options) {
       return {
@@ -119,36 +129,6 @@ const config = {
       };
     },
 
-    function extraHeadTagsPlugin(context, options) {
-      return {
-        name: 'extra-head-tags-plugin',
-        injectHtmlTags({ content }) {
-          return {
-            headTags: [
-              {
-                tagName: 'link',
-                attributes: {
-                  rel: 'monetization',
-                  href: 'https://ilp.uphold.com/LwQQhXdpwxeJ',
-                },
-              },
-            ],
-          };
-        },
-      };
-    },
-    // [
-    //   'ideal-image',
-    //   /** @type {import('@docusaurus/plugin-ideal-image').PluginOptions} */
-    //   ({
-    //     quality: 70,
-    //     max: 1030,
-    //     min: 640,
-    //     steps: 2,
-    //     // Use false to debug, but it incurs huge perf costs
-    //     disableInDev: true,
-    //   }),
-    // ],
     [
       'client-redirects',
       /** @type {import('@docusaurus/plugin-client-redirects').Options} */
@@ -169,6 +149,7 @@ const config = {
         },
       }),
     ],
+
     [
       'pwa',
       {
