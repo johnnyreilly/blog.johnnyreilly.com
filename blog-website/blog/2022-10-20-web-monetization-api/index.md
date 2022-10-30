@@ -63,11 +63,30 @@ The next thing to do is to make a `link` tag using the payment pointer. This is 
 
 As you can see, the `href` attribute is the payment pointer we just acquired; in its "https" form.
 
-## Docusaurus link tag
+## Docusaurus link tag: updated 30/10/2022
 
 The final step here would be adding this `link` tag to the pages served up by our site. In my case, I use Docusaurus to power my blog. To add an extra `link` tag with Docusaurus we need to add it to the [`docusaurus.config.js`](https://docusaurus.io/docs/next/seo#global-metadata) file.
 
-The syntax for adding an extra `link` tag in the head comes in the form of a mini plugin:
+If you're using [Docusaurus 2.2 or greater](https://docusaurus.io/blog/releases/2.2#config-headtags) you can use the new [`headTags` API](https://docusaurus.io/docs/api/docusaurus-config#headTags). Usage looks like this:
+
+```js
+module.exports = {
+  // ...
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'monetization',
+        href: 'https://ilp.uphold.com/LwQQhXdpwxeJ',
+      },
+    },
+    // This will become <link rel="monetization" href="https://ilp.uphold.com/LwQQhXdpwxeJ" /> in the generated HTML
+  ],
+  // ...
+};
+```
+
+If you're using an older version of Docusaurus, you can the syntax for adding an extra `link` tag in the head comes in the form of a mini plugin:
 
 ```js
 module.exports = {
@@ -97,8 +116,6 @@ module.exports = {
   ],
 };
 ```
-
-The code required to add a `link` tag will become simpler [once the changes in this pull request are released](https://github.com/facebook/docusaurus/pull/8151). Until then, we will need to use a plugin.
 
 It's also worth knowing that historically the Web Monetization API used a `meta` tag instead of a `link` tag - and that tag used the `$` prefix instead of `https://`. That tag looked like this:
 
