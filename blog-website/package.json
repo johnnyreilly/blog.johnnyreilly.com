@@ -29,7 +29,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "swc-loader": "0.2.3",
-    "url-loader": "4.1.1"
+    "url-loader": "4.1.1",
+    "webpack-font-preload-plugin": "1.5.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.2.0",
