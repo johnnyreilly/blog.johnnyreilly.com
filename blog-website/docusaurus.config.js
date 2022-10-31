@@ -122,7 +122,7 @@ const config = {
                   'sans-serif',
                 ],
                 // You may need to resolve assets like `/fonts/Roboto.woff2` to a particular directory
-                resolvePath: (id) => '/fonts/' + id,
+                resolvePath: (id) => '../fonts/' + id,
               }),
             ],
           };
@@ -295,7 +295,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © 2012  ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
+        copyright: `Copyright © 2012 - ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
