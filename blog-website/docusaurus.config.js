@@ -1,3 +1,5 @@
+const FontPreloadPlugin = require('webpack-font-preload-plugin');
+
 //@ts-check
 const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 
@@ -78,28 +80,28 @@ const config = {
   ],
 
   headTags: [
-    // <link rel="preload" href="/fonts/Poppins-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-    {
-      tagName: 'link',
-      attributes: {
-        rel: 'preload',
-        href: '/fonts/Poppins-Regular.ttf',
-        as: 'font',
-        type: 'font/ttf',
-        crossorigin: 'anonymous',
-      },
-    },
-    // <link rel="preload" href="/fonts/Poppins-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-    {
-      tagName: 'link',
-      attributes: {
-        rel: 'preload',
-        href: '/fonts/Poppins-Bold.ttf',
-        as: 'font',
-        type: 'font/ttf',
-        crossorigin: 'anonymous',
-      },
-    },
+    // // <link rel="preload" href="/fonts/Poppins-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    // {
+    //   tagName: 'link',
+    //   attributes: {
+    //     rel: 'preload',
+    //     href: '/fonts/Poppins-Regular.ttf',
+    //     as: 'font',
+    //     type: 'font/ttf',
+    //     crossorigin: 'anonymous',
+    //   },
+    // },
+    // // <link rel="preload" href="/fonts/Poppins-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    // {
+    //   tagName: 'link',
+    //   attributes: {
+    //     rel: 'preload',
+    //     href: '/fonts/Poppins-Bold.ttf',
+    //     as: 'font',
+    //     type: 'font/ttf',
+    //     crossorigin: 'anonymous',
+    //   },
+    // },
     {
       tagName: 'link',
       attributes: {
@@ -110,6 +112,17 @@ const config = {
   ],
 
   plugins: [
+    function preloadFontPlugin(_context, _options) {
+      return {
+        name: 'preload-font-plugin',
+        configureWebpack(_config, _isServer) {
+          return {
+            plugins: [new FontPreloadPlugin()],
+          };
+        },
+      };
+    },
+
     function fontainePlugin(_context, _options) {
       return {
         name: 'fontaine-plugin',
@@ -131,7 +144,7 @@ const config = {
                   'sans-serif',
                 ],
                 // You may need to resolve assets like `/fonts/Roboto.woff2` to a particular directory
-                resolvePath: (id) => '../static/fonts/' + id,
+                resolvePath: (id) => '/fonts/' + id,
               }),
             ],
           };
@@ -304,7 +317,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © 2012 - ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
+        copyright: `Copyright © 2012  ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
