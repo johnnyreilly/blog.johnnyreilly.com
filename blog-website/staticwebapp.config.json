@@ -3,6 +3,7 @@
   "globalHeaders": {
     "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'; script-src 'self' https://www.googleanalytics.com https://www.google-analytics.com https://www.googleoptimize.com https://www.googletagmanager.com 'unsafe-inline'; img-src 'self' data: https: https://blog.johnnyreilly.com https://thankful-sky-0bfc7e803-320.westeurope.1.azurestaticapps.net https://www.google-analytics.com https://www.googletagmanager.com",
     "X-Clacks-Overhead": "GNU Terry Pratchett",
-    "Access-Control-Allow-Origin": "https://blog.johnnyreilly.com"
+    "Access-Control-Allow-Origin": "https://thankful-sky-0bfc7e803-321.westeurope.1.azurestaticapps.net",
+    "Vary": "Origin"
   }
 }
