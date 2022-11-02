@@ -1,4 +1,4 @@
-const FontPreloadPlugin = require('webpack-font-preload-plugin');
+// const FontPreloadPlugin = require('webpack-font-preload-plugin');
 
 //@ts-check
 const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
@@ -112,16 +112,16 @@ const config = {
   ],
 
   plugins: [
-    function preloadFontPlugin(_context, _options) {
-      return {
-        name: 'preload-font-plugin',
-        configureWebpack(_config, _isServer) {
-          return {
-            plugins: [new FontPreloadPlugin()],
-          };
-        },
-      };
-    },
+    // function preloadFontPlugin(_context, _options) {
+    //   return {
+    //     name: 'preload-font-plugin',
+    //     configureWebpack(_config, _isServer) {
+    //       return {
+    //         plugins: [new FontPreloadPlugin()],
+    //       };
+    //     },
+    //   };
+    // },
 
     function fontainePlugin(_context, _options) {
       return {
