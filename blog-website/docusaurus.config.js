@@ -85,7 +85,7 @@ const config = {
       tagName: 'link',
       attributes: {
         rel: 'preload',
-        href: '/fonts/Poppins-Regular.ttf',
+        href: 'https://blog.johnnyreilly.com/fonts/Poppins-Regular.ttf',
         as: 'font',
         type: 'font/ttf',
         crossorigin: 'anonymous',
@@ -96,7 +96,7 @@ const config = {
       tagName: 'link',
       attributes: {
         rel: 'preload',
-        href: '/fonts/Poppins-Bold.ttf',
+        href: 'https://blog.johnnyreilly.com/fonts/Poppins-Bold.ttf',
         as: 'font',
         type: 'font/ttf',
         crossorigin: 'anonymous',
