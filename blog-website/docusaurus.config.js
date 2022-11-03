@@ -78,25 +78,25 @@ const config = {
   ],
 
   headTags: [
-    // <link rel="preload" href="/fonts/Poppins-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    // <link rel="preload" href="/fonts/Poppins-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     {
       tagName: 'link',
       attributes: {
         rel: 'preload',
-        href: 'https://blog.johnnyreilly.com/fonts/Poppins-Regular.ttf',
+        href: 'https://blog.johnnyreilly.com/fonts/Poppins-Regular.woff2',
         as: 'font',
-        type: 'font/ttf',
+        type: 'font/woff2',
         crossorigin: 'anonymous',
       },
     },
-    // <link rel="preload" href="/fonts/Poppins-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    // <link rel="preload" href="/fonts/Poppins-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     {
       tagName: 'link',
       attributes: {
         rel: 'preload',
-        href: 'https://blog.johnnyreilly.com/fonts/Poppins-Bold.ttf',
+        href: 'https://blog.johnnyreilly.com/fonts/Poppins-Bold.woff2',
         as: 'font',
-        type: 'font/ttf',
+        type: 'font/woff2',
         crossorigin: 'anonymous',
       },
     },
