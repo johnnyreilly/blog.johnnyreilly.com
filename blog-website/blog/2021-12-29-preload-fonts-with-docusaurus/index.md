@@ -2,7 +2,7 @@
 title: 'Preload fonts with Docusaurus (updated 03/11/2022)'
 authors: johnnyreilly
 tags: [Docusaurus, preload, webpack, fonts, plugin, configureWebpack, headTags]
-image: ./title-image.png
+image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
@@ -12,7 +12,7 @@ It does so by building a Docusaurus plugin which makes use of [Satyendra Singh](
 
 **Updated 03/11/2022:** Subsequently this post demonstrates how to achieve font preloading directly, by using the the `headTags` API.
 
-![title image reading "Preload fonts with Docusaurus" in a ridiculous font with the Docusaurus logo and a screenshot of a preload link HTML element](title-image.png)
+![title image reading "Preload fonts with Docusaurus" in a ridiculous font with the Docusaurus logo and a screenshot of a preload link HTML element](title-image.webp)
 
 ## Preload web fonts with Docusaurus
 

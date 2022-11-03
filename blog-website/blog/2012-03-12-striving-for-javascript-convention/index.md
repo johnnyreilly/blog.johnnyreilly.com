@@ -44,7 +44,7 @@ iAmANumber('I am not a number, I am a free man!'); //Calls a function which perf
 
 Now if I were to attempt something similar in C# fuggedaboudit but JavaScript; no I'm romping home free:
 
-![](Mad-Stuff.png)
+![](Mad-Stuff.webp)
 
 Now I'm not saying that you should ever do the above, and thinking about it I can't think of a situation where you'd want to (suggestions on a postcard). But the point is it's possible. And because it's possible to do this deliberately, it's doubly possible to do this accidentally. My point is this: it's easy to make bugs in JavaScript. ## What ~~Katy~~ Johnny Did Next
 
