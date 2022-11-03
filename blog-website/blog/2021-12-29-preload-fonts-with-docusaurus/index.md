@@ -1,5 +1,5 @@
 ---
-title: 'Preload fonts with Docusaurus (updated 30/10/2022)'
+title: 'Preload fonts with Docusaurus (updated 03/11/2022)'
 authors: johnnyreilly
 tags: [Docusaurus, preload, webpack, fonts, plugin, configureWebpack, headTags]
 image: ./title-image.png
@@ -10,7 +10,7 @@ When we're using custom fonts in our websites, it's good practice to preload the
 
 It does so by building a Docusaurus plugin which makes use of [Satyendra Singh](https://github.com/sn-satyendra)'s excellent [`webpack-font-preload-plugin`](https://github.com/sn-satyendra/webpack-font-preload-plugin).
 
-**Updated 30/10/2022:** Subsequently this post demonstrates how to achieve font preloading directly, by using the the `headTags` API.
+**Updated 03/11/2022:** Subsequently this post demonstrates how to achieve font preloading directly, by using the the `headTags` API.
 
 ![title image reading "Preload fonts with Docusaurus" in a ridiculous font with the Docusaurus logo and a screenshot of a preload link HTML element](title-image.png)
 
@@ -88,7 +88,9 @@ Huzzah!
 
 ## Using the `headTags` API
 
-If you're using [Docusaurus 2.2 or greater](https://docusaurus.io/blog/releases/2.2#config-headtags) you can use the new [`headTags` API](https://docusaurus.io/docs/api/docusaurus-config#headTags) and bypass using an extra dependency entirely. Usage looks like this:
+If you're using [Docusaurus 2.2 or greater](https://docusaurus.io/blog/releases/2.2#config-headtags) you can use the new [`headTags` API](https://docusaurus.io/docs/api/docusaurus-config#headTags) and bypass using an extra dependency entirely.
+
+To make this work, we need to ensure that our fonts live in the `static` directory which is reliably addressable - not hashed by webpack. We can then use the `headTags` API to add the `link` elements to the `head` of the HTML:
 
 ```js
 module.exports = {
@@ -141,7 +143,7 @@ In our `custom.css` we need to add the following:
 }
 ```
 
-Note that the urls are fully addressable to prevent webpack from trying to bundle them. We want to use the `static` folder for this, so we can apply long term caching. I'm using [Azure Static Web Apps](https://azure.microsoft.com/en-us/products/app-service/static/) to run my site and so I'm achieving this with the following in `staticwebapp.config.json`:
+Note that the urls are fully qualified to prevent webpack from trying to bundle them. Another bonus of using the `static` folder is that we can apply long term caching. I'm using [Azure Static Web Apps](https://azure.microsoft.com/en-us/products/app-service/static/) to run my site and so I'm achieving this with the following in `staticwebapp.config.json`:
 
 ```json
 {
@@ -172,6 +174,6 @@ Note that the urls are fully addressable to prevent webpack from trying to bundl
 Things to note from the above:
 
 - `Access-Control-Allow-Origin` and `Vary` are in place to allow my staging sites to access the fonts from the production site. Without this, the fonts won't load in the staging site.
-- `cache-control` is set to 6 months for the fonts and static images. They rarely change and so this is an appropriate strategy.
+- The `img` and `fonts` directories sit under the `static` directory. For those directories we're going to use `cache-control` set to 6 months for the fonts and static images. They rarely change and so this is an appropriate strategy.
 
-This blog post was migrated to the `headTags` API approach with the release of Docusaurus 2.2.0. [You can see the PR here](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/318).
+This blog post was migrated to the `headTags` API approach with the release of Docusaurus 2.2.0. [You can see the PR here](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/321).
