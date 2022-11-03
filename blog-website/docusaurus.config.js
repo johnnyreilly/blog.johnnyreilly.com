@@ -1,5 +1,3 @@
-const FontPreloadPlugin = require('webpack-font-preload-plugin');
-
 //@ts-check
 const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 
@@ -85,7 +83,7 @@ const config = {
       tagName: 'link',
       attributes: {
         rel: 'preload',
-        href: '/fonts/Poppins-Regular.ttf',
+        href: 'https://blog.johnnyreilly.com/fonts/Poppins-Regular.ttf',
         as: 'font',
         type: 'font/ttf',
         crossorigin: 'anonymous',
@@ -96,7 +94,7 @@ const config = {
       tagName: 'link',
       attributes: {
         rel: 'preload',
-        href: '/fonts/Poppins-Bold.ttf',
+        href: 'https://blog.johnnyreilly.com/fonts/Poppins-Bold.ttf',
         as: 'font',
         type: 'font/ttf',
         crossorigin: 'anonymous',
@@ -112,17 +110,6 @@ const config = {
   ],
 
   plugins: [
-    function preloadFontPlugin(_context, _options) {
-      return {
-        name: 'preload-font-plugin',
-        configureWebpack(_config, _isServer) {
-          return {
-            plugins: [new FontPreloadPlugin()],
-          };
-        },
-      };
-    },
-
     function fontainePlugin(_context, _options) {
       return {
         name: 'fontaine-plugin',
