@@ -121,4 +121,57 @@ module.exports = {
 };
 ```
 
+In our `custom.css` we need to add the following:
+
+```css
+@font-face {
+  font-family: 'Poppins';
+  src: url('https://blog.johnnyreilly.com/fonts/Poppins-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('https://blog.johnnyreilly.com/fonts/Poppins-Bold.ttf');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+```
+
+Note that the urls are fully addressable to prevent webpack from trying to bundle them. We want to use the `static` folder for this, so we can apply long term caching. I'm using [Azure Static Web Apps](https://azure.microsoft.com/en-us/products/app-service/static/) to run my site and so I'm achieving this with the following in `staticwebapp.config.json`:
+
+```json
+{
+  "trailingSlash": "auto",
+  "routes": [
+    {
+      "route": "/img/*",
+      "headers": {
+        "cache-control": "must-revalidate, max-age=15770000"
+      }
+    },
+    {
+      "route": "/fonts/*",
+      "headers": {
+        "cache-control": "must-revalidate, max-age=15770000"
+      }
+    }
+  ],
+  "globalHeaders": {
+    "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'; script-src 'self' https://www.googleanalytics.com https://www.google-analytics.com https://www.googleoptimize.com https://www.googletagmanager.com 'unsafe-inline'; img-src 'self' data: https: https://blog.johnnyreilly.com https://thankful-sky-0bfc7e803-320.westeurope.1.azurestaticapps.net https://www.google-analytics.com https://www.googletagmanager.com",
+    "X-Clacks-Overhead": "GNU Terry Pratchett",
+    "Access-Control-Allow-Origin": "https://thankful-sky-0bfc7e803-321.westeurope.1.azurestaticapps.net",
+    "Vary": "Origin"
+  }
+}
+```
+
+Things to note from the above:
+
+- `Access-Control-Allow-Origin` and `Vary` are in place to allow my staging sites to access the fonts from the production site. Without this, the fonts won't load in the staging site.
+- `cache-control` is set to 6 months for the fonts and static images. They rarely change and so this is an appropriate strategy.
+
 This blog post was migrated to the `headTags` API approach with the release of Docusaurus 2.2.0. [You can see the PR here](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/318).
