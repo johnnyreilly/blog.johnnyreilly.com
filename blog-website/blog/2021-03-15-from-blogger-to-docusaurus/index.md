@@ -1,5 +1,5 @@
 ---
-title: 'From Blogger to Docusaurus'
+title: 'From Blogger to Docusaurus (updated 04/11/2022)'
 authors: johnnyreilly
 tags: [Blogger, Docusaurus]
 image: ./docusaurus.png
@@ -349,8 +349,45 @@ Congratulations! We're now the proud owners of a Docusaurus blog site based upon
 
 ![Blog in Docusaurus](docusaurus.png)
 
+## Redirecting from Blogger URLs to Docusaurus URLs
+
+The final step is to redirect from the old Blogger URLs to the new Docusaurus URLs. Blogger URLs look like this: `/2019/10/definitely-typed-movie.html`. On the other hand, Docusaurus URLs look like this: `/2019/10/08/definitely-typed-movie`.
+
+I'll want to redirect from the former to the latter. I'll use the `@docusaurus/plugin-client-redirects` plugin to do this. Inside the `docusaurus.config.js` file, I'll add the following to the `plugins` section:
+
+```js
+module.exports = {
+  // ...
+  plugins: [
+    // ...
+    [
+      'client-redirects',
+      /** @type {import('@docusaurus/plugin-client-redirects').Options} */
+      ({
+        createRedirects: function (existingPath) {
+          if (existingPath.match(urlRegex)) {
+            const [, year, month, date, slug] = existingPath.split('/');
+            const oldUrl = `/${year}/${month}/${slug}.html`;
+
+            // eg redirect from /2019/10/definitely-typed-movie.html -> /2019/10/08/definitely-typed-movie
+            console.log(`redirect from ${oldUrl} -> ${existingPath}`);
+
+            return [oldUrl, `/${year}/${month}/${slug}`];
+          }
+        },
+      }),
+    ],
+    // ...
+  ],
+};
+```
+
+The function above will be run during the build process for each URL. And consequently a client side redirect will be created to go from the landing URL to the Docusaurus URL. The `console.log` is there to help me see what's going on. I don't actually need it.
+
+Having this in place should protect my SEO when the domain switches from Blogger to Docusaurus. Long term I shouldn't need this approach in place.
+
 ## Making the move?
 
-Now that I've got the content, I'm theoretically safe to migrate from Blogger to Docusaurus. I'm pondering this now and I have come up with a checklist of criteria to satisfy before I do. You can have a read of the [criteria here](https://github.com/johnnyreilly/blog.johnnyreilly.com#migrating-to-docusauras).
+Now that I've got the content, I'm theoretically safe to migrate from Blogger to Docusaurus. ~~I'm pondering this now and I have come up with a checklist of criteria to satisfy before I do. Odds are, I'm likely to make the move; it's probably just a matter of time.~~
 
-Odds are, I'm likely to make the move; it's probably just a matter of time.
+I moved!
