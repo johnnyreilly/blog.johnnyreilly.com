@@ -1,10 +1,20 @@
 ---
-title: 'From Blogger to Docusaurus (updated 04/11/2022)'
+title: 'The definitive guide to migrating from Blogger to Docusaurus'
 authors: johnnyreilly
-tags: [Blogger, Docusaurus]
+tags: [Blogger, Docusaurus, TypeScript]
 image: ./docusaurus.png
 hide_table_of_contents: false
 ---
+
+This post documents how to migrate a blog from Blogger to Docusaurus.
+
+## Update 05/11/2022
+
+This post started out as an investigation into migrating from Blogger to Docusaurus. In the end I very much made the leap, and would recommend doing so to others. I've transformed this post into a "definitive guide" on how to migrate. I intend to maintain this on an ongoing basis for the benefit of the community.
+
+Because I rather like what I originally wrote when I was in "investigation mode", I have largely left it in place. However, there are new sections which have been added in to augment what I originally wrote.
+
+## Introduction
 
 [Docusaurus](https://v2.docusaurus.io/) is, amongst other things, a Markdown powered blogging platform. My blog has lived happily on [Blogger](https://www.blogger.com/) for the past decade. I'm considering moving, but losing my historic content as part of the move was never an option. This post goes through what it would look like to move from Blogger to Docusaurus _without_ losing your content.
 
@@ -72,7 +82,7 @@ import jsdom from 'jsdom';
 import axios from 'axios';
 import fastXmlParser from 'fast-xml-parser';
 
-const bloggerXmlPath = './blog-03-13-2021.xml';
+const bloggerXmlPath = './blog-03-17-2021.xml';
 const docusaurusDirectory = '../blog-website';
 const notMarkdownable: string[] = [];
 
@@ -177,7 +187,7 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
   const linkSections = post.link.split('/');
   const linkSlug = linkSections[linkSections.length - 1];
   const filename =
-    post.published.substr(0, 10) + '-' + linkSlug.replace('.html', '/index.md');
+    post.published.substr(0, 10) + '-' + linkSlug.replace('.html', '.md');
 
   const contentProcessed = post.content
     // remove stray <br /> tags
@@ -194,7 +204,7 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
       // bigger titles
       .replace(/#### /g, '## ')
 
-      // <div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe src="https://giphy.com/embed/l7JDTHpsXM26k" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen=""></iframe></div>
+      // <div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe src="https://giphy.com/embed/l7JDTHpsXM26k" width="100%" height="100%" style="position:absolute" frameborder="0" class="giphy-embed" allowfullscreen=""></iframe></div>
 
       // The mechanism below extracts the underlying iframe
       .replace(/<div.*(<iframe.*">).*<\/div>/g, (replacer) => {
@@ -213,14 +223,14 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
       })
 
       // capitalise appropriately
-      .replace(/frameBorder/g, 'frameBorder')
-      .replace(/allowFullScreen/g, 'allowFullScreen')
+      .replace(/frameborder/g, 'frameBorder')
+      .replace(/allowfullscreen/g, 'allowFullScreen')
       .replace(/charset/g, 'charSet')
 
       // Deals with these:
       // [![null](<https://4.bp.blogspot.com/-b9-GrL0IXaY/Xmqj4GRhKXI/AAAAAAAAT5s/ZoceUInSY5EWXeCr2LkGV9Zvea8S6-mUgCPcBGAYYCw/s640/hello_world_idb_keyval.png> =640x484)](<https://4.bp.blogspot.com/-b9-GrL0IXaY/Xmqj4GRhKXI/AAAAAAAAT5s/ZoceUInSY5EWXeCr2LkGV9Zvea8S6-mUgCPcBGAYYCw/s1600/hello_world_idb_keyval.png>)We successfully wrote something into IndexedDB, read it back and printed that value to the console. Amazing!
       .replace(
-        /\[!\[null\]\(<(.*?)>\)/g,
+        /\[!\[null\]\(<(.*?)\].*?>\)/g,
         (match) =>
           `![](${match.slice(match.indexOf('<') + 1, match.indexOf('>'))})\n\n`
       )
@@ -229,16 +239,19 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
       // <div class="separator" style="clear: both;"><a href="https://1.bp.blogspot.com/-UwrtZigWg78/YDqN82KbjVI/AAAAAAAAZTE/Umezr1MGQicnxMMr5rQHD4xKINg9fasDACLcBGAsYHQ/s783/traffic-to-app-service.png" style="display: block; padding: 1em 0; text-align: center; "><img alt="traffic to app service" border="0" width="600" data-original-height="753" data-original-width="783" src="https://1.bp.blogspot.com/-UwrtZigWg78/YDqN82KbjVI/AAAAAAAAZTE/Umezr1MGQicnxMMr5rQHD4xKINg9fasDACLcBGAsYHQ/s600/traffic-to-app-service.png"></a></div>
 
       // The mechanism below extracts the underlying image path and it's alt text
-      .replace(/<div.*(<img.*">).*<\/div>/g, (replacer) => {
-        const div = new jsdom.JSDOM(replacer);
-        const img = div?.window?.document?.querySelector('img');
-        const alt = img?.getAttribute('alt') ?? '';
-        const src = img?.getAttribute('src') ?? '';
+      .replace(
+        /(<div.*>)*\w*(<a .*>)*(<img .*">)(<\/a>)*.*(<\/div>)*/g,
+        (replacer) => {
+          const div = new jsdom.JSDOM(replacer);
+          const img = div?.window?.document?.querySelector('img');
+          const alt = img?.getAttribute('alt') ?? '';
+          const src = img?.getAttribute('src') ?? '';
 
-        if (src) images.push(src);
+          if (src) images.push(src);
 
-        return `![${alt}](${src})`;
-      });
+          return `![${alt}](${src})`;
+        }
+      );
   } catch (e) {
     console.log(post.link);
     console.log(e);
@@ -246,11 +259,11 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
     return;
   }
 
-  const imageDirectory = filename.replace('/index.md', '');
+  const imageDirectory = filename.replace('.md', '');
   for (const url of images) {
     try {
       const localUrl = await downloadImage(url, imageDirectory);
-      markdown = markdown.replace(url, 'blog/' + localUrl);
+      markdown = markdown.replace(url, '../static/blog/' + localUrl);
     } catch (e) {
       console.error(`Failed to download ${url}`);
     }
@@ -258,9 +271,7 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
 
   const content = `---
 title: "${post.title}"
-author: John Reilly
-author_url: https://github.com/johnnyreilly
-author_image_url: https://avatars.githubusercontent.com/u/1010525?s=400&u=294033082cfecf8ad1645b4290e362583b33094a&v=4
+authors: johnnyreilly
 tags: [${post.tags.join(', ')}]
 hide_table_of_contents: false
 ---
