@@ -17,7 +17,7 @@ In my spare time I'm involved with various open source projects including [ts-lo
 
 ## Update 25/04/2016: Position Filled
 
-I'm happy to say that I've lined up work for the next 6 months or so. Once again I'll be working in the financial services industry with one interesting twist. [In a blog post ages ago I bet that native apps would start to be replaced with SPAs.](https://blog.johnnyreilly.com/2014/02/wpf-and-mystic-meg-or-playing.html) This has started to happen. I've started to see companies taking a "web-first-and-only" approach to building apps. In that vein, that's exactly what I'm off to build.
+I'm happy to say that I've lined up work for the next 6 months or so. Once again I'll be working in the financial services industry with one interesting twist. [In a blog post ages ago I bet that native apps would start to be replaced with SPAs.](../2014-02-12-wpf-and-mystic-meg-or-playing/index.md) This has started to happen. I've started to see companies taking a "web-first-and-only" approach to building apps. In that vein, that's exactly what I'm off to build.
 
 As a result of publishing this blog post I've had some interesting conversations with companies and got to think hard about the direction the industry is taking. I remain excited by JavaScript / TypeScript and React. I'm hopeful of the possibilities offered by the container world of Docker etc. I'm enjoying .NET Core and have very high hopes for it. I remain curious about Web Assembly.
 

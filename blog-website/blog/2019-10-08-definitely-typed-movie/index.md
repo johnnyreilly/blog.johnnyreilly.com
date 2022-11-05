@@ -193,7 +193,7 @@ I started submitting pull requests. The first problem I decided to solve was Int
 appendTo(target: string): JQuery;
 ```
 
-It was a tedious task plugging it all in, but the pleasure I got from having rich IntelliSense in VS more than made up for it to me. Along the way I added and fixed sections of the jQuery API that hadn't been implemented, or had been implemented incorrectly. It got to a point where jQuery was a good example of what a type definition should look like. That remains the case to this day; surprisingly few type definitions enjoy the JSDoc richness of jQuery. [I have tried to encourage more use of this with blog posts code reviews and the like, but it's never got the traction I'd hoped.](https://blog.johnnyreilly.com/2014/05/typescript-jsdoc-and-intellisense.html)
+It was a tedious task plugging it all in, but the pleasure I got from having rich IntelliSense in VS more than made up for it to me. Along the way I added and fixed sections of the jQuery API that hadn't been implemented, or had been implemented incorrectly. It got to a point where jQuery was a good example of what a type definition should look like. That remains the case to this day; surprisingly few type definitions enjoy the JSDoc richness of jQuery. [I have tried to encourage more use of this with blog posts code reviews and the like, but it's never got the traction I'd hoped.](../2014-05-05-typescript-jsdoc-and-intellisense/index.md)
 
 I'm fairly relentless when I put my mind to something. I work very hard to make things come to pass. What this meant at one point was the Definitely Typed maintainers receiving multiple PRs a day. Which prompted Bas to wonder "I wonder if he'd like to join us?"
 

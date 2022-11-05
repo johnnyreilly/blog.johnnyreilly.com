@@ -29,7 +29,7 @@ Perfection right? Wrong! What you've done makes not the slightest jot of differe
 
 ## Whoa, this is heavy! Gimme the project file
 
-How could I be so dim? I mean it makes perfect sense - before the days of [TypeScript's tsconfig.json ](http://blog.icanmakethiswork.io/2015/02/hey-tsconfigjson-where-have-you-been.html) the default ordering of `*.ts` files being passed to the TypeScript compiler was determined by the ordering of the `*.ts` files in the `.csproj` file. It must be the same for Code First Migrations.
+How could I be so dim? I mean it makes perfect sense - before the days of [TypeScript's `tsconfig.json`](../2015-02-27-hey-tsconfigjson-where-have-you-been/index.md) the default ordering of `*.ts` files being passed to the TypeScript compiler was determined by the ordering of the `*.ts` files in the `.csproj` file. It must be the same for Code First Migrations.
 
 So, simply spin up [Notepad++](https://notepad-plus-plus.org/) and let's play hack the XML until each file is referenced in the required order.
 

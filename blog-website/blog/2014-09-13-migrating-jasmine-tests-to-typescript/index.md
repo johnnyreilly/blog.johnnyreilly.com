@@ -18,7 +18,7 @@ I did manage it this time... Sort of. Unfortunately there was a problem which I 
 
 ## What to Migrate?
 
-I'm going to use one of the test files in my my side project [Proverb](https://github.com/johnnyreilly/Proverb). It's the tests for an AngularJS controller called `sageDetail` \- I've written about it [before](http://icanmakethiswork.blogspot.co.uk/2014/09/unit-testing-angular-controller-with.html). Here it is in all it's JavaScript-y glory:
+I'm going to use one of the test files in my my side project [Proverb](https://github.com/johnnyreilly/Proverb). It's the tests for an AngularJS controller called `sageDetail` \- I've written about it [before](../2014-09-10-unit-testing-angular-controller-with/index.md). Here it is in all it's JavaScript-y glory:
 
 ```ts
 describe('Proverb.Web -> app-> controllers ->', function () {

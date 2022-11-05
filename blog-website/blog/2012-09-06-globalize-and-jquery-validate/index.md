@@ -16,7 +16,7 @@ hide_table_of_contents: false
 
 ## Update 05/10/2015
 
-If you're after a version of this that works with Globalize 1.x then take a look [here](https://blog.johnnyreilly.com/2015/10/jquery-validation-globalize-hits-10.html).
+If you're after a version of this that works with Globalize 1.x then take a look [here](../2015-10-05-jquery-validation-globalize-hits-10/index.md).
 
 ## Update 27/08/2013
 
@@ -28,7 +28,7 @@ To see a good demo take a look [here](http://jqueryvalidationunobtrusivenative.a
 
 ## Background
 
-[I've written before about a great little library called Globalize](http://icanmakethiswork.blogspot.co.uk/2012/05/globalizejs-number-and-date.html) which makes locale specific number / date formatting simple within JavaScript. And I've just stumbled upon an [old post written by Scott Hanselman about the business of Globalisation / Internationalisation / Localisation within ASP.NET](http://www.hanselman.com/blog/GlobalizationInternationalizationAndLocalizationInASPNETMVC3JavaScriptAndJQueryPart1.aspx). It's a great post and I recommend reading it (I'm using many of the approaches he discusses).
+[I've written before about a great little library called Globalize](../2012-05-07-globalizejs-number-and-date/index.md) which makes locale specific number / date formatting simple within JavaScript. And I've just stumbled upon an [old post written by Scott Hanselman about the business of Globalisation / Internationalisation / Localisation within ASP.NET](http://www.hanselman.com/blog/GlobalizationInternationalizationAndLocalizationInASPNETMVC3JavaScriptAndJQueryPart1.aspx). It's a great post and I recommend reading it (I'm using many of the approaches he discusses).
 
 ## jQuery Global is dead... Long live Globalize!
 
