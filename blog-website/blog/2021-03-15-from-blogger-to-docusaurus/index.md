@@ -63,7 +63,7 @@ mkdir from-blogger-to-docusaurus
 cd from-blogger-to-docusaurus
 npx typescript --init
 yarn init
-yarn add @types/axios @types/he @types/jsdom @types/node @types/showdown axios fast-xml-parser he jsdom showdown ts-node typescript
+yarn add @types/he @types/jsdom @types/node @types/showdown axios fast-xml-parser@3.21.1 he jsdom showdown ts-node typescript
 ```
 
 We're using:
@@ -294,7 +294,7 @@ ${markdown}
 async function downloadImage(url: string, directory: string) {
   console.log(`Downloading ${url}`);
   const pathParts = new URL(url).pathname.split('/');
-  const filename = pathParts[pathParts.length - 1];
+  const filename = decodeURIComponent(pathParts[pathParts.length - 1]);
 
   const pathTo = path.join(directory, filename);
 
@@ -329,8 +329,8 @@ fromXmlToMarkDown();
 To summarise what the script does, it:
 
 - parses the blog XML into an array of `Post`s
-- each post is then converted from HTML into Markdown, a Docusaurus header is created and prepended, then the file is saved to the `blog-website/blog` directory
-- the images of each post are downloaded with Axios and saved to the `blog-website/static/blog/{POST NAME}` directory
+- each post is then converted from HTML into Markdown, a Docusaurus header is created and prepended, then the `index.md` file is saved to the `blog-website/blog/{POST NAME}` directory
+- the images of each post are downloaded with Axios and saved to the `blog-website/blog/{POST NAME}` directory
 
 [To see the full code, you can find it on the GitHub repository that now represents the blog.](https://github.com/johnnyreilly/blog.johnnyreilly.com/tree/main/from-blogger-to-docusaurus)
 

@@ -216,7 +216,7 @@ ${markdown}
 async function downloadImage(url: string, directory: string) {
   console.log(`Downloading ${url}`);
   const pathParts = new URL(url).pathname.split('/');
-  const filename = pathParts[pathParts.length - 1];
+  const filename = decodeURIComponent(pathParts[pathParts.length - 1]);
 
   const pathTo = path.join(directory, filename);
 
