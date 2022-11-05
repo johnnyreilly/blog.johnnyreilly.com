@@ -88,7 +88,18 @@ const bloggerXmlPath = './blog-03-17-2021.xml';
 const docusaurusDirectory = '../blog-website';
 const notMarkdownable: string[] = [];
 
-async function fromXmlToMarkDown() {
+const author = 'johnnyreilly';
+const author_name = 'John Reilly';
+const author_url = 'https://twitter.com/johnny_reilly';
+const author_image_url = 'https://blog.johnnyreilly.com/img/profile.jpg';
+
+async function makePostsFromXML() {
+  const blogDir = path.resolve(docusaurusDirectory, 'blog');
+
+  await deleteExistingFiles(blogDir);
+
+  await makeAuthorsYml(blogDir);
+
   const posts = await getPosts();
 
   for (const post of posts) {
@@ -99,6 +110,42 @@ async function fromXmlToMarkDown() {
       'These blog posts could not be turned into MarkDown - go find out why!',
       notMarkdownable
     );
+}
+
+async function deleteExistingFiles(directory: string) {
+  const filesAndFolders = await fs.promises.readdir(directory);
+  for (const file of filesAndFolders) {
+    try {
+      await fs.promises.unlink(path.join(directory, file));
+    } catch (e) {
+      await fs.promises.rm(path.join(directory, file), {
+        recursive: true,
+        force: true,
+      });
+    }
+  }
+}
+
+/**
+ * Make an authors.yml file
+ *
+ * johnnyreilly:
+ *   name: John Reilly
+ *   url: https://twitter.com/johnny_reilly
+ *   image_url: https://blog.johnnyreilly.com/img/profile.jpg
+ */
+async function makeAuthorsYml(directory: string) {
+  const authorsYml = `${author}:
+  name: ${author_name}
+  url: ${author_url}
+  image_url: ${author_image_url}
+`;
+
+  await fs.promises.writeFile(
+    path.join(directory, 'authors.yml'),
+    authorsYml,
+    'utf-8'
+  );
 }
 
 async function getPosts(): Promise<Post[]> {
@@ -325,11 +372,13 @@ interface Post {
 }
 
 // do it!
-fromXmlToMarkDown();
+makePostsFromXML();
 ```
 
 To summarise what the script does, it:
 
+- deletes the default blog posts
+- creates a new `authors.yml` file with my details in
 - parses the blog XML into an array of `Post`s
 - each post is then converted from HTML into Markdown, a Docusaurus header is created and prepended, then the `index.md` file is saved to the `blog-website/blog/{POST NAME}` directory
 - the images of each post are downloaded with Axios and saved to the `blog-website/blog/{POST NAME}` directory
