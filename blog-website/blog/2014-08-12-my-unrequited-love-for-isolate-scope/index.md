@@ -6,11 +6,15 @@ tags:
 hide_table_of_contents: false
 ---
 
-[I wrote a little while ago about creating a directive to present server errors on the screen in an Angular application](http://icanmakethiswork.blogspot.com/2014/08/angularjs-meet-aspnet-server-validation.html). In my own (not so humble opinion), it was really quite nice. I was particularly proud of my usage of isolate scope. However, pride comes before a fall.
+[I wrote a little while ago about creating a directive to present server errors on the screen in an Angular application](../2014-08-01-angularjs-meet-aspnet-server-validation/index.md). In my own (not so humble opinion), it was really quite nice. I was particularly proud of my usage of isolate scope. However, pride comes before a fall.
 
 It turns out that using isolate scope in a directive is not always wise. Or rather – not always possible. And this is why:
 
-`Error: [$compile:multidir] Multiple directives [datepickerPopup, serverError] asking for new/isolated scope on: &lt;input name="sage.dateOfBirth" class="col-xs-12 col-sm-9" type="text" value="" ng-click="vm.dateOfBirthDatePickerOpen()" server-error="vm.errors" ng-model="vm.sage.dateOfBirth" is-open="vm.dateOfBirthDatePickerIsOpen" datepicker-popup="dd MMM yyyy"&gt; `Ug. What happened here? Well, I had a date field that I was using my serverError directive on. Nothing too controversial there. The problem came when I tried to plug in [UI Bootstrap’s datepicker](http://angular-ui.github.io/bootstrap/) as well. That’s right the directives are fighting. Sad face.
+```
+Error: [$compile:multidir] Multiple directives [datepickerPopup, serverError] asking for new/isolated scope on: <input name="sage.dateOfBirth" class="col-xs-12 col-sm-9" type="text" value="" ng-click="vm.dateOfBirthDatePickerOpen()" server-error="vm.errors" ng-model="vm.sage.dateOfBirth" is-open="vm.dateOfBirthDatePickerIsOpen" datepicker-popup="dd MMM yyyy">
+```
+
+Ug. What happened here? Well, I had a date field that I was using my serverError directive on. Nothing too controversial there. The problem came when I tried to plug in [UI Bootstrap’s datepicker](http://angular-ui.github.io/bootstrap/) as well. That’s right the directives are fighting. Sad face.
 
 To be more precise, it turns out that only one directive on an element is allowed to create an isolated scope. So if I want to use UI Bootstrap’s datepicker (and I do) – well my serverError directive is toast.
 
