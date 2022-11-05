@@ -40,6 +40,45 @@ We're going to go this now. First, let's create ourselves a Docusaurus site for 
 npx create-docusaurus@latest blog-website classic
 ```
 
+This creates a standard Docusaurus site in the `blog-website` directory. In there we'll find a `docusaurus.config.js` file. There's much that can be configured here. It's worth remembering that Docusaurus is a tool for building documentation sites that also happens to feature a blog component. We're going to use it as a blog only. So we'll deactivate the docs component and configure the blog component to be the home page of our site:
+
+```js
+module.exports = {
+  // ...
+  presets: [
+    [
+      '@docusaurus/preset-classic',
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      ({
+        docs: false, // deactivate docs
+        blog: {
+          blogTitle: 'I CAN MAKE THIS WORK',
+          blogDescription: 'The blog of johnnyreilly',
+          /**
+           * Number of blog post elements to show in the blog sidebar
+           * 'ALL' to show all blog posts
+           * 0 to disable
+           */
+          blogSidebarCount: 5,
+          postsPerPage: 1,
+          path: './blog',
+          routeBasePath: '/', // Set this value to '/'.
+          showReadingTime: true,
+          editUrl:
+            'https://github.com/johnnyreilly/blog.johnnyreilly.com/edit/main/blog-website/',
+        },
+        theme: {
+          customCss: require.resolve('./src/css/custom.css'),
+        },
+      }),
+    ],
+  ],
+  // ...
+};
+```
+
+You can see more on this in the [Docusaurus documentation](https://docusaurus.io/docs/blog#blog-only-mode);
+
 ## Downloading your Blogger content
 
 The first thing to do, was obtain my blog content. This is a mass of HTML that lived inside Blogger's database. (One assumes they have a database; I haven't actually checked.) There's a `Back up content` option inside Blogger to allow this:
