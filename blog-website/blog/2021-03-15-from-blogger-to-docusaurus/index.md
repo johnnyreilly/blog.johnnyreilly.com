@@ -348,13 +348,17 @@ To run the script, we add the following script to the `package.json`:
 
 And have ourselves a merry little `yarn start` to kick off the process. In a very short period of time, if you crack open the `blogs` directory of your Docusaurus site you'll see a collection of Markdown files which represent your blog and are ready to power Docusaurus:
 
-![Markdown files](blogs-as-markdown.png)
+![Markdown files](blogs-as-markdown.webp)
 
 I have slightly papered over some details here. For my own case I discovered that I hadn't always written perfect HTML when blogging. I had to go in and fix the HTML in a number of historic blogs such that the mechanism would work. I also learned that a number of my screenshots that I use to illustrate posts have vanished from Blogger at some point. This makes me all the more convinced that storing your blog in a repo is a good idea. Things should not "go missing".
 
-Congratulations! We're now the proud owners of a Docusaurus blog site based upon our Blogger content that looks something like this:
+If we now run `yarn start` in the `blog-website` directory we can see the blog in action:
 
 ![Blog in Docusaurus](docusaurus.png)
+
+Congratulations! We're now the proud owners of a Docusaurus blog site based upon our Blogger content.
+
+If you've got some curiously named image files you might encounter some minor issues that need fixing up. This should get you 95% the way there though.
 
 ## Redirecting from Blogger URLs to Docusaurus URLs
 
