@@ -123,8 +123,10 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
     // remove stray <br /> tags
     .replace(/<br\s*\/?>/gi, '\n')
     // translate <code class="lang-cs" into <code class="language-cs"> to be showdown friendly
-    .replace(/code class="lang-/gi, 'code class="language-');
-
+    .replace(/code class="lang-/gi, 'code class="language-')
+    // convert <!-- into <!---
+    .replace(/<!--/gi, '\n<!---\n')
+    .replace(/-->/gi, '\n--->\n');
   const images: string[] = [];
   const dom = new jsdom.JSDOM(contentProcessed);
   let markdown = '';
