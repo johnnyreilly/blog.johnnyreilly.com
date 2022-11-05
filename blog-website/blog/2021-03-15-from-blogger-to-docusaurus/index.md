@@ -2,17 +2,20 @@
 title: 'The definitive guide to migrating from Blogger to Docusaurus'
 authors: johnnyreilly
 tags: [Blogger, Docusaurus, TypeScript]
-image: ./docusaurus.png
+image: ./title-image.webp
+slug: definitive-guide-to-migrating-from-blogger-to-docusaurus
 hide_table_of_contents: false
 ---
 
 This post documents how to migrate a blog from Blogger to Docusaurus.
 
+![title image reading "The definitive guide to migrating from Blogger to Docusaurus" with the Blogger and Docusaurus logos](title-image.webp)
+
 ## Update 05/11/2022
 
 This post started out as an investigation into migrating from Blogger to Docusaurus. In the end I very much made the leap, and would recommend doing so to others. I've transformed this post into a "definitive guide" on how to migrate. I intend to maintain this on an ongoing basis for the benefit of the community.
 
-Because I rather like what I originally wrote when I was in "investigation mode", I have largely left it in place. However, there are new sections which have been added in to augment what I originally wrote.
+Because I rather like what I originally wrote when I was in "investigation mode", I have largely left it in place. However, there are new sections which have been added in to augment what's there.
 
 ## Introduction
 
@@ -30,17 +33,16 @@ Just having that thought laid the seeds for what was to follow:
 
 1. An investigation into importing my content from Blogger into a GitHub repo
 2. An experimental port to Docusaurus
-3. The automation of publication to Docusaurus and Blogger
 
-We're going to go through 1 and 2 now. But before we do that, let's create ourselves a Docusaurus site for our blog:
+We're going to go this now. First, let's create ourselves a Docusaurus site for our blog:
 
 ```
-npx @docusaurus/init@latest init blog-website classic
+npx create-docusaurus@latest blog-website classic
 ```
 
-## I want everything
+## Downloading your Blogger content
 
-The first thing to do, was obtain my blog content. This is a mass of HTML that lived inside Blogger's database. (One assumes they have a database; I haven't actually checked.) There's a "Back up content" option inside Blogger to allow this:
+The first thing to do, was obtain my blog content. This is a mass of HTML that lived inside Blogger's database. (One assumes they have a database; I haven't actually checked.) There's a `Back up content` option inside Blogger to allow this:
 
 ![Download content from Blogger](blogger-back-up-your-content.webp)
 
@@ -340,6 +342,8 @@ To summarise what the script does, it:
 - each post is then converted from HTML into Markdown, a Docusaurus header is created and prepended, then the file is saved to the `blog-website/blog` directory
 - the images of each post are downloaded with Axios and saved to the `blog-website/static/blog/{POST NAME}` directory
 
+[To see the full code, you can find it on the GitHub repository that now represents the blog.](https://github.com/johnnyreilly/blog.johnnyreilly.com/tree/main/from-blogger-to-docusaurus)
+
 ## Bringing it all together
 
 To run the script, we add the following script to the `package.json`:
@@ -397,8 +401,38 @@ The function above will be run during the build process for each URL. And conseq
 
 Having this in place should protect my SEO when the domain switches from Blogger to Docusaurus. Long term I shouldn't need this approach in place.
 
-## Making the move?
+## Comments
 
-Now that I've got the content, I'm theoretically safe to migrate from Blogger to Docusaurus. ~~I'm pondering this now and I have come up with a checklist of criteria to satisfy before I do. Odds are, I'm likely to make the move; it's probably just a matter of time.~~
+I'd always had comments on my blog. First with Blogger's in-built functionality and then with [Disqus](https://disqus.com/). One thing that Docusaurus doesn't support by default is comments for blog posts. [There's a feature request for it here.](https://docusaurus.io/feature-requests/p/comments-in-documents-or-blogs) However, it doesn't exist right now.
 
-I moved!
+For a while I considered this a dealbreaker, and wasn't planning to complete the migration. But then I had a discussion with Josh Goldberg as to the value of comments. Essentially that they are nice, but not esential.
+
+![discussion on Twitter with Josh Goldberg on the topic of the value of comments in blog posts](screenshot-do-we-need-comments-josh-goldberg.webp)
+
+I rather came to agree with the notion that comments were only slightly interesting as I looked back at the comments on my blog. So I decided to go ahead _without_ comments. I remain happy with that choice, so thanks Josh!
+
+However, if it's important to you, there are ways to support comments. One example is using [Giscus](https://giscus.app/); [here is a guide on how to integrate it](https://dipakparmar.medium.com/how-to-add-giscus-to-your-docs-site-built-with-docusaurus-d57fa7f8e2f3).
+
+## DNS and RSS
+
+At this point I had a repository that represented my blog. I had a Docusaurus site that represented my blog. When I ran `yarn build` I got a Docusaurus site that looked like my blog. I was ready to make the switch. I had a redirect mechanism in place to protect my SEO.
+
+Hosting is a choice. When I initially moved I made use of GitHub Pages. I also experimented with Netlify. [Finally I migrated to using Azure Static Web Apps to make use of preview environments](../2022-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.md) There are many choices out there - you can pick the one that works best for you.
+
+Once your site is up, the last stage of the migration is updating your DNS to point to the Docusaurus site. I use [Cloudflare](https://www.cloudflare.com/) to manage my domain names and so that's where I made the switch.
+
+## RSS / Atom feeds
+
+If you're like me, you'll want to keep your RSS feed. Happily, [Docusaurus ships with RSS / Atom in the box](https://docusaurus.io/docs/blog#feed). Even happier still, most of the feed URLs in Blogger match the same URLs in Docusaurus. There was one exception in the form of the `/feeds/posts/default` feed which is an atom feed. Docusaurus has an `atom.xml` feed but it's not in the same place.
+
+This isn't a significant issue as I can create a page rule in Cloudflare to redirect from the old URL (https://blog.johnnyreilly.com/feeds/posts/default) to the new URL (https://blog.johnnyreilly.com/atom.xml):
+
+![screenshot of the page rule in Cloudflare](screenshot-cloudflare-atom-page-rule.png)
+
+This allowed me to make the switch without disrupting people who consumed my RSS feed.
+
+## Conclusion
+
+I've migrated to Docusaurus and have been happily running there for a while now. I'm very happy with the result.
+
+This post is intended to be a community resource that helps folk migrate from Blogger to Docusaurus. If you should find issues with the migration, please do let me know and help make this resource even better.
