@@ -61,7 +61,7 @@ When it's run it looks like this:
 
 Let's see how we go about migrating this super simple example.
 
-## Update our Bower dependencies
+## Updated our Bower dependencies
 
 First things first, we want to move Globalize from 0.1.x to 1.x using Bower. To do that we update our `bower.json`:
 
@@ -205,7 +205,7 @@ On top of that I'm also going to need the various cldr dependencies too. That's 
 
 Figuring that all out felt like really hard work. But I think that now we're ready to do the actual migration.
 
-### Update 30/08/2015: Globalize · So What'cha Want
+### Updated 30/08/2015: Globalize · So What'cha Want
 
 To make working out what you need when using Globalize I've built [Globalize · So What'cha Want](http://johnnyreilly.github.io/globalize-so-what-cha-want/). You're so very welcome.
 

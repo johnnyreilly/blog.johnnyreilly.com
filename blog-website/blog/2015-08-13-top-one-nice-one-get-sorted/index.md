@@ -226,7 +226,7 @@ I'll get my coat...
 
 <script src="https://gist.github.com/johnnyreilly/22f7c05b02c2129b89ef.js"></script>
 
-## Update 08/10/2018: Now TypeScript
+## Updated 08/10/2018: Now TypeScript
 
 You want to do this with TypeScript? Use this:
 

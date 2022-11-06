@@ -5,11 +5,11 @@ tags: [VS Code, code, Windows, failed, npm install, windows defender]
 hide_table_of_contents: false
 ---
 
-## Update 18/06/2017
+## Updated 18/06/2017
 
 Whilst things did improve by fiddling with Windows Defender it wasn't a 100% fix which makes me wary. Interestingly, VS Code was always open when I did experience the issue and I haven't experienced it when it's been closed. So it may be the cause. I've opened [an issue for this against the VS Code repo](https://github.com/Microsoft/vscode/issues/28593) \- it sounds like other people may be affected as I was. Perhaps this is VS Code and not Windows Defender. Watch that space...
 
-## Update 12/07/2017
+## Updated 12/07/2017
 
 The issue was VS Code. The bug has now been fixed and shipped last night with [VS Code 1.14.0](https://code.visualstudio.com/updates/v1_14). Yay!
 

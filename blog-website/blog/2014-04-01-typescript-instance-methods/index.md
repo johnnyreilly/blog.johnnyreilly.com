@@ -115,7 +115,7 @@ alert(bound());
 
 But this time round the code displays “Hello, world” and no longer “Hello, undefined”.
 
-## Update 02/04/2014 - mixing and matching `prototype` and Instance Methods
+## Updated 02/04/2014 - mixing and matching `prototype` and Instance Methods
 
 [Bart Verkoeijen](https://twitter.com/bgever) made an excellent comment concerning the extra memory that Instance Methods require as opposed to `prototype` methods. Not everyone reads the comments and so I thought I'd add a little suffix to my post.
 

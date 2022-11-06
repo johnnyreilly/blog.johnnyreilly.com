@@ -15,7 +15,7 @@ I enjoy the challenges of understanding problems and coming up with useful solut
 
 In my spare time I'm involved with various open source projects including [ts-loader](https://github.com/typestrong/ts-loader) and [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) ([member of the core team](https://github.com/orgs/DefinitelyTyped/people)). Get in contact with me if you're interested in learning more about me. Mail me at [johnny_reilly@hotmail.com](mailto:johnny_reilly@hotmail.com) and I can provide you with a CV. You can also find me on [GitHub](https://github.com/johnnyreilly).
 
-## Update 25/04/2016: Position Filled
+## Updated 25/04/2016: Position Filled
 
 I'm happy to say that I've lined up work for the next 6 months or so. Once again I'll be working in the financial services industry with one interesting twist. [In a blog post ages ago I bet that native apps would start to be replaced with SPAs.](../2014-02-12-wpf-and-mystic-meg-or-playing/index.md) This has started to happen. I've started to see companies taking a "web-first-and-only" approach to building apps. In that vein, that's exactly what I'm off to build.
 

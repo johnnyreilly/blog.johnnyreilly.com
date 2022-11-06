@@ -14,11 +14,11 @@ tags:
 hide_table_of_contents: false
 ---
 
-## Update 05/10/2015
+## Updated 05/10/2015
 
 If you're after a version of this that works with Globalize 1.x then take a look [here](../2015-10-05-jquery-validation-globalize-hits-10/index.md).
 
-## Update 27/08/2013
+## Updated 27/08/2013
 
 To make it easier for people to use the approach detailed in this post I have created a repository for `jquery.validate.globalize.js` on GitHub [here](https://github.com/johnnyreilly/jquery-validation-globalize).
 

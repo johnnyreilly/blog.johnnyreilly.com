@@ -75,6 +75,6 @@ This will always install the latest version of the `@types/testing-library__reac
 
 Probably the most helpful approach is the approach followed by RTL; fixing the major version but allowing all minor and patch releases _inside_ a major version.
 
-## Update 2: Further Discussions!
+## Updated 2: Further Discussions!
 
 The technique used in this blog post sparked an interesting conversation with members of the TypeScript team when it was applied to [`https://github.com/testing-library/jest-dom`](https://github.com/testing-library/jest-dom). [The conversation can be read here](https://github.com/testing-library/jest-dom/issues/123#issuecomment-523586977).

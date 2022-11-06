@@ -11,7 +11,7 @@ This post documents how to migrate a blog from Blogger to Docusaurus.
 
 ![title image reading "The definitive guide to migrating from Blogger to Docusaurus" with the Blogger and Docusaurus logos](title-image.webp)
 
-## Update 05/11/2022
+## Updated 5th November 2022
 
 This post started out as an investigation into migrating from Blogger to Docusaurus. In the end I very much made the leap, and would recommend doing so to others. I've transformed this post into a "definitive guide" on how to migrate. I intend to maintain this on an ongoing basis for the benefit of the community.
 
@@ -83,7 +83,7 @@ You can see more on this in the [Docusaurus documentation](https://docusaurus.io
 
 The first thing to do, was obtain my blog content. This is a mass of HTML that lived inside Blogger's database. (One assumes they have a database; I haven't actually checked.) There's a `Back up content` option inside Blogger to allow this:
 
-![Download content from Blogger](blogger-back-up-your-content.webp)
+![Download content from Blogger](screenshot-blogger-back-up-content.webp)
 
 It provides you with an XML file with a dispiritingly small size. Ten years blogging? You'll get change out of 4Mb it turns out.
 
@@ -489,11 +489,11 @@ Having this in place should protect my SEO when the domain switches from Blogger
 
 I'd always had comments on my blog. First with Blogger's in-built functionality and then with [Disqus](https://disqus.com/). One thing that Docusaurus doesn't support by default is comments for blog posts. [There's a feature request for it here.](https://docusaurus.io/feature-requests/p/comments-in-documents-or-blogs) However, it doesn't exist right now.
 
-For a while I considered this a dealbreaker, and wasn't planning to complete the migration. But then I had a discussion with Josh Goldberg as to the value of comments. Essentially that they are nice, but not esential.
+For a while I considered this a dealbreaker, and wasn't planning to complete the migration. But then I had a discussion with Josh Goldberg as to the value of comments. Essentially that they are nice, but not essential.
 
-![discussion on Twitter with Josh Goldberg on the topic of the value of comments in blog posts](screenshot-do-we-need-comments-josh-goldberg.webp)
+![discussion on Twitter with [Josh Goldberg](https://twitter.com/JoshuaKGoldberg) on the topic of the value of comments in blog posts](screenshot-do-we-need-comments-josh-goldberg.webp)
 
-I rather came to agree with the notion that comments were only slightly interesting as I looked back at the comments on my blog. So I decided to go ahead _without_ comments. I remain happy with that choice, so thanks Josh!
+I rather came to agree with the notion that comments were only slightly interesting as I looked back at the comments I'd received on my blog over the years. So I decided to go ahead _without_ comments. I remain happy with that choice, so thanks Josh!
 
 However, if it's important to you, there are ways to support comments. One example is using [Giscus](https://giscus.app/); [here is a guide on how to integrate it](https://dipakparmar.medium.com/how-to-add-giscus-to-your-docs-site-built-with-docusaurus-d57fa7f8e2f3).
 
