@@ -3,6 +3,7 @@ title: 'Definitely Typed: The Movie'
 authors: johnnyreilly
 tags: [TypeScript, Definitely Typed]
 image: ./title-image.webp
+slug: definitely-typed-the-movie
 hide_table_of_contents: false
 ---
 

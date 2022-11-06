@@ -102,7 +102,7 @@ function About() {
                   <p>I wrote:</p>
                   <ul>
                     <li>
-                      <a href="https://blog.johnnyreilly.com/2019/10/08/definitely-typed-movie">
+                      <a href="/definitely-typed-the-movie">
                         The history of Definitely Typed
                       </a>
                     </li>
