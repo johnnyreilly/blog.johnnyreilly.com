@@ -249,7 +249,7 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
 
   const content = `---
 title: "${post.title}"
-authors: johnnyreilly
+authors: ${author}
 tags: [${post.tags.join(', ')}]
 hide_table_of_contents: false
 ---

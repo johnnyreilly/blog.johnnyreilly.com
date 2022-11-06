@@ -366,7 +366,7 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
 
   const content = `---
 title: "${post.title}"
-authors: johnnyreilly
+authors: ${author}
 tags: [${post.tags.join(', ')}]
 hide_table_of_contents: false
 ---
@@ -424,6 +424,8 @@ To summarise what the script does, it:
 
 [To see the full code, you can find it on the GitHub repository that now represents the blog.](https://github.com/johnnyreilly/blog.johnnyreilly.com/tree/main/from-blogger-to-docusaurus)
 
+If you're trying to do this yourself, you'll want to change some of the variable values in the script; such as the author details.
+
 ## Bringing it all together
 
 To run the script, we add the following script to the `package.json`:
@@ -438,7 +440,9 @@ And have ourselves a merry little `yarn start` to kick off the process. In a ver
 
 ![Markdown files](blogs-as-markdown.webp)
 
-I have slightly papered over some details here. For my own case I discovered that I hadn't always written perfect HTML when blogging. I had to go in and fix the HTML in a number of historic blogs such that the mechanism would work. I also learned that a number of my screenshots that I use to illustrate posts have vanished from Blogger at some point. This makes me all the more convinced that storing your blog in a repo is a good idea. Things should not "go missing".
+I have slightly papered over some details here. For my own case I discovered that I hadn't always written perfect HTML when blogging. I had to go in and fix the HTML in a number of historic blogs and re-download, to get cleanish Markdown.
+
+I also learned that a number of my blog's images had vanished from Blogger at some point. This makes me all the more convinced that storing your blog in a repo is a good idea. Things should not "go missing".
 
 If we now run `yarn start` in the `blog-website` directory we can see the blog in action:
 
@@ -446,7 +450,7 @@ If we now run `yarn start` in the `blog-website` directory we can see the blog i
 
 Congratulations! We're now the proud owners of a Docusaurus blog site based upon our Blogger content.
 
-If you've got some curiously named image files you might encounter some minor issues that need fixing up. This should get you 95% the way there though.
+If you've got some curiously named image files you might encounter some minor issues that need fixing up. This should get you 95% the way there though. Docusaurus does a great job of telling you when there's issues.
 
 ## Redirecting from Blogger URLs to Docusaurus URLs
 
