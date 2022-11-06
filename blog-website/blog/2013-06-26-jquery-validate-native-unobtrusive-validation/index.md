@@ -29,6 +29,6 @@ I think this particularly applies when it comes to adding elements to the DOM dy
 
 For myself I'm in the early stages of experimenting with this but I thought it might be good to get something out there to show how this works. If anyone knows of any official documentation for this please do let me know - I'd love to have a read of it. Maybe it's been out there all along and it's just my Googling powers are inadequate.
 
-## Update 09/08/2012
+## Updated 09/08/2012
 
 If you're using ASP.Net MVC 3+ and this post has been of interest to you then you might want to take a look at [this](../2013-08-08-announcing-jquery-validation/index.md).

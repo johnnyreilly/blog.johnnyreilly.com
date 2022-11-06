@@ -10,7 +10,7 @@ If you'd like to improve the performance of a Docusaurus website by implementing
 
 ![title image reading "Lazy loading images with Docusaurus" with a Docusaurus logo and an image that reads `<img loading="lazy" `](title-image.png)
 
-## Update 26/02/2022
+## Updated 26/02/2022
 
 You don't need this anymore. As of Docusaurus [v2.0.0-beta.16](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.16) Docusaurus lazy loads markdown images by default. You can see the commit where it was added [here](https://github.com/facebook/docusaurus/pull/6598). Isn't that wonderful?
 

@@ -20,7 +20,7 @@ This follows on from the [previous post](../2021-12-27-azure-container-apps-buil
 
 ![title image reading "Azure Container Apps dapr, devcontainer, debug and deploy"  with the dapr, Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
 
-## Update 02/05/2022
+## Updated 02/05/2022
 
 This post has been updated to reflect the migration of Azure Container Apps from the Microsoft.Web namespace to the Microsoft.App namespace in March 2022. See: https://github.com/microsoft/azure-container-apps/issues/109
 

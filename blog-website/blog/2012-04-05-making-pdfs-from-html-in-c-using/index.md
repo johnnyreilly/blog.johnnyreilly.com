@@ -5,7 +5,7 @@ tags: [wkhtmltopdf, webkit, c#, html, pdf]
 hide_table_of_contents: false
 ---
 
-## Update 03/01/2013
+## Updated 03/01/2013
 
 I've written a subsequent post which builds on the work of this original post. The new post exposes this functionality via a WCF service and can be found [here](../2013-01-03-html-to-pdf-using-wcf-service/index.md).
 

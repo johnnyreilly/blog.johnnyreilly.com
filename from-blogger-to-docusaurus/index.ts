@@ -10,7 +10,18 @@ const bloggerXmlPath = './blog-03-17-2021.xml';
 const docusaurusDirectory = '../blog-website';
 const notMarkdownable: string[] = [];
 
-async function fromXmlToMarkDown() {
+const author = 'johnnyreilly';
+const author_name = 'John Reilly';
+const author_url = 'https://twitter.com/johnny_reilly';
+const author_image_url = 'https://blog.johnnyreilly.com/img/profile.jpg';
+
+async function makePostsFromXML() {
+  const blogDir = path.resolve(docusaurusDirectory, 'blog');
+
+  await deleteExistingFiles(blogDir);
+
+  await makeAuthorsYml(blogDir);
+
   const posts = await getPosts();
 
   for (const post of posts) {
@@ -21,6 +32,42 @@ async function fromXmlToMarkDown() {
       'These blog posts could not be turned into MarkDown - go find out why!',
       notMarkdownable
     );
+}
+
+async function deleteExistingFiles(directory: string) {
+  const filesAndFolders = await fs.promises.readdir(directory);
+  for (const file of filesAndFolders) {
+    try {
+      await fs.promises.unlink(path.join(directory, file));
+    } catch (e) {
+      await fs.promises.rm(path.join(directory, file), {
+        recursive: true,
+        force: true,
+      });
+    }
+  }
+}
+
+/**
+ * Make an authors.yml file
+ *
+ * johnnyreilly:
+ *   name: John Reilly
+ *   url: https://twitter.com/johnny_reilly
+ *   image_url: https://blog.johnnyreilly.com/img/profile.jpg
+ */
+async function makeAuthorsYml(directory: string) {
+  const authorsYml = `${author}:
+  name: ${author_name}
+  url: ${author_url}
+  image_url: ${author_image_url}
+`;
+
+  await fs.promises.writeFile(
+    path.join(directory, 'authors.yml'),
+    authorsYml,
+    'utf-8'
+  );
 }
 
 async function getPosts(): Promise<Post[]> {
@@ -110,15 +157,23 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
   });
   const linkSections = post.link.split('/');
   const linkSlug = linkSections[linkSections.length - 1];
-  const filename =
-    post.published.substr(0, 10) + '-' + linkSlug.replace('.html', '.md');
+  const blogdirname =
+    post.published.substring(0, 10) + '-' + linkSlug.replace('.html', '');
+
+  const blogdirPath = path.resolve(docusaurusDirectory, 'blog', blogdirname);
+
+  if (!fs.existsSync(blogdirPath)) {
+    fs.mkdirSync(blogdirPath);
+  }
 
   const contentProcessed = post.content
     // remove stray <br /> tags
     .replace(/<br\s*\/?>/gi, '\n')
     // translate <code class="lang-cs" into <code class="language-cs"> to be showdown friendly
-    .replace(/code class="lang-/gi, 'code class="language-');
-
+    .replace(/code class="lang-/gi, 'code class="language-')
+    // convert <!-- into <!---
+    .replace(/<!--/gi, '\n<!---\n')
+    .replace(/-->/gi, '\n--->\n');
   const images: string[] = [];
   const dom = new jsdom.JSDOM(contentProcessed);
   let markdown = '';
@@ -183,11 +238,10 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
     return;
   }
 
-  const imageDirectory = filename.replace('.md', '');
   for (const url of images) {
     try {
-      const localUrl = await downloadImage(url, imageDirectory);
-      markdown = markdown.replace(url, '../static/blog/' + localUrl);
+      const localUrl = await downloadImage(url, blogdirPath);
+      markdown = markdown.replace(url, localUrl);
     } catch (e) {
       console.error(`Failed to download ${url}`);
     }
@@ -203,7 +257,7 @@ ${markdown}
 `;
 
   await fs.promises.writeFile(
-    path.resolve(docusaurusDirectory, 'blog', filename),
+    path.resolve(docusaurusDirectory, 'blog', blogdirPath, 'index.md'),
     content
   );
 }
@@ -211,24 +265,9 @@ ${markdown}
 async function downloadImage(url: string, directory: string) {
   console.log(`Downloading ${url}`);
   const pathParts = new URL(url).pathname.split('/');
-  const filename = pathParts[pathParts.length - 1];
-  const directoryTo = path.resolve(
-    docusaurusDirectory,
-    'static',
-    'blog',
-    directory
-  );
-  const pathTo = path.resolve(
-    docusaurusDirectory,
-    'static',
-    'blog',
-    directory,
-    filename
-  );
+  const filename = decodeURIComponent(pathParts[pathParts.length - 1]);
 
-  if (!fs.existsSync(directoryTo)) {
-    fs.mkdirSync(directoryTo);
-  }
+  const pathTo = path.join(directory, filename);
 
   const writer = fs.createWriteStream(pathTo);
 
@@ -241,7 +280,7 @@ async function downloadImage(url: string, directory: string) {
   response.data.pipe(writer);
 
   return new Promise<string>((resolve, reject) => {
-    writer.on('finish', () => resolve(directory + '/' + filename));
+    writer.on('finish', () => resolve(filename));
     writer.on('error', reject);
   });
 }
@@ -255,4 +294,4 @@ interface Post {
 }
 
 // do it!
-fromXmlToMarkDown();
+makePostsFromXML();

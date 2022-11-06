@@ -73,7 +73,7 @@ I was tempted to name my methods in tribute to Crockford's JSON (namely `ToXML` 
 
 And that's us done. Whilst it's no doubt unfashionable I think that this is a very useful approach indeed and I commend it to the interweb!
 
-## Update - using Xsd.exe to generate XSD from XML
+## Updated - using Xsd.exe to generate XSD from XML
 
 I was chatting to a friend about this blog post and he mentioned that you can actually use Xsd.exe to generate XSD files from XML as well. He's quite right - this feature does exist. To go back to our example from earlier we can execute the following command:
 

@@ -72,6 +72,6 @@ I'm open to the possibility that my opinion may be modified further. And I'd be 
 
 It turns out that I'm not alone in thinking about this issue and indeed others have expressed this rather better than me - take a look at Jimmy Bogard's post for an example: [http://lostechies.com/jimmybogard/2012/09/20/limiting-your-abstractions/](http://lostechies.com/jimmybogard/2012/09/20/limiting-your-abstractions/).
 
-## Update 2
+## Updated 2
 
 I've also recently watched the following Pluralsight course by Julie Lerman: [http://pluralsight.com/training/Courses/TableOfContents/efarchitecture#efarchitecture-m3-archrepo](http://pluralsight.com/training/Courses/TableOfContents/efarchitecture#efarchitecture-m3-archrepo). In this course Julie talks about different implementations of the Repository and Unit of Work patterns in conjunction with Entity Framework. Julie is in favour of using this approach but in this module she elaborates on different "flavours" of these patterns that you might want to use for different reasons (bounded contexts / reference contexts etc). She makes a compelling case and helpfully she is open enough to say that this a point of contention in the community. At the end of watching this I think I felt happy that our "halfway house" approach seems to fit and seems to work. More than anything else Julie made clear that there isn't one definitively "true" approach. Rather many different but similar approaches for achieving the same goal. Good stuff Julie!
