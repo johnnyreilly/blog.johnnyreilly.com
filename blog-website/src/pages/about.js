@@ -8,23 +8,6 @@ import styles from './styles.module.css';
 
 const features = [
   {
-    title: 'What is this?',
-    description: (
-      <>
-        <p>
-          The meanderings and ramblings of a software engineer. If you were
-          wondering, the slightly egotistical-sounding title of this blog
-          started life as a pun on{' '}
-          <a href="http://en.wikipedia.org/wiki/ICANN" target="_blank">
-            ICANN
-          </a>
-          . Not, if I'm honest, the finest joke in the world but I haven't yet
-          thought of a better name and so here we are...
-        </p>
-      </>
-    ),
-  },
-  {
     title: 'What do I do?',
     description: (
       <>
@@ -35,13 +18,19 @@ const features = [
           </a>
           !
         </p>
-        <p>
-          I wrote the{' '}
-          <a href="https://blog.johnnyreilly.com/2019/10/08/definitely-typed-movie">
-            history of Definitely Typed
-          </a>
-          .
-        </p>
+        <p>I wrote:</p>
+        <ul>
+          <li>
+            <a href="https://blog.johnnyreilly.com/2019/10/08/definitely-typed-movie">
+              The history of Definitely Typed
+            </a>
+          </li>
+          <li>
+            <a href="/definitive-guide-to-migrating-from-blogger-to-docusaurus">
+              The definitive guide to migrating from Blogger to Docusaurus
+            </a>
+          </li>
+        </ul>
         <p>
           I was part of the merry band that started{' '}
           <a href="https://typescriptcongress.com/">TypeScript Congress</a> and
@@ -68,6 +57,23 @@ const features = [
             <a href="https://github.com/facebook/docusaurus">Docusaurus</a>
           </li>
         </ul>
+      </>
+    ),
+  },
+  {
+    title: 'What is this?',
+    description: (
+      <>
+        <p>
+          The meanderings and ramblings of a software engineer. If you were
+          wondering, the slightly egotistical-sounding title of this blog
+          started life as a pun on{' '}
+          <a href="http://en.wikipedia.org/wiki/ICANN" target="_blank">
+            ICANN
+          </a>
+          . Not, if I'm honest, the finest joke in the world but I haven't yet
+          thought of a better name and so here we are...
+        </p>
       </>
     ),
   },
