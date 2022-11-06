@@ -40,7 +40,7 @@ We're going to go this now. First, let's create ourselves a Docusaurus site for 
 npx create-docusaurus@latest blog-website classic
 ```
 
-This creates a standard Docusaurus site in the `blog-website` directory. In there we'll find a `docusaurus.config.js` file. There's much that can be configured here. It's worth remembering that Docusaurus is a tool for building documentation sites that also happens to feature a blog component. We're going to use it as a blog only. So we'll deactivate the docs component and configure the blog component to be the home page of our site:
+This creates a standard Docusaurus site in the `blog-website` directory. In there we'll find a `docusaurus.config.js` file. There's much that can be configured here. It's worth remembering that Docusaurus is a tool for building documentation sites that also happens to feature a blog component. We're going to use it as a blog only. So we'll deactivate the docs component and configure the blog component to be the home page of our site, following the [Docusaurus documentation](https://docusaurus.io/docs/blog#blog-only-mode):
 
 ```js
 module.exports = {
@@ -50,19 +50,14 @@ module.exports = {
       '@docusaurus/preset-classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: false, // deactivate docs
+        docs: false, // Deactivate docs
         blog: {
           blogTitle: 'I CAN MAKE THIS WORK',
           blogDescription: 'The blog of johnnyreilly',
-          /**
-           * Number of blog post elements to show in the blog sidebar
-           * 'ALL' to show all blog posts
-           * 0 to disable
-           */
           blogSidebarCount: 5,
           postsPerPage: 1,
           path: './blog',
-          routeBasePath: '/', // Set this value to '/'.
+          routeBasePath: '/', // Make blog the home page
           showReadingTime: true,
           editUrl:
             'https://github.com/johnnyreilly/blog.johnnyreilly.com/edit/main/blog-website/',
@@ -77,11 +72,9 @@ module.exports = {
 };
 ```
 
-You can see more on this in the [Docusaurus documentation](https://docusaurus.io/docs/blog#blog-only-mode);
-
 ## Downloading your Blogger content
 
-The first thing to do, was obtain my blog content. This is a mass of HTML that lived inside Blogger's database. (One assumes they have a database; I haven't actually checked.) There's a `Back up content` option inside Blogger to allow this:
+In order that we can migrate, we must obtain the blog content. This is a mass of HTML that lived inside Blogger's database. (One assumes they have a database; I haven't actually checked.) There's a `Back up content` option inside Blogger's settings to allow this:
 
 ![Download content from Blogger](screenshot-blogger-back-up-content.webp)
 
@@ -92,8 +85,8 @@ It provides you with an XML file with a dispiritingly small size. Ten years blog
 We now want to take that XML and:
 
 - Extract each blog post (and it's associated metadata; title / tags and whatnot)
-- Convert the HTML content of each blog post from HTML to Markdown and save it as a `/index.md` file
-- Download the images used in the blogpost so they can be stored in the repo alongside
+- Convert the HTML content of each blog post from HTML to Markdown, and save it as a Markdown file
+- Download the images used in the blogpost so they can be stored in the repo as well
 
 To do this we're going to whip up a smallish TypeScript console app. Let's initialise it with the packages we're going to need:
 
@@ -108,7 +101,7 @@ yarn add @types/he @types/jsdom @types/node @types/showdown axios fast-xml-parse
 We're using:
 
 - [`fast-xml-parser`](https://github.com/NaturalIntelligence/fast-xml-parser) to parse XML
-- [`he`](https://github.com/mathiasbynens/he), [jsdom](https://github.com/jsdom/jsdom) and [showdown](https://github.com/showdownjs/showdown) to convert HTML to Markdown
+- [`he`](https://github.com/mathiasbynens/he), [`jsdom`](https://github.com/jsdom/jsdom) and [`showdown`](https://github.com/showdownjs/showdown) to convert HTML to Markdown
 - [`axios`](https://github.com/axios/axios) to download images
 - [`typescript`](https://github.com/microsoft/TypeScript) to code in and [`ts-node`](https://github.com/TypeStrong/ts-node) to make our TypeScript Node.js console app.
 
@@ -419,8 +412,8 @@ To summarise what the script does, it:
 - deletes the default blog posts
 - creates a new `authors.yml` file with my details in
 - parses the blog XML into an array of `Post`s
-- each post is then converted from HTML into Markdown, a Docusaurus header is created and prepended, then the `index.md` file is saved to the `blog-website/blog/{POST NAME}` directory
-- the images of each post are downloaded with Axios and saved to the `blog-website/blog/{POST NAME}` directory
+- each post is then converted from HTML into Markdown, a Docusaurus header is created and prepended, then the `index.md` file is saved to the `blog-website/blog/{POST_NAME}` directory
+- the images of each post are downloaded with Axios and saved to the `blog-website/blog/{POST_NAME}` directory
 
 [To see the full code, you can find it on the GitHub repository that now represents the blog.](https://github.com/johnnyreilly/blog.johnnyreilly.com/tree/main/from-blogger-to-docusaurus)
 
@@ -430,13 +423,13 @@ If you're trying to do this yourself, you'll want to change some of the variable
 
 To run the script, we add the following script to the `package.json`:
 
-```
+```json
   "scripts": {
     "start": "ts-node index.ts"
   },
 ```
 
-And have ourselves a merry little `yarn start` to kick off the process. In a very short period of time, if you crack open the `blogs` directory of your Docusaurus site you'll see a collection of Markdown files which represent your blog and are ready to power Docusaurus:
+And have ourselves a merry little `yarn start` to kick off the process. In a very short period of time, if you crack open the `blogs` directory of your Docusaurus site you'll see a collection of folders, Markdown files and images. These represent your blog and are ready to power Docusaurus:
 
 ![Markdown files](blogs-as-markdown.webp)
 
@@ -454,7 +447,7 @@ If you've got some curiously named image files you might encounter some minor is
 
 ## Redirecting from Blogger URLs to Docusaurus URLs
 
-The final step is to redirect from the old Blogger URLs to the new Docusaurus URLs. Blogger URLs look like this: `/2019/10/definitely-typed-movie.html`. On the other hand, Docusaurus URLs look like this: `/2019/10/08/definitely-typed-movie`.
+The final step is to redirect from the old Blogger URLs to the new Docusaurus URLs. Blogger URLs look like this: `/2019/10/definitely-typed-movie.html`. On the other hand, Docusaurus URLs look like this: [`/2019/10/08/definitely-typed-movie`](https://blog.johnnyreilly.com/2019/10/08/definitely-typed-movie).
 
 I'll want to redirect from the former to the latter. I'll use the `@docusaurus/plugin-client-redirects` plugin to do this. Inside the `docusaurus.config.js` file, I'll add the following to the `plugins` section:
 
@@ -493,9 +486,9 @@ Having this in place should protect my SEO when the domain switches from Blogger
 
 I'd always had comments on my blog. First with Blogger's in-built functionality and then with [Disqus](https://disqus.com/). One thing that Docusaurus doesn't support by default is comments for blog posts. [There's a feature request for it here.](https://docusaurus.io/feature-requests/p/comments-in-documents-or-blogs) However, it doesn't exist right now.
 
-For a while I considered this a dealbreaker, and wasn't planning to complete the migration. But then I had a discussion with Josh Goldberg as to the value of comments. Essentially that they are nice, but not essential.
+For a while I considered this a dealbreaker, and wasn't planning to complete the migration. But then I had a discussion with [Josh Goldberg](https://twitter.com/JoshuaKGoldberg) as to the value of comments. Essentially that they are nice, but not essential.
 
-![discussion on Twitter with [Josh Goldberg](https://twitter.com/JoshuaKGoldberg) on the topic of the value of comments in blog posts](screenshot-do-we-need-comments-josh-goldberg.webp)
+![discussion on Twitter with Josh Goldberg on the topic of the value of comments in blog posts](screenshot-do-we-need-comments-josh-goldberg.webp)
 
 I rather came to agree with the notion that comments were only slightly interesting as I looked back at the comments I'd received on my blog over the years. So I decided to go ahead _without_ comments. I remain happy with that choice, so thanks Josh!
 
@@ -503,21 +496,25 @@ However, if it's important to you, there are ways to support comments. One examp
 
 ## DNS and RSS
 
-At this point I had a repository that represented my blog. I had a Docusaurus site that represented my blog. When I ran `yarn build` I got a Docusaurus site that looked like my blog. I was ready to make the switch. I had a redirect mechanism in place to protect my SEO.
+At this point I had a repository that represented my blog. I had a Docusaurus site that represented my blog. When I ran `yarn build` I got a Docusaurus site that looked like my blog. I had a redirect mechanism in place to protect my SEO.
 
-Hosting is a choice. When I initially moved I made use of GitHub Pages. I also experimented with Netlify. [Finally I migrated to using Azure Static Web Apps to make use of preview environments](../2022-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.md) There are many choices out there - you can pick the one that works best for you.
+I was ready to make the switch.
+
+Hosting is a choice. When I initially migrated, I made use of GitHub Pages. I also experimented with Netlify. [Finally I moved to using Azure Static Web Apps to make use of preview environments.](../2022-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.md) There are many choices out there - you can pick the one that works best for you.
 
 Once your site is up, the last stage of the migration is updating your DNS to point to the Docusaurus site. I use [Cloudflare](https://www.cloudflare.com/) to manage my domain names and so that's where I made the switch.
 
+![screenshot of the DNS settings in Cloudflare](screenshot-cloudflare-dns.webp)
+
 ## RSS / Atom feeds
 
-If you're like me, you'll want to keep your RSS feed. Happily, [Docusaurus ships with RSS / Atom in the box](https://docusaurus.io/docs/blog#feed). Even happier still, most of the feed URLs in Blogger match the same URLs in Docusaurus. There was one exception in the form of the `/feeds/posts/default` feed which is an atom feed. Docusaurus has an `atom.xml` feed but it's not in the same place.
+If you're like me, you'll want to keep your RSS feed. I didn't want to disrupting people who consumed my RSS feed as I migrated.
+
+Happily, [Docusaurus ships with RSS / Atom in the box](https://docusaurus.io/docs/blog#feed). Even happier still, most of the feed URLs in Blogger match the same URLs in Docusaurus. There was one exception in the form of the `/feeds/posts/default` feed which is an Atom feed. Docusaurus has an `atom.xml` feed but it's not in the same place.
 
 This isn't a significant issue as I can create a page rule in Cloudflare to redirect from the old URL (https://blog.johnnyreilly.com/feeds/posts/default) to the new URL (https://blog.johnnyreilly.com/atom.xml):
 
 ![screenshot of the page rule in Cloudflare](screenshot-cloudflare-atom-page-rule.png)
-
-This allowed me to make the switch without disrupting people who consumed my RSS feed.
 
 ## Conclusion
 
