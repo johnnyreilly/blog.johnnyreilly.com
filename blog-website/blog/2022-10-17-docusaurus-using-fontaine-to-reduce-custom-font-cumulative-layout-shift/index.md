@@ -132,3 +132,5 @@ Prior to using fontaine, my blogs Cumulative Layout Shift was logged as **0.019*
 I'm very grateful to Daniel for his help in getting it working with my blog. He went above and beyond, so thank you Daniel!
 
 In testament to what a great idea fontaine is built upon, in the time I've been writing this post [`@next/font`](https://nextjs.org/blog/next-13#nextfont) has been announced, which is based upon a similar idea.
+
+https://blog.logrocket.com/docusaurus-using-fontaine-reduce-cumulative-layout-shift/
