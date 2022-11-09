@@ -9,7 +9,7 @@ I've been busy working on an open source project called **[jQuery Validation Uno
 
 ## A Little Background
 
-I noticed a little while ago that jQuery Validation was now providing native support for validation driven by HTML 5 data attributes. As you may be aware, Microsoft shipped [jquery.validate.unobtrusive.js](http://bradwilson.typepad.com/blog/2010/10/mvc3-unobtrusive-validation.html) back with MVC 3. ([I have written about it before.](http://icanmakethiswork.blogspot.com/2012/08/jquery-unobtrusive-validation.html)) It provided a way to apply data model validations to the client side using a combination of jQuery Validation and HTML 5 data attributes.
+I noticed a little while ago that jQuery Validation was now providing native support for validation driven by HTML 5 data attributes. As you may be aware, Microsoft shipped [jquery.validate.unobtrusive.js](http://bradwilson.typepad.com/blog/2010/10/mvc3-unobtrusive-validation.html) back with MVC 3. ([I have written about it before.](../2012-08-06-jquery-unobtrusive-validation/index.md)) It provided a way to apply data model validations to the client side using a combination of jQuery Validation and HTML 5 data attributes.
 
 The principal of this was and is fantastic. But since that time the jQuery Validation project has implemented its own support for driving validation unobtrusively (shipping with [jQuery Validation 1.11.0](http://jquery.bassistance.de/validate/changelog.txt)). I've been looking at a way to directly use the native support instead of jquery.validate.unobtrusive.js.
 

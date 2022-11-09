@@ -62,7 +62,7 @@ But either way, I’m happy with this approach. As I always say, if it’s good 
 
 ## Implementation
 
-I’m going to start off using the demo from [my last blog post](http://icanmakethiswork.blogspot.com/2014/02/typescript-and-requirejs-keep-it-simple.html) as a basis. Let’s take that and evolve it. As a result my solution is going to work with TypeScript and RequireJS (since the previous demo was about that) but the implementation I’m going to come up with would work as well with vanilla JS as it would with TypeScript compiled JS.
+I’m going to start off using the demo from [my last blog post](../2014-02-27-typescript-and-requirejs-keep-it-simple/index.md) as a basis. Let’s take that and evolve it. As a result my solution is going to work with TypeScript and RequireJS (since the previous demo was about that) but the implementation I’m going to come up with would work as well with vanilla JS as it would with TypeScript compiled JS.
 
 Let’s take a look at our index.html. First we’ll drop our usage of `main.ts` / `main.js` (our bootstrapper file that defines config and kicks off the "app"). We’ll pull out the use of `data-main` and instead, just after the reference to require we’ll add the contents of `main.js` much in [the style of the RequireJS docs](http://requirejs.org/docs/api.html#config). We’ll also include a urlArgs that as a cache-buster that uses the approach outlined [in the RequireJS docs](http://requirejs.org/docs/api.html#config-urlArgs):
 

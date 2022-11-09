@@ -5,7 +5,7 @@ tags: [Globalize, migration]
 hide_table_of_contents: false
 ---
 
-Globalize has hit 1.0. Anyone who reads my blog will likely be aware that I'm a long time user of [Globalize 0.1.x](http://blog.icanmakethiswork.io/2012/05/globalizejs-number-and-date.html). I've been a little daunted by the leap that the move from 0.1.x to 1.x represents. It appears to be the very definition of "breaking changes". :-) But hey, this is Semantic Versioning being used correctly so how could I complain? Either way, I've decided to write up the migration here as I'm not expecting this to be easy.
+Globalize has hit 1.0. Anyone who reads my blog will likely be aware that I'm a long time user of [Globalize 0.1.x](../2012-05-07-globalizejs-number-and-date/index.md). I've been a little daunted by the leap that the move from 0.1.x to 1.x represents. It appears to be the very definition of "breaking changes". :-) But hey, this is Semantic Versioning being used correctly so how could I complain? Either way, I've decided to write up the migration here as I'm not expecting this to be easy.
 
 To kick things off I've set up a very [simple repo](https://github.com/johnnyreilly/globalize-migration/tree/v0.1.x) that consists of a single page that depends upon Globalize 0.1.x to render a number and a date in German. It looks like this:
 
@@ -61,7 +61,7 @@ When it's run it looks like this:
 
 Let's see how we go about migrating this super simple example.
 
-## Update our Bower dependencies
+## Updated our Bower dependencies
 
 First things first, we want to move Globalize from 0.1.x to 1.x using Bower. To do that we update our `bower.json`:
 
@@ -205,7 +205,7 @@ On top of that I'm also going to need the various cldr dependencies too. That's 
 
 Figuring that all out felt like really hard work. But I think that now we're ready to do the actual migration.
 
-### Update 30/08/2015: Globalize · So What'cha Want
+### Updated 30/08/2015: Globalize · So What'cha Want
 
 To make working out what you need when using Globalize I've built [Globalize · So What'cha Want](http://johnnyreilly.github.io/globalize-so-what-cha-want/). You're so very welcome.
 

@@ -12,7 +12,7 @@ If you're interested in building your own containers as well, it's worth looking
 
 ![title image reading "Azure Container Apps, Bicep and GitHub Actions" with the Bicep, Azure Container Apps and GitHub Actions logos](title-image.webp)
 
-## Update 02/05/2022
+## Updated 02/05/2022
 
 This post has been updated to reflect the migration of Azure Container Apps from the Microsoft.Web namespace to the Microsoft.App namespace in March 2022. See: https://github.com/microsoft/azure-container-apps/issues/109
 

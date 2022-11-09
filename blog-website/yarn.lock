@@ -4549,19 +4549,19 @@ follow-redirects@^1.0.0, follow-redirects@^1.14.7:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
   integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
 
-fontaine@0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/fontaine/-/fontaine-0.2.1.tgz#346308190d7bbc53d9eb0358d337450253f218e7"
-  integrity sha512-N1SXAiyNUwXIHAYTr9iz+D16ZOExnbVlJ9DK8ZUAnuwg87p2nT5sS6alvPOrxT4fhGKcWxMwEY5zCXP/au849w==
+fontaine@0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/fontaine/-/fontaine-0.2.3.tgz#70febd43cf1cf75631a5f3041420d3774044c2cd"
+  integrity sha512-qUTZfWEdPqfqAqX+3Oati/M8s/81uproVVQ3cpEcpmmzPB37/bZGwEm/92ZIIwYg/JFkQEpFRjnwg0HTiJ/FGQ==
   dependencies:
     "@capsizecss/metrics" "^0.3.0"
     "@capsizecss/unpack" "^0.1.0"
-    magic-regexp "^0.5.0"
+    magic-regexp "^0.6.0"
     magic-string "^0.26.7"
     pathe "^0.3.9"
     scule "^0.3.2"
     ufo "^0.8.6"
-    unplugin "^0.10.0"
+    unplugin "^0.10.2"
 
 fontkit@^1.8.1:
   version "1.9.0"
@@ -5880,16 +5880,16 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-magic-regexp@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/magic-regexp/-/magic-regexp-0.5.0.tgz#e8ac3d090d916b7b73769f726ea0bfb09b947b57"
-  integrity sha512-zP6wG5tnDX2FYgnFco4KEG+Qg2ujBIgO1VP+d6ScabRndZAyvR34PdwmRPnDqXiXLCReNXH406NyKyXgrWqTqQ==
+magic-regexp@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/magic-regexp/-/magic-regexp-0.6.0.tgz#d812df1378799aba98bb284a5cce7366db7d747d"
+  integrity sha512-7zscmuLhvaP7+t0qfnArw6h2QLoduJ3zTHFMY9LdD+M9ZrCmBrDg20ML+XRjkzCHGqst1cnqfS6eQcVsjwSX8Q==
   dependencies:
     estree-walker "^3.0.1"
-    magic-string "^0.26.3"
-    mlly "^0.5.14"
-    ufo "^0.8.5"
-    unplugin "^0.9.5"
+    magic-string "^0.26.7"
+    mlly "^0.5.16"
+    ufo "^0.8.6"
+    unplugin "^0.10.2"
 
 magic-string@^0.25.0, magic-string@^0.25.7:
   version "0.25.9"
@@ -5898,7 +5898,7 @@ magic-string@^0.25.0, magic-string@^0.25.7:
   dependencies:
     sourcemap-codec "^1.4.8"
 
-magic-string@^0.26.3, magic-string@^0.26.7:
+magic-string@^0.26.7:
   version "0.26.7"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.26.7.tgz#caf7daf61b34e9982f8228c4527474dac8981d6f"
   integrity sha512-hX9XH3ziStPoPhJxLq1syWuZMxbDvGNbVchfrdCtanC7D13888bMFow61x8axrx+GfHLtVeAx2kxL7tTGRl+Ow==
@@ -6087,7 +6087,7 @@ mkdirp-classic@^0.5.2, mkdirp-classic@^0.5.3:
   resolved "https://registry.yarnpkg.com/mkdirp-classic/-/mkdirp-classic-0.5.3.tgz#fa10c9115cc6d8865be221ba47ee9bed78601113"
   integrity sha512-gKLcREMhtuZRwRAfqP3RFW+TK4JqApVBtOIftVgjuABpAtpxhPGaDcfvbhNvD0B8iD1oUr/txX35NjcaY6Ns/A==
 
-mlly@^0.5.14:
+mlly@^0.5.14, mlly@^0.5.16:
   version "0.5.16"
   resolved "https://registry.yarnpkg.com/mlly/-/mlly-0.5.16.tgz#adb7d39fed81396a50b43173c88589de314015c7"
   integrity sha512-LaJ8yuh4v0zEmge/g3c7jjFlhoCPfQn6RCjXgm9A0Qiuochq4BcuOxVfWmdnCoLTlg2MV+hqhOek+W2OhG0Lwg==
@@ -8455,20 +8455,10 @@ unpipe@1.0.0, unpipe@~1.0.0:
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
   integrity sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==
 
-unplugin@^0.10.0:
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/unplugin/-/unplugin-0.10.0.tgz#83a10e995df530ffedb117de71ac3823216efe01"
-  integrity sha512-QIoQDNxTceO8QneUMQc96qabJnPVijU9SnaWWAH60HqpkCQSFXTcDAcr8qM4Y7Nq8Q3NafyX3lG5S1g62+KD6g==
-  dependencies:
-    acorn "^8.8.0"
-    chokidar "^3.5.3"
-    webpack-sources "^3.2.3"
-    webpack-virtual-modules "^0.4.5"
-
-unplugin@^0.9.5:
-  version "0.9.6"
-  resolved "https://registry.yarnpkg.com/unplugin/-/unplugin-0.9.6.tgz#f449173b619b9970bf3190d5419a66a727bb5d18"
-  integrity sha512-YYLtfoNiie/lxswy1GOsKXgnLJTE27la/PeCGznSItk+8METYZErO+zzV9KQ/hXhPwzIJsfJ4s0m1Rl7ZCWZ4Q==
+unplugin@^0.10.2:
+  version "0.10.2"
+  resolved "https://registry.yarnpkg.com/unplugin/-/unplugin-0.10.2.tgz#0f7089c3666f592cc448d746e39e7f41e9afb01a"
+  integrity sha512-6rk7GUa4ICYjae5PrAllvcDeuT8pA9+j5J5EkxbMFaV+SalHhxZ7X2dohMzu6C3XzsMT+6jwR/+pwPNR3uK9MA==
   dependencies:
     acorn "^8.8.0"
     chokidar "^3.5.3"

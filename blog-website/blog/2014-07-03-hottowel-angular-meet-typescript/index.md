@@ -15,7 +15,7 @@ It is **intentionally** a "bare bones" port of the HotTowel-Angular JavaScript c
 
 You could, if you wanted to, go much further. You could start using a whole host of TypeScripts functionality: modules / classes / arrow functions... the whole shebang. But my port is deliberately not that; I didn't want to scare your horses... I wanted you to see how easy it is to move from JS to TS. And I'm standing on the shoulders of that great giant [John Papa](https://twitter.com/john_papa) for that purpose.
 
-If you wanted an example of how you might go further in an Angular port to TypeScript then you could take a look at my [previous post](http://icanmakethiswork.blogspot.co.uk/2014/06/migrating-from-angularjs-to-angularts.html) on the topic.
+If you wanted an example of how you might go further in an Angular port to TypeScript then you could take a look at my [previous post](../2014-06-01-migrating-from-angularjs-to-angularts/index.md) on the topic.
 
 ## What's in the repo?
 

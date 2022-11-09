@@ -5,7 +5,7 @@ tags: [asp.net mvc, AngularJS, NgValidationFor]
 hide_table_of_contents: false
 ---
 
-I thought as I start the [NgValidationFor project](http://blog.icanmakethiswork.io/2015/04/tonight-ill-start-open-source-project.html) I'd journal my progress. I'm writing this with someone particular in mind: me. Specifically, me in 2 years who will no doubt wonder why I made some of the choices I did. Everyone else, move along now - nothing to see. Unless the inner workings of someone else's mind are interesting to you... In which case: welcome!
+I thought as I start the [NgValidationFor project](../2015-04-24-tonight-ill-start-open-source-project/index.md) I'd journal my progress. I'm writing this with someone particular in mind: me. Specifically, me in 2 years who will no doubt wonder why I made some of the choices I did. Everyone else, move along now - nothing to see. Unless the inner workings of someone else's mind are interesting to you... In which case: welcome!
 
 ## Getting up and running
 

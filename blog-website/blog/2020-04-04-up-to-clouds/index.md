@@ -77,7 +77,7 @@ The TL;DR is that we had to do a hard switch with Hangfire; it couldn't run side
 
 Historically our application had used two modes of authentication; Windows Authentication and cookies. Windows Authentication doesn't generally play nicely with Docker. It's doable, but it's not the hill you want to die on. So we didn't; we swapped out Windows Authentication for [Azure AD SSO](https://docs.microsoft.com/en-us/azure/active-directory/manage-apps/what-is-single-sign-on) and didn't look back.
 
-We also made some changes so our app would support cookies auth alongside Azure AD auth; [I've written about this previously](https://blog.johnnyreilly.com/2020/03/dual-boot-authentication-with-aspnetcore.html).
+We also made some changes so our app would support cookies auth alongside Azure AD auth; [I've written about this previously](../2020-03-22-dual-boot-authentication-with-aspnetcore/index.md).
 
 ## Do the right thing and tell people about it
 
