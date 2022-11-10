@@ -274,6 +274,13 @@ const config = {
             label: 'Twitter',
             position: 'right',
           },
+          // <a rel="me" href="https://fosstodon.org/@johnny_reilly">Mastodon</a>
+          {
+            href: 'https://fosstodon.org/@johnny_reilly',
+            label: 'Mastodon',
+            rel: 'me',
+            position: 'right',
+          },
         ],
       },
       footer: {
