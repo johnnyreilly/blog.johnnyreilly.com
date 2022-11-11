@@ -6,7 +6,7 @@ image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
-VS Code's debugging mechanism for Azure Functions on Mac OS frequently breaks. This post documents a approach to get it working.
+VS Code's debugging mechanism for Azure Functions on Mac OS frequently breaks. This post documents an approach to get it working.
 
 ![title image reading "Debugging Azure Functions in VS Code on Mac OS" with Docusaurus, SWC and webpack logos](title-image.webp)
 
