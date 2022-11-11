@@ -34,7 +34,7 @@ codesign -s my-codesign-cert vsdbg-ui && codesign -s my-codesign-cert vsdbg
 
 A thing to note about the above is the version in the path. You'll need to change that to match the version of the C# extension that you have installed. You can find the version in the VS Code extensions view:
 
-![Screenshot of C# extension in VS Code; in this case version 1.25.2](screenshot-csharp-extension-vs-code.png)
+![Screenshot of C# extension in VS Code; in this case version 1.25.2](screenshot-csharp-extension-vs-code.webp)
 
 In this case the version is `1.25.2`; as is reflected in the path above.
 
