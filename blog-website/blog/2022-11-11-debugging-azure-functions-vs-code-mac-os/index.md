@@ -16,7 +16,7 @@ I frequently use a Mac to develop Azure Functions. I use VS Code as my editor.
 
 Debugging is can be very useful when you're developing; getting to understand what the computer can see at runtime is a superpower. Regrettably with Azure Functions, I often find that the debugger fails to attach. When this happens, I can't actually debug my Azure Functions.
 
-This is a known issue. In fact, this blog post is me sharing a workaround that I've needed again and again, but keep losing. Not my own work, the work of [Bas Stottelaar](https://github.com/basilfx). I share it as a public service announcement. (And to remind myself how to do it!) The original issue is [here](https://github.com/OmniSharp/omnisharp-vscode/issues/4903#issuecomment-993015843). Yay Bas!
+This is a known issue. In fact, this blog post is me sharing a workaround that I've needed again and again, but keep losing. Not my own work, the work of [Bas Stottelaar](https://github.com/basilfx). I share it as a public service announcement - and to remind myself how to do it! [The original issue (and workaround) is here](https://github.com/OmniSharp/omnisharp-vscode/issues/4903#issuecomment-993015843). Yay Bas!
 
 ## The solution
 
