@@ -93,9 +93,9 @@ To do this we're going to whip up a smallish TypeScript console app. Let's initi
 ```
 mkdir from-blogger-to-docusaurus
 cd from-blogger-to-docusaurus
-npx typescript --init
-yarn init
-yarn add @types/he@^1.1.2 @types/jsdom@^20.0.0 @types/node@^18.11.9 @types/showdown@^2.0.0 axios@^1.1.3 fast-xml-parser@^3.21.1 he@^1.2.0 jsdom@^20.0.2 showdown@^2.1.0 ts-node@^10.9.1 typescript@^4.8.4
+yarn init -y
+yarn add @types/he @types/jsdom @types/node @types/showdown axios fast-xml-parser@3.21.1 he jsdom showdown ts-node typescript
+npx tsc --init
 ```
 
 We're using:
