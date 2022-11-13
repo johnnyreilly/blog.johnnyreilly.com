@@ -12,9 +12,9 @@ tags:
 hide_table_of_contents: false
 ---
 
-## Update 14/01/2013
+## Updated 14/01/2013
 
-Since I wrote this I've taken things on a little further - to read about that go [here](http://icanmakethiswork.blogspot.co.uk/2013/01/twitterbootstrapmvc4-meet-bootstrap_14.html).
+Since I wrote this I've taken things on a little further - to read about that go [here](../2013-01-14-twitterbootstrapmvc4-meet-bootstrap_14/index.md).
 
 ## Getting Responsive
 

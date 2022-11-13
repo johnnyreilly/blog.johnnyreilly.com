@@ -12,7 +12,7 @@ hide_table_of_contents: false
 
 But.... There had to be a "but" otherwise I wouldn't have been writing the post you're reading. For a little side project of mine called [Proverb](https://github.com/johnnyreilly/Proverb) there were C# unit tests and there were JavaScript unit tests. And the JavaScript unit tests weren't being run... No fair!!!
 
-[Chutzpah](https://chutzpah.codeplex.com/) is a JavaScript test runner which at this point runs QUnit, Jasmine and Mocha JavaScript tests. I use the [Visual Studio extension](http://visualstudiogallery.msdn.microsoft.com/f8741f04-bae4-4900-81c7-7c9bfb9ed1fe) to run Jasmine tests on my machine during development. I've also been able to use [Chutzpah for CI purposes with Visual Studio Online / Team Foundation Server](http://icanmakethiswork.blogspot.com/2014/03/the-surprisingly-happy-tale-of-visual.html). So what say we try and do the triple and make it work with AppVeyor too?
+[Chutzpah](https://chutzpah.codeplex.com/) is a JavaScript test runner which at this point runs QUnit, Jasmine and Mocha JavaScript tests. I use the [Visual Studio extension](http://visualstudiogallery.msdn.microsoft.com/f8741f04-bae4-4900-81c7-7c9bfb9ed1fe) to run Jasmine tests on my machine during development. I've also been able to use [Chutzpah for CI purposes with Visual Studio Online / Team Foundation Server](../2014-03-17-the-surprisingly-happy-tale-of-visual/index.md). So what say we try and do the triple and make it work with AppVeyor too?
 
 ## NuGet me?
 
@@ -76,9 +76,9 @@ What this does is:
 
 That's a wrap - We now have CI which includes our JavaScript tests! That's right we get to see beautiful screens like these:
 
-![](Screenshot-2014-09-06-21.43.15.png)
+![](Screenshot-2014-09-06-21.43.15.webp)
 
-![](Screenshot-2014-09-06-21.49.38.png)
+![](Screenshot-2014-09-06-21.49.38.webp)
 
 ## Thanks to...
 

@@ -7,7 +7,7 @@ hide_table_of_contents: false
 
 ## Loading On-Demand and Caching
 
-[I've written before about my own needs for caching and cache-busting when using RequireJS.](http://icanmakethiswork.blogspot.com/2014/03/caching-and-cache-busting-with-requirejs.html) Long story short, when I'm loading _static_ resources (scripts / views etc) on demand from the server I want to do a little URL fiddling along the way. I want to do that to cater for these 2 scenarios:
+[I've written before about my own needs for caching and cache-busting when using RequireJS.](../2014-03-05-caching-and-cache-busting-with-requirejs/index.md) Long story short, when I'm loading _static_ resources (scripts / views etc) on demand from the server I want to do a little URL fiddling along the way. I want to do that to cater for these 2 scenarios:
 
 1. _In Development_ \- I want my URLs for static resources to have a unique querystring with each request to ensure that resources are loaded afresh each time. (eg so a GET request URL might look like this: "/app/layout/sidebar.html?v=IAmRandomYesRandomRandomIsWhatIAm58965782")
 2. _In Production_ \- I want my URLs for static resources to have a querystring with that is driven by the application version number. This means that static resources can potentially be cached with a given querystring - subsequent requests should result in a 304 status code (indicating “Not Modified”) and local cache should be used. But when a new version of the app is rolled out and the app version is incremented then the querystring will change and resources will be loaded anew. (eg a GET request URL might look like this: "/app/layout/sidebar.html?v=1.0.5389.16180")

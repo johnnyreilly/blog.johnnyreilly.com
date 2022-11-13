@@ -5,7 +5,7 @@ tags: [Task Runner Explorer, Visual Studio, TypeScript, javascript, Gulp]
 hide_table_of_contents: false
 ---
 
-### Update 17/02/2015: I've taken the approach discussed in this post a little further - you can see [here](https://blog.johnnyreilly.com/2015/02/using-gulp-in-asp-net-instead-of-web-optimization.html)
+### Updated 17/02/2015: I've taken the approach discussed in this post a little further - you can see [here](../2012-10-05-using-web-optimization-with-mvc-3/index.md)
 
 I've used a number of tools to package up JavaScript and CSS in my web apps. [Andrew Davey's tremendous Cassette](http://getcassette.net/) has been really useful. Also good (although less powerful/magical) has been Microsoft's very own [Microsoft.AspNet.Web.Optimization](https://www.nuget.org/packages/Microsoft.AspNet.Web.Optimization/) that ships with MVC.
 
@@ -464,7 +464,7 @@ The eagle eyed amongst you will also have noticed a peculiar first line to our `
 
 This mysterious comment is actually how the Task Runner Explorer hooks our `gulpfile.js` into the Visual Studio build process. Our "magic comment" ensures that on the `AfterBuild` event, Task Runner Explorer runs the `default` task in our `gulpfile.js`. The reason we're using the `AfterBuild` event rather than the `BeforeBuild` event is because our project contains TypeScript and we need the transpiled JavaScript to be created before we can usefully run our package tasks. If we were using JavaScript alone then that wouldn't be an issue and either build event would do.
 
-![](Screenshot-2014-10-21-17.02.11.png)
+![](Screenshot-2014-10-21-17.02.11.webp)
 
 ## How do I use this in my HTML?
 

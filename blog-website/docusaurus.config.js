@@ -2,7 +2,6 @@
 const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 
 const fontaine = require('fontaine');
-const FontPreloadPlugin = require('webpack-font-preload-plugin');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
@@ -51,7 +50,7 @@ const config = {
           anonymizeIP: true,
         },
         gtag: {
-          trackingID: 'G-226F0LR9KE',
+          trackingID: 'G-3N85G0SL3K',
           anonymizeIP: true,
         },
         docs: false,
@@ -78,17 +77,39 @@ const config = {
     ],
   ],
 
-  plugins: [
-    function preloadFontPlugin(_context, _options) {
-      return {
-        name: 'preload-font-plugin',
-        configureWebpack(_config, _isServer) {
-          return {
-            plugins: [new FontPreloadPlugin()],
-          };
-        },
-      };
+  headTags: [
+    // <link rel="preload" href="/fonts/Poppins-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preload',
+        href: 'https://blog.johnnyreilly.com/fonts/Poppins-Regular.woff2',
+        as: 'font',
+        type: 'font/woff2',
+        crossorigin: 'anonymous',
+      },
     },
+    // <link rel="preload" href="/fonts/Poppins-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preload',
+        href: 'https://blog.johnnyreilly.com/fonts/Poppins-Bold.woff2',
+        as: 'font',
+        type: 'font/woff2',
+        crossorigin: 'anonymous',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'monetization',
+        href: 'https://ilp.uphold.com/LwQQhXdpwxeJ',
+      },
+    },
+  ],
+
+  plugins: [
     function fontainePlugin(_context, _options) {
       return {
         name: 'fontaine-plugin',
@@ -117,38 +138,28 @@ const config = {
         },
       };
     },
-    [
-      'ideal-image',
-      /** @type {import('@docusaurus/plugin-ideal-image').PluginOptions} */
-      ({
-        quality: 70,
-        max: 1030,
-        min: 640,
-        steps: 2,
-        // Use false to debug, but it incurs huge perf costs
-        disableInDev: true,
-      }),
-    ],
-    [
-      'client-redirects',
-      /** @type {import('@docusaurus/plugin-client-redirects').Options} */
-      ({
-        // redirects: [
-        //   {
-        //     to: '/2018/07/28/azure-app-service-web-app-containers-asp-net-nested-configuration',
-        //     from: '/2018/07/28/configuring-docker-azure-web-app-containers',
-        //   },
-        // ],
-        createRedirects: function (existingPath) {
-          if (existingPath.match(urlRegex)) {
-            const [, year, month, date, slug] = existingPath.split('/');
-            const oldUrl = `/${year}/${month}/${slug}.html`;
-            console.log(`redirect from ${oldUrl} -> ${existingPath}`);
-            return [oldUrl, `/${year}/${month}/${slug}`];
-          }
-        },
-      }),
-    ],
+
+    // [
+    //   'client-redirects',
+    //   /** @type {import('@docusaurus/plugin-client-redirects').Options} */
+    //   ({
+    // redirects: [
+    //   {
+    //     to: '/2018/07/28/azure-app-service-web-app-containers-asp-net-nested-configuration',
+    //     from: '/2018/07/28/configuring-docker-azure-web-app-containers',
+    //   },
+    // ],
+    // createRedirects: function (existingPath) {
+    //   if (existingPath.match(urlRegex)) {
+    //     const [, year, month, date, slug] = existingPath.split('/');
+    //     const oldUrl = `/${year}/${month}/${slug}.html`;
+    //     console.log(`redirect from ${oldUrl} -> ${existingPath}`);
+    //     return [oldUrl, `/${year}/${month}/${slug}`];
+    //   }
+    // },
+    //   }),
+    // ],
+
     [
       'pwa',
       {
@@ -193,6 +204,7 @@ const config = {
       },
     ],
   ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -260,6 +272,13 @@ const config = {
           {
             href: 'https://twitter.com/johnny_reilly',
             label: 'Twitter',
+            position: 'right',
+          },
+          // <a rel="me" href="https://fosstodon.org/@johnny_reilly">Mastodon</a>
+          {
+            href: 'https://fosstodon.org/@johnny_reilly',
+            label: 'Mastodon',
+            rel: 'me',
             position: 'right',
           },
         ],

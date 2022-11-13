@@ -22,7 +22,7 @@ I've so named this blog post because it shamelessly borrows from the fine work o
 
 Like many, I've long been frustrated with the quirky DateTime serialisation employed by the `System.Web.Script.Serialization.JavaScriptSerializer` class. When serialising DateTimes so they can be JSON.parsed on the client, this serialiser uses the following approach: (from MSDN) [_Date object, represented in JSON as "\/Date(number of ticks)\/". The number of ticks is a positive or negative long value that indicates the number of ticks (milliseconds) that have elapsed since midnight 01 January, 1970 UTC."_](http://msdn.microsoft.com/en-us/library/system.web.script.serialization.javascriptserializer.aspx) Now this is not particularly helpful in my opinion because it's not human readable (at least not this human; perhaps [Jon Skeet](http://stackoverflow.com/users/22656/jon-skeet)...) When consuming your data from web services / PageMethods using [jQuery.ajax](http://api.jquery.com/jQuery.ajax/) you are landed with the extra task of having to convert what were DateTimes on the server from Microsofts string Date format (eg `"\/Date(1293840000000)\/"`) into actual JavaScript Dates. It's also unhelpful because it's divergent from the approach to DateTime / Date serialisation used by a native JSON serialisers:
 
-![](FireBug-Dates.png)
+![](FireBug-Dates.webp)
 
 Just as an aside it's worth emphasising that one of the limitations of JSON is that the JSON.parsing of a JSON.stringified date will \***not**\* return you to a JavaScript Date but rather an ISO 8601 date string which will need to be subsequently converted into a Date. Not JSON's fault - essentially down to the absence of a Date literal within JavaScript. ## Making JavaScriptSerializer behave more JSON'y
 
@@ -42,7 +42,7 @@ With this in place I could parse ISO 8601 Dates just like anyone else. Great stu
 
 Subsequent to writing this post I thought I'd check that IE 9 had implemented a JavaScript Date constructor that would process an ISO 8601 date string like this: `new Date("2011-01-01T00:00:00.0000000Z")`. It hasn't. Take a look:
 
-![](IE9-screenshot.png)
+![](IE9-screenshot.webp)
 
 This is slightly galling as the above code works dandy in Firefox and Chrome. As you can see from the screenshot you can get the JavaScript IE 9 Date constructor to play nice by trimming off the final 4 "0"'s from the string. Frustrating. Obviously we can still use Nathan's solution but it's a shame that we can't use the native support. Based on what I've read [here](http://msdn.microsoft.com/en-us/library/az4se3k1.aspx#Roundtrip) I think it would be possible to amend Sebastians serializer to fall in line with IE 9's pendantry by changing this:
 

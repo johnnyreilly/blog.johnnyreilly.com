@@ -5,7 +5,7 @@ tags: [Globalize, jQuery Validation]
 hide_table_of_contents: false
 ---
 
-This is just a quick post - the tl;dr is this: jQuery Validation Globalize has been ported to Globalize 1.x. Yay! In one of those twists of fate I'm not actually using this plugin in my day job anymore but I thought it might be useful to other people. So here you go. You can read more about this plugin in an [older post](https://blog.johnnyreilly.com/2012/09/globalize-and-jquery-validate.html) and you can see a demo of it in action [here](http://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/AdvancedDemo/Globalize.html).
+This is just a quick post - the tl;dr is this: jQuery Validation Globalize has been ported to Globalize 1.x. Yay! In one of those twists of fate I'm not actually using this plugin in my day job anymore but I thought it might be useful to other people. So here you go. You can read more about this plugin in an [older post](../2012-09-06-globalize-and-jquery-validate/index.md) and you can see a demo of it in action [here](http://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/AdvancedDemo/Globalize.html).
 
 The code did not change drastically - essentially it was just a question of swapping `parseFloat` for `parseNumber` and `parseDate` for a slightly different `parseDate`. So, we went from this:
 

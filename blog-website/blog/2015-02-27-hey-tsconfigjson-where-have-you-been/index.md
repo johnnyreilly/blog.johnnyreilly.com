@@ -39,7 +39,7 @@ As you can see - this is sub-optimal. But don't worry - there's a new sheriff in
 
 I'd decided to give [Atom TypeScript plugin](https://github.com/TypeStrong/atom-typescript) a go as I heard much enthusiastic noise about it. I fired it up and pointed it at a a TypeScript AngularJS project built in Visual Studio. I was mentally preparing myself for the job of adding all the /// references in when I suddenly noticed a file blinking at me:
 
-![](Screenshot-2015-02-27-16.05.29.png)
+![](Screenshot-2015-02-27-16.05.29.webp)
 
 `tsconfig.json`? What's that? Time to read [the docs](https://github.com/TypeStrong/atom-typescript#project-support):
 

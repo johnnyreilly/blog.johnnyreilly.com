@@ -18,7 +18,7 @@ I did manage it this time... Sort of. Unfortunately there was a problem which I 
 
 ## What to Migrate?
 
-I'm going to use one of the test files in my my side project [Proverb](https://github.com/johnnyreilly/Proverb). It's the tests for an AngularJS controller called `sageDetail` \- I've written about it [before](http://icanmakethiswork.blogspot.co.uk/2014/09/unit-testing-angular-controller-with.html). Here it is in all it's JavaScript-y glory:
+I'm going to use one of the test files in my my side project [Proverb](https://github.com/johnnyreilly/Proverb). It's the tests for an AngularJS controller called `sageDetail` \- I've written about it [before](../2014-09-10-unit-testing-angular-controller-with/index.md). Here it is in all it's JavaScript-y glory:
 
 ```ts
 describe('Proverb.Web -> app-> controllers ->', function () {
@@ -346,7 +346,7 @@ The TypeScript compiler will now strip comments; which includes the `reference` 
 
 Yup it's dead. Whilst the compilation itself has no issues, take a look at the errors being presented for just one of the files back in the original web project:
 
-![](Screenshot-2014-09-12-23.15.22.png)
+![](Screenshot-2014-09-12-23.15.22.webp)
 
 It looks like having one TypeScript project in a solution which uses `reference` comments somehow breaks the implicit referencing behaviour built into Visual Studio for other TypeScript projects in the solution. I can say this with some confidence as if I pull out the `reference` comments from the top of the test file that we've converted then it's business as usual - the TypeScript Language Service lives once more. I'm sure you can see the problem here though: the TypeScript test file doesn't compile. All rather unsatisfactory.
 

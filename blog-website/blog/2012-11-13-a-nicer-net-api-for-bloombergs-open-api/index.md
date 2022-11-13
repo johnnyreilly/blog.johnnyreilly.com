@@ -49,7 +49,7 @@ The project also contained this class which demonstrates how I made use of my wr
 
 This covered my bases. It was simple, it was easy to consume and it didn't require any custom types. My mini-API is only really catering for my own needs (unsurprisingly). However, there's lots more to the Bloomberg Open API and I may end up taking this further in the future if I encounter use cases that my current API doesn't cover.
 
-## Update (07/12/2012)
+## Updated (07/12/2012)
 
 Finally, a PS. I found in the [Open API FAQs](http://www.openbloomberg.com/faq/) that _"Testing any of that functionality currently requires a valid Bloomberg Desktop API (DAPI), Server API (SAPI) or Managed B-Pipe subscription. Bloomberg is planning on releasing a stand-alone simulator which will not require a subscription."_ There isn't any word yet on this stand-alone simulator. I emailed Bloomberg at [open-tech@bloomberg.net](mailto:open-tech@bloomberg.net) to ask about this. They kindly replied that _"Unfortunately it is not yet available. We understand that this makes testing API applications somewhat impractical, so we're continuing to work on this tool."_ Fingers crossed for something we can test soon!
 

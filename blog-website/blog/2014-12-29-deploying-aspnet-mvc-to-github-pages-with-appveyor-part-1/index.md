@@ -13,7 +13,7 @@ I believe it was Tony Blair that said "documentation, documentation, documentati
 
 Anyway I'm happy to say that jQuery Validation Unobtrusive Native _has_ documentation! And pretty good documentation at that. The documentation takes the form of the [jVUNDemo](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native/tree/master/jVUNDemo) project which is part of the jQuery Validation Unobtrusive Native repo. jVUNDemo is an ASP.Net MVC web application which is built on top of the jQuery Validation Unobtrusive Native helpers. It demonstrates the helpers in action and documents how you might go about using them. It looks a bit like this:
 
-![](Screenshot-2014-12-29-06.22.46.png)
+![](Screenshot-2014-12-29-06.22.46.webp)
 
 When I first put jVUNDemo together I hosted it on Azure so the world could see it in all it's finery. And that worked just fine. However, there's something you ought to know about me:
 
@@ -156,4 +156,4 @@ d----        12/29/2014   7:50 AM            Scripts
 
 And that's it for part 1 my friends! You now have a static version of the ASP.Net MVC site to dazzle the world with. I should say for the purposes of full disclosure that there are 2 pages in the site which are not entirely "static" friendly. For these 2 pages I've put messages in that are displayed when the page is served up in a static format explaining the limitations. Their full glory can still be experienced by cloning the project and running locally.
 
-[Next time](https://blog.johnnyreilly.com/2015/01/deploying-aspnet-mvc-to-github-pages-with-appveyor-part-2.html) we'll take the mechanism detailed above and plug it into AppVeyor for some Continuous Integration happiness.
+[Next time](../2015-01-07-deploying-aspnet-mvc-to-github-pages-with-appveyor-part-2/index.md) we'll take the mechanism detailed above and plug it into AppVeyor for some Continuous Integration happiness.

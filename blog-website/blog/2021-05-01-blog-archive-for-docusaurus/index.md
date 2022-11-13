@@ -10,7 +10,7 @@ Docusaurus doesn't ship with "blog archive" functionality. By which I mean, some
 
 ![Docusaurus blog archive](docusaurus-blog-archive.png)
 
-## Update 2021-09-01
+## Updated 2021-09-01
 
 As of [v2.0.0-beta.6](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.6), Docusauras _does_ ship with blog archive functionality that lives at the `archive` route. This is down to the work of [Gabriel Csapo](https://github.com/gabrielcsapo) in [this PR](https://github.com/facebook/docusaurus/pull/5428).
 
@@ -101,7 +101,7 @@ const postsByYear = allPosts.reduceRight((posts, post) => {
   const year = post.date.split('-')[0];
   const yearPosts = posts.get(year) || [];
   return posts.set(year, [post, ...yearPosts]);
-}, /** @type {Map<string, BlogPost[]>}>} */ new Map());
+}, /** @type {Map<string, BlogPost[]>} */ new Map());
 
 const yearsOfPosts = Array.from(postsByYear, ([year, posts]) => ({
   year,
@@ -116,7 +116,7 @@ Now we're ready to blast it onto the screen. We'll create two components:
 
 ```tsx
 function Year(
-  /** @type {{ year: string; posts: BlogPost[]}} */ { year, posts }
+  /** @type {{ year: string; posts: BlogPost[]; }} */ { year, posts }
 ) {
   return (
     <div className={clsx('col col--4', styles.feature)}>
@@ -214,7 +214,7 @@ const postsByYear = allPosts.reduceRight((posts, post) => {
   const year = post.date.split('-')[0];
   const yearPosts = posts.get(year) || [];
   return posts.set(year, [post, ...yearPosts]);
-}, /** @type {Map<string, BlogPost[]>}>} */ new Map());
+}, /** @type {Map<string, BlogPost[]>} */ new Map());
 
 const yearsOfPosts = Array.from(postsByYear, ([year, posts]) => ({
   year,
@@ -222,7 +222,7 @@ const yearsOfPosts = Array.from(postsByYear, ([year, posts]) => ({
 }));
 
 function Year(
-  /** @type {{ year: string; posts: BlogPost[]}} */ { year, posts }
+  /** @type {{ year: string; posts: BlogPost[]; }} */ { year, posts }
 ) {
   return (
     <div className={clsx('col col--4', styles.feature)}>

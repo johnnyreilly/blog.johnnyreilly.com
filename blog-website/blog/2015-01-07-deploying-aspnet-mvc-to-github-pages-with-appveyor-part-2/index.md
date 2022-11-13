@@ -16,7 +16,7 @@ hide_table_of_contents: false
 
 OK, that's not quite true... But what is certainly true is that maintaining an open source project takes time. And there's only so much free time that anyone has. For that reason, wherever you can it makes sense to _AUTOMATE_!
 
-[Last time](https://blog.johnnyreilly.com/2014/12/deploying-aspnet-mvc-to-github-pages-with-appveyor-part-1.html) we looked at how you can take an essentially static ASP.Net MVC site (in this case my jVUNDemo documentation site) and generate an entirely static version using Wget. This static site has been pushed to [GitHub Pages](https://pages.github.com/) and is serving as the documentation for [jQuery Validation Unobtrusive Native](http://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/) (and for bonus points is costing me no money at all).
+[Last time](../2014-12-29-deploying-aspnet-mvc-to-github-pages-with-appveyor-part-1/index.md) we looked at how you can take an essentially static ASP.Net MVC site (in this case my jVUNDemo documentation site) and generate an entirely static version using Wget. This static site has been pushed to [GitHub Pages](https://pages.github.com/) and is serving as the documentation for [jQuery Validation Unobtrusive Native](http://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/) (and for bonus points is costing me no money at all).
 
 So what next? Well, automation clearly! If I make a change to jQuery Validation Unobtrusive Native then AppVeyor already bounds in and performs a [continuous integration build](https://ci.appveyor.com/project/JohnReilly/jquery-validation-unobtrusive-native) for me. It picks up the [latest source](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native) from GitHub, pulls in my dependencies, performs a build and runs my tests. Lovely.
 
@@ -26,11 +26,11 @@ So the obvious thing to do is to take this process and plug in the generation of
 
 In order to complete our chosen mission we're going to need a GitHub Personal Access Token. We're going to use it when we clone, update and push our GitHub Pages branch. To get one we biff over to Settings / Applications in GitHub and click the "Generate New Token" button.
 
-![](GitHubApplicationSettings.png)
+![](GitHubApplicationSettings.webp)
 
 The token I'm using for my project has the following scopes selected:
 
-![](GitHub-Personal-Access-Token.png)
+![](GitHub-Personal-Access-Token.webp)
 
 ## `appveyor.yml`
 
@@ -80,7 +80,7 @@ There's a number of things you should notice from the yml file:
 
 We pass 4 arguments to `pushStatic.ps1`: the build folder, my email address, my username and my personal access token. For the sake of security the GithubPersonalAccessToken has been encrypted as indicated by the `secure` keyword. This is a capability available in AppVeyor [here](https://ci.appveyor.com/tools/encrypt).
 
-![](AppVeyor-encrypt.png)
+![](AppVeyor-encrypt.webp)
 
 This allows me to mask my personal access token rather than have it available as free text for anyone to grab.
 
