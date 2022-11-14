@@ -14,7 +14,9 @@ Azure AD Claims are not supplied to Azure Functions when linked with Azure Stati
 
 There is a limitation around authorisation when having an Azure Function app as the linked backend to an Azure Static Web App. Essentially the Azure Functions app _does not_ receive the claims that the Static Web App receives.
 
-We have a Static Web App, with an associated C# Function App (using the [Bring Your Own Functions](../2022-10-14-bicep-static-web-apps-linked-backends/index.md) approach). When we're authenticated with Azure AD and go to the auth endpoint: `/.auth/me` we see:
+We have a Static Web App, with an associated C# Function App (using the [Bring Your Own Functions](../2022-10-14-bicep-static-web-apps-linked-backends/index.md) approach). Both the Static Web App and Function App are associated with the same Azure AD app registration.
+
+When we're authenticated with Azure AD and go to the auth endpoint: `/.auth/me` we see:
 
 ```json
 {
@@ -55,7 +57,7 @@ Note the claims in there. These include custom claims that we've configured such
 
 So we can access claims successfully in the Static Web App (the front end). However, the associated Function App does not have access to the claims.
 
-When we implemented a function in the Azure Function which surfaced roles:
+It's possible to see this by implementing a function which surfaces roles:
 
 ```cs
 [FunctionName("GetRoles")]
@@ -92,7 +94,9 @@ When this `/api/GetRoles` endpoint is accessed we see this:
 ]
 ```
 
-At first look, this seems great; we have claims! But when we look again we realise that we have far less claims than we might have hoped for. Crucially, our custom claims like `OurApp.Read` are missing.
+At first look, this seems great; we have claims! But when we look again we realise that we have far less claims than we might have hoped for. Crucially, our custom claims / app roles like `OurApp.Read` are missing.
+
+## Maybe they're hiding in `x-ms-client-principal`?
 
 If we look directly at the `x-ms-client-principal` header, maybe we'll find what we need?
 
@@ -116,7 +120,7 @@ public static async Task<IActionResult> GetRoles(
 }
 ```
 
-Alas not - we still lack claims:
+Alas not. We have the user's email and some simple roles ("authenticated" and "anonymous"), but no sign of our custom claims / app roles:
 
 ```json
 {
@@ -127,6 +131,18 @@ Alas not - we still lack claims:
 }
 ```
 
-This is the problem: we want the same claims accessible in our Azure Function App that we do in our Azure Static Web App.
+This is the problem: we want our Azure Function App to be able to make use of the same custom claims / app roles that we use for authorization in the Static Web App. How can we achieve this?
 
-How can we achieve this?
+## Microsoft Graph API
+
+The answer lies with the Microsoft Graph API. We can interrogate it to get the app role assignments for the user. This will give us the same information that we have in the Static Web App. (Well to be strictly accurate, it will be a slightly different set of claims. But what matters is it will be the app role assignment claims that we want to use for authorization.)
+
+In order that we can interrogate the Microsoft Graph API, we need to register an application in Azure AD. We'll call this the "Graph API App". We'll also need to give it the appropriate permissions to access the Microsoft Graph API. We'll need the following permissions:
+
+![Screenshot of the Azure AD app registration API permissions screen](screenshot-azure-portal-azure-ad-app-registration-api-permissions.png)
+
+- [Application.Read.All](https://learn.microsoft.com/en-us/graph/permissions-reference#application-permissions-4) - to get more information about the app role assignments
+- [User.Read](https://learn.microsoft.com/en-us/graph/permissions-reference#delegated-permissions-85) - to sign in
+- [User.Read.All](https://learn.microsoft.com/en-us/graph/permissions-reference#application-permissions-81) - for acquiring the app role assignments
+
+Of the above permissions, it's likely that you'll already have delegated `User.Read` in place; the other two you might need to add.
