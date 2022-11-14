@@ -32,7 +32,7 @@ function About() {
     sameAs: [
       'https://twitter.com/johnny_reilly',
       'https://github.com/johnnyreilly',
-      'https://mastodon.social/@johnny_reilly',
+      'https://fosstodon.org/@johnny_reilly',
       'https://https://stackoverflow.com/users/761388/john-reilly',
       'https://blog.logrocket.com/author/johnreilly/',
       'https://polywork.com/johnnyreilly',

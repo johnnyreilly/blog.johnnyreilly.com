@@ -50,7 +50,7 @@ const config = {
           anonymizeIP: true,
         },
         gtag: {
-          trackingID: 'G-226F0LR9KE',
+          trackingID: 'G-3N85G0SL3K',
           anonymizeIP: true,
         },
         docs: false,
@@ -272,6 +272,13 @@ const config = {
           {
             href: 'https://twitter.com/johnny_reilly',
             label: 'Twitter',
+            position: 'right',
+          },
+          // <a rel="me" href="https://fosstodon.org/@johnny_reilly">Mastodon</a>
+          {
+            href: 'https://fosstodon.org/@johnny_reilly',
+            label: 'Mastodon',
+            rel: 'me',
             position: 'right',
           },
         ],
