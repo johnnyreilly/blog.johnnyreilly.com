@@ -1,12 +1,13 @@
 ---
 title: 'Azure AD Claims with Static Web Apps and Azure Functions'
 authors: johnnyreilly
-tags: [Azure Functions, Static Web Apps, Linked Backends, Azure AD]
+tags:
+  [Authorization, Azure Functions, Static Web Apps, Linked Backends, Azure AD]
 image: ./title-image.webp
 hide_table_of_contents: false
 ---
 
-Azure AD Claims are not supplied to Azure Functions when linked with Azure Static Web Apps using the "bring your own functions" / linked backend approach. This post will demonstrate a workaround.
+Authorization in Azure Functions is impaired by an issue with Azure Static Web Apps linked to Azure Functions. Azure AD app role claims are not supplied to Azure Functions. This post will demonstrate a workaround.
 
 ![title image reading "Azure AD Claims with Static Web Apps and Azure Functions" with Azure AD, Azure Functions and Static Web App logos](title-image.webp)
 
@@ -145,4 +146,295 @@ In order that we can interrogate the Microsoft Graph API, we need to register an
 - [User.Read](https://learn.microsoft.com/en-us/graph/permissions-reference#delegated-permissions-85) - to sign in
 - [User.Read.All](https://learn.microsoft.com/en-us/graph/permissions-reference#application-permissions-81) - for acquiring the app role assignments
 
-Of the above permissions, it's likely that you'll already have delegated `User.Read` in place; the other two you might need to add.
+Of the above permissions, it's likely that you'll already have delegated `User.Read` in place; the other two you might need to add and ensure they're granted.
+
+## Interrogating the Microsoft Graph API
+
+Now we have an Azure AD app registration with sufficient permissions, we'll need a `GraphClient` to interrogate the Microsoft Graph API. To get that we're going to build an `AuthenticatedGraphClientFactory`:
+
+```cs
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using Microsoft.Graph;
+using Microsoft.Identity.Client;
+
+namespace MyApp.Auth
+{
+    public interface IAuthenticatedGraphClientFactory
+    {
+        (GraphServiceClient, string) GetAuthenticatedGraphClientAndClientId();
+    }
+
+    public class AuthenticatedGraphClientFactory : IAuthenticatedGraphClientFactory
+    {
+        private GraphServiceClient? _graphServiceClient;
+        private readonly string _clientId;
+        private readonly string _clientSecret;
+        private readonly string _tenantId;
+
+        public AuthenticatedGraphClientFactory(
+            string clientId,
+            string clientSecret,
+            string tenantId
+        )
+        {
+            _clientId = clientId;
+            _clientSecret = clientSecret;
+            _tenantId = tenantId;
+        }
+
+        public (GraphServiceClient, string) GetAuthenticatedGraphClientAndClientId()
+        {
+            var authenticationProvider = CreateAuthenticationProvider();
+
+            _graphServiceClient = new GraphServiceClient(authenticationProvider);
+
+            return (_graphServiceClient, _clientId);
+        }
+
+        private IAuthenticationProvider CreateAuthenticationProvider()
+        {
+            // this specific scope means that application will default to what is defined in the application registration rather than using dynamic scopes
+            string[] scopes = new string[]
+            {
+                "https://graph.microsoft.com/.default"
+            };
+
+            var confidentialClientApplication = ConfidentialClientApplicationBuilder.Create(_clientId)
+                .WithAuthority($"https://login.microsoftonline.com/{_tenantId}/v2.0")
+                .WithClientSecret(_clientSecret)
+                .Build();
+
+            return new MsalAuthenticationProvider(confidentialClientApplication, scopes); ;
+        }
+    }
+
+    public class MsalAuthenticationProvider : IAuthenticationProvider
+    {
+        private readonly IConfidentialClientApplication _clientApplication;
+        private readonly string[] _scopes;
+
+        public MsalAuthenticationProvider(IConfidentialClientApplication clientApplication, string[] scopes)
+        {
+            _clientApplication = clientApplication;
+            _scopes = scopes;
+        }
+
+        /// <summary>
+        /// Update HttpRequestMessage with credentials
+        /// </summary>
+        public async Task AuthenticateRequestAsync(HttpRequestMessage request)
+        {
+            var token = await GetTokenAsync();
+
+            request.Headers.Authorization = new AuthenticationHeaderValue("bearer", token);
+        }
+
+        /// <summary>
+        /// Acquire Token
+        /// </summary>
+        public async Task<string?> GetTokenAsync()
+        {
+            var authResult = await _clientApplication.AcquireTokenForClient(_scopes).ExecuteAsync();
+
+            return authResult.AccessToken;
+        }
+    }
+}
+```
+
+When we execute `GetAuthenticatedGraphClientAndClientId` we'll get back a `GraphServiceClient` that we can use to interrogate the Microsoft Graph API. We'll also get back the client ID of the Graph API App. We'll need this later. Note that the `AuthenticatedGraphClientFactory` requires the client ID, client secret and tenant ID of the Azure AD App Registration.
+
+Now we have the ability to interrogate the Microsoft Graph API, we can write a `UserClaimsParser.cs` class that will interrogate it and return the app role assignments for the user:
+
+```cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Text.Json;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using Microsoft.Graph;
+
+namespace MyApp.Auth
+{
+    public interface IUserClaimsParser
+    {
+        Task<ClaimsPrincipal> ParseClaimsPrincipal(HttpRequest req);
+    }
+
+    public class UserClaimsParser : IUserClaimsParser
+    {
+        readonly ILogger<UserClaimsParser> _log;
+        readonly IAuthenticatedGraphClientFactory _graphClientFactory;
+
+        public UserClaimsParser(
+            IAuthenticatedGraphClientFactory graphClientFactory,
+            ILogger<UserClaimsParser> log
+        )
+        {
+            _graphClientFactory = graphClientFactory;
+            _log = log;
+        }
+
+        public async Task<ClaimsPrincipal> ParseClaimsPrincipal(HttpRequest req)
+        {
+            try
+            {
+                MsClientPrincipal? principal = MakeMsClientPrincipal(req);
+
+                if (principal == null)
+                    return new ClaimsPrincipal();
+
+                if (!principal.UserRoles?.Where(NotAnonymous).Any() ?? true)
+                    return new ClaimsPrincipal();
+
+                ClaimsIdentity identity = await MakeClaimsIdentity(principal);
+
+                return new ClaimsPrincipal(identity);
+            }
+            catch (Exception e)
+            {
+                _log.LogError(e, "Error parsing claims principal");
+                return new ClaimsPrincipal();
+            }
+        }
+
+        MsClientPrincipal? MakeMsClientPrincipal(HttpRequest req)
+        {
+            MsClientPrincipal? principal = null;
+
+            if (req.Headers.TryGetValue("x-ms-client-principal", out var header))
+            {
+                var data = header.FirstOrDefault();
+                if (data != null)
+                {
+                    var decoded = Convert.FromBase64String(data);
+                    var json = Encoding.UTF8.GetString(decoded);
+                    _log.LogInformation($"x-ms-client-principal: {json}");
+                    principal = JsonSerializer.Deserialize<MsClientPrincipal>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
+            }
+
+            return principal;
+        }
+
+        async Task<ClaimsIdentity> MakeClaimsIdentity(MsClientPrincipal principal)
+        {
+            var identity = new ClaimsIdentity(principal.IdentityProvider);
+
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, principal.UserId!));
+            identity.AddClaim(new Claim(ClaimTypes.Name, principal.UserDetails!));
+
+            if (principal.UserRoles != null)
+                identity.AddClaims(principal.UserRoles
+                    .Where(NotAnonymous)
+                    .Select(userRole => new Claim(ClaimTypes.Role, userRole)));
+
+            var username = principal.UserDetails;
+            if (username != null)
+            {
+                var userAppRoleAssignments = await GetUserAppRoleAssignments(username);
+                identity.AddClaims(userAppRoleAssignments
+                    .Select(userAppRoleAssignments => new Claim(ClaimTypes.Role, userAppRoleAssignments)));
+            }
+
+            return identity;
+        }
+
+        static bool NotAnonymous(string r) =>
+            !string.Equals(r, "anonymous", StringComparison.CurrentCultureIgnoreCase);
+
+        async Task<string[]> GetUserAppRoleAssignments(string username)
+        {
+            try
+            {
+                var (graphClient, clientId) = _graphClientFactory.GetAuthenticatedGraphClientAndClientId();
+                _log.LogInformation($"username: {username}");
+
+                var userRoleAssignments = await graphClient.Users[username]
+                    .AppRoleAssignments
+                    .Request()
+                    .GetAsync();
+
+                var roleIds = new List<string>();
+                var pageIterator = PageIterator<AppRoleAssignment>
+                    .CreatePageIterator(
+                        graphClient,
+                        userRoleAssignments,
+                        // Callback executed for each item in the collection
+                        (appRoleAssignment) =>
+                        {
+                            if (appRoleAssignment.AppRoleId.HasValue && appRoleAssignment.AppRoleId.Value != Guid.Empty)
+                                roleIds.Add(appRoleAssignment.AppRoleId.Value.ToString());
+
+                            return true;
+                        },
+                        // Used to configure subsequent page requests
+                        (baseRequest) =>
+                        {
+                            // Re-add the header to subsequent requests
+                            baseRequest.Header("Prefer", "outlook.body-content-type=\"text\"");
+                            return baseRequest;
+                        });
+
+                await pageIterator.IterateAsync();
+
+                var applications = await graphClient.Applications
+                    .Request()
+                    .Filter($"appId eq '{clientId}'") // we're only interested in the app that we're running as
+                    .GetAsync();
+
+                var appRoleAssignments = applications
+                    .FirstOrDefault()
+                    ?.AppRoles
+                    ?.Where(appRole => appRole.Id.HasValue && roleIds.Contains(appRole.Id!.Value.ToString()))
+                    .Select(appRole => appRole.Value)
+                    .ToArray();
+
+                return appRoleAssignments ?? Array.Empty<string>();
+            }
+            catch (Exception e)
+            {
+                _log.LogError(e, "Error getting app role assignments");
+                return Array.Empty<string>();
+            }
+        }
+
+        class MsClientPrincipal
+        {
+            public string? IdentityProvider { get; set; }
+            public string? UserId { get; set; }
+            public string? UserDetails { get; set; }
+            public IEnumerable<string>? UserRoles { get; set; }
+        }
+    }
+}
+```
+
+Quite a lot of code! Let's walk through what it does:
+
+1. Takes the `x-ms-client-principal` header and deserializes it into a `MsClientPrincipal` object - this is the cut down version of the `ClaimsPrincipal` object that we saw earlier:
+
+```json
+{
+  "identityProvider": "aad",
+  "userId": "d9178465-3847-4d98-9d23-b8b9e403b323",
+  "userDetails": "johnny_reilly@hotmail.com",
+  "userRoles": ["authenticated", "anonymous"]
+}
+```
+
+2. Creates a new `ClaimsIdentity` using that information, but stripping out the `anonymous` role as it's superfluous.
+
+3. Using the `userDetails` (email address) from the `MsClientPrincipal` object, gets the app role assignments for that user. (We needed `User.Read.All` to do this.)
+
+4. In a perfect world, we'd be able to use the `AppRoleAssignments` property on the `User` object to get the app role assignments for a user, but unfortunately that doesn't come with the human readable name you'd hope for; the `MyApp.Read`. So we have to use the `Applications` object for our Azure AD App Registration. Then we can get the human readable / `MyApp.Read` role assignment.
+
+5. Adds the app role assignments as role claims to the `ClaimsIdentity` object.
+
+6. Returns the `ClaimsIdentity` object wrapped in a `ClaimsPrincipal` object.
