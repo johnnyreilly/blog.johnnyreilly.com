@@ -13,7 +13,7 @@ Authorization in Azure Functions is impaired by an issue with Azure Static Web A
 
 ## Where's my claims?
 
-There is a limitation around authorisation when having an Azure Function app as the linked backend to an Azure Static Web App. Essentially the Azure Functions app _does not_ receive the claims that the Static Web App receives.
+There is a limitation around authorisation when having an Azure Function app as the linked backend to an Azure Static Web App. Essentially the Azure Function app _does not_ receive the claims that the Static Web App receives. [There's an issue tracking this on GitHub](https://github.com/Azure/static-web-apps/issues/988), and from the sounds of others experiences, it sounds like a general problem with Static Web Apps, Azure AD and linked backends.
 
 We have a Static Web App, with an associated C# Function App (using the [Bring Your Own Functions](../2022-10-14-bicep-static-web-apps-linked-backends/index.md) approach). Both the Static Web App and Function App are associated with the same Azure AD app registration.
 
@@ -138,7 +138,7 @@ This is the problem: we want our Azure Function App to be able to make use of th
 
 The answer lies with the Microsoft Graph API. We can interrogate it to get the app role assignments for the user. This will give us the same information that we have in the Static Web App. (Well to be strictly accurate, it will be a slightly different set of claims. But what matters is it will be the app role assignment claims that we want to use for authorization.)
 
-In order that we can interrogate the Microsoft Graph API, we need to register an application in Azure AD. We'll call this the "Graph API App". We'll also need to give it the appropriate permissions to access the Microsoft Graph API. We'll need the following permissions:
+We already have an Azure AD app registration. In order that we can interrogate the Microsoft Graph API, we'll need the following permissions:
 
 ![Screenshot of the Azure AD app registration API permissions screen](screenshot-azure-portal-azure-ad-app-registration-api-permissions.png)
 
@@ -418,7 +418,7 @@ namespace MyApp.Auth
 
 Quite a lot of code! Let's walk through what it does:
 
-1. Takes the `x-ms-client-principal` header and deserializes it into a `MsClientPrincipal` object - this is the cut down version of the `ClaimsPrincipal` object that we saw earlier:
+1. It takes the `x-ms-client-principal` header and deserializes it into a `MsClientPrincipal` object - this is the cut down version of the `ClaimsPrincipal` object that we saw earlier:
 
 ```json
 {
@@ -429,12 +429,12 @@ Quite a lot of code! Let's walk through what it does:
 }
 ```
 
-2. Creates a new `ClaimsIdentity` using that information, but stripping out the `anonymous` role as it's superfluous.
+2. It creates a new `ClaimsIdentity` using that information, but stripping out the `anonymous` role as it's superfluous.
 
-3. Using the `userDetails` (email address) from the `MsClientPrincipal` object, gets the app role assignments for that user. (We needed `User.Read.All` to do this.)
+3. Using the `userDetails` (email address) from the `MsClientPrincipal` object, it gets the app role assignments for that user from the Graph API. (We needed `User.Read.All` to do this.)
 
-4. In a perfect world, we'd be able to use the `AppRoleAssignments` property on the `User` object to get the app role assignments for a user, but unfortunately that doesn't come with the human readable name you'd hope for; the `MyApp.Read`. So we have to use the `Applications` object for our Azure AD App Registration. Then we can get the human readable / `MyApp.Read` role assignment.
+4. In a perfect world, we'd be able to use the `AppRoleAssignments` property on the `User` object to get the app role assignments for a user, but unfortunately that doesn't come with the human readable name you'd hope for; the `MyApp.Read`. So we have to interrogate the Graph API once more and use the `Application` that represents our Azure AD App Registration (we acquire this by filtering for an `appId` matching our `clientId`). Then we can get the human readable / `MyApp.Read` role assignment.
 
-5. Adds the app role assignments as role claims to the `ClaimsIdentity` object.
+5. It adds the app role assignments as role claims to the `ClaimsIdentity` object.
 
-6. Returns the `ClaimsIdentity` object wrapped in a `ClaimsPrincipal` object.
+6. It returns the `ClaimsIdentity` object wrapped in a `ClaimsPrincipal` object.
