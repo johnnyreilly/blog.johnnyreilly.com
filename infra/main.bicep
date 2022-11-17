@@ -6,7 +6,7 @@ param tags object
 param repositoryToken string
 param customDomainName string
 
-resource staticWebApp 'Microsoft.Web/staticSites@2021-02-01' = {
+resource staticWebApp 'Microsoft.Web/staticSites@2022-03-01' = {
   name: staticWebAppName
   location: location
   tags: tags
@@ -27,7 +27,7 @@ resource staticWebApp 'Microsoft.Web/staticSites@2021-02-01' = {
   }
 }
 
-resource customDomain 'Microsoft.Web/staticSites/customDomains@2021-02-01' = {
+resource customDomain 'Microsoft.Web/staticSites/customDomains@2022-03-01' = {
   parent: staticWebApp
   name: customDomainName
   properties: {}
