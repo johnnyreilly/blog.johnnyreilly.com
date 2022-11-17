@@ -246,7 +246,7 @@ namespace MyApp.Auth
 
 When we execute `GetAuthenticatedGraphClientAndClientId` we'll get back a `GraphServiceClient` that we can use to interrogate the Microsoft Graph API. We'll also get back the client ID of the Graph API App. We'll need this later. Note that the `AuthenticatedGraphClientFactory` requires the client ID, client secret and tenant ID of the Azure AD App Registration.
 
-Now we have the ability to interrogate the Microsoft Graph API, we can write a `UserClaimsParser.cs` class that will interrogate it and return the app role assignments for the user:
+Now we have the ability to interrogate the Microsoft Graph API, we can write a `PrincipalService.cs` class that will interrogate it and return the app role assignments for the user:
 
 ```cs
 using System;
@@ -262,26 +262,26 @@ using Microsoft.Graph;
 
 namespace MyApp.Auth
 {
-    public interface IUserClaimsParser
+    public interface IPrincipalService
     {
-        Task<ClaimsPrincipal> ParseClaimsPrincipal(HttpRequest req);
+        Task<ClaimsPrincipal> GetPrincipal(HttpRequest req);
     }
 
-    public class UserClaimsParser : IUserClaimsParser
+    public class PrincipalService : IPrincipalService
     {
-        readonly ILogger<UserClaimsParser> _log;
+        readonly ILogger<PrincipalService> _log;
         readonly IAuthenticatedGraphClientFactory _graphClientFactory;
 
-        public UserClaimsParser(
+        public PrincipalService(
             IAuthenticatedGraphClientFactory graphClientFactory,
-            ILogger<UserClaimsParser> log
+            ILogger<PrincipalService> log
         )
         {
             _graphClientFactory = graphClientFactory;
             _log = log;
         }
 
-        public async Task<ClaimsPrincipal> ParseClaimsPrincipal(HttpRequest req)
+        public async Task<ClaimsPrincipal> GetPrincipal(HttpRequest req)
         {
             try
             {
@@ -354,7 +354,7 @@ namespace MyApp.Auth
             try
             {
                 var (graphClient, clientId) = _graphClientFactory.GetAuthenticatedGraphClientAndClientId();
-                _log.LogInformation($"username: {username}");
+                _log.LogInformation("Getting AppRoleAssignments for {username}", username);
 
                 var userRoleAssignments = await graphClient.Users[username]
                     .AppRoleAssignments
@@ -400,7 +400,7 @@ namespace MyApp.Auth
             }
             catch (Exception e)
             {
-                _log.LogError(e, "Error getting app role assignments");
+                _log.LogError(e, "Error getting AppRoleAssignments");
                 return Array.Empty<string>();
             }
         }
@@ -438,3 +438,139 @@ Quite a lot of code! Let's walk through what it does:
 5. It adds the app role assignments as role claims to the `ClaimsIdentity` object.
 
 6. It returns the `ClaimsIdentity` object wrapped in a `ClaimsPrincipal` object.
+
+## Using the `PrincipalService`
+
+In order that we can make use of our `PrincipalService` we need to configure it and the `AuthenticatedGraphClientFactory` in our `Startup` class:
+
+```cs
+services.AddTransient<IAuthenticatedGraphClientFactory>(sp =>
+    new AuthenticatedGraphClientFactory(
+        // The parameters can be sourced from the Azure AD App Registration
+        clientId,
+        clientSecret,
+        tenantId
+    ));
+
+services.AddTransient<IPrincipalService, PrincipalService>();
+```
+
+With that in place, we can now use the `IPrincipalService` in a function:
+
+```cs
+using System.Linq;
+using System.Threading.Tasks;
+using MyApp.Auth;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.Http;
+
+namespace MyApp.Functions
+{
+    public class GetClaimsPrincipalFunction
+    {
+        private readonly IPrincipalService _principalService;
+
+        public GetClaimsPrincipalFunction(
+            IPrincipalService principalService
+        )
+        {
+            _principalService = principalService;
+        }
+
+        [FunctionName(nameof(GetPrincipal))]
+        public async Task<IActionResult> GetPrincipal(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "get-principal")] HttpRequest request
+        )
+        {
+            var principal = await _principalService.GetPrincipal(request);
+            var identity = principal?.Identity;
+            var data = new
+            {
+                Name = identity?.Name ?? "",
+                AuthenticationType = identity?.AuthenticationType ?? "",
+                Claims = principal?.Claims.Select(c => new { c.Type, c.Value }),
+            };
+
+            return new OkObjectResult(data);
+        }
+
+        [FunctionName(nameof(AmIInRole))]
+        public async Task<IActionResult> AmIInRole(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "am-i-in-role")] HttpRequest request
+        )
+        {
+            var role = request.Query["role"].FirstOrDefault();
+
+            if (string.IsNullOrEmpty(role))
+                return new BadRequestObjectResult("role query parameter is required");
+
+            var principal = await _principalService.GetPrincipal(request);
+
+            var isInRole = principal?.IsInRole(role) == true;
+            if (!isInRole)
+                return new ObjectResult($"Forbidden for {role}")
+                {
+                    StatusCode = Status403Forbidden
+                };
+
+            return new OkObjectResult($"Welcome {principal?.Identity?.Name} - you have role {role}!");
+        }
+    }
+}
+```
+
+The above class has 2 functions:
+
+- `GetPrincipal` - returns the `ClaimsPrincipal` object as JSON
+- `AmIInRole` - takes a `role` query parameter, tests if a user has that role and returns a 403 if they don't and a 200 with a welcome message if they do
+
+### `GetPrincipal`
+
+Let's try out the `GetPrincipal` function, when I go to the `/api/get-principal` endpoint I see this:
+
+```json
+{
+  "name": "johnny_reilly@hotmail.com",
+  "authenticationType": "aad",
+  "claims": [
+    {
+      "type": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
+      "value": "d9178465-3847-4d98-9d23-b8b9e403b323"
+    },
+    {
+      "type": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
+      "value": "johnny_reilly@hotmail.com"
+    },
+    {
+      "type": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+      "value": "authenticated"
+    },
+    {
+      "type": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+      "value": "OurApp.Read"
+    }
+  ]
+}
+```
+
+This isn't the _same_ information as the Static Web Apps principal, but it's close enough for our purposes. Crucially, we can see the AppRoleAssignment `OurApp.Read` that we assigned to our user in the Azure Portal. That is the key information that we need, and that we are missing by default.
+
+Crucially this is enough information for us to be able to apply authorization to our functions.
+
+### `AmIInRole`
+
+We can demonstrate applying authorization by using the `AmIInRole` function. If I go to the `/api/am-i-in-role?role=OurApp.Read` endpoint I get a 200 status code and the message: `Welcome johnny_reilly@hotmail.com - you have role OurApp.Read!`.
+
+This is great! Let's test that we also deny access appropriately. There is an `OurApp.Write` role; my account does not have this. If I go to the `/api/am-i-in-role?role=OurApp.Write` endpoint I get a 403 status code and the message: `Forbidden for OurApp.Write`.
+
+It works!
+
+## Conclusion
+
+We've demonstrated a way to acquire a `ClaimsPrincipal` object that contains the AppRoleAssignments for a user. This is enough information for us to be able to apply authorization to our functions.
+
+It would be ideal if this wasn't required, and I'm hoping that the Static Web Apps team will be able to provide a solution for this in the future. [Keep an eye on this GitHub issue.](https://github.com/Azure/static-web-apps/issues/988) In the meantime, this is a workable solution.
+
+Thanks to [Warren Joubert](https://github.com/warrenandre) for his help with this post.
