@@ -13,11 +13,11 @@ Authorization in Azure Functions is impaired by an issue with Azure Static Web A
 
 ## Where's my claims?
 
-There is a limitation around authorisation when having an Azure Function app as the linked backend to an Azure Static Web App. Essentially the Azure Function app _does not_ receive the claims that the Static Web App receives. [There's an issue tracking this on GitHub](https://github.com/Azure/static-web-apps/issues/988), and from the sounds of others experiences, it sounds like a general problem with Static Web Apps, Azure AD and linked backends.
+There is a limitation that affects authorization when you have a linked backend paired with an Azure Static Web App. Let's take the case of having an Azure Function App as the linked backend. Essentially the Azure Function app _does not_ receive the claims that the Static Web App receives. [There's an issue tracking this on GitHub](https://github.com/Azure/static-web-apps/issues/988), and it seems that this is a general problem with Static Web Apps, Azure AD and linked backends.
 
-We have a Static Web App, with an associated C# Function App (using the [Bring Your Own Functions](../2022-10-14-bicep-static-web-apps-linked-backends/index.md) approach). Both the Static Web App and Function App are associated with the same Azure AD app registration.
+We have a Static Web App, with an associated C# Function App (using the [Bring Your Own Functions](../2022-10-14-bicep-static-web-apps-linked-backends/index.md) AKA "linked backend" approach). Both the Static Web App and Function App are associated with the same Azure AD App Registration.
 
-When we're authenticated with Azure AD and go to the auth endpoint: `/.auth/me` we see:
+When we're authenticated with Azure AD and go to the auth endpoint in our Static Web App: `/.auth/me` we see:
 
 ```json
 {
@@ -54,11 +54,11 @@ When we're authenticated with Azure AD and go to the auth endpoint: `/.auth/me` 
 }
 ```
 
-Note the claims in there. These include custom claims that we've configured such as roles with `OurApp.Read`.
+Note the claims in there. These include custom claims that we've configured against our Azure AD App Registration such as roles with `OurApp.Read`.
 
-So we can access claims successfully in the Static Web App (the front end). However, the associated Function App does not have access to the claims.
+So we can access claims successfully in the Static Web App (the front end). However, the associated Function App does **not** have access to the claims.
 
-It's possible to see this by implementing a function which surfaces roles:
+It's possible to see this by implementing a function in our Azure Function App which surfaces roles:
 
 ```cs
 [FunctionName("GetRoles")]
@@ -68,7 +68,7 @@ public static async Task<IActionResult> Run(
 {
     var roles = req.HttpContext.User?.Claims.Select(c => new { c.Type, c.Value });
 
-    return new OkObjectResult(JsonConvert.SerializeObject(roles));
+    return new OkObjectResult(roles);
 }
 ```
 
@@ -142,15 +142,15 @@ We already have an Azure AD app registration. In order that we can interrogate t
 
 ![Screenshot of the Azure AD app registration API permissions screen](screenshot-azure-portal-azure-ad-app-registration-api-permissions.png)
 
-- [Application.Read.All](https://learn.microsoft.com/en-us/graph/permissions-reference#application-permissions-4) - to get more information about the app role assignments
 - [User.Read](https://learn.microsoft.com/en-us/graph/permissions-reference#delegated-permissions-85) - to sign in
-- [User.Read.All](https://learn.microsoft.com/en-us/graph/permissions-reference#application-permissions-81) - for acquiring the app role assignments
+- [User.Read.All](https://learn.microsoft.com/en-us/graph/permissions-reference#application-permissions-81) - for acquiring the app role assignments against a user
+- [Application.Read.All](https://learn.microsoft.com/en-us/graph/permissions-reference#application-permissions-4) - to get more information about the app role assignments - allowing us to translate the app role assignments into the claims that we want to use for authorization
 
-Of the above permissions, it's likely that you'll already have delegated `User.Read` in place; the other two you might need to add and ensure they're granted.
+Of the above permissions, it's likely that you'll already have delegated `User.Read` in place; the other two you might need to add and ensure they're granted in Azure.
 
 ## Interrogating the Microsoft Graph API
 
-Now we have an Azure AD app registration with sufficient permissions, we'll need a `GraphClient` to interrogate the Microsoft Graph API. To get that we're going to build an `AuthenticatedGraphClientFactory`:
+Now we have an Azure AD App Registration with sufficient permissions, we'll need a `GraphClient` to interrogate the Microsoft Graph API. To get that we're going to build an `AuthenticatedGraphClientFactory`:
 
 ```cs
 using System.Net.Http;
@@ -526,7 +526,7 @@ The above class has 2 functions:
 - `GetPrincipal` - returns the `ClaimsPrincipal` object as JSON
 - `AmIInRole` - takes a `role` query parameter, tests if a user has that role and returns a 403 if they don't and a 200 with a welcome message if they do
 
-### `GetPrincipal`
+### `GetPrincipal` - what claims do we have?
 
 Let's try out the `GetPrincipal` function, when I go to the `/api/get-principal` endpoint I see this:
 
@@ -559,11 +559,13 @@ This isn't the _same_ information as the Static Web Apps principal, but it's clo
 
 Crucially this is enough information for us to be able to apply authorization to our functions.
 
-### `AmIInRole`
+### `AmIInRole` - test `IsInRole` functionality
 
-We can demonstrate applying authorization by using the `AmIInRole` function. If I go to the `/api/am-i-in-role?role=OurApp.Read` endpoint I get a 200 status code and the message: `Welcome johnny_reilly@hotmail.com - you have role OurApp.Read!`.
+We can demonstrate applying authorization by using the `AmIInRole` function. This internally uses the inbuilt [`IsInRole`](https://learn.microsoft.com/en-us/dotnet/api/system.security.claims.claimsprincipal.isinrole?view=net-6.0) functionality of the `ClaimsPrincipal` object, and returns an appropriate API result accordingly.
 
-This is great! Let's test that we also deny access appropriately. There is an `OurApp.Write` role; my account does not have this. If I go to the `/api/am-i-in-role?role=OurApp.Write` endpoint I get a 403 status code and the message: `Forbidden for OurApp.Write`.
+If I go to the `/api/am-i-in-role?role=OurApp.Read` endpoint I get a 200 status code and the message: `Welcome johnny_reilly@hotmail.com - you have role OurApp.Read!`. This makes sense, my user account has the `OurApp.Read` role.
+
+Let's test that we also deny access appropriately. There is an `OurApp.Write` role; my account does not have this. If I go to the `/api/am-i-in-role?role=OurApp.Write` endpoint I get a 403 status code and the message: `Forbidden for OurApp.Write`.
 
 It works!
 
