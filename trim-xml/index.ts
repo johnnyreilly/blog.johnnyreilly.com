@@ -37,7 +37,7 @@ async function trimXML() {
 
   sitemap.urlset.url = filteredUrls;
 
-  const builder = new XMLBuilder({ format: true, ignoreAttributes: false });
+  const builder = new XMLBuilder({ format: false, ignoreAttributes: false });
   const shorterSitemapXml = builder.build(sitemap);
 
   console.log(`Saving ${sitemapPath}`);
