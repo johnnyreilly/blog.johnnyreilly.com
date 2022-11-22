@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[93872],{12778:l=>{l.exports=JSON.parse('{"label":"fast-xml-parser","permalink":"/tags/fast-xml-parser","allTagsPath":"/tags","count":1}')}}]);
