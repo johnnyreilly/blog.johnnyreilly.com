@@ -8,7 +8,7 @@ hide_table_of_contents: false
 
 This post demonstrates reading and writing XML in Node.js using `fast-xml-parser`. We'll use the Docusauruses XML sitemap as an example.
 
-![title image reading "Azure AD Claims with Static Web Apps and Azure Functions" with Azure AD, Azure Functions and Static Web App logos](title-image.webp)
+![title image reading "XML: read and write with Node.js" with XML and Docusaurus logos](title-image.webp)
 
 ## Docusaurus sitemap
 
