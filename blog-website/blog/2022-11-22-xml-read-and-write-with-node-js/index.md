@@ -147,4 +147,103 @@ As we can see, the `fast-xml-parser` library has parsed the XML into a JavaScrip
 
 Now that we have the XML parsed into a JavaScript object we can filter it just like we would any other JavaScript object. We have all the power of JavaScript at our fingertips!
 
-As I mentioned earlier, I want to remove all the URLs that are
+As I mentioned earlier, I want to remove all the URLs that represent duplicate content. This includes "pagination" URLs. These are URLs that are used to navigate between pages of content. For example, the URL `https://blog.johnnyreilly.com/page/10` is a pagination URL. I want to remove these URLs from the sitemap. I also want to get rid of the "tags" URLs. These are URLs that are used to navigate between posts that have a particular tag. For example, the URL `https://blog.johnnyreilly.com/tags/ajax` is a tag URL. I want to remove these URLs from the sitemap too.
+
+This is simplicity itself now we're in JavaScript land. We can use the `filter` method on the `url` array to remove the URLs we don't want:
+
+```ts
+const rootUrl = 'https://blog.johnnyreilly.com';
+const filteredUrls = sitemap.urlset.url.filter(
+  (url) =>
+    url.loc !== `${rootUrl}/tags` &&
+    !url.loc.startsWith(rootUrl + '/tags/') &&
+    !url.loc.startsWith(rootUrl + '/page/')
+);
+```
+
+We can then update the `url` array with the filtered URLs:
+
+```ts
+sitemap.urlset.url = filteredUrls;
+```
+
+Finally, we can write the XML back out to a file:
+
+```ts
+const builder = new XMLBuilder({
+  ignoreAttributes: false,
+});
+const xml = builder.buildObject(sitemap);
+
+const outputPath = path.resolve('sitemap.xml');
+await fs.promises.writeFile(outputPath, xml);
+```
+
+Note again that we're using the `ignoreAttributes` option to ensure that attributes are included in the XML.
+
+Let's put it all together into a single file:
+
+```ts
+import { XMLParser, XMLBuilder } from 'fast-xml-parser';
+import fs from 'fs';
+import path from 'path';
+
+interface Sitemap {
+  urlset: {
+    url: { loc: string; changefreq: string; priority: number }[];
+  };
+}
+
+async function trimXML() {
+  const sitemapPath = path.resolve(
+    '..',
+    'blog-website',
+    'build',
+    'sitemap.xml'
+  );
+
+  console.log(`Loading ${sitemapPath}`);
+  const sitemapXml = await fs.promises.readFile(sitemapPath, 'utf8');
+
+  const parser = new XMLParser({
+    ignoreAttributes: false,
+  });
+  let sitemap: Sitemap = parser.parse(sitemapXml);
+
+  const rootUrl = 'https://blog.johnnyreilly.com';
+  const filteredUrls = sitemap.urlset.url.filter(
+    (url) =>
+      url.loc !== `${rootUrl}/tags` &&
+      !url.loc.startsWith(rootUrl + '/tags/') &&
+      !url.loc.startsWith(rootUrl + '/page/')
+  );
+
+  console.log(
+    `Reducing ${sitemap.urlset.url.length} urls to ${filteredUrls.length} urls`
+  );
+
+  sitemap.urlset.url = filteredUrls;
+
+  const builder = new XMLBuilder({ format: false, ignoreAttributes: false });
+  const shorterSitemapXml = builder.build(sitemap);
+
+  console.log(`Saving ${sitemapPath}`);
+  await fs.promises.writeFile(sitemapPath, shorterSitemapXml);
+}
+
+trimXML();
+```
+
+With that we're done. We can run the script and see the result:
+
+```bash
+Loading /github/workspace/blog-website/build/sitemap.xml
+Reducing 1598 urls to 281 urls
+Saving /github/workspace/blog-website/build/sitemap.xml
+```
+
+## Conclusion
+
+In this post we've seen how to use the `fast-xml-parser` library to parse XML into a JavaScript object, operate upon that object and then write it back out to XML.
+
+If you'd to see how I'm using this directly on my blog, it's probably worth looking at [this PR](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/344).
