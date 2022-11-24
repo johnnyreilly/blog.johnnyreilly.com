@@ -3,7 +3,6 @@ import fs from 'fs';
 import path from 'path';
 import { simpleGit, SimpleGit, SimpleGitOptions } from 'simple-git';
 
-const dateBlogUrlRegEx = /(\d\d\d\d\/\d\d\/\d\d)\/(.+)/;
 const rootUrl = 'https://blog.johnnyreilly.com';
 
 interface SitemapUrl {
@@ -34,7 +33,11 @@ function getSimpleGit(): SimpleGit {
   return git;
 }
 
-async function enrichUrlsWithLastmod(filteredUrls: SitemapUrl[]) {
+const dateBlogUrlRegEx = /(\d\d\d\d\/\d\d\/\d\d)\/(.+)/;
+
+async function enrichUrlsWithLastmod(
+  filteredUrls: SitemapUrl[]
+): Promise<SitemapUrl[]> {
   const git = getSimpleGit();
 
   const urls: SitemapUrl[] = [];
@@ -44,12 +47,14 @@ async function enrichUrlsWithLastmod(filteredUrls: SitemapUrl[]) {
     }
 
     try {
+      // example url.loc: https://blog.johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants
       const pathWithoutRootUrl = url.loc.replace(rootUrl + '/', ''); // eg 2012/01/07/standing-on-shoulders-of-giants
 
       const match = pathWithoutRootUrl.match(dateBlogUrlRegEx);
 
       if (!match || !match[1] || !match[2]) {
         urls.push(url);
+        console.log('failed to match', pathWithoutRootUrl, match);
         continue;
       }
 
@@ -60,6 +65,8 @@ async function enrichUrlsWithLastmod(filteredUrls: SitemapUrl[]) {
       const log = await git.log({
         file,
       });
+
+      console.log(log);
 
       const lastmod = log.latest?.date.substring(0, 10);
       urls.push(lastmod ? { ...url, lastmod } : url);
