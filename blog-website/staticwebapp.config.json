@@ -12,6 +12,18 @@
       "headers": {
         "cache-control": "must-revalidate, max-age=15770000"
       }
+    },
+    {
+      "route": "/tags/*",
+      "headers": {
+        "X-Robots-Tag": "noindex"
+      }
+    },
+    {
+      "route": "/page/*",
+      "headers": {
+        "X-Robots-Tag": "noindex"
+      }
     }
   ],
   "globalHeaders": {
