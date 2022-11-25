@@ -2,13 +2,13 @@
 title: 'Adding lastmod to sitemap based on git commits'
 authors: johnnyreilly
 tags: [lastmod, Node.js, simple-git, sitemap, Docusaurus]
-image: ./title-image.webp
+image: ./title-image.png
 hide_table_of_contents: false
 ---
 
 This post demonstrates enriching an XML sitemap with `lastmod` timestamps based on git commits.
 
-![title image reading "Adding lastmod to sitemap based on git commits" with XML and Docusaurus logos](title-image.webp)
+![title image reading "Adding lastmod to sitemap based on git commits" with XML and Docusaurus logos](title-image.png)
 
 ## Reading git log in Node.js
 
