@@ -12,7 +12,7 @@ This post demonstrates reading and writing XML in Node.js using `fast-xml-parser
 
 ## Docusaurus sitemap
 
-I was prompted to write this post by wanting to edit the sitemap on my Docusaurus blog. I wanted to remove the `/page/` and `/tag/` routes from the sitemap. They effectively serve as duplicate content and I don't want them to be indexed by search engines.
+I was prompted to write this post by wanting to edit the sitemap on my Docusaurus blog. I wanted to remove the `/page/` and `/tag/` routes from the sitemap. They effectively serve as duplicate content and I don't want them to be indexed by search engines. (A little more is required to remove them from search engines - see the section at the end of the post.)
 
 I was able to find the sitemap in the `build` folder of my Docusaurus site. It's called `sitemap.xml` and it's in the root of the `build` folder. It looks like this:
 
@@ -247,3 +247,29 @@ Saving /github/workspace/blog-website/build/sitemap.xml
 In this post we've seen how to use the `fast-xml-parser` library to parse XML into a JavaScript object, operate upon that object and then write it back out to XML.
 
 If you'd to see how I'm using this directly on my blog, it's probably worth looking at [this PR](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/344).
+
+## PS `noindex`
+
+This is unrelated to XML processing, but I didn't want to miss this out. [Merely editing the sitemap isn't enough to remove them from search engines](https://developers.google.com/search/docs/crawling-indexing/remove-information). We're also going to serve a `noindex` response header for those routes by adjusting the [`staticwebapp.config.json` file of our Static Web App](https://learn.microsoft.com/en-us/azure/static-web-apps/configuration):
+
+```json
+{
+  // ...
+  "routes": [
+    // ...
+    {
+      "route": "/tags/*",
+      "headers": {
+        "X-Robots-Tag": "noindex"
+      }
+    },
+    {
+      "route": "/page/*",
+      "headers": {
+        "X-Robots-Tag": "noindex"
+      }
+    }
+  ]
+  // ...
+}
+```

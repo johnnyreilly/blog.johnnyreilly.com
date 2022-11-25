@@ -66,8 +66,6 @@ async function enrichUrlsWithLastmod(
         file,
       });
 
-      console.log(file, log);
-
       const lastmod = log.latest?.date.substring(0, 10);
       urls.push(lastmod ? { ...url, lastmod } : url);
       console.log(url.loc, lastmod);
