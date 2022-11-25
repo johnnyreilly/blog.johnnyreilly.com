@@ -2,13 +2,13 @@
 title: 'Reverse engineering the Azure Application Insights Transactions URL'
 authors: johnnyreilly
 tags: [Azure Application Insights, Transaction Search, URL, TypeScript, C#]
-image: ./title-image.webp
+image: ./title-image.png
 hide_table_of_contents: false
 ---
 
 Logs matter. In Azure, logs generally live in Application Insights, in the Transaction Search section. This post reverse engineers the Azure Application Insights Transactions URL, and details how to construct a link to take you directly there, using both TypeScript and C#.
 
-![title image reading "Reverse engineering the Azure Application Insights Transactions URL" with a screenshot of the Transactions screen in the Azure Portal](title-image.webp)
+![title image reading "Reverse engineering the Azure Application Insights Transactions URL" with a screenshot of the Transactions screen in the Azure Portal](title-image.png)
 
 ## Bring me the logs!
 

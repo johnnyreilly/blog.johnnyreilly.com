@@ -2,13 +2,13 @@
 title: "But you can't die... I love you!"
 authors: johnnyreilly
 tags: [open source, TypeScript, ts-loader]
-image: ./title-image.webp
+image: ./title-image.png
 hide_table_of_contents: false
 ---
 
 That's how I was feeling on the morning of October 6th 2016. I'd been feeling that way for some time. The target of my concern? [ts-loader](https://github.com/TypeStrong/ts-loader). ts-loader is a loader for [webpack; the module bundler](https://webpack.github.io/). ts-loader allows you use TypeScript with webpack. I'd been a merry user of it for at least a year or so. But, at that point, all was not well in the land of ts-loader. Come with me and I'll tell you a story...
 
-![a poster that reads: "But you can't die... I love you!"](title-image.webp)
+![a poster that reads: "But you can't die... I love you!"](title-image.png)
 
 ## Going Red
 
