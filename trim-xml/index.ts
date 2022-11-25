@@ -190,13 +190,12 @@ async function trimAtomXML() {
   rss.feed.entry = top20Entries;
 
   const builder = new XMLBuilder({
-    format: true,
+    format: false,
     ignoreAttributes: false,
     cdataPropName: 'content',
   });
   const shorterSitemapXml = builder.build(rss);
 
-  // console.log(shorterSitemapXml);
   console.log(`Saving ${atomPath}`);
   await fs.promises.writeFile(atomPath, shorterSitemapXml);
 }
@@ -223,7 +222,7 @@ async function trimRssXML() {
   rss.rss.channel.item = top20Entries;
 
   const builder = new XMLBuilder({
-    format: true,
+    format: false,
     ignoreAttributes: false,
     cdataPropName: 'content:encoded',
   });
