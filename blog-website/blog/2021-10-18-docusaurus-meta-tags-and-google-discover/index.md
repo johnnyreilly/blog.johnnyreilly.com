@@ -2,13 +2,13 @@
 title: 'Docusaurus, meta tags and Google Discover'
 authors: johnnyreilly
 tags: [Docusaurus, meta tags, max-image-preview, Google Discover]
-image: ./title-image.webp
+image: ./title-image.png
 hide_table_of_contents: false
 ---
 
 Google Discover is a way that people can find your content. To make your content more attractive, Google encourage using high quality images which are enabled by setting the `max-image-preview:large` meta tag. This post shows you how to achieve that with Docusaurus.
 
-![title image reading "Docusaurus, meta tags and Google Discover" with a Docusaurus logo and the Google Discover phone photo taken from https://developers.google.com/search/docs/advanced/mobile/google-discover](title-image.webp)
+![title image reading "Docusaurus, meta tags and Google Discover" with a Docusaurus logo and the Google Discover phone photo taken from https://developers.google.com/search/docs/advanced/mobile/google-discover](title-image.png)
 
 ## Google Discover
 
