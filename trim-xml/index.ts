@@ -18,6 +18,61 @@ interface Sitemap {
   };
 }
 
+interface AtomFeed {
+  feed: {
+    id: string;
+    title: string;
+    updated: string;
+    generator: string;
+    link: {
+      href: string;
+      rel: string;
+    };
+    subtitle: string;
+    icon: string;
+    entry: {
+      title: string;
+      id: string;
+      link: {
+        href: string;
+      };
+      updated: string;
+      summary: string;
+      content: string;
+      author: {
+        name: string;
+        uri: string;
+      };
+      category: {
+        term: string;
+        label: string;
+      }[];
+    }[];
+  };
+}
+
+interface RssFeed {
+  rss: {
+    channel: {
+      title: string;
+      link: string;
+      description: string;
+      lastBuildDate: string;
+      docs: string;
+      generator: string;
+      item: {
+        title: string;
+        link: string;
+        guid: string;
+        pubDate: string;
+        description: string;
+        'content:encoded': string;
+        category: string[];
+      }[];
+    };
+  };
+}
+
 function getSimpleGit(): SimpleGit {
   const baseDir = path.resolve(process.cwd(), '..');
 
@@ -77,7 +132,7 @@ async function enrichUrlsWithLastmod(
   return urls;
 }
 
-async function trimXML() {
+async function trimSitemapXML() {
   const sitemapPath = path.resolve(
     '..',
     'blog-website',
@@ -113,4 +168,75 @@ async function trimXML() {
   await fs.promises.writeFile(sitemapPath, shorterSitemapXml);
 }
 
-trimXML();
+async function trimAtomXML() {
+  const atomPath = path.resolve('..', 'blog-website', 'build', 'atom.xml');
+
+  console.log(`Loading ${atomPath}`);
+  const atomXml = await fs.promises.readFile(atomPath, 'utf8');
+
+  const parser = new XMLParser({
+    ignoreAttributes: false,
+    cdataPropName: 'content',
+  });
+  let rss: AtomFeed = parser.parse(atomXml);
+
+  console.log(rss);
+  const top20Entries = rss.feed.entry.slice(0, 20);
+
+  console.log(
+    `Reducing ${rss.feed.entry.length} entries to ${top20Entries.length} entries`
+  );
+
+  rss.feed.entry = top20Entries;
+
+  const builder = new XMLBuilder({
+    format: true,
+    ignoreAttributes: false,
+    cdataPropName: 'content',
+  });
+  const shorterSitemapXml = builder.build(rss);
+
+  // console.log(shorterSitemapXml);
+  console.log(`Saving ${atomPath}`);
+  await fs.promises.writeFile(atomPath, shorterSitemapXml);
+}
+
+async function trimRssXML() {
+  const rssPath = path.resolve('..', 'blog-website', 'build', 'rss.xml');
+
+  console.log(`Loading ${rssPath}`);
+  const rssXml = await fs.promises.readFile(rssPath, 'utf8');
+
+  const parser = new XMLParser({
+    ignoreAttributes: false,
+    cdataPropName: 'content:encoded',
+  });
+  let rss: RssFeed = parser.parse(rssXml);
+
+  console.log(rss);
+  const top20Entries = rss.rss.channel.item.slice(0, 20);
+
+  console.log(
+    `Reducing ${rss.rss.channel.item.length} entries to ${top20Entries.length} entries`
+  );
+
+  rss.rss.channel.item = top20Entries;
+
+  const builder = new XMLBuilder({
+    format: true,
+    ignoreAttributes: false,
+    cdataPropName: 'content:encoded',
+  });
+  const shorterSitemapXml = builder.build(rss);
+
+  console.log(`Saving ${rssPath}`);
+  await fs.promises.writeFile(rssPath, shorterSitemapXml);
+}
+
+async function main() {
+  await trimSitemapXML();
+  await trimAtomXML();
+  await trimRssXML();
+}
+
+main();
