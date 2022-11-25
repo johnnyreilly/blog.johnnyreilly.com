@@ -12,7 +12,7 @@ This post demonstrates enriching an XML sitemap with `lastmod` timestamps based 
 
 ## Reading git log in Node.js
 
-[In the last post I showed how to manipulate XML in Node.js, and filter our sitemap](../2022-11-24-adding-lastmod-to-sitemap-git-commit-date/index.md). In this post we'll build upon what we did last time, read the git log in Node.js and use that to power a `lastmod` property.
+[In the last post I showed how to manipulate XML in Node.js, and filter our sitemap](../2022-11-22-xml-read-and-write-with-node-js/index.md). In this post we'll build upon what we did last time, read the git log in Node.js and use that to power a `lastmod` property.
 
 To read the git log in Node.js we'll use the [simple-git](https://www.npmjs.com/package/simple-git) package. It's a great package that makes it easy to read the git log. Other stuff too - but that's what we care about today.
 
