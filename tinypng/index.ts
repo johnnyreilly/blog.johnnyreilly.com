@@ -66,7 +66,11 @@ async function processImageFiles(imageFiles: string[]) {
       const originalSizeKb = originalStats.size / 1024n;
 
       const source = tinify.fromFile(imageFilePath);
-      const converted = source.convert({ type: ['image/webp', 'image/png'] });
+      const converted = source.convert({
+        type: imageFilePath.includes('/title-image.')
+          ? ['image/png'] // title images are always png because social media sharing doesn't support webp well enough
+          : ['image/webp', 'image/png'],
+      });
       const convertedExtension = await converted.result().extension();
       const newImageFilePath = `${originalImageFilePrefix}.${convertedExtension}`;
       await converted.toFile(newImageFilePath);
@@ -183,7 +187,7 @@ async function run() {
     }
   }
 
-  const imageFiles = await getImageFilesFromDirectory(directory);
+  const imageFiles = getImageFilesFromDirectory(directory);
   console.log(`Found ${imageFiles.length} image files in ${directory}`);
   await processImageFiles(imageFiles);
 }
