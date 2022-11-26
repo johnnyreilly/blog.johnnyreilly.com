@@ -55,6 +55,13 @@ const config = {
         },
         docs: false,
         blog: {
+          feedOptions: {
+            type: 'all',
+            title: 'I CAN MAKE THIS WORK',
+            description: 'The blog of johnnyreilly ❤️🌻',
+            language: 'en',
+            copyright: `Copyright © 2012 - ${new Date().getFullYear()} John Reilly.`,
+          },
           blogTitle: 'I CAN MAKE THIS WORK',
           blogDescription: 'The blog of johnnyreilly',
           /**
