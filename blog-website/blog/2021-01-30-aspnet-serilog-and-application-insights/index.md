@@ -1,12 +1,16 @@
 ---
 title: 'ASP.NET, Serilog and Application Insights'
 authors: johnnyreilly
-image: ./application-insights-properties.webp
+image: ./title-image.png
 tags: [asp.net, Azure, Application Insights, Serilog]
 hide_table_of_contents: false
 ---
 
-If you're deploying an ASP.NET application to Azure App Services, there's a decent chance you'll also be using the fantastic [Serilog](https://serilog.net/) and will want to plug it into Azure's [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview).
+If you're deploying an ASP.NET application to Azure App Services / Azure Container Apps or similar, there's a decent chance you'll also be using the fantastic [Serilog](https://serilog.net/) and will want to plug it into Azure's [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview).
+
+![title image reading "ASP.NET, Serilog and Application Insights" with ASP.NET, Serilog and Application Insights logos](title-image.png)
+
+## Updated: 26/11/2022
 
 This post will show you how it's done, and it'll also build upon the [build info work from our previous post](2021-01-29-surfacing-azure-pipelines-build-info-in-an-aspnet-react-app/index.md). In what way? Great question. Well logs are a tremendous diagnostic tool. If you have logs which display some curious behaviour, and you'd like to replicate that in another environment, you really want to take exactly that version of the codebase out to play. Our last post introduced build info into our application in the form of our `AppVersionInfo` class that looks something like this:
 
