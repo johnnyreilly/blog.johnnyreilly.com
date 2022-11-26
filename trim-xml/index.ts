@@ -181,7 +181,9 @@ async function trimAtomXML() {
   let rss: AtomFeed = parser.parse(atomXml);
 
   console.log(rss);
-  const top20Entries = rss.feed.entry.slice(0, 20);
+  const top20Entries = rss.feed.entry
+    .slice(0, 20)
+    .map((entry) => ({ ...entry, id: entry.link.href })); // fixup the guid with full link
 
   console.log(
     `Reducing ${rss.feed.entry.length} entries to ${top20Entries.length} entries`
