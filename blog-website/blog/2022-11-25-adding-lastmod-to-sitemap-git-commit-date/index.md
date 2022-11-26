@@ -63,7 +63,7 @@ It's worth pausing to consider what our sitemap looks like:
 
 If you look at the URL (`loc`) you can see that it's fairly easy to determine the path to the original markdown file. If we take https://blog.johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants, we can see that the path to the markdown file is `blog-website/blog/2012-01-07-standing-on-shoulders-of-giants/index.md`.
 
-As long as we don't have a custom slug in play (and I rarely do), we have a reliable way to get from blog post to markdown file. With that we can use `simple-git` to get the git log for that file. We can then use that to populate the `lastmod` property.
+As long as we don't have a custom slug in play (and I rarely do), we have a reliable way to get from blog post URL (`loc`) to markdown file. With that we can use `simple-git` to get the git log for that file. We can then use that to populate the `lastmod` property.
 
 ```ts
 const dateBlogUrlRegEx = /(\d\d\d\d\/\d\d\/\d\d)\/(.+)/;
