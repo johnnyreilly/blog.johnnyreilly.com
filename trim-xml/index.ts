@@ -213,7 +213,9 @@ async function trimRssXML() {
   let rss: RssFeed = parser.parse(rssXml);
 
   console.log(rss);
-  const top20Entries = rss.rss.channel.item.slice(0, 20);
+  const top20Entries = rss.rss.channel.item
+    .slice(0, 20)
+    .map((item) => (item.guid = item.link)); // fixup the guid with full link
 
   console.log(
     `Reducing ${rss.rss.channel.item.length} entries to ${top20Entries.length} entries`
