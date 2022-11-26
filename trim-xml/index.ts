@@ -193,7 +193,7 @@ async function trimAtomXML() {
   console.log(rss.feed.entry);
   const top20Entries = rss.feed.entry
     .slice(0, 20)
-    .map((entry) => ({ ...entry, id: entry.link['@_href'] })); // fixup the guid with full link
+    .map((entry) => ({ ...entry, id: entry.link['@_href'] })); // fixup the id with full link
 
   console.log(
     `Reducing ${rss.feed.entry.length} entries to ${top20Entries.length} entries`
@@ -209,7 +209,7 @@ async function trimAtomXML() {
   const shorterSitemapXml = builder.build(rss);
 
   console.log(`Saving ${atomPath}`);
-  // await fs.promises.writeFile(atomPath, shorterSitemapXml);
+  await fs.promises.writeFile(atomPath, shorterSitemapXml);
 }
 
 async function trimRssXML() {
@@ -247,9 +247,9 @@ async function trimRssXML() {
 }
 
 async function main() {
-  // await trimSitemapXML();
+  await trimSitemapXML();
   await trimAtomXML();
-  // await trimRssXML();
+  await trimRssXML();
 }
 
 main();
