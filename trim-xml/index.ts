@@ -31,14 +31,23 @@ interface AtomFeed {
     subtitle: string;
     icon: string;
     entry: {
-      title: string;
+      title: {
+        '@_type': string;
+        content: string;
+      };
       id: string;
       link: {
-        href: string;
+        '@_href': string;
       };
       updated: string;
-      summary: string;
-      content: string;
+      summary: {
+        '@_type': string;
+        content: string;
+      };
+      content: {
+        '@_type': string;
+        content: string;
+      };
       author: {
         name: string;
         uri: string;
@@ -181,7 +190,10 @@ async function trimAtomXML() {
   let rss: AtomFeed = parser.parse(atomXml);
 
   console.log(rss);
-  const top20Entries = rss.feed.entry.slice(0, 20);
+  console.log(rss.feed.entry);
+  const top20Entries = rss.feed.entry
+    .slice(0, 20)
+    .map((entry) => ({ ...entry, id: entry.link['@_href'] })); // fixup the id with full link
 
   console.log(
     `Reducing ${rss.feed.entry.length} entries to ${top20Entries.length} entries`
@@ -213,7 +225,9 @@ async function trimRssXML() {
   let rss: RssFeed = parser.parse(rssXml);
 
   console.log(rss);
-  const top20Entries = rss.rss.channel.item.slice(0, 20);
+  const top20Entries = rss.rss.channel.item
+    .slice(0, 20)
+    .map((item) => ({ ...item, guid: item.link })); // fixup the guid with full link
 
   console.log(
     `Reducing ${rss.rss.channel.item.length} entries to ${top20Entries.length} entries`
