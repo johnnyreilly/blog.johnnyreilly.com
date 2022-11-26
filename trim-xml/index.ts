@@ -31,14 +31,23 @@ interface AtomFeed {
     subtitle: string;
     icon: string;
     entry: {
-      title: string;
+      title: {
+        '@_type': string;
+        content: string;
+      };
       id: string;
       link: {
-        href: string;
+        '@_href': string;
       };
       updated: string;
-      summary: string;
-      content: string;
+      summary: {
+        '@_type': string;
+        content: string;
+      };
+      content: {
+        '@_type': string;
+        content: string;
+      };
       author: {
         name: string;
         uri: string;
@@ -181,9 +190,10 @@ async function trimAtomXML() {
   let rss: AtomFeed = parser.parse(atomXml);
 
   console.log(rss);
+  console.log(rss.feed.entry);
   const top20Entries = rss.feed.entry
     .slice(0, 20)
-    .map((entry) => ({ ...entry, id: entry.link.href })); // fixup the guid with full link
+    .map((entry) => ({ ...entry, id: entry.link['@_href'] })); // fixup the guid with full link
 
   console.log(
     `Reducing ${rss.feed.entry.length} entries to ${top20Entries.length} entries`
@@ -199,7 +209,7 @@ async function trimAtomXML() {
   const shorterSitemapXml = builder.build(rss);
 
   console.log(`Saving ${atomPath}`);
-  await fs.promises.writeFile(atomPath, shorterSitemapXml);
+  // await fs.promises.writeFile(atomPath, shorterSitemapXml);
 }
 
 async function trimRssXML() {
@@ -237,9 +247,9 @@ async function trimRssXML() {
 }
 
 async function main() {
-  await trimSitemapXML();
+  // await trimSitemapXML();
   await trimAtomXML();
-  await trimRssXML();
+  // await trimRssXML();
 }
 
 main();
