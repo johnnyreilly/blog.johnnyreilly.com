@@ -6,9 +6,13 @@ image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-The Open Graph protocol has become the standard mechanism for sharing rich content on the web. This post looks at what implementing Open Graph tags for sharable previews (often called social media previews) looks like, the tools you can use and also an examines the different platform rendering issue.
+The Open Graph protocol has become the standard mechanism for sharing rich content on the web. This post looks at what implementing Open Graph tags for sharable previews (often called social media previews) looks like, the tools you can use and also examines the different platform rendering issue.
 
 ![title image reading "Open Graph: a guide to sharable social media previews" with the open graph logo and screenshots of twitter shared cards](title-image.png)
+
+## Updated: 26 November 2022
+
+I've updated this post to advise on image types to favour.
 
 ## Open Graph protocol and sharing
 
@@ -152,6 +156,20 @@ Above I'm sharing a link to a blog post. The image is to the left, the title and
 Here the image is above the title and the description. More distressingly, the image has been cropped which renders the title slightly unreadable.
 
 So whilst the mechanism for sharing is roughly standardised, the rendering is not. It's not dissimilar to the web in the year 2000. Back then, a single piece of HTML could be rendered in many different ways, depending upon the browser. The same statement is true now for Open Graph sharing. Sharing can look very different depending upon the platform which is displaying the preview. The only way to avoid this at present is to thoroughly on all the platforms where we want to share links; ensuring the sharable previews look acceptable.
+
+## `og:image` type: PNG, JPEG or WebP? What's best?
+
+Let's think about the type of image we reference in the `og:image` tag for a moment. This is the image that will be displayed in the sharing preview:
+
+```html
+<meta property="og:image" content="https://ia.media-imdb.com/images/rock.jpg" />
+```
+
+We can use any image format we like. However, there are some considerations to bear in mind. Whilst you might imagine that the image format is not important, it is. This is because not all platforms support all image formats. Whilst say Twitter and Facebook support PNG, JPEG and WebP, other platforms do not. For example, Teams does not support WebP. So if we want to share a link on Teams, we likely want to use a JPEG or PNG image.
+
+I should tell you that I learned this the hard way, deciding to use WebP for most of the images on my blog, including the Open Graph image. I was then surprised to find that the images were not displaying in Teams. I had to go back and change the Open Graph images back to PNG. Don't be me.
+
+Incidentally, the world could use a "caniuse" for Open Graph sharing previews. I'd love to see one.
 
 ## Conclusion
 
