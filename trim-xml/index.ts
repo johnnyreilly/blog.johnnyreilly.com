@@ -2,6 +2,7 @@ import { XMLParser, XMLBuilder } from 'fast-xml-parser';
 import fs from 'fs';
 import path from 'path';
 import { simpleGit, SimpleGit, SimpleGitOptions } from 'simple-git';
+import { isTemplateExpression } from 'typescript';
 
 const rootUrl = 'https://blog.johnnyreilly.com';
 
@@ -215,7 +216,7 @@ async function trimRssXML() {
   console.log(rss);
   const top20Entries = rss.rss.channel.item
     .slice(0, 20)
-    .map((item) => (item.guid = item.link)); // fixup the guid with full link
+    .map((item) => ({ ...item, guid: item.link })); // fixup the guid with full link
 
   console.log(
     `Reducing ${rss.rss.channel.item.length} entries to ${top20Entries.length} entries`
