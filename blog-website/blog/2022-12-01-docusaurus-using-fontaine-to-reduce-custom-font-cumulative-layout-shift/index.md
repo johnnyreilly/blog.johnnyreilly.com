@@ -2,13 +2,13 @@
 title: 'Docusaurus: Using fontaine to reduce custom font cumulative layout shift'
 authors: johnnyreilly
 tags: [Docusaurus, fontaine, fonts, CLS, cumulative layout shift]
-image: ./title-image.webp
+image: ./title-image.png
 hide_table_of_contents: false
 ---
 
 Custom font usage can introduce cumulative layout shift (or "jank") to your website. This post shows how to use [fontaine](https://github.com/unjs/fontaine) to reduce this with Docusaurus sites.
 
-![title image reading "Docusaurus: Using fontaine to reduce custom font cumulative layout shift" in a ridiculous font with the Docusaurus logo and a screenshot of a preload link HTML element](title-image.webp)
+![title image reading "Docusaurus: Using fontaine to reduce custom font cumulative layout shift" in a ridiculous font with the Docusaurus logo and a screenshot of a preload link HTML element](title-image.png)
 
 ## What is cumulative layout shift?
 
