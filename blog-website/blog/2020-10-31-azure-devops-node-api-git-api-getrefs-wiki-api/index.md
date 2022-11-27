@@ -1,12 +1,12 @@
 ---
-title: 'Azure DevOps Client for Node.js - working around limitations'
+title: 'Azure DevOps Client for Node.js - GitApi / WikiApi limitations'
 authors: johnnyreilly
-tags: [azure devops api, '203', node.js]
+tags: [Azure DevOps API, IGitApi.getRefs, IWikiApi, Node.js]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-The Azure DevOps Client library for Node.js has limitations and missing features, such as the ability to paginate git refs and create wiki posts. This post details some of these issues and illustrates a workaround using the Azure DevOps REST API.
+The Azure DevOps Client library for Node.js has limitations and missing features, `IGitApi.getRefs` is missing pagination and `IWikiApi` is missing page create or update. This post details some of these issues and illustrates a workaround using the Azure DevOps REST API.
 
 ![A title image that reads "Azure DevOps Client for Node.js - working around limitations"](title-image.png)
 
@@ -182,3 +182,70 @@ if (!topLevelPage)
 ```
 
 and the wikis were ours!
+
+## Handrolled Git API
+
+Similarly it's possible to write a client for the Git API that reuses the types from the client lib.
+
+```ts
+/**
+ * Get the refs for the repo using Axios
+ * IGitApi.getRefs seems to be missing pagination parts of API, see: https://github.com/microsoft/azure-devops-node-api/issues/415
+ */
+export async function getRefs({
+  adoUrl,
+  adoProject,
+  repositoryId,
+  filter,
+  logger,
+}: {
+  adoUrl: string;
+  adoProject: string;
+  repositoryId: string;
+  adoPat: string;
+  filter: string;
+}): Promise<GitRef[]> {
+  const batchSize = 100;
+  let continuationToken = '';
+  const refs: GitRef[] = [];
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    try {
+      const url = `${makeBaseApiUrl({
+        adoUrl,
+        adoProject,
+      })}/git/repositories/${repositoryId}/refs?${apiVersion}&filter=${filter}&peelTags=True&$top=${batchSize}&continuationToken=${continuationToken}`;
+
+      const response = await axios({
+        method: 'GET',
+        url,
+        headers: makeHeaders(adoPat),
+        data,
+      });
+
+      continuationToken = response.headers['x-ms-continuationtoken'] || '';
+
+      const nextRefs: { value: GitRef[] } = response.data;
+
+      refs.push(...nextRefs.value);
+
+      const noMoreRefs = nextRefs.value.length === 0 || !continuationToken;
+      if (noMoreRefs) break;
+    } catch (err: any) {
+      logger.error(
+        'Failed to load refs',
+        err?.message,
+        err?.response?.status,
+        err?.response?.data
+      );
+      throw new Error('Failed to load refs');
+    }
+  }
+
+  return refs;
+}
+```
+
+## Conclusion
+
+The client lib is great, but it's not perfect. It's missing some APIs and it's missing some features. But as we can see, it's possible to work around the shortcomings and write our own clients to fill in the gaps.

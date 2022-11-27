@@ -6,6 +6,7 @@
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "docusaurus build",
+    "postbuild": "cd ../trim-xml && yarn && yarn start",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -21,7 +22,7 @@
     "@docusaurus/preset-classic": "2.2.0",
     "@mdx-js/react": "1.6.22",
     "@svgr/webpack": "6.5.1",
-    "@swc/core": "1.3.14",
+    "@swc/core": "1.3.19",
     "clsx": "1.2.1",
     "file-loader": "6.2.0",
     "prism-react-renderer": "1.3.5",
@@ -35,7 +36,7 @@
     "@docusaurus/module-type-aliases": "2.2.0",
     "@tsconfig/docusaurus": "1.0.6",
     "fontaine": "0.2.3",
-    "typescript": "4.8.4"
+    "typescript": "4.9.3"
   },
   "browserslist": {
     "production": [
@@ -50,7 +51,7 @@
     ]
   },
   "engines": {
-    "node": "^16.10.0",
+    "node": "^18.0.0",
     "yarn": "^1.22.10"
   }
 }

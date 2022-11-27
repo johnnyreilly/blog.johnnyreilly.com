@@ -2,7 +2,7 @@
 title: 'Azure Container Apps: build and deploy with Bicep and GitHub Actions'
 authors: johnnyreilly
 tags: [Azure Container Apps, Bicep, GitHub Actions, GitHub container registry]
-image: ./title-image.webp
+image: ./title-image.png
 hide_table_of_contents: false
 ---
 
@@ -12,7 +12,7 @@ This post follows on from the [previous post](../2021-12-19-azure-container-apps
 
 If you'd like to learn more about using dapr with Azure Container Apps then you might want to read [this post](../2022-01-22-azure-container-apps-dapr-bicep-github-actions-debug-devcontainer/index.md).
 
-![title image reading "Azure Container Apps: build and deploy with Bicep and GitHub Actions" with the Bicep, Azure Container Apps and GitHub Actions logos](title-image.webp)
+![title image reading "Azure Container Apps: build and deploy with Bicep and GitHub Actions" with the Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
 
 ## Updated 02/05/2022
 
