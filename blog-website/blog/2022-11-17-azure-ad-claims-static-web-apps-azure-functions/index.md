@@ -15,7 +15,7 @@ Authorization in Azure Functions is impaired by an issue with Azure Static Web A
 
 After I posted this, [Thomas Gauvin](https://twitter.com/thomasgauvin) (Product manager for Static Web Apps) was kind enough to tweet this:
 
-[![screenshot of tweet from Thomas Gauvin saying "Thanks for writing this @johnny_reilly, I know this is a pain point with SWA auth at the moment. I'm sure this article will help others in the meantime. We're working on correcting our docs + looking to add support for this in the future"](screenshot-twitter-thomas-gauvin-support-in-future.png)](https://twitter.com/thomasgauvin/status/1596242773686079496)
+[![screenshot of tweet from Thomas Gauvin saying "Thanks for writing this @johnny_reilly, I know this is a pain point with SWA auth at the moment. I'm sure this article will help others in the meantime. We're working on correcting our docs + looking to add support for this in the future"](screenshot-twitter-thomas-gauvin-support-in-future.webp)](https://twitter.com/thomasgauvin/status/1596242773686079496)
 
 So by the sounds of it, this blog post will not be required in the longer term, as support should to be added directly. Tremendous news!
 
