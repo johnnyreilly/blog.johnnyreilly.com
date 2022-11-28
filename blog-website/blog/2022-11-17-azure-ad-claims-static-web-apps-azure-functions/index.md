@@ -11,6 +11,14 @@ Authorization in Azure Functions is impaired by an issue with Azure Static Web A
 
 ![title image reading "Azure AD Claims with Static Web Apps and Azure Functions" with Azure AD, Azure Functions and Static Web App logos](title-image.png)
 
+## Updated 28th November 2022
+
+After I posted this, [Thomas Gauvin](https://twitter.com/thomasgauvin) (Product manager for Static Web Apps) was kind enough to tweet this:
+
+[![screenshot of tweet from Thomas Gauvin saying "Thanks for writing this @johnny_reilly, I know this is a pain point with SWA auth at the moment. I'm sure this article will help others in the meantime. We're working on correcting our docs + looking to add support for this in the future"](screenshot-twitter-thomas-gauvin-support-in-future.png)](https://twitter.com/thomasgauvin/status/1596242773686079496)
+
+So by the sounds of it, this blog post will not be required in the longer term, as support should to be added directly. Tremendous news!
+
 ## Where's my claims?
 
 There is a limitation that affects authorization when you have a linked backend paired with an Azure Static Web App. Let's take the case of having an Azure Function App as the linked backend. Essentially the Azure Function app _does not_ receive the claims that the Static Web App receives. [There's an issue tracking this on GitHub](https://github.com/Azure/static-web-apps/issues/988), and it seems that this is a general problem with Static Web Apps, Azure AD and linked backends.
