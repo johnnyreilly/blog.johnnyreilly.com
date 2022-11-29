@@ -5,7 +5,7 @@ tags: []
 hide_table_of_contents: false
 ---
 
-I've been busy working on an open source project called **[jQuery Validation Unobtrusive Native](http://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native)**. [To see it in action take a look here](http://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/).
+I've been busy working on an open source project called **[jQuery Validation Unobtrusive Native](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native)**. [To see it in action take a look here](https://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/).
 
 ## A Little Background
 
