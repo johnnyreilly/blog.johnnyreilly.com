@@ -1,5 +1,5 @@
 ---
-title: 'Azure Static Web Apps: Node.js 18 and Oryx'
+title: 'Azure Static Web Apps: Node.js 16 / 18 and Oryx'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, GitHub Actions, Docusaurus, Node.js, Oryx]
 image: ./title-image.png
@@ -43,7 +43,7 @@ Thanks to [Cormac McCarthy](https://github.com/cormacpayne) for his [comment](ht
 
 ## Solution 2: Environment variables for the win!
 
-You can change the version for the build step using an environnment variable. This is documentented in the [Microsoft Docs](https://learn.microsoft.com/en-us/azure/developer/javascript/how-to/with-web-app/static-web-app-with-swa-cli/create-static-web-app)
+You can change the version for the build step using an environnment variable. This is documented in the [Microsoft Docs](https://learn.microsoft.com/en-us/azure/developer/javascript/how-to/with-web-app/static-web-app-with-swa-cli/create-static-web-app)
 
 Modify the workflow file, from the `./github/workflows` directory. Just add these last two lines:
 
@@ -61,10 +61,9 @@ Modify the workflow file, from the `./github/workflows` directory. Just add thes
         env:  # Put a node version on the following line
           NODE_VERSION: 18.12.0 
 ```
-You can use a specific node version (18.12.0 or 16.18.0) or a major node version (18 or 16). The latter installs the latest minor version.
+
+You can use a specific node version (18.12.0 or 16.18.0) or a major node version (18 or 16). The latter approach installs the latest minor version.
 
 **Note:** The Oryx image is updated quarterly.  You can get a list of the supported node versions [here](https://github.com/microsoft/Oryx/blob/main/doc/supportedPlatformVersions.md).
 
 Thanks to Eric Côté from [React Academy](https://reactAcademy.live) for the information.
-
-
