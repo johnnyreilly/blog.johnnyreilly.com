@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[49867],{17414:e=>{e.exports=JSON.parse('{"permalink":"/page/163","page":163,"postsPerPage":1,"totalPages":277,"totalCount":277,"previousPage":"/page/162","nextPage":"/page/164","blogDescription":"The blog of johnnyreilly","blogTitle":"I CAN MAKE THIS WORK"}')}}]);
