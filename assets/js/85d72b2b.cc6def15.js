@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[26483],{34448:e=>{e.exports=JSON.parse('{"label":"deep link","permalink":"/tags/deep-link","allTagsPath":"/tags","count":1}')}}]);
