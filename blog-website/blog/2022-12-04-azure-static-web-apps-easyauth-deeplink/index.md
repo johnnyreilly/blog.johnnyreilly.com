@@ -8,11 +8,11 @@ hide_table_of_contents: false
 
 Azure Static Web Apps doesn't support deep linking with authentication. This is a problem for many applications. This post describes how to work around this limitation.
 
-![title image reading "Docusaurus: Using fontaine to reduce custom font cumulative layout shift" in a ridiculous font with the Docusaurus logo and a screenshot of a preload link HTML element](title-image.png)
+![title image reading "Deep linking with Azure Static Web Apps and Easy Auth" with Azure AD and Static Web App logos](title-image.png)
 
 ## Deep linking
 
-Imagine the situation: your colleague sends you https://our-app.com/pages/important-page?someId=theId. You click the link and you're presented with a login screen. You login and you're presented with a page, but not the one your colleague meant you to see. What do you do now? If you realise what's happened, you'll likely paste the URL into the address bar again so you end up where you hope to. But what if you don't realise what's happened? Answer: confusion and frustration.
+Imagine the situation: your colleague sends you `https://our-app.com/pages/important-page?someId=theId`. You click the link and you're presented with a login screen. You login and you're presented with a page, but not the one your colleague meant you to see. What do you do now? If you realise what's happened, you'll likely paste the URL into the address bar again so you end up where you hope to. But what if you don't realise what's happened? Answer: confusion and frustration.
 
 If you're using Azure Static Web Apps, you're likely to have this problem. [Azure Static Web Apps doesn't support deep linking with authentication](https://github.com/Azure/static-web-apps/issues/435). When you get redirected you'll find you are (at best) missing the query parameters. If you take a look at the link here you'll see a suggested workaround. We're going to develop that idea in this post.
 
@@ -88,8 +88,8 @@ We're going to need to make sure our [`staticwebapp.config.json`](https://learn.
 
 There's a number of things to note here:
 
-- we're using Azure Active Directory as our identity provider (and disabling others) - the approach in this post will work with any identity provider; this is just the one I'm using
-- we're creating a `/login` route to redirect to the Azure AD login page - you don't have to do this, but it's a nice touch
+- we're using Azure Active Directory as our identity provider (and disabling others) - the approach in this post will work with any identity provider; this is just the one I'm using. Easy Auth supports [a number of identity providers](https://learn.microsoft.com/en-us/azure/app-service/overview-authentication-authorization#identity-providers)
+- we're creating a `/login` route to redirect to the Azure AD login page - you don't have to do this, but it's a nice touch.
 - we're protecting the `*.json` files with authentication - this is because our JSON files actually contain secure information. If we were using say an API instead, we'd protect that with authentication instead. Crucially, access to HTML / JS / CSS is _not_ protected. This is important, because we need to be able to access our `index.html` file and associated JavaScript to store the URL we're trying to get to in local storage.
 
 With this in place, we can implement our workaround. Let's create a file called `deeplink.ts`:
@@ -163,7 +163,7 @@ interface AuthMe {
 
 The code above implements our workaround. It does the following:
 
-- it checks whether a user is authenticated by hitting the `/.auth/me` endpoint that is provided by the Static Web Apps authentication system
+- it checks whether a user is authenticated by hitting the `/.auth/me` endpoint that is provided by the Easy Auth / Static Web Apps authentication system
 - if users are not authenticated, it:
   - stores the path and query string in localStorage and
   - redirects them to the login page
@@ -193,9 +193,18 @@ function main() {
 }
 
 deeplink('/login').then(main);
+// or
+deeplink('/.auth/login/aad').then(main);
+// or
+deeplink('/.auth/login/github').then(main);
+// or
+deeplink('/.auth/login/twitter').then(main);
+// or
+deeplink('/.auth/login/google').then(main);
+// etc
 ```
 
-You can see here that the first thing we do is call `deeplink` with the URL of the login page (`/login` in our case). This will redirect the user to the login page if they're not authenticated, and will redirect them to the URL they were trying to access if they are authenticated. Once that's done, we render our app.
+You can see here that the first thing we do is call `deeplink` with the URL of the login page (you can see I've provided a number of options). This will redirect the user to the login page if they're not authenticated, and will redirect them to the URL they were trying to access if they are authenticated. Once that's done, we render our app.
 
 You should be able to apply this regardless of your framework. The important thing is that you call `deeplink` before you render your app.
 
@@ -203,4 +212,8 @@ You should be able to apply this regardless of your framework. The important thi
 
 I've created a package called [`easyauth-deeplink`](https://github.com/johnnyreilly/easyauth-deeplink) that implements the workaround above. You can install it with `npm install easyauth-deeplink` or `yarn add easyauth-deeplink`. It's a single file, so you can just copy and paste it into your project if you prefer.
 
+## Conclusion
+
 It would be tremendous if this became a feature that was built into Azure Static Web Apps. Maybe one day it will be. In the meantime, I hope this workaround helps you.
+
+It should be said that whilst we've described usage in this post with Static Web Apps, the same approach should work with any Azure Service that has Easy Auth enabled; App Service / Function Apps etc. I've not tried it, but I'd be surprised if it didn't work.
