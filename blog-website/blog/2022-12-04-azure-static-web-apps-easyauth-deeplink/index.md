@@ -1,7 +1,7 @@
 ---
 title: 'Deep linking with Azure Static Web Apps and Easy Auth'
 authors: johnnyreilly
-tags: [Docusaurus, fontaine, fonts, CLS, cumulative layout shift]
+tags: [Authorization, Easy Auth, deep link, Static Web Apps, Azure AD]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
