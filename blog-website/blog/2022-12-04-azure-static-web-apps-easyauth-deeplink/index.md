@@ -6,7 +6,7 @@ image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-Azure Static Web Apps doesn't support deep linking with authentication. This is a problem for many applications. This post describes how to work around this limitation.
+Azure Static Web Apps doesn't support deep linking with authentication. The [post login redirect](https://learn.microsoft.com/en-us/azure/static-web-apps/authentication-authorization?tabs=invitations#post-login-redirect) parameter of `post_login_redirect_uri` does not support query string parameters. This post describes how to work around this limitation.
 
 ![title image reading "Deep linking with Azure Static Web Apps and Easy Auth" with Azure AD and Static Web App logos](title-image.png)
 
