@@ -61,6 +61,8 @@ async function loadRssFeed() {
 }
 
 function apiFactory(apiKey: string) {
+  const baseUrl = 'https://dev.to/api/api';
+
   return {
     getArticles: async () => {
       try {
@@ -68,7 +70,7 @@ function apiFactory(apiKey: string) {
         let page = 1;
         const pageSize = 100;
         while (true) {
-          const url = `https://dev.to/api/articles/me/published?page=${page}&page_size=${pageSize}`;
+          const url = `${baseUrl}/articles/me/published?page=${page}&page_size=${pageSize}`;
           const res = await fetch(url, {
             headers: {
               'api-key': apiKey,
@@ -102,7 +104,7 @@ function apiFactory(apiKey: string) {
       tags: string[];
     }) => {
       try {
-        const url = `https://dev.to/api/articles`;
+        const url = `${baseUrl}/articles`;
         const res = await fetch(url, {
           headers: {
             'api-key': apiKey,
