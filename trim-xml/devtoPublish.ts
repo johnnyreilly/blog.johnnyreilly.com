@@ -223,7 +223,7 @@ ${contentWithGitHubImages}`;
       tags: trimmedTags,
     };
 
-    console.log(body_markdown);
+    // console.log(body_markdown);
     // console.log(description)
     // console.log(main_image)
 

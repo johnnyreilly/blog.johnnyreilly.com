@@ -1,4 +1,4 @@
-name: Static Web App - Build and Deploy
+name: Static Web App - Build and Deploy 🏗️
 
 on:
   push:
@@ -26,7 +26,7 @@ jobs:
   build_and_deploy_swa_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
-    name: Site build and deploy
+    name: Site build and deploy 🏗️
     steps:
       - name: Checkout 📥
         uses: actions/checkout@v3
@@ -143,14 +143,14 @@ jobs:
       preview-url: ${{steps.static_web_app_preview_url.outputs.PREVIEW_URL}}
 
   lighthouse_report_job:
-    name: Lighthouse report
+    name: Lighthouse report 💡🏠
     needs: build_and_deploy_swa_job
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Static Web App - wait for preview ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
+      - name: Wait for preview ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
         id: static_web_app_wait_for_preview
         uses: nev7n/wait_for_response@v1
         with:
@@ -159,7 +159,7 @@ jobs:
           timeout: 600000
           interval: 1000
 
-      - name: Audit URLs using Lighthouse
+      - name: Audit URLs 🧐
         id: lighthouse_audit
         uses: treosh/lighthouse-ci-action@v9
         with:
@@ -189,7 +189,7 @@ jobs:
             const comment = lighthouseCommentMaker({ lighthouseOutputs });
             core.setOutput("comment", comment);
 
-      - name: Add Lighthouse stats as comment
+      - name: Add Lighthouse stats as comment ✍️
         id: comment_to_pr
         uses: marocchino/sticky-pull-request-comment@v2.3.1
         with:
@@ -201,21 +201,16 @@ jobs:
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
-    name: Cleanup Pull Request staging environment
+    name: Cleanup staging environment 💥
     steps:
-      # - name: Azure Login
-      #   uses: azure/login@v1
-      #   with:
-      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: 'Az CLI login'
+      - name: AZ CLI login 🔑
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Get API key for deployment
+      - name: Get API key 🔑
         id: apikey
         uses: azure/CLI@v1
         with:
@@ -223,7 +218,7 @@ jobs:
             APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
             echo "::set-output name=APIKEY::$APIKEY"
 
-      - name: Close Pull Request
+      - name: Destroy staging environment 💥
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
