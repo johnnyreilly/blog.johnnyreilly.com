@@ -61,7 +61,7 @@ async function loadRssFeed() {
 }
 
 function apiFactory(apiKey: string) {
-  const baseUrl = 'https://dev.to/api/api';
+  const baseUrl = 'https://dev.to/api';
 
   return {
     getArticles: async () => {

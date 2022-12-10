@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Static Web App - Build and Deploy
 
 on:
   push:
@@ -23,61 +23,6 @@ env:
   TAGS: '{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
 
 jobs:
-  docusaurus_build_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
-    runs-on: ubuntu-latest
-    name: Docusaurus build
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          # Number of commits to fetch. 0 indicates all history for all branches and tags.
-          # Default: 1
-          fetch-depth: 0
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'yarn'
-
-      - name: Test Docusaurus Build
-        run: |
-          cd blog-website
-          if [ -e yarn.lock ]; then
-          yarn install --frozen-lockfile
-          elif [ -e package-lock.json ]; then
-          npm ci
-          else
-          npm i
-          fi
-          npm run build
-
-  deploy_to_github_pages_job:
-    if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
-    name: Deploy to GitHub Pages
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          # Number of commits to fetch. 0 indicates all history for all branches and tags.
-          # Default: 1
-          fetch-depth: 0
-
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'yarn'
-
-      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
-        run: |
-          cd blog-website
-          yarn install --frozen-lockfile
-          yarn run build
-
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: blog-website/build # The folder the action should deploy.
-
   build_and_deploy_swa_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
