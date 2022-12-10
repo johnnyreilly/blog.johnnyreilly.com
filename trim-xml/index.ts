@@ -84,11 +84,21 @@ async function trimAtomXML() {
   });
   let rss: AtomFeed = parser.parse(atomXml);
 
-  console.log(rss);
-  console.log(rss.feed.entry);
   const top20Entries = rss.feed.entry
     .slice(0, 20)
     .map((entry) => ({ ...entry, id: entry.link['@_href'] })); // fixup the id with full link
+
+  for (const entry of top20Entries) {
+    const blogFilePath = getBlogPathFromUrl(rootUrl, entry.link['@_href']);
+    if (!blogFilePath) {
+      continue;
+    }
+    const lastmod = await getGitLastUpdatedFromFilePath(blogFilePath);
+    const lastmodDate = lastmod ? new Date(lastmod) : undefined;
+    if (lastmodDate) {
+      entry.published = lastmodDate.toISOString();
+    }
+  }
 
   console.log(
     `Reducing ${rss.feed.entry.length} entries to ${top20Entries.length} entries`
@@ -119,10 +129,21 @@ async function trimRssXML() {
   });
   let rss: RssFeed = parser.parse(rssXml);
 
-  console.log(rss);
   const top20Entries: RssItem[] = rss.rss.channel.item
     .slice(0, 20)
     .map((item) => ({ ...item, guid: item.link })); // fixup the guid with full link
+
+  for (const url of top20Entries) {
+    const blogFilePath = getBlogPathFromUrl(rootUrl, url.link);
+    if (!blogFilePath) {
+      continue;
+    }
+    const lastmod = await getGitLastUpdatedFromFilePath(blogFilePath);
+    const lastmodDate = lastmod ? new Date(lastmod) : undefined;
+    if (lastmodDate) {
+      url.pubDate = lastmodDate.toUTCString();
+    }
+  }
 
   console.log(
     `Reducing ${rss.rss.channel.item.length} entries to ${top20Entries.length} entries`

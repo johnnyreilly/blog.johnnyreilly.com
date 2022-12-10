@@ -11,6 +11,35 @@ export interface Sitemap {
   };
 }
 
+interface AtomFeedEntry {
+  title: {
+    '@_type': string;
+    content: string;
+  };
+  id: string;
+  published: string;
+  link: {
+    '@_href': string;
+  };
+  updated: string;
+  summary: {
+    '@_type': string;
+    content: string;
+  };
+  content: {
+    '@_type': string;
+    content: string;
+  };
+  author: {
+    name: string;
+    uri: string;
+  };
+  category: {
+    term: string;
+    label: string;
+  }[];
+}
+
 export interface AtomFeed {
   feed: {
     id: string;
@@ -23,33 +52,7 @@ export interface AtomFeed {
     };
     subtitle: string;
     icon: string;
-    entry: {
-      title: {
-        '@_type': string;
-        content: string;
-      };
-      id: string;
-      link: {
-        '@_href': string;
-      };
-      updated: string;
-      summary: {
-        '@_type': string;
-        content: string;
-      };
-      content: {
-        '@_type': string;
-        content: string;
-      };
-      author: {
-        name: string;
-        uri: string;
-      };
-      category: {
-        term: string;
-        label: string;
-      }[];
-    }[];
+    entry: AtomFeedEntry[];
   };
 }
 
