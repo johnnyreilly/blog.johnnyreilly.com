@@ -153,6 +153,17 @@ jobs:
             APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
             echo "::set-output name=APIKEY::$APIKEY"
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'yarn'
+
+      - name: Install and Build 🔧
+        run: |
+          cd blog-website
+          yarn install --frozen-lockfile
+          yarn run build
+
       - name: Static Web App - build and deploy
         id: static_web_app_build_and_deploy
         uses: Azure/static-web-apps-deploy@v1
@@ -160,11 +171,19 @@ jobs:
           azure_static_web_apps_api_token: ${{ steps.static_web_app_apikey.outputs.APIKEY }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: 'upload'
+          skip_app_build: true
           app_location: '/blog-website' # App source code path
           output_location: 'build' # Built app content directory - optional
 
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           api_location: '' # Api source code path - optional
+
+      - name: Publish to devto 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+        # if: github.event_name != 'pull_request'
+        run: |
+          cd trim-xml
+          yarn install --frozen-lockfile
+          DEVTO_APIKEY=${{ secrets.DEVTO_APIKEY }} yarn run devto
 
       - name: Static Web App - get preview URL
         id: static_web_app_preview_url

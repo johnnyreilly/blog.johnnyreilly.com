@@ -188,16 +188,6 @@ async function run() {
         content
       );
 
-    // console.log(contentWithGitHubImages);
-
-    /*
-title: Deep linking with Azure Static Web Apps and Easy Auth
-date: 2022-12-04 00:00:00 UTC
-published: true
-tags: Authorization,EasyAuth,deeplink,StaticWebApps
-canonical_url: https://blog.johnnyreilly.com/2022/12/04/azure-static-web-apps-easyauth-deeplink
-     */
-
     const tags = data['tags'] as string[]; // item.category;
     const title = data['title']; // item.title;
     const description = item.description['content:encoded'];
@@ -235,7 +225,9 @@ ${contentWithGitHubImages}`;
     // console.log(description)
     // console.log(main_image)
 
-    console.log(`Creating article ${canonicalUrl}`);
+    console.log(
+      `\n**************************\n\nCreating article ${canonicalUrl}\n\n`
+    );
     // await api.postArticle(article);
 
     // break;
