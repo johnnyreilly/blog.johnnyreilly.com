@@ -119,7 +119,7 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           api_location: '' # Api source code path - optional
 
-      - name: Publish to devto 🗞️
+      - name: Publish to dev.to 🗞️
         # if: github.event_name != 'pull_request'
         run: |
           cd trim-xml
@@ -193,7 +193,6 @@ jobs:
         id: comment_to_pr
         uses: marocchino/sticky-pull-request-comment@v2.3.1
         with:
-          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           number: ${{ github.event.pull_request.number }}
           header: lighthouse
           message: ${{ steps.format_lighthouse_score.outputs.comment }}

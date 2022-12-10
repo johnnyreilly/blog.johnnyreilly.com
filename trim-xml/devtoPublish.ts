@@ -122,7 +122,7 @@ function apiFactory(apiKey: string) {
           throw new Error(`Failed to create article ${article.canonical_url}`);
         }
         const data = (await res.json()) as Article;
-        const { body_html, ...rest } = data;
+        const { body_html, body_markdown, ...rest } = data;
         console.log(`Created article ${article.canonical_url}`, rest);
       } catch (e) {
         console.error('Failed to create article', e);
@@ -160,7 +160,7 @@ function apiFactory(apiKey: string) {
           throw new Error(`Failed to update article ${article.canonical_url}`);
         }
         const data = (await res.json()) as Article;
-        const { body_html, ...rest } = data;
+        const { body_html, body_markdown, ...rest } = data;
         console.log(`Updated article ${article.canonical_url}`, rest);
       } catch (e) {
         console.error('Failed to update article', e);
