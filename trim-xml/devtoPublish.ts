@@ -94,11 +94,11 @@ function apiFactory(apiKey: string) {
       }
     },
 
-    postArticle: async (article: {
+    createArticle: async (article: {
       title: string;
       body_markdown: string;
       published: boolean;
-      main_image: string;
+      main_image: string | undefined;
       canonical_url: string;
       description: string;
       tags: string[];
@@ -127,6 +127,43 @@ function apiFactory(apiKey: string) {
         throw new Error('Failed to create article');
       }
     },
+
+    updateArticle: async (
+      id: number,
+      article: {
+        title: string;
+        body_markdown: string;
+        published: boolean;
+        main_image: string | undefined;
+        canonical_url: string;
+        description: string;
+        tags: string[];
+      }
+    ) => {
+      try {
+        const url = `${baseUrl}/articles/${id}`;
+        const res = await fetch(url, {
+          headers: {
+            'api-key': apiKey,
+            'Content-Type': 'application/json',
+          },
+          method: 'PUT',
+          body: JSON.stringify({
+            article,
+          }),
+        });
+        if (!res.ok) {
+          console.error(res);
+          console.error(await res.json());
+          throw new Error(`Failed to update article ${article.canonical_url}`);
+        }
+        const data = (await res.json()) as Article;
+        console.log(`Updated article ${article.canonical_url}`, data);
+      } catch (e) {
+        console.error('Failed to update article', e);
+        throw new Error('Failed to update article');
+      }
+    },
   };
 }
 
@@ -140,36 +177,23 @@ async function run() {
 
   const api = apiFactory(devToApiKey);
   const articles = await api.getArticles();
-
-  // console.log('articles', articles);
-
   const rssFeed = await loadRssFeed();
-  // console.log('rssFeed', rssFeed.rss.channel.item);
 
   for (const item of rssFeed.rss.channel.item) {
-    // console.log('item', item);
     const canonicalUrl = item.link;
     const existingArticle = articles.find(
       (a) => a.canonical_url === canonicalUrl
     );
-    if (existingArticle) {
-      console.log(`Skipping ${canonicalUrl} as it already exists`);
-      continue;
-    }
 
     const blogFilePathRelative = getBlogPathFromUrl(rootUrl, canonicalUrl);
-
-    // console.log(canonicalUrl, blogFilePathRelative);
     if (!blogFilePathRelative) {
       continue;
     }
 
     const blogFilePath = path.resolve('..', blogFilePathRelative);
     const blogFileContent = await fs.promises.readFile(blogFilePath, 'utf8');
-    const lastmod = await getGitLastUpdatedFromFilePath(blogFilePath);
+    // const lastmod = await getGitLastUpdatedFromFilePath(blogFilePath);
     const { data, content } = matter(blogFileContent);
-    // console.log(lastmod);
-    // console.log(data);
 
     const rootGitHubUrl =
       'https://raw.githubusercontent.com/johnnyreilly/blog.johnnyreilly.com/main/';
@@ -193,8 +217,6 @@ async function run() {
     const tags = data['tags'] as string[]; // item.category;
     const title = data['title']; // item.title;
     const description = item.description['content:encoded'];
-    // // const body = item['content:encoded'];
-    // // const mainImage = item['media:content']._attributes.url;
     const published = true;
     const main_image = data['image']
       ? rootGitHubUrl +
@@ -204,7 +226,7 @@ async function run() {
         )
       : undefined;
 
-    const trimmedTags = tags.slice(0, 4).map((tag) => tag.replace(/ /g, ''));
+    const trimmedTags = tags.slice(0, 4).map((tag) => tag.replace(/\W/g, ''));
     const body_markdown = `---
 title: ${title}
 published: ${published}
@@ -223,16 +245,14 @@ ${contentWithGitHubImages}`;
       tags: trimmedTags,
     };
 
-    // console.log(body_markdown);
-    // console.log(description)
-    // console.log(main_image)
-
-    console.log(
-      `\n**************************\n\nCreating article ${canonicalUrl}\n\n`
-    );
-    // await api.postArticle(article);
-
-    // break;
+    console.log(`\n**************************\n\n`);
+    if (existingArticle) {
+      console.log(`Updating article ${canonicalUrl}`);
+      await api.updateArticle(existingArticle.id, article);
+    } else {
+      console.log(`Creating article ${canonicalUrl}`);
+      await api.createArticle(article);
+    }
   }
 }
 

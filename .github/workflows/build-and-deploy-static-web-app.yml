@@ -119,7 +119,7 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           api_location: '' # Api source code path - optional
 
-      - name: Publish to devto 🗞️ # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+      - name: Publish to devto 🗞️
         # if: github.event_name != 'pull_request'
         run: |
           cd trim-xml
@@ -150,7 +150,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Wait for preview ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
+      - name: Wait for preview ${{ needs.build_and_deploy_swa_job.outputs.preview-url }} ⌚
         id: static_web_app_wait_for_preview
         uses: nev7n/wait_for_response@v1
         with:
