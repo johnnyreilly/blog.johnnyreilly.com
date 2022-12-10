@@ -4,11 +4,13 @@ export interface SitemapUrl {
   priority: number;
   lastmod?: string;
 }
+
 export interface Sitemap {
   urlset: {
     url: SitemapUrl[];
   };
 }
+
 export interface AtomFeed {
   feed: {
     id: string;
@@ -50,15 +52,24 @@ export interface AtomFeed {
     }[];
   };
 }
+
 export interface RssItem {
-  title: string;
+  title: {
+    'content:encoded': string;
+  };
   link: string;
   guid: string;
   pubDate: string;
-  description: string;
-  'content:encoded': string;
+  description: {
+    'content:encoded': string;
+  };
+  /** yes really */
+  'content:encoded': {
+    'content:encoded': string;
+  };
   category: string[];
 }
+
 export interface RssFeed {
   rss: {
     channel: {
