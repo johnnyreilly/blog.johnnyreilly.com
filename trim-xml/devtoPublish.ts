@@ -194,17 +194,17 @@ async function run() {
     // // const body = item['content:encoded'];
     // // const mainImage = item['media:content']._attributes.url;
     const published = true;
-    const main_image =
-      rootGitHubUrl +
-      blogFilePathRelative.replace(
-        'index.md',
-        data['image'].substring(data['image'].indexOf('/'))
-      );
+    const main_image = data['image']
+      ? rootGitHubUrl +
+        blogFilePathRelative.replace(
+          'index.md',
+          data['image'].substring(data['image'].indexOf('/'))
+        )
+      : undefined;
 
-    const trimmedTags = tags.slice(0, 4).map((t) => t.replace(/ /g, ''));
+    const trimmedTags = tags.slice(0, 4).map((tag) => tag.replace(/ /g, ''));
     const body_markdown = `---
 title: ${title}
-date: ${lastmod?.substring(0, 10).replaceAll('-', '')}
 published: ${published}
 tags: ${trimmedTags.join(',')}
 canonical_url: ${canonicalUrl}
