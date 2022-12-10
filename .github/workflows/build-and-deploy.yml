@@ -172,8 +172,8 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: 'upload'
           skip_app_build: true
-          app_location: '/blog-website' # App source code path
-          output_location: 'build' # Built app content directory - optional
+          app_location: '/blog-website/build' # App source code path
+          # output_location: 'build' # Built app content directory - optional
 
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           api_location: '' # Api source code path - optional
