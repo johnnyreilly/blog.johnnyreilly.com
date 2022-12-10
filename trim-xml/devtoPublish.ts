@@ -39,6 +39,7 @@ interface Article {
   tag_list: string[];
   user: User;
   body_markdown: string;
+  body_html: string;
   reading_time_minutes: number;
 }
 
@@ -121,7 +122,8 @@ function apiFactory(apiKey: string) {
           throw new Error(`Failed to create article ${article.canonical_url}`);
         }
         const data = (await res.json()) as Article;
-        console.log(`Created article ${article.canonical_url}`, data);
+        const { body_html, ...rest } = data;
+        console.log(`Created article ${article.canonical_url}`, rest);
       } catch (e) {
         console.error('Failed to create article', e);
         throw new Error('Failed to create article');
@@ -158,7 +160,8 @@ function apiFactory(apiKey: string) {
           throw new Error(`Failed to update article ${article.canonical_url}`);
         }
         const data = (await res.json()) as Article;
-        console.log(`Updated article ${article.canonical_url}`, data);
+        const { body_html, ...rest } = data;
+        console.log(`Updated article ${article.canonical_url}`, rest);
       } catch (e) {
         console.error('Failed to update article', e);
         throw new Error('Failed to update article');
@@ -179,6 +182,7 @@ async function run() {
   const articles = await api.getArticles();
   const rssFeed = await loadRssFeed();
 
+  let count = 0;
   for (const item of rssFeed.rss.channel.item) {
     const canonicalUrl = item.link;
     const existingArticle = articles.find(
@@ -253,7 +257,19 @@ ${contentWithGitHubImages}`;
       console.log(`Creating article ${canonicalUrl}`);
       await api.createArticle(article);
     }
+
+    count += 1;
+    if (count > 5) {
+      console.log('Exiting after 5 articles');
+      break;
+    }
+    console.log('Sleeping for 5 seconds because rate limiting...');
+    await sleep(5000);
   }
+}
+
+async function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 // do it!
