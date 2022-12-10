@@ -159,7 +159,7 @@ async function run() {
 
     const blogFilePathRelative = getBlogPathFromUrl(rootUrl, canonicalUrl);
 
-    console.log(canonicalUrl, blogFilePathRelative);
+    // console.log(canonicalUrl, blogFilePathRelative);
     if (!blogFilePathRelative) {
       continue;
     }

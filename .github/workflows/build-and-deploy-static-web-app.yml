@@ -201,7 +201,7 @@ jobs:
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
-    name: Cleanup staging environment 💥
+    name: Cleanup staging 💥
     steps:
       - name: AZ CLI login 🔑
         uses: azure/login@v1
