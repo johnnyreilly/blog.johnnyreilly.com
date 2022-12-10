@@ -259,7 +259,7 @@ ${contentWithGitHubImages}`;
     }
 
     count += 1;
-    if (count > 5) {
+    if (count >= 5) {
       console.log('Exiting after 5 articles');
       break;
     }
