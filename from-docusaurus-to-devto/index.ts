@@ -1,7 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import { parseFrontMatter } from '@docusaurus/utils';
-import { Article, ArticleToPublish } from './types';
+import {
+  Article,
+  ArticleToPublish,
+  devtoApiClientFactory,
+} from './devtoApiClient';
 
 const rootUrl = 'https://blog.johnnyreilly.com';
 const docusaurusBlogDirectory = '../blog-website/blog';
@@ -23,96 +27,6 @@ async function getBlogPostsToPublish() {
   return blogPostDirectoryNames;
 }
 
-function apiFactory(apiKey: string) {
-  const baseUrl = 'https://dev.to/api';
-
-  return {
-    getArticles: async () => {
-      try {
-        const articles: Article[] = [];
-        let page = 1;
-        const pageSize = 100;
-        while (true) {
-          const url = `${baseUrl}/articles/me/published?page=${page}&page_size=${pageSize}`;
-          const res = await fetch(url, {
-            headers: {
-              'api-key': apiKey,
-              accept: 'application/vnd.forem.api-v1+json',
-            },
-          });
-          if (!res.ok) {
-            console.error(res);
-            throw new Error(`Failed to get articles ${url}`);
-          }
-          const data = (await res.json()) as Article[];
-          if (data.length === 0) break;
-
-          page += 1;
-          articles.push(...data);
-        }
-        return articles;
-      } catch (e) {
-        console.error('Failed to get articles', e);
-        throw new Error('Failed to get articles');
-      }
-    },
-
-    createArticle: async (article: ArticleToPublish) => {
-      try {
-        const url = `${baseUrl}/articles`;
-        const res = await fetch(url, {
-          headers: {
-            'api-key': apiKey,
-            'Content-Type': 'application/json',
-          },
-          method: 'POST',
-          body: JSON.stringify({
-            article,
-          }),
-        });
-        if (!res.ok) {
-          console.error(res);
-          console.error(await res.json());
-          throw new Error(`Failed to create article ${article.canonical_url}`);
-        }
-        const data = (await res.json()) as Article;
-        const { body_html, body_markdown, ...rest } = data;
-        console.log(`Created article ${article.canonical_url}`, rest);
-      } catch (e) {
-        console.error('Failed to create article', e);
-        throw new Error('Failed to create article');
-      }
-    },
-
-    updateArticle: async (id: number, article: ArticleToPublish) => {
-      try {
-        const url = `${baseUrl}/articles/${id}`;
-        const res = await fetch(url, {
-          headers: {
-            'api-key': apiKey,
-            'Content-Type': 'application/json',
-          },
-          method: 'PUT',
-          body: JSON.stringify({
-            article,
-          }),
-        });
-        if (!res.ok) {
-          console.error(res);
-          console.error(await res.json());
-          throw new Error(`Failed to update article ${article.canonical_url}`);
-        }
-        const data = (await res.json()) as Article;
-        const { body_html, body_markdown, ...rest } = data;
-        console.log(`Updated article ${article.canonical_url}`, rest);
-      } catch (e) {
-        console.error('Failed to update article', e);
-        throw new Error('Failed to update article');
-      }
-    },
-  };
-}
-
 async function run() {
   const devToApiKey = process.env.DEVTO_APIKEY;
 
@@ -121,8 +35,8 @@ async function run() {
     process.exit(1);
   }
 
-  const api = apiFactory(devToApiKey);
-  const articles = await api.getArticles();
+  const devtoApiClient = devtoApiClientFactory(devToApiKey);
+  const articles = await devtoApiClient.getArticles();
   const blogPostsToPublish = await getBlogPostsToPublish();
 
   for (const blogFilePathRelative of blogPostsToPublish) {
@@ -205,10 +119,10 @@ ${contentWithGitHubImages}`;
     console.log(`\n**************************\n\n`);
     if (existingArticle) {
       console.log(`Updating article ${canonicalUrl}`);
-      await api.updateArticle(existingArticle.id, article);
+      await devtoApiClient.updateArticle(existingArticle.id, article);
     } else {
       console.log(`Creating article ${canonicalUrl}`);
-      await api.createArticle(article);
+      await devtoApiClient.createArticle(article);
     }
 
     console.log('Sleeping for 5 seconds because rate limiting...');
