@@ -1,7 +1,7 @@
 ---
-title: 'Publishing Docusaurus to dev.to'
+title: 'Publishing Docusaurus to dev.to with the dev.to API'
 authors: johnnyreilly
-tags: [dev.to, Docusaurus, GitHub Actions]
+tags: [dev.to, API, Docusaurus, GitHub Actions]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
