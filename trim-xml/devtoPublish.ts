@@ -1,12 +1,6 @@
-import { XMLParser } from 'fast-xml-parser';
-import matter from 'gray-matter';
 import fs from 'fs';
 import path from 'path';
-import {
-  getBlogPathFromUrl,
-  getGitLastUpdatedFromFilePath,
-} from './getGitLastUpdated';
-import { RssFeed } from './types';
+import { parseFrontMatter } from '@docusaurus/utils';
 
 interface User {
   name: string;
@@ -17,6 +11,16 @@ interface User {
   website_url: string;
   profile_image: string;
   profile_image_90: string;
+}
+
+interface ArticleToPublish {
+  title: string;
+  body_markdown: string;
+  published: boolean;
+  main_image: string | undefined;
+  canonical_url: string;
+  description?: string;
+  tags: string[];
 }
 
 interface Article {
@@ -44,21 +48,23 @@ interface Article {
 }
 
 const rootUrl = 'https://blog.johnnyreilly.com';
+const docusaurusBlogDirectory = '../blog-website/blog';
 
 const markdownImageRexEx = /!\[.*\]\((.*)\)/g;
 
-async function loadRssFeed() {
-  const rssPath = path.resolve('..', 'blog-website', 'build', 'rss.xml');
-
-  console.log(`Loading ${rssPath}`);
-  const rssXml = await fs.promises.readFile(rssPath, 'utf8');
-
-  const parser = new XMLParser({
-    ignoreAttributes: false,
-    cdataPropName: 'content:encoded',
+async function getBlogPostsToPublish() {
+  const blogPosts = await fs.promises.readdir(docusaurusBlogDirectory, {
+    withFileTypes: true,
   });
-  const rss: RssFeed = parser.parse(rssXml);
-  return rss;
+  const blogPostDirectoryNames = blogPosts
+    .slice(0)
+    .reverse()
+    .filter((post) => post.isDirectory())
+    .map((post) => post.name)
+    .slice(0, 5);
+
+  // console.log(blogPostsExcludingHistoric)
+  return blogPostDirectoryNames;
 }
 
 function apiFactory(apiKey: string) {
@@ -95,15 +101,7 @@ function apiFactory(apiKey: string) {
       }
     },
 
-    createArticle: async (article: {
-      title: string;
-      body_markdown: string;
-      published: boolean;
-      main_image: string | undefined;
-      canonical_url: string;
-      description: string;
-      tags: string[];
-    }) => {
+    createArticle: async (article: ArticleToPublish) => {
       try {
         const url = `${baseUrl}/articles`;
         const res = await fetch(url, {
@@ -130,18 +128,7 @@ function apiFactory(apiKey: string) {
       }
     },
 
-    updateArticle: async (
-      id: number,
-      article: {
-        title: string;
-        body_markdown: string;
-        published: boolean;
-        main_image: string | undefined;
-        canonical_url: string;
-        description: string;
-        tags: string[];
-      }
-    ) => {
+    updateArticle: async (id: number, article: ArticleToPublish) => {
       try {
         const url = `${baseUrl}/articles/${id}`;
         const res = await fetch(url, {
@@ -180,24 +167,32 @@ async function run() {
 
   const api = apiFactory(devToApiKey);
   const articles = await api.getArticles();
-  const rssFeed = await loadRssFeed();
+  const blogPostsToPublish = await getBlogPostsToPublish();
 
-  let count = 0;
-  for (const item of rssFeed.rss.channel.item) {
-    const canonicalUrl = item.link;
+  for (const blogFilePathRelative of blogPostsToPublish) {
+    const blogFilePath = path.join(
+      docusaurusBlogDirectory,
+      blogFilePathRelative,
+      'index.md'
+    );
+    console.log(`Processing ${blogFilePath}`);
+
+    const blogFileContent = await fs.promises.readFile(blogFilePath, 'utf8');
+    const { frontMatter, content } = parseFrontMatter(blogFileContent);
+
+    const parsedBlogFileName = `${rootUrl}/${blogFilePathRelative
+      .substring(0, 10)
+      .split('-')
+      .join('/')}/${blogFilePathRelative.substring(11)}`;
+
+    const canonicalUrl = frontMatter['slug']
+      ? `${rootUrl}/${frontMatter['slug']}`
+      : parsedBlogFileName;
+    console.log(canonicalUrl);
+
     const existingArticle = articles.find(
       (a) => a.canonical_url === canonicalUrl
     );
-
-    const blogFilePathRelative = getBlogPathFromUrl(rootUrl, canonicalUrl);
-    if (!blogFilePathRelative) {
-      continue;
-    }
-
-    const blogFilePath = path.resolve('..', blogFilePathRelative);
-    const blogFileContent = await fs.promises.readFile(blogFilePath, 'utf8');
-    // const lastmod = await getGitLastUpdatedFromFilePath(blogFilePath);
-    const { data, content } = matter(blogFileContent);
 
     const rootGitHubUrl =
       'https://raw.githubusercontent.com/johnnyreilly/blog.johnnyreilly.com/main/';
@@ -218,15 +213,18 @@ async function run() {
         content
       );
 
-    const tags = data['tags'] as string[]; // item.category;
-    const title = data['title']; // item.title;
-    const description = item.description['content:encoded'];
+    const tags = frontMatter['tags'] as string[];
+    const title = frontMatter['title'] as string;
     const published = true;
-    const main_image = data['image']
+    const image =
+      typeof frontMatter['image'] === 'string'
+        ? (frontMatter['image'] as string)
+        : '';
+    const main_image = image
       ? rootGitHubUrl +
         blogFilePathRelative.replace(
           'index.md',
-          data['image'].substring(data['image'].indexOf('/'))
+          image.substring(image.indexOf('/'))
         )
       : undefined;
 
@@ -245,7 +243,6 @@ ${contentWithGitHubImages}`;
       published,
       main_image,
       canonical_url: canonicalUrl,
-      description,
       tags: trimmedTags,
     };
 
@@ -258,11 +255,6 @@ ${contentWithGitHubImages}`;
       await api.createArticle(article);
     }
 
-    count += 1;
-    if (count >= 5) {
-      console.log('Exiting after 5 articles');
-      break;
-    }
     console.log('Sleeping for 5 seconds because rate limiting...');
     await sleep(5000);
   }
