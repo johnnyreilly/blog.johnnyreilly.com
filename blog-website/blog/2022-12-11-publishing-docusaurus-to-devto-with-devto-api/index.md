@@ -417,7 +417,7 @@ Does it work? Let's find out!
 
 ![Screenshot of dev.to dashboard showing published posts](screenshot-devto-published-posts.png)
 
-It works! I've published 5 posts to dev.to from my blog. I can now go to dev.to and see them.
+It works! I've published 5 posts to dev.to from my blog. [I can now go to dev.to and see them.](https://dev.to/johnnyreilly)
 
 ## Running the script from GitHub Actions
 
