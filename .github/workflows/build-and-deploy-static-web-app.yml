@@ -119,13 +119,6 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           api_location: '' # Api source code path - optional
 
-      - name: Publish to dev.to 🗞️
-        # if: github.event_name != 'pull_request'
-        run: |
-          cd trim-xml
-          yarn install --frozen-lockfile
-          DEVTO_APIKEY=${{ secrets.DEVTO_APIKEY }} yarn run devto
-
       - name: Get preview URL 📝
         id: static_web_app_preview_url
         uses: azure/CLI@v1
@@ -196,6 +189,21 @@ jobs:
           number: ${{ github.event.pull_request.number }}
           header: lighthouse
           message: ${{ steps.format_lighthouse_score.outputs.comment }}
+
+  deploy_to_devto_job:
+    name: Publish to dev.to 🗞️
+    needs: build_and_deploy_swa_job
+    # if: github.event_name == 'pull_request' && github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Publish to dev.to 🗞️
+        # if: github.event_name != 'pull_request'
+        run: |
+          cd from-docusaurus-to-devto
+          yarn install --frozen-lockfile
+          DEVTO_APIKEY=${{ secrets.DEVTO_APIKEY }} yarn start
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
