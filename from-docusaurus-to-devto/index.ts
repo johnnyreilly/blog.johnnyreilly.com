@@ -9,7 +9,7 @@ import {
 
 const rootUrl = 'https://blog.johnnyreilly.com';
 const rootGitHubUrl =
-  'https://raw.githubusercontent.com/johnnyreilly/blog.johnnyreilly.com/main/';
+  'https://raw.githubusercontent.com/johnnyreilly/blog.johnnyreilly.com/main/blog-website/blog/';
 const docusaurusBlogDirectory = '../blog-website/blog';
 
 const markdownImageRexEx = /!\[.*\]\((.*)\)/g;
@@ -101,10 +101,9 @@ function makeMainImage(
       : '';
   const main_image = image
     ? rootGitHubUrl +
-      blogFilePathRelative.replace(
-        'index.md',
-        image.substring(image.indexOf('/'))
-      )
+      blogFilePathRelative +
+      '/' +
+      image.substring(image.indexOf('/') + 1)
     : undefined;
   return main_image;
 }
@@ -133,8 +132,9 @@ function enrichMarkdownWithImagesFromGitHub(
       const [completeMatch, url] = matches;
       const withGitHubUrl = completeMatch.replace(
         url,
-        rootGitHubUrl + blogFilePathRelative.replace('index.md', url)
+        rootGitHubUrl + blogFilePathRelative + '/' + url
       );
+      console.log(`Replacing ${completeMatch} with ${withGitHubUrl}`);
       return { oldImage: completeMatch, newImage: withGitHubUrl };
     })
     .reduce(
