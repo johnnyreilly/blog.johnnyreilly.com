@@ -1,13 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import { parseFrontMatter } from '@docusaurus/utils';
-import {
-  Article,
-  ArticleToPublish,
-  devtoApiClientFactory,
-} from './devtoApiClient';
+import { Article, devtoApiClientFactory } from './devtoApiClient';
 
 const rootUrl = 'https://blog.johnnyreilly.com';
+const rootGitHubUrl =
+  'https://raw.githubusercontent.com/johnnyreilly/blog.johnnyreilly.com/main/';
 const docusaurusBlogDirectory = '../blog-website/blog';
 
 const markdownImageRexEx = /!\[.*\]\((.*)\)/g;
@@ -37,6 +35,9 @@ async function run() {
 
   const devtoApiClient = devtoApiClientFactory(devToApiKey);
   const articles = await devtoApiClient.getArticles();
+  const articlesByCanonicalUrl = new Map<string, Article>(
+    Array.from(articles).map((a) => [a.canonical_url, a])
+  );
   const blogPostsToPublish = await getBlogPostsToPublish();
 
   for (const blogFilePathRelative of blogPostsToPublish) {
@@ -60,12 +61,6 @@ async function run() {
       : parsedBlogFileName;
     console.log(canonicalUrl);
 
-    const existingArticle = articles.find(
-      (a) => a.canonical_url === canonicalUrl
-    );
-
-    const rootGitHubUrl =
-      'https://raw.githubusercontent.com/johnnyreilly/blog.johnnyreilly.com/main/';
     const contentWithGitHubImages = Array.from(
       content.matchAll(markdownImageRexEx)
     )
@@ -117,6 +112,8 @@ ${contentWithGitHubImages}`;
     };
 
     console.log(`\n**************************\n\n`);
+    const existingArticle = articlesByCanonicalUrl.get(canonicalUrl);
+
     if (existingArticle) {
       console.log(`Updating article ${canonicalUrl}`);
       await devtoApiClient.updateArticle(existingArticle.id, article);
