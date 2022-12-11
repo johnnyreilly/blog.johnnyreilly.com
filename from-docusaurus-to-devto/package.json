@@ -10,6 +10,6 @@
     "typescript": "^4.9.3"
   },
   "scripts": {
-    "devto": "ts-node index.ts"
+    "start": "ts-node index.ts"
   }
 }
