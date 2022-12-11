@@ -193,7 +193,7 @@ jobs:
   deploy_to_devto_job:
     name: Publish to dev.to 🗞️
     needs: build_and_deploy_swa_job
-    # if: github.event_name == 'pull_request' && github.event.action != 'closed'
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -205,7 +205,6 @@ jobs:
           cache: 'yarn'
 
       - name: Publish to dev.to 🗞️
-        # if: github.event_name != 'pull_request'
         run: |
           cd from-docusaurus-to-devto
           yarn install --frozen-lockfile
