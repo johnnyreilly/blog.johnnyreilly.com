@@ -19,14 +19,14 @@ If you take a look at the [dev.to settings (under extensions)](https://dev.to/se
 This is great, but it has a number of downsides:
 
 - every post published to your blog will be published to dev.to - there's no fine grained control
-- every post published arrives as "draft" - you have to manually publish it
+- every post published arrives as "draft" - you have to manually push it "live".
 - _most significantly_ - it handles code snippets poorly. Everything ends up as a single line of text. This is a real shame because code snippets are a key part of a blog post.
 
 So after initially setting this up, I decided to look for a better way.
 
 ## The dev.to API
 
-It turns out that dev.to have an API. You can find the documentation [here](https://developers.forem.com/api). The API is pretty well documented and it's pretty easy to use. The docs mention version 0 and version 1 of the API. Version 0 is officially deprecated, but version 1 appears to be incomplete - certainly the docs are. I ended up using version 0 for this post despite attempting to use version 1; I'll update this post when v1 gets there.
+[It turns out that dev.to have an API.](https://developers.forem.com/api). The API is pretty well documented and it's pretty easy to use. The docs mention version 0 and version 1 of the API. Version 0 is officially deprecated, but version 1 appears to be incomplete - certainly the docs are. I ended up using version 0 for this post despite attempting to use version 1; I'll update this post when v1 gets there.
 
 The only thing you need to do to use the API is [generate an API key](https://dev.to/settings/extensions):
 
