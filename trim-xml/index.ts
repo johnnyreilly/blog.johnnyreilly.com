@@ -1,109 +1,17 @@
 import { XMLParser, XMLBuilder } from 'fast-xml-parser';
 import fs from 'fs';
 import path from 'path';
-import { simpleGit, SimpleGit, SimpleGitOptions } from 'simple-git';
+import {
+  getBlogPathFromUrl,
+  getGitLastUpdatedFromFilePath,
+} from './getGitLastUpdated';
+import { SitemapUrl, Sitemap, AtomFeed, RssItem, RssFeed } from './types';
 
 const rootUrl = 'https://blog.johnnyreilly.com';
-
-interface SitemapUrl {
-  loc: string;
-  changefreq: string;
-  priority: number;
-  lastmod?: string;
-}
-
-interface Sitemap {
-  urlset: {
-    url: SitemapUrl[];
-  };
-}
-
-interface AtomFeed {
-  feed: {
-    id: string;
-    title: string;
-    updated: string;
-    generator: string;
-    link: {
-      href: string;
-      rel: string;
-    };
-    subtitle: string;
-    icon: string;
-    entry: {
-      title: {
-        '@_type': string;
-        content: string;
-      };
-      id: string;
-      link: {
-        '@_href': string;
-      };
-      updated: string;
-      summary: {
-        '@_type': string;
-        content: string;
-      };
-      content: {
-        '@_type': string;
-        content: string;
-      };
-      author: {
-        name: string;
-        uri: string;
-      };
-      category: {
-        term: string;
-        label: string;
-      }[];
-    }[];
-  };
-}
-
-interface RssFeed {
-  rss: {
-    channel: {
-      title: string;
-      link: string;
-      description: string;
-      lastBuildDate: string;
-      docs: string;
-      generator: string;
-      item: {
-        title: string;
-        link: string;
-        guid: string;
-        pubDate: string;
-        description: string;
-        'content:encoded': string;
-        category: string[];
-      }[];
-    };
-  };
-}
-
-function getSimpleGit(): SimpleGit {
-  const baseDir = path.resolve(process.cwd(), '..');
-
-  const options: Partial<SimpleGitOptions> = {
-    baseDir,
-    binary: 'git',
-    maxConcurrentProcesses: 6,
-    trimmed: false,
-  };
-
-  const git = simpleGit(options);
-
-  return git;
-}
-
-const dateBlogUrlRegEx = /(\d\d\d\d\/\d\d\/\d\d)\/(.+)/;
 
 async function enrichUrlsWithLastmod(
   filteredUrls: SitemapUrl[]
 ): Promise<SitemapUrl[]> {
-  const git = getSimpleGit();
-
   const urls: SitemapUrl[] = [];
   for (const url of filteredUrls) {
     if (urls.includes(url)) {
@@ -111,26 +19,13 @@ async function enrichUrlsWithLastmod(
     }
 
     try {
-      // example url.loc: https://blog.johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants
-      const pathWithoutRootUrl = url.loc.replace(rootUrl + '/', ''); // eg 2012/01/07/standing-on-shoulders-of-giants
-
-      const match = pathWithoutRootUrl.match(dateBlogUrlRegEx);
-
-      if (!match || !match[1] || !match[2]) {
+      const blogFilePath = getBlogPathFromUrl(rootUrl, url.loc);
+      if (!blogFilePath) {
         urls.push(url);
-        console.log('failed to match', pathWithoutRootUrl, match);
         continue;
       }
+      const lastmod = await getGitLastUpdatedFromFilePath(blogFilePath);
 
-      const date = match[1].replaceAll('/', '-'); // eg 2012-01-07
-      const slug = match[2]; // eg standing-on-shoulders-of-giants
-
-      const file = `blog-website/blog/${date}-${slug}/index.md`;
-      const log = await git.log({
-        file,
-      });
-
-      const lastmod = log.latest?.date.substring(0, 10);
       urls.push(lastmod ? { ...url, lastmod } : url);
       console.log(url.loc, lastmod);
     } catch (e) {
@@ -189,11 +84,21 @@ async function trimAtomXML() {
   });
   let rss: AtomFeed = parser.parse(atomXml);
 
-  console.log(rss);
-  console.log(rss.feed.entry);
   const top20Entries = rss.feed.entry
     .slice(0, 20)
     .map((entry) => ({ ...entry, id: entry.link['@_href'] })); // fixup the id with full link
+
+  for (const entry of top20Entries) {
+    const blogFilePath = getBlogPathFromUrl(rootUrl, entry.link['@_href']);
+    if (!blogFilePath) {
+      continue;
+    }
+    const lastmod = await getGitLastUpdatedFromFilePath(blogFilePath);
+    const lastmodDate = lastmod ? new Date(lastmod) : undefined;
+    if (lastmodDate) {
+      entry.published = lastmodDate.toISOString();
+    }
+  }
 
   console.log(
     `Reducing ${rss.feed.entry.length} entries to ${top20Entries.length} entries`
@@ -224,10 +129,21 @@ async function trimRssXML() {
   });
   let rss: RssFeed = parser.parse(rssXml);
 
-  console.log(rss);
-  const top20Entries = rss.rss.channel.item
+  const top20Entries: RssItem[] = rss.rss.channel.item
     .slice(0, 20)
     .map((item) => ({ ...item, guid: item.link })); // fixup the guid with full link
+
+  for (const url of top20Entries) {
+    const blogFilePath = getBlogPathFromUrl(rootUrl, url.link);
+    if (!blogFilePath) {
+      continue;
+    }
+    const lastmod = await getGitLastUpdatedFromFilePath(blogFilePath);
+    const lastmodDate = lastmod ? new Date(lastmod) : undefined;
+    if (lastmodDate) {
+      url.pubDate = lastmodDate.toUTCString();
+    }
+  }
 
   console.log(
     `Reducing ${rss.rss.channel.item.length} entries to ${top20Entries.length} entries`
