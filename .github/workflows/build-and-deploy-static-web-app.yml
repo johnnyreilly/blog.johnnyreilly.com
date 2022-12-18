@@ -104,6 +104,8 @@ jobs:
           cd blog-website
           yarn install --frozen-lockfile
           yarn run build
+          # copy staticwebapp.config.json to build folder
+          cp staticwebapp.config.json build/staticwebapp.config.json
 
       - name: Deploy site 🚀
         id: static_web_app_build_and_deploy
