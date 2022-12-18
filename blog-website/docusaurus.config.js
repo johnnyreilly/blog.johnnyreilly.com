@@ -56,7 +56,7 @@ const config = {
         docs: false,
         blog: {
           feedOptions: {
-            type: 'all',
+            type: ['rss', 'atom'],
             title: 'I CAN MAKE THIS WORK',
             description: 'The blog of johnnyreilly ❤️🌻',
             language: 'en',
