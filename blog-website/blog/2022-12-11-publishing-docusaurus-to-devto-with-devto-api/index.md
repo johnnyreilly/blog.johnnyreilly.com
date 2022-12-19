@@ -229,6 +229,7 @@ const rootGitHubUrl =
 const docusaurusBlogDirectory = '../blog-website/blog';
 
 const markdownImageRexEx = /!\[.*\]\((.*)\)/g;
+const markdownRelativeBlogUrlRegex = /\[.*\]\(\.\.\/(.*)\/index.md\)/g;
 
 async function getLastXBlogPostsToPublish({
   numberOfPosts,
@@ -267,9 +268,13 @@ async function publishBlogPostToDevTo({
   const blogFileContent = await fs.promises.readFile(blogFilePath, 'utf8');
   const { frontMatter, content } = parseFrontMatter(blogFileContent);
 
-  const canonicalUrl = makeCanonicalUrl(blogFilePathRelative, frontMatter);
+  const canonicalUrl = makeCanonicalUrl(
+    blogFilePathRelative,
+    frontMatter['slug'] as string | undefined
+  );
+  const contentWithCanonicalUrls = enrichMarkdownWithCanonicalUrls(content);
   const contentWithGitHubImages = enrichMarkdownWithImagesFromGitHub(
-    content,
+    contentWithCanonicalUrls,
     blogFilePathRelative
   );
   const tags = frontMatter['tags'] as string[];
@@ -326,15 +331,15 @@ function makeMainImage(
 
 function makeCanonicalUrl(
   blogFilePathRelative: string,
-  frontMatter: { [key: string]: unknown }
+  frontMatterSlug?: string
 ) {
   const parsedBlogFileName = `${rootUrl}/${blogFilePathRelative
     .substring(0, 10)
     .split('-')
     .join('/')}/${blogFilePathRelative.substring(11)}`;
 
-  const canonicalUrl = frontMatter['slug']
-    ? `${rootUrl}/${frontMatter['slug']}`
+  const canonicalUrl = frontMatterSlug
+    ? `${rootUrl}/${frontMatterSlug}`
     : parsedBlogFileName;
   return canonicalUrl;
 }
@@ -352,6 +357,30 @@ function enrichMarkdownWithImagesFromGitHub(
       );
       console.log(`Replacing ${completeMatch} with ${withGitHubUrl}`);
       return { oldImage: completeMatch, newImage: withGitHubUrl };
+    })
+    .reduce(
+      (contentInProgress, { oldImage, newImage }) =>
+        contentInProgress.replace(oldImage, newImage),
+      content
+    );
+}
+
+function enrichMarkdownWithCanonicalUrls(content: string) {
+  return Array.from(content.matchAll(markdownRelativeBlogUrlRegex))
+    .map((matches) => {
+      const [
+        /* eg [I wanted to add the last modified date to my blog posts.](../2022-11-25-adding-lastmod-to-sitemap-git-commit-date/index.md) */
+        completeMatch,
+        /* eg 2022-11-25-adding-lastmod-to-sitemap-git-commit-date */
+        relativeBlogPath,
+      ] = matches;
+
+      const withCanonicalUrl = completeMatch.replace(
+        `../${relativeBlogPath}/index.md`,
+        makeCanonicalUrl(relativeBlogPath)
+      );
+      console.log(`Replacing ${completeMatch} with ${withCanonicalUrl}`);
+      return { oldImage: completeMatch, newImage: withCanonicalUrl };
     })
     .reduce(
       (contentInProgress, { oldImage, newImage }) =>
