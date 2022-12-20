@@ -1,4 +1,5 @@
 //@ts-check
+const imageCloudinaryRemarkPlugin = require('./image-cloudinary-remark-plugin');
 const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
 
 const fontaine = require('fontaine');
@@ -55,6 +56,7 @@ const config = {
         },
         docs: false,
         blog: {
+          rehypePlugins: [imageCloudinaryRemarkPlugin('priou')],
           feedOptions: {
             type: ['rss', 'atom'],
             title: 'I CAN MAKE THIS WORK',
