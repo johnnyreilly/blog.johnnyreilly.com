@@ -162,3 +162,7 @@ In this post we have got to know the Web Monetization API, we've used it to mone
 Thanks so much to [Alex Lakatos](https://twitter.com/avolakatos) for telling me about this in the first place and for answering all my questions!
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/getting-started-web-monetization-api/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/getting-started-web-monetization-api/" />
+</head>

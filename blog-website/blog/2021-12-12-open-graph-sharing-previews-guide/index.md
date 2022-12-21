@@ -176,3 +176,7 @@ Incidentally, the world could use a "caniuse" for Open Graph sharing previews. I
 In this post we've understood what sharable previews are, how to add them to a website, how to test them and some of the rough edges to be aware of.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/open-graph-sharable-social-media-previews/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/open-graph-sharable-social-media-previews/" />
+</head>

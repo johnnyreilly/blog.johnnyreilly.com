@@ -111,3 +111,7 @@ This feature is a tremendous addition to the TypeScript language. It should have
 To read more, do check out the excellent [TypeScript 4.4 beta release notes](https://devblogs.microsoft.com/typescript/announcing-typescript-4-4-beta/#cfa-aliased-conditions). There's also some other exciting feature shipping with this release as well. Thanks very much to the TypeScript team for once again improving the language, and making a real contribution to people being able to write readable code.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/typescript-4-4-and-more-readable-code/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/typescript-4-4-and-more-readable-code/" />
+</head>

@@ -459,4 +459,8 @@ Now our calculation takes place off the main thread and the UI is no longer bloc
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/integrating-web-workers-in-a-react-app-with-comlink/)
 
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/integrating-web-workers-in-a-react-app-with-comlink/" />
+</head>
+
 [The source code for this project can be found here.](https://github.com/johnnyreilly/webworkers-comlink-typescript-react)

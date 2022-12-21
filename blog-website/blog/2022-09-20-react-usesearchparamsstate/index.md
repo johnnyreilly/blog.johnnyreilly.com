@@ -131,3 +131,7 @@ Now as we navigate around our site, that state will be maintained.
 In this post we've created a `useSearchParamsState` hook, which allows state to be persisted to URLs for sharing purposes.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/use-state-url-persist-state-usesearchparams/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/use-state-url-persist-state-usesearchparams/" />
+</head>
