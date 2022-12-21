@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "swa start http://localhost:3000 --run \"npm start\" --api-location api",
+    "devBuild": "swa start build --api-location api",
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "docusaurus build",
