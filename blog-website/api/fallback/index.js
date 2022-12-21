@@ -25,7 +25,7 @@ async function fallback(context, req) {
   }
 
   context.res = {
-    status: 404,
+    status: 302,
     headers: { location: '/404.html' },
   };
 }
