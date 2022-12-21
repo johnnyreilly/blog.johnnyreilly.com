@@ -108,3 +108,7 @@ So in a way, I don't feel super strongly whether people use JavaScript or TypeSc
 I really like JSDoc myself, and will often use it on small projects. It's a fantastic addition to TypeScript's capabilities. For bigger projects, I'll likely go with TypeScript from the get go. But really, this is a choice - and either is great.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/typescript-vs-jsdoc-javascript/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/typescript-vs-jsdoc-javascript/" />
+</head>

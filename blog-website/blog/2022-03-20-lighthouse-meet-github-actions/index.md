@@ -389,3 +389,7 @@ Note you can also click on a link in the comment to go directly to the full repo
 Now, with each PR that is raised, any regressions in performance can be observed and resolved _before_ they make get in front of customer's eyes!
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/lighthouse-meets-github-actions-use-lighthouse-ci/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/lighthouse-meets-github-actions-use-lighthouse-ci/" />
+</head>
