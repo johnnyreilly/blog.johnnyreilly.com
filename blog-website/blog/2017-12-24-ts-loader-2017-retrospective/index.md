@@ -9,65 +9,65 @@ hide_table_of_contents: false
 
 Many releases were shipped and that was down to a whole bunch of folk. People helped out with bug fixes, features, advice and docs improvements. **All of these help.**`ts-loader` wouldn't be where it is without you so thanks to everyone that helped out - you rock!
 
-![](https://avatars.githubusercontent.com/christiantinauer)
+![Profile image of https://github.com/christiantinauer](christiantinauer.jpg)
 
-![](https://avatars.githubusercontent.com/Pajn)
+![Profile image of https://github.com/Pajn](Pajn.jpg)
 
-![](https://avatars.githubusercontent.com/maier49)
+![Profile image of https://github.com/maier49](maier49.jpg)
 
-![](https://avatars.githubusercontent.com/false)
+![Profile image of https://github.com/false](false.jpg)
 
-![](https://avatars.githubusercontent.com/roddypratt)
+![Profile image of https://github.com/roddypratt](roddypratt.jpg)
 
-![](https://avatars.githubusercontent.com/ldrick)
+![Profile image of https://github.com/ldrick](ldrick.jpg)
 
-![](https://avatars.githubusercontent.com/mattlewis92)
+![Profile image of https://github.com/mattlewis92](mattlewis92.jpg)
 
-![](https://avatars.githubusercontent.com/Venryx)
+![Profile image of https://github.com/Venryx](Venryx.jpg)
 
-![](https://avatars.githubusercontent.com/WillMartin)
+![Profile image of https://github.com/WillMartin](WillMartin.jpg)
 
-![](https://avatars.githubusercontent.com/Loilo)
+![Profile image of https://github.com/Loilo](Loilo.jpg)
 
-![](https://avatars.githubusercontent.com/Brooooooklyn)
+![Profile image of https://github.com/Brooooooklyn](Brooooooklyn.jpg)
 
-![](https://avatars.githubusercontent.com/mengxy)
+![Profile image of https://github.com/mengxy](mengxy.jpg)
 
-![](https://avatars.githubusercontent.com/bsouthga)
+![Profile image of https://github.com/bsouthga](bsouthga.jpg)
 
-![](https://avatars.githubusercontent.com/zinserjan)
+![Profile image of https://github.com/zinserjan](zinserjan.jpg)
 
-![](https://avatars.githubusercontent.com/sokra)
+![Profile image of https://github.com/sokra](sokra.jpg)
 
-![](https://avatars.githubusercontent.com/vhqtvn)
+![Profile image of https://github.com/vhqtvn](vhqtvn.jpg)
 
-![](https://avatars.githubusercontent.com/HerringtonDarkholme)
+![Profile image of https://github.com/HerringtonDarkholme](HerringtonDarkholme.jpg)
 
-![](https://avatars.githubusercontent.com/johnnyreilly)
+![Profile image of https://github.com/johnnyreilly](johnnyreilly.jpg)
 
-![](https://avatars.githubusercontent.com/jbrantly)
+![Profile image of https://github.com/jbrantly](jbrantly.jpg)
 
-![](https://avatars.githubusercontent.com/octref)
+![Profile image of https://github.com/octref](octref.jpg)
 
-![](https://avatars.githubusercontent.com/rhyek)
+![Profile image of https://github.com/rhyek](rhyek.jpg)
 
-![](https://avatars.githubusercontent.com/develar)
+![Profile image of https://github.com/develar](develar.jpg)
 
-![](https://avatars.githubusercontent.com/donaldpipowitch)
+![Profile image of https://github.com/donaldpipowitch](donaldpipowitch.jpg)
 
-![](https://avatars.githubusercontent.com/schmuli)
+![Profile image of https://github.com/schmuli](schmuli.jpg)
 
-![](https://avatars.githubusercontent.com/longlho)
+![Profile image of https://github.com/longlho](longlho.jpg)
 
-![](https://avatars.githubusercontent.com/Igorbek)
+![Profile image of https://github.com/Igorbek](Igorbek.jpg)
 
-![](https://avatars.githubusercontent.com/aindlq)
+![Profile image of https://github.com/aindlq](aindlq.jpg)
 
-![](https://avatars.githubusercontent.com/wearymonkey)
+![Profile image of https://github.com/wearymonkey](wearymonkey.jpg)
 
-![](https://avatars.githubusercontent.com/bancek)
+![Profile image of https://github.com/bancek](bancek.jpg)
 
-![](https://avatars.githubusercontent.com/mredbishop)
+![Profile image of https://github.com/mredbishop](mredbishop.jpg)
 
 I'm really grateful to all of you. Thanks so much! (Apologies for those I've missed anyone out - I know there's more still.)
 

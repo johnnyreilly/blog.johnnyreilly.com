@@ -18,8 +18,6 @@ The initial plan was to, through code, extract Libor and Euribor rates from Bloo
 1. Typing “`WAPI&lt;GO&gt;`” into Bloomberg lead me to the Bloomberg API documentation.
 2. Typing “`DOCS 2055451&lt;GO&gt;`” into Bloomberg (I know - it's a bit cryptic) provided me with samples of how to use the Bloomberg API in VBA
 
-![](https://4.bp.blogspot.com/-mZxP0-jXRIo/UKJ8y8Gs5AI/AAAAAAAAAW0/qNyIN9hGBiQ/s400/bloombergwapidocumentation.gif)
-
 To go with this I found some useful documentation of the Bloomberg Open API [here](http://www.openbloomberg.com/files/2012/10/blpapi-developers-guide.pdf) and I found the .NET Bloomberg Open API itself [here](http://www.openbloomberg.com/open-api/).
 
 ## Hello World?

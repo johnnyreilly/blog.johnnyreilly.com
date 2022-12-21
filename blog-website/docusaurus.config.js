@@ -1,15 +1,20 @@
 //@ts-check
-const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
+const imageCloudinaryRemarkPlugin = require('./image-cloudinary-remark-plugin');
+
+const IS_PULL_REQUEST = process.env['IS_PULL_REQUEST'] === 'true';
+console.log('IS_PULL_REQUEST', IS_PULL_REQUEST, typeof IS_PULL_REQUEST);
 
 const fontaine = require('fontaine');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
+const url = 'https://blog.johnnyreilly.com';
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'I CAN MAKE THIS WORK',
   tagline: 'The blog of johnnyreilly ❤️🌻',
-  url: 'https://blog.johnnyreilly.com',
+  url,
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
@@ -55,6 +60,9 @@ const config = {
         },
         docs: false,
         blog: {
+          rehypePlugins: IS_PULL_REQUEST
+            ? []
+            : [imageCloudinaryRemarkPlugin('priou', url)],
           feedOptions: {
             type: ['rss', 'atom'],
             title: 'I CAN MAKE THIS WORK',

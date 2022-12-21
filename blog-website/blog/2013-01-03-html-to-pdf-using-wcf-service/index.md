@@ -34,11 +34,7 @@ It's worth noting that `automaticFormatSelectionEnabled` set to true on the beha
 
 ## Test Harness
 
-As a final touch I added in a test harness in the form of `Demo.aspx`. If you browse to it you'll see a screen a little like this:
-
-![](https://2.bp.blogspot.com/-zoyt7ufl9FQ/UOVmD0VPh0I/AAAAAAAAAYE/DnmZmbx-Mxc/s400/PdfMakerDemo.png)
-
-It's fairly self-explanatory as you can see. And here's an example of the output generated when pointing at Hacker News:
+As a final touch I added in a test harness in the form of `Demo.aspx`. Here's an example of the output generated when pointing at Hacker News:
 
 <iframe src="https://docs.google.com/file/d/0B87K8-qxOZGFMGNCUWRneUFsVFU/preview" width="500" height="500"></iframe>
 
