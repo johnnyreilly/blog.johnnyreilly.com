@@ -21,7 +21,7 @@ But if you're okay with accents not being ignored (and _spoiler_: I am) then thi
 
 Here's a CodeSandbox which also includes the `ignoreAccents: false` tweak. Enjoy!
 
-[![Edit johnnyreilly/react-window-with-react-select-less-laggy](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/zn70lqp31m?fontsize=14)
+[![Edit johnnyreilly/react-window-with-react-select-less-laggy](play-codesandbox.svg)](https://codesandbox.io/s/zn70lqp31m?fontsize=14)
 
 ```js
 import React, { Component } from 'react';
