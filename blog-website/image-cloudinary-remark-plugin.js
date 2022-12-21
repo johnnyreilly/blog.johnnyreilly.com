@@ -1,4 +1,7 @@
 const visit = require('unist-util-visit');
+const { parseHost } = require('ufo');
+
+const domains = [];
 
 function imageCloudinaryRemarkPluginFactory(
   /** @type string */ cloudName,
@@ -24,7 +27,18 @@ function imageCloudinaryRemarkPluginFactory(
           //   ...
           // }
 
-          node.properties.src = `https://res.cloudinary.com/${cloudName}/image/fetch/${node.properties.src}`;
+          const urlOrRequire = node.properties.src;
+          if (!urlOrRequire.startsWith('require')) {
+            const host = parseHost(urlOrRequire);
+            if (host && !domains.includes(host)) {
+              domains.push(host);
+              console.log('img', host);
+            }
+          } else {
+            console.log('img - require', node.properties.src);
+          }
+
+          node.properties.src = `https://res.cloudinary.com/${cloudName}/image/fetch/${urlOrRequire}`;
           console.log('img', node);
         } else if (node.type === 'jsx' && node.value.includes('<img ')) {
           // handles nodes like this:
@@ -36,10 +50,18 @@ function imageCloudinaryRemarkPluginFactory(
 
           const match = node.value.match(srcRegex);
           if (match) {
+            const urlOrRequire = match[1];
             node.value = node.value.replace(
               srcRegex,
-              ` src={${`\`https://res.cloudinary.com/${cloudName}/image/fetch/${baseUrl}\$\{${match[1]}\}\``}}`
+              ` src={${`\`https://res.cloudinary.com/${cloudName}/image/fetch/${baseUrl}\$\{${urlOrRequire}\}\``}}`
             );
+            if (!urlOrRequire.startsWith('require')) {
+              const host = parseHost(urlOrRequire);
+              if (host && !domains.includes(host)) {
+                domains.push(host);
+                console.log('jsx', host);
+              }
+            }
             // console.log('jsx', node);
           } else {
             console.log('no match', node);
