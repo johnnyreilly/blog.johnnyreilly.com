@@ -154,35 +154,35 @@ const config = {
       };
     },
 
-    [
-      'client-redirects',
-      /** @type {import('@docusaurus/plugin-client-redirects').Options} */
-      ({
-        // redirects: [
-        //   {
-        //     to: '/2018/07/28/azure-app-service-web-app-containers-asp-net-nested-configuration',
-        //     from: '/2018/07/28/configuring-docker-azure-web-app-containers',
-        //   },
-        // ],
-        createRedirects: function (existingPath) {
-          const urlRegex = /^\d{4}\/\d{2}\/\d{2}\//;
-          console.log(existingPath);
-          if (existingPath.match(urlRegex)) {
-            const [, year, month, date, slug] = existingPath.split('/');
-            const oldUrl = `/${year}/${month}/${slug}.html`;
-            // console.log(`redirect from ${oldUrl} -> ${existingPath}`);
-            console.log(
-              JSON.stringify({
-                route: oldUrl,
-                redirect: existingPath,
-                statusCode: 301,
-              })
-            );
-            return [oldUrl, `/${year}/${month}/${slug}`];
-          }
-        },
-      }),
-    ],
+    // [
+    //   'client-redirects',
+    //   /** @type {import('@docusaurus/plugin-client-redirects').Options} */
+    //   ({
+    // redirects: [
+    //   {
+    //     to: '/2018/07/28/azure-app-service-web-app-containers-asp-net-nested-configuration',
+    //     from: '/2018/07/28/configuring-docker-azure-web-app-containers',
+    //   },
+    // ],
+    //     createRedirects: function (existingPath) {
+    //       const urlRegex = /^\d{4}\/\d{2}\/\d{2}\//;
+    //       console.log(existingPath);
+    //       if (existingPath.match(urlRegex)) {
+    //         const [, year, month, date, slug] = existingPath.split('/');
+    //         const oldUrl = `/${year}/${month}/${slug}.html`;
+    //         console.log(`redirect from ${oldUrl} -> ${existingPath}`);
+    //         console.log(
+    //           JSON.stringify({
+    //             route: oldUrl,
+    //             redirect: existingPath,
+    //             statusCode: 301,
+    //           })
+    //         );
+    //         return [oldUrl, `/${year}/${month}/${slug}`];
+    //       }
+    //     },
+    //   }),
+    // ],
 
     [
       'pwa',
