@@ -166,6 +166,7 @@ const config = {
         // ],
         createRedirects: function (existingPath) {
           const urlRegex = /^\d{4}\/\d{2}\/\d{2}\//;
+          console.log(existingPath);
           if (existingPath.match(urlRegex)) {
             const [, year, month, date, slug] = existingPath.split('/');
             const oldUrl = `/${year}/${month}/${slug}.html`;
