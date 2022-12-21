@@ -1,5 +1,5 @@
 const visit = require('unist-util-visit');
-const { parseHost } = require('ufo');
+const { parseURL } = require('ufo');
 
 const domains = [];
 
@@ -29,7 +29,7 @@ function imageCloudinaryRemarkPluginFactory(
 
           const urlOrRequire = node.properties.src;
           if (!urlOrRequire.startsWith('require')) {
-            const host = parseHost(urlOrRequire);
+            const { host } = parseURL(urlOrRequire);
             if (host && !domains.includes(host)) {
               domains.push(host);
               console.log('img', host);
@@ -56,7 +56,7 @@ function imageCloudinaryRemarkPluginFactory(
               ` src={${`\`https://res.cloudinary.com/${cloudName}/image/fetch/${baseUrl}\$\{${urlOrRequire}\}\``}}`
             );
             if (!urlOrRequire.startsWith('require')) {
-              const host = parseHost(urlOrRequire);
+              const { host } = parseURL(urlOrRequire);
               if (host && !domains.includes(host)) {
                 domains.push(host);
                 console.log('jsx', host);
