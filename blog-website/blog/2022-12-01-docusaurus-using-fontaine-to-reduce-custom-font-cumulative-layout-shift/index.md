@@ -134,3 +134,7 @@ I'm very grateful to Daniel for his help in getting it working with my blog. He 
 In testament to what a great idea fontaine is built upon, in the time I've been writing this post [`@next/font`](https://nextjs.org/blog/next-13#nextfont) has been announced, which is based upon a similar idea.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/docusaurus-using-fontaine-reduce-cumulative-layout-shift/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/docusaurus-using-fontaine-reduce-cumulative-layout-shift/" />
+</head>

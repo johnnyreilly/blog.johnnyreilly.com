@@ -697,3 +697,7 @@ We have built a React Hook which allows us to:
 - and which provides progress data to keep users informed.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/throttling-data-requests-with-react-hooks/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/throttling-data-requests-with-react-hooks/" />
+</head>

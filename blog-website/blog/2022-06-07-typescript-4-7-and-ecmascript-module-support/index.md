@@ -238,3 +238,7 @@ We've seen what TypeScript support for ECMAScript modules looks like, and how to
 If you'd like to read up further on the topic, the [TypeScript 4.7 beta release notes](https://devblogs.microsoft.com/typescript/announcing-typescript-4-7-beta/#esm-nodejs) are an excellent resource.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/typescript-4-7-ecmascript-module-support/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/typescript-4-7-ecmascript-module-support/" />
+</head>

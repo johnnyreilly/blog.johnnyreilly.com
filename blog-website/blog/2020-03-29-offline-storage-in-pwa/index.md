@@ -339,4 +339,8 @@ Finally, I've finished this post illustrating what usage would look like in a Re
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/offline-storage-for-pwas/)
 
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/offline-storage-for-pwas/" />
+</head>
+
 [The source code for this project can be found here.](https://github.com/johnnyreilly/offline-storage-in-a-pwa)

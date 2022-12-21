@@ -154,3 +154,7 @@ So we've been successful in building a website that renders structured data. Mor
 This post has illustrated what it looks like to create an `Article`. Google has some [great resources](https://developers.google.com/search/docs/advanced/structured-data/search-gallery) on other types that it supports and prioritises for rich results which should help you build the structured data you need for your particular content.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/react-structured-data-and-seo/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/react-structured-data-and-seo/" />
+</head>
