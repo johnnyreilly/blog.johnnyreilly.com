@@ -1,6 +1,8 @@
 //@ts-check
 const imageCloudinaryRemarkPlugin = require('./image-cloudinary-remark-plugin');
-const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
+
+// URL=https://thankful-sky-0bfc7e803-381.westeurope.1.azurestaticapps.net/ yarn build
+console.log('PREVIEW_URL', process.env['PREVIEW_URL']);
 
 const fontaine = require('fontaine');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github

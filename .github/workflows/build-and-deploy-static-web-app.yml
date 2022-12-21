@@ -85,13 +85,18 @@ jobs:
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   customDomainName='${{ env.CUSTOMDOMAINNAME }}'
 
-      - name: Get API key 🔑
-        id: static_web_app_apikey
+      - name: Get preview URL 📝
+        id: static_web_app_preview_url
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
-            echo "::set-output name=APIKEY::$APIKEY"
+            DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATICWEBAPPNAME }}' | jq -r '.defaultHostname')
+            echo $DEFAULTHOSTNAME
+
+            PREVIEW_URL="https://${DEFAULTHOSTNAME/.[1-9]./-${{github.event.pull_request.number }}.${{ env.LOCATION }}.1.}"
+            echo $PREVIEW_URL
+
+            echo "::set-output name=PREVIEW_URL::$PREVIEW_URL"
 
       - name: Setup Node.js 🔧
         uses: actions/setup-node@v3
@@ -103,9 +108,17 @@ jobs:
         run: |
           cd blog-website
           yarn install --frozen-lockfile
-          yarn run build
+          PREVIEW_URL=${{ steps.static_web_app_preview_url.outputs.PREVIEW_URL }} yarn run build
           # copy staticwebapp.config.json to build folder
           cp staticwebapp.config.json build/staticwebapp.config.json
+
+      - name: Get API key 🔑
+        id: static_web_app_apikey
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
+            echo "::set-output name=APIKEY::$APIKEY"
 
       - name: Deploy site 🚀
         id: static_web_app_build_and_deploy
@@ -120,19 +133,6 @@ jobs:
 
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           api_location: '' # Api source code path - optional
-
-      - name: Get preview URL 📝
-        id: static_web_app_preview_url
-        uses: azure/CLI@v1
-        with:
-          inlineScript: |
-            DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATICWEBAPPNAME }}' | jq -r '.defaultHostname')
-            echo $DEFAULTHOSTNAME
-
-            PREVIEW_URL="https://${DEFAULTHOSTNAME/.[1-9]./-${{github.event.pull_request.number }}.${{ env.LOCATION }}.1.}"
-            echo $PREVIEW_URL
-
-            echo "::set-output name=PREVIEW_URL::$PREVIEW_URL"
 
     outputs:
       preview-url: ${{steps.static_web_app_preview_url.outputs.PREVIEW_URL}}
