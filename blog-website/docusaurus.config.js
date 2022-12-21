@@ -2,7 +2,8 @@
 const imageCloudinaryRemarkPlugin = require('./image-cloudinary-remark-plugin');
 
 // URL=https://thankful-sky-0bfc7e803-381.westeurope.1.azurestaticapps.net/ yarn build
-console.log('PREVIEW_URL', process.env['PREVIEW_URL']);
+const IS_PULL_REQUEST = process.env['IS_PULL_REQUEST'];
+console.log('IS_PULL_REQUEST', IS_PULL_REQUEST, typeof IS_PULL_REQUEST);
 
 const fontaine = require('fontaine');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github

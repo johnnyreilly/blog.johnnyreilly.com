@@ -108,7 +108,7 @@ jobs:
         run: |
           cd blog-website
           yarn install --frozen-lockfile
-          PREVIEW_URL=${{ steps.static_web_app_preview_url.outputs.PREVIEW_URL }} yarn run build
+          IS_PULL_REQUEST=${{ github.event_name == 'pull_request' }} yarn run build
           # copy staticwebapp.config.json to build folder
           cp staticwebapp.config.json build/staticwebapp.config.json
 
