@@ -39,7 +39,7 @@ function imageCloudinaryRemarkPluginFactory(
           }
 
           node.properties.src = `https://res.cloudinary.com/${cloudName}/image/fetch/${urlOrRequire}`;
-          console.log('img', node);
+          // console.log('img', node);
         } else if (node.type === 'jsx' && node.value.includes('<img ')) {
           // handles nodes like this:
 
