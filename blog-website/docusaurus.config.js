@@ -1,8 +1,7 @@
 //@ts-check
 const imageCloudinaryRemarkPlugin = require('./image-cloudinary-remark-plugin');
 
-// URL=https://thankful-sky-0bfc7e803-381.westeurope.1.azurestaticapps.net/ yarn build
-const IS_PULL_REQUEST = process.env['IS_PULL_REQUEST'];
+const IS_PULL_REQUEST = process.env['IS_PULL_REQUEST'] === 'true';
 console.log('IS_PULL_REQUEST', IS_PULL_REQUEST, typeof IS_PULL_REQUEST);
 
 const fontaine = require('fontaine');
@@ -61,7 +60,9 @@ const config = {
         },
         docs: false,
         blog: {
-          rehypePlugins: [imageCloudinaryRemarkPlugin('priou', url)],
+          rehypePlugins: IS_PULL_REQUEST
+            ? []
+            : [imageCloudinaryRemarkPlugin('priou', url)],
           feedOptions: {
             type: ['rss', 'atom'],
             title: 'I CAN MAKE THIS WORK',

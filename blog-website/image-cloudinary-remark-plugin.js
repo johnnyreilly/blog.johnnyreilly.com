@@ -1,15 +1,20 @@
 //@ts-check
 const visit = require('unist-util-visit');
 
+/**
+ * Create a remark plugin that will replace image URLs with Cloudinary URLs
+ * @param {*} cloudName your Cloudinary’s cloud name eg demo
+ * @param {*} baseUrl the base URL of your website eg https://blog.johnnyreilly.com - should not include a trailing slash, will likely be the same as the config.url in your docusaurus.config.js
+ * @returns remark plugin that will replace image URLs with Cloudinary URLs
+ */
 function imageCloudinaryRemarkPluginFactory(
   /** @type string */ cloudName,
   /** @type string */ baseUrl
 ) {
+  const srcRegex = / src={(.*)}/;
+
   /** @type {import('unified').Plugin<[], import('hast').Root>} */
   return function imageCloudinaryRemarkPlugin() {
-    // eg https://res.cloudinary.com/demo/image/fetch/http://upload.wikimedia.org/wikipedia/commons/4/46/Jennifer_Lawrence_at_the_83rd_Academy_Awards.jpg
-    const srcRegex = / src={(.*)}/;
-
     return (tree) => {
       visit(tree, ['element', 'jsx'], (node) => {
         if (node.type === 'element' && node['tagName'] === 'img') {
