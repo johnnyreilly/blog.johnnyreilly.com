@@ -1,6 +1,9 @@
 const visit = require('unist-util-visit');
 
-function imageCloudinaryRemarkPluginFactory(/** @type string */ cloudName) {
+function imageCloudinaryRemarkPluginFactory(
+  /** @type string */ cloudName,
+  /** @type string */ baseUrl
+) {
   /** @type {import('unified').Plugin<[], import('hast').Root>} */
   return function imageCloudinaryRemarkPlugin() {
     // eg https://res.cloudinary.com/demo/image/fetch/http://upload.wikimedia.org/wikipedia/commons/4/46/Jennifer_Lawrence_at_the_83rd_Academy_Awards.jpg
@@ -35,7 +38,7 @@ function imageCloudinaryRemarkPluginFactory(/** @type string */ cloudName) {
           if (match) {
             node.value = node.value.replace(
               srcRegex,
-              ` src={${`\`https://res.cloudinary.com/${cloudName}/image/fetch/\$\{${match[1]}\}\``}}`
+              ` src={${`\`https://res.cloudinary.com/${cloudName}/image/fetch/${baseUrl}\$\{${match[1]}\}\``}}`
             );
             // console.log('jsx', node);
           } else {

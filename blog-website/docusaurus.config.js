@@ -6,11 +6,13 @@ const fontaine = require('fontaine');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
+const url = 'https://blog.johnnyreilly.com';
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'I CAN MAKE THIS WORK',
   tagline: 'The blog of johnnyreilly ❤️🌻',
-  url: 'https://blog.johnnyreilly.com',
+  url,
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
@@ -56,7 +58,7 @@ const config = {
         },
         docs: false,
         blog: {
-          rehypePlugins: [imageCloudinaryRemarkPlugin('priou')],
+          rehypePlugins: [imageCloudinaryRemarkPlugin('priou', url)],
           feedOptions: {
             type: ['rss', 'atom'],
             title: 'I CAN MAKE THIS WORK',
