@@ -1,6 +1,6 @@
 //@ts-check
 const { parseURL } = require('ufo');
-const routes = require('./routes');
+const routes = require('./redirects');
 
 async function fallback(context, req) {
   /** @type string */ const originalUrl = req.headers['x-ms-original-url'];
@@ -9,12 +9,13 @@ async function fallback(context, req) {
     context.log(`x-ms-original-url ${originalUrl}`);
 
     const parsedURL = parseURL(originalUrl);
-    const url = parsedURL.pathname + parsedURL.search;
 
-    const matchedRoute = routes.find((route) => url.includes(route.route));
+    const matchedRoute = routes.find((route) =>
+      parsedURL.pathname.includes(route.route)
+    );
 
     if (matchedRoute) {
-      context.log(`Proxying ${url} to ${matchedRoute.redirect}`);
+      context.log(`Proxying ${originalUrl} to ${matchedRoute.redirect}`);
 
       context.res = {
         status: matchedRoute.statusCode,
@@ -26,7 +27,7 @@ async function fallback(context, req) {
 
   context.res = {
     status: 302,
-    headers: { location: '/404.html' },
+    headers: { location: '/404' },
   };
 }
 

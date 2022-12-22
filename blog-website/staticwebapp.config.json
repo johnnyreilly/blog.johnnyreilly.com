@@ -1,5 +1,10 @@
 {
   "trailingSlash": "never",
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/404"
+    }
+  },
   "navigationFallback": {
     "rewrite": "/api/fallback"
   },
@@ -7,6 +12,10 @@
     "apiRuntime": "node:18"
   },
   "routes": [
+    {
+      "route": "/404",
+      "statusCode": 404
+    },
     {
       "route": "/img/*",
       "headers": {
