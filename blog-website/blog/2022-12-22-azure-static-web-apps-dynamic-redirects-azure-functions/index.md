@@ -22,7 +22,7 @@ Anthony went on to [share details of an example implementation that Nuxt.js has 
 
 ## Adding an Azure Function to our Azure Static Web App
 
-The first thing we need to do is add an Azure Function to our Azure Static Web App. All Static Web Apps can be backed by an Azure Function App. [We can create a simple JavaScript Azure Function following this guide](https://learn.microsoft.com/en-us/azure/static-web-apps/add-api?tabs=react#create-the-api).
+The first thing we need to do is add an Azure Function to our Azure Static Web App. All Static Web Apps can be backed by an Azure Function App. [We can create a simple JavaScript HttpTrigger Azure Function following this guide](https://learn.microsoft.com/en-us/azure/static-web-apps/add-api?tabs=react#create-the-api). I used JavScript as it seemed like the simplest option. If we wanted a different language we could use one.
 
 We're going to name the single function `fallback`, so it will be served up at `/api/fallback`. The code of the function is:
 
@@ -95,10 +95,10 @@ Now our Azure Function is in place, we need to configure our Azure Static Web Ap
 
 Here we:
 
-- point to our apps navigation fallback to our `fallback` function (`/api/fallback`) - this will be called whenever a URL is not matched by a static file
-- we declare an `apiRuntime` of Node.js 18 - this is the version of Node.js that our Azure Function is using
-- whenever the `/404` route is hit in our app, we ensure the status code presented is 404.
-- we remove the `route` redirects we had in place as these will now be handled by `/api/fallback` (this isn't shown in the above snippet)
+- Point to our apps navigation fallback to our `fallback` function (`/api/fallback`) - this will be called whenever a URL is not matched by a static file.
+- We declare an `apiRuntime` of Node.js 18 - this is the version of Node.js that our Azure Function is using.
+- Whenever the `/404` route is hit in our app, we ensure the status code presented is 404.
+- We remove the `route` redirects we had in place as these will now be handled by `/api/fallback` (this isn't shown in the above snippet)
 
 ## Deploying our Azure Function
 
