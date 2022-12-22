@@ -10,20 +10,21 @@ Azure Static Web Apps can perform URL redirects using the `routes` section in th
 
 ![title image reading "Azure Static Web Apps: dynamic redirects with Azure Functions" with the Static Web Apps and Azure Functions logo](title-image.png)
 
-Attempt to implement a mechanism that uses an Azure Function as the fallback navigation route as advised by @anthonychu here:
+## The limits of `routes` in `staticwebapp.config.json`
 
-https://twitter.com/nthonyChu/status/1605429770715402240
+I recently found myself fixing up some redirects for my blog, which runs on Azure Static Web Apps. I had quite a few redirects to implement and I ended up with [a very large `routes` section](https://learn.microsoft.com/en-us/azure/static-web-apps/configuration#routes). It was so large that I exceeded [the 20kb limit that affect Azure Static Web Apps](https://learn.microsoft.com/en-us/azure/static-web-apps/configuration#restrictions).
 
-Based upon prior art in @nuxtjs; see:
+I bemoaned this on Twitter and got some great advice from [Anthony Chu who works on Azure Static Web Apps](https://twitter.com/nthonyChu):
 
-- https://github.com/unjs/nitro/blob/1d9102a7215414068e30b52c96324ec3553b61c8/src/runtime/entries/azure.ts#L7
-- https://github.com/unjs/nitro/blob/1d9102a7215414068e30b52c96324ec3553b61c8/src/presets/azure.ts#L49
+[![Tweet that reads: Your best bet today might be to use a function that handles 404 response overrides. You can do the lookup with it and return a redirect if found. There might be a small cold start on those routes but for this case maybe it’s okay.](screenshot-tweet-azure-function-redirect.png)](https://twitter.com/nthonyChu/status/1605248878009208832)
 
-## What's this made up of?
+Anthony went on to [share details of an example implementation that Nuxt.js has implemented](https://twitter.com/nthonyChu/status/1605429770715402240). I took this as a challenge to implement something similar for my blog. Let's see how we got on.
 
-Created a simple JavaScript Azure Function following this guide: https://learn.microsoft.com/en-us/azure/static-web-apps/add-api?tabs=react#create-the-api - named our single function `fallback`, so it will be served up at `/api/fallback`
+## Adding an Azure Function to our Azure Static Web App
 
-The code of the function is:
+The first thing we need to do is add an Azure Function to our Azure Static Web App. All Static Web Apps can be backed by an Azure Function App. [We can create a simple JavaScript Azure Function following this guide](https://learn.microsoft.com/en-us/azure/static-web-apps/add-api?tabs=react#create-the-api).
+
+We're going to name the single function `fallback`, so it will be served up at `/api/fallback`. The code of the function is:
 
 ```js
 //@ts-check
@@ -70,9 +71,13 @@ async function fallback(context, req) {
 module.exports = fallback;
 ```
 
-Looking at the original URL, this function looks for a redirect in a big list of declared redirects we've made in a `redirects.js` file. If it finds a match, it redirects. Otherwise it redirects to the custom 404 screen and includes any original URL in the query string for visibility. With this in place, any unhandled redirects should show up in Google Analytics etc.
+What's happening here? Well, we're using the `ufo` package to parse the URL which we grab from the `x-ms-original-url` header. We then look for a match in our `redirects.js`, which is a _big_ list of potential redirects.
 
-In our `staticwebapp.config.json`:
+If we finds a match, we redirect based upon that match. Otherwise we redirect to the custom 404 screen in our app. And we include the original URL in the query string for visibility. (With this in place, any unhandled redirects should show up in Google Analytics etc.)
+
+## Consuming the Azure Function from our Azure Static Web App
+
+Now our Azure Function is in place, we need to configure our Azure Static Web App to use it. In our `staticwebapp.config.json` we'll make some changes:
 
 ```json
   "navigationFallback": {
@@ -88,15 +93,39 @@ In our `staticwebapp.config.json`:
     },
 ```
 
-We:
+Here we:
 
-- point to our `fallback` function (`/api/fallback`) in `navigationFallback` - this will attempt to find a declared redirect and redirect to it, failing a match it will redirect to the `/404` route
-- we declare an `apiRuntime` of Node.js 18
-- whenever the `/404` route is hit, we ensure the status code is 404.
-- we remove the `route` redirects we had in place as these will now be handled by `/api/fallback`
+- point to our apps navigation fallback to our `fallback` function (`/api/fallback`) - this will be called whenever a URL is not matched by a static file
+- we declare an `apiRuntime` of Node.js 18 - this is the version of Node.js that our Azure Function is using
+- whenever the `/404` route is hit in our app, we ensure the status code presented is 404.
+- we remove the `route` redirects we had in place as these will now be handled by `/api/fallback` (this isn't shown in the above snippet)
 
-In our GitHub Action we add in our Azure Function so it's built and deployed alongside our blog:
+## Deploying our Azure Function
+
+We need to deploy our Function, and we achieve that by tweaking the our GitHub Action that deploys our Static Web App. We add the following:
 
 ```yml
 api_location: '/blog-website/api'
 ```
+
+And now our Azure Function will be built and deployed alongside our blog.
+
+## Testing our Azure Function
+
+We can demonstrate this works pretty easily. If you go to https://blog.johnnyreilly.com/2014/01/upgrading-to-typescript-095-personal.html (the old Blogger URL), you'll be redirected to https://blog.johnnyreilly.com/2014/01/09/upgrading-to-typescript-095-personal - the new URL:
+
+![screenshot of redirect in Chrome Devtools](screenshot-redirect-in-chrome-devtools.png)
+
+This is driven by [this redirect in our `redirects.js`](https://github.com/johnnyreilly/blog.johnnyreilly.com/blob/e21d3faf897505e860fc351260ab45ef6fa21d60/blog-website/api/fallback/redirects.js#L475-L479) file:
+
+```json
+  {
+    route: '/2014/01/upgrading-to-typescript-095-personal.html',
+    redirect: '/2014/01/09/upgrading-to-typescript-095-personal',
+    statusCode: 301,
+  },
+```
+
+## Conclusion
+
+I'd love it if there was a way to do this without an Azure Function. Imagine a `staticwebapp.config.js` that could be used to configure redirects. That would be awesome. But for now, this is a pretty good solution. Thanks to Anthony Chu for the inspiration and the example. (And thanks to the Nuxt.js team for the example too!)
