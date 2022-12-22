@@ -16,7 +16,7 @@ I recently found myself fixing up some redirects for my blog, which runs on Azur
 
 I bemoaned this on Twitter and got some great advice from [Anthony Chu who works on Azure Static Web Apps](https://twitter.com/nthonyChu):
 
-[![Tweet that reads: Your best bet today might be to use a function that handles 404 response overrides. You can do the lookup with it and return a redirect if found. There might be a small cold start on those routes but for this case maybe it’s okay.](screenshot-tweet-azure-function-redirect.png)](https://twitter.com/nthonyChu/status/1605248878009208832)
+[![Tweet that reads: Your best bet today might be to use a function that handles 404 response overrides. You can do the lookup with it and return a redirect if found. There might be a small cold start on those routes but for this case maybe it’s okay.](screenshot-tweet-azure-function-redirect.webp)](https://twitter.com/nthonyChu/status/1605248878009208832)
 
 Anthony went on to [share details of an example implementation that Nuxt.js has implemented](https://twitter.com/nthonyChu/status/1605429770715402240). I took this as a challenge to implement something similar for my blog. Let's see how we got on.
 
