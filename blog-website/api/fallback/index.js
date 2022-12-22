@@ -6,7 +6,7 @@ async function fallback(context, req) {
   /** @type string */ const originalUrl = req.headers['x-ms-original-url'];
   if (originalUrl) {
     // This URL has been proxied as there was no static file matching it.
-    context.log(`x-ms-original-url ${originalUrl}`);
+    context.log(`x-ms-original-url: ${originalUrl}`);
 
     const parsedURL = parseURL(originalUrl);
 
@@ -15,7 +15,7 @@ async function fallback(context, req) {
     );
 
     if (matchedRoute) {
-      context.log(`Proxying ${originalUrl} to ${matchedRoute.redirect}`);
+      context.log(`Redirecting ${originalUrl} to ${matchedRoute.redirect}`);
 
       context.res = {
         status: matchedRoute.statusCode,
@@ -25,9 +25,9 @@ async function fallback(context, req) {
     }
   }
 
+  context.log(`Not found a redirect for ${originalUrl}`);
   context.res = {
-    status: 302,
-    headers: { location: '/404' },
+    status: 404,
   };
 }
 
