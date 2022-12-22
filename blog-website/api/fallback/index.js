@@ -25,9 +25,13 @@ async function fallback(context, req) {
     }
   }
 
-  context.log(`Not found a redirect for ${originalUrl}`);
   context.res = {
-    status: 404,
+    status: 302,
+    headers: {
+      location: originalUrl
+        ? `/404?referer=${encodeURIComponent(originalUrl)}`
+        : '404',
+    },
   };
 }
 
