@@ -38,7 +38,56 @@ And for what it's worth `jquery.validate.globalize.js` applies equally to standa
 
 Here's the JavaScript:
 
-<script src="https://gist.github.com/3651751.js?file=jquery.validate.globalize.js"></script>
+```js
+(function ($, Globalize) {
+  // Clone original methods we want to call into
+  var originalMethods = {
+    min: $.validator.methods.min,
+    max: $.validator.methods.max,
+    range: $.validator.methods.range,
+  };
+
+  // Tell the validator that we want numbers parsed using Globalize
+
+  $.validator.methods.number = function (value, element) {
+    var val = Globalize.parseFloat(value);
+    return this.optional(element) || $.isNumeric(val);
+  };
+
+  // Tell the validator that we want dates parsed using Globalize
+
+  $.validator.methods.date = function (value, element) {
+    var val = Globalize.parseDate(value);
+    return this.optional(element) || val;
+  };
+
+  // Tell the validator that we want numbers parsed using Globalize,
+  // then call into original implementation with parsed value
+
+  $.validator.methods.min = function (value, element, param) {
+    var val = Globalize.parseFloat(value);
+    return originalMethods.min.call(this, val, element, param);
+  };
+
+  $.validator.methods.max = function (value, element, param) {
+    var val = Globalize.parseFloat(value);
+    return originalMethods.max.call(this, val, element, param);
+  };
+
+  $.validator.methods.range = function (value, element, param) {
+    var val = Globalize.parseFloat(value);
+    return originalMethods.range.call(this, val, element, param);
+  };
+})(jQuery, Globalize);
+
+$(document).ready(function () {
+  // Set Globalize to the current culture driven by the html lang property
+  var currentCulture = $('html').prop('lang');
+  if (currentCulture) {
+    Globalize.culture(currentCulture);
+  }
+});
+```
 
 The above script does 2 things. Firstly it monkey patches jquery.validate.js to make use of Globalize.js number and date parsing in place of the defaults. Secondly it initialises Globalize to relevant current culture driven by the `html lang` property. So if the html tag looked like this:
 
@@ -79,7 +128,53 @@ With both of these set this means I get `&lt;html lang="de-DE"&gt;` or `&lt;html
 
 In order that I send the correct Globalize culture to the client I've come up with this static class which provides the user with the relevant culture URL (falling back to the en-GB culture if it can't find one based your culture):
 
-<script src="https://gist.github.com/3651751.js?file=GlobalizeUrls.cs"></script>
+```cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Hosting;
+using System.IO;
+using System.Globalization;
+
+namespace My.Helpers
+{
+    /// <summary>
+    /// Static class that is a store for commonly used filenames
+    /// (so if the files are updated they only need to be amended in a single place)
+    /// </summary>
+    public static class GlobalizeUrls
+    {
+
+        /// <summary>
+        /// URL for Globalize: https://github.com/jquery/globalize
+        /// </summary>
+        public static string Globalize { get { return "~/Scripts/globalize.js"; } }
+
+        /// <summary>
+        /// URL for the specific Globalize culture
+        /// </summary>
+        public static string GlobalizeCulture
+        {
+            get
+            {
+                //Determine culture - GUI culture for preference, user selected culture as fallback
+                var currentCulture = CultureInfo.CurrentCulture;
+                var filePattern = "~/scripts/globalize/globalize.culture.{0}.js";
+                var regionalisedFileToUse = string.Format(filePattern, "en-GB"); //Default localisation to use
+
+                //Try to pick a more appropriate regionalisation
+                if (File.Exists(HostingEnvironment.MapPath(string.Format(filePattern, currentCulture.Name)))) //First try for a globalize.culture.en-GB.js style file
+                    regionalisedFileToUse = string.Format(filePattern, currentCulture.Name);
+                else if (File.Exists(HostingEnvironment.MapPath(string.Format(filePattern, currentCulture.TwoLetterISOLanguageName)))) //That failed; now try for a globalize.culture.en.js style file
+                    regionalisedFileToUse = string.Format(filePattern, currentCulture.TwoLetterISOLanguageName);
+
+                return regionalisedFileToUse;
+            }
+        }
+    }
+}
+```
 
 ## Putting it all together
 

@@ -51,15 +51,85 @@ Incorporating the Bootstrap Datepicker into Twitter.Bootstrap.MVC4 was actually 
 
 Once this was done I amended the `BootstrapBundleConfig.cs` bundles to include these assets. Once this was done the bundle file looked like this:
 
-<script src="https://gist.github.com/4529746.js?file=BootstrapBundleConfig.cs"></script>
+```cs
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Optimization;
+
+namespace BootstrapSupport
+{
+    public class BootstrapBundleConfig
+    {
+        public static void RegisterBundles(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/js").Include(
+                "~/Scripts/jquery-1.*",
+                "~/Scripts/bootstrap.js",
+                "~/Scripts/bootstrap-datepicker.js", // ** NEW for Bootstrap Datepicker
+                "~/Scripts/jquery.validate.js",
+                "~/scripts/jquery.validate.unobtrusive.js",
+                "~/Scripts/jquery.validate.unobtrusive-custom-for-bootstrap.js"
+                ));
+
+            bundles.Add(new StyleBundle("~/content/css").Include(
+                "~/Content/bootstrap.css",
+                "~/Content/bootstrap-datepicker.css" // ** NEW for Bootstrap Datepicker
+                ));
+
+            bundles.Add(new StyleBundle("~/content/css-responsive").Include(
+                "~/Content/bootstrap-responsive.css"
+                ));
+        }
+    }
+}
+```
 
 I then created this folder:`~\Views\Shared\EditorTemplates`. To this folder I added the following `Date.cshtml` Partial to hold the datepicker EditorTemplate: (Having this in place meant that properties with the `[DataType(DataType.Date)]` attribute would automatically use this EditorTemplate when rendering an editor - I understand `[UIHint]` attributes can be used to the same end.)
 
-<script src="https://gist.github.com/4529746.js?file=Date.cshtml"></script>
+```cs
+@model DateTime?
+@Html.TextBox("", (Model.HasValue ? Model.Value.ToShortDateString() : string.Empty), new {
+    @class = "datepicker",
+    data_date_format = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower()
+})
+```
 
 And finally I amended the `Create.cshtml` View (which perhaps more accurately might be called the Edit View?) to include a bit of JavaScript at the bottom to initialise any datepickers on the screen.
 
-<script src="https://gist.github.com/4529746.js?file=Create.cshtml"></script>
+```cs
+@using BootstrapSupport
+@model Object
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset class="form-horizontal">
+        <legend>@Model.GetLabel() <small>Details</small></legend>
+        @foreach (var property in Model.VisibleProperties())
+        {
+            @Html.BeginControlGroupFor(property.Name)
+                @Html.Label(property.Name.ToSeparatedWords(), new { @class = "control-label" })
+                <div class="controls">
+                    @Html.Editor(property.Name, new { @class = "input-xlarge" })
+                    @Html.ValidationMessage(property.Name, null, new { @class = "help-inline" })
+  	        </div>
+            @Html.EndControlGroup()
+        }
+		<div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save changes</button>
+            @Html.ActionLink("Cancel",  "Index", null, new {@class = "btn "})
+          </div>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+<script type="text/javascript">
+    $('.datepicker').datepicker(); //Initialise any date pickers
+</script>
+}
+```
 
 Et voilà - it works!
 

@@ -13,11 +13,21 @@ However, I have found one exception to this rule already. IE 10 provides clear f
 
 Unhappily I found these were clashing with our jQuery UI auto complete loading gif.
 
-I know; ugly isn't it? Happily I was able to resolve this with a CSS <strike>hack</strike>
+I know; ugly isn't it? Happily I was able to resolve this with a CSS ~~hack~~
 
 fix which looks like this:
 
-<script src="https://gist.github.com/johnnyreilly/5345373.js?file=ie10jQueryUI.css"></script>
+```css
+/* jQuery auto completes add the class below when loading */
+.ui-autocomplete-loading {
+  background: url('/images/ajax_loader.gif') no-repeat right 0.5em center;
+}
+
+/* How'd you like them apples IE 10? */
+.ui-autocomplete-loading::-ms-clear {
+  display: none;
+}
+```
 
 And now the jQuery UI autocomplete looks like we expect during the loading phase.
 

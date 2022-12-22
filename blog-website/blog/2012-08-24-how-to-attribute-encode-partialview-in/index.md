@@ -56,7 +56,50 @@ Well the answer wasn't too complicated. After a little pondering I ended up scra
 
 Here's the code:
 
-<script src="https://gist.github.com/3449462.js?file=PartialExtensions.cs"></script>
+```cs
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Mvc.Html;
+
+namespace My.Helpers
+{
+    /// <summary>
+    /// MVC HtmlHelper extension methods - html element extensions
+    /// </summary>
+    public static class PartialExtensions
+    {
+        /// <summary>
+        /// Allows a partial to be rendered within quotation marks.
+        /// I use this with jQuery tooltips where we store the tooltip HMTL within a partial.
+        /// See example usage below:
+        /// <div class="tooltip" title="@Html.PartialAttributeEncoded("_MyTooltipInAPartial")">Some content</div>
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <param name="partialViewName"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public static MvcHtmlString PartialAttributeEncoded(
+          this HtmlHelper helper,
+          string partialViewName,
+          object model = null
+        )
+        {
+            //Create partial using the relevant overload (only implemented ones I used)
+            var partialString = (model == null)
+                ? helper.Partial(partialViewName)
+                : helper.Partial(partialViewName, model);
+
+            //Attribute encode the partial string - note that we have to .ToString() this to get back from an MvcHtmlString
+            var partialStringAttributeEncoded = HttpUtility.HtmlAttributeEncode(partialString.ToString());
+
+            //Turn this back into an MvcHtmlString
+            var partialMvcStringAttributeEncoded = MvcHtmlString.Create(partialStringAttributeEncoded);
+
+            return partialMvcStringAttributeEncoded;
+        }
+    }
+}
+```
 
 Using the above helper is simplicity itself:
 

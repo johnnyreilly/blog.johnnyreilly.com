@@ -36,7 +36,340 @@ Then as a final step before rendering the `&lt;/body&gt;` tag the scripts can be
 
 If anyone is curious - the class below is my own version of Michael's helper. My contribution is the go faster stripes relating to the caching suffix and the ability to specify dependancies using script references rather than using numeric priority mechanism):
 
-<script src="https://gist.github.com/3019159.js?file=ScriptExtensions.cs"></script>
+```cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.IO;
+using System.Text;
+
+namespace DummyMvc.Helpers
+{
+    /// <summary>
+    /// This helper makes creation of script tags within a view straightforward.
+    /// If the specified file is missing an error is raised at runtime.  A v= suffix
+    /// is added to URLs using the VersionHelper to make caching behave as desired
+    /// both during development (where we don't want to cache as we make changes to code)
+    /// and during production (where we do want to cache to improve the user loading experience)
+    ///
+    /// There are 2 approaches available using this helper.
+    ///
+    /// 1. Straight script tag creation using the Script method.
+    ///
+    /// A usage of:
+    ///
+    /// @Html.Script("~/Scripts/jquery.js")
+    ///
+    /// Would immediatedly render a tag as below: (please note the v= suffix to the URL)
+    ///
+    /// <script src="/Scripts/jquery.tools.min.js?v=634765611410213405" type="text/javascript"></script>
+    ///
+    /// 2. Script bundling
+    ///
+    /// This approach allows you to build up the scripts to be rendered across multiple
+    /// views / partial views / layout etc and then have them rendered in one hit (ideally
+    /// just prior to the body tag being rendered as at this point the screen will be visually
+    /// set up for the user and any script loading that causes blocking should not be a presentational
+    /// issue). This is heavily based on Michael Ryans work; see links below.
+    ///
+    /// [Links]
+    /// http://frugalcoder.us/post/2009/06/29/Handling-Scripts-in-ASPNet-MVC.aspx
+    /// http://stackoverflow.com/questions/5598167/mvc3-need-help-with-html-helper
+    ///
+    /// [Usage]
+    /// --- From each view / partial view ---
+    /// @Html.AddClientScript("~/Scripts/jquery.js")
+    /// @Html.AddClientScript("~/Scripts/jquery-ui.js", dependancies: new string[] {"~/Scripts/jquery.js"})
+    /// @Html.AddClientScript("~/Scripts/site.js", dependancies: new string[] {"~/Scripts/jquery.js"})
+    /// @Html.AddClientScript("~/Scripts/views/myview.js", dependancies: new string[] {"~/Scripts/jquery.js"})
+    ///
+    /// --- From the main Master/View (just before last Body tag so all "registered" scripts are included) ---
+    /// @Html.ClientScripts()
+    /// </summary>
+    public static class ScriptExtensions
+    {
+        #region Public
+
+        /// <summary>
+        /// Render a Script element given a URL
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <param name="url">URL of script to render</param>
+        /// <returns></returns>
+        public static MvcHtmlString Script(
+          this HtmlHelper helper,
+          string url)
+        {
+            return MvcHtmlString.Create(MakeScriptTag(helper, url));
+        }
+
+        /// <summary>
+        /// Add client script files to list of script files that will eventually be added to the view
+        /// </summary>
+        /// <param name="scriptPath">path to script file</param>
+        /// <param name="dependancies">OPTIONAL: a string array of any script dependancies</param>
+        /// <returns>always MvcHtmlString.Empty</returns>
+        public static MvcHtmlString AddClientScript(this HtmlHelper helper, string scriptPath, string[] dependancies = null)
+        {
+            //If script list does not already exist then initialise
+            if (!helper.ViewContext.HttpContext.Items.Contains("client-script-list"))
+                helper.ViewContext.HttpContext.Items["client-script-list"] = new Dictionary<string, KeyValuePair<string, string[]>>();
+
+            var scripts = helper.ViewContext.HttpContext.Items["client-script-list"] as Dictionary<string, KeyValuePair<string, string[]>>;
+
+            //Ensure scripts are not added twice
+            var scriptFilePath = helper.ViewContext.HttpContext.Server.MapPath(DetermineScriptToRender(helper, scriptPath));
+            if (!scripts.ContainsKey(scriptFilePath))
+                scripts.Add(scriptFilePath, new KeyValuePair<string, string[]>(scriptPath, dependancies));
+
+            return MvcHtmlString.Empty;
+        }
+
+        /// <summary>
+        /// Add a script tag for each "registered" script associated with the current view.
+        /// Output script tags with order depending on script dependancies
+        /// </summary>
+        /// <returns>MvcHtmlString</returns>
+        public static MvcHtmlString ClientScripts(this HtmlHelper helper)
+        {
+            var url = new UrlHelper(helper.ViewContext.RequestContext, helper.RouteCollection);
+            var scripts = helper.ViewContext.HttpContext.Items["client-script-list"] as Dictionary<string, KeyValuePair<string, string[]>> ?? new Dictionary<string, KeyValuePair<string, string[]>>();
+
+            //Build script tag block
+            var scriptList = new List<string>();
+            if (scripts.Count > 0)
+            {
+                //Check all script dependancies exist and throw an exception if any do not
+                var distinctDependancies = scripts.Where(s => s.Value.Value != null)
+                                                  .SelectMany(s => s.Value.Value)
+                                                  .Distinct()
+                                                  .Select(s => GetScriptFilePath(helper, s)) //Exception will be thrown here if file does not exist
+                                                  .ToList();
+
+                var missingDependancies = distinctDependancies.Except(scripts.Select(s => s.Key)).ToList();
+                if (missingDependancies.Count > 0)
+                {
+                    throw new KeyNotFoundException("The following dependancies are missing: " + Environment.NewLine +
+                        Environment.NewLine +
+                        string.Join(Environment.NewLine, missingDependancies));
+                }
+
+                //Serve scripts without dependancies first
+                scriptList.AddRange(scripts.Where(s => s.Value.Value == null).Select(s => s.Value.Key));
+
+                //Get all scripts which have dependancies
+                var scriptsAndDependancies = scripts.Where(s => s.Value.Value != null)
+                                                    .OrderBy(s => s.Value.Value.Length)
+                                                    .Select(s => s.Value)
+                                                    .ToList();
+
+                //Loop round adding scripts to the scriptList until all are done
+                do
+                {
+                    //Loop backwards through list so items can be removed mid loop
+                    for (var i = scriptsAndDependancies.Count - 1; i >= 0; i--)
+                    {
+                        var script = scriptsAndDependancies[i].Key;
+                        var dependancies = scriptsAndDependancies[i].Value;
+
+                        //Check if all the dependancies have been added to scriptList yet
+                        bool currentScriptDependanciesAdded = !dependancies.Except(scriptList).Any();
+                        if (currentScriptDependanciesAdded)
+                        {
+                            //Move script to scriptList
+                            scriptList.Add(script);
+                            scriptsAndDependancies.RemoveAt(i);
+                        }
+                    }
+                } while (scriptsAndDependancies.Count > 0);
+            }
+
+            //Generate a script tag for each script
+            var scriptsToRender = scriptList.Select(s => MakeScriptTag(helper, s)).ToList();
+#if DEBUG
+            scriptsToRender.Insert(0, "<!-- BEGIN - HtmlHelperScriptExtensions.ClientScripts() -->");
+            scriptsToRender.Insert(scriptsToRender.Count, "<!-- END - HtmlHelperScriptExtensions.ClientScripts() -->");
+#endif
+
+            //Output script tag block at point in view where method is called (by returning an MvcHtmlString)
+            return (scriptsToRender.Count > 0
+                ? MvcHtmlString.Create(string.Join(Environment.NewLine, scriptsToRender))
+                : MvcHtmlString.Empty);
+        }
+
+        /// <summary>
+        /// Add client script block to list of script blocks that will eventually be added to the view
+        /// </summary>
+        /// <param name="key">unique identifier for script block</param>
+        /// <param name="scriptBlock">script block</param>
+        /// <param name="dependancies">OPTIONAL: a string array of any script block dependancies</param>
+        /// <returns>always MvcHtmlString.Empty</returns>
+        public static MvcHtmlString AddClientScriptBlock(this HtmlHelper helper, string key, string scriptBlock, string[] dependancies = null)
+        {
+            //If script list does not already exist then initialise
+            if (!helper.ViewContext.HttpContext.Items.Contains("client-script-block-list"))
+                helper.ViewContext.HttpContext.Items["client-script-block-list"] = new Dictionary<string, KeyValuePair<string, string[]>>();
+
+            var scriptBlocks = helper.ViewContext.HttpContext.Items["client-script-block-list"] as Dictionary<string, KeyValuePair<string, string[]>>;
+
+            //Prevent duplication
+            if (scriptBlocks.ContainsKey(key)) return MvcHtmlString.Empty;
+
+            scriptBlocks.Add(key, new KeyValuePair<string, string[]>(scriptBlock, dependancies));
+
+            return MvcHtmlString.Empty;
+        }
+
+        /// <summary>
+        /// Output all "registered" script blocks associated with the current view.
+        /// Output script tags with order depending on script dependancies
+        /// </summary>
+        /// <returns>MvcHtmlString</returns>
+        public static MvcHtmlString ClientScriptBlocks(this HtmlHelper helper)
+        {
+            var scriptBlocks = helper.ViewContext.HttpContext.Items["client-script-block-list"] as Dictionary<string, KeyValuePair<string, string[]>> ?? new Dictionary<string, KeyValuePair<string, string[]>>();
+
+            //Build script tag block
+            var scriptBlockList = new List<string>();
+            if (scriptBlocks.Count > 0)
+            {
+                //Check all script dependancies exist and throw an exception if any do not
+                var distinctDependancies = scriptBlocks.Where(s => s.Value.Value != null)
+                                                       .SelectMany(s => s.Value.Value)
+                                                       .Distinct()
+                                                       .ToList();
+
+                var missingDependancies = distinctDependancies.Except(scriptBlocks.Select(s => s.Key)).ToList();
+                if (missingDependancies.Count > 0)
+                {
+                    throw new KeyNotFoundException("The following dependancies are missing: " + Environment.NewLine +
+                        Environment.NewLine +
+                        string.Join(Environment.NewLine, missingDependancies));
+                }
+
+                //Serve script blocks without dependancies first
+                scriptBlockList.AddRange(scriptBlocks.Where(s => s.Value.Value == null).Select(s => s.Value.Key));
+
+                //Get all script blocks which have dependancies
+                var scriptBlocksAndDependancies = scriptBlocks.Where(s => s.Value.Value != null)
+                                                              .OrderBy(s => s.Value.Value.Length)
+                                                              .Select(s => s.Value)
+                                                              .ToList();
+
+                //Loop round adding scripts to the scriptList until all are done
+                do
+                {
+                    //Loop backwards through list so items can be removed mid loop
+                    for (var i = scriptBlocksAndDependancies.Count - 1; i >= 0; i--)
+                    {
+                        var scriptBlock = scriptBlocksAndDependancies[i].Key;
+                        var dependancies = scriptBlocksAndDependancies[i].Value;
+
+                        //Check if all the dependancies have been added to scriptList yet
+                        bool currentScriptBlockDependanciesAdded = !dependancies.Except(scriptBlockList).Any();
+                        if (currentScriptBlockDependanciesAdded)
+                        {
+                            //Move script to scriptList
+                            scriptBlockList.Add(scriptBlock);
+                            scriptBlocksAndDependancies.RemoveAt(i);
+                        }
+                    }
+                } while (scriptBlocksAndDependancies.Count > 0);
+            }
+
+            //Generate a script tag for each script
+            var scriptBlocksToRender = scriptBlockList.Select(s => string.Format("<script type=\"text/javascript\">{0}{1}</script>", Environment.NewLine, s)).ToList();
+#if DEBUG
+            scriptBlocksToRender.Insert(0, "<!-- BEGIN - HtmlHelperScriptExtensions.ClientScriptBlocks() -->");
+            scriptBlocksToRender.Insert(scriptBlocksToRender.Count, "<!-- END - HtmlHelperScriptExtensions.ClientScriptBlocks() -->");
+#endif
+
+            //Output script tag block at point in view where method is called (by returning an MvcHtmlString)
+            return (scriptBlocksToRender.Count > 0
+                ? MvcHtmlString.Create(string.Join(Environment.NewLine, scriptBlocksToRender))
+                : MvcHtmlString.Empty);
+        }
+
+        #endregion
+
+        #region Private
+
+        /// <summary>
+        /// Take a URL, resolve it and a version suffix.  In Debug this will be based on DateTime.Now to prevent caching
+        /// on a development machine.  In Production this will be based on the version number of the appplication.
+        /// This means when the version number is incremented in subsequent releases script files should be recached automatically.
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <param name="url">URL to resolve and add suffix to</param>
+        /// <returns></returns>
+        private static string ResolveUrlWithVersion(HtmlHelper helper, string url)
+        {
+#if DEBUG
+            var suffix = DateTime.Now.Ticks.ToString();
+#else
+            var suffix = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+#endif
+
+            var urlWithVersionSuffix = string.Format("{0}?v={1}", url, suffix);
+            var urlResolved = new UrlHelper(helper.ViewContext.RequestContext, helper.RouteCollection).Content(urlWithVersionSuffix);
+
+            return urlResolved;
+        }
+
+        /// <summary>
+        /// Create the string that represents a script tag
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        private static string MakeScriptTag(HtmlHelper helper, string url)
+        {
+            var scriptToRender = DetermineScriptToRender(helper, url);
+
+            //Render script tag
+            var scriptTag = new TagBuilder("script");
+            scriptTag.Attributes["type"] = "text/javascript"; //This isn't really required with HTML 5 as this is the default.  As it does no real harm so I have left it for now. http://stackoverflow.com/a/9659074/761388
+            scriptTag.Attributes["src"] = SharedExtensions.ResolveUrlWithVersion(helper, scriptToRender);
+
+            var scriptTagString = scriptTag.ToString();
+            return scriptTagString;
+        }
+
+        /// <summary>
+        /// Author      : John Reilly
+        /// Description : Get the script that should be served to the user - throw an exception if it doesn't exist and minify if in release mode
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <param name="url"></param>
+        /// <param name="minifiedSuffix">OPTIONAL - this allows you to directly specify the minified suffix if it differs from the standard
+        /// of "min.js" - unlikely this will ever be used but possible</param>
+        /// <returns></returns>
+        private static string DetermineScriptToRender(HtmlHelper helper, string url, string minifiedSuffix = "min.js")
+        {
+            //Initialise a list that will contain potential scripts to render
+            var possibleScriptsToRender = new List<string>() { url };
+
+#if DEBUG
+            //Don't add minified scripts in debug mode
+#else
+            //Add minified path of script to list
+            possibleScriptsToRender.Insert(0, Path.ChangeExtension(url, minifiedSuffix));
+#endif
+
+            var validScriptsToRender = possibleScriptsToRender.Where(s => File.Exists(helper.ViewContext.HttpContext.Server.MapPath(s)));
+            if (!validScriptsToRender.Any())
+                throw new FileNotFoundException("Unable to render " + url + " as none of the following scripts exist:" +
+                    string.Join(Environment.NewLine, possibleScriptsToRender));
+            else
+                return validScriptsToRender.First(); //Return first existing file in list (minified file in release mode)
+        }
+
+        #endregion
+    }
+}
+```
 
 ## Minification - I want to serve you less...
 

@@ -23,15 +23,160 @@ To that end, I've come up with something that I feel does the job, and does it w
 
 You're no doubt dazzled by the glory of it all. How was it accomplished? Well, it was actually a great deal easier than you might think. First of all we have the html:
 
-<script src="https://gist.github.com/johnnyreilly/5466370.js?file=navigationAnimation.html"></script>
+```html
+<div class="float-right hidden" id="navigationAnimation">
+  <div id="circleG">
+    <div id="circleG_1" class="circleG"></div>
+    <div id="circleG_2" class="circleG"></div>
+    <div id="circleG_3" class="circleG"></div>
+  </div>
+</div>
+```
 
 Apart from the outer `div` tag (#navigationAnimation) all of this is the HTML taken from [CSS Load](http://cssload.net/). If you wanted to use a different navigation animation you could easily replace the inner HTML with something else instead. Next up is the CSS, again courtesy of CSS Load (and it's this that turns this simple HTML into sumptuous animated goodness):
 
-<script src="https://gist.github.com/johnnyreilly/5466370.js?file=navigationAnimation.css"></script>
+```css
+#navigationAnimation {
+  margin-top: 7px;
+}
+
+#circleG {
+  width: 46.666666666666664px;
+}
+
+.circleG {
+  background-color: #ffffff;
+  float: left;
+  height: 10px;
+  margin-left: 5px;
+  width: 10px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px;
+  -moz-animation-name: bounce_circleG;
+  -moz-animation-duration: 0.6000000000000001s;
+  -moz-animation-iteration-count: infinite;
+  -moz-animation-direction: linear;
+  -webkit-animation-name: bounce_circleG;
+  -webkit-animation-duration: 0.6000000000000001s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: linear;
+  -ms-animation-name: bounce_circleG;
+  -ms-animation-duration: 0.6000000000000001s;
+  -ms-animation-iteration-count: infinite;
+  -ms-animation-direction: linear;
+  animation-name: bounce_circleG;
+  animation-duration: 0.6000000000000001s;
+  animation-iteration-count: infinite;
+  animation-direction: linear;
+}
+
+#circleG_1 {
+  -moz-animation-delay: 0.12000000000000002s;
+  -webkit-animation-delay: 0.12000000000000002s;
+  -ms-animation-delay: 0.12000000000000002s;
+  animation-delay: 0.12000000000000002s;
+}
+
+#circleG_2 {
+  -moz-animation-delay: 0.28s;
+  -webkit-animation-delay: 0.28s;
+  -ms-animation-delay: 0.28s;
+  animation-delay: 0.28s;
+}
+
+#circleG_3 {
+  -moz-animation-delay: 0.36s;
+  -webkit-animation-delay: 0.36s;
+  -ms-animation-delay: 0.36s;
+  animation-delay: 0.36s;
+}
+
+@-moz-keyframes bounce_circleG {
+  50% {
+    background-color: #000000;
+  }
+}
+
+@-webkit-keyframes bounce_circleG {
+  50% {
+    background-color: #000000;
+  }
+}
+
+@-ms-keyframes bounce_circleG {
+  50% {
+    background-color: #000000;
+  }
+}
+
+@keyframes bounce_circleG {
+  50% {
+    background-color: #000000;
+  }
+}
+
+/* classes below are not part of CSS animation */
+
+.hidden {
+  display: none;
+}
+
+.float-right {
+  float: right;
+  margin-left: 1em;
+}
+```
 
 And finally we have the JavaScript which is responsible for showing animation when the user starts navigating:
 
-<script src="https://gist.github.com/johnnyreilly/5466370.js?file=navigationAnimation.js"></script>
+```js
+/*!
+ * Initialise the navigation animation
+ */
+$(document).ready(function () {
+  var navigationAnimationVisible, navigationFallback, $navigationAnimation;
+
+  // initialises the navigation animation (including fallback for browsers without CSS animations)
+  function initialiseNavigationAnimation() {
+    navigationAnimationVisible = false;
+    $navigationAnimation = $('#navigationAnimation');
+    navigationFallback =
+      '<img src="/images/navigationAnimation.gif" width="43" height="11" />';
+
+    // fallback - initial call to ensure the image is cached before subsequent re-use (present flash to users of unloaded gif)
+    if (!Modernizr.cssanimations) {
+      $navigationAnimation.html(navigationFallback);
+    }
+  }
+
+  // Show or hide the navigation animation
+  function showNavigating(makeVisible) {
+    if (makeVisible && !navigationAnimationVisible) {
+      // Show
+      $navigationAnimation.removeClass('hidden');
+      navigationAnimationVisible = true;
+    } else if (!makeVisible && navigationAnimationVisible) {
+      // Hide
+      $navigationAnimation.addClass('hidden');
+      navigationAnimationVisible = false;
+    }
+  }
+
+  // Initialise
+  initialiseNavigationAnimation();
+
+  // Show navigation animation on screen change
+  $(window).on('beforeunload', function () {
+    // fallback
+    if (!Modernizr.cssanimations) {
+      $navigationAnimation.html(navigationFallback);
+    }
+
+    showNavigating(true);
+  });
+});
+```
 
 It's helped along with a little jQuery here but this could easily be accomplished with vanilla JS if you fancied. The approach works by hooking into the [beforeunload](https://developer.mozilla.org/en-US/docs/DOM/Mozilla_event_reference/beforeunload) event that fires when "_the window, the document and its resources are about to be unloaded_". There's a little bit more to the functionality in the JavaScript abover which I go into in the PPS below. Essentially that covers backwards compatibility with earlier versions of IE.
 
