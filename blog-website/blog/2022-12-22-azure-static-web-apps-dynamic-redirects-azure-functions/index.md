@@ -112,7 +112,7 @@ And now our Azure Function will be built and deployed alongside our blog.
 
 ## Testing our Azure Function
 
-We can demonstrate this works pretty easily. If we go to https://blog.johnnyreilly.com/2014/01/upgrading-to-typescript-095-personal.html (the old Blogger URL), we'll be redirected (301'd to be specific) to https://blog.johnnyreilly.com/2014/01/09/upgrading-to-typescript-095-personal - the new URL. This is demonstrated in the following screenshot - note the `location` header in the response:
+We can demonstrate this works pretty easily. Let's take a super old blog post of mine, where I upgraded to TypeScript 0.9.5 (!!!) The route has changed since I originally posted back in 2014. If we go to https://blog.johnnyreilly.com/2014/01/upgrading-to-typescript-095-personal.html (the old Blogger URL), we'll be redirected (301'd to be specific - signalling a permanent move) to https://blog.johnnyreilly.com/2014/01/09/upgrading-to-typescript-095-personal - the new URL. This is demonstrated in the following screenshot - note the `location` header in the response:
 
 ![screenshot of redirect in Chrome Devtools](screenshot-redirect-in-chrome-devtools.png)
 
@@ -129,3 +129,5 @@ This particular redirect is driven by [an entry in our `redirects.js`](https://g
 ## Conclusion
 
 I'd love it if there was a way to do this without an Azure Function. Imagine a `staticwebapp.config.js` that could be used to configure redirects. That would be awesome. But for now, this is a pretty good solution. Thanks to Anthony Chu for the inspiration and the example. (And thanks to the Nuxt.js team for the example too!)
+
+[If you'd like to see what it looked like when this landed in this very blog, then look at this pull request](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/384).
