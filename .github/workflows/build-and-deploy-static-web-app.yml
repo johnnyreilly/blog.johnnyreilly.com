@@ -132,7 +132,7 @@ jobs:
           # output_location: 'build' # Built app content directory - optional
 
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          api_location: '' # Api source code path - optional
+          api_location: '/blog-website/api' # Api source code path - optional
 
     outputs:
       preview-url: ${{steps.static_web_app_preview_url.outputs.PREVIEW_URL}}

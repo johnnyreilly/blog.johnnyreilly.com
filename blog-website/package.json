@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "funcDev": "swa start http://localhost:3000 --run \"npm start\" --api-location api",
+    "funcBuild": "swa start build --api-location api",
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "docusaurus build",
@@ -15,6 +17,7 @@
     "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
+    "@azure/static-web-apps-cli": "^1.0.4",
     "@docusaurus/core": "2.2.0",
     "@docusaurus/plugin-client-redirects": "2.2.0",
     "@docusaurus/plugin-ideal-image": "2.2.0",
