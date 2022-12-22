@@ -6,7 +6,7 @@ image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-Azure Static Web Apps can perform URL redirects using the `routes` section in the `staticwebapp.config.json`. However it is limited. This post will demonstrate dynamic redirects with Azure Functions.
+Azure Static Web Apps can perform URL redirects using the `routes` section in the `staticwebapp.config.json`. However it is limited. This post will demonstrate dynamic URL redirects with Azure Functions.
 
 ![title image reading "Azure Static Web Apps: dynamic redirects with Azure Functions" with the Static Web Apps and Azure Functions logo](title-image.png)
 
@@ -73,7 +73,7 @@ module.exports = fallback;
 
 What's happening here? Well, we're using the `ufo` package to parse the URL which we grab from the `x-ms-original-url` header. We then look for a match in our `redirects.js`, which is a _big_ list of potential redirects.
 
-If we finds a match, we redirect based upon that match. Otherwise we redirect to the custom 404 screen in our app. And we include the original URL in the query string for visibility. (With this in place, any unhandled redirects should show up in Google Analytics etc.)
+If we find a match, we redirect based upon that match. Otherwise we redirect to the custom 404 screen in our app. And we include the original URL in the query string for visibility. (With this in place, any unhandled redirects should show up in Google Analytics etc.)
 
 ## Consuming the Azure Function from our Azure Static Web App
 
