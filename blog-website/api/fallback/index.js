@@ -25,6 +25,10 @@ async function fallback(context, req) {
     }
   }
 
+  context.log(
+    `No explicit redirect for ${originalUrl} so will redirect to 404`
+  );
+
   context.res = {
     status: 302,
     headers: {
