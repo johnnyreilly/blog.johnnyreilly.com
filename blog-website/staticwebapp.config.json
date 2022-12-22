@@ -1,10 +1,5 @@
 {
   "trailingSlash": "never",
-  "responseOverrides": {
-    "404": {
-      "rewrite": "/404"
-    }
-  },
   "navigationFallback": {
     "rewrite": "/api/fallback"
   },
