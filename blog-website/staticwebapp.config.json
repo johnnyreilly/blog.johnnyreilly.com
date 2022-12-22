@@ -37,7 +37,7 @@
     }
   ],
   "globalHeaders": {
-    "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'; script-src 'self' https://www.googleanalytics.com https://www.google-analytics.com https://www.googleoptimize.com https://www.googletagmanager.com 'unsafe-inline'; img-src 'self' data: https: https://blog.johnnyreilly.com https://www.google-analytics.com https://www.googletagmanager.com https://dev.to https://res.cloudinary.com; font-src 'self' https://blog.johnnyreilly.com",
+    "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'; script-src 'self' https://www.googleanalytics.com https://www.google-analytics.com https://www.googleoptimize.com https://www.googletagmanager.com https://gist.github.com 'unsafe-inline'; img-src 'self' data: https: https://blog.johnnyreilly.com https://www.google-analytics.com https://www.googletagmanager.com https://dev.to https://res.cloudinary.com; font-src 'self' https://blog.johnnyreilly.com",
     "X-Clacks-Overhead": "GNU Terry Pratchett",
     "Access-Control-Allow-Origin": "*"
   },
