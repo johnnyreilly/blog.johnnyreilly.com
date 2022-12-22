@@ -19,11 +19,35 @@ Before I begin I should say that the problem \*<u>has been resolved in MVC 4</u>
 
 The problem is that deserialization of Dictionary objects does not behave in the expected and desired fashion. When you fire off a dictionary it arrives at your endpoint as the enormously unhelpful `null`. To see this for yourself you can try using this JavaScript:
 
-<script src="https://gist.github.com/3931778.js?file=PostDictionaryTest.js"></script>
+```js
+$.ajax('PostDictionary', {
+  type: 'POST',
+  contentType: 'application/json',
+  data: JSON.stringify({
+    myDictionary: {
+      This: 'is',
+      a: 'dictionary',
+    },
+  }),
+  success: function (result) {
+    alert(JSON.stringify(result));
+  },
+});
+```
 
 With this C#:
 
-<script src="https://gist.github.com/3931778.js?file=HomeController.cs"></script>
+```cs
+        //...
+
+        [HttpPost]
+        public ActionResult PostDictionary(Dictionary<string, string> myDictionary)
+        {
+            return Json(myDictionary);
+        }
+
+        //...
+```
 
 You get a null `null` dictionary.
 
@@ -40,11 +64,39 @@ My colleague found a workaround for the issue [here](http://stackoverflow.com/a/
 
 I've adapted my example from earlier to demonstrate this; first the JavaScript:
 
-<script src="https://gist.github.com/3931778.js?file=PostDictionaryTestWorkaround.js"></script>
+```js
+$.ajax('PostDictionary', {
+  type: 'POST',
+  contentType: 'application/json',
+  data: JSON.stringify({
+    myDictionary: JSON.stringify({
+      //Note the deliberate double JSON.stringify
+      This: 'is',
+      a: 'dictionary',
+    }),
+  }),
+  success: function (result) {
+    alert(JSON.stringify(result));
+  },
+});
+```
 
 Then the C#:
 
-<script src="https://gist.github.com/3931778.js?file=HomeControllerWorkaround.cs"></script>
+```cs
+        //...
+
+        [HttpPost]
+        public ActionResult PostDictionary(string myDictionary)
+        {
+            var actualDictionary = new System.Web.Script.Serialization.JavaScriptSerializer()
+                .Deserialize<Dictionary<string, string>>(myDictionary);
+
+            return Json(actualDictionary);
+        }
+
+        //...
+```
 
 And now we're able to get a dictionary.
 

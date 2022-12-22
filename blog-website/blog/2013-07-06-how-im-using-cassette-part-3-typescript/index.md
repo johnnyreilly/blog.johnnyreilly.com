@@ -40,19 +40,81 @@ And whilst we're at it let's grab the jQuery TypeScript typings - we'll need the
 
 Now we need to add a couple of classes to the project. First of all this:
 
-<script src="https://gist.github.com/johnnyreilly/5934706.js?file=ParseJavaScriptNotTypeScriptReferences.cs"></script>
+```cs
+using System;
+using Cassette.Scripts;
+
+namespace CassetteDemo
+{
+    public class ParseJavaScriptNotTypeScriptReferences : ParseJavaScriptReferences
+    {
+        protected override bool ShouldAddReference(string referencePath)
+        {
+            return !referencePath.EndsWith(".ts", StringComparison.OrdinalIgnoreCase); // Will exclude TypeScript files from being served
+        }
+    }
+}
+```
 
 Which subclasses `ParseJavaScriptReferences` and ensures TypeScript files are excluded when JavaScript references are being parsed. And to make sure that Cassette makes use of `ParseJavaScriptNotTypeScriptReferences` in place of `ParseJavaScriptReferences` we need this:
 
-<script src="https://gist.github.com/johnnyreilly/5934706.js?file=InsertIntoPipelineParseJavaScriptNotTypeScriptReferences.cs"></script>
+```cs
+using Cassette.BundleProcessing;
+using Cassette.Scripts;
+
+namespace CassetteDemo
+{
+    public class InsertIntoPipelineParseJavaScriptNotTypeScriptReferences : IBundlePipelineModifier<ScriptBundle>
+    {
+        public IBundlePipeline<ScriptBundle> Modify(IBundlePipeline<ScriptBundle> pipeline)
+        {
+            var positionOfJavaScriptReferenceParser = pipeline.IndexOf<ParseJavaScriptReferences>();
+
+            pipeline.RemoveAt(positionOfJavaScriptReferenceParser);
+            pipeline.Insert<ParseJavaScriptNotTypeScriptReferences>(positionOfJavaScriptReferenceParser);
+            return pipeline;
+        }
+    }
+}
+```
 
 Now we're in a position to use TypeScript with Cassette. To demonstrate this let's take the `Index.js` and rename it to `Index.ts`. And now it's TypeScript. However before it can compile it needs to know what jQuery is - so we drag in the jQuery typings from [Definitely Typed](http://github.com/borisyankov/DefinitelyTyped). And now it can compile from this:
 
-<script src="https://gist.github.com/johnnyreilly/5934706.js?file=Index.ts"></script>
+```ts
+/// <reference path="../../typings/jquery/jquery.d.ts" />
+// @reference ~/bundles/core
+
+$(document).ready(function () {
+  var $body = $('#body');
+
+  $body.fadeOut(1000, function () {
+    $body
+      .html(
+        '<div style="width: 150px; margin: 0 auto;">I made it all go away...</div>'
+      )
+      .fadeIn();
+  });
+});
+```
 
 To this: (Please note that I get the TypeScript compiler to preserve my comments in order that I can continue to use Cassettes Asset Referencing)
 
-<script src="https://gist.github.com/johnnyreilly/5934706.js?file=Index.js"></script>
+```js
+/// <reference path="../../typings/jquery/jquery.d.ts" />
+// @reference ~/bundles/core
+$(document).ready(function () {
+  var $body = $('#body');
+
+  $body.fadeOut(1000, function () {
+    $body
+      .html(
+        '<div style="width: 150px; margin: 0 auto;">I made it all go away...</div>'
+      )
+      .fadeIn();
+  });
+});
+//@ sourceMappingURL=Index.js.map
+```
 
 As you can see the output JavaScript has both the TypeScript and the Cassette references in place. However thanks to `ParseJavaScriptNotTypeScriptReferences` those TypeScript references will be ignored by Cassette.
 

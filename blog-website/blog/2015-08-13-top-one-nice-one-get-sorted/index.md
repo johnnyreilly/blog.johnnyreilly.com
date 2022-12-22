@@ -224,7 +224,50 @@ I know.
 
 I'll get my coat...
 
-<script src="https://gist.github.com/johnnyreilly/22f7c05b02c2129b89ef.js"></script>
+```js
+function composeComparers(...comparers) {
+  return comparers.reduce((prev, curr) => (a, b) => prev(a, b) || curr(a, b));
+}
+
+function stringComparer(propLambda) {
+  return (obj1, obj2) => {
+    const obj1Val = propLambda(obj1) || '';
+    const obj2Val = propLambda(obj2) || '';
+    return obj1Val.localeCompare(obj2Val);
+  };
+}
+
+function numberComparer(propLambda) {
+  return (obj1, obj2) => {
+    const obj1Val = propLambda(obj1);
+    const obj2Val = propLambda(obj2);
+    if (obj1Val > obj2Val) {
+      return 1;
+    } else if (obj1Val < obj2Val) {
+      return -1;
+    }
+    return 0;
+  };
+}
+
+function reverse(comparer) {
+  return (obj1, obj2) => comparer(obj2, obj1);
+}
+
+/* - Example usage
+const foodInTheHouse = [
+  { what: 'cake',   daysSincePurchase: 2 },
+  { what: 'apple',  daysSincePurchase: 8 },
+  { what: 'orange', daysSincePurchase: 6 },
+  { what: 'apple',  daysSincePurchase: 2 },
+];
+const foodInTheHouseSorted = foodInTheHouse.sort(composeComparers(
+    stringComparer(x => x.what),
+    reverse(numberComparer(x => x.daysSincePurchase))
+));
+console.log(foodInTheHouseSorted);
+*/
+```
 
 ## Updated 08/10/2018: Now TypeScript
 

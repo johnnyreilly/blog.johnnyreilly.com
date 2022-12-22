@@ -31,7 +31,82 @@ Now you've got Cassette in place you may as well pull out usage of Web Optimizat
 
 You'll also notice you now have a CassetteConfiguration.cs file in your project. Open it. Replace the contents with this (I've just commented out the default code and implemented my own CSS and Script bundles based on what is available in the default template of an MVC 4 app):
 
-<script src="https://gist.github.com/johnnyreilly/5393608.js?file=CassetteConfiguration.cs"></script>
+```cs
+using Cassette;
+using Cassette.Scripts;
+using Cassette.Stylesheets;
+
+namespace CassetteDemo
+{
+    /// <summary>
+    /// Configures the Cassette asset bundles for the web application.
+    /// </summary>
+    public class CassetteBundleConfiguration : IConfiguration<BundleCollection>
+    {
+        public void Configure(BundleCollection bundles)
+        {
+            // TODO: Configure your bundles here...
+            // Please read http://getcassette.net/documentation/configuration
+
+            // This default configuration treats each file as a separate 'bundle'.
+            // In production the content will be minified, but the files are not combined.
+            // So you probably want to tweak these defaults!
+            //bundles.AddPerIndividualFile<StylesheetBundle>("Content");
+            //bundles.AddPerIndividualFile<ScriptBundle>("Scripts");
+
+            // To combine files, try something like this instead:
+            //   bundles.Add<StylesheetBundle>("Content");
+            // In production mode, all of ~/Content will be combined into a single bundle.
+
+            // If you want a bundle per folder, try this:
+            //   bundles.AddPerSubDirectory<ScriptBundle>("Scripts");
+            // Each immediate sub-directory of ~/Scripts will be combined into its own bundle.
+            // This is useful when there are lots of scripts for different areas of the website.
+
+            AddStylesheetBundles(bundles);
+            AddScriptBundles(bundles);
+        }
+
+        private static void AddStylesheetBundles(BundleCollection bundles)
+        {
+            bundles.Add<StylesheetBundle>("~/bundles/css",
+                                          "~/Content/Site.css",
+                                          "~/Content/themes/base/jquery-ui.css"
+                );
+        }
+
+        private static void AddScriptBundles(BundleCollection bundles)
+        {
+            // A bundle of the scripts that will need to be added to the head (likely only ever to be Modernizr but you never know)
+            bundles.Add<ScriptBundle>("~/bundles/head",
+                                      new[] {"~/Scripts/modernizr-2.6.2.js"},
+                                      bundle => bundle.PageLocation = "head"
+                );
+
+            // A bundle of the core scripts that will likely be used on every page of the app
+            bundles.Add<ScriptBundle>("~/bundles/core",
+                                      new[]
+                                          {
+                                              "~/Scripts/jquery-1.8.2.js",
+                                              "~/Scripts/jquery-ui-1.8.24.js"
+                                          });
+
+            // Validation scripts; only likely necessary on date entry screens
+            bundles.Add<ScriptBundle>("~/bundles/validate",
+                                      new[]
+                                          {
+                                              "~/Scripts/jquery.validate.js",
+                                              "~/Scripts/jquery.validate.unobtrusive.js"
+                                          },
+                                      bundle => bundle.AddReference("~/bundles/core")
+                );
+
+            // Create a per file bundle for all areas / views
+            //bundles.AddPerIndividualFile<ScriptBundle>("~/Scripts/Views");
+        }
+    }
+}
+```
 
 In the script above I've created 4 bundles, 1 stylesheet bundle and 3 JavaScript bundles - each of these is roughly equivalent to Web Optimization bundles that are part of the MVC 4 template:
 
@@ -58,18 +133,194 @@ If you're more familiar with the workings of Web Optimization than Cassette then
 
 Now we've created our bundles let's get the project serving up CSS and JavaScript using Cassette. First the layout file. Take the `_Layout.cshtml` file from this:
 
-<script src="https://gist.github.com/johnnyreilly/5393608.js?file=_LayoutBefore.cshtml"></script>
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css") @Scripts.Render("~/bundles/modernizr")
+  </head>
+  <body>
+    <header>
+      <div class="content-wrapper">
+        <div class="float-left">
+          <p class="site-title">
+            @Html.ActionLink("your logo here", "Index", "Home")
+          </p>
+        </div>
+        <div class="float-right">
+          <section id="login">@Html.Partial("_LoginPartial")</section>
+          <nav>
+            <ul id="menu">
+              <li>@Html.ActionLink("Home", "Index", "Home")</li>
+              <li>@Html.ActionLink("About", "About", "Home")</li>
+              <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <div id="body">
+      @RenderSection("featured", required: false)
+      <section class="content-wrapper main-content clear-fix">
+        @RenderBody()
+      </section>
+    </div>
+    <footer>
+      <div class="content-wrapper">
+        <div class="float-left">
+          <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+        </div>
+      </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery") @RenderSection("scripts", required:
+    false)
+  </body>
+</html>
+```
 
 To this:
 
-<script src="https://gist.github.com/johnnyreilly/5393608.js?file=_LayoutAfter.cshtml"></script>
+```html
+@{ Bundles.Reference("~/bundles/css"); Bundles.Reference("~/bundles/head");
+Bundles.Reference("~/bundles/core"); }
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Bundles.RenderStylesheets() @Bundles.RenderScripts("head")
+  </head>
+  <body>
+    <header>
+      <div class="content-wrapper">
+        <div class="float-left">
+          <p class="site-title">
+            @Html.ActionLink("your logo here", "Index", "Home")
+          </p>
+        </div>
+        <div class="float-right">
+          <section id="login">@Html.Partial("_LoginPartial")</section>
+          <nav>
+            <ul id="menu">
+              <li>@Html.ActionLink("Home", "Index", "Home")</li>
+              <li>@Html.ActionLink("About", "About", "Home")</li>
+              <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <div id="body">
+      @RenderSection("featured", required: false)
+      <section class="content-wrapper main-content clear-fix">
+        @RenderBody()
+      </section>
+    </div>
+    <footer>
+      <div class="content-wrapper">
+        <div class="float-left">
+          <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+        </div>
+      </div>
+    </footer>
+
+    @Bundles.RenderScripts()
+  </body>
+</html>
+```
 
 And now let's take one of the views, `Login.cshtml` and take it from this:
 
-<script src="https://gist.github.com/johnnyreilly/5393608.js?file=LoginBefore.cshtml"></script>
+```html
+@model CassetteDemo.Models.LoginModel @{ ViewBag.Title = "Log in"; }
+
+<hgroup class="title">
+  <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<section id="loginForm">
+  <h2>Use a local account to log in.</h2>
+  @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+  @Html.AntiForgeryToken() @Html.ValidationSummary(true)
+
+  <fieldset>
+    <legend>Log in Form</legend>
+    <ol>
+      <li>
+        @Html.LabelFor(m => m.UserName) @Html.TextBoxFor(m => m.UserName)
+        @Html.ValidationMessageFor(m => m.UserName)
+      </li>
+      <li>
+        @Html.LabelFor(m => m.Password) @Html.PasswordFor(m => m.Password)
+        @Html.ValidationMessageFor(m => m.Password)
+      </li>
+      <li>
+        @Html.CheckBoxFor(m => m.RememberMe) @Html.LabelFor(m => m.RememberMe,
+        new { @class = "checkbox" })
+      </li>
+    </ol>
+    <input type="submit" value="Log in" />
+  </fieldset>
+  <p>@Html.ActionLink("Register", "Register") if you don't have an account.</p>
+  }
+</section>
+
+<section class="social" id="socialLoginForm">
+  <h2>Use another service to log in.</h2>
+  @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+</section>
+
+@section Scripts { @Scripts.Render("~/bundles/jqueryval") }
+```
 
 To this:
 
-<script src="https://gist.github.com/johnnyreilly/5393608.js?file=LoginAfter.cshtml"></script>
+```html
+@model CassetteDemo.Models.LoginModel @{ ViewBag.Title = "Log in";
+Bundles.Reference("~/bundles/validate"); }
+
+<hgroup class="title">
+  <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<section id="loginForm">
+  <h2>Use a local account to log in.</h2>
+  @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+  @Html.AntiForgeryToken() @Html.ValidationSummary(true)
+
+  <fieldset>
+    <legend>Log in Form</legend>
+    <ol>
+      <li>
+        @Html.LabelFor(m => m.UserName) @Html.TextBoxFor(m => m.UserName)
+        @Html.ValidationMessageFor(m => m.UserName)
+      </li>
+      <li>
+        @Html.LabelFor(m => m.Password) @Html.PasswordFor(m => m.Password)
+        @Html.ValidationMessageFor(m => m.Password)
+      </li>
+      <li>
+        @Html.CheckBoxFor(m => m.RememberMe) @Html.LabelFor(m => m.RememberMe,
+        new { @class = "checkbox" })
+      </li>
+    </ol>
+    <input type="submit" value="Log in" />
+  </fieldset>
+  <p>@Html.ActionLink("Register", "Register") if you don't have an account.</p>
+  }
+</section>
+
+<section class="social" id="socialLoginForm">
+  <h2>Use another service to log in.</h2>
+  @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+</section>
+```
 
 So now you should be up and running with Cassette. If you want the code behind this then take I've put it on GitHub [here](https://github.com/johnnyreilly/CassetteDemo).
