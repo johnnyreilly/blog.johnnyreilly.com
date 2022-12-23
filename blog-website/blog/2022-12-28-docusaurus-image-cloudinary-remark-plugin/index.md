@@ -6,7 +6,7 @@ image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-Cloudinary offers an image CDN which can improve performance of your site. This post details how to use it with Docusaurus.
+Cloudinary offers an image CDN which can improve performance of your site. This post details how to get Docusaurus to use Cloudinary to serve optimised images.
 
 ![title image reading "Serving Docusaurus images with Cloudinary" with the Docusaurus and Cloudinary logos](title-image.png)
 
@@ -18,19 +18,29 @@ To quote [Cloudinary's website](https://cloudinary.com/blog/delivering_all_your_
 >
 > Using Cloudinary you can use these same technologies today, in your website or blog, without any hassle.
 
-Consumption of the CDN is very simple. You simply prefix the URL of the image you want to serve with the URL of the CDN. For example, if you want to serve the following image: `https://blog.johnnyreilly.com/img/profile-64x64.jpg`, you can serve it from Cloudinary with the following URL: `https://res.cloudinary.com/demo/image/fetch/https://blog.johnnyreilly.com/img/profile-64x64.jpg`.
+Consumption of the CDN is very simple. You simply prefix the URL of the image you want to serve with the URL of the Cloudinary CDN. For example, if you want to serve the following image:
+
+`https://blog.johnnyreilly.com/img/profile-64x64.jpg`
+
+you can serve it from Cloudinary with the following URL:
+
+`https://res.cloudinary.com/demo/image/fetch/https://blog.johnnyreilly.com/img/profile-64x64.jpg`.
 
 You see? All we did was prefix `https://res.cloudinary.com/demo/image/fetch/` to the URL of the image we wanted to serve. That's it. When you visit the URL, you'll see the image served from Cloudinary. Behind the scenes, Cloudinary will fetch the image from the original source and serve it to you.
 
+:::note
+
 The `demo` part of the URL is the name of the Cloudinary account. You can create your own account and use that instead.
+
+:::
 
 ## Cloudinary account settings
 
-Once you have created your account, to use this approach you'll need to tweak the settings. There's two possible tweaks, isable restricted media types: Fetched URL (mandatory) and one that's optional.
+Once you have created your account, you'll need to tweak the settings. There's two tweaks, one mandatory and one that's optional.
 
 ### Disable restricted media types: Fetched URL
 
-First the mandatory one. We need to disable the `Disable restricted media types: Fetched URL` setting. This is because we're fetching the image from a URL. If we didn't disable this setting, Cloudinary would refuse to serve the image. It just wouldn't even try to fetch it.
+First the mandatory one. We need to uncheck the `Disable restricted media types: Fetched URL` setting. The double negative shenanigans make this confusing; to read it another way we are "allowing fetching URLs". Much clearer! We need to do this is because we're fetching the image from a URL. If we didn't make the change, Cloudinary would refuse to serve the image. It wouldn't even try to fetch it.
 
 ![screenshot of Cloudinary settings with the Disable restricted media types: Fetched URL unchecked](screenshot-cloudinary-restricted.png)
 
@@ -42,11 +52,11 @@ Remember to scroll down and hit the "Save" button. (Otherwise your changes won't
 
 ### Allowed fetch domains
 
-The second setting is optional. If you want to restrict the domains from which you can fetch images, you can do so. This is useful if you want to ensure that you're only fetching images from your own site. We achieve this by adding the domain to the `Allowed fetch domains` setting. To my mind, it's the Cloudinary content security policy for fetching images.
+The second setting is optional. If you want to restrict the domains from which you can fetch images, you can do so. You might want to do this if you want to prevent others from making use of your Cloudinary account and blowing your limits. I'm not sure how likely that is, but it's a possibility.
 
 ![screenshot of Cloudinary settings with the allowed fetch domains restricted to blog.johnnyreilly.com](screenshot-cloudinary-allowed-fetch-domains.png)
 
-You might want to do this if you want to prevent others from making use of your Cloudinary account and blowing your limits. I'm not sure how likely that is, but it's a possibility.
+Above I'm restricting my account to only fetch images from my own site; `blog.johnnyreilly.com`. To my mind, it's the Cloudinary content security policy for fetching images.
 
 ## Docusaurus Cloudinary remark image plugin
 
@@ -159,9 +169,7 @@ const config = {
 module.exports = config;
 ```
 
-Note that we pass in the name of our Cloudinary account and the base URL of our website.
-
-We can now run our website and see the images being transformed into Cloudinary URLs:
+Note that we pass in the name of our Cloudinary account and the base URL of our website. We can now run our website and see the images being transformed into Cloudinary URLs:
 
 ![Screenshot of image being served from the Cloudinary CDN](screenshot-image-from-cloudinary.png)
 
@@ -169,7 +177,7 @@ Excellent! We're now serving our images from the Cloudinary CDN.
 
 ## What about pull request previews?
 
-We've done all the hard stuff, now let's do some tweaking. We want to make sure that our pull request previews still work. My blog runs on Azure Static Web Apps and benefits from a [staging environments / pull request previews feature that lets you see a change before it is merged](../2022-02-08-azure-static-web-apps-a-netlify-alternative/index.md). It's useful not only for human intrigue, but for running [tools like Lighthouse against your site to catch issues](../2022-03-20-lighthouse-meet-github-actions/index.md).
+We've done all the hard stuff, now let's do some finessing. We want to make sure that our pull request previews still work. My blog runs on Azure Static Web Apps and benefits from a [staging environments / pull request previews feature that lets you see a change before it is merged](../2022-02-08-azure-static-web-apps-a-netlify-alternative/index.md). It's useful not only for human intrigue, but for running [tools like Lighthouse against your site to catch issues](../2022-03-20-lighthouse-meet-github-actions/index.md).
 
 We don't want to be serving images from the Cloudinary CDN when we're running a pull request preview. We could make it work, but it doesn't seem worth the candle. We can just serve the images from our website.
 
