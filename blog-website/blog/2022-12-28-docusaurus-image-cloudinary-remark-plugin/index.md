@@ -191,7 +191,9 @@ However, to support that we need to have a mechanism to detect when we're runnin
     IS_PULL_REQUEST=${{ github.event_name == 'pull_request' }} yarn run build
 ```
 
-The above code sets an environment variable called `IS_PULL_REQUEST` to `true` if we're running a pull request preview. We can then use that environment variable to conditionally add the plugin to our `rehypePlugins` array:
+The above code sets an environment variable called `IS_PULL_REQUEST` to `true` if we're running a pull request preview. [You'll note that I'm building my website externally to the Azure Static Web Apps build process](blog-website/blog/2022-12-18-azure-static-web-apps-build-app-externally/index.md). If I was building my website as part of the Azure Static Web Apps build process, I'd use the [custom `app_build_command` feature](https://learn.microsoft.com/en-us/azure/static-web-apps/build-configuration?tabs=github-actions#custom-build-commands) to set the environment variable.
+
+With our environment variable in place, we can conditionally add the plugin to our `rehypePlugins` array:
 
 ```js
 //@ts-check
