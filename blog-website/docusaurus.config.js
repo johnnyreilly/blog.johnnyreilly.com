@@ -1,5 +1,5 @@
 //@ts-check
-const imageCloudinaryRemarkPlugin = require('./image-cloudinary-remark-plugin');
+const docusaurusCloudinaryRemarkPlugin = require('./docusaurus-cloudinary-remark-plugin');
 
 const IS_PULL_REQUEST = process.env['IS_PULL_REQUEST'] === 'true';
 console.log('IS_PULL_REQUEST', IS_PULL_REQUEST, typeof IS_PULL_REQUEST);
@@ -62,7 +62,7 @@ const config = {
         blog: {
           rehypePlugins: IS_PULL_REQUEST
             ? []
-            : [imageCloudinaryRemarkPlugin('priou', url)],
+            : [docusaurusCloudinaryRemarkPlugin('priou', url)],
           feedOptions: {
             type: ['rss', 'atom'],
             title: 'I CAN MAKE THIS WORK',
