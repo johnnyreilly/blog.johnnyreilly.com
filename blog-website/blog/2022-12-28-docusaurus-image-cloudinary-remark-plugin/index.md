@@ -42,7 +42,7 @@ Once you have created your account, you'll need to tweak the settings. There's t
 
 First the mandatory one. We need to uncheck the `Disable restricted media types: Fetched URL` setting. The double negative shenanigans make this confusing; to read it another way we are "allowing fetching URLs". Much clearer! We need to do this is because we're fetching the image from a URL. If we didn't make the change, Cloudinary would refuse to serve the image. It wouldn't even try to fetch it.
 
-![screenshot of Cloudinary settings with the Disable restricted media types: Fetched URL unchecked](screenshot-cloudinary-restricted.png)
+![screenshot of Cloudinary settings with the Disable restricted media types: Fetched URL unchecked](screenshot-cloudinary-restricted.webp)
 
 :::caution
 
@@ -54,7 +54,7 @@ Remember to scroll down and hit the "Save" button. (Otherwise your changes won't
 
 The second setting is optional. If you want to restrict the domains from which you can fetch images, you can do so. You might want to do this if you want to prevent others from making use of your Cloudinary account and blowing your limits. I'm not sure how likely that is, but it's a possibility.
 
-![screenshot of Cloudinary settings with the allowed fetch domains restricted to blog.johnnyreilly.com](screenshot-cloudinary-allowed-fetch-domains.png)
+![screenshot of Cloudinary settings with the allowed fetch domains restricted to blog.johnnyreilly.com](screenshot-cloudinary-allowed-fetch-domains.webp)
 
 Above I'm restricting my account to only fetch images from my own site; `blog.johnnyreilly.com`. To my mind, it's the Cloudinary content security policy for fetching images.
 
@@ -171,7 +171,7 @@ module.exports = config;
 
 Note that we pass in the name of our Cloudinary account and the base URL of our website. We can now run our website and see the images being transformed into Cloudinary URLs:
 
-![Screenshot of image being served from the Cloudinary CDN](screenshot-image-from-cloudinary.png)
+![Screenshot of image being served from the Cloudinary CDN](screenshot-image-from-cloudinary.webp)
 
 Excellent! We're now serving our images from the Cloudinary CDN.
 
