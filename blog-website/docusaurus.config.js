@@ -1,5 +1,6 @@
 //@ts-check
-const docusaurusCloudinaryRemarkPlugin = require('./docusaurus-cloudinary-remark-plugin');
+// const docusaurusCloudinaryRemarkPlugin = require('./docusaurus-cloudinary-remark-plugin');
+const docusaurusCloudinaryRemarkPlugin = require('remark-cloudinary-docusaurus');
 
 const IS_PULL_REQUEST = process.env['IS_PULL_REQUEST'] === 'true';
 console.log('IS_PULL_REQUEST', IS_PULL_REQUEST, typeof IS_PULL_REQUEST);
@@ -60,9 +61,15 @@ const config = {
         },
         docs: false,
         blog: {
-          rehypePlugins: IS_PULL_REQUEST
-            ? []
-            : [docusaurusCloudinaryRemarkPlugin('priou', url)],
+          // rehypePlugins: IS_PULL_REQUEST
+          //   ? []
+          //   : [docusaurusCloudinaryRemarkPlugin('priou', url)],
+          rehypePlugins: [
+            docusaurusCloudinaryRemarkPlugin({
+              cloudName: 'priou',
+              baseUrl: url,
+            }),
+          ],
           feedOptions: {
             type: ['rss', 'atom'],
             title: 'I CAN MAKE THIS WORK',

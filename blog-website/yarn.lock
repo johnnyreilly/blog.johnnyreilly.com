@@ -2663,7 +2663,7 @@
   resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-2.0.2.tgz#fc25ad9943bcac11cceb8168db4f275e0e72e756"
   integrity sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg==
 
-"@types/unist@*", "@types/unist@^2.0.0", "@types/unist@^2.0.2", "@types/unist@^2.0.3":
+"@types/unist@*", "@types/unist@^2.0.0", "@types/unist@^2.0.2", "@types/unist@^2.0.3", "@types/unist@^2.0.6":
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.6.tgz#250a7b16c3b91f672a24552ec64678eeb1d3a08d"
   integrity sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==
@@ -7914,6 +7914,15 @@ relateurl@^0.2.7:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha512-G08Dxvm4iDN3MLM0EsP62EDV9IuhXPR6blNz6Utcp7zyV3tr4HVNINt6MpaRWbxoOHT3Q7YN2P+jaHX8vUbgog==
+
+remark-cloudinary-docusaurus@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/remark-cloudinary-docusaurus/-/remark-cloudinary-docusaurus-0.1.2.tgz#ae8c5057056d84c968d160381594ee6316eebb92"
+  integrity sha512-0R34ccfJ/EWqYNFkuJywjjwkoBu5wd2h/kZvgaRBJPs30sdtbT5fB12mM6m8tlWPvYtZc/O9osas9+suQoKX+Q==
+  dependencies:
+    "@types/unist" "^2.0.6"
+    unified "^9.2.2"
+    unist-util-visit "^2.0.3"
 
 remark-emoji@^2.2.0:
   version "2.2.0"
