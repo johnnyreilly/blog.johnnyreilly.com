@@ -242,6 +242,51 @@ module.exports = config;
 
 With that in place, images will be served from the Cloudinary CDN when we're running our website normally, but will be served from our website when we're running a pull request preview.
 
+## Introducing `remark-cloudinary-docusaurus`
+
+But who wants to to create a remark plugin? I don't. I want to use a remark plugin. So I created one. It's called [`remark-cloudinary-docusaurus`](https://www.npmjs.com/package/remark-cloudinary-docusaurus) and you can find it on npm. It's a drop-in replacement for the plugin we created above. You can add it like this (use whichever package manager CLI tool you prefer):
+
+```bash
+npm i remark-cloudinary-docusaurus
+```
+
+And then usage is:
+
+```js
+//@ts-check
+const docusaurusCloudinaryRemarkPlugin = require('remark-cloudinary-docusaurus');
+
+const url = 'https://blog.johnnyreilly.com';
+
+/** @type {import('@docusaurus/types').Config} */
+const config = {
+  // ...
+  presets: [
+    [
+      '@docusaurus/preset-classic',
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      ({
+        // ...
+        blog: {
+          // ...
+          rehypePlugins: [
+            docusaurusCloudinaryRemarkPlugin({
+              cloudName: 'demo',
+              baseUrl: url,
+            }),
+          ],
+          // ...
+        },
+        // ...
+      }),
+    ],
+  ],
+  // ...
+};
+
+module.exports = config;
+```
+
 ## Conclusion
 
 We've seen how we can use a remark plugin to transform markdown image syntax into Cloudinary URLs. We've also seen how we can use an environment variable to conditionally add the plugin to our Docusaurus configuration.
