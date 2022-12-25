@@ -1,9 +1,8 @@
 //@ts-check
-// const docusaurusCloudinaryRemarkPlugin = require('./docusaurus-cloudinary-remark-plugin');
 const docusaurusCloudinaryRemarkPlugin = require('remark-cloudinary-docusaurus');
 
-const IS_PULL_REQUEST = process.env['IS_PULL_REQUEST'] === 'true';
-console.log('IS_PULL_REQUEST', IS_PULL_REQUEST, typeof IS_PULL_REQUEST);
+const USE_CLOUDINARY = process.env['USE_CLOUDINARY'] === 'true';
+console.log('USE_CLOUDINARY', USE_CLOUDINARY, typeof USE_CLOUDINARY);
 
 const fontaine = require('fontaine');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
@@ -61,15 +60,14 @@ const config = {
         },
         docs: false,
         blog: {
-          // rehypePlugins: IS_PULL_REQUEST
-          //   ? []
-          //   : [docusaurusCloudinaryRemarkPlugin('priou', url)],
-          rehypePlugins: [
-            docusaurusCloudinaryRemarkPlugin({
-              cloudName: 'priou',
-              baseUrl: url,
-            }),
-          ],
+          rehypePlugins: USE_CLOUDINARY
+            ? [
+                docusaurusCloudinaryRemarkPlugin({
+                  cloudName: 'priou',
+                  baseUrl: url,
+                }),
+              ]
+            : [],
           feedOptions: {
             type: ['rss', 'atom'],
             title: 'I CAN MAKE THIS WORK',

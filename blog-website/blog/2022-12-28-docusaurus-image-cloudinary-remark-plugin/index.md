@@ -192,10 +192,10 @@ However, to support that we need to have a mechanism to detect when we're runnin
   run: |
     cd blog-website
     yarn install --frozen-lockfile
-    IS_PULL_REQUEST=${{ github.event_name == 'pull_request' }} yarn run build
+    USE_CLOUDINARY=${{ github.event_name != 'pull_request' }} yarn run build
 ```
 
-The above code sets an environment variable called `IS_PULL_REQUEST` to `true` if we're running a pull request preview. [You'll note that I'm building my website externally to the Azure Static Web Apps build process](../2022-12-18-azure-static-web-apps-build-app-externally/index.md). If I was building my website as part of the Azure Static Web Apps build process, I'd use the [custom `app_build_command` feature](https://learn.microsoft.com/en-us/azure/static-web-apps/build-configuration?tabs=github-actions#custom-build-commands) to set the environment variable.
+The above code sets an environment variable called `USE_CLOUDINARY` to `false` if the GitHub Action is running for a pull request. [You'll note that I'm building my website externally to the Azure Static Web Apps build process](../2022-12-18-azure-static-web-apps-build-app-externally/index.md). If I was building my website as part of the Azure Static Web Apps build process, I'd use the [custom `app_build_command` feature](https://learn.microsoft.com/en-us/azure/static-web-apps/build-configuration?tabs=github-actions#custom-build-commands) to set the environment variable.
 
 With our environment variable in place, we can conditionally add the plugin to our `rehypePlugins` array:
 
@@ -203,8 +203,8 @@ With our environment variable in place, we can conditionally add the plugin to o
 //@ts-check
 const docusaurusCloudinaryRemarkPlugin = require('./docusaurus-cloudinary-remark-plugin');
 
-const IS_PULL_REQUEST = process.env['IS_PULL_REQUEST'] === 'true';
-console.log('IS_PULL_REQUEST', IS_PULL_REQUEST, typeof IS_PULL_REQUEST);
+const USE_CLOUDINARY = process.env['USE_CLOUDINARY'] === 'true';
+console.log('USE_CLOUDINARY', USE_CLOUDINARY, typeof USE_CLOUDINARY);
 
 const url = 'https://blog.johnnyreilly.com';
 
@@ -219,14 +219,14 @@ const config = {
         // ...
         blog: {
           // ...
-          rehypePlugins: IS_PULL_REQUEST
-            ? []
-            : [
+          rehypePlugins: USE_CLOUDINARY
+            ? [
                 docusaurusCloudinaryRemarkPlugin({
                   cloudName: 'demo',
                   baseUrl: url,
                 }),
-              ],
+              ]
+            : [],
           // ...
         },
         // ...
@@ -244,7 +244,7 @@ With that in place, images will be served from the Cloudinary CDN when we're run
 
 ## Introducing `remark-cloudinary-docusaurus`
 
-But who wants to to create a remark plugin? I don't. I want to use a remark plugin. So I created one. It's called [`remark-cloudinary-docusaurus`](https://www.npmjs.com/package/remark-cloudinary-docusaurus) and you can find it on npm. It's a drop-in replacement for the plugin we created above. You can add it like this (use whichever package manager CLI tool you prefer):
+But who wants to make a remark plugin? I don't. I want to use a remark plugin. So I created one. It's called [`remark-cloudinary-docusaurus`](https://github.com/johnnyreilly/remark-cloudinary-docusaurus) and you can find it on npm. It's a drop-in replacement for the plugin we created above. You can add it like this (use whichever package manager CLI tool you prefer):
 
 ```bash
 npm i remark-cloudinary-docusaurus
