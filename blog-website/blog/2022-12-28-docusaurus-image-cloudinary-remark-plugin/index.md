@@ -70,14 +70,13 @@ const visit = require('unist-util-visit');
 
 /**
  * Create a remark plugin that will replace image URLs with Cloudinary URLs
- * @param {*} cloudName your Cloudinary’s cloud name eg demo
- * @param {*} baseUrl the base URL of your website eg https://blog.johnnyreilly.com - should not include a trailing slash, will likely be the same as the config.url in your docusaurus.config.js
+ * @param {*} options cloudName your Cloudinary’s cloud name eg demo, baseUrl the base URL of your website eg https://blog.johnnyreilly.com - should not include a trailing slash, will likely be the same as the config.url in your docusaurus.config.js
  * @returns remark plugin that will replace image URLs with Cloudinary URLs
  */
 function imageCloudinaryRemarkPluginFactory(
-  /** @type string */ cloudName,
-  /** @type string */ baseUrl
+  /** @type {{ cloudName: string; baseUrl: string }} */ options
 ) {
+  const { cloudName, baseUrl } = options;
   const srcRegex = / src={(.*)}/;
 
   /** @type {import('unified').Plugin<[], import('hast').Root>} */
@@ -156,7 +155,12 @@ const config = {
         // ...
         blog: {
           // ...
-          rehypePlugins: [docusaurusCloudinaryRemarkPlugin('demo', url)],
+          rehypePlugins: [
+            docusaurusCloudinaryRemarkPlugin({
+              cloudName: 'demo',
+              baseUrl: url,
+            }),
+          ],
           // ...
         },
         // ...
@@ -217,7 +221,12 @@ const config = {
           // ...
           rehypePlugins: IS_PULL_REQUEST
             ? []
-            : [docusaurusCloudinaryRemarkPlugin('demo', url)],
+            : [
+                docusaurusCloudinaryRemarkPlugin({
+                  cloudName: 'demo',
+                  baseUrl: url,
+                }),
+              ],
           // ...
         },
         // ...
