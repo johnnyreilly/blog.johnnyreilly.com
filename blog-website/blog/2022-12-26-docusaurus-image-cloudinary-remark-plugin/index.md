@@ -179,69 +179,6 @@ Note that we pass in the name of our Cloudinary account and the base URL of our 
 
 Excellent! We're now serving our images from the Cloudinary CDN.
 
-## What about pull request previews?
-
-We've done all the hard stuff, now let's do some finessing. We want to make sure that our pull request previews still work. My blog runs on Azure Static Web Apps and benefits from a [staging environments / pull request previews feature that lets you see a change before it is merged](../2022-02-08-azure-static-web-apps-a-netlify-alternative/index.md). It's useful not only for human intrigue, but for running [tools like Lighthouse against your site to catch issues](../2022-03-20-lighthouse-meet-github-actions/index.md).
-
-We don't want to be serving images from the Cloudinary CDN when we're running a pull request preview. We could make it work, but it doesn't seem worth the candle. We can just serve the images from our website.
-
-However, to support that we need to have a mechanism to detect when we're running a pull request preview. We can do that by setting an environment variable in our Azure Static Web Apps configuration:
-
-```yml
-- name: Install and build site 🔧
-  run: |
-    cd blog-website
-    yarn install --frozen-lockfile
-    USE_CLOUDINARY=${{ github.event_name != 'pull_request' }} yarn run build
-```
-
-The above code sets an environment variable called `USE_CLOUDINARY` to `false` if the GitHub Action is running for a pull request. [You'll note that I'm building my website externally to the Azure Static Web Apps build process](../2022-12-18-azure-static-web-apps-build-app-externally/index.md). If I was building my website as part of the Azure Static Web Apps build process, I'd use the [custom `app_build_command` feature](https://learn.microsoft.com/en-us/azure/static-web-apps/build-configuration?tabs=github-actions#custom-build-commands) to set the environment variable.
-
-With our environment variable in place, we can conditionally add the plugin to our `rehypePlugins` array:
-
-```js
-//@ts-check
-const docusaurusCloudinaryRemarkPlugin = require('./docusaurus-cloudinary-remark-plugin');
-
-const USE_CLOUDINARY = process.env['USE_CLOUDINARY'] === 'true';
-console.log('USE_CLOUDINARY', USE_CLOUDINARY, typeof USE_CLOUDINARY);
-
-const url = 'https://blog.johnnyreilly.com';
-
-/** @type {import('@docusaurus/types').Config} */
-const config = {
-  // ...
-  presets: [
-    [
-      '@docusaurus/preset-classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
-        // ...
-        blog: {
-          // ...
-          rehypePlugins: USE_CLOUDINARY
-            ? [
-                docusaurusCloudinaryRemarkPlugin({
-                  cloudName: 'demo',
-                  baseUrl: url,
-                }),
-              ]
-            : [],
-          // ...
-        },
-        // ...
-      }),
-    ],
-  ],
-
-  // ...
-};
-
-module.exports = config;
-```
-
-With that in place, images will be served from the Cloudinary CDN when we're running our website normally, but will be served from our website when we're running a pull request preview.
-
 ## Introducing `remark-cloudinary-docusaurus`
 
 But who wants to make a remark plugin? I don't. I want to use a remark plugin. So I created one. It's called [`remark-cloudinary-docusaurus`](https://github.com/johnnyreilly/remark-cloudinary-docusaurus) and you can find it on npm. It's a drop-in replacement for the plugin we created above. You can add it like this (use whichever package manager CLI tool you prefer):
@@ -286,6 +223,68 @@ const config = {
 
 module.exports = config;
 ```
+
+## What about pull request previews?
+
+We've done all the hard stuff, now let's do some finessing. We want to make sure that our pull request previews still work. My blog runs on Azure Static Web Apps and benefits from a [staging environments / pull request previews feature that lets you see a change before it is merged](../2022-02-08-azure-static-web-apps-a-netlify-alternative/index.md). It's useful not only for human intrigue, but for running [tools like Lighthouse against your site to catch issues](../2022-03-20-lighthouse-meet-github-actions/index.md).
+
+We don't want to be serving images from the Cloudinary CDN when we're running a pull request preview. We could make it work, but it doesn't seem worth the candle. We can just serve the images from our website.
+
+However, to support that we need to have a mechanism to detect when we're running a pull request preview. We can do that by setting an environment variable in our Azure Static Web Apps configuration:
+
+```yml
+- name: Install and build site 🔧
+  run: |
+    cd blog-website
+    yarn install --frozen-lockfile
+    USE_CLOUDINARY=${{ github.event_name != 'pull_request' }} yarn run build
+```
+
+The above code sets an environment variable called `USE_CLOUDINARY` to `false` if the GitHub Action is running for a pull request, and `true` if not. [You'll note that I'm building my website externally to the Azure Static Web Apps build process](../2022-12-18-azure-static-web-apps-build-app-externally/index.md). If I was building my website as part of the Azure Static Web Apps build process, I'd use the [custom `app_build_command` feature](https://learn.microsoft.com/en-us/azure/static-web-apps/build-configuration?tabs=github-actions#custom-build-commands) to set the environment variable.
+
+With our environment variable in place, we can conditionally add the plugin to our `rehypePlugins` array:
+
+```js
+//@ts-check
+const docusaurusCloudinaryRemarkPlugin = require('remark-cloudinary-docusaurus');
+
+const USE_CLOUDINARY = process.env['USE_CLOUDINARY'] === 'true';
+
+const url = 'https://blog.johnnyreilly.com';
+
+/** @type {import('@docusaurus/types').Config} */
+const config = {
+  // ...
+  presets: [
+    [
+      '@docusaurus/preset-classic',
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      ({
+        // ...
+        blog: {
+          // ...
+          rehypePlugins: USE_CLOUDINARY
+            ? [
+                docusaurusCloudinaryRemarkPlugin({
+                  cloudName: 'demo',
+                  baseUrl: url,
+                }),
+              ]
+            : [],
+          // ...
+        },
+        // ...
+      }),
+    ],
+  ],
+
+  // ...
+};
+
+module.exports = config;
+```
+
+With that in place, images will be served from the Cloudinary CDN when we're running our website normally, but will be served from our website when we're running a pull request preview.
 
 ## Conclusion
 
