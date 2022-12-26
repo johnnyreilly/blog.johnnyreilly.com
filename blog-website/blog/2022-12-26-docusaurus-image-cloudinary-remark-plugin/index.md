@@ -80,46 +80,44 @@ function imageCloudinaryRemarkPluginFactory(
   const srcRegex = / src={(.*)}/;
 
   /** @type {import('unified').Plugin<[], import('hast').Root>} */
-  return function imageCloudinaryRemarkPlugin() {
-    return (tree) => {
-      visit(tree, ['element', 'jsx'], (node) => {
-        if (node.type === 'element' && node['tagName'] === 'img') {
-          // handles nodes like this:
+  return (tree) => {
+    visit(tree, ['element', 'jsx'], (node) => {
+      if (node.type === 'element' && node['tagName'] === 'img') {
+        // handles nodes like this:
 
-          // {
-          //   type: 'element',
-          //   tagName: 'img',
-          //   properties: {
-          //     src: 'https://some.website.com/cat.gif',
-          //     alt: null
-          //   },
-          //   ...
-          // }
+        // {
+        //   type: 'element',
+        //   tagName: 'img',
+        //   properties: {
+        //     src: 'https://some.website.com/cat.gif',
+        //     alt: null
+        //   },
+        //   ...
+        // }
 
-          const url = node['properties'].src;
+        const url = node['properties'].src;
 
-          node[
-            'properties'
-          ].src = `https://res.cloudinary.com/${cloudName}/image/fetch/${url}`;
-        } else if (node.type === 'jsx' && node['value']?.includes('<img ')) {
-          // handles nodes like this:
+        node[
+          'properties'
+        ].src = `https://res.cloudinary.com/${cloudName}/image/fetch/${url}`;
+      } else if (node.type === 'jsx' && node['value']?.includes('<img ')) {
+        // handles nodes like this:
 
-          // {
-          //   type: 'jsx',
-          //   value: '<img src={require("!/workspaces/blog.johnnyreilly.com/blog-website/node_modules/url-loader/dist/cjs.js?limit=10000&name=assets/images/[name]-[hash].[ext]&fallback=/workspaces/blog.johnnyreilly.com/blog-website/node_modules/file-loader/dist/cjs.js!./bower-with-the-long-paths.png").default} width="640" height="497" />'
-          // }
+        // {
+        //   type: 'jsx',
+        //   value: '<img src={require("!/workspaces/blog.johnnyreilly.com/blog-website/node_modules/url-loader/dist/cjs.js?limit=10000&name=assets/images/[name]-[hash].[ext]&fallback=/workspaces/blog.johnnyreilly.com/blog-website/node_modules/file-loader/dist/cjs.js!./bower-with-the-long-paths.png").default} width="640" height="497" />'
+        // }
 
-          const match = node['value'].match(srcRegex);
-          if (match) {
-            const urlOrRequire = match[1];
-            node['value'] = node['value'].replace(
-              srcRegex,
-              ` src={${`\`https://res.cloudinary.com/${cloudName}/image/fetch/${baseUrl}\$\{${urlOrRequire}\}\``}}`
-            );
-          }
+        const match = node['value'].match(srcRegex);
+        if (match) {
+          const urlOrRequire = match[1];
+          node['value'] = node['value'].replace(
+            srcRegex,
+            ` src={${`\`https://res.cloudinary.com/${cloudName}/image/fetch/${baseUrl}\$\{${urlOrRequire}\}\``}}`
+          );
         }
-      });
-    };
+      }
+    });
   };
 }
 
