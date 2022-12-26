@@ -108,7 +108,7 @@ jobs:
         run: |
           cd blog-website
           yarn install --frozen-lockfile
-          IS_PULL_REQUEST=${{ github.event_name == 'pull_request' }} yarn run build
+          DOCUSAURUS_SSR_CONCURRENCY=5 USE_CLOUDINARY=${{ github.event_name != 'pull_request' }} yarn run build
           # copy staticwebapp.config.json to build folder
           cp staticwebapp.config.json build/staticwebapp.config.json
 
