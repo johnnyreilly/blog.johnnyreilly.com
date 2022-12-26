@@ -62,10 +62,13 @@ const config = {
         blog: {
           rehypePlugins: USE_CLOUDINARY
             ? [
-                docusaurusCloudinaryRemarkPlugin({
-                  cloudName: 'priou',
-                  baseUrl: url,
-                }),
+                [
+                  docusaurusCloudinaryRemarkPlugin,
+                  {
+                    cloudName: 'priou',
+                    baseUrl: url,
+                  },
+                ],
               ]
             : [],
           feedOptions: {

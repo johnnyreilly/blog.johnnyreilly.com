@@ -156,10 +156,13 @@ const config = {
         blog: {
           // ...
           rehypePlugins: [
-            docusaurusCloudinaryRemarkPlugin({
-              cloudName: 'demo',
-              baseUrl: url,
-            }),
+            [
+              docusaurusCloudinaryRemarkPlugin,
+              {
+                cloudName: 'demo',
+                baseUrl: url,
+              },
+            ],
           ],
           // ...
         },
@@ -207,10 +210,13 @@ const config = {
         blog: {
           // ...
           rehypePlugins: [
-            docusaurusCloudinaryRemarkPlugin({
-              cloudName: 'demo',
-              baseUrl: url,
-            }),
+            [
+              docusaurusCloudinaryRemarkPlugin,
+              {
+                cloudName: 'demo',
+                baseUrl: url,
+              },
+            ],
           ],
           // ...
         },
@@ -265,10 +271,13 @@ const config = {
           // ...
           rehypePlugins: USE_CLOUDINARY
             ? [
-                docusaurusCloudinaryRemarkPlugin({
-                  cloudName: 'demo',
-                  baseUrl: url,
-                }),
+                [
+                  docusaurusCloudinaryRemarkPlugin,
+                  {
+                    cloudName: 'demo',
+                    baseUrl: url,
+                  },
+                ],
               ]
             : [],
           // ...
