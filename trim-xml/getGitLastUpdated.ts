@@ -13,7 +13,17 @@ export function getBlogPathFromUrl(
   const match = pathWithoutRootUrl.match(dateBlogUrlRegEx);
 
   if (!match || !match[1] || !match[2]) {
-    console.log('failed to match', pathWithoutRootUrl, match);
+    // failed to match archive null
+    // failed to match blog-archive null
+    // failed to match definitely-typed-the-movie null
+    // failed to match definitive-guide-to-migrating-from-blogger-to-docusaurus null
+    // failed to match search null
+    // failed to match talks null
+    console.log(
+      'cannot look up blog path as failed to match',
+      pathWithoutRootUrl,
+      match !== null ? match : undefined
+    );
     return undefined;
   }
 

@@ -43,7 +43,7 @@ async function fallback(context, req) {
     }
 
     context.log(
-      `No explicit redirect for ${originalUrl} so will redirect to 404`
+      `No explicit redirect for ${originalUrl} so will redirect to /404`
     );
 
     context.res = {
@@ -51,7 +51,7 @@ async function fallback(context, req) {
       headers: {
         location: originalUrl
           ? `/404?originalUrl=${encodeURIComponent(originalUrl)}`
-          : '404',
+          : '/404',
       },
     };
   } catch (error) {
