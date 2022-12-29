@@ -4,7 +4,8 @@ param staticWebAppName string
 param tags object
 @secure()
 param repositoryToken string
-param customDomainName string
+param rootCustomDomainName string
+param blogCustomDomainName string
 
 resource staticWebApp 'Microsoft.Web/staticSites@2022-03-01' = {
   name: staticWebAppName
@@ -27,9 +28,15 @@ resource staticWebApp 'Microsoft.Web/staticSites@2022-03-01' = {
   }
 }
 
-resource customDomain 'Microsoft.Web/staticSites/customDomains@2022-03-01' = {
+resource rootCustomDomain 'Microsoft.Web/staticSites/customDomains@2022-03-01' = {
   parent: staticWebApp
-  name: customDomainName
+  name: rootCustomDomainName
+  properties: {}
+}
+
+resource blogCustomDomain 'Microsoft.Web/staticSites/customDomains@2022-03-01' = {
+  parent: staticWebApp
+  name: blogCustomDomainName
   properties: {}
 }
 
