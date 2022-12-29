@@ -10,7 +10,7 @@ param workspaceName string = 'appInsightsWorkspace'
 param appInsightsName string = 'appInsights'
 
 module appInsights './appInsights.bicep' = {
-  name: staticWebAppName
+  name: 'appInsights'
   params: {
     location: location
     tags: tags
@@ -26,7 +26,7 @@ var tagsWithHiddenLinks = union({
 }, tags)
 
 module staticWebApp './staticWebApp.bicep' = {
-  name: staticWebAppName
+  name: 'staticWebApp'
   params: {
     location: location
     branch: branch
