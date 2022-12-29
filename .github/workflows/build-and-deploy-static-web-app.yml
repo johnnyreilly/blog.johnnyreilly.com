@@ -85,7 +85,8 @@ jobs:
                   staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
                   tags='${{ env.TAGS }}' \
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
-                  customDomainName='${{ env.CUSTOMDOMAINNAME }}'
+                  rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
+                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}'
 
       - name: Get preview URL 📝
         id: static_web_app_preview_url
