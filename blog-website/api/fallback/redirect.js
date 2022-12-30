@@ -10,7 +10,7 @@ const routes = require('./redirects');
 
 /**
  * Logic to handle redirects
- * @param {string} originalUrl
+ * @param {string} originalUrl eg https://blog.johnnyreilly.com/2019/06/typescript-webpack-you-down-with-pnp.html
  * @param {(log: string) => void} log
  * @returns {Redirect}
  */
@@ -23,7 +23,7 @@ function redirect(
     log(`x-ms-original-url: ${originalUrl}`);
 
     const parsedURL = parseURL(originalUrl);
-    // parsedURL.pathname example: /2018/01/01/azure-functions-redirects.html
+    // parsedURL.pathname example: /2019/06/typescript-webpack-you-down-with-pnp.html
 
     const matchedRoute = routes.find((route) =>
       parsedURL.pathname.includes(route.route)
@@ -38,7 +38,7 @@ function redirect(
       };
     }
 
-    if (parsedURL.pathname.startsWith('feeds/posts/default')) {
+    if (parsedURL.pathname.startsWith('/feeds/posts/default')) {
       // cater for https://blog.johnnyreilly.com/feeds/posts/default?alt=rss
       const atomOrRss = parsedURL.search.includes('alt=rss')
         ? '/rss.xml'
