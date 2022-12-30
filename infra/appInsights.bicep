@@ -10,9 +10,9 @@ resource workspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
   tags: tags
   properties: {
     sku: {
-      name: 'Free'
+      name: 'Standard'
     }
-    retentionInDays: 30
+    retentionInDays: 7
     workspaceCapping: {}
   }
 }
@@ -25,7 +25,7 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   properties: {
     Application_Type: 'web'
     Flow_Type: 'Bluefield'
-    RetentionInDays: 90
+    RetentionInDays: 7
     WorkspaceResourceId: workspace.id
     IngestionMode: 'LogAnalytics'
     publicNetworkAccessForIngestion: 'Enabled'
