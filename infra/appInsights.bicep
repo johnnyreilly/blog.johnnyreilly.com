@@ -21,7 +21,7 @@ resource workspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
 resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   name: appInsightsName
   location: location
-  kind: 'other'
+  kind: 'web'
   properties: {
     Application_Type: 'web'
     Flow_Type: 'Bluefield'
