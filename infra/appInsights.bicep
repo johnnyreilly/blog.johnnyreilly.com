@@ -26,7 +26,7 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
     Application_Type: 'web'
     Flow_Type: 'Bluefield'
     // WorkspaceResourceId: workspace.id
-    WorkspaceResourceId: '/subscriptions/26178455-cfd9-4d36-bab5-35896b6d2dd1/resourceGroups/DefaultResourceGroup-WEU/providers/Microsoft.OperationalInsights/workspaces/DefaultWorkspace-26178455-cfd9-4d36-bab5-35896b6d2dd1-WEU'
+    // WorkspaceResourceId: '/subscriptions/26178455-cfd9-4d36-bab5-35896b6d2dd1/resourceGroups/DefaultResourceGroup-WEU/providers/Microsoft.OperationalInsights/workspaces/DefaultWorkspace-26178455-cfd9-4d36-bab5-35896b6d2dd1-WEU'
 
     // RetentionInDays: 30
     // IngestionMode: 'LogAnalytics'
