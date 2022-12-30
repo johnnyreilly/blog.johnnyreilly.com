@@ -40,3 +40,9 @@ jobs:
           npm i
           fi
           DOCUSAURUS_SSR_CONCURRENCY=5 npm run build
+
+      - name: API tests ⚙️
+        run: |
+          cd blog-website/api
+          npm ci
+          npm test

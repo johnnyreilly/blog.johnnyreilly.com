@@ -1,0 +1,78 @@
+//@ts-check
+const { parseURL } = require('ufo');
+const routes = require('./redirects');
+
+/**
+ * @typedef {Object} Redirect
+ * @property {number} status - The X Coordinate
+ * @property {string} location - The Y Coordinate
+ */
+
+/**
+ * Logic to handle redirects
+ * @param {string} originalUrl
+ * @param {(log: string) => void} log
+ * @returns {Redirect}
+ */
+function redirect(
+  /** @type string */ originalUrl,
+  /** @type {(log: string) => void} */ log
+) {
+  if (originalUrl) {
+    // This URL has been proxied as there was no static file matching it.
+    log(`x-ms-original-url: ${originalUrl}`);
+
+    const parsedURL = parseURL(originalUrl);
+    // parsedURL.pathname example: /2018/01/01/azure-functions-redirects.html
+
+    const matchedRoute = routes.find((route) =>
+      parsedURL.pathname.includes(route.route)
+    );
+
+    if (matchedRoute) {
+      log(`Redirecting ${originalUrl} to ${matchedRoute.redirect}`);
+
+      return {
+        status: matchedRoute.statusCode,
+        location: matchedRoute.redirect,
+      };
+    }
+
+    if (parsedURL.pathname.startsWith('feeds/posts/default')) {
+      // cater for https://blog.johnnyreilly.com/feeds/posts/default?alt=rss
+      const atomOrRss = parsedURL.search.includes('alt=rss')
+        ? '/rss.xml'
+        : '/atom.xml';
+
+      log(`Redirecting ${originalUrl} to ${atomOrRss}`);
+
+      return {
+        status: 301,
+        location: atomOrRss,
+      };
+    }
+
+    // cater for https://blog.johnnyreilly.com/search/label/uglifyjs
+    if (parsedURL.pathname.startsWith('/search/label/')) {
+      const bloggerSearchRedirect =
+        '/search?q=' + parsedURL.pathname.replace('/search/label/', '');
+      log(`Redirecting ${originalUrl} to ${bloggerSearchRedirect}`);
+
+      return {
+        status: 301,
+        location: bloggerSearchRedirect,
+      };
+    }
+  }
+
+  log(`No explicit redirect for ${originalUrl} so will redirect to /404`);
+
+  return {
+    status: 302,
+    location: originalUrl
+      ? `/404?originalUrl=${encodeURIComponent(originalUrl)}`
+      : '/404',
+  };
+}
+
+module.exports = redirect;

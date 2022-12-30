@@ -37,3 +37,7 @@ module staticWebApp './staticWebApp.bicep' = {
     blogCustomDomainName: blogCustomDomainName
   }
 }
+
+output staticWebAppDefaultHostName string = staticWebApp.outputs.staticWebAppDefaultHostName // eg gentle-bush-0db02ce03.azurestaticapps.net
+output staticWebAppId string = staticWebApp.outputs.staticWebAppId
+output staticWebAppName string = staticWebApp.outputs.staticWebAppName
