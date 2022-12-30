@@ -203,6 +203,18 @@ const brokenBacklinkGeneratedRedirects = [
     redirect: '/2020/10/31/azure-devops-node-api-git-api-getrefs-wiki-api',
     statusCode: 301,
   },
+  {
+    route: '/2020/10/azure-devops-node-api-missing-episodes.html/',
+    redirect: '/2020/10/31/azure-devops-node-api-git-api-getrefs-wiki-api',
+    statusCode: 301,
+  },
+  {
+    route:
+      '/assets/images/i-must-break-you-cc86f4365eea8125204d16f065712ec9.jpg',
+    redirect:
+      '/assets/images/i-must-break-you-6212db0b9e54e386eb08a58d0e170dd1.webp',
+    statusCode: 301,
+  },
 ];
 
 const routeGeneratedRedirects = [
