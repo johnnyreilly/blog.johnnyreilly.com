@@ -93,7 +93,7 @@ describe('redirect', () => {
     });
 
     expect(mockLogger.mock.calls[0][0]).toBe(
-      'No explicit redirect for  so will redirect to /404'
+      'Redirecting  to /404 as no explicit redirect exists'
     );
   });
 
@@ -112,7 +112,7 @@ describe('redirect', () => {
       'x-ms-original-url: https://blog.johnnyreilly.com/robots.txt'
     );
     expect(mockLogger.mock.calls[1][0]).toBe(
-      'No explicit redirect for https://blog.johnnyreilly.com/robots.txt so will redirect to /404?originalUrl=https%3A%2F%2Fblog.johnnyreilly.com%2Frobots.txt'
+      'Redirecting https://blog.johnnyreilly.com/robots.txt to /404?originalUrl=https%3A%2F%2Fblog.johnnyreilly.com%2Frobots.txt as no explicit redirect exists'
     );
   });
 });

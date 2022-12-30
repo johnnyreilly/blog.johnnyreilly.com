@@ -70,7 +70,7 @@ function redirect(
     : '/404';
 
   log(
-    `No explicit redirect for ${originalUrl} so will redirect to ${location}`
+    `Redirecting ${originalUrl} to ${location} as no explicit redirect exists`
   );
 
   return {
