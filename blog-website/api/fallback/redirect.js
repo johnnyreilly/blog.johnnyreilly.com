@@ -65,13 +65,17 @@ function redirect(
     }
   }
 
-  log(`No explicit redirect for ${originalUrl} so will redirect to /404`);
+  const location = originalUrl
+    ? `/404?originalUrl=${encodeURIComponent(originalUrl)}`
+    : '/404';
+
+  log(
+    `No explicit redirect for ${originalUrl} so will redirect to ${location}`
+  );
 
   return {
     status: 302,
-    location: originalUrl
-      ? `/404?originalUrl=${encodeURIComponent(originalUrl)}`
-      : '/404',
+    location,
   };
 }
 
