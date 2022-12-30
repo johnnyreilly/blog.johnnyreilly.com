@@ -10,7 +10,7 @@ resource workspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
   tags: tags
   properties: {
     sku: {
-      name: 'Standard'
+      name: 'PerGB2018'
     }
     retentionInDays: 7
     workspaceCapping: {}
