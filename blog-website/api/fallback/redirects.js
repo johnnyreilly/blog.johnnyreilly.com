@@ -198,6 +198,11 @@ const brokenBacklinkGeneratedRedirects = [
       '/2021/02/27/goodbye-client-affinity-hello-data-protection-with-azure',
     statusCode: 301,
   },
+  {
+    route: '/2020/10/31/azure-devops-node-api-missing-episodes/',
+    redirect: '/2020/10/31/azure-devops-node-api-git-api-getrefs-wiki-api',
+    statusCode: 301,
+  },
 ];
 
 const routeGeneratedRedirects = [

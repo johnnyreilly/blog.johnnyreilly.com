@@ -6,40 +6,38 @@ param tags object
 param repositoryToken string
 param rootCustomDomainName string
 param blogCustomDomainName string
+param workspaceName string = 'appInsightsWorkspace'
+param appInsightsName string = 'appInsights'
 
-resource staticWebApp 'Microsoft.Web/staticSites@2022-03-01' = {
-  name: staticWebAppName
-  location: location
-  tags: tags
-  sku: {
-    name: 'Free'
-    tier: 'Free'
+module appInsights './appInsights.bicep' = {
+  name: 'appInsights'
+  params: {
+    location: location
+    tags: tags
+    workspaceName: workspaceName
+    appInsightsName: appInsightsName
   }
-  properties: {
-    repositoryUrl: 'https://github.com/johnnyreilly/blog.johnnyreilly.com'
-    repositoryToken: repositoryToken
+}
+
+var tagsWithHiddenLinks = union({
+  'hidden-link: /app-insights-resource-id': appInsights.outputs.appInsightsId
+  'hidden-link: /app-insights-instrumentation-key': appInsights.outputs.appInsightsInstrumentationKey
+  'hidden-link: /app-insights-conn-string': appInsights.outputs.appInsightsConnectionString
+}, tags)
+
+module staticWebApp './staticWebApp.bicep' = {
+  name: 'staticWebApp'
+  params: {
+    location: location
     branch: branch
-    provider: 'GitHub'
-    stagingEnvironmentPolicy: 'Enabled'
-    allowConfigFileUpdates: true
-    buildProperties:{
-      skipGithubActionWorkflowGeneration: true
-    }
+    staticWebAppName: staticWebAppName
+    tags: tagsWithHiddenLinks
+    repositoryToken: repositoryToken
+    rootCustomDomainName: rootCustomDomainName
+    blogCustomDomainName: blogCustomDomainName
   }
 }
 
-resource rootCustomDomain 'Microsoft.Web/staticSites/customDomains@2022-03-01' = {
-  parent: staticWebApp
-  name: rootCustomDomainName
-  properties: {}
-}
-
-resource blogCustomDomain 'Microsoft.Web/staticSites/customDomains@2022-03-01' = {
-  parent: staticWebApp
-  name: blogCustomDomainName
-  properties: {}
-}
-
-output staticWebAppDefaultHostName string = staticWebApp.properties.defaultHostname // eg gentle-bush-0db02ce03.azurestaticapps.net
-output staticWebAppId string = staticWebApp.id
-output staticWebAppName string = staticWebApp.name
+output staticWebAppDefaultHostName string = staticWebApp.outputs.staticWebAppDefaultHostName // eg gentle-bush-0db02ce03.azurestaticapps.net
+output staticWebAppId string = staticWebApp.outputs.staticWebAppId
+output staticWebAppName string = staticWebApp.outputs.staticWebAppName
