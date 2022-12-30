@@ -6,8 +6,8 @@ param tags object
 param repositoryToken string
 param rootCustomDomainName string
 param blogCustomDomainName string
-param workspaceName string = 'appInsightsWorkspace'
-param appInsightsName string = 'appInsights'
+param workspaceName string = 'app-insights-workspace'
+param appInsightsName string = 'app-insights'
 
 // module appInsights './appInsights.bicep' = {
 //   name: 'appInsights'

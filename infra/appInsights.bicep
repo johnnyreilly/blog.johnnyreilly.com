@@ -21,12 +21,12 @@ resource workspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
 resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
   name: appInsightsName
   location: location
-  kind: 'web'
+  kind: 'other'
   properties: {
     Application_Type: 'web'
     Flow_Type: 'Bluefield'
     WorkspaceResourceId: workspace.id
-    RetentionInDays: 30
+    RetentionInDays: 90
     IngestionMode: 'LogAnalytics'
     publicNetworkAccessForIngestion: 'Enabled'
     publicNetworkAccessForQuery: 'Enabled'
