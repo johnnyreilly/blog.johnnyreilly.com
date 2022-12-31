@@ -6,25 +6,18 @@ param tags object
 param repositoryToken string
 param rootCustomDomainName string
 param blogCustomDomainName string
-param workspaceName string = 'app-insights-workspace'
-param appInsightsName string = 'app-insights'
+param workspaceName string = 'blog-app-insights-workspace'
+param appInsightsName string = 'blog-app-insights'
 
-// module appInsights './appInsights.bicep' = {
-//   name: 'appInsights'
-//   params: {
-//     location: location
-//     tags: tags
-//     workspaceName: workspaceName
-//     appInsightsName: appInsightsName
-//   }
-// }
-
-// var tagsWithHiddenLinks = union({
-//   // 'hidden-link: /app-insights-resource-id': '/subscriptions/26178455-cfd9-4d36-bab5-35896b6d2dd1/resourceGroups/rg-blog-johnnyreilly-com/providers/microsoft.insights/components/blog.johnnyreilly.com'
-//   'hidden-link: /app-insights-resource-id': appInsights.outputs.appInsightsId
-//   'hidden-link: /app-insights-instrumentation-key': appInsights.outputs.appInsightsInstrumentationKey
-//   'hidden-link: /app-insights-conn-string': appInsights.outputs.appInsightsConnectionString
-// }, tags)
+module appInsights './appInsights.bicep' = {
+  name: 'appInsights'
+  params: {
+    location: location
+    tags: tags
+    workspaceName: workspaceName
+    appInsightsName: appInsightsName
+  }
+}
 
 module staticWebApp './staticWebApp.bicep' = {
   name: 'staticWebApp'
@@ -36,6 +29,9 @@ module staticWebApp './staticWebApp.bicep' = {
     repositoryToken: repositoryToken
     rootCustomDomainName: rootCustomDomainName
     blogCustomDomainName: blogCustomDomainName
+    appInsightsId: appInsights.outputs.appInsightsId
+    appInsightsConnectionString: appInsights.outputs.appInsightsConnectionString
+    appInsightsInstrumentationKey: appInsights.outputs.appInsightsInstrumentationKey
   }
 }
 
