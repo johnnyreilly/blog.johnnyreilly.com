@@ -263,7 +263,7 @@ const config = {
       // Cannot be SVGs. Can be external URLs too.
       image: 'img/profile.jpg',
       navbar: {
-        title: 'John Reilly ❤️🌻',
+        title: 'John Reilly',
         logo: {
           alt: 'Profile picture of John Reilly',
           src: 'img/profile-64x64.jpg',
