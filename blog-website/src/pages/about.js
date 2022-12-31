@@ -79,12 +79,12 @@ function About() {
                   </p>
 
                   <p>
-                    I answer to "John", but online I'm johnnyreilly or similar
-                    for the most part; mostly because way back when I was first
-                    getting online, someone else had nabbed "JohnReilly" long
-                    before I hove into view. And it turns out to be useful
+                    I answer to "John", but online I'm johnnyreilly or similar;
+                    mostly because way back when I was
+                    getting online, someone else had nabbed "JohnReilly" first. 
+                    And it turns out to be useful
                     differentiation from the movie star John Reilly that{' '}
-                    <em>isn't</em> me. (Look him up)
+                    <em>isn't</em> me. (Look him up - he's great!)
                   </p>
 
                   <p>
