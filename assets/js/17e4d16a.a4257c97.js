@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[82430],{11517:e=>{e.exports=JSON.parse('{"label":"TypeScript Language Service","permalink":"/tags/type-script-language-service","allTagsPath":"/tags","count":1}')}}]);

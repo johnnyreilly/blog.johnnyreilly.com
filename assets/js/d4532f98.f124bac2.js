@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[11270],{62198:a=>{a.exports=JSON.parse('{"label":"haiku","permalink":"/tags/haiku","allTagsPath":"/tags","count":1}')}}]);

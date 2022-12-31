@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[2671],{46918:l=>{l.exports=JSON.parse('{"label":"ClosedXML","permalink":"/tags/closed-xml","allTagsPath":"/tags","count":1}')}}]);

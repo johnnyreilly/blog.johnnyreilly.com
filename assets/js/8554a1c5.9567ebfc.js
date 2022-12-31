@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[58776],{99922:l=>{l.exports=JSON.parse('{"label":"Anton Kovalyov","permalink":"/tags/anton-kovalyov","allTagsPath":"/tags","count":1}')}}]);

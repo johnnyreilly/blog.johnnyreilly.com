@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[35804],{89867:t=>{t.exports=JSON.parse('{"label":"Twitter.Bootstrap.MVC4","permalink":"/tags/twitter-bootstrap-mvc-4","allTagsPath":"/tags","count":2}')}}]);

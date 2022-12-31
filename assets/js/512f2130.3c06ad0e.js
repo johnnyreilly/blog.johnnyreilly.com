@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[49299],{88502:e=>{e.exports=JSON.parse('{"label":"multiple return types","permalink":"/tags/multiple-return-types","allTagsPath":"/tags","count":1}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[2477],{23985:e=>{e.exports=JSON.parse('{"label":"Open Graph","permalink":"/tags/open-graph","allTagsPath":"/tags","count":1}')}}]);

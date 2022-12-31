@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[89432],{21111:e=>{e.exports=JSON.parse('{"label":"dependency injection","permalink":"/tags/dependency-injection","allTagsPath":"/tags","count":1}')}}]);

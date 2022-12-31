@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[17630],{11019:l=>{l.exports=JSON.parse('{"label":"Oryx","permalink":"/tags/oryx","allTagsPath":"/tags","count":1}')}}]);

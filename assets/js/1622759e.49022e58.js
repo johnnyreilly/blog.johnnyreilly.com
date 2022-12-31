@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[65785],{30828:e=>{e.exports=JSON.parse('{"label":"IGitApi.getRefs","permalink":"/tags/i-git-api-get-refs","allTagsPath":"/tags","count":1}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[26557],{31096:e=>{e.exports=JSON.parse('{"label":"inheritance","permalink":"/tags/inheritance","allTagsPath":"/tags","count":2}')}}]);

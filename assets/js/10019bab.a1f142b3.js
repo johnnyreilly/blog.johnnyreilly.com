@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[49479],{38140:e=>{e.exports=JSON.parse('{"label":"Excel","permalink":"/tags/excel","allTagsPath":"/tags","count":1}')}}]);

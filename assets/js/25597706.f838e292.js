@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[83036],{41164:e=>{e.exports=JSON.parse('{"label":"json.net","permalink":"/tags/json-net","allTagsPath":"/tags","count":1}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[65149],{83246:a=>{a.exports=JSON.parse('{"label":"Visual Studio Marketplace","permalink":"/tags/visual-studio-marketplace","allTagsPath":"/tags","count":1}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[16166],{19110:a=>{a.exports=JSON.parse('{"label":"Marc Talary","permalink":"/tags/marc-talary","allTagsPath":"/tags","count":1}')}}]);

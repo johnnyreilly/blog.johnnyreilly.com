@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[13404],{87171:e=>{e.exports=JSON.parse('{"label":"cassette","permalink":"/tags/cassette","allTagsPath":"/tags","count":4}')}}]);

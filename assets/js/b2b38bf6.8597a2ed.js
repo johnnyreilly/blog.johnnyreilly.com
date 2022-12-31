@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[65065],{38670:s=>{s.exports=JSON.parse('{"label":"cross-env","permalink":"/tags/cross-env","allTagsPath":"/tags","count":1}')}}]);

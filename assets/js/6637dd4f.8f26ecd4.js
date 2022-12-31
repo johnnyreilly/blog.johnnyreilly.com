@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[64975],{35955:a=>{a.exports=JSON.parse('{"label":"amstrad","permalink":"/tags/amstrad","allTagsPath":"/tags","count":1}')}}]);

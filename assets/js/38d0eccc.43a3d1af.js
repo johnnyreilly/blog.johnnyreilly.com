@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[2397],{54541:l=>{l.exports=JSON.parse('{"label":"Open XML","permalink":"/tags/open-xml","allTagsPath":"/tags","count":1}')}}]);

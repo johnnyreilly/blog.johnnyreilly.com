@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[78813],{77409:e=>{e.exports=JSON.parse('{"label":"CSharpier","permalink":"/tags/c-sharpier","allTagsPath":"/tags","count":1}')}}]);

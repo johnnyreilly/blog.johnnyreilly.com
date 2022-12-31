@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[29027],{91874:a=>{a.exports=JSON.parse('{"label":"caching","permalink":"/tags/caching","allTagsPath":"/tags","count":2}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[67081],{41299:e=>{e.exports=JSON.parse('{"label":"IE 10","permalink":"/tags/ie-10","allTagsPath":"/tags","count":2}')}}]);

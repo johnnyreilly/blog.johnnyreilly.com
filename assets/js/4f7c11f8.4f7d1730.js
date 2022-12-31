@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[66803],{52471:e=>{e.exports=JSON.parse('{"label":"CommonJS","permalink":"/tags/common-js","allTagsPath":"/tags","count":1}')}}]);

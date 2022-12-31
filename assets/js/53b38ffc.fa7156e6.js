@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[12315],{92121:l=>{l.exports=JSON.parse('{"label":"Microsoft.Data.SqlClient","permalink":"/tags/microsoft-data-sql-client","allTagsPath":"/tags","count":1}')}}]);

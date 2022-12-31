@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[68267],{99060:s=>{s.exports=JSON.parse('{"label":"fonts","permalink":"/tags/fonts","allTagsPath":"/tags","count":2}')}}]);

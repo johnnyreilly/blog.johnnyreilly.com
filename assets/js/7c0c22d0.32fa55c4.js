@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[85453],{46083:e=>{e.exports=JSON.parse('{"label":"Andrew Davey","permalink":"/tags/andrew-davey","allTagsPath":"/tags","count":2}')}}]);

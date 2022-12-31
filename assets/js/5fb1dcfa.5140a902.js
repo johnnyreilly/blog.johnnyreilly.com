@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[73550],{78874:s=>{s.exports=JSON.parse('{"label":"tsconfig.json","permalink":"/tags/tsconfig-json","allTagsPath":"/tags","count":3}')}}]);

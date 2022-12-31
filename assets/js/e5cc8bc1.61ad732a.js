@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[14130],{41368:e=>{e.exports=JSON.parse('{"label":"App service","permalink":"/tags/app-service","allTagsPath":"/tags","count":1}')}}]);

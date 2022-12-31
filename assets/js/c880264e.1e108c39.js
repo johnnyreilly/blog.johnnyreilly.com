@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[87899],{30737:e=>{e.exports=JSON.parse('{"label":"compatibility mode","permalink":"/tags/compatibility-mode","allTagsPath":"/tags","count":1}')}}]);

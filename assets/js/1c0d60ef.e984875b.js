@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[77619],{80554:e=>{e.exports=JSON.parse('{"label":"WPF","permalink":"/tags/wpf","allTagsPath":"/tags","count":1}')}}]);

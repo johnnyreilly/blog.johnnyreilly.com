@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[22443],{72022:e=>{e.exports=JSON.parse('{"label":"html5mode","permalink":"/tags/html-5-mode","allTagsPath":"/tags","count":1}')}}]);

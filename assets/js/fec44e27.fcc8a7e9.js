@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[49925],{13497:l=>{l.exports=JSON.parse('{"label":"cumulative layout shift","permalink":"/tags/cumulative-layout-shift","allTagsPath":"/tags","count":1}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[85453],{46083:e=>{e.exports=JSON.parse('{"label":"Andrew Davey","permalink":"/tags/andrew-davey","allTagsPath":"/tags","count":2}')}}]);

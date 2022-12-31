@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[20085],{62916:a=>{a.exports=JSON.parse('{"label":"elijah manor","permalink":"/tags/elijah-manor","allTagsPath":"/tags","count":1}')}}]);

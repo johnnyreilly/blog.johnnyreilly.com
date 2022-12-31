@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[59060],{27274:a=>{a.exports=JSON.parse('{"label":"HappyPack","permalink":"/tags/happy-pack","allTagsPath":"/tags","count":2}')}}]);

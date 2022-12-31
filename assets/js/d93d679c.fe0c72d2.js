@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[76454],{45401:e=>{e.exports=JSON.parse('{"label":"Swashbuckle","permalink":"/tags/swashbuckle","allTagsPath":"/tags","count":2}')}}]);

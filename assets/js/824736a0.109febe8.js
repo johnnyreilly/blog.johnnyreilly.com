@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[15667],{5070:e=>{e.exports=JSON.parse('{"label":"webservice.htc","permalink":"/tags/webservice-htc","allTagsPath":"/tags","count":1}')}}]);

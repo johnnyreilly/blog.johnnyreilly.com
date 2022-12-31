@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[53289],{40609:l=>{l.exports=JSON.parse('{"label":"douglas crockford","permalink":"/tags/douglas-crockford","allTagsPath":"/tags","count":3}')}}]);

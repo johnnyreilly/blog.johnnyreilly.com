@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[12794],{48635:e=>{e.exports=JSON.parse('{"label":"CRM 4.0","permalink":"/tags/crm-4-0","allTagsPath":"/tags","count":1}')}}]);

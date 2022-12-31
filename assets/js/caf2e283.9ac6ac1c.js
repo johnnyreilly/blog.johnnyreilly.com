@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[59949],{27205:e=>{e.exports=JSON.parse('{"label":"Instance methods","permalink":"/tags/instance-methods","allTagsPath":"/tags","count":1}')}}]);

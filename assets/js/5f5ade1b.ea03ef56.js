@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[59790],{62849:e=>{e.exports=JSON.parse('{"label":"Die Hard","permalink":"/tags/die-hard","allTagsPath":"/tags","count":1}')}}]);

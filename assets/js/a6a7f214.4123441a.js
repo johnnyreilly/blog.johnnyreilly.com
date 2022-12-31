@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[53385],{32541:e=>{e.exports=JSON.parse('{"label":"Poor Clares","permalink":"/tags/poor-clares","allTagsPath":"/tags","count":1}')}}]);

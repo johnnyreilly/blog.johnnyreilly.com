@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[36731],{38630:a=>{a.exports=JSON.parse('{"label":"Minification","permalink":"/tags/minification","allTagsPath":"/tags","count":1}')}}]);

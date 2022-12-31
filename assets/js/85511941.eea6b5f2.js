@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[51622],{84297:s=>{s.exports=JSON.parse('{"label":"PrismJS","permalink":"/tags/prism-js","allTagsPath":"/tags","count":1}')}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[16857],{95163:e=>{e.exports=JSON.parse('{"label":"NuGet","permalink":"/tags/nu-get","allTagsPath":"/tags","count":3}')}}]);

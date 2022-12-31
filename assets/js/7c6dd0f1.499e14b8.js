@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[74231],{84384:e=>{e.exports=JSON.parse('{"label":"Definitely Typed","permalink":"/tags/definitely-typed","allTagsPath":"/tags","count":8}')}}]);

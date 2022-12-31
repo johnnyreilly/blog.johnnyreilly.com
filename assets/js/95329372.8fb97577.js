@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[34371],{69463:a=>{a.exports=JSON.parse('{"label":"CSS animation","permalink":"/tags/css-animation","allTagsPath":"/tags","count":1}')}}]);

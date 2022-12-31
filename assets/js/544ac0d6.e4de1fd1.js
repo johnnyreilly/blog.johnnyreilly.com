@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[67404],{19158:a=>{a.exports=JSON.parse('{"label":"Christian Heilmann javascript object literal","permalink":"/tags/christian-heilmann-javascript-object-literal","allTagsPath":"/tags","count":1}')}}]);

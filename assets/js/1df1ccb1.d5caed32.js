@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[87935],{86098:a=>{a.exports=JSON.parse('{"label":"Docking station","permalink":"/tags/docking-station","allTagsPath":"/tags","count":1}')}}]);

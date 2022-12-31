@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[27828],{36551:e=>{e.exports=JSON.parse('{"label":"Surface Pro 3","permalink":"/tags/surface-pro-3","allTagsPath":"/tags","count":1}')}}]);

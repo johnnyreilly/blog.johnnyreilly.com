@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[24826],{53076:e=>{e.exports=JSON.parse('{"label":"Client Affinity","permalink":"/tags/client-affinity","allTagsPath":"/tags","count":1}')}}]);

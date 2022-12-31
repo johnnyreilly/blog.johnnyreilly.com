@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[15792],{27864:n=>{n.exports=JSON.parse('{"label":"discriminated unions","permalink":"/tags/discriminated-unions","allTagsPath":"/tags","count":1}')}}]);

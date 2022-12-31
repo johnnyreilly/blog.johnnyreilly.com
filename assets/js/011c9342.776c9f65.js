@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[61934],{49606:s=>{s.exports=JSON.parse('{"label":"types-as-comments","permalink":"/tags/types-as-comments","allTagsPath":"/tags","count":1}')}}]);

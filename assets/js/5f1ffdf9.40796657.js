@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[79664],{55326:a=>{a.exports=JSON.parse('{"label":"wu-tang","permalink":"/tags/wu-tang","allTagsPath":"/tags","count":1}')}}]);

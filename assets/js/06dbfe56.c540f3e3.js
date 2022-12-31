@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[49690],{78116:l=>{l.exports=JSON.parse('{"label":"idb-keyval","permalink":"/tags/idb-keyval","allTagsPath":"/tags","count":1}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[5891],{12844:e=>{e.exports=JSON.parse('{"label":"delphi","permalink":"/tags/delphi","allTagsPath":"/tags","count":1}')}}]);

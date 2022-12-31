@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[23693],{81522:e=>{e.exports=JSON.parse('{"label":"Web Monetization","permalink":"/tags/web-monetization","allTagsPath":"/tags","count":1}')}}]);

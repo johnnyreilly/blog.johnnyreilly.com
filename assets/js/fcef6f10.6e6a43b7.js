@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[78115],{70152:e=>{e.exports=JSON.parse('{"label":"ASP.Net Web API","permalink":"/tags/asp-net-web-api","allTagsPath":"/tags","count":1}')}}]);

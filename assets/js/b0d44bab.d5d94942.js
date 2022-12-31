@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[73613],{96015:e=>{e.exports=JSON.parse('{"label":"windows defender","permalink":"/tags/windows-defender","allTagsPath":"/tags","count":1}')}}]);

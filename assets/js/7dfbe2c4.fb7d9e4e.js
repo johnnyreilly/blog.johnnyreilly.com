@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[30427],{28011:e=>{e.exports=JSON.parse('{"label":"WCF","permalink":"/tags/wcf","allTagsPath":"/tags","count":3}')}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[62279],{52376:l=>{l.exports=JSON.parse('{"label":"Serilog","permalink":"/tags/serilog","allTagsPath":"/tags","count":1}')}}]);

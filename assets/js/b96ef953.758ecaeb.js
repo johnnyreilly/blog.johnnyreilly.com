@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[46945],{51045:l=>{l.exports=JSON.parse('{"label":"Lexical scoping","permalink":"/tags/lexical-scoping","allTagsPath":"/tags","count":1}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[19638],{27893:e=>{e.exports=JSON.parse('{"label":"Service Worker","permalink":"/tags/service-worker","allTagsPath":"/tags","count":1}')}}]);

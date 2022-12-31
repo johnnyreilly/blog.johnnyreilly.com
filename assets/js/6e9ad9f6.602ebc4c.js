@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblog_johnnyreilly_com=self.webpackChunkblog_johnnyreilly_com||[]).push([[55477],{46805:e=>{e.exports=JSON.parse('{"label":"Team Foundation Server","permalink":"/tags/team-foundation-server","allTagsPath":"/tags","count":1}')}}]);

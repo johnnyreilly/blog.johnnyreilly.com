@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[31357],{39353:e=>{e.exports=JSON.parse('{"label":"Blob Storage","permalink":"/tags/blob-storage","allTagsPath":"/tags","count":1}')}}]);

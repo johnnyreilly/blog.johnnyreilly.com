@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[53357],{86480:a=>{a.exports=JSON.parse('{"label":"Dictionary","permalink":"/tags/dictionary","allTagsPath":"/tags","count":1}')}}]);

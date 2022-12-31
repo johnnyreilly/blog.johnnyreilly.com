@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[18244],{46248:e=>{e.exports=JSON.parse('{"label":"Azure Table Storage","permalink":"/tags/azure-table-storage","allTagsPath":"/tags","count":1}')}}]);

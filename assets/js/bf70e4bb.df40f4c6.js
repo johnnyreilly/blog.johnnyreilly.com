@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[539],{88956:s=>{s.exports=JSON.parse('{"label":"fast builds","permalink":"/tags/fast-builds","allTagsPath":"/tags","count":1}')}}]);

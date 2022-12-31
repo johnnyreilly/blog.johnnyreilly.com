@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[64091],{18574:e=>{e.exports=JSON.parse('{"label":"semantic versioning","permalink":"/tags/semantic-versioning","allTagsPath":"/tags","count":2}')}}]);

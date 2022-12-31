@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[39306],{88177:e=>{e.exports=JSON.parse('{"label":"Emmett Brown","permalink":"/tags/emmett-brown","allTagsPath":"/tags","count":1}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[61426],{14838:a=>{a.exports=JSON.parse('{"label":"dapr","permalink":"/tags/dapr","allTagsPath":"/tags","count":1}')}}]);

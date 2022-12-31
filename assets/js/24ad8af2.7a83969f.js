@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[84554],{21274:a=>{a.exports=JSON.parse('{"label":"AMD","permalink":"/tags/amd","allTagsPath":"/tags","count":2}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[8130],{21670:e=>{e.exports=JSON.parse('{"label":"Troy Hunt","permalink":"/tags/troy-hunt","allTagsPath":"/tags","count":1}')}}]);
