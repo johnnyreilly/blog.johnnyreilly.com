@@ -182,6 +182,10 @@ const brokenBacklinkGeneratedRedirects = [
     route: '/img/favicon.ico',
     redirect: '/favicon.ico',
   },
+  {
+    route: '/apple-touch-icon-precomposed.png',
+    redirect: '/apple-touch-icon.png',
+  },
 ];
 
 const routeGeneratedRedirects = [

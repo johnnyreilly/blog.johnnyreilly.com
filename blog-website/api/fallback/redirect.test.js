@@ -84,6 +84,42 @@ describe('redirect', () => {
     );
   });
 
+  test('blogger archive year/month redirects should be handled', () => {
+    const mockLogger = jest.fn();
+
+    expect(
+      redirect('https://blog.johnnyreilly.com/2020/12/', mockLogger)
+    ).toEqual({
+      status: 301,
+      location: '/archive',
+    });
+
+    expect(mockLogger.mock.calls[0][0]).toBe(
+      'x-ms-original-url: https://blog.johnnyreilly.com/2020/12/'
+    );
+    expect(mockLogger.mock.calls[1][0]).toBe(
+      'Redirecting https://blog.johnnyreilly.com/2020/12/ to /archive'
+    );
+  });
+
+  test('blogger archive year redirects should be handled', () => {
+    const mockLogger = jest.fn();
+
+    expect(redirect('https://blog.johnnyreilly.com/2020/', mockLogger)).toEqual(
+      {
+        status: 301,
+        location: '/archive',
+      }
+    );
+
+    expect(mockLogger.mock.calls[0][0]).toBe(
+      'x-ms-original-url: https://blog.johnnyreilly.com/2020/'
+    );
+    expect(mockLogger.mock.calls[1][0]).toBe(
+      'Redirecting https://blog.johnnyreilly.com/2020/ to /archive'
+    );
+  });
+
   test('empty originalUrls should redirect to /404', () => {
     const mockLogger = jest.fn();
 

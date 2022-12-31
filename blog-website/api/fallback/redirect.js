@@ -8,6 +8,8 @@ const routes = require('./redirects');
  * @property {string} location - The Y Coordinate
  */
 
+const yearMonthRegex = /\/\d\d\d\d\/(\d\d\/)?/;
+
 /**
  * Logic to handle redirects
  * @param {string} originalUrl eg https://blog.johnnyreilly.com/2019/06/typescript-webpack-you-down-with-pnp.html
@@ -61,6 +63,17 @@ function redirect(
       return {
         status: 301,
         location: bloggerSearchRedirect,
+      };
+    }
+
+    // cater for https://blog.johnnyreilly.com/2019/06/ or https://blog.johnnyreilly.com/2019/
+    if (parsedURL.pathname.match(yearMonthRegex)) {
+      const bloggerArchiveRedirect = '/archive';
+      log(`Redirecting ${originalUrl} to ${bloggerArchiveRedirect}`);
+
+      return {
+        status: 301,
+        location: bloggerArchiveRedirect,
       };
     }
   }
