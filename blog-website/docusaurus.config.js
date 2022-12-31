@@ -73,12 +73,12 @@ const config = {
             : [],
           feedOptions: {
             type: ['rss', 'atom'],
-            title: 'johnnyreilly',
+            title: 'I CAN MAKE THIS WORK',
             description: 'The blog of John Reilly ❤️🌻',
             language: 'en',
             copyright: `Copyright © 2012 - ${new Date().getFullYear()} John Reilly.`,
           },
-          blogTitle: 'johnnyreilly',
+          blogTitle: 'I CAN MAKE THIS WORK',
           blogDescription: 'The blog of John Reilly ❤️🌻',
           /**
            * Number of blog post elements to show in the blog sidebar
