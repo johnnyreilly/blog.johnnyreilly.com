@@ -52,3 +52,7 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   margin-left: 0.2em;
   content: '❤️🌻';
 }
+
+.navbar__title {
+  font-size: 1.2em;
+}
