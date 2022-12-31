@@ -7,7 +7,7 @@ import {
 } from './getGitLastUpdated';
 import { SitemapUrl, Sitemap, AtomFeed, RssItem, RssFeed } from './types';
 
-const rootUrl = 'https://blog.johnnyreilly.com';
+const rootUrl = 'https://johnnyreilly.com';
 
 async function enrichUrlsWithLastmod(
   filteredUrls: SitemapUrl[]

@@ -8,7 +8,7 @@ const fontaine = require('fontaine');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
-const url = 'https://blog.johnnyreilly.com';
+const url = 'https://johnnyreilly.com';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -106,7 +106,7 @@ const config = {
       tagName: 'link',
       attributes: {
         rel: 'preload',
-        href: 'https://blog.johnnyreilly.com/fonts/Poppins-Regular.woff2',
+        href: 'https://johnnyreilly.com/fonts/Poppins-Regular.woff2',
         as: 'font',
         type: 'font/woff2',
         crossorigin: 'anonymous',
@@ -117,7 +117,7 @@ const config = {
       tagName: 'link',
       attributes: {
         rel: 'preload',
-        href: 'https://blog.johnnyreilly.com/fonts/Poppins-Bold.woff2',
+        href: 'https://johnnyreilly.com/fonts/Poppins-Bold.woff2',
         as: 'font',
         type: 'font/woff2',
         crossorigin: 'anonymous',
@@ -325,11 +325,11 @@ const config = {
             items: [
               {
                 label: 'RSS',
-                href: 'https://blog.johnnyreilly.com/rss.xml',
+                href: 'https://johnnyreilly.com/rss.xml',
               },
               {
                 label: 'Atom',
-                href: 'https://blog.johnnyreilly.com/atom.xml',
+                href: 'https://johnnyreilly.com/atom.xml',
               },
             ],
           },

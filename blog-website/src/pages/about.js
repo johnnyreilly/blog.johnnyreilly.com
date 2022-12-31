@@ -19,8 +19,8 @@ function About() {
     name: 'John Reilly',
     alternateName: 'Johnny Reilly',
     description: 'MacGyver turned Dev',
-    url: 'https://blog.johnnyreilly.com',
-    image: 'https://blog.johnnyreilly.com/img/profile.jpg',
+    url: 'https://johnnyreilly.com',
+    image: 'https://johnnyreilly.com/img/profile.jpg',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Twickenham',
@@ -30,10 +30,10 @@ function About() {
     email: 'johnny_reilly@hotmail.com',
     birthPlace: 'Bristol',
     sameAs: [
+      'https://fosstodon.org/@johnny_reilly',
       'https://twitter.com/johnny_reilly',
       'https://github.com/johnnyreilly',
-      'https://fosstodon.org/@johnny_reilly',
-      'https://https://stackoverflow.com/users/761388/john-reilly',
+      'https://stackoverflow.com/users/761388/john-reilly',
       'https://blog.logrocket.com/author/johnreilly/',
       'https://polywork.com/johnnyreilly',
     ],
