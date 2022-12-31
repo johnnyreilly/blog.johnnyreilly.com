@@ -12,8 +12,8 @@ const url = 'https://johnnyreilly.com';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'I CAN MAKE THIS WORK',
-  tagline: 'The blog of johnnyreilly ❤️🌻',
+  title: 'johnnyreilly',
+  tagline: "Hi! I'm John Reilly - welcome! ❤️🌻",
   url,
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -74,12 +74,12 @@ const config = {
           feedOptions: {
             type: ['rss', 'atom'],
             title: 'I CAN MAKE THIS WORK',
-            description: 'The blog of johnnyreilly ❤️🌻',
+            description: 'The blog of John Reilly ❤️🌻',
             language: 'en',
             copyright: `Copyright © 2012 - ${new Date().getFullYear()} John Reilly.`,
           },
           blogTitle: 'I CAN MAKE THIS WORK',
-          blogDescription: 'The blog of johnnyreilly',
+          blogDescription: 'The blog of John Reilly ❤️🌻',
           /**
            * Number of blog post elements to show in the blog sidebar
            * 'ALL' to show all blog posts
@@ -263,9 +263,9 @@ const config = {
       // Cannot be SVGs. Can be external URLs too.
       image: 'img/profile.jpg',
       navbar: {
-        title: 'I CAN MAKE THIS WORK',
+        title: 'John Reilly ❤️🌻',
         logo: {
-          alt: 'I CAN MAKE THIS WORK',
+          alt: 'Profile picture of John Reilly',
           src: 'img/profile-64x64.jpg',
           width: 32,
           height: 32,

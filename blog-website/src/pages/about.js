@@ -53,7 +53,7 @@ function About() {
       >
         <header className={clsx('hero hero--primary', styles.heroBanner)}>
           <div className="container">
-            <h1 className="hero__title">{siteConfig.title}</h1>
+            {/* <h1 className="hero__title">{siteConfig.title}</h1> */}
             <div className="text--center">
               <img
                 src={imgUrl}
@@ -61,13 +61,63 @@ function About() {
                 alt="johnnyreilly profile picture"
               />
             </div>
-            <p className="hero__subtitle">{siteConfig.tagline}</p>
+            <h1 className="hero__title">{siteConfig.tagline}</h1>
+            {/* <p className="hero__subtitle">{siteConfig.tagline}</p> */}
           </div>
         </header>
         <main>
           <section className={styles.features}>
             <div className="container">
               <div className="row">
+                <div className={clsx('col col--6', styles.feature)}>
+                  <h3>Who am I?</h3>
+                  <p>
+                    I'm an engineer, writer, hedge chopper, father, food
+                    botherer, Christian and husband to the most wonderful
+                    Geordie wife there ever was! I live in London / Twickenham.
+                    I was born in Bristol and I was raised in Fleet.
+                  </p>
+
+                  <p>
+                    I answer to "John", but online I'm johnnyreilly or similar
+                    for the most part; mostly because way back when I was first
+                    getting online, someone else had nabbed "JohnReilly" long
+                    before I hove into view. And it turns out to be useful
+                    differentiation from the movie star John Reilly that{' '}
+                    <em>isn't</em> me. (Look him up)
+                  </p>
+
+                  <p>
+                    I write the occasional{' '}
+                    <a href="https://reillysontour.blogspot.com/">
+                      travel blog(ish)
+                    </a>{' '}
+                    as well.
+                  </p>
+
+                  <p>
+                    You can{' '}
+                    <a href="mailto:johnny_reilly@hotmail.com">email me</a>.
+                  </p>
+
+                  <h3>What is this?</h3>
+                  <p>
+                    The meanderings and ramblings of a software engineer. A
+                    great deal of "here's how I solved X".
+                  </p>
+                  <p>
+                    If you were wondering, the "I can make this work" title of
+                    this blog started life as a pun on{' '}
+                    <a
+                      href="http://en.wikipedia.org/wiki/ICANN"
+                      target="_blank"
+                    >
+                      ICANN
+                    </a>
+                    . Not, if I'm honest, the finest joke in the world.
+                  </p>
+                </div>
+
                 <div className={clsx('col col--6', styles.feature)}>
                   <h3>What do I do?</h3>
                   <p>
@@ -125,44 +175,6 @@ function About() {
                     <a href="https://blog.logrocket.com/author/johnreilly/">
                       LogRocket
                     </a>
-                  </p>
-                </div>
-
-                <div className={clsx('col col--6', styles.feature)}>
-                  <h3>What is this?</h3>
-                  <p>
-                    The meanderings and ramblings of a software engineer. If you
-                    were wondering, the slightly egotistical-sounding title of
-                    this blog started life as a pun on{' '}
-                    <a
-                      href="http://en.wikipedia.org/wiki/ICANN"
-                      target="_blank"
-                    >
-                      ICANN
-                    </a>
-                    . Not, if I'm honest, the finest joke in the world but I
-                    haven't yet thought of a better name and so here we are...
-                  </p>
-
-                  <h3>Who am I?</h3>
-                  <p>
-                    Long-time Londoner, born in Bristol and raised in Fleet.
-                    Developer, writer, hedge chopper extraordinaire, father,
-                    food botherer, Christian and husband to the most wonderful
-                    Geordie wife there ever was!
-                  </p>
-
-                  <p>
-                    I write the occasional{' '}
-                    <a href="https://reillysontour.blogspot.com/">
-                      travel blog(ish)
-                    </a>{' '}
-                    as well.
-                  </p>
-
-                  <p>
-                    You can{' '}
-                    <a href="mailto:johnny_reilly@hotmail.com">email me</a>.
                   </p>
                 </div>
               </div>
