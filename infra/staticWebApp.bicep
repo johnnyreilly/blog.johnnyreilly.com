@@ -11,7 +11,6 @@ param appInsightsInstrumentationKey string
 param appInsightsConnectionString string
 
 var tagsWithHiddenLinks = union({
-  // 'hidden-link: /app-insights-resource-id': '/subscriptions/26178455-cfd9-4d36-bab5-35896b6d2dd1/resourceGroups/rg-blog-johnnyreilly-com/providers/microsoft.insights/components/blog.johnnyreilly.com'
   'hidden-link: /app-insights-resource-id': appInsightsId
   'hidden-link: /app-insights-instrumentation-key': appInsightsInstrumentationKey
   'hidden-link: /app-insights-conn-string': appInsightsConnectionString

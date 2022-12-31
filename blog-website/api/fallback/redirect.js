@@ -12,7 +12,7 @@ const yearMonthRegex = /\/\d\d\d\d\/(\d\d\/)?/;
 
 /**
  * Logic to handle redirects
- * @param {string} originalUrl eg https://blog.johnnyreilly.com/2019/06/typescript-webpack-you-down-with-pnp.html
+ * @param {string} originalUrl eg https://johnnyreilly.com/2019/06/typescript-webpack-you-down-with-pnp.html
  * @param {(log: string) => void} log
  * @returns {Redirect}
  */
@@ -23,6 +23,21 @@ function redirect(
   if (originalUrl) {
     // This URL has been proxied as there was no static file matching it.
     log(`x-ms-original-url: ${originalUrl}`);
+
+    if (originalUrl.startsWith('https://blog.johnnyreilly.com')) {
+      // redirect https://blog.johnnyreilly.com/whatever to https://johnnyreilly.com/whatever
+      const johnnyreillyUrl = originalUrl.replace(
+        'blog.johnnyreilly.com',
+        'johnnyreilly.com'
+      );
+
+      log(`Redirecting ${originalUrl} to ${johnnyreillyUrl}`);
+
+      return {
+        status: 301,
+        location: johnnyreillyUrl,
+      };
+    }
 
     const parsedURL = parseURL(originalUrl);
     // parsedURL.pathname example: /2019/06/typescript-webpack-you-down-with-pnp.html
@@ -41,7 +56,7 @@ function redirect(
     }
 
     if (parsedURL.pathname.startsWith('/feeds/posts/default')) {
-      // cater for https://blog.johnnyreilly.com/feeds/posts/default?alt=rss
+      // cater for https://johnnyreilly.com/feeds/posts/default?alt=rss
       const atomOrRss = parsedURL.search.includes('alt=rss')
         ? '/rss.xml'
         : '/atom.xml';
@@ -54,7 +69,7 @@ function redirect(
       };
     }
 
-    // cater for https://blog.johnnyreilly.com/search/label/uglifyjs
+    // cater for https://johnnyreilly.com/search/label/uglifyjs
     if (parsedURL.pathname.startsWith('/search/label/')) {
       const bloggerSearchRedirect =
         '/search?q=' + parsedURL.pathname.replace('/search/label/', '');
@@ -66,7 +81,7 @@ function redirect(
       };
     }
 
-    // cater for https://blog.johnnyreilly.com/2019/06/ or https://blog.johnnyreilly.com/2019/
+    // cater for https://johnnyreilly.com/2019/06/ or https://johnnyreilly.com/2019/
     if (parsedURL.pathname.match(yearMonthRegex)) {
       const bloggerArchiveRedirect = '/archive';
       log(`Redirecting ${originalUrl} to ${bloggerArchiveRedirect}`);
