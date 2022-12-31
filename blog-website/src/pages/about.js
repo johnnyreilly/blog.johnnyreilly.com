@@ -79,10 +79,11 @@ function About() {
                   </p>
 
                   <p>
-                    I answer to "John", but online I'm johnnyreilly or similar;
-                    mostly because way back when I was getting online, someone
-                    else had nabbed "JohnReilly" first. And it turns out to be
-                    useful differentiation from the movie star John Reilly that{' '}
+                    I answer to "John", but online I'm "johnnyreilly",
+                    "johnny_reilly" or similar. Mostly because way back when I
+                    was getting online, someone else had nabbed "johnreilly"
+                    first. In retrospect it turns out to be useful
+                    differentiation from the actor John C. Reilly that very much{' '}
                     <em>isn't</em> me. (Look him up - he's great!)
                   </p>
 
@@ -91,12 +92,9 @@ function About() {
                     <a href="https://reillysontour.blogspot.com/">
                       travel blog(ish)
                     </a>{' '}
-                    as well.
-                  </p>
-
-                  <p>
-                    You can{' '}
-                    <a href="mailto:johnny_reilly@hotmail.com">email me</a>.
+                    as well. You can{' '}
+                    <a href="mailto:johnny_reilly@hotmail.com">email me here</a>
+                    .
                   </p>
 
                   <h3>What is this?</h3>
@@ -121,7 +119,8 @@ function About() {
                   <p>
                     These days it's mostly the blog of an open source software
                     engineer. A great deal of "here's how I solved X". Some
-                    talks I've given as well. Whatever I feel like putting out.
+                    talks I've given as well. Essentially, whatever I feel like
+                    putting out.
                   </p>
                 </div>
 
