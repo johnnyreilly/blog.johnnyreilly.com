@@ -33,7 +33,7 @@ function redirect(
       log(`Redirecting ${originalUrl} to ${matchedRoute.redirect}`);
 
       return {
-        status: matchedRoute.statusCode,
+        status: 301,
         location: matchedRoute.redirect,
       };
     }
