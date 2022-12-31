@@ -80,10 +80,9 @@ function About() {
 
                   <p>
                     I answer to "John", but online I'm johnnyreilly or similar;
-                    mostly because way back when I was
-                    getting online, someone else had nabbed "JohnReilly" first. 
-                    And it turns out to be useful
-                    differentiation from the movie star John Reilly that{' '}
+                    mostly because way back when I was getting online, someone
+                    else had nabbed "JohnReilly" first. And it turns out to be
+                    useful differentiation from the movie star John Reilly that{' '}
                     <em>isn't</em> me. (Look him up - he's great!)
                   </p>
 
@@ -102,12 +101,15 @@ function About() {
 
                   <h3>What is this?</h3>
                   <p>
-                    The meanderings and ramblings of a software engineer. A
-                    great deal of "here's how I solved X".
-                  </p>
-                  <p>
-                    If you were wondering, the "I can make this work" title of
-                    this blog started life as a pun on{' '}
+                    This started life{' '}
+                    <a
+                      href="https://icanmakethiswork.blogspot.com/"
+                      rel="noopener noreferrer nofollow"
+                      target="_blank"
+                    >
+                      on Blogger with the title "I can make this work"
+                    </a>{' '}
+                    - which was a pun on{' '}
                     <a
                       href="http://en.wikipedia.org/wiki/ICANN"
                       target="_blank"
@@ -115,6 +117,11 @@ function About() {
                       ICANN
                     </a>
                     . Not, if I'm honest, the finest joke in the world.
+                  </p>
+                  <p>
+                    These days it's mostly the blog of an open source software
+                    engineer. A great deal of "here's how I solved X". Some
+                    talks I've given as well. Whatever I feel like putting out.
                   </p>
                 </div>
 

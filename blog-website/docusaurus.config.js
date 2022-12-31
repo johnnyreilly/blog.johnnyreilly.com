@@ -73,12 +73,12 @@ const config = {
             : [],
           feedOptions: {
             type: ['rss', 'atom'],
-            title: 'I CAN MAKE THIS WORK',
+            title: 'johnnyreilly',
             description: 'The blog of John Reilly ❤️🌻',
             language: 'en',
             copyright: `Copyright © 2012 - ${new Date().getFullYear()} John Reilly.`,
           },
-          blogTitle: 'I CAN MAKE THIS WORK',
+          blogTitle: 'johnnyreilly',
           blogDescription: 'The blog of John Reilly ❤️🌻',
           /**
            * Number of blog post elements to show in the blog sidebar
@@ -323,6 +323,10 @@ const config = {
           {
             title: 'Feeds',
             items: [
+              {
+                label: 'Blog source code on GitHub',
+                href: 'https://github.com/johnnyreilly/blog.johnnyreilly.com',
+              },
               {
                 label: 'RSS',
                 href: 'https://johnnyreilly.com/rss.xml',
