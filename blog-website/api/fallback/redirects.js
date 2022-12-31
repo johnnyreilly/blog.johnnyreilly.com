@@ -186,6 +186,14 @@ const brokenBacklinkGeneratedRedirects = [
     route: '/apple-touch-icon-precomposed.png',
     redirect: '/apple-touch-icon.png',
   },
+  {
+    route: '/2019/08/hard-coding-claim-in-development-mode.html',
+    redirect: '/2019/08/02/asp-net-authentication-hard-coding-claims',
+  },
+  {
+    route: '/2021/03/15/from-blogger-to-docusaurus/',
+    redirect: '/definitive-guide-to-migrating-from-blogger-to-docusaurus',
+  },
 ];
 
 const routeGeneratedRedirects = [
