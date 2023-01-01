@@ -115,7 +115,7 @@ output staticWebAppName string = staticWebApp.outputs.staticWebAppName
 There's a few things to note here:
 
 - We have two modules. One for the Application Insights workspace and one for the Azure Static Web App.
-- The Static Web App module _depends_ on the Application Insights module. This is because we need the `id`, `InstrumentationKey` and `ConnectionString` properties of the Application Insights resource. We can get those from the outputs of the Application Insights module.
+- The Static Web App module _depends_ on the outputs from the Application Insights module. This is because we need the `id`, `InstrumentationKey` and `ConnectionString` properties of the Application Insights resource.
 
 ## Configuring the Azure Static Web App to use Application Insights
 
@@ -205,7 +205,7 @@ But there's two relevant things to note:
 1. Configuring the Azure Static Web App and Azure Function to use Application Insights
 2. Connecting the Azure Static Web App to the Application Insights resource in the Azure Portal
 
-### Configuring the Azure Static Web App and Azure Function to use Application Insights
+### 1. Configuring the Azure Static Web App and Azure Function to use Application Insights
 
 First of all, let's look at how we get data flowing from the Azure Static Web App and Azure Function to Application Insights:
 
@@ -233,9 +233,9 @@ resource staticWebAppFunctionAppSettings 'Microsoft.Web/staticSites/config@2022-
 
 We're setting the `APPINSIGHTS_INSTRUMENTATIONKEY` and `APPLICATIONINSIGHTS_CONNECTION_STRING` application settings on the Azure Static Web App and its associated Azure Function. These settings are what tells the Azure Static Web App and Azure Function to use Application Insights.
 
-### Connecting the Azure Static Web App to the Application Insights resource in the Azure Portal
+### 2. Connecting the Azure Static Web App to the Application Insights resource in the Azure Portal
 
-The other thing we need to do is to connect the Azure Static Web App to the Application Insights resource in the Azure Portal. What that means is that when you click on the Application Insights resource in the Azure Portal, you'll be taken to the Azure Static Web App:
+The other thing we need to do is to connect the Azure Static Web App to the Application Insights resource in the Azure Portal. What that means is that when you click on the Application Insights resource in the Azure Portal, you'll have a button which takes you from the Azure Static Web App in the portal to Application Insights resource:
 
 ![screenshot of the Azure Portal Static Web App connected to the Application Insights resource](screenshot-azure-portal-application-insights-hidden-link.webp)
 
@@ -259,3 +259,5 @@ resource staticWebApp 'Microsoft.Web/staticSites@2022-03-01' = {
 ## Conclusion
 
 With this in place, we can now deploy our Azure Static Web App with an Application Insights resource using Bicep and have the Azure Static Web App connected to, and providing data to, the Application Insights resource. Monitoring awaits!
+
+![Screenshot of Application Insights in the Azure Portal - see how they try to hack me with their spurious `sellers.json` requests ;-)](screenshot-application-insights.png)
