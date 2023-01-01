@@ -1,4 +1,3 @@
-//@ts-check
 const { parseURL } = require('ufo');
 const routes = require('./redirects');
 

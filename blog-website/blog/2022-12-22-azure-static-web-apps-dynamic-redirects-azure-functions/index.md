@@ -31,8 +31,13 @@ We're going to name the single function `fallback`, so it will be served up at `
 const { parseURL } = require('ufo');
 const routes = require('./redirects');
 
+/**
+ *
+ * @param { import("@azure/functions").Context } context
+ * @param { import("@azure/functions").HttpRequest } req
+ */
 async function fallback(context, req) {
-  /** @type string */ const originalUrl = req.headers['x-ms-original-url'];
+  const originalUrl = req.headers['x-ms-original-url'];
   if (originalUrl) {
     // This URL has been proxied as there was no static file matching it.
     context.log(`x-ms-original-url: ${originalUrl}`);
@@ -63,7 +68,7 @@ async function fallback(context, req) {
     headers: {
       location: originalUrl
         ? `/404?originalUrl=${encodeURIComponent(originalUrl)}`
-        : '404',
+        : '/404',
     },
   };
 }
@@ -74,6 +79,10 @@ module.exports = fallback;
 What's happening here? Well, we're using the `ufo` package to parse the URL which we grab from the `x-ms-original-url` header. We then look for a match in our `redirects.js`, which is a _big_ list of potential redirects.
 
 If we find a match, we redirect based upon that match. Otherwise we redirect to the custom 404 screen in our app. And we include the original URL in the query string for visibility. (With this in place, any unhandled redirects should show up in Google Analytics etc.)
+
+## JSDoc types with `@azure/functions`
+
+You'll notice that we're using JSDoc types in the above code and enabling type checking through use of [`// @ts-check`](https://www.typescriptlang.org/docs/handbook/intro-to-js-ts.html#ts-check). We're providing types to our function through the [`@azure/functions`](https://www.npmjs.com/package/@azure/functions) package which we've added as a `devDependency`. You don't have to do this, but it's a nice way to get some type safety.
 
 ## Consuming the Azure Function from our Azure Static Web App
 

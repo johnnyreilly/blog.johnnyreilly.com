@@ -1,4 +1,3 @@
-//@ts-check
 const brokenBacklinkGeneratedRedirects = [
   {
     route: '/2019/10/definitely-typed-movie.html',
@@ -184,6 +183,10 @@ const brokenBacklinkGeneratedRedirects = [
   },
   {
     route: '/apple-touch-icon-precomposed.png',
+    redirect: '/apple-touch-icon.png',
+  },
+  {
+    route: '/img/favicon/apple-touch-icon.png',
     redirect: '/apple-touch-icon.png',
   },
   {
