@@ -8,6 +8,10 @@
   },
   "routes": [
     {
+      "route": "*.php",
+      "rewrite": "/404"
+    },
+    {
       "route": "/404",
       "statusCode": 404
     },
