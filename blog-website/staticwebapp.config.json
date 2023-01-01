@@ -8,8 +8,12 @@
   },
   "routes": [
     {
-      "route": "*.php",
-      "rewrite": "/404"
+      "route": "*.{php,ini}",
+      "redirect": "/404"
+    },
+    {
+      "route": "/robots.txt",
+      "redirect": "/404"
     },
     {
       "route": "/404",
