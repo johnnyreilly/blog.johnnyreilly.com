@@ -237,7 +237,7 @@ We're setting the `APPINSIGHTS_INSTRUMENTATIONKEY` and `APPLICATIONINSIGHTS_CONN
 
 The other thing we need to do is to connect the Azure Static Web App to the Application Insights resource in the Azure Portal. What that means is that when you click on the Application Insights resource in the Azure Portal, you'll be taken to the Azure Static Web App:
 
-![screenshot of the Azure Portal Static Web App connected to the Application Insights resource](screenshot-azure-portal-application-insights-hidden-link.png)
+![screenshot of the Azure Portal Static Web App connected to the Application Insights resource](screenshot-azure-portal-application-insights-hidden-link.webp)
 
 This is done by setting the `hidden-link` tags on the Azure Static Web App resource. Here's how we do that:
 
