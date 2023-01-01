@@ -1,4 +1,3 @@
-//@ts-check
 const redirect = require('./redirect');
 
 /**

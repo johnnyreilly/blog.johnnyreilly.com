@@ -1,4 +1,3 @@
-//@ts-check
 const brokenBacklinkGeneratedRedirects = [
   {
     route: '/2019/10/definitely-typed-movie.html',
