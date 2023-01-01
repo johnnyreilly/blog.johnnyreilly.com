@@ -16,10 +16,6 @@
       "redirect": "/404"
     },
     {
-      "route": "*/wp-includes/*",
-      "redirect": "/404"
-    },
-    {
       "route": "/404",
       "statusCode": 404
     },
