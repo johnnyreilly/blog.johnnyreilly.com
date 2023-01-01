@@ -9,18 +9,15 @@
   "routes": [
     {
       "route": "*.{php,ini}",
-      "rewrite": "/404",
-      "statusCode": 404
+      "redirect": "/404"
     },
     {
       "route": "/robots.txt",
-      "rewrite": "/404",
-      "statusCode": 404
+      "redirect": "/404"
     },
     {
       "route": "*/wp-includes/*",
-      "rewrite": "/404",
-      "statusCode": 404
+      "redirect": "/404"
     },
     {
       "route": "/404",
