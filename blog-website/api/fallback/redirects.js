@@ -187,6 +187,10 @@ const brokenBacklinkGeneratedRedirects = [
     redirect: '/apple-touch-icon.png',
   },
   {
+    route: '/img/favicon/apple-touch-icon.png',
+    redirect: '/apple-touch-icon.png',
+  },
+  {
     route: '/2019/08/hard-coding-claim-in-development-mode.html',
     redirect: '/2019/08/02/asp-net-authentication-hard-coding-claims',
   },

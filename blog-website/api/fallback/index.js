@@ -1,9 +1,14 @@
 //@ts-check
 const redirect = require('./redirect');
 
+/**
+ *
+ * @param { import("@azure/functions").Context } context
+ * @param { import("@azure/functions").HttpRequest } req
+ */
 async function fallback(context, req) {
   try {
-    /** @type string */ const originalUrl = req.headers['x-ms-original-url'];
+    const originalUrl = req.headers['x-ms-original-url'];
 
     const { status, location } = redirect(originalUrl, context.log);
 

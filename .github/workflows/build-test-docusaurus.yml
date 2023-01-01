@@ -1,4 +1,4 @@
-name: GitHub Pages - Build and Deploy 🏗️
+name: Docusaurus build 🦕
 
 on:
   push:
@@ -10,16 +10,11 @@ on:
       - main
   workflow_dispatch:
 
-permissions:
-  id-token: write
-  contents: write
-  pull-requests: write
-
 jobs:
-  deploy_to_github_pages_job:
-    if: github.event_name != 'pull_request'
+  docusaurus_build_job:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
-    name: Publish to GitHub Pages 🗞️
+    name: Docusaurus build 🦕
     steps:
       - name: Checkout 📥
         uses: actions/checkout@v3
@@ -34,13 +29,14 @@ jobs:
           node-version: '18'
           cache: 'yarn'
 
-      - name: Install and Build 🔧
+      - name: Docusaurus build 🦕
         run: |
           cd blog-website
+          if [ -e yarn.lock ]; then
           yarn install --frozen-lockfile
-          DOCUSAURUS_SSR_CONCURRENCY=5 yarn run build
-
-      - name: Publish to GitHub Pages 🗞️
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: blog-website/build # The folder the action should deploy.
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi
+          DOCUSAURUS_SSR_CONCURRENCY=5 npm run build
