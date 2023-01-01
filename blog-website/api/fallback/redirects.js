@@ -197,6 +197,15 @@ const brokenBacklinkGeneratedRedirects = [
     route: '/2021/03/15/from-blogger-to-docusaurus/',
     redirect: '/definitive-guide-to-migrating-from-blogger-to-docusaurus',
   },
+  {
+    route: '/2021/01/surfacing-azure-pipelines-build-info-in.html',
+    redirect:
+      '/2021/01/29/surfacing-azure-pipelines-build-info-in-an-aspnet-react-app',
+  },
+  {
+    route: '/2021/02/generate-typescript-and-csharp-clients-with-nswag.html',
+    redirect: '/2021/03/06/generate-typescript-and-csharp-clients-with-nswag',
+  },
 ];
 
 const routeGeneratedRedirects = [
