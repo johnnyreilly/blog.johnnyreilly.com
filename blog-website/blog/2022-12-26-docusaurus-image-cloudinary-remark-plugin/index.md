@@ -228,6 +228,12 @@ const config = {
 module.exports = config;
 ```
 
+You will also need to disable the `url-loader` in your Docusaurus build which transforms images into base64 strings, as this will conflict with the plugin. [There isn't a first class way to do this in Docusaurus at present](https://github.com/facebook/docusaurus/pull/5498). However by setting the environment variable `WEBPACK_URL_LOADER_LIMIT` to `0` you can disable it. [You can see an implementation example in this pull request](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/397). It amounts to adding the [`cross-env`](https://github.com/kentcdodds/cross-env) package and then adding the following to your `package.json`:
+
+```json
+    "build": "cross-env WEBPACK_URL_LOADER_LIMIT=0 docusaurus build",
+```
+
 ## What about pull request previews?
 
 We've done all the hard stuff, now let's do some finessing. We want to make sure that our pull request previews still work. My blog runs on Azure Static Web Apps and benefits from a [staging environments / pull request previews feature that lets you see a change before it is merged](../2022-02-08-azure-static-web-apps-a-netlify-alternative/index.md). It's useful not only for human intrigue, but for running [tools like Lighthouse against your site to catch issues](../2022-03-20-lighthouse-meet-github-actions/index.md).
