@@ -1,7 +1,7 @@
 ---
 title: 'Using Application Insights with Bicep to monitor Azure Static Web Apps and Azure Functions'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, redirects, Azure Functions, GitHub Actions]
+tags: [Azure Static Web Apps, Application Insights, Azure Functions, Bicep]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
