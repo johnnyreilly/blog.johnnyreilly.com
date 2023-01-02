@@ -7,7 +7,7 @@
     "funcBuild": "swa start build --api-location api",
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "docusaurus build",
+    "build": "cross-env WEBPACK_URL_LOADER_LIMIT=0 docusaurus build",
     "postbuild": "cd ../trim-xml && yarn && yarn start",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
@@ -38,9 +38,10 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.2.0",
     "@tsconfig/docusaurus": "1.0.6",
+    "cross-env": "^7.0.3",
     "fontaine": "0.2.3",
-    "typescript": "4.9.4",
-    "remark-cloudinary-docusaurus": "1.0.0"
+    "remark-cloudinary-docusaurus": "1.0.0",
+    "typescript": "4.9.4"
   },
   "browserslist": {
     "production": [
