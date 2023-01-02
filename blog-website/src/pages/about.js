@@ -115,6 +115,11 @@ function About() {
                       ICANN
                     </a>
                     . Not, if I'm honest, the finest joke in the world.
+                    <a href="https://johnnyreilly.com/2014/12/05/whats-in-a-name">
+                      It's lived under a couple of domains since then.
+                    </a>{' '}
+                    We're now pretty firmly on{' '}
+                    <a href="johnnyreilly.com">johnnyreilly.com</a>.
                   </p>
                   <p>
                     These days it's mostly the blog of an open source software
