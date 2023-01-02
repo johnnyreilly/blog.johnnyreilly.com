@@ -135,6 +135,28 @@ describe('redirect', () => {
     );
   });
 
+  test('webp images that used to be png / jpg etc should be redirected where possible', () => {
+    const mockLogger = jest.fn();
+
+    expect(
+      redirect(
+        'https://johnnyreilly.com/assets/images/robski-dynamic-auth-9ac401590462e2bece9156353b92d187.png',
+        mockLogger
+      )
+    ).toEqual({
+      status: 301,
+      location:
+        '/assets/images/robski-dynamic-auth-b50b7efd118b1c8ed1297a010749e0f4.webp',
+    });
+
+    expect(mockLogger.mock.calls[0][0]).toBe(
+      'x-ms-original-url: https://johnnyreilly.com/assets/images/robski-dynamic-auth-9ac401590462e2bece9156353b92d187.png'
+    );
+    expect(mockLogger.mock.calls[1][0]).toBe(
+      'Redirecting https://johnnyreilly.com/assets/images/robski-dynamic-auth-9ac401590462e2bece9156353b92d187.png to /assets/images/robski-dynamic-auth-b50b7efd118b1c8ed1297a010749e0f4.webp'
+    );
+  });
+
   test('empty originalUrls should redirect to /404', () => {
     const mockLogger = jest.fn();
 

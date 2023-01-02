@@ -206,6 +206,18 @@ const brokenBacklinkGeneratedRedirects = [
     route: '/2021/02/generate-typescript-and-csharp-clients-with-nswag.html',
     redirect: '/2021/03/06/generate-typescript-and-csharp-clients-with-nswag',
   },
+  {
+    route: '/2014/12/blog.icanmakethiswork.io',
+    redirect: '/2014/12/05/whats-in-a-name',
+  },
+  {
+    route: '/sitemap',
+    redirect: '/sitemap.xml',
+  },
+  {
+    route: '/sitemap.txt',
+    redirect: '/sitemap.xml',
+  },
 ];
 
 const routeGeneratedRedirects = [

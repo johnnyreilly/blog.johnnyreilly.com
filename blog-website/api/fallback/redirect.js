@@ -1,4 +1,5 @@
 const { parseURL } = require('ufo');
+const imagePaths = require('./imagePaths');
 const routes = require('./redirects');
 
 /**
@@ -89,6 +90,27 @@ function redirect(
         status: 301,
         location: bloggerArchiveRedirect,
       };
+    }
+
+    // cater for https://johnnyreilly.com/assets/images/auth0-enable-password-grant-type-d1ee245b0e059914635e5dada9942ab4.png
+    if (parsedURL.pathname.startsWith('/assets/images/')) {
+      const fileNameWithoutHashAndSuffix = parsedURL.pathname.substring(
+        0,
+        parsedURL.pathname.lastIndexOf('-')
+      );
+
+      const likelyImageRedirect = imagePaths.find((imageFile) =>
+        imageFile.includes(fileNameWithoutHashAndSuffix)
+      );
+
+      if (likelyImageRedirect) {
+        log(`Redirecting ${originalUrl} to ${likelyImageRedirect}`);
+
+        return {
+          status: 301,
+          location: likelyImageRedirect,
+        };
+      }
     }
   }
 
