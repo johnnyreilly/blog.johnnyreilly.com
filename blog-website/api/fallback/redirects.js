@@ -218,6 +218,23 @@ const brokenBacklinkGeneratedRedirects = [
     route: '/sitemap.txt',
     redirect: '/sitemap.xml',
   },
+  {
+    route: '/2019/03/06/the-big-one-point-oh',
+    redirect: '/2019/03/06/fork-ts-checker-webpack-plugin-v1',
+  },
+  {
+    route: '/2018/08/killing-relative-paths-with-typescript-and.html',
+    redirect: '/2018/08/21/typescript-webpack-alias-goodbye-relative-paths',
+  },
+  {
+    route: '/2019/12/18/automating-teams-notifications-recently',
+    redirect: '/2019/12/18/teams-notification-webhooks',
+  },
+  {
+    route: '/2018/07/configuring-docker-azure-web-app-containers.html',
+    redirect:
+      '/2018/07/28/azure-app-service-web-app-containers-asp-net-nested-configuration',
+  },
 ];
 
 const routeGeneratedRedirects = [
