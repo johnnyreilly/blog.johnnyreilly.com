@@ -235,6 +235,10 @@ const brokenBacklinkGeneratedRedirects = [
     redirect:
       '/2018/07/28/azure-app-service-web-app-containers-asp-net-nested-configuration',
   },
+  {
+    route: '/2019/02/whitelist-proxying-with-aspnet-core.html',
+    redirect: '/2019/02/22/aspnet-core-allowlist-proxying-http-requests',
+  },
 ];
 
 const routeGeneratedRedirects = [
