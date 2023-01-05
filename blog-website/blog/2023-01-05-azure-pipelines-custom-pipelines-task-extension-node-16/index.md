@@ -12,7 +12,7 @@ Support for Node.js 16 for Azure Pipelines custom pipelines task extensions has 
 
 ## The road to Node.js 16
 
-Azure Pipelines custom pipelines task extensions have been around for a while. They're a great way to extend the functionality of Azure Pipelines. They're written in TypeScript and run on Node.js. [You can learn how to write one here](https://learn.microsoft.com/en-us/azure/devops/extend/develop/add-build-task?view=azure-devops). However, until recently they were restricted to only be able to run on Node.js 6 or Node.js 10. This was a problem as [support for Node 6 ended in 2018 and Node 10 ended on 2020](https://endoflife.date/nodejs).
+Azure Pipelines custom pipelines task extensions have been around for a while. They're a great way to extend the functionality of Azure Pipelines. They're written in TypeScript and run on Node.js. [You can learn how to write one here](https://learn.microsoft.com/en-us/azure/devops/extend/develop/add-build-task?view=azure-devops). However, until recently they were restricted to only be able to run on Node.js 6 or Node.js 10. This was a problem as [support for Node 6 ended in 2018 and Node 10 ended in 2020](https://endoflife.date/nodejs).
 
 A [GitHub issue was opened to track support for different Node versions with custom tasks](https://github.com/microsoft/azure-pipelines-agent/issues/3195), but it remained unresolved for a long time. [In October 2022 it was announced that Node.js 16 support was available](https://learn.microsoft.com/en-us/azure/devops/release-notes/2022/sprint-210-update#node-16-task-runner-in-pipeline-agent).
 
@@ -37,7 +37,9 @@ The migration guide suggests updating the `task.json` to have a `Node16` propert
 }
 ```
 
-In my own case I wanted to take advantage of the Node 16 environment and so I removed the `Node10` property entirely. My `task.json` now looks like this:
+I'm rather unclear as to the benefits of having a `Node10` and a `Node16` alongside each other; there's no useful reason to do so that I can come up with. I may be missing something. 
+
+Either way, in my own case I wanted to take advantage of the Node 16 environment and so I removed the `Node10` property entirely. My `task.json` now looks like this:
 
 ```json
   "execution": {
