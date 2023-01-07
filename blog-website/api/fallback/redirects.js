@@ -235,6 +235,14 @@ const brokenBacklinkGeneratedRedirects = [
     redirect: '/2018/08/21/typescript-webpack-alias-goodbye-relative-paths',
   },
   {
+    route: '/2020/05/21/autofac-webapplicationfactory-and',
+    redirect: '/2020/05/21/autofac-webapplicationfactory-integration-tests',
+  },
+  {
+    route: '/tags/azure-devops-api',
+    redirect: '/tags/azure-dev-ops-api',
+  },
+  {
     route: '/2019/12/18/automating-teams-notifications-recently',
     redirect: '/2019/12/18/teams-notification-webhooks',
   },
