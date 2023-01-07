@@ -223,6 +223,14 @@ const brokenBacklinkGeneratedRedirects = [
     redirect: '/2019/03/06/fork-ts-checker-webpack-plugin-v1',
   },
   {
+    route: '/2019/03/06/the-big-one-point-oh.html',
+    redirect: '/2019/03/06/fork-ts-checker-webpack-plugin-v1',
+  },
+  {
+    route: '/2021/03/managed-identity-azure-sql-and-entity.html',
+    redirect: '/2021/03/10/managed-identity-azure-sql-entity-framework',
+  },
+  {
     route: '/2018/08/killing-relative-paths-with-typescript-and.html',
     redirect: '/2018/08/21/typescript-webpack-alias-goodbye-relative-paths',
   },
