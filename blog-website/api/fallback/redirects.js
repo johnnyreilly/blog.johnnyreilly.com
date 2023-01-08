@@ -1029,6 +1029,10 @@ const routeGeneratedRedirects = [
     redirect: '/2020/05/21/autofac-webapplicationfactory-integration-tests',
   },
   {
+    route: '/2020/05/autofac-webapplicationfactory-and.html',
+    redirect: '/2020/05/21/autofac-webapplicationfactory-integration-tests',
+  },
+  {
     route: '/2020/06/taskwhenall-select-is-footgun.html',
     redirect: '/2020/06/21/taskwhenall-select-is-footgun',
   },
