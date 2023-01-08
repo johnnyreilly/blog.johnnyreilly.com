@@ -1,12 +1,19 @@
 ---
 title: 'Azure Pipelines - Node.js 16 and custom pipelines task extensions'
 authors: johnnyreilly
-tags: [Azure Pipelines, Node.js, TypeScript]
+tags:
+  [
+    Azure Pipelines,
+    azure-pipelines-task-lib,
+    custom pipelines task extension,
+    Node.js,
+    TypeScript,
+  ]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
 
-Support for Node.js 16 for Azure Pipelines custom pipelines task extensions has just landed. From a TypeScript perspective, this post quickly documents how to migrate from a Node.js 10 custom task to one that runs on Node 16.
+Support for Node.js 16 for Azure Pipelines custom pipelines task extensions has arrived. From a TypeScript perspective, this post documents how to migrate from a Node.js 10 custom task to one that runs on Node 16 using [`azure-pipelines-task-lib`](https://www.npmjs.com/package/azure-pipelines-task-lib).
 
 ![title image reading "Azure Pipelines - Node.js 16 and custom pipelines task extensions" with Azure Pipelines, Node.js and TypeScript logos](title-image.png)
 
@@ -37,7 +44,7 @@ The migration guide suggests updating the `task.json` to have a `Node16` propert
 }
 ```
 
-I'm rather unclear as to the benefits of having a `Node10` and a `Node16` alongside each other; there's no useful reason to do so that I can come up with. I may be missing something. 
+I'm rather unclear as to the benefits of having a `Node10` and a `Node16` alongside each other; there's no useful reason to do so that I can come up with. I may be missing something.
 
 Either way, in my own case I wanted to take advantage of the Node 16 environment and so I removed the `Node10` property entirely. My `task.json` now looks like this:
 
