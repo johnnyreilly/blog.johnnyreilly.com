@@ -255,6 +255,10 @@ const brokenBacklinkGeneratedRedirects = [
     route: '/2019/02/whitelist-proxying-with-aspnet-core.html',
     redirect: '/2019/02/22/aspnet-core-allowlist-proxying-http-requests',
   },
+  {
+    route: '/2019/02/22/whitelist-proxying-with-aspnet-core',
+    redirect: '/2019/02/22/aspnet-core-allowlist-proxying-http-requests',
+  },
 ];
 
 const routeGeneratedRedirects = [
