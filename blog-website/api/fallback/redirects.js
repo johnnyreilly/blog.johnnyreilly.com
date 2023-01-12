@@ -259,6 +259,10 @@ const brokenBacklinkGeneratedRedirects = [
     route: '/2019/02/22/whitelist-proxying-with-aspnet-core',
     redirect: '/2019/02/22/aspnet-core-allowlist-proxying-http-requests',
   },
+  {
+    route: '/2020/10/azure-devops-node-api-missing-episodes.html',
+    redirect: '/2020/10/31/azure-devops-node-api-git-api-getrefs-wiki-api',
+  },
 ];
 
 const routeGeneratedRedirects = [
