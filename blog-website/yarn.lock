@@ -7932,10 +7932,10 @@ relateurl@^0.2.7:
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha512-G08Dxvm4iDN3MLM0EsP62EDV9IuhXPR6blNz6Utcp7zyV3tr4HVNINt6MpaRWbxoOHT3Q7YN2P+jaHX8vUbgog==
 
-remark-cloudinary-docusaurus@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/remark-cloudinary-docusaurus/-/remark-cloudinary-docusaurus-1.1.0.tgz#c7b4f41be53d6a4f060b77d9b8b827aaf3564c9b"
-  integrity sha512-gXfqHGm4/9xhSgmPUdDrckL7yGr/cu2r3K6LIKIWrIWw52Rp+CUWIBSI3pkTj/YL67ElhLsBTjV2rzdDb+oqhg==
+remark-cloudinary-docusaurus@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/remark-cloudinary-docusaurus/-/remark-cloudinary-docusaurus-1.2.0.tgz#fca571b55de0037472e1895f662f2d1425e842bc"
+  integrity sha512-4uqIQImVqFMSWh5EOj0kSt/N8Bfx3fpdydEQl9dmUXaUbR5TZYgARPiDECDUl8TbqzbmOHewnvf0b4EoAt9dKg==
 
 remark-emoji@^2.2.0:
   version "2.2.0"

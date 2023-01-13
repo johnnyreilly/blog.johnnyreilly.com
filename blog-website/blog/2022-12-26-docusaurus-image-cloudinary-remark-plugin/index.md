@@ -10,6 +10,20 @@ Cloudinary offers an image CDN which can improve performance of your site. This 
 
 ![title image reading "Serving Docusaurus images with Cloudinary" with the Docusaurus and Cloudinary logos](title-image.png)
 
+## Updated 13th January 2023 - `f_auto` / `q_auto` support
+
+I received a note from the marvellous [Rebeccca Peltz](https://github.com/rebeccapeltz) of Cloudinary, alerting me to the fact that Cloudinary supports using `f_auto` and `q_auto` for images fetched from URLs. To quote her:
+
+> `f_auto` causes Cloudinary to look at User Agent information in the request header and provides the best image format for the browser or device making the request. `q_auto` provides compression that makes the image smaller without creating pixelation.
+>
+> ...
+>
+> Here’s what one of your URLs would look like with fetch and f_auto,q_auto
+>
+> https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto/https://johnnyreilly.com/assets/images/screenshot-image-from-cloudinary-cb313fdeb91761d777ed1732f7c054c9.webp
+
+This sounded nothing but advantageous and so it's now the default behaviour of the plugin, as of v1.2.0. [See the pull request here](https://github.com/johnnyreilly/remark-cloudinary-docusaurus/pull/5). Thanks Rebecca!
+
 ## What is Cloudinary?
 
 To quote [Cloudinary's website](https://cloudinary.com/blog/delivering_all_your_websites_images_through_a_cdn):
