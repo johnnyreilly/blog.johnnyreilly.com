@@ -20,7 +20,7 @@ I received a note from the marvellous [Rebeccca Peltz](https://github.com/rebecc
 >
 > Here’s what one of your URLs would look like with fetch and f_auto,q_auto
 >
-> https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto/https://johnnyreilly.com/assets/images/screenshot-image-from-cloudinary-cb313fdeb91761d777ed1732f7c054c9.webp
+> `https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto/https://johnnyreilly.com/assets/images/screenshot-image-from-cloudinary-cb313fdeb91761d777ed1732f7c054c9.webp`
 
 This sounded nothing but advantageous and so it's now the default behaviour of the plugin, as of v1.2.0. [See the pull request here](https://github.com/johnnyreilly/remark-cloudinary-docusaurus/pull/5). Thanks Rebecca!
 
