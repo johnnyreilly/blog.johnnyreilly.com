@@ -24,30 +24,52 @@ Frustratingly, the feedback loop on SEO is anything but tight. You make a change
 
 Incidentally, I'm hoping someone will read this and tell me what I did wrong. I did something. I assume I did something. Come with me and embrace your inner Sherlock. I'm going to share evidence and maybe you can draw some conclusions.
 
-## docusaurus 2.2
+So what did I get up to in the time before my traffic fell off a cliff? Let's begin.
 
-can't see why that would be issue
+## Upgraded to Docusaurus 2.2
 
-## fontaine
+I can't see why that would be issue. I don't think it is.
 
-plugged in fontaine - that should be fine
+## Added fontaine
+
+[I started using fontaine on my blog](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/305). If you haven't tried it out, [you can find it here](https://github.com/danielroe/fontaine). It helps reduce cumulative layout shift. The flash of unstyled content jank. I can't see why that would be an issue. It should improve my blogs core web vitals and help stuff rank better, not worse. I think this is a red herring.
+
+## Google Analytics - sharing my g-tag with the Docusaurus docs
+
+Here's where I suspect we may have a candidate. I did a foolish thing. You may be aware that Google are sunsetting Google Analytics as was, in favour of Google Analytics 4. I was using Google Analytics to track my blog traffic and thought "oh well I best migrate then".
+
+Migration involved using in a new plugin for Docusaurus. However, the docs weren't great. I managed to work out how to get it working, and I thought I'd help the community by [submitting a docs PR](https://github.com/facebook/docusaurus/pull/7252). Can you see where this is going?
+
+![screenshot showing me submitting my actual GA4 tag](screenshot-docusaurus-g-tag.png)
+
+Yup. I managed to land my GA4 tag in the actual Docusaurus docs... I know, I know. I'm a mug. You might be wondering how I found out. Well the real giveaway was that I've never written any blogposts in Chinese.
+
+![Screenshot of search console insights with traffic from Chinese websites](screenshot-search-console-insights.png)
+
+I started seeing unfamiliar entries in my search traffic. I couldn't work out what was going on. It didn't make sense. Then I my PR and the terrible truth became apparent. It is a truth universally acknowledged, that a developer in possession of a good keyboard, must **copy and paste**.
+
+Nightmare.
+
+I did try to roll this back, [submit PRs to remove the tag](https://github.com/facebook/docusaurus/pull/8313), but not every one was merged. In the end I gave up and created a new GA4 property and started again. Out there right now, there are still websites sending my old GA4 tag traffic to Google. What a horlicks.
+
+I don't know if Google tracks for sites sharing analytics tags and deranks them as a consequence, but I suspect it's a possibility. Who knows? (Maybe you do? Tell me!)
+
+## Googles new spam update
+
+https://ahrefs.com/google-algorithm-updates#october-2022-spam-update-2022-10-19
+
+![screenshot of ahrefs demonstrating traffic rapidly tailing off aligned with google spam update](screenshot-ahrefs-spam-update.png)
+
+https://developers.google.com/search/updates/spam-updates
+https://developers.google.com/search/docs/essentials/spam-policies - but I'm not doing anything wrong here
 
 ## png -> webp \*
 
-## Google Analytics - sharing my g-tag with the world (by mistake)
-
-docusaurus g tag \*
-
-https://github.com/facebook/docusaurus/pull/8313 - remove gtag
-
-whhops https://twitter.com/johnny_reilly/status/1590585546451333120
-
 ## redirects - too little too late?
-
-![screenshot of ahrefs demonstrating traffic rapidly tailing off aligned with google spam update](screenshot-ahrefs-spam-update.png)
 
 client side redirects boom \* https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/e641431314c4b6a19d375f1c7bc14f5bd6456ec9 november
 feedback loop
 
-https://developers.google.com/search/updates/spam-updates
-https://developers.google.com/search/docs/essentials/spam-policies - but I'm not doing anything wrong here
+## Help me Obi-Wan, you're my only hope
+
+I'm hoping someone will read this and tell me what I did wrong. I did something. I assume I did something. If you know, please let me know. I really want to understand!
