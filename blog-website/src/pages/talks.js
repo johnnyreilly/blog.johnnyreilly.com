@@ -6,6 +6,11 @@ import styles from './styles.module.css';
 
 const talks = [
   {
+    permalink: 'https://www.youtube.com/watch?v=O58b4r21sz4&t=1735s',
+    formattedDate: 'January 13th, 2023',
+    title: 'TypeScript London: Me and Open Source',
+  },
+  {
     permalink: 'https://youtu.be/Kl9M7eut5Yo',
     formattedDate: 'June 22nd, 2022',
     title: 'LogRocket Meetup: How to start a blog using Docusaurus, GitHub Actions, and Azure Static Web Apps'    
