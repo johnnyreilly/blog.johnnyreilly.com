@@ -268,6 +268,11 @@ const brokenBacklinkGeneratedRedirects = [
       '/blog/2021-01-30-aspnet-serilog-and-application-insights/application-insights-properties.png',
     redirect: '/assets/images/title-image-ba106de0d9e9a8f0299795d40b17e087.png',
   },
+  {
+    route:
+      '/assets/images/permissioning-azure-pipelines-with-bicep-and-role-assignments-a540df332b847efc72e71362340d3b89.png',
+    redirect: '/assets/images/title-image-46cc8f39c57972b35cd9c539259b88f4.png',
+  },
 ];
 
 const routeGeneratedRedirects = [
