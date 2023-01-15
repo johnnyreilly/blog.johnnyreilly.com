@@ -44,7 +44,7 @@ Migration involved using in a new plugin for Docusaurus. However, the docs weren
 
 Yup. I managed to land my GA4 tag in the actual Docusaurus docs... I know, I know. I'm a mug. You might be wondering how I found out. Well the real giveaway was that I've never written any blogposts in Chinese.
 
-![Screenshot of search console insights with traffic from Chinese websites](screenshot-search-console-insights.png)
+![Screenshot of search console insights with traffic from Chinese websites](screenshot-search-console-insights.webp)
 
 I started seeing unfamiliar entries in my search traffic. I couldn't work out what was going on. It didn't make sense. Then I remembered my PR and the terrible truth became apparent:
 
@@ -60,7 +60,7 @@ I don't know if Google tracks for sites sharing analytics tags and deranks them 
 
 When I started to see traffic tail off, I started to look around for clues. It turns out there's a subculture of SEO tools out there. I'm not sure how I missed them before. I found [ahrefs](https://ahrefs.com) and [semrush](https://semrush.com); others too. This graph from ahrefs caught my eye:
 
-![screenshot of ahrefs demonstrating traffic rapidly tailing off aligned with google spam update](screenshot-ahrefs-spam-update.png)
+![screenshot of ahrefs demonstrating traffic rapidly tailing off aligned with google spam update](screenshot-ahrefs-spam-update.webp)
 
 You can see everything going South for me in October. What you can also see are Google search updates on the X axis. It turns out Google regularly update their search algorithm. [Interestingly, one of their updates coincides with my traffic tailing off](https://ahrefs.com/google-algorithm-updates#october-2022-spam-update-2022-10-19).
 
@@ -88,7 +88,7 @@ So I decided to revert my open graph images back to being PNGs; with entirely di
 
 As I did my deepdive into SEO, I learned that backlinks and referring domains are important. I had a lot of them. I had a lot of them because I'd been blogging for a long time. However, I had rather scorched the earth by failing to implement redirects. This chart from ahrefs shows the impact:
 
-![screenshot of an ahrefs graph showing a drop off in the number of referring domains around mid 2022](screenshot-referring-domains.png)
+![screenshot of an ahrefs graph showing a drop off in the number of referring domains around mid 2022](screenshot-referring-domains.webp)
 
 My assumption here is that by failing to implement redirects, I've lost a lot of backlinks. Previous 200s had transitioned to be 404s and Google had noticed.
 
