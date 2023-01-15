@@ -263,6 +263,11 @@ const brokenBacklinkGeneratedRedirects = [
     route: '/2020/10/azure-devops-node-api-missing-episodes.html',
     redirect: '/2020/10/31/azure-devops-node-api-git-api-getrefs-wiki-api',
   },
+  {
+    route:
+      '/blog/2021-01-30-aspnet-serilog-and-application-insights/application-insights-properties.png',
+    redirect: '/assets/images/title-image-ba106de0d9e9a8f0299795d40b17e087.png',
+  },
 ];
 
 const routeGeneratedRedirects = [
