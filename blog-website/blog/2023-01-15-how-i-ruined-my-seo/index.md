@@ -14,25 +14,25 @@ In October 2022 traffic to my blog dropped like a stone. What happened? Somehow 
 
 Naturally I blame all of this on a holiday to the British seaside. I was away for a week, and whilst I was away I did not have access to a laptop. This is intentional by the way; I spend too much time on computers one way or another. I force myself to disconnect on holidays. But whilst I didn't have the ability to program, I had the ability to ponder.
 
-I found myself going down a rabbit hole on SEO. I'd never really thought about it previously, and I thought "what would happen if I made some tweaks?" My half expectation was that I'd slightly improve my SEO. Probably not by much, but I'd learn something and it'd be fun. What actually happened was that in October 2022, traffic more or less dried up.
+I found myself going down a rabbit hole on SEO. I'd never really thought about it previously, and I thought "what would happen if I made some tweaks?" My expectation was that I'd slightly improve my SEO. Probably not by much, but I'd learn something and it'd be fun. What actually happened was that in October 2022 (after my fiddling), traffic from search engines more or less dried up. Not quite the plan.
 
 ![screenshot of google analytics demonstrating traffic rapidly tailing off](screenshot-google-analytics.png)
 
-And probably because of my actions. I'm not sure what I did wrong, but I'm going to share what I did and maybe you can tell me where I pulled the pin out of the hand grenade.
+Odds are, the was probably because of my actions. I'm not sure what I did wrong, but I'm going to share what I did and maybe you can tell me where I pulled the pin out of the hand grenade.
 
 Frustratingly, the feedback loop on SEO is anything but tight. You make a change, and then weeks (or months) later you see the results. And by then you've forgotten what you did. So I'm going to try and document what I did and what I think I did wrong.
 
 Incidentally, I'm hoping someone will read this and tell me what I did wrong. I did something. I assume I did something. Come with me and embrace your inner Sherlock. I'm going to share evidence and maybe you can draw some conclusions.
 
-So what did I get up to in the time before my traffic fell off a cliff? Let's begin.
+So what did I get up to? In the time before my traffic fell off a cliff I did all kinds of things. Let's begin.
 
 ## Upgraded to Docusaurus 2.2
 
-My blog runs on Docusaurus. I upgraded from 2.1 to 2.2. I can't see why that would be issue. I don't think it is.
+My blog runs on Docusaurus. I upgraded from 2.1 to 2.2. I can't see why that would be an issue. I don't think it is.
 
 ## Added fontaine
 
-[I started using fontaine on my blog](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/305). If you haven't tried it out, [you can find it here](https://github.com/danielroe/fontaine). It helps reduce cumulative layout shift. The flash of unstyled content jank. I can't see why that would be an issue. It should improve my blogs core web vitals and help stuff rank better, not worse. I think this is a red herring.
+[I started using fontaine on my blog](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/305). If you haven't tried it out, [you can find it here](https://github.com/danielroe/fontaine). It helps reduce Cumulative Layout Shift. The flash of unstyled content jank that you can see when you first land on a site, before fonts have loaded. I can't see why that would be an issue. It should improve my blogs Core Web Vitals and help stuff rank better, not worse. I think this is a red herring.
 
 ## Google Analytics - sharing my g-tag with the Docusaurus docs
 
@@ -50,9 +50,9 @@ I started seeing unfamiliar entries in my search traffic. I couldn't work out wh
 
 > It is a truth universally acknowledged, that a developer in possession of a good keyboard, must **copy and paste**.
 
-Nightmare.
+Nightmare. Other people were using my GA4 tag.
 
-I did try to roll this back, [submit PRs to remove the tag](https://github.com/facebook/docusaurus/pull/8313), but not every one was merged. In the end I gave up and created a new GA4 property and started again. Out there right now, there are still websites sending my old GA4 tag traffic to Google. What a horlicks.
+I did try to roll this back; search GitHub for my tag and [submit PRs to remove it](https://github.com/facebook/docusaurus/pull/8313). But not every PR was merged. In the end I gave up and created a new GA4 property and started again. Out there right now, there are still websites sending my old GA4 tag traffic to Google. What a horlicks.
 
 I don't know if Google tracks for sites sharing analytics tags and deranks them as a consequence, but I suspect it's a possibility. Who knows? (Maybe you do? Tell me!)
 
@@ -76,17 +76,17 @@ You can see everything going South for me in October. What you can also see are 
 
 Most of the images on my blog were PNGs. Lighthouse would regularly suggest migrating to a newer image format. I read around and the suggestion generally was that WebP was the way to go. So I did. But I think I made a bit of a mistake. As the images were converted, their filenames changed.
 
-Because I didn't think it mattered, I didn't implement redirects. My view was "the blog posts have references to the new image names - that's likely all that matters". I'd lay money that's a mistake. I think I should have implemented redirects. I think that's what I did wrong.
+Because I didn't think it mattered, I didn't implement redirects. My view was "the blog posts have references to the new image names - that's likely all that matters". I'd lay money that's a mistake; that I should have implemented redirects and the site is being penalised.
 
 Again, do tell me if I'm running with a false assumption here.
 
-Oh the "and back again". So, I make use of [open graph sharing previews on my blog](../2021-12-12-open-graph-sharing-previews-guide/index.md) - so people using my links on social media get a nice preview of the content. [I learned from Steve Fenton that open graph doesn't always support WebP](https://www.stevefenton.co.uk/blog/2022/10/webp-opengraph-images/). Which sucks.
+Oh the "and back again". I make use of [Open Graph sharing previews on my blog](../2021-12-12-open-graph-sharing-previews-guide/index.md) - so people using my links on social media get a nice preview of the content. [I learned from Steve Fenton that open graph doesn't always support WebP](https://www.stevefenton.co.uk/blog/2022/10/webp-opengraph-images/). Which sucks.
 
-So I decided to revert my open graph images back to being PNGs; with entirely different names. Again I didn't implement redirects - no wonder Google loves me!
+So I decided to revert my Open Graph images back to being PNGs; with entirely different names. Again I didn't implement redirects - no wonder Google loves me!
 
 ## Backlinks / referring domains
 
-As I did my deepdive into SEO, I learned that backlinks and referring domains are important. I had a lot of them. I had a lot of them because I'd been blogging for a long time. However, I had rather scorched the earth by failing to implement redirects. This chart from ahrefs shows the impact:
+As I did my deepdive into SEO, I learned that backlinks and referring domains are important. I had a lot of them; I've been blogging for a long time. However, I suspect I had rather scorched the earth by failing to implement redirects. This chart from ahrefs shows the impact:
 
 ![screenshot of an ahrefs graph showing a drop off in the number of referring domains around mid 2022](screenshot-referring-domains.webp)
 
@@ -94,7 +94,7 @@ My assumption here is that by failing to implement redirects, I've lost a lot of
 
 ## RSS feeds
 
-I mentioned that I've been blogging a long time. Consequently I have a lot of blog posts. I also have [Atom](/atom.xml) / [RSS](/rss.xml) feeds on my blog. I didn't realise that there are limits on the size of these feeds. It doesn't appear to be standardised; but when I took a look at my feeds in various feed readers, I found they were erroring.
+I mentioned that I've been blogging a long time. Consequently I have a lot of blog posts. I also have [Atom](/atom.xml) / [RSS](/rss.xml) feeds on my blog. I didn't realise that there are limits on the size of these feeds. It doesn't appear to be standardised; but when I took a look at my feeds in various feed readers, I found they were erroring due to the size of the feeds.
 
 I decided to start truncating the number of entries in my feeds. It's not so hard to do, just a post build step which [reads, amends and writes the XML](../2022-11-22-xml-read-and-write-with-node-js/index.md).
 
