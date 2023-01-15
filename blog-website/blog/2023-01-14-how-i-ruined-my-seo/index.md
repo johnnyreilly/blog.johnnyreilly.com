@@ -18,7 +18,7 @@ I found myself going down a rabbit hole on SEO. I'd never really thought about i
 
 ![screenshot of google analytics demonstrating traffic rapidly tailing off](screenshot-google-analytics.png)
 
-And probably because of my actions. I'm not sure what I did wrong, but I'm going to share what I did and maybe you can tell me what I did wrong.
+And probably because of my actions. I'm not sure what I did wrong, but I'm going to share what I did and maybe you can tell me where I pulled the pin out of the hand grenade.
 
 Frustratingly, the feedback loop on SEO is anything but tight. You make a change, and then weeks (or months) later you see the results. And by then you've forgotten what you did. So I'm going to try and document what I did and what I think I did wrong.
 
@@ -70,7 +70,7 @@ You can see everything going South for me in October. What you can also see are 
 >
 > [Google Search spam updates and your site ↗](https://developers.google.com/search/updates/spam-updates)
 
-"Bingo!" I thought. "This is it!" But as I dug through the details, I became doubtful. Nothing on my site lookds spammy. In my opinion obviously. But try as I might, I couldn't see it any other way. My content isn'ty spammy. Unles I'm missing something? Am I?
+"Bingo!" I thought. "This is it!" But as I dug through the details, I became doubtful. Nothing on my site looks spammy. In my opinion obviously. But try as I might, I couldn't see it any other way. My content isn't spammy. Unless I'm missing something? Am I?
 
 ## From PNG to WebP and back again
 
@@ -100,7 +100,7 @@ I decided to start truncating the number of entries in my feeds. It's not so har
 
 With this in place RSS readers seemed to be happier. And given a number of publications read my RSS feeds, it's likely that this will increase my backlinks over time.
 
-I also contributed a [PR to Docusaurus](https://github.com/facebook/docusaurus/pull/8378) that will allow you to configure and adjust the number of entries in your feeds directly through Docusaurus; as opposed to afterwards in a post build step.
+I also contributed a [PR to Docusaurus](https://github.com/facebook/docusaurus/pull/8378) that will allow everyone to configure and adjust the number of entries in their feeds directly through Docusaurus; as opposed to afterwards in a post build step.
 
 ## Dynamic redirects - too little too late?
 
