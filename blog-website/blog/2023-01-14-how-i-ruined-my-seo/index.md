@@ -117,6 +117,12 @@ I also decided to do some research. [I plugged Application Insights into my blog
 
 Will this help over time? Answers on a postcard please. Or toot / tweet / email / DM me.
 
+As an aside, looking at the logs in itself has been a lesson:
+
+![many redirects from Wordpress URLs](screenshot-application-insights-404.webp)
+
+Someone on the internet is _always_ trying to hack you. And usually under the assumption you're running WordPress / PHP.
+
 ## Help me Obi-Wan, you're my only hope
 
 As you can see, I've done a lot of tinkering. I'm not quite sure what torched my SEO. It may be one thing, it may be a combination of things. I don't know if there's a road back.
