@@ -128,3 +128,7 @@ Someone on the internet is _always_ trying to hack you. And usually under the as
 As you can see, I've done a lot of tinkering. I'm not quite sure what torched my SEO. It may be one thing, it may be a combination of things. I don't know if there's a road back.
 
 I'm hoping someone will read this and tell me what I did wrong. I did something. Or at least I assume I'm the cause. Maybe I'm not? Maybe I'm missing something entirely. If you know, please let me know. I really want to understand!
+
+## Discussion on Hacker News
+
+This was disussed on Hacker News. [You can read the discussion here](https://news.ycombinator.com/item?id=34389421).

@@ -44,6 +44,7 @@
     "Access-Control-Allow-Origin": "*"
   },
   "mimeTypes": {
-    ".xml": "application/xml; charset=utf-8"
+    ".xml": "application/xml; charset=utf-8",
+    ".txt": "text/plain"
   }
 }
