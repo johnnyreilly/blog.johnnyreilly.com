@@ -82,13 +82,43 @@ Again, do tell me if I'm running with a false assumption here.
 
 Oh the "and back again". So, I make use of [open graph sharing previews on my blog](../2021-12-12-open-graph-sharing-previews-guide/index.md) - so people using my links on social media get a nice preview of the content. [I learned from Steve Fenton that open graph doesn't always support WebP](https://www.stevefenton.co.uk/blog/2022/10/webp-opengraph-images/). Which sucks.
 
-So I decided to revert my open graph images back to PNG. Again I didn't implement redirects - no wonder Google loves me!
+So I decided to revert my open graph images back to being PNGs; with entirely different names. Again I didn't implement redirects - no wonder Google loves me!
 
-## redirects - too little too late?
+## Backlinks / referring domains
 
-client side redirects boom \* https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/e641431314c4b6a19d375f1c7bc14f5bd6456ec9 november
-feedback loop
+As I did my deepdive into SEO, I learned that backlinks and referring domains are important. I had a lot of them. I had a lot of them because I'd been blogging for a long time. However, I had rather scorched the earth by failing to implement redirects. This chart from ahrefs shows the impact:
+
+![screenshot of an ahrefs graph showing a drop off in the number of referring domains around mid 2022](screenshot-referring-domains.png)
+
+My assumption here is that by failing to implement redirects, I've lost a lot of backlinks. Previous 200s had transitioned to be 404s and Google had noticed.
+
+## RSS feeds
+
+I mentioned that I've been blogging a long time. Consequently I have a lot of blog posts. I also have [Atom](/atom.xml) / [RSS](/rss.xml) feeds on my blog. I didn't realise that there are limits on the size of these feeds. It doesn't appear to be standardised; but when I took a look at my feeds in various feed readers, I found they were erroring.
+
+I decided to start truncating the number of entries in my feeds. It's not so hard to do, just a post build step which [reads, amends and writes the XML](../2022-11-22-xml-read-and-write-with-node-js/index.md).
+
+With this in place RSS readers seemed to be happier. And given a number of publications read my RSS feeds, it's likely that this will increase my backlinks over time.
+
+I also contributed a [PR to Docusaurus](https://github.com/facebook/docusaurus/pull/8378) that will allow you to configure and adjust the number of entries in your feeds directly through Docusaurus; as opposed to afterwards in a post build step.
+
+## Dynamic redirects - too little too late?
+
+As I've mentioned, I broke links by not implementing redirects. It might be closing the stable door after the horse has bolted, but I decided to go back and implement redirects. In December 2022 [I implemented dynamic redirects on my blog using Azure Static Web Apps and Azure Functions](../2022-12-22-azure-static-web-apps-dynamic-redirects-azure-functions/index.md).
+
+I implemented redirects for:
+
+- images
+- blog posts (from my old Blogger URLs to my new Docusaurus URLs)
+- RSS / Atom feeds (Blogger had both of these but at different endpoints)
+- renamed blog posts (I renamed a number of blog posts over time to be more SEO friendly)
+
+I also decided to do some research. [I plugged Application Insights into my blog](../2023-01-01-application-insights-bicep-azure-static-web-apps/index.md) and started logging out when redirects were being hit. I also started logging out when 404s were being hit. I wanted to see if I was missing anything. I've been checking the logs every day since, and adding new redirects as I go.
+
+Will this help over time? Answers on a postcard please. Or toot / tweet / email / DM me.
 
 ## Help me Obi-Wan, you're my only hope
 
-I'm hoping someone will read this and tell me what I did wrong. I did something. I assume I did something. If you know, please let me know. I really want to understand!
+As you can see, I've done a lot of tinkering. I'm not quite sure what torched my SEO. It may be one thing, it may be a combination of things. I don't know if there's a road back.
+
+I'm hoping someone will read this and tell me what I did wrong. I did something. Or at least I assume I'm the cause. Maybe I'm not? Maybe I'm missing something entirely. If you know, please let me know. I really want to understand!
