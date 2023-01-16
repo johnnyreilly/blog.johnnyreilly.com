@@ -32,6 +32,12 @@
       "headers": {
         "X-Robots-Tag": "noindex"
       }
+    },
+    {
+      "route": "/tags/*",
+      "headers": {
+        "X-Robots-Tag": "noindex"
+      }
     }
   ],
   "globalHeaders": {
