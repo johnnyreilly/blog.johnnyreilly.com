@@ -119,7 +119,7 @@ function About() {
                       It's lived under a couple of domains since then.
                     </a>{' '}
                     We're now pretty firmly on{' '}
-                    <a href="johnnyreilly.com">johnnyreilly.com</a>.
+                    <a href="https://johnnyreilly.com">johnnyreilly.com</a>.
                   </p>
                   <p>
                     These days it's mostly the blog of an open source software
