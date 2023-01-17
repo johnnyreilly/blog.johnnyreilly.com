@@ -321,7 +321,7 @@ const config = {
             ],
           },
           {
-            title: 'Feeds',
+            title: 'Misc',
             items: [
               {
                 label: 'Blog source code on GitHub',
@@ -334,6 +334,10 @@ const config = {
               {
                 label: 'Atom',
                 href: 'https://johnnyreilly.com/atom.xml',
+              },
+              {
+                label: 'Privacy Policy',
+                href: 'https://johnnyreilly.com/privacy-policy',
               },
             ],
           },
