@@ -26,6 +26,7 @@ function imageFetchPriorityRehypePluginFactory(/** @type {{  }} */ options) {
         // }
 
         if (!files.has(vfile.history[0])) {
+          // console.log('img', vfile.history[0], node['properties']['src'])
           node['properties'].fetchpriority = 'high';
           node['properties'].loading = 'eager';
           files.add(vfile.history[0]);
@@ -38,13 +39,14 @@ function imageFetchPriorityRehypePluginFactory(/** @type {{  }} */ options) {
         //   value: '<img src={require("!/workspaces/blog.johnnyreilly.com/blog-website/node_modules/url-loader/dist/cjs.js?limit=10000&name=assets/images/[name]-[hash].[ext]&fallback=/workspaces/blog.johnnyreilly.com/blog-website/node_modules/file-loader/dist/cjs.js!./bower-with-the-long-paths.png").default} width="640" height="497" />'
         // }
 
-        if (!files.has(vfile.history[0])) {
-          node['value'] = node['value'].replace(
-            /<img /,
-            '<img loading="eager" fetchpriority="high" '
-          );
-          files.add(vfile.history[0]);
-        }
+        // if (!files.has(vfile.history[0])) {
+        // console.log('jsx', vfile.history[0], node['value'])
+        node['value'] = node['value'].replace(
+          /<img /g,
+          '<img loading="eager" fetchpriority="high" '
+        );
+        files.add(vfile.history[0]);
+        // }
       }
     });
   };
