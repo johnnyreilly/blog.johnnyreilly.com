@@ -26,6 +26,7 @@ function imageFetchPriorityRehypePluginFactory(/** @type {{  }} */ options) {
           // }
 
           node['properties'].fetchpriority = 'high';
+          node['properties'].loading = 'eager';
         } else if (node.type === 'jsx' && node['value']?.includes('<img ')) {
           // handles nodes like this:
 
@@ -36,7 +37,7 @@ function imageFetchPriorityRehypePluginFactory(/** @type {{  }} */ options) {
 
           node['value'] = node['value'].replace(
             /<img /,
-            '<img fetchpriority="high" '
+            '<img loading="eager" fetchpriority="high" '
           );
         }
         files.add(vfile.history[0]);
