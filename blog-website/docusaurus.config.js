@@ -7,6 +7,7 @@ console.log('USE_CLOUDINARY', USE_CLOUDINARY);
 const fontaine = require('fontaine');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const imageFetchPriorityRehypePlugin = require('./image-fetchpriority-rehype-plugin');
 
 const url = 'https://johnnyreilly.com';
 
@@ -69,8 +70,9 @@ const config = {
                     baseUrl: url,
                   },
                 ],
+                imageFetchPriorityRehypePlugin,
               ]
-            : [],
+            : [imageFetchPriorityRehypePlugin],
           feedOptions: {
             type: ['rss', 'atom'],
             title: 'I CAN MAKE THIS WORK',
