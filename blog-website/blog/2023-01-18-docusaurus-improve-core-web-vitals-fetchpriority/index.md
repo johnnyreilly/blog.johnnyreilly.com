@@ -13,7 +13,7 @@ By using `fetchpriority` on your Largest Contentful Paint you can improve your C
 
 ## Avoiding lazy loading on the Largest Contentful Paint
 
-At the weekend [I wrote a post documenting how I believe I ruined the SEO on my blog](../2023-01-15-how-i-ruined-my-seo/index.md). That post ended up [trending on Hacker News](https://news.ycombinator.com/item?id=34389421). People made suggestions around things I could do that could improve things. One post in particular caught my eye from [Growtika](https://twitter.com/growtika) saying:
+At the weekend [I wrote a post documenting how I believe I ruined the SEO on my blog](../2023-01-15-how-i-ruined-my-seo/index.md). That post ended up [trending on Hacker News](https://news.ycombinator.com/item?id=34389421). People made suggestions around things I could do that could improve things. One post in particular caught my eye from [Growtika of Growtika.com](https://growtika.com) saying:
 
 > Page speed: It's one of the most important ranking factor. You don't have to get 100 score, but passing the core web vitals score and having higher score on mobile is recommended.
 >
