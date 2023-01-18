@@ -18,7 +18,7 @@ function About() {
     '@type': 'Person',
     name: 'John Reilly',
     alternateName: 'Johnny Reilly',
-    description: 'MacGyver turned Dev',
+    description: 'OSS Engineer - TypeScript, Azure, React, Node.js, .NET',
     url: 'https://johnnyreilly.com',
     image: 'https://johnnyreilly.com/img/profile.jpg',
     address: {

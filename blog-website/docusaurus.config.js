@@ -2,7 +2,7 @@
 const docusaurusCloudinaryRehypePlugin = require('rehype-cloudinary-docusaurus');
 
 const USE_CLOUDINARY = process.env['USE_CLOUDINARY'] === 'true';
-console.log('USE_CLOUDINARY', USE_CLOUDINARY, typeof USE_CLOUDINARY);
+console.log('USE_CLOUDINARY', USE_CLOUDINARY);
 
 const fontaine = require('fontaine');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
@@ -123,6 +123,14 @@ const config = {
         as: 'font',
         type: 'font/woff2',
         crossorigin: 'anonymous',
+      },
+    },
+    // <link rel="preconnect" href="https://res.cloudinary.com" />
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://res.cloudinary.com',
       },
     },
     {
