@@ -7,7 +7,7 @@ const visit = require('unist-util-visit');
  * @returns remark plugin that will replace image URLs with Cloudinary URLs
  */
 function imageFetchPriorityRehypePluginFactory(/** @type {{  }} */ options) {
-  /** @type {Set<string>} */ const files = new Set();
+  /** @type {Map<string, string>} */ const files = new Map();
 
   /** @type {import('unified').Transformer} */
   return (tree, vfile) => {
@@ -25,11 +25,19 @@ function imageFetchPriorityRehypePluginFactory(/** @type {{  }} */ options) {
         //   ...
         // }
 
-        if (!files.has(vfile.history[0])) {
-          // console.log('img', vfile.history[0], node['properties']['src'])
+        const key = `img|${vfile.history[0]}`;
+        const imageAlreadyProcessed = files.get(key);
+        const processThisImage =
+          !imageAlreadyProcessed ||
+          imageAlreadyProcessed === node['properties']['src'];
+
+        if (!imageAlreadyProcessed) {
+          files.set(key, node['properties']['src']);
+        }
+
+        if (processThisImage) {
           node['properties'].fetchpriority = 'high';
           node['properties'].loading = 'eager';
-          files.add(vfile.history[0]);
         }
       } else if (node.type === 'jsx' && node['value']?.includes('<img ')) {
         // handles nodes like this:
@@ -39,14 +47,25 @@ function imageFetchPriorityRehypePluginFactory(/** @type {{  }} */ options) {
         //   value: '<img src={require("!/workspaces/blog.johnnyreilly.com/blog-website/node_modules/url-loader/dist/cjs.js?limit=10000&name=assets/images/[name]-[hash].[ext]&fallback=/workspaces/blog.johnnyreilly.com/blog-website/node_modules/file-loader/dist/cjs.js!./bower-with-the-long-paths.png").default} width="640" height="497" />'
         // }
 
-        // if (!files.has(vfile.history[0])) {
-        // console.log('jsx', vfile.history[0], node['value'])
-        node['value'] = node['value'].replace(
-          /<img /g,
-          '<img loading="eager" fetchpriority="high" '
-        );
-        files.add(vfile.history[0]);
-        // }
+        // if (!vfile.history[0].includes('blog/2023-01-15')) return;
+
+        const key = `jsx|${vfile.history[0]}`;
+        const imageAlreadyProcessed = files.get(key);
+        const processThisImage =
+          !imageAlreadyProcessed || imageAlreadyProcessed === node['value'];
+
+        if (!imageAlreadyProcessed) {
+          files.set(key, node['value']);
+          // console.log(node['value'])
+          // console.log(vfile)
+        }
+
+        if (processThisImage) {
+          node['value'] = node['value'].replace(
+            /<img /g,
+            '<img loading="eager" fetchpriority="high" '
+          );
+        }
       }
     });
   };
