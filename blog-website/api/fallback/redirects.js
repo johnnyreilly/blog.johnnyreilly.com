@@ -277,6 +277,10 @@ const brokenBacklinkGeneratedRedirects = [
     route: '/2022/12/26/docusaurus-image-cloudinary-remark-plugin',
     redirect: '/2022/12/26/docusaurus-image-cloudinary-rehype-plugin',
   },
+  {
+    route: '/2021/03/15/from-blogger-to-docusaurus',
+    redirect: '/definitive-guide-to-migrating-from-blogger-to-docusaurus',
+  },
 ];
 
 const routeGeneratedRedirects = [
