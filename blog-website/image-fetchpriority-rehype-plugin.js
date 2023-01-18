@@ -27,7 +27,7 @@ function imageFetchPriorityRehypePluginFactory(/** @type {{  }} */ options) {
 
         const key = `img|${vfile.history[0]}`;
         const imageAlreadyProcessed = files.get(key);
-        const processThisImage =
+        const fetchpriorityThisImage =
           !imageAlreadyProcessed ||
           imageAlreadyProcessed === node['properties']['src'];
 
@@ -35,9 +35,11 @@ function imageFetchPriorityRehypePluginFactory(/** @type {{  }} */ options) {
           files.set(key, node['properties']['src']);
         }
 
-        if (processThisImage) {
+        if (fetchpriorityThisImage) {
           node['properties'].fetchpriority = 'high';
           node['properties'].loading = 'eager';
+        } else {
+          node['properties'].loading = 'lazy';
         }
       } else if (node.type === 'jsx' && node['value']?.includes('<img ')) {
         // handles nodes like this:
@@ -51,7 +53,7 @@ function imageFetchPriorityRehypePluginFactory(/** @type {{  }} */ options) {
 
         const key = `jsx|${vfile.history[0]}`;
         const imageAlreadyProcessed = files.get(key);
-        const processThisImage =
+        const fetchpriorityThisImage =
           !imageAlreadyProcessed || imageAlreadyProcessed === node['value'];
 
         if (!imageAlreadyProcessed) {
@@ -60,10 +62,15 @@ function imageFetchPriorityRehypePluginFactory(/** @type {{  }} */ options) {
           // console.log(vfile)
         }
 
-        if (processThisImage) {
+        if (fetchpriorityThisImage) {
           node['value'] = node['value'].replace(
             /<img /g,
             '<img loading="eager" fetchpriority="high" '
+          );
+        } else {
+          node['value'] = node['value'].replace(
+            /<img /g,
+            '<img loading="lazy" '
           );
         }
       }
