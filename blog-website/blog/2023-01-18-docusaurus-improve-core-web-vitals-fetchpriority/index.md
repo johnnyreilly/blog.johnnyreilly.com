@@ -21,7 +21,7 @@ At the weekend [I wrote a post documenting how I believe I ruined the SEO on my 
 >
 > A cool trick to improve the result fast is by removing the lazy load effect from the LCP:
 
-![screenshot of web test results that reads largest contentful paint image was lazily loaded ](screenshot-largest-contentful-paint-image-lazy-loaded.png)
+![screenshot of web test results that reads largest contentful paint image was lazily loaded ](screenshot-largest-contentful-paint-image-lazy-loaded.webp)
 
 Another person chimed in with:
 
@@ -188,7 +188,7 @@ module.exports = config;
 
 Now we have this in place, if we run the same test with [pagespeed](https://pagespeed.web.dev/) we have different results:
 
-![screenshot showing fetchpriority="high" has been applied to LCP image](screenshot-largest-contentful-paint-image-fetchpriority.png)
+![screenshot showing fetchpriority="high" has been applied to LCP image](screenshot-largest-contentful-paint-image-fetchpriority.webp)
 
 We're now _not_ lazy loading the image and we're also making it a high priority fetch. Great news!
 
