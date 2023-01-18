@@ -7927,15 +7927,15 @@ regjsparser@^0.9.1:
   dependencies:
     jsesc "~0.5.0"
 
+rehype-cloudinary-docusaurus@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/rehype-cloudinary-docusaurus/-/rehype-cloudinary-docusaurus-1.2.1.tgz#7faf471e0bd62579cf658fcb5a2af60849ff0d1e"
+  integrity sha512-t3znvXh9DQQ07s2GwaqeM2ttsDFiZt6CfCxPTioUqB0VfM9bitfz+hGgn2QBSZeYAgjyy8VwFJbFruyqDRMNTg==
+
 relateurl@^0.2.7:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha512-G08Dxvm4iDN3MLM0EsP62EDV9IuhXPR6blNz6Utcp7zyV3tr4HVNINt6MpaRWbxoOHT3Q7YN2P+jaHX8vUbgog==
-
-remark-cloudinary-docusaurus@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/remark-cloudinary-docusaurus/-/remark-cloudinary-docusaurus-1.2.0.tgz#fca571b55de0037472e1895f662f2d1425e842bc"
-  integrity sha512-4uqIQImVqFMSWh5EOj0kSt/N8Bfx3fpdydEQl9dmUXaUbR5TZYgARPiDECDUl8TbqzbmOHewnvf0b4EoAt9dKg==
 
 remark-emoji@^2.2.0:
   version "2.2.0"
