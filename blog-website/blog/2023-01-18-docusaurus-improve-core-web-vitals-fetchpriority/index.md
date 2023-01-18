@@ -1,7 +1,8 @@
 ---
 title: 'Docusaurus: improving Core Web Vitals with fetchpriority'
 authors: johnnyreilly
-tags: [SEO]
+tags:
+  [Core Web Vitals, Docusaurus, fetchpriority, lazy loading, web performance]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
@@ -16,16 +17,16 @@ At the weekend [I wrote a post documenting how I believe I ruined the SEO on my 
 
 > Page speed: It's one of the most important ranking factor. You don't have to get 100 score, but passing the core web vitals score and having higher score on mobile is recommended.
 >
-> <https://pagespeed.web.dev/report?url=https%3A%2F%2Fjohnnyreilly.com%2F&form_factor=mobile>
+> https://pagespeed.web.dev/report?url=https%3A%2F%2Fjohnnyreilly.com%2F&form_factor=mobile
 >
 > A cool trick to improve the result fast is by removing the lazy load effect from the LCP:
->
-> ![screenshot of web test results that reads "Largest contentful paint image was lazily loaded
-Above-the-fold images that are lazily loaded render later in the page lifecycle, which can delay the largest contentful paint."](screenshot-largest-contentful-paint-image-lazy-loaded.png)
+
+![screenshot of web test results that reads largest contentful paint image was lazily loaded
+Above-the-fold images that are lazily loaded render later in the page lifecycle, which can delay the largest contentful paint](screenshot-largest-contentful-paint-image-lazy-loaded.png)
 
 Another person chimed in with:
 
-> Indeed. Even better, making it high priority instead of normal: <https://addyosmani.com/blog/fetch-priority/>
+> Indeed. Even better, making it high priority instead of normal: https://addyosmani.com/blog/fetch-priority/
 
 ## `fetchpriority`
 
