@@ -36,6 +36,7 @@ function About() {
       'https://stackoverflow.com/users/761388/john-reilly',
       'https://blog.logrocket.com/author/johnreilly/',
       'https://polywork.com/johnnyreilly',
+      'https://uk.linkedin.com/in/johnnyreilly',
     ],
   };
 

@@ -13,7 +13,7 @@ By using `fetchpriority` on your Largest Contentful Paint you can improve your C
 
 ## Avoiding lazy loading on the Largest Contentful Paint
 
-At the weekend [I wrote a post documenting how I believe I ruined the SEO on my blog](../2023-01-15-how-i-ruined-my-seo/index.md). That post ended up [trending on Hacker News](https://news.ycombinator.com/item?id=34389421). People made suggestions around things I could do that could improve things. One post in particular caught my eye from [Growtika of Growtika.com](https://growtika.com) saying:
+At the weekend [I wrote a post documenting how I believe I ruined the SEO on my blog](../2023-01-15-how-i-ruined-my-seo/index.md). That post ended up [trending on Hacker News](https://news.ycombinator.com/item?id=34389421). People made suggestions around things I could do that could improve things. One post in particular caught my eye from [Growtika](https://growtika.com) saying:
 
 > Page speed: It's one of the most important ranking factor. You don't have to get 100 score, but passing the core web vitals score and having higher score on mobile is recommended.
 >
@@ -191,3 +191,5 @@ Now we have this in place, if we run the same test with [pagespeed](https://page
 ![screenshot showing fetchpriority="high" has been applied to LCP image](screenshot-largest-contentful-paint-image-fetchpriority.png)
 
 We're now _not_ lazy loading the image and we're also making it a high priority fetch. Great news!
+
+I'd like for this to be the default behaviour for Docusaurus. I'm not sure if it's possible to do this in a way that's straightforward. [I've raised an issue on the Docusaurus repo to see if it's possible](https://github.com/facebook/docusaurus/issues/8552).
