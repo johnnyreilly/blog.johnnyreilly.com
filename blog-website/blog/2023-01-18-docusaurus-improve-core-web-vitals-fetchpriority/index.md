@@ -21,8 +21,7 @@ At the weekend [I wrote a post documenting how I believe I ruined the SEO on my 
 >
 > A cool trick to improve the result fast is by removing the lazy load effect from the LCP:
 
-![screenshot of web test results that reads largest contentful paint image was lazily loaded
-Above-the-fold images that are lazily loaded render later in the page lifecycle, which can delay the largest contentful paint](screenshot-largest-contentful-paint-image-lazy-loaded.png)
+![screenshot of web test results that reads largest contentful paint image was lazily loaded ](screenshot-largest-contentful-paint-image-lazy-loaded.png)
 
 Another person chimed in with:
 
