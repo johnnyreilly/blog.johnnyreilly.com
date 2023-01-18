@@ -1,5 +1,5 @@
 //@ts-check
-const docusaurusCloudinaryRemarkPlugin = require('remark-cloudinary-docusaurus');
+const docusaurusCloudinaryRehypePlugin = require('rehype-cloudinary-docusaurus');
 
 const USE_CLOUDINARY = process.env['USE_CLOUDINARY'] === 'true';
 console.log('USE_CLOUDINARY', USE_CLOUDINARY, typeof USE_CLOUDINARY);
@@ -64,7 +64,7 @@ const config = {
           rehypePlugins: USE_CLOUDINARY
             ? [
                 [
-                  docusaurusCloudinaryRemarkPlugin,
+                  docusaurusCloudinaryRehypePlugin,
                   {
                     cloudName: 'priou',
                     baseUrl: url,
