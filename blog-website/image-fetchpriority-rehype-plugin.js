@@ -2,17 +2,15 @@
 const visit = require('unist-util-visit');
 
 /**
- * Create a rehype plugin that will replace image URLs with Cloudinary URLs
- * @param {*} options cloudName your Cloudinary’s cloud name eg demo, baseUrl the base URL of your website eg https://blog.johnnyreilly.com - should not include a trailing slash, will likely be the same as the config.url in your docusaurus.config.js
- * @returns remark plugin that will replace image URLs with Cloudinary URLs
+ * Create a rehype plugin that will make the first image eager loaded with fetchpriority="high" and lazy load all other images
+ * @returns rehype plugin that will make the first image eager loaded with fetchpriority="high" and lazy load all other images
  */
-function imageFetchPriorityRehypePluginFactory(/** @type {{  }} */ options) {
+function imageFetchPriorityRehypePluginFactory() {
   /** @type {Map<string, string>} */ const files = new Map();
 
   /** @type {import('unified').Transformer} */
   return (tree, vfile) => {
     visit(tree, ['element', 'jsx'], (node) => {
-      // console.log(vfile.history[0]);
       if (node.type === 'element' && node['tagName'] === 'img') {
         // handles nodes like this:
         // {
@@ -58,8 +56,6 @@ function imageFetchPriorityRehypePluginFactory(/** @type {{  }} */ options) {
 
         if (!imageAlreadyProcessed) {
           files.set(key, node['value']);
-          // console.log(node['value'])
-          // console.log(vfile)
         }
 
         if (fetchpriorityThisImage) {
