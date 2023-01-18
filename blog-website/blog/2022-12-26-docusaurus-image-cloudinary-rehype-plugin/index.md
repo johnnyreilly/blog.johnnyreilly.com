@@ -313,6 +313,32 @@ module.exports = config;
 
 With that in place, images will be served from the Cloudinary CDN when we're running our website normally, but will be served from our website when we're running a pull request preview.
 
+## Core Web Vitals and preconnect
+
+Finally, it's worth adding an entry to the `headTags` of your `docusaurus.config.js` to ensure that your site preconnects to Cloudinary's CDN.  This speeds up the time until images will be served to your users.  That addition looks like this:  
+
+```js
+/** @type {import('@docusaurus/types').Config} */
+const config = {
+  // ...
+  headTags: [
+    // ...
+
+    // <link rel="preconnect" href="https://res.cloudinary.com" />
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://res.cloudinary.com',
+      },
+    },
+
+    // ...
+  ]
+  // ...
+}
+```
+
 ## Conclusion
 
 We've seen how we can use a rehype plugin to transform HTML image syntax into Cloudinary URLs. We've also seen how we can use an environment variable to conditionally add the plugin to our Docusaurus configuration.
