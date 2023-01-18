@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[76354],{75853:e=>{e.exports=JSON.parse('{"label":"remark plugin","permalink":"/tags/remark-plugin","allTagsPath":"/tags","count":1}')}}]);
