@@ -68,7 +68,7 @@ Getting rid of the `loading="lazy"` attribute was all I needed to do. This gets 
 
 ## Adding `fetchpriority="high"` to the LCP with a custom plugin
 
-The next thing to do was to write a small Rehype plugin to add `fetchpriority="high"` to the LCP. I did this by creating a new Rehype plugin called `image-fetchpriority-rehype-plugin.js`:
+The next thing to do was to write a small Rehype plugin to add `fetchpriority="high"` to the LCP. I did this by creating a new JavaScript file called `image-fetchpriority-rehype-plugin.js`:
 
 ```js
 // @ts-check
