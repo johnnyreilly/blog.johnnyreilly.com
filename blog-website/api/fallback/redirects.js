@@ -273,6 +273,10 @@ const brokenBacklinkGeneratedRedirects = [
       '/assets/images/permissioning-azure-pipelines-with-bicep-and-role-assignments-a540df332b847efc72e71362340d3b89.png',
     redirect: '/assets/images/title-image-46cc8f39c57972b35cd9c539259b88f4.png',
   },
+  {
+    route: '/2022/12/26/docusaurus-image-cloudinary-remark-plugin',
+    redirect: '/2022/12/26/docusaurus-image-cloudinary-rehype-plugin',
+  },
 ];
 
 const routeGeneratedRedirects = [

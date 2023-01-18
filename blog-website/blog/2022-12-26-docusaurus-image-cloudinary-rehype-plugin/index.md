@@ -1,7 +1,7 @@
 ---
 title: 'Serving Docusaurus images with Cloudinary'
 authors: johnnyreilly
-tags: [Docusaurus, Cloudinary, remark plugin]
+tags: [Docusaurus, Cloudinary, rehype plugin]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
@@ -22,7 +22,7 @@ I received a note from the marvellous [Rebeccca Peltz](https://github.com/rebecc
 >
 > `https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto/https://johnnyreilly.com/assets/images/screenshot-image-from-cloudinary-cb313fdeb91761d777ed1732f7c054c9.webp`
 
-This sounded nothing but advantageous and so it's now the default behaviour of the plugin, as of v1.2.0. [See the pull request here](https://github.com/johnnyreilly/remark-cloudinary-docusaurus/pull/5). Thanks Rebecca!
+This sounded nothing but advantageous and so it's now the default behaviour of the plugin, as of v1.2.0. [See the pull request here](https://github.com/johnnyreilly/rehype-cloudinary-docusaurus/pull/5). Thanks Rebecca!
 
 ## What is Cloudinary?
 
@@ -72,22 +72,22 @@ The second setting is optional. If you want to restrict the domains from which y
 
 Above I'm restricting my account to only fetch images from my own site; `blog.johnnyreilly.com`. To my mind, it's the Cloudinary content security policy for fetching images.
 
-## Docusaurus Cloudinary remark image plugin
+## Docusaurus Cloudinary rehype image plugin
 
-Now we have our Cloudinary account set up, we can use it with Docusaurus. To do so, we need to create a remark plugin. This is a plugin for the [remark](https://github.com/remarkjs/remark/) markdown processor. It's a plugin that will transform the markdown image syntax into a Cloudinary URL.
+Now we have our Cloudinary account set up, we can use it with Docusaurus. To do so, we need to create a rehype plugin. This is a plugin for the [rehype](https://github.com/rehypejs/rehype/) HTML processor. It's a plugin that will transform the HTML image syntax into a Cloudinary URL.
 
-The plugin takes the form of a JavaScript file we'll call `docusaurus-cloudinary-remark-plugin.js`:
+The plugin takes the form of a JavaScript file we'll call `docusaurus-cloudinary-rehype-plugin.js`:
 
 ```js
 //@ts-check
 const visit = require('unist-util-visit');
 
 /**
- * Create a remark plugin that will replace image URLs with Cloudinary URLs
+ * Create a rehype plugin that will replace image URLs with Cloudinary URLs
  * @param {*} options cloudName your Cloudinary’s cloud name eg demo, baseUrl the base URL of your website eg https://blog.johnnyreilly.com - should not include a trailing slash, will likely be the same as the config.url in your docusaurus.config.js
- * @returns remark plugin that will replace image URLs with Cloudinary URLs
+ * @returns rehype plugin that will replace image URLs with Cloudinary URLs
  */
-function imageCloudinaryRemarkPluginFactory(
+function imageCloudinaryRehypePluginFactory(
   /** @type {{ cloudName: string; baseUrl: string }} */ options
 ) {
   const { cloudName, baseUrl } = options;
@@ -135,10 +135,10 @@ function imageCloudinaryRemarkPluginFactory(
   };
 }
 
-module.exports = imageCloudinaryRemarkPluginFactory;
+module.exports = imageCloudinaryRehypePluginFactory;
 ```
 
-This plugin is a factory function that takes two parameters: the name of your Cloudinary account and the base URL of your website. It returns a remark plugin that will transform the markdown image syntax into a Cloudinary URL.
+This plugin is a factory function that takes two parameters: the name of your Cloudinary account and the base URL of your website. It returns a rehype plugin that will transform the HTML image syntax into a Cloudinary URL.
 
 If you look at the code, you'll see that it handles two different types of image syntax; an `img` tag and a JSX image tag. The `img` tag is a very simple transform; it just prefixes the `src` attribute with `https://res.cloudinary.com/${cloudName}/image/fetch/` where `${cloudName}` is the name of your Cloudinary account; eg `demo`.
 
@@ -152,7 +152,7 @@ Now we have our plugin, we can use it. We need to add it to our `docusaurus.conf
 
 ```js
 //@ts-check
-const docusaurusCloudinaryRemarkPlugin = require('./docusaurus-cloudinary-remark-plugin');
+const docusaurusCloudinaryRehypePlugin = require('./docusaurus-cloudinary-rehype-plugin');
 
 const url = 'https://blog.johnnyreilly.com';
 
@@ -169,7 +169,7 @@ const config = {
           // ...
           rehypePlugins: [
             [
-              docusaurusCloudinaryRemarkPlugin,
+              docusaurusCloudinaryRehypePlugin,
               {
                 cloudName: 'demo',
                 baseUrl: url,
@@ -194,19 +194,19 @@ Note that we pass in the name of our Cloudinary account and the base URL of our 
 
 Excellent! We're now serving our images from the Cloudinary CDN.
 
-## Introducing `remark-cloudinary-docusaurus`
+## Introducing `rehype-cloudinary-docusaurus`
 
-But who wants to make a remark plugin? I don't. I want to use a remark plugin. So I created one. It's called [`remark-cloudinary-docusaurus`](https://github.com/johnnyreilly/remark-cloudinary-docusaurus) and you can find it on npm. It's a drop-in replacement for the plugin we created above. You can add it like this (use whichever package manager CLI tool you prefer):
+But who wants to make a rehype plugin? I don't. I want to use a rehype plugin. So I created one. It's called [`rehype-cloudinary-docusaurus`](https://github.com/johnnyreilly/rehype-cloudinary-docusaurus) and you can find it on npm. It's a drop-in replacement for the plugin we created above. You can add it like this (use whichever package manager CLI tool you prefer):
 
 ```bash
-npm i remark-cloudinary-docusaurus
+npm i rehype-cloudinary-docusaurus
 ```
 
 And then usage is:
 
 ```js
 //@ts-check
-const docusaurusCloudinaryRemarkPlugin = require('remark-cloudinary-docusaurus');
+const docusaurusCloudinaryRehypePlugin = require('rehype-cloudinary-docusaurus');
 
 const url = 'https://blog.johnnyreilly.com';
 
@@ -223,7 +223,7 @@ const config = {
           // ...
           rehypePlugins: [
             [
-              docusaurusCloudinaryRemarkPlugin,
+              docusaurusCloudinaryRehypePlugin,
               {
                 cloudName: 'demo',
                 baseUrl: url,
@@ -270,7 +270,7 @@ With our environment variable in place, we can conditionally add the plugin to o
 
 ```js
 //@ts-check
-const docusaurusCloudinaryRemarkPlugin = require('remark-cloudinary-docusaurus');
+const docusaurusCloudinaryRehypePlugin = require('rehype-cloudinary-docusaurus');
 
 const USE_CLOUDINARY = process.env['USE_CLOUDINARY'] === 'true';
 
@@ -290,7 +290,7 @@ const config = {
           rehypePlugins: USE_CLOUDINARY
             ? [
                 [
-                  docusaurusCloudinaryRemarkPlugin,
+                  docusaurusCloudinaryRehypePlugin,
                   {
                     cloudName: 'demo',
                     baseUrl: url,
@@ -315,4 +315,4 @@ With that in place, images will be served from the Cloudinary CDN when we're run
 
 ## Conclusion
 
-We've seen how we can use a remark plugin to transform markdown image syntax into Cloudinary URLs. We've also seen how we can use an environment variable to conditionally add the plugin to our Docusaurus configuration.
+We've seen how we can use a rehype plugin to transform HTML image syntax into Cloudinary URLs. We've also seen how we can use an environment variable to conditionally add the plugin to our Docusaurus configuration.
