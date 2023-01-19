@@ -182,12 +182,35 @@ function About() {
                     </a>{' '}
                     and was part of the initial Program Committee and an MC.
                   </p>
-                  <p>
-                    Some of my blogs are available on{' '}
-                    <a href="https://blog.logrocket.com/author/johnreilly/">
-                      LogRocket
-                    </a>
-                  </p>
+
+                  <h3>Where has this blog featured?</h3>
+                  <ul>
+                    <li>
+                      <a href="https://blog.cwa.me.uk/2023/01/06/the-morning-brew-3618/">
+                        The Morning Brew
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://azureweekly.info/issue-399.html">
+                        Azure Weekly
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://blog.logrocket.com/author/johnreilly/">
+                        LogRocket
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://devblogs.microsoft.com/devops/this-week-i-searched-far-and-wide-to-find-some-really-informative-posts-from-our-community-weve-got-posts-on-code-quality-python-azure-devops-pipelines-and-more/">
+                        Azure DevOps Blog
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://github.com/okonet/lint-staged">
+                        Lint Staged
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
