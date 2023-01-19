@@ -1,7 +1,8 @@
 //@ts-check
-const docusaurusCloudinaryRehypePlugin = require('rehype-cloudinary-docusaurus');
+// const docusaurusCloudinaryRehypePlugin = require('rehype-cloudinary-docusaurus');
+const docusaurusCloudinaryRehypePlugin = require('./docusaurus-cloudinary-rehype-plugin');
 
-const USE_CLOUDINARY = process.env['USE_CLOUDINARY'] === 'true';
+const USE_CLOUDINARY = true; // process.env['USE_CLOUDINARY'] === 'true';
 console.log('USE_CLOUDINARY', USE_CLOUDINARY);
 
 const fontaine = require('fontaine');
