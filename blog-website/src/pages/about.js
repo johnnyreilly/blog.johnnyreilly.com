@@ -133,11 +133,12 @@ function About() {
                 <div className={clsx('col col--6', styles.feature)}>
                   <h3>What do I do?</h3>
                   <p>
-                    I blog and work on open source software.{' '}
+                    I blog and work on open source software. I've been doing
+                    this for more than ten years now.{' '}
                     <a href="https://twitter.com/johnny_reilly/status/1541020953299128320">
-                      My OSS has been used by GitHub
+                      Open source software I work on has been used by GitHub
                     </a>
-                    ! Some OSS I have worked on:
+                    ! Some open source software I have worked on:
                   </p>
                   <ul>
                     <li>
