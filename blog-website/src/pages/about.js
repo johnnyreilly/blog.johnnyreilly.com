@@ -18,7 +18,8 @@ function About() {
     '@type': 'Person',
     name: 'John Reilly',
     alternateName: 'Johnny Reilly',
-    description: 'OSS Engineer - TypeScript, Azure, React, Node.js, .NET',
+    description:
+      'Open Source Software Engineer - TypeScript, Azure, React, Node.js, .NET',
     url: 'https://johnnyreilly.com',
     image: 'https://johnnyreilly.com/img/profile.jpg',
     address: {
@@ -133,8 +134,9 @@ function About() {
                 <div className={clsx('col col--6', styles.feature)}>
                   <h3>What do I do?</h3>
                   <p>
-                    I blog and work on open source software. I've been doing
-                    this for more than ten years now.{' '}
+                    I blog and work on open source software. I've more than ten
+                    years experience blogging and working on open source
+                    software.{' '}
                     <a href="https://twitter.com/johnny_reilly/status/1541020953299128320">
                       Open source software I work on has been used by GitHub
                     </a>
