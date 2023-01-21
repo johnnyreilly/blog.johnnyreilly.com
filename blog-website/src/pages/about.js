@@ -11,7 +11,8 @@ function About() {
   const context = useDocusaurusContext();
   const { siteConfig = { title: '', tagline: '' } } = context;
 
-  // details on structured data support: https://developers.google.com/search/docs/data-types/article#non-amp
+  // details on structured data support: 
+  // https://developers.google.com/search/docs/data-types/article#non-amp
   // and https://schema.org/Person
   const personStructuredData = {
     '@context': 'http://www.schema.org',
