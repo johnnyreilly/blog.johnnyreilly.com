@@ -110,6 +110,21 @@ const [greeting, setGreeting] = useSearchParamsState('greeting', 'hello');
 
 The above code returns back a `greeting` value which is derived from the `greeting` search parameter. It also returns a `setGreeting` function which allows setting the `greeting` value. This is the same API as `useState` and so should feel idiomatic to a user of React. Tremendous!
 
+## Performance - updated 18th December 2022
+
+At this point you might be thinking "why don’t we use the `useSearchParamsState` hook always?". The fact of the matter is, you could but there’s a reason why you might not want to: performance. The `useSearchParamsState` hook is slower to use than the `useState` hook. Let's think about why.
+
+If you’re using the `useState` hook, then ultimately a variable is being updated inside the program that represents your application.  This is internal state. However, for the `useSearchParamsState` hook the story is slightly different. The `useSearchParamsState` hook is built upon the `useSearchParams` hook in react-router, as we’ve seen. [If you look at the implementation of that hook](https://github.com/remix-run/react-router/blob/590b7a25a454d998c83f4e5d6f00ad5a6217533b/packages/react-router-dom/index.tsx#L785), you can see that it relies on various browser APIs such as `location` and `History`.
+
+The upshot of this is that the state for our `useSearchParamsState` hook is `external`  to our application.  It might not feel external because we haven't had to set up a database or an API or anything, but external it is.  State lives in the browsers APIs, and with that comes a performance penalty.  Every time we change state the following happens:
+
+- The `useSearchParams` hook in react-router will invoke the `History` API
+- The browser will update the URL
+- The instance of react-router running at the root of your application will detect changes in the `location.search` and will surface a new value for your application.
+- The code in your application that depends upon this will react.
+
+The above is slower than just invoking `useState` and relying upon a local variable. It’s not overwhelmingly slower; generally I’ve not had an issue because browsers are very fast these days. But it’s worth bearing in mind, that if you’re intending to write code that is as performant as possible, then this is probably a hook to avoid.  Anything that involves an external API, even if it’s an API that lives in the browser, will be slower than local variables.  That said, I would expect there to be few applications to which this is a significant factor - but it’s worth considering.
+
 ## Persisting querystring across your site
 
 Now we have this exciting mechanism set up which allows us to store state in our URL and consequently easily share state by sending someone our URL.
@@ -131,3 +146,7 @@ Now as we navigate around our site, that state will be maintained.
 In this post we've created a `useSearchParamsState` hook, which allows state to be persisted to URLs for sharing purposes.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/use-state-url-persist-state-usesearchparams/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/use-state-url-persist-state-usesearchparams/" />
+</head>

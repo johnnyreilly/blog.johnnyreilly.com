@@ -1,11 +1,14 @@
 {
-  "name": "blog.johnnyreilly.com",
+  "name": "johnnyreilly.com",
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "funcDev": "swa start http://localhost:3000 --run \"npm start\" --api-location api",
+    "funcBuild": "swa start build --api-location api",
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "docusaurus build",
+    "build": "cross-env WEBPACK_URL_LOADER_LIMIT=0 docusaurus build",
+    "postbuild": "cd ../trim-xml && yarn && yarn start",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -14,6 +17,7 @@
     "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
+    "@azure/static-web-apps-cli": "^1.0.4",
     "@docusaurus/core": "2.2.0",
     "@docusaurus/plugin-client-redirects": "2.2.0",
     "@docusaurus/plugin-ideal-image": "2.2.0",
@@ -21,7 +25,7 @@
     "@docusaurus/preset-classic": "2.2.0",
     "@mdx-js/react": "1.6.22",
     "@svgr/webpack": "6.5.1",
-    "@swc/core": "1.3.14",
+    "@swc/core": "1.3.26",
     "clsx": "1.2.1",
     "file-loader": "6.2.0",
     "prism-react-renderer": "1.3.5",
@@ -34,8 +38,10 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.2.0",
     "@tsconfig/docusaurus": "1.0.6",
+    "cross-env": "^7.0.3",
     "fontaine": "0.2.3",
-    "typescript": "4.8.4"
+    "rehype-cloudinary-docusaurus": "1.2.1",
+    "typescript": "4.9.4"
   },
   "browserslist": {
     "production": [
@@ -50,7 +56,7 @@
     ]
   },
   "engines": {
-    "node": "^16.10.0",
+    "node": "^18.0.0",
     "yarn": "^1.22.10"
   }
 }

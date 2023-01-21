@@ -33,7 +33,24 @@ For my own sanity I thought it might be good to document the various ways that e
 
 If you're running IIS7 or greater then, for my money, this is the simplest and most pain free solution. All you need do is include the following snippet in your web config file:
 
-<script src="https://gist.github.com/johnnyreilly/5283462.js?file=web.config"></script>
+```xml
+<?xml version="1.0"?>
+<configuration>
+
+  <!-- ... -->
+
+  <system.webServer>
+    <httpProtocol>
+      <customHeaders>
+        <add name="X-UA-Compatible" value="IE=edge" />
+      </customHeaders>
+    </httpProtocol>
+  </system.webServer>
+
+  <!-- ... -->
+
+<configuration>
+```
 
 This will make IIS serve up the above custom response HTTP header with each page.
 
@@ -41,11 +58,11 @@ This will make IIS serve up the above custom response HTTP header with each page
 
 Maybe you're running II6 and so you making a change to the web.config won't make a difference. That's fine, you can still get the same behaviour by going to the HTTP headers tab in IIS (see below) and adding the `X-UA-Compatible: IE=edge` header by hand.
 
-![](https://4.bp.blogspot.com/-78CYavaCiUk/UVlGNv87U_I/AAAAAAAAAZQ/qtchMc14JsY/s320/CustomHeadersIIS6.gif)
-
 Or, if you don't have access to IIS (don't laugh - it happens) you can fall back to doing this in code like this:
 
-<script src="https://gist.github.com/johnnyreilly/5283462.js?file=servingUpTheHardWay.cs"></script>
+```cs
+Response.AppendHeader("X-UA-Compatible", "IE=edge");
+```
 
 Obviously there's a whole raft of ways you could get this in, using `Application_BeginRequest` in `Global.asax.cs` would probably as good an approach as any.
 
@@ -53,7 +70,16 @@ Obviously there's a whole raft of ways you could get this in, using `Application
 
 The final approach uses meta tags. And, in my experience it is the most quirky approach - it doesn't always seem to work. First up, what do we do? Well, in each page served we include the following meta tag like this:
 
-<script src="https://gist.github.com/johnnyreilly/5283462.js?file=any.html"></script>
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- See how the meta tag is the first inside the head?  That's *important* -->
+  </head>
+  <body></body>
+</html>
+```
 
 Having crawled over the WWW equivalent of broken glass I now know why this \***sometimes**\* doesn't work. (And credit where it's due the answer came from [here](http://stackoverflow.com/a/3960197/761388).) It's all down to the positioning of the meta tag:
 

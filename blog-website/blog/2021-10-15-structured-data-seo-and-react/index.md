@@ -2,15 +2,15 @@
 title: 'Structured data, SEO and React'
 authors: johnnyreilly
 tags: [structured data, SEO, React]
-image: ./structured-data-seo-and-react.webp
+image: ./title-image.png
 hide_table_of_contents: false
 ---
 
 People being able to discover your website when they search is important. This post is about how you can add structured data to a site. Adding structured data will help search engines like Google understand your content, and get it in front of more eyeballs. We'll illustrate this by making a simple React app which incorporates structured data.
 
-![title image reading "Structured data, SEO and React" with a screenshot of the rich results tool in the background](structured-data-seo-and-react.webp)
+![title image reading "Structured data, SEO and React" with a screenshot of the rich results tool in the background](title-image.png)
 
-## Updated 28th October 2021
+## Updated 26th November 2022
 
 This blog evolved to become a talk:
 
@@ -154,3 +154,7 @@ So we've been successful in building a website that renders structured data. Mor
 This post has illustrated what it looks like to create an `Article`. Google has some [great resources](https://developers.google.com/search/docs/advanced/structured-data/search-gallery) on other types that it supports and prioritises for rich results which should help you build the structured data you need for your particular content.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/react-structured-data-and-seo/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/react-structured-data-and-seo/" />
+</head>

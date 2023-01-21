@@ -157,3 +157,7 @@ We've seen that TypeScript ensures correct usage of constructors when we have an
 - implement their own constructor which invokes the base (or "super") class constructor with the correct arguments.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/typescript-abstract-classes-and-constructors/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/typescript-abstract-classes-and-constructors/" />
+</head>

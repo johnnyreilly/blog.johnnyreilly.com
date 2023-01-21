@@ -156,3 +156,7 @@ This resolves the compilation issues we were having earlier; no type issues are 
 We now understand how the breaking type changes came to present with React 18, and we know how to upgrade our codebase using the handy codemod. Thanks [Sebastian Silbermann](https://twitter.com/sebsilbermann) for not only putting this work into getting the type definitions in the best state they could be, and making it easier for the community to upgrade.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/upgrading-react-18-typescript/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/upgrading-react-18-typescript/" />
+</head>

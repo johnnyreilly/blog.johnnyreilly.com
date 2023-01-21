@@ -47,7 +47,25 @@ I'm pulling this out of my layout page because it's presence means that **every*
 
 Well, I understand your concerns but really you needn't worry - Cassette's got my back. Look closely at the code below:
 
-<script src="https://gist.github.com/johnnyreilly/5693071.js?file=ReferencesValidateDependesOnCoreCassetteConfiguration.cs"></script>
+```cs
+// A bundle of the core scripts that will likely be used on every page of the app
+bundles.Add<ScriptBundle>("~/bundles/core",
+                          new[]
+                              {
+                                  "~/Scripts/jquery-1.8.2.js",
+                                  "~/Scripts/jquery-ui-1.8.24.js"
+                              });
+
+// Validation scripts; only likely necessary on data entry screens
+bundles.Add<ScriptBundle>("~/bundles/validate",
+                          new[]
+                              {
+                                  "~/Scripts/jquery.validate.js",
+                                  "~/Scripts/jquery.validate.unobtrusive.js"
+                              },
+                          bundle => bundle.AddReference("~/bundles/core")
+    );
+```
 
 See it? The `~/bundles/validate` bundle declares a reference to the `~/bundles/core` bundle. The upshot of this is, that if you tell Cassette to reference `~/bundles/validate` it will ensure that before it renders that bundle it first renders any bundles that bundle depends on (in this case the `~/bundles/core` bundle).
 
@@ -59,7 +77,22 @@ And the good news doesn't stop there. Let's say you **don't** want to maintain y
 
 Let's demo this. First of all add the following file at this location in the project: `~/Scripts/Views/Home/Index.js`
 
-<script src="https://gist.github.com/johnnyreilly/5693071.js?file=Index.js"></script>
+```js
+// @reference ~/bundles/core
+
+$(document).ready(function () {
+  var $body = $('#body');
+
+  $body.fadeOut(1000, function () {
+    $body
+      .html(
+        '<div style="width: 150px; margin: 0 auto;">' +
+          'I made it all go away...</div>'
+      )
+      .fadeIn();
+  });
+});
+```
 
 The eagle-eyed amongst you will have noticed
 
@@ -75,11 +108,7 @@ With this in place Cassette will render out a bundle for each script in the View
 
 `Bundles.Reference("~/Scripts/Views/Home/Index.js");`
 
-If you browse to the home page of the application this is what you should now see:
-
-![](https://2.bp.blogspot.com/-tGZTEhhkGz8/Ua7xlgl3n5I/AAAAAAAAAcs/miNZsysrJeY/s320/Index.js.png)
-
-What this means is, `Index.js` was served up by Cassette. And more importantly before `Index.js` was served the referenced `~/bundles/core` was served too.
+Now `Index.js` is served up by Cassette. And more importantly before `Index.js` was served the referenced `~/bundles/core` was served too.
 
 ## Avoiding the Gotcha
 

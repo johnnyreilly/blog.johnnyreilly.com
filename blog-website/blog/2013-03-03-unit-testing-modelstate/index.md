@@ -19,15 +19,61 @@ The disputed situation in this case was ModelState validation in ASP.Net MVC. Ho
 
 Let's start with a simple model:
 
-<script src="https://gist.github.com/johnnyreilly/5069901.js?file=CarModel.cs"></script>
+```cs
+using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace MyNamespace.Model
+{
+    public class CarModel
+    {
+        [Required,
+         Display(Name = "Purchased"),
+         DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        public DateTime Purchased { get; set; }
+
+        [Required,
+         Display(Name = "Colour")]
+        public string Colour{ get; set; }
+    }
+}
+```
 
 And let's have a controller which makes use of that model:
 
-<script src="https://gist.github.com/johnnyreilly/5069901.js?file=CarController.cs"></script>
+```cs
+using System.Web.Mvc;
+
+namespace MyApp
+{
+    public class CarController : Controller
+    {
+        //...
+
+        public ActionResult Edit(CarModel model)
+        {
+            if (ModelState.IsValid) {
+              //Save the model
+              return View("Details", model);
+            }
+
+            return View(model);
+        }
+
+        //...
+    }
+}
+```
 
 When I was first looking at unit testing this I was slightly baffled by the behaviour I witnessed. I took an invalid model (where the properties set on the model were violating the model's validation `DataAnnotations`):
 
-<script src="https://gist.github.com/johnnyreilly/5069901.js?file=NaomiCampbell.cs"></script>
+```cs
+var car = new CarModel
+{
+    Puchased = null, //This is a required property and so this value is invalid
+    Colour = null //This is a required property and so this value is invalid
+};
+```
 
 I passed the invalid model to the `Edit` controller action inside a unit test. My expectation was that the `ModelState.IsValid` code path would \***not**\* be followed as this was \***not**\* a valid model. So `ModelState.IsValid` should evaluate to `false`, right? Wrong!
 
@@ -47,7 +93,29 @@ When I grasped Marc's point I thought that the the only way to write these tests
 
 .... Drum roll... Ladies and gents may I present Marc's `ModelStateTestController`:
 
-<script src="https://gist.github.com/johnnyreilly/5069901.js?file=ModelStateTestController.cs"></script>
+```cs
+using System.Web.Mvc;
+using Moq;
+
+namespace UnitTests.TestUtilities
+{
+    /// <summary>
+    /// Instance of a controller for testing things that use controller methods i.e. controller.TryValidateModel(model)
+    /// </summary>
+    public class ModelStateTestController : Controller
+    {
+        public ModelStateTestController()
+        {
+            ControllerContext = (new Mock<ControllerContext>()).Object;
+        }
+
+        public bool TestTryValidateModel(object model)
+        {
+            return TryValidateModel(model);
+        }
+    }
+}
+```
 
 This class is, as you can see, incredibly simple. It is a controller, it inherits from `System.Web.Mvc.Controller` and establishes a mock context in the constructor using MOQ. This controller exposes a single method: `TestTryValidateModel`. This method internally determines the controller's `ModelState` given the supplied object by calling off to Mvc's (protected) `TryValidateModel` method (`TryValidateModel` evaluates `ModelState`).
 
@@ -57,7 +125,37 @@ This simple class allows us to test the validations on a model in a simple fashi
 
 Let me wrap up with an example unit test. The test below makes use of the `ModelStateTestController` to check the application of the DataAnnotations on our model:
 
-<script src="https://gist.github.com/johnnyreilly/5069901.js?file=ModelStateUnitTests.cs"></script>
+```cs
+[TestMethod]
+public void Unit_Test_CarModel_ModelState_validations_are_thrown()
+{
+    // Arrange
+    var controller = new ModelStateTestController();
+    var car = new CarModel
+    {
+        Puchased = null, //This is a required property and so this value is invalid
+        Colour = null //This is a required property and so this value is invalid
+    };
+
+    // Act
+    var result = controller.TestTryValidateModel(company);
+
+    // Assert
+    Assert.IsFalse(result);
+
+    var modelState = controller.ModelState;
+
+    Assert.AreEqual(2, modelState.Keys.Count);
+
+    Assert.IsTrue(modelState.Keys.Contains("Purchased"));
+    Assert.IsTrue(modelState["Purchased"].Errors.Count == 1);
+    Assert.AreEqual("The Purchased field is required.", modelState["Purchased"].Errors[0].ErrorMessage);
+
+    Assert.IsTrue(modelState.Keys.Contains("Colour"));
+    Assert.IsTrue(modelState["Colour"].Errors.Count == 1);
+    Assert.AreEqual("The Colour field is required.", modelState["Colour"].Errors[0].ErrorMessage);
+}
+```
 
 ## Wrapping up
 

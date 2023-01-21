@@ -2,13 +2,13 @@
 title: 'TypeScript vs JSDoc JavaScript'
 authors: johnnyreilly
 tags: [JavaScript, TypeScript, JSDoc]
-image: ./title-image.webp
+image: ./title-image.png
 hide_table_of_contents: false
 ---
 
 There's a debate to be had about whether using JavaScript or TypeScript leads to better outcomes when building a project. The introduction of using JSDoc annotations to type a JavaScript codebase introduces a new dynamic to this discussion. This post will investigate what that looks like, and come to an (opinionated) conclusion.
 
-![title image reading "JSDoc JavaScript vs TypeScript" with a JavaScript logo and TypeScript logo](title-image.webp)
+![title image reading "JSDoc JavaScript vs TypeScript" with a JavaScript logo and TypeScript logo](title-image.png)
 
 ## Updated 6th December 2021
 
@@ -108,3 +108,7 @@ So in a way, I don't feel super strongly whether people use JavaScript or TypeSc
 I really like JSDoc myself, and will often use it on small projects. It's a fantastic addition to TypeScript's capabilities. For bigger projects, I'll likely go with TypeScript from the get go. But really, this is a choice - and either is great.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/typescript-vs-jsdoc-javascript/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/typescript-vs-jsdoc-javascript/" />
+</head>

@@ -358,4 +358,8 @@ Inside the `React.useEffect` above you can see we create a new instance of the a
 
 As you an see we're loading data from the server using our auto-generated client. We're reducing the amount of code we have to write _and_ we're reducing the likelihood of errors.
 
-_This post was originally posted on [LogRocket](https://blog.logrocket.com/generate-typescript-csharp-clients-nswag-api/)._
+This post was originally posted on [LogRocket](https://blog.logrocket.com/generate-typescript-csharp-clients-nswag-api/).
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/generate-typescript-csharp-clients-nswag-api/" />
+</head>

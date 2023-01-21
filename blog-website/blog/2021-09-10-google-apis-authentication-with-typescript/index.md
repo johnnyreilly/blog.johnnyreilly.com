@@ -263,3 +263,7 @@ The approach outlined by this post is the key to integrating with a multitude of
 The idea of this was sparked by [Martin Fowler's post](https://martinfowler.com/articles/command-line-google.html) on the topic which comes from a Ruby angle.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/how-to-authenticate-access-google-apis-using-oauth-2-0/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/how-to-authenticate-access-google-apis-using-oauth-2-0/" />
+</head>

@@ -216,3 +216,7 @@ Our complete build, TypeScript type checking, transpilation, minification and so
 As your codebase scales and your application grows, compilation time can skyrocket also. With `esbuild-loader` you should get ongoing benefits to your build time.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/webpack-or-esbuild-why-not-both/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/webpack-or-esbuild-why-not-both/" />
+</head>

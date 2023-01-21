@@ -1,6 +1,20 @@
 {
   "trailingSlash": "never",
+  "navigationFallback": {
+    "rewrite": "/api/fallback"
+  },
+  "platform": {
+    "apiRuntime": "node:18"
+  },
   "routes": [
+    {
+      "route": "*.{php,ini}",
+      "redirect": "/404"
+    },
+    {
+      "route": "/404",
+      "statusCode": 404
+    },
     {
       "route": "/img/*",
       "headers": {
@@ -12,11 +26,27 @@
       "headers": {
         "cache-control": "must-revalidate, max-age=15770000"
       }
+    },
+    {
+      "route": "/page/*",
+      "headers": {
+        "X-Robots-Tag": "noindex"
+      }
+    },
+    {
+      "route": "/tags/*",
+      "headers": {
+        "X-Robots-Tag": "noindex"
+      }
     }
   ],
   "globalHeaders": {
-    "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'; script-src 'self' https://www.googleanalytics.com https://www.google-analytics.com https://www.googleoptimize.com https://www.googletagmanager.com 'unsafe-inline'; img-src 'self' data: https: https://blog.johnnyreilly.com https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self' https://blog.johnnyreilly.com",
+    "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'; script-src 'self' https://www.googleanalytics.com https://www.google-analytics.com https://www.googleoptimize.com https://www.googletagmanager.com https://gist.github.com 'unsafe-inline'; img-src 'self' data: https: https://johnnyreilly.com https://blog.johnnyreilly.com https://www.google-analytics.com https://www.googletagmanager.com https://dev.to https://res.cloudinary.com; font-src 'self' https://johnnyreilly.com https://blog.johnnyreilly.com",
     "X-Clacks-Overhead": "GNU Terry Pratchett",
     "Access-Control-Allow-Origin": "*"
+  },
+  "mimeTypes": {
+    ".xml": "application/xml; charset=utf-8",
+    ".txt": "text/plain"
   }
 }

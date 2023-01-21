@@ -1,19 +1,25 @@
 //@ts-check
-const urlRegex = /^\/\d{4}\/\d{2}\/\d{2}\//;
+const docusaurusCloudinaryRehypePlugin = require('rehype-cloudinary-docusaurus');
+
+const USE_CLOUDINARY = process.env['USE_CLOUDINARY'] === 'true';
+console.log('USE_CLOUDINARY', USE_CLOUDINARY);
 
 const fontaine = require('fontaine');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const imageFetchPriorityRehypePlugin = require('./image-fetchpriority-rehype-plugin');
+
+const url = 'https://johnnyreilly.com';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'I CAN MAKE THIS WORK',
-  tagline: 'The blog of johnnyreilly ❤️🌻',
-  url: 'https://blog.johnnyreilly.com',
+  title: 'johnnyreilly',
+  tagline: "Hi! I'm John Reilly - welcome! ❤️🌻",
+  url,
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
-  favicon: 'img/favicon.ico',
+  favicon: 'favicon.ico',
   organizationName: 'johnnyreilly', // Usually your GitHub org/user name.
   projectName: 'blog.johnnyreilly.com', // Usually your repo name.
 
@@ -55,8 +61,27 @@ const config = {
         },
         docs: false,
         blog: {
+          rehypePlugins: USE_CLOUDINARY
+            ? [
+                [
+                  docusaurusCloudinaryRehypePlugin,
+                  {
+                    cloudName: 'priou',
+                    baseUrl: url,
+                  },
+                ],
+                imageFetchPriorityRehypePlugin,
+              ]
+            : [imageFetchPriorityRehypePlugin],
+          feedOptions: {
+            type: ['rss', 'atom'],
+            title: 'I CAN MAKE THIS WORK',
+            description: 'The blog of John Reilly ❤️🌻',
+            language: 'en',
+            copyright: `Copyright © 2012 - ${new Date().getFullYear()} John Reilly.`,
+          },
           blogTitle: 'I CAN MAKE THIS WORK',
-          blogDescription: 'The blog of johnnyreilly',
+          blogDescription: 'The blog of John Reilly ❤️🌻',
           /**
            * Number of blog post elements to show in the blog sidebar
            * 'ALL' to show all blog posts
@@ -83,7 +108,7 @@ const config = {
       tagName: 'link',
       attributes: {
         rel: 'preload',
-        href: 'https://blog.johnnyreilly.com/fonts/Poppins-Regular.woff2',
+        href: 'https://johnnyreilly.com/fonts/Poppins-Regular.woff2',
         as: 'font',
         type: 'font/woff2',
         crossorigin: 'anonymous',
@@ -94,10 +119,18 @@ const config = {
       tagName: 'link',
       attributes: {
         rel: 'preload',
-        href: 'https://blog.johnnyreilly.com/fonts/Poppins-Bold.woff2',
+        href: 'https://johnnyreilly.com/fonts/Poppins-Bold.woff2',
         as: 'font',
         type: 'font/woff2',
         crossorigin: 'anonymous',
+      },
+    },
+    // <link rel="preconnect" href="https://res.cloudinary.com" />
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://res.cloudinary.com',
       },
     },
     {
@@ -198,7 +231,7 @@ const config = {
           {
             tagName: 'link',
             rel: 'apple-touch-icon',
-            href: '/img/favicon/apple-touch-icon.png',
+            href: '/apple-touch-icon.png',
           },
         ],
       },
@@ -240,9 +273,9 @@ const config = {
       // Cannot be SVGs. Can be external URLs too.
       image: 'img/profile.jpg',
       navbar: {
-        title: 'I CAN MAKE THIS WORK',
+        title: 'John Reilly',
         logo: {
-          alt: 'I CAN MAKE THIS WORK',
+          alt: 'Profile picture of John Reilly',
           src: 'img/profile-64x64.jpg',
           width: 32,
           height: 32,
@@ -298,15 +331,23 @@ const config = {
             ],
           },
           {
-            title: 'Feeds',
+            title: 'Misc',
             items: [
               {
+                label: 'Blog source code on GitHub',
+                href: 'https://github.com/johnnyreilly/blog.johnnyreilly.com',
+              },
+              {
                 label: 'RSS',
-                href: 'https://blog.johnnyreilly.com/rss.xml',
+                href: 'https://johnnyreilly.com/rss.xml',
               },
               {
                 label: 'Atom',
-                href: 'https://blog.johnnyreilly.com/atom.xml',
+                href: 'https://johnnyreilly.com/atom.xml',
+              },
+              {
+                label: 'Privacy Policy',
+                href: 'https://johnnyreilly.com/privacy-policy',
               },
             ],
           },
