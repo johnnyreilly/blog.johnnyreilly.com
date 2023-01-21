@@ -116,7 +116,7 @@ function About() {
                     >
                       ICANN
                     </a>
-                    . Not, if I'm honest, the finest joke in the world.
+                    . Not, if I'm honest, the finest joke in the world.{' '}
                     <a href="https://johnnyreilly.com/2014/12/05/whats-in-a-name">
                       It's lived under a couple of domains since then.
                     </a>{' '}
