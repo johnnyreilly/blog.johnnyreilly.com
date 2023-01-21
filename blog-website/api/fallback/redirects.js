@@ -1311,6 +1311,38 @@ const routeGeneratedRedirects = [
     route: '/2021/12/preload-fonts-with-docusaurus.html',
     redirect: '/2021/12/29/preload-fonts-with-docusaurus',
   },
+  {
+    route: '/page/42',
+    redirect: '/2021/12/19/azure-container-apps-bicep-and-github-actions',
+  },
+  {
+    route: '/page/23',
+    redirect: '/2022/07/10/azure-devops-api-build-validations',
+  },
+  {
+    route: '/page/201',
+    redirect: '/2015/04/17/how-to-activate-your-emoji-keyboard-on',
+  },
+  {
+    route: '/page/78',
+    redirect: '/2021/01/30/aspnet-serilog-and-application-insights',
+  },
+  {
+    route: '/page/36',
+    redirect: '/2022/02/02/lazy-loading-images-with-docusaurus',
+  },
+  {
+    route: '/page/240',
+    redirect: '/2013/08/17/using-bootstrap-tooltips-to-display',
+  },
+  {
+    route: '/page/214',
+    redirect: '/2014/10/03/he-tasks-me-he-heaps-me-i-will-wreak',
+  },
+  {
+    route: '/page/166',
+    redirect: '/2016/12/11/webpack-syncing-enhanced-resolve',
+  },
 ];
 
 const redirects = [
