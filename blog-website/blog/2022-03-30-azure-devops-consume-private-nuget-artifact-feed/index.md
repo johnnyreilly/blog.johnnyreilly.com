@@ -3,6 +3,7 @@ title: 'Azure DevOps: consume a private artifact feed'
 authors: johnnyreilly
 tags: [Azure DevOps, NuGet, Azure Artifacts, .NET]
 image: ./title-image.png
+description: 'To build applications both locally and in an Azure Pipeline using Private Azure Artifact feeds with Azure DevOps, follow these steps.'
 hide_table_of_contents: false
 ---
 

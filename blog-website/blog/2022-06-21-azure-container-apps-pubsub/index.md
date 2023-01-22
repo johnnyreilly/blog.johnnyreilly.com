@@ -13,6 +13,7 @@ tags:
     debug,
   ]
 image: ./title-image.png
+description: 'This post shows how to build and deploy two Azure Container Apps using Bicep and GitHub Actions which communicate using daprs pubsub building block.'
 hide_table_of_contents: false
 ---
 

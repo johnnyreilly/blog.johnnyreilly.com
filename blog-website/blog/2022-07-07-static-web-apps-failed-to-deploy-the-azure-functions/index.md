@@ -3,6 +3,7 @@ title: 'Azure Static Web Apps: Failed to deploy the Azure Functions'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, Functions, Failed to deploy the Azure Functions]
 image: ./title-image.png
+description: Azure Static Web Apps presently have an issue which blocks deployment of Azure Functions with the message "Failed to deploy the Azure Functions". What is it?
 hide_table_of_contents: false
 ---
 

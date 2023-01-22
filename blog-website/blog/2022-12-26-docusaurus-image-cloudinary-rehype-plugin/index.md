@@ -3,6 +3,7 @@ title: 'Serving Docusaurus images with Cloudinary'
 authors: johnnyreilly
 tags: [Docusaurus, Cloudinary, rehype plugin]
 image: ./title-image.png
+description: Cloudinary offers an image CDN which can improve performance of your site. This post details how to get Docusaurus to use Cloudinary to serve optimised images.
 hide_table_of_contents: false
 ---
 
@@ -315,7 +316,7 @@ With that in place, images will be served from the Cloudinary CDN when we're run
 
 ## Core Web Vitals and preconnect
 
-Finally, it's worth adding an entry to the `headTags` of your `docusaurus.config.js` to ensure that your site preconnects to Cloudinary's CDN.  This speeds up the time until images will be served to your users.  That addition looks like this:  
+Finally, it's worth adding an entry to the `headTags` of your `docusaurus.config.js` to ensure that your site preconnects to Cloudinary's CDN. This speeds up the time until images will be served to your users. That addition looks like this:
 
 ```js
 /** @type {import('@docusaurus/types').Config} */
@@ -334,9 +335,9 @@ const config = {
     },
 
     // ...
-  ]
+  ],
   // ...
-}
+};
 ```
 
 ## Conclusion

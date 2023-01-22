@@ -3,6 +3,7 @@ title: 'Deep linking with Azure Static Web Apps and Easy Auth'
 authors: johnnyreilly
 tags: [Authorization, Easy Auth, deep link, Static Web Apps, Azure AD]
 image: ./title-image.png
+description: 'Azure Static Web Apps does not support deep linking with authentication. This post describes how to work around this limitation.'
 hide_table_of_contents: false
 ---
 

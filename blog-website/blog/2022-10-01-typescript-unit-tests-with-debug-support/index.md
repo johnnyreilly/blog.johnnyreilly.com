@@ -3,6 +3,7 @@ title: 'TypeScript Unit Tests with Debug Support'
 authors: johnnyreilly
 tags: [TypeScript, Unit Tests, Debug]
 image: ./title-image.png
+description: 'Unit tests are an important part of the development process. This post will outline how to write unit tests using TypeScript and how to debug them as well.'
 hide_table_of_contents: false
 ---
 

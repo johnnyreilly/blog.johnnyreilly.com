@@ -3,6 +3,7 @@ title: 'Migrating from GitHub Pages to Azure Static Web Apps'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, Bicep, GitHub Actions, GitHub Pages]
 image: ./title-image.png
+description: 'You can use Bicep and GitHub Actions to build and deploy to a static website on Azure Static Web Apps. This post demonstrates how.'
 hide_table_of_contents: false
 ---
 

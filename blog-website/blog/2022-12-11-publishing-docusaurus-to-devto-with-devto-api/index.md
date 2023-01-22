@@ -3,6 +3,7 @@ title: 'Publishing Docusaurus to dev.to with the dev.to API'
 authors: johnnyreilly
 tags: [dev.to, API, Docusaurus, GitHub Actions]
 image: ./title-image.png
+description: 'The dev.to API provides a way to cross post your Docusaurus blogs to dev.to. This post describes how to do that with TypeScript, Node.js and the dev.to API.'
 hide_table_of_contents: false
 ---
 
