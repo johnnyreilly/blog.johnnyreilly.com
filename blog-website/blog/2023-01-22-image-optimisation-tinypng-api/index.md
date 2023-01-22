@@ -3,6 +3,7 @@ title: 'Image Optimisation with the TinyPNG API'
 authors: johnnyreilly
 tags: [image optimisation, TinyPNG, API]
 image: ./title-image.webp
+description: 'Image optimisation can be automated with the TinyPNG API. This post demonstrates how to do that.'
 hide_table_of_contents: false
 ---
 
@@ -300,3 +301,9 @@ If we look a little closer, we'll see that on two occasions the format has remai
 We've seen how we can use the TinyPNG API to optimise our images. We've also built a tool that uses the TinyPNG API to optimise the images in a given directory.
 
 It's all automated. We can now run this script whenever we want to optimise the images in any directory!
+
+[This post was originally published on LogRocket.](https://blog.logrocket.com/automate-image-optimization-tinypng-api/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/automate-image-optimization-tinypng-api/" />
+</head>
