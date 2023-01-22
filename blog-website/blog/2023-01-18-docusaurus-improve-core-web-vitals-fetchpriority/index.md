@@ -4,6 +4,7 @@ authors: johnnyreilly
 tags:
   [Core Web Vitals, Docusaurus, fetchpriority, lazy loading, web performance]
 image: ./title-image.png
+description: 'By using `fetchpriority` on your Largest Contentful Paint you can improve your Core Web Vitals. This post implements that with Docusaurus.'
 hide_table_of_contents: false
 ---
 

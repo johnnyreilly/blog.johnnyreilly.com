@@ -3,6 +3,7 @@ title: 'Bicep: Static Web Apps and Linked Backends'
 authors: johnnyreilly
 tags: [Bicep, Azure, Static Web Apps, Linked Backends]
 image: ./title-image.png
+description: 'Azure Static Web Apps can be linked to Azure Functions, Azure Container Apps etc to provide the linked backend for a site. This post provisions with Bicep.'
 hide_table_of_contents: false
 ---
 
