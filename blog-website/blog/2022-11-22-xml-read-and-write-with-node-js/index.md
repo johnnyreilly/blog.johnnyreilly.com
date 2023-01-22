@@ -3,6 +3,7 @@ title: 'XML: read and write with Node.js'
 authors: johnnyreilly
 tags: [XML, Node.js, fast-xml-parser, sitemap, Docusaurus]
 image: ./title-image.png
+description: 'This post demonstrates reading and writing XML in Node.js using `fast-xml-parser`. We'll use the Docusauruses XML sitemap as an example.'
 hide_table_of_contents: false
 ---
 

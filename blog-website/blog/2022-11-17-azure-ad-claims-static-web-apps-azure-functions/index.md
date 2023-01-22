@@ -4,6 +4,7 @@ authors: johnnyreilly
 tags:
   [Authorization, Azure Functions, Static Web Apps, Linked Backends, Azure AD]
 image: ./title-image.png
+description: 'Authorization in Azure Functions is impaired by an issue with Azure Static Web Apps linked to Azure Functions. Azure AD app role claims are not supplied to Azure Functions. This post will demonstrate a workaround.'
 hide_table_of_contents: false
 ---
 

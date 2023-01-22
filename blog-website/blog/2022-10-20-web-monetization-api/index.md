@@ -3,6 +3,7 @@ title: 'Getting started with the Web Monetization API'
 authors: johnnyreilly
 tags: [Web Monetization]
 image: ./title-image.png
+description: 'The Web Monetization API is a JavaScript browser API that allows the creation of a payment stream from the user agent to the website. This post walks through getting started adding it to a site.'
 hide_table_of_contents: false
 ---
 
