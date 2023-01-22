@@ -10,6 +10,7 @@ tags:
     TypeScript,
   ]
 image: ./title-image.png
+description: 'Support for Node.js 16 for Azure Pipelines custom pipelines task extensions has arrived. From a TypeScript perspective, this post documents how to migrate from a Node.js 10 custom task to one that runs on Node 16 using azure-pipelines-task-lib.'
 hide_table_of_contents: false
 ---
 
