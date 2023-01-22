@@ -3,7 +3,7 @@ title: 'Type annotations: strong types, weakly held'
 authors: johnnyreilly
 tags: [type-annotations, types-as-comments, JSDoc, ECMAScript, types, proposal]
 image: ./title-image.png
-description: 'Type annotations is a proposal which would allow for the inclusion of types in JavaScript code. Here's a description of the proposal and some thoughts.'
+description: 'Type annotations is a proposal which would allow for the inclusion of types in JavaScript code. Here is a description of the proposal and some thoughts.'
 hide_table_of_contents: false
 ---
 
