@@ -11,6 +11,7 @@ tags:
     discriminated unions,
   ]
 image: ./title-image.png
+description: 'For API endpoints that return multiple types, you can use inheritance with Swashbuckle to get create a Swagger / Open API definition; here's how.'
 hide_table_of_contents: false
 ---
 

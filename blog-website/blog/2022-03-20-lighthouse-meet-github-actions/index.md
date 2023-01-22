@@ -3,6 +3,7 @@ title: 'Lighthouse meet GitHub Actions'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, GitHub Actions, Docusaurus]
 image: ./title-image.png
+description: 'This post illustrates how to integrate Lighthouse into a GitHub Actions workflow for an Azure Static Web App.'
 hide_table_of_contents: false
 ---
 

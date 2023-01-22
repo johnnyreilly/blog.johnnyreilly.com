@@ -3,6 +3,7 @@ title: 'Azure Static Web Apps: Node.js 16 / 18 and Oryx'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, GitHub Actions, Docusaurus, Node.js, Oryx]
 image: ./title-image.png
+description: 'Azure Static Web Apps presently fixes to Node.js 14 when building. If you require a different version of Node to build, here's how.'
 hide_table_of_contents: false
 ---
 
@@ -23,7 +24,7 @@ error Found incompatible module.
 Oryx has failed to build the solution.
 ```
 
-[Oryx](https://github.com/microsoft/Oryx), which performs the build for Static Web Apps, is fixed to Node 14 for the default LTS version (for now, this will definitely change sometime in 2023). You can check for the constant `NodeLtsVersion` [here](https://github.com/microsoft/Oryx/blob/main/src/BuildScriptGenerator/Node/NodeConstants.cs) to check which version of Node Oryx is using as the `DEFAULT_NODE_VERSION`. To override this default, can either use an `engines` setting in `package.json`, or use an environment setting in the The GitHub Action. 
+[Oryx](https://github.com/microsoft/Oryx), which performs the build for Static Web Apps, is fixed to Node 14 for the default LTS version (for now, this will definitely change sometime in 2023). You can check for the constant `NodeLtsVersion` [here](https://github.com/microsoft/Oryx/blob/main/src/BuildScriptGenerator/Node/NodeConstants.cs) to check which version of Node Oryx is using as the `DEFAULT_NODE_VERSION`. To override this default, can either use an `engines` setting in `package.json`, or use an environment setting in the The GitHub Action.
 
 ## Solution 1: `engines` to the rescue!
 
@@ -59,11 +60,11 @@ Modify the workflow file, from the `./github/workflows` directory. Just add thes
           api_location: 'api' # Api source code path - optional
           output_location: 'public' # Built app content directory - optional
         env:  # Put a node version on the following line
-          NODE_VERSION: 18.12.0 
+          NODE_VERSION: 18.12.0
 ```
 
 You can use a specific node version (18.12.0 or 16.18.0) or a major node version (18 or 16). The latter approach installs the latest minor version.
 
-**Note:** The Oryx image is updated quarterly.  You can get a list of the supported node versions [here](https://github.com/microsoft/Oryx/blob/main/doc/supportedPlatformVersions.md).
+**Note:** The Oryx image is updated quarterly. You can get a list of the supported node versions [here](https://github.com/microsoft/Oryx/blob/main/doc/supportedPlatformVersions.md).
 
 Thanks to Eric Côté from [React Academy](https://reactAcademy.live) for the information.
