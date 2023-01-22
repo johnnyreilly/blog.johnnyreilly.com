@@ -3,7 +3,7 @@ title: 'How I ruined my SEO'
 authors: johnnyreilly
 tags: [SEO]
 image: ./title-image.png
-description: 'In October 2022 traffic to my blog dropped like a stone. What happened? Somehow I ruined my SEO. Don't be me. I'll tell you what I got up to and hopefully you can avoid doing the same.'
+description: 'In October 2022 traffic to my blog dropped like a stone. What happened?'
 hide_table_of_contents: false
 ---
 
