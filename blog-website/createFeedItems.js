@@ -34,16 +34,11 @@ async function createFeedItems(params) {
   }
 
   // keep only the 20 most recently updated blog posts in the feed
-  const sortedFeedItems = Array.from(feedItems)
+  const latest20FeedItems = Array.from(feedItems)
     .sort((a, b) => b.date - a.date)
     .slice(0, 20);
 
-  console.log(
-    'sortedFeedItems',
-    sortedFeedItems.map((item) => ({ date: item.date, link: item.link }))
-  );
-
-  return feedItems;
+  return latest20FeedItems;
 }
 
 /**
