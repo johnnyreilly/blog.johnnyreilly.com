@@ -86,7 +86,7 @@ function App() {
     '@type': 'Article',
     headline: 'Structured data for you',
     description: 'This is an article that demonstrates structured data.',
-    image: ./'https://upload.wikimedia.org/wikipedia/commons/4/40/JSON-LD.svg',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/4/40/JSON-LD.svg',
     datePublished: new Date('2021-09-04T09:25:01.340Z').toISOString(),
     author: {
       '@type': 'Person',
