@@ -5,18 +5,15 @@ const { simpleGit, SimpleGit, SimpleGitOptions } = require('simple-git');
 async function createFeedItems(params) {
   const { blogPosts, defaultCreateFeedItems, ...rest } = params;
 
-  // keep only the 20 most recent blog posts in the feed
-  const top20Entries = blogPosts.filter((_item, index) => index < 20);
-
   const feedItems = await defaultCreateFeedItems({
-    blogPosts: top20Entries,
+    blogPosts,
     ...rest,
   });
 
   for (const feedItem of feedItems) {
     // blogPost.metadata.permalink: '/2023/01/22/image-optimisation-tinypng-api',
     // feedItem.link: 'https://johnnyreilly.com/2023/01/22/image-optimisation-tinypng-api',
-    const relatedBlogEntry = top20Entries.find((blogPost) =>
+    const relatedBlogEntry = blogPosts.find((blogPost) =>
       feedItem.link.endsWith(blogPost.metadata.permalink)
     );
     if (!relatedBlogEntry) {
@@ -25,40 +22,52 @@ async function createFeedItems(params) {
     }
 
     // source: '@site/blog/2023-01-22-image-optimisation-tinypng-api/index.md',
-    const lastmod = await getGitLastUpdatedFromFilePath(
+    const gitLatestCommitString = await getGitLatestCommitDateFromFilePath(
       relatedBlogEntry.metadata.source.replace('@site/', 'blog-website/')
     );
-    const lastmodDate = lastmod ? new Date(lastmod) : undefined;
-    if (lastmodDate) {
-      feedItem.date = lastmodDate;
+    const gitLatestCommitDate = gitLatestCommitString
+      ? new Date(gitLatestCommitString)
+      : undefined;
+    if (gitLatestCommitDate) {
+      feedItem.date = gitLatestCommitDate;
     }
   }
+
+  // keep only the 20 most recently updated blog posts in the feed
+  const sortedFeedItems = Array.from(feedItems)
+    .sort((a, b) => b.date - a.date)
+    .slice(0, 20);
+
+  console.log(
+    'sortedFeedItems',
+    sortedFeedItems.map((item) => ({ date: item.date, link: item.link }))
+  );
 
   return feedItems;
 }
 
 /**
- *
+ * Given a file path, return the last commit date
  * @param {string} filePath
  * @returns
  */
-async function getGitLastUpdatedFromFilePath(filePath) {
+async function getGitLatestCommitDateFromFilePath(filePath) {
   const git = getSimpleGit();
 
   const log = await git.log({
     file: filePath,
   });
 
-  const lastmod = log.latest?.date;
+  const latestCommitDate = log.latest?.date;
 
-  return lastmod;
+  return latestCommitDate;
 }
 
 /** @type {SimpleGit | undefined} */
 let git;
 
 /**
- *
+ * get a simple git instance
  * @returns SimpleGit
  */
 function getSimpleGit() {

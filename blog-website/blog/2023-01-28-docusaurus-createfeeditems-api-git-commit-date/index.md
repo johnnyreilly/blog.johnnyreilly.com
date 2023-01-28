@@ -22,8 +22,12 @@ As someone who worked on the API, you naturally might imagine that I'd have some
 There's two particular use cases that I've been thinking about:
 
 1. Trimming the number of feed items
-2. Using the git commit date for the feed item date
+2. Using the latest git commit date for the feed item date
 
 The reason I want to trim the number of feed items is because I have written a lot of blog posts. I learned that some RSS readers were choking on the size of my feed and rendering it unusable. So I thought a decent approach would be to trim the number of feed items to a more manageable number.
 
-The second use case is a lot more fun! I want to use the git commit date for the feed item date. I tend to go back and edit my posts, particularly in the recent months after publishing. I don't want the date of the feed item to be the date of the post. I want it to be the date of the most recent commit.
+The second use case is a lot more fun! I want to use the git commit date for the feed item date. Docusaurus uses the date of post itself to drive this by default. That's not a bad default. However, I tend to go back and edit my posts, particularly in the recent weeks after publishing. I don't want the date of the feed item to be the date of the post. I want it to be the date of the most recent commit. That way, if I go back and edit a post, the feed item date will be updated.
+
+We're going to implement both of these.
+
+## `createFeedItems` API usage
