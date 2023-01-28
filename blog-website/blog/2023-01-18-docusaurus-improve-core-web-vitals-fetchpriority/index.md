@@ -10,7 +10,7 @@ hide_table_of_contents: false
 
 By using `fetchpriority` on your Largest Contentful Paint you can improve your Core Web Vitals. This post implements that with Docusaurus.
 
-![title image reading "Docusaurus: improving Core Web Vitals with fetchpriority](title-image.png)
+![title image reading "Docusaurus: improving Core Web Vitals with fetchpriority"](title-image.png)
 
 ## Avoiding lazy loading on the Largest Contentful Paint
 

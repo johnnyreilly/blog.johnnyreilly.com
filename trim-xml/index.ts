@@ -164,8 +164,9 @@ async function trimRssXML() {
 
 async function main() {
   await trimSitemapXML();
-  await trimAtomXML();
-  await trimRssXML();
+  // now handled by createFeedItems
+  // await trimAtomXML();
+  // await trimRssXML();
 }
 
 main();
