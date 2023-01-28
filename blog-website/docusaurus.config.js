@@ -8,6 +8,7 @@ const fontaine = require('fontaine');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const imageFetchPriorityRehypePlugin = require('./image-fetchpriority-rehype-plugin');
+const createFeedItems = require('./createFeedItems');
 
 const url = 'https://johnnyreilly.com';
 
@@ -79,6 +80,7 @@ const config = {
             description: 'The blog of John Reilly ❤️🌻',
             language: 'en',
             copyright: `Copyright © 2012 - ${new Date().getFullYear()} John Reilly.`,
+            createFeedItems,
           },
           blogTitle: 'I CAN MAKE THIS WORK',
           blogDescription: 'The blog of John Reilly ❤️🌻',
