@@ -93,3 +93,12 @@ Since the drop off in traffic I started doing a number of things to try and reme
 - my RSS feeds were serving so much content they effectively broke the RSS reader. I've now fixed this by truncating them to the latest 20 posts.
 
 I wrote some of this up in a post here: https://johnnyreilly.com/2023/01/15/how-i-ruined-my-seo - it trended on Hacker News at the weekend.
+
+added JSON-LD breadcrumbs to blog posts and archive pages:
+
+https://developers.google.com/search/docs/appearance/structured-data/breadcrumb
+
+npm run swizzle @docusaurus/theme-classic BlogArchivePage -- --wrap --danger
+npm run swizzle @docusaurus/theme-classic BlogPostPage -- --wrap --danger
+
+https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/416/files
