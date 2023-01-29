@@ -1,7 +1,7 @@
 ---
 title: 'Visual Studio, tsconfig.json and external TypeScript compilation'
 authors: johnnyreilly
-tags: [TFS, Visual Studio, tsconfig.json, TypeScript, Webpack]
+tags: [TFS, Visual Studio, tsconfig.json, typescript, Webpack]
 hide_table_of_contents: false
 ---
 

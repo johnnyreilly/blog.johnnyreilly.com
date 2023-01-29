@@ -1,7 +1,7 @@
 ---
 title: 'Hey tsconfig.json, where have you been all my life?'
 authors: johnnyreilly
-tags: [tsconfig.json, TypeScript, implicit references]
+tags: [tsconfig.json, typescript, implicit references]
 hide_table_of_contents: false
 ---
 

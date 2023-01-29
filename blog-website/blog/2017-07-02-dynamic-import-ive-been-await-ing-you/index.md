@@ -1,7 +1,7 @@
 ---
 title: "Dynamic import: I've been awaiting you..."
 authors: johnnyreilly
-tags: [await, async, TypeScript, Karma, Babel, Webpack, dynamic import]
+tags: [await, async, typescript, Karma, Babel, Webpack, dynamic import]
 hide_table_of_contents: false
 ---
 

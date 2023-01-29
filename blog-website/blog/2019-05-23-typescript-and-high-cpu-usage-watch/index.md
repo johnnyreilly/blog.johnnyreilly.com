@@ -2,7 +2,7 @@
 title: "TypeScript and high CPU usage - watch don't stare!"
 authors: johnnyreilly
 tags:
-  [cross-env, TypeScript, fork-ts-checker-webpack-plugin, watch API, Webpack]
+  [cross-env, typescript, fork-ts-checker-webpack-plugin, watch API, Webpack]
 hide_table_of_contents: false
 ---
 

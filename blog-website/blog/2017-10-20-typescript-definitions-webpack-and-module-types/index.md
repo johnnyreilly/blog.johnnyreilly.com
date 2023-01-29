@@ -1,7 +1,7 @@
 ---
 title: 'TypeScript Definitions, webpack and Module Types'
 authors: johnnyreilly
-tags: [AMD, DefinitelyTyped, TypeScript, CommonJS]
+tags: [AMD, DefinitelyTyped, typescript, CommonJS]
 hide_table_of_contents: false
 ---
 

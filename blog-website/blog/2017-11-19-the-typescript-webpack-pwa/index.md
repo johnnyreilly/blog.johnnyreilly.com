@@ -1,7 +1,7 @@
 ---
 title: 'The TypeScript webpack PWA'
 authors: johnnyreilly
-tags: [workbox, TypeScript, PWA, Service Worker, Webpack]
+tags: [workbox, typescript, PWA, Service Worker, Webpack]
 hide_table_of_contents: false
 ---
 

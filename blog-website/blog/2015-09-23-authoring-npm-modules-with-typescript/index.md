@@ -1,7 +1,7 @@
 ---
 title: "Definitely Typed Shouldn't Exist"
 authors: johnnyreilly
-tags: [npm, DefinitelyTyped, TypeScript, atom-typescript]
+tags: [npm, DefinitelyTyped, typescript, atom-typescript]
 hide_table_of_contents: false
 ---
 

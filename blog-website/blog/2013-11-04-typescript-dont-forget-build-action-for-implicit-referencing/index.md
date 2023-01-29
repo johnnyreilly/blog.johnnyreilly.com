@@ -1,7 +1,7 @@
 ---
 title: "TypeScript: Don't forget Build Action for Implicit Referencing..."
 authors: johnnyreilly
-tags: [typescript, BuildAction, DefinitelyTyped, TypeScript, NuGet]
+tags: [typescript, BuildAction, DefinitelyTyped, typescript, NuGet]
 hide_table_of_contents: false
 ---
 

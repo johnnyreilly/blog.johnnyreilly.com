@@ -1,7 +1,7 @@
 ---
 title: "Understanding Webpack's DefinePlugin (and using with TypeScript)"
 authors: johnnyreilly
-tags: [compile-time constants, TypeScript, defineplugin, Webpack]
+tags: [compile-time constants, typescript, defineplugin, Webpack]
 hide_table_of_contents: false
 ---
 

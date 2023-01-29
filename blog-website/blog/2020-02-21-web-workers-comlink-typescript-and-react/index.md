@@ -1,7 +1,7 @@
 ---
 title: 'Web Workers, comlink, TypeScript and React'
 authors: johnnyreilly
-tags: [web workers, comlink, TypeScript, React]
+tags: [web workers, comlink, typescript, React]
 hide_table_of_contents: false
 ---
 
