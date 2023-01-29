@@ -1,7 +1,7 @@
 ---
 title: 'Azure standard availability tests with Bicep'
 authors: johnnyreilly
-tags: [Azure, Bicep, standard tests]
+tags: [Azure, Bicep]
 image: ./title-image.png
 hide_table_of_contents: false
 ---

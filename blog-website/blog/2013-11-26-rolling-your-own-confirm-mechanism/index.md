@@ -1,7 +1,7 @@
 ---
 title: 'Rolling your own confirm mechanism using Promises and jQuery UI'
 authors: johnnyreilly
-tags: [Q, jQuery UI, promises, confirm]
+tags: [jQuery UI, promises]
 hide_table_of_contents: false
 ---
 

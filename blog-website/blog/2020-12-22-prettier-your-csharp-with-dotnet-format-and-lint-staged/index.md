@@ -2,7 +2,7 @@
 title: 'dotnet-format: Prettier your C# with lint-staged & husky'
 authors: johnnyreilly
 image: ./title-image.png
-tags: [Prettier, dotnet-format, lint-staged, husky, CSharpier]
+tags: [Prettier, dotnet-format, lint-staged, husky]
 hide_table_of_contents: false
 ---
 

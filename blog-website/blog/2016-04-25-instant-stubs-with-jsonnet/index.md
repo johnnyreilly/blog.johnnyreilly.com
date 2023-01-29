@@ -1,7 +1,7 @@
 ---
 title: 'Instant Stubs with JSON.Net (just add hot water)'
 authors: johnnyreilly
-tags: [unit testing, stub data, json.net, mock data]
+tags: [unit testing, json.net]
 hide_table_of_contents: false
 ---
 

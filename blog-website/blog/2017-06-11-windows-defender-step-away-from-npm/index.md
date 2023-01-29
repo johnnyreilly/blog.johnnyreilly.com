@@ -1,7 +1,7 @@
 ---
 title: 'Windows Defender Step Away From npm'
 authors: johnnyreilly
-tags: [VS Code, code, Windows, failed, npm install, windows defender]
+tags: [VS Code, Windows, npm]
 hide_table_of_contents: false
 ---
 

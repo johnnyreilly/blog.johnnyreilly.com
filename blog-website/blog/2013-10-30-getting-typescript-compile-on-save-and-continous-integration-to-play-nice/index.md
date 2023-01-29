@@ -1,7 +1,7 @@
 ---
 title: 'Getting TypeScript Compile-on-Save and Continuous Integration to play nice'
 authors: johnnyreilly
-tags: [TFS, typescript, Build Server, Continuous Integration]
+tags: [TFS, typescript]
 hide_table_of_contents: false
 ---
 

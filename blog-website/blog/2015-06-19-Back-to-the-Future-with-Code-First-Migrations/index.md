@@ -1,7 +1,7 @@
 ---
 title: 'Back to the Future with Code First Migrations'
 authors: johnnyreilly
-tags: [Emmett Brown, Entity Framework, Code First Migrations]
+tags: [Entity Framework]
 hide_table_of_contents: false
 ---
 

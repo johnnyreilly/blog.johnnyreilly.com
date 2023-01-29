@@ -1,7 +1,7 @@
 ---
 title: 'Start Me Up: ts-loader meet .tsbuildinfo'
 authors: johnnyreilly
-tags: [.tsbuildinfo, TypeScript]
+tags: [ts-loader, typescript]
 hide_table_of_contents: false
 ---
 

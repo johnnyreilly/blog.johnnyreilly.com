@@ -1,7 +1,6 @@
 ---
 title: "What's in a (Domain) Name?"
 authors: johnnyreilly
-tags: [cybersquatting]
 hide_table_of_contents: false
 ---
 

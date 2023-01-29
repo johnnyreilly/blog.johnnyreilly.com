@@ -1,7 +1,7 @@
 ---
 title: 'Preload fonts with Docusaurus (updated 03/11/2022)'
 authors: johnnyreilly
-tags: [Docusaurus, preload, webpack, fonts, plugin, configureWebpack, headTags]
+tags: [Docusaurus, webpack]
 image: ./title-image.png
 hide_table_of_contents: false
 ---

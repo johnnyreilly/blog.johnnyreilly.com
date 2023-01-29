@@ -1,7 +1,7 @@
 ---
 title: 'Coded UI and the Curse of the Docking Station'
 authors: johnnyreilly
-tags: [Docking station, Surface Pro 3, Coded UI, Second monitor]
+tags: [Surface Pro 3, Coded UI]
 hide_table_of_contents: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 'Create a Pipeline with the Azure DevOps API'
 authors: johnnyreilly
-tags: [Azure Pipelines, Azure DevOps API]
+tags: [Azure Pipelines, azure devops api]
 image: ./new-pipeline.webp
 hide_table_of_contents: false
 ---

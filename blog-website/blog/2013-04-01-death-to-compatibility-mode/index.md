@@ -1,7 +1,7 @@
 ---
 title: 'Death to compatibility mode'
 authors: johnnyreilly
-tags: [css, intranet, meta, internet explorer, compatibility mode, header]
+tags: [internet explorer]
 hide_table_of_contents: false
 ---
 

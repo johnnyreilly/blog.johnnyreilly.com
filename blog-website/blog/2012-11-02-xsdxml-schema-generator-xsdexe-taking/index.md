@@ -1,7 +1,7 @@
 ---
 title: 'XSD/XML Schema Generator + Xsd.exe:Taking the pain out of manual XML'
 authors: johnnyreilly
-tags: [Xsd.exe, XSD/XML Schema Generator, LINQ to XML]
+tags: [XSD, LINQ to XML]
 hide_table_of_contents: false
 ---
 

@@ -1,15 +1,7 @@
 ---
 title: 'Globalize.js - number and date localisation made easy'
 authors: johnnyreilly
-tags:
-  [
-    jqueryui,
-    Globalize.JS,
-    javascript,
-    ASP.NET AJAX,
-    Globalization,
-    Richard D. Worth,
-  ]
+tags: [javascript, ASP.NET AJAX, Globalization]
 hide_table_of_contents: false
 ---
 

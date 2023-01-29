@@ -1,7 +1,7 @@
 ---
 title: 'Giving OData to CRM 4.0'
 authors: johnnyreilly
-tags: [OData, WCF Data Services, CRM 4.0, LINQ]
+tags: [OData, WCF Data Services, CRM, LINQ]
 hide_table_of_contents: false
 ---
 

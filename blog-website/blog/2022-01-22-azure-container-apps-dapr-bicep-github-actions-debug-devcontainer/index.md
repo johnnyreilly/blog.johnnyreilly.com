@@ -1,15 +1,7 @@
 ---
 title: 'Azure Container Apps: dapr, devcontainer, debug and deploy'
 authors: johnnyreilly
-tags:
-  [
-    Azure Container Apps,
-    Bicep,
-    GitHub Actions,
-    GitHub container registry,
-    devcontainer,
-    debug,
-  ]
+tags: [Azure Container Apps, Bicep, GitHub Actions, devcontainer]
 image: ./title-image.png
 description: 'Build and deploy two Azure Container Apps using Bicep and GitHub Actions, communicate using dapr, build, run and debug in VS Code using a devcontainer.'
 hide_table_of_contents: false

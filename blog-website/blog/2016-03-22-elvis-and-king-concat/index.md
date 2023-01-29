@@ -1,7 +1,7 @@
 ---
 title: 'Elvis and King Concat'
 authors: johnnyreilly
-tags: [Enumerable, Concat]
+tags: [C#]
 hide_table_of_contents: false
 ---
 

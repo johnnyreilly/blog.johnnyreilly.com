@@ -1,7 +1,7 @@
 ---
 title: 'Blog Archive for Docusaurus'
 authors: johnnyreilly
-tags: [Docusaurus, blog archive, webpack]
+tags: [Docusaurus, webpack]
 image: ./docusaurus-blog-archive.png
 hide_table_of_contents: false
 ---

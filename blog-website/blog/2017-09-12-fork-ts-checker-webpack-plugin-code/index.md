@@ -1,7 +1,7 @@
 ---
 title: 'fork-ts-checker-webpack-plugin code clickability'
 authors: johnnyreilly
-tags: [VS Code, console, fork-ts-checker-webpack-plugin, ts-loader, Webpack]
+tags: [VS Code, fork-ts-checker-webpack-plugin, ts-loader, webpack]
 hide_table_of_contents: false
 ---
 

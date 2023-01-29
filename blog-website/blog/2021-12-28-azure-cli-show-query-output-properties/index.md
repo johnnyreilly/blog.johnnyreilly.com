@@ -1,7 +1,7 @@
 ---
 title: 'Query deployment outputs with the Azure CLI'
 authors: johnnyreilly
-tags: [Azure CLI, deployment outputs, bash, jq, GitHub Actions]
+tags: [azure cli, deployment outputs, bash, jq, GitHub Actions]
 image: ./title-image.png
 hide_table_of_contents: false
 ---

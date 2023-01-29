@@ -1,7 +1,7 @@
 ---
 title: 'VSTS... YAML up!'
 authors: johnnyreilly
-tags: [yaml, vsts, ci, travis, AppVeyor]
+tags: [yaml, vsts, travis, AppVeyor]
 hide_table_of_contents: false
 ---
 

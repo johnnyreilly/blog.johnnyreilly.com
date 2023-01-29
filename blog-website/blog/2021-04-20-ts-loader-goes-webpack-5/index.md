@@ -1,7 +1,7 @@
 ---
 title: 'ts-loader goes webpack 5'
 authors: johnnyreilly
-tags: [webpack, ts-loader, typescript, webpack 5]
+tags: [webpack, ts-loader, typescript]
 image: ./ts-loader-9.png
 hide_table_of_contents: false
 ---

@@ -1,7 +1,7 @@
 ---
 title: 'Unit testing ModelState'
 authors: johnnyreilly
-tags: [asp.net mvc, Marc Talary, DataAnnotations, Controller, ModelState]
+tags: [asp.net mvc, unit testing, modelstate]
 hide_table_of_contents: false
 ---
 

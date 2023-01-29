@@ -1,7 +1,7 @@
 ---
 title: "Nullable reference types; CSharp's very own strictNullChecks"
 authors: johnnyreilly
-tags: [CSharp, Nullable reference types]
+tags: [C#, nullable reference types]
 hide_table_of_contents: false
 ---
 

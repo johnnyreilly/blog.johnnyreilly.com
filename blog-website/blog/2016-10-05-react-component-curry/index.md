@@ -1,7 +1,7 @@
 ---
 title: 'React Component Curry'
 authors: johnnyreilly
-tags: [currying, jsx, React, stateless functional components]
+tags: [jsx, React, stateless functional components]
 hide_table_of_contents: false
 ---
 

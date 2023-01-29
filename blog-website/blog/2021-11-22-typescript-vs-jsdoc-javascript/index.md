@@ -1,7 +1,7 @@
 ---
 title: 'TypeScript vs JSDoc JavaScript'
 authors: johnnyreilly
-tags: [JavaScript, typescript, JSDoc]
+tags: [javascript, typescript, JSDoc]
 image: ./title-image.png
 hide_table_of_contents: false
 ---

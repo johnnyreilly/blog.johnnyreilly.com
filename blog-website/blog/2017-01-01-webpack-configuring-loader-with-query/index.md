@@ -1,7 +1,7 @@
 ---
 title: 'webpack: configuring a loader with query / options'
 authors: johnnyreilly
-tags: [webpack 2, Webpack, query, options]
+tags: [webpack]
 hide_table_of_contents: false
 ---
 
