@@ -9,6 +9,7 @@ export default function BlogArchivePageWrapper(props) {
   const breadcrumbStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
+    name: 'Archive breadcrumb',
     itemListElement: [
       {
         '@type': 'ListItem',

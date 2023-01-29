@@ -12,6 +12,7 @@ export default function BlogPostPageWrapper(props) {
   const archiveBreadcrumbStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
+    name: 'Archive breadcrumb',
     itemListElement: [
       {
         '@type': 'ListItem',
@@ -36,6 +37,7 @@ export default function BlogPostPageWrapper(props) {
   const tagsBreadcrumbStructuredData = blogMetaData.tags.map((tag) => ({
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
+    name: `Tags ${tag.label} breadcrumb`,
     itemListElement: [
       {
         '@type': 'ListItem',
