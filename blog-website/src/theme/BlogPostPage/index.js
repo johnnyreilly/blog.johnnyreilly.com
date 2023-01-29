@@ -9,7 +9,7 @@ export default function BlogPostPageWrapper(props) {
     props.content.metadata;
 
   // https://developers.google.com/search/docs/appearance/structured-data/breadcrumb#json-ld
-  const breadcrumbStructuredData = {
+  const archiveBreadcrumbStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
@@ -32,6 +32,41 @@ export default function BlogPostPageWrapper(props) {
       },
     ],
   };
+
+  const tagsBreadcrumbStructuredData = blogMetaData.tags.map((tag) => ({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteConfig.url,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Tags',
+        item: `${siteConfig.url}/tags`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: tag.label,
+        item: `${siteConfig.url}${tag.permalink}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 4,
+        name: blogMetaData.title,
+      },
+    ],
+  }));
+
+  const breadcrumbStructuredData = [
+    archiveBreadcrumbStructuredData,
+    ...tagsBreadcrumbStructuredData,
+  ];
 
   return (
     <>
