@@ -340,16 +340,20 @@ const config = {
                 href: 'https://github.com/johnnyreilly/blog.johnnyreilly.com',
               },
               {
+                label: 'Blog tags / categories',
+                href: '/tags',
+              },
+              {
                 label: 'RSS',
-                href: 'https://johnnyreilly.com/rss.xml',
+                href: '/rss.xml',
               },
               {
                 label: 'Atom',
-                href: 'https://johnnyreilly.com/atom.xml',
+                href: '/atom.xml',
               },
               {
                 label: 'Privacy Policy',
-                href: 'https://johnnyreilly.com/privacy-policy',
+                href: '/privacy-policy',
               },
             ],
           },
