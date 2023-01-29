@@ -54,7 +54,7 @@ async function trimSitemapXML() {
 
   const filteredUrls = sitemap.urlset.url.filter(
     (url) =>
-      url.loc !== `${rootUrl}/tags` &&
+      // url.loc !== `${rootUrl}/tags` &&
       !url.loc.startsWith(rootUrl + '/tags/') &&
       !url.loc.startsWith(rootUrl + '/page/')
   );
