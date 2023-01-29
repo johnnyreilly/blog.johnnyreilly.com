@@ -1,7 +1,7 @@
 ---
 title: 'Auth0, TypeScript and ASP.NET Core'
 authors: johnnyreilly
-tags: [ASP.Net Core, Auth0, TypeScript, OAuth, React]
+tags: [ASP.Net Core, Auth0, typescript, OAuth, React]
 hide_table_of_contents: false
 ---
 

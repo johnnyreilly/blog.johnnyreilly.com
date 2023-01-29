@@ -1,14 +1,7 @@
 ---
 title: 'The Joy of JSON'
 authors: johnnyreilly
-tags:
-  [
-    Dave Ward,
-    json,
-    Encosia,
-    Christian Heilmann javascript object literal,
-    douglas crockford,
-  ]
+tags: [json]
 hide_table_of_contents: false
 ---
 

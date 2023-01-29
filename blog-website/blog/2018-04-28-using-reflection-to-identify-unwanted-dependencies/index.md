@@ -1,7 +1,7 @@
 ---
 title: 'Using Reflection to Identify Unwanted Dependencies'
 authors: johnnyreilly
-tags: [reflection, test, dependencies]
+tags: [.NET]
 hide_table_of_contents: false
 ---
 

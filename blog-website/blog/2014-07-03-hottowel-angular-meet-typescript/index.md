@@ -1,7 +1,7 @@
 ---
 title: 'HotTowel-Angular meet TypeScript'
 authors: johnnyreilly
-tags: [HotTowel, TypeScript, AngularJS, JohnPapa]
+tags: [typescript, AngularJS]
 hide_table_of_contents: false
 ---
 

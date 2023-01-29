@@ -1,7 +1,7 @@
 ---
 title: 'Symbiotic Definitely Typed'
 authors: johnnyreilly
-tags: [TypeScript, react-testing-library, Definitely Typed]
+tags: [typescript, react-testing-library, Definitely Typed]
 hide_table_of_contents: false
 ---
 

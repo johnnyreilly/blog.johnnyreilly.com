@@ -1,7 +1,7 @@
 ---
 title: 'ts-loader Project References: First Blood'
 authors: johnnyreilly
-tags: [TypeScript, project references, ts-loader, Webpack]
+tags: [typescript, project references, ts-loader, Webpack]
 hide_table_of_contents: false
 ---
 

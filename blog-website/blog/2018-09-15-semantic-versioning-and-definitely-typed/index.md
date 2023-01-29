@@ -1,15 +1,7 @@
 ---
 title: 'Semantic Versioning and Definitely Typed'
 authors: johnnyreilly
-tags:
-  [
-    DefinitelyTyped,
-    semantic versioning,
-    SemVer,
-    TypeScript,
-    react-router,
-    Ivan Drago,
-  ]
+tags: [Definitely Typed, typescript]
 image: ./i-must-break-you.webp
 hide_table_of_contents: false
 ---

@@ -1,7 +1,7 @@
 ---
 title: 'DecimalModelBinder for nullable Decimals'
 authors: johnnyreilly
-tags: [Phil Haack, Globalization, ModelBinder, nullable, decimal]
+tags: [Globalization, .NET]
 hide_table_of_contents: false
 ---
 

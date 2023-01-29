@@ -1,7 +1,7 @@
 ---
 title: 'Azure Static Web App Deploy Previews with Azure DevOps'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, Azure DevOps, Netlify deploy previews]
+tags: [Azure Static Web Apps, azure devops, Netlify deploy previews]
 image: ./title-image.png
 hide_table_of_contents: false
 ---

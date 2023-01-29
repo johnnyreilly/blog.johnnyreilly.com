@@ -1,7 +1,6 @@
 ---
 title: 'Compromising: A Guide for Developers'
 authors: johnnyreilly
-tags: [compromise, empathy, developers, code style, teams]
 hide_table_of_contents: false
 ---
 

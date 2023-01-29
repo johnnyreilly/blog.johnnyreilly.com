@@ -1,18 +1,7 @@
 ---
 title: 'Beg, Steal or Borrow a Decent JavaScript DateTime Converter'
 authors: johnnyreilly
-tags:
-  [
-    Date,
-    Sebastian Markbåge,
-    DateTime,
-    System.Web.Script.Serialization.JavaScriptSerializer,
-    EMCAScript standard,
-    json,
-    javascript,
-    Serialization,
-    Nathan Vonnahme,
-  ]
+tags: [javascript, Serialization, .NET]
 hide_table_of_contents: false
 ---
 

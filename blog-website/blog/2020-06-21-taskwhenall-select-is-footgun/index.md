@@ -1,7 +1,7 @@
 ---
 title: 'Task.WhenAll / Select is a footgun 👟🔫'
 authors: johnnyreilly
-tags: [CSharp, LINQ, Task.WhenAll, Select]
+tags: [C#, LINQ]
 hide_table_of_contents: false
 ---
 

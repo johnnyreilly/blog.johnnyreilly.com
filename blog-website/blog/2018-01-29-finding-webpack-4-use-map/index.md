@@ -1,7 +1,7 @@
 ---
 title: 'Finding webpack 4 (use a Map)'
 authors: johnnyreilly
-tags: [webpack 4]
+tags: [webpack]
 hide_table_of_contents: false
 ---
 

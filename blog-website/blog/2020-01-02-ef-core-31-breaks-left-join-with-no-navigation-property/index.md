@@ -1,7 +1,7 @@
 ---
 title: 'EF Core 3.1 breaks left join with no navigation property'
 authors: johnnyreilly
-tags: [Entity Framework, left join, navigation property, broken]
+tags: [Entity Framework]
 hide_table_of_contents: false
 ---
 

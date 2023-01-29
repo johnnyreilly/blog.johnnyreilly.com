@@ -1,7 +1,7 @@
 ---
 title: 'JavaScript - getting to know the beast...'
 authors: johnnyreilly
-tags: [javascript, c#, elijah manor, douglas crockford]
+tags: [javascript, c#]
 hide_table_of_contents: false
 ---
 

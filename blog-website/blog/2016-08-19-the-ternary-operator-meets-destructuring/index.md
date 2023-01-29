@@ -1,7 +1,7 @@
 ---
 title: 'The Ternary Operator <3 Destructuring'
 authors: johnnyreilly
-tags: [Destructuring, Ternary Operator, TypeScript, ES2015]
+tags: [Destructuring, Ternary Operator, typescript, ES2015]
 hide_table_of_contents: false
 ---
 

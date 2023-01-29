@@ -1,7 +1,7 @@
 ---
 title: 'ts-loader 2017 retrospective'
 authors: johnnyreilly
-tags: [Die Hard, TypeScript, ts-loader, Webpack]
+tags: [Die Hard, typescript, ts-loader, Webpack]
 hide_table_of_contents: false
 ---
 

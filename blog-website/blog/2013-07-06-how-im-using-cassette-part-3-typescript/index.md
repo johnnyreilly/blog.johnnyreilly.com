@@ -1,7 +1,7 @@
 ---
 title: "How I'm Using Cassette part 3:Cassette and TypeScript Integration"
 authors: johnnyreilly
-tags: [Andrew Davey, TypeScript, javascript, cassette, Web Essentials]
+tags: [Andrew Davey, typescript, javascript, cassette, Web Essentials]
 hide_table_of_contents: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 'A navigation animation (for your users delectation)'
 authors: johnnyreilly
-tags: [navigation animation, css load, UX, CSS animation, Modernizr]
+tags: [CSS]
 hide_table_of_contents: false
 ---
 

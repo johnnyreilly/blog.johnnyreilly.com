@@ -1,7 +1,7 @@
 ---
 title: 'Hands-free HTTPS'
 authors: johnnyreilly
-tags: [TLS, free, HTTPS, CloudFlare, Troy Hunt]
+tags: [TLS, HTTPS, cloudflare]
 hide_table_of_contents: false
 ---
 

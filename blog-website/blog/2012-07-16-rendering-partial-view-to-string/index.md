@@ -1,7 +1,7 @@
 ---
 title: 'Rendering Partial View to a String'
 authors: johnnyreilly
-tags: [asp.net mvc, Kevin Craft, PartialView, JsonResult]
+tags: [asp.net mvc]
 hide_table_of_contents: false
 ---
 

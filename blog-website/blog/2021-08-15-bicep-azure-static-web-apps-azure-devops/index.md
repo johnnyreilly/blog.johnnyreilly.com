@@ -1,7 +1,7 @@
 ---
 title: 'Publish Azure Static Web Apps with Bicep and Azure DevOps'
 authors: johnnyreilly
-tags: [Azure Static Web App, Bicep, Azure DevOps, Azure Pipelines]
+tags: [Azure Static Web App, Bicep, azure devops, Azure Pipelines]
 image: ./title-image.png
 hide_table_of_contents: false
 ---

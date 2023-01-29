@@ -1,7 +1,7 @@
 ---
 title: 'TFS 2012, .NET 4.5 and C# 6'
 authors: johnnyreilly
-tags: [C# 6, .Net 4.5, TFS 2012]
+tags: [C#, .NET Framework, TFS 2012]
 hide_table_of_contents: false
 ---
 

@@ -1,14 +1,7 @@
 ---
 title: 'Azure Pipelines - Node.js 16 and custom pipelines task extensions'
 authors: johnnyreilly
-tags:
-  [
-    Azure Pipelines,
-    azure-pipelines-task-lib,
-    custom pipelines task extension,
-    Node.js,
-    TypeScript,
-  ]
+tags: [Azure Pipelines, Node.js, TypeScript]
 image: ./title-image.png
 description: 'Support for Node.js 16 for Azure Pipelines custom pipelines task extensions has arrived. From a TypeScript perspective, this post documents how to migrate.'
 hide_table_of_contents: false

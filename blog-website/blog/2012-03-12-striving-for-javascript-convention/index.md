@@ -1,7 +1,7 @@
 ---
 title: 'Striving for (JavaScript) Convention'
 authors: johnnyreilly
-tags: [naming convention, javascript, Hungarian Notation, DOJO]
+tags: [javascript, Hungarian Notation]
 hide_table_of_contents: false
 ---
 

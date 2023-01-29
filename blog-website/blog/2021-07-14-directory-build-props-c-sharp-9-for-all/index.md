@@ -1,7 +1,7 @@
 ---
 title: 'Directory.Build.props: C# 9 for all your projects'
 authors: johnnyreilly
-tags: [Directory.Build.props, C# 9, .NET Core]
+tags: [Directory.Build.props, C#, .NET]
 image: ./title-image.png
 hide_table_of_contents: false
 ---

@@ -1,7 +1,7 @@
 ---
 title: 'Migrating from AngularJS to AngularTS - a walkthrough'
 authors: johnnyreilly
-tags: [Jasmine, TypeScript, Unit tests, AngularJS]
+tags: [Jasmine, typescript, Unit tests, AngularJS]
 hide_table_of_contents: false
 ---
 

@@ -1,18 +1,7 @@
 ---
 title: 'JSHint - Customising your hurt feelings'
 authors: johnnyreilly
-tags:
-  [
-    JSLint for Visual Studio,
-    Coverity,
-    Anton Kovalyov,
-    javascript,
-    paul irish,
-    static code analysis,
-    JSLint,
-    JSHint,
-    douglas crockford,
-  ]
+tags: [JSLint, JSHint, ESLint]
 hide_table_of_contents: false
 ---
 

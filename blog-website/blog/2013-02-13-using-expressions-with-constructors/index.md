@@ -1,7 +1,7 @@
 ---
 title: 'Using Expressions with Constructors'
 authors: johnnyreilly
-tags: [Expression, Constructors, Generic]
+tags: [.NET]
 hide_table_of_contents: false
 ---
 

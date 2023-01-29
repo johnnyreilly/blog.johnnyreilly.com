@@ -1,7 +1,7 @@
 ---
 title: 'AngularJS meet ASP.Net Server Validation'
 authors: johnnyreilly
-tags: [asp.net, directive, TypeScript, server validation, AngularJS]
+tags: [asp.net, directive, typescript, server validation, AngularJS]
 hide_table_of_contents: false
 ---
 

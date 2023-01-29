@@ -1,7 +1,7 @@
 ---
 title: 'ts-loader 4 / fork-ts-checker-webpack-plugin 0.4'
 authors: johnnyreilly
-tags: [webpack 4, fork-ts-checker-webpack-plugin, ts-loader]
+tags: [webpack, fork-ts-checker-webpack-plugin, ts-loader]
 hide_table_of_contents: false
 ---
 

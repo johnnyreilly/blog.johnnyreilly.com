@@ -1,7 +1,7 @@
 ---
 title: 'TypeScript / webpack - you down with PnP? Yarn, you know me!'
 authors: johnnyreilly
-tags: [TypeScript, yarn, Webpack, PnP]
+tags: [typescript, yarn, webpack, PnP]
 hide_table_of_contents: false
 ---
 

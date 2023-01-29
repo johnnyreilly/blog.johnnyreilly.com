@@ -2,7 +2,7 @@
 title: 'My Unrequited Love for Isolate Scope'
 authors: johnnyreilly
 tags:
-  [Directives, TypeScript, javascript, UI Bootstrap, Isolated Scope, AngularJS]
+  [Directives, typescript, javascript, UI Bootstrap, Isolated Scope, AngularJS]
 hide_table_of_contents: false
 ---
 

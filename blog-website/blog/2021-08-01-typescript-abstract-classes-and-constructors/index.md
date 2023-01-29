@@ -1,7 +1,7 @@
 ---
 title: 'TypeScript, abstract classes, and constructors'
 authors: johnnyreilly
-tags: [TypeScript, abstract, constructors, classes]
+tags: [typescript]
 image: ./vs-code-abstract-screenshot.png
 hide_table_of_contents: false
 ---

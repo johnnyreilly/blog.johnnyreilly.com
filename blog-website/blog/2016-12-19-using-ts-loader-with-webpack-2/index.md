@@ -1,7 +1,7 @@
 ---
 title: 'Using ts-loader with webpack 2'
 authors: johnnyreilly
-tags: [ts-loader, webpack 2]
+tags: [ts-loader, webpack]
 hide_table_of_contents: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 'react-select with less typing lag'
 authors: johnnyreilly
-tags: [large lists, react-select, typing]
+tags: [react-select]
 hide_table_of_contents: false
 ---
 

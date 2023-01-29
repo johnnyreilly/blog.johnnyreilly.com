@@ -1,7 +1,7 @@
 ---
 title: 'Coming Soon: Definitely Typed'
 authors: johnnyreilly
-tags: [TypeScript, Definitely Typed]
+tags: [typescript, Definitely Typed]
 hide_table_of_contents: false
 ---
 

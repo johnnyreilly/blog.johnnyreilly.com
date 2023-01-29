@@ -1,7 +1,7 @@
 ---
 title: 'TFS 2012 meet PowerShell, Karma and BuildNumber'
 authors: johnnyreilly
-tags: [BuildDefinitionName, BuildNumber, npm, Karma, powershell, trx, TFS 2012]
+tags: [TFS]
 hide_table_of_contents: false
 ---
 

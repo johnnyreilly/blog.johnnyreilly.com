@@ -1,7 +1,7 @@
 ---
 title: 'Cypress and Auth0'
 authors: johnnyreilly
-tags: [auth0-js, Auth0, cypress, login]
+tags: [auth0-js, Auth0, cypress, auth]
 hide_table_of_contents: false
 ---
 

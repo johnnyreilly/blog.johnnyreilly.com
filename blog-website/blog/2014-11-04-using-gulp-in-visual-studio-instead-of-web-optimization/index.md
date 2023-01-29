@@ -1,7 +1,7 @@
 ---
 title: 'Using Gulp in Visual Studio instead of Web Optimization'
 authors: johnnyreilly
-tags: [Task Runner Explorer, Visual Studio, TypeScript, javascript, Gulp]
+tags: [Task Runner Explorer, Visual Studio, typescript, javascript, Gulp]
 hide_table_of_contents: false
 ---
 

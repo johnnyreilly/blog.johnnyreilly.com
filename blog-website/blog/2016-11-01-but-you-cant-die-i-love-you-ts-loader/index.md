@@ -1,7 +1,7 @@
 ---
 title: "But you can't die... I love you!"
 authors: johnnyreilly
-tags: [open source, TypeScript, ts-loader]
+tags: [open source, typescript, ts-loader]
 image: ./title-image.png
 hide_table_of_contents: false
 ---

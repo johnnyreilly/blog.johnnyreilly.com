@@ -1,7 +1,7 @@
 ---
 title: 'Safari: The Mysterious Case of the Empty Download'
 authors: johnnyreilly
-tags: [Safari, Content-Type, Content-Length]
+tags: [Safari]
 hide_table_of_contents: false
 ---
 

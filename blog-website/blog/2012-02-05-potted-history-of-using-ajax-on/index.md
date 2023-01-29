@@ -1,7 +1,7 @@
 ---
 title: 'A Potted History of using Ajax (on the Microsoft Stack of Love)'
 authors: johnnyreilly
-tags: [ajax, jquery, webservice.htc, json, microsoft]
+tags: [ajax, jquery, json, microsoft]
 hide_table_of_contents: false
 ---
 

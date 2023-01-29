@@ -1,7 +1,7 @@
 ---
 title: 'Atom - Recovering from Corrupted Packages'
 authors: johnnyreilly
-tags: [apm, Atom, packages, corrupt]
+tags: [Atom]
 hide_table_of_contents: false
 ---
 

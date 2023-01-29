@@ -1,18 +1,7 @@
 ---
 title: "jqGrid - it's just a far better grid"
 authors: johnnyreilly
-tags:
-  [
-    jqgrid,
-    ajax,
-    jquery,
-    datagrid,
-    Dave Ward,
-    json,
-    no postback,
-    Encosia,
-    tony tomov,
-  ]
+tags: [jqgrid, ajax, jquery]
 hide_table_of_contents: false
 ---
 
