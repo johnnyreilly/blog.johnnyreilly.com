@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[70690],{24457:l=>{l.exports=JSON.parse('{"label":"Globalize JS","permalink":"/tags/globalize-js","allTagsPath":"/tags","count":3}')}}]);

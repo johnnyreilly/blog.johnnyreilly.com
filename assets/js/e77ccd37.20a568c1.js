@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[23979],{85128:a=>{a.exports=JSON.parse('{"label":"no postback","permalink":"/tags/no-postback","allTagsPath":"/tags","count":1}')}}]);

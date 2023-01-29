@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[30638],{93135:e=>{e.exports=JSON.parse('{"label":"defineplugin","permalink":"/tags/defineplugin","allTagsPath":"/tags","count":1}')}}]);

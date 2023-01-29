@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[50474],{66199:a=>{a.exports=JSON.parse('{"label":"Richard D. Worth","permalink":"/tags/richard-d-worth","allTagsPath":"/tags","count":1}')}}]);

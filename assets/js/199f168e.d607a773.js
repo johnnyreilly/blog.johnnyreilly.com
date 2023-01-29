@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[92415],{28062:a=>{a.exports=JSON.parse('{"label":"dynamic import","permalink":"/tags/dynamic-import","allTagsPath":"/tags","count":1}')}}]);

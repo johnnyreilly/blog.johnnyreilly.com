@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[75261],{19574:e=>{e.exports=JSON.parse('{"label":"HotTowel","permalink":"/tags/hot-towel","allTagsPath":"/tags","count":1}')}}]);

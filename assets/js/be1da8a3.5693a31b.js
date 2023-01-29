@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[71301],{3902:e=>{e.exports=JSON.parse('{"label":"C# 6","permalink":"/tags/c-6","allTagsPath":"/tags","count":1}')}}]);

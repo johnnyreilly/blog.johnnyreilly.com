@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[89722],{53445:n=>{n.exports=JSON.parse('{"label":"naming convention","permalink":"/tags/naming-convention","allTagsPath":"/tags","count":1}')}}]);

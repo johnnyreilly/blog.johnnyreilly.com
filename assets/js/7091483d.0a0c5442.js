@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[56282],{73210:l=>{l.exports=JSON.parse('{"label":"lazy loading","permalink":"/tags/lazy-loading","allTagsPath":"/tags","count":1}')}}]);

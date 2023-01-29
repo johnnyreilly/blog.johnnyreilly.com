@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[72344],{6866:e=>{e.exports=JSON.parse('{"label":"TFS 2012","permalink":"/tags/tfs-2012","allTagsPath":"/tags","count":1}')}}]);

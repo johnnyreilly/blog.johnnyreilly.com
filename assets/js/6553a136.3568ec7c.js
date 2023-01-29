@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[68069],{797:a=>{a.exports=JSON.parse('{"label":"Encosia","permalink":"/tags/encosia","allTagsPath":"/tags","count":2}')}}]);

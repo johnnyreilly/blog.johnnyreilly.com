@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[52974],{11987:a=>{a.exports=JSON.parse('{"label":"Ivan Drago","permalink":"/tags/ivan-drago","allTagsPath":"/tags","count":1}')}}]);

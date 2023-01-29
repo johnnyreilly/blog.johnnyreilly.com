@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[21405],{40813:a=>{a.exports=JSON.parse('{"label":"EMCAScript standard","permalink":"/tags/emca-script-standard","allTagsPath":"/tags","count":1}')}}]);

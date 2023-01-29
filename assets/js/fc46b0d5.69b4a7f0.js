@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[15687],{91764:e=>{e.exports=JSON.parse('{"label":"CRM","permalink":"/tags/crm","allTagsPath":"/tags","count":1}')}}]);
