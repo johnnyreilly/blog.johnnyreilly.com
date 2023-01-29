@@ -5,7 +5,6 @@ tags:
   [
     Azure Container Apps,
     dapr,
-    publish & subscribe,
     Bicep,
     GitHub Actions,
     GitHub container registry,
