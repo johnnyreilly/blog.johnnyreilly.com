@@ -344,12 +344,12 @@ const config = {
                 href: '/tags',
               },
               {
-                label: 'RSS',
-                href: '/rss.xml',
+                label: 'RSS feed',
+                href: 'https://johnnyreilly.com/rss.xml',
               },
               {
-                label: 'Atom',
-                href: '/atom.xml',
+                label: 'Atom feed',
+                href: 'https://johnnyreilly.com/atom.xml',
               },
               {
                 label: 'Privacy Policy',
