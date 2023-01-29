@@ -1,7 +1,7 @@
 ---
 title: 'TypeScript 4.4 and more readable code'
 authors: johnnyreilly
-tags: [TypeScript, Control Flow Analysis of Aliased Conditions]
+tags: [typescript, Control Flow Analysis of Aliased Conditions]
 image: ./reactions-on-github.webp
 hide_table_of_contents: false
 ---

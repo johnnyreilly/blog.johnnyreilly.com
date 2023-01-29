@@ -1,7 +1,7 @@
 ---
 title: 'TypeScript: In Praise of Union Types'
 authors: johnnyreilly
-tags: [TypeScript, Option bags, Union Types, Function syntax]
+tags: [typescript, Option bags, Union Types, Function syntax]
 hide_table_of_contents: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 'Upgrading to TypeScript 0.9.5 - A Personal Memoir'
 authors: johnnyreilly
-tags: [Q, TypeScript, 0.9.1.1, 0.9.5, upgrading]
+tags: [TypeScript]
 hide_table_of_contents: false
 ---
 

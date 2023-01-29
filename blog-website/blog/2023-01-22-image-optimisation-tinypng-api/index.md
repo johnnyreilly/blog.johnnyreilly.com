@@ -1,7 +1,7 @@
 ---
 title: 'Image Optimisation with the TinyPNG API'
 authors: johnnyreilly
-tags: [image optimisation, TinyPNG, API]
+tags: [image optimisation, TinyPNG]
 image: ./title-image.webp
 description: 'Image optimisation can be automated with the TinyPNG API. This post demonstrates how to do that.'
 hide_table_of_contents: false

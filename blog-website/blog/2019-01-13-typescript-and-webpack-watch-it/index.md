@@ -1,7 +1,7 @@
 ---
 title: 'TypeScript and webpack: Watch It'
 authors: johnnyreilly
-tags: [TypeScript, watch API, Webpack]
+tags: [typescript, watch API, Webpack]
 hide_table_of_contents: false
 ---
 

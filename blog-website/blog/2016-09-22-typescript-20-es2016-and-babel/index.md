@@ -1,7 +1,7 @@
 ---
 title: 'TypeScript 2.0, ES2016 and Babel'
 authors: johnnyreilly
-tags: [TypeScript, Babel, ES2016]
+tags: [typescript, Babel, ES2016]
 hide_table_of_contents: false
 ---
 
