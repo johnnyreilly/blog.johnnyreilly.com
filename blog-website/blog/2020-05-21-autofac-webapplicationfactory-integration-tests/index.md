@@ -1,14 +1,7 @@
 ---
 title: 'Autofac, WebApplicationFactory and integration tests'
 authors: johnnyreilly
-tags:
-  [
-    autofac,
-    WebApplicationFactory,
-    ASP.Net Core,
-    ConfigureTestContainer,
-    Integration Testing,
-  ]
+tags: [autofac, ASP.Net Core, Integration Testing]
 image: ./autofac-webapplicationfactory-tests.webp
 hide_table_of_contents: false
 ---

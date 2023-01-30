@@ -1,7 +1,7 @@
 ---
 title: 'Unit Testing an Angular Controller with Jasmine'
 authors: johnnyreilly
-tags: [Jasmine, promises, unit tests, AngularJS]
+tags: [Jasmine, unit tests, AngularJS]
 hide_table_of_contents: false
 ---
 

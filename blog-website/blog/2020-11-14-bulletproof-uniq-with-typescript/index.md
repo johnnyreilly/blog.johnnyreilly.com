@@ -1,7 +1,7 @@
 ---
 title: 'Bulletproof uniq with TypeScript generics (yay code reviews!)'
 authors: johnnyreilly
-tags: [typescript, unique]
+tags: [typescript]
 hide_table_of_contents: false
 ---
 

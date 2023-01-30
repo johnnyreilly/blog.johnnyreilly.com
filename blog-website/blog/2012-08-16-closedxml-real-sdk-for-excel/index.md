@@ -1,7 +1,7 @@
 ---
 title: 'ClosedXML - the real SDK for Excel'
 authors: johnnyreilly
-tags: [MDeLeon, Open XML, Excel, ClosedXML]
+tags: [Open XML, Excel, ClosedXML]
 hide_table_of_contents: false
 ---
 

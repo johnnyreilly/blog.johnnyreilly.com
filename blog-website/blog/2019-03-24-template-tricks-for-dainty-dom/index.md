@@ -1,7 +1,7 @@
 ---
 title: 'Template Tricks for a Dainty DOM'
 authors: johnnyreilly
-tags: [DOM, template, Materialized]
+tags: [Materialized]
 hide_table_of_contents: false
 ---
 

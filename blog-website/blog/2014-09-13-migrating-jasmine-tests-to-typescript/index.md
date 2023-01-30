@@ -1,14 +1,7 @@
 ---
 title: 'Journalling the Migration of Jasmine Tests to TypeScript'
 authors: johnnyreilly
-tags:
-  [
-    Jasmine,
-    TypeScript Language Service,
-    TypeScript,
-    javascript,
-    implicit references,
-  ]
+tags: [Jasmine, typescript, javascript]
 hide_table_of_contents: false
 ---
 

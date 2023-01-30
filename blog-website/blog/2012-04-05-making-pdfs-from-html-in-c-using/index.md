@@ -1,7 +1,7 @@
 ---
 title: 'Making PDFs from HTML in C# using WKHTMLtoPDF'
 authors: johnnyreilly
-tags: [wkhtmltopdf, webkit, c#, html, pdf]
+tags: [wkhtmltopdf, c#, pdf]
 hide_table_of_contents: false
 ---
 

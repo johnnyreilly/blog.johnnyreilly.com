@@ -1,15 +1,7 @@
 ---
 title: 'Dual boot authentication with ASP.NET'
 authors: johnnyreilly
-tags:
-  [
-    Authentication,
-    dual authentication,
-    Cookie,
-    Azure AD,
-    ForwardDefaultSelector,
-    ASP.NET,
-  ]
+tags: [Authentication, Cookie, Azure AD, ASP.NET]
 hide_table_of_contents: false
 ---
 

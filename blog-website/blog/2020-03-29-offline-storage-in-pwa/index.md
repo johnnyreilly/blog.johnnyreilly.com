@@ -1,7 +1,7 @@
 ---
 title: 'Offline storage in a PWA'
 authors: johnnyreilly
-tags: [PWA, idb-keyval, IndexedDB, localStorage]
+tags: [PWA]
 hide_table_of_contents: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 'Karma: From PhantomJS to Headless Chrome'
 authors: johnnyreilly
-tags: [Chrome, Karma, PhantomJS, Headless]
+tags: [Chrome, Karma, PhantomJS]
 hide_table_of_contents: false
 ---
 

@@ -1,15 +1,15 @@
 ---
 title: 'A tale of Angular, html5mode, ASP.Net MVC and ASP.Net Web API'
 authors: johnnyreilly
-tags: [asp.net mvc, asp.net, html5mode, AngularJS, ASP.Net Web API]
+tags: [asp.net, AngularJS]
 hide_table_of_contents: false
 ---
 
 So. You want to kick hash based routing to the kerb. You want _real_ URLs. You've read the HTML5 mode section of the [Angular $location docs](https://docs.angularjs.org/guide/$location) and you're good to go. It's just a matter of dropping `$locationProvider.html5Mode(true)` into your app initialisation right?
 
-<!--truncate-->
-
 Wrong.
+
+<!--truncate-->
 
 You want your URLs to be shareable. If, when you copy the URL out of your browser and send it someone else, they do not get taken to the same position in the application as you do then I've got news for you: THAT'S NOT REALLY A URL. And just using `$locationProvider.html5Mode(true)` has done nothing useful for you. You want to ensure that, if the URL entered in the browser does not relate to a specific server-side end-point, the self-same HTML root page is _always_ served up. Then Angular can load the correct resources for the URL you have entered and get you to the required state.
 

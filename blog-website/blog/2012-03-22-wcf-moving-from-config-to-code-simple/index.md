@@ -1,16 +1,7 @@
 ---
 title: 'WCF - moving from Config to Code, a simple WCF service harness (plus implementing your own Authorization)'
 authors: johnnyreilly
-tags:
-  [
-    ServiceAuthorizationManager,
-    Windows Account,
-    Windows Service,
-    configuration,
-    WCF,
-    authorisation,
-    NetTcpBinding,
-  ]
+tags: [WCF, authorization]
 hide_table_of_contents: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 'Unit Testing and Entity Framework: The Filth and the Fury'
 authors: johnnyreilly
-tags: [unit testing, Entity Framework, anti-pattern, MOQ]
+tags: [unit testing, Entity Framework, MOQ]
 hide_table_of_contents: false
 ---
 

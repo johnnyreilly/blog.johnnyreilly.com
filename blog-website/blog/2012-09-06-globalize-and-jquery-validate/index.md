@@ -1,16 +1,7 @@
 ---
 title: 'Globalize and jQuery Validation'
 authors: johnnyreilly
-tags:
-  [
-    asp.net mvc,
-    Internationalisation,
-    Globalization,
-    Globalize JS,
-    Localisation,
-    jQuery Validation,
-    jQuery.validate.js,
-  ]
+tags: [asp.net mvc, Globalize, jQuery Validation]
 hide_table_of_contents: false
 ---
 

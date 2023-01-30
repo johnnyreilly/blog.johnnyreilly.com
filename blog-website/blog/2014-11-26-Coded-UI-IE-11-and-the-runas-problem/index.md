@@ -1,7 +1,7 @@
 ---
 title: "Pretending to be someone you're not and the dark pit of despair"
 authors: johnnyreilly
-tags: [Coded UI, Internet Exporer]
+tags: [Coded UI, internet explorer]
 hide_table_of_contents: false
 ---
 

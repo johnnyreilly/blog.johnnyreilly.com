@@ -1,7 +1,6 @@
 ---
 title: 'Making a Programmer'
 authors: johnnyreilly
-tags: [coding bootcamp, retrospective, learning, feedback]
 hide_table_of_contents: false
 ---
 

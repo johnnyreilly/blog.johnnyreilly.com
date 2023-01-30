@@ -1,15 +1,15 @@
 ---
 title: 'TypeScript: In Praise of Union Types'
 authors: johnnyreilly
-tags: [typescript, Option bags, Union Types, Function syntax]
+tags: [typescript, Union Types]
 hide_table_of_contents: false
 ---
 
 ## (& How to Express Functions in UTs)
 
-<!--truncate-->
-
 Have you heard the good news my friend? I refer, of course, to the shipping of TypeScript 1.4 and my _favourite_ language feature since generics.... Union Types.
+
+<!--truncate-->
 
 In the [1\.4 announcement](https://blogs.msdn.com/b/typescript/archive/2015/01/16/announcing-typescript-1-4.aspx) Jonathan Turner described Union Types thusly:
 

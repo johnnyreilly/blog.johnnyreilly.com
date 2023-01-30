@@ -1,7 +1,7 @@
 ---
 title: 'Under the Duck: An Afternoon in Open Source'
 authors: johnnyreilly
-tags: [breaking changes, ts-loader, Webpack]
+tags: [ts-loader, webpack]
 hide_table_of_contents: false
 ---
 

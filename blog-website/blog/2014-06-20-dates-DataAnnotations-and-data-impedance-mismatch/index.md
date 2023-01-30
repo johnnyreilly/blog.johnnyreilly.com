@@ -1,7 +1,7 @@
 ---
 title: 'A folk story wherein we shall find dates, DataAnnotations & data impedance mismatch'
 authors: johnnyreilly
-tags: [Date, DateTime, Moment.JS, DataAnnotations, ValidationAttribute]
+tags: [Date]
 hide_table_of_contents: false
 ---
 

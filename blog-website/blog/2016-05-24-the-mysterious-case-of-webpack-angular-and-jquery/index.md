@@ -1,7 +1,7 @@
 ---
-title: 'The Mysterious Case of Webpack, Angular and jQuery'
+title: 'The Mysterious Case of webpack, AngularJS and jQuery'
 authors: johnnyreilly
-tags: [provideplugin, jquery, jqlite, Angular, Webpack]
+tags: [jquery, AngularJS, webpack]
 hide_table_of_contents: false
 ---
 

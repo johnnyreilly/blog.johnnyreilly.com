@@ -1,7 +1,7 @@
 ---
 title: 'Devcontainers and SSL interception'
 authors: johnnyreilly
-tags: [devcontainer, mitm certificate, ssl interception]
+tags: [devcontainer, ssl interception]
 hide_table_of_contents: false
 ---
 

@@ -1,13 +1,11 @@
 ---
 title: 'Working with Extrahop on webpack and ts-loader'
 authors: johnnyreilly
-tags: [extrahop, ts-loader, Webpack]
+tags: [ts-loader, webpack]
 hide_table_of_contents: false
 ---
 
 I'm quite proud of this: [https://www.extrahop.com/company/blog/2017/extrahop-webpack-accelerating-build-times/](https://www.extrahop.com/company/blog/2017/extrahop-webpack-accelerating-build-times/)
-
-<!--truncate-->
 
 If you didn't know, I spend a good amount of my spare time hacking on open source software. You may not know what that is. I would describe OSS as software made with ❤ by people, for other people to use.
 

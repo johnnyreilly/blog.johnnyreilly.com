@@ -1,7 +1,7 @@
 ---
 title: 'Things Done Changed'
 authors: johnnyreilly
-tags: [Browserify, ES6, Atom, Babel, React, WebSockets]
+tags: [ES6, Atom, Babel, React, WebSockets]
 hide_table_of_contents: false
 ---
 

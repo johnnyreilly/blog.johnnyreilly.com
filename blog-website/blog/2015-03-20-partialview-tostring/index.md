@@ -1,7 +1,7 @@
 ---
 title: 'PartialView.ToString()'
 authors: johnnyreilly
-tags: [asp.net mvc, sward, PartialView]
+tags: [asp.net mvc]
 hide_table_of_contents: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 'The Convent with Continuous Delivery'
 authors: johnnyreilly
-tags: [Poor Clares, Continuous Delivery, Arundel, AppVeyor]
+tags: [Continuous Delivery, AppVeyor]
 hide_table_of_contents: false
 ---
 

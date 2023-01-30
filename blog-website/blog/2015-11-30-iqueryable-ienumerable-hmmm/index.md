@@ -1,7 +1,7 @@
 ---
 title: 'IQueryable... IEnumerable... Hmmm...'
 authors: johnnyreilly
-tags: [LINQ, IEnumerable vs IQueryable]
+tags: [LINQ]
 hide_table_of_contents: false
 ---
 

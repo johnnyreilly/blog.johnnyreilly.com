@@ -1,7 +1,7 @@
 ---
 title: 'webpack: syncing the enhanced-resolve'
 authors: johnnyreilly
-tags: [enhanced-resolve, mild trolling, resolver, Webpack, sync]
+tags: [webpack]
 hide_table_of_contents: false
 ---
 

@@ -1,7 +1,6 @@
 ---
 title: 'Standing on the Shoulders of Giants...'
 authors: johnnyreilly
-tags: [delphi, asp.net, Hanselman, developer, amstrad, microsoft]
 hide_table_of_contents: false
 ---
 

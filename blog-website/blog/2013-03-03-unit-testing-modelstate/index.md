@@ -1,7 +1,7 @@
 ---
 title: 'Unit testing ModelState'
 authors: johnnyreilly
-tags: [asp.net mvc, unit testing, modelstate]
+tags: [asp.net mvc, unit testing]
 hide_table_of_contents: false
 ---
 

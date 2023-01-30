@@ -1,7 +1,7 @@
 ---
 title: 'Integration Testing with Entity Framework and Snapshot Backups'
 authors: johnnyreilly
-tags: [Database Snapshot Backups, Integration Testing, SQL Server]
+tags: [Database Snapshots, Integration Testing, SQL Server]
 hide_table_of_contents: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 'Brand New Fonting Awesomeness'
 authors: johnnyreilly
-tags: [brand icons, React, font awesome]
+tags: [React]
 hide_table_of_contents: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 'Azure Static Web Apps: dynamic redirects with Azure Functions'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, redirects, Azure Functions, GitHub Actions]
+tags: [Azure Static Web Apps, Azure Functions, GitHub Actions]
 image: ./title-image.png
 description: 'Azure Static Web Apps can perform URL redirects using the `routes` section in the `staticwebapp.config.json`. However it is limited. This post will demonstrate dynamic URL redirects with Azure Functions.'
 hide_table_of_contents: false

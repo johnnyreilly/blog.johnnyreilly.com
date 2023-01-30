@@ -1,8 +1,7 @@
 ---
 title: 'TypeScript this is what I want! (the unfortunate neglect of Instance Methods / callback functions)'
 authors: johnnyreilly
-tags:
-  [callback functions, typescript, Lexical scoping, closure, Instance methods]
+tags: [typescript]
 hide_table_of_contents: false
 ---
 

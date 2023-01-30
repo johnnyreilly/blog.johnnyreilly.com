@@ -1,7 +1,7 @@
 ---
 title: 'TypeScript and RequireJS (Keep It Simple)'
 authors: johnnyreilly
-tags: [RequireJS, AMD, typescript]
+tags: [typescript]
 hide_table_of_contents: false
 ---
 

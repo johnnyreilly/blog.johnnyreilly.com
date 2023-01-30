@@ -1,7 +1,7 @@
 ---
 title: 'Azure DevOps Client for Node.js - GitApi / WikiApi limitations'
 authors: johnnyreilly
-tags: [azure devops api, IGitApi.getRefs, IWikiApi, Node.js]
+tags: [azure devops api, Node.js]
 image: ./title-image.png
 hide_table_of_contents: false
 ---

@@ -1,7 +1,7 @@
 ---
 title: 'Knockout + Globalize = valueNumber Binding Handler'
 authors: johnnyreilly
-tags: [Globalize, Knockout, bindingHandler]
+tags: [Globalize, Knockout]
 hide_table_of_contents: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 'Output connection strings and keys from Azure Bicep'
 authors: johnnyreilly
-tags: [Bicep, Azure, connection string, keys]
+tags: [Bicep, Azure, connection string]
 image: ./title-image.png
 hide_table_of_contents: false
 ---

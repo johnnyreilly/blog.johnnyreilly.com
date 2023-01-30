@@ -1,7 +1,7 @@
 ---
 title: 'ASP.NET Core: Proxying HTTP Requests with an AllowList'
 authors: johnnyreilly
-tags: [asp net core, proxy, http requests, allowlist]
+tags: [.NET]
 image: ./hang-on-lads-ive-got-a-great-idea.webp
 hide_table_of_contents: false
 ---

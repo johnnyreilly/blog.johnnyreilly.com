@@ -1,15 +1,7 @@
 ---
 title: 'TypeScript + Webpack: Super Pursuit Mode'
 authors: johnnyreilly
-tags:
-  [
-    HappyPack,
-    TypeScript,
-    cache-loader,
-    thread-loader,
-    fork-ts-checker-webpack-plugin,
-    Webpack,
-  ]
+tags: [typescript, fork-ts-checker-webpack-plugin, Webpack]
 hide_table_of_contents: false
 ---
 

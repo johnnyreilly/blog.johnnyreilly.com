@@ -1,14 +1,7 @@
 ---
 title: 'UseStaticFiles for ASP.Net Framework'
 authors: johnnyreilly
-tags:
-  [
-    HTML5 History API,
-    Single Page Applications,
-    UseStaticFiles,
-    Routing,
-    URL Rewrite,
-  ]
+tags: [ASP.NET]
 hide_table_of_contents: false
 ---
 

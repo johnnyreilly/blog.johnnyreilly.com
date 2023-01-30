@@ -1,7 +1,7 @@
 ---
 title: 'Upgrading to Globalize 1.x for Dummies'
 authors: johnnyreilly
-tags: [Globalize, migration]
+tags: [Globalize]
 hide_table_of_contents: false
 ---
 
