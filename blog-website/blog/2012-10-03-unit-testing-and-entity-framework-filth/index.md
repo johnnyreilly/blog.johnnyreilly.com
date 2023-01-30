@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Just recently I've noticed that there appears to be something of a controversy around Unit Testing and Entity Framework. I first came across it as I was Googling around for useful posts on using MOQ in conjunction with EF. I've started to notice the topic more and more and as I have mixed feelings on the subject (that is to say I don't have a settled opinion) I thought I'd write about this and see if I came to any kind of conclusion...
 
+<!--truncate-->
+
 ## The Setup
 
 It started as I was working on a new project. We were using ASP.NET MVC 3 and Entity Framework with DbContext as our persistence layer. Rather than crowbarring the tests in afterwards the intention was to write tests to support the ongoing development. Not quite test driven development but certainly [test supported development](http://blog.troyd.net/Test+Supported+Development+TSD+Is+NOT+Test+Driven+Development+TDD.aspx). (Let's not get into the internecine conflict as to whether this is black belt testable code or not - it isn't but he who pays the piper etc.) Oh and we were planning to use MOQ as our mocking library.

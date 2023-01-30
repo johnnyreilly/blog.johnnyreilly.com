@@ -11,6 +11,8 @@ Private Azure Artifact feeds in in Azure DevOps can be used to serve NuGet packa
 
 ![title image reading "Azure DevOps: consume a private artifact feed" with the Azure DevOps and Azure Pipelines logos`](title-image.png)
 
+<!--truncate-->
+
 ## Make a `nuget.config`
 
 To consume a private feed, you'll likely want to create a `nuget.config` file in the root of your repo. Here you list the package sources you want to consume, typically the NuGet official package source _as well_ as your private feed. See the example below:

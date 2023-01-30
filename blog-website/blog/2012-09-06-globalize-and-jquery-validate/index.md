@@ -26,6 +26,8 @@ This is also available as a nuget package [here](https://www.nuget.org/packages/
 
 To see a good demo take a look [here](http://jqueryvalidationunobtrusivenative.azurewebsites.net/AdvancedDemo/Globalize).
 
+<!--truncate-->
+
 ## Background
 
 [I've written before about a great little library called Globalize](../2012-05-07-globalizejs-number-and-date/index.md) which makes locale specific number / date formatting simple within JavaScript. And I've just stumbled upon an [old post written by Scott Hanselman about the business of Globalisation / Internationalisation / Localisation within ASP.NET](http://www.hanselman.com/blog/GlobalizationInternationalizationAndLocalizationInASPNETMVC3JavaScriptAndJQueryPart1.aspx). It's a great post and I recommend reading it (I'm using many of the approaches he discusses).

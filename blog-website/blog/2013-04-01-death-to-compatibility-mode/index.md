@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 For just over 10 years my bread and butter has been the development and maintenance of line of business apps. More particularly, web apps built on the Microsoft stack of love ([© Scott Hanselman](https://channel9.msdn.com/Events/MIX/MIX11/FRM02)). These sort of apps are typically accessed via the company intranet and since "bring your own device" is still a relatively new innovation these apps are invariably built for everyones favourite browser: Internet Explorer. As we all know, enterprises are generally not that speedy when it comes to upgrades. So we're basically talking IE 9 at best, but more often than not, IE 8.
 
+<!--truncate-->
+
 Now, unlike many people, I don't regard IE as a work of evil. I spent a fair number of years working for an organization which had IE 6 as the only installed browser on company desktops. (In fact, this was still the case as late as 2012!) Now, because JavaScript is so marvellously flexible I was still able to do a great deal with the help of a number of [shivs / shims](http://paulirish.com/2011/the-history-of-the-html5-shiv/).
 
 But rendering and CSS - well that's another matter. Because here we're at the mercy of "compatibility mode". Perhaps a quick history lesson is in order. What is this "compatibility mode" of which you speak?

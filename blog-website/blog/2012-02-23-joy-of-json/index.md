@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 So back to JSON. For those of you that don't know JSON stands for JavaScript Object Notation and is lightweight text based data interchange format. Rather than quote other people verbatim you can find thorough explanations of JSON here: - [Introducing JSON](http://www.json.org/)
 
+<!--truncate-->
+
 - [JSON in Javascript](http://www.json.org/js.html)
 
 As mentioned in my previous [post on Ajax](../2012-02-05-potted-history-of-using-ajax-on/index.md) I came upon JSON quite by accident and was actually using it for some time without having any idea. But let's pull back a bit. Let's start with the JavaScript Object Literal. Some years ago I came upon this article by Christan Heilmann about the JavaScript Object Literal which had been published all the way back in 2006: [Show love to the JavaScript Object Literal](http://christianheilmann.com/2006/02/16/show-love-to-the-object-literal/) Now when I read this it was a revelation to me. I hadn't really used JavaScript objects a great deal at this point (yes I am one of those people that started using JavaScript without actually learning the thing) and when I had used them is was through the `var obj = new Object()` pattern (as that's the only approach I knew). So it was wonderful to discover that instead of the needlessly verbose:

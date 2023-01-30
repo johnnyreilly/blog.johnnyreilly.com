@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Just recently I was tasked with seeing if we could provide a way to access our Dynamics CRM instance via OData. My initial investigations made it seem like there was nothing for me to do; [CRM 2011 provides OData support out of the box](http://msdn.microsoft.com/en-us/library/gg309461.aspx). Small problem. We were running CRM 4.0.
 
+<!--truncate-->
+
 It could well have ended there apart from the fact that Microsoft makes it astonishingly easy to to create your own OData service using WCF Data Services. Because it's so straightforward I was able to get an OData solution for CRM 4.0 up and running with very little heavy lifting at all. Want to know how it's done?
 
 ## LINQ to CRM

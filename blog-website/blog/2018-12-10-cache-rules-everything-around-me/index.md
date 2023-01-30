@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 One thing that ASP.Net Core really got right was caching. [`IMemoryCache`](https://docs.microsoft.com/en-us/aspnet/core/performance/caching/memory) is a caching implementation that does just what I want. I love it. I take it everywhere. I've introduced it to my family.
 
+<!--truncate-->
+
 ## TimeSpan, TimeSpan Expiration Y'all
 
 To make usage of the `IMemoryCache` _even_ more lovely I've written an extension method. I follow pretty much one cache strategy: `SetAbsoluteExpiration` and I just vary the expiration by an amount of time. This extension method implements that in a simple way; I call it `GetOrCreateForTimeSpanAsync` - catchy right? It looks like this:

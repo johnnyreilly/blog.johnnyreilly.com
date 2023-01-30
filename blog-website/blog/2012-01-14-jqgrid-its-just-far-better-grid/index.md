@@ -9,6 +9,8 @@ The year was 2010 (not really that long ago I know) and the project that I was w
 
 ![](jqgrid-in-all-its-glory.webp)
 
+<!--truncate-->
+
 Oooh look at the goodness! It had both column re-ordering and column choosing built in!: This was a \***very promising sign**\*! Now it's time for me to demonstrate my ignorance. According to the website this grid component was a "jQuery plugin". At the time I read this I had no idea what jQuery was at all - let alone what a plugin for it was. Anyway, I don't want to get diverted so let's just say that reading this lead to me getting an urgent education about some of the client side aspects of the modern web that I had been previously unaware of. I digress. This component did exactly what I wanted in terms of just sending data down the pipe. jqGrid worked with a whole number of possible data sources; XML, Array but the most exciting for me was obviously [JSON](http://www.json.org/). Take a look a the grid rendered below and the JSON that powered it (all from a simple [GET](http://www.trirand.com/blog/jqgrid/server.php?q=2&_search=false&nd=1326531357333&rows=10&page=1&sidx=id&sord=desc) request):
 
 ![](Check-out-the-JSON.webp)

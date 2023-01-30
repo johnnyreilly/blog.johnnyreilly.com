@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 A funny thing happened on the way to the registry the other day. Something changed in an npm package I was using and confusion arose. You can read my unfiltered confusion [here](https://github.com/Microsoft/TypeScript/issues/18791) but here's the slightly clearer explanation.
 
+<!--truncate-->
+
 ## The TL;DR
 
 When modules are imported, your loader will decide which module format it wants to use. CommonJS / AMD etc. The loader decides. It's important that the export is of the same "shape" regardless of the module format. For 2 reasons:

@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Yes the title of this post is \***painfully**\* verbose. Sorry about that. Couple of questions for you: - Have you ever liked the way you can have base classes in C# which can then be inherited and subclassed <u>in a different file / class</u>
 
+<!--truncate-->
+
 ?
 
 - Have you ever thought; gosh it'd be nice to do something like that in JavaScript...

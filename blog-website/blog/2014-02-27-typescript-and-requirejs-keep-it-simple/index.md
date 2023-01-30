@@ -1,11 +1,13 @@
 ---
 title: 'TypeScript and RequireJS (Keep It Simple)'
 authors: johnnyreilly
-tags: [RequireJS, AMD, TypeScript]
+tags: [RequireJS, AMD, typescript]
 hide_table_of_contents: false
 ---
 
 I'm not the first to take a look at mixing TypeScript and RequireJS but I wanted to get it clear in my head. Also, I've always felt the best way to learn is to do. So here we go. I'm going to create a TypeScript and RequireJS demo based on [John Papa's "Keep It Simple RequireJS Demo"](https://github.com/johnpapa/kis-requirejs-demo/).
+
+<!--truncate-->
 
 So let's fire up Visual Studio 2013 and create a new ASP.NET Web Application called “RequireJSandTypeScript” (the empty project template is fine).
 

@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Did you know that jQuery Validation natively supports the use of [HTML 5 data attributes](http://ejohn.org/blog/html-5-data-attributes/) to drive validation unobtrusively? Neither did I - I haven't seen any documentation for it. However, I was reading the [jQuery Validation test suite](https://github.com/jzaefferer/jquery-validation/blob/master/test/index.html) and that's what I spotted being used in some of the tests.
 
+<!--truncate-->
+
 I was quite keen to give it a try as I've found the Microsoft produced [unobtrusive extensions](http://nuget.org/packages/jQuery.Validation.Unobtrusive/) both fantastic and frustrating in nearly equal measure. Fantastic because they work and they're [integrated nicely with MVC](../2012-08-06-jquery-unobtrusive-validation/index.md). Frustrating, because they don't allow you do all the things that jQuery Validate in the raw does.
 
 So when I realised that there was native alternative available I was delighted. Enough with the fine words - what we want is a demo:

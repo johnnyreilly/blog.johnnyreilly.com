@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 ## Backing into the light
 
+<!--truncate-->
+
 For a while now, I've been seeking a bulletproof way to handle the following scenarios... all at the same time in the context of an ASP.Net MVC application:
 
 1. How to serve full-fat JavaScript in debug mode and minified in release mode

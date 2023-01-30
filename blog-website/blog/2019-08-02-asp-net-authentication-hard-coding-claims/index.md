@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 This post demonstrates how you can hard code user authentication claims in ASP.NET Core; a useful technique to facilate testing during development.
 
+<!--truncate-->
+
 I was recently part of a hackathon team that put together an API in just 30 hours. We came second. (Not bitter, not bitter...)
 
 We were moving pretty quickly during the hackathon and, when we came to the end of it, we had a working API which we were able to demo. The good news is that the API is going to graduate to be a product! We're going to ship this. Before we can do that though, there's a little tidy up to do.

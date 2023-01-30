@@ -15,6 +15,8 @@ hide_table_of_contents: false
 
 It all started with a GitHub issue. [Ernst Ammann reported](https://github.com/namics/webpack-config-plugins/issues/24):
 
+<!--truncate-->
+
 > Without the thread-loader, compilation takes three to four times less time on changes. We could remove it.
 
 If you're not aware of the [`webpack-config-plugins`](https://github.com/namics/webpack-config-plugins) project then I commend it to you. Famously, webpack configuration can prove tricky. `webpack-config-plugins` borrows the idea of presets from Babel. It provides a number of pluggable webpack configurations which give a best practice setup for different webpack use cases. So if you're no expert with webpack and you want a good setup for building your TypeScript / Sass / JavaScript then `webpack-config-plugins` has got your back.

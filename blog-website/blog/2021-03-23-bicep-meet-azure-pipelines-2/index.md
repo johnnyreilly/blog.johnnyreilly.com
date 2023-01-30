@@ -10,6 +10,8 @@ hide_table_of_contents: false
 
 ![Bicep meet Azure Pipelines](bicep-meet-azure-pipelines.webp)
 
+<!--truncate-->
+
 ## The easier way
 
 The target reader of the previous post was someone who was already using `AzureResourceManagerTemplateDeployment@3` in an Azure Pipeline to deploy an ARM template. Rather than replacing your existing `AzureResourceManagerTemplateDeployment@3` tasks, all you need do is insert a prior `bash` step that compiles the Bicep to ARM, which your existing template can then process. It looks like this:

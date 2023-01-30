@@ -11,6 +11,8 @@ hide_table_of_contents: false
     <link rel="canonical" href="https://meticulous.ai/blog/typescript-unit-tests-with-debugging/" />
 </head>
 
+<!--truncate-->
+
 Unit tests are an important part of the development process. They are used to verify that the code is working as intended. This post will outline how to write unit tests using TypeScript and how to debug them as well.
 
 ![title image reading "TypeScript Unit Tests with Debug Support" with TypeScript and Jest logos](title-image.png)

@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Safari wants a `Content-Type` header in responses. Even if the response is `Content-Length: 0`. Without this, Safari can attempt to trigger an empty download. Don't argue; just go with it; some browsers are strange.
 
+<!--truncate-->
+
 ## The longer version
 
 Every now and then a mystery presents itself. A puzzle which just doesn't make sense and yet stubbornly continues to exist. I happened upon one of these the other day and to say it was frustrating does it no justice at all.

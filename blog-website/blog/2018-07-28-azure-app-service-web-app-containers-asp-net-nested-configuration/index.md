@@ -8,6 +8,8 @@ hide_table_of_contents: false
 
 How can we configure an ASP.NET application with nested properties [Azure App Service Web App for Containers](https://azure.microsoft.com/en-gb/services/app-service/containers/) using Application Settings in Azure? Colons don't work.
 
+<!--truncate-->
+
 ## Containers on App Service
 
 App Services have long been a super simple way to spin up a web app in Azure. The barrier to entry is low, maintenance is easy. It just works. App Services recently got a turbo boost in the form of [Azure App Service on Linux](https://docs.microsoft.com/en-us/azure/app-service/containers/app-service-linux-intro). Being able to deploy to Linux is exciting enough; but another reason this is notable because [you can deploy Docker images that will be run as app services](https://docs.microsoft.com/en-us/azure/app-service/containers/tutorial-custom-docker-image).

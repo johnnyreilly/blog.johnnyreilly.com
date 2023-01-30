@@ -10,6 +10,8 @@ There's a debate to be had about whether using JavaScript or TypeScript leads to
 
 ![title image reading "JSDoc JavaScript vs TypeScript" with a JavaScript logo and TypeScript logo](title-image.png)
 
+<!--truncate-->
+
 ## Updated 6th December 2021
 
 This blog evolved to become a talk:

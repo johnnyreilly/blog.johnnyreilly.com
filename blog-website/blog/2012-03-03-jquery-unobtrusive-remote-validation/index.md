@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Just recently I have been particularly needing to make use of remote / server-side validation in my ASP.NET MVC application and found that the unobtrusive way of using this seemed to be rather inadequately documented (of course it's possible that it's well documented and I just didn't find the resources). Anyway I've rambled on much longer than I intended to in this post so here's the TL;DR:
 
+<!--truncate-->
+
 - You \***can**\* use remote validation driven by unobtrusive data attributes
 - Using remote validation you can supply \***multiple**\* parameters to be evaluated
 - It is possible to block validation and force it to be re-evaluted - although using a slightly hacky method which I document here. For what it's worth I acknowledge up front that this is \***not**\* an ideal solution but it does seem to work. I really hope there is a better solution out there and if anyone knows about it then please get in contact and let me know.

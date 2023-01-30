@@ -11,6 +11,8 @@ This post demonstrates enriching an XML sitemap with `lastmod` timestamps based 
 
 ![title image reading "Adding lastmod to sitemap based on git commits" with XML and Docusaurus logos](title-image.png)
 
+<!--truncate-->
+
 ## Reading git log in Node.js
 
 [In the last post I showed how to manipulate XML in Node.js, and filter our sitemap](../2022-11-22-xml-read-and-write-with-node-js/index.md). In this post we'll build upon what we did last time, read the git log in Node.js and use that to power a `lastmod` property.

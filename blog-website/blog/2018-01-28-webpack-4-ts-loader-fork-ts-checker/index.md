@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 [The first webpack 4 beta dropped on Friday](https://medium.com/webpack/webpack-4-beta-try-it-today-6b1d27d7d7e2). Very exciting! Following hot on the heels of those announcements, I've some news to share too. Can you guess what it is?
 
+<!--truncate-->
+
 ## `ts-loader`
 
 Yes! The [`ts-loader`](https://github.com/TypeStrong/ts-loader) beta to work with webpack 4 is available. To get hold of the beta:

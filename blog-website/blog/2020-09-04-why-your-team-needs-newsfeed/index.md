@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I'm part of a team that builds an online platform. I'm often preoccupied by how to narrow the gap between our users and "us" - the people that build the platform. It's important we understand how people use and interact with what we've built. If we don't then we're liable to waste our time and energy building the wrong things. Or the wrong amount of the right things.
 
+<!--truncate-->
+
 On a recent holiday I spent a certain amount of time pondering how to narrow the gap between our user and us. We have lots of things that help us; we use various analytics tools like [mixpanel](https://mixpanel.com/), we've got a mini analytics platform of our own, we have teams notifications that pop up client feedback and so on. They are all great, but they're somewhat disparate; they don't give us a clear insight as to who uses our platform and how they do so. The information is there, but it's tough to grok. It doesn't make for a joined up story.
 
 Reaching around for how to solve this I had an idea: what if our platform had a newsfeed? The kind of thing that social media platforms the likes of Twitter and Facebook have used to great effect; a stream of mini-activities which show how the community interacts with the product. People logging in and browsing around, using features on the platform. If we could see this in near real time we'd be brought closer to our users; we'd have something that would help us have real empathy and understanding. We'd see our product as the stories of users interacting with it.

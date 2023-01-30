@@ -16,6 +16,8 @@ hide_table_of_contents: false
 
 This post shows how you can use TypeScript with webpack `alias` to move away from using relative paths in your `import` statements.
 
+<!--truncate-->
+
 ## Long relative paths
 
 I write a lot of TypeScript. Because I like modularity, I split up my codebases into discreet modules and `import` from them as necessary.

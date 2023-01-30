@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 It started with nuns. Don't all good stories start that way? One of my (many) aunts is a Poor Clare nun. At some point in the distant past I was cajoled into putting together a simple website for her convent. This post is a walkthrough of how to migrate from AngularJS using JavaScript to AngularJS using TypeScript. It just so happens that the AngularJS app in question is the one that belongs to my mother's sister's convent.
 
+<!--truncate-->
+
 ## TL;DR - grab what you need
 
 For reference the complete "before" and "after" projects can be found on GitHub [here](https://github.com/johnnyreilly/AngularJS2AngularTS). This is available so people can see clearly what changes have been made in the migration.

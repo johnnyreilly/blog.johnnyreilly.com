@@ -17,6 +17,8 @@ hide_table_of_contents: false
 
 ![A title image for the blog featuring the Autofac logo](autofac-webapplicationfactory-tests.webp)
 
+<!--truncate-->
+
 This is one of those occasions where I'm not writing up my own work so much as my discovery after in depth googling.
 
 Integration tests with ASP.NET Core are the best. They spin up an in memory version of your application and let you fire requests at it. They've gone through a number of iterations since ASP.NET Core has been around. You may also be familiar with the `TestServer` approach of earlier versions. For some time, the advised approach has been using [`WebApplicationFactory`](https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-3.1#basic-tests-with-the-default-webapplicationfactory).

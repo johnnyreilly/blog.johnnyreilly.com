@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I recently had need to be able to access the API for Google Analytics from ASP.Net Core. Getting this up and running turned out to be surprisingly tough because of an absence of good examples. So here it is; an example of how you can access a simple page access stat using [the API](https://www.nuget.org/packages/Google.Apis.AnalyticsReporting.v4/):
 
+<!--truncate-->
+
 ```cs
 async Task<SomeKindOfDataStructure[]> GetUsageFromGoogleAnalytics(DateTime startAtThisDate, DateTime endAtThisDate)
 {

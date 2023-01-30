@@ -10,6 +10,8 @@ It's often desirable to query the outputs of deployments to Azure. This post dem
 
 ![title image reading "Query deployment outputs with the Azure CLI" with the Azure logo and the Azure Cloud Shell in the background](title-image.png)
 
+<!--truncate-->
+
 ## Deployment outputs
 
 When we deploy something to Azure, we frequently have outputs which we want to use. Let's consider the canonical case, whereby a website is created and we want to use the URL of where it has been deployed. We can see these values in the Azure Portal:

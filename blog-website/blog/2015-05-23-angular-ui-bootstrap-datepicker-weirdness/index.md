@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 The [Angular UI Bootstrap Datepicker](https://angular-ui.github.io/bootstrap/#/datepicker) is fan-dabby-dozy. But it has a ... pecularity. You can use the picker like this:
 
+<!--truncate-->
+
 ```html
 <div ng-app="peskyDatepicker">
   <div ng-controller="DatepickerDemoCtrl as vm">

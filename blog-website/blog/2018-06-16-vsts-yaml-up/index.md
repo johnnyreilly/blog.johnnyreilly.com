@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 For the longest time I've been using the likes of [Travis](https://travis-ci.org/) and [AppVeyor](https://www.appveyor.com/) to build open source projects that I work on. They rock. I've also recently been dipping my toes back in the water of [Visual Studio Team Services](https://www.visualstudio.com/team-services/). VSTS offers a whole stack of stuff, but my own area of interest has been the Continuous Integration / Continuous Deployment offering.
 
+<!--truncate-->
+
 Historically I have been underwhelmed by the CI proposition of Team Foundation Server / VSTS. It was difficult to debug, difficult to configure, difficult to understand. If it worked... Great! If it didn't (and it often didn't), you were toast. But things done changed! I don't know when it happened, but VSTS is now super configurable. You add tasks / configure them, build and you're done! It's really nice.
 
 However, there's been something I've been missing from Travis, AppVeyor et al. Keeping my build script with my code. Travis has `.travis.yml`, AppVeyor has `appveyor.yml`. VSTS, what's up?

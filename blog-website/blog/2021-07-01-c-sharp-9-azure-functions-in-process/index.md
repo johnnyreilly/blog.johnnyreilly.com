@@ -10,6 +10,8 @@ C# 9 has some amazing features. Azure Functions are have two modes: isolated and
 
 ![title image showing name of post and the Azure Functions logo](title-image.png)
 
+<!--truncate-->
+
 ## Azure Functions: in-process and isolated
 
 Historically .NET Azure Functions have been in-process. This changed with .NET 5 where a new model was introduced named "isolated". [To quote from the roadmap](https://techcommunity.microsoft.com/t5/apps-on-azure/net-on-azure-functions-roadmap/ba-p/2197916):

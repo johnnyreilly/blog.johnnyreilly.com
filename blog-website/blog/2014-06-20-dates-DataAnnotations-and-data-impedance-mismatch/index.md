@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 If you ever take a step back from what you're doing it can sometimes seem pretty abstract. Here's an example. I was looking at an issue in an app that I was supporting. The problem concerned a field which was to store a date value. Let's call it, for the sake of argument, `valuation_date`. (Clearly in reality the field name was entirely different... Probably.) This field was supposed to represent a specific date, like June 15th 2012 or 19th August 2014. To be clear, a date and \***not**\* in any way, a time.
 
+<!--truncate-->
+
 `valuation_date` was stored in a SQL database as a [`datetime`](http://msdn.microsoft.com/en-gb/library/ms187819.aspx). That's right a date with a time portion. I've encountered this sort of scenario many times on systems I've inherited. Although there is a [`date`](http://msdn.microsoft.com/en-gb/library/bb630352.aspx) type in SQL it's pretty rarely used. I think it only shipped in SQL Server with 2008 which may go some way to explaining this. Anyway, I digress...
 
 `valuation_date` was read into a field in a C# application called `ValuationDate` which was of type [`DateTime`](http://msdn.microsoft.com/en-us/library/system.datetime.aspx). As the name suggests this is also a date with a time portion. After a travelling through various layers of application this ended up being serialized as JSON and sent across the wire where it became a JavaScript variable by the name of `valuationDate` which had the type [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date). Despite the deceptive name this is also, you guessed it, a date with a time portion. (Fine naming work there JavaScript!)

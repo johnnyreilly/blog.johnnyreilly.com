@@ -10,6 +10,8 @@ hide_table_of_contents: false
 
 ![title image showing name of post and the C# logo](title-image.png)
 
+<!--truncate-->
+
 ## "have you the good news about `Directory.Build.props`"?
 
 [I wrote recently about using C# 9 with in-process Azure Functions.](../2021-07-01-c-sharp-9-azure-functions-in-process/index.md) What that amounted to, was using C# 9 with .NET Core.

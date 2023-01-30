@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I've recently been experimenting with WebMatrix. If you haven't heard of it, WebMatrix is Microsoft's _["free, lightweight, cloud-connected web development tool"](http://www.microsoft.com/web/webmatrix/)_. All marketing aside, it's pretty cool. You can whip up a site in next to no time, it has source control, publishing abilities, intellisense. Much good stuff. And one thing it has, that I genuinely hadn't expected is [NuGet](https://www.nuget.org/). Brilliant!
 
+<!--truncate-->
+
 But like any free product there are disadvantages. As a long time Visual Studio user I've become very used to the power of the NuGet command line. I've been spoiled. You don't have this in WebMatrix. You have a nice UI.
 
 Looks great right? However, if you want to install a specific version of a NuGet package... well let's see what happens...

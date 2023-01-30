@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 [It's time for the first major version of `fork-ts-checker-webpack-plugin`](https://github.com/Realytics/fork-ts-checker-webpack-plugin/releases/tag/v1.0.0). It's been a long time coming :-)
 
+<!--truncate-->
+
 ## A Little History
 
 The `fork-ts-checker-webpack-plugin` was originally the handiwork of [Piotr Oleś](https://github.com/piotr-oles). He raised an issue with [`ts-loader`](https://github.com/TypeStrong/ts-loader/issues/537) suggesting it could be the McCartney to `ts-loader`'s Lennon:

@@ -11,6 +11,8 @@ I've just discovered Xsd.exe. It's not new. Or shiny. And in fact it's been arou
 
 Granted XML has long since stopped being sexy. But if you need it, as I did recently, then this is for you.
 
+<!--truncate-->
+
 ## To the XML Batman!
 
 Now XML is nothing new to me (or I imagine anyone who's been developing within the last 10 years). But most of the time when I use XML I'm barely aware that it's going on - by and large it's XML doing the heavy lifting underneath my web services. But the glory of this situation is, I never have to think about it. It just works. All I have to deal with are nice strongly typed objects which makes writing robust code a doddle.

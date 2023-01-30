@@ -9,6 +9,8 @@ hide_table_of_contents: false
 
 I'd like to tell you a story. It's the tale of the ecosystem that grew up around a language: TypeScript. TypeScript is, for want of a better description, JavaScript after a trip to Saville Row. Essentially the same language, but a little more together, a little less wild west. JS with a decent haircut and a new suit. These days, the world seems to be written in TypeScript. And when you pause to consider just how young the language is, well, that's kind of amazing.
 
+<!--truncate-->
+
 Who could have predicted it would end up like this? When I was a boy I remember coming down the stairs in my childhood home. Shuffling to the edge of each step on my bottom before thumping down to the one beneath. When I look at those same stairs now they're so small. I barely notice the difference between one step and the next. But back then each step seemed giant, each one so far apart. Definitely Typed had any number of steps in its evolution. They all seemed so significant then; whereas now they're just a memory. Let's remember together…
 
 ![A title image that reads "Definitely Typed: The Movie"](title-image.png)

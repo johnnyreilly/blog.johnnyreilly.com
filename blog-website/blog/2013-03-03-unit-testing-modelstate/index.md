@@ -11,6 +11,8 @@ hide_table_of_contents: false
 - Him: "Yes it can, I've just done it"
 - Me: "Ooooh! Show me ..."
 
+<!--truncate-->
+
 The above conversation (or one much like it) took place between my colleague Marc Talary and myself a couple of weeks ago. It was one of those faintly embarrassing situations where you state your case with absolute certainty only to subsequently discover that you were \***completely**\* wrong. Ah arrogance, thy name is Reilly...
 
 The disputed situation in this case was ModelState validation in ASP.Net MVC. How can you unit test a models validation driven by `DataAnnotations`? If at all. Well it can be done, and here's how.

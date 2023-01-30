@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 OK - the title's total clickbait but stay with me; there's a point here.
 
+<!--truncate-->
+
 I'm a member of the Definitely Typed team - and hopefully I won't be kicked out for writing this. My point is this: `.d.ts` files should live with the package they provide typing information for, in npm / GitHub etc. Not separately. TypeScript 1.6 has just been released. Yay! In the [release blog post](https://blogs.msdn.com/b/typescript/archive/2015/09/16/announcing-typescript-1-6.aspx) it says this:
 
 > We’ve changed module resolution when doing CommonJS output to work more closely to how Node does module resolution. If a module name is non-relative, we now follow these steps to find the associated typings:

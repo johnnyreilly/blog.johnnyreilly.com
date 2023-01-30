@@ -1,7 +1,7 @@
 ---
 title: 'The definitive guide to migrating from Blogger to Docusaurus'
 authors: johnnyreilly
-tags: [Blogger, Docusaurus, TypeScript]
+tags: [Blogger, Docusaurus, typescript]
 image: ./title-image.png
 slug: definitive-guide-to-migrating-from-blogger-to-docusaurus
 hide_table_of_contents: false
@@ -10,6 +10,8 @@ hide_table_of_contents: false
 This post documents how to migrate a blog from Blogger to Docusaurus.
 
 ![title image reading "The definitive guide to migrating from Blogger to Docusaurus" with the Blogger and Docusaurus logos](title-image.png)
+
+<!--truncate-->
 
 ## Updated 5th November 2022
 

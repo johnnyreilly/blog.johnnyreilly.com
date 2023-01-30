@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I've been busy working on an open source project called **[jQuery Validation Unobtrusive Native](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native)**. [To see it in action take a look here](https://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/).
 
+<!--truncate-->
+
 ## A Little Background
 
 I noticed a little while ago that jQuery Validation was now providing native support for validation driven by HTML 5 data attributes. As you may be aware, Microsoft shipped [jquery.validate.unobtrusive.js](http://bradwilson.typepad.com/blog/2010/10/mvc3-unobtrusive-validation.html) back with MVC 3. ([I have written about it before.](../2012-08-06-jquery-unobtrusive-validation/index.md)) It provided a way to apply data model validations to the client side using a combination of jQuery Validation and HTML 5 data attributes.

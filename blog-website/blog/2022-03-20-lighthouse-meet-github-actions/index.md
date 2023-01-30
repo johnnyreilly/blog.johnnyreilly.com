@@ -11,6 +11,8 @@ Lighthouse is a tremendous tool for auditing the performance and usability of we
 
 ![title image reading "Lighthouse meet GitHub Actions" with the Lighthouse logo and a screenshot of the results in a GitHub comment`](title-image.png)
 
+<!--truncate-->
+
 ## What we'll do
 
 This post isn't a walkthrough of how to use Lighthouse effectively. There is already [great guidance out there on this topic](https://blog.logrocket.com/lighthouse-and-how-to-use-it-more-effectively/).

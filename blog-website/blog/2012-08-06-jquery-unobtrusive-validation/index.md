@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I was recently working on a project which had client side validation manually set up which essentially duplicated the same logic on the server. Like many things this had started out small and grown and grown until it became arduos and tedious to maintain.
 
+<!--truncate-->
+
 Time to break out the unobtrusive jQuery validation.
 
 If you’re not aware of this, as part of MVC 3 Microsoft leveraged the pre-existing [jQuery Validate library](http://bassistance.de/jquery-plugins/jquery-plugin-validation/) and introduced an “unobtrusive” extension to this which allows the library to be driven by HTML 5 data attributes. I have mentioned this lovely extension before but I haven't been using it for the last 6 months or so. And coming back to it I realised that I had forgotten a few of the details / quirks.

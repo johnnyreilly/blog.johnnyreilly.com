@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 My name is John Reilly. I'm a full stack developer based in London, UK. I'm just coming to the end of a contract (due to finish in April 2017) and I'm starting to look for my next role.
 
+<!--truncate-->
+
 I have more than 15 years experience developing software commercially. I've worked in a number of industries including telecoms, advertising, technology (I worked at Microsoft for a time) and, of course, finance. The bulk of my experience is in the finance sector. I've provided consultancy services, building and maintaining applications for both large and small companies; from enterprise to startup.
 
 My most recent work has been full stack web work; using React on the front end and SignalR (ASP.Net) on the back end. I'm pragmatic about the tools that I use to deliver software solutions and not tied to any particular technology. That said, I've gravitated towards the handiwork of [Anders Hejlsberg](https://en.wikipedia.org/wiki/Anders_Hejlsberg); starting out with Delphi and being both an early C# and TypeScript adopter. I've built everything from high volume trade feeds with no UI beyond a log file, WinForms apps for call centres, to fully fledged rich web applications with a heavy emphasis on UX.

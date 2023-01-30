@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Occasionally I flatter myself that I'm alright at this development lark. Such egotistical talk is foolish. What makes me pause even more when I consider the proposition is this: my subconscious is a better developer than I am.
 
+<!--truncate-->
+
 What's this fellow talking about?
 
 There's two of me. Not identical twins; masquerading as a single man (spoiler: I am not a Christopher Nolan movie). No. There's me, the chap who's tapping away at his keyboard and solving a problem. And there's the other chap too.

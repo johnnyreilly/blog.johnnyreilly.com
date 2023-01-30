@@ -10,6 +10,8 @@ That's how I was feeling on the morning of October 6th 2016. I'd been feeling th
 
 ![a poster that reads: "But you can't die... I love you!"](title-image.png)
 
+<!--truncate-->
+
 ## Going Red
 
 At some point, I became a member of the [TypeStrong](https://github.com/TypeStrong) organisation on GitHub. I'm honestly not entirely sure how. I think it may have been down to the very excellent [Basarat](https://youtube.com/basaratali) (he of [ALM](http://alm.tools/) / [atom-typescript](https://github.com/TypeStrong/atom-typescript) / the list goes on fame) but I couldn't clearly say.

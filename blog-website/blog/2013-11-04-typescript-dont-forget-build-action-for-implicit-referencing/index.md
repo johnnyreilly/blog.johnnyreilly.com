@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 As part of the [known breaking changes between 0.9 and 0.9.1](https://typescript.codeplex.com/wikipage?title=Known%20breaking%20changes%20between%200.8%20and%200.9&referringTitle=Documentation) there was this subtle but significant switch:
 
+<!--truncate-->
+
 > In Visual Studio, all TypeScript files in a project are considered to be referencing each other
 >
 > _Description:_ Previously, all TypeScript files in a project had to reference each other explicitly. With 0.9.1, they now implicitly reference all other TypeScript files in the project. For existing projects that fit multiple projects into a single projects, these will now have to be separate projects.

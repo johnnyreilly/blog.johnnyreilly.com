@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Anyone who reads my blog will know that I have been long in the habit of writing unit tests for my C# code. I'm cool like that. However, it took me a while to get up and running writing unit tests for my JavaScript code. I finally [got there](../2014-03-17-the-surprisingly-happy-tale-of-visual/index.md) using a combination of Jasmine 2.0 and Chutzpah. (Jasmine being my test framework and Chutzpah being my test runner.)
 
+<!--truncate-->
+
 I'm getting properly into the habit of testing my JavaScript. I won't pretend it's been particularly fun but I firmly believe it will end up being useful... That's what I tell myself during the long dark tea-times of the soul anyway.
 
 I have a side project called [Proverb](https://github.com/johnnyreilly/Proverb). It doesn't do anything in particular - for the most part it's a simple application that displays the collected wise sayings of a team that I used to be part of. There's not much to it - a bit of CRUD, a dashboard. Not much more. Because of the project's simplicity it's ideal to use Proverb's underlying idea when trying out new technologies / frameworks. [The best way to learn is to do](http://en.wikipedia.org/wiki/Paul_Halmos). So if I want to learn "X", then building Proverb using "X" is a good way to go.

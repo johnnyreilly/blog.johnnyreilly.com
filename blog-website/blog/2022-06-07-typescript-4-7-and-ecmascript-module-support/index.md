@@ -11,6 +11,8 @@ As part of the TypeScript 4.7 release comes a major upgrade to ECMAScript Module
 
 ![title image reading "Upgrading to React 18 with TypeScript" with the React, TypeScript and Definitely Typed logos`](title-image.png)
 
+<!--truncate-->
+
 ## A short history of ECMAScript modules
 
 When ES6 shipped back in 2015, with it came the concept of modules for JavaScript. Back then it was known as "ES6 modules". These days they are called ECMAScript modules.

@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I was recently reading [a post by Jaime González García](http://www.barbarianmeetscoding.com/blog/2015/07/09/mastering-the-arcane-art-of-javascript-mancy-for-c-sharp-developers-chapter-7-using-linq-in-javascript/) which featured the following mind-bending proposition:
 
+<!--truncate-->
+
 > What if I told you that JavaScript has [LINQ](https://msdn.microsoft.com/en-us/library/bb397926.aspx)??
 
 It got me thinking about one of favourite features of LINQ: [ordering using OrderBy, ThenBy...](http://www.dotnetperls.com/orderby-extension) The ability to simply expose a collection of objects in a given order with a relatively terse and descriptive syntax. It is fantastically convenient, expressive and something I've been missing in JavaScript. But if Jaime is right... Well, let's see what we can do.

@@ -8,6 +8,8 @@ hide_table_of_contents: false
 
 Teams notifications are mighty useful. You can send them using Markdown via a webhook.
 
+<!--truncate-->
+
 This post will explain the following:
 
 1. How you can automate the sending of notifications using Teams.

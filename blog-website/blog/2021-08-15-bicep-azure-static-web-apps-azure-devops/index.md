@@ -10,6 +10,8 @@ This post demonstrates how to deploy [Azure Static Web Apps](https://docs.micros
 
 ![title image reading "Publish Azure Static Web Apps with Bicep and Azure DevOps" and some Azure logos](title-image.png)
 
+<!--truncate-->
+
 ## Bicep template
 
 The first thing we're going to do is create a folder where our Bicep file for deploying our Azure Static Web App will live:

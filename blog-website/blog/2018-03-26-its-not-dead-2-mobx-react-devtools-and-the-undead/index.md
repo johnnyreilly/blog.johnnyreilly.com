@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I spent today digging through our webpack 4 config trying to work out why a production bundle contained code like this:
 
+<!--truncate-->
+
 ```js
 if("production"!==e.env.NODE_ENV){//...
 ```

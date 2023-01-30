@@ -10,6 +10,8 @@ The [Service Now REST API](https://docs.servicenow.com/bundle/paris-application-
 
 ![Service Now and TypeScript](ts-ervice-now.png)
 
+<!--truncate-->
+
 ## The power of a query parameter
 
 There is a query parameter which many endpoints in Service Nows Table API support named `sysparm_display_value`. The docs describe it thus:

@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 ## Update: 26/01/2020 - LICENSE to kill revoked!
 
+<!--truncate-->
+
 Following the original publication of this post I received this tweet suggesting we should change the behaviour of the underlying `terser-webpack-plugin`:
 
 > Send a PR to change the name to .LICENSE.txt by default.

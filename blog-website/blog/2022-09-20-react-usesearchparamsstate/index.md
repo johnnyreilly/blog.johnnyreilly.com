@@ -8,6 +8,8 @@ hide_table_of_contents: false
 
 The React [`useState`](https://reactjs.org/docs/hooks-reference.html#usestate) hook is a great way to persist state inside the context of a component in React. This post demonstrates a simple React hook that stores state in the URL querystring, building on top of React Routers `useSearchParams` hook.
 
+<!--truncate-->
+
 ## `useState`
 
 Usage of the `useState` hook looks like this:

@@ -16,6 +16,8 @@ hide_table_of_contents: false
 
 Last time I wrote about WCF I was getting up and running with [WCF Transport Windows authentication using NetTcpBinding in an Intranet environment](../2012-02-15-wcf-transport-windows-authentication/index.md). I ended up with a WCF service hosted in a Windows Service which did pretty much what the previous post name implies.
 
+<!--truncate-->
+
 Since writing that I've taken things on a bit further and I thought it worth recording my approach whilst it's still fresh in my mind. There's 3 things I want to go over:
 
 1. I've moved away from the standard config driven WCF approach to a more "code-first" style

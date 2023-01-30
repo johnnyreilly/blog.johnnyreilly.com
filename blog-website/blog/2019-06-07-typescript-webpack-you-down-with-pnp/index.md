@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Yarn PnP is an innovation by the Yarn team designed to speed up module resolution by node. To quote the [(excellent) docs](https://yarnpkg.com/en/docs/pnp):
 
+<!--truncate-->
+
 > Plug’n’Play is an alternative installation strategy unveiled in September 2018...
 >
 > The way regular installs work is simple: Yarn generates a `node_modules` directory that Node is then able to consume. In this context, Node doesn’t know the first thing about what a package is: it only reasons in terms of files. “Does this file exist here? No? Let’s look in the parent `node_modules` then. Does it exist here? Still no? Too bad… parent folder it is!” - and it does this until it matches something that matches one of the possibilities. That’s vastly inefficient.

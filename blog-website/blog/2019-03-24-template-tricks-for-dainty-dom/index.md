@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I'm somewhat into code golf. Placing restrictions on what you're "allowed" to do in code and seeing what the happens as a result. I'd like to share with you something that came out of some recent dabblings.
 
+<!--truncate-->
+
 Typically I spend a good amount of time playing with TypeScript. Either working on build tools or making web apps with it. (Usually with a portion of React on the side.) This is something different.
 
 I have a side project on the go which is essentially a mini analytics dashboard. For the purposes of this piece let's call it "StatsDash". When I was starting it I thought: let's try something different. Let's build StatsDash with HTML _only_. The actual HTML is hand cranked by me and generated in ASP.Net Core / C# using a combination of LINQ and string interpolation. (Who needs Razor? 😎) I'll say it's pretty fun - but the back end is not what I want to focus on.

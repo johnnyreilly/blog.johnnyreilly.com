@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 So [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) eh? They shipped with [TypeScript 3](https://blogs.msdn.microsoft.com/typescript/2018/07/30/announcing-typescript-3-0/#project-references). We've just shipped initial support for project references in [`ts-loader v5.2.0`](https://github.com/TypeStrong/ts-loader/releases/tag/v5.2.0). All the hard work was done by the amazing [Andrew Branch](https://twitter.com/atcb). In fact I'd recommend taking a gander at [the PR](https://github.com/TypeStrong/ts-loader/pull/817). Yay Andrew!
 
+<!--truncate-->
+
 This post will take us through the nature of the support for project references in ts-loader now and what we hope the future will bring. It <strike>rips off shamelessly</strike>
 
 borrows from the [`README/index.md`](https://github.com/TypeStrong/ts-loader#projectreferences-boolean-defaultfalse) documentation that Andrew wrote as part of the PR. Because I am not above stealing.

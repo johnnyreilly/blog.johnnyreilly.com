@@ -8,6 +8,8 @@ hide_table_of_contents: false
 
 Generating clients for APIs is a tremendous way to reduce the amount of work you have to do when you're building a project. Why handwrite that code when it can be auto-generated for you quickly and accurately by a tool like [NSwag](https://github.com/RicoSuter/NSwag)? To quote the docs:
 
+<!--truncate-->
+
 > The NSwag project provides tools to generate OpenAPI specifications from existing ASP.NET Web API controllers and client code from these OpenAPI specifications. The project combines the functionality of Swashbuckle (OpenAPI/Swagger generation) and AutoRest (client generation) in one toolchain.
 
 There's some great posts out there that show you how to generate the clients with NSwag using an `nswag.json` file directly from a .NET project.

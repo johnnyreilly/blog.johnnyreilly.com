@@ -8,6 +8,8 @@ hide_table_of_contents: false
 
 [I wrote a little while ago about creating a directive to present server errors on the screen in an Angular application](../2014-08-01-angularjs-meet-aspnet-server-validation/index.md). In my own (not so humble opinion), it was really quite nice. I was particularly proud of my usage of isolate scope. However, pride comes before a fall.
 
+<!--truncate-->
+
 It turns out that using isolate scope in a directive is not always wise. Or rather – not always possible. And this is why:
 
 ```

@@ -11,6 +11,8 @@ By using `fetchpriority` on your Largest Contentful Paint you can improve your C
 
 ![title image reading "Docusaurus: improving Core Web Vitals with fetchpriority"](title-image.png)
 
+<!--truncate-->
+
 ## Avoiding lazy loading on the Largest Contentful Paint
 
 At the weekend [I wrote a post documenting how I believe I ruined the SEO on my blog](../2023-01-15-how-i-ruined-my-seo/index.md). That post ended up [trending on Hacker News](https://news.ycombinator.com/item?id=34389421). People made suggestions around things I could do that could improve things. One post in particular caught my eye from [Growtika](https://growtika.com) saying:

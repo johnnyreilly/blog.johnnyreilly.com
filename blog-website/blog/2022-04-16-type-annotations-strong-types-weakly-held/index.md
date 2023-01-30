@@ -9,6 +9,8 @@ hide_table_of_contents: false
 
 Recently, a new ECMAScript proposal called ["Type Annotations"](https://github.com/tc39/proposal-type-annotations) (originally named ["Types as Comments"](https://github.com/giltayar/proposal-types-as-comments)) was revealed. The purpose is to allow type annotations to be valid JavaScript syntax. Albeit syntax that is ignored by JavaScript engines. The proposal is being worked on by Gil Tayar, Daniel Rosenwasser, Romulo Cintra, Rob Palmer, and others. Many of these people are from TypeScript community - however this proposal intentionally does not exist to benefit TypeScript alone.
 
+<!--truncate-->
+
 It's a contentious topic. As a regular (and longtime) TypeScript user, here's a description of the proposal and some thoughts.
 
 ![title image reading "Type annotations: strong types, weakly held" with the JavaScript logo](title-image.png)

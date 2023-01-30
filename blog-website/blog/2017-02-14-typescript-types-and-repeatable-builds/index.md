@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Or perhaps I should call this "@types and repeatable builds"....
 
+<!--truncate-->
+
 The other day, on a React / TypeScript project I work on, the nightly CI build started failing. But nothing had changed in the project... What gives? After digging I discovered the reason; spome of the type definitions which my project depends upon had changed. Why did this break my build? Let’s learn some more...
 
 We acquire type definitions via npm. Type definitions from Definitely Typed are published to npm by an [automated process](https://github.com/Microsoft/types-publisher) and they are all published under the @types namespace on npm. So, the [react type definition](https://www.npmjs.com/package/react) is published as the [@types/react](https://www.npmjs.com/package/@types/react) package, the node type definition is published as the [@types/node](https://www.npmjs.com/package/@types/node) package. The hip bone's connected to the thigh bone. You get the picture.

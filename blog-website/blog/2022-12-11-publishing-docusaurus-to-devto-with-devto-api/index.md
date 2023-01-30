@@ -11,6 +11,8 @@ The dev.to API provides a way to cross post your Docusaurus blogs to dev.to. Thi
 
 ![title image reading "Deep linking with Azure Static Web Apps and Easy Auth" with Azure AD and Static Web App logos](title-image.png)
 
+<!--truncate-->
+
 ## Why not use "Publishing to DEV Community 👩‍💻👨‍💻 from RSS"?
 
 If you take a look at the [dev.to settings (under extensions)](https://dev.to/settings/extensions) you'll see that you can post to dev.to using an RSS feed:

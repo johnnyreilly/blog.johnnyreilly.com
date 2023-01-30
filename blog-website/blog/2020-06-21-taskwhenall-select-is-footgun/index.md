@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 This post differs from my typical fayre. Most often I write "here's how to do a thing". This is not that. It's more "don't do this thing I did". And maybe also, "how can we avoid a situation like this happening again in future?". On this topic I very much don't have all the answers - but by putting my thoughts down maybe I'll learn and maybe others will educate me. I would love that!
 
+<!--truncate-->
+
 ## Doing things that don't scale
 
 The platform that I work on once had zero users. We used to beg people to log in and see what we had built. Those days are (happily) but a memory. We're getting popular.

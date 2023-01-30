@@ -11,6 +11,8 @@ In October 2022 traffic to my blog dropped like a stone. What happened? Somehow 
 
 ![title image reading "How I ruined my SEO" with an image of a tire fire in the background](title-image.png)
 
+<!--truncate-->
+
 ## What I did on my holidays
 
 Naturally I blame all of this on a holiday to the British seaside. I was away for a week, and whilst I was away I did not have access to a laptop. This is intentional by the way; I spend too much time on computers one way or another. I force myself to disconnect on holidays. But whilst I didn't have the ability to program, I had the ability to ponder.

@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I've been using Visual Studio for a long time. Very good it is too. However, it is heavyweight; it does far more than I need. What I really want when I'm working is a fast snappy editor, with intellisense and debugging. What I've basically described is [VS Code](https://code.visualstudio.com/). It rocks and has long become my go-to editor for TypeScript.
 
+<!--truncate-->
+
 Since I'm a big C# fan as well I was delighted that editing C# was also possible in Code. What I want now is to be able to debug ASP.Net Core in Visual Studio OR VS Code. Can it be done? Let's see....
 
 I fire up Visual Studio and `File -&gt; New Project` (yes it's a verb now). Select .NET Core and then ASP.Net Core Web Application. OK. We'll go for a Web Application. Let's not bother with authentication. OK. Wait a couple of seconds and Visual Studio serves up a new project. Hit F5 and we're debugging in Visual Studio.

@@ -10,6 +10,8 @@ Azure standard tests are a tremendous way to monitor the uptime of your services
 
 ![title image reading "Azure standard availability tests with Bicep" with a Bicep logo and Azure logos](title-image.png)
 
+<!--truncate-->
+
 ## What are standard tests?
 
 To quote the [docs](https://docs.microsoft.com/en-us/azure/azure-monitor/app/availability-standard-tests):

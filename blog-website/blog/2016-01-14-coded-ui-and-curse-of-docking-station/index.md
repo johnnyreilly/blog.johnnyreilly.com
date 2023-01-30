@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I’ve a love / hate relationship with Coded UI. Well hate / hate might be more accurate. Hate perhaps married with a very grudging respect still underpinned by a wary bitterness. Yes, that’s about the size of it. Why? Well, when Coded UI works, it’s fab. But it’s flaky as anything. Anybody who’s used the technology is presently nodding sagely and holding back the tears. It’s all a bit... tough.
 
+<!--truncate-->
+
 I’ve recently discovered another quirk to add to the list. Docking stations. I was back working on a project which had a Coded UI test suite. I’d heard tell that there were problems with the tests and was just taking a look at them. The first hurdle I fell at was getting the tests to run locally. The tests had first been developed on a standard desktop build and, as much as this can ever be said of Coded UI tests, they worked. However, the future had happened. The company in question was no longer using the old school desktop towers. Nope, they’d reached for the sky and equipped the whole office with Surface Pro 3’s, hot desks, docking stations and big, big monitors. It looked terribly flash.
 
 Coded UI was not happy.

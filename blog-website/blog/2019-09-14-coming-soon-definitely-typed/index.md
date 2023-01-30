@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 A long time ago (well, 2012) in a galaxy far, far away (okay; Plovdiv, Bulgaria)....
 
+<!--truncate-->
+
 [Definitely Typed](https://github.com/DefinitelyTyped/DefinitelyTyped) began!
 
 This is a project that set out to provide type definitions for every JavaScript library that lacked them. An ambitious goal. Have you ever wondered what the story that lay behind it was?

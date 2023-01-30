@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 ## I have put a name to my pain...
 
+<!--truncate-->
+
 And it is unit testing ASP.Net MVC controllers.
 
 Well perhaps that's unfair. I have no problem unit testing MVC controllers.... **until** it comes to making use of the "innards" of MVC. Let me be more specific. This week I had a controller action that I needed to test. It looked a little like this:

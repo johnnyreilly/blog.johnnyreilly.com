@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 2017 is drawing to a close, and it's been a big, big year in webpack-land. It's been a big year for `ts-loader` too. At the start of the year v1.3.3 was the latest version available, officially supporting webpack 1. (Old school!) We end the year with `ts-loader` sitting pretty at v3.2.0 and supporting webpack 2 and 3.
 
+<!--truncate-->
+
 Many releases were shipped and that was down to a whole bunch of folk. People helped out with bug fixes, features, advice and docs improvements. **All of these help.**`ts-loader` wouldn't be where it is without you so thanks to everyone that helped out - you rock!
 
 ![Profile image of https://github.com/christiantinauer](christiantinauer.jpg)

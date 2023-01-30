@@ -14,6 +14,8 @@ hide_table_of_contents: false
 
 [Create React App](https://create-react-app.dev/) is a fantastic way to get up and running building a web app with React. It also supports using TypeScript with React. Simply entering the following:
 
+<!--truncate-->
+
 ```shell
 npx create-react-app my-app --template typescript
 ```

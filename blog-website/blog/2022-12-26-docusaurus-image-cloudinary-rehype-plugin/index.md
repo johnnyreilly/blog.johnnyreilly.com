@@ -11,6 +11,8 @@ Cloudinary offers an image CDN which can improve performance of your site. This 
 
 ![title image reading "Serving Docusaurus images with Cloudinary" with the Docusaurus and Cloudinary logos](title-image.png)
 
+<!--truncate-->
+
 ## Updated 13th January 2023 - `f_auto` / `q_auto` support
 
 I received a note from the marvellous [Rebeccca Peltz](https://github.com/rebeccapeltz) of Cloudinary, alerting me to the fact that Cloudinary supports using `f_auto` and `q_auto` for images fetched from URLs. To quote her:

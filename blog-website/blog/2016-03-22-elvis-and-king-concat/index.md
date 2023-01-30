@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I hate LINQ's `<a href="https://msdn.microsoft.com/en-us/library/bb302894%28v=vs.110%29.aspx?f=255&amp;MSPPError=-2147217396">Enumerable.Concat</a>` when bringing together `IEnumerable`s. Not the behaviour (I love that!) but rather how code ends up looking when you use it. Consider this:
 
+<!--truncate-->
+
 ```cs
 var concatenated = myCollection?.Select(x => new ConcatObj(x)) ?? new ConcatObj[0].Concat(
    myOtherCollection?.Select(x => new ConcatObj(x)) ?? new ConcatObj[0]

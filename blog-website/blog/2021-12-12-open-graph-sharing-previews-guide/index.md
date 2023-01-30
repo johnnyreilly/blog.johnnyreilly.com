@@ -10,6 +10,8 @@ The Open Graph protocol has become the standard mechanism for sharing rich conte
 
 ![title image reading "Open Graph: a guide to sharable social media previews" with the open graph logo and screenshots of twitter shared cards](title-image.png)
 
+<!--truncate-->
+
 ## Updated: 26 November 2022
 
 I've updated this post to advise on image types to favour.
