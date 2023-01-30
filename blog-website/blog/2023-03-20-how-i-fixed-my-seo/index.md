@@ -58,14 +58,9 @@ https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/e69633ca6cc6cae98cd
 
 start truncate to have summaries and reduce duplicate content https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/419
 
-noindex tags
-
-Daniel Zuccon
-
-Noindex /tags/
-Google doesn’t really like this content anymore. It’s super “thin” and doesn’t add much
-value to users landing on your site. It also adds hundreds of pages Google needs to index
-for not much gain.
+rationalise tags:
+- https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/420
+- https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/418
 
 Fix link to https://johnnyreilly.com https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/ec6dcc9ea7e173bed01c7dba870b6aaaa2bd102e
 
