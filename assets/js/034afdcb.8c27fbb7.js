@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[25774],{63573:e=>{e.exports=JSON.parse('{"permalink":"/tags/asp-net-core","page":1,"postsPerPage":5,"totalPages":2,"totalCount":8,"nextPage":"/tags/asp-net-core/page/2","blogDescription":"The blog of John Reilly \u2764\ufe0f\ud83c\udf3b","blogTitle":"I CAN MAKE THIS WORK"}')}}]);
