@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[25378],{31167:e=>{e.exports=JSON.parse('{"label":"create react app","permalink":"/tags/create-react-app","allTagsPath":"/tags","count":2}')}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[26626],{10925:e=>{e.exports=JSON.parse('{"label":"Azure Container Apps","permalink":"/tags/azure-container-apps","allTagsPath":"/tags","count":4}')}}]);

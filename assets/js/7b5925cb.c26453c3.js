@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[78923],{67333:l=>{l.exports=JSON.parse('{"label":"LINQ","permalink":"/tags/linq","allTagsPath":"/tags","count":4}')}}]);
