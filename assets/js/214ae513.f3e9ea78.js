@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[95525],{86693:a=>{a.exports=JSON.parse('{"label":"DataAnnotations","permalink":"/tags/data-annotations","allTagsPath":"/tags","count":1}')}}]);

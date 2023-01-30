@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[59108],{30184:e=>{e.exports=JSON.parse('{"label":"Azurite","permalink":"/tags/azurite","allTagsPath":"/tags","count":1}')}}]);

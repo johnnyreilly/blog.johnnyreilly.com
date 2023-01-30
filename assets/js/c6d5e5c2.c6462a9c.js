@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[5826],{36018:l=>{l.exports=JSON.parse('{"label":"HTML5 History API","permalink":"/tags/html-5-history-api","allTagsPath":"/tags","count":1}')}}]);

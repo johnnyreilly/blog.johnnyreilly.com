@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[70877],{43806:a=>{a.exports=JSON.parse('{"label":"IWikiApi","permalink":"/tags/i-wiki-api","allTagsPath":"/tags","count":1}')}}]);

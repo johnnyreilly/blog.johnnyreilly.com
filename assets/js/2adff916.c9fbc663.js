@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[29640],{44358:e=>{e.exports=JSON.parse('{"label":"asp.net mvc","permalink":"/tags/asp-net-mvc","allTagsPath":"/tags","count":11}')}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[53833],{69003:e=>{e.exports=JSON.parse('{"label":"dead code elimination","permalink":"/tags/dead-code-elimination","allTagsPath":"/tags","count":1}')}}]);

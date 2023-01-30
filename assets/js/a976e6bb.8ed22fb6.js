@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[57315],{64890:e=>{e.exports=JSON.parse('{"label":"Windows Service","permalink":"/tags/windows-service","allTagsPath":"/tags","count":1}')}}]);

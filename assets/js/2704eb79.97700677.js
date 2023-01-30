@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[50891],{40911:a=>{a.exports=JSON.parse('{"label":"Static Web Apps","permalink":"/tags/static-web-apps","allTagsPath":"/tags","count":2}')}}]);

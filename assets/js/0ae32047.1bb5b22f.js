@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[979],{97275:e=>{e.exports=JSON.parse('{"label":"Moment.JS","permalink":"/tags/moment-js","allTagsPath":"/tags","count":1}')}}]);

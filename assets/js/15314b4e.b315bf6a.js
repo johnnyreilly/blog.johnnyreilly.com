@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[2615],{48837:e=>{e.exports=JSON.parse('{"label":"Ternary Operator","permalink":"/tags/ternary-operator","allTagsPath":"/tags","count":1}')}}]);

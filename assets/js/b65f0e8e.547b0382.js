@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[41061],{98913:e=>{e.exports=JSON.parse('{"label":"dev container","permalink":"/tags/dev-container","allTagsPath":"/tags","count":1}')}}]);

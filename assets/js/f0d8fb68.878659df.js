@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[25470],{1422:e=>{e.exports=JSON.parse('{"label":"ForwardDefaultSelector","permalink":"/tags/forward-default-selector","allTagsPath":"/tags","count":1}')}}]);

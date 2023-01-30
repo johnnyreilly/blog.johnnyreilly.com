@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[27468],{51984:a=>{a.exports=JSON.parse('{"label":"WebApplicationFactory","permalink":"/tags/web-application-factory","allTagsPath":"/tags","count":1}')}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[4406],{76441:a=>{a.exports=JSON.parse('{"label":"Database Snapshots","permalink":"/tags/database-snapshots","allTagsPath":"/tags","count":2}')}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[5413],{79298:s=>{s.exports=JSON.parse('{"label":"custom task","permalink":"/tags/custom-task","allTagsPath":"/tags","count":1}')}}]);
