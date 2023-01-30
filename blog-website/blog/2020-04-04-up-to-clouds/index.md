@@ -1,7 +1,7 @@
 ---
 title: 'Up to the clouds!'
 authors: johnnyreilly
-tags: [docker, kubernetes, asp net core, aws]
+tags: [docker, kubernetes, asp net core]
 hide_table_of_contents: false
 ---
 

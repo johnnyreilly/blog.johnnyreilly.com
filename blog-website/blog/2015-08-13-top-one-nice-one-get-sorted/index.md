@@ -1,7 +1,7 @@
 ---
 title: '(Top One, Nice One) Get Sorted'
 authors: johnnyreilly
-tags: [sort, javascript, OrderBy, LINQ]
+tags: [javascript, LINQ]
 hide_table_of_contents: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 'Caching and Cache-Busting in AngularJS with HTTP interceptors'
 authors: johnnyreilly
-tags: [typescript, AngularJS, interceptors, caching]
+tags: [typescript, AngularJS]
 hide_table_of_contents: false
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 'He tasks me; he heaps me.... I will wreak that MOQ upon him.'
 authors: johnnyreilly
-tags: [unit testing, async, MOQ, metaphysics]
+tags: [unit testing, MOQ]
 hide_table_of_contents: false
 ---
 

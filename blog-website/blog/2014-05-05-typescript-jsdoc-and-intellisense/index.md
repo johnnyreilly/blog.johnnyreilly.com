@@ -1,7 +1,7 @@
 ---
 title: 'TypeScript, JSDoc and Intellisense'
 authors: johnnyreilly
-tags: [jquery, JSDoc, typescript, Intellisense, jQuery.d.ts]
+tags: [jquery, JSDoc, typescript]
 hide_table_of_contents: false
 ---
 

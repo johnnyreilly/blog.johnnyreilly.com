@@ -1,7 +1,7 @@
 ---
 title: 'Azure Easy Auth and Roles with .NET (and .NET Core)'
 authors: johnnyreilly
-tags: [Azure, App service, authorisation, Authentication, azure AD]
+tags: [Azure, authorization, authentication, Azure AD]
 hide_table_of_contents: false
 ---
 

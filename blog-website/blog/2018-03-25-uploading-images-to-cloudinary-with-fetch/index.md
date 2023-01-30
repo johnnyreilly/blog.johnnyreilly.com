@@ -1,7 +1,7 @@
 ---
 title: 'Uploading Images to Cloudinary with the Fetch API'
 authors: johnnyreilly
-tags: [React Dropzone, Cloudinary, Fetch API]
+tags: [React, Cloudinary]
 hide_table_of_contents: false
 ---
 

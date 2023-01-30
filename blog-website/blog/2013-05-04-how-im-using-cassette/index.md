@@ -1,7 +1,7 @@
 ---
 title: "How I'm Using Cassette part 1:Getting Up and Running"
 authors: johnnyreilly
-tags: [asp.net mvc, Andrew Davey, cassette]
+tags: [asp.net mvc, cassette]
 hide_table_of_contents: false
 ---
 

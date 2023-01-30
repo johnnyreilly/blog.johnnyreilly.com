@@ -1,14 +1,7 @@
 ---
 title: 'Migrating from jquery.validate.unobtrusive.js to jQuery.Validation.Unobtrusive.Native'
 authors: johnnyreilly
-tags:
-  [
-    migrating,
-    jquery.validate.unobtrusive.js,
-    getting started,
-    jQuery.Validation.Unobtrusive.Native,
-    jQuery Validation,
-  ]
+tags: [jQuery Validation]
 hide_table_of_contents: false
 ---
 

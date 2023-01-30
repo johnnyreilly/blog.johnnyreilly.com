@@ -1,7 +1,7 @@
 ---
 title: 'Gulp, npm, long paths and Visual Studio.... Fight!'
 authors: johnnyreilly
-tags: [npm, Visual Studio, long paths, gulp-angular-templatecache]
+tags: [npm, Visual Studio]
 hide_table_of_contents: false
 ---
 

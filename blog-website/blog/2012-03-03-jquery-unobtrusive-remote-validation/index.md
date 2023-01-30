@@ -1,7 +1,7 @@
 ---
 title: 'jQuery Unobtrusive Remote Validation'
 authors: johnnyreilly
-tags: [jquery, jquery remote validation, jquery unobtrusive validation]
+tags: [jquery, jquery validation, jquery unobtrusive validation]
 hide_table_of_contents: false
 ---
 

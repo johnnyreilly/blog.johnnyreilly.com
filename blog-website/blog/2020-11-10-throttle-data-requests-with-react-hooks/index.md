@@ -1,7 +1,7 @@
 ---
 title: 'Throttling data requests with React Hooks'
 authors: johnnyreilly
-tags: [throttle, React, Hooks, data]
+tags: [React]
 hide_table_of_contents: false
 ---
 

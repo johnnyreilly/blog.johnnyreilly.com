@@ -1,15 +1,7 @@
 ---
 title: 'You Might Not Need thread-loader'
 authors: johnnyreilly
-tags:
-  [
-    HappyPack,
-    thread-loader,
-    fork-ts-checker-webpack-plugin,
-    ts-loader,
-    Webpack,
-    fast builds,
-  ]
+tags: [fork-ts-checker-webpack-plugin, ts-loader, webpack]
 hide_table_of_contents: false
 ---
 

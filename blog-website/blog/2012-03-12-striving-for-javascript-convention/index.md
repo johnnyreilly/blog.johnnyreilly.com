@@ -1,7 +1,7 @@
 ---
 title: 'Striving for (JavaScript) Convention'
 authors: johnnyreilly
-tags: [javascript, Hungarian Notation]
+tags: [javascript]
 hide_table_of_contents: false
 ---
 

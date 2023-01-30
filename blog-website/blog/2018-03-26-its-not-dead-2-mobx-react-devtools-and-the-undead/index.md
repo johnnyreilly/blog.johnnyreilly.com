@@ -1,13 +1,11 @@
 ---
 title: "It's Not Dead 2: mobx-react-devtools and the undead"
 authors: johnnyreilly
-tags: [uglifyjs, mobx, dead code elimination, Webpack]
+tags: [uglifyjs, mobx, webpack]
 hide_table_of_contents: false
 ---
 
 I spent today digging through our webpack 4 config trying to work out why a production bundle contained code like this:
-
-<!--truncate-->
 
 ```js
 if("production"!==e.env.NODE_ENV){//...
@@ -16,6 +14,8 @@ if("production"!==e.env.NODE_ENV){//...
 My expectation was that with webpack 4 and `'mode': 'production'` this meant that behind the scenes all `process.env.NODE_ENV` statements should be converted to `'production'`. Subsequently Uglify would automatically get its groove on with the resulting `if("production"!=="production") ...` and et voilà!... Strip the dead code.
 
 It seemed that was not the case. I was seeing (regrettably) undead code. And who here actually likes the undead?
+
+<!--truncate-->
 
 ## Who Betrayed Me?
 

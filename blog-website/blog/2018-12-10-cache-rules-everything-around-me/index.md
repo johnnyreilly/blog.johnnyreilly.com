@@ -1,7 +1,7 @@
 ---
 title: 'Cache Rules Everything Around Me'
 authors: johnnyreilly
-tags: [asp net core, cache, wu-tang]
+tags: [asp.net core]
 hide_table_of_contents: false
 ---
 

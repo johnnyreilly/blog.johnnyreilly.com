@@ -1,7 +1,7 @@
 ---
 title: 'Optimally Serving Up JavaScript'
 authors: johnnyreilly
-tags: [asp.net mvc, html helper, javascript, cassette]
+tags: [asp.net mvc, javascript, cassette]
 hide_table_of_contents: false
 ---
 

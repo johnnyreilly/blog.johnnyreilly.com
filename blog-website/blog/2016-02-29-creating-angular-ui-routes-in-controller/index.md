@@ -1,7 +1,7 @@
 ---
 title: 'Creating Angular UI Routes in the Controller'
 authors: johnnyreilly
-tags: [ng-href, UI Router, Angular, ui-sref]
+tags: [AngularJS]
 hide_table_of_contents: false
 ---
 

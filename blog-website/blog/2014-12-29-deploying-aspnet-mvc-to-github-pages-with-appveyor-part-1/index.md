@@ -1,7 +1,7 @@
 ---
 title: 'Deploying from ASP.Net MVC to GitHub Pages using AppVeyor part 1'
 authors: johnnyreilly
-tags: [wget, powershell, github pages, AppVeyor]
+tags: [powershell, github pages, AppVeyor]
 hide_table_of_contents: false
 ---
 

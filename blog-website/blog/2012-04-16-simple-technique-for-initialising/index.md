@@ -1,7 +1,7 @@
 ---
 title: 'A Simple Technique for Initialising Properties with Internal Setters for Unit Testing'
 authors: johnnyreilly
-tags: [unit testing, InternalsVisibleTo, MOQ, mocking]
+tags: [unit testing, MOQ, mocking]
 hide_table_of_contents: false
 ---
 

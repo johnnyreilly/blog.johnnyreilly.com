@@ -1,7 +1,7 @@
 ---
 title: 'Using Web Optimization with MVC 3'
 authors: johnnyreilly
-tags: [asp.net, Bundling, MVC 3, Web Optimization, Minification]
+tags: [asp.net]
 hide_table_of_contents: false
 ---
 

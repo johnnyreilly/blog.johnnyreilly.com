@@ -1,7 +1,7 @@
 ---
 title: 'Reverse engineering the Azure Application Insights Transactions URL'
 authors: johnnyreilly
-tags: [Azure Application Insights, Transaction Search, URL, typescript, C#]
+tags: [Azure Application Insights, typescript, C#]
 image: ./title-image.png
 description: 'This post reverse engineers the Azure Application Insights Transactions URL, showing how to make a link href, using both TypeScript and C#.'
 hide_table_of_contents: false

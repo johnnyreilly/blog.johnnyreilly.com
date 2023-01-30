@@ -1,7 +1,7 @@
 ---
 title: 'Getting more RESTful with Web API and IHttpActionResult'
 authors: johnnyreilly
-tags: [Web API 2, IHttpActionResult]
+tags: [ASP.NET]
 hide_table_of_contents: false
 ---
 

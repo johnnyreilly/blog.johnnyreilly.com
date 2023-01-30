@@ -1,13 +1,7 @@
 ---
 title: 'Azure App Service, Health checks and zero downtime deployments'
 authors: johnnyreilly
-tags:
-  [
-    Azure App Service,
-    Health checks,
-    deployment slots,
-    zero downtime deployments,
-  ]
+tags: [Azure App Service]
 hide_table_of_contents: false
 ---
 

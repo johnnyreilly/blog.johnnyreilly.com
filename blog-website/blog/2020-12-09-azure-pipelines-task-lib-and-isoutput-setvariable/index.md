@@ -1,15 +1,15 @@
 ---
 title: 'azure-pipelines-task-lib and isOutput setVariable'
 authors: johnnyreilly
-tags: [azure-pipelines-task-lib, Azure Pipelines, custom task]
+tags: [Azure Pipelines]
 hide_table_of_contents: false
 ---
 
 Some blog posts are insightful treatises on the future of web development, some are "here's how I solved my problem". This is most assuredly the latter.
 
-<!--truncate-->
-
 I'm writing an [custom pipelines task extension for Azure Pipelines](https://docs.microsoft.com/en-us/azure/devops/extend/develop/add-build-task?view=azure-devops). It's written with TypeScript and the [azure-pipelines-task-lib](https://github.com/microsoft/azure-pipelines-task-lib).
+
+<!--truncate-->
 
 The pipeline needs to output a variable. Azure Pipelines does that using the `setvariable` command combined with [isOutput=true](https://docs.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#set-a-multi-job-output-variable). This looks something like this: `##vso[task.setvariable variable=myOutputVar;isOutput=true]this is the value"`.
 

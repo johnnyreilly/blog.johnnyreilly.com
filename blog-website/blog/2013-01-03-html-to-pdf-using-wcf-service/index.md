@@ -1,7 +1,7 @@
 ---
 title: 'HTML to PDF using a WCF Service'
 authors: johnnyreilly
-tags: [wkhtmltopdf, html, WCF, pdf]
+tags: [wkhtmltopdf, WCF, pdf]
 hide_table_of_contents: false
 ---
 

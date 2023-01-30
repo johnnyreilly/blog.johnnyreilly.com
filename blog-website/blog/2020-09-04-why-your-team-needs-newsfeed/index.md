@@ -1,7 +1,6 @@
 ---
 title: 'Why your team needs a newsfeed'
 authors: johnnyreilly
-tags: [newsfeed]
 hide_table_of_contents: false
 ---
 
