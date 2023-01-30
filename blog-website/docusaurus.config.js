@@ -90,7 +90,7 @@ const config = {
            * 0 to disable
            */
           blogSidebarCount: 5,
-          postsPerPage: 5,
+          postsPerPage: 10,
           path: './blog',
           routeBasePath: '/', // Set this value to '/'.
           showReadingTime: true,
