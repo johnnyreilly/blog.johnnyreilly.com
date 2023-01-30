@@ -14,6 +14,8 @@ hide_table_of_contents: false
 
 "Automation, automation, automation." Those were and are Tony Blair's priorities for keeping open source projects well maintained.
 
+<!--truncate-->
+
 OK, that's not quite true... But what is certainly true is that maintaining an open source project takes time. And there's only so much free time that anyone has. For that reason, wherever you can it makes sense to _AUTOMATE_!
 
 [Last time](../2014-12-29-deploying-aspnet-mvc-to-github-pages-with-appveyor-part-1/index.md) we looked at how you can take an essentially static ASP.Net MVC site (in this case my jVUNDemo documentation site) and generate an entirely static version using Wget. This static site has been pushed to [GitHub Pages](https://pages.github.com/) and is serving as the documentation for [jQuery Validation Unobtrusive Native](http://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/) (and for bonus points is costing me no money at all).

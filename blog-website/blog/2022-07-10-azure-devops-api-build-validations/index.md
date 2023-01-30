@@ -11,6 +11,8 @@ Build validations are a great way to protect your branches in Azure DevOps. It's
 
 ![title image reading "Get Build Validations with the Azure DevOps API" with Azure Pipelines and Azure DevOps logo](title-image.png)
 
+<!--truncate-->
+
 ## Build validations
 
 We care about our `main` branch. Before changes can be made to it, we want them to meet some kind of quality benchmark. In Azure DevOps these come in the form of branch policies. We're interested in a particular type of these called [build validations](https://docs.microsoft.com/en-us/azure/devops/repos/git/branch-policies?view=azure-devops&tabs=browser#build-validation):

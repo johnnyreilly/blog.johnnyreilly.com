@@ -9,6 +9,8 @@ Inspired by [Hanselmans post on how he got started in programming](http://www.ha
 
 ![](CPC6128.webp)
 
+<!--truncate-->
+
 Glory be! I was going to play so many games! I would have such larks! My evenings would be filled with pixelated keyboard related destruction! Hallelujah!! But I was wrong. I had reckoned without my father. For reasons that I've never really got to the bottom of Dad had invested in the computer but not in the games. Whilst I was firmly of the opinion that these 2 went together like Lennon and McCartney he was having none of it. "You can write your own son" he intoned and handed over a manual which contained listings for games:
 
 ![](6a0120a85dcdae970b0120a86ddeee970b.webp)

@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Sometimes you write a post for the ages. Sometimes you write one you hope is out of date before you hit "publish". This is one of those.
 
+<!--truncate-->
+
 There's a [bug](https://github.com/webpack/enhanced-resolve/issues/41) in webpack's enhanced-resolve. It means that you cannot configure an aliased loader using the `query` (or `options` in the webpack 2 nomenclature). Let me illustrate; consider the following code:
 
 ```js

@@ -11,6 +11,8 @@ VS Code's debugging mechanism for Azure Functions on Mac OS frequently breaks. T
 
 ![title image reading "Debugging Azure Functions in VS Code on Mac OS" with Docusaurus, SWC and webpack logos](title-image.png)
 
+<!--truncate-->
+
 ## The problem
 
 I frequently use a Mac to develop Azure Functions. I use VS Code as my editor.

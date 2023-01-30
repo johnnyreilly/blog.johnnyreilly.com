@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 _If this post is interesting to you, you may also want to [look at this one where we try to use Microsoft.Identity.Web for the same purpose.](../2021-01-17-azure-easy-auth-and-roles-with-net-and-microsoft-identity-web/index.md)_
 
+<!--truncate-->
+
 Azure has a feature which is intended to allow Authentication and Authorization to be applied outside of your application code. It's called ["Easy Auth"](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization). Unfortunately, in the context of App Services it doesn't work with .NET Core and .NET. Perhaps it would be better to say: of the various .NETs, it supports .NET Framework. [To quote the docs](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization#userapplication-claims):
 
 > At this time, ASP.NET Core does not currently support populating the current user with the Authentication/Authorization feature. However, some [3rd party, open source middleware components](https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth) do exist to help fill this gap.

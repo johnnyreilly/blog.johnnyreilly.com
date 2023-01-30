@@ -11,6 +11,8 @@ For API endpoints that return multiple types, you can use inheritance with Swash
 
 ![title image reading "Swashbuckle and inheritance: Give. Me. The. Types" with Sid Swashbuckle the Pirate and Open API logos](title-image.png)
 
+<!--truncate-->
+
 ## Making a simple API
 
 The first thing we're going to need is an API, which we'll build with the .NET 6 SDK:

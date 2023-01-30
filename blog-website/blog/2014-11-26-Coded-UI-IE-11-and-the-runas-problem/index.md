@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 ## Coded UI, IE 11 and the "runas" problem
 
+<!--truncate-->
+
 "I'm not angry, I'm just disappointed."
 
 That's kind of how I feel about Coded UI tests. It may well be that you've never heard of them - in my experience very few people seem to be aware of them. What are they? Well, I've never used [Selenium](http://www.seleniumhq.org/) but as best I understand Coded UI is Microsoft's own version of that. Namely it's a way to automate testing, in my case browser-based testing. You can write a suite of tests that will spin up your application and test it out, going from screen to screen, URL to URL and asserting all is as you would expect.

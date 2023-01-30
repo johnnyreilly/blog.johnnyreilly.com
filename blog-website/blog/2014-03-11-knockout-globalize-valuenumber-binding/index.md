@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I’ve long used [Globalize](https://github.com/jquery/globalize/) for my JavaScript number formatting / parsing needs. In a current project I’m using Knockout for the UI. When it came to data-binding numeric values none of the default binding handlers seemed appropriate. What I wanted was a binding handler that:
 
+<!--truncate-->
+
 1. Was specifically purposed for dealing with numeric values
 2. Handled the parsing / formatting for the current locale (and I naturally intended to use Globalize for this purpose)
 

@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 We're here to talk about the [confirm](https://developer.mozilla.org/en-US/docs/Web/API/Window.confirm) dialog. Or, more specifically, how we can make our own confirm dialog.
 
+<!--truncate-->
+
 JavaScript in the browser has had the `window.confirm` method for the longest time. This method takes a string as an argument and displays it in the form of a dialog, giving the user the option to click on either an "OK" or a "Cancel" button. If the user clicks "OK" the method returns `true`, if the user clicks "Cancel" the method returns `false`.
 
 `window.confirm` is wonderful in one way - it has a simple API which is easy to grok. But regardless of the browser, `window.confirm` is always as ugly as sin. Look at the first picture in this blog post; hideous. Or, put more dispassionately, it's not terribly configurable; want to change the button text? You can't. Want to change the styling of the dialog? You can't. You get the picture.

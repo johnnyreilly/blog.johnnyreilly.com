@@ -14,6 +14,8 @@ hide_table_of_contents: false
 
 So, you're looking at [jQuery.Validation.Unobtrusive.Native](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native). You're thinking to yourself "Yeah, I'd really like to use the native unobtrusive support in jQuery Validation. But I've already got this app which is using [jquery.validate.unobtrusive.js](https://www.nuget.org/packages/jQuery.Validation.Unobtrusive/) \- actually how easy is switching over?" Well I'm here to tell you that it's pretty straightforward - here's a walkthrough of how it might be done.
 
+<!--truncate-->
+
 ## I need something to migrate
 
 So let's File > New Project ourselves a new MVC 4 application using the Internet Application template. I've picked this template as I know it ships with account registration / login screens in place which make use of jquery.validate.unobtrusive.js. To demo this just run the project, click the "Log in" link and then click the "Log in" button.

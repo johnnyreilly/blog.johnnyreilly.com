@@ -10,6 +10,8 @@ I love [Netlify deploy previews](https://www.netlify.com/products/deploy-preview
 
 ![title image reading "Azure Static Web App Deploy Previews with Azure DevOps" with a Azure, Bicep and Azure DevOps logos](title-image.png)
 
+<!--truncate-->
+
 Having a build of your latest pull request which is deployed and clickable from the PR itself is a wonderful developer experience. It reduces friction for testing out changes by allowing you to see the impact from within the PR itself. No checking to see if an environment is free with the rest of the team, then manually running a pipeline and waiting whilst a deployment happens. No. It's all there without you having to lift a finger. I use Netlify deploy previews on my blog and have become accustomed to the delight that is this:
 
 ![screenshot of a Netlify deploy preview on my latest blog post](screenshot-of-netlify-deploy-preview-in-pull-request.png)

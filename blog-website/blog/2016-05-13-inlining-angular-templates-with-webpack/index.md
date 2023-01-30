@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 This technique actually applies to pretty much any web stack where you have to supply templates; it just so happens that I'm using Angular 1.x in this case. Also I have an extra technique which is useful to handle the [ng-include](https://docs.angularjs.org/api/ng/directive/ngInclude) scenario.
 
+<!--truncate-->
+
 ## Preamble
 
 For some time I've been using webpack to bundle my front end. I write ES6 TypeScript; import statements and all. This is all sewn together using the glorious [ts-loader](https://www.npmjs.com/package/ts-loader) to compile and emit ES6 code which is handed off to the wonderful [babel-loader](https://www.npmjs.com/package/babel-loader) which transpiles it to ESold code. All with full source map support. It's wonderful.

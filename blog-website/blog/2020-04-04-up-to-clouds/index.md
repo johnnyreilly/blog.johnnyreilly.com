@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 This last four months has been quite the departure for me. Most typically I find myself building applications; for this last period of time I've been taking the platform that I work on, and been migrating it from running on our on premise servers to running in the cloud.
 
+<!--truncate-->
+
 This turned out to be much more difficult than I'd expected and for reasons that often surprised me. We knew where we wanted to get to, but not all of what we'd need to do to get there. So many things you can only learn by doing. Whilst these experiences are still fresh in my mind I wanted to document some of the challenges we faced.
 
 ## The mission

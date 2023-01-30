@@ -11,6 +11,8 @@ Swashbuckle can fail to generate a swagger / Open API document with the message 
 
 ![title image reading "Swashbuckle and schemaId is already used" with the Azure Static Web Apps logo and a Terry Pratchett icon by Lisa Krymova from NounProject.com](title-image.png)
 
+<!--truncate-->
+
 ## "The same schemaId is already used..."
 
 When creating a swagger / Open API document with Swashbuckle, it's possible to encounter an error of this nature:

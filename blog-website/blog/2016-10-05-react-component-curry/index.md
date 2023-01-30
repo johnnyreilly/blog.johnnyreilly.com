@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Everyone loves curry don't they? I don't know about you but I'm going for one on Friday.
 
+<!--truncate-->
+
 When React 0.14 shipped, it came with a new way to write React components. Rather than as an ES2015 class or using `React.createClass` there was now another way: stateless functional components.
 
 These are components which have no state (the name gives it away) and a simple syntax; they are a function which takes your component props as a single parameter and they return JSX. Think of them as the render method of a standard component just with props as a parameter.

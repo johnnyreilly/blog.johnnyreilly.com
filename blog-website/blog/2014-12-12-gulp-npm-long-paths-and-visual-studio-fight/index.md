@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 ## <sub>How I managed to gulp-angular-templatecache working inside Visual Studio</sub>
 
+<!--truncate-->
+
 Every now and then something bites you unexpectedly. After a certain amount of pain, the answer comes to you and you know you want to save others from falling into the same deathtrap.
 
 There I was minding my own business and having a play with a Gulp plugin called [gulp-angular-templatecache](https://www.npmjs.com/package/gulp-angular-templatecache). If you're not aware of it, it "Concatenates and registers AngularJS templates in the $templateCache". I was planning to use it so that all the views in an [Angular app of mine](https://github.com/johnnyreilly/proverb-offline) were loaded up-front rather than on demand. (It's a first step in making an "offline-first" version of that particular app.)

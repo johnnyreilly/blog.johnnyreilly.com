@@ -11,6 +11,8 @@ Logs matter. In Azure, logs generally live in Application Insights, in the Trans
 
 ![title image reading "Reverse engineering the Azure Application Insights Transactions URL" with a screenshot of the Transactions screen in the Azure Portal](title-image.png)
 
+<!--truncate-->
+
 ## Bring me the logs!
 
 If you've ever supported a production system, you will know this to be true: logs matter. Logs help you understand what's gone wrong. (You're never looking at logs when something has gone right.) When it comes to Azure, logs tend to reside in Application Insights, specifically Transactions:

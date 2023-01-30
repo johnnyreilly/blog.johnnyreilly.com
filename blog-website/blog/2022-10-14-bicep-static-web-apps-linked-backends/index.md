@@ -11,6 +11,8 @@ Azure Static Web Apps can be linked to Azure Functions, Azure Container Apps etc
 
 ![title image reading "Bicep: Static Web Apps and Linked Backends" with Bicep and Static Web App logos](title-image.png)
 
+<!--truncate-->
+
 ## Introduction
 
 Azure Static Web Apps ship with their own slightly restricted Azure Functions backend; it does not have all of the triggers of the standard offering. If you should need that wider featureset, you can link to an existing Azure Functions instance instead. This is known as the "bring your own functions" approach and is [documented here](https://learn.microsoft.com/en-us/azure/static-web-apps/functions-bring-your-own). The back end doesn't have to be Azure Functions; it could be Azure Container Apps also. This post will demonstrate how to do this with Azure Functions and with Bicep.

@@ -11,6 +11,8 @@ Azure Static Web Apps doesn't support deep linking with authentication. The [pos
 
 ![title image reading "Deep linking with Azure Static Web Apps and Easy Auth" with Azure AD and Static Web App logos](title-image.png)
 
+<!--truncate-->
+
 ## Deep linking
 
 Imagine the situation: your colleague sends you `https://our-app.com/pages/important-page?someId=theId`. You click the link and you're presented with a login screen. You login and you're presented with a page, but not the one your colleague meant you to see. What do you do now? If you realise what's happened, you'll likely paste the URL into the address bar again so you end up where you hope to. But what if you don't realise what's happened? Answer: confusion and frustration.

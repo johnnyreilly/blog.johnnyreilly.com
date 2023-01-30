@@ -8,6 +8,8 @@ hide_table_of_contents: false
 
 [React 18 alpha has been released](https://reactjs.org/blog/2021/06/08/the-plan-for-react-18.html); but can we use it with TypeScript? The answer is "yes", but you need to do a couple of things to make that happen. This post will show you what to do.
 
+<!--truncate-->
+
 ## Creating a React App with TypeScript
 
 Let's create ourselves a vanilla React TypeScript app with [Create React App](https://create-react-app.dev/):

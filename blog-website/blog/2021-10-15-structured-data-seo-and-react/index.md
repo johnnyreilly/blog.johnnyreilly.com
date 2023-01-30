@@ -10,6 +10,8 @@ People being able to discover your website when they search is important. This p
 
 ![title image reading "Structured data, SEO and React" with a screenshot of the rich results tool in the background](title-image.png)
 
+<!--truncate-->
+
 ## Updated 26th November 2022
 
 This blog evolved to become a talk:

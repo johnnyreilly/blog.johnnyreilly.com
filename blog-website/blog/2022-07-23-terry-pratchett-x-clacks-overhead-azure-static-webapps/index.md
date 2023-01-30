@@ -11,6 +11,8 @@ Terry Pratchett is remembered on the internet. A non-standardised HTTP header: `
 
 ![title image reading "Terry Pratchett and the Azure Static Web Apps" with the Azure Static Web Apps logo and a Terry Pratchett icon by Lisa Krymova from NounProject.com](title-image.png)
 
+<!--truncate-->
+
 ## What is `X-Clacks-Overhead`?
 
 This is well documented in the [`X-Clacks-Overhead`](https://xclacksoverhead.org/) website. To quote the highlights:

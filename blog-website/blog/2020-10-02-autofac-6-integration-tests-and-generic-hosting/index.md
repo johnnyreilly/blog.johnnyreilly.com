@@ -10,6 +10,8 @@ I [blogged a little while ago around to support integration tests using Autofac]
 
 ![A title image for the blog featuring the Autofac logo](autofac-integration-tests.webp)
 
+<!--truncate-->
+
 I'll not repeat the contents of the previous post - it all still stands. However, with Autofac 6 the approach documented there will cease to work. This is because the previous approach relied upon `ContainerBuilder` not being sealed. [As of Autofac 6 it is.](https://github.com/autofac/Autofac/issues/1120)
 
 Happily the tremendous [Alistair Evans](https://twitter.com/evocationist) came up with an [alternative approach](https://github.com/autofac/Autofac/issues/1207#issuecomment-701961371) which is listed below:

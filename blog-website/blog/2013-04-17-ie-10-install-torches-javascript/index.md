@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 OK the title of this post is a little verbose. I've just wasted a morning of my life trying to discover what happened to my ability to debug JavaScript in Visual Studio 2012. If you don't want to experience the same pain then read on...
 
+<!--truncate-->
+
 ## The Symptoms
 
 1. I'm not hitting my JavaScript breakpoints when I hit F5 in Visual Studio.

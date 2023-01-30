@@ -1,11 +1,13 @@
 ---
 title: 'Upgrading to TypeScript 0.9.5 - A Personal Memoir'
 authors: johnnyreilly
-tags: [TypeScript]
+tags: [typescript]
 hide_table_of_contents: false
 ---
 
 I recently made the step to upgrade from TypeScript 0.9.1.1 to 0.9.5. To my surprise this process was rather painful and certainly not an unalloyed pleasure. Since I'm now on the other side, so to speak, I thought I'd share my experience and cast back a rope bridge to those about to journey over the abyss.
+
+<!--truncate-->
 
 ## TL;DR
 

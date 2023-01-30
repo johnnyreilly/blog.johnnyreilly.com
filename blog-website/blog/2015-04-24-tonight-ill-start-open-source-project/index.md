@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 ### Further posts on this topic
 
+<!--truncate-->
+
 - [NgValidationFor Baby Steps](../2015-05-11-ngvalidationfor-baby-steps/index.md)
 
 I'm excited. Are you? I'm babysitting for a friend, I've my laptop, time to kill and (crucially) an idea...

@@ -9,6 +9,8 @@ Code First Migrations. They look a little like this in Visual Studio:
 
 ![](Migrations.png)
 
+<!--truncate-->
+
 The thing I want you to notice about the image above is not the pithily named migrations. It isn't the natty opacity on everything but the migration files (which I can assure you took me to the very limits of my [GIMP](http://www.gimp.org/) expertise). No, whilst exciting in themselves what I want you to think about is _the order in which migrations are applied_. Essentially how the `__MigrationHistory` table in SQL Server ends up being populated in this manner:
 
 ![](MigrationHistory.webp)

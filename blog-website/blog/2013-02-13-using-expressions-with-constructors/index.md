@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Every now and then you think "x should be easy" - and it isn't. I had one of those situations this morning. Something I thought would take 5 minutes had me still pondering 30 minutes later. I finally cracked it (with the help of a colleague - thanks Marc!) and I wanted to note down what I did since I'm sure to forget this.
 
+<!--truncate-->
+
 ## So what's the problem?
 
 In our project we had a very simple validation class. It looked a bit like this:

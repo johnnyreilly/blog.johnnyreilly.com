@@ -11,6 +11,8 @@ The upgrade of the React type definitions to support React 18 involved some sign
 
 ![title image reading "Upgrading to React 18 with TypeScript" with the React, TypeScript and Definitely Typed logos`](title-image.png)
 
+<!--truncate-->
+
 ## React 18 and Definitely Typed
 
 After a significant period of time in alpha / beta, [React 18 shipped on March 29th 2022](https://reactjs.org/blog/2022/03/29/react-v18.html). Since the first alpha was released, [support has been available in TypeScript](https://blog.logrocket.com/how-to-use-typescript-with-react-18-alpha/). This has been made possible through the type definitions at [Definitely Typed](https://github.com/DefinitelyTyped/DefinitelyTyped), the repository for high quality TypeScript type definitions. It's particularly down to the fine work of [Sebastian Silbermann](https://twitter.com/sebsilbermann) who has put a lot of work into the React 18 definitions.

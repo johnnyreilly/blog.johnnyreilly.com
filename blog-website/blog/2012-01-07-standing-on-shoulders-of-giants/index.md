@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 It started with Scott Hanselman. I had no particular plans to start a blog at all. However, I was reading Scott Hanselman's turn of the year [post](http://www.hanselman.com/blog/YourBlogIsTheEngineOfCommunity.aspx) and I was struck with an idea.
 
+<!--truncate-->
+
 First, let me give a little background about myself. I'm a software developer. I've been in the industry for coming up to 15 years. I started out professionally writing call centre software. I moved on to code in a variety of different industries from straight IT to marketing and, for the last 7 years, finance.
 
 Though I initially started out writing in Delphi I fast found myself moving toward the Microsoft "stack of love". I should say that this move was not because I instinctively liked Microsofts stuff (in fact in the beginning I actively disliked it - moving from Delphi 3.0 to Visual Studio 5 left me finding Microsoft's offering very much wanting). Rather it was pragmatic. I needed a job and at the time VB was a far more transferable skill than Delphi. What with the all encompassing [dot-com bubble](http://en.wikipedia.org/wiki/Dot-com_bubble) of the late 90's I soon found myself working in the webtastic world of classic ASP (weep) and VB server components (remember them?).

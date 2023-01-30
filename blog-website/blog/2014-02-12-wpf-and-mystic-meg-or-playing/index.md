@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Time for an unusual post. Most of what gets put down here is technical "how-to's". It's usually prompted by something I've been working on and serves, as much as anything else, as an aide-memoire. Not this time.
 
+<!--truncate-->
+
 I’ve been watching the changes in the world of development of the last couple of years and I’ve come to a controversial conclusion... So I wanted to write about it. Hopefully I'll be able to return to this in 5 years and say "wow - I'm so insightful - almost visionary really". Or not. Either way, let's put it out there - it's sink or swim time. Ready for it? Here’s my bet: WPF will die.
 
 Sounds dramatic right? OK - I've overstated my case just to get you to read on (I should work for the tabloids). Let me flesh this out a little. First of all, I think WPF is a fine technology - great apps are built with it. My personal favourite being the fantastic [GitHub for Windows](https://github.com/blog/1151-designing-github-for-windows). And actually I don't think WPF will die at all. What I think will happen is that it will become a more niche way to build applications.

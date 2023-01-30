@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I did ponder calling this post "how to enable a good TypeScript developer experience for npm modules that aren't written in TypeScript"... Not exactly pithy though.
 
+<!--truncate-->
+
 Definitely Typed is the resource which allows developers to use TypeScript with existing JavaScript libraries that ship without their own type definitions.
 
 DT began as a way to enable interop between JS and TS. When DT started, everything on npm was JavaScript. Over time it has become more common for libraries (eg [Mobx](https://github.com/mobxjs/mobx) / [Angular](https://github.com/angular/angular)) to be written (or rewritten) in TypeScript. For publishing, they are compiled down to JS with perfect type definitions generated from the TypeScript alongside the compiled JavaScript. These libraries do not need to exist in Definitely Typed anymore.

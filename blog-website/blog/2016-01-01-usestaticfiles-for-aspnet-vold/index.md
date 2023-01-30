@@ -14,6 +14,8 @@ hide_table_of_contents: false
 
 This is a guide on how _not_ to expose all your static files to the world at large when working with the ASP.Net Framework. How to move from a blocklisting approach to a allowlisting approach.
 
+<!--truncate-->
+
 Not clear? Stick around; I'll get better. Oh and that's not all, we've also got.... drumroll:
 
 ## Support for [HTML5 History API](https://html.spec.whatwg.org/multipage/browsers.html#the-history-interface)!

@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 When an application loads data, typically relatively few HTTP requests will be made. For example, if we imagine we're making a student administration application, then a "view" screen might make a single HTTP request to load that student's data before displaying it.
 
+<!--truncate-->
+
 Occasionally there's a need for an application to make a large number of HTTP requests. Consider a reporting application which loads data and then aggregates it for presentation purposes.
 
 This need presents two interesting problems to solve:

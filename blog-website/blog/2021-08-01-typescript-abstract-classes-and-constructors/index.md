@@ -8,6 +8,8 @@ hide_table_of_contents: false
 
 TypeScript has the ability to define classes as abstract. This means they cannot be instantiated directly, only non-abstract subclasses can be. Let's take a look at what this means when it comes to constructor usage.
 
+<!--truncate-->
+
 ## Making a scratchpad
 
 In order that we can dig into this, let's create ourselves a scratchpad project to work with. We're going to create a node project and install TypeScript as a dependency.

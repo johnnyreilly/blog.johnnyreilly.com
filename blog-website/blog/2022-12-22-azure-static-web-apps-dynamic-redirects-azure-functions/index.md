@@ -11,6 +11,8 @@ Azure Static Web Apps can perform URL redirects using the `routes` section in th
 
 ![title image reading "Azure Static Web Apps: dynamic redirects with Azure Functions" with the Static Web Apps and Azure Functions logo](title-image.png)
 
+<!--truncate-->
+
 ## The limits of `routes` in `staticwebapp.config.json`
 
 I recently found myself fixing up some redirects for my blog, which runs on Azure Static Web Apps. I had quite a few redirects to implement and I ended up with [a very large `routes` section](https://learn.microsoft.com/en-us/azure/static-web-apps/configuration#routes). It was so large that I exceeded [the 20kb limit that affect Azure Static Web Apps](https://learn.microsoft.com/en-us/azure/static-web-apps/configuration#restrictions).

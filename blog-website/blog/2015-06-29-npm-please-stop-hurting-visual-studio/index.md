@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I don't know about you but I personally feel that the following sentence may well be the saddest in the English language:
 
+<!--truncate-->
+
 `2&gt;ASPNETCOMPILER : error ASPRUNTIME: The specified path, file name, or both are too long. The fully qualified file name must be less than 260 characters, and the directory name must be less than 248 characters.`
 
 The message above would suggest there is some kind of ASP.Net issue going on. There isn't - the problem actually lies with Windows. It's [not the first time it's come up](../2014-12-12-gulp-npm-long-paths-and-visual-studio-fight/index.md) but for those of you not aware there is something you need to know about Windows: _It handles long paths badly._

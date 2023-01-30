@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 TypeScript first gained support for [`tsconfig.json`](https://github.com/Microsoft/TypeScript/wiki/tsconfig.json) back with the [1\.5 release](https://blogs.msdn.microsoft.com/typescript/2015/07/20/announcing-typescript-1-5/). However, to my lasting regret and surprise Visual Studio will not be gaining meaningful support for it until [TypeScript 1.8](https://github.com/Microsoft/TypeScript/wiki/What%27s-new-in-TypeScript#improved-support-for-tsconfigjson-in-visual-studio-2015) ships. However, if you want it now, it's already available to use in [beta](https://blogs.msdn.microsoft.com/typescript/2016/01/28/announcing-typescript-1-8-beta/).
 
+<!--truncate-->
+
 I've already leapt aboard. Whilst there's a number of bugs in the beta it's still totally usable. So use it.
 
 ## External TypeScript Compilation and the VS build

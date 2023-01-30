@@ -8,6 +8,8 @@ hide_table_of_contents: false
 
 I'm one of the maintainers of the [fork-ts-checker-webpack-plugin](https://github.com/Realytics/fork-ts-checker-webpack-plugin). Hi there!
 
+<!--truncate-->
+
 Recently, various issues have been raised against create-react-app (which uses fork-ts-checker-webpack-plugin) as well as against the plugin itself. They've been related to the level of CPU usage in watch mode on idle; i.e. it's high!
 
 - [https://github.com/Realytics/fork-ts-checker-webpack-plugin/issues/236](https://github.com/Realytics/fork-ts-checker-webpack-plugin/issues/236)

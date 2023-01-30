@@ -16,6 +16,8 @@ hide_table_of_contents: false
 
 Since I wrote this I've taken things on a little further - to read about that go [here](../2013-01-14-twitterbootstrapmvc4-meet-bootstrap_14/index.md).
 
+<!--truncate-->
+
 ## Getting Responsive
 
 It's the new year, it's time for new things. Long on my list of "things to do" was getting up to speed with [Responsive web design](http://en.wikipedia.org/wiki/Responsive_web_design). No doubt like everyone else I've been hearing more and more about this over the last year (by the way there was a [good article on Mashable](http://mashable.com/2012/12/11/responsive-web-design/) about this last month). RWD (in case you don't already know) is pretty much about having web interfaces that format their presentation based on the device they're running to provide a good user experience. (I kind of think of it as a [write once, run anywhere](http://en.wikipedia.org/wiki/Write_once,_run_anywhere) approach - though hopefully without the negative connotations...)

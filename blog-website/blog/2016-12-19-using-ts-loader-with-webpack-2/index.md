@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Hands up, despite being one of the maintainers of [ts-loader](https://github.com/TypeStrong/ts-loader) (a TypeScript loader for webpack) I have not been tracking webpack v2. My reasons? Well, I'm keen on cutting edge but bleeding edge is often not a ton of fun as dealing with regularly breaking changes is frustrating. I'm generally happy to wait for things to settle down a bit before leaping aboard. However, [webpack 2 RC'd last week](https://github.com/webpack/webpack/releases/tag/v2.2.0-rc.0) and so it's time to take a look!
 
+<!--truncate-->
+
 ## Porting our example
 
 Let's take [ts-loader's webpack 1 example](https://github.com/TypeStrong/ts-loader/tree/master/examples/webpack1-gulp-react-flux-babel-karma) and try and port it to webpack 2. Will it work? Probably; I'm aware of other people using ts-loader with webpack 2. It'll be a voyage of discovery. Like Darwin on the Beagle, I shall document our voyage for a couple of reasons:

@@ -11,6 +11,8 @@ This post demonstrates reading and writing XML in Node.js using `fast-xml-parser
 
 ![title image reading "XML: read and write with Node.js" with XML and Docusaurus logos](title-image.png)
 
+<!--truncate-->
+
 ## Docusaurus sitemap
 
 I was prompted to write this post by wanting to edit the sitemap on my Docusaurus blog. I wanted to remove the `/page/` and `/tag/` routes from the sitemap. They effectively serve as duplicate content and I don't want them to be indexed by search engines. (A little more is required to remove them from search engines - see the section at the end of the post.)

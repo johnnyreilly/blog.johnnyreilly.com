@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I recently had the good fortune to help run a coding bootcamp. The idea was simple: there are many people around us who are interested in programming but don't know where to start. Let's take some folk who do and share the knowledge.
 
+<!--truncate-->
+
 The bootcamp went tremendously! (Well, I say that... Frankly I had a blast. 😀 )
 
 Coding padawans walked in at the start with laptops and questions, and six weeks later they left with the groundwork of development experience. We ran a session for an hour during lunchtime once a week. Between that, people would have the opportunity to learn online, do exercises and reach out to the facilitators and their fellow apprentices for help.

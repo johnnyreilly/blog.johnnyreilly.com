@@ -10,6 +10,8 @@ hide_table_of_contents: false
 
 ![title image that says "react-query: strongly typings useQueries"](strongly-typing-usequeries.webp)
 
+<!--truncate-->
+
 ## Updated April 2022
 
 You don't need this blog post! Just use a `react-query@3.28.0` or greater; [artysidorenko](https://github.com/artysidorenko) [contributed a PR that moved this behaviour into the package](https://github.com/tannerlinsley/react-query/pull/2634).

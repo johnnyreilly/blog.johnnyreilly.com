@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I'd been meaning to automate the npm publishing of [`ts-loader`](https://github.com/TypeStrong/ts-loader) for the longest time. I had attempted to use Travis to do this in the same way as [`fork-ts-checker-webpack-plugin`](https://github.com/Realytics/fork-ts-checker-webpack-plugin). Alas using secure environment variables in Travis has unfortunate implications for ts-loader's test pack.
 
+<!--truncate-->
+
 Be not afeard. I've heard there's a new shiny thing from GitHub that I could use instead... It's a sign; I must use it!
 
 GitHub Actions are still in beta. Technically Actions are [code run in Docker containers](https://developer.github.com/actions/creating-github-actions/) in response to events. This didn't mean a great deal to me until I started thinking about what I wanted to do with `ts-loader`'s publishing flow.

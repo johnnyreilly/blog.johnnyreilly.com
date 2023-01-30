@@ -10,6 +10,8 @@ hide_table_of_contents: false
 
 ![hello world bicep](ts-loader-9.png)
 
+<!--truncate-->
+
 ## One big pull request
 
 As of v8, `ts-loader` supported webpack 4 and webpack 5. However the webpack 5 support was best efforts, and not protected by any automated tests. `ts-loader` has two test packs:

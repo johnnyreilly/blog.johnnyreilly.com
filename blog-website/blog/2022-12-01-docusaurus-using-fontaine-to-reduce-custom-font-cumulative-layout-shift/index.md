@@ -11,6 +11,8 @@ Custom font usage can introduce cumulative layout shift (or "jank") to your webs
 
 ![title image reading "Docusaurus: Using fontaine to reduce custom font cumulative layout shift" in a ridiculous font with the Docusaurus logo and a screenshot of a preload link HTML element](title-image.png)
 
+<!--truncate-->
+
 ## What is cumulative layout shift?
 
 Cumulative layout shift (CLS) is a metric that measures the instability of content on a web page. It's a [Core Web Vitals](https://web.dev/vitals/) metric.

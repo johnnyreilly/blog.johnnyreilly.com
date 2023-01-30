@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I've been a working as a developer in some way, shape or form for just over 10 years now. And it occurred to me the other day that I can't think of a better time to be a software developer than <u>right now</u>
 
+<!--truncate-->
+
 . This year was better than last year. Last year was better than the year before. This is a happily recurring theme. So why? Well I guess there are a whole host of reasons; this is my effort to identify just some of them... ## Google and the World Wide Web (other search providers are available)
 
 When I first started out as a humble Delphi developer back in 1999 learning was not the straightforward proposition it is today. If you want to know how to do something these days a good place to start is firing up your browser and putting your question into Google. If I was to ask the question _"how do I use AJAX"_ of a search engine 10 years ago and now I would see very different things.

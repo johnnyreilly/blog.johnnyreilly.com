@@ -11,6 +11,8 @@ Azure Static Web Apps presently fixes to Node.js 14 when building. If you requir
 
 ![title image reading "Azure Static Web Apps: Node.js 16 and Oryx" with Azure and Node.js logos](title-image.png)
 
+<!--truncate-->
+
 ## The engine "node" is incompatible
 
 As I was upgrading this blog to [Docusaurus v2.0.0-beta.21](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.21) I noticed this error in my build:

@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 A good portion of any devs life is usually spent playing with APIs. If you need to integrate some other system into the system you're working on (and it's rare to come upon a situation where this doesn't happen at some point) then it's API time.
 
+<!--truncate-->
+
 Some APIs are well documented and nice to use. Some aren't. I recently spent a goodly period of time investigating [Bloomberg's Open API](http://www.openbloomberg.com/open-api/) and it was a slightly painful experience. So much so that I thought it best to write up my own experiences and maybe I can save others time and a bit of pain.
 
 Also, as I investigated the Bloomberg Open API I found myself coming up with my own little mini-C#-API. (It's generally a sure sign you've found an API you don't love if you end up writing your own wrapper.) This mini API did the heavy lifting for me and just handed back nicely structured data to deal with. I have included this wrapper here as well.

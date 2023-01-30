@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I wrote [a while ago](../2015-09-10-things-done-changed/index.md) about how I was using some different tools in a current project:
 
+<!--truncate-->
+
 - React with JSX
 - Flux
 - ES6 with Babel

@@ -10,6 +10,8 @@ Builds can be made faster using tools like [esbuild](https://github.com/evanw/es
 
 ![A screenshot of the "why not both" meme adapted to include webpack and esbuild](webpack-esbuild-why-not-both.webp)
 
+<!--truncate-->
+
 ## Web development
 
 With apologies to those suffering from JavaScript fatigue, once again the world of web development is evolving. It's long been common practice to run your JavaScript and TypeScript through some kind of Node.js based build tool, like webpack or rollup.js. These tools are written in the same language they compile to; JavaScript (or TypeScript). The new kids on the blog are tools like [esbuild](https://github.com/evanw/esbuild), [Vite](https://github.com/vitejs/vite) and [swc](https://github.com/swc-project/swc). The significant difference between these and their predecessors is that they are written in languages like Go and Rust. Go and Rust enjoy far greater performance than JavaScript. This translates into significantly faster builds. If you'd like to read about esbuild directly there's a [great post](https://blog.logrocket.com/fast-javascript-bundling-with-esbuild/) about it.

@@ -13,6 +13,8 @@ hide_table_of_contents: false
 
 [Last time](../2013-01-09-twitterbootstrapmvc4-meet-bootstrap/index.md) I wrote about marrying up Twitter.Bootstrap.MVC4 and Bootstrap Datepicker. It came together quite nicely but when I took a more in depth look at what I'd done I discovered a problem. The brief work on regionalisation / internationalisation / localisation / globalisation / whatever it's called this week... wasn't really working. We had problems with the validation.
 
+<!--truncate-->
+
 I also discovered that Stefan Petre's Bootstrap Datepicker appears to have been abandoned. Andrew Rowls has taken it on and created a GitHub repository for it [here](https://github.com/eternicode/bootstrap-datepicker). Besides bug fixes he's also introduced the ability for the Bootstrap Datepicker to customised for different cultures.
 
 Since these 2 subjects are linked I tackled them together and thought it might be worth writing up here. You can find the conclusion of my work in a GitHub repository I created [here](https://github.com/johnnyreilly/BootstrapMvcSample).

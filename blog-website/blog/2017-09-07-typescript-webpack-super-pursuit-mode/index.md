@@ -15,6 +15,8 @@ hide_table_of_contents: false
 
 _[This post also featured as a webpack Medium publication](https://medium.com/webpack/typescript-webpack-super-pursuit-mode-83cc568dea79)._
 
+<!--truncate-->
+
 If you're like me then you'll like TypeScript and you'll like module bundling with webpack. You may also like speedy builds. That's completely understandable. The fact of the matter is, you sacrifice a bit of build speed to have webpack in the mix. Wouldn't it be great if we could even up the difference?
 
 I'm the primary maintainer of ts-loader, a TypeScript loader for webpack. Just recently a couple of PRs were submitted that said, in other words: ts-loader is like this:

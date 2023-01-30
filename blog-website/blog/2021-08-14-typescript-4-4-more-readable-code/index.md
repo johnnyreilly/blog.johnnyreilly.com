@@ -8,6 +8,8 @@ hide_table_of_contents: false
 
 An exciting feature is shipping with TypeScript 4.4. It has the name ["Control Flow Analysis of Aliased Conditions"](https://devblogs.microsoft.com/typescript/announcing-typescript-4-4-beta/#cfa-aliased-conditions) which is quite a mouthful. This post unpacks what this feature is, and demonstrates the contribution it makes to improving the readability of code.
 
+<!--truncate-->
+
 ## Updated 30th September 2021
 
 This blog evolved to become a talk:

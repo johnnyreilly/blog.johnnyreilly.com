@@ -11,6 +11,8 @@ The Web Monetization API is a JavaScript browser API that allows the creation of
 
 ![title image reading "Web Monetization API - getting started" with the Web Monetization logo](title-image.png)
 
+<!--truncate-->
+
 ## The Web Monetization API
 
 Over the summer I attended the [HalfStack at the Beach](https://halfstackconf.com/newquay/) conference and heard a talk from [Alex Lakatos](https://twitter.com/avolakatos) on the Web Monetization API. I hadn't heard about this API previously; it turns out it is a new way to monetize a website. My own blog already featured a [Buy Me a Coffee](https://www.buymeacoffee.com/qUBm0Wh) link, which allows generous people to send me small amounts of money if they've found something I've written useful. The Web Monetization API appears to be that, but built into the browser and proposed as a W3C standard at the [Web Platform Incubator Community Group](https://discourse.wicg.io/t/proposal-web-monetization-a-new-revenue-model-for-the-web/3785).

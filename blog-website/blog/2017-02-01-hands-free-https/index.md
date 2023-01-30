@@ -9,6 +9,8 @@ I have had a \***great**\* week. You? Take a look at this blog. Can you see what
 
 ![](Screenshot-2017-01-29-14.45.57.webp)
 
+<!--truncate-->
+
 Yup, look at the top left hand corner.... see that beautiful padlock? Yeah - that's what's thrilled me. You see I have a dream; that one day on the red hills of the internet, the sons of former certificates and the sons of former certificate authorities will be able to sit down together at the table of HTTPS. Peace, love and TLS for all.
 
 The world is turning and slowly but surely HTTPS is becoming the default of the web. [Search results get ranked higher if they're HTTPS.](https://security.googleblog.com/2014/08/https-as-ranking-signal_6.html)[HTTP/2 is, to all intents and purposes, a HTTPS-only game.](https://en.wikipedia.org/wiki/HTTP/2#Encryption)[Service Workers are HTTPS-only.](https://developer.mozilla.org/en/docs/Web/API/Service_Worker_API)

@@ -11,6 +11,8 @@ Image optimisation can be automated with the TinyPNG API. This post demonstrates
 
 ![title image reading "Image Optimisation with the TinyPNG API" with TinyPNG and Lighthouse logos](title-image.webp)
 
+<!--truncate-->
+
 ## Images and optimisation
 
 Images are a big part of the web. They're also a big part of the web's payload. If we're not careful, we can end up with a site that's slow to load and expensive to host. I run [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/) on my blog and I'm always looking for ways to improve the performance of the site. One of the things that Lighthouse flags is image optimisation.

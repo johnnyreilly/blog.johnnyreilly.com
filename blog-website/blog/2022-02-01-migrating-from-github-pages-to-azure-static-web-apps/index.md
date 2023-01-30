@@ -11,6 +11,8 @@ You can use Bicep and GitHub Actions to build and deploy to a static website on 
 
 ![title image reading "Migrating from GitHub Pages to Azure Static Web Apps" with GitHub and Azure Static Web Apps logos](title-image.png)
 
+<!--truncate-->
+
 ## Why migrate?
 
 This blog has been hosted on GitHub Pages for some time. It also makes use of Netlify for deployment previews. These are both great, but it's always niggled that there's two mechanisms in play; each separately configured. It's time to simplify.

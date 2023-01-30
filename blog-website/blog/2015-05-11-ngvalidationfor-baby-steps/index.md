@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I thought as I start the [NgValidationFor project](../2015-04-24-tonight-ill-start-open-source-project/index.md) I'd journal my progress. I'm writing this with someone particular in mind: me. Specifically, me in 2 years who will no doubt wonder why I made some of the choices I did. Everyone else, move along now - nothing to see. Unless the inner workings of someone else's mind are interesting to you... In which case: welcome!
 
+<!--truncate-->
+
 ## Getting up and running
 
 I've got a project on [GitHub](https://github.com/johnnyreilly/NgValidationFor) and I'm starting to think about implementations. One thing that bit me on [jVUN](http://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/) was being tied to a specific version of ASP.Net MVC. For each major release of ASP.Net MVC I needed separate builds / NuGet packages and the like. A pain. Particularly when it came to bug fixes for prior versions - the breaking changes with each version of MVC meant far more work was required when it came to shipping fixes for MVC 4 / MVC 3.

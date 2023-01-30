@@ -10,6 +10,8 @@ Consistent formatting in a codebase is a good thing. We can achieve this in dotn
 
 ![title image reading "dotnet-format: Prettier your CSharp with lint-staged and husky" and the dotnet-format logo](title-image.png)
 
+<!--truncate-->
+
 ## Updated 17/09/2021
 
 This has been updated to work with the latest versions of `lint-staged` and `husky`.

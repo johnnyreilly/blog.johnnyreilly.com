@@ -11,6 +11,8 @@ Azure Static Web Apps have just released a new feature for Azure DevOps users ca
 
 ![title image reading "Azure Static Web App Deploy Previews with Azure DevOps" with a Azure, Bicep and Azure DevOps logos](title-image.png)
 
+<!--truncate-->
+
 ## What are named preview environments?
 
 The [announcement](https://docs.microsoft.com/en-gb/azure/static-web-apps/named-environments?tabs=azure-devops) describes them like so:

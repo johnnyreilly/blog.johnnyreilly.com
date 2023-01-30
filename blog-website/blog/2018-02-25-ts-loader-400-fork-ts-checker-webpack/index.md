@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 webpack 4 has shipped!
 
+<!--truncate-->
+
 ## `ts-loader`
 
 The [`ts-loader`](https://github.com/TypeStrong/ts-loader) 4 is available too. For details see our release [here](https://github.com/TypeStrong/ts-loader/releases/tag/v4.0.0). To start using `ts-loader` 4:

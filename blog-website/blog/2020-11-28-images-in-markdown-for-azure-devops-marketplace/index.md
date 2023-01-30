@@ -11,6 +11,8 @@ I've recently found myself developing [custom pipelines task extensions for Azur
 
 ![screenshot of a rich Markdown powered screen with images in Visual Studio Marketplace](azure-devops-marketplace.webp)
 
+<!--truncate-->
+
 ## How can our tasks look as lovely?
 
 That, my friends, is the question to answer. Good documentation is key to success. Here's the ask: when a custom task is installed it becomes available in the marketplace, we want it to:

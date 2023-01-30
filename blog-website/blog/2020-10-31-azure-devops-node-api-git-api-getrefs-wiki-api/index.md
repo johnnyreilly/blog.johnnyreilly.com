@@ -10,6 +10,8 @@ The Azure DevOps Client library for Node.js has limitations and missing features
 
 ![A title image that reads "Azure DevOps Client for Node.js - working around limitations"](title-image.png)
 
+<!--truncate-->
+
 ## The Azure DevOps REST API and Client Libraries
 
 I've been taking a good look at the [REST API for Azure DevOps](https://docs.microsoft.com/en-us/rest/api/azure/devops/?view=azure-devops-rest-6.1). I'm delighted to say that it's a very full API. However, there's quirks.

@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 So, you want to use C# 6 language features and you’re working on an older project that’s still rocking .NET 4.5. Well, with [some caveats](http://stackoverflow.com/a/28921749/761388), you can.
 
+<!--truncate-->
+
 The new compiler will compile targeting older framework versions. Well that’s all lovely; let’s all go home.
 
 Now. What say you’ve got an old, old build server? It’s TFS 2012 Update 2, creaking away, still glad to alive and kind of wondering why it hasn’t been upgraded or retired. This is where you want to compile .NET 4.5 from C# 6. Well it can be done. Here’s how it’s done:

@@ -10,6 +10,8 @@ How can we deploy resources to Azure, and then run an integration test through t
 
 ![title image reading "Permissioning Azure Pipelines with Bicep and Role Assignments" and some Azure logos](title-image.png)
 
+<!--truncate-->
+
 We're following this approach as an alternative to [exporting connection strings](../2021-07-07-output-connection-strings-and-keys-from-azure-bicep/index.md), as these can be viewed in the Azure Portal; which may be an security issue if you have many people who are able to access the portal and view deployment outputs.
 
 We're going to demonstrate this approach using Event Hubs. It's worth calling out that this is a generally useful approach which can be applied to any Azure resources that support Azure RBAC Role Assignments. So wherever in this post you read "Event Hubs", imagine substituting other Azure resources you're working with.

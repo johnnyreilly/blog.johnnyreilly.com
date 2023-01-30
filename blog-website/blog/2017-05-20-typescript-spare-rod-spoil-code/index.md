@@ -1,11 +1,13 @@
 ---
 title: 'TypeScript: Spare the Rod, Spoil the Code'
 authors: johnnyreilly
-tags: [tsconfig.json, TypeScript]
+tags: [tsconfig.json, typescript]
 hide_table_of_contents: false
 ---
 
 I've recently started a new role. Perhaps unsurprisingly, part of the technology stack is TypeScript. A couple of days into the new codebase I found a bug. Well, I say I found a bug, TypeScript and VS Code found the bug - I just let everyone else know.
+
+<!--truncate-->
 
 The flexibility that TypeScript offers in terms of compiler settings is second to none. You can turn up the dial of strictness to your hearts content. Or down. I'm an "up" man myself.
 

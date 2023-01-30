@@ -9,6 +9,8 @@ hide_table_of_contents: false
 
 I've written lately about [zero downtime releases with Azure App Service](../2021-02-11-azure-app-service-health-checks-and-zero-downtime-deployments/index.md). Zero downtime releases are only successful if your authentication mechanism survives a new deployment. We looked in my last post at [how to achieve this with Azure's in-built authentication mechanism; Easy Auth](../2021-02-16-easy-auth-tokens-survive-releases-on-linux-azure-app-service/index.md).
 
+<!--truncate-->
+
 We're now going to look at how the same goal can be achieved if your ASP.NET application is authenticating another way. We achieve this through use of the [ASP.NET Data Protection](https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/configuration/overview) system. Andrew Lock has written [an excellent walkthrough on the topic](https://andrewlock.net/an-introduction-to-the-data-protection-system-in-asp-net-core/) and I encourage you to read it.
 
 We're interested in the ASP.NET data-protection system because it encrypts and decrypts sensitive data including the authentication cookie. It's wonderful that the data protection does this, but at the same time it presents a problem. We would like to route traffic to _multiple_ instances of our application… So traffic could go to instance 1, instance 2 of our app etc.

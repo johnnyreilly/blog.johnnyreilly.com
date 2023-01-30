@@ -11,6 +11,8 @@ Application Insights are a great way to monitor Azure Static Web Apps and Azure 
 
 ![title image reading "Using Application Insights with Bicep to monitor Azure Static Web Apps and Azure Functions" with the Bicep, Application Insights, Azure Static Web Apps and Azure Functions logos](title-image.png)
 
+<!--truncate-->
+
 ## Monitoring Azure Static Web Apps
 
 This post should possibly win some kind of "least pithy blog title" award. But it's definitely descriptive. Let's get into it.

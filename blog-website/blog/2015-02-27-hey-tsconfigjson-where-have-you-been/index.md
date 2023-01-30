@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Sometimes, you just miss things. Something seismic happens and you had no idea. So it was with `tsconfig.json`.
 
+<!--truncate-->
+
 This blog post started life with the name "TypeScript: Some IDEs are more equal than others". I'd intended to use it summarise a discussion on the [TypeScript GitHub repo](https://github.com/Microsoft/TypeScript/issues/1066) about implicit referencing including a fist shaken at the sky at the injustice of it all. But whilst I was writing it I dicovered things had changed without my knowledge. That's a rather wonderful thing.
 
 ## Implicit Referencing

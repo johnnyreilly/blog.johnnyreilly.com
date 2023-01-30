@@ -12,6 +12,8 @@ Authorization in Azure Functions is impaired by an issue with Azure Static Web A
 
 ![title image reading "Azure AD Claims with Static Web Apps and Azure Functions" with Azure AD, Azure Functions and Static Web App logos](title-image.png)
 
+<!--truncate-->
+
 ## Updated 28th November 2022
 
 After I posted this, [Thomas Gauvin](https://twitter.com/thomasgauvin) (Product manager for Static Web Apps) was kind enough to tweet this:

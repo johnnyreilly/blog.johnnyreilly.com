@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 ## Days of Yore
 
+<!--truncate-->
+
 It was my first job. The web was alive and well at this point but still very much in it's infancy. Newspapers had only recently moved on from calling it "the information superhighway". No-one was doing _real_ programming for the web - the desktop was where it was at.
 
 As for me, I was writing call centre software. It was all very exciting. Here was the idea: the phone on your desk would start ringing and through the magic of [TAPI](http://en.wikipedia.org/wiki/Telephony_Application_Programming_Interface) our app would be presented with the telephone number of the dialer. It would then look up that telephone number in the appropriate CRM application and pop the callers details on the screen. You'd pick up the phone and bellow "why hello Mr Jones!" and either impress the caller with your incredible fore-knowledge of who had rung you or perhaps terrify them with our [Brave New Orwellian World](http://en.wikipedia.org/wiki/Nineteen_Eighty-Four).

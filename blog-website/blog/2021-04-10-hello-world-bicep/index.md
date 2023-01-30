@@ -10,6 +10,8 @@ Bicep makes Azure Resource Management a great deal simpler than ARM templates. T
 
 ![hello world bicep](hello-world-bicep.webp)
 
+<!--truncate-->
+
 ## More than configuration
 
 The ["Hello World"](https://github.com/Azure/bicep/tree/187d4d2047dc83c69695ba79761f552bcb00c319/docs/examples/000/01-hello-world) added to the Bicep repo by [Chris Lewis](https://github.com/ChristopherGLewis) illustrates the simplest usage of Bicep:

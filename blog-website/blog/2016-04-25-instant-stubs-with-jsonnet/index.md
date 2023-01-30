@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I'd like you to close your eyes and imagine a scenario. You're handed a prototype system. You're told it works. It has no documentation. It has 0 unit tests. The hope is that you can take it on, refactor it, make it better and (crucially) not break it. Oh, and you don't really understand what the code does or why it does it either; information on that front is, alas, sorely lacking.
 
+<!--truncate-->
+
 This has happened to me; it's alas not that unusual. The common advice handed out in this situation is: "add unit tests before you change it". That's good advice. We need to take the implementation that embodies the correctness of the system and create unit tests that set that implementation in stone. However, what say the system that you're hoping to add tests to takes a number of large and complex inputs from some external source and produces a similarly large and complex output?
 
 You could start with integration tests. They're good but slow and crucially they depend upon the external inputs being available and unchanged (which is perhaps unlikely). What you could do (what I have done) is debug a working working system. At each point that an input is obtained I have painstakingly transcribed the data which allows me to subsequently hand code stub data. There comes a point when this is plainly untenable; it's just too much data to transcribe. At this point the temptation is to think "it's okay; I can live without the tests. I'll just be super careful with my refactoring... It'll be fine It'll be fine It'll be fine It'll be fine".

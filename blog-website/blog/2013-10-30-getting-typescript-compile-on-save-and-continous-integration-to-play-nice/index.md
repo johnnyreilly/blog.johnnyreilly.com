@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Well sort of... Perhaps this post should more accurately called "How to get CI to ignore your TypeScript whilst Visual Studio still compiles it..."
 
+<!--truncate-->
+
 ## Once there was Web Essentials
 
 When I first started using TypeScript, I was using it in combination with Web Essentials. Those were happy days. I saved my TS file and Web Essentials would kick off TypeScript compilation. Ah bliss. But the good times couldn't last forever and sure enough when version 3.0 of Web Essentials shipped it [pulled support for TypeScript](http://madskristensen.net/post/Web-Essentials-2013-Where-is-the-TypeScript-support).

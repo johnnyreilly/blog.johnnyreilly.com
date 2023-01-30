@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 With TypeScript 3.4, [a new behaviour landed and a magical new file type appeared; `.tsbuildinfo`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html)
 
+<!--truncate-->
+
 > TypeScript 3.4 introduces a new flag called `--incremental` which tells TypeScript to save information about the project graph from the last compilation. The next time TypeScript is invoked with `--incremental`, it will use that information to detect the least costly way to type-check and emit changes to your project.
 >
 > ...

@@ -11,6 +11,8 @@ This post demonstrates how to speed up your Docusaurus build by using SWC and th
 
 ![title image reading "Faster Docusaurus builds with swc-loader" with Docusaurus, SWC and webpack logos](title-image.png)
 
+<!--truncate-->
+
 ## SWC
 
 At present there's a number of projects which have been providing alternate transpilation mechanisms to transform TypeScript / modern JavaScript into JavaScript that will run widely supported browsers. Historically this has been handled by tools like the TypeScript compiler itself and Babel. Both of these tools are written in TypeScript / JavaScript. The new tools and projects which have been appearing often use languages like Go and Rust which offer the gift of performance gains. Shorter build times in other words.

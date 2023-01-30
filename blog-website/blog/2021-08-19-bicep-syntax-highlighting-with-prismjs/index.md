@@ -10,6 +10,8 @@ Bicep is an amazing language, it's also very new. If you want to write attractiv
 
 ![title image reading "Publish Azure Static Web Apps with Bicep and Azure DevOps" and some Azure logos](bicep-syntax-highlighting-with-prismjs.webp)
 
+<!--truncate-->
+
 ## Syntax highlighting
 
 I've been writing blog posts about Bicep for a little while. I was frustrated that the code snippets were entirely unhighlighted. I'm keen my posts are as readable as possible, and so I [looked into adding support to PrismJS](https://github.com/PrismJS/prism/pull/3027) which is what [Docusaurus](https://docusaurus.io/) uses to power syntax highlighting.

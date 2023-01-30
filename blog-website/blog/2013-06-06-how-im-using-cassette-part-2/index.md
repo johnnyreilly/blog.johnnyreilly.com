@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 [Last time](../2013-05-04-how-im-using-cassette/index.md) I wrote about Cassette I was talking about how to generally get up and running. How to use Cassette within an ASP.Net MVC project. What I want to write about now is (in my eyes) the most useful feature of Cassette by a country mile. This is Cassettes ability to ensure scripts are served in dependency order.
 
+<!--truncate-->
+
 ## Why does this matter?
 
 You might well ask. If we go back 10 years or so then really this wasn't a problem. No-one was doing a great deal with JavaScript. And if they did anything it tended to be code snippets in amongst the HTML; nothing adventurous. But unless you've had your head in the sand for the last 3 years then you will have clearly noticed that JavaScript is in rude health and being used for all kinds of things you'd never have imagined. In fact some would have it that it's the [assembly language of the web](http://www.hanselman.com/blog/JavaScriptisAssemblyLanguagefortheWebPart2MadnessorjustInsanity.aspx).

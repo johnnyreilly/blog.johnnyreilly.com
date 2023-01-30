@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 A while ago I [wrote](http://icanmakethiswork.blogspot.com/2012/06/how-im-structuring-my-javascript-in-web.html#WebOptimization) about optimally serving up JavaScript in web applications. I mentioned that Microsoft had come up with a NuGet package called [Microsoft ASP.NET Web Optimization](http://nuget.org/packages/Microsoft.AspNet.Web.Optimization) which could help with that by minifying and bundling CSS and JavaScript. At the time I was wondering if I would be able to to use this package with pre-existing MVC 3 projects (given that the package had been released together with MVC 4). Happily it turns out you can. But it's not quite as straightforward as I might have liked so I've documented how to get going with this here...
 
+<!--truncate-->
+
 ## Getting the Basics in Place
 
 To keep it simple I'm going to go through taking a "vanilla" MVC 3 app and enhancing it to work with Web Optimization. To start, follow these basic steps:

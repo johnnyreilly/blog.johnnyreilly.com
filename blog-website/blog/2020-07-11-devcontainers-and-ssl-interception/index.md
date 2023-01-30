@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 [Devcontainers](https://code.visualstudio.com/docs/remote/containers) are cool. They are the infrastructure as code equivalent for developing software.
 
+<!--truncate-->
+
 Imagine your new starter joins the team, you'd like them to be contributing code on _day 1_. But if the first thing that happens is you hand them a sheaf of paper upon which are the instructions for how to get their machines set up for development, well, maybe it's going to be a while. But if your project has a devcontainer then you're off to the races. One trusty `git clone`, fire up VS Code and they can get going.
 
 That's the dream right?

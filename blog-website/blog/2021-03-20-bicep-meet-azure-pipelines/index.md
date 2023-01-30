@@ -10,6 +10,8 @@ hide_table_of_contents: false
 
 ![Bicep meet Azure Pipelines](bicep-meet-azure-pipelines.webp)
 
+<!--truncate-->
+
 ## Bicep: mostly ARMless
 
 If you've been working with Azure and infrastructure as code, you'll likely have encountered [ARM templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/overview). They're a domain specific language that lives inside JSON, used to define the infrastructure that is deployed to Azure; App Services, Key Vaults and the like.

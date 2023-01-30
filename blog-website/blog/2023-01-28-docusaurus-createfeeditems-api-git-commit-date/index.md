@@ -11,6 +11,8 @@ A new API landed in Docusaurus 2.3.0 - it's called `createFeedItems`. It's a gre
 
 ![title image reading "Docusaurus: using the createFeedItems API with git commit date" with the Docusaurus logo](title-image.png)
 
+<!--truncate-->
+
 ## `createFeedItems` API
 
 [I worked on the createFeedItems API for Docusaurus](https://github.com/facebook/docusaurus/pull/8378). When the [feature was announced](https://twitter.com/docusaurus/status/1619019412610191379), there were a number of suggested use cases:

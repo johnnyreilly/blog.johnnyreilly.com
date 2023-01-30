@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Never neglect the possibilities of a code review. There are times when you raise a PR and all you want is for everyone to hit approve so you can merge, merge and ship, ship! This can be a missed opportunity. For as much as I'd like to imagine my code is perfect, it's patently not. There's always scope for improvement.
 
+<!--truncate-->
+
 ## "What's this?"
 
 This week afforded me that opportunity. I was walking through a somewhat complicated PR on a call and someone said "what's this?". They'd spotted an expression much like this in my code:

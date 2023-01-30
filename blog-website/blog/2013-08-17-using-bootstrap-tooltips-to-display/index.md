@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I love jQuery Validation. I was recently putting together a screen which had a lot of different bits of validation going on. And the default jQuery Validation approach of displaying the validation messages next to the element being validated wasn't working for me. That is to say, because of the amount of elements on the form, the appearance of validation messages was really making a mess of the presentation. So what to do?
 
+<!--truncate-->
+
 ## Tooltips to the rescue!
 
 I was chatting to [Marc Talary](https://plus.google.com/u/0/116859810359377785616/posts) about this and he had the bright idea of using tooltips to display the error messages. Tooltips would allow the existing presentation of the form to remain as is whilst still displaying the messages to the users. Brilliant idea!

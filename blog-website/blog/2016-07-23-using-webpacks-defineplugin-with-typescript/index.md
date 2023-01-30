@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I've been searching for a way to describe what the DefinePlugin actually does. The [docs](https://github.com/webpack/docs/wiki/list-of-plugins#defineplugin) say\*:
 
+<!--truncate-->
+
 > Define free variables. Useful for having development builds with debug logging or adding global constants.
 
 <sub>\* Actually that should read "used to say". I've made some changes to the official docs.... (Surprisingly easy to do that by the way; it's just a wiki you can edit at will.)</sub>

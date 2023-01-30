@@ -8,6 +8,8 @@ hide_table_of_contents: false
 
 Creating an Azure Pipeline using the Azure DevOps REST API is possible, but badly documented. This post goes through how to do this.
 
+<!--truncate-->
+
 ## curling a pipeline
 
 The [documentation](https://docs.microsoft.com/en-us/rest/api/azure/devops/pipelines/pipelines/create?view=azure-devops-rest-6.1) for creating an Azure Pipeline using the Azure DevOps API is somewhat lacking. However it isn't actually too hard, you just need the recipe.

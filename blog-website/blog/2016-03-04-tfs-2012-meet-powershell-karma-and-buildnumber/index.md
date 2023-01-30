@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 To my lasting regret, TFS 2012 has no direct support for PowerShell. Such a shame as PowerShell scripts can do a lot of heavy lifting in a build process. Well, here we're going to brute force TFS 2012 into running PowerShell scripts. And along the way we'll also get Karma test results publishing into TFS 2012 as an example usage. Nice huh? Let's go!
 
+<!--truncate-->
+
 ## PowerShell via `csproj`
 
 It's time to hack the `csproj` (or whatever project file you have) again. We're going to add an `AfterBuild` target to the end of the file. This target will be triggered after the build completes (as the name suggests):

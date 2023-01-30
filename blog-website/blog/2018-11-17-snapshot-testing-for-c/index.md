@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 If you're a user of Jest, you've no doubt heard of and perhaps made use of [snapshot testing](https://jestjs.io/docs/en/snapshot-testing).
 
+<!--truncate-->
+
 Snapshot testing is an awesome tool that is generally discussed in the context of JavaScript React UI testing. But snapshot testing has a wider application than that. Essentially it is profoundly useful where you have functions which produce a complex structured output. It could be a React UI, it could be a list of FX prices. The type of data is immaterial; it's the amount of it that's key.
 
 Typically there's a direct correlation between the size and complexity of the output of a method and the length of the tests that will be written for it. Let's say you're outputting a class that contains 20 properties. Congratulations! You get to write 20 assertions in one form or another for each test case. Or a single assertion whereby you supply the expected output by hand specifying each of the 20 properties. Either way, that's not going to be fun. And just imagine the time it would take to update multiple test cases if you wanted to change the behaviour of the method in question. Ouchy.

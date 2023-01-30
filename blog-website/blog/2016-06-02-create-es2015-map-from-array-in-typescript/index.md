@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 I'm a great lover of ES2015's [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map). However, just recently I tumbled over something I find a touch inconvenient about how you initialise a new `Map` from the contents of an `Array` in TypeScript.
 
+<!--truncate-->
+
 ## This Doesn't Work
 
 We're going try to something like this: (pilfered from the MDN docs)

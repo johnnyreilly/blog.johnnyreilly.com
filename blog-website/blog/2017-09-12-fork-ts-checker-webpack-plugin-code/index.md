@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 My name is John Reilly and I'm a VS Code addict. There I said it. I'm also a big fan of TypeScript and webpack. I've recently switched to using the awesome [`fork-ts-checker-webpack-plugin`](https://www.npmjs.com/package/fork-ts-checker-webpack-plugin) to speed up my builds.
 
+<!--truncate-->
+
 One thing I love is using VS Code both as my editor and my terminal. Using the fork-ts-checker-webpack-plugin I noticed a problem when TypeScript errors showed up in the terminal:
 
 ![](Screenshot-2017-09-12-06.12.25.webp)

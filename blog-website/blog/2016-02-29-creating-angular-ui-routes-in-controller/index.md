@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 So you're creating a link with the Angular UI Router. You're passing more than a few parameters and it's getting kinda big. Something like this:
 
+<!--truncate-->
+
 ```xml
 <a class="contains-icon"
       ui-sref="Entity.Edit({ entityId: (vm.selectedEntityId ? vm.selectedEntityId: null), initialData: vm.initialData })">

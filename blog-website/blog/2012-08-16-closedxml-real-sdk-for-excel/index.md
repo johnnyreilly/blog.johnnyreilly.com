@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Simplicity appeals to me. It always has. Something that is simple is straightforward to comprehend and is consequently easy to use. It's clarity.
 
+<!--truncate-->
+
 ## Open XML
 
 So imagine my joy when I first encountered [Open XML](http://msdn.microsoft.com/en-us/office/bb265236.aspx). In Microsofts own words:

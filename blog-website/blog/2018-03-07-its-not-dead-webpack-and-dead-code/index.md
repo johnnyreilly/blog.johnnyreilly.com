@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 Webpack has long supported the notion of dead code elimination. webpack facilitates this through use of the `DefinePlugin`. The compile time value of `process.env.NODE_ENV` is set either to `'production'` or something else. If it's set to `'production'` then some dead code hackery can happen. [Libraries like React make use of this to serve up different, and crucially smaller, production builds.](https://reactjs.org/docs/optimizing-performance.html#webpack)
 
+<!--truncate-->
+
 Every now and then you can be surprised. Your assumptions turn out to be wrong.
 
 A (pre-webpack 4) production config file will typically contain this code:

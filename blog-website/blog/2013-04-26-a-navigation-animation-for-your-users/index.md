@@ -7,6 +7,8 @@ hide_table_of_contents: false
 
 ## The Vexation
 
+<!--truncate-->
+
 The current application I'm working on lives within an `iframe`. A side effect of that is that my users no longer get the visual feedback that they're used to as they navigate around the site. By "visual feedback" what I mean are the little visual tics that are displayed in the browser when you're in the process of navigating from one screen to the next.
 
 When an application is nested in an `iframe` it seems that these visual tics aren't propogated up to the top frame of the browser as the user navigates around. Clicking on links results in a short lag whilst nothing appears to be happening and then, BANG!, a new page is rendered. This is not a great user experience. There's nothing to indicate that the link has been clicked on and the browser is doing something. Well, not in Internet Explorer at least - Chrome (my browser of choice) appears to do just that. But that's really by the by, the people using my app will be using the corporate browser, IE; so I need to think about them.

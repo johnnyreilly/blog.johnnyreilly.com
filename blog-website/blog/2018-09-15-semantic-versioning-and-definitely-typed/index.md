@@ -8,6 +8,8 @@ hide_table_of_contents: false
 
 This a tale of things that are and things that aren't. It's a tale of semantic versioning, the lack thereof and heartbreak. It's a story of terror and failing builds. But it has a bittersweet ending wherein our heroes learn a lesson and understand the need for compromise. We all come out better and wiser people. Hopefully there's something for everybody; let's start with an exciting opener and see where it goes...
 
+<!--truncate-->
+
 ## Definitely Typed
 
 This is often the experience people have of using type definitions from Definitely Typed:

@@ -8,6 +8,8 @@ hide_table_of_contents: false
 
 I was recently reading [Jeff Walker's blog post "Why TypeScript Isn't the Answer"](http://www.walkercoderanger.com/blog/2014/02/typescript-isnt-the-answer/). This is part of series in which Jeff goes through various compile-to-JavaScript technologies including TypeScript, CoffeeScript and Dart and explains his view of why he feels they don't quite hit the mark.
 
+<!--truncate-->
+
 As a user (and big fan) of TypeScript I read the post with interest and picked up on one particular issue that Jeff mentions:
 
 > Classes make the unchanged behaviour of the `this` keyword more confusing. For example, in a class like `Greeter` from the [TypeScript playground](http://www.typescriptlang.org/Playground), the use of `this` is confusing:

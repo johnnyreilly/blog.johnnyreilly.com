@@ -11,6 +11,8 @@ Azure Static Web Apps presently have an issue which blocks deployment of Azure F
 
 ![title image reading "Azure Static Web Apps: Failed to deploy the Azure Functions" with an Azure Functions logo](title-image.png)
 
+<!--truncate-->
+
 ## Failed to deploy the Azure Functions
 
 [Azure Static Web Apps](https://azure.microsoft.com/en-us/services/app-service/static/) are a combination of static front end hosting and an optional serverless API back end. The front end portion of Azure Static Web Apps is very plug and play. However there can be complexities when it comes to adding an API back end. One issue is a failure to deploy in the context of an Azure Pipeline which presents like this:

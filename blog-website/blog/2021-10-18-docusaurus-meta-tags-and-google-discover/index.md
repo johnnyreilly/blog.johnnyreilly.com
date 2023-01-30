@@ -10,6 +10,8 @@ Google Discover is a way that people can find your content. To make your content
 
 ![title image reading "Docusaurus, meta tags and Google Discover" with a Docusaurus logo and the Google Discover phone photo taken from https://developers.google.com/search/docs/advanced/mobile/google-discover](title-image.png)
 
+<!--truncate-->
+
 ## Google Discover
 
 I'm an Android user. Google Discover will present articles to me in various places on my phone. [According to the docs](https://developers.google.com/search/docs/advanced/mobile/google-discover):

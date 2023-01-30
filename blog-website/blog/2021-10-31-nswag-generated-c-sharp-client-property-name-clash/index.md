@@ -10,6 +10,8 @@ NSwag is a great tool for generating client libraries in C# and TypeScript from 
 
 ![title image reading "NSwag generated C# client: Open API property name clashes and decimal types rather than double" with a C# logo and Open API logos](title-image.png)
 
+<!--truncate-->
+
 ## Make a C# Client Generator
 
 Let's get a console app set up that will allow us to generate a C# client using an Open API file:
