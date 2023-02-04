@@ -21,7 +21,31 @@ async function run() {
   >(blogDirectories.map(getOldAndNewUrl));
 
   const dateDocusaurusUrlToNew = new Map(
-    [...oldToNew.values()].map(({ dateUrl: url, slug }) => [url, slug])
+    [...oldToNew.values()].map(({ dateUrl, slug }) => [dateUrl, slug])
+  );
+
+  const redirectsDocusaurusDateToNoDate = [...oldToNew.values()].map(
+    ({ dateUrl, slug }) => ({
+      route: dateUrl,
+      redirect: '/' + slug,
+    })
+  );
+
+  fs.writeFileSync(
+    path.resolve(
+      docusaurusDirectory,
+      'api',
+      'fallback',
+      'redirectsDocusaurusDateToNoDate.js'
+    ),
+    `const redirectsDocusaurusDateToNoDate = ${JSON.stringify(
+      redirectsDocusaurusDateToNoDate,
+      null,
+      2
+    )};
+  
+module.exports = redirectsDocusaurusDateToNoDate;
+`
   );
 
   const updatedRedirectsBlogger = redirectsBlogger.map(
