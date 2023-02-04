@@ -89,8 +89,8 @@ const config = {
            * 'ALL' to show all blog posts
            * 0 to disable
            */
-          blogSidebarCount: 5,
-          postsPerPage: 10,
+          blogSidebarCount: 8,
+          postsPerPage: 20,
           path: './blog',
           routeBasePath: '/', // Set this value to '/'.
           showReadingTime: true,
