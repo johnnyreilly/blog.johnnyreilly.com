@@ -1,6 +1,6 @@
 const redirectsBlogger = require('./redirectsBlogger');
-const brokenBacklinks = require('./redirectsBacklinks');
+const redirectsBacklinks = require('./redirectsBacklinks');
 
-const redirects = [...brokenBacklinks, ...redirectsBlogger];
+const redirects = [...redirectsBacklinks, ...redirectsBlogger];
 
 module.exports = redirects;
