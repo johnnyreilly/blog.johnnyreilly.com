@@ -1,4 +1,5 @@
 ---
+slug: why-your-team-needs-newsfeed
 title: 'Why your team needs a newsfeed'
 authors: johnnyreilly
 hide_table_of_contents: false

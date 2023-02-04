@@ -1,4 +1,5 @@
 ---
+slug: devcontainers-and-ssl-interception
 title: 'Devcontainers and SSL interception'
 authors: johnnyreilly
 tags: [devcontainer, ssl interception]

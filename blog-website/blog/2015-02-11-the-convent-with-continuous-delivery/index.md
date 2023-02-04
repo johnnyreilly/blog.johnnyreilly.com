@@ -1,4 +1,5 @@
 ---
+slug: the-convent-with-continuous-delivery
 title: 'The Convent with Continuous Delivery'
 authors: johnnyreilly
 tags: [Continuous Delivery, AppVeyor]

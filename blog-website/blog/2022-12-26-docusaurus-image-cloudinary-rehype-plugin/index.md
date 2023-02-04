@@ -1,4 +1,5 @@
 ---
+slug: docusaurus-image-cloudinary-rehype-plugin
 title: 'Serving Docusaurus images with Cloudinary'
 authors: johnnyreilly
 tags: [Docusaurus, Cloudinary, rehype plugin]

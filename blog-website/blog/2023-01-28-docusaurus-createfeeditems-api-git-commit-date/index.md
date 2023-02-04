@@ -1,4 +1,5 @@
 ---
+slug: docusaurus-createfeeditems-api-git-commit-date
 title: 'Docusaurus blogs: using the createFeedItems API with git commit date'
 authors: johnnyreilly
 tags: [Docusaurus, RSS]

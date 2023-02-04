@@ -1,4 +1,5 @@
 ---
+slug: adding-lastmod-to-sitemap-git-commit-date
 title: 'Adding lastmod to sitemap based on git commits'
 authors: johnnyreilly
 tags: [Node.js, Docusaurus]

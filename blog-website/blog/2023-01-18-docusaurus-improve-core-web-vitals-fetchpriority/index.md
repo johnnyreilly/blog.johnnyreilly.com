@@ -1,4 +1,5 @@
 ---
+slug: docusaurus-improve-core-web-vitals-fetchpriority
 title: 'Docusaurus: improving Core Web Vitals with fetchpriority'
 authors: johnnyreilly
 tags: [Core Web Vitals, Docusaurus, web performance]

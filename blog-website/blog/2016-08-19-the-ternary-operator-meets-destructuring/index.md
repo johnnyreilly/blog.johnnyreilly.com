@@ -1,4 +1,5 @@
 ---
+slug: the-ternary-operator-meets-destructuring
 title: 'The Ternary Operator <3 Destructuring'
 authors: johnnyreilly
 tags: [typescript, ES2015]

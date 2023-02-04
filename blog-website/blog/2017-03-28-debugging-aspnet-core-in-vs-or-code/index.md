@@ -1,4 +1,5 @@
 ---
+slug: debugging-aspnet-core-in-vs-or-code
 title: 'Debugging ASP.Net Core in VS or Code'
 authors: johnnyreilly
 tags: [VS Code, ASP.Net Core, Visual Studio]

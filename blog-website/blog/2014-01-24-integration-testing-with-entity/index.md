@@ -1,4 +1,5 @@
 ---
+slug: integration-testing-with-entity
 title: 'Integration Testing with Entity Framework and Snapshot Backups'
 authors: johnnyreilly
 tags: [Database Snapshots, Integration Testing, SQL Server]

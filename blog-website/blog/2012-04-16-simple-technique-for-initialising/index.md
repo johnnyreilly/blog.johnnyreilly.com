@@ -1,4 +1,5 @@
 ---
+slug: simple-technique-for-initialising
 title: 'A Simple Technique for Initialising Properties with Internal Setters for Unit Testing'
 authors: johnnyreilly
 tags: [unit testing, MOQ, mocking]

@@ -1,4 +1,5 @@
 ---
+slug: how-im-using-cassette
 title: "How I'm Using Cassette part 1:Getting Up and Running"
 authors: johnnyreilly
 tags: [asp.net mvc, cassette]

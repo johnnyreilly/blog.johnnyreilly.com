@@ -1,4 +1,5 @@
 ---
+slug: closedxml-real-sdk-for-excel
 title: 'ClosedXML - the real SDK for Excel'
 authors: johnnyreilly
 tags: [Open XML, Excel, ClosedXML]

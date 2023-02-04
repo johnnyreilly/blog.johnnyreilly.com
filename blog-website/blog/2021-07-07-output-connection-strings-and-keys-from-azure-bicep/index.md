@@ -1,4 +1,5 @@
 ---
+slug: output-connection-strings-and-keys-from-azure-bicep
 title: 'Output connection strings and keys from Azure Bicep'
 authors: johnnyreilly
 tags: [Bicep, Azure, connection string]

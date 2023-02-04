@@ -1,4 +1,5 @@
 ---
+slug: using-ts-loader-with-webpack-2
 title: 'Using ts-loader with webpack 2'
 authors: johnnyreilly
 tags: [ts-loader, webpack]

@@ -1,4 +1,5 @@
 ---
+slug: jqgrid-its-just-far-better-grid
 title: "jqGrid - it's just a far better grid"
 authors: johnnyreilly
 tags: [jqgrid, ajax, jquery]

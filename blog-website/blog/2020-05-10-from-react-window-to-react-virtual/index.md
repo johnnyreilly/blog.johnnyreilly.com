@@ -1,4 +1,5 @@
 ---
+slug: from-react-window-to-react-virtual
 title: 'From react-window to react-virtual'
 authors: johnnyreilly
 tags: [react-virtual, react-window, React]

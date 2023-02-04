@@ -1,4 +1,5 @@
 ---
+slug: upgrading-to-react-18-typescript
 title: 'Upgrading to React 18 with TypeScript'
 authors: johnnyreilly
 tags: [React, typescript, Definitely Typed]

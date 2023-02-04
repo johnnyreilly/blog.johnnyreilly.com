@@ -1,4 +1,5 @@
 ---
+slug: using-web-optimization-with-mvc-3
 title: 'Using Web Optimization with MVC 3'
 authors: johnnyreilly
 tags: [asp.net]

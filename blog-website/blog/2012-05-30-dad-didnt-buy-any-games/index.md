@@ -1,4 +1,5 @@
 ---
+slug: dad-didnt-buy-any-games
 title: "Dad Didn't Buy Any Games"
 authors: johnnyreilly
 tags: []

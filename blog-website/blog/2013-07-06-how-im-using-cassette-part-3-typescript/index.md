@@ -1,4 +1,5 @@
 ---
+slug: how-im-using-cassette-part-3-typescript
 title: "How I'm Using Cassette part 3:Cassette and TypeScript Integration"
 authors: johnnyreilly
 tags: [typescript, javascript, cassette]

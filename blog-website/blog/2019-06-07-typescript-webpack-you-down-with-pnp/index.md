@@ -1,4 +1,5 @@
 ---
+slug: typescript-webpack-you-down-with-pnp
 title: 'TypeScript / webpack - you down with PnP? Yarn, you know me!'
 authors: johnnyreilly
 tags: [typescript, yarn, webpack, PnP]

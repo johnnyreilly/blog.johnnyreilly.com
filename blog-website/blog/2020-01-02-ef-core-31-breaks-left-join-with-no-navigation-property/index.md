@@ -1,4 +1,5 @@
 ---
+slug: ef-core-31-breaks-left-join-with-no-navigation-property
 title: 'EF Core 3.1 breaks left join with no navigation property'
 authors: johnnyreilly
 tags: [Entity Framework]

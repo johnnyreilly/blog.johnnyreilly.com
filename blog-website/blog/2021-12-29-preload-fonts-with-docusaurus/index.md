@@ -1,4 +1,5 @@
 ---
+slug: preload-fonts-with-docusaurus
 title: 'Preload fonts with Docusaurus (updated 03/11/2022)'
 authors: johnnyreilly
 tags: [Docusaurus, webpack]

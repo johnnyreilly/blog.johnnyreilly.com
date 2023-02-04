@@ -1,4 +1,5 @@
 ---
+slug: how-im-using-cassette-part-2
 title: "How I'm Using Cassette part 2:Get Cassette to Serve Scripts in Dependency Order"
 authors: johnnyreilly
 tags: [script references, RequireJS, cassette]

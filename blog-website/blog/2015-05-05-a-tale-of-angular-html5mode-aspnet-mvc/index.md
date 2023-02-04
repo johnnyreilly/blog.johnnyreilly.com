@@ -1,4 +1,5 @@
 ---
+slug: a-tale-of-angular-html5mode-aspnet-mvc
 title: 'A tale of Angular, html5mode, ASP.Net MVC and ASP.Net Web API'
 authors: johnnyreilly
 tags: [asp.net, AngularJS]

@@ -1,4 +1,5 @@
 ---
+slug: giving-odata-to-crm-40
 title: 'Giving OData to CRM 4.0'
 authors: johnnyreilly
 tags: [OData, WCF, CRM, LINQ]

@@ -1,4 +1,5 @@
 ---
+slug: its-not-dead-2-mobx-react-devtools-and-the-undead
 title: "It's Not Dead 2: mobx-react-devtools and the undead"
 authors: johnnyreilly
 tags: [uglifyjs, mobx, webpack]

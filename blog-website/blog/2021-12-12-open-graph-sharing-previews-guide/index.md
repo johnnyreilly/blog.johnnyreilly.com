@@ -1,4 +1,5 @@
 ---
+slug: open-graph-sharing-previews-guide
 title: 'Open Graph: a guide to sharable social media previews'
 authors: johnnyreilly
 tags: [Open Graph]

@@ -1,4 +1,5 @@
 ---
+slug: github-actions-and-yarn
 title: 'GitHub Actions and Yarn'
 authors: johnnyreilly
 tags: [docker, yarn, GitHub Actions]

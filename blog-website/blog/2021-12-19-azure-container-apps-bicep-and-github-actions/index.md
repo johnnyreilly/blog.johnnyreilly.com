@@ -1,4 +1,5 @@
 ---
+slug: azure-container-apps-bicep-and-github-actions
 title: 'Azure Container Apps, Bicep and GitHub Actions'
 authors: johnnyreilly
 tags: [Azure Container Apps, Bicep, GitHub Actions]

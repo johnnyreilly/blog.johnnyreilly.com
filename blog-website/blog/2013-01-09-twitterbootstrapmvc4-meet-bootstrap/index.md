@@ -1,4 +1,5 @@
 ---
+slug: twitterbootstrapmvc4-meet-bootstrap
 title: 'Twitter.Bootstrap.MVC4 meet Bootstrap Datepicker'
 authors: johnnyreilly
 tags: [asp.net mvc, Bootstrap]

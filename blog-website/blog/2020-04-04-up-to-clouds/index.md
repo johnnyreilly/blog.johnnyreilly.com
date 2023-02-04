@@ -1,4 +1,5 @@
 ---
+slug: up-to-clouds
 title: 'Up to the clouds!'
 authors: johnnyreilly
 tags: [docker, kubernetes, asp net core]

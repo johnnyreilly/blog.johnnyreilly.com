@@ -1,4 +1,5 @@
 ---
+slug: blog-archive-for-docusaurus
 title: 'Blog Archive for Docusaurus'
 authors: johnnyreilly
 tags: [Docusaurus, webpack]

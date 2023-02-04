@@ -1,4 +1,5 @@
 ---
+slug: arm-templates-security-role-assignments
 title: 'Azure RBAC: role assignments and ARM templates'
 authors: johnnyreilly
 image: ./with-great-power-comes-great-responsibility.webp

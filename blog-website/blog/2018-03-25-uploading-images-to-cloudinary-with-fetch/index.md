@@ -1,4 +1,5 @@
 ---
+slug: uploading-images-to-cloudinary-with-fetch
 title: 'Uploading Images to Cloudinary with the Fetch API'
 authors: johnnyreilly
 tags: [React, Cloudinary]

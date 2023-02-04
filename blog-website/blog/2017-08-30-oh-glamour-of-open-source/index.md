@@ -1,4 +1,5 @@
 ---
+slug: oh-glamour-of-open-source
 title: 'Oh the Glamour of Open Source'
 authors: johnnyreilly
 tags: []

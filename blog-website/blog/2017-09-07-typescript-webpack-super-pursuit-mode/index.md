@@ -1,4 +1,5 @@
 ---
+slug: typescript-webpack-super-pursuit-mode
 title: 'TypeScript + Webpack: Super Pursuit Mode'
 authors: johnnyreilly
 tags: [typescript, fork-ts-checker-webpack-plugin, Webpack]

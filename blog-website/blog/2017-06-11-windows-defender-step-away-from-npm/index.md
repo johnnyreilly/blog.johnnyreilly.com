@@ -1,4 +1,5 @@
 ---
+slug: windows-defender-step-away-from-npm
 title: 'Windows Defender Step Away From npm'
 authors: johnnyreilly
 tags: [VS Code, Windows, npm]

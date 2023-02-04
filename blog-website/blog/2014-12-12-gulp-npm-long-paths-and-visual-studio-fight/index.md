@@ -1,4 +1,5 @@
 ---
+slug: gulp-npm-long-paths-and-visual-studio-fight
 title: 'Gulp, npm, long paths and Visual Studio.... Fight!'
 authors: johnnyreilly
 tags: [npm, Visual Studio]

@@ -1,4 +1,5 @@
 ---
+slug: coded-ui-and-curse-of-docking-station
 title: 'Coded UI and the Curse of the Docking Station'
 authors: johnnyreilly
 tags: [Surface Pro 3, Coded UI]

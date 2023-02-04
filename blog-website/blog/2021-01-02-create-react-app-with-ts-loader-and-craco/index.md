@@ -1,4 +1,5 @@
 ---
+slug: create-react-app-with-ts-loader-and-craco
 title: 'Create React App with ts-loader and CRACO'
 authors: johnnyreilly
 tags: [typescript, fork-ts-checker-webpack-plugin, ts-loader]

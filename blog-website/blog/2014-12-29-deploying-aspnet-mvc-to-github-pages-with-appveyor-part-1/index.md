@@ -1,4 +1,5 @@
 ---
+slug: deploying-aspnet-mvc-to-github-pages-with-appveyor-part-1
 title: 'Deploying from ASP.Net MVC to GitHub Pages using AppVeyor part 1'
 authors: johnnyreilly
 tags: [powershell, github pages, AppVeyor]

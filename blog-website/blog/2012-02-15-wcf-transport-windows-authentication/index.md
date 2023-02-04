@@ -1,4 +1,5 @@
 ---
+slug: wcf-transport-windows-authentication
 title: 'WCF Transport Windows authentication using NetTcpBinding in an Intranet environment'
 authors: johnnyreilly
 tags: [WCF, Authentication]

@@ -1,4 +1,5 @@
 ---
+slug: npm-please-stop-hurting-visual-studio
 title: 'npm please stop hurting Visual Studio'
 authors: johnnyreilly
 tags: [rimraf, npm, long paths, Windows]

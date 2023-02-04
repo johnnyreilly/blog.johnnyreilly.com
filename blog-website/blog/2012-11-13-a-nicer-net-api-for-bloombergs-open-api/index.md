@@ -1,4 +1,5 @@
 ---
+slug: a-nicer-net-api-for-bloombergs-open-api
 title: "Getting up to speed with Bloomberg's Open API..."
 authors: johnnyreilly
 tags: [.NET, c#, Bloomberg, Open API]

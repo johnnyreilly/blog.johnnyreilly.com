@@ -1,4 +1,5 @@
 ---
+slug: jquery-validate-native-unobtrusive-validation
 title: 'jQuery Validation - Native Unobtrusive Validation Support!'
 authors: johnnyreilly
 tags: [Native, jQuery Validation, Unobtrusive]

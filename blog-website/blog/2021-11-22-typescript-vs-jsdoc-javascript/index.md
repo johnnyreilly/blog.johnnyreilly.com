@@ -1,4 +1,5 @@
 ---
+slug: typescript-vs-jsdoc-javascript
 title: 'TypeScript vs JSDoc JavaScript'
 authors: johnnyreilly
 tags: [javascript, typescript, JSDoc]

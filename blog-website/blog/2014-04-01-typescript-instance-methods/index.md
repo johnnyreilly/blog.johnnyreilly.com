@@ -1,4 +1,5 @@
 ---
+slug: typescript-instance-methods
 title: 'TypeScript this is what I want! (the unfortunate neglect of Instance Methods / callback functions)'
 authors: johnnyreilly
 tags: [typescript]

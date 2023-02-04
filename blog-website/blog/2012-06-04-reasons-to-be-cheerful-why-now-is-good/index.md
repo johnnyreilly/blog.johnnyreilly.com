@@ -1,4 +1,5 @@
 ---
+slug: reasons-to-be-cheerful-why-now-is-good
 title: 'Reasons to be Cheerful (why now is a good time to be a dev)'
 authors: johnnyreilly
 tags: []

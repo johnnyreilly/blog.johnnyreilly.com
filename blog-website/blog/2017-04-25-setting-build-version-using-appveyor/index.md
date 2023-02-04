@@ -1,4 +1,5 @@
 ---
+slug: setting-build-version-using-appveyor
 title: 'Setting Build Version Using AppVeyor and ASP.Net Core'
 authors: johnnyreilly
 tags: [powershell, Version, dot net core, AppVeyor]

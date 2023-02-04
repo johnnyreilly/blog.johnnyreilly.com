@@ -1,4 +1,5 @@
 ---
+slug: cypress-and-auth0
 title: 'Cypress and Auth0'
 authors: johnnyreilly
 tags: [auth0-js, Auth0, cypress, auth]

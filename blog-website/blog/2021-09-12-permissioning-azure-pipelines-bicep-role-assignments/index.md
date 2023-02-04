@@ -1,4 +1,5 @@
 ---
+slug: permissioning-azure-pipelines-bicep-role-assignments
 title: 'Permissioning Azure Pipelines with Bicep and Azure RBAC Role Assignments'
 authors: johnnyreilly
 tags: [Role Assignments, Bicep, azure devops, Azure Pipelines]

@@ -1,4 +1,5 @@
 ---
+slug: typescript-unit-tests-with-debug-support
 title: 'TypeScript Unit Tests with Debug Support'
 authors: johnnyreilly
 tags: [typescript, Unit Tests, Debug]

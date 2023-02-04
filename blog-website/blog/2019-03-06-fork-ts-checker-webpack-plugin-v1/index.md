@@ -1,4 +1,5 @@
 ---
+slug: fork-ts-checker-webpack-plugin-v1
 title: 'fork-ts-checker-webpack-plugin v1.0'
 authors: johnnyreilly
 tags: [typescript, fork-ts-checker-webpack-plugin, ts-loader, tslint, webpack]

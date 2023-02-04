@@ -1,4 +1,5 @@
 ---
+slug: making-pdfs-from-html-in-c-using
 title: 'Making PDFs from HTML in C# using WKHTMLtoPDF'
 authors: johnnyreilly
 tags: [wkhtmltopdf, c#, pdf]

@@ -1,4 +1,5 @@
 ---
+slug: caching-and-cache-busting-with-requirejs
 title: 'Caching and cache-busting with RequireJS'
 authors: johnnyreilly
 tags: [asp.net, RequireJS, cache, caching]

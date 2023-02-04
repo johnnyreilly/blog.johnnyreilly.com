@@ -1,4 +1,5 @@
 ---
+slug: things-done-changed
 title: 'Things Done Changed'
 authors: johnnyreilly
 tags: [ES6, Atom, Babel, React, WebSockets]

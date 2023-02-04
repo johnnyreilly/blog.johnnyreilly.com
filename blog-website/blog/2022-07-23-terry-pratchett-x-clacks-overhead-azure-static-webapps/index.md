@@ -1,4 +1,5 @@
 ---
+slug: terry-pratchett-x-clacks-overhead-azure-static-webapps
 title: 'Terry Pratchett and the Azure Static Web Apps'
 authors: johnnyreilly
 tags: [Azure Static Web Apps]

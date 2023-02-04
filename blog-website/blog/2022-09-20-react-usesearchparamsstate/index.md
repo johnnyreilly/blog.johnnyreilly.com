@@ -1,4 +1,5 @@
 ---
+slug: react-usesearchparamsstate
 title: 'React: storing state in URL with URLSearchParams'
 authors: johnnyreilly
 tags: [React, typescript, React Router]

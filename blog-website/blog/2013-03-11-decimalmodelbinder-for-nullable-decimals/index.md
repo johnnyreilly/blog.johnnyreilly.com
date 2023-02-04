@@ -1,4 +1,5 @@
 ---
+slug: decimalmodelbinder-for-nullable-decimals
 title: 'DecimalModelBinder for nullable Decimals'
 authors: johnnyreilly
 tags: [Globalization, .NET]

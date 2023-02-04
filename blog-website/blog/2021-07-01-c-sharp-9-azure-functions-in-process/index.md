@@ -1,4 +1,5 @@
 ---
+slug: c-sharp-9-azure-functions-in-process
 title: 'C# 9 in-process Azure Functions'
 authors: johnnyreilly
 tags: [C#, Azure Functions, .NET]

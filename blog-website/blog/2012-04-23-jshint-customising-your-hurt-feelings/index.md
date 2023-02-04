@@ -1,4 +1,5 @@
 ---
+slug: jshint-customising-your-hurt-feelings
 title: 'JSHint - Customising your hurt feelings'
 authors: johnnyreilly
 tags: [JSLint, JSHint, ESLint]

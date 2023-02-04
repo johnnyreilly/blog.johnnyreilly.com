@@ -1,4 +1,5 @@
 ---
+slug: google-apis-authentication-with-typescript
 title: 'Google APIs: authentication with TypeScript'
 authors: johnnyreilly
 tags: [Google APIs, typescript]

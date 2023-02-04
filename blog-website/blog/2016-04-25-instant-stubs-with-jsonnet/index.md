@@ -1,4 +1,5 @@
 ---
+slug: instant-stubs-with-jsonnet
 title: 'Instant Stubs with JSON.Net (just add hot water)'
 authors: johnnyreilly
 tags: [unit testing, json.net]

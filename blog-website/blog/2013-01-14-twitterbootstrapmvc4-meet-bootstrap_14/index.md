@@ -1,4 +1,5 @@
 ---
+slug: twitterbootstrapmvc4-meet-bootstrap_14
 title: 'Twitter.Bootstrap.MVC4 meet Bootstrap Datepicker *and* get your Internationalization on...'
 authors: johnnyreilly
 tags: [Globalization, Bootstrap]

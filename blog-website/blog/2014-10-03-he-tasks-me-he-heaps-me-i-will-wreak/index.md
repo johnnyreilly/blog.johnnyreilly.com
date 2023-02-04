@@ -1,4 +1,5 @@
 ---
+slug: he-tasks-me-he-heaps-me-i-will-wreak
 title: 'He tasks me; he heaps me.... I will wreak that MOQ upon him.'
 authors: johnnyreilly
 tags: [unit testing, MOQ]

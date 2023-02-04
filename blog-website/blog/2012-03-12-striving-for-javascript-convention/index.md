@@ -1,4 +1,5 @@
 ---
+slug: striving-for-javascript-convention
 title: 'Striving for (JavaScript) Convention'
 authors: johnnyreilly
 tags: [javascript]

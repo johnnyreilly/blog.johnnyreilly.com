@@ -1,4 +1,5 @@
 ---
+slug: vsts-and-ef-core-migrations
 title: 'VSTS and EF Core Migrations'
 authors: johnnyreilly
 tags: [vsts, Entity Framework, ef core]

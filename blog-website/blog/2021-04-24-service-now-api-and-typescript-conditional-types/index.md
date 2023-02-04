@@ -1,4 +1,5 @@
 ---
+slug: service-now-api-and-typescript-conditional-types
 title: 'The Service Now API and TypeScript Conditional Types'
 authors: johnnyreilly
 tags: [Service Now, typescript]
@@ -182,7 +183,7 @@ export const STATE = {
   CLOSED: '7',
 } as const;
 
-export type State = (typeof STATE)[keyof typeof STATE];
+export type State = typeof STATE[keyof typeof STATE];
 ```
 
 By combining `State` and `PropertyValue`, we can strongly type the `state` property of Change Requests. Consider:

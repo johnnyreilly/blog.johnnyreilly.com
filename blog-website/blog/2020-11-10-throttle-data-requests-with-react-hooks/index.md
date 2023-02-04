@@ -1,4 +1,5 @@
 ---
+slug: throttle-data-requests-with-react-hooks
 title: 'Throttling data requests with React Hooks'
 authors: johnnyreilly
 tags: [React]

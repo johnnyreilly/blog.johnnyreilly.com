@@ -1,4 +1,5 @@
 ---
+slug: structured-data-seo-and-react
 title: 'Structured data, SEO and React'
 authors: johnnyreilly
 tags: [structured data, SEO, React]

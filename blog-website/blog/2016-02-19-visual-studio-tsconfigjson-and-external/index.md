@@ -1,4 +1,5 @@
 ---
+slug: visual-studio-tsconfigjson-and-external
 title: 'Visual Studio, tsconfig.json and external TypeScript compilation'
 authors: johnnyreilly
 tags: [TFS, Visual Studio, tsconfig.json, typescript, Webpack]

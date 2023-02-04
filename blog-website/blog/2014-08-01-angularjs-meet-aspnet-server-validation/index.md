@@ -1,4 +1,5 @@
 ---
+slug: angularjs-meet-aspnet-server-validation
 title: 'AngularJS meet ASP.Net Server Validation'
 authors: johnnyreilly
 tags: [asp.net, typescript, AngularJS]

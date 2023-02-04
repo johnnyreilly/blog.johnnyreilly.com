@@ -1,4 +1,5 @@
 ---
+slug: using-bootstrap-tooltips-to-display
 title: 'Using Bootstrap Tooltips to display jQuery Validation error messages'
 authors: johnnyreilly
 tags: [Tooltip, Bootstrap, jQuery Validation]

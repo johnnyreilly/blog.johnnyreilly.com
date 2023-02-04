@@ -1,4 +1,5 @@
 ---
+slug: swashbuckle-schemaid-already-used
 title: 'Swashbuckle and schemaId is already used'
 authors: johnnyreilly
 tags: [Swashbuckle]

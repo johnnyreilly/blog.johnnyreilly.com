@@ -1,4 +1,5 @@
 ---
+slug: xml-read-and-write-with-node-js
 title: 'XML: read and write with Node.js'
 authors: johnnyreilly
 tags: [XML, Node.js, Docusaurus]

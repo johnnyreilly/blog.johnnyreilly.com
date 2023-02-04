@@ -1,4 +1,5 @@
 ---
+slug: strongly-typing-react-query-s-usequeries
 title: 'react-query: strongly typing useQueries'
 authors: johnnyreilly
 image: ./strongly-typing-usequeries.webp

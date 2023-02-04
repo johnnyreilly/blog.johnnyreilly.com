@@ -1,4 +1,5 @@
 ---
+slug: karma-from-phantomjs-to-headless-chrome
 title: 'Karma: From PhantomJS to Headless Chrome'
 authors: johnnyreilly
 tags: [Chrome, Karma, PhantomJS]

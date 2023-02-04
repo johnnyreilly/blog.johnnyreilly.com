@@ -1,4 +1,5 @@
 ---
+slug: azurite-and-table-storage-dev-container
 title: 'Azurite and Table Storage in a dev container'
 authors: johnnyreilly
 tags: [VS Code, devcontainer, Docker]

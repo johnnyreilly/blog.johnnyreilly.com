@@ -1,4 +1,5 @@
 ---
+slug: nswag-generated-c-sharp-client-property-name-clash
 title: 'NSwag generated C# client: Open API property name clashes and decimal types rather than double'
 authors: johnnyreilly
 tags: [NSwag, C#]

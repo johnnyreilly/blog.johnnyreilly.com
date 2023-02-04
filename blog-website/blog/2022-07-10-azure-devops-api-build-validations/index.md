@@ -1,4 +1,5 @@
 ---
+slug: azure-devops-api-build-validations
 title: 'Get Build Validations with the Azure DevOps API'
 authors: johnnyreilly
 tags: [Azure Pipelines, azure devops api]

@@ -1,4 +1,5 @@
 ---
+slug: partialview-tostring
 title: 'PartialView.ToString()'
 authors: johnnyreilly
 tags: [asp.net mvc]

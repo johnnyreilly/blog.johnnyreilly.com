@@ -1,4 +1,5 @@
 ---
+slug: bulletproof-uniq-with-typescript
 title: 'Bulletproof uniq with TypeScript generics (yay code reviews!)'
 authors: johnnyreilly
 tags: [typescript]

@@ -1,4 +1,5 @@
 ---
+slug: debugging-azure-functions-vs-code-mac-os
 title: 'Debugging Azure Functions in VS Code on Mac OS'
 authors: johnnyreilly
 tags: [Azure Functions, VS Code, Mac OS]

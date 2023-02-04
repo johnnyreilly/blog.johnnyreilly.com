@@ -1,4 +1,5 @@
 ---
+slug: azure-ad-claims-static-web-apps-azure-functions
 title: 'Azure AD Claims with Static Web Apps and Azure Functions'
 authors: johnnyreilly
 tags:

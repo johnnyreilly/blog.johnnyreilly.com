@@ -1,4 +1,5 @@
 ---
+slug: lighthouse-meet-github-actions
 title: 'Lighthouse meet GitHub Actions'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, GitHub Actions, Docusaurus]

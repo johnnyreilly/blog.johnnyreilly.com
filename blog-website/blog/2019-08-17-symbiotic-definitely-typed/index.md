@@ -1,4 +1,5 @@
 ---
+slug: symbiotic-definitely-typed
 title: 'Symbiotic Definitely Typed'
 authors: johnnyreilly
 tags: [typescript, react-testing-library, Definitely Typed]

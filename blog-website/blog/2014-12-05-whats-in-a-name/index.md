@@ -1,4 +1,5 @@
 ---
+slug: whats-in-a-name
 title: "What's in a (Domain) Name?"
 authors: johnnyreilly
 hide_table_of_contents: false

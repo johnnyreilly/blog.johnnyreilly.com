@@ -1,4 +1,5 @@
 ---
+slug: migrating-jasmine-tests-to-typescript
 title: 'Journalling the Migration of Jasmine Tests to TypeScript'
 authors: johnnyreilly
 tags: [Jasmine, typescript, javascript]

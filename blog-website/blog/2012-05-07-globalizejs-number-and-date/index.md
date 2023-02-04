@@ -1,4 +1,5 @@
 ---
+slug: globalizejs-number-and-date
 title: 'Globalize.js - number and date localisation made easy'
 authors: johnnyreilly
 tags: [javascript, ASP.NET AJAX, Globalization]

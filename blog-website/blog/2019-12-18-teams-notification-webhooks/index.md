@@ -1,4 +1,5 @@
 ---
+slug: teams-notification-webhooks
 title: 'Teams notification webhooks'
 authors: johnnyreilly
 tags: [Microsoft Teams, notifications, webhook]

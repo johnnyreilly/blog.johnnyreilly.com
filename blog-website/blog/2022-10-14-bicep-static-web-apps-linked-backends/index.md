@@ -1,4 +1,5 @@
 ---
+slug: bicep-static-web-apps-linked-backends
 title: 'Bicep: Static Web Apps and Linked Backends'
 authors: johnnyreilly
 tags: [Bicep, Azure, Static Web Apps, Linked Backends]

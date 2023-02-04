@@ -1,4 +1,5 @@
 ---
+slug: react-select-with-less-typing-lag
 title: 'react-select with less typing lag'
 authors: johnnyreilly
 tags: [react-select]

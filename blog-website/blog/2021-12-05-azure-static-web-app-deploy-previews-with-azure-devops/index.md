@@ -1,4 +1,5 @@
 ---
+slug: azure-static-web-app-deploy-previews-with-azure-devops
 title: 'Azure Static Web App Deploy Previews with Azure DevOps'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, azure devops, Netlify deploy previews]

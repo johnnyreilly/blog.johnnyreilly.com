@@ -1,4 +1,5 @@
 ---
+slug: creating-angular-ui-routes-in-controller
 title: 'Creating Angular UI Routes in the Controller'
 authors: johnnyreilly
 tags: [AngularJS]

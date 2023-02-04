@@ -1,4 +1,5 @@
 ---
+slug: swashbuckle-inheritance-multiple-return-types
 title: 'Swashbuckle & inheritance: Give. Me. The. Types'
 authors: johnnyreilly
 tags: [Swashbuckle, .NET]

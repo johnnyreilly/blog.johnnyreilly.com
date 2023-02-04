@@ -1,4 +1,5 @@
 ---
+slug: azure-devops-node-api-git-api-getrefs-wiki-api
 title: 'Azure DevOps Client for Node.js - GitApi / WikiApi limitations'
 authors: johnnyreilly
 tags: [azure devops api, Node.js]

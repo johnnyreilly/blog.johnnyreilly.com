@@ -1,4 +1,5 @@
 ---
+slug: webpack-4-ts-loader-fork-ts-checker
 title: 'webpack 4 - ts-loader / fork-ts-checker-webpack-plugin betas'
 authors: johnnyreilly
 tags: [fork-ts-checker-webpack-plugin, ts-loader, Webpack]

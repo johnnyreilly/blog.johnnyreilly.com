@@ -1,4 +1,5 @@
 ---
+slug: typescript-spare-rod-spoil-code
 title: 'TypeScript: Spare the Rod, Spoil the Code'
 authors: johnnyreilly
 tags: [tsconfig.json, typescript]

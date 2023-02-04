@@ -1,4 +1,5 @@
 ---
+slug: the-surprisingly-happy-tale-of-visual
 title: 'The Surprisingly Happy Tale of Visual Studio Online, Continous Integration and Chutzpah'
 authors: johnnyreilly
 tags: [Jasmine, TFS, unit testing, javascript, Continuous Integration]

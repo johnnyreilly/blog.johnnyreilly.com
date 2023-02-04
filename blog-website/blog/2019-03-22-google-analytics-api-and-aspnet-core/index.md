@@ -1,4 +1,5 @@
 ---
+slug: google-analytics-api-and-aspnet-core
 title: 'Google Analytics API and ASP.Net Core'
 authors: johnnyreilly
 tags: [asp net core, google analytics]

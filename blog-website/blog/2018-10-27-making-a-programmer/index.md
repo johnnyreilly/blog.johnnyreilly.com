@@ -1,4 +1,5 @@
 ---
+slug: making-a-programmer
 title: 'Making a Programmer'
 authors: johnnyreilly
 hide_table_of_contents: false

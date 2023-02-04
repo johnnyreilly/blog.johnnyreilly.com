@@ -1,4 +1,5 @@
 ---
+slug: static-web-apps-azure-devops-named-preview-environments
 title: 'Azure Static Web Apps: named preview environments with Azure DevOps'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, azure devops]

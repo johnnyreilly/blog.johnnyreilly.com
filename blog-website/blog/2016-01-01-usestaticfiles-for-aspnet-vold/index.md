@@ -1,4 +1,5 @@
 ---
+slug: usestaticfiles-for-aspnet-vold
 title: 'UseStaticFiles for ASP.Net Framework'
 authors: johnnyreilly
 tags: [ASP.NET]

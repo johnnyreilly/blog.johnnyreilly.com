@@ -1,4 +1,5 @@
 ---
+slug: es6-typescript-babel-react-flux-karma
 title: 'ES6 + TypeScript + Babel + React + Flux + Karma: The Secret Recipe'
 authors: johnnyreilly
 tags: [ES6, Karma, React, ts-loader, webpack]

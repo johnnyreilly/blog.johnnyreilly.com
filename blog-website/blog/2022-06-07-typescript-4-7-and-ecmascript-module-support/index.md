@@ -1,4 +1,5 @@
 ---
+slug: typescript-4-7-and-ecmascript-module-support
 title: 'TypeScript 4.7 and ECMAScript Module Support'
 authors: johnnyreilly
 tags: [typescript, ECMAScript Modules]

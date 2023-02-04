@@ -1,4 +1,5 @@
 ---
+slug: rendering-partial-view-to-string
 title: 'Rendering Partial View to a String'
 authors: johnnyreilly
 tags: [asp.net mvc]

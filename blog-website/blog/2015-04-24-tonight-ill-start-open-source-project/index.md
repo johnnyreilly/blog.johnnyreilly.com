@@ -1,4 +1,5 @@
 ---
+slug: tonight-ill-start-open-source-project
 title: "Tonight I'll Start an Open Source Project..."
 authors: johnnyreilly
 tags: [asp.net mvc, validation, AngularJS]

@@ -1,4 +1,5 @@
 ---
+slug: team-foundation-server-continuous-integration-and-javascript-unit-tests-in-unit-test-project
 title: 'Team Foundation Server, Continuous Integration and separate projects for JavaScript unit tests'
 authors: johnnyreilly
 tags:

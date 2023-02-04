@@ -1,4 +1,5 @@
 ---
+slug: my-subconscious-is-better-developer
 title: 'My Subconscious is a Better Developer Than I Am'
 authors: johnnyreilly
 tags: []

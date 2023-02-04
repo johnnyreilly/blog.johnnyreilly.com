@@ -1,4 +1,5 @@
 ---
+slug: what-on-earth-is-jquery-and-why-should
 title: 'What on earth is jQuery?  And why should I care?'
 authors: johnnyreilly
 tags: [jqgrid, ajax, jquery]

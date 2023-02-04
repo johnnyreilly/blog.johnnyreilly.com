@@ -1,4 +1,5 @@
 ---
+slug: template-tricks-for-dainty-dom
 title: 'Template Tricks for a Dainty DOM'
 authors: johnnyreilly
 tags: [Materialized]

@@ -1,4 +1,5 @@
 ---
+slug: image-optimisation-tinypng-api
 title: 'Image Optimisation with the TinyPNG API'
 authors: johnnyreilly
 tags: [image optimisation, TinyPNG]

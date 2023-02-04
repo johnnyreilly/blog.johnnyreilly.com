@@ -1,4 +1,5 @@
 ---
+slug: Back-to-the-Future-with-Code-First-Migrations
 title: 'Back to the Future with Code First Migrations'
 authors: johnnyreilly
 tags: [Entity Framework]

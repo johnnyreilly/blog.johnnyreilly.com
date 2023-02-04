@@ -1,4 +1,5 @@
 ---
+slug: typescript-and-high-cpu-usage-watch
 title: "TypeScript and high CPU usage - watch don't stare!"
 authors: johnnyreilly
 tags: [typescript, fork-ts-checker-webpack-plugin, webpack]

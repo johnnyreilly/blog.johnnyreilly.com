@@ -1,4 +1,5 @@
 ---
+slug: font-awesome-brand-icons-react
 title: 'Brand New Fonting Awesomeness'
 authors: johnnyreilly
 tags: [React]

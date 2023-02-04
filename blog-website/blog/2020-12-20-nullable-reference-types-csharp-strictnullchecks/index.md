@@ -1,4 +1,5 @@
 ---
+slug: nullable-reference-types-csharp-strictnullchecks
 title: "Nullable reference types; CSharp's very own strictNullChecks"
 authors: johnnyreilly
 tags: [C#, nullable reference types]

@@ -1,4 +1,5 @@
 ---
+slug: ts-loader-goes-webpack-5
 title: 'ts-loader goes webpack 5'
 authors: johnnyreilly
 tags: [webpack, ts-loader, typescript]

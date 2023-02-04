@@ -1,4 +1,5 @@
 ---
+slug: bicep-syntax-highlighting-with-prismjs
 title: 'Bicep: syntax highlighting with PrismJS (and Docusaurus)'
 authors: johnnyreilly
 tags: [Bicep, PrismJS]

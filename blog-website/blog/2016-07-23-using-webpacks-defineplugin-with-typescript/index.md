@@ -1,4 +1,5 @@
 ---
+slug: using-webpacks-defineplugin-with-typescript
 title: "Understanding webpack's DefinePlugin (and using with TypeScript)"
 authors: johnnyreilly
 tags: [typescript, webpack]

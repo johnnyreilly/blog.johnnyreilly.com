@@ -1,4 +1,5 @@
 ---
+slug: dynamic-import-ive-been-await-ing-you
 title: "Dynamic import: I've been awaiting you..."
 authors: johnnyreilly
 tags: [typescript, webpack]
