@@ -1,4 +1,5 @@
 ---
+slug: finding-webpack-4-use-map
 title: 'Finding webpack 4 (use a Map)'
 authors: johnnyreilly
 tags: [webpack]

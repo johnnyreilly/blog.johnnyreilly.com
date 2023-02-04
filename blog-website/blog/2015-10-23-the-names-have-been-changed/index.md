@@ -1,4 +1,5 @@
 ---
+slug: the-names-have-been-changed
 title: 'The Names Have Been Changed...'
 authors: johnnyreilly
 tags: []

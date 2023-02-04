@@ -1,4 +1,5 @@
 ---
+slug: safari-empty-download-content-type
 title: 'Safari: The Mysterious Case of the Empty Download'
 authors: johnnyreilly
 tags: [Safari]

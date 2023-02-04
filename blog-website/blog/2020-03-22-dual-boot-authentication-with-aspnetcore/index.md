@@ -1,4 +1,5 @@
 ---
+slug: dual-boot-authentication-with-aspnetcore
 title: 'Dual boot authentication with ASP.NET'
 authors: johnnyreilly
 tags: [Authentication, Cookie, Azure AD, ASP.NET]

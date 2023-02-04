@@ -1,4 +1,5 @@
 ---
+slug: running-javascript-unit-tests-in-appveyor
 title: 'Running JavaScript Unit Tests in AppVeyor'
 authors: johnnyreilly
 tags:

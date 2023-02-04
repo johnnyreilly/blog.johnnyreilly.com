@@ -1,4 +1,5 @@
 ---
+slug: how-to-attribute-encode-partialview-in
 title: 'How to attribute encode a PartialView in MVC (Razor)'
 authors: johnnyreilly
 tags: [asp.net mvc, razor]

@@ -1,4 +1,5 @@
 ---
+slug: publishing-docusaurus-to-devto-with-devto-api
 title: 'Publishing Docusaurus to dev.to with the dev.to API'
 authors: johnnyreilly
 tags: [dev.to, Docusaurus, GitHub Actions]

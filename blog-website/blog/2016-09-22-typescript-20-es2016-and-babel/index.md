@@ -1,4 +1,5 @@
 ---
+slug: typescript-20-es2016-and-babel
 title: 'TypeScript 2.0, ES2016 and Babel'
 authors: johnnyreilly
 tags: [typescript, Babel, ES2016]

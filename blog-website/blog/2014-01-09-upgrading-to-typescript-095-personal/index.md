@@ -1,4 +1,5 @@
 ---
+slug: upgrading-to-typescript-095-personal
 title: 'Upgrading to TypeScript 0.9.5 - A Personal Memoir'
 authors: johnnyreilly
 tags: [typescript]

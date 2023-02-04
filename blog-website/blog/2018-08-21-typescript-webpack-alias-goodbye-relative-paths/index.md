@@ -1,4 +1,5 @@
 ---
+slug: typescript-webpack-alias-goodbye-relative-paths
 title: 'Using TypeScript and webpack alias: goodbye relative paths'
 authors: johnnyreilly
 tags: [typescript, webpack]

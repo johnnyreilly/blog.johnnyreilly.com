@@ -1,4 +1,5 @@
 ---
+slug: create-pipeline-with-azure-devops-api
 title: 'Create a Pipeline with the Azure DevOps API'
 authors: johnnyreilly
 tags: [Azure Pipelines, azure devops api]

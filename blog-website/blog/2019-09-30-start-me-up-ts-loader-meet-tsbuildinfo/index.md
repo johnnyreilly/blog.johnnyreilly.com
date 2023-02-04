@@ -1,4 +1,5 @@
 ---
+slug: start-me-up-ts-loader-meet-tsbuildinfo
 title: 'Start Me Up: ts-loader meet .tsbuildinfo'
 authors: johnnyreilly
 tags: [ts-loader, typescript]

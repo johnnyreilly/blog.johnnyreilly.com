@@ -1,4 +1,5 @@
 ---
+slug: its-not-dead-webpack-and-dead-code
 title: "It's Not Dead: webpack and dead code elimination limitations"
 authors: johnnyreilly
 tags: [webpack]

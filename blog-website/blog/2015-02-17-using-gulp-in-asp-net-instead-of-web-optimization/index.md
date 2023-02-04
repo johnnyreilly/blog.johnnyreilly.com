@@ -1,4 +1,5 @@
 ---
+slug: using-gulp-in-asp-net-instead-of-web-optimization
 title: 'Using Gulp to inject scripts and styles tags directly into your HTML'
 authors: johnnyreilly
 tags: [asp.net, Web Optimization, gulpjs]

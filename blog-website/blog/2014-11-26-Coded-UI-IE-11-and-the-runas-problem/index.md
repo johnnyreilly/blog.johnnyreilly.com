@@ -1,4 +1,5 @@
 ---
+slug: Coded-UI-IE-11-and-the-runas-problem
 title: "Pretending to be someone you're not and the dark pit of despair"
 authors: johnnyreilly
 tags: [Coded UI, internet explorer]

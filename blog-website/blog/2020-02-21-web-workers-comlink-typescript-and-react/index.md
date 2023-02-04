@@ -1,4 +1,5 @@
 ---
+slug: web-workers-comlink-typescript-and-react
 title: 'Web Workers, comlink, TypeScript and React'
 authors: johnnyreilly
 tags: [typescript, React]

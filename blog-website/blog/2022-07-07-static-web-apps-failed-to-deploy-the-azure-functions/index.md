@@ -1,4 +1,5 @@
 ---
+slug: static-web-apps-failed-to-deploy-the-azure-functions
 title: 'Azure Static Web Apps: Failed to deploy the Azure Functions'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, Azure Functions]

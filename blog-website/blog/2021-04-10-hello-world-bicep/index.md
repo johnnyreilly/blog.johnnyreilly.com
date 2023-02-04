@@ -1,4 +1,5 @@
 ---
+slug: hello-world-bicep
 title: 'Hello World Bicep'
 authors: johnnyreilly
 tags: [Bicep, ARM templates]

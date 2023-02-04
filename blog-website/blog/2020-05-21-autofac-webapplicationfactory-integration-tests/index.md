@@ -1,4 +1,5 @@
 ---
+slug: autofac-webapplicationfactory-integration-tests
 title: 'Autofac, WebApplicationFactory and integration tests'
 authors: johnnyreilly
 tags: [autofac, ASP.Net Core, Integration Testing]

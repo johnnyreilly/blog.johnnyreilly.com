@@ -1,4 +1,5 @@
 ---
+slug: ts-loader-project-references-first-blood
 title: 'ts-loader Project References: First Blood'
 authors: johnnyreilly
 tags: [typescript, project references, ts-loader, Webpack]

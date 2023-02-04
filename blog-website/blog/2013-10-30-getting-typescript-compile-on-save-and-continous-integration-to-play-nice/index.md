@@ -1,4 +1,5 @@
 ---
+slug: getting-typescript-compile-on-save-and-continous-integration-to-play-nice
 title: 'Getting TypeScript Compile-on-Save and Continuous Integration to play nice'
 authors: johnnyreilly
 tags: [TFS, typescript]

@@ -1,4 +1,5 @@
 ---
+slug: live-reload-considered-harmful
 title: 'Live Reload Considered Harmful'
 authors: johnnyreilly
 tags: []

@@ -1,4 +1,5 @@
 ---
+slug: a-navigation-animation-for-your-users
 title: 'A navigation animation (for your users delectation)'
 authors: johnnyreilly
 tags: [CSS]

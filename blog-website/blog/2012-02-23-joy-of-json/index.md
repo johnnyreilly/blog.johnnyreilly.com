@@ -1,4 +1,5 @@
 ---
+slug: joy-of-json
 title: 'The Joy of JSON'
 authors: johnnyreilly
 tags: [json]

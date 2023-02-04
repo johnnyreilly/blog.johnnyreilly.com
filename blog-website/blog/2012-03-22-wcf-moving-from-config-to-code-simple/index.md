@@ -1,4 +1,5 @@
 ---
+slug: wcf-moving-from-config-to-code-simple
 title: 'WCF - moving from Config to Code, a simple WCF service harness (plus implementing your own Authorization)'
 authors: johnnyreilly
 tags: [WCF, authorization]

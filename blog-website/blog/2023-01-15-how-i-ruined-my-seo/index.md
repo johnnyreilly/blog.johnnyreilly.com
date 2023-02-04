@@ -1,4 +1,5 @@
 ---
+slug: how-i-ruined-my-seo
 title: 'How I ruined my SEO'
 authors: johnnyreilly
 tags: [SEO]

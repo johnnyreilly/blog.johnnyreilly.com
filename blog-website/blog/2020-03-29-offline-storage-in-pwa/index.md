@@ -1,4 +1,5 @@
 ---
+slug: offline-storage-in-pwa
 title: 'Offline storage in a PWA'
 authors: johnnyreilly
 tags: [PWA]

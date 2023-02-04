@@ -1,4 +1,5 @@
 ---
+slug: typescript-definitions-webpack-and-module-types
 title: 'TypeScript Definitions, webpack and Module Types'
 authors: johnnyreilly
 tags: [Definitely Typed, typescript, webpack]

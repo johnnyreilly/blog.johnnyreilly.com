@@ -1,4 +1,5 @@
 ---
+slug: azure-easy-auth-and-roles-with-dotnet-and-core
 title: 'Azure Easy Auth and Roles with .NET (and .NET Core)'
 authors: johnnyreilly
 tags: [Azure, authorization, authentication, Azure AD]

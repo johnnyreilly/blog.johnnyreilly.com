@@ -1,4 +1,5 @@
 ---
+slug: dates-DataAnnotations-and-data-impedance-mismatch
 title: 'A folk story wherein we shall find dates, DataAnnotations & data impedance mismatch'
 authors: johnnyreilly
 tags: [Date]

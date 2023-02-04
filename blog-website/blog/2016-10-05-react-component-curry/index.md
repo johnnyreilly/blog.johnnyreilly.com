@@ -1,4 +1,5 @@
 ---
+slug: react-component-curry
 title: 'React Component Curry'
 authors: johnnyreilly
 tags: [jsx, React, stateless functional components]

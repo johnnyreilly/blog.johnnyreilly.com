@@ -1,4 +1,5 @@
 ---
+slug: azure-static-web-apps-easyauth-deeplink
 title: 'Deep linking with Azure Static Web Apps and Easy Auth'
 authors: johnnyreilly
 tags: [authorization, Easy Auth, Azure Static Web Apps, Azure AD]

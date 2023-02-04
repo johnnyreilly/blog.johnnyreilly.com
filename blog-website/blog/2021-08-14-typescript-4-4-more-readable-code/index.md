@@ -1,4 +1,5 @@
 ---
+slug: typescript-4-4-more-readable-code
 title: 'TypeScript 4.4 and more readable code'
 authors: johnnyreilly
 tags: [typescript]

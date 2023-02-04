@@ -1,4 +1,5 @@
 ---
+slug: atom-recovering-from-corrupted-packages
 title: 'Atom - Recovering from Corrupted Packages'
 authors: johnnyreilly
 tags: [Atom]

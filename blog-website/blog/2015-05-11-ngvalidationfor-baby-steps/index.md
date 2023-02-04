@@ -1,4 +1,5 @@
 ---
+slug: ngvalidationfor-baby-steps
 title: 'NgValidationFor Baby Steps'
 authors: johnnyreilly
 tags: [asp.net mvc, AngularJS, NgValidationFor]

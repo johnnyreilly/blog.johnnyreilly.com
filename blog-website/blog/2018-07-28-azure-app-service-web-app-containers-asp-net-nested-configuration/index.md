@@ -1,4 +1,5 @@
 ---
+slug: azure-app-service-web-app-containers-asp-net-nested-configuration
 title: 'Azure App Service: nested configuration for ASP.NET running in Web App for Containers using Application Settings'
 authors: johnnyreilly
 tags: []

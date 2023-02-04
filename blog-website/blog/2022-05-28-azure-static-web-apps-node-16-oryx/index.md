@@ -1,4 +1,5 @@
 ---
+slug: azure-static-web-apps-node-16-oryx
 title: 'Azure Static Web Apps: Node.js 16 / 18 and Oryx'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, GitHub Actions, Docusaurus, Node.js, Oryx]

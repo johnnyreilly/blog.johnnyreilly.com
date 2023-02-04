@@ -1,4 +1,5 @@
 ---
+slug: directory-build-props-c-sharp-9-for-all
 title: 'Directory.Build.props: C# 9 for all your projects'
 authors: johnnyreilly
 tags: [Directory.Build.props, C#, .NET]

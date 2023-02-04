@@ -1,9 +1,9 @@
 ---
+slug: definitive-guide-to-migrating-from-blogger-to-docusaurus
 title: 'The definitive guide to migrating from Blogger to Docusaurus'
 authors: johnnyreilly
 tags: [Blogger, Docusaurus, typescript]
 image: ./title-image.png
-slug: definitive-guide-to-migrating-from-blogger-to-docusaurus
 hide_table_of_contents: false
 ---
 

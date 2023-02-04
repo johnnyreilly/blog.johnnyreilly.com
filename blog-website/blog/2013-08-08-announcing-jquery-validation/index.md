@@ -1,4 +1,5 @@
 ---
+slug: announcing-jquery-validation
 title: 'Announcing jQuery Validation Unobtrusive Native...'
 authors: johnnyreilly
 tags: []

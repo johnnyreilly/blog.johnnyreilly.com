@@ -1,4 +1,5 @@
 ---
+slug: html-to-pdf-using-wcf-service
 title: 'HTML to PDF using a WCF Service'
 authors: johnnyreilly
 tags: [wkhtmltopdf, WCF, pdf]

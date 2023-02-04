@@ -1,4 +1,5 @@
 ---
+slug: typescript-types-and-repeatable-builds
 title: '@types is rogue'
 authors: johnnyreilly
 tags: []

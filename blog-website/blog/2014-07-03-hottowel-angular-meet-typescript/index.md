@@ -1,4 +1,5 @@
 ---
+slug: hottowel-angular-meet-typescript
 title: 'HotTowel-Angular meet TypeScript'
 authors: johnnyreilly
 tags: [typescript, AngularJS]

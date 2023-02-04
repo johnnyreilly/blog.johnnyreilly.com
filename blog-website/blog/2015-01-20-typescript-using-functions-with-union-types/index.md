@@ -1,4 +1,5 @@
 ---
+slug: typescript-using-functions-with-union-types
 title: 'TypeScript: In Praise of Union Types'
 authors: johnnyreilly
 tags: [typescript, Union Types]

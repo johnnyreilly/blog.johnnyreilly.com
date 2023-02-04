@@ -1,4 +1,5 @@
 ---
+slug: the-typescript-webpack-pwa
 title: 'The TypeScript webpack PWA'
 authors: johnnyreilly
 tags: [workbox, typescript, PWA, webpack]

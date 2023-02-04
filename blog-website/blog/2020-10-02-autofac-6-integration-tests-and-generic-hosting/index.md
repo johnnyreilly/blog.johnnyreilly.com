@@ -1,4 +1,5 @@
 ---
+slug: autofac-6-integration-tests-and-generic-hosting
 title: 'Autofac 6, integration tests and .NET generic hosting'
 authors: johnnyreilly
 tags: [autofac, asp.net, Integration Testing]

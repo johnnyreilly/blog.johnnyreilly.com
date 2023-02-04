@@ -1,4 +1,5 @@
 ---
+slug: angular-ui-bootstrap-datepicker-weirdness
 title: 'Angular UI Bootstrap Datepicker Weirdness'
 authors: johnnyreilly
 tags: [Bootstrap, AngularJS]

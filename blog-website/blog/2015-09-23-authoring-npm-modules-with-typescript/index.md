@@ -1,4 +1,5 @@
 ---
+slug: authoring-npm-modules-with-typescript
 title: "Definitely Typed Shouldn't Exist"
 authors: johnnyreilly
 tags: [npm, DefinitelyTyped, typescript]

@@ -1,4 +1,5 @@
 ---
+slug: lazy-loading-images-with-docusaurus
 title: 'Lazy loading images with Docusaurus'
 authors: johnnyreilly
 tags: [Docusaurus, rehype plugin]

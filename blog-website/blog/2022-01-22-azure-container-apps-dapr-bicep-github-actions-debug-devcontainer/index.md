@@ -1,4 +1,5 @@
 ---
+slug: azure-container-apps-dapr-bicep-github-actions-debug-devcontainer
 title: 'Azure Container Apps: dapr, devcontainer, debug and deploy'
 authors: johnnyreilly
 tags: [Azure Container Apps, Bicep, GitHub Actions, devcontainer]

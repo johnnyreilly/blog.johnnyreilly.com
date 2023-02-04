@@ -1,4 +1,5 @@
 ---
+slug: you-might-not-need-thread-loader
 title: 'You Might Not Need thread-loader'
 authors: johnnyreilly
 tags: [fork-ts-checker-webpack-plugin, ts-loader, webpack]

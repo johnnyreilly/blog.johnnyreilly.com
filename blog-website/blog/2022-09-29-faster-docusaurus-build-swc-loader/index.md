@@ -1,4 +1,5 @@
 ---
+slug: faster-docusaurus-build-swc-loader
 title: 'Faster Docusaurus builds with swc-loader'
 authors: johnnyreilly
 tags: [Docusaurus, webpack]

@@ -1,4 +1,5 @@
 ---
+slug: azure-pipelines-meet-jest
 title: 'Azure Pipelines meet Jest'
 authors: johnnyreilly
 image: ./test-results.webp

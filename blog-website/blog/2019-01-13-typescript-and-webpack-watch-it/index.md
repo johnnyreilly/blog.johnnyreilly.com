@@ -1,4 +1,5 @@
 ---
+slug: typescript-and-webpack-watch-it
 title: 'TypeScript and webpack: Watch It'
 authors: johnnyreilly
 tags: [typescript, webpack]

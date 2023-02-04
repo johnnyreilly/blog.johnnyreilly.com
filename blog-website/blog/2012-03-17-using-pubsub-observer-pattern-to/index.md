@@ -1,4 +1,5 @@
 ---
+slug: using-pubsub-observer-pattern-to
 title: 'Using the PubSub / Observer pattern to emulate constructor chaining without cluttering up global scope'
 authors: johnnyreilly
 tags: [javascript]

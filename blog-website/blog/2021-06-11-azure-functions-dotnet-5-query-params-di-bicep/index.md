@@ -1,4 +1,5 @@
 ---
+slug: azure-functions-dotnet-5-query-params-di-bicep
 title: 'Azure Functions and .NET 5: Query params, Dependency Injection, Bicep & Build'
 authors: johnnyreilly
 tags: [Azure Functions, .NET, Bicep]

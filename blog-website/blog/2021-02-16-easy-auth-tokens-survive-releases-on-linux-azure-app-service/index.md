@@ -1,4 +1,5 @@
 ---
+slug: easy-auth-tokens-survive-releases-on-linux-azure-app-service
 title: 'Making Easy Auth tokens survive releases on Linux Azure App Service'
 authors: johnnyreilly
 image: ./easy-auth-zero-downtime-deployment.webp

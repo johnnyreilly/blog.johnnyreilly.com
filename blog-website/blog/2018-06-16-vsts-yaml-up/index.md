@@ -1,4 +1,5 @@
 ---
+slug: vsts-yaml-up
 title: 'VSTS... YAML up!'
 authors: johnnyreilly
 tags: [yaml, vsts, travis, AppVeyor]

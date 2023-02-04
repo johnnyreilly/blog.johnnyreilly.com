@@ -1,4 +1,5 @@
 ---
+slug: from-create-react-app-to-pwa
 title: 'From create-react-app to PWA'
 authors: johnnyreilly
 tags: [create-react-app, PWA]

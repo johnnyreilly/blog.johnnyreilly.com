@@ -1,4 +1,5 @@
 ---
+slug: the-mysterious-case-of-webpack-angular-and-jquery
 title: 'The Mysterious Case of webpack, AngularJS and jQuery'
 authors: johnnyreilly
 tags: [jquery, AngularJS, webpack]

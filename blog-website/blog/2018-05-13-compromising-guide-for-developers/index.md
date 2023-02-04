@@ -1,4 +1,5 @@
 ---
+slug: compromising-guide-for-developers
 title: 'Compromising: A Guide for Developers'
 authors: johnnyreilly
 hide_table_of_contents: false

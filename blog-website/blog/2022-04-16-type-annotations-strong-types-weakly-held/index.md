@@ -1,4 +1,5 @@
 ---
+slug: type-annotations-strong-types-weakly-held
 title: 'Type annotations: strong types, weakly held'
 authors: johnnyreilly
 tags: [type-annotations, types-as-comments, JSDoc, ECMAScript, types, proposal]

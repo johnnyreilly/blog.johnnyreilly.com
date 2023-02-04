@@ -1,4 +1,5 @@
 ---
+slug: web-monetization-api
 title: 'Getting started with the Web Monetization API'
 authors: johnnyreilly
 tags: [Web Monetization]

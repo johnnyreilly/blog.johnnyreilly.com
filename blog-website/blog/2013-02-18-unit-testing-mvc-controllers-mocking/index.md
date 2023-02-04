@@ -1,4 +1,5 @@
 ---
+slug: unit-testing-mvc-controllers-mocking
 title: 'Unit testing MVC controllers / Mocking UrlHelper'
 authors: johnnyreilly
 tags: [asp.net]

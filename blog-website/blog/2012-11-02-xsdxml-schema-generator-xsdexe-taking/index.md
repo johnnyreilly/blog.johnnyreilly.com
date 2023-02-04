@@ -1,4 +1,5 @@
 ---
+slug: xsdxml-schema-generator-xsdexe-taking
 title: 'XSD/XML Schema Generator + Xsd.exe:Taking the pain out of manual XML'
 authors: johnnyreilly
 tags: [XSD, LINQ to XML]

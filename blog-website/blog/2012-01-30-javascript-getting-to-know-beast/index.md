@@ -1,4 +1,5 @@
 ---
+slug: javascript-getting-to-know-beast
 title: 'JavaScript - getting to know the beast...'
 authors: johnnyreilly
 tags: [javascript, c#]

@@ -1,4 +1,5 @@
 ---
+slug: jquery-validation-globalize-hits-10
 title: 'jQuery Validation Globalize hits 1.0'
 authors: johnnyreilly
 tags: [Globalize, jQuery Validation]

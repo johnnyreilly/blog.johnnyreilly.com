@@ -1,4 +1,5 @@
 ---
+slug: making-ie-10s-clear-field-x-button-and
 title: "Making IE 10's clear field (X) button and jQuery UI autocomplete play nice"
 authors: johnnyreilly
 tags: [jQuery UI]

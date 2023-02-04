@@ -1,4 +1,5 @@
 ---
+slug: license-to-kill-your-pwa
 title: 'LICENSE to kill your PWA'
 authors: johnnyreilly
 tags: []

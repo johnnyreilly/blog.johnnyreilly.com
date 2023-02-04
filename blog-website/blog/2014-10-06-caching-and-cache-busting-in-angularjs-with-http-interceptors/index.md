@@ -1,4 +1,5 @@
 ---
+slug: caching-and-cache-busting-in-angularjs-with-http-interceptors
 title: 'Caching and Cache-Busting in AngularJS with HTTP interceptors'
 authors: johnnyreilly
 tags: [typescript, AngularJS]

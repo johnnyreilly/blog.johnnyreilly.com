@@ -1,4 +1,5 @@
 ---
+slug: azure-devops-consume-private-nuget-artifact-feed
 title: 'Azure DevOps: consume a private artifact feed'
 authors: johnnyreilly
 tags: [azure devops, NuGet, Azure Artifacts, .NET]

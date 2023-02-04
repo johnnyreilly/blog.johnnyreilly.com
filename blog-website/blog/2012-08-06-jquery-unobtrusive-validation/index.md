@@ -1,4 +1,5 @@
 ---
+slug: jquery-unobtrusive-validation
 title: 'jQuery Unobtrusive Validation (+ associated gotchas)'
 authors: johnnyreilly
 tags: [jquery unobtrusive validation]

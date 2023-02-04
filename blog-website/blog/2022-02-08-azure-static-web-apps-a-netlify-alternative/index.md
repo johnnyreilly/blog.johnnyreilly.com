@@ -1,4 +1,5 @@
 ---
+slug: azure-static-web-apps-a-netlify-alternative
 title: 'Azure Static Web Apps - a Netlify alternative'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, GitHub Actions, Docusaurus]

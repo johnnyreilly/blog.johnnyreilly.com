@@ -1,4 +1,5 @@
 ---
+slug: beg-steal-or-borrow-decent-javascript
 title: 'Beg, Steal or Borrow a Decent JavaScript DateTime Converter'
 authors: johnnyreilly
 tags: [javascript, Serialization, .NET]

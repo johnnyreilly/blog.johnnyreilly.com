@@ -1,4 +1,5 @@
 ---
+slug: azure-static-web-apps-build-app-externally
 title: 'Azure Static Web Apps: build app externally'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, GitHub Actions]

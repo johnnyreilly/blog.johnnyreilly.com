@@ -1,4 +1,5 @@
 ---
+slug: tfs-2012-net-45-and-c-6
 title: 'TFS 2012, .NET 4.5 and C# 6'
 authors: johnnyreilly
 tags: [C#, .NET Framework, TFS]

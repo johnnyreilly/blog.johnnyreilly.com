@@ -1,4 +1,5 @@
 ---
+slug: top-one-nice-one-get-sorted
 title: '(Top One, Nice One) Get Sorted'
 authors: johnnyreilly
 tags: [javascript, LINQ]

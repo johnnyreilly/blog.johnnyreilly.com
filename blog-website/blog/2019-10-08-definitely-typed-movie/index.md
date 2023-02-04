@@ -1,9 +1,9 @@
 ---
+slug: definitely-typed-the-movie
 title: 'Definitely Typed: The Movie'
 authors: johnnyreilly
 tags: [typescript, Definitely Typed]
 image: ./title-image.png
-slug: definitely-typed-the-movie
 hide_table_of_contents: false
 ---
 

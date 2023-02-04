@@ -1,4 +1,5 @@
 ---
+slug: knockout-globalize-valuenumber-binding
 title: 'Knockout + Globalize = valueNumber Binding Handler'
 authors: johnnyreilly
 tags: [Globalize, Knockout]

@@ -1,4 +1,5 @@
 ---
+slug: typescript-and-requirejs-keep-it-simple
 title: 'TypeScript and RequireJS (Keep It Simple)'
 authors: johnnyreilly
 tags: [typescript]

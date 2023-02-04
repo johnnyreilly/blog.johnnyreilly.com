@@ -1,4 +1,5 @@
 ---
+slug: mvc-3-meet-dictionary
 title: 'MVC 3 meet Dictionary'
 authors: johnnyreilly
 tags: [.NET Framework]

@@ -1,4 +1,5 @@
 ---
+slug: azure-static-web-apps-dynamic-redirects-azure-functions
 title: 'Azure Static Web Apps: dynamic redirects with Azure Functions'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, Azure Functions, GitHub Actions]

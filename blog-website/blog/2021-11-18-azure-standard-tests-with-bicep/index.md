@@ -1,4 +1,5 @@
 ---
+slug: azure-standard-tests-with-bicep
 title: 'Azure standard availability tests with Bicep'
 authors: johnnyreilly
 tags: [Azure, Bicep]

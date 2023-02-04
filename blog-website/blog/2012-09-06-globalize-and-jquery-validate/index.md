@@ -1,4 +1,5 @@
 ---
+slug: globalize-and-jquery-validate
 title: 'Globalize and jQuery Validation'
 authors: johnnyreilly
 tags: [asp.net mvc, Globalize, jQuery Validation]

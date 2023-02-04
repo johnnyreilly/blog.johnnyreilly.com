@@ -1,4 +1,5 @@
 ---
+slug: hands-free-https
 title: 'Hands-free HTTPS'
 authors: johnnyreilly
 tags: [TLS, HTTPS, cloudflare]

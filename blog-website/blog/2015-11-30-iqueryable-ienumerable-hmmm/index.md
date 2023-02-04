@@ -1,4 +1,5 @@
 ---
+slug: iqueryable-ienumerable-hmmm
 title: 'IQueryable... IEnumerable... Hmmm...'
 authors: johnnyreilly
 tags: [LINQ]

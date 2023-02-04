@@ -1,4 +1,5 @@
 ---
+slug: integration-tests-with-sql-server
 title: 'Integration Tests with SQL Server Database Snapshots'
 authors: johnnyreilly
 tags: [Database Snapshots, Integration Testing, SQL Server]

@@ -1,4 +1,5 @@
 ---
+slug: azure-pipelines-custom-pipelines-task-extension-node-16
 title: 'Azure Pipelines - Node.js 16 and custom pipelines task extensions'
 authors: johnnyreilly
 tags: [Azure Pipelines, Node.js, typescript]

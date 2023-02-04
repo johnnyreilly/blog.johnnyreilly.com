@@ -1,4 +1,5 @@
 ---
+slug: unit-testing-modelstate
 title: 'Unit testing ModelState'
 authors: johnnyreilly
 tags: [asp.net mvc, unit testing]

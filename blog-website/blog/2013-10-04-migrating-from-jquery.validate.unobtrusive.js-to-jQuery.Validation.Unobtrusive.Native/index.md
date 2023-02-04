@@ -1,4 +1,5 @@
 ---
+slug: migrating-from-jquery.validate.unobtrusive.js-to-jQuery.Validation.Unobtrusive.Native
 title: 'Migrating from jquery.validate.unobtrusive.js to jQuery.Validation.Unobtrusive.Native'
 authors: johnnyreilly
 tags: [jQuery Validation]

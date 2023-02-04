@@ -1,4 +1,5 @@
 ---
+slug: standing-on-shoulders-of-giants
 title: 'Standing on the Shoulders of Giants...'
 authors: johnnyreilly
 hide_table_of_contents: false

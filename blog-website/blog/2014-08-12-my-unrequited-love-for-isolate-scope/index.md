@@ -1,4 +1,5 @@
 ---
+slug: my-unrequited-love-for-isolate-scope
 title: 'My Unrequited Love for Isolate Scope'
 authors: johnnyreilly
 tags: [typescript, javascript, UI Bootstrap, AngularJS]

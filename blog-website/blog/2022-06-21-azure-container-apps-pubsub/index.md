@@ -1,4 +1,5 @@
 ---
+slug: azure-container-apps-pubsub
 title: 'Azure Container Apps: dapr pubsub'
 authors: johnnyreilly
 tags:

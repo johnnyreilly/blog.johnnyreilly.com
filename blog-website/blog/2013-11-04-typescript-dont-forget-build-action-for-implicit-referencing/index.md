@@ -1,4 +1,5 @@
 ---
+slug: typescript-dont-forget-build-action-for-implicit-referencing
 title: "TypeScript: Don't forget Build Action for Implicit Referencing..."
 authors: johnnyreilly
 tags: [typescript, Definitely Typed, typescript, nuget]

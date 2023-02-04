@@ -1,4 +1,5 @@
 ---
+slug: but-you-cant-die-i-love-you-ts-loader
 title: "But you can't die... I love you!"
 authors: johnnyreilly
 tags: [open source, typescript, ts-loader]

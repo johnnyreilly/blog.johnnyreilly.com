@@ -1,4 +1,5 @@
 ---
+slug: simple-fading-in-and-out-using-css-transitions
 title: 'Simple fading in and out using CSS transitions and classes'
 authors: johnnyreilly
 tags: [CSS]

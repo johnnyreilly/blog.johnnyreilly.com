@@ -1,4 +1,5 @@
 ---
+slug: images-in-markdown-for-azure-devops-marketplace
 title: 'Visual Studio Marketplace: images in Markdown!'
 authors: johnnyreilly
 tags: [azure devops marketplace, Visual Studio Marketplace]

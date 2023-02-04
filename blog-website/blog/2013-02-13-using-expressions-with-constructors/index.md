@@ -1,4 +1,5 @@
 ---
+slug: using-expressions-with-constructors
 title: 'Using Expressions with Constructors'
 authors: johnnyreilly
 tags: [.NET]

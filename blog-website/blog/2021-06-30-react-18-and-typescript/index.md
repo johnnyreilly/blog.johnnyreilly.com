@@ -1,4 +1,5 @@
 ---
+slug: react-18-and-typescript
 title: 'React 18 and TypeScript'
 authors: johnnyreilly
 tags: [React, typescript, React 18]

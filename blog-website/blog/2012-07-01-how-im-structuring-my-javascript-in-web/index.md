@@ -1,4 +1,5 @@
 ---
+slug: how-im-structuring-my-javascript-in-web
 title: 'Optimally Serving Up JavaScript'
 authors: johnnyreilly
 tags: [asp.net mvc, javascript, cassette]

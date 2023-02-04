@@ -1,4 +1,5 @@
 ---
+slug: webpack-syncing-enhanced-resolve
 title: 'webpack: syncing the enhanced-resolve'
 authors: johnnyreilly
 tags: [webpack]

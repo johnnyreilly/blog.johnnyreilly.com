@@ -1,4 +1,5 @@
 ---
+slug: docusaurus-using-fontaine-to-reduce-custom-font-cumulative-layout-shift
 title: 'Docusaurus: Using fontaine to reduce custom font cumulative layout shift'
 authors: johnnyreilly
 tags: [Docusaurus]

@@ -1,4 +1,5 @@
 ---
+slug: migrating-from-angularjs-to-angularts
 title: 'Migrating from AngularJS to AngularTS - a walkthrough'
 authors: johnnyreilly
 tags: [Jasmine, typescript, Unit tests, AngularJS]

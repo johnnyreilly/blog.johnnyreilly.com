@@ -1,4 +1,5 @@
 ---
+slug: docusaurus-meta-tags-and-google-discover
 title: 'Docusaurus, meta tags and Google Discover'
 authors: johnnyreilly
 tags: [Docusaurus]

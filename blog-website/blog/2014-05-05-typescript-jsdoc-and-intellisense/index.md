@@ -1,4 +1,5 @@
 ---
+slug: typescript-jsdoc-and-intellisense
 title: 'TypeScript, JSDoc and Intellisense'
 authors: johnnyreilly
 tags: [jquery, JSDoc, typescript]

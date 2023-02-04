@@ -35,14 +35,14 @@ describe('redirect', () => {
       )
     ).toEqual({
       status: 301,
-      location: '/2013/12/04/simple-fading-in-and-out-using-css-transitions',
+      location: '/simple-fading-in-and-out-using-css-transitions',
     });
 
     expect(mockLogger.mock.calls[0][0]).toBe(
       'x-ms-original-url: https://johnnyreilly.com/2013/12/simple-fading-in-and-out-using-css-transitions.html'
     );
     expect(mockLogger.mock.calls[1][0]).toBe(
-      'Redirecting https://johnnyreilly.com/2013/12/simple-fading-in-and-out-using-css-transitions.html to /2013/12/04/simple-fading-in-and-out-using-css-transitions'
+      'Redirecting https://johnnyreilly.com/2013/12/simple-fading-in-and-out-using-css-transitions.html to /simple-fading-in-and-out-using-css-transitions'
     );
   });
 

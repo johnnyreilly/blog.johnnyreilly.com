@@ -1,4 +1,5 @@
 ---
+slug: jquery-unobtrusive-remote-validation
 title: 'jQuery Unobtrusive Remote Validation'
 authors: johnnyreilly
 tags: [jquery, jquery validation, jquery unobtrusive validation]

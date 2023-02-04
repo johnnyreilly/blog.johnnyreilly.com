@@ -1,4 +1,5 @@
 ---
+slug: hey-tsconfigjson-where-have-you-been
 title: 'Hey tsconfig.json, where have you been all my life?'
 authors: johnnyreilly
 tags: [tsconfig.json, typescript]

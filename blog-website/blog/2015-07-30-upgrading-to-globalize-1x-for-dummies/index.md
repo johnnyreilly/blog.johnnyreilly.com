@@ -1,4 +1,5 @@
 ---
+slug: upgrading-to-globalize-1x-for-dummies
 title: 'Upgrading to Globalize 1.x for Dummies'
 authors: johnnyreilly
 tags: [Globalize]

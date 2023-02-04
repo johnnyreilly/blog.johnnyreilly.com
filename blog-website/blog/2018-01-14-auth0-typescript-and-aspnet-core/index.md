@@ -1,4 +1,5 @@
 ---
+slug: auth0-typescript-and-aspnet-core
 title: 'Auth0, TypeScript and ASP.NET Core'
 authors: johnnyreilly
 tags: [ASP.Net Core, Auth0, typescript, OAuth, React]

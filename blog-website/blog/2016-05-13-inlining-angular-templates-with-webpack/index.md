@@ -1,4 +1,5 @@
 ---
+slug: inlining-angular-templates-with-webpack
 title: 'Inlining Angular Templates with WebPack and TypeScript'
 authors: johnnyreilly
 tags: [AngularJS, webpack]

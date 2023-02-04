@@ -1,5 +1,7 @@
 import fs from 'fs';
 import path from 'path';
+import { redirectsBlogger } from './redirectsBlogger';
+import { redirectsBacklinks } from './redirectsBacklinks';
 
 const docusaurusDirectory = '../blog-website';
 
@@ -10,17 +12,106 @@ async function run() {
       fs.statSync(path.resolve(docusaurusDirectory, 'blog', file)).isDirectory()
     );
 
-  // colocate(files[files.length - 1]);
-  blogDirectories.forEach(fixUp);
+  const oldToNew = new Map<
+    string,
+    {
+      dateUrl: string;
+      slug: string;
+    }
+  >(blogDirectories.map(getOldAndNewUrl));
+
+  const dateDocusaurusUrlToNew = new Map(
+    [...oldToNew.values()].map(({ dateUrl, slug }) => [dateUrl, slug])
+  );
+
+  const redirectsDocusaurusDateToNoDate = [...oldToNew.values()].map(
+    ({ dateUrl, slug }) => ({
+      route: dateUrl,
+      redirect: '/' + slug,
+    })
+  );
+
+  fs.writeFileSync(
+    path.resolve(
+      docusaurusDirectory,
+      'api',
+      'fallback',
+      'redirectsDocusaurusDateToNoDate.js'
+    ),
+    `const redirectsDocusaurusDateToNoDate = ${JSON.stringify(
+      redirectsDocusaurusDateToNoDate,
+      null,
+      2
+    )};
+  
+module.exports = redirectsDocusaurusDateToNoDate;
+`
+  );
+
+  const updatedRedirectsBlogger = redirectsBlogger.map(
+    ({ redirect, route }) => ({
+      route,
+      redirect: '/' + dateDocusaurusUrlToNew.get(redirect) ?? '',
+    })
+  );
+
+  const updatedRedirectsBacklinks = redirectsBacklinks.map(
+    ({ redirect, route }) => ({
+      route,
+      redirect: dateDocusaurusUrlToNew.has(redirect)
+        ? '/' + dateDocusaurusUrlToNew.get(redirect)
+        : redirect,
+    })
+  );
+
+  for (const [blogDir, { slug }] of oldToNew) {
+    addSlugToBlog({ blogDir, slug });
+  }
+
+  fs.writeFileSync(
+    path.resolve(docusaurusDirectory, 'api', 'fallback', 'redirectsBlogger.js'),
+    `const redirectsBlogger = ${JSON.stringify(
+      updatedRedirectsBlogger,
+      null,
+      2
+    )};
+  
+module.exports = redirectsBlogger;
+`
+  );
+
+  fs.writeFileSync(
+    path.resolve(
+      docusaurusDirectory,
+      'api',
+      'fallback',
+      'redirectsBacklinks.js'
+    ),
+    `const redirectsBacklinks = ${JSON.stringify(
+      updatedRedirectsBacklinks,
+      null,
+      2
+    )};
+  
+module.exports = redirectsBacklinks;
+`
+  );
+
+  // console.log(
+  //   updatedRedirectsBacklinks
+  //    .filter(x => x.redirect.length < 5)
+  // );
 }
 
-function fixUp(blogDir: string) {
-  const blogPath = path.resolve(docusaurusDirectory, 'blog', blogDir);
+function getOldAndNewUrl(blogDir: string) {
+  const [year, month, date] = blogDir.substring(0, 10).split('-');
+  const slug = blogDir.substring(11);
+  const dateUrl = `/${year}/${month}/${date}/${slug}`;
+  return [blogDir, { dateUrl, slug }] as const;
+}
 
-  // if (!fs.existsSync(blogPath)) {
-  //   console.log(`Creating directory: ${blogPath}`);
-  //   fs.mkdirSync(blogPath);
-  // }
+function addSlugToBlog({ blogDir, slug }: { blogDir: string; slug: string }) {
+  const blogPath = path.resolve(docusaurusDirectory, 'blog', blogDir);
 
   const blogPostPath = `${blogPath}/index.md`;
 
@@ -39,22 +130,35 @@ function fixUp(blogDir: string) {
 
   const blogPostContent = fs.readFileSync(blogPostPath, 'utf-8');
 
-  if (blogPostContent.match(urlRegex) === null) return;
+  if (
+    !blogPostContent.startsWith(`---
+title: `)
+  )
+    throw new Error(blogDir);
 
-  console.log(`updating blog ${blogDir}`);
+  // if (blogPostContent.match(urlRegex) === null) return;
 
-  let updated = blogPostContent.replace(urlRegex, replacer);
+  console.log(`updating ${blogDir} with slug: ${slug}`);
+
+  // let updated = blogPostContent.replace(urlRegex, replacer);
   // while (updated.match(urlRegex) !== null) {
   //   console.log(`updating...`);
   //   updated = blogPostContent.replace(urlRegex, replacer);
   // }
   // console.log(newString);  // abc - 12345 - #$*%
 
-  // const updated = blogPostContent.replaceAll('%2B', '-');
+  const updated = blogPostContent.replace(
+    `---
+title: `,
+    `---
+slug: ${slug}
+title: `
+  );
 
   fs.writeFileSync(blogPostPath, updated);
-  // throw new Error('fgh')
   console.log(`✅ updated blog ${blogDir}`);
+
+  // throw new Error('done');
 }
 
 const urlRegex =

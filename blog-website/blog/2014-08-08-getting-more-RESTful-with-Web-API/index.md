@@ -1,4 +1,5 @@
 ---
+slug: getting-more-RESTful-with-Web-API
 title: 'Getting more RESTful with Web API and IHttpActionResult'
 authors: johnnyreilly
 tags: [ASP.NET]

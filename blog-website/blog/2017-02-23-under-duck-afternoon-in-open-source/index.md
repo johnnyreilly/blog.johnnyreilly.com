@@ -1,4 +1,5 @@
 ---
+slug: under-duck-afternoon-in-open-source
 title: 'Under the Duck: An Afternoon in Open Source'
 authors: johnnyreilly
 tags: [ts-loader, webpack]

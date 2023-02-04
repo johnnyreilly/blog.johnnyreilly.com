@@ -1,4 +1,5 @@
 ---
+slug: elvis-and-king-concat
 title: 'Elvis and King Concat'
 authors: johnnyreilly
 tags: [C#]

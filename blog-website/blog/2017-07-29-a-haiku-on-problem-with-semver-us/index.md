@@ -1,4 +1,5 @@
 ---
+slug: a-haiku-on-problem-with-semver-us
 title: 'A Haiku on the Problem with SemVer: Us'
 authors: johnnyreilly
 tags: [haiku, semantic versioning]

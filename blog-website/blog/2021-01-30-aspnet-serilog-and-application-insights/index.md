@@ -1,4 +1,5 @@
 ---
+slug: aspnet-serilog-and-application-insights
 title: 'ASP.NET, Serilog and Application Insights'
 authors: johnnyreilly
 image: ./title-image.png

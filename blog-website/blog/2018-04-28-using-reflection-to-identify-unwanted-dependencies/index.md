@@ -1,4 +1,5 @@
 ---
+slug: using-reflection-to-identify-unwanted-dependencies
 title: 'Using Reflection to Identify Unwanted Dependencies'
 authors: johnnyreilly
 tags: [.NET]

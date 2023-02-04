@@ -1,4 +1,5 @@
 ---
+slug: taskwhenall-select-is-footgun
 title: 'Task.WhenAll / Select is a footgun 👟🔫'
 authors: johnnyreilly
 tags: [C#, LINQ]

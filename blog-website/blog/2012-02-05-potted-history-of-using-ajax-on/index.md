@@ -1,4 +1,5 @@
 ---
+slug: potted-history-of-using-ajax-on
 title: 'A Potted History of using Ajax (on the Microsoft Stack of Love)'
 authors: johnnyreilly
 tags: [ajax, jquery, json, microsoft]

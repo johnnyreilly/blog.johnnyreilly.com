@@ -1,4 +1,5 @@
 ---
+slug: webpack-configuring-loader-with-query
 title: 'webpack: configuring a loader with query / options'
 authors: johnnyreilly
 tags: [webpack]

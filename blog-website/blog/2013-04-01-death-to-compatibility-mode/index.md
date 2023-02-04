@@ -1,4 +1,5 @@
 ---
+slug: death-to-compatibility-mode
 title: 'Death to compatibility mode'
 authors: johnnyreilly
 tags: [internet explorer]

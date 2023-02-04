@@ -1,4 +1,5 @@
 ---
+slug: typescript-abstract-classes-and-constructors
 title: 'TypeScript, abstract classes, and constructors'
 authors: johnnyreilly
 tags: [typescript]

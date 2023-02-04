@@ -1,4 +1,5 @@
 ---
+slug: semantic-versioning-and-definitely-typed
 title: 'Semantic Versioning and Definitely Typed'
 authors: johnnyreilly
 tags: [Definitely Typed, typescript]

@@ -1,4 +1,5 @@
 ---
+slug: im-looking-for-work
 title: "I'm looking for work!"
 authors: johnnyreilly
 tags: []

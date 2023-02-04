@@ -1,4 +1,5 @@
 ---
+slug: coming-soon-definitely-typed
 title: 'Coming Soon: Definitely Typed'
 authors: johnnyreilly
 tags: [typescript, Definitely Typed]

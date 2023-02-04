@@ -1,4 +1,5 @@
 ---
+slug: tfs-2012-meet-powershell-karma-and-buildnumber
 title: 'TFS 2012 meet PowerShell, Karma and BuildNumber'
 authors: johnnyreilly
 tags: [TFS]

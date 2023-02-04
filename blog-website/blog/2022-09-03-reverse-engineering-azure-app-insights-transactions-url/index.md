@@ -1,4 +1,5 @@
 ---
+slug: reverse-engineering-azure-app-insights-transactions-url
 title: 'Reverse engineering the Azure Application Insights Transactions URL'
 authors: johnnyreilly
 tags: [Azure Application Insights, typescript, C#]

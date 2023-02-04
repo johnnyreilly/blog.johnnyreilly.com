@@ -1,4 +1,5 @@
 ---
+slug: snapshot-testing-for-c
 title: 'Snapshot Testing for C#'
 authors: johnnyreilly
 tags: [snapshot testing, c#, jest]

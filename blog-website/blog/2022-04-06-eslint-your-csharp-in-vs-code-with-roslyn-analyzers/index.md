@@ -1,4 +1,5 @@
 ---
+slug: eslint-your-csharp-in-vs-code-with-roslyn-analyzers
 title: 'ESLint your C# in VS Code with Roslyn Analyzers'
 authors: johnnyreilly
 tags: [Roslyn Analyzers, C#, VS Code, Lint, ESLint]

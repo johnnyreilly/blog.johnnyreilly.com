@@ -1,4 +1,5 @@
 ---
+slug: webpack-esbuild-why-not-both
 title: 'webpack? esbuild? Why not both?'
 authors: johnnyreilly
 tags: [webpack, esbuild, esbuild-loader, ts-loader, babel-loader]

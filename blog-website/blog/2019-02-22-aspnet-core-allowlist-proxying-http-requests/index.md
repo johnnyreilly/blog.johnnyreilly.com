@@ -1,4 +1,5 @@
 ---
+slug: aspnet-core-allowlist-proxying-http-requests
 title: 'ASP.NET Core: Proxying HTTP Requests with an AllowList'
 authors: johnnyreilly
 tags: [.NET]

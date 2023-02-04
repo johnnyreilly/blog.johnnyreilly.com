@@ -1,4 +1,5 @@
 ---
+slug: generate-typescript-and-csharp-clients-with-nswag
 title: 'NSwag: TypeScript and CSharp client generation based on an API'
 authors: johnnyreilly
 tags: [NSwag, typescript, C#]

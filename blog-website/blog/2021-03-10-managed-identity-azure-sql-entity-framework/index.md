@@ -1,4 +1,5 @@
 ---
+slug: managed-identity-azure-sql-entity-framework
 title: 'Managed Identity, Azure SQL and Entity Framework'
 authors: johnnyreilly
 tags:

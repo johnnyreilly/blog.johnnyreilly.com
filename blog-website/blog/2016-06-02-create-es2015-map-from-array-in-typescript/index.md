@@ -1,4 +1,5 @@
 ---
+slug: create-es2015-map-from-array-in-typescript
 title: 'Creating an ES2015 Map from an Array in TypeScript'
 authors: johnnyreilly
 tags: [typescript, ES6, ES2015]

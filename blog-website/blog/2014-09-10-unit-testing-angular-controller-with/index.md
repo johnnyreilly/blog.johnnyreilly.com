@@ -1,4 +1,5 @@
 ---
+slug: unit-testing-angular-controller-with
 title: 'Unit Testing an Angular Controller with Jasmine'
 authors: johnnyreilly
 tags: [Jasmine, unit tests, AngularJS]

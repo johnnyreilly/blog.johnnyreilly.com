@@ -1,4 +1,5 @@
 ---
+slug: azure-app-service-health-checks-and-zero-downtime-deployments
 title: 'Azure App Service, Health checks and zero downtime deployments'
 authors: johnnyreilly
 tags: [Azure App Service]

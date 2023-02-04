@@ -1,4 +1,5 @@
 ---
+slug: cache-rules-everything-around-me
 title: 'Cache Rules Everything Around Me'
 authors: johnnyreilly
 tags: [asp.net core]
