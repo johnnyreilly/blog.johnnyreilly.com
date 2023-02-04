@@ -32,7 +32,7 @@ https://github.com/facebook/docusaurus/discussions/6030
 
 Added privacy policy https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/743e80f0205cafc7e1ef90c9e9b6da7f1e810b43
 
-fetchpriority on LCP image / no lazy loading
+## Improve performance with fetchpriority on LCP image / no lazy loading
 
 [I've implemented an approach to tackle this on my blog](../2023-01-18-docusaurus-improve-core-web-vitals-fetchpriority/index.md):
 
@@ -42,6 +42,8 @@ It does 2 things:
 - implements a rehype plugin which sets `fetchpriority` on the first image and lazy loading on the rest
 
 It would be good to get this into Docusaurus if it makes sense - the question is: does it? And if it does, what sort of implementation makes sense?
+
+## JSON-LD breadcrumbs
 
 added JSON-LD breadcrumbs to blog posts and archive pages:
 
@@ -56,19 +58,26 @@ Added multiple breadcrumb lists to blog posts to include tags as well
 
 https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/e69633ca6cc6cae98cd405580e9659594ac92f8a
 
-start truncate to have summaries and reduce duplicate content https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/419
+## Reduce duplicate content
+
+start using truncate to have summaries and reduce duplicate content https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/419
 
 rationalise tags:
 - https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/420
 - https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/418
+
+## remove date from urls with `slug`
+
+https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/423
+
+## Added a "Where has this blog featured? section" in about
+
 
 Fix link to https://johnnyreilly.com https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/ec6dcc9ea7e173bed01c7dba870b6aaaa2bd102e
 
 reported to webmaster tools
 
 https://support.google.com/webmasters/thread/197869844?hl=en
-
-Where has this blog featured? section in about
 
 https://support.google.com/webmasters/community?hl=en
 
