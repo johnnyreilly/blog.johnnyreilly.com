@@ -352,7 +352,7 @@ const redirectsDocusaurusDateToNoDate = [
   },
   {
     route: '/2015/04/17/how-to-activate-your-emoji-keyboard-on',
-    redirect: '/how-to-activate-your-emoji-keyboard-on',
+    redirect: '/how-to-activate-your-emoji-keyboard-on-android',
   },
   {
     route: '/2015/04/24/tonight-ill-start-open-source-project',
@@ -444,7 +444,7 @@ const redirectsDocusaurusDateToNoDate = [
   },
   {
     route: '/2016/03/22/elvis-and-king-concat',
-    redirect: '/elvis-and-king-concat',
+    redirect: '/concatting-ienumerables-in-csharp',
   },
   {
     route: '/2016/04/25/instant-stubs-with-jsonnet',

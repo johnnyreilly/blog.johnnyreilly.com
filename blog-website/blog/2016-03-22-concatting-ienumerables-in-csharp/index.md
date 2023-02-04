@@ -1,12 +1,12 @@
 ---
-slug: elvis-and-king-concat
-title: 'Elvis and King Concat'
+slug: concatting-ienumerables-in-csharp
+title: 'Concatting IEnumerables in C#'
 authors: johnnyreilly
 tags: [C#]
 hide_table_of_contents: false
 ---
 
-I hate LINQ's `<a href="https://msdn.microsoft.com/en-us/library/bb302894%28v=vs.110%29.aspx?f=255&amp;MSPPError=-2147217396">Enumerable.Concat</a>` when bringing together `IEnumerable`s. Not the behaviour (I love that!) but rather how code ends up looking when you use it. Consider this:
+I hate LINQ's [`Enumerable.Concat`](https://msdn.microsoft.com/en-us/library/bb302894%28v=vs.110%29.aspx?f=255&MSPPError=-2147217396) when bringing together `IEnumerable`s. Not the behaviour (I love that!) but rather how code ends up looking when you use it. Consider this:
 
 <!--truncate-->
 
@@ -80,7 +80,7 @@ Which allows for calling code like this:
 var concatenated = EnumerableExtensions.Create(
     myCollection?.Select(x => new { Anonymous = x.Types }),
     myOtherCollection?.Select(x => new { Anonymous = x.Types })
-    );
+);
 ```
 
 That's right; anonymous types are back! Strictly speaking the `Concat` method above could be converted into a single `SelectMany` (and boy does ReSharper like telling me) but I'm quite happy with it as is. And to be honest, I so rarely get to use `yield` in my own code; I thought it might be nice to give it a whirl 😊

@@ -352,7 +352,7 @@ const redirectsBlogger = [
   },
   {
     route: '/2015/04/how-to-activate-your-emoji-keyboard-on.html',
-    redirect: '/how-to-activate-your-emoji-keyboard-on',
+    redirect: '/how-to-activate-your-emoji-keyboard-on-android',
   },
   {
     route: '/2015/04/tonight-ill-start-open-source-project.html',
@@ -444,7 +444,7 @@ const redirectsBlogger = [
   },
   {
     route: '/2016/03/elvis-and-king-concat.html',
-    redirect: '/elvis-and-king-concat',
+    redirect: '/concatting-ienumerables-in-csharp',
   },
   {
     route: '/2016/04/instant-stubs-with-jsonnet.html',

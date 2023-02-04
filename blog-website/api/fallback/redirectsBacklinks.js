@@ -276,6 +276,10 @@ const redirectsBacklinks = [
     route: '/2021/03/15/from-blogger-to-docusaurus',
     redirect: '/definitive-guide-to-migrating-from-blogger-to-docusaurus',
   },
+  {
+    route: '/tags/type-script',
+    redirect: '/tags/typescript',
+  },
 ];
 
 module.exports = redirectsBacklinks;
