@@ -47,18 +47,7 @@ It would be good to get this into Docusaurus if it makes sense - the question is
 
 ## JSON-LD breadcrumbs
 
-added JSON-LD breadcrumbs to blog posts and archive pages:
-
-https://developers.google.com/search/docs/appearance/structured-data/breadcrumb
-
-npm run swizzle @docusaurus/theme-classic BlogArchivePage -- --wrap --danger
-npm run swizzle @docusaurus/theme-classic BlogPostPage -- --wrap --danger
-
-https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/416/files
-
-Added multiple breadcrumb lists to blog posts to include tags as well
-
-https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/e69633ca6cc6cae98cd405580e9659594ac92f8a
+https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/425
 
 ## Reduce duplicate content
 
