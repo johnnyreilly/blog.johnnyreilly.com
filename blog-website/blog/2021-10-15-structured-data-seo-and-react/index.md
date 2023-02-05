@@ -13,11 +13,13 @@ People being able to discover your website when they search is important. This p
 
 <!--truncate-->
 
-## Updated 26th November 2022
+## Updated 5th January 2023
 
 This blog evolved to become a talk:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/zi1CHB-eVck?start=282" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+
+If you'd like to read about the related topic of [adding breadcrumb Structured Data to a Docusaurus app, I've another post covering that](../2023-02-05-docusaurus-blogs-adding-breadcrumb-structured-data/).
 
 ## What is structured data?
 

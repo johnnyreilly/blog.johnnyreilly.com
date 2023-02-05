@@ -30,7 +30,7 @@ This breadcrumb was driven by Structured Data that my blog surfaces. Structured 
 
 It's worth noting that what we're going to do here is add a JSON-LD Structured Data breadcrumb to the blog post. There's going to be no physical breadcrumb on the page itself. It could be nice to add a physical breadcrumb, but that's not what we're going to do here as it would not be a trivial addition. (As an aside, Docusaurus does use physical breadcrumbs in its documentation pages; which surface Structured Data.)
 
-Docusaurus already has Structured Data support for blog posts; [in fact it was me that originally contributed it](https://github.com/facebook/docusaurus/pull/5322). I like me some Structured Data 😉. We're going to enrich the Structured Data for blog posts by adding a breadcrumb as well as the existing article / `BlogPosting` Structured Data.
+Docusaurus already has Structured Data support for blog posts; [in fact I had a hand in that](https://github.com/facebook/docusaurus/pull/5322). I like me some Structured Data 😉. The existing Structured Data is article / `BlogPosting` metadata. We're going to enrich the Structured Data for blog posts by adding a `BreadcrumbList` as well.
 
 Incidentally, if you'd like to learn more about React, JSON-LD and Structured Data, I've [written about it, and done a short talk on the topic](../2021-10-15-structured-data-seo-and-react/index.md).
 
@@ -187,9 +187,9 @@ export default function BlogPostPageWrapper(props) {
 
 Again, we're constructing a JSON-LD Structured Data object that represents a breadcrumb. But this time we're going to add multiple breadcrumbs to the page. The first is the archive breadcrumb. The other breadcrumbs are generated for each tag.
 
-I'm somewhat on the fence as to whether it's useful to have a breadcrumb for each tag. [In fact, originally I didn't have it when I first added support](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/416). But I've added it in as it's not a lot of work and it's not a lot of code. I'm not sure if it's useful or not. [I'm going to leave it in for now and see how it goes](https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/e69633ca6cc6cae98cd405580e9659594ac92f8a).
+I'm somewhat on the fence as to whether it's useful to have a breadcrumb for each tag. [In fact, originally I didn't have it when I first added support](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/416). But I've added it in as it's not a lot of work and it's not a lot of code. I'm not sure if it's useful or not. [I've added it now](https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/e69633ca6cc6cae98cd405580e9659594ac92f8a); I'm going to leave it in in place for a bit and see how it goes.
 
-## How to test
+## Using the Rich Results test to validate the breadcrumbs
 
 Once we've shipped the changes we can test them using the [Google Rich Results Test](https://search.google.com/test/rich-results). The screenshot below was taken after I'd deployed the changes and [the test was run](https://search.google.com/test/rich-results?url=https%3A%2F%2Fjohnnyreilly.com%2Fdirectory-build-props-c-sharp-9-for-all).
 
