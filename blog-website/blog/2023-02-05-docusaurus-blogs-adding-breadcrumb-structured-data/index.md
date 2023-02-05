@@ -14,19 +14,25 @@ By default, Docusaurus blogs don't add breadcrumb Structured Data to their blog 
 
 <!--truncate-->
 
+## What are breadcrumbs?
+
 Take a look at this:
 
 ![screenshot of Google search results with a highlighted breadcrumb](./screenshot-google-search-results-breadcrumbs.png)
 
-What you're looking at is a [blog post of mine](../2021-07-14-directory-build-props-c-sharp-9-for-all/index.md) showing up in Google search results, with a breadcrumb that I've highlighted. What is a breadcrumb to Google?
+What you're looking at is a [blog post of mine](../2021-07-14-directory-build-props-c-sharp-9-for-all/index.md) showing up in Google search results. Significantly, it has a breadcrumb which I've highlighted.
+
+This breadcrumb was driven by Structured Data that my blog surfaces. Structured Data is a form of metadata that is more machine readable; and consequently helpful the search engines like Google. Now, what is a breadcrumb to Google?
 
 > Google Search uses breadcrumb markup in the body of a web page to categorize the information from the page in search results.
 
-[You can read more on breadcrumbs here](https://developers.google.com/search/docs/appearance/structured-data/breadcrumb). This post is about how to add breadcrumbs to your Docusaurus blog posts to help Google categorise your blog posts. It's worth noting that what we're going to do here is add a JSON-LD breadcrumb to the blog post. There's no physical breadcrumb on the page itself. It could be nice to add a physical breadcrumb to the page itself, but that's not what we're going to do here as it would not be trivial to do so.
+[You can read more on breadcrumbs here](https://developers.google.com/search/docs/appearance/structured-data/breadcrumb). This post is about how to add breadcrumbs to your Docusaurus blog posts, to help Google categorise your blog posts.
 
-Docusaurus already has Structured Data support for blog posts; [in fact it was me that originally contributed it](https://github.com/facebook/docusaurus/pull/5322). We're going to enrich the Structured Data for blog posts by adding a breadcrumb as well as the existing Article / BlogPosting Structured Data.
+It's worth noting that what we're going to do here is add a JSON-LD Structured Data breadcrumb to the blog post. There's going to be no physical breadcrumb on the page itself. It could be nice to add a physical breadcrumb, but that's not what we're going to do here as it would not be trivial.
 
-If you'd like to learn more about React, JSON-LD and Structured Data, I've written a [post on the topic](../2021-10-15-structured-data-seo-and-react/index.md).
+Docusaurus already has Structured Data support for blog posts; [in fact it was me that originally contributed it](https://github.com/facebook/docusaurus/pull/5322). Yeah; I like me some Structured Data 😉. We're going to enrich the Structured Data for blog posts by adding a breadcrumb as well as the existing article / `BlogPosting` Structured Data.
+
+Incidentally, if you'd like to learn more about React, JSON-LD and Structured Data, I've written a [post and done a short talk on the topic](../2021-10-15-structured-data-seo-and-react/index.md).
 
 ## Adding a breadcrumb to a blog post
 
