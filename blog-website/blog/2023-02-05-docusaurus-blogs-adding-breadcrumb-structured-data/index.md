@@ -202,3 +202,7 @@ We can also check the breadcrumbs in the [Google Search Console](https://search.
 ![Screenshot of the Google search console](./screenshot-google-search-console-breadcrumbs.webp)
 
 So that's it, now we have breadcrumbs on the blog posts.
+
+## Conclusion
+
+This is a useful addition to the blog. I'd like it more if it was a physical breadcrumb as well; not just an "invisible" one. I may open an issue with Docusaurus to see if that's possible. I would imagine, if that does get added, it would likely be a single breadcrumb rather than multiple ones. But let me not preempt; let's see what comes of it.
