@@ -18,7 +18,7 @@ By default, Docusaurus blogs don't add breadcrumb Structured Data to their blog 
 
 Take a look at this:
 
-![screenshot of Google search results with a highlighted breadcrumb](./screenshot-google-search-results-breadcrumbs.png)
+![screenshot of Google search results with a highlighted breadcrumb](./screenshot-google-search-results-breadcrumbs.webp)
 
 What you're looking at is a [blog post of mine](../2021-07-14-directory-build-props-c-sharp-9-for-all/index.md) showing up in Google search results. Significantly, it has a breadcrumb which I've highlighted. It indicates that the blog post sits under the blogs "Archive" page, which in turn sits under the home page of the site.
 
@@ -193,12 +193,12 @@ I'm somewhat on the fence as to whether it's useful to have a breadcrumb for eac
 
 Once we've shipped the changes we can test them using the [Google Rich Results Test](https://search.google.com/test/rich-results). The screenshot below was taken after I'd deployed the changes and [the test was run](https://search.google.com/test/rich-results?url=https%3A%2F%2Fjohnnyreilly.com%2Fdirectory-build-props-c-sharp-9-for-all).
 
-![screenshot of the Rich Results Test featuring article and breadcrumbs](./screenshot-google-rich-results-test-breadcrumbs.png)
+![screenshot of the Rich Results Test featuring article and breadcrumbs](./screenshot-google-rich-results-test-breadcrumbs.webp)
 
 ![screenshot of the Rich Results Test featuring the specific 4 breadcrumbs](./screenshot-google-rich-results-test-breadcrumbs-breakdown.png)
 
 We can also check the breadcrumbs in the [Google Search Console](https://search.google.com/search-console/r/breadcrumbs):
 
-![Screenshot of the Google search console](./screenshot-google-search-console-breadcrumbs.png)
+![Screenshot of the Google search console](./screenshot-google-search-console-breadcrumbs.webp)
 
 So that's it, now we have breadcrumbs on the blog posts.
