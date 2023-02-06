@@ -2,7 +2,7 @@
 slug: nuget-and-webmatrix-how-to-install
 title: 'NuGet and WebMatrix: How to install a specific version of a package'
 authors: johnnyreilly
-tags: [jquery, package, WebMatrix, NuGet]
+tags: [jquery, NuGet]
 hide_table_of_contents: false
 ---
 

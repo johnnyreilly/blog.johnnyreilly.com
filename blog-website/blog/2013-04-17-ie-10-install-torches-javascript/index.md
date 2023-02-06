@@ -2,7 +2,7 @@
 slug: ie-10-install-torches-javascript
 title: 'IE 10 Install Torches JavaScript Debugging in Visual Studio 2012 Through Auto Update (Probably)'
 authors: johnnyreilly
-tags: [Visual Studio 2012, JavaScript debugging, IE 10]
+tags: [Visual Studio, javascript, IE 10]
 hide_table_of_contents: false
 ---
 

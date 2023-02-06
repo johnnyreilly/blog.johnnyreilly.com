@@ -3,7 +3,7 @@ slug: goodbye-client-affinity-hello-data-protection-with-azure
 title: 'Goodbye Client Affinity, Hello Data Protection with Azure'
 description: 'How to use ASP.NET Data Protection to remove the need for sticky sessions with Client Affinity'
 authors: johnnyreilly
-tags: [Azure, Data Protection, Easy Auth, ASP.NET]
+tags: [Azure, Easy Auth, ASP.NET]
 image: ./traffic-to-app-service.png
 hide_table_of_contents: false
 ---

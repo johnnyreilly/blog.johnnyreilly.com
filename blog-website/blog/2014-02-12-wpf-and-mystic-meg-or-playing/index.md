@@ -2,7 +2,7 @@
 slug: wpf-and-mystic-meg-or-playing
 title: 'WPF and Mystic Meg or Playing Futurologist'
 authors: johnnyreilly
-tags: [SPA, WPF]
+tags: [SPA]
 hide_table_of_contents: false
 ---
 

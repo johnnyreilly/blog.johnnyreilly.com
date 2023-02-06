@@ -2,7 +2,7 @@
 slug: the-typescript-webpack-pwa
 title: 'The TypeScript webpack PWA'
 authors: johnnyreilly
-tags: [workbox, typescript, PWA, webpack]
+tags: [typescript, PWA, webpack]
 hide_table_of_contents: false
 ---
 

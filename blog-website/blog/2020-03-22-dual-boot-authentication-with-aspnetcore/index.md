@@ -2,7 +2,7 @@
 slug: dual-boot-authentication-with-aspnetcore
 title: 'Dual boot authentication with ASP.NET'
 authors: johnnyreilly
-tags: [Authentication, Cookie, Azure AD, ASP.NET]
+tags: [Authentication, Azure AD, ASP.NET]
 hide_table_of_contents: false
 ---
 

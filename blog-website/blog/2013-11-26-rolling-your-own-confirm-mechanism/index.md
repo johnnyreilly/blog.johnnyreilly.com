@@ -2,7 +2,7 @@
 slug: rolling-your-own-confirm-mechanism
 title: 'Rolling your own confirm mechanism using Promises and jQuery UI'
 authors: johnnyreilly
-tags: [jQuery UI, promises]
+tags: [jQuery UI]
 hide_table_of_contents: false
 ---
 

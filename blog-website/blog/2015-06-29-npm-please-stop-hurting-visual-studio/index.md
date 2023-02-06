@@ -2,7 +2,7 @@
 slug: npm-please-stop-hurting-visual-studio
 title: 'npm please stop hurting Visual Studio'
 authors: johnnyreilly
-tags: [rimraf, npm, long paths, Windows]
+tags: [npm, Windows]
 hide_table_of_contents: false
 ---
 

@@ -2,13 +2,7 @@
 slug: managed-identity-azure-sql-entity-framework
 title: 'Managed Identity, Azure SQL and Entity Framework'
 authors: johnnyreilly
-tags:
-  [
-    connection string,
-    managed identity,
-    entity framework,
-    Microsoft.Data.SqlClient,
-  ]
+tags: [connection string, managed identity, entity framework]
 image: ./entity-framework-core-nuget.png
 hide_table_of_contents: false
 ---

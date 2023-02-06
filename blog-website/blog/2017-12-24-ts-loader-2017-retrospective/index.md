@@ -2,7 +2,7 @@
 slug: ts-loader-2017-retrospective
 title: 'ts-loader 2017 retrospective'
 authors: johnnyreilly
-tags: [Die Hard, typescript, ts-loader, Webpack]
+tags: [typescript, ts-loader, webpack]
 hide_table_of_contents: false
 ---
 

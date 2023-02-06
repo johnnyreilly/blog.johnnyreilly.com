@@ -2,7 +2,7 @@
 slug: webpack-resolveloader-alias-with-query
 title: 'webpack: resolveLoader / alias with query / options'
 authors: johnnyreilly
-tags: [enhanced-resolve, Webpack, query, options]
+tags: [webpack]
 hide_table_of_contents: false
 ---
 

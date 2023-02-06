@@ -2,7 +2,7 @@
 slug: webpack-esbuild-why-not-both
 title: 'webpack? esbuild? Why not both?'
 authors: johnnyreilly
-tags: [webpack, esbuild, esbuild-loader, ts-loader, babel-loader]
+tags: [webpack, esbuild, ts-loader, babel-loader]
 image: ./webpack-esbuild-why-not-both.webp
 hide_table_of_contents: false
 ---

@@ -2,7 +2,7 @@
 slug: how-to-activate-your-emoji-keyboard-on-android
 title: 'How to activate your emoji keyboard on Android 5.0 (Lollipop)'
 authors: johnnyreilly
-tags: [emoji, android]
+tags: [android]
 hide_table_of_contents: false
 ---
 

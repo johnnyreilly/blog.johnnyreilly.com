@@ -3,7 +3,7 @@ slug: prettier-your-csharp-with-dotnet-format-and-lint-staged
 title: 'dotnet-format: Prettier your C# with lint-staged & husky'
 authors: johnnyreilly
 image: ./title-image.png
-tags: [Prettier, dotnet-format]
+tags: [Prettier]
 hide_table_of_contents: false
 ---
 

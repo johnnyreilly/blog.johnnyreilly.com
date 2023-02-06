@@ -2,7 +2,7 @@
 slug: devcontainers-aka-performance-in-secure
 title: 'Devcontainers AKA performance in a secure sandbox'
 authors: johnnyreilly
-tags: [git clone, devcontainer, performance, SSH]
+tags: [devcontainer]
 hide_table_of_contents: false
 ---
 
