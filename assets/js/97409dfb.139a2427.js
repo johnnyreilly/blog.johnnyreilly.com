@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[69669],{17877:a=>{a.exports=JSON.parse('{"label":"UI Bootstrap","permalink":"/tags/ui-bootstrap","allTagsPath":"/tags","count":1}')}}]);

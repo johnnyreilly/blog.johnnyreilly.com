@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[95746],{56828:e=>{e.exports=JSON.parse('{"label":"mocking","permalink":"/tags/mocking","allTagsPath":"/tags","count":1}')}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[31117],{28161:s=>{s.exports=JSON.parse('{"label":"SAS","permalink":"/tags/sas","allTagsPath":"/tags","count":1}')}}]);

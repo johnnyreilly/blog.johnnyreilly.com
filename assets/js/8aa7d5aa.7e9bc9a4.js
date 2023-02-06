@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[65862],{35957:a=>{a.exports=JSON.parse('{"label":"Data Protection","permalink":"/tags/data-protection","allTagsPath":"/tags","count":1}')}}]);
