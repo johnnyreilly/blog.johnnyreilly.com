@@ -20,7 +20,7 @@ Not everyone values pull requests. I really do, and this post explains why.
 
 I don't feel the same way; and ended up writing a long screed back to Graeme as to why. I thought I'd share it here too, in only slightly refined format:
 
-> I've seen this idea floating around. There is something to be said for low friction contribution for people that you trust. For that reason I definitely apply less scrutiny to PRs from people that I know / trust less as compared to people I know / trust more. However, to add a little more nuance. Here we go!
+> I've seen this idea floating around. There is something to be said for low friction contribution for people that you trust. For that reason I definitely apply more scrutiny to PRs from people that I know / trust less as compared to people I know / trust more. However, to add a little more nuance. Here we go!
 
 ## Pull Requests provide a moment for contemplation
 
