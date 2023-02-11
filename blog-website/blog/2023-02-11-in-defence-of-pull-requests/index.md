@@ -20,7 +20,7 @@ Not everyone values pull requests. I really do, and this post explains why.
 
 I don't feel the same way; and ended up writing a long screed back to Graeme as to why. I thought I'd share it here too, in only slightly refined format:
 
-I've seen this idea floating around. There is something to be said for low friction contribution for people that you trust. For that reason I definitely apply less scrutiny to PRs from people that I know / trust less as compared to people I know / trust more. However, to add a little more nuance. Here we go!
+> I've seen this idea floating around. There is something to be said for low friction contribution for people that you trust. For that reason I definitely apply less scrutiny to PRs from people that I know / trust less as compared to people I know / trust more. However, to add a little more nuance. Here we go!
 
 ## Pull Requests provide a moment for contemplation
 
@@ -48,4 +48,4 @@ Finally, automated testing. If you value automated testing, you must ask yoursel
 
 Low friction contribution is a good goal. In the case of very simple pull requests, automating from top to bottom with minimal need for human interaction is a great idea. In fact if you'd like to see an example of this in the wild, it's worth taking a look at the automation the TypeScript team, and in particular [Orta Therox](https://orta.io), applied to the [Definitely Typed](https://github.com/DefinitelyTyped/DefinitelyTyped) repo.
 
-But, safe to say, I think there's a great deal more nuance to the topic than implied by the raw tweet.
+But, safe to say, I think there's a great deal more nuance to the topic than implied by the raw tweet. Pull requests are to be cherished, not spurned. Yay pull requests!
