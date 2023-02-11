@@ -8,7 +8,7 @@ description: 'Some people feel that pull requests are a barrier to contribution.
 hide_table_of_contents: false
 ---
 
-Not everyone values pull requests. I really do, and this post is in defence of them.
+Not everyone values pull requests. I really do, and this post explains why.
 
 ![title image reading "In defence of pull requests"](title-image.png)
 
