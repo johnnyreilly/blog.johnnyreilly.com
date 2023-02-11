@@ -8,15 +8,17 @@ description: 'Some people feel that pull requests are a barrier to contribution.
 hide_table_of_contents: false
 ---
 
-Graeme Lockley recently shared this tweet with me:
+[Graeme Lockley](https://twitter.com/lockersmyboy) recently shared [this tweet](https://twitter.com/nhumrich/status/1623435760379768832) with me:
 
-![screenshot of tweet saying ](screenshot-tweet-code-reviews-and-pull-requests.png)
+![screenshot of tweet saying "Code reviews and pull requests were invented for open source projects where you want to gatekeep changes from people you don't know and don't trust to change the code safely"](screenshot-tweet-code-reviews-and-pull-requests.png)
+
+It quotes [Dave Farley](https://twitter.com/davefarley77) saying that pull requests are a barrier to contribution. I don't feel the same way; and ended up writing a long screed back to Graeme. I thought I'd share it here too, in only slightly refined format.
 
 ![title image reading "Docusaurus blogs: adding breadcrumb Structured Data" with the Docusaurus logo](title-image.png)
 
 <!--truncate-->
 
-I've seen this floating around. There is something to be said for low friction contribution for people that you trust. For that reason I definitely apply less scrutiny to PRs from people that I know / trust less as compared to people I know / trust more. However, to add a little more nuance:
+I've seen this idea floating around. There is something to be said for low friction contribution for people that you trust. For that reason I definitely apply less scrutiny to PRs from people that I know / trust less as compared to people I know / trust more. However, to add a little more nuance:
 
 ## Pull Requests provide a "moment of consideration"
 
