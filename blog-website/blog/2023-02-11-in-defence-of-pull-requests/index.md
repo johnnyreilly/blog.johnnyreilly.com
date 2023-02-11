@@ -14,13 +14,13 @@ hide_table_of_contents: false
 
 It quotes [Dave Farley](https://twitter.com/davefarley77) saying that pull requests are a barrier to contribution. I don't feel the same way; and ended up writing a long screed back to Graeme. I thought I'd share it here too, in only slightly refined format.
 
-![title image reading "Docusaurus blogs: adding breadcrumb Structured Data" with the Docusaurus logo](title-image.png)
+![title image reading "In defence of pull requests"](title-image.png)
 
 <!--truncate-->
 
 I've seen this idea floating around. There is something to be said for low friction contribution for people that you trust. For that reason I definitely apply less scrutiny to PRs from people that I know / trust less as compared to people I know / trust more. However, to add a little more nuance:
 
-## Pull Requests provide a "moment of consideration"
+## Pull Requests provide a moment for contemplation
 
 A moment to take stock of what's been built, and whether we'd be happy with it landing that way. Because I'm an equal opportunities kinda guy, I apply that to myself. When I raise a PR, before I let others know it's ready for review, I will tend to do a first review myself. It's amazing the different perspective you can have as the consumer of a PR as compared to a producer. I find I change things often before sharing with others as a consequence.
 
@@ -30,7 +30,15 @@ Engineers are not obligated to communicate about what they do. And famously many
 
 Very much related to this, PRs are a teaching opportunity. It's a way to level up the next generation of engineers that are learning from you. What we do is more than the code we write, it's the culture we create.
 
-## Where does Automated Testing fit in?
+## Pull Requests provide an opportunity for collaboration
+
+This may shock you, but I don't always get things perfect. My ideas and implementations are often "good starts", but which are wildly improved through collaboration with others. PRs provide a way to collaborate on a change. I value them specifically for that reason.
+
+Unfortunately the prompting tweet is talking about PRs being used on OSS projects; and the nature of work I do that _isn't_ OSS means I can't evidence it. However, I can point you to a [PR I raised on the Docusaurus repo](https://github.com/facebook/docusaurus/pull/8378#discussion_r1044277801) where I was collaborating with the marvellous [Sébastien Lorber](https://github.com/slorber) on a change. I'd say it's a good example of how PRs can be used to collaborate on a change; it's definitely how I want to roll regardless of the project I'm working on.
+
+![screenshot of the linked PR demonstrating collaboration https://github.com/facebook/docusaurus/pull/8378#discussion_r1044277801](screenshot-collaborating-on-github.png)
+
+## Where does automated testing fit in?
 
 Finally, automated testing. If you value automated testing, you must ask yourself the question: where does it fit into the contribution picture? Running automated tests against contributions is a good way to test the value those contributions provide. If you don't run them prior to contribution, then when do you run them? And how do you evidence the results?
 
