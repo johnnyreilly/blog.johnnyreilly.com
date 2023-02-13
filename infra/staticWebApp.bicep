@@ -39,7 +39,7 @@ resource staticWebApp 'Microsoft.Web/staticSites@2022-03-01' = {
 
 resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' = {
   name: 'appsettings'
-  kind: 'string'
+  kind: 'config'
   parent: staticWebApp
   properties: {
     APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
@@ -49,7 +49,7 @@ resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' =
 
 resource staticWebAppFunctionAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' = {
   name: 'functionappsettings'
-  kind: 'string'
+  kind: 'config'
   parent: staticWebApp
   properties: {
     APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
