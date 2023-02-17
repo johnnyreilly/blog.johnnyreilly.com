@@ -6,6 +6,11 @@ import styles from './styles.module.css';
 
 const talks = [
   {
+    permalink: 'https://www.youtube.com/watch?v=3W8vCEtRn68&t=220s',
+    formattedDate: 'February 16th, 2023',
+    title: 'LogRocket Meetup: Understanding API data-fetching methods in React',
+  },
+  {
     permalink: 'https://www.youtube.com/watch?v=O58b4r21sz4&t=1735s',
     formattedDate: 'January 13th, 2023',
     title: 'TypeScript London: Me and Open Source',
