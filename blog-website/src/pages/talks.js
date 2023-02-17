@@ -6,7 +6,7 @@ import styles from './styles.module.css';
 
 const talks = [
   {
-    permalink: 'https://www.youtube.com/watch?v=3W8vCEtRn68&t=30s',
+    permalink: 'https://www.youtube.com/watch?v=3W8vCEtRn68&t=220s',
     formattedDate: 'February 16th, 2023',
     title: 'LogRocket Meetup: Understanding API data-fetching methods in React',
   },
