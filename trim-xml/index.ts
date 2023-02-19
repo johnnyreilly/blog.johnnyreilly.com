@@ -5,7 +5,7 @@ import {
   getBlogPathFromUrl,
   getGitLastUpdatedFromFilePath,
 } from './getGitLastUpdated';
-import { SitemapUrl, Sitemap, AtomFeed, RssItem, RssFeed } from './types';
+import type { SitemapUrl, Sitemap, AtomFeed, RssItem, RssFeed } from './types';
 
 const rootUrl = 'https://johnnyreilly.com';
 
@@ -34,6 +34,44 @@ async function enrichUrlsWithLastmod(
     }
   }
   return urls;
+}
+
+async function patchOpenGraphImageToCloudinary() {
+  const indexHtmlPaths = (
+    await fs.promises.readdir(path.resolve('..', 'blog-website', 'build'))
+  )
+    .filter((dir) =>
+      fs
+        .statSync(path.resolve('..', 'blog-website', 'build', dir))
+        .isDirectory()
+    )
+    .map((dir) =>
+      path.resolve('..', 'blog-website', 'build', dir, 'index.html')
+    )
+    .filter((file) => fs.existsSync(file));
+
+  const ogImageRegex =
+    /<meta data-rh="true" property="og:image" content="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))">/;
+  const twitterImageRegex =
+    /<meta data-rh="true" name="twitter:image" content="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))">/;
+
+  // https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/https://johnnyreilly.com/assets/images/title-image-934557b5733320b51dc0b371cf808e3a.png
+  for (const indexHtmlPath of indexHtmlPaths) {
+    console.log(`Loading ${indexHtmlPath}`);
+    const indexHtml = await fs.promises.readFile(indexHtmlPath, 'utf8');
+
+    console.log(`Saving ${indexHtmlPath}`);
+    await fs.promises.writeFile(
+      indexHtmlPath,
+      indexHtml
+        .replace(twitterImageRegex, function (_match, url) {
+          return `<meta data-rh="true" name="twitter:image" content="https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${url}">`;
+        })
+        .replace(ogImageRegex, function (_match, url) {
+          return `<meta data-rh="true" property="og:image" content="https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${url}">`;
+        })
+    );
+  }
 }
 
 async function trimSitemapXML() {
@@ -163,6 +201,7 @@ async function trimRssXML() {
 }
 
 async function main() {
+  await patchOpenGraphImageToCloudinary();
   await trimSitemapXML();
   // now handled by createFeedItems
   // await trimAtomXML();
