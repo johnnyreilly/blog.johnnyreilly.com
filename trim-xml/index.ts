@@ -61,16 +61,16 @@ async function patchOpenGraphImageToCloudinary() {
     const indexHtml = await fs.promises.readFile(indexHtmlPath, 'utf8');
 
     console.log(`Saving ${indexHtmlPath}`);
-    await fs.promises.writeFile(
-      indexHtmlPath,
-      indexHtml
-        .replace(twitterImageRegex, function (_match, url) {
-          return `<meta data-rh="true" name="twitter:image" content="https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${url}">`;
-        })
-        .replace(ogImageRegex, function (_match, url) {
-          return `<meta data-rh="true" property="og:image" content="https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${url}">`;
-        })
-    );
+    // await fs.promises.writeFile(
+    //   indexHtmlPath,
+    //   indexHtml
+    //     .replace(twitterImageRegex, function (_match, url) {
+    //       return `<meta data-rh="true" name="twitter:image" content="https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${url}">`;
+    //     })
+    //     .replace(ogImageRegex, function (_match, url) {
+    //       return `<meta data-rh="true" property="og:image" content="https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${url}">`;
+    //     })
+    // );
   }
 }
 
@@ -107,7 +107,7 @@ async function trimSitemapXML() {
   const shorterSitemapXml = builder.build(sitemap);
 
   console.log(`Saving ${sitemapPath}`);
-  await fs.promises.writeFile(sitemapPath, shorterSitemapXml);
+  // await fs.promises.writeFile(sitemapPath, shorterSitemapXml);
 }
 
 async function trimAtomXML() {
