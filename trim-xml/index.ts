@@ -201,11 +201,17 @@ async function trimRssXML() {
 }
 
 async function main() {
+  const startedAt = new Date();
+
   await patchOpenGraphImageToCloudinary();
   await trimSitemapXML();
   // now handled by createFeedItems
   // await trimAtomXML();
   // await trimRssXML();
+
+  const finishedAt = new Date();
+  const duration = (finishedAt.getTime() - startedAt.getTime()) / 1000;
+  console.log(`Post processing finished in ${duration} seconds`);
 }
 
 main();
