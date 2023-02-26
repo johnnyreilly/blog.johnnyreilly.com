@@ -1,10 +1,10 @@
 ---
-slug: from-ts-node-to-bun
-title: 'From ts-node to BSun'
+slug: migrating-from-ts-node-to-bun
+title: 'Migrating from ts-node to Bun'
 authors: johnnyreilly
 tags: [bun]
 image: ./title-image.png
-description: 'Moving from ts-node to Bun is surprisingly easy - this post ports a console app from ts-node to BSun and compares performance.'
+description: 'Migrating from ts-node to Bun is surprisingly easy - this post ports a console app from ts-node to BSun and compares performance.'
 hide_table_of_contents: false
 ---
 
@@ -14,9 +14,16 @@ I've wanted to take a look at some of the alternative JavaScript runtimes for a 
 
 <!--truncate-->
 
-## The app
+## The ts-node app
 
-trim-xml
+I have a [technical blog](https://johnnyreilly.com/) which is built on Docusaurus. I run a number of post processing scripts on the blog to do things like:
+
+- update the `sitemap.xml` to include the `lastmod` date and truncate the number of entries
+- patch the html files to use Cloudinary as an image CDN for open graph images
+
+These scripts are implemented as a ts-node console app. For historical reasons it's called `trim-xml` (it originally just truncated the `sitemap.xml` file). It's a pretty simple app. It's a single file with a bunch of functions. It's not a particularly good name for the app but I'm not going to change it now.
+
+What we're interested in, is porting this app from ts-node to Bun. The app has a few dependencies; so npm compatibility is important to us. Let's see how it goes.
 
 ## Installing Bun
 
@@ -235,22 +242,24 @@ Done in 19.52s.
 ### bun
 
 ```
-Post processing finished in 13.935 seconds
-Done in 14.31s.
+Post processing finished in 12.367 seconds
+Done in 12.72s.
 ```
 
-I haven't done any formal benchmarking, but it looks like Bun is about 33% faster than ts-node for this usecase. That's pretty good. It's also worth expanding on how this breaks down.
+I haven't done any formal benchmarking, but it looks like Bun is about 50% faster than ts-node for this usecase. That's pretty good. It's also worth expanding on how this breaks down.
 
 You'll notice in the logs above there's two log entries; the "Post processing" reflects the time taken to run the `main` function. The "Done" reflects the time taken to run the `bun` command end to end.
 
 What does this tell us?
 
-First of all, running code in ts-node takes 17 seconds, compared to 14 seconds with Bun. So Bun is about 20% faster at running code.
+First of all, running code in ts-node takes 17 seconds, compared to 12 seconds with Bun. So Bun is about 40% faster at running code.
 
-The end to end is 19 seconds with ts-node, compared to 14 seconds with Bun. So Bun is about 33% faster at running code. There's two parts to this; the time taken to compile the code and the time taken to start up. We're doing type checking with ts-node; which if deactivated would make a difference.
+The end to end is 19 seconds with ts-node, compared to 14 seconds with Bun. So Bun is about 50% faster end to end. There's two parts to this; the time taken to compile the code and the time taken to start up. We're doing type checking with ts-node; which if deactivated would make a difference.
 
-However, when you look at the difference between the end to end runtime and code runtime with Bun, it's a mere 0.375 seconds. ts-node clocks in at 2.43 seconds for the same. So ts-node is about 6.5 times slower at starting up. That's a pretty big difference.
+However, when you look at the difference between the end to end runtime and code runtime with Bun, it's a mere 0.353 seconds. ts-node clocks in at 2.43 seconds for the same. So ts-node is about 6.5 times slower at starting up. That's a pretty big difference.
 
 ## Conclusion
 
 Moving from ts-node to Bun was a pretty easy process. I was able to do it in a few hours. I was able to run the app locally and in GitHub Actions. And I was able to run the app in less time.
+
+This all makes me feel very positive about Bun. I'm looking forward to using it more in the future.
