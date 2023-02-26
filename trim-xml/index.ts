@@ -106,7 +106,7 @@ async function trimSitemapXML() {
   const shorterSitemapXml = builder.build(sitemap);
 
   console.log(`Saving ${sitemapPath}`);
-  // await fs.promises.writeFile(sitemapPath, shorterSitemapXml);
+  await Bun.write(sitemapPath, shorterSitemapXml);
 }
 
 async function trimAtomXML() {
@@ -202,7 +202,7 @@ async function trimRssXML() {
 async function main() {
   const startedAt = new Date();
 
-  // await patchOpenGraphImageToCloudinary();
+  await patchOpenGraphImageToCloudinary();
   await trimSitemapXML();
   // now handled by createFeedItems
   // await trimAtomXML();
