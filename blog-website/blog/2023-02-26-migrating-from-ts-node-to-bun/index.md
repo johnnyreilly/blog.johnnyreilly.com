@@ -16,9 +16,9 @@ I've wanted to take a look at some of the alternative JavaScript runtimes for a 
 
 ## The ts-node app
 
-I have a [technical blog](https://johnnyreilly.com/) which is built on Docusaurus. When the Docusaurus build runs, a number of post processing scripts run to do things like:
+I have a [technical blog](https://johnnyreilly.com/) which is built on Docusaurus. When the Docusaurus build completes, a post processing script runs to do things like:
 
-- update the `sitemap.xml` to include the `lastmod` date and truncate the number of entries
+- update the `sitemap.xml` to include the `lastmod` date based on git commit date, and truncate the number of entries in the file
 - patch the html files to use Cloudinary as an image CDN for open graph images
 
 These scripts are implemented as a simple ts-node console app. For historical reasons it's called `trim-xml` (it originally just truncated the `sitemap.xml` file). It's not a particularly good name but I'm not going to change it now.
@@ -71,9 +71,7 @@ bun install v0.5.7 (5929daee)
 
 As well, a new `bun.lockb` file had appeared in the directory alongside the `package.json`. Although I can't find any documentation on it, I'm guessing that this is the Bun equivalent of `package-lock.json` or `yarn.lock`. It's a binary file, so you can't read it. I did find this [project which allows you read bun.lockb files](https://github.com/JacksonKearl/bun-lockb) which looks like a useful way to solve that problem.
 
-To avoid confusion, I also deleted the `yarn.lock` file. I'm not sure if that's necessary or not.
-
-But anyway, yay - I've installed things! And pretty fast! What next?
+To avoid confusion, I also deleted the `yarn.lock` file. Yay - I've installed things! And pretty fast! What next?
 
 ## From `@types/node` to `bun/types`
 
@@ -145,7 +143,7 @@ I'd imagined that at this point I'd be able to run the app, but when I navigated
 
 ![screenshot of VS Code saying "Cannot find module 'fast-xml-parser'. Did you mean to set the 'moduleResolution' option to 'node', or to add aliases to the 'paths' option?ts(2792)"](screenshot-cannot-find-module.png)
 
-Ironically, the error message was suggesting I needed to explicitly state that I wanted to use the Node.js module resolution algorithm. Whilst we're using Bun, we're porting a Node app - so it makes sense. So I made one more change to my `tsconfig.json`:
+The error message was suggesting I needed to explicitly state that I wanted to use the Node.js module resolution algorithm. Whilst we're using Bun, we're porting a Node app - so this made sense. So I made one more change to the `tsconfig.json` to satisy this:
 
 ```diff
   {
@@ -156,7 +154,7 @@ Ironically, the error message was suggesting I needed to explicitly state that I
   }
 ```
 
-This took away the module resolution errors.
+With that in place, the module resolution errors were... resolved. (Sorry.)
 
 ## File APIs with Bun
 
@@ -186,7 +184,7 @@ There appeared to be no Bun equivalent for `fs.promises.readdir`, so I used the 
 + `fs.readdirSync(path)`
 ```
 
-We now had code without any errors! (At least in VS Code as far as TypeScript was concerned. I had yet to run the app to see if it worked.)
+We now had code without any errors. (At least in VS Code as far as TypeScript was concerned. I had yet to run the app to see if it worked.)
 
 ### Clarification on `fs.promises`
 
@@ -216,11 +214,11 @@ Also, we seemed to be lacking many of the log messages I'd expect. I was expecti
 
 ## Top level `await` and Bun
 
-The issue was that my `main` function was asynchronous. However, because support for top level `await` wasn't available when I originally wrote the code, I'd called the `main` function synchronously, and fortunately Node didn't complain about that.
+The issue was that my `main` function was asynchronous. However, because support for top level `await` wasn't available in Node.js when I originally wrote the code, I'd called the `main` function synchronously. Fortunately Node didn't complain about that, and the program behaved in the way required.
 
-However Bun looked like it was respecting the fact that `main` was asynchronous and that's why it was apparently executing so quickly; it wasn't waiting for the `main` method to complete before terminating.
+However Bun looked like it was respecting the fact that `main` was asynchronous. That's why it was apparently executing so quickly; it wasn't waiting for the `main` method to complete before terminating.
 
-To be honest, Bun's behaviour here is just right; my code doesn't suggest that it's interested in waiting for the `main` function to complete - even though I care exactly about that. My code was misleading. I could remedy that by using top level `await`. So I made the following change to my `index.ts` file:
+To be honest, Bun's behaviour here is just right; the code as is didn't suggest that it was interested in waiting for the `main` function to complete. But it turns out that waiting is exactly the desired behaviour. To bring things right, we could use top level `await`. So I made the following change to my `index.ts` file:
 
 ```diff
 - main();
