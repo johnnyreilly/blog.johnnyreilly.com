@@ -190,7 +190,7 @@ We now had code without any errors! (At least in VS Code as far as TypeScript wa
 
 ### Clarification on `fs.promises`
 
-I was tweeting about my findings as I wrote this, and [Jarred Sumner (who works on Bun) was kind enough to share](https://twitter.com/jarredsumner/status/1629818921904902145) that the `fs.promises` API is implemented but the types aren't implemented.
+I was tweeting about my findings as I wrote this, and [Jarred Sumner (who works on Bun) was kind enough to share](https://twitter.com/jarredsumner/status/1629818921904902145) that the `fs.promises` API is implemented but the types aren't as yet.
 
 ![Screenshot of exchange on Twitter with Jarred responding "it sort of exists, but looks like the types are out of date. I say sort of because, actually everything async is sync for node:fs and it just wraps in a Promise. If you use fs createReadStream / fs.createWriteStream or Bun.file(path).stream() it’ll be concurrent / async"](screenshot-tweet-fs-promises-exists.png)
 
@@ -218,7 +218,9 @@ Also, we seemed to be lacking many of the log messages I'd expect. I was expecti
 
 The issue was that my `main` function was asynchronous. However, because support for top level `await` wasn't available when I originally wrote the code, I'd called the `main` function synchronously, and fortunately Node didn't complain about that.
 
-But bun looked like it was respecting the fact that `main` was asynchronous and that's why it was apparently executing so quickly; it wasn't waiting for the `main` method to complete. That very much aligns with the code that I'd written; I wasn't using top level `await`. I needed to. So I made the following change to my `index.ts` file:
+However Bun looked like it was respecting the fact that `main` was asynchronous and that's why it was apparently executing so quickly; it wasn't waiting for the `main` method to complete before terminating.
+
+To be honest, Bun's behaviour here is just right; my code doesn't suggest that it's interested in waiting for the `main` function to complete - even though I care exactly about that. My code was misleading. I could remedy that by using top level `await`. So I made the following change to my `index.ts` file:
 
 ```diff
 - main();
@@ -240,33 +242,34 @@ I was now able to run the app locally. But I wanted to run it in GitHub Actions.
 
 ## Performance comparison; Bun vs ts-node
 
-I was expecting Bun to be faster than ts-node. Let's take a run of our app with ts-node and compare it to a run of our app with Bun:
+I was expecting Bun to be faster than ts-node. Let's take a run of our app in GitHub Actions with ts-node and compare it to a run of our app with Bun:
 
 ### ts-node
 
-```
+```bash
 Post processing finished in 17.09 seconds
 Done in 19.52s.
 ```
 
 ### bun
 
-```
+```bash
 Post processing finished in 12.367 seconds
 Done in 12.72s.
 ```
 
 I haven't done any formal benchmarking, but it looks like Bun is about 50% faster than ts-node for this usecase. That's pretty good. It's also worth expanding on how this breaks down.
 
-You'll notice in the logs above there's two log entries; the "Post processing" reflects the time taken to run the `main` function. The "Done" reflects the time taken to run the `bun` command end to end.
+You'll notice in the logs above there's two log entries:
 
-What does this tell us?
+1. The "Post processing" reflects the time taken to run the `main` function.
+2. The "Done" reflects the time taken to run the `bun` command end to end.
 
-First of all, running code in ts-node takes 17 seconds, compared to 12 seconds with Bun. So Bun is about 40% faster at running code.
+What can we learn from this? First of all, running code in ts-node takes 17 seconds, compared to 12 seconds with Bun. **So Bun is performing about 40% faster at running code.**
 
-The end to end is 19 seconds with ts-node, compared to 14 seconds with Bun. So Bun is about 50% faster end to end. There's two parts to this; the time taken to compile the code and the time taken to start up. We're doing type checking with ts-node; which if deactivated would make a difference.
+The end to end is 19 seconds with ts-node, compared to 14 seconds with Bun. **So Bun is performing about 50% faster end to end.** There's two parts to this; the time taken to compile the code and the time taken to start up. We're doing type checking with ts-node; which if deactivated would make a difference.
 
-However, when you look at the difference between the end to end runtime and code runtime with Bun, it's a mere 0.353 seconds. ts-node clocks in at 2.43 seconds for the same. So ts-node is about 6.5 times slower at starting up. That's a pretty big difference; it's unlikely that all of this is TypeScript compilation; Node.js is slower at getting going than Bun is.
+However, when you look at the difference between the end to end runtime and code runtime with Bun, it's a mere 0.353 seconds. ts-node clocks in at 2.43 seconds for the same. So ts-node is about 6.5 times slower at starting up. That's a pretty big difference; it's unlikely that all of this is TypeScript compilation; Node.js is fundamentally slower at getting going than Bun is.
 
 ## Conclusion
 
