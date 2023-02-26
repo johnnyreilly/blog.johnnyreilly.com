@@ -130,6 +130,8 @@ I aligned my existing `tsconfig.json` with the above. For my console app this me
   }
 ```
 
+## `moduleResolution` with bun
+
 I'd imagined that at this point I'd be able to run the app, but when I navigated around in VS Code I saw that I had a bunch of errors. I was getting errors like this:
 
 ![screenshot of VS Code saying "Cannot find module 'fast-xml-parser'. Did you mean to set the 'moduleResolution' option to 'node', or to add aliases to the 'paths' option?ts(2792)"](screenshot-cannot-find-module.png)
@@ -145,7 +147,41 @@ Ironically, the error message was suggesting I needed to explicitly state that I
   }
 ```
 
-This took away the errors. I now needed to do one more thing:
+This took away the module resolution errors.
+
+## File APIs with bun
+
+However, I was still getting errors. This time they were about the [`fs.promises` API](https://nodejs.org/api/fs.html#promises-api). I was getting errors like this:
+
+![screenshot of errors in VS Code reporting the absesnce of the fs.promises API](screenshot-file-apis.png)
+
+It looks like the version of bun I was using didn't support that API. As I dug through my code I realised that I was using the `fs.promises` API in a few places. I was using it in the following ways:
+
+- `await fs.promises.readdir`
+- `await fs.promises.readFile`
+- `await fs.promises.writeFile`
+
+For `fs.promises.readFile` and `fs.promises.writeFile` I was able to replace them with the bun equivalents:
+
+```diff
+- `await fs.promises.readFile`
++ [`await Bun.file(path).text()`](https://bun.sh/docs/api/file-io#reading-files)
+- `await fs.promises.writeFile(path, content)`
++ [`await Bun.write(path, content)`](https://bun.sh/docs/api/file-io#writing-files)
+```
+
+There was no bun equivalent for `fs.promises.readdir`, so I had to use the sync Node.js API:
+
+```diff
+- `await fs.promises.readdir`
++ [`fs.readdirSync(path)`](https://nodejs.org/api/fs.html#fsreaddirsyncpath-options)
+```
+
+We now had code without any errors! (At least in VS Code as far as TypeScript was concerned. I still had to run the app to see if it worked.)
+
+## Running the app
+
+I now needed to do one more thing:
 
 ```diff
 -    "start": "ts-node index.ts"
@@ -155,5 +191,21 @@ This took away the errors. I now needed to do one more thing:
 That's right; update the `start` script in `package.json` to use `bun` instead of `ts-node`. And now I was able to run the app with `bun start`:
 
 ```bash
-
+Loading /home/john/code/github/blog.johnnyreilly.com/blog-website/build/sitemap.xml
+Reducing 526 urls to 512 urls
 ```
+
+The first positive thing about what I saw, was that we appeared to have running code. Yay! It also appeared to be executing instantaneously, which seemed surprising. Also, we seemed to be lacking many of the log messages I'd expect. I was expecting to see about 1000 log messages. Something wasn't right.
+
+## Top level `await` and bun
+
+The issue was that my `main` function was asynchronous. However, because support for top level `await` wasn't available when I originally wrote the code, I'd called the `main` function synchronously, and fortunately Node didn't complain about that.
+
+But bun looked like it was respecting the fact that `main` was asynchronous and that's why it was apparently executing so quickly; it wasn't waiting for the `main` method to complete. That very much aligns with the code that I'd written; I wasn't using top level `await`. I needed to. So I made the following change to my `index.ts` file:
+
+```diff
+- main();
++ await main();
+```
+
+And now I was getting the expected log messages; and the program appeared to be working as expected.
