@@ -29,6 +29,11 @@ jobs:
           node-version: '18'
           cache: 'yarn'
 
+      - name: Setup bun 🔧
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
       - name: Docusaurus build 🦕
         run: |
           cd blog-website
