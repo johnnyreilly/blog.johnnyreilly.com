@@ -16,12 +16,12 @@ I've wanted to take a look at some of the alternative JavaScript runtimes for a 
 
 ## The ts-node app
 
-I have a [technical blog](https://johnnyreilly.com/) which is built on Docusaurus. I run a number of post processing scripts on the blog to do things like:
+I have a [technical blog](https://johnnyreilly.com/) which is built on Docusaurus. When the Docusaurus build runs, a number of post processing scripts run to do things like:
 
 - update the `sitemap.xml` to include the `lastmod` date and truncate the number of entries
 - patch the html files to use Cloudinary as an image CDN for open graph images
 
-These scripts are implemented as a ts-node console app. For historical reasons it's called `trim-xml` (it originally just truncated the `sitemap.xml` file). It's a pretty simple app. It's a single file with a bunch of functions. It's not a particularly good name for the app but I'm not going to change it now.
+These scripts are implemented as a simple ts-node console app. For historical reasons it's called `trim-xml` (it originally just truncated the `sitemap.xml` file). It's not a particularly good name but I'm not going to change it now.
 
 What we're interested in, is porting this app from ts-node to Bun. The app has a few dependencies; so npm compatibility is important to us. Let's see how it goes.
 
@@ -29,13 +29,13 @@ What we're interested in, is porting this app from ts-node to Bun. The app has a
 
 I installed Bun on my Ubuntu machine using the following command:
 
-```
+```bash
 curl -fsSL https://bun.sh/install | bash
 ```
 
 Which resulted in the following output:
 
-```
+```bash
 bun was installed successfully to ~/.bun/bin/bun
 
 Added "~/.bun/bin" to $PATH in "~/.zshrc"
@@ -77,7 +77,7 @@ But anyway, yay - I've installed things! And pretty fast! What next?
 
 ## From `@types/node` to `bun/types`
 
-As I looked at the output for the install I realised that the `@types/node` package had been installed. The `@types/node` package is a package that contains TypeScript definitions for the Node.js runtime. Given we're moving to using bun, it seemed likely that I didn't need these. But I likely did need something that represented the bun runtime types. (Which incidentally, I would imagine to be pretty similar to the Node.js runtime types.)
+As I looked at the output for the install I realised that the `@types/node` package had been installed. The `@types/node` package is a package that contains TypeScript definitions for the Node.js runtime. Given we're moving to using Bun, it seemed likely that I didn't need these. But I likely did need something that represented the Bun runtime types. (Which incidentally, I would imagine to be pretty similar to the Node.js runtime types.)
 
 I had a quick look at the Bun documentation and found the [`bun/types`](https://oven-sh.github.io/bun-types/) package. I added it to my project, whilst removing `@types/node` and `ts-node`:
 
@@ -145,7 +145,7 @@ I'd imagined that at this point I'd be able to run the app, but when I navigated
 
 ![screenshot of VS Code saying "Cannot find module 'fast-xml-parser'. Did you mean to set the 'moduleResolution' option to 'node', or to add aliases to the 'paths' option?ts(2792)"](screenshot-cannot-find-module.png)
 
-Ironically, the error message was suggesting I needed to explicitly state that I wanted to use the Node.js module resolution algorithm. Even though I was using bun. So I made one more change to my `tsconfig.json`:
+Ironically, the error message was suggesting I needed to explicitly state that I wanted to use the Node.js module resolution algorithm. Whilst we're using Bun, we're porting a Node app - so it makes sense. So I made one more change to my `tsconfig.json`:
 
 ```diff
   {
@@ -251,7 +251,7 @@ Post processing finished in 17.09 seconds
 Done in 19.52s.
 ```
 
-### bun
+### Bun
 
 ```bash
 Post processing finished in 12.367 seconds
