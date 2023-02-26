@@ -60,16 +60,16 @@ async function patchOpenGraphImageToCloudinary() {
     const indexHtml = await Bun.file(indexHtmlPath).text();
 
     console.log(`Saving ${indexHtmlPath}`);
-    // await fs.promises.writeFile(
-    //   indexHtmlPath,
-    //   indexHtml
-    //     .replace(twitterImageRegex, function (_match, url) {
-    //       return `<meta data-rh="true" name="twitter:image" content="https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${url}">`;
-    //     })
-    //     .replace(ogImageRegex, function (_match, url) {
-    //       return `<meta data-rh="true" property="og:image" content="https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${url}">`;
-    //     })
-    // );
+    await Bun.write(
+      indexHtmlPath,
+      indexHtml
+        .replace(twitterImageRegex, function (_match, url) {
+          return `<meta data-rh="true" name="twitter:image" content="https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${url}">`;
+        })
+        .replace(ogImageRegex, function (_match, url) {
+          return `<meta data-rh="true" property="og:image" content="https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${url}">`;
+        })
+    );
   }
 }
 
