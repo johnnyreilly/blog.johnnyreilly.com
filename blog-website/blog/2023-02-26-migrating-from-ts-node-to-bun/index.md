@@ -69,7 +69,7 @@ bun install v0.5.7 (5929daee)
  5 packages installed [2.34s]
 ```
 
-And a new `bun.lockb` file had appeared in the directory. Although I can't find any documentation on it, I'm guessing that this is the bun equivalent of `package-lock.json` or `yarn.lock`. It's a binary file, so you can't read it. I did find this [project which allows you read bun.lockb files](https://github.com/JacksonKearl/bun-lockb) which looks like a useful way to solve that problem.
+As well, a new `bun.lockb` file had appeared in the directory alongside the `package.json`. Although I can't find any documentation on it, I'm guessing that this is the Bun equivalent of `package-lock.json` or `yarn.lock`. It's a binary file, so you can't read it. I did find this [project which allows you read bun.lockb files](https://github.com/JacksonKearl/bun-lockb) which looks like a useful way to solve that problem.
 
 To avoid confusion, I also deleted the `yarn.lock` file. I'm not sure if that's necessary or not.
 
@@ -106,19 +106,21 @@ bun add v0.5.7 (5929daee)
  1 packages installed [1.97s]
 ```
 
-The docs also say:
+The [docs also say](https://oven-sh.github.io/bun-types/#usage):
 
 > Add this to your `tsconfig.json` or `jsconfig.json`:
 >
+> ```json
 > {
-> "compilerOptions": {
-> "lib": ["ESNext"],
-> "module": "esnext",
-> "target": "esnext",
-> // "bun-types" is the important part
-> "types": ["bun-types"]
+>   "compilerOptions": {
+>     "lib": ["ESNext"],
+>     "module": "esnext",
+>     "target": "esnext",
+>     // "bun-types" is the important part
+>     "types": ["bun-types"]
+>   }
 > }
-> }
+> ```
 
 I aligned my existing `tsconfig.json` with the above. For my console app this meant the following changes:
 
@@ -162,29 +164,35 @@ However, I was still getting errors. This time they were about the [`fs.promises
 
 ![screenshot of errors in VS Code reporting the absence of the fs.promises API](screenshot-file-apis.png)
 
-It looks like the version of bun I was using didn't support that API. As I dug through my code I realised that I was using the `fs.promises` API in a few places. I was using it in the following ways:
+It looked like the version of bun I was using didn't support that API. As I dug through my code I realised that I was using the `fs.promises` API in a few places. I was using it in the following ways:
 
 - `await fs.promises.readdir`
 - `await fs.promises.readFile`
 - `await fs.promises.writeFile`
 
-For `fs.promises.readFile` and `fs.promises.writeFile` I was able to replace them with the Bun equivalents:
+For `fs.promises.readFile` and `fs.promises.writeFile` I was able to replace them with the Bun equivalents [`Bun.file(path).text()`](https://bun.sh/docs/api/file-io#reading-files) and [`Bun.write(path, content)`](https://bun.sh/docs/api/file-io#writing-files) respectively:
 
 ```diff
 - `await fs.promises.readFile`
-+ [`await Bun.file(path).text()`](https://bun.sh/docs/api/file-io#reading-files)
++ `await Bun.file(path).text()`
 - `await fs.promises.writeFile(path, content)`
-+ [`await Bun.write(path, content)`](https://bun.sh/docs/api/file-io#writing-files)
++ `await Bun.write(path, content)`
 ```
 
-There was no Bun equivalent for `fs.promises.readdir`, so I had to use the sync Node.js API:
+There appeared to be no Bun equivalent for `fs.promises.readdir`, so I used the [sync Node.js API](https://nodejs.org/api/fs.html#fsreaddirsyncpath-options):
 
 ```diff
 - `await fs.promises.readdir`
-+ [`fs.readdirSync(path)`](https://nodejs.org/api/fs.html#fsreaddirsyncpath-options)
++ `fs.readdirSync(path)`
 ```
 
-We now had code without any errors! (At least in VS Code as far as TypeScript was concerned. I still had to run the app to see if it worked.)
+We now had code without any errors! (At least in VS Code as far as TypeScript was concerned. I had yet to run the app to see if it worked.)
+
+### Clarification on `fs.promises`
+
+I was tweeting about my findings as I wrote this, and [Jarred Sumner (who works on Bun) was kind enough to share](https://twitter.com/jarredsumner/status/1629818921904902145) that the `fs.promises` API is implemented but the types aren't implemented.
+
+![Screenshot of exchange on Twitter with Jarred responding "it sort of exists, but looks like the types are out of date. I say sort of because, actually everything async is sync for node:fs and it just wraps in a Promise. If you use fs createReadStream / fs.createWriteStream or Bun.file(path).stream() it’ll be concurrent / async"](screenshot-tweet-fs-promises-exists.png)
 
 ## Running the app
 
@@ -202,7 +210,9 @@ Loading /home/john/code/github/blog.johnnyreilly.com/blog-website/build/sitemap.
 Reducing 526 urls to 512 urls
 ```
 
-The first positive thing about what I saw, was that we appeared to have running code. Yay! It also appeared to be executing instantaneously, which seemed surprising. Also, we seemed to be lacking many of the log messages I'd expect. I was expecting to see about 1000 log messages. Something wasn't right.
+The first positive thing about what I saw, was that we appeared to have running code. Yay! The program also appeared to be executing instantaneously, which seemed surprising. I was expecting Bun to be faster, but this seemed too fast.
+
+Also, we seemed to be lacking many of the log messages I'd expect. I was expecting to see about 1000 log messages. Something wasn't right.
 
 ## Top level `await` and Bun
 
@@ -256,7 +266,7 @@ First of all, running code in ts-node takes 17 seconds, compared to 12 seconds w
 
 The end to end is 19 seconds with ts-node, compared to 14 seconds with Bun. So Bun is about 50% faster end to end. There's two parts to this; the time taken to compile the code and the time taken to start up. We're doing type checking with ts-node; which if deactivated would make a difference.
 
-However, when you look at the difference between the end to end runtime and code runtime with Bun, it's a mere 0.353 seconds. ts-node clocks in at 2.43 seconds for the same. So ts-node is about 6.5 times slower at starting up. That's a pretty big difference.
+However, when you look at the difference between the end to end runtime and code runtime with Bun, it's a mere 0.353 seconds. ts-node clocks in at 2.43 seconds for the same. So ts-node is about 6.5 times slower at starting up. That's a pretty big difference; it's unlikely that all of this is TypeScript compilation; Node.js is slower at getting going than Bun is.
 
 ## Conclusion
 
