@@ -1,6 +1,6 @@
 import { XMLParser, XMLBuilder } from 'fast-xml-parser';
+import fs from 'fs';
 import path from 'path';
-import { getBlogFilePaths } from './getBlogFilePaths';
 import {
   getBlogPathFromUrl,
   getGitLastUpdatedFromFilePath,
@@ -13,13 +13,14 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
   filteredUrls: SitemapUrl[]
 ): Promise<SitemapUrl[]> {
   const urls: SitemapUrl[] = [];
+  let blogFilePath: string | undefined;
   for (const url of filteredUrls) {
     if (urls.includes(url)) {
       continue;
     }
 
     try {
-      const blogFilePath = getBlogPathFromUrl(rootUrl, url.loc);
+      blogFilePath = getBlogPathFromUrl(rootUrl, url.loc);
       if (!blogFilePath) {
         urls.push(url);
         continue;
@@ -36,7 +37,7 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
       urls.push(lastmod ? { ...url, lastmod } : url);
       console.log(url.loc, lastmod);
     } catch (e) {
-      console.log('file date not looked up', url.loc, e);
+      console.log(`file date not looked up: ${blogFilePath}`, url.loc, e);
       urls.push(url);
     }
   }
@@ -44,7 +45,17 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
 }
 
 async function patchOpenGraphImageToCloudinary() {
-  const indexHtmlPaths = getBlogFilePaths();
+  const indexHtmlPaths = fs
+    .readdirSync(path.resolve('..', 'blog-website', 'build'))
+    .filter((dir) =>
+      fs
+        .statSync(path.resolve('..', 'blog-website', 'build', dir))
+        .isDirectory()
+    )
+    .map((dir) =>
+      path.resolve('..', 'blog-website', 'build', dir, 'index.html')
+    )
+    .filter((file) => fs.existsSync(file));
 
   const ogImageRegex =
     /<meta data-rh="true" property="og:image" content="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))">/;
