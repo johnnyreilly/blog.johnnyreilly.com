@@ -9,27 +9,36 @@ import type { SitemapUrl, Sitemap, AtomFeed, RssItem, RssFeed } from './types';
 
 const rootUrl = 'https://johnnyreilly.com';
 
-async function enrichUrlsWithLastmod(
+async function enrichUrlsWithLastmodAndFilterCanonicals(
   filteredUrls: SitemapUrl[]
 ): Promise<SitemapUrl[]> {
   const urls: SitemapUrl[] = [];
+  let blogFilePath: string | undefined;
   for (const url of filteredUrls) {
     if (urls.includes(url)) {
       continue;
     }
 
     try {
-      const blogFilePath = getBlogPathFromUrl(rootUrl, url.loc);
+      blogFilePath = getBlogPathFromUrl(rootUrl, url.loc);
       if (!blogFilePath) {
         urls.push(url);
         continue;
       }
+
+      // eg blog-website/blog/2013-04-26-a-navigation-animation-for-your-users/index.md
+      const blogMarkdown = await Bun.file('../' + blogFilePath).text();
+      if (blogMarkdown.includes('<link rel="canonical" href=')) {
+        console.log('excluding external canonical URL', url.loc);
+        continue;
+      }
+
       const lastmod = await getGitLastUpdatedFromFilePath(blogFilePath);
 
       urls.push(lastmod ? { ...url, lastmod } : url);
       console.log(url.loc, lastmod);
     } catch (e) {
-      console.log('file date not looked up', url.loc, e);
+      console.log(`file date not looked up: ${blogFilePath}`, url.loc, e);
       urls.push(url);
     }
   }
@@ -100,7 +109,9 @@ async function trimSitemapXML() {
     `Reducing ${sitemap.urlset.url.length} urls to ${filteredUrls.length} urls`
   );
 
-  sitemap.urlset.url = await enrichUrlsWithLastmod(filteredUrls);
+  sitemap.urlset.url = await enrichUrlsWithLastmodAndFilterCanonicals(
+    filteredUrls
+  );
 
   const builder = new XMLBuilder({ format: false, ignoreAttributes: false });
   const shorterSitemapXml = builder.build(sitemap);

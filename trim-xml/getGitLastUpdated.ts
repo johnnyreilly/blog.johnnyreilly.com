@@ -41,6 +41,13 @@ export function getBlogPathFromUrl(
   // eg url.loc: https://blog.johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants
   const pathWithoutRootUrl = url.replace(rootUrl + '/', ''); // eg 2012/01/07/standing-on-shoulders-of-giants
 
+  // eg lighthouse-meet-github-actions
+  const slugToPath = getSlugToPath();
+  const blogPath = slugToPath.get(pathWithoutRootUrl);
+  if (blogPath) {
+    return blogPath;
+  }
+
   const match = pathWithoutRootUrl.match(dateBlogUrlRegEx);
 
   if (match && match[1] && match[2]) {
@@ -48,13 +55,6 @@ export function getBlogPathFromUrl(
     const slug = match[2]; // eg standing-on-shoulders-of-giants
 
     const blogPath = `blog-website/blog/${date}-${slug}/index.md`;
-    return blogPath;
-  }
-
-  // eg lighthouse-meet-github-actions
-  const slugToPath = getSlugToPath();
-  const blogPath = slugToPath.get(pathWithoutRootUrl);
-  if (blogPath) {
     return blogPath;
   }
 
