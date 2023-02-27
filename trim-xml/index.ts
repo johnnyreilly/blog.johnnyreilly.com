@@ -1,6 +1,6 @@
 import { XMLParser, XMLBuilder } from 'fast-xml-parser';
-import fs from 'fs';
 import path from 'path';
+import { getBlogFilePaths } from './getBlogFilePaths';
 import {
   getBlogPathFromUrl,
   getGitLastUpdatedFromFilePath,
@@ -9,7 +9,7 @@ import type { SitemapUrl, Sitemap, AtomFeed, RssItem, RssFeed } from './types';
 
 const rootUrl = 'https://johnnyreilly.com';
 
-async function enrichUrlsWithLastmod(
+async function enrichUrlsWithLastmodAndFilterCanonicals(
   filteredUrls: SitemapUrl[]
 ): Promise<SitemapUrl[]> {
   const urls: SitemapUrl[] = [];
@@ -24,6 +24,13 @@ async function enrichUrlsWithLastmod(
         urls.push(url);
         continue;
       }
+
+      const blogMarkdown = await Bun.file(blogFilePath).text();
+      if (blogMarkdown.includes('<link rel="canonical" href=')) {
+        console.log('excluding external canonical URL', url.loc);
+        continue;
+      }
+
       const lastmod = await getGitLastUpdatedFromFilePath(blogFilePath);
 
       urls.push(lastmod ? { ...url, lastmod } : url);
@@ -37,17 +44,7 @@ async function enrichUrlsWithLastmod(
 }
 
 async function patchOpenGraphImageToCloudinary() {
-  const indexHtmlPaths = fs
-    .readdirSync(path.resolve('..', 'blog-website', 'build'))
-    .filter((dir) =>
-      fs
-        .statSync(path.resolve('..', 'blog-website', 'build', dir))
-        .isDirectory()
-    )
-    .map((dir) =>
-      path.resolve('..', 'blog-website', 'build', dir, 'index.html')
-    )
-    .filter((file) => fs.existsSync(file));
+  const indexHtmlPaths = getBlogFilePaths();
 
   const ogImageRegex =
     /<meta data-rh="true" property="og:image" content="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))">/;
@@ -100,7 +97,9 @@ async function trimSitemapXML() {
     `Reducing ${sitemap.urlset.url.length} urls to ${filteredUrls.length} urls`
   );
 
-  sitemap.urlset.url = await enrichUrlsWithLastmod(filteredUrls);
+  sitemap.urlset.url = await enrichUrlsWithLastmodAndFilterCanonicals(
+    filteredUrls
+  );
 
   const builder = new XMLBuilder({ format: false, ignoreAttributes: false });
   const shorterSitemapXml = builder.build(sitemap);
