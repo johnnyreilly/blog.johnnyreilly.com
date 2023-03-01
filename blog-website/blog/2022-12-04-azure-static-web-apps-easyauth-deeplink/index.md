@@ -14,6 +14,56 @@ Azure Static Web Apps doesn't support deep linking with authentication. The [pos
 
 <!--truncate-->
 
+## Updated 1st March 2023
+
+I'm happy to say that this blog post is no longer necessary; [the behavour is now built into Azure Static Web Apps](https://github.com/Azure/static-web-apps/issues/435#issuecomment-1353985870). Here is an example `staticwebapp.config.json` which supports deep linking using the [`.referrer`](https://learn.microsoft.com/en-us/azure/static-web-apps/authentication-authorization?tabs=invitations#set-up-post-sign-in-redirect) post sign-in redirect:
+
+```json
+{
+  "auth": {
+    "identityProviders": {
+      "azureActiveDirectory": {
+        // ...
+      }
+    }
+  },
+  "navigationFallback": {
+    "rewrite": "index.html"
+  },
+  "routes": [
+    {
+      "route": "/login",
+      "rewrite": "/.auth/login/aad",
+      "allowedRoles": ["anonymous", "authenticated"]
+    },
+    {
+      "route": "/.auth/login/github",
+      "statusCode": 404
+    },
+    {
+      "route": "/.auth/login/twitter",
+      "statusCode": 404
+    },
+    {
+      "route": "/logout",
+      "redirect": "/.auth/logout",
+      "allowedRoles": ["anonymous", "authenticated"]
+    },
+    {
+      "route": "/*",
+      "allowedRoles": ["authenticated"]
+    }
+  ],
+  "responseOverrides": {
+    "401": {
+      "redirect": "/.auth/login/aad?post_login_redirect_uri=.referrer",
+      "statusCode": 302
+    }
+  },
+  // ...
+}
+``` 
+
 ## Deep linking
 
 Imagine the situation: your colleague sends you `https://our-app.com/pages/important-page?someId=theId`. You click the link and you're presented with a login screen. You login and you're presented with a page, but not the one your colleague meant you to see. What do you do now? If you realise what's happened, you'll likely paste the URL into the address bar again so you end up where you hope to. But what if you don't realise what's happened? Answer: confusion and frustration.
