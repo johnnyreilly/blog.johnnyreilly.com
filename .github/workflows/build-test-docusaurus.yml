@@ -23,11 +23,11 @@ jobs:
           # Default: 1
           fetch-depth: 0
 
-      - name: Setup Node.js 🔧
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'yarn'
+      # - name: Setup Node.js 🔧
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: '18'
+      #     cache: 'yarn'
 
       - name: Setup bun 🔧
         uses: oven-sh/setup-bun@v1
@@ -36,6 +36,7 @@ jobs:
 
       - name: Docusaurus build 🦕
         run: |
+          pwd
           cd blog-website
           bun install
           DOCUSAURUS_SSR_CONCURRENCY=5 bun run build
