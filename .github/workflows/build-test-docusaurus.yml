@@ -38,5 +38,5 @@ jobs:
         run: |
           pwd
           cd blog-website
-          bun install
+          bun install --force
           DOCUSAURUS_SSR_CONCURRENCY=5 bun run build
