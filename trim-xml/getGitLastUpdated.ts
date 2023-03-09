@@ -14,19 +14,36 @@ function getSlugToPath() {
     .filter((dirent) => dirent.isDirectory())
     .map((dirent) => dirent.name);
 
+  const pathAndSlug = directories.map((dir) => {
+    const blogPath = `blog-website/blog/${dir}/index.md`;
+
+    const blogMd = fs.readFileSync(`../${blogPath}`, 'utf8');
+
+    const match = blogMd.match(slugBlogUrlRegEx);
+
+    const slug = match && match[1] ? match[1] : '';
+
+    return { slug, blogPath, dir };
+  });
+
+  const missingSlugs = pathAndSlug.filter(({ slug }) => !slug);
+
+  if (missingSlugs.length > 0) {
+    console.log('missing slugs', missingSlugs);
+    throw new Error('missing slugs');
+  }
+
+  const slugsThatDontMatchPath = pathAndSlug.filter(
+    ({ slug, dir }) => slug !== dir.substring(11)
+  );
+
+  if (slugsThatDontMatchPath.length > 0) {
+    console.log('slugsThatDontMatchPath', slugsThatDontMatchPath);
+    throw new Error('slugsThatDontMatchPath');
+  }
+
   slugToPath = new Map(
-    directories
-      .map((dir) => {
-        const blogPath = `blog-website/blog/${dir}/index.md`;
-
-        const blogMd = fs.readFileSync(`../${blogPath}`, 'utf8');
-
-        const match = blogMd.match(slugBlogUrlRegEx);
-
-        const slug = match && match[1] ? match[1] : '';
-
-        return { slug, blogPath };
-      })
+    pathAndSlug
       .filter(({ slug }) => Boolean(slug))
       .map(({ slug, blogPath }) => [slug, blogPath])
   );
