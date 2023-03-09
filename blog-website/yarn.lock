@@ -7960,10 +7960,10 @@ regjsparser@^0.9.1:
   dependencies:
     jsesc "~0.5.0"
 
-rehype-cloudinary-docusaurus@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/rehype-cloudinary-docusaurus/-/rehype-cloudinary-docusaurus-1.3.0.tgz#155b03a804ab0731c77ee26042981317119f4203"
-  integrity sha512-kTAHSD3uI50CblNdiKOAB/+uwbyk3qHOL4XXdosYxsoc1VrJwaKBeJfD78F3W6ejXMgO2JZx4FylZycLNSsJ6w==
+rehype-cloudinary-docusaurus@1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/rehype-cloudinary-docusaurus/-/rehype-cloudinary-docusaurus-1.3.1.tgz#9e83fd2191a3df28b248287e66b97ce41818dbce"
+  integrity sha512-pwpEvYrccPmlEPbAoRISpUq6nN8r+tVGFnbIN2Jw45iFjEjiO7FujCHxFb9bBCsW6co6DKh5REfBxJueehoM6Q==
 
 relateurl@^0.2.7:
   version "0.2.7"
