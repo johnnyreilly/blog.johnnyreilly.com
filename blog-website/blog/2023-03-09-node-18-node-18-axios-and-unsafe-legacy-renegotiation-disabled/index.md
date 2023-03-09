@@ -8,13 +8,7 @@ description: 'With Node.js 18, unsafe legacy renegotiation was disabled. However
 hide_table_of_contents: false
 ---
 
-Have you encountered this error when using Axios with Node.js 18?
-
-```bash
-EPROTO B8150000:error:0A000152:SSL routines:final_renegotiate:unsafe legacy renegotiation disabled
-```
-
-Here's how to fix it.
+Node.js 18 doesn't allow legacy TLS renegotion by default. But some APIs still need it. This post shows how to support them with Axios.
 
 ![title image reading "Node.js 18, Axios and unsafe legacy renegotiation disabled"](title-image.png)
 
@@ -28,7 +22,7 @@ If you have code that uses Node.js and Axios, you may have encountered this erro
 EPROTO B8150000:error:0A000152:SSL routines:final_renegotiate:unsafe legacy renegotiation disabled
 ```
 
-The source of this error is that Node.js 18 disabled unsafe legacy TLS renegotiation. The motivation for this is noble; it's to mitigate [CVE-2009-3555](https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2009-3555) by all accounts. Alas, there are APIs that still use legacy TLS negotiation. It appears that one such API is the [Teams webhook API](../2019-12-18-teams-notification-webhooks/index.md).
+The source of this error is Node.js 18 disabling unsafe legacy TLS renegotiation. The motivation for this is noble; it's to mitigate [CVE-2009-3555](https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2009-3555) by all accounts. Alas, there are APIs that still use legacy TLS negotiation. It appears that one such API is the [Teams webhook API](../2019-12-18-teams-notification-webhooks/index.md).
 
 ## The fix
 
