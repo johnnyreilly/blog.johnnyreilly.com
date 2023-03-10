@@ -14,6 +14,12 @@ Application Insights are a great way to monitor Azure Static Web Apps and Azure 
 
 <!--truncate-->
 
+## Updated 9 March 2023
+
+I've updated this post to use the correct configuration approach for Static Web Apps with Azure Functions. Historically they used to be configured separately but that's no longer the case. You can see some discussion of this [on this GitHub issue](https://github.com/Azure/static-web-apps/issues/1089#issuecomment-1458710885).
+
+To be super clear; the [`Microsoft.Web/staticSites/config@2022-03-01` `functionappsettings` is deprecated](https://learn.microsoft.com/en-us/azure/templates/microsoft.web/staticsites/config-functionappsettings?pivots=deployment-language-bicep). Don't use it. Use the `appsettings` resource alone instead.
+
 ## Monitoring Azure Static Web Apps
 
 This post should possibly win some kind of "least pithy blog title" award. But it's definitely descriptive. Let's get into it.
@@ -175,16 +181,6 @@ resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' =
   }
 }
 
-resource staticWebAppFunctionAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' = {
-  name: 'functionappsettings'
-  kind: 'string'
-  parent: staticWebApp
-  properties: {
-    APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
-    APPLICATIONINSIGHTS_CONNECTION_STRING: appInsightsConnectionString
-  }
-}
-
 resource rootCustomDomain 'Microsoft.Web/staticSites/customDomains@2022-03-01' = {
   parent: staticWebApp
   name: rootCustomDomainName
@@ -223,19 +219,9 @@ resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' =
     APPLICATIONINSIGHTS_CONNECTION_STRING: appInsightsConnectionString
   }
 }
-
-resource staticWebAppFunctionAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' = {
-  name: 'functionappsettings'
-  kind: 'string'
-  parent: staticWebApp
-  properties: {
-    APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
-    APPLICATIONINSIGHTS_CONNECTION_STRING: appInsightsConnectionString
-  }
-}
 ```
 
-We're setting the `APPINSIGHTS_INSTRUMENTATIONKEY` and `APPLICATIONINSIGHTS_CONNECTION_STRING` application settings on the Azure Static Web App and its associated Azure Function. These settings are what tells the Azure Static Web App and Azure Function to use Application Insights.
+We're setting the `APPINSIGHTS_INSTRUMENTATIONKEY` and `APPLICATIONINSIGHTS_CONNECTION_STRING` application settings on the Azure Static Web App and its associated Azure Function. These settings are what tells the Azure Static Web App and Azure Function to use Application Insights. Please note that the configuration above is _shared_ by the Azure Static Web App and Azure Function.
 
 ### 2. Connecting the Azure Static Web App to the Application Insights resource in the Azure Portal
 
