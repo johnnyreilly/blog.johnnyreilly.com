@@ -53,7 +53,7 @@ jobs:
       - name: Infra changes 📝
         id: static_web_app_what_if
         if: github.event_name == 'pull_request'
-        uses: azure/CLI@v2
+        uses: azure/CLI@2
         with:
           useGlobalConfig: true
           inlineScript: |
@@ -73,7 +73,7 @@ jobs:
       - name: Deploy infra 🔧
         id: static_web_app_deploy
         if: github.event_name != 'pull_request'
-        uses: azure/CLI@v2
+        uses: azure/CLI@2
         with:
           useGlobalConfig: true
           inlineScript: |
@@ -92,7 +92,7 @@ jobs:
 
       - name: Get preview URL 📝
         id: static_web_app_preview_url
-        uses: azure/CLI@v2
+        uses: azure/CLI@2
         with:
           useGlobalConfig: true
           inlineScript: |
@@ -125,7 +125,7 @@ jobs:
 
       - name: Get API key 🔑
         id: static_web_app_apikey
-        uses: azure/CLI@v2
+        uses: azure/CLI@2
         with:
           useGlobalConfig: true
           inlineScript: |
@@ -238,7 +238,7 @@ jobs:
 
       - name: Get API key 🔑
         id: apikey
-        uses: azure/CLI@v2
+        uses: azure/CLI@2
         with:
           useGlobalConfig: true
           inlineScript: |
