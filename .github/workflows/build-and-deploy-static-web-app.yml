@@ -53,8 +53,9 @@ jobs:
       - name: Infra changes 📝
         id: static_web_app_what_if
         if: github.event_name == 'pull_request'
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         with:
+          useGlobalConfig: true
           inlineScript: |
             az deployment group what-if \
               --resource-group ${{ env.RESOURCE_GROUP }} \
@@ -72,8 +73,9 @@ jobs:
       - name: Deploy infra 🔧
         id: static_web_app_deploy
         if: github.event_name != 'pull_request'
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         with:
+          useGlobalConfig: true
           inlineScript: |
             az deployment group create \
               --resource-group ${{ env.RESOURCE_GROUP }} \
@@ -90,8 +92,9 @@ jobs:
 
       - name: Get preview URL 📝
         id: static_web_app_preview_url
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         with:
+          useGlobalConfig: true
           inlineScript: |
             DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATICWEBAPPNAME }}' | jq -r '.defaultHostname')
             echo $DEFAULTHOSTNAME
@@ -122,8 +125,9 @@ jobs:
 
       - name: Get API key 🔑
         id: static_web_app_apikey
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         with:
+          useGlobalConfig: true
           inlineScript: |
             APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
             echo "APIKEY=$APIKEY" >> $GITHUB_OUTPUT
@@ -234,8 +238,9 @@ jobs:
 
       - name: Get API key 🔑
         id: apikey
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         with:
+          useGlobalConfig: true
           inlineScript: |
             APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
             echo "APIKEY=$APIKEY" >> $GITHUB_OUTPUT
