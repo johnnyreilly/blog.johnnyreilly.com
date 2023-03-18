@@ -1,15 +1,19 @@
 const { describe, expect, test } = require('@jest/globals');
 
+/**
+ * @typedef { import("@azure/functions").Logger } Logger
+ */
+
 const redirect = require('./redirect');
 
 describe('redirect', () => {
   test('blog.johnnyreilly.com should be redirected to johnnyreilly.com', () => {
-    const mockLogger = jest.fn();
+    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
 
     expect(
       redirect(
         'https://blog.johnnyreilly.com/2013/12/simple-fading-in-and-out-using-css-transitions.html',
-        mockLogger
+        /** @type {any} */ (mockLogger)
       )
     ).toEqual({
       status: 301,
@@ -26,12 +30,12 @@ describe('redirect', () => {
   });
 
   test('blog.johnnyreilly.com should be redirected to matches where possible', () => {
-    const mockLogger = jest.fn();
+    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
 
     expect(
       redirect(
         'https://blog.johnnyreilly.com/2021/01/30/aspnet-serilog-and-application-insights',
-        mockLogger
+        /** @type {any} */ (mockLogger)
       )
     ).toEqual({
       status: 301,
@@ -48,12 +52,12 @@ describe('redirect', () => {
   });
 
   test('redirects should be matched', () => {
-    const mockLogger = jest.fn();
+    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
 
     expect(
       redirect(
         'https://johnnyreilly.com/2013/12/simple-fading-in-and-out-using-css-transitions.html',
-        mockLogger
+        /** @type {any} */ (mockLogger)
       )
     ).toEqual({
       status: 301,
@@ -70,12 +74,12 @@ describe('redirect', () => {
   });
 
   test('blogger RSS redirects should be handled', () => {
-    const mockLogger = jest.fn();
+    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
 
     expect(
       redirect(
         'https://johnnyreilly.com/feeds/posts/default?alt=rss',
-        mockLogger
+        /** @type {any} */ (mockLogger)
       )
     ).toEqual({
       status: 301,
@@ -91,10 +95,13 @@ describe('redirect', () => {
   });
 
   test('blogger Atom redirects should be handled', () => {
-    const mockLogger = jest.fn();
+    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
 
     expect(
-      redirect('https://johnnyreilly.com/feeds/posts/default', mockLogger)
+      redirect(
+        'https://johnnyreilly.com/feeds/posts/default',
+        /** @type {any} */ (mockLogger)
+      )
     ).toEqual({
       status: 301,
       location: 'https://johnnyreilly.com/atom.xml',
@@ -109,10 +116,13 @@ describe('redirect', () => {
   });
 
   test('blogger search redirects should be handled', () => {
-    const mockLogger = jest.fn();
+    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
 
     expect(
-      redirect('https://johnnyreilly.com/search/label/uglifyjs', mockLogger)
+      redirect(
+        'https://johnnyreilly.com/search/label/uglifyjs',
+        /** @type {any} */ (mockLogger)
+      )
     ).toEqual({
       status: 301,
       location: 'https://johnnyreilly.com/search?q=uglifyjs',
@@ -127,9 +137,14 @@ describe('redirect', () => {
   });
 
   test('blogger archive year/month redirects should be handled', () => {
-    const mockLogger = jest.fn();
+    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
 
-    expect(redirect('https://johnnyreilly.com/2020/12/', mockLogger)).toEqual({
+    expect(
+      redirect(
+        'https://johnnyreilly.com/2020/12/',
+        /** @type {any} */ (mockLogger)
+      )
+    ).toEqual({
       status: 301,
       location: 'https://johnnyreilly.com/archive',
     });
@@ -143,9 +158,14 @@ describe('redirect', () => {
   });
 
   test('blogger archive year redirects should be handled', () => {
-    const mockLogger = jest.fn();
+    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
 
-    expect(redirect('https://johnnyreilly.com/2020/', mockLogger)).toEqual({
+    expect(
+      redirect(
+        'https://johnnyreilly.com/2020/',
+        /** @type {any} */ (mockLogger)
+      )
+    ).toEqual({
       status: 301,
       location: 'https://johnnyreilly.com/archive',
     });
@@ -159,12 +179,12 @@ describe('redirect', () => {
   });
 
   test('webp images that used to be png / jpg etc should be redirected where possible', () => {
-    const mockLogger = jest.fn();
+    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
 
     expect(
       redirect(
         'https://johnnyreilly.com/assets/images/robski-dynamic-auth-9ac401590462e2bece9156353b92d187.png',
-        mockLogger
+        /** @type {any} */ (mockLogger)
       )
     ).toEqual({
       status: 301,
@@ -181,9 +201,9 @@ describe('redirect', () => {
   });
 
   test('empty originalUrls should redirect to /404', () => {
-    const mockLogger = jest.fn();
+    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
 
-    expect(redirect('', mockLogger)).toEqual({
+    expect(redirect('', /** @type {any} */ (mockLogger))).toEqual({
       status: 302,
       location: 'https://johnnyreilly.com/404',
     });
@@ -194,15 +214,18 @@ describe('redirect', () => {
   });
 
   test('no explicit redirect should redirect to 404 with path in query', () => {
-    const mockLogger = jest.fn();
+    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
 
-    expect(redirect('https://johnnyreilly.com/robots.txt', mockLogger)).toEqual(
-      {
-        status: 302,
-        location:
-          'https://johnnyreilly.com/404?originalUrl=https%3A%2F%2Fjohnnyreilly.com%2Frobots.txt',
-      }
-    );
+    expect(
+      redirect(
+        'https://johnnyreilly.com/robots.txt',
+        /** @type {any} */ (mockLogger)
+      )
+    ).toEqual({
+      status: 302,
+      location:
+        'https://johnnyreilly.com/404?originalUrl=https%3A%2F%2Fjohnnyreilly.com%2Frobots.txt',
+    });
 
     expect(mockLogger.mock.calls[0][0]).toBe(
       'x-ms-original-url: https://johnnyreilly.com/robots.txt'

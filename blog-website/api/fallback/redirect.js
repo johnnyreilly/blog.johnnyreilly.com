@@ -3,6 +3,10 @@ const imagePaths = require('./imagePaths');
 const routes = require('./redirects');
 
 /**
+ * @typedef { import("@azure/functions").Logger } Logger
+ */
+
+/**
  * @typedef {Object} Redirect
  * @property {number} status - The X Coordinate
  * @property {string} location - The Y Coordinate
@@ -14,27 +18,15 @@ const baseUrl = 'https://johnnyreilly.com';
 /**
  * Logic to handle redirects
  * @param {string} originalUrl eg https://johnnyreilly.com/2019/06/typescript-webpack-you-down-with-pnp.html
- * @param {(log: string) => void} log
+ * @param {Logger} log
  * @returns {Redirect}
  */
-function redirect(
-  /** @type string */ originalUrl,
-  /** @type {(log: string) => void} */ log
-) {
+function redirect(/** @type string */ originalUrl, /** @type {Logger} */ log) {
   if (originalUrl) {
     // This URL has been proxied as there was no static file matching it.
     log(`x-ms-original-url: ${originalUrl}`);
 
-    // we will redirect https://blog.johnnyreilly.com/... to https://johnnyreilly.com/...
-    const isBlogJohnnyReillyCom = originalUrl.startsWith(
-      'https://blog.johnnyreilly.com'
-    );
-
-    const parsedURL = parseURL(
-      isBlogJohnnyReillyCom
-        ? originalUrl.replace('blog.johnnyreilly.com', 'johnnyreilly.com')
-        : originalUrl
-    );
+    const parsedURL = parseURL(originalUrl);
     // parsedURL.pathname example: /2019/06/typescript-webpack-you-down-with-pnp.html
 
     const matchedRoute = routes.find((route) =>
@@ -118,14 +110,13 @@ function redirect(
 /**
  * @typedef {Object} Redirect301Params
  * @property {string} redirectUrl
- * @property {(log: string) => void} log
+ * @property {Logger} log
  * @property {string} originalUrl
  */
 
 /**
- *
+ * Redirects to a new URL with a 301 status code
  * @param {Redirect301Params} redirect301Params
- * @returns
  */
 function redirect301({ redirectUrl, log, originalUrl }) {
   const redirectUrlWithBase = `${baseUrl}${redirectUrl}`;
