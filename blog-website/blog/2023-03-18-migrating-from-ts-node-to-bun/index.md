@@ -274,3 +274,9 @@ However, when you look at the difference between the end to end runtime and code
 Moving from ts-node to Bun was a pretty easy process. I was able to do it in a few hours. I was able to run the app locally and in GitHub Actions. And I was able to run the app in less time.
 
 This all makes me feel very positive about Bun. I'm looking forward to using it more in the future.
+
+[This post was originally published on LogRocket.](https://blog.logrocket.com/migrating-typescript-app-node-js-bun/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/migrating-typescript-app-node-js-bun/" />
+</head>
