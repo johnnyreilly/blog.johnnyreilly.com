@@ -723,7 +723,7 @@ const redirectsDocusaurusDateToNoDate = [
   },
   {
     route: '/2019/10/08/definitely-typed-movie',
-    redirect: '/definitely-typed-movie',
+    redirect: '/definitely-typed-the-movie',
   },
   {
     route: '/2019/12/18/teams-notification-webhooks',
