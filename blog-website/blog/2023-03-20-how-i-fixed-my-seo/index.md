@@ -81,3 +81,8 @@ Either way, whilst we tried to get help from the community here, we rather drew 
 
 8 recent posts, 20 posts per page:
 https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/56ff7b76efc74e43494daa2ebe55b86f9806b5b5
+
+## Redirect URLs but once
+
+This PR moves the redirect mechanism to redirect only once, and to fully qualified URLs.  Aligned with this, we'll also remove the redirect from blog.johnnyreilly.com -> johnnyreilly.com that sits in Cloudflare. https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/471
+
