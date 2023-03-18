@@ -1,6 +1,6 @@
 ---
 slug: migrating-from-ts-node-to-bun
-title: 'Migrating from ts-node to Bun'
+title: 'Migrating a TypeScript app from Node.js to Bun'
 authors: johnnyreilly
 tags: [bun]
 image: ./title-image.png
@@ -18,7 +18,7 @@ I've wanted to take a look at some of the alternative JavaScript runtimes for a 
 
 I have a [technical blog](https://johnnyreilly.com/) which is built on Docusaurus. When the Docusaurus build completes, a post processing script runs to do things like:
 
-- update the `sitemap.xml` to include the `lastmod` date based on [git commit date](https://johnnyreilly.com/docusaurus-createfeeditems-api-git-commit-date), and truncate the number of entries in the file
+- update the `sitemap.xml` to include the `lastmod` date based on [git commit date](../2023-01-28-docusaurus-createfeeditems-api-git-commit-date/index.md), and truncate the number of entries in the file
 - patch the html files to use Cloudinary as an image CDN for open graph images
 
 These scripts are implemented as a simple ts-node console app. For historical reasons it's called `trim-xml` (it originally just truncated the `sitemap.xml` file). It's not a particularly good name but I'm not going to change it now. As the blog is open source, you can see the [code of `trim-xml` here](https://github.com/johnnyreilly/blog.johnnyreilly.com/tree/main/trim-xml].
@@ -274,3 +274,9 @@ However, when you look at the difference between the end to end runtime and code
 Moving from ts-node to Bun was a pretty easy process. I was able to do it in a few hours. I was able to run the app locally and in GitHub Actions. And I was able to run the app in less time.
 
 This all makes me feel very positive about Bun. I'm looking forward to using it more in the future.
+
+[This post was originally published on LogRocket.](https://blog.logrocket.com/migrating-typescript-app-node-js-bun/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/migrating-typescript-app-node-js-bun/" />
+</head>
