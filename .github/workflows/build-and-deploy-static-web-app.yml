@@ -50,43 +50,45 @@ jobs:
           DEPLOYMENT_NAME="${REF_SHA////-}"
           echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_OUTPUT
 
-      - name: Infra changes 📝
-        id: static_web_app_what_if
-        if: github.event_name == 'pull_request'
-        uses: azure/CLI@v1
-        with:
-          inlineScript: |
-            az deployment group what-if \
-              --resource-group ${{ env.RESOURCE_GROUP }} \
-              --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
-              --template-file ./infra/main.bicep \
-              --parameters \
-                  branch='main' \
-                  location='${{ env.LOCATION }}' \
-                  staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
-                  tags='${{ env.TAGS }}' \
-                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
-                  rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
-                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}'
+      # Commented out whilst this issue exists: https://github.com/Azure/azure-cli/issues/25710
 
-      - name: Deploy infra 🔧
-        id: static_web_app_deploy
-        if: github.event_name != 'pull_request'
-        uses: azure/CLI@v1
-        with:
-          inlineScript: |
-            az deployment group create \
-              --resource-group ${{ env.RESOURCE_GROUP }} \
-              --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
-              --template-file ./infra/main.bicep \
-              --parameters \
-                  branch='main' \
-                  location='${{ env.LOCATION }}' \
-                  staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
-                  tags='${{ env.TAGS }}' \
-                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
-                  rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
-                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}'
+      # - name: Infra - detect changes 📝
+      #   id: static_web_app_what_if
+      #   if: github.event_name == 'pull_request'
+      #   uses: azure/CLI@v1
+      #   with:
+      #     inlineScript: |
+      #       az deployment group what-if \
+      #         --resource-group ${{ env.RESOURCE_GROUP }} \
+      #         --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
+      #         --template-file ./infra/main.bicep \
+      #         --parameters \
+      #             branch='main' \
+      #             location='${{ env.LOCATION }}' \
+      #             staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
+      #             tags='${{ env.TAGS }}' \
+      #             repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
+      #             rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
+      #             blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}'
+
+      # - name: Infra - deploy 🔧
+      #   id: static_web_app_deploy
+      #   if: github.event_name != 'pull_request'
+      #   uses: azure/CLI@v1
+      #   with:
+      #     inlineScript: |
+      #       az deployment group create \
+      #         --resource-group ${{ env.RESOURCE_GROUP }} \
+      #         --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
+      #         --template-file ./infra/main.bicep \
+      #         --parameters \
+      #             branch='main' \
+      #             location='${{ env.LOCATION }}' \
+      #             staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
+      #             tags='${{ env.TAGS }}' \
+      #             repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
+      #             rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
+      #             blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}'
 
       - name: Get preview URL 📝
         id: static_web_app_preview_url
