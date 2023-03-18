@@ -14,14 +14,36 @@ describe('redirect', () => {
     ).toEqual({
       status: 301,
       location:
-        'https://johnnyreilly.com/2013/12/simple-fading-in-and-out-using-css-transitions.html',
+        'https://johnnyreilly.com/simple-fading-in-and-out-using-css-transitions',
     });
 
     expect(mockLogger.mock.calls[0][0]).toBe(
       'x-ms-original-url: https://blog.johnnyreilly.com/2013/12/simple-fading-in-and-out-using-css-transitions.html'
     );
     expect(mockLogger.mock.calls[1][0]).toBe(
-      'Redirecting https://blog.johnnyreilly.com/2013/12/simple-fading-in-and-out-using-css-transitions.html to https://johnnyreilly.com/2013/12/simple-fading-in-and-out-using-css-transitions.html'
+      'Redirecting https://blog.johnnyreilly.com/2013/12/simple-fading-in-and-out-using-css-transitions.html to https://johnnyreilly.com/simple-fading-in-and-out-using-css-transitions'
+    );
+  });
+
+  test('blog.johnnyreilly.com should be redirected to matches where possible', () => {
+    const mockLogger = jest.fn();
+
+    expect(
+      redirect(
+        'https://blog.johnnyreilly.com/2021/01/30/aspnet-serilog-and-application-insights',
+        mockLogger
+      )
+    ).toEqual({
+      status: 301,
+      location:
+        'https://johnnyreilly.com/aspnet-serilog-and-application-insights',
+    });
+
+    expect(mockLogger.mock.calls[0][0]).toBe(
+      'x-ms-original-url: https://blog.johnnyreilly.com/2021/01/30/aspnet-serilog-and-application-insights'
+    );
+    expect(mockLogger.mock.calls[1][0]).toBe(
+      'Redirecting https://blog.johnnyreilly.com/2021/01/30/aspnet-serilog-and-application-insights to https://johnnyreilly.com/aspnet-serilog-and-application-insights'
     );
   });
 
@@ -35,14 +57,15 @@ describe('redirect', () => {
       )
     ).toEqual({
       status: 301,
-      location: '/simple-fading-in-and-out-using-css-transitions',
+      location:
+        'https://johnnyreilly.com/simple-fading-in-and-out-using-css-transitions',
     });
 
     expect(mockLogger.mock.calls[0][0]).toBe(
       'x-ms-original-url: https://johnnyreilly.com/2013/12/simple-fading-in-and-out-using-css-transitions.html'
     );
     expect(mockLogger.mock.calls[1][0]).toBe(
-      'Redirecting https://johnnyreilly.com/2013/12/simple-fading-in-and-out-using-css-transitions.html to /simple-fading-in-and-out-using-css-transitions'
+      'Redirecting https://johnnyreilly.com/2013/12/simple-fading-in-and-out-using-css-transitions.html to https://johnnyreilly.com/simple-fading-in-and-out-using-css-transitions'
     );
   });
 
@@ -56,14 +79,14 @@ describe('redirect', () => {
       )
     ).toEqual({
       status: 301,
-      location: '/rss.xml',
+      location: 'https://johnnyreilly.com/rss.xml',
     });
 
     expect(mockLogger.mock.calls[0][0]).toBe(
       'x-ms-original-url: https://johnnyreilly.com/feeds/posts/default?alt=rss'
     );
     expect(mockLogger.mock.calls[1][0]).toBe(
-      'Redirecting https://johnnyreilly.com/feeds/posts/default?alt=rss to /rss.xml'
+      'Redirecting https://johnnyreilly.com/feeds/posts/default?alt=rss to https://johnnyreilly.com/rss.xml'
     );
   });
 
@@ -74,14 +97,14 @@ describe('redirect', () => {
       redirect('https://johnnyreilly.com/feeds/posts/default', mockLogger)
     ).toEqual({
       status: 301,
-      location: '/atom.xml',
+      location: 'https://johnnyreilly.com/atom.xml',
     });
 
     expect(mockLogger.mock.calls[0][0]).toBe(
       'x-ms-original-url: https://johnnyreilly.com/feeds/posts/default'
     );
     expect(mockLogger.mock.calls[1][0]).toBe(
-      'Redirecting https://johnnyreilly.com/feeds/posts/default to /atom.xml'
+      'Redirecting https://johnnyreilly.com/feeds/posts/default to https://johnnyreilly.com/atom.xml'
     );
   });
 
@@ -92,14 +115,14 @@ describe('redirect', () => {
       redirect('https://johnnyreilly.com/search/label/uglifyjs', mockLogger)
     ).toEqual({
       status: 301,
-      location: '/search?q=uglifyjs',
+      location: 'https://johnnyreilly.com/search?q=uglifyjs',
     });
 
     expect(mockLogger.mock.calls[0][0]).toBe(
       'x-ms-original-url: https://johnnyreilly.com/search/label/uglifyjs'
     );
     expect(mockLogger.mock.calls[1][0]).toBe(
-      'Redirecting https://johnnyreilly.com/search/label/uglifyjs to /search?q=uglifyjs'
+      'Redirecting https://johnnyreilly.com/search/label/uglifyjs to https://johnnyreilly.com/search?q=uglifyjs'
     );
   });
 
@@ -108,14 +131,14 @@ describe('redirect', () => {
 
     expect(redirect('https://johnnyreilly.com/2020/12/', mockLogger)).toEqual({
       status: 301,
-      location: '/archive',
+      location: 'https://johnnyreilly.com/archive',
     });
 
     expect(mockLogger.mock.calls[0][0]).toBe(
       'x-ms-original-url: https://johnnyreilly.com/2020/12/'
     );
     expect(mockLogger.mock.calls[1][0]).toBe(
-      'Redirecting https://johnnyreilly.com/2020/12/ to /archive'
+      'Redirecting https://johnnyreilly.com/2020/12/ to https://johnnyreilly.com/archive'
     );
   });
 
@@ -124,14 +147,14 @@ describe('redirect', () => {
 
     expect(redirect('https://johnnyreilly.com/2020/', mockLogger)).toEqual({
       status: 301,
-      location: '/archive',
+      location: 'https://johnnyreilly.com/archive',
     });
 
     expect(mockLogger.mock.calls[0][0]).toBe(
       'x-ms-original-url: https://johnnyreilly.com/2020/'
     );
     expect(mockLogger.mock.calls[1][0]).toBe(
-      'Redirecting https://johnnyreilly.com/2020/ to /archive'
+      'Redirecting https://johnnyreilly.com/2020/ to https://johnnyreilly.com/archive'
     );
   });
 
@@ -146,14 +169,14 @@ describe('redirect', () => {
     ).toEqual({
       status: 301,
       location:
-        '/assets/images/robski-dynamic-auth-b50b7efd118b1c8ed1297a010749e0f4.webp',
+        'https://johnnyreilly.com/assets/images/robski-dynamic-auth-b50b7efd118b1c8ed1297a010749e0f4.webp',
     });
 
     expect(mockLogger.mock.calls[0][0]).toBe(
       'x-ms-original-url: https://johnnyreilly.com/assets/images/robski-dynamic-auth-9ac401590462e2bece9156353b92d187.png'
     );
     expect(mockLogger.mock.calls[1][0]).toBe(
-      'Redirecting https://johnnyreilly.com/assets/images/robski-dynamic-auth-9ac401590462e2bece9156353b92d187.png to /assets/images/robski-dynamic-auth-b50b7efd118b1c8ed1297a010749e0f4.webp'
+      'Redirecting https://johnnyreilly.com/assets/images/robski-dynamic-auth-9ac401590462e2bece9156353b92d187.png to https://johnnyreilly.com/assets/images/robski-dynamic-auth-b50b7efd118b1c8ed1297a010749e0f4.webp'
     );
   });
 
@@ -162,11 +185,11 @@ describe('redirect', () => {
 
     expect(redirect('', mockLogger)).toEqual({
       status: 302,
-      location: '/404',
+      location: 'https://johnnyreilly.com/404',
     });
 
     expect(mockLogger.mock.calls[0][0]).toBe(
-      'Redirecting  to /404 as no explicit redirect exists'
+      'Redirecting  to https://johnnyreilly.com/404 as no explicit redirect exists'
     );
   });
 
@@ -177,7 +200,7 @@ describe('redirect', () => {
       {
         status: 302,
         location:
-          '/404?originalUrl=https%3A%2F%2Fjohnnyreilly.com%2Frobots.txt',
+          'https://johnnyreilly.com/404?originalUrl=https%3A%2F%2Fjohnnyreilly.com%2Frobots.txt',
       }
     );
 
@@ -185,7 +208,7 @@ describe('redirect', () => {
       'x-ms-original-url: https://johnnyreilly.com/robots.txt'
     );
     expect(mockLogger.mock.calls[1][0]).toBe(
-      'Redirecting https://johnnyreilly.com/robots.txt to /404?originalUrl=https%3A%2F%2Fjohnnyreilly.com%2Frobots.txt as no explicit redirect exists'
+      'Redirecting https://johnnyreilly.com/robots.txt to https://johnnyreilly.com/404?originalUrl=https%3A%2F%2Fjohnnyreilly.com%2Frobots.txt as no explicit redirect exists'
     );
   });
 });

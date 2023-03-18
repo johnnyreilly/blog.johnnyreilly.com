@@ -9,6 +9,7 @@ const routes = require('./redirects');
  */
 
 const yearMonthRegex = /\/\d\d\d\d\/(\d\d\/)?/;
+const baseUrl = 'https://johnnyreilly.com';
 
 /**
  * Logic to handle redirects
@@ -24,22 +25,16 @@ function redirect(
     // This URL has been proxied as there was no static file matching it.
     log(`x-ms-original-url: ${originalUrl}`);
 
-    if (originalUrl.startsWith('https://blog.johnnyreilly.com')) {
-      // redirect https://blog.johnnyreilly.com/whatever to https://johnnyreilly.com/whatever
-      const johnnyreillyUrl = originalUrl.replace(
-        'blog.johnnyreilly.com',
-        'johnnyreilly.com'
-      );
+    // we will redirect https://blog.johnnyreilly.com/... to https://johnnyreilly.com/...
+    const isBlogJohnnyReillyCom = originalUrl.startsWith(
+      'https://blog.johnnyreilly.com'
+    );
 
-      log(`Redirecting ${originalUrl} to ${johnnyreillyUrl}`);
-
-      return {
-        status: 301,
-        location: johnnyreillyUrl,
-      };
-    }
-
-    const parsedURL = parseURL(originalUrl);
+    const parsedURL = parseURL(
+      isBlogJohnnyReillyCom
+        ? originalUrl.replace('blog.johnnyreilly.com', 'johnnyreilly.com')
+        : originalUrl
+    );
     // parsedURL.pathname example: /2019/06/typescript-webpack-you-down-with-pnp.html
 
     const matchedRoute = routes.find((route) =>
@@ -47,12 +42,11 @@ function redirect(
     );
 
     if (matchedRoute) {
-      log(`Redirecting ${originalUrl} to ${matchedRoute.redirect}`);
-
-      return {
-        status: 301,
-        location: matchedRoute.redirect,
-      };
+      return redirect301({
+        log,
+        originalUrl,
+        redirectUrl: matchedRoute.redirect,
+      });
     }
 
     if (parsedURL.pathname.startsWith('/feeds/posts/default')) {
@@ -61,35 +55,29 @@ function redirect(
         ? '/rss.xml'
         : '/atom.xml';
 
-      log(`Redirecting ${originalUrl} to ${atomOrRss}`);
-
-      return {
-        status: 301,
-        location: atomOrRss,
-      };
+      return redirect301({ log, originalUrl, redirectUrl: atomOrRss });
     }
 
     // cater for https://johnnyreilly.com/search/label/uglifyjs
     if (parsedURL.pathname.startsWith('/search/label/')) {
       const bloggerSearchRedirect =
         '/search?q=' + parsedURL.pathname.replace('/search/label/', '');
-      log(`Redirecting ${originalUrl} to ${bloggerSearchRedirect}`);
 
-      return {
-        status: 301,
-        location: bloggerSearchRedirect,
-      };
+      return redirect301({
+        log,
+        originalUrl,
+        redirectUrl: bloggerSearchRedirect,
+      });
     }
 
     // cater for https://johnnyreilly.com/2019/06/ or https://johnnyreilly.com/2019/
     if (parsedURL.pathname.match(yearMonthRegex)) {
       const bloggerArchiveRedirect = '/archive';
-      log(`Redirecting ${originalUrl} to ${bloggerArchiveRedirect}`);
-
-      return {
-        status: 301,
-        location: bloggerArchiveRedirect,
-      };
+      return redirect301({
+        log,
+        originalUrl,
+        redirectUrl: bloggerArchiveRedirect,
+      });
     }
 
     // cater for https://johnnyreilly.com/assets/images/auth0-enable-password-grant-type-d1ee245b0e059914635e5dada9942ab4.png
@@ -104,19 +92,18 @@ function redirect(
       );
 
       if (likelyImageRedirect) {
-        log(`Redirecting ${originalUrl} to ${likelyImageRedirect}`);
-
-        return {
-          status: 301,
-          location: likelyImageRedirect,
-        };
+        return redirect301({
+          log,
+          originalUrl,
+          redirectUrl: likelyImageRedirect,
+        });
       }
     }
   }
 
   const location = originalUrl
-    ? `/404?originalUrl=${encodeURIComponent(originalUrl)}`
-    : '/404';
+    ? `${baseUrl}/404?originalUrl=${encodeURIComponent(originalUrl)}`
+    : `${baseUrl}/404`;
 
   log(
     `Redirecting ${originalUrl} to ${location} as no explicit redirect exists`
@@ -125,6 +112,28 @@ function redirect(
   return {
     status: 302,
     location,
+  };
+}
+
+/**
+ * @typedef {Object} Redirect301Params
+ * @property {string} redirectUrl
+ * @property {(log: string) => void} log
+ * @property {string} originalUrl
+ */
+
+/**
+ *
+ * @param {Redirect301Params} redirect301Params
+ * @returns
+ */
+function redirect301({ redirectUrl, log, originalUrl }) {
+  const redirectUrlWithBase = `${baseUrl}${redirectUrl}`;
+  log(`Redirecting ${originalUrl} to ${redirectUrlWithBase}`);
+
+  return {
+    status: 301,
+    location: redirectUrlWithBase,
   };
 }
 
