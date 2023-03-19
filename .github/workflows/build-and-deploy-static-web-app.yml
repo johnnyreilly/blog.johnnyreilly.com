@@ -183,7 +183,6 @@ jobs:
         working-directory: ./blog-website-tests
 
       - uses: actions/upload-artifact@v3
-        working-directory: ./blog-website-tests
         if: always()
         with:
           name: playwright-report
