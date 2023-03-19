@@ -1,8 +1,8 @@
 ---
-slug: playwright-and-azure-static-web-apps-staging-environments
-title: 'Playwright and Azure Static Web Apps staging environments'
+slug: playwright-github-actions-and-azure-static-web-apps-staging-environments
+title: 'Playwright, GitHub Actions and Azure Static Web Apps staging environments'
 authors: johnnyreilly
-tags: [bun]
+tags: [Azure Static Web Apps, GitHub Actions]
 image: ./title-image.png
 description: 'Azure Static Web Apps staging environments allow you to test changes before they go live. This shows how to use Playwright against staging environments.'
 hide_table_of_contents: false
@@ -10,7 +10,7 @@ hide_table_of_contents: false
 
 Azure Static Web Apps staging environments allow you to test changes before they go live. This post shows how to use Playwright against staging environments with GitHub Actions. It's a follow up to my previous post on [using Lighthouse with Azure Static Web Apps staging environments](../2022-03-20-lighthouse-meet-github-actions/index.md).
 
-![title image reading "Playwright and Azure Static Web Apps staging environments"](title-image.png)
+![title image reading "Playwright, GitHub Actions and Azure Static Web Apps staging environments" with product logos](title-image.png)
 
 <!--truncate-->
 
