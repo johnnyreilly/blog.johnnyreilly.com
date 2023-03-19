@@ -96,10 +96,8 @@ jobs:
         with:
           inlineScript: |
             DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATICWEBAPPNAME }}' | jq -r '.defaultHostname')
-            echo $DEFAULTHOSTNAME
 
             PREVIEW_URL="https://${DEFAULTHOSTNAME/.[1-9]./-${{github.event.pull_request.number }}.${{ env.LOCATION }}.1.}"
-            echo $PREVIEW_URL
 
             echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_OUTPUT
 
