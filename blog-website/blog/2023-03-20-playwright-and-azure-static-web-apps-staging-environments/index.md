@@ -1,3 +1,98 @@
+---
+slug: playwright-and-azure-static-web-apps-staging-environments
+title: 'Playwright and Azure Static Web Apps staging environments'
+authors: johnnyreilly
+tags: [bun]
+image: ./title-image.png
+description: 'Azure Static Web Apps staging environments allow you to test changes before they go live. This shows how to use Playwright against staging environments.'
+hide_table_of_contents: false
+---
+
+Azure Static Web Apps staging environments allow you to test changes before they go live. This post shows how to use Playwright against staging environments with GitHub Actions. It's a follow up to my previous post on [using Lighthouse with Azure Static Web Apps staging environments](../2022-03-20-lighthouse-meet-github-actions/index.md).
+
+![title image reading "Playwright and Azure Static Web Apps staging environments"](title-image.png)
+
+<!--truncate-->
+
+## Playwright, GitHub Actions and Azure Static Web Apps
+
+What's the problem we're trying to solve? We want to run integration tests against our staging environment. We want to do this as part of our CI/CD pipeline. We want to do this with GitHub Actions and with Playwright.
+
+I'm going to write about this in the context of my blog. My blog is open source and [you can find the code here](https://github.com/johnnyreilly/blog.johnnyreilly.com). I'm going to present a simplified solution in this post, but you can find the full solution on GitHub.
+
+## Adding Playwright to the project
+
+To add Playwright to my blog I followed the [instructions on the Playwright website](https://playwright.dev/docs/intro). Essentially I ran the following command:
+
+```bash
+npm init playwright@latest
+```
+
+By and large I accepted the defaults. However, I deleted the GitHub Actions workflow that was created, in favour of my own which we'll get to soon. I'd created my tests in a `blog-website-tests` directory. This sits alongside the `blog-website` directory which contains the code for my blog.
+
+I made one tweak to the `playwright.config.ts` file that was created. I added the following line:
+
+```ts
+//...
+
+/**
+ * See https://playwright.dev/docs/test-configuration.
+ */
+export default defineConfig({
+  //...
+
+  use: {
+    //...
+
+    // WE WILL SET THIS IN THE GITHUB ACTIONS WORKFLOW
+    baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://localhost:3000',
+  },
+
+  //...
+});
+```
+
+What's going on here? I'm setting the `baseURL` to be the value of the `PLAYWRIGHT_TEST_BASE_URL` environment variable. If that's not set then I'm defaulting to `http://localhost:3000`, which is where my blog is served when running locally. I'll explain why I'm doing this in a moment.
+
+## A test using `baseURL`
+
+The [`baseURL`](https://playwright.dev/docs/api/class-testoptions#test-options-base-url) can be used in a Playwright test to determine where to run the tests. That's exactly what I'm doing in the following test file named `the.spec.ts`:
+
+```ts
+import { test, expect } from '@playwright/test';
+
+test('page should have title and a root navigation link', async ({
+  page,
+  baseURL,
+}) => {
+  await page.goto(baseURL!);
+  const title = await page.title();
+  expect(title).toBe('johnnyreilly | johnnyreilly');
+
+  const navTitle = page.getByRole('link', {
+    name: 'Profile picture of John Reilly John Reilly ❤️🌻',
+  });
+  await expect(navTitle).toBeVisible();
+});
+
+test('can navigate to about page', async ({ page, baseURL }) => {
+  await page.goto(baseURL!);
+  await page.getByRole('link', { name: 'About', exact: true }).click();
+
+  const navTitle = page.getByRole('heading', {
+    name: "Hi! I'm John Reilly - welcome! ❤️🌻",
+  });
+  await expect(navTitle).toBeVisible();
+});
+```
+
+The `baseURL` is used in the `page.goto` call. This means that the tests will run against the URL that I specify. In the case of the GitHub Actions workflow, I'll specify the URL of the staging environment. These are simple tests that check that the title of the page is correct and that I can navigate to the about page. Consider them smoke tests.
+
+## Creating a GitHub Actions workflow
+
+We now have a test that we can run against a URL. We need to create a GitHub Actions workflow that will run the test against the staging environment. I've created a workflow file named `build-and-deploy-static-web-app.yml` in the `.github/workflows` directory. It looks like this:
+
+```yml
 name: Static Web App - Build and Deploy 🏗️
 
 on:
@@ -31,64 +126,16 @@ jobs:
     steps:
       - name: Checkout 📥
         uses: actions/checkout@v3
-        with:
-          # Number of commits to fetch. 0 indicates all history for all branches and tags.
-          fetch-depth: 0
-          submodules: true
 
+      # Auth between GitHub and Azure is handled by https://github.com/jongio/github-azure-oidc
+      # https://github.com/Azure/login#sample-workflow-that-uses-azure-login-action-using-oidc-to-run-az-cli-linux
+      # other login options are possible too
       - name: AZ CLI login 🔑
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-      - name: Set deployment name 📝
-        id: deployment_name
-        run: |
-          REF_SHA='${{ github.ref }}.${{ github.sha }}'
-          DEPLOYMENT_NAME="${REF_SHA////-}"
-          echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_OUTPUT
-
-      # Commented out whilst this issue exists: https://github.com/Azure/azure-cli/issues/25710
-
-      # - name: Infra - detect changes 📝
-      #   id: static_web_app_what_if
-      #   if: github.event_name == 'pull_request'
-      #   uses: azure/CLI@v1
-      #   with:
-      #     inlineScript: |
-      #       az deployment group what-if \
-      #         --resource-group ${{ env.RESOURCE_GROUP }} \
-      #         --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
-      #         --template-file ./infra/main.bicep \
-      #         --parameters \
-      #             branch='main' \
-      #             location='${{ env.LOCATION }}' \
-      #             staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
-      #             tags='${{ env.TAGS }}' \
-      #             repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
-      #             rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
-      #             blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}'
-
-      # - name: Infra - deploy 🔧
-      #   id: static_web_app_deploy
-      #   if: github.event_name != 'pull_request'
-      #   uses: azure/CLI@v1
-      #   with:
-      #     inlineScript: |
-      #       az deployment group create \
-      #         --resource-group ${{ env.RESOURCE_GROUP }} \
-      #         --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
-      #         --template-file ./infra/main.bicep \
-      #         --parameters \
-      #             branch='main' \
-      #             location='${{ env.LOCATION }}' \
-      #             staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
-      #             tags='${{ env.TAGS }}' \
-      #             repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
-      #             rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
-      #             blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}'
 
       - name: Get preview URL 📝
         id: static_web_app_preview_url
@@ -107,16 +154,11 @@ jobs:
           node-version: '18'
           cache: 'yarn'
 
-      - name: Setup bun 🔧
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-
       - name: Install and build site 🔧
         run: |
           cd blog-website
           yarn install --frozen-lockfile
-          DOCUSAURUS_SSR_CONCURRENCY=5 USE_CLOUDINARY=${{ github.event_name != 'pull_request' }} yarn run build
+          yarn run build
           cp staticwebapp.config.json build/staticwebapp.config.json
 
       - name: Get API key 🔑
@@ -183,81 +225,6 @@ jobs:
           path: blog-website-tests/playwright-report/
           retention-days: 30
 
-  lighthouse_report_job:
-    name: Lighthouse report 💡🏠
-    needs: build_and_deploy_swa_job
-    if: github.event_name == 'pull_request' && github.event.action != 'closed'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Wait for preview ${{ needs.build_and_deploy_swa_job.outputs.preview-url }} ⌚
-        id: static_web_app_wait_for_preview
-        uses: nev7n/wait_for_response@v1
-        with:
-          url: '${{ needs.build_and_deploy_swa_job.outputs.preview-url }}'
-          responseCode: 200
-          timeout: 600000
-          interval: 1000
-
-      - name: Audit URLs 🧐
-        id: lighthouse_audit
-        uses: treosh/lighthouse-ci-action@v9
-        with:
-          urls: |
-            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
-          configPath: ./.github/workflows/lighthousesrc.json
-          uploadArtifacts: true
-          temporaryPublicStorage: true
-          runs: 5
-
-      - name: Dump steps.lighthouse_audit.outputs
-        id: github_context_step
-        run: echo '${{ toJSON(steps.lighthouse_audit.outputs) }}'
-
-      - name: Format lighthouse score
-        id: format_lighthouse_score
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const lighthouseCommentMaker = require('./.github/workflows/lighthouseCommentMaker.js');
-
-            const lighthouseOutputs = {
-              manifest: ${{ steps.lighthouse_audit.outputs.manifest }},
-              links: ${{ steps.lighthouse_audit.outputs.links }}
-            };
-
-            const comment = lighthouseCommentMaker({ lighthouseOutputs });
-            core.setOutput("comment", comment);
-
-      - name: Add Lighthouse stats as comment ✍️
-        id: comment_to_pr
-        uses: marocchino/sticky-pull-request-comment@v2.5.0
-        with:
-          number: ${{ github.event.pull_request.number }}
-          header: lighthouse
-          message: ${{ steps.format_lighthouse_score.outputs.comment }}
-
-  deploy_to_devto_job:
-    name: Publish to dev.to 🗞️
-    needs: build_and_deploy_swa_job
-    if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup Node.js 🔧
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'yarn'
-
-      - name: Publish to dev.to 🗞️
-        run: |
-          cd from-docusaurus-to-devto
-          yarn install --frozen-lockfile
-          DEVTO_APIKEY=${{ secrets.DEVTO_APIKEY }} yarn start
-
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
@@ -284,3 +251,4 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ steps.apikey.outputs.APIKEY }}
           action: 'close'
+```
