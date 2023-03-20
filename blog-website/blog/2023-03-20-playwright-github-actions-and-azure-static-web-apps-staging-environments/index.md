@@ -16,7 +16,9 @@ Azure Static Web Apps staging environments allow you to test changes before they
 
 ## Playwright, GitHub Actions and Azure Static Web Apps
 
-What's the problem we're trying to solve? We want to run integration tests against our staging environment. We want to do this as part of our CI/CD pipeline. We want to do this with GitHub Actions and with Playwright.
+What's the problem we're trying to solve? Let's do our best Simon Sinek impression and start with "Why?". The "Why?" is that we want only to ship changes that haven't broken our application.
+
+Now let's move onto "How?" The way we guard against breaking production is by running automated tests on all changes. Playwright is a tool that allows us to do that. We get a fully fledged staging environment available to us on all pull requests. We want to run Playwright integration tests against our staging environment. We want to do this as part of our CI/CD pipeline; in our GitHub Actions workflow.
 
 I'm going to write about this in the context of my blog. My blog is open source and [you can find the code here](https://github.com/johnnyreilly/blog.johnnyreilly.com). I'm going to present a simplified solution in this post, but you can find the full solution on GitHub.
 
@@ -249,7 +251,7 @@ jobs:
           action: 'close'
 ```
 
-As I said earlier, this has been chopped down from thre full version in my repo. It contains specific variables from my own project, but you can see the general structure of the workflow.
+As I said earlier, this has been chopped down from the full version in my repo. It contains specific variables from my own project, but you can see the general structure of the workflow.
 
 Let's look at what happens above; there are 3 jobs:
 
@@ -287,11 +289,11 @@ Our tests job depends upon the previous job; specifically the preview URL of our
 
 When we put all this together and push it up to GitHub, we see that tests run as part of the pull request:
 
-[Screenshot of the GitHub Action with passing tests](screenshot-github-action.webp)
+![Screenshot of the GitHub Action with passing tests](screenshot-github-action.webp)
 
 This screenshot is taken directly from my own blog, and so includes things like Lighthouse that are excluded from this post. But what you can see is that tests are indeed running; and we can see the test report as an artifact:
 
-[Screenshot of the test report](screenshot-playwright-test-results.png)
+![Screenshot of the test report](screenshot-playwright-test-results.png)
 
 ## Conclusion
 
