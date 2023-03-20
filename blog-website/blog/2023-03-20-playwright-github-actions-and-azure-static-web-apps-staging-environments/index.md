@@ -287,7 +287,7 @@ Our tests job depends upon the previous job; specifically the preview URL of our
 
 When we put all this together and push it up to GitHub, we see that tests run as part of the pull request:
 
-[Screenshot of the GitHub Action with passing tests](screenshot-github-action.png)
+[Screenshot of the GitHub Action with passing tests](screenshot-github-action.webp)
 
 This screenshot is taken directly from my own blog, and so includes things like Lighthouse that are excluded from this post. But what you can see is that tests are indeed running; and we can see the test report as an artifact:
 
