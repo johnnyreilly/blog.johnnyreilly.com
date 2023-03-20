@@ -111,12 +111,8 @@ permissions:
   pull-requests: write
 
 env:
-  RESOURCE_GROUP: rg-blog-johnnyreilly-com
   LOCATION: westeurope
   STATICWEBAPPNAME: blog.johnnyreilly.com
-  ROOTCUSTOMDOMAINNAME: johnnyreilly.com
-  BLOGCUSTOMDOMAINNAME: blog.johnnyreilly.com
-  TAGS: '{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
 
 jobs:
   build_and_deploy_swa_job:
@@ -252,3 +248,51 @@ jobs:
           azure_static_web_apps_api_token: ${{ steps.apikey.outputs.APIKEY }}
           action: 'close'
 ```
+
+As I said earlier, this has been chopped down from thre full version in my repo. It contains specific variables from my own project, but you can see the general structure of the workflow.
+
+Let's look at what happens above; there are 3 jobs:
+
+1. Site build and deploy 🏗️ - This is the main job that builds the site and deploys it to the Static Web App.
+2. Integration tests 💡🏠 - This job runs the Playwright tests against the preview URL of our Static Web App.
+3. Cleanup staging 💥 - This job runs when a pull request is closed, and destroys the staging environment.
+
+Let's dig into 1 and 2 a bit more. We'll ignore 3 as it's pretty self explanatory.
+
+### Site build and deploy 🏗️
+
+This job is the main job that builds the site and deploys it to the Static Web App. It's a bit long, but it's not too complicated. Let's break it down:
+
+1. Checkout 📥 - This is the first step, and it checks out the code from GitHub.
+2. AZ CLI login 🔑 - This step logs into Azure using the `azure/login` action. This is required to run the `az` CLI commands.
+3. Get preview URL 📝 - This step constructs the preview URL of the Static Web App using the `defaultHostname`, the location of deployment and the pull request number. The preview URL is required to run the Playwright tests against the preview URL.
+4. Setup Node.js 🔧 - This step sets up Node.js, which is required to build the site.
+5. Install and build site 🔧 - This step installs the dependencies and builds the site - we build our SWA ourselves; you can generally just leave this to the `Azure/static-web-apps-deploy@v1` task. We don't because [we have some post processing to do that requires Bun](../2023-03-18-migrating-from-ts-node-to-bun/index.md).
+6. Get API key 🔑 - This step gets the API key for the Static Web App. This is required to deploy the site.
+7. Deploy site 🚀 - This step deploys the site to the Static Web App.
+
+### Integration tests 💡🏠
+
+Our tests job depends upon the previous job; specifically the preview URL of our Static Web App. You can't run Playwright tests if you've nothing to run them against! Again, let's dig into it:
+
+1. Checkout 📥 - This is the first step, and it checks out the code from GitHub.
+2. Wait for preview ... ⌚ - This step waits for the preview URL to be available. This is required because the Static Web App takes a few minutes to deploy, and we don't want to run the tests until it's deployed.
+3. Setup Node.js 🔧 - This step sets up Node.js, which is required to run the tests.
+4. Install dependencies - This step installs the dependencies for the tests.
+5. Install Playwright Browsers - This step installs the browsers that Playwright will use to run the tests.
+6. Run Playwright tests - This step runs the Playwright tests.
+7. Upload test report - This step uploads the test report as an artifact. This is useful if you want to see the test report after the tests have run.
+
+## How does it look?
+
+When we put all this together and push it up to GitHub, we see that tests run as part of the pull request:
+
+[Screenshot of the GitHub Action with passing tests](screenshot-github-action.png)
+
+This screenshot is taken directly from my own blog, and so includes things like Lighthouse that are excluded from this post. But what you can see is that tests are indeed running; and we can see the test report as an artifact:
+
+[Screenshot of the test report](screenshot-playwright-test-results.png)
+
+## Conclusion
+
+So there you have it; a simple way to run Playwright tests against your Static Web App. I hope you found this useful, and if you have any questions, please feel free to reach out to me.
