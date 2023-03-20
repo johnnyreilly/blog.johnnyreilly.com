@@ -4,7 +4,7 @@ title: 'Migrating from ts-node to Bun'
 authors: johnnyreilly
 tags: [bun]
 image: ./title-image.png
-description: 'Migrating from ts-node to Bun is surprisingly easy - this post ports a console app from ts-node to BSun and compares performance.'
+description: 'Migrating from ts-node to Bun is surprisingly easy - this post ports a console app from ts-node to Bun and compares performance.'
 hide_table_of_contents: false
 ---
 
