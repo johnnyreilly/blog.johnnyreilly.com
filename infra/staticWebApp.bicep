@@ -47,16 +47,6 @@ resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' =
   }
 }
 
-resource staticWebAppFunctionAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' = {
-  name: 'functionappsettings'
-  kind: 'config'
-  parent: staticWebApp
-  properties: {
-    APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
-    APPLICATIONINSIGHTS_CONNECTION_STRING: appInsightsConnectionString
-  }
-}
-
 resource rootCustomDomain 'Microsoft.Web/staticSites/customDomains@2022-03-01' = {
   parent: staticWebApp
   name: rootCustomDomainName
