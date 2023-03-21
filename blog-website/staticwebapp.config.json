@@ -8,6 +8,11 @@
   },
   "routes": [
     {
+      "route": "https://blog.johnnyreilly.com/",
+      "redirect": "https://johnnyreilly.com/",
+      "statusCode": 301
+    },
+    {
       "route": "*.{php,ini}",
       "redirect": "/404"
     },
