@@ -267,7 +267,12 @@ This job is the main job that builds the site and deploys it to the Static Web A
 
 1. Checkout 📥 - This is the first step, and it checks out the code from GitHub.
 2. AZ CLI login 🔑 - This step logs into Azure using the `azure/login` action. This is required to run the `az` CLI commands.
-3. Get preview URL 📝 - This step constructs the preview URL of the Static Web App using the `defaultHostname`, the location of deployment and the pull request number. The preview URL is required to run the Playwright tests against the preview URL.
+3. Get preview URL 📝 - This step constructs the preview URL of the Static Web App using the `defaultHostname`, the location of deployment, the pull request number and the partition id.
+
+   The partition id is the `1` in the URL. It matches whichever partition id that exists for the domain. Right now, if you create a new SWA, you will not get a `1` since SWA is now on partition `2`. When that partition gets filled, it will move on to partition `3`. Ultimately, you just need to find out what the partition id for your SWA is, then you can hardcode it into your workflow.
+
+   The complete preview URL is required to run the Playwright tests against the preview URL.
+
 4. Setup Node.js 🔧 - This step sets up Node.js, which is required to build the site.
 5. Install and build site 🔧 - This step installs the dependencies and builds the site - we build our SWA ourselves; you can generally just leave this to the `Azure/static-web-apps-deploy@v1` task. We don't because [we have some post processing to do that requires Bun](../2023-03-18-migrating-from-ts-node-to-bun/index.md).
 6. Get API key 🔑 - This step gets the API key for the Static Web App. This is required to deploy the site.
