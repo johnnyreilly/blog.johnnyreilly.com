@@ -8,8 +8,8 @@
   },
   "routes": [
     {
-      "route": "https://blog.johnnyreilly.com/*",
-      "redirect": "https://johnnyreilly.com/*",
+      "route": "https://blog.johnnyreilly.com/",
+      "redirect": "https://johnnyreilly.com/",
       "statusCode": 301
     },
     {
