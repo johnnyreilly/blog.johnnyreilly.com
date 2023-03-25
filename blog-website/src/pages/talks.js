@@ -15,7 +15,7 @@ const talks = [
     id: 'O58b4r21sz4?start=1735',
     permalink: 'https://www.youtube.com/watch?v=O58b4r21sz4&t=1735s',
     formattedDate: 'January 13th, 2023',
-    title: 'TypeScript London: Me and Open Source',
+    title: 'TypeScript London: Me and Open Source - talk starts at 28:55',
   },
   {
     id: 'Kl9M7eut5Yo',
@@ -57,15 +57,15 @@ function Talks() {
           <div className="container">
             <div className="row">
               {talks.map((talk) => (
-                <div className="card-demo padding--md margin--md">
-                  <div className="card">
+                <div className="card-demo margin--md">
+                  <div className="card shadow--tl">
                     <div className="card__header">
                       <h3 style={{ maxWidth: '560px' }}>
                         <Link to={talk.permalink}>{talk.title}</Link>
                       </h3>
                       <h4>{talk.formattedDate}</h4>
                     </div>
-                    <div className="card__image">
+                    <div className="card__image padding--md">
                       <iframe
                         width="560"
                         height="315"
