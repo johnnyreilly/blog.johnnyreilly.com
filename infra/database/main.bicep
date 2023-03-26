@@ -23,52 +23,19 @@ param principalId string
 @description('Specifies if Az is enabled for Cosmos')
 param isCosmosDbZoneRedundant bool = false
 
-@description('The object representing the policy for taking backups on an account.')
-param isContinuousBackupEnabled bool = false
-
 param deploymentPrefix string
 
 var cosmosDbDatabaseName = 'sitedb'
 var cosmosDbContainerName = 'redirects'
 
-var containers = [
-  {
-    name: cosmosDbContainerName
-    partitionKey: {
-      paths:[
-        '/url'
-      ]
-      kind: 'Hash'
-    }
-    indexingPolicy: {
-      indexingMode: 'consistent'
-      includedPaths: [
-        {
-          path: '/*'
-        }
-      ]
-      excludedPaths: [
-        {
-          path: '/_etag/?'
-        }
-      ]
-    }
-    uniqueKeyPolicy: {}
-  }
-]
-
 module cosmos 'cosmos.bicep' = {
   name: '${deploymentPrefix}-cosmos-${branchHash}'
   params: {
-    branchHash: branchHash
     location: location
     tags: tags
     cosmosDbAccountName: cosmosDbAccountName
     cosmosDbDatabaseName: cosmosDbDatabaseName
-    cosmosDbContainers: containers
-    isContinuousBackupEnabled: isContinuousBackupEnabled
     isCosmosDbZoneRedundant: isCosmosDbZoneRedundant
-    deploymentPrefix: deploymentPrefix
   }
 }
 

@@ -19,18 +19,16 @@ module appInsights './appInsights.bicep' = {
   }
 }
 
-module database 'database/main.bicep' = {
-  name: '${deploymentPrefix}-database-${branchHash}'
-  params: {
-    tags: tags
-    location: location
-    branchHash: branchHash
-    deploymentPrefix: deploymentPrefix
-    cosmosDbAccountName: telemetryDbAccountName
-    engGroupObjectId: engGroupObjectId
-    principalId: serviceConnectionPrincipalId
-  }
-}
+// module database 'database/main.bicep' = {
+//   name: 'database'
+//   params: {
+//     tags: tags
+//     location: location
+//     cosmosDbAccountName: telemetryDbAccountName
+//     engGroupObjectId: engGroupObjectId
+//     principalId: serviceConnectionPrincipalId
+//   }
+// }
 
 module staticWebApp './staticWebApp.bicep' = {
   name: 'staticWebApp'

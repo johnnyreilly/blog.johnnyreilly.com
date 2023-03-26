@@ -2,28 +2,17 @@
 @maxLength(11)
 param location string
 
-@description('The hashed value of the branch name. Is an empty string when on the main branch.')
-param branchHash string
-
 @description('Tags that our resources need')
 param tags object
 
 @description('CosmosDb account name')
 param cosmosDbAccountName string
 
-@description('CosmosDb Containers')
-param cosmosDbContainers array
-
 @description('CosmosDb Database Name')
 param cosmosDbDatabaseName string
 
 @description('Specifies if Az is enabled for Cosmos')
 param isCosmosDbZoneRedundant bool = false
-
-@description('The object representing the policy for taking backups on an account.')
-param isContinuousBackupEnabled bool = false
-
-param deploymentPrefix string
 
 var locations = [
   {
@@ -32,14 +21,6 @@ var locations = [
     isZoneRedundant: isCosmosDbZoneRedundant
   }
 ]
-
-var backupPolicy =  {
-  type: isContinuousBackupEnabled ? 'Continuous': 'Periodic'
-  periodicModeProperties: isContinuousBackupEnabled ? null: {
-    backupIntervalInMinutes: 240
-    backupRetentionIntervalInHours: 8
-  }
-}
 
 var allowedIpAddresses = [
   // magic IP to allow requests from Azure
@@ -67,45 +48,52 @@ resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' = {
     ipRules: [for item in allowedIpAddresses: {
       ipAddressOrRange: item
     }]
-    backupPolicy: backupPolicy
+    backupPolicy: { type: 'Periodic' }
   }
 }
 
-// module cosmosDb 'shared/database-accounts.bicep' = {
-//   name: '${deploymentPrefix}-cosmosdb-${branchHash}'
-//   params: {
-//     cosmosDbAccountName: cosmosDbAccountName
-//     accountApi: 'Sql'
-//     defaultConsistencyLevel: 'Session'
-//     location: location
-//     tags: tags
-//     allowedIpAdresses: allowedIpAddresses
-//     advancedThreatProtectionEnabled: false
-//     locations: locations
-//     backupPolicy: backupPolicy
-//   }
-// }
-
-module cosmosDbDatabase 'shared/sql-databases.bicep' = {
-  name: '${deploymentPrefix}-cosmosdb-database-${branchHash}'
-  params: {
-    cosmosDbAccountName: databaseAccount.name
-    databaseName: cosmosDbDatabaseName
-    tags: tags
+resource sqlDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2022-08-15' = {
+  parent: databaseAccount
+  name: cosmosDbDatabaseName
+  tags: tags
+  properties: {
+    resource: {
+      id: cosmosDbDatabaseName
+    }  
   }
 }
 
-module cosmosDbContainer 'shared/sql-database-containers.bicep' = [for container in cosmosDbContainers: {
-  name: '${deploymentPrefix}-container-${container.name}-${branchHash}'
-  params: {
-    tags: tags
-    databaseName: cosmosDbDatabase.outputs.sqlDatabaseName
-    cosmosDbAccountName: cosmosDb.outputs.cosmosDbAccountName
-    containerName: container.name
-    partitionKey: container.partitionKey
-    indexingPolicy: container.indexingPolicy
-    uniqueKeyPolicy: container.uniqueKeyPolicy
+resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2022-05-15' = {
+  parent: sqlDatabase
+  name: 'redirects'
+  properties: {
+    resource: {
+      id: 'redirects'
+      partitionKey: {
+        paths: [
+          '/url'
+        ]
+        kind: 'Hash'
+      }
+      indexingPolicy: {
+        indexingMode: 'consistent'
+        includedPaths: [
+          {
+            path: '/*'
+          }
+        ]
+        excludedPaths: [
+          {
+            path: '/myPathToNotIndex/*'
+          }
+          {
+            path: '/_etag/?'
+          }
+        ]
+      }
+      defaultTtl: 86400
+    }
   }
-}]
+}
 
-output cosmosDbAccountName string = cosmosDb.outputs.cosmosDbAccountName
+output cosmosDbAccountName string = databaseAccount.name
