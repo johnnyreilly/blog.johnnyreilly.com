@@ -12,7 +12,7 @@ param appInsightsName string = 'blog-app-insights'
 var cosmosDbAccountName = 'site'
 var cosmosDbDatabaseName = 'sitedb'
 
-module appInsights './appInsights.bicep' = {
+module appInsights './app-insights.bicep' = {
   name: 'appInsights'
   params: {
     location: location
