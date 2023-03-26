@@ -63,12 +63,14 @@ resource sqlDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2022-08
   }
 }
 
+var cosmosDbContainerName = 'redirects'
+
 resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2022-05-15' = {
   parent: sqlDatabase
-  name: 'redirects'
+  name: cosmosDbContainerName
   properties: {
     resource: {
-      id: 'redirects'
+      id: cosmosDbContainerName
       partitionKey: {
         paths: [
           '/url'
@@ -93,6 +95,14 @@ resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/container
       }
       defaultTtl: 86400
     }
+  }
+}
+
+resource advancedThreatProtectionSettings 'Microsoft.Security/advancedThreatProtectionSettings@2019-01-01' = {
+  name: 'current'
+  scope: databaseAccount
+  properties: {
+    isEnabled: true
   }
 }
 

@@ -9,9 +9,11 @@ param blogCustomDomainName string
 param appInsightsId string
 param appInsightsInstrumentationKey string
 param appInsightsConnectionString string
+param cosmosDbAccountName string
+param cosmosDbDatabaseName string
 
-resource telemetryDbAccountDb 'Microsoft.DocumentDB/databaseAccounts@2021-04-15' existing = {
-  name: telemetryDbAccountName
+resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' existing = {
+  name: cosmosDbAccountName
 }
 
 var tagsWithHiddenLinks = union({
@@ -48,11 +50,9 @@ resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' =
   properties: {
     APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
     APPLICATIONINSIGHTS_CONNECTION_STRING: appInsightsConnectionString
-    DatabaseKey: telemetryDbAccountDb.listKeys().primaryMasterKey
-    DatabaseName: telemetryDbDatabaseName
-    DatabaseContainerName: telemetryDbContainerName
-    DatabaseEndpoint: telemetryDbAccountDb.properties.documentEndpoint
-
+    DatabaseEndpoint: databaseAccount.properties.documentEndpoint
+    DatabaseKey: databaseAccount.listKeys().primaryMasterKey
+    DatabaseName: cosmosDbDatabaseName
   }
 }
 

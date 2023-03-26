@@ -1,55 +1,42 @@
-@description('Name of the lens cosmosdb account')
+// useful ref https://github.com/Azure/azure-quickstart-templates/blob/master/quickstarts/microsoft.documentdb/cosmosdb-sql-rbac/main.bicep
+@description('Name of the cosmosdb account')
 param cosmosDbAccountName string
 
-@description('Engineering team ad group object id')
-param engGroupObjectId string
+@description('user id')
+param userId string
 
-// @description('Cosmos DB read only ad group object id')
-// param cosmosDbReadOnlyGroupObjectId string
-
-@description('The service principal')
-param principalId string
-
-@description('The hashed value of the branch name. Is an empty string when on the main branch.')
-param branchHash string
-
-param deploymentPrefix string
+resource cosmosDbAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' existing = {
+  name: cosmosDbAccountName
+}
 
 // role ids are from here: https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-setup-rbac#built-in-role-definitions
+// Azure Cosmos DB exposes two built-in role definitions: https://learn.microsoft.com/en-us/azure/cosmos-db/how-to-setup-rbac#built-in-role-definitions
 var roleDefinitionCosmosDbDataReader = '00000000-0000-0000-0000-000000000001'
 var roleDefinitionCosmosDbContributor = '00000000-0000-0000-0000-000000000002'
 
-var roles = [
+// grant access to the cosmos db account to your user
+var roleAssignments = [
   {
     name: 'eng-contributor'
-    principalId: engGroupObjectId
+    principalId: userId
     roleDefinitionName: roleDefinitionCosmosDbContributor
     scopeType: 'DatabaseAccount'
   }
   {
     name: 'eng-reader'
-    principalId: engGroupObjectId
-    roleDefinitionName: roleDefinitionCosmosDbDataReader
-    scopeType: 'DatabaseAccount'
-  }
-  {
-    name: 'pipeline-contributor'
-    principalId: principalId
-    roleDefinitionName: roleDefinitionCosmosDbContributor
-    scopeType: 'DatabaseAccount'
-  }
-  {
-    name: 'pipeline-reader'
-    principalId: principalId
+    principalId: userId
     roleDefinitionName: roleDefinitionCosmosDbDataReader
     scopeType: 'DatabaseAccount'
   }
 ]
 
-module cosmosRole 'shared/roles.bicep' = {
-  name: '${deploymentPrefix}-cosmos-role-${branchHash}'
-  params: {
-    cosmosDbAccountName: cosmosDbAccountName
-    roleAssignments: roles
+@batchSize(1) 
+resource cosmosRole 'Microsoft.DocumentDB/databaseAccounts/sqlRoleAssignments@2022-02-15' = [for roleAssignment in roleAssignments : {
+  name: guid(roleAssignment.name, roleAssignment.roleDefinitionName, roleAssignment.principalId)
+  parent: cosmosDbAccount
+  properties: {
+    roleDefinitionId: roleAssignment.id
+    principalId: roleAssignment.principalId
+    scope: cosmosDbAccount.id
   }
-}
+}]
