@@ -10,6 +10,10 @@ param appInsightsId string
 param appInsightsInstrumentationKey string
 param appInsightsConnectionString string
 
+resource telemetryDbAccountDb 'Microsoft.DocumentDB/databaseAccounts@2021-04-15' existing = {
+  name: telemetryDbAccountName
+}
+
 var tagsWithHiddenLinks = union({
   'hidden-link: /app-insights-resource-id': appInsightsId
   'hidden-link: /app-insights-instrumentation-key': appInsightsInstrumentationKey
@@ -44,6 +48,11 @@ resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' =
   properties: {
     APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
     APPLICATIONINSIGHTS_CONNECTION_STRING: appInsightsConnectionString
+    DatabaseKey: telemetryDbAccountDb.listKeys().primaryMasterKey
+    DatabaseName: telemetryDbDatabaseName
+    DatabaseContainerName: telemetryDbContainerName
+    DatabaseEndpoint: telemetryDbAccountDb.properties.documentEndpoint
+
   }
 }
 
