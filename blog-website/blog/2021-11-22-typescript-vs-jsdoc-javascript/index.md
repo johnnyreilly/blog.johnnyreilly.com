@@ -88,7 +88,7 @@ As compared to the equivalent JSDoc JavaScript:
 ```ts
 /**
  * @param {string}  p1
- * @param {string=} p2
+ * @param {string} [p2]
  * @param {string} [p3]
  * @param {string} [p4="test"]
  * @return {string}
