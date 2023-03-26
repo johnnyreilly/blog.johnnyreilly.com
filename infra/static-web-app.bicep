@@ -7,7 +7,9 @@ param repositoryToken string
 param rootCustomDomainName string
 param blogCustomDomainName string
 param appInsightsId string
+@secure()
 param appInsightsInstrumentationKey string
+@secure()
 param appInsightsConnectionString string
 param cosmosDbAccountName string
 param cosmosDbDatabaseName string

@@ -9,6 +9,12 @@
         },
         "secure-secrets-in-params": {
           "level": "error"
+        },
+        "secure-parameter-default": {
+          "level": "error"
+        },
+        "outputs-should-not-contain-secrets": {
+          "level": "error"
         }
       }
     }

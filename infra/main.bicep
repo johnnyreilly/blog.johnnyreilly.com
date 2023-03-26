@@ -33,6 +33,10 @@ module database 'database/main.bicep' = {
   }
 }
 
+resource appInsightsResource 'Microsoft.Insights/components@2020-02-02' existing = {
+  name: appInsightsName
+}
+
 module staticWebApp './static-web-app.bicep' = {
   name: 'staticWebApp'
   params: {
@@ -44,8 +48,8 @@ module staticWebApp './static-web-app.bicep' = {
     rootCustomDomainName: rootCustomDomainName
     blogCustomDomainName: blogCustomDomainName
     appInsightsId: appInsights.outputs.appInsightsId
-    appInsightsConnectionString: appInsights.outputs.appInsightsConnectionString
-    appInsightsInstrumentationKey: appInsights.outputs.appInsightsInstrumentationKey
+    appInsightsConnectionString: appInsightsResource.properties.ConnectionString
+    appInsightsInstrumentationKey: appInsightsResource.properties.InstrumentationKey
     cosmosDbAccountName: database.outputs.cosmosDbAccountName
     cosmosDbDatabaseName: database.outputs.cosmosDbDatabaseName
   }
