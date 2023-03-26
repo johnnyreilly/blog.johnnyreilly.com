@@ -28,15 +28,15 @@ param isContinuousBackupEnabled bool = false
 
 param deploymentPrefix string
 
-var cosmosDbDatabaseName = 'telemetry'
-var cosmosDbContainerName = 'releases'
+var cosmosDbDatabaseName = 'sitedb'
+var cosmosDbContainerName = 'redirects'
 
 var containers = [
   {
     name: cosmosDbContainerName
     partitionKey: {
       paths:[
-        '/adoProject'
+        '/url'
       ]
       kind: 'Hash'
     }
@@ -52,35 +52,8 @@ var containers = [
           path: '/_etag/?'
         }
       ]
-      compositeIndexes:[
-        [
-          {
-            path: '/adoProject'
-            order: 'ascending'
-          }
-          {
-            path: '/adoRepository'
-            order: 'ascending'
-          }
-          {
-            path: '/buildId'
-            order: 'ascending'
-          }
-        ]
-      ]
     }
     uniqueKeyPolicy: {}
-    // uniqueKeyPolicy: {
-    //   uniqueKeys: [
-    //     {
-    //       paths: [
-    //         '/AggregateId'
-    //         '/Version'
-    //         '/Source'
-    //       ]
-    //     }
-    //   ]
-    // }
   }
 ]
 

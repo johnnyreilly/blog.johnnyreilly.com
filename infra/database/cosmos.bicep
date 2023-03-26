@@ -46,31 +46,56 @@ var allowedIpAddresses = [
   '0.0.0.0'
 ]
 
-module cosmosDb 'shared/database-accounts.bicep' = {
-  name: '${deploymentPrefix}-cosmosdb-${branchHash}'
-  params: {
-    cosmosDbAccountName: cosmosDbAccountName
-    accountApi: 'Sql'
-    defaultConsistencyLevel: 'Session'
-    location: location
-    tags: tags
-    allowedIpAdresses: allowedIpAddresses
-    advancedThreatProtectionEnabled: false
+resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' = {
+  name: cosmosDbAccountName
+  kind: 'GlobalDocumentDB'
+  location: location
+  tags: tags
+  properties: {
+    consistencyPolicy: { defaultConsistencyLevel: 'Session' }
     locations: locations
+    databaseAccountOfferType: 'Standard'
+    enableAutomaticFailover: true
+    enableMultipleWriteLocations: false
+    disableKeyBasedMetadataWriteAccess: true
+    publicNetworkAccess: 'Enabled' // TODO: change to 'Disabled'?
+    capabilities: [
+      {
+        name: 'EnableServerless'
+      }
+    ]
+    ipRules: [for item in allowedIpAddresses: {
+      ipAddressOrRange: item
+    }]
     backupPolicy: backupPolicy
   }
 }
 
+// module cosmosDb 'shared/database-accounts.bicep' = {
+//   name: '${deploymentPrefix}-cosmosdb-${branchHash}'
+//   params: {
+//     cosmosDbAccountName: cosmosDbAccountName
+//     accountApi: 'Sql'
+//     defaultConsistencyLevel: 'Session'
+//     location: location
+//     tags: tags
+//     allowedIpAdresses: allowedIpAddresses
+//     advancedThreatProtectionEnabled: false
+//     locations: locations
+//     backupPolicy: backupPolicy
+//   }
+// }
+
 module cosmosDbDatabase 'shared/sql-databases.bicep' = {
   name: '${deploymentPrefix}-cosmosdb-database-${branchHash}'
   params: {
-    cosmosDbAccountName: cosmosDb.outputs.cosmosDbAccountName
+    cosmosDbAccountName: databaseAccount.name
     databaseName: cosmosDbDatabaseName
     tags: tags
   }
 }
 
-module cosmosDbContainer 'br:icebox.azurecr.io/bicep/ice/providers/document-db/sql-databases-containers:v1.2' = [for container in cosmosDbContainers: {
+module cosmosDbContainer 'shared/sql-database-containers.bicep' = [for container in cosmosDbContainers: {
   name: '${deploymentPrefix}-container-${container.name}-${branchHash}'
   params: {
     tags: tags
