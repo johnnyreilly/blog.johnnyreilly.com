@@ -251,4 +251,4 @@ resource staticWebApp 'Microsoft.Web/staticSites@2022-03-01' = {
 
 With this in place, we can now deploy our Azure Static Web App with an Application Insights resource using Bicep and have the Azure Static Web App connected to, and providing data to, the Application Insights resource. Monitoring awaits!
 
-![Screenshot of Application Insights in the Azure Portal - see how they try to hack me with their spurious `sellers.json` requests ;-)](screenshot-application-insights.png)
+![Screenshot of Application Insights in the Azure Portal](screenshot-application-insights.png)
