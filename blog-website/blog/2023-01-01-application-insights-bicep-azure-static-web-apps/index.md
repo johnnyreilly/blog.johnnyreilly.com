@@ -32,7 +32,7 @@ I recently wrote [about using dynamic redirects in Azure Static Web Apps using t
 
 The first thing we need to do is deploy the Application Insights workspace. This is a resource that is required for Application Insights to work. And then deploy an Application Insights resource that uses it. We can achieve that with the following `appInsights.bicep` Bicep module:
 
-````bicep
+```bicep
 param location string
 param tags object
 param workspaceName string = 'appInsightsWorkspace'
@@ -69,6 +69,7 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
 }
 
 output appInsightsId string = appInsights.id
+```
 
 ## Using the Application Insights module
 
@@ -119,7 +120,7 @@ module staticWebApp './staticWebApp.bicep' = {
 output staticWebAppDefaultHostName string = staticWebApp.outputs.staticWebAppDefaultHostName
 output staticWebAppId string = staticWebApp.outputs.staticWebAppId
 output staticWebAppName string = staticWebApp.outputs.staticWebAppName
-````
+```
 
 There's a few things to note here:
 
