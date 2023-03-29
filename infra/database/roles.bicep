@@ -30,7 +30,7 @@ var roleAssignments = [
 ]
 
 @batchSize(1) 
-resource cosmosRole 'Microsoft.DocumentDB/databaseAccounts/sqlRoleAssignments@2022-02-15' = [for roleAssignment in roleAssignments : {
+resource cosmosRole 'Microsoft.DocumentDB/databaseAccounts/sqlRoleAssignments@2022-11-15' = [for roleAssignment in roleAssignments : {
   name: guid(roleAssignment.name, roleAssignment.roleDefinitionId, roleAssignment.principalId)
   parent: cosmosDbAccount
   properties: {
