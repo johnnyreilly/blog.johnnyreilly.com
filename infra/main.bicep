@@ -9,7 +9,10 @@ param blogCustomDomainName string
 param workspaceName string = 'blog-app-insights-workspace'
 param appInsightsName string = 'blog-app-insights'
 
-module appInsights './appInsights.bicep' = {
+var cosmosDbAccountName = 'site'
+var cosmosDbDatabaseName = 'sitedb'
+
+module appInsights './app-insights.bicep' = {
   name: 'appInsights'
   params: {
     location: location
@@ -19,7 +22,22 @@ module appInsights './appInsights.bicep' = {
   }
 }
 
-module staticWebApp './staticWebApp.bicep' = {
+module database 'database/main.bicep' = {
+  name: 'database'
+  params: {
+    tags: tags
+    location: location
+    cosmosDbAccountName: cosmosDbAccountName
+    cosmosDbDatabaseName: cosmosDbDatabaseName
+    userId: 'fdc0f550-79f0-4c06-9ad9-be0f13ce344b' // https://portal.azure.com/#view/Microsoft_AAD_UsersAndTenants/UserProfileMenuBlade/~/overview/userId/fdc0f550-79f0-4c06-9ad9-be0f13ce344b
+  }
+}
+
+resource appInsightsResource 'Microsoft.Insights/components@2020-02-02' existing = {
+  name: appInsightsName
+}
+
+module staticWebApp './static-web-app.bicep' = {
   name: 'staticWebApp'
   params: {
     location: location
@@ -30,8 +48,9 @@ module staticWebApp './staticWebApp.bicep' = {
     rootCustomDomainName: rootCustomDomainName
     blogCustomDomainName: blogCustomDomainName
     appInsightsId: appInsights.outputs.appInsightsId
-    appInsightsConnectionString: appInsights.outputs.appInsightsConnectionString
-    appInsightsInstrumentationKey: appInsights.outputs.appInsightsInstrumentationKey
+    appInsightsConnectionString: appInsightsResource.properties.ConnectionString
+    appInsightsInstrumentationKey: appInsightsResource.properties.InstrumentationKey
+    cosmosDbAccountName: database.outputs.cosmosDbAccountName
   }
 }
 

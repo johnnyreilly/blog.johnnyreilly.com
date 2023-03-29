@@ -69,11 +69,7 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
 }
 
 output appInsightsId string = appInsights.id
-output appInsightsInstrumentationKey string = appInsights.properties.InstrumentationKey
-output appInsightsConnectionString string = appInsights.properties.ConnectionString
 ```
-
-You'll note we're outputting the `id`, `InstrumentationKey` and `ConnectionString` properties of the Application Insights resource. We'll need those later.
 
 ## Using the Application Insights module
 
@@ -101,6 +97,10 @@ module appInsights './appInsights.bicep' = {
   }
 }
 
+resource appInsightsResource 'Microsoft.Insights/components@2020-02-02' existing = {
+  name: appInsightsName
+}
+
 module staticWebApp './staticWebApp.bicep' = {
   name: 'staticWebApp'
   params: {
@@ -112,8 +112,8 @@ module staticWebApp './staticWebApp.bicep' = {
     rootCustomDomainName: rootCustomDomainName
     blogCustomDomainName: blogCustomDomainName
     appInsightsId: appInsights.outputs.appInsightsId
-    appInsightsConnectionString: appInsights.outputs.appInsightsConnectionString
-    appInsightsInstrumentationKey: appInsights.outputs.appInsightsInstrumentationKey
+    appInsightsConnectionString: appInsightsResource.properties.ConnectionString
+    appInsightsInstrumentationKey: appInsightsResource.properties.InstrumentationKey
   }
 }
 
@@ -141,7 +141,9 @@ param repositoryToken string
 param rootCustomDomainName string
 param blogCustomDomainName string
 param appInsightsId string
+@secure()
 param appInsightsInstrumentationKey string
+@secure()
 param appInsightsConnectionString string
 
 var tagsWithHiddenLinks = union({
@@ -250,4 +252,4 @@ resource staticWebApp 'Microsoft.Web/staticSites@2022-03-01' = {
 
 With this in place, we can now deploy our Azure Static Web App with an Application Insights resource using Bicep and have the Azure Static Web App connected to, and providing data to, the Application Insights resource. Monitoring awaits!
 
-![Screenshot of Application Insights in the Azure Portal - see how they try to hack me with their spurious `sellers.json` requests ;-)](screenshot-application-insights.png)
+![Screenshot of Application Insights in the Azure Portal](screenshot-application-insights.png)
