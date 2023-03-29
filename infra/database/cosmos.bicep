@@ -37,11 +37,11 @@ resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' = {
     locations: locations
     databaseAccountOfferType: 'Standard'
     publicNetworkAccess: 'Enabled' // TODO: change to 'Disabled'?
-    capabilities: [
-      {
-        name: 'EnableServerless'
-      }
-    ]
+    // capabilities: [
+    //   {
+    //     name: 'EnableServerless'
+    //   }
+    // ]
     ipRules: [for item in allowedIpAddresses: {
       ipAddressOrRange: item
     }]
