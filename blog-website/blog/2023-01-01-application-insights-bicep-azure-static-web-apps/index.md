@@ -32,7 +32,7 @@ I recently wrote [about using dynamic redirects in Azure Static Web Apps using t
 
 The first thing we need to do is deploy the Application Insights workspace. This is a resource that is required for Application Insights to work. And then deploy an Application Insights resource that uses it. We can achieve that with the following `appInsights.bicep` Bicep module:
 
-```bicep
+````bicep
 param location string
 param tags object
 param workspaceName string = 'appInsightsWorkspace'
@@ -69,11 +69,6 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
 }
 
 output appInsightsId string = appInsights.id
-output appInsightsInstrumentationKey string = appInsights.properties.InstrumentationKey
-output appInsightsConnectionString string = appInsights.properties.ConnectionString
-```
-
-You'll note we're outputting the `id`, `InstrumentationKey` and `ConnectionString` properties of the Application Insights resource. We'll need those later.
 
 ## Using the Application Insights module
 
@@ -101,6 +96,10 @@ module appInsights './appInsights.bicep' = {
   }
 }
 
+resource appInsightsResource 'Microsoft.Insights/components@2020-02-02' existing = {
+  name: appInsightsName
+}
+
 module staticWebApp './staticWebApp.bicep' = {
   name: 'staticWebApp'
   params: {
@@ -112,15 +111,15 @@ module staticWebApp './staticWebApp.bicep' = {
     rootCustomDomainName: rootCustomDomainName
     blogCustomDomainName: blogCustomDomainName
     appInsightsId: appInsights.outputs.appInsightsId
-    appInsightsConnectionString: appInsights.outputs.appInsightsConnectionString
-    appInsightsInstrumentationKey: appInsights.outputs.appInsightsInstrumentationKey
+    appInsightsConnectionString: appInsightsResource.properties.ConnectionString
+    appInsightsInstrumentationKey: appInsightsResource.properties.InstrumentationKey
   }
 }
 
 output staticWebAppDefaultHostName string = staticWebApp.outputs.staticWebAppDefaultHostName
 output staticWebAppId string = staticWebApp.outputs.staticWebAppId
 output staticWebAppName string = staticWebApp.outputs.staticWebAppName
-```
+````
 
 There's a few things to note here:
 
@@ -141,7 +140,9 @@ param repositoryToken string
 param rootCustomDomainName string
 param blogCustomDomainName string
 param appInsightsId string
+@secure()
 param appInsightsInstrumentationKey string
+@secure()
 param appInsightsConnectionString string
 
 var tagsWithHiddenLinks = union({
