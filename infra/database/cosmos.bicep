@@ -36,19 +36,16 @@ resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' = {
     consistencyPolicy: { defaultConsistencyLevel: 'Session' }
     locations: locations
     databaseAccountOfferType: 'Standard'
-    enableAutomaticFailover: true
-    enableMultipleWriteLocations: false
-    disableKeyBasedMetadataWriteAccess: true
     publicNetworkAccess: 'Enabled' // TODO: change to 'Disabled'?
-    capabilities: [
-      {
-        name: 'EnableServerless'
-      }
-    ]
+    // capabilities: [
+    //   {
+    //     name: 'EnableServerless'
+    //   }
+    // ]
     ipRules: [for item in allowedIpAddresses: {
       ipAddressOrRange: item
     }]
-    backupPolicy: { type: 'Periodic' }
+    // backupPolicy: { type: 'Periodic', periodicModeProperties: { backupIntervalInMinutes: 240, backupRetentionIntervalInHours: 720 }}
   }
 }
 
@@ -59,7 +56,7 @@ resource sqlDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2022-08
   properties: {
     resource: {
       id: cosmosDbDatabaseName
-    }  
+    }
   }
 }
 
@@ -95,15 +92,20 @@ resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/container
       }
       defaultTtl: 86400
     }
+    options: {
+      autoscaleSettings: {
+        maxThroughput: 1000
+      }
+    }
   }
 }
 
-resource advancedThreatProtectionSettings 'Microsoft.Security/advancedThreatProtectionSettings@2019-01-01' = {
-  name: 'current'
-  scope: databaseAccount
-  properties: {
-    isEnabled: true
-  }
-}
+// resource advancedThreatProtectionSettings 'Microsoft.Security/advancedThreatProtectionSettings@2019-01-01' = {
+//   name: 'current'
+//   scope: databaseAccount
+//   properties: {
+//     isEnabled: true
+//   }
+// }
 
 output cosmosDbAccountName string = databaseAccount.name

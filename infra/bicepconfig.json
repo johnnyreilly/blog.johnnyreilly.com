@@ -20,6 +20,7 @@
     }
   },
   "experimentalFeaturesEnabled": {
-    "sourceMapping": true
+    "sourceMapping": true,
+    "userDefinedTypes": true
   }
 }
