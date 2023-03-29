@@ -18,23 +18,23 @@ var roleAssignments = [
   {
     name: 'eng-contributor'
     principalId: userId
-    roleDefinitionName: roleDefinitionCosmosDbContributor
+    roleDefinitionId: roleDefinitionCosmosDbContributor
     scopeType: 'DatabaseAccount'
   }
   {
     name: 'eng-reader'
     principalId: userId
-    roleDefinitionName: roleDefinitionCosmosDbDataReader
+    roleDefinitionId: roleDefinitionCosmosDbDataReader
     scopeType: 'DatabaseAccount'
   }
 ]
 
 @batchSize(1) 
 resource cosmosRole 'Microsoft.DocumentDB/databaseAccounts/sqlRoleAssignments@2022-02-15' = [for roleAssignment in roleAssignments : {
-  name: guid(roleAssignment.name, roleAssignment.roleDefinitionName, roleAssignment.principalId)
+  name: guid(roleAssignment.name, roleAssignment.roleDefinitionId, roleAssignment.principalId)
   parent: cosmosDbAccount
   properties: {
-    roleDefinitionId: roleAssignment.id
+    roleDefinitionId: roleAssignment.roleDefinitionId
     principalId: roleAssignment.principalId
     scope: cosmosDbAccount.id
   }
