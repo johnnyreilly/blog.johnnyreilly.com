@@ -32,3 +32,4 @@ module cosmosRole './roles-assignments.bicep' = [for roleAssignment in roleAssig
     roleDefinitionId: roleAssignment.roleDefinitionId
   }
 }]
+
