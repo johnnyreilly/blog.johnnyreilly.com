@@ -73,7 +73,7 @@ resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/container
       id: cosmosDbContainerName
       partitionKey: {
         paths: [
-          '/url'
+          '/originalUrl'
         ]
         kind: 'Hash'
       }

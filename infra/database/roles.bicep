@@ -9,7 +9,6 @@ resource cosmosDbAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' exis
   name: cosmosDbAccountName
 }
 
-// role ids are from here: https://docs.microsoft.com/en-us/azure/cosmos-db/how-to-setup-rbac#built-in-role-definitions
 // Azure Cosmos DB exposes two built-in role definitions: https://learn.microsoft.com/en-us/azure/cosmos-db/how-to-setup-rbac#built-in-role-definitions
 var roleDefinitionCosmosDbDataReader = '00000000-0000-0000-0000-000000000001'
 var roleDefinitionCosmosDbContributor = '00000000-0000-0000-0000-000000000002'
