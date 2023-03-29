@@ -9,7 +9,7 @@ param blogCustomDomainName string
 param workspaceName string = 'blog-app-insights-workspace'
 param appInsightsName string = 'blog-app-insights'
 
-var cosmosDbAccountName = 'site'
+var cosmosDbAccountName = 'johnnyreilly-com'
 var cosmosDbDatabaseName = 'sitedb'
 
 module appInsights './app-insights.bicep' = {
