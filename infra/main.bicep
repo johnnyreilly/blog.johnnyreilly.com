@@ -51,7 +51,6 @@ module staticWebApp './static-web-app.bicep' = {
     appInsightsConnectionString: appInsightsResource.properties.ConnectionString
     appInsightsInstrumentationKey: appInsightsResource.properties.InstrumentationKey
     cosmosDbAccountName: database.outputs.cosmosDbAccountName
-    cosmosDbDatabaseName: database.outputs.cosmosDbDatabaseName
   }
 }
 

@@ -12,7 +12,6 @@ param appInsightsInstrumentationKey string
 @secure()
 param appInsightsConnectionString string
 param cosmosDbAccountName string
-param cosmosDbDatabaseName string
 
 resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' existing = {
   name: cosmosDbAccountName
@@ -52,9 +51,8 @@ resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' =
   properties: {
     APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
     APPLICATIONINSIGHTS_CONNECTION_STRING: appInsightsConnectionString
-    DatabaseEndpoint: databaseAccount.properties.documentEndpoint
-    DatabaseKey: databaseAccount.listKeys().primaryMasterKey
-    DatabaseName: cosmosDbDatabaseName
+    COSMOS_ENDPOINT: databaseAccount.properties.documentEndpoint
+    COSMOS_KEY: databaseAccount.listKeys().primaryMasterKey
   }
 }
 
