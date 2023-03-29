@@ -48,7 +48,7 @@ resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' = {
     ipRules: [for item in allowedIpAddresses: {
       ipAddressOrRange: item
     }]
-    backupPolicy: { type: 'Periodic' }
+    backupPolicy: { type: 'Periodic', periodicModeProperties: { backupIntervalInMinutes: 240, backupRetentionIntervalInHours: 720 }}
   }
 }
 
