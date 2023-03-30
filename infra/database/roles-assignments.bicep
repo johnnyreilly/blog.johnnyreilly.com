@@ -17,7 +17,7 @@ resource roleDefinition 'Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinition
   name: roleDefinitionId
 }
 
-resource cosmosRole 'Microsoft.DocumentDB/databaseAccounts/sqlRoleAssignments@2022-08-15' = {
+resource cosmosRole 'Microsoft.DocumentDB/databaseAccounts/sqlRoleAssignments@2022-11-15' = {
   name: guid(roleDefinition.id, principalId)
   parent: cosmosDbAccount
   properties: {
