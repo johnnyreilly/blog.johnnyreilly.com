@@ -12,7 +12,7 @@ resource cosmosDbAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' exis
   name: cosmosDbAccountName
 }
 
-resource roleDefinition 'Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinitions@2022-08-15' existing = {
+resource roleDefinition 'Microsoft.DocumentDB/databaseAccounts/sqlRoleDefinitions@2022-11-15' existing = {
   parent: cosmosDbAccount
   name: roleDefinitionId
 }
