@@ -28,7 +28,7 @@ module cosmosRole './roles-assignments.bicep' = [for roleAssignment in roleAssig
   name: '${roleAssignment.name}-${roleAssignment.roleDefinitionId}-${roleAssignment.principalId}'
   params: {
     cosmosDbAccountName: cosmosDbAccountName
-    principalId: roleAssignment.userId
+    principalId: roleAssignment.principalId
     roleDefinitionId: roleAssignment.roleDefinitionId
   }
 }]
