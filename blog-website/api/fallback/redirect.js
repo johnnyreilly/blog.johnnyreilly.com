@@ -1,16 +1,11 @@
+/**
+ * @typedef { import("@azure/functions").Logger } Logger
+ * @typedef { import('./types').Redirect } Redirect
+ */
+
 const { parseURL } = require('ufo');
 const imagePaths = require('./imagePaths');
 const routes = require('./redirects');
-
-/**
- * @typedef { import("@azure/functions").Logger } Logger
- */
-
-/**
- * @typedef {Object} Redirect
- * @property {number} status - The X Coordinate
- * @property {string} location - The Y Coordinate
- */
 
 const yearMonthRegex = /\/\d\d\d\d\/(\d\d\/)?/;
 const baseUrl = 'https://johnnyreilly.com';

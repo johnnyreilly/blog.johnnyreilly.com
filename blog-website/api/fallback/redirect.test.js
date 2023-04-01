@@ -1,8 +1,8 @@
-const { describe, expect, test } = require('@jest/globals');
-
 /**
  * @typedef { import("@azure/functions").Logger } Logger
  */
+
+const { describe, expect, test } = require('@jest/globals');
 
 const redirect = require('./redirect');
 
