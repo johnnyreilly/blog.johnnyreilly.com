@@ -25,7 +25,7 @@ var roleAssignments = [
 
 @batchSize(1) 
 module cosmosRole './roles-assignments.bicep' = [for roleAssignment in roleAssignments : {
-  name: '${roleAssignment.name}-${roleAssignment.roleDefinitionId}-${roleAssignment.principalId}'
+  name: '${roleAssignment.name}-${roleAssignment.principalId}'
   params: {
     cosmosDbAccountName: cosmosDbAccountName
     principalId: roleAssignment.principalId
