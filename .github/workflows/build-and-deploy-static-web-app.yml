@@ -59,6 +59,8 @@ jobs:
             # https://github.com/Azure/azure-cli/issues/25710
             az config set bicep.use_binary_from_path=false
 
+            allowedIPAddresses=${{ fromJson([secrets.ALLOWEDIPADDRESS]) }}
+
             az deployment group what-if \
               --resource-group ${{ env.RESOURCE_GROUP }} \
               --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
@@ -71,7 +73,7 @@ jobs:
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
                   blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  allowedIPAddresses='("${{ secrets.ALLOWEDIPADDRESS }}")'
+                  allowedIPAddresses="$allowedIPAddresses"
 
             az deployment group validate \
               --resource-group ${{ env.RESOURCE_GROUP }} \
@@ -85,7 +87,7 @@ jobs:
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
                   blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  allowedIPAddresses='("${{ secrets.ALLOWEDIPADDRESS }}")'
+                  allowedIPAddresses="$allowedIPAddresses"
 
       - name: Infra - deploy 🔧
         id: static_web_app_deploy
@@ -94,7 +96,10 @@ jobs:
         with:
           inlineScript: |
             # https://github.com/Azure/azure-cli/issues/25710
-            az config set bicep.use_binary_from_path=false          
+            az config set bicep.use_binary_from_path=false
+
+            allowedIPAddresses=${{ fromJson([secrets.ALLOWEDIPADDRESS]) }}
+
             az deployment group create \
               --resource-group ${{ env.RESOURCE_GROUP }} \
               --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
@@ -107,7 +112,7 @@ jobs:
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
                   blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  allowedIPAddresses='("${{ secrets.ALLOWEDIPADDRESS }}")'
+                  allowedIPAddresses="$allowedIPAddresses"
 
       - name: Get preview URL 📝
         id: static_web_app_preview_url
