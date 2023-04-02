@@ -11,6 +11,9 @@ param cosmosDbAccountName string
 @description('CosmosDb Database Name')
 param cosmosDbDatabaseName string
 
+@description('ip address of folk who will run queries in the portal')
+param allowedIPAddress string
+
 @description('Specifies if Az is enabled for Cosmos')
 param isCosmosDbZoneRedundant bool = false
 
@@ -25,6 +28,7 @@ var locations = [
 var allowedIpAddresses = [
   // magic IP to allow requests from Azure
   '0.0.0.0'
+  allowedIPAddress
 ]
 
 resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' = {
@@ -100,12 +104,12 @@ resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/container
   }
 }
 
-// resource advancedThreatProtectionSettings 'Microsoft.Security/advancedThreatProtectionSettings@2019-01-01' = {
-//   name: 'current'
-//   scope: databaseAccount
-//   properties: {
-//     isEnabled: true
-//   }
-// }
+resource advancedThreatProtectionSettings 'Microsoft.Security/advancedThreatProtectionSettings@2019-01-01' = {
+  name: 'current'
+  scope: databaseAccount
+  properties: {
+    isEnabled: true
+  }
+}
 
 output cosmosDbAccountName string = databaseAccount.name

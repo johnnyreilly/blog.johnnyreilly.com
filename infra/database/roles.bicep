@@ -2,7 +2,7 @@
 @description('Name of the cosmosdb account')
 param cosmosDbAccountName string
 
-@description('user id')
+@description('AD object id of user with access to CosmosDb')
 param userId string
 
 // Azure Cosmos DB exposes two built-in role definitions: https://learn.microsoft.com/en-us/azure/cosmos-db/how-to-setup-rbac#built-in-role-definitions

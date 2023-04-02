@@ -6,8 +6,10 @@ param tags object
 param repositoryToken string
 param rootCustomDomainName string
 param blogCustomDomainName string
-param workspaceName string = 'blog-app-insights-workspace'
-param appInsightsName string = 'blog-app-insights'
+param allowedIPAddress string
+
+var workspaceName = 'blog-app-insights-workspace'
+var appInsightsName = 'blog-app-insights'
 
 var cosmosDbAccountName = 'johnnyreilly-com-database'
 var cosmosDbDatabaseName = 'sitedb'
@@ -30,6 +32,7 @@ module database 'database/main.bicep' = {
     cosmosDbAccountName: cosmosDbAccountName
     cosmosDbDatabaseName: cosmosDbDatabaseName
     userId: 'fdc0f550-79f0-4c06-9ad9-be0f13ce344b' // https://portal.azure.com/#view/Microsoft_AAD_UsersAndTenants/UserProfileMenuBlade/~/overview/userId/fdc0f550-79f0-4c06-9ad9-be0f13ce344b
+    allowedIPAddress: allowedIPAddress
   }
 }
 
