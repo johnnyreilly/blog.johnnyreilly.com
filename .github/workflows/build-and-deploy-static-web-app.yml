@@ -59,7 +59,6 @@ jobs:
             # https://github.com/Azure/azure-cli/issues/25710
             az config set bicep.use_binary_from_path=false
 
-            allowedIPAddresses=("${{ secrets.ALLOWEDIPADDRESS }}")
 
             az deployment group what-if \
               --resource-group ${{ env.RESOURCE_GROUP }} \
@@ -73,7 +72,7 @@ jobs:
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
                   blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  allowedIPAddresses="$allowedIPAddresses"
+                  allowedIPAddresses='("${{ secrets.ALLOWEDIPADDRESS }}")'
 
             az deployment group validate \
               --resource-group ${{ env.RESOURCE_GROUP }} \
@@ -87,7 +86,7 @@ jobs:
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
                   blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  allowedIPAddresses="$allowedIPAddresses"
+                  allowedIPAddresses='("${{ secrets.ALLOWEDIPADDRESS }}")'
 
       - name: Infra - deploy 🔧
         id: static_web_app_deploy
@@ -97,8 +96,6 @@ jobs:
           inlineScript: |
             # https://github.com/Azure/azure-cli/issues/25710
             az config set bicep.use_binary_from_path=false
-
-            allowedIPAddresses=("${{ secrets.ALLOWEDIPADDRESS }}")
 
             az deployment group create \
               --resource-group ${{ env.RESOURCE_GROUP }} \
@@ -112,7 +109,7 @@ jobs:
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
                   blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  allowedIPAddresses="$allowedIPAddresses"
+                  allowedIPAddresses='("${{ secrets.ALLOWEDIPADDRESS }}")'
 
       - name: Get preview URL 📝
         id: static_web_app_preview_url
