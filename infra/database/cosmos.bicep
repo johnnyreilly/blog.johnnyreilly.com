@@ -11,8 +11,8 @@ param cosmosDbAccountName string
 @description('CosmosDb Database Name')
 param cosmosDbDatabaseName string
 
-@description('ip address of folk who will run queries in the portal')
-param allowedIPAddress string
+@description('ip addresses of folk who will run queries in the portal')
+param allowedIPAddresses array
 
 @description('Specifies if Az is enabled for Cosmos')
 param isCosmosDbZoneRedundant bool = false
@@ -25,11 +25,10 @@ var locations = [
   }
 ]
 
-var allowedIpAddresses = [
+var ipAddresses = union([
   // magic IP to allow requests from Azure
   '0.0.0.0'
-  allowedIPAddress
-]
+], allowedIPAddresses)
 
 resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' = {
   name: cosmosDbAccountName
@@ -41,13 +40,8 @@ resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' = {
     locations: locations
     databaseAccountOfferType: 'Standard'
     publicNetworkAccess: 'Enabled' // TODO: change to 'Disabled'?
-    // capabilities: [
-    //   {
-    //     name: 'EnableServerless'
-    //   }
-    // ]
-    ipRules: [for item in allowedIpAddresses: {
-      ipAddressOrRange: item
+    ipRules: [for ipAddress in ipAddresses: {
+      ipAddressOrRange: ipAddress
     }]
     // backupPolicy: { type: 'Periodic', periodicModeProperties: { backupIntervalInMinutes: 240, backupRetentionIntervalInHours: 720 }}
   }

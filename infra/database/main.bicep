@@ -14,8 +14,8 @@ param cosmosDbDatabaseName string
 @description('AD object id of user with access to CosmosDb')
 param userId string
 
-@description('ip address of folk who will run queries in the portal')
-param allowedIPAddress string
+@description('ip addresses of folk who will run queries in the portal')
+param allowedIPAddresses array
 
 @description('Specifies if Az is enabled for Cosmos')
 param isCosmosDbZoneRedundant bool = false
@@ -27,7 +27,7 @@ module cosmos 'cosmos.bicep' = {
     tags: tags
     cosmosDbAccountName: cosmosDbAccountName
     cosmosDbDatabaseName: cosmosDbDatabaseName
-    allowedIPAddress: allowedIPAddress
+    allowedIPAddresses: allowedIPAddresses
     isCosmosDbZoneRedundant: isCosmosDbZoneRedundant
   }
 }

@@ -71,7 +71,7 @@ jobs:
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
                   blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  allowedIPAddress='${{ secrets.ALLOWEDIPADDRESS }}'
+                  allowedIPAddresses='("${{ secrets.ALLOWEDIPADDRESS }}")'
 
             az deployment group validate \
               --resource-group ${{ env.RESOURCE_GROUP }} \
@@ -85,7 +85,7 @@ jobs:
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
                   blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  allowedIPAddress='${{ secrets.ALLOWEDIPADDRESS }}'
+                  allowedIPAddresses='("${{ secrets.ALLOWEDIPADDRESS }}")'
 
       - name: Infra - deploy 🔧
         id: static_web_app_deploy
@@ -107,7 +107,7 @@ jobs:
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
                   blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  allowedIPAddress='${{ secrets.ALLOWEDIPADDRESS }}'
+                  allowedIPAddresses='("${{ secrets.ALLOWEDIPADDRESS }}")'
 
       - name: Get preview URL 📝
         id: static_web_app_preview_url
