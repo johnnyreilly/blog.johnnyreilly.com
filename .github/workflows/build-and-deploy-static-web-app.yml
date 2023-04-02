@@ -59,7 +59,7 @@ jobs:
             # https://github.com/Azure/azure-cli/issues/25710
             az config set bicep.use_binary_from_path=false
 
-            allowedIPAddresses=${{ fromJson([secrets.ALLOWEDIPADDRESS]) }}
+            allowedIPAddresses=("${{ secrets.ALLOWEDIPADDRESS }}")
 
             az deployment group what-if \
               --resource-group ${{ env.RESOURCE_GROUP }} \
@@ -98,7 +98,7 @@ jobs:
             # https://github.com/Azure/azure-cli/issues/25710
             az config set bicep.use_binary_from_path=false
 
-            allowedIPAddresses=${{ fromJson([secrets.ALLOWEDIPADDRESS]) }}
+            allowedIPAddresses=("${{ secrets.ALLOWEDIPADDRESS }}")
 
             az deployment group create \
               --resource-group ${{ env.RESOURCE_GROUP }} \
