@@ -10,6 +10,19 @@ const endpoint = process.env.COSMOS_ENDPOINT || '<cosmos endpoint>';
 const cosmosDbDatabaseName = 'sitedb';
 const cosmosDbContainerName = 'redirects';
 
+/*
+sample query 
+
+SELECT * from 
+(
+    SELECT c.originalUrl, c.redirectUrl, c.statusCode, count(1) as numRedirects
+    FROM c 
+    GROUP BY c.originalUrl, c.redirectUrl, c.statusCode
+) as redirects
+where redirects.numRedirects > 1
+
+*/
+
 /**
  * Save redirect to database
  * @param {string} originalUrl eg https://johnnyreilly.com/2019/06/typescript-webpack-you-down-with-pnp.html

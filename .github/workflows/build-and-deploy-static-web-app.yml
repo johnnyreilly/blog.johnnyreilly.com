@@ -59,6 +59,8 @@ jobs:
             # https://github.com/Azure/azure-cli/issues/25710
             az config set bicep.use_binary_from_path=false
 
+            complexData='{"allowedIPAddresses": ${{ secrets.ALLOWEDIPADDRESS }} }'
+
             az deployment group what-if \
               --resource-group ${{ env.RESOURCE_GROUP }} \
               --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
@@ -70,7 +72,8 @@ jobs:
                   tags='${{ env.TAGS }}' \
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
-                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}'
+                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
+                  complexData="$complexData"
 
             az deployment group validate \
               --resource-group ${{ env.RESOURCE_GROUP }} \
@@ -83,7 +86,8 @@ jobs:
                   tags='${{ env.TAGS }}' \
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
-                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}'
+                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
+                  complexData="$complexData"
 
       - name: Infra - deploy 🔧
         id: static_web_app_deploy
@@ -92,7 +96,10 @@ jobs:
         with:
           inlineScript: |
             # https://github.com/Azure/azure-cli/issues/25710
-            az config set bicep.use_binary_from_path=false          
+            az config set bicep.use_binary_from_path=false
+
+            complexData='{"allowedIPAddresses": ${{ secrets.ALLOWEDIPADDRESS }} }'
+
             az deployment group create \
               --resource-group ${{ env.RESOURCE_GROUP }} \
               --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
@@ -104,7 +111,8 @@ jobs:
                   tags='${{ env.TAGS }}' \
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
-                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}'
+                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
+                  complexData="$complexData"
 
       - name: Get preview URL 📝
         id: static_web_app_preview_url
