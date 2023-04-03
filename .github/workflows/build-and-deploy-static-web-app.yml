@@ -59,6 +59,7 @@ jobs:
             # https://github.com/Azure/azure-cli/issues/25710
             az config set bicep.use_binary_from_path=false
 
+            complexData='{"allowedIPAddresses":["${{ secrets.ALLOWEDIPADDRESS }}"]}'
 
             az deployment group what-if \
               --resource-group ${{ env.RESOURCE_GROUP }} \
@@ -72,7 +73,7 @@ jobs:
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
                   blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  allowedIPAddresses='("${{ secrets.ALLOWEDIPADDRESS }}")'
+                  complexData="$complexData"
 
             az deployment group validate \
               --resource-group ${{ env.RESOURCE_GROUP }} \
@@ -86,7 +87,7 @@ jobs:
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
                   blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  allowedIPAddresses='("${{ secrets.ALLOWEDIPADDRESS }}")'
+                  complexData="$complexData"
 
       - name: Infra - deploy 🔧
         id: static_web_app_deploy
@@ -96,6 +97,8 @@ jobs:
           inlineScript: |
             # https://github.com/Azure/azure-cli/issues/25710
             az config set bicep.use_binary_from_path=false
+
+            complexData='{"allowedIPAddresses":["${{ secrets.ALLOWEDIPADDRESS }}"]}'
 
             az deployment group create \
               --resource-group ${{ env.RESOURCE_GROUP }} \
@@ -109,7 +112,7 @@ jobs:
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
                   blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  allowedIPAddresses='("${{ secrets.ALLOWEDIPADDRESS }}")'
+                  complexData="$complexData"
 
       - name: Get preview URL 📝
         id: static_web_app_preview_url
