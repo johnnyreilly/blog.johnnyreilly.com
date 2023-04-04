@@ -4,7 +4,7 @@ title: 'Bicep user defined types and Bash single item arrays'
 authors: johnnyreilly
 tags: [Bicep]
 image: ./title-image.png
-description: 'The error "Expected a value of type \'Array\', but received a value of type \'String\'", presents when wrestling with the AZ CLI, Bash single item arrays and Bicep.'
+description: The error "Expected a value of type \'Array\', but received a value of type \'String\'", presents when wrestling with the AZ CLI, Bash single item arrays and Bicep.
 hide_table_of_contents: false
 ---
 
@@ -14,7 +14,7 @@ When sending a single item array to a Bicep template you may get an error like t
 ERROR: InvalidTemplate - Deployment template validation failed: 'Template parameter 'allowedIPAddresses' was provided an invalid value. Expected a value of type 'Array', but received a value of type 'String'.
 ```
 
-This is down to the fact that Bash arrays when used with the Azure CLI can be a little surprising. If initialise a single item array then it's not an array. It's a string. This is a bit of a pain when you're trying to pass a single item array to a Bicep template. It's possible to work around this with JSON and Bicep user defined types. Let's see how.
+This is down to the fact that Bash arrays when used with the Azure CLI can be a little surprising. If we initialise a single item array then it's not an array. It's a string. This is a bit of a pain when you're trying to pass a single item array to a Bicep template. It's possible to work around this with JSON and Bicep user defined types. Let's see how.
 
 ![title image reading "Bicep user defined types and Bash single item arrays" with a Bicep logo](title-image.png)
 
