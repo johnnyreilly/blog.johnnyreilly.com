@@ -49,8 +49,9 @@ jobs:
         run: |
           GIT_SHA='${{ github.sha }}'
           SHORT_SHA=${GIT_SHA:0:7}
+          BRANCH_NAME='${{ env.BRANCH_NAME }}'
 
-          DEPLOYMENT_NAME='${{ env.BRANCH_NAME }}.$SHORT_SHA'
+          DEPLOYMENT_NAME="${BRANCH_NAME////-}.$SHORT_SHA"
 
           echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_OUTPUT
 
