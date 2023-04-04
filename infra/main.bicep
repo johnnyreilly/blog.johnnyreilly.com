@@ -17,7 +17,7 @@ var cosmosDbAccountName = 'johnnyreilly-com-database'
 var cosmosDbDatabaseName = 'sitedb'
 
 module appInsights './app-insights.bicep' = {
-  name: 'appInsights'
+  name: '${deployment().name}-appInsights'
   params: {
     location: location
     tags: tags
@@ -27,7 +27,7 @@ module appInsights './app-insights.bicep' = {
 }
 
 module database 'database/main.bicep' = {
-  name: 'database'
+  name: '${deployment().name}-database'
   params: {
     tags: tags
     location: location
@@ -43,7 +43,7 @@ resource appInsightsResource 'Microsoft.Insights/components@2020-02-02' existing
 }
 
 module staticWebApp './static-web-app.bicep' = {
-  name: 'staticWebApp'
+  name: '${deployment().name}-staticWebApp'
   params: {
     location: location
     branch: branch

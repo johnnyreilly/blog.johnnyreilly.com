@@ -22,6 +22,7 @@ env:
   ROOTCUSTOMDOMAINNAME: johnnyreilly.com
   BLOGCUSTOMDOMAINNAME: blog.johnnyreilly.com
   TAGS: '{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
 jobs:
   build_and_deploy_swa_job:
@@ -46,8 +47,12 @@ jobs:
       - name: Set deployment name 📝
         id: deployment_name
         run: |
-          REF_SHA='${{ github.ref }}.${{ github.sha }}'
-          DEPLOYMENT_NAME="${REF_SHA////-}"
+          GIT_SHA='${{ github.sha }}'
+          SHORT_SHA=${GIT_SHA:0:7}
+          BRANCH_NAME='${{ env.BRANCH_NAME }}'
+
+          DEPLOYMENT_NAME="${BRANCH_NAME////-}.$SHORT_SHA"
+
           echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_OUTPUT
 
       - name: Infra - detect changes & validate 📝

@@ -21,7 +21,7 @@ param allowedIPAddresses array
 param isCosmosDbZoneRedundant bool = false
 
 module cosmos 'cosmos.bicep' = {
-  name: 'cosmos'
+  name: '${deployment().name}-cosmos'
   params: {
     location: location
     tags: tags
@@ -33,7 +33,7 @@ module cosmos 'cosmos.bicep' = {
 }
 
 module roles 'roles.bicep' = {
-  name: 'roles'
+  name: '${deployment().name}-roles'
   params: {
     userId: userId
     cosmosDbAccountName: cosmos.outputs.cosmosDbAccountName
