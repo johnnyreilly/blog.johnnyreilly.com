@@ -9,7 +9,7 @@ hide_table_of_contents: false
 
 Bicep is an amazing language, it's also very new. If you want to write attractive code snippets about Bicep, you can by using PrismJS (and Docusaurus). This post shows you how.
 
-![title image reading "Publish Azure Static Web Apps with Bicep and Azure DevOps" and some Azure logos](bicep-syntax-highlighting-with-prismjs.webp)
+![title image reading "Bicep: syntax highlighting with PrismJS (and Docusaurus)" and some Azure logos](bicep-syntax-highlighting-with-prismjs.webp)
 
 <!--truncate-->
 
