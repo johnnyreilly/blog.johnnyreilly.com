@@ -7,7 +7,7 @@
     "funcBuild": "swa start build --api-location api",
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "build": "cross-env WEBPACK_URL_LOADER_LIMIT=0 docusaurus build",
+    "build": "tsc && cross-env WEBPACK_URL_LOADER_LIMIT=0 docusaurus build",
     "postbuild": "cd ../trim-xml && bun install && bun start",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",

@@ -31,7 +31,7 @@ export default function FAQStructuredData(props) {
         {JSON.stringify(faqStructuredData)}
       </script>
 
-      <h2>{faqStructuredData.name}</h2>
+      <h2>FAQs</h2>
       {faqStructuredData.mainEntity.map((faq) => (
         <React.Fragment key={faq.name}>
           <h3>{faq.name}</h3>
