@@ -1,10 +1,16 @@
+export interface FAQ {
+  question: string;
+  answer: string;
+}
+
 export interface FAQStructuredDataProps {
-  faqs: FAQStructuredData;
+  faqs: FAQ[];
 }
 
 export interface FAQStructuredData {
   '@context': string;
   '@type': string;
+  name?: string;
   mainEntity: FAQQuestionStructuredData[];
 }
 
