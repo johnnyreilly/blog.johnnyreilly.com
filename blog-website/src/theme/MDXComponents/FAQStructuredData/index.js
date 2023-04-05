@@ -16,7 +16,6 @@ export default function FAQStructuredData(props) {
   /** @type {FAQStructuredData} */ const faqStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    name: 'FAQs',
     mainEntity: props.faqs.map((faq) => ({
       '@type': 'Question',
       name: faq.question,

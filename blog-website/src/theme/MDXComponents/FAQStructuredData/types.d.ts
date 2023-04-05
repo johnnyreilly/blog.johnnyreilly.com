@@ -10,7 +10,6 @@ export interface FAQStructuredDataProps {
 export interface FAQStructuredData {
   '@context': string;
   '@type': string;
-  name?: string;
   mainEntity: FAQQuestionStructuredData[];
 }
 
