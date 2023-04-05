@@ -72,7 +72,7 @@ param anArrayInJSON object
 var allowedIPAddresses = anArrayInJSON.allowedIPAddresses
 ```
 
-This works, but I miss the type safety of Bicep. I want to be able to say that `allowedIPAddresses` is an array. I can do this with a [Bicep user defined type](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/user-defined-data-types). It's worth noting that user defined types are a new feature in Bicep and you'll need to use the latest version of Bicep to use them and opt in by putting this option in your `bicepconfig.json` file:
+This works, but I miss the type safety of Bicep. I want to be able to say that `allowedIPAddresses` is an array. And if I can go further, I'd like to say it's a `string` array also. I can do this with a [Bicep user defined type](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/user-defined-data-types). It's worth noting that user defined types are a new feature in Bicep and you'll need to use the latest version of Bicep to use them and opt in by putting this option in your `bicepconfig.json` file:
 
 ```json
 {
@@ -98,4 +98,16 @@ ERROR: InvalidTemplate - Deployment template validation failed: 'Template parame
 
 ## Conclusion
 
-So there we go, type safety and a little bit of extra verbosity. I think that's a good trade-off. I hope this helps you if you're wrestling with the same problem.
+Interestingly, I'd say that I'm unlikely to ever use a Bicep parameter of type `array` again, precisely for the reason that I've outlined here. So none of this:
+
+```bicep
+param anArray array
+```
+
+And none of its user defined type equivalent:
+
+```bicep
+param anArray string[]
+```
+
+I'll probably use the approach I've outlined here instead. I'll pass a JSON object to the template and then use a user defined type to define the properties of that object. This is a little more verbose, but it's a lot more explicit. I think that's a good trade-off.
