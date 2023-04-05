@@ -26,7 +26,7 @@ This post should possibly win some kind of "least pithy blog title" award. But i
 
 I recently wrote [about using dynamic redirects in Azure Static Web Apps using the Azure Function they support](../2022-12-22-azure-static-web-apps-dynamic-redirects-azure-functions/index.md). I wanted to monitor the redirects that were being performed. I knew I could do this with Application Insights. But how do I deploy Application Insights using Bicep?
 
-[My blog](https://johnnyreilly.com) runs on Azure Static Web Apps which is deployed using Bicep. [I've written about deploying Azure Static Web Apps with Bicep previously](../2022-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.md). I wanted to add Application Insights to that deployment.
+[My blog](https://johnnyreilly.com) runs on Azure Static Web Apps which is deployed using Bicep. [I've written about deploying Azure Static Web Apps with Bicep previously](../2023-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.mdx). I wanted to add Application Insights to that deployment.
 
 ## Deploying Application Insights with Bicep
 

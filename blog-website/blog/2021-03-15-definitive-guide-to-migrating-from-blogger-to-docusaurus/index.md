@@ -502,7 +502,7 @@ At this point I had a repository that represented my blog. I had a Docusaurus si
 
 I was ready to make the switch.
 
-Hosting is a choice. When I initially migrated, I made use of GitHub Pages. I also experimented with Netlify. [Finally I moved to using Azure Static Web Apps to make use of preview environments.](../2022-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.md) There are many choices out there - you can pick the one that works best for you.
+Hosting is a choice. When I initially migrated, I made use of GitHub Pages. I also experimented with Netlify. [Finally I moved to using Azure Static Web Apps to make use of preview environments.](../2023-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.mdx) There are many choices out there - you can pick the one that works best for you.
 
 Once your site is up, the last stage of the migration is updating your DNS to point to the Docusaurus site. I use [Cloudflare](https://www.cloudflare.com/) to manage my domain names and so that's where I made the switch.
 
