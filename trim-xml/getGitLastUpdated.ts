@@ -15,9 +15,15 @@ function getSlugToPath() {
     .map((dirent) => dirent.name);
 
   const pathAndSlug = directories.map((dir) => {
-    const blogPath = `blog-website/blog/${dir}/index.md`;
+    let blogPath = `blog-website/blog/${dir}/index.md`;
 
-    const blogMd = fs.readFileSync(`../${blogPath}`, 'utf8');
+    let blogMd: string;
+    try {
+      blogMd = fs.readFileSync(`../${blogPath}`, 'utf8');
+    } catch (e) {
+      blogPath = `blog-website/blog/${dir}/index.mdx`;
+      blogMd = fs.readFileSync(`../${blogPath}`, 'utf8');
+    }
 
     const match = blogMd.match(slugBlogUrlRegEx);
 
