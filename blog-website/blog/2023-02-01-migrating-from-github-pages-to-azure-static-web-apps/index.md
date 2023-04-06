@@ -11,23 +11,23 @@ hide_table_of_contents: false
 import FAQStructuredData from '../../src/theme/MDXComponents/FAQStructuredData';
 
 export const faqs = [
-  {
-    question:
-      'Why should I migrate from GitHub Pages to Azure Static Web Apps?',
-    answer:
-      "If you like the idea of using a single platform for hosting your static website and deploying previews, then Azure Static Web Apps is a great option. It's also free to use!",
-  },
-  {
-    question: 'What is Bicep and how can it be used for migration?',
-    answer:
-      "Bicep is a Domain Specific Language (DSL) for deploying Azure resources. It's a great way to define your infrastructure as code. You can use Bicep to deploy your Azure Static Web App. You can also deploy an Azure Static Web App using the Azure Portal or the Azure CLI.",
-  },
-  {
-    question:
-      'How do I enable staging environments / deployment previews in Azure Static Web Apps?',
-    answer:
-      "You don't need to do anything special to enable staging environments. They're enabled by default.",
-  },
+{
+question:
+'Why should I migrate from GitHub Pages to Azure Static Web Apps?',
+answer:
+"If you like the idea of using a single platform for hosting your static website and deploying previews, then Azure Static Web Apps is a great option. It's also free to use!",
+},
+{
+question: 'What is Bicep and how can it be used for migration?',
+answer:
+"Bicep is a Domain Specific Language (DSL) for deploying Azure resources. It's a great way to define your infrastructure as code. You can use Bicep to deploy your Azure Static Web App. You can also deploy an Azure Static Web App using the Azure Portal or the Azure CLI.",
+},
+{
+question:
+'How do I enable staging environments / deployment previews in Azure Static Web Apps?',
+answer:
+"You don't need to do anything special to enable staging environments. They're enabled by default.",
+},
 ];
 
 You can use Bicep and GitHub Actions to build and deploy to a static website on Azure Static Web Apps. This post demonstrates how.
