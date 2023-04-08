@@ -36,13 +36,13 @@ I've written previously about [using Structured Data with React](../2021-10-15-s
 
 ## FAQs and Structured Data
 
-I've working with [Growtika](https://growtika.com/) to repair my SEO after [damagining it last year](../2023-01-15-how-i-ruined-my-seo/index.md). One of the experiments we ran was to add [FAQs to a post](../2023-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.md), and with that, the equivalent FAQ Structured Data. The idea was that we could see if this would help with the SEO for that post.
+I've been working with [Growtika](https://growtika.com/) to repair my SEO after [shredding it somehow last year](../2023-01-15-how-i-ruined-my-seo/index.md). One of the experiments we ran was to add [FAQs to a post](../2023-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.md), and with that, the equivalent FAQ Structured Data. The intent being to see if this would help with the SEO for that post.
 
 My blog is written in [MDX](https://mdxjs.com/), and hosted on [Docusaurus](https://docusaurus.io/). I wanted to see if I could create an MDX component that would render the FAQs into a page, and the same information as Structured Data. The [Docusaurus docs suggested this was feasible](https://docusaurus.io/docs/markdown-features/react), and I wanted to see if I could make it work.
 
-So I created a component that could be used to render FAQs into a page, and the same information as Structured Data. I thought it would be useful to share that component with the world. Hello world, herewith the component:
+So I created a component that could be used to render FAQs into a page as markdown, and the same information as Structured Data. I thought it would be useful to share that component with the world. Hello world, herewith the component:
 
-## The component
+## The FAQStructuredData MDX component
 
 I created a directory called `FAQStructuredData` in the ``src/theme/MDXComponents` directory. This directory is where I keep my custom MDX components. I then created an `index.js` file in that directory. This is the file that contains the component:
 
@@ -120,14 +120,14 @@ export interface FAQQuestionStructuredData {
 
 Some things to note about this component:
 
-- The code is written in JavaScript, but it's using [TypeScript types via JSDoc](../2021-11-22-typescript-vs-jsdoc-javascript/index.md). I don't believe you can write MDX components in TypeScript (please someone let me know if it turns out this is possible). But static typing is still useful, and still possible thanks to JSDoc.
+- The code is written in JavaScript, but it's using [TypeScript types via JSDoc](../2021-11-22-typescript-vs-jsdoc-javascript/index.md). I don't believe you can write MDX components in TypeScript (please someone let me know if it turns out this is possible). But static typing is useful, and still possible thanks to JSDoc.
 - On that, we have a `types.d.ts` file that contains the types for the component. Using TypeScript directly is still possible alongside JSDoc, as long as there is no runtime code in the file, and a definition file (which the `types.d.ts` file is), has no runtime code. We can simply use it to store types that we import into the component.
 - The component expects an `faqs` prop. This is an array of FAQs. Each FAQ is an object with a `question` and `answer` property. The component then renders the FAQs as markdown, and the same information as JSON-LD Structured Data. We're using the Google guidelines for [FAQ Structured Data](https://developers.google.com/search/docs/appearance/structured-data/faqpage#examples).
 - The component renders a `h2` tag titled "FAQs". Under that, each FAQ is rendered with a `h3` tag and the answer sits directly below it.
 
-## Using the component
+## Importing our MDX component
 
-Now the `FAQStructuredData` component is created, we can use it in our MDX files. We can import it and create and array called `faqs` like so:
+Now the `FAQStructuredData` component is created, we can use it in our MDX (or straight MD) files. We can import the component and create an array called `faqs` like so:
 
 ```mdx
 ---
@@ -163,7 +163,7 @@ export const faqs = [
 ;
 ```
 
-Then we can use the component like so:
+Note we're doing this in a blog post and the import statement is after the frontmatter. Then we can use the component like so:
 
 ```mdx
 <FAQStructuredData faqs={faqs} />
