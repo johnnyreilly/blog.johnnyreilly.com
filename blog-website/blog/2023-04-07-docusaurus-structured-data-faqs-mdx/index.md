@@ -177,7 +177,7 @@ We'll do that, right here, right now:
 
 You can see, we have FAQs rendered in the body of our blog post. If we put the URL of the post into the [Google Structured Data Testing Tool](https://search.google.com/test/rich-results?url=https%3A%2F%2Fjohnnyreilly.com%2Fdocusaurus-structured-data-faqs-mdx), we can see that the Structured Data is being rendered correctly:
 
-![Screenshot of rich results test showing FAQs are detected](screenshot-rich-results-test.png)
+![Screenshot of rich results test showing FAQs are detected](screenshot-rich-results-test.webp)
 
 ## Conclusion
 
