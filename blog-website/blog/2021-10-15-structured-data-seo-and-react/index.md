@@ -160,6 +160,8 @@ This post has illustrated what it looks like to create an `Article`. Google has 
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/react-structured-data-and-seo/)
 
+If you found this post interesting, you may enjoy one where I went a little further and wrote [about adding FAQ Structured Data to a Docusaurus site using MDX](../2023-04-08-docusaurus-structured-data-faqs-mdx/index.md).
+
 <head>
     <link rel="canonical" href="https://blog.logrocket.com/react-structured-data-and-seo/" />
 </head>
