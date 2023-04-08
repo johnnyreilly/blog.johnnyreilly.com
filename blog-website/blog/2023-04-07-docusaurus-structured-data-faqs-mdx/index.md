@@ -38,7 +38,9 @@ I've written previously about [using Structured Data with React](../2021-10-15-s
 
 I've working with [Growtika](https://growtika.com/) to repair my SEO after [damagining it last year](../2023-01-15-how-i-ruined-my-seo/index.md). One of the experiments we ran was to add [FAQs to a post](../2023-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.md), and with that, the equivalent FAQ Structured Data. The idea was that we could see if this would help with the SEO for that post.
 
-In the doing of that, I created a component that could be used to render FAQs into a page, and the same information as Structured Data. I thought it would be useful to share that component with the world.
+My blog is written in [MDX](https://mdxjs.com/), and hosted on [Docusaurus](https://docusaurus.io/). I wanted to see if I could create an MDX component that would render the FAQs into a page, and the same information as Structured Data. The [Docusaurus docs suggested this was feasible](https://docusaurus.io/docs/markdown-features/react), and I wanted to see if I could make it work.
+
+So I created a component that could be used to render FAQs into a page, and the same information as Structured Data. I thought it would be useful to share that component with the world. Hello world, herewith the component:
 
 ## The component
 
@@ -121,10 +123,11 @@ Some things to note about this component:
 - The code is written in JavaScript, but it's using [TypeScript types via JSDoc](../2021-11-22-typescript-vs-jsdoc-javascript/index.md). I don't believe you can write MDX components in TypeScript (please someone let me know if it turns out this is possible). But static typing is still useful, and still possible thanks to JSDoc.
 - On that, we have a `types.d.ts` file that contains the types for the component. Using TypeScript directly is still possible alongside JSDoc, as long as there is no runtime code in the file, and a definition file (which the `types.d.ts` file is), has no runtime code. We can simply use it to store types that we import into the component.
 - The component expects an `faqs` prop. This is an array of FAQs. Each FAQ is an object with a `question` and `answer` property. The component then renders the FAQs as markdown, and the same information as JSON-LD Structured Data. We're using the Google guidelines for [FAQ Structured Data](https://developers.google.com/search/docs/appearance/structured-data/faqpage#examples).
+- The component renders a `h2` tag titled "FAQs". Under that, each FAQ is rendered with a `h3` tag and the answer sits directly below it.
 
 ## Using the component
 
-Now the component is created, we can use it in our MDX files. We can import it like so:
+Now the `FAQStructuredData` component is created, we can use it in our MDX files. We can import it and create and array called `faqs` like so:
 
 ```mdx
 ---
@@ -160,4 +163,22 @@ export const faqs = [
 ;
 ```
 
+Then we can use the component like so:
+
+```mdx
 <FAQStructuredData faqs={faqs} />
+```
+
+We'll do that, right here, right now:
+
+<FAQStructuredData faqs={faqs} />
+
+## Testing the Structured Data
+
+You can see, we have FAQs rendered in the body of our blog post. If we put the URL of the post into the [Google Structured Data Testing Tool](https://search.google.com/test/rich-results?url=https%3A%2F%2Fjohnnyreilly.com%2Fdocusaurus-structured-data-faqs-mdx), we can see that the Structured Data is being rendered correctly:
+
+![Screenshot of rich results test showing FAQs are detected](screenshot-rich-results-test.png)
+
+## Conclusion
+
+We've now got a reusable FAQs component that renders the FAQs as markdown, and the same information as Structured Data. We can use it in our MDX files, and we can use it in our blog posts. We can also use it in regular MD files. Yay! I've only used this in the context of Docusaurus, but I suspect it can be used in other contexts too.
