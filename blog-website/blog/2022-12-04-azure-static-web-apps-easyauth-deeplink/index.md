@@ -59,10 +59,10 @@ I'm happy to say that this blog post is no longer necessary; [the behavour is no
       "redirect": "/.auth/login/aad?post_login_redirect_uri=.referrer",
       "statusCode": 302
     }
-  },
+  }
   // ...
 }
-``` 
+```
 
 ## Deep linking
 
