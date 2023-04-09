@@ -1,11 +1,14 @@
 ---
+slug: unit-testing-and-entity-framework-filth
 title: 'Unit Testing and Entity Framework: The Filth and the Fury'
 authors: johnnyreilly
-tags: [unit testing, Entity Framework, anti-pattern, MOQ]
+tags: [unit testing, Entity Framework, MOQ]
 hide_table_of_contents: false
 ---
 
 Just recently I've noticed that there appears to be something of a controversy around Unit Testing and Entity Framework. I first came across it as I was Googling around for useful posts on using MOQ in conjunction with EF. I've started to notice the topic more and more and as I have mixed feelings on the subject (that is to say I don't have a settled opinion) I thought I'd write about this and see if I came to any kind of conclusion...
+
+<!--truncate-->
 
 ## The Setup
 

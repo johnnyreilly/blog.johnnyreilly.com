@@ -1,7 +1,8 @@
 ---
+slug: ts-loader-goes-webpack-5
 title: 'ts-loader goes webpack 5'
 authors: johnnyreilly
-tags: [webpack, ts-loader, TypeScript, webpack 5]
+tags: [webpack, ts-loader, typescript]
 image: ./ts-loader-9.png
 hide_table_of_contents: false
 ---
@@ -9,6 +10,8 @@ hide_table_of_contents: false
 `ts-loader` has just released [v9.0.0](https://github.com/TypeStrong/ts-loader/releases/tag/v9.0.0). This post goes through what this release is all about, and what it took to ship this version. For intrigue, it includes a brief scamper into my mental health along the way. Some upgrades go smoothly - this one had some hiccups. But we'll get into that.
 
 ![hello world bicep](ts-loader-9.png)
+
+<!--truncate-->
 
 ## One big pull request
 

@@ -1,12 +1,15 @@
 ---
+slug: typescript-abstract-classes-and-constructors
 title: 'TypeScript, abstract classes, and constructors'
 authors: johnnyreilly
-tags: [TypeScript, abstract, constructors, classes]
+tags: [typescript]
 image: ./vs-code-abstract-screenshot.png
 hide_table_of_contents: false
 ---
 
 TypeScript has the ability to define classes as abstract. This means they cannot be instantiated directly, only non-abstract subclasses can be. Let's take a look at what this means when it comes to constructor usage.
+
+<!--truncate-->
 
 ## Making a scratchpad
 

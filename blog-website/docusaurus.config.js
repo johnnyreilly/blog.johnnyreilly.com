@@ -89,8 +89,8 @@ const config = {
            * 'ALL' to show all blog posts
            * 0 to disable
            */
-          blogSidebarCount: 5,
-          postsPerPage: 1,
+          blogSidebarCount: 8,
+          postsPerPage: 20,
           path: './blog',
           routeBasePath: '/', // Set this value to '/'.
           showReadingTime: true,
@@ -328,7 +328,7 @@ const config = {
                 html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" rel="noopener" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" loading="lazy" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
               },
               {
-                html: `<iframe src="https://github.com/sponsors/johnnyreilly/card" title="Sponsor johnnyreilly" style="border: 0; border-radius: 10px; background-color: white; min-height: 200px;"></iframe>`,
+                html: `<iframe src="https://github.com/sponsors/johnnyreilly/card" title="Sponsor johnnyreilly" style="border: 0; border-radius: 10px; background-color: white; min-height: 400px;"></iframe>`,
               },
             ],
           },
@@ -340,16 +340,20 @@ const config = {
                 href: 'https://github.com/johnnyreilly/blog.johnnyreilly.com',
               },
               {
-                label: 'RSS',
+                label: 'Blog tags / categories',
+                href: '/tags',
+              },
+              {
+                label: 'RSS feed',
                 href: 'https://johnnyreilly.com/rss.xml',
               },
               {
-                label: 'Atom',
+                label: 'Atom feed',
                 href: 'https://johnnyreilly.com/atom.xml',
               },
               {
                 label: 'Privacy Policy',
-                href: 'https://johnnyreilly.com/privacy-policy',
+                href: '/privacy-policy',
               },
             ],
           },

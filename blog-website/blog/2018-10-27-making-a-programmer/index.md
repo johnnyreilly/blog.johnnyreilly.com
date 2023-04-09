@@ -1,11 +1,13 @@
 ---
+slug: making-a-programmer
 title: 'Making a Programmer'
 authors: johnnyreilly
-tags: [coding bootcamp, retrospective, learning, feedback]
 hide_table_of_contents: false
 ---
 
 I recently had the good fortune to help run a coding bootcamp. The idea was simple: there are many people around us who are interested in programming but don't know where to start. Let's take some folk who do and share the knowledge.
+
+<!--truncate-->
 
 The bootcamp went tremendously! (Well, I say that... Frankly I had a blast. 😀 )
 

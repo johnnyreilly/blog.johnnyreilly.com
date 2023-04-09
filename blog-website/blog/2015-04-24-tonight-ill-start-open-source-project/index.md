@@ -1,4 +1,5 @@
 ---
+slug: tonight-ill-start-open-source-project
 title: "Tonight I'll Start an Open Source Project..."
 authors: johnnyreilly
 tags: [asp.net mvc, validation, AngularJS]
@@ -6,6 +7,8 @@ hide_table_of_contents: false
 ---
 
 ### Further posts on this topic
+
+<!--truncate-->
 
 - [NgValidationFor Baby Steps](../2015-05-11-ngvalidationfor-baby-steps/index.md)
 

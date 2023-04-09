@@ -1,13 +1,15 @@
 ---
+slug: azurite-and-table-storage-dev-container
 title: 'Azurite and Table Storage in a dev container'
 authors: johnnyreilly
-tags:
-  [Azurite, Azure Table Storage, VS Code, dev container, devcontainer, Docker]
+tags: [VS Code, devcontainer, Docker]
 image: ./dev-container-start.gif
 hide_table_of_contents: false
 ---
 
 It's great to be able to develop locally without needing a "real" database to connect to. [Azurite](https://github.com/Azure/Azurite) is an Azure Storage emulator which exists to support just that. This post demonstrates how to run Azurite v3 in a [dev container](https://code.visualstudio.com/docs/remote/containers), such that you can access the Table Storage API, which is currently in preview.
+
+<!--truncate-->
 
 ## Azurite in VS Code
 

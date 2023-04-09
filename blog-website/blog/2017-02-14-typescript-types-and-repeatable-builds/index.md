@@ -1,4 +1,5 @@
 ---
+slug: typescript-types-and-repeatable-builds
 title: '@types is rogue'
 authors: johnnyreilly
 tags: []
@@ -6,6 +7,8 @@ hide_table_of_contents: false
 ---
 
 Or perhaps I should call this "@types and repeatable builds"....
+
+<!--truncate-->
 
 The other day, on a React / TypeScript project I work on, the nightly CI build started failing. But nothing had changed in the project... What gives? After digging I discovered the reason; spome of the type definitions which my project depends upon had changed. Why did this break my build? Let’s learn some more...
 

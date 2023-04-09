@@ -1,7 +1,8 @@
 ---
+slug: c-sharp-9-azure-functions-in-process
 title: 'C# 9 in-process Azure Functions'
 authors: johnnyreilly
-tags: [C# 9, Azure Functions, .NET, in-process]
+tags: [C#, Azure Functions, .NET]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
@@ -9,6 +10,8 @@ hide_table_of_contents: false
 C# 9 has some amazing features. Azure Functions are have two modes: isolated and in-process. Whilst isolated supports .NET 5 (and hence C# 9), in-process supports .NET Core 3.1 (C# 8). This post shows how we can use C# 9 with in-process Azure Functions running on .NET Core 3.1.
 
 ![title image showing name of post and the Azure Functions logo](title-image.png)
+
+<!--truncate-->
 
 ## Azure Functions: in-process and isolated
 

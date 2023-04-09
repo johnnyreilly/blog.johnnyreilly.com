@@ -1,7 +1,8 @@
 ---
+slug: terry-pratchett-x-clacks-overhead-azure-static-webapps
 title: 'Terry Pratchett and the Azure Static Web Apps'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, X-Clacks-Overhead, Terry Pratchett]
+tags: [Azure Static Web Apps]
 image: ./title-image.png
 description: 'Terry Pratchett has a HTTP header: X-Clacks-Overhead. This post shows how we can make Azure Static Web Apps join in.'
 hide_table_of_contents: false
@@ -10,6 +11,8 @@ hide_table_of_contents: false
 Terry Pratchett is remembered on the internet. A non-standardised HTTP header: `X-Clacks-Overhead` is broadcast by websites seeking to pay tribute to the great man. This post shows how we can make Azure Static Web Apps join in.
 
 ![title image reading "Terry Pratchett and the Azure Static Web Apps" with the Azure Static Web Apps logo and a Terry Pratchett icon by Lisa Krymova from NounProject.com](title-image.png)
+
+<!--truncate-->
 
 ## What is `X-Clacks-Overhead`?
 

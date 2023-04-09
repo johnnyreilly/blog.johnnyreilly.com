@@ -1,4 +1,5 @@
 ---
+slug: deploying-aspnet-mvc-to-github-pages-with-appveyor-part-2
 title: 'Deploying from ASP.Net MVC to GitHub Pages using AppVeyor part 2'
 authors: johnnyreilly
 tags:
@@ -13,6 +14,8 @@ hide_table_of_contents: false
 ---
 
 "Automation, automation, automation." Those were and are Tony Blair's priorities for keeping open source projects well maintained.
+
+<!--truncate-->
 
 OK, that's not quite true... But what is certainly true is that maintaining an open source project takes time. And there's only so much free time that anyone has. For that reason, wherever you can it makes sense to _AUTOMATE_!
 

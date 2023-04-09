@@ -1,11 +1,14 @@
 ---
+slug: under-duck-afternoon-in-open-source
 title: 'Under the Duck: An Afternoon in Open Source'
 authors: johnnyreilly
-tags: [breaking changes, ts-loader, Webpack]
+tags: [ts-loader, webpack]
 hide_table_of_contents: false
 ---
 
 Have you ever wondered what happens behind the scenes of open source projects? One that I'm involved with is [ts-loader](https://github.com/typestrong/ts-loader); a TypeScript loader for webpack. Yesterday was an interesting day in the life of ts-loader and webpack; things unexpectedly broke. Oh and don't worry, they're fixed now.
+
+<!--truncate-->
 
 How things panned out reflects well on the webpack community. I thought it might be instructive to take a look at the legs furiously paddling underneath the duck of open source. What follows is a minute by minute account of my life on the afternoon of Wednesday 22nd February 2017:
 

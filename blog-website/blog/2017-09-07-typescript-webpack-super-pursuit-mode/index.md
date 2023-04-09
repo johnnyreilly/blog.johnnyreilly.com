@@ -1,19 +1,14 @@
 ---
+slug: typescript-webpack-super-pursuit-mode
 title: 'TypeScript + Webpack: Super Pursuit Mode'
 authors: johnnyreilly
-tags:
-  [
-    HappyPack,
-    TypeScript,
-    cache-loader,
-    thread-loader,
-    fork-ts-checker-webpack-plugin,
-    Webpack,
-  ]
+tags: [typescript, fork-ts-checker-webpack-plugin, Webpack]
 hide_table_of_contents: false
 ---
 
 _[This post also featured as a webpack Medium publication](https://medium.com/webpack/typescript-webpack-super-pursuit-mode-83cc568dea79)._
+
+<!--truncate-->
 
 If you're like me then you'll like TypeScript and you'll like module bundling with webpack. You may also like speedy builds. That's completely understandable. The fact of the matter is, you sacrifice a bit of build speed to have webpack in the mix. Wouldn't it be great if we could even up the difference?
 

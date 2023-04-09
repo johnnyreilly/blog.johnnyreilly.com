@@ -1,7 +1,8 @@
 ---
+slug: faster-docusaurus-build-swc-loader
 title: 'Faster Docusaurus builds with swc-loader'
 authors: johnnyreilly
-tags: [Docusaurus, swc, webpack]
+tags: [Docusaurus, webpack]
 image: ./title-image.png
 description: 'This post demonstrates how to speed up your Docusaurus build by using SWC and the `swc-loader` for webpack.'
 hide_table_of_contents: false
@@ -10,6 +11,8 @@ hide_table_of_contents: false
 This post demonstrates how to speed up your Docusaurus build by using SWC and the `swc-loader` for webpack.
 
 ![title image reading "Faster Docusaurus builds with swc-loader" with Docusaurus, SWC and webpack logos](title-image.png)
+
+<!--truncate-->
 
 ## SWC
 

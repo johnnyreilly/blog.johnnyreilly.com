@@ -1,7 +1,8 @@
 ---
+slug: mvc-3-meet-dictionary
 title: 'MVC 3 meet Dictionary'
 authors: johnnyreilly
-tags: [MVC 3, Dictionary]
+tags: [.NET Framework]
 hide_table_of_contents: false
 ---
 
@@ -10,6 +11,8 @@ hide_table_of_contents: false
 About a year ago I was involved in the migration of an ASP.NET WebForms application over to MVC 3. We'd been doing a lot of AJAX-y / Single Page Application-y things in the project and had come to the conclusion that MVC might be a slightly better fit since we intended to continue down this path.
 
 During the migration we encountered a bug in MVC 3 concerning Dictionary deserialization. This bug has subsequently tripped me up a few more times as I failed to remember the nature of the problem correctly. So I've written the issue up here as an aide to my own lamentable memory.
+
+<!--truncate-->
 
 Before I begin I should say that the problem \*<u>has been resolved in MVC 4</u>
 

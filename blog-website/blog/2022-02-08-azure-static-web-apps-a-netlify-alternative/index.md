@@ -1,4 +1,5 @@
 ---
+slug: azure-static-web-apps-a-netlify-alternative
 title: 'Azure Static Web Apps - a Netlify alternative'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, GitHub Actions, Docusaurus]
@@ -7,6 +8,8 @@ hide_table_of_contents: false
 ---
 
 Jamstack sites have taken the world by storm. There's currently fierce competition between offerings like [Netlify and Cloudflare](https://blog.logrocket.com/netlify-vs-cloudflare-pages/). A new player in this space is Azure Static Web Apps. This post will look at what working with SWAs is like and will demonstrate deploying one using GitHub Actions.
+
+<!--truncate-->
 
 ## Jamstack and Azure Static Web Apps
 

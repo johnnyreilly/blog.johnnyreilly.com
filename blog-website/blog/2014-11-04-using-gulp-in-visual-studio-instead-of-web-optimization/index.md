@@ -1,11 +1,14 @@
 ---
+slug: using-gulp-in-visual-studio-instead-of-web-optimization
 title: 'Using Gulp in Visual Studio instead of Web Optimization'
 authors: johnnyreilly
-tags: [Task Runner Explorer, Visual Studio, TypeScript, javascript, Gulp]
+tags: [Task Runner Explorer, Visual Studio, typescript, javascript, gulpjs]
 hide_table_of_contents: false
 ---
 
 ### Updated 17/02/2015: I've taken the approach discussed in this post a little further - you can see [here](../2012-10-05-using-web-optimization-with-mvc-3/index.md)
+
+<!--truncate-->
 
 I've used a number of tools to package up JavaScript and CSS in my web apps. [Andrew Davey's tremendous Cassette](http://getcassette.net/) has been really useful. Also good (although less powerful/magical) has been Microsoft's very own [Microsoft.AspNet.Web.Optimization](https://www.nuget.org/packages/Microsoft.AspNet.Web.Optimization/) that ships with MVC.
 

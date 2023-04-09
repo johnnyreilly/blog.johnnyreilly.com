@@ -1,11 +1,14 @@
 ---
+slug: how-im-using-cassette-part-3-typescript
 title: "How I'm Using Cassette part 3:Cassette and TypeScript Integration"
 authors: johnnyreilly
-tags: [Andrew Davey, TypeScript, javascript, cassette, Web Essentials]
+tags: [typescript, javascript, cassette]
 hide_table_of_contents: false
 ---
 
 The modern web is JavaScript. There's no two ways about it. HTML 5 has new CSS, new HTML but the most important aspect of it from an application development point of view is JavaScript. It's the engine. Without it HTML 5 wouldn't be the exciting application platform that it is. Half the posts on [Hacker News](https://news.ycombinator.com/) would vanish.
+
+<!--truncate-->
 
 It's easy to break a JavaScript application. One false keypress and you can mysteriously turn a fully functioning app into toast. And not know why. There's tools you can use to help yourself - [JSHint / JSLint](../2012-04-23-jshint-customising-your-hurt-feelings/index.md) but whilst these make error detection a little easier it remains very easy to shoot yourself in the foot with JavaScript. Because of this I've come to really rather love [TypeScript](http://www.typescriptlang.org/). If you didn't already know, TypeScript can be summed up as JavaScript with optional static typing. It's a **_superset_** of JavaScript - JavaScript with go-faster stripes. When run through the compiler TypeScript is [transpiled](https://en.wikipedia.org/wiki/Source-to-source_compiler) into JavaScript. And importantly, if you have bugs in your code, the compiler should catch them at this point and let you know.
 

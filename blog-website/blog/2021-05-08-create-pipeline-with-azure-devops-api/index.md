@@ -1,12 +1,15 @@
 ---
+slug: create-pipeline-with-azure-devops-api
 title: 'Create a Pipeline with the Azure DevOps API'
 authors: johnnyreilly
-tags: [Azure Pipelines, Azure DevOps API]
+tags: [Azure Pipelines, azure devops]
 image: ./new-pipeline.webp
 hide_table_of_contents: false
 ---
 
 Creating an Azure Pipeline using the Azure DevOps REST API is possible, but badly documented. This post goes through how to do this.
+
+<!--truncate-->
 
 ## curling a pipeline
 

@@ -1,11 +1,14 @@
 ---
+slug: typescript-and-webpack-watch-it
 title: 'TypeScript and webpack: Watch It'
 authors: johnnyreilly
-tags: [TypeScript, watch API, Webpack]
+tags: [typescript, webpack]
 hide_table_of_contents: false
 ---
 
 All I ask for is a compiler and a tight feedback loop. Narrowing the gap between making a change to a program and seeing the effect of that is a productivity boon. The TypeScript team are wise cats and dig this. They've taken strides to improve the developer experience of TypeScript users by [introducing a "watch" API which can be leveraged by other tools](https://github.com/Microsoft/TypeScript/wiki/Using-the-Compiler-API#writing-an-incremental-program-watcher). To quote the docs:
+
+<!--truncate-->
 
 > TypeScript 2.7 introduces two new APIs: one for creating "watcher" programs that provide set of APIs to trigger rebuilds, and a "builder" API that watchers can take advantage of... This can speed up large projects with many files.
 

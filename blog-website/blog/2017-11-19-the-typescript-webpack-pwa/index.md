@@ -1,11 +1,14 @@
 ---
+slug: the-typescript-webpack-pwa
 title: 'The TypeScript webpack PWA'
 authors: johnnyreilly
-tags: [workbox, TypeScript, PWA, Service Worker, Webpack]
+tags: [typescript, PWA, webpack]
 hide_table_of_contents: false
 ---
 
 So, there you sit, conflicted. You've got a lovely build setup; it's a thing of beauty. Precious, polished like a diamond, sharpened like a circular saw. There at the core of your carefully crafted setup sits webpack. Heaving, mysterious... powerful.
+
+<!--truncate-->
 
 There's more. Not only are you sold on webpack, you're all in TypeScript too. But now you've heard tell of "Progressive Web Applications" and "Service Workers".... And you want to be dealt in. You want to build web apps that work offline. It can't work can it? Your build setup's going to be like the creature in the episode where they've taken one too many jumps and it's gone into the foetal position.
 

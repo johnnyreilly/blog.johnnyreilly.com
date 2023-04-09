@@ -1,7 +1,8 @@
 ---
+slug: making-pdfs-from-html-in-c-using
 title: 'Making PDFs from HTML in C# using WKHTMLtoPDF'
 authors: johnnyreilly
-tags: [wkhtmltopdf, webkit, c#, html, pdf]
+tags: [wkhtmltopdf, c#, pdf]
 hide_table_of_contents: false
 ---
 
@@ -12,6 +13,8 @@ I've written a subsequent post which builds on the work of this original post. T
 ## Making PDFs from HTML
 
 I wanted to talk about an approach I've discovered for making PDFs directly from HTML. I realise that in these wild and crazy days of [PDF.js](http://mozilla.github.com/pdf.js/) and the like that techniques like this must seem very old hat. That said, this technique works and more importantly it solves a problem I was faced with but without forcing the users to move the "newest hottest version of X". Much as many of would love to solve problems this way, alas many corporations move slower than that and in the meantime we still have to deliver - we still have to meet requirements. Rather than just say "I did this" I thought I'd record how I got to this point in the first place. I don't know about you but I find the reasoning behind why different technical decisions get made quite an interesting topic...
+
+<!--truncate-->
 
 For some time I've been developing / supporting an application which is used in an intranet environment where the company mandated browser is still IE 6. It was a requirement that there be "print" functionality in this application. As is well known (even by Microsoft themselves) the print functionality in IE 6 was never fantastic. But the requirement for usable printouts remained.
 

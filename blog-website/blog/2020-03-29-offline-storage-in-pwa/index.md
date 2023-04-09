@@ -1,11 +1,14 @@
 ---
+slug: offline-storage-in-pwa
 title: 'Offline storage in a PWA'
 authors: johnnyreilly
-tags: [PWA, idb-keyval, IndexedDB, localStorage]
+tags: [PWA]
 hide_table_of_contents: false
 ---
 
 When you are building any kind of application it's typical to want to store information which persists beyond a single user session. Sometimes that will be information that you'll want to live in some kind of centralised database, but not always.
+
+<!--truncate-->
 
 Also, you may want that data to still be available if your user is offline. Even if they can't connect to the network, the user may still be able to use the app to do meaningful tasks; but the app will likely require a certain amount of data to drive that.
 

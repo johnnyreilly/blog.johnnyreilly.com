@@ -1,11 +1,14 @@
 ---
+slug: gulp-npm-long-paths-and-visual-studio-fight
 title: 'Gulp, npm, long paths and Visual Studio.... Fight!'
 authors: johnnyreilly
-tags: [npm, Visual Studio, long paths, gulp-angular-templatecache]
+tags: [npm, Visual Studio]
 hide_table_of_contents: false
 ---
 
 ## <sub>How I managed to gulp-angular-templatecache working inside Visual Studio</sub>
+
+<!--truncate-->
 
 Every now and then something bites you unexpectedly. After a certain amount of pain, the answer comes to you and you know you want to save others from falling into the same deathtrap.
 

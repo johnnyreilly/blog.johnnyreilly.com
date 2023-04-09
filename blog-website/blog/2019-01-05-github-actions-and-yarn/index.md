@@ -1,4 +1,5 @@
 ---
+slug: github-actions-and-yarn
 title: 'GitHub Actions and Yarn'
 authors: johnnyreilly
 tags: [docker, yarn, GitHub Actions]
@@ -6,6 +7,8 @@ hide_table_of_contents: false
 ---
 
 I'd been meaning to automate the npm publishing of [`ts-loader`](https://github.com/TypeStrong/ts-loader) for the longest time. I had attempted to use Travis to do this in the same way as [`fork-ts-checker-webpack-plugin`](https://github.com/Realytics/fork-ts-checker-webpack-plugin). Alas using secure environment variables in Travis has unfortunate implications for ts-loader's test pack.
+
+<!--truncate-->
 
 Be not afeard. I've heard there's a new shiny thing from GitHub that I could use instead... It's a sign; I must use it!
 

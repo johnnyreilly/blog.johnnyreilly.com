@@ -1,13 +1,16 @@
 ---
+slug: type-annotations-strong-types-weakly-held
 title: 'Type annotations: strong types, weakly held'
 authors: johnnyreilly
-tags: [type-annotations, types-as-comments, JSDoc, ECMAScript, types, proposal]
+tags: [JSDoc, ECMAScript, typescript]
 image: ./title-image.png
 description: 'Type annotations is a proposal which would allow for the inclusion of types in JavaScript code. Here is a description of the proposal and some thoughts.'
 hide_table_of_contents: false
 ---
 
 Recently, a new ECMAScript proposal called ["Type Annotations"](https://github.com/tc39/proposal-type-annotations) (originally named ["Types as Comments"](https://github.com/giltayar/proposal-types-as-comments)) was revealed. The purpose is to allow type annotations to be valid JavaScript syntax. Albeit syntax that is ignored by JavaScript engines. The proposal is being worked on by Gil Tayar, Daniel Rosenwasser, Romulo Cintra, Rob Palmer, and others. Many of these people are from TypeScript community - however this proposal intentionally does not exist to benefit TypeScript alone.
+
+<!--truncate-->
 
 It's a contentious topic. As a regular (and longtime) TypeScript user, here's a description of the proposal and some thoughts.
 

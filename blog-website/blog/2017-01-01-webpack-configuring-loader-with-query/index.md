@@ -1,11 +1,14 @@
 ---
+slug: webpack-configuring-loader-with-query
 title: 'webpack: configuring a loader with query / options'
 authors: johnnyreilly
-tags: [webpack 2, Webpack, query, options]
+tags: [webpack]
 hide_table_of_contents: false
 ---
 
 [webpack 2 is on it's way](https://medium.com/webpack/webpack-2-2-the-release-candidate-2e614d05d75f#.ntniu44u6). As one of the maintainers of [ts-loader](https://github.com/TypeStrong/ts-loader/) I've been checking out that ts-loader works with webpack 2. It does: phew!
+
+<!--truncate-->
 
 ts-loader has a continuous integration build that runs against webpack 1. When webpack 2 ships we're planning to move to running CI against webpack 2. However, webpack 2 has some breaking changes. The one that's particularly of relevance to our test packs is that a strict schema is now enforced for `webpack.config.js` with webpack 2. This has been the case since webpack 2 hit beta 23. Check the [PR that added it](https://github.com/webpack/webpack/pull/2974). You can see some of the [frankly tortured discussion that this generated as well](https://github.com/webpack/webpack/issues/3018).
 

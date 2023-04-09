@@ -1,16 +1,8 @@
 ---
+slug: globalize-and-jquery-validate
 title: 'Globalize and jQuery Validation'
 authors: johnnyreilly
-tags:
-  [
-    asp.net mvc,
-    Internationalisation,
-    Globalization,
-    Globalize JS,
-    Localisation,
-    jQuery Validation,
-    jQuery.validate.js,
-  ]
+tags: [asp.net mvc, Globalize, jQuery Validation]
 hide_table_of_contents: false
 ---
 
@@ -25,6 +17,8 @@ To make it easier for people to use the approach detailed in this post I have cr
 This is also available as a nuget package [here](https://www.nuget.org/packages/jQuery.Validation.Globalize/).
 
 To see a good demo take a look [here](http://jqueryvalidationunobtrusivenative.azurewebsites.net/AdvancedDemo/Globalize).
+
+<!--truncate-->
 
 ## Background
 

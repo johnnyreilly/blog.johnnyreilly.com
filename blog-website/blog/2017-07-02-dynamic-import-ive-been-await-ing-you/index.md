@@ -1,11 +1,14 @@
 ---
+slug: dynamic-import-ive-been-await-ing-you
 title: "Dynamic import: I've been awaiting you..."
 authors: johnnyreilly
-tags: [await, async, TypeScript, Karma, Babel, Webpack, dynamic import]
+tags: [typescript, webpack]
 hide_table_of_contents: false
 ---
 
 One of the most exciting features to ship with TypeScript 2.4 was support for the dynamic import expression. To quote the [release blog post](https://blogs.msdn.microsoft.com/typescript/2017/06/27/announcing-typescript-2-4/#dynamic-import-expressions):
+
+<!--truncate-->
 
 > Dynamic `import` expressions are a new feature in ECMAScript that allows you to asynchronously request a module at any arbitrary point in your program. These modules come back as `Promise`s of the module itself, and can be `await`\-ed in an async function, or can be given a callback with `.then`.
 >

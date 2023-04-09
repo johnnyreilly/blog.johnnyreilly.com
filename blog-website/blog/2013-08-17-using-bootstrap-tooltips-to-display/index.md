@@ -1,4 +1,5 @@
 ---
+slug: using-bootstrap-tooltips-to-display
 title: 'Using Bootstrap Tooltips to display jQuery Validation error messages'
 authors: johnnyreilly
 tags: [Tooltip, Bootstrap, jQuery Validation]
@@ -6,6 +7,8 @@ hide_table_of_contents: false
 ---
 
 I love jQuery Validation. I was recently putting together a screen which had a lot of different bits of validation going on. And the default jQuery Validation approach of displaying the validation messages next to the element being validated wasn't working for me. That is to say, because of the amount of elements on the form, the appearance of validation messages was really making a mess of the presentation. So what to do?
+
+<!--truncate-->
 
 ## Tooltips to the rescue!
 

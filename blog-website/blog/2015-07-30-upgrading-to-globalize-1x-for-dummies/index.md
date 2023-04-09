@@ -1,11 +1,14 @@
 ---
+slug: upgrading-to-globalize-1x-for-dummies
 title: 'Upgrading to Globalize 1.x for Dummies'
 authors: johnnyreilly
-tags: [Globalize, migration]
+tags: [Globalize]
 hide_table_of_contents: false
 ---
 
 Globalize has hit 1.0. Anyone who reads my blog will likely be aware that I'm a long time user of [Globalize 0.1.x](../2012-05-07-globalizejs-number-and-date/index.md). I've been a little daunted by the leap that the move from 0.1.x to 1.x represents. It appears to be the very definition of "breaking changes". :-) But hey, this is Semantic Versioning being used correctly so how could I complain? Either way, I've decided to write up the migration here as I'm not expecting this to be easy.
+
+<!--truncate-->
 
 To kick things off I've set up a very [simple repo](https://github.com/johnnyreilly/globalize-migration/tree/v0.1.x) that consists of a single page that depends upon Globalize 0.1.x to render a number and a date in German. It looks like this:
 

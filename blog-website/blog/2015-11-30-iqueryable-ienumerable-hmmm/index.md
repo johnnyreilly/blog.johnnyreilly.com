@@ -1,11 +1,14 @@
 ---
+slug: iqueryable-ienumerable-hmmm
 title: 'IQueryable... IEnumerable... Hmmm...'
 authors: johnnyreilly
-tags: [LINQ, IEnumerable vs IQueryable]
+tags: [LINQ]
 hide_table_of_contents: false
 ---
 
 So there I was, tip-tapping away at my keyboard when I became aware of the slowly loudening noise of a debate. It wasn't about poverty, war, civil rights or anything like that. No; this was far more contentious. It was about the behaviour of `<a href="https://msdn.microsoft.com/en-gb/library/bb351562(v=vs.100).aspx">IQueryable&lt;T&gt;</a>` when mixed with `<a href="https://msdn.microsoft.com/en-gb/library/9eekhta0(v=vs.100).aspx">IEnumerable&lt;T&gt;</a>`. I know, right, how could I not get involved?
+
+<!--truncate-->
 
 The code that was being debated was a database query that was being facilitated by Entity Framework. Now let me ask you a question: what is the problem with the methods below?
 

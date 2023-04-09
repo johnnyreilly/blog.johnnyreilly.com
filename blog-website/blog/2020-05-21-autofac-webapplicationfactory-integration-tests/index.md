@@ -1,14 +1,8 @@
 ---
+slug: autofac-webapplicationfactory-integration-tests
 title: 'Autofac, WebApplicationFactory and integration tests'
 authors: johnnyreilly
-tags:
-  [
-    autofac,
-    WebApplicationFactory,
-    ASP.Net Core,
-    ConfigureTestContainer,
-    Integration Testing,
-  ]
+tags: [autofac, ASP.Net Core, Integration Testing]
 image: ./autofac-webapplicationfactory-tests.webp
 hide_table_of_contents: false
 ---
@@ -16,6 +10,8 @@ hide_table_of_contents: false
 **Updated 2nd Oct 2020:** _for an approach that works with Autofac 6 and `ConfigureTestContainer` see [this post](../2020-10-02-autofac-6-integration-tests-and-generic-hosting/index.md)._
 
 ![A title image for the blog featuring the Autofac logo](autofac-webapplicationfactory-tests.webp)
+
+<!--truncate-->
 
 This is one of those occasions where I'm not writing up my own work so much as my discovery after in depth googling.
 

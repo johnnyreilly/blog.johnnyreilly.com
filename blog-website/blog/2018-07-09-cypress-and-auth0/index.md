@@ -1,11 +1,14 @@
 ---
+slug: cypress-and-auth0
 title: 'Cypress and Auth0'
 authors: johnnyreilly
-tags: [auth0-js, Auth0, cypress, login]
+tags: [auth0-js, Auth0, cypress, auth]
 hide_table_of_contents: false
 ---
 
 [Cypress](https://www.cypress.io/) is a fantastic way to write UI tests for your web apps. Just world class. Wait, no. Galaxy class. I'm going to go one further: universe class. You get my drift.
+
+<!--truncate-->
 
 Here's a pickle for you. You have functionality that lies only behind the walled garden of authentication. You want to write tests for these capabilities. Assuming that authentication takes place within your application that's no great shakes. Authentication is part of your app; it's no big deal using Cypress to automate logging in.
 

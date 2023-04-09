@@ -1,11 +1,14 @@
 ---
+slug: es6-typescript-babel-react-flux-karma
 title: 'ES6 + TypeScript + Babel + React + Flux + Karma: The Secret Recipe'
 authors: johnnyreilly
-tags: [ES6, Karma, React, ts-loader, Webpack]
+tags: [ES6, Karma, React, ts-loader, webpack]
 hide_table_of_contents: false
 ---
 
 I wrote [a while ago](../2015-09-10-things-done-changed/index.md) about how I was using some different tools in a current project:
+
+<!--truncate-->
 
 - React with JSX
 - Flux

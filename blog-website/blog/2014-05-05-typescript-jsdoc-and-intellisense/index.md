@@ -1,11 +1,14 @@
 ---
+slug: typescript-jsdoc-and-intellisense
 title: 'TypeScript, JSDoc and Intellisense'
 authors: johnnyreilly
-tags: [jquery, JSDoc, TypeScript, Intellisense, jQuery.d.ts]
+tags: [jquery, JSDoc, typescript]
 hide_table_of_contents: false
 ---
 
 ## Days of Yore
+
+<!--truncate-->
 
 It was my first job. The web was alive and well at this point but still very much in it's infancy. Newspapers had only recently moved on from calling it "the information superhighway". No-one was doing _real_ programming for the web - the desktop was where it was at.
 

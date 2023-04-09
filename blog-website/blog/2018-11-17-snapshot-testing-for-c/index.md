@@ -1,4 +1,5 @@
 ---
+slug: snapshot-testing-for-c
 title: 'Snapshot Testing for C#'
 authors: johnnyreilly
 tags: [snapshot testing, c#, jest]
@@ -6,6 +7,8 @@ hide_table_of_contents: false
 ---
 
 If you're a user of Jest, you've no doubt heard of and perhaps made use of [snapshot testing](https://jestjs.io/docs/en/snapshot-testing).
+
+<!--truncate-->
 
 Snapshot testing is an awesome tool that is generally discussed in the context of JavaScript React UI testing. But snapshot testing has a wider application than that. Essentially it is profoundly useful where you have functions which produce a complex structured output. It could be a React UI, it could be a list of FX prices. The type of data is immaterial; it's the amount of it that's key.
 

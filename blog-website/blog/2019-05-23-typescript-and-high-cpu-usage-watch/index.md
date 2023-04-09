@@ -1,12 +1,14 @@
 ---
+slug: typescript-and-high-cpu-usage-watch
 title: "TypeScript and high CPU usage - watch don't stare!"
 authors: johnnyreilly
-tags:
-  [cross-env, TypeScript, fork-ts-checker-webpack-plugin, watch API, Webpack]
+tags: [typescript, fork-ts-checker-webpack-plugin, webpack]
 hide_table_of_contents: false
 ---
 
 I'm one of the maintainers of the [fork-ts-checker-webpack-plugin](https://github.com/Realytics/fork-ts-checker-webpack-plugin). Hi there!
+
+<!--truncate-->
 
 Recently, various issues have been raised against create-react-app (which uses fork-ts-checker-webpack-plugin) as well as against the plugin itself. They've been related to the level of CPU usage in watch mode on idle; i.e. it's high!
 

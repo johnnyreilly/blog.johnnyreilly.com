@@ -1,4 +1,5 @@
 ---
+slug: a-nicer-net-api-for-bloombergs-open-api
 title: "Getting up to speed with Bloomberg's Open API..."
 authors: johnnyreilly
 tags: [.NET, c#, Bloomberg, Open API]
@@ -6,6 +7,8 @@ hide_table_of_contents: false
 ---
 
 A good portion of any devs life is usually spent playing with APIs. If you need to integrate some other system into the system you're working on (and it's rare to come upon a situation where this doesn't happen at some point) then it's API time.
+
+<!--truncate-->
 
 Some APIs are well documented and nice to use. Some aren't. I recently spent a goodly period of time investigating [Bloomberg's Open API](http://www.openbloomberg.com/open-api/) and it was a slightly painful experience. So much so that I thought it best to write up my own experiences and maybe I can save others time and a bit of pain.
 

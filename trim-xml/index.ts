@@ -5,35 +5,81 @@ import {
   getBlogPathFromUrl,
   getGitLastUpdatedFromFilePath,
 } from './getGitLastUpdated';
-import { SitemapUrl, Sitemap, AtomFeed, RssItem, RssFeed } from './types';
+import type { SitemapUrl, Sitemap, AtomFeed, RssItem, RssFeed } from './types';
 
 const rootUrl = 'https://johnnyreilly.com';
 
-async function enrichUrlsWithLastmod(
+async function enrichUrlsWithLastmodAndFilterCanonicals(
   filteredUrls: SitemapUrl[]
 ): Promise<SitemapUrl[]> {
   const urls: SitemapUrl[] = [];
+  let blogFilePath: string | undefined;
   for (const url of filteredUrls) {
     if (urls.includes(url)) {
       continue;
     }
 
     try {
-      const blogFilePath = getBlogPathFromUrl(rootUrl, url.loc);
+      blogFilePath = getBlogPathFromUrl(rootUrl, url.loc);
       if (!blogFilePath) {
         urls.push(url);
         continue;
       }
+
+      // eg blog-website/blog/2013-04-26-a-navigation-animation-for-your-users/index.md
+      const blogMarkdown = await Bun.file('../' + blogFilePath).text();
+      if (blogMarkdown.includes('<link rel="canonical" href=')) {
+        console.log('excluding external canonical URL', url.loc);
+        continue;
+      }
+
       const lastmod = await getGitLastUpdatedFromFilePath(blogFilePath);
 
       urls.push(lastmod ? { ...url, lastmod } : url);
       console.log(url.loc, lastmod);
     } catch (e) {
-      console.log('file date not looked up', url.loc, e);
+      console.log(`file date not looked up: ${blogFilePath}`, url.loc, e);
       urls.push(url);
     }
   }
   return urls;
+}
+
+async function patchOpenGraphImageToCloudinary() {
+  const indexHtmlPaths = fs
+    .readdirSync(path.resolve('..', 'blog-website', 'build'))
+    .filter((dir) =>
+      fs
+        .statSync(path.resolve('..', 'blog-website', 'build', dir))
+        .isDirectory()
+    )
+    .map((dir) =>
+      path.resolve('..', 'blog-website', 'build', dir, 'index.html')
+    )
+    .filter((file) => fs.existsSync(file));
+
+  const ogImageRegex =
+    /<meta data-rh="true" property="og:image" content="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))">/;
+  const twitterImageRegex =
+    /<meta data-rh="true" name="twitter:image" content="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))">/;
+
+  // https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/https://johnnyreilly.com/assets/images/title-image-934557b5733320b51dc0b371cf808e3a.png
+  for (const indexHtmlPath of indexHtmlPaths) {
+    console.log(`Loading ${indexHtmlPath}`);
+    const indexHtml = await Bun.file(indexHtmlPath).text();
+
+    console.log(`Saving ${indexHtmlPath}`);
+    await Bun.write(
+      indexHtmlPath,
+      indexHtml
+        .replace(twitterImageRegex, function (_match, url) {
+          return `<meta data-rh="true" name="twitter:image" content="https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${url}">`;
+        })
+        .replace(ogImageRegex, function (_match, url) {
+          return `<meta data-rh="true" property="og:image" content="https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${url}">`;
+        })
+    );
+  }
 }
 
 async function trimSitemapXML() {
@@ -45,7 +91,7 @@ async function trimSitemapXML() {
   );
 
   console.log(`Loading ${sitemapPath}`);
-  const sitemapXml = await fs.promises.readFile(sitemapPath, 'utf8');
+  const sitemapXml = await Bun.file(sitemapPath).text();
 
   const parser = new XMLParser({
     ignoreAttributes: false,
@@ -54,8 +100,8 @@ async function trimSitemapXML() {
 
   const filteredUrls = sitemap.urlset.url.filter(
     (url) =>
-      url.loc !== `${rootUrl}/tags` &&
-      !url.loc.startsWith(rootUrl + '/tags/') &&
+      // url.loc !== `${rootUrl}/tags` &&
+      // !url.loc.startsWith(rootUrl + '/tags/') &&
       !url.loc.startsWith(rootUrl + '/page/')
   );
 
@@ -63,20 +109,22 @@ async function trimSitemapXML() {
     `Reducing ${sitemap.urlset.url.length} urls to ${filteredUrls.length} urls`
   );
 
-  sitemap.urlset.url = await enrichUrlsWithLastmod(filteredUrls);
+  sitemap.urlset.url = await enrichUrlsWithLastmodAndFilterCanonicals(
+    filteredUrls
+  );
 
   const builder = new XMLBuilder({ format: false, ignoreAttributes: false });
   const shorterSitemapXml = builder.build(sitemap);
 
   console.log(`Saving ${sitemapPath}`);
-  await fs.promises.writeFile(sitemapPath, shorterSitemapXml);
+  await Bun.write(sitemapPath, shorterSitemapXml);
 }
 
 async function trimAtomXML() {
   const atomPath = path.resolve('..', 'blog-website', 'build', 'atom.xml');
 
   console.log(`Loading ${atomPath}`);
-  const atomXml = await fs.promises.readFile(atomPath, 'utf8');
+  const atomXml = await Bun.file(atomPath).text();
 
   const parser = new XMLParser({
     ignoreAttributes: false,
@@ -114,14 +162,14 @@ async function trimAtomXML() {
   const shorterSitemapXml = builder.build(rss);
 
   console.log(`Saving ${atomPath}`);
-  await fs.promises.writeFile(atomPath, shorterSitemapXml);
+  await Bun.write(atomPath, shorterSitemapXml);
 }
 
 async function trimRssXML() {
   const rssPath = path.resolve('..', 'blog-website', 'build', 'rss.xml');
 
   console.log(`Loading ${rssPath}`);
-  const rssXml = await fs.promises.readFile(rssPath, 'utf8');
+  const rssXml = await Bun.file(rssPath).text();
 
   const parser = new XMLParser({
     ignoreAttributes: false,
@@ -159,14 +207,21 @@ async function trimRssXML() {
   const shorterSitemapXml = builder.build(rss);
 
   console.log(`Saving ${rssPath}`);
-  await fs.promises.writeFile(rssPath, shorterSitemapXml);
+  await Bun.write(rssPath, shorterSitemapXml);
 }
 
 async function main() {
+  const startedAt = new Date();
+
+  await patchOpenGraphImageToCloudinary();
   await trimSitemapXML();
   // now handled by createFeedItems
   // await trimAtomXML();
   // await trimRssXML();
+
+  const finishedAt = new Date();
+  const duration = (finishedAt.getTime() - startedAt.getTime()) / 1000;
+  console.log(`Post processing finished in ${duration} seconds`);
 }
 
-main();
+await main();

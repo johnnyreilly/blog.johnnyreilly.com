@@ -1,11 +1,14 @@
 ---
+slug: tfs-2012-meet-powershell-karma-and-buildnumber
 title: 'TFS 2012 meet PowerShell, Karma and BuildNumber'
 authors: johnnyreilly
-tags: [BuildDefinitionName, BuildNumber, npm, Karma, powershell, trx, TFS 2012]
+tags: [TFS]
 hide_table_of_contents: false
 ---
 
 To my lasting regret, TFS 2012 has no direct support for PowerShell. Such a shame as PowerShell scripts can do a lot of heavy lifting in a build process. Well, here we're going to brute force TFS 2012 into running PowerShell scripts. And along the way we'll also get Karma test results publishing into TFS 2012 as an example usage. Nice huh? Let's go!
+
+<!--truncate-->
 
 ## PowerShell via `csproj`
 

@@ -1,11 +1,14 @@
 ---
+slug: vsts-and-ef-core-migrations
 title: 'VSTS and EF Core Migrations'
 authors: johnnyreilly
-tags: [vsts, Entity Framework, ef core]
+tags: [vsts, Entity Framework]
 hide_table_of_contents: false
 ---
 
 Let me start by telling you a dirty secret. I have an ASP.Net Core project that I build with VSTS. It is deployed to Azure through a CI / CD setup in VSTS. That part I'm happy with. Proud of even. Now to the sordid hiddenness: try as I might, I've never found a nice way to deploy Entity Framework database migrations as part of the deployment flow. So I have [blushes with embarrassment] been using the `Startup` of my ASP.Net core app to run the migrations on my database. There. I said it. You all know. Absolutely filthy. Don't judge me.
+
+<!--truncate-->
 
 If you care to google, you'll find various discussions around this, and various ways to tackle it. Most of which felt like too much hard work and so I never attempted.
 

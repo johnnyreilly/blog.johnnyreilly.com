@@ -1,11 +1,14 @@
 ---
+slug: html-to-pdf-using-wcf-service
 title: 'HTML to PDF using a WCF Service'
 authors: johnnyreilly
-tags: [wkhtmltopdf, html, WCF, pdf]
+tags: [wkhtmltopdf, WCF, pdf]
 hide_table_of_contents: false
 ---
 
 ## TL; DR - "Talk is cheap. Show me the code."
+
+<!--truncate-->
 
 Some time ago I wrote a [post which demonstrated how you could make PDFs from HTML](../2012-04-05-making-pdfs-from-html-in-c-using/index.md) using C# and [wkhtmltopdf](http://code.google.com/p/wkhtmltopdf/). To my lasting surprise this has been the most popular post I've written. I recently put together an ASP.NET WCF service which exposed this functionality which I thought might be worth sharing. The code can be found on GitHub [here](https://github.com/johnnyreilly/PdfMakerWcfService).
 

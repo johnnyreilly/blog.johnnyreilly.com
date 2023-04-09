@@ -1,11 +1,14 @@
 ---
+slug: deploying-aspnet-mvc-to-github-pages-with-appveyor-part-1
 title: 'Deploying from ASP.Net MVC to GitHub Pages using AppVeyor part 1'
 authors: johnnyreilly
-tags: [wget, powershell, github pages, AppVeyor]
+tags: [powershell, github pages, AppVeyor]
 hide_table_of_contents: false
 ---
 
 There's a small open source project I'm responsible for called [jQuery Validation Unobtrusive Native](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native). (A catchy name is a must for any good open source project. Alas I'm not quite meeting my own exacting standards on this particular point... I should have gone with my gut and called it "Livingstone" instead. Too late now...)
+
+<!--truncate-->
 
 The project itself is fairly simple in purpose. It's essentially a bridge between ASP.Net MVC's inbuilt support for driving validation from data attributes and jQuery Validation's native support for the same. It is, in the end, a collection of ASP.Net MVC HTML helper extensions. It is not massively complicated.
 

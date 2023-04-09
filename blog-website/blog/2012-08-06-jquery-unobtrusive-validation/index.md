@@ -1,4 +1,5 @@
 ---
+slug: jquery-unobtrusive-validation
 title: 'jQuery Unobtrusive Validation (+ associated gotchas)'
 authors: johnnyreilly
 tags: [jquery unobtrusive validation]
@@ -6,6 +7,8 @@ hide_table_of_contents: false
 ---
 
 I was recently working on a project which had client side validation manually set up which essentially duplicated the same logic on the server. Like many things this had started out small and grown and grown until it became arduos and tedious to maintain.
+
+<!--truncate-->
 
 Time to break out the unobtrusive jQuery validation.
 

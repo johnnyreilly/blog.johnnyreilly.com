@@ -1,11 +1,14 @@
 ---
+slug: a-navigation-animation-for-your-users
 title: 'A navigation animation (for your users delectation)'
 authors: johnnyreilly
-tags: [navigation animation, css load, UX, CSS animation, Modernizr]
+tags: [CSS]
 hide_table_of_contents: false
 ---
 
 ## The Vexation
+
+<!--truncate-->
 
 The current application I'm working on lives within an `iframe`. A side effect of that is that my users no longer get the visual feedback that they're used to as they navigate around the site. By "visual feedback" what I mean are the little visual tics that are displayed in the browser when you're in the process of navigating from one screen to the next.
 

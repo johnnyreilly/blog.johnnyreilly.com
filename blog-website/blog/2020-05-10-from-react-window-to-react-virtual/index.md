@@ -1,4 +1,5 @@
 ---
+slug: from-react-window-to-react-virtual
 title: 'From react-window to react-virtual'
 authors: johnnyreilly
 tags: [react-virtual, react-window, React]
@@ -6,6 +7,8 @@ hide_table_of_contents: false
 ---
 
 The tremendous [Tanner Linsley](https://twitter.com/tannerlinsley) recently released [`react-virtual`](https://github.com/tannerlinsley/react-virtual). `react-virtual` provides "hooks for virtualizing scrollable elements in React".
+
+<!--truncate-->
 
 I was already using the (also excellent) [`react-window`](https://github.com/bvaughn/react-window) for this purpose. `react-window` does the virtualising job and does it very well indeed However, I was both intrigued by the lure of the new shiny thing. I've also never been the biggest fan of `react-window`'s API. So I tried switching over from `react-window` to `react-virtual` as an experiment. To my delight, the experiment went so well I didn't look back!
 

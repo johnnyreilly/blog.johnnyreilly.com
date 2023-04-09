@@ -1,11 +1,14 @@
 ---
+slug: webpack-syncing-enhanced-resolve
 title: 'webpack: syncing the enhanced-resolve'
 authors: johnnyreilly
-tags: [enhanced-resolve, mild trolling, resolver, Webpack, sync]
+tags: [webpack]
 hide_table_of_contents: false
 ---
 
 Like Captain Ahab I resolve to sync the white whale that is webpack's [`enhanced-resolve`](https://github.com/webpack/enhanced-resolve)... English you say? Let me start again:
+
+<!--truncate-->
 
 So, you're working on a webpack loader. (In my case the typescript loader; [`ts-loader`](https://github.com/TypeStrong/ts-loader)) You have need of webpack's resolve capabilities. You dig around and you discover that that superpower is lodged in the very heart of the enhanced-resolve package. Fantastic. But wait, there's more: your needs are custom. You need a sync, not an async resolver. (Try saying that quickly.) You regard the description of `enhanced-resolve` with some concern:
 

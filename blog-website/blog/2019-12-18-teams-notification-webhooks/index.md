@@ -1,12 +1,15 @@
 ---
+slug: teams-notification-webhooks
 title: 'Teams notification webhooks'
 authors: johnnyreilly
-tags: [Microsoft Teams, connectors, notifications, webhook]
+tags: [Microsoft Teams, webhook]
 image: ./teams-notification.gif
 hide_table_of_contents: false
 ---
 
 Teams notifications are mighty useful. You can send them using Markdown via a webhook.
+
+<!--truncate-->
 
 This post will explain the following:
 

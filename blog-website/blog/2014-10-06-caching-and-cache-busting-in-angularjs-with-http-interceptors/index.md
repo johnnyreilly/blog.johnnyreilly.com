@@ -1,11 +1,14 @@
 ---
+slug: caching-and-cache-busting-in-angularjs-with-http-interceptors
 title: 'Caching and Cache-Busting in AngularJS with HTTP interceptors'
 authors: johnnyreilly
-tags: [TypeScript, $http, AngularJS, interceptors, caching]
+tags: [typescript, AngularJS]
 hide_table_of_contents: false
 ---
 
 ## Loading On-Demand and Caching
+
+<!--truncate-->
 
 [I've written before about my own needs for caching and cache-busting when using RequireJS.](../2014-03-05-caching-and-cache-busting-with-requirejs/index.md) Long story short, when I'm loading _static_ resources (scripts / views etc) on demand from the server I want to do a little URL fiddling along the way. I want to do that to cater for these 2 scenarios:
 

@@ -1,12 +1,14 @@
 ---
+slug: typescript-instance-methods
 title: 'TypeScript this is what I want! (the unfortunate neglect of Instance Methods / callback functions)'
 authors: johnnyreilly
-tags:
-  [callback functions, TypeScript, Lexical scoping, closure, Instance methods]
+tags: [typescript]
 hide_table_of_contents: false
 ---
 
 I was recently reading [Jeff Walker's blog post "Why TypeScript Isn't the Answer"](http://www.walkercoderanger.com/blog/2014/02/typescript-isnt-the-answer/). This is part of series in which Jeff goes through various compile-to-JavaScript technologies including TypeScript, CoffeeScript and Dart and explains his view of why he feels they don't quite hit the mark.
+
+<!--truncate-->
 
 As a user (and big fan) of TypeScript I read the post with interest and picked up on one particular issue that Jeff mentions:
 

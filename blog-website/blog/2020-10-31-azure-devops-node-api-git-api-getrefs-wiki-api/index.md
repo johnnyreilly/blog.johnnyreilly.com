@@ -1,7 +1,8 @@
 ---
+slug: azure-devops-node-api-git-api-getrefs-wiki-api
 title: 'Azure DevOps Client for Node.js - GitApi / WikiApi limitations'
 authors: johnnyreilly
-tags: [Azure DevOps API, IGitApi.getRefs, IWikiApi, Node.js]
+tags: [azure devops, Node.js]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
@@ -9,6 +10,8 @@ hide_table_of_contents: false
 The Azure DevOps Client library for Node.js has limitations and missing features, `IGitApi.getRefs` is missing pagination and `IWikiApi` is missing page create or update. This post details some of these issues and illustrates a workaround using the Azure DevOps REST API.
 
 ![A title image that reads "Azure DevOps Client for Node.js - working around limitations"](title-image.png)
+
+<!--truncate-->
 
 ## The Azure DevOps REST API and Client Libraries
 

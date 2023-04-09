@@ -1,11 +1,14 @@
 ---
+slug: coming-soon-definitely-typed
 title: 'Coming Soon: Definitely Typed'
 authors: johnnyreilly
-tags: [TypeScript, Definitely Typed]
+tags: [typescript, Definitely Typed]
 hide_table_of_contents: false
 ---
 
 A long time ago (well, 2012) in a galaxy far, far away (okay; Plovdiv, Bulgaria)....
+
+<!--truncate-->
 
 [Definitely Typed](https://github.com/DefinitelyTyped/DefinitelyTyped) began!
 

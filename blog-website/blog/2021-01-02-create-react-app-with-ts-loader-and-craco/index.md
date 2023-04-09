@@ -1,18 +1,14 @@
 ---
+slug: create-react-app-with-ts-loader-and-craco
 title: 'Create React App with ts-loader and CRACO'
 authors: johnnyreilly
-tags:
-  [
-    CRACO,
-    TypeScript,
-    create react app,
-    fork-ts-checker-webpack-plugin,
-    ts-loader,
-  ]
+tags: [typescript, fork-ts-checker-webpack-plugin, ts-loader]
 hide_table_of_contents: false
 ---
 
 [Create React App](https://create-react-app.dev/) is a fantastic way to get up and running building a web app with React. It also supports using TypeScript with React. Simply entering the following:
+
+<!--truncate-->
 
 ```shell
 npx create-react-app my-app --template typescript

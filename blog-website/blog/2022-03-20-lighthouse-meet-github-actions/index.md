@@ -1,4 +1,5 @@
 ---
+slug: lighthouse-meet-github-actions
 title: 'Lighthouse meet GitHub Actions'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, GitHub Actions, Docusaurus]
@@ -10,6 +11,8 @@ hide_table_of_contents: false
 Lighthouse is a tremendous tool for auditing the performance and usability of websites. Rather than having to perform these audits manually, it's helpful to be able to plug it into your CI pipeline. This post illustrates how to integrate Lighthouse into a GitHub Actions workflow for an Azure Static Web App, and report findings directly in pull requests that are raised.
 
 ![title image reading "Lighthouse meet GitHub Actions" with the Lighthouse logo and a screenshot of the results in a GitHub comment`](title-image.png)
+
+<!--truncate-->
 
 ## What we'll do
 
@@ -110,6 +113,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: true
+
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
@@ -173,6 +177,11 @@ git checkout -b lighthouse
 We're going to add a new "Lighthouse report" job to our GitHub Actions workflow file:
 
 ```yml
+env:
+  RESOURCE_GROUP: rg-blog-johnnyreilly-com
+  LOCATION: westeurope
+  STATICWEBAPPNAME: blog.johnnyreilly.com
+
 lighthouse_report_job:
   name: Lighthouse report
   if: github.event_name == 'pull_request' && github.event.action != 'closed'
@@ -180,17 +189,26 @@ lighthouse_report_job:
   steps:
     - uses: actions/checkout@v2
 
+    # Auth between GitHub and Azure is handled by https://github.com/jongio/github-azure-oidc
+    # https://github.com/Azure/login#sample-workflow-that-uses-azure-login-action-using-oidc-to-run-az-cli-linux
+    # other login options are possible too
+    - name: AZ CLI login 🔑
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
     - name: Static Web App - get preview URL
       id: static_web_app_preview_url
       uses: azure/CLI@v1
       with:
         inlineScript: |
-          CUSTOM_DOMAIN='agreeable-rock-039a51810.1.azurestaticapps.net'
-          LOCATION='centralus'
+          DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATICWEBAPPNAME }}' | jq -r '.defaultHostname')
 
-          PREVIEW_URL="https://${CUSTOM_DOMAIN/.[1-9]./-${{github.event.pull_request.number }}.$LOCATION.1.}"
+          PREVIEW_URL="https://${DEFAULTHOSTNAME/.[1-9]./-${{github.event.pull_request.number }}.${{ env.LOCATION }}.1.}"
 
-          echo "::set-output name=PREVIEW_URL::$PREVIEW_URL"
+          echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_OUTPUT
 
     - name: Static Web App - wait for preview
       id: static_web_app_wait_for_preview
@@ -241,13 +259,13 @@ There's a number of things happening in this workflow. Let's walk through them.
 
 ### Static Web App - get preview URL
 
-Here we construct the preview URL of our static web app using:
+Here we acquire the preview URL of our static web app using:
 
-- the custom domain
+- the default host name of the static web app
 - the location
 - the pull request number eg 123
 
-Given a custom domain of `agreeable-rock-039a51810.1.azurestaticapps.net`, a location of `centralus` and a pull request number of `123`, the preview url would be `agreeable-rock-039a51810-123.centralus.1.azurestaticapps.net`. Using a little bash magic we create an output variable named `PREVIEW_URL` containing that value. We'll re-use it later in the workflow.
+Given a default host name of `agreeable-rock-039a51810`, a location of `centralus` and a pull request number of `123`, the preview url would be `agreeable-rock-039a51810-123.centralus.1.azurestaticapps.net`. Using a little bash magic we create an output variable named `PREVIEW_URL` containing that value. We'll re-use it later in the workflow.
 
 ### Static Web App - wait for preview
 

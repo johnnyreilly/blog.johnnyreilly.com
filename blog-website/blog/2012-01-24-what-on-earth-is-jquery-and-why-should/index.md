@@ -1,11 +1,14 @@
 ---
+slug: what-on-earth-is-jquery-and-why-should
 title: 'What on earth is jQuery?  And why should I care?'
 authors: johnnyreilly
-tags: [jqgrid, ajax, jquery, scott gu, microsoft]
+tags: [jqgrid, ajax, jquery]
 hide_table_of_contents: false
 ---
 
 What on earth is jQuery? What's a jQuery plugin?
+
+<!--truncate-->
 
 These were the questions I was asking myself shortly after discovering that jqGrid was a "jQuery plugin". I'd been vaguely aware of the phrase "jQuery" being increasingly mentioned on various techical websites since about 2009. But for some reason I'd felt no urge to find out what it was. I seem to remember that I read the name "jQuery" and jumped to the perfectly logical (in my head) conclusion that this must be a Java SQL engine of some sort. (After all "j" as a prefix to anything so far had generally been Java and "Query" just rang of databases to me.) Clearly I was wrong - life's full of surprises.
 

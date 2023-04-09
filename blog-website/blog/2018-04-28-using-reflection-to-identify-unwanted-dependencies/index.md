@@ -1,11 +1,14 @@
 ---
+slug: using-reflection-to-identify-unwanted-dependencies
 title: 'Using Reflection to Identify Unwanted Dependencies'
 authors: johnnyreilly
-tags: [reflection, test, dependencies]
+tags: [.NET]
 hide_table_of_contents: false
 ---
 
 I having a web app which is fairly complex. It's made up of services, controllers and all sorts of things. So far, so unremarkable. However, I needed to ensure that the controllers did not attempt to access the database via any of their dependencies. Or their dependencies, dependencies. Or their dependencies. You get my point.
+
+<!--truncate-->
 
 The why is not important here. What's significant is the idea of walking a dependency tree and identifying, via a reflection based test, when such unwelcome dependencies occur, and where.
 

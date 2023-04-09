@@ -1,11 +1,14 @@
 ---
+slug: things-done-changed
 title: 'Things Done Changed'
 authors: johnnyreilly
-tags: [Browserify, ES6, Atom, Babel, React, WebSockets]
+tags: [ES6, Atom, Babel, React, WebSockets]
 hide_table_of_contents: false
 ---
 
 Some people fear change. Most people actually. I'm not immune to that myself, but not in the key area of technology. Any developer that fears change when it comes to the tools and languages that he / she is using is in the _wrong_ business. Because what you're using to cut code today will not last. The language will evolve, the tools and frameworks that you love will die out and be replaced by new ones that are different and strange. In time, the language you feel you write as a native will fall out of favour, replaced by a new upstart.
+
+<!--truncate-->
 
 My first gig was writing telecoms software using Delphi. I haven't touched Delphi (or telecoms for that matter) for over 10 years now. Believe me, I grok that things change.
 

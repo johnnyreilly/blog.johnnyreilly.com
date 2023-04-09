@@ -1,4 +1,5 @@
 ---
+slug: how-i-ruined-my-seo
 title: 'How I ruined my SEO'
 authors: johnnyreilly
 tags: [SEO]
@@ -10,6 +11,8 @@ hide_table_of_contents: false
 In October 2022 traffic to my blog dropped like a stone. What happened? Somehow I ruined my SEO. Don't be me. I'll tell you what I got up to and hopefully you can avoid doing the same.
 
 ![title image reading "How I ruined my SEO" with an image of a tire fire in the background](title-image.png)
+
+<!--truncate-->
 
 ## What I did on my holidays
 

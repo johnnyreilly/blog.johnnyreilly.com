@@ -1,11 +1,14 @@
 ---
+slug: typescript-definitions-webpack-and-module-types
 title: 'TypeScript Definitions, webpack and Module Types'
 authors: johnnyreilly
-tags: [AMD, DefinitelyTyped, TypeScript, CommonJS]
+tags: [Definitely Typed, typescript, webpack]
 hide_table_of_contents: false
 ---
 
 A funny thing happened on the way to the registry the other day. Something changed in an npm package I was using and confusion arose. You can read my unfiltered confusion [here](https://github.com/Microsoft/TypeScript/issues/18791) but here's the slightly clearer explanation.
+
+<!--truncate-->
 
 ## The TL;DR
 

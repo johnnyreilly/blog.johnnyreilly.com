@@ -1,15 +1,8 @@
 ---
+slug: swashbuckle-inheritance-multiple-return-types
 title: 'Swashbuckle & inheritance: Give. Me. The. Types'
 authors: johnnyreilly
-tags:
-  [
-    Swashbuckle,
-    .NET,
-    inheritance,
-    UseOneOfForPolymorphism,
-    multiple return types,
-    discriminated unions,
-  ]
+tags: [Swashbuckle, .NET]
 image: ./title-image.png
 description: 'For API endpoints that return multiple types, you can use inheritance with Swashbuckle to get create a Swagger / Open API definition; here is how.'
 hide_table_of_contents: false
@@ -18,6 +11,8 @@ hide_table_of_contents: false
 For API endpoints that return multiple types, you can use inheritance with Swashbuckle to get create a Swagger / Open API definition featuring the variety of available types. Serving all these types is not the default behaviour. This post shows you how to opt in.
 
 ![title image reading "Swashbuckle and inheritance: Give. Me. The. Types" with Sid Swashbuckle the Pirate and Open API logos](title-image.png)
+
+<!--truncate-->
 
 ## Making a simple API
 

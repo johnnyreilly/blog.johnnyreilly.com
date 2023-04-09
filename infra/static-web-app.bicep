@@ -7,8 +7,15 @@ param repositoryToken string
 param rootCustomDomainName string
 param blogCustomDomainName string
 param appInsightsId string
+@secure()
 param appInsightsInstrumentationKey string
+@secure()
 param appInsightsConnectionString string
+param cosmosDbAccountName string
+
+resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' existing = {
+  name: cosmosDbAccountName
+}
 
 var tagsWithHiddenLinks = union({
   'hidden-link: /app-insights-resource-id': appInsightsId
@@ -39,21 +46,13 @@ resource staticWebApp 'Microsoft.Web/staticSites@2022-03-01' = {
 
 resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' = {
   name: 'appsettings'
-  kind: 'string'
+  kind: 'config'
   parent: staticWebApp
   properties: {
     APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
     APPLICATIONINSIGHTS_CONNECTION_STRING: appInsightsConnectionString
-  }
-}
-
-resource staticWebAppFunctionAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' = {
-  name: 'functionappsettings'
-  kind: 'string'
-  parent: staticWebApp
-  properties: {
-    APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
-    APPLICATIONINSIGHTS_CONNECTION_STRING: appInsightsConnectionString
+    COSMOS_ENDPOINT: databaseAccount.properties.documentEndpoint
+    COSMOS_KEY: databaseAccount.listKeys().primaryMasterKey
   }
 }
 

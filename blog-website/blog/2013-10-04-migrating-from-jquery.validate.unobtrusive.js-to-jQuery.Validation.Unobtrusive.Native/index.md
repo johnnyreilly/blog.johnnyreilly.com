@@ -1,18 +1,14 @@
 ---
+slug: migrating-from-jquery.validate.unobtrusive.js-to-jQuery.Validation.Unobtrusive.Native
 title: 'Migrating from jquery.validate.unobtrusive.js to jQuery.Validation.Unobtrusive.Native'
 authors: johnnyreilly
-tags:
-  [
-    migrating,
-    jquery.validate.unobtrusive.js,
-    getting started,
-    jQuery.Validation.Unobtrusive.Native,
-    jQuery Validation,
-  ]
+tags: [jQuery Validation]
 hide_table_of_contents: false
 ---
 
 So, you're looking at [jQuery.Validation.Unobtrusive.Native](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native). You're thinking to yourself "Yeah, I'd really like to use the native unobtrusive support in jQuery Validation. But I've already got this app which is using [jquery.validate.unobtrusive.js](https://www.nuget.org/packages/jQuery.Validation.Unobtrusive/) \- actually how easy is switching over?" Well I'm here to tell you that it's pretty straightforward - here's a walkthrough of how it might be done.
+
+<!--truncate-->
 
 ## I need something to migrate
 

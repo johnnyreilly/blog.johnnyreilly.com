@@ -1,7 +1,8 @@
 ---
+slug: adding-lastmod-to-sitemap-git-commit-date
 title: 'Adding lastmod to sitemap based on git commits'
 authors: johnnyreilly
-tags: [lastmod, Node.js, simple-git, sitemap, Docusaurus]
+tags: [Node.js, Docusaurus]
 image: ./title-image.png
 description: 'This post demonstrates enriching an XML sitemap with `lastmod` timestamps based on git commits.'
 hide_table_of_contents: false
@@ -10,6 +11,8 @@ hide_table_of_contents: false
 This post demonstrates enriching an XML sitemap with `lastmod` timestamps based on git commits.
 
 ![title image reading "Adding lastmod to sitemap based on git commits" with XML and Docusaurus logos](title-image.png)
+
+<!--truncate-->
 
 ## Reading git log in Node.js
 

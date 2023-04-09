@@ -1,7 +1,8 @@
 ---
+slug: xsdxml-schema-generator-xsdexe-taking
 title: 'XSD/XML Schema Generator + Xsd.exe:Taking the pain out of manual XML'
 authors: johnnyreilly
-tags: [Xsd.exe, XSD/XML Schema Generator, LINQ to XML]
+tags: [XSD, LINQ to XML]
 hide_table_of_contents: false
 ---
 
@@ -10,6 +11,8 @@ hide_table_of_contents: false
 I've just discovered Xsd.exe. It's not new. Or shiny. And in fact it's been around since .NET 1.1. Truth be told, I've been aware of it for years but up until now I've not had need of it. But now now I've investigated it a bit I've found that it, combined with the XSD/XML Schema Generator can make for a nice tool to add to the utility belt.
 
 Granted XML has long since stopped being sexy. But if you need it, as I did recently, then this is for you.
+
+<!--truncate-->
 
 ## To the XML Batman!
 

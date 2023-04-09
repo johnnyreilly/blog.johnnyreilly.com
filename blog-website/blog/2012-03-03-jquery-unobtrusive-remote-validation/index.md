@@ -1,11 +1,14 @@
 ---
+slug: jquery-unobtrusive-remote-validation
 title: 'jQuery Unobtrusive Remote Validation'
 authors: johnnyreilly
-tags: [jquery, jquery remote validation, jquery unobtrusive validation]
+tags: [jquery, jquery validation, jquery unobtrusive validation]
 hide_table_of_contents: false
 ---
 
 Just recently I have been particularly needing to make use of remote / server-side validation in my ASP.NET MVC application and found that the unobtrusive way of using this seemed to be rather inadequately documented (of course it's possible that it's well documented and I just didn't find the resources). Anyway I've rambled on much longer than I intended to in this post so here's the TL;DR:
+
+<!--truncate-->
 
 - You \***can**\* use remote validation driven by unobtrusive data attributes
 - Using remote validation you can supply \***multiple**\* parameters to be evaluated

@@ -1,11 +1,14 @@
 ---
+slug: bulletproof-uniq-with-typescript
 title: 'Bulletproof uniq with TypeScript generics (yay code reviews!)'
 authors: johnnyreilly
-tags: [TypeScript, unique]
+tags: [typescript]
 hide_table_of_contents: false
 ---
 
 Never neglect the possibilities of a code review. There are times when you raise a PR and all you want is for everyone to hit approve so you can merge, merge and ship, ship! This can be a missed opportunity. For as much as I'd like to imagine my code is perfect, it's patently not. There's always scope for improvement.
+
+<!--truncate-->
 
 ## "What's this?"
 

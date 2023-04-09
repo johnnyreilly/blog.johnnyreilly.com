@@ -1,7 +1,8 @@
 ---
+slug: unit-testing-modelstate
 title: 'Unit testing ModelState'
 authors: johnnyreilly
-tags: [asp.net mvc, Marc Talary, DataAnnotations, Controller, ModelState]
+tags: [asp.net mvc, unit testing]
 hide_table_of_contents: false
 ---
 
@@ -10,6 +11,8 @@ hide_table_of_contents: false
 - Me: "No it can't"
 - Him: "Yes it can, I've just done it"
 - Me: "Ooooh! Show me ..."
+
+<!--truncate-->
 
 The above conversation (or one much like it) took place between my colleague Marc Talary and myself a couple of weeks ago. It was one of those faintly embarrassing situations where you state your case with absolute certainty only to subsequently discover that you were \***completely**\* wrong. Ah arrogance, thy name is Reilly...
 

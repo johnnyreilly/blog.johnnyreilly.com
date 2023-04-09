@@ -1,11 +1,13 @@
 ---
+slug: compromising-guide-for-developers
 title: 'Compromising: A Guide for Developers'
 authors: johnnyreilly
-tags: [compromise, empathy, developers, code style, teams]
 hide_table_of_contents: false
 ---
 
 It is a truth universally acknowledged, that a single developer, will not be short of an opinion. Opinions on tabs vs spaces. Upon OOP vs FP. Upon `class`es vs `function`s. Just opinions, opinions, opinions. Opinions that are felt with all the sincerity of a Witchfinder General. And, alas, not always the same level of empathy.
+
+<!--truncate-->
 
 Given the wealth of strongly felt desires, it's kind of amazing that developers ever manage to work together. It's rare to find a fellow dev that agrees entirely with your predilections. So how do people ever get past the "you don't use semi-colons; what's wrong with you"? Well, not easily to be honest. It involves compromise.
 

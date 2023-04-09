@@ -1,7 +1,8 @@
 ---
+slug: docusaurus-createfeeditems-api-git-commit-date
 title: 'Docusaurus blogs: using the createFeedItems API with git commit date'
 authors: johnnyreilly
-tags: [Docusaurus, blog, RSS, createFeedItems, git commit date]
+tags: [Docusaurus, RSS]
 image: ./title-image.png
 description: 'The Docusaurus createFeedItems API can be used to tweak RSS feeds for your blog. This post shows how to use it with the git commit date.'
 hide_table_of_contents: false
@@ -10,6 +11,8 @@ hide_table_of_contents: false
 A new API landed in Docusaurus 2.3.0 - it's called `createFeedItems`. It's a great API that allows you to tweak the Atom / RSS / JSON feeds for your blog. This post shows how to use it with the git commit date.
 
 ![title image reading "Docusaurus: using the createFeedItems API with git commit date" with the Docusaurus logo](title-image.png)
+
+<!--truncate-->
 
 ## `createFeedItems` API
 

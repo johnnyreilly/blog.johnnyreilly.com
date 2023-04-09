@@ -1,7 +1,8 @@
 ---
+slug: structured-data-seo-and-react
 title: 'Structured data, SEO and React'
 authors: johnnyreilly
-tags: [structured data, SEO, React]
+tags: [Structured Data, SEO, React]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
@@ -10,11 +11,15 @@ People being able to discover your website when they search is important. This p
 
 ![title image reading "Structured data, SEO and React" with a screenshot of the rich results tool in the background](title-image.png)
 
-## Updated 26th November 2022
+<!--truncate-->
+
+## Updated 5th January 2023
 
 This blog evolved to become a talk:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/zi1CHB-eVck?start=282" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+
+If you'd like to read about the related topic of [adding breadcrumb Structured Data to a Docusaurus app, I've another post covering that](../2023-02-05-docusaurus-blogs-adding-breadcrumb-structured-data/index.md).
 
 ## What is structured data?
 
@@ -154,6 +159,8 @@ So we've been successful in building a website that renders structured data. Mor
 This post has illustrated what it looks like to create an `Article`. Google has some [great resources](https://developers.google.com/search/docs/advanced/structured-data/search-gallery) on other types that it supports and prioritises for rich results which should help you build the structured data you need for your particular content.
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/react-structured-data-and-seo/)
+
+If you found this post interesting, you may enjoy one where I went a little further and wrote [about adding FAQ Structured Data to a Docusaurus site using MDX](../2023-04-08-docusaurus-structured-data-faqs-mdx/index.md).
 
 <head>
     <link rel="canonical" href="https://blog.logrocket.com/react-structured-data-and-seo/" />

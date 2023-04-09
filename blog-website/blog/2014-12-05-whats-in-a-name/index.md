@@ -1,11 +1,13 @@
 ---
+slug: whats-in-a-name
 title: "What's in a (Domain) Name?"
 authors: johnnyreilly
-tags: [cybersquatting]
 hide_table_of_contents: false
 ---
 
 The observant amongst you may have noticed that this blog has a brand new and shiny domain name! That's right, after happily trading under "icanmakethiswork.blogspot.com" for the longest time it's now "blog.icanmakethiswork.io". Trumpets and fanfare!
+
+<!--truncate-->
 
 Why the change? Well let's break that question down a little. First of all, why change at all? Secondly, why change to blog.icanmakethiswork.io?
 

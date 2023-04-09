@@ -1,7 +1,8 @@
 ---
+slug: image-optimisation-tinypng-api
 title: 'Image Optimisation with the TinyPNG API'
 authors: johnnyreilly
-tags: [image optimisation, TinyPNG, API]
+tags: [image optimisation, TinyPNG]
 image: ./title-image.webp
 description: 'Image optimisation can be automated with the TinyPNG API. This post demonstrates how to do that.'
 hide_table_of_contents: false
@@ -10,6 +11,8 @@ hide_table_of_contents: false
 Image optimisation can be automated with the TinyPNG API. This post demonstrates how to do that.
 
 ![title image reading "Image Optimisation with the TinyPNG API" with TinyPNG and Lighthouse logos](title-image.webp)
+
+<!--truncate-->
 
 ## Images and optimisation
 

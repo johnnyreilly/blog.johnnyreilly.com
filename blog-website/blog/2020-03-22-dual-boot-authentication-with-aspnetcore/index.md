@@ -1,19 +1,14 @@
 ---
+slug: dual-boot-authentication-with-aspnetcore
 title: 'Dual boot authentication with ASP.NET'
 authors: johnnyreilly
-tags:
-  [
-    Authentication,
-    dual authentication,
-    Cookie,
-    Azure AD,
-    ForwardDefaultSelector,
-    ASP.NET,
-  ]
+tags: [Authentication, Azure AD, ASP.NET]
 hide_table_of_contents: false
 ---
 
 This is a post about having two kinds of authentication working at the same time in ASP.Net Core. But choosing which authentication method to use dynamically at runtime; based upon the criteria of your choice.
+
+<!--truncate-->
 
 Already this sounds complicated; let's fix that. Perhaps I should describe my situation to you. I've an app which has two classes of user. One class, let's call them "customers" (because... uh... they're customers). The customers access our application via a public facing website. Traffic rolls through Cloudflare and into our application. The public facing URL is something fancy like [https://mega-app.com](https://mega-app.com). That's one class of user.
 

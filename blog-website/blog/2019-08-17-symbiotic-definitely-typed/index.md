@@ -1,11 +1,14 @@
 ---
+slug: symbiotic-definitely-typed
 title: 'Symbiotic Definitely Typed'
 authors: johnnyreilly
-tags: [TypeScript, react-testing-library, Definitely Typed]
+tags: [typescript, react-testing-library, Definitely Typed]
 hide_table_of_contents: false
 ---
 
 I did ponder calling this post "how to enable a good TypeScript developer experience for npm modules that aren't written in TypeScript"... Not exactly pithy though.
+
+<!--truncate-->
 
 Definitely Typed is the resource which allows developers to use TypeScript with existing JavaScript libraries that ship without their own type definitions.
 

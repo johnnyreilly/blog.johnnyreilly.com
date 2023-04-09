@@ -1,7 +1,8 @@
 ---
+slug: nswag-generated-c-sharp-client-property-name-clash
 title: 'NSwag generated C# client: Open API property name clashes and decimal types rather than double'
 authors: johnnyreilly
-tags: [nswag, CSharp]
+tags: [NSwag, C#]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
@@ -9,6 +10,8 @@ hide_table_of_contents: false
 NSwag is a great tool for generating client libraries in C# and TypeScript from Open API / Swagger definitions. You can face issues where Open API property names collide due to the nature of the C# language, and when you want to use `decimal` for your floating point numeric type over `double`. This post demonstrates how to get over both issues.
 
 ![title image reading "NSwag generated C# client: Open API property name clashes and decimal types rather than double" with a C# logo and Open API logos](title-image.png)
+
+<!--truncate-->
 
 ## Make a C# Client Generator
 

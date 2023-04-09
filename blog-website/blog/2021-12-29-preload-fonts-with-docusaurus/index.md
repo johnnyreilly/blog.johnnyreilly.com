@@ -1,12 +1,15 @@
 ---
+slug: preload-fonts-with-docusaurus
 title: 'Preload fonts with Docusaurus (updated 03/11/2022)'
 authors: johnnyreilly
-tags: [Docusaurus, preload, webpack, fonts, plugin, configureWebpack, headTags]
+tags: [Docusaurus, webpack]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
 
 When we're using custom fonts in our websites, it's good practice to preload the fonts to minimise the [flash of unstyled text](https://css-tricks.com/fout-foit-foft/). This post shows how to achieve this with Docusaurus.
+
+<!--truncate-->
 
 It does so by building a Docusaurus plugin which makes use of [Satyendra Singh](https://github.com/sn-satyendra)'s excellent [`webpack-font-preload-plugin`](https://github.com/sn-satyendra/webpack-font-preload-plugin).
 

@@ -1,11 +1,14 @@
 ---
+slug: ef-core-31-breaks-left-join-with-no-navigation-property
 title: 'EF Core 3.1 breaks left join with no navigation property'
 authors: johnnyreilly
-tags: [Entity Framework, left join, navigation property, broken]
+tags: [Entity Framework]
 hide_table_of_contents: false
 ---
 
 Just recently my team took on the challenge of upgrading our codebase from .NET Core 2.2 to .NET Core 3.1. Along the way we encountered a quirky issue which caused us much befuddlement. Should you be befuddled too, then maybe this can help you.
+
+<!--truncate-->
 
 Whilst running our app, we started encountering an error with an Entity Framework Query that looked like this:
 

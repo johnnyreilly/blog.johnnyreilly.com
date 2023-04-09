@@ -1,11 +1,13 @@
 ---
+slug: standing-on-shoulders-of-giants
 title: 'Standing on the Shoulders of Giants...'
 authors: johnnyreilly
-tags: [delphi, asp.net, Hanselman, developer, amstrad, microsoft]
 hide_table_of_contents: false
 ---
 
 It started with Scott Hanselman. I had no particular plans to start a blog at all. However, I was reading Scott Hanselman's turn of the year [post](http://www.hanselman.com/blog/YourBlogIsTheEngineOfCommunity.aspx) and I was struck with an idea.
+
+<!--truncate-->
 
 First, let me give a little background about myself. I'm a software developer. I've been in the industry for coming up to 15 years. I started out professionally writing call centre software. I moved on to code in a variety of different industries from straight IT to marketing and, for the last 7 years, finance.
 

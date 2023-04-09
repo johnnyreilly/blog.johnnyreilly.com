@@ -1,11 +1,14 @@
 ---
+slug: template-tricks-for-dainty-dom
 title: 'Template Tricks for a Dainty DOM'
 authors: johnnyreilly
-tags: [DOM, template, Materialized]
+tags: [Materialized]
 hide_table_of_contents: false
 ---
 
 I'm somewhat into code golf. Placing restrictions on what you're "allowed" to do in code and seeing what the happens as a result. I'd like to share with you something that came out of some recent dabblings.
+
+<!--truncate-->
 
 Typically I spend a good amount of time playing with TypeScript. Either working on build tools or making web apps with it. (Usually with a portion of React on the side.) This is something different.
 

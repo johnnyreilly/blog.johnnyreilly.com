@@ -1,15 +1,17 @@
 ---
-title: "Understanding Webpack's DefinePlugin (and using with TypeScript)"
+slug: using-webpacks-defineplugin-with-typescript
+title: "Understanding webpack's DefinePlugin (and using with TypeScript)"
+description: "webpack's DefinePlugin allows you to create global constants which can be configured at compile time; here's how to use it with TypeScript"
 authors: johnnyreilly
-tags: [compile-time constants, TypeScript, defineplugin, Webpack]
+tags: [typescript, webpack]
 hide_table_of_contents: false
 ---
 
-I've been searching for a way to describe what the DefinePlugin actually does. The [docs](https://github.com/webpack/docs/wiki/list-of-plugins#defineplugin) say\*:
+I've been searching for a way to describe what the DefinePlugin actually does. The [docs](https://github.com/webpack/docs/wiki/list-of-plugins#defineplugin) say:
 
 > Define free variables. Useful for having development builds with debug logging or adding global constants.
 
-<sub>\* Actually that should read "used to say". I've made some changes to the official docs.... (Surprisingly easy to do that by the way; it's just a wiki you can edit at will.)</sub>
+<!--truncate-->
 
 I think I would describe it thusly: the DefinePlugin allows you to create global constants which can be _configured at compile time_. I find this very useful for allowing different behaviour between development builds and release builds. This post will demonstrate usage of this approach, talk about what's actually happening and how to get this working nicely with TypeScript.
 

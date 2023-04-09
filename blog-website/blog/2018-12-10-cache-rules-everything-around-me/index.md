@@ -1,11 +1,14 @@
 ---
+slug: cache-rules-everything-around-me
 title: 'Cache Rules Everything Around Me'
 authors: johnnyreilly
-tags: [asp net core, cache, wu-tang]
+tags: [asp.net core]
 hide_table_of_contents: false
 ---
 
 One thing that ASP.Net Core really got right was caching. [`IMemoryCache`](https://docs.microsoft.com/en-us/aspnet/core/performance/caching/memory) is a caching implementation that does just what I want. I love it. I take it everywhere. I've introduced it to my family.
+
+<!--truncate-->
 
 ## TimeSpan, TimeSpan Expiration Y'all
 

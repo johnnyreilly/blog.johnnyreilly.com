@@ -1,11 +1,14 @@
 ---
+slug: wpf-and-mystic-meg-or-playing
 title: 'WPF and Mystic Meg or Playing Futurologist'
 authors: johnnyreilly
-tags: [SPA, WPF]
+tags: [SPA]
 hide_table_of_contents: false
 ---
 
 Time for an unusual post. Most of what gets put down here is technical "how-to's". It's usually prompted by something I've been working on and serves, as much as anything else, as an aide-memoire. Not this time.
+
+<!--truncate-->
 
 I’ve been watching the changes in the world of development of the last couple of years and I’ve come to a controversial conclusion... So I wanted to write about it. Hopefully I'll be able to return to this in 5 years and say "wow - I'm so insightful - almost visionary really". Or not. Either way, let's put it out there - it's sink or swim time. Ready for it? Here’s my bet: WPF will die.
 

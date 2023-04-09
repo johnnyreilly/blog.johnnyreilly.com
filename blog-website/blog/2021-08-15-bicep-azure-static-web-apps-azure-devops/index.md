@@ -1,7 +1,8 @@
 ---
+slug: bicep-azure-static-web-apps-azure-devops
 title: 'Publish Azure Static Web Apps with Bicep and Azure DevOps'
 authors: johnnyreilly
-tags: [Azure Static Web App, Bicep, Azure DevOps, Azure Pipelines]
+tags: [Azure Static Web Apps, Bicep, azure devops, Azure Pipelines]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
@@ -9,6 +10,8 @@ hide_table_of_contents: false
 This post demonstrates how to deploy [Azure Static Web Apps](https://docs.microsoft.com/en-us/azure/static-web-apps/overview) using Bicep and Azure DevOps. It includes a few workarounds for the ["Provider is invalid. Cannot change the Provider. Please detach your static site first if you wish to use to another deployment provider." issue](https://github.com/Azure/static-web-apps/issues/516).
 
 ![title image reading "Publish Azure Static Web Apps with Bicep and Azure DevOps" and some Azure logos](title-image.png)
+
+<!--truncate-->
 
 ## Bicep template
 

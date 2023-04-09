@@ -1,7 +1,8 @@
 ---
+slug: windows-defender-step-away-from-npm
 title: 'Windows Defender Step Away From npm'
 authors: johnnyreilly
-tags: [VS Code, code, Windows, failed, npm install, windows defender]
+tags: [VS Code, Windows, npm]
 hide_table_of_contents: false
 ---
 
@@ -12,6 +13,8 @@ Whilst things did improve by fiddling with Windows Defender it wasn't a 100% fix
 ## Updated 12/07/2017
 
 The issue was VS Code. The bug has now been fixed and shipped last night with [VS Code 1.14.0](https://code.visualstudio.com/updates/v1_14). Yay!
+
+<!--truncate-->
 
 ---
 

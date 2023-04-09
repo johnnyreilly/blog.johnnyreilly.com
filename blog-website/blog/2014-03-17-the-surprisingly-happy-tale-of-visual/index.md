@@ -1,4 +1,5 @@
 ---
+slug: the-surprisingly-happy-tale-of-visual
 title: 'The Surprisingly Happy Tale of Visual Studio Online, Continous Integration and Chutzpah'
 authors: johnnyreilly
 tags: [Jasmine, TFS, unit testing, javascript, Continuous Integration]
@@ -6,6 +7,8 @@ hide_table_of_contents: false
 ---
 
 ## Going off piste
+
+<!--truncate-->
 
 The post that follows is a slightly rambly affair which is pretty much my journal of the first steps of getting up and running with JavaScript unit testing. I will not claim that much of this blog is down to me. In fact in large part is me working my way through [Mathew Aniyan's excellent blog post on integrating Chutzpah with TFS](https://blogs.msdn.com/b/visualstudioalm/archive/2012/07/09/javascript-unit-tests-on-team-foundation-service-with-chutzpah.aspx). But a few deviations from this post have made me think it worth keeping hold of this record for my benefit (if no-one else's).
 

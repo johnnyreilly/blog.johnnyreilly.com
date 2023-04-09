@@ -1,13 +1,16 @@
 ---
+slug: hands-free-https
 title: 'Hands-free HTTPS'
 authors: johnnyreilly
-tags: [TLS, free, HTTPS, CloudFlare, Troy Hunt]
+tags: [TLS, HTTPS, cloudflare]
 hide_table_of_contents: false
 ---
 
 I have had a \***great**\* week. You? Take a look at this blog. Can you see what I can see? Here's a clue:
 
 ![](Screenshot-2017-01-29-14.45.57.webp)
+
+<!--truncate-->
 
 Yup, look at the top left hand corner.... see that beautiful padlock? Yeah - that's what's thrilled me. You see I have a dream; that one day on the red hills of the internet, the sons of former certificates and the sons of former certificate authorities will be able to sit down together at the table of HTTPS. Peace, love and TLS for all.
 

@@ -1,4 +1,5 @@
 const redirect = require('./redirect');
+const saveToDatabase = require('./saveToDatabase');
 
 /**
  *
@@ -10,6 +11,8 @@ async function fallback(context, req) {
     const originalUrl = req.headers['x-ms-original-url'];
 
     const { status, location } = redirect(originalUrl, context.log);
+
+    await saveToDatabase(originalUrl, { status, location }, context.log);
 
     context.res = {
       status,

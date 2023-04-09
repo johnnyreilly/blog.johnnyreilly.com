@@ -1,4 +1,5 @@
 ---
+slug: from-create-react-app-to-pwa
 title: 'From create-react-app to PWA'
 authors: johnnyreilly
 tags: [create-react-app, PWA]
@@ -6,6 +7,8 @@ hide_table_of_contents: false
 ---
 
 Progressive Web Apps are a (terribly named) wonderful idea. You can build an app _once_ using web technologies which serves all devices and form factors. It can be accessible over the web, but also surface on the home screen of your Android / iOS device. That app can work offline, have a splash screen when it launches and have notifications too.
+
+<!--truncate-->
 
 PWAs can be a money saver for your business. The alternative, should you want an app experience for your users, is building the same application using three different technologies (one for web, one for Android and one for iOS). When you take this path it's hard to avoid a multiplication of cost and complexity. It often leads to dividing up the team as each works on a different stack. It's common to lose a certain amount of focus as a consequence. PWAs can help here; they are a compelling alternative, not just from a developers standpoint, but from a resourcing one too.
 

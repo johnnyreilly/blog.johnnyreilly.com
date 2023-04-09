@@ -1,11 +1,14 @@
 ---
+slug: unit-testing-mvc-controllers-mocking
 title: 'Unit testing MVC controllers / Mocking UrlHelper'
 authors: johnnyreilly
-tags: [MVC, unit testing, AreaRegistration.RegisterAllAreas(), MOQ, UrlHelper]
+tags: [asp.net]
 hide_table_of_contents: false
 ---
 
 ## I have put a name to my pain...
+
+<!--truncate-->
 
 And it is unit testing ASP.Net MVC controllers.
 

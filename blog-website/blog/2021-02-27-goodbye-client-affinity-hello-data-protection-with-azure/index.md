@@ -1,13 +1,16 @@
 ---
+slug: goodbye-client-affinity-hello-data-protection-with-azure
 title: 'Goodbye Client Affinity, Hello Data Protection with Azure'
 description: 'How to use ASP.NET Data Protection to remove the need for sticky sessions with Client Affinity'
 authors: johnnyreilly
-tags: [Azure, Data Protection, Easy Auth, ASP.NET, Client Affinity]
+tags: [Azure, Easy Auth, ASP.NET]
 image: ./traffic-to-app-service.png
 hide_table_of_contents: false
 ---
 
 I've written lately about [zero downtime releases with Azure App Service](../2021-02-11-azure-app-service-health-checks-and-zero-downtime-deployments/index.md). Zero downtime releases are only successful if your authentication mechanism survives a new deployment. We looked in my last post at [how to achieve this with Azure's in-built authentication mechanism; Easy Auth](../2021-02-16-easy-auth-tokens-survive-releases-on-linux-azure-app-service/index.md).
+
+<!--truncate-->
 
 We're now going to look at how the same goal can be achieved if your ASP.NET application is authenticating another way. We achieve this through use of the [ASP.NET Data Protection](https://docs.microsoft.com/en-us/aspnet/core/security/data-protection/configuration/overview) system. Andrew Lock has written [an excellent walkthrough on the topic](https://andrewlock.net/an-introduction-to-the-data-protection-system-in-asp-net-core/) and I encourage you to read it.
 

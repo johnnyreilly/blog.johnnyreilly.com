@@ -22,6 +22,7 @@ env:
   ROOTCUSTOMDOMAINNAME: johnnyreilly.com
   BLOGCUSTOMDOMAINNAME: blog.johnnyreilly.com
   TAGS: '{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
 jobs:
   build_and_deploy_swa_job:
@@ -46,16 +47,25 @@ jobs:
       - name: Set deployment name 📝
         id: deployment_name
         run: |
-          REF_SHA='${{ github.ref }}.${{ github.sha }}'
-          DEPLOYMENT_NAME="${REF_SHA////-}"
-          echo "::set-output name=DEPLOYMENT_NAME::$DEPLOYMENT_NAME"
+          GIT_SHA='${{ github.sha }}'
+          SHORT_SHA=${GIT_SHA:0:7}
+          BRANCH_NAME='${{ env.BRANCH_NAME }}'
 
-      - name: Infra changes 📝
+          DEPLOYMENT_NAME="${BRANCH_NAME////-}.$SHORT_SHA"
+
+          echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_OUTPUT
+
+      - name: Infra - detect changes & validate 📝
         id: static_web_app_what_if
         if: github.event_name == 'pull_request'
         uses: azure/CLI@v1
         with:
           inlineScript: |
+            # https://github.com/Azure/azure-cli/issues/25710
+            az config set bicep.use_binary_from_path=false
+
+            complexData='{"allowedIPAddresses": ${{ secrets.ALLOWEDIPADDRESS }} }'
+
             az deployment group what-if \
               --resource-group ${{ env.RESOURCE_GROUP }} \
               --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
@@ -67,14 +77,34 @@ jobs:
                   tags='${{ env.TAGS }}' \
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
-                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}'
+                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
+                  complexData="$complexData"
 
-      - name: Deploy infra 🔧
+            az deployment group validate \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
+              --template-file ./infra/main.bicep \
+              --parameters \
+                  branch='main' \
+                  location='${{ env.LOCATION }}' \
+                  staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
+                  tags='${{ env.TAGS }}' \
+                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
+                  rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
+                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
+                  complexData="$complexData"
+
+      - name: Infra - deploy 🔧
         id: static_web_app_deploy
         if: github.event_name != 'pull_request'
         uses: azure/CLI@v1
         with:
           inlineScript: |
+            # https://github.com/Azure/azure-cli/issues/25710
+            az config set bicep.use_binary_from_path=false
+
+            complexData='{"allowedIPAddresses": ${{ secrets.ALLOWEDIPADDRESS }} }'
+
             az deployment group create \
               --resource-group ${{ env.RESOURCE_GROUP }} \
               --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
@@ -86,7 +116,8 @@ jobs:
                   tags='${{ env.TAGS }}' \
                   repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
-                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}'
+                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
+                  complexData="$complexData"
 
       - name: Get preview URL 📝
         id: static_web_app_preview_url
@@ -94,12 +125,10 @@ jobs:
         with:
           inlineScript: |
             DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATICWEBAPPNAME }}' | jq -r '.defaultHostname')
-            echo $DEFAULTHOSTNAME
 
             PREVIEW_URL="https://${DEFAULTHOSTNAME/.[1-9]./-${{github.event.pull_request.number }}.${{ env.LOCATION }}.1.}"
-            echo $PREVIEW_URL
 
-            echo "::set-output name=PREVIEW_URL::$PREVIEW_URL"
+            echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_OUTPUT
 
       - name: Setup Node.js 🔧
         uses: actions/setup-node@v3
@@ -107,12 +136,16 @@ jobs:
           node-version: '18'
           cache: 'yarn'
 
+      - name: Setup bun 🔧
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
       - name: Install and build site 🔧
         run: |
           cd blog-website
           yarn install --frozen-lockfile
           DOCUSAURUS_SSR_CONCURRENCY=5 USE_CLOUDINARY=${{ github.event_name != 'pull_request' }} yarn run build
-          # copy staticwebapp.config.json to build folder
           cp staticwebapp.config.json build/staticwebapp.config.json
 
       - name: Get API key 🔑
@@ -121,7 +154,7 @@ jobs:
         with:
           inlineScript: |
             APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
-            echo "::set-output name=APIKEY::$APIKEY"
+            echo "APIKEY=$APIKEY" >> $GITHUB_OUTPUT
 
       - name: Deploy site 🚀
         id: static_web_app_build_and_deploy
@@ -132,13 +165,52 @@ jobs:
           action: 'upload'
           skip_app_build: true
           app_location: '/blog-website/build' # App source code path
-          # output_location: 'build' # Built app content directory - optional
-
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           api_location: '/blog-website/api' # Api source code path - optional
 
     outputs:
       preview-url: ${{steps.static_web_app_preview_url.outputs.PREVIEW_URL}}
+
+  integration_tests_job:
+    name: Integration tests 💡🏠
+    needs: build_and_deploy_swa_job
+    if: github.event_name == 'pull_request' && github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Wait for preview ${{ needs.build_and_deploy_swa_job.outputs.preview-url }} ⌚
+        id: static_web_app_wait_for_preview
+        uses: nev7n/wait_for_response@v1
+        with:
+          url: '${{ needs.build_and_deploy_swa_job.outputs.preview-url }}'
+          responseCode: 200
+          timeout: 600000
+          interval: 1000
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./blog-website-tests
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+        working-directory: ./blog-website-tests
+
+      - name: Run Playwright tests
+        env:
+          PLAYWRIGHT_TEST_BASE_URL: '${{ needs.build_and_deploy_swa_job.outputs.preview-url }}'
+        run: npx playwright test
+        working-directory: ./blog-website-tests
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: blog-website-tests/playwright-report/
+          retention-days: 30
 
   lighthouse_report_job:
     name: Lighthouse report 💡🏠
@@ -189,7 +261,7 @@ jobs:
 
       - name: Add Lighthouse stats as comment ✍️
         id: comment_to_pr
-        uses: marocchino/sticky-pull-request-comment@v2.3.1
+        uses: marocchino/sticky-pull-request-comment@v2.5.0
         with:
           number: ${{ github.event.pull_request.number }}
           header: lighthouse
@@ -233,7 +305,7 @@ jobs:
         with:
           inlineScript: |
             APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
-            echo "::set-output name=APIKEY::$APIKEY"
+            echo "APIKEY=$APIKEY" >> $GITHUB_OUTPUT
 
       - name: Destroy staging environment 💥
         id: closepullrequest

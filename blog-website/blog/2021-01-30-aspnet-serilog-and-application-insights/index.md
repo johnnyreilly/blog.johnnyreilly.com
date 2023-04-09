@@ -1,4 +1,5 @@
 ---
+slug: aspnet-serilog-and-application-insights
 title: 'ASP.NET, Serilog and Application Insights'
 authors: johnnyreilly
 image: ./title-image.png
@@ -9,6 +10,8 @@ hide_table_of_contents: false
 If you're deploying an ASP.NET application to Azure App Services / Azure Container Apps or similar, there's a decent chance you'll also be using the fantastic [Serilog](https://serilog.net/) and will want to plug it into Azure's [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview).
 
 ![title image reading "ASP.NET, Serilog and Application Insights" with ASP.NET, Serilog and Application Insights logos](title-image.png)
+
+<!--truncate-->
 
 ## Updated: 26/11/2022
 

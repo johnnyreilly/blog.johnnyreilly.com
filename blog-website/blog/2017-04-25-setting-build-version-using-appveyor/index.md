@@ -1,4 +1,5 @@
 ---
+slug: setting-build-version-using-appveyor
 title: 'Setting Build Version Using AppVeyor and ASP.Net Core'
 authors: johnnyreilly
 tags: [powershell, Version, dot net core, AppVeyor]
@@ -6,6 +7,8 @@ hide_table_of_contents: false
 ---
 
 AppVeyor has [support for setting the version of a binary during a build](https://www.appveyor.com/docs/build-configuration/#assemblyinfo-patching). However - this deals with the classic ASP.Net world of `AssemblyInfo`. I didn't find any reference to support for doing the same with dot net core. Remember, dot net core [relies upon a `&lt;Version&gt;` or a `&lt;VersionPrefix&gt;` setting in the `.csproj` file](https://docs.microsoft.com/en-us/dotnet/articles/core/tools/project-json-to-csproj#version). Personally, `&lt;Version&gt;` is my jam.
+
+<!--truncate-->
 
 However, coming up with your own bit of powershell that stamps the version during the build is a doddle; here we go:
 

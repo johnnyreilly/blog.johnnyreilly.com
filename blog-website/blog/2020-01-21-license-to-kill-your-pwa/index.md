@@ -1,4 +1,5 @@
 ---
+slug: license-to-kill-your-pwa
 title: 'LICENSE to kill your PWA'
 authors: johnnyreilly
 tags: []
@@ -6,6 +7,8 @@ hide_table_of_contents: false
 ---
 
 ## Update: 26/01/2020 - LICENSE to kill revoked!
+
+<!--truncate-->
 
 Following the original publication of this post I received this tweet suggesting we should change the behaviour of the underlying `terser-webpack-plugin`:
 

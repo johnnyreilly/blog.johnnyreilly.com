@@ -1,7 +1,8 @@
 ---
+slug: working-with-extrahop-on-webpack-and-ts
 title: 'Working with Extrahop on webpack and ts-loader'
 authors: johnnyreilly
-tags: [extrahop, ts-loader, Webpack]
+tags: [ts-loader, webpack]
 hide_table_of_contents: false
 ---
 

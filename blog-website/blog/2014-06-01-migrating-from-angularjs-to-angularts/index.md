@@ -1,11 +1,14 @@
 ---
+slug: migrating-from-angularjs-to-angularts
 title: 'Migrating from AngularJS to AngularTS - a walkthrough'
 authors: johnnyreilly
-tags: [Jasmine, TypeScript, Unit tests, AngularJS]
+tags: [Jasmine, typescript, Unit tests, AngularJS]
 hide_table_of_contents: false
 ---
 
 It started with nuns. Don't all good stories start that way? One of my (many) aunts is a Poor Clare nun. At some point in the distant past I was cajoled into putting together a simple website for her convent. This post is a walkthrough of how to migrate from AngularJS using JavaScript to AngularJS using TypeScript. It just so happens that the AngularJS app in question is the one that belongs to my mother's sister's convent.
+
+<!--truncate-->
 
 ## TL;DR - grab what you need
 

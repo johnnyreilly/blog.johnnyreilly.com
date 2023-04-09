@@ -1,11 +1,14 @@
 ---
+slug: how-im-using-cassette
 title: "How I'm Using Cassette part 1:Getting Up and Running"
 authors: johnnyreilly
-tags: [asp.net mvc, Andrew Davey, cassette]
+tags: [asp.net mvc, cassette]
 hide_table_of_contents: false
 ---
 
 ## Backing into the light
+
+<!--truncate-->
 
 For a while now, I've been seeking a bulletproof way to handle the following scenarios... all at the same time in the context of an ASP.Net MVC application:
 

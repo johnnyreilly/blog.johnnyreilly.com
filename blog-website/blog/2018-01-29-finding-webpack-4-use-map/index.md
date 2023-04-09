@@ -1,11 +1,14 @@
 ---
+slug: finding-webpack-4-use-map
 title: 'Finding webpack 4 (use a Map)'
 authors: johnnyreilly
-tags: [webpack 4]
+tags: [webpack]
 hide_table_of_contents: false
 ---
 
 ## Update: 03/02/2018
+
+<!--truncate-->
 
 Tobias Koppers has written a migration guide for plugins / loaders as well - take a read [here](https://medium.com/webpack/webpack-4-migration-guide-for-plugins-loaders-20a79b927202). It's very useful.
 

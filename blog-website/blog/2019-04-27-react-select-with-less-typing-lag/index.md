@@ -1,11 +1,14 @@
 ---
+slug: react-select-with-less-typing-lag
 title: 'react-select with less typing lag'
 authors: johnnyreilly
-tags: [large lists, react-select, typing]
+tags: [react-select]
 hide_table_of_contents: false
 ---
 
 This is going out to all those people using [`react-select`](https://react-select.com) with 1000+ items to render. To those people typing into the select and saying out loud "it's _so_ laggy.... This can't be... It's 2019... I mean, right?" To the people who read this [GitHub issue](https://github.com/JedWatson/react-select/issues/3128) top to bottom 30 times and still came back unsure of what to do. This is for you.
+
+<!--truncate-->
 
 I'm lying. Mostly this goes out to me. I have a select box. I need it to render 2000+ items. I want it to be lovely. I want my users to be delighted as they use it. I want them to type in and (_this is the crucial part!_) for the control to feel responsive. Not laggy. Not like each keypress is going to Jupiter and back before it renders to the screen.
 

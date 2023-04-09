@@ -1,20 +1,16 @@
 ---
+slug: twitterbootstrapmvc4-meet-bootstrap
 title: 'Twitter.Bootstrap.MVC4 meet Bootstrap Datepicker'
 authors: johnnyreilly
-tags:
-  [
-    asp.net mvc,
-    Twitter.Bootstrap.MVC4,
-    Responsive,
-    Twitter Bootstrap,
-    Bootstrap Datepicker,
-  ]
+tags: [asp.net mvc, Bootstrap]
 hide_table_of_contents: false
 ---
 
 ## Updated 14/01/2013
 
 Since I wrote this I've taken things on a little further - to read about that go [here](../2013-01-14-twitterbootstrapmvc4-meet-bootstrap_14/index.md).
+
+<!--truncate-->
 
 ## Getting Responsive
 

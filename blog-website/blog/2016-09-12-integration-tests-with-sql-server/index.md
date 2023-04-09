@@ -1,4 +1,5 @@
 ---
+slug: integration-tests-with-sql-server
 title: 'Integration Tests with SQL Server Database Snapshots'
 authors: johnnyreilly
 tags: [Database Snapshots, Integration Testing, SQL Server]
@@ -6,6 +7,8 @@ hide_table_of_contents: false
 ---
 
 ## Once More With Feeling
+
+<!--truncate-->
 
 This is a topic that I have written about [before](../2014-01-24-integration-testing-with-entity/index.md).... But not well. I recently had cause to dust down my notes on how to use snapshotting in your integration tests. To my dismay, referring back to my original blog post was less helpful than I'd hoped. Now I've cracked the enigma code that my original scribings turned out to be, it's time to turn my relearnings back into something genuinely useful.
 

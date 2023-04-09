@@ -1,12 +1,15 @@
 ---
+slug: surfacing-azure-pipelines-build-info-in-an-aspnet-react-app
 title: 'Azure Pipelines Build Info in an ASP.NET React app'
 authors: johnnyreilly
 image: ./about-page.png
-tags: [build information, azure pipelines]
+tags: [azure pipelines]
 hide_table_of_contents: false
 ---
 
 How do you answer the question: "what version of my application is running in Production right now?" This post demonstrates how to surface the build metadata that represents the version of your app, from your app using Azure Pipelines and ASP.NET.
+
+<!--truncate-->
 
 Many is the time where I've been pondering over why something isn't working as expected and burned a disappointing amount of time before realising that I'm playing with an old version of an app. Wouldn't it be great give our app a way to say: "Hey! I'm version 1.2.3.4 of your app; built from this commit hash, I was built on Wednesday, I was the nineth build that day and I was built from the `main` branch. And I'm an Aries." Or something like that.
 

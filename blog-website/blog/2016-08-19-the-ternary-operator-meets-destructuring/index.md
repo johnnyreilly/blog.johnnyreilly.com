@@ -1,11 +1,14 @@
 ---
+slug: the-ternary-operator-meets-destructuring
 title: 'The Ternary Operator <3 Destructuring'
 authors: johnnyreilly
-tags: [Destructuring, Ternary Operator, TypeScript, ES2015]
+tags: [typescript, ES2015]
 hide_table_of_contents: false
 ---
 
 I'm addicted to the [ternary operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator). For reasons I can't explain, I cannot get enough of:
+
+<!--truncate-->
 
 ```js
 const thisOrThat = someCondition ? 'this' : 'or that';

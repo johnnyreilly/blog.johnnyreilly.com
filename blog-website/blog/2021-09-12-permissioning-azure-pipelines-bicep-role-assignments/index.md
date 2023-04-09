@@ -1,7 +1,8 @@
 ---
+slug: permissioning-azure-pipelines-bicep-role-assignments
 title: 'Permissioning Azure Pipelines with Bicep and Azure RBAC Role Assignments'
 authors: johnnyreilly
-tags: [Role Assignments, Bicep, Azure DevOps, Azure Pipelines]
+tags: [Role Assignments, Bicep, azure devops, Azure Pipelines]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
@@ -9,6 +10,8 @@ hide_table_of_contents: false
 How can we deploy resources to Azure, and then run an integration test through them in the context of an Azure Pipeline? This post will show how to do this by permissioning our Azure Pipeline to access these resources using Azure RBAC role assignments. It will also demonstrate a dotnet test that runs in the context of the pipeline and makes use of those role assignments.
 
 ![title image reading "Permissioning Azure Pipelines with Bicep and Role Assignments" and some Azure logos](title-image.png)
+
+<!--truncate-->
 
 We're following this approach as an alternative to [exporting connection strings](../2021-07-07-output-connection-strings-and-keys-from-azure-bicep/index.md), as these can be viewed in the Azure Portal; which may be an security issue if you have many people who are able to access the portal and view deployment outputs.
 

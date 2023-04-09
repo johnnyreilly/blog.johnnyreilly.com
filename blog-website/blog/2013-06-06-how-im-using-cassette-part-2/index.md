@@ -1,11 +1,14 @@
 ---
+slug: how-im-using-cassette-part-2
 title: "How I'm Using Cassette part 2:Get Cassette to Serve Scripts in Dependency Order"
 authors: johnnyreilly
-tags: [script references, RequireJS, cassette]
+tags: [RequireJS, cassette]
 hide_table_of_contents: false
 ---
 
 [Last time](../2013-05-04-how-im-using-cassette/index.md) I wrote about Cassette I was talking about how to generally get up and running. How to use Cassette within an ASP.Net MVC project. What I want to write about now is (in my eyes) the most useful feature of Cassette by a country mile. This is Cassettes ability to ensure scripts are served in dependency order.
+
+<!--truncate-->
 
 ## Why does this matter?
 

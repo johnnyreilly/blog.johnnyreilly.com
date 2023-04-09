@@ -1,7 +1,8 @@
 ---
+slug: swashbuckle-schemaid-already-used
 title: 'Swashbuckle and schemaId is already used'
 authors: johnnyreilly
-tags: [Swashbuckle, CustomSchemaIds, AddSwaggerGen]
+tags: [Swashbuckle]
 image: ./title-image.png
 description: 'Swashbuckle can fail to generate a swagger / Open API document with the message "The same schemaId is already used...". This post offers a way forward.'
 hide_table_of_contents: false
@@ -10,6 +11,8 @@ hide_table_of_contents: false
 Swashbuckle can fail to generate a swagger / Open API document with the message "The same schemaId is already used...". This post explains what that means, and offers a way to work around it.
 
 ![title image reading "Swashbuckle and schemaId is already used" with the Azure Static Web Apps logo and a Terry Pratchett icon by Lisa Krymova from NounProject.com](title-image.png)
+
+<!--truncate-->
 
 ## "The same schemaId is already used..."
 

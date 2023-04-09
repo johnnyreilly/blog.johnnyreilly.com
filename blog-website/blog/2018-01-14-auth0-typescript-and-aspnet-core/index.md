@@ -1,11 +1,14 @@
 ---
+slug: auth0-typescript-and-aspnet-core
 title: 'Auth0, TypeScript and ASP.NET Core'
 authors: johnnyreilly
-tags: [ASP.Net Core, Auth0, TypeScript, OAuth, React]
+tags: [ASP.Net Core, Auth0, typescript, OAuth, React]
 hide_table_of_contents: false
 ---
 
 Most applications I write have some need for authentication and perhaps authorisation too. In fact, most apps most people write fall into that bracket. Here's the thing: Auth done well is a \*big\* chunk of work. And the minute you start thinking about that you almost invariably lose focus on the thing you actually want to build and ship.
+
+<!--truncate-->
 
 So this Christmas I decided it was time to take a look into offloading that particular problem onto someone else. I knew there were third parties who provided Auth-As-A-Service - time to give them a whirl. On the recommendation of a friend, I made Auth0 my first port of call. Lest you be expecting a full breakdown of the various players in this space, let me stop you now; I liked Auth0 so much I strayed no further. Auth0 kicks AAAS. (I'm so sorry)
 

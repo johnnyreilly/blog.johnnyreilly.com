@@ -1,18 +1,14 @@
 ---
+slug: joy-of-json
 title: 'The Joy of JSON'
 authors: johnnyreilly
-tags:
-  [
-    Dave Ward,
-    json,
-    Encosia,
-    Christian Heilmann javascript object literal,
-    douglas crockford,
-  ]
+tags: [json]
 hide_table_of_contents: false
 ---
 
 So back to JSON. For those of you that don't know JSON stands for JavaScript Object Notation and is lightweight text based data interchange format. Rather than quote other people verbatim you can find thorough explanations of JSON here: - [Introducing JSON](http://www.json.org/)
+
+<!--truncate-->
 
 - [JSON in Javascript](http://www.json.org/js.html)
 

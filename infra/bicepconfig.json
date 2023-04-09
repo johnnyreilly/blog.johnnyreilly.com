@@ -1,0 +1,26 @@
+{
+  // See https://aka.ms/bicep/config for more information on Bicep configuration options
+  // Press CTRL+SPACE/CMD+SPACE at any location to see Intellisense suggestions
+  "analyzers": {
+    "core": {
+      "rules": {
+        "no-unused-params": {
+          "level": "warning"
+        },
+        "secure-secrets-in-params": {
+          "level": "error"
+        },
+        "secure-parameter-default": {
+          "level": "error"
+        },
+        "outputs-should-not-contain-secrets": {
+          "level": "error"
+        }
+      }
+    }
+  },
+  "experimentalFeaturesEnabled": {
+    "sourceMapping": true,
+    "userDefinedTypes": true
+  }
+}

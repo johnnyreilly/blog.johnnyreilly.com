@@ -1,11 +1,14 @@
 ---
+slug: closedxml-real-sdk-for-excel
 title: 'ClosedXML - the real SDK for Excel'
 authors: johnnyreilly
-tags: [MDeLeon, Open XML, Excel, ClosedXML]
+tags: [Open XML, Excel, ClosedXML]
 hide_table_of_contents: false
 ---
 
 Simplicity appeals to me. It always has. Something that is simple is straightforward to comprehend and is consequently easy to use. It's clarity.
+
+<!--truncate-->
 
 ## Open XML
 

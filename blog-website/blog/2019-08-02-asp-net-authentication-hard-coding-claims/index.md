@@ -1,4 +1,5 @@
 ---
+slug: asp-net-authentication-hard-coding-claims
 title: 'ASP.NET Core authentication: hard-coding a claim in development'
 authors: johnnyreilly
 tags: [ASP.Net Core, Authentication]
@@ -6,6 +7,8 @@ hide_table_of_contents: false
 ---
 
 This post demonstrates how you can hard code user authentication claims in ASP.NET Core; a useful technique to facilate testing during development.
+
+<!--truncate-->
 
 I was recently part of a hackathon team that put together an API in just 30 hours. We came second. (Not bitter, not bitter...)
 

@@ -1,11 +1,14 @@
 ---
+slug: Coded-UI-IE-11-and-the-runas-problem
 title: "Pretending to be someone you're not and the dark pit of despair"
 authors: johnnyreilly
-tags: [IE 11, runas, Coded UI, nomerge, Internet Exporer]
+tags: [Coded UI, internet explorer]
 hide_table_of_contents: false
 ---
 
-## <sub>(Coded UI, IE 11 and the "runas" problem)</sub>
+## Coded UI, IE 11 and the "runas" problem
+
+<!--truncate-->
 
 "I'm not angry, I'm just disappointed."
 

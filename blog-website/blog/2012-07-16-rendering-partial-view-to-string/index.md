@@ -1,11 +1,14 @@
 ---
+slug: rendering-partial-view-to-string
 title: 'Rendering Partial View to a String'
 authors: johnnyreilly
-tags: [asp.net mvc, Kevin Craft, PartialView, JsonResult]
+tags: [asp.net mvc]
 hide_table_of_contents: false
 ---
 
 ## Well done that man!
+
+<!--truncate-->
 
 Every now and then I'm thinking to myself "_wouldn't it be nice if you could do x..._" And then I discover that someone else has thought the self same thoughts and better yet they have the answer! I had this situation recently and discovered the wonderful Kevin Craft had been there, done that and made the T-shirt. Here's his blog: [http://craftycodeblog.com/2010/05/15/asp-net-mvc-render-partial-view-to-string/](http://craftycodeblog.com/2010/05/15/asp-net-mvc-render-partial-view-to-string/) I wanted to talk about how this simple post provided me with an elegant solution to something I've found niggling and unsatisfactory for a while now... ## How it helped
 

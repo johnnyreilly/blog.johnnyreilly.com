@@ -1,11 +1,14 @@
 ---
+slug: simple-fading-in-and-out-using-css-transitions
 title: 'Simple fading in and out using CSS transitions and classes'
 authors: johnnyreilly
-tags: [CSS 3, transitionend, fadeIn, fadeOut, transitions]
+tags: [CSS]
 hide_table_of_contents: false
 ---
 
 Caveat emptor folks... Let me start off by putting my hands up and saying I am no expert on CSS. And furthermore let me say that this blog post is essentially the distillation of a heady session of googling on the topic of CSS transitions. The credit for the technique detailed here belongs to many others, I'm just documenting it for my own benefit (and for anyone who stumbles upon this).
+
+<!--truncate-->
 
 ## What do we want to do?
 

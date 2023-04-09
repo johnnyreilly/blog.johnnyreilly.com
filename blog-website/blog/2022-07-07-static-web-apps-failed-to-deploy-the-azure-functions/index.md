@@ -1,7 +1,8 @@
 ---
+slug: static-web-apps-failed-to-deploy-the-azure-functions
 title: 'Azure Static Web Apps: Failed to deploy the Azure Functions'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, Functions, Failed to deploy the Azure Functions]
+tags: [Azure Static Web Apps, Azure Functions]
 image: ./title-image.png
 description: Azure Static Web Apps presently have an issue which blocks deployment of Azure Functions with the message "Failed to deploy the Azure Functions". What is it?
 hide_table_of_contents: false
@@ -10,6 +11,8 @@ hide_table_of_contents: false
 Azure Static Web Apps presently have an issue which blocks deployment of Azure Functions with the message "Failed to deploy the Azure Functions". This happens when the resource is tagged with an `EnvironmentId` tag and is discussed in [this GitHub issue](https://github.com/Azure/static-web-apps/issues/723). There is a workaround which we will examine.
 
 ![title image reading "Azure Static Web Apps: Failed to deploy the Azure Functions" with an Azure Functions logo](title-image.png)
+
+<!--truncate-->
 
 ## Failed to deploy the Azure Functions
 

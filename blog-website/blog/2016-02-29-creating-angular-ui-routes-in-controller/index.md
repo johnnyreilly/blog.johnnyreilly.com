@@ -1,11 +1,14 @@
 ---
+slug: creating-angular-ui-routes-in-controller
 title: 'Creating Angular UI Routes in the Controller'
 authors: johnnyreilly
-tags: [ng-href, UI Router, Angular, ui-sref]
+tags: [AngularJS]
 hide_table_of_contents: false
 ---
 
 So you're creating a link with the Angular UI Router. You're passing more than a few parameters and it's getting kinda big. Something like this:
+
+<!--truncate-->
 
 ```xml
 <a class="contains-icon"

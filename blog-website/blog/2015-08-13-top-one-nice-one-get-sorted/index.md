@@ -1,11 +1,14 @@
 ---
+slug: top-one-nice-one-get-sorted
 title: '(Top One, Nice One) Get Sorted'
 authors: johnnyreilly
-tags: [sort, javascript, OrderBy, LINQ]
+tags: [javascript, LINQ]
 hide_table_of_contents: false
 ---
 
 I was recently reading [a post by Jaime González García](http://www.barbarianmeetscoding.com/blog/2015/07/09/mastering-the-arcane-art-of-javascript-mancy-for-c-sharp-developers-chapter-7-using-linq-in-javascript/) which featured the following mind-bending proposition:
+
+<!--truncate-->
 
 > What if I told you that JavaScript has [LINQ](https://msdn.microsoft.com/en-us/library/bb397926.aspx)??
 

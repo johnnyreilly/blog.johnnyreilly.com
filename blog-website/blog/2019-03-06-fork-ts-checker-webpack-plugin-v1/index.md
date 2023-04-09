@@ -1,19 +1,14 @@
 ---
+slug: fork-ts-checker-webpack-plugin-v1
 title: 'fork-ts-checker-webpack-plugin v1.0'
 authors: johnnyreilly
-tags:
-  [
-    TypeScript,
-    fork-ts-checker-webpack-plugin,
-    ts-loader,
-    tslint,
-    1.0.0,
-    Webpack,
-  ]
+tags: [typescript, fork-ts-checker-webpack-plugin, ts-loader, tslint, webpack]
 hide_table_of_contents: false
 ---
 
 [It's time for the first major version of `fork-ts-checker-webpack-plugin`](https://github.com/Realytics/fork-ts-checker-webpack-plugin/releases/tag/v1.0.0). It's been a long time coming :-)
+
+<!--truncate-->
 
 ## A Little History
 

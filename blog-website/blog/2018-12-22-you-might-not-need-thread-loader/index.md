@@ -1,19 +1,14 @@
 ---
+slug: you-might-not-need-thread-loader
 title: 'You Might Not Need thread-loader'
 authors: johnnyreilly
-tags:
-  [
-    HappyPack,
-    thread-loader,
-    fork-ts-checker-webpack-plugin,
-    ts-loader,
-    Webpack,
-    fast builds,
-  ]
+tags: [fork-ts-checker-webpack-plugin, ts-loader, webpack]
 hide_table_of_contents: false
 ---
 
 It all started with a GitHub issue. [Ernst Ammann reported](https://github.com/namics/webpack-config-plugins/issues/24):
+
+<!--truncate-->
 
 > Without the thread-loader, compilation takes three to four times less time on changes. We could remove it.
 

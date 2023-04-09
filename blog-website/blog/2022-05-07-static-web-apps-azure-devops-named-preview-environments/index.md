@@ -1,7 +1,8 @@
 ---
+slug: static-web-apps-azure-devops-named-preview-environments
 title: 'Azure Static Web Apps: named preview environments with Azure DevOps'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, Azure DevOps, named preview environments]
+tags: [Azure Static Web Apps, azure devops]
 image: ./title-image.png
 description: 'Azure Static Web Apps have just released a new feature for Azure DevOps users called "named preview environments". Let us have a look'
 hide_table_of_contents: false
@@ -10,6 +11,8 @@ hide_table_of_contents: false
 Azure Static Web Apps have just released a new feature for Azure DevOps users called "named preview environments". They allow users to deploy changes to an environment, prior to merging.
 
 ![title image reading "Azure Static Web App Deploy Previews with Azure DevOps" with a Azure, Bicep and Azure DevOps logos](title-image.png)
+
+<!--truncate-->
 
 ## What are named preview environments?
 

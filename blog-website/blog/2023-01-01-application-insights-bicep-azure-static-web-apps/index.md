@@ -1,4 +1,5 @@
 ---
+slug: application-insights-bicep-azure-static-web-apps
 title: 'Using Application Insights with Bicep to monitor Azure Static Web Apps and Azure Functions'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, Application Insights, Azure Functions, Bicep]
@@ -11,13 +12,21 @@ Application Insights are a great way to monitor Azure Static Web Apps and Azure 
 
 ![title image reading "Using Application Insights with Bicep to monitor Azure Static Web Apps and Azure Functions" with the Bicep, Application Insights, Azure Static Web Apps and Azure Functions logos](title-image.png)
 
+<!--truncate-->
+
+## Updated 9 March 2023
+
+I've updated this post to use the correct configuration approach for Static Web Apps with Azure Functions. Historically they used to be configured separately but that's no longer the case. You can see some discussion of this [on this GitHub issue](https://github.com/Azure/static-web-apps/issues/1089#issuecomment-1458710885).
+
+To be super clear; the [`Microsoft.Web/staticSites/config@2022-03-01` `functionappsettings` is deprecated](https://learn.microsoft.com/en-us/azure/templates/microsoft.web/staticsites/config-functionappsettings?pivots=deployment-language-bicep). Don't use it. Use the `appsettings` resource alone instead.
+
 ## Monitoring Azure Static Web Apps
 
 This post should possibly win some kind of "least pithy blog title" award. But it's definitely descriptive. Let's get into it.
 
 I recently wrote [about using dynamic redirects in Azure Static Web Apps using the Azure Function they support](../2022-12-22-azure-static-web-apps-dynamic-redirects-azure-functions/index.md). I wanted to monitor the redirects that were being performed. I knew I could do this with Application Insights. But how do I deploy Application Insights using Bicep?
 
-[My blog](https://johnnyreilly.com) runs on Azure Static Web Apps which is deployed using Bicep. [I've written about deploying Azure Static Web Apps with Bicep previously](../2022-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.md). I wanted to add Application Insights to that deployment.
+[My blog](https://johnnyreilly.com) runs on Azure Static Web Apps which is deployed using Bicep. [I've written about deploying Azure Static Web Apps with Bicep previously](../2023-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.md). I wanted to add Application Insights to that deployment.
 
 ## Deploying Application Insights with Bicep
 
@@ -60,11 +69,7 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
 }
 
 output appInsightsId string = appInsights.id
-output appInsightsInstrumentationKey string = appInsights.properties.InstrumentationKey
-output appInsightsConnectionString string = appInsights.properties.ConnectionString
 ```
-
-You'll note we're outputting the `id`, `InstrumentationKey` and `ConnectionString` properties of the Application Insights resource. We'll need those later.
 
 ## Using the Application Insights module
 
@@ -92,6 +97,10 @@ module appInsights './appInsights.bicep' = {
   }
 }
 
+resource appInsightsResource 'Microsoft.Insights/components@2020-02-02' existing = {
+  name: appInsightsName
+}
+
 module staticWebApp './staticWebApp.bicep' = {
   name: 'staticWebApp'
   params: {
@@ -103,8 +112,8 @@ module staticWebApp './staticWebApp.bicep' = {
     rootCustomDomainName: rootCustomDomainName
     blogCustomDomainName: blogCustomDomainName
     appInsightsId: appInsights.outputs.appInsightsId
-    appInsightsConnectionString: appInsights.outputs.appInsightsConnectionString
-    appInsightsInstrumentationKey: appInsights.outputs.appInsightsInstrumentationKey
+    appInsightsConnectionString: appInsightsResource.properties.ConnectionString
+    appInsightsInstrumentationKey: appInsightsResource.properties.InstrumentationKey
   }
 }
 
@@ -132,7 +141,9 @@ param repositoryToken string
 param rootCustomDomainName string
 param blogCustomDomainName string
 param appInsightsId string
+@secure()
 param appInsightsInstrumentationKey string
+@secure()
 param appInsightsConnectionString string
 
 var tagsWithHiddenLinks = union({
@@ -164,16 +175,6 @@ resource staticWebApp 'Microsoft.Web/staticSites@2022-03-01' = {
 
 resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' = {
   name: 'appsettings'
-  kind: 'string'
-  parent: staticWebApp
-  properties: {
-    APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
-    APPLICATIONINSIGHTS_CONNECTION_STRING: appInsightsConnectionString
-  }
-}
-
-resource staticWebAppFunctionAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' = {
-  name: 'functionappsettings'
   kind: 'string'
   parent: staticWebApp
   properties: {
@@ -220,19 +221,9 @@ resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' =
     APPLICATIONINSIGHTS_CONNECTION_STRING: appInsightsConnectionString
   }
 }
-
-resource staticWebAppFunctionAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' = {
-  name: 'functionappsettings'
-  kind: 'string'
-  parent: staticWebApp
-  properties: {
-    APPINSIGHTS_INSTRUMENTATIONKEY: appInsightsInstrumentationKey
-    APPLICATIONINSIGHTS_CONNECTION_STRING: appInsightsConnectionString
-  }
-}
 ```
 
-We're setting the `APPINSIGHTS_INSTRUMENTATIONKEY` and `APPLICATIONINSIGHTS_CONNECTION_STRING` application settings on the Azure Static Web App and its associated Azure Function. These settings are what tells the Azure Static Web App and Azure Function to use Application Insights.
+We're setting the `APPINSIGHTS_INSTRUMENTATIONKEY` and `APPLICATIONINSIGHTS_CONNECTION_STRING` application settings on the Azure Static Web App and its associated Azure Function. These settings are what tells the Azure Static Web App and Azure Function to use Application Insights. Please note that the configuration above is _shared_ by the Azure Static Web App and Azure Function.
 
 ### 2. Connecting the Azure Static Web App to the Application Insights resource in the Azure Portal
 
@@ -261,4 +252,4 @@ resource staticWebApp 'Microsoft.Web/staticSites@2022-03-01' = {
 
 With this in place, we can now deploy our Azure Static Web App with an Application Insights resource using Bicep and have the Azure Static Web App connected to, and providing data to, the Application Insights resource. Monitoring awaits!
 
-![Screenshot of Application Insights in the Azure Portal - see how they try to hack me with their spurious `sellers.json` requests ;-)](screenshot-application-insights.png)
+![Screenshot of Application Insights in the Azure Portal](screenshot-application-insights.png)

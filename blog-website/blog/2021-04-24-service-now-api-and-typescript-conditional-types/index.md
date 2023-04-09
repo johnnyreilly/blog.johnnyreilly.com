@@ -1,16 +1,8 @@
 ---
+slug: service-now-api-and-typescript-conditional-types
 title: 'The Service Now API and TypeScript Conditional Types'
 authors: johnnyreilly
-tags:
-  [
-    Service Now,
-    Table API,
-    Change Request,
-    change_request,
-    sysparm_display_value,
-    TypeScript,
-    conditional types,
-  ]
+tags: [Service Now, typescript]
 image: ./ts-ervice-now.png
 hide_table_of_contents: false
 ---
@@ -18,6 +10,8 @@ hide_table_of_contents: false
 The [Service Now REST API](https://docs.servicenow.com/bundle/paris-application-development/page/build/applications/concept/api-rest.html) is an API which allows you to interact with Service Now. It produces different shaped results based upon the [`sysparm_display_value` query parameter](https://docs.servicenow.com/bundle/paris-application-development/page/integrate/inbound-rest/concept/c_TableAPI.html#c_TableAPI__table-GET). This post looks at how we can model these API results with TypeScripts conditional types. The aim being to minimise repetition whilst remaining strongly typed. This post is specifically about the Service Now API, but the principles around conditional type usage are generally applicable.
 
 ![Service Now and TypeScript](ts-ervice-now.png)
+
+<!--truncate-->
 
 ## The power of a query parameter
 
@@ -189,7 +183,7 @@ export const STATE = {
   CLOSED: '7',
 } as const;
 
-export type State = typeof STATE[keyof typeof STATE];
+export type State = (typeof STATE)[keyof typeof STATE];
 ```
 
 By combining `State` and `PropertyValue`, we can strongly type the `state` property of Change Requests. Consider:

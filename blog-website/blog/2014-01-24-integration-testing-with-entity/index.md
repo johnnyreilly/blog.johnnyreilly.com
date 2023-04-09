@@ -1,11 +1,14 @@
 ---
+slug: integration-testing-with-entity
 title: 'Integration Testing with Entity Framework and Snapshot Backups'
 authors: johnnyreilly
-tags: [Database Snapshot Backups, Integration Testing, SQL Server]
+tags: [Database Snapshots, Integration Testing, SQL Server]
 hide_table_of_contents: false
 ---
 
 I've written before about how unit testing [Entity Framework is a contentious and sometimes pointless activity](../2012-10-03-unit-testing-and-entity-framework-filth/index.md). The TL;DR is that LINQ-to-Objects != Linq-to-Entities and so if you want some useful tests around your data tier then integration tests that actually hit a database are what you want.
+
+<!--truncate-->
 
 However hitting an actual database is has serious implications. For a start you need a database server and you need a database. But the real issue lies around cleanup. When you write a test that amends data in the database you need the test to clean up after itself. If it doesn't then the next test that runs may trip over the amended data and that's your test pack instantly useless.
 

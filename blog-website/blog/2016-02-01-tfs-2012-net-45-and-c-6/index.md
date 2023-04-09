@@ -1,11 +1,14 @@
 ---
+slug: tfs-2012-net-45-and-c-6
 title: 'TFS 2012, .NET 4.5 and C# 6'
 authors: johnnyreilly
-tags: [C# 6, .Net 4.5, TFS 2012]
+tags: [C#, .NET Framework, TFS]
 hide_table_of_contents: false
 ---
 
 So, you want to use C# 6 language features and you’re working on an older project that’s still rocking .NET 4.5. Well, with [some caveats](http://stackoverflow.com/a/28921749/761388), you can.
+
+<!--truncate-->
 
 The new compiler will compile targeting older framework versions. Well that’s all lovely; let’s all go home.
 

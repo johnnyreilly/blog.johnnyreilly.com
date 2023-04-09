@@ -1,11 +1,14 @@
 ---
+slug: the-convent-with-continuous-delivery
 title: 'The Convent with Continuous Delivery'
 authors: johnnyreilly
-tags: [Poor Clares, Continuous Delivery, Arundel, AppVeyor]
+tags: [Continuous Delivery, AppVeyor]
 hide_table_of_contents: false
 ---
 
 I've done it. I've open sourced the [website that I maintain for my aunt what is a nun](http://www.poorclaresarundel.org/). Because I think we can all agree that nuns need open source and continuous integration about as much as anyone else.
+
+<!--truncate-->
 
 For a long time now I've been maintaining a website for one of my (many) aunts that is a Poor Clare. ([That's a subtype of "nun" you OO enthusiasts.](https://en.wikipedia.org/wiki/Subtyping)) It's not a terribly exciting site - it's mostly static content. It's built with a combination of AngularJS / TypeScript / Bootstrap and ASP.Net MVC. It's hosted on [Azure Websites](http://azure.microsoft.com/en-us/documentation/services/websites/). In fact I have written about it (slightly more cagily) before [here](../2014-06-01-migrating-from-angularjs-to-angularts/index.md).
 

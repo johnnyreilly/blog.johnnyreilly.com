@@ -1,7 +1,8 @@
 ---
+slug: upgrading-to-react-18-typescript
 title: 'Upgrading to React 18 with TypeScript'
 authors: johnnyreilly
-tags: [React, TypeScript, Definitely Typed]
+tags: [React, typescript, Definitely Typed]
 image: ./title-image.png
 description: 'The upgrade of the React type definitions to support React 18 involved some significant breaking changes. This post the upgrade path.'
 hide_table_of_contents: false
@@ -10,6 +11,8 @@ hide_table_of_contents: false
 The upgrade of the React type definitions to support React 18 involved some significant breaking changes. This post digs into that and examines what the upgrade path looks like.
 
 ![title image reading "Upgrading to React 18 with TypeScript" with the React, TypeScript and Definitely Typed logos`](title-image.png)
+
+<!--truncate-->
 
 ## React 18 and Definitely Typed
 

@@ -1,4 +1,5 @@
 ---
+slug: live-reload-considered-harmful
 title: 'Live Reload Considered Harmful'
 authors: johnnyreilly
 tags: []
@@ -6,6 +7,8 @@ hide_table_of_contents: false
 ---
 
 I've seen it go by many names; [live reload](http://livereload.com/), hot reload, [browser sync](https://browsersync.io/)... the list goes on. It's been the subject of a million demos. It's the focus of a thousand npm packages. Someone tweaks a file and... wait for it... _doesn't have to refresh their browser to see the changes_... The future is now!
+
+<!--truncate-->
 
 Forgive me the sarcasm, but I have come to the conclusion that whilst live reload is impressive... for my own purposes, it is not actually that useful. It certainly shouldn't be the default goto that it seems to have become.
 

@@ -1,20 +1,14 @@
 ---
+slug: typescript-webpack-alias-goodbye-relative-paths
 title: 'Using TypeScript and webpack alias: goodbye relative paths'
 authors: johnnyreilly
-tags:
-  [
-    relative paths,
-    TypeScript,
-    webpack,
-    alias,
-    paths,
-    resolve,
-    tsconfig-paths-webpack-plugin,
-  ]
+tags: [typescript, webpack]
 hide_table_of_contents: false
 ---
 
 This post shows how you can use TypeScript with webpack `alias` to move away from using relative paths in your `import` statements.
+
+<!--truncate-->
 
 ## Long relative paths
 

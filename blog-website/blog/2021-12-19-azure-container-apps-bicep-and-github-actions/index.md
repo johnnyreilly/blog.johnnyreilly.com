@@ -1,4 +1,5 @@
 ---
+slug: azure-container-apps-bicep-and-github-actions
 title: 'Azure Container Apps, Bicep and GitHub Actions'
 authors: johnnyreilly
 tags: [Azure Container Apps, Bicep, GitHub Actions]
@@ -11,6 +12,8 @@ Azure Container Apps are an exciting way to deploy containers to Azure. This pos
 If you're interested in building your own containers as well, it's worth looking at [this follow up post](../2021-12-27-azure-container-apps-build-and-deploy-with-bicep-and-github-actions/index.md).
 
 ![title image reading "Azure Container Apps, Bicep and GitHub Actions" with the Bicep, Azure Container Apps and GitHub Actions logos](title-image.png)
+
+<!--truncate-->
 
 ## Updated 02/05/2022
 

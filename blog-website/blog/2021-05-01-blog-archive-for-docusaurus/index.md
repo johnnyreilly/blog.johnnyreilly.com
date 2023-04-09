@@ -1,7 +1,8 @@
 ---
+slug: blog-archive-for-docusaurus
 title: 'Blog Archive for Docusaurus'
 authors: johnnyreilly
-tags: [Docusaurus, blog archive, webpack]
+tags: [Docusaurus, webpack]
 image: ./docusaurus-blog-archive.png
 hide_table_of_contents: false
 ---
@@ -9,6 +10,8 @@ hide_table_of_contents: false
 Docusaurus doesn't ship with "blog archive" functionality. By which I mean, something that allows you to look at an overview of your historic blog posts. It turns out it is fairly straightforward to implement your own. This post does just that.
 
 ![Docusaurus blog archive](docusaurus-blog-archive.png)
+
+<!--truncate-->
 
 ## Updated 2021-09-01
 
@@ -18,7 +21,7 @@ If you'd like to know how to build your own, read on... But you may not need to!
 
 ## Blogger's blog archive
 
-I recently went through the exercise of [migrating my blog from Blogger to Docusaurus](../2021-03-15-from-blogger-to-docusaurus/index.md). I found that [Docusaurus](https://docusaurus.io/) was a tremendous platform upon which to build a blog, but it was missing a feature from Blogger that I valued highly; the blog archive:
+I recently went through the exercise of [migrating my blog from Blogger to Docusaurus](../2021-03-15-definitive-guide-to-migrating-from-blogger-to-docusaurus/index.md). I found that [Docusaurus](https://docusaurus.io/) was a tremendous platform upon which to build a blog, but it was missing a feature from Blogger that I valued highly; the blog archive:
 
 ![Blogger blog archive](blogger-blog-archive-small.webp)
 

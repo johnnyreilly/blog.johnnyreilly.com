@@ -1,11 +1,14 @@
 ---
+slug: react-component-curry
 title: 'React Component Curry'
 authors: johnnyreilly
-tags: [currying, jsx, React, stateless functional components]
+tags: [jsx, React, stateless functional components]
 hide_table_of_contents: false
 ---
 
 Everyone loves curry don't they? I don't know about you but I'm going for one on Friday.
+
+<!--truncate-->
 
 When React 0.14 shipped, it came with a new way to write React components. Rather than as an ES2015 class or using `React.createClass` there was now another way: stateless functional components.
 

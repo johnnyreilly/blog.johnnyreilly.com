@@ -1,12 +1,15 @@
 ---
+slug: generate-typescript-and-csharp-clients-with-nswag
 title: 'NSwag: TypeScript and CSharp client generation based on an API'
 authors: johnnyreilly
-tags: [NSwag, TypeScript, CSharp, API]
+tags: [NSwag, typescript, C#]
 image: ./use-generated-client.gif
 hide_table_of_contents: false
 ---
 
 Generating clients for APIs is a tremendous way to reduce the amount of work you have to do when you're building a project. Why handwrite that code when it can be auto-generated for you quickly and accurately by a tool like [NSwag](https://github.com/RicoSuter/NSwag)? To quote the docs:
+
+<!--truncate-->
 
 > The NSwag project provides tools to generate OpenAPI specifications from existing ASP.NET Web API controllers and client code from these OpenAPI specifications. The project combines the functionality of Swashbuckle (OpenAPI/Swagger generation) and AutoRest (client generation) in one toolchain.
 

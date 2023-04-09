@@ -1,11 +1,14 @@
 ---
+slug: web-workers-comlink-typescript-and-react
 title: 'Web Workers, comlink, TypeScript and React'
 authors: johnnyreilly
-tags: [web workers, comlink, TypeScript, React]
+tags: [typescript, React]
 hide_table_of_contents: false
 ---
 
 JavaScript is famously single threaded. However, if you're developing for the web, you may well know that this is not quite accurate. There are [`Web Workers`](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers):
+
+<!--truncate-->
 
 > A worker is an object created using a constructor (e.g. `Worker()`) that runs a named JavaScript file — this file contains the code that will run in the worker thread; workers run in another global context that is different from the current window.
 

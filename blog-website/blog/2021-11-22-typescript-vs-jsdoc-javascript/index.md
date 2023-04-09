@@ -1,7 +1,8 @@
 ---
+slug: typescript-vs-jsdoc-javascript
 title: 'TypeScript vs JSDoc JavaScript'
 authors: johnnyreilly
-tags: [JavaScript, TypeScript, JSDoc]
+tags: [javascript, typescript, JSDoc]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
@@ -9,6 +10,8 @@ hide_table_of_contents: false
 There's a debate to be had about whether using JavaScript or TypeScript leads to better outcomes when building a project. The introduction of using JSDoc annotations to type a JavaScript codebase introduces a new dynamic to this discussion. This post will investigate what that looks like, and come to an (opinionated) conclusion.
 
 ![title image reading "JSDoc JavaScript vs TypeScript" with a JavaScript logo and TypeScript logo](title-image.png)
+
+<!--truncate-->
 
 ## Updated 6th December 2021
 

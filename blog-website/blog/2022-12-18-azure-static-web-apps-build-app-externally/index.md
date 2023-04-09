@@ -1,4 +1,5 @@
 ---
+slug: azure-static-web-apps-build-app-externally
 title: 'Azure Static Web Apps: build app externally'
 authors: johnnyreilly
 tags: [Azure Static Web Apps, GitHub Actions]
@@ -10,6 +11,8 @@ hide_table_of_contents: false
 Azure Static Web Apps can generally build themselves with Oryx. If you need finer grained control of your build, you can with `skip_app_build: true` and some GitHub Actions.
 
 ![title image reading "Azure Static Web Apps: build app externally" with the Static Web Apps logo](title-image.png)
+
+<!--truncate-->
 
 ## Build with Oryx
 

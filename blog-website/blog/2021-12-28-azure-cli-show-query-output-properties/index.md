@@ -1,7 +1,8 @@
 ---
+slug: azure-cli-show-query-output-properties
 title: 'Query deployment outputs with the Azure CLI'
 authors: johnnyreilly
-tags: [Azure CLI, deployment outputs, bash, jq, GitHub Actions]
+tags: [azure cli, GitHub Actions]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
@@ -9,6 +10,8 @@ hide_table_of_contents: false
 It's often desirable to query the outputs of deployments to Azure. This post demonstrates how to do this using the Azure CLI, bash and jq. It also shows how to generically convert deployment outputs to GitHub Action job outputs.
 
 ![title image reading "Query deployment outputs with the Azure CLI" with the Azure logo and the Azure Cloud Shell in the background](title-image.png)
+
+<!--truncate-->
 
 ## Deployment outputs
 

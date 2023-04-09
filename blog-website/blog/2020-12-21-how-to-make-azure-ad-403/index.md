@@ -1,20 +1,15 @@
 ---
+slug: how-to-make-azure-ad-403
 title: 'Make Microsoft.Identity.Web respond with 403 forbidden instead of a 302 redirect'
 authors: johnnyreilly
-tags:
-  [
-    Microsoft.Identity.Web,
-    OnRedirectToAccessDenied,
-    Azure AD,
-    Azure Active Directory,
-    redirect,
-    ASP.NET,
-  ]
+tags: [Azure AD, ASP.NET]
 image: ./Forbidden.webp
 hide_table_of_contents: false
 ---
 
 By default `Microsoft.Identity.Web` responds to unauthorized requests with a 302 (redirect). Do you want a 403 (forbidden) instead? Here's how.
+
+<!--truncate-->
 
 If you're using the tremendous [Azure Active Directory for authentication with ASP.NET](https://docs.microsoft.com/en-us/azure/active-directory/develop/scenario-web-app-sign-user-app-configuration?tabs=aspnetcore) then there's a good chance you're using the [`Microsoft.Identity.Web`](https://github.com/AzureAD/microsoft-identity-web) library. It's this that allows us to drop the following statement into the `ConfigureServices` method of our `Startup` class:
 

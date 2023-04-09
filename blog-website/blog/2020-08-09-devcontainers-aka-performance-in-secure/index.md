@@ -1,11 +1,14 @@
 ---
+slug: devcontainers-aka-performance-in-secure
 title: 'Devcontainers AKA performance in a secure sandbox'
 authors: johnnyreilly
-tags: [git clone, devcontainer, performance, SSH]
+tags: [devcontainer]
 hide_table_of_contents: false
 ---
 
 Many corporate machines arrive in engineers hands with a preponderance of pre-installed background tools; from virus checkers to backup utilities to port blockers; the list is long.
+
+<!--truncate-->
 
 The reason that these tools are installed is generally noble. However, the implementation can often be problematic. The tools may be set up in such a way as they impact and interfere with one another. Really powerful machines with 8 CPUs and hardy SSDs can be slowed to a crawl. Put simply: the good people responsible for ensuring security are rarely encouraged to incentivise performance alongside it. And so don't.
 

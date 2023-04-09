@@ -1,11 +1,14 @@
 ---
+slug: safari-empty-download-content-type
 title: 'Safari: The Mysterious Case of the Empty Download'
 authors: johnnyreilly
-tags: [Safari, Content-Type, Content-Length]
+tags: [Safari]
 hide_table_of_contents: false
 ---
 
 Safari wants a `Content-Type` header in responses. Even if the response is `Content-Length: 0`. Without this, Safari can attempt to trigger an empty download. Don't argue; just go with it; some browsers are strange.
+
+<!--truncate-->
 
 ## The longer version
 

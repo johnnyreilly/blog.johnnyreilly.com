@@ -1,7 +1,8 @@
 ---
+slug: azure-static-web-app-deploy-previews-with-azure-devops
 title: 'Azure Static Web App Deploy Previews with Azure DevOps'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, Azure DevOps, Netlify deploy previews]
+tags: [Azure Static Web Apps, azure devops, Netlify deploy previews]
 image: ./title-image.png
 hide_table_of_contents: false
 ---
@@ -9,6 +10,8 @@ hide_table_of_contents: false
 I love [Netlify deploy previews](https://www.netlify.com/products/deploy-previews/). This post implements a pull request deployment preview mechanism for Azure Static Web Apps in the context of Azure DevOps which is very much inspired by the Netlify offering.
 
 ![title image reading "Azure Static Web App Deploy Previews with Azure DevOps" with a Azure, Bicep and Azure DevOps logos](title-image.png)
+
+<!--truncate-->
 
 Having a build of your latest pull request which is deployed and clickable from the PR itself is a wonderful developer experience. It reduces friction for testing out changes by allowing you to see the impact from within the PR itself. No checking to see if an environment is free with the rest of the team, then manually running a pipeline and waiting whilst a deployment happens. No. It's all there without you having to lift a finger. I use Netlify deploy previews on my blog and have become accustomed to the delight that is this:
 
