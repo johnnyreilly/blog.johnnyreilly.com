@@ -4,7 +4,6 @@
 
 This repo contains the source code for John Reilly's blog. The blog can be found here: <https://johnnyreilly.com> - it is built with [Docusaurus](https://docusaurus.io/).
 
-
 ## Running locally
 
 ```shell
