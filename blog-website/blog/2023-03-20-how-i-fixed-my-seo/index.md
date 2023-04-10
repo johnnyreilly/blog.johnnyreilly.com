@@ -21,6 +21,8 @@ DMCA takedown request for my own content
 
 not sharing their details as I dont like them
 
+![screenshot of screen acknowledging my report](screenshot-google-webmasters-report.webp)
+
 ## Profile title and link changed
 
 https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/240adb439de0232697e1d458c0341fd679420d64
@@ -88,4 +90,14 @@ This PR moves the redirect mechanism to redirect only once, and to fully qualifi
 
 ## FAQs with Structured Data
 
+One of the experiments we ran was to add FAQs to a post, and with that, the equivalent FAQ Structured Data. The intent being to see if this would help with the SEO for that post.
+
 https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/516
+
+Growtika resubmitted the page we added FAQs to Google for indexing and two things happened. Firstly, the page was indexed:
+
+![screenshot showing the page featuring in search results](screenshot-faqs-structured-data-indexed.png)
+
+Secondly, the page was indexed with the FAQ structured data.
+
+![screenshot showing the page featuring in search results and showing FAQs as well](screenshot-faqs-structured-data.png)
