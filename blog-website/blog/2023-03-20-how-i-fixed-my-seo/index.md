@@ -56,7 +56,9 @@ Added multiple breadcrumb lists to blog posts to include tags as well
 
 https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/e69633ca6cc6cae98cd405580e9659594ac92f8a
 
-noindex tags
+## FAQs with Structured Data
+
+https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/516
 
 Daniel Zuccon
 
