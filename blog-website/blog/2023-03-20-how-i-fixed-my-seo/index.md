@@ -1,5 +1,6 @@
 ---
-title: 'How I fixed my SEO'
+slug: how-we-fixed-my-seo
+title: 'How we fixed my SEO'
 authors: johnnyreilly
 tags: [SEO]
 image: ./title-image.png
@@ -20,11 +21,13 @@ DMCA takedown request for my own content
 
 not sharing their details as I dont like them
 
-title / url changed:
+## Profile title and link changed
 
 https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/240adb439de0232697e1d458c0341fd679420d64
 
-Add custom 404 page with "Back to Homepage" link
+I used to have no title next to my profile, and the link was to my blog. Growtika suggested adding a title to demostrate my expertise and authority on topics, and also linking to my about page instead of Twitter. This also gave me the chance to power up my about page. JSON-LD structured data support etc
+
+## Add custom 404 page with "Back to Homepage" link
 
 https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/57d722905204d48e0e0512e5e7f4798b30880157
 
@@ -32,7 +35,7 @@ https://github.com/facebook/docusaurus/discussions/6030
 
 Added privacy policy https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/743e80f0205cafc7e1ef90c9e9b6da7f1e810b43
 
-fetchpriority on LCP image / no lazy loading
+## Improve performance with fetchpriority on LCP image / no lazy loading
 
 [I've implemented an approach to tackle this on my blog](../2023-01-18-docusaurus-improve-core-web-vitals-fetchpriority/index.md):
 
@@ -43,38 +46,46 @@ It does 2 things:
 
 It would be good to get this into Docusaurus if it makes sense - the question is: does it? And if it does, what sort of implementation makes sense?
 
-added JSON-LD breadcrumbs to blog posts and archive pages:
+## JSON-LD breadcrumbs
 
-https://developers.google.com/search/docs/appearance/structured-data/breadcrumb
+https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/425
 
-npm run swizzle @docusaurus/theme-classic BlogArchivePage -- --wrap --danger
-npm run swizzle @docusaurus/theme-classic BlogPostPage -- --wrap --danger
+## Reduce duplicate content
 
-https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/416/files
+start using truncate to have summaries and reduce duplicate content https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/419
 
-Added multiple breadcrumb lists to blog posts to include tags as well
+rationalise tags:
 
-https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/e69633ca6cc6cae98cd405580e9659594ac92f8a
+- https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/420
+- https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/418
+
+## remove date from urls with `slug`
+
+https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/423
+
+## Added a "Where has this blog featured? section" in about
+
+Fix link to https://johnnyreilly.com https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/ec6dcc9ea7e173bed01c7dba870b6aaaa2bd102e
+
+## Reported to webmaster tools
+
+It turns out there's a kind of Stack Overflow for SEO called [webmaster tools / Search Console help](https://support.google.com/webmasters/community?hl=en). Growtika encouraged me to put a report up there which I did:
+
+https://support.google.com/webmasters/thread/197869844?hl=en
+
+There wasn't any response so I resubmitted a week later with a little more detail: https://support.google.com/webmasters/thread/199296507?hl=en
+
+I then received two responses; one friendly but essentially just saying "wait and see". The other response wasn't so friendly, but it turned out that poster has something of a pattern of unhelpfulness.
+
+Either way, whilst we tried to get help from the community here, we rather drew a blank I'm afraid.
+
+8 recent posts, 20 posts per page:
+https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/56ff7b76efc74e43494daa2ebe55b86f9806b5b5
+
+## Redirect URLs but once
+
+This PR moves the redirect mechanism to redirect only once, and to fully qualified URLs. Aligned with this, we'll also remove the redirect from blog.johnnyreilly.com -> johnnyreilly.com that sits in Cloudflare. https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/471
 
 ## FAQs with Structured Data
 
 https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/516
-
-Daniel Zuccon
-
-Noindex /tags/
-Google doesn’t really like this content anymore. It’s super “thin” and doesn’t add much
-value to users landing on your site. It also adds hundreds of pages Google needs to index
-for not much gain.
-
-Fix link to https://johnnyreilly.com https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/ec6dcc9ea7e173bed01c7dba870b6aaaa2bd102e
-
-reported to webmaster tools
-
-https://support.google.com/webmasters/thread/197869844?hl=en
-
-Where has this blog featured? section in about
-
-https://support.google.com/webmasters/community?hl=en
-
-No response so resubmitted a week later: https://support.google.com/webmasters/thread/199296507?hl=en
