@@ -125,7 +125,7 @@ const notMarkdownable: string[] = [];
 const author = 'johnnyreilly';
 const author_name = 'John Reilly';
 const author_url = 'https://twitter.com/johnny_reilly';
-const author_image_url = 'https://blog.johnnyreilly.com/img/profile.jpg';
+const author_image_url = 'https://johnnyreilly.com/img/profile.jpg';
 
 async function makePostsFromXML() {
   const blogDir = path.resolve(docusaurusDirectory, 'blog');
@@ -166,7 +166,7 @@ async function deleteExistingFiles(directory: string) {
  * johnnyreilly:
  *   name: John Reilly
  *   url: https://twitter.com/johnny_reilly
- *   image_url: https://blog.johnnyreilly.com/img/profile.jpg
+ *   image_url: https://johnnyreilly.com/img/profile.jpg
  */
 async function makeAuthorsYml(directory: string) {
   const authorsYml = `${author}:
@@ -449,7 +449,7 @@ If you've got some curiously named image files you might encounter some minor is
 
 ## Redirecting from Blogger URLs to Docusaurus URLs
 
-The final step is to redirect from the old Blogger URLs to the new Docusaurus URLs. Blogger URLs look like this: `/2019/10/definitely-typed-movie.html`. On the other hand, Docusaurus URLs look like this: [`/2019/10/08/definitely-typed-movie`](https://blog.johnnyreilly.com/2019/10/08/definitely-typed-movie).
+The final step is to redirect from the old Blogger URLs to the new Docusaurus URLs. Blogger URLs look like this: `/2019/10/definitely-typed-movie.html`. On the other hand, Docusaurus URLs look like this: [`/2019/10/08/definitely-typed-movie`](https://johnnyreilly.com/definitely-typed-the-movie).
 
 I'll want to redirect from the former to the latter. I'll use the `@docusaurus/plugin-client-redirects` plugin to do this. Inside the `docusaurus.config.js` file, I'll add the following to the `plugins` section:
 
@@ -514,7 +514,7 @@ If you're like me, you'll want to keep your RSS feed. I didn't want to disruptin
 
 Happily, [Docusaurus ships with RSS / Atom in the box](https://docusaurus.io/docs/blog#feed). Even happier still, most of the feed URLs in Blogger match the same URLs in Docusaurus. There was one exception in the form of the `/feeds/posts/default` feed which is an Atom feed. Docusaurus has an `atom.xml` feed but it's not in the same place.
 
-This isn't a significant issue as I can create a page rule in Cloudflare to redirect from the old URL (https://blog.johnnyreilly.com/feeds/posts/default) to the new URL (https://blog.johnnyreilly.com/atom.xml):
+This isn't a significant issue as I can create a page rule in Cloudflare to redirect from the old URL (https://johnnyreilly.com/feeds/posts/default) to the new URL (https://johnnyreilly.com/atom.xml):
 
 ![screenshot of the page rule in Cloudflare](screenshot-cloudflare-atom-page-rule.png)
 

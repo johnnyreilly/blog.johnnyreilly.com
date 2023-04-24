@@ -131,7 +131,7 @@ In our `custom.css` we need to add the following:
 ```css
 @font-face {
   font-family: 'Poppins';
-  src: url('https://blog.johnnyreilly.com/fonts/Poppins-Regular.ttf');
+  src: url('https://johnnyreilly.com/fonts/Poppins-Regular.ttf');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -139,7 +139,7 @@ In our `custom.css` we need to add the following:
 
 @font-face {
   font-family: 'Poppins';
-  src: url('https://blog.johnnyreilly.com/fonts/Poppins-Bold.ttf');
+  src: url('https://johnnyreilly.com/fonts/Poppins-Bold.ttf');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -166,7 +166,7 @@ Note that the urls are fully qualified to prevent webpack from trying to bundle 
     }
   ],
   "globalHeaders": {
-    "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'; script-src 'self' https://www.googleanalytics.com https://www.google-analytics.com https://www.googleoptimize.com https://www.googletagmanager.com 'unsafe-inline'; img-src 'self' data: https: https://blog.johnnyreilly.com https://thankful-sky-0bfc7e803-320.westeurope.1.azurestaticapps.net https://www.google-analytics.com https://www.googletagmanager.com",
+    "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'; script-src 'self' https://www.googleanalytics.com https://www.google-analytics.com https://www.googleoptimize.com https://www.googletagmanager.com 'unsafe-inline'; img-src 'self' data: https: https://johnnyreilly.com https://thankful-sky-0bfc7e803-320.westeurope.1.azurestaticapps.net https://www.google-analytics.com https://www.googletagmanager.com",
     "X-Clacks-Overhead": "GNU Terry Pratchett",
     "Access-Control-Allow-Origin": "*"
   }

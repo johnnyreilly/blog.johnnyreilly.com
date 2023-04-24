@@ -227,7 +227,7 @@ import {
   devtoApiClientFactory,
 } from './devtoApiClient';
 
-const rootUrl = 'https://blog.johnnyreilly.com';
+const rootUrl = 'https://johnnyreilly.com';
 const rootGitHubUrl =
   'https://raw.githubusercontent.com/johnnyreilly/blog.johnnyreilly.com/main/blog-website/blog/';
 const docusaurusBlogDirectory = '../blog-website/blog';
