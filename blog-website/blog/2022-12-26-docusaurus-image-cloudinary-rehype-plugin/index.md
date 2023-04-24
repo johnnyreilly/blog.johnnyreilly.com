@@ -38,11 +38,11 @@ To quote [Cloudinary's website](https://cloudinary.com/blog/delivering_all_your_
 
 Consumption of the CDN is very simple. You simply prefix the URL of the image you want to serve with the URL of the Cloudinary CDN. For example, if you want to serve the following image:
 
-`https://blog.johnnyreilly.com/img/profile-64x64.jpg`
+`https://johnnyreilly.com/img/profile-64x64.jpg`
 
 you can serve it from Cloudinary with the following URL:
 
-`https://res.cloudinary.com/demo/image/fetch/https://blog.johnnyreilly.com/img/profile-64x64.jpg`.
+`https://res.cloudinary.com/demo/image/fetch/https://johnnyreilly.com/img/profile-64x64.jpg`.
 
 You see? All we did was prefix `https://res.cloudinary.com/demo/image/fetch/` to the URL of the image we wanted to serve. That's it. When you visit the URL, you'll see the image served from Cloudinary. Behind the scenes, Cloudinary will fetch the image from the original source and serve it to you.
 
@@ -88,7 +88,7 @@ const visit = require('unist-util-visit');
 
 /**
  * Create a rehype plugin that will replace image URLs with Cloudinary URLs
- * @param {*} options cloudName your Cloudinary’s cloud name eg demo, baseUrl the base URL of your website eg https://blog.johnnyreilly.com - should not include a trailing slash, will likely be the same as the config.url in your docusaurus.config.js
+ * @param {*} options cloudName your Cloudinary’s cloud name eg demo, baseUrl the base URL of your website eg https://johnnyreilly.com - should not include a trailing slash, will likely be the same as the config.url in your docusaurus.config.js
  * @returns rehype plugin that will replace image URLs with Cloudinary URLs
  */
 function imageCloudinaryRehypePluginFactory(
@@ -158,7 +158,7 @@ Now we have our plugin, we can use it. We need to add it to our `docusaurus.conf
 //@ts-check
 const docusaurusCloudinaryRehypePlugin = require('./docusaurus-cloudinary-rehype-plugin');
 
-const url = 'https://blog.johnnyreilly.com';
+const url = 'https://johnnyreilly.com';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -212,7 +212,7 @@ And then usage is:
 //@ts-check
 const docusaurusCloudinaryRehypePlugin = require('rehype-cloudinary-docusaurus');
 
-const url = 'https://blog.johnnyreilly.com';
+const url = 'https://johnnyreilly.com';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -278,7 +278,7 @@ const docusaurusCloudinaryRehypePlugin = require('rehype-cloudinary-docusaurus')
 
 const USE_CLOUDINARY = process.env['USE_CLOUDINARY'] === 'true';
 
-const url = 'https://blog.johnnyreilly.com';
+const url = 'https://johnnyreilly.com';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {

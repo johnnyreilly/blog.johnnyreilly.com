@@ -11,12 +11,12 @@ My blog lived happily on [Blogger](https://icanmakethiswork.blogspot.com/) for t
 
 <!--truncate-->
 
-The Atom feed at this location no longer exists: https://blog.johnnyreilly.com/feeds/posts/default
+The Atom feed at this location no longer exists: https://johnnyreilly.com/feeds/posts/default
 
 The following feeds are new and different:
 
-- RSS - https://blog.johnnyreilly.com/rss.xml
-- Atom - https://blog.johnnyreilly.com/atom.xml
+- RSS - https://johnnyreilly.com/rss.xml
+- Atom - https://johnnyreilly.com/atom.xml
 
 The new format might mess with any feed reader you have set up. I do apologise for the friction; hopefully it shouldn't cause you too much drama.
 

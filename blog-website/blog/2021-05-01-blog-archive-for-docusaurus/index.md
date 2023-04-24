@@ -172,7 +172,7 @@ We're finished! We have a delightful looking blog archive plumbed into our blog:
 
 It is possible that a blog archive may become natively available in Docusaurus in future. If you're interested in this, you can track [this issue](https://github.com/facebook/docusaurus/issues/4431).
 
-Here's the final code - which you can see [powering this screen](https://blog.johnnyreilly.com/blog-archive). And you can see the code that backs it [here](https://github.com/johnnyreilly/blog.johnnyreilly.com/blob/main/blog-website/src/pages/blog-archive.js):
+Here's the final code - which you can see [powering this screen](https://johnnyreilly.com/blog-archive). And you can see the code that backs it [here](https://github.com/johnnyreilly/blog.johnnyreilly.com/blob/main/blog-website/src/pages/blog-archive.js):
 
 ```tsx
 import React from 'react';

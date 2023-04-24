@@ -16,7 +16,7 @@ Azure Static Web Apps can generally build themselves with Oryx. If you need fine
 
 ## Build with Oryx
 
-I love Azure Static Web Apps. [My blog](https://blog.johnnyreilly.com) is built with them. I've written about them many times.
+I love Azure Static Web Apps. [My blog](https://johnnyreilly.com) is built with them. I've written about them many times.
 
 One of the things I like about Azure Static Web Apps is that they can build themselves. You can just push your code to GitHub and they'll build it using a tool called [Oryx](https://github.com/microsoft/Oryx). This is great for simple scenarios. Actually, it's good for medium to complex scenarios too. However, if you ever get to that "break glass" moment where you need to do something unusual with your build, you can.
 
