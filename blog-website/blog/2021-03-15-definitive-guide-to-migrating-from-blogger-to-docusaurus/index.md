@@ -449,7 +449,7 @@ If you've got some curiously named image files you might encounter some minor is
 
 ## Redirecting from Blogger URLs to Docusaurus URLs
 
-The final step is to redirect from the old Blogger URLs to the new Docusaurus URLs. Blogger URLs look like this: `/2019/10/definitely-typed-movie.html`. On the other hand, Docusaurus URLs look like this: [`/2019/10/08/definitely-typed-movie`](https://johnnyreilly.com/2019/10/08/definitely-typed-movie).
+The final step is to redirect from the old Blogger URLs to the new Docusaurus URLs. Blogger URLs look like this: `/2019/10/definitely-typed-movie.html`. On the other hand, Docusaurus URLs look like this: [`/2019/10/08/definitely-typed-movie`](https://johnnyreilly.com/definitely-typed-the-movie).
 
 I'll want to redirect from the former to the latter. I'll use the `@docusaurus/plugin-client-redirects` plugin to do this. Inside the `docusaurus.config.js` file, I'll add the following to the `plugins` section:
 
