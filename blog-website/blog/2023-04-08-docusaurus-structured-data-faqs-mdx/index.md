@@ -179,6 +179,12 @@ You can see, we have FAQs rendered in the body of our blog post. If we put the U
 
 ![Screenshot of rich results test showing FAQs are detected](screenshot-rich-results-test.webp)
 
+We can even go one better, shortly after I posted this article, I did a search in Google for "how do you have Docusaurus with Structured Data FAQs with MDX" and I got this:
+
+![A screenshot of the Google search window with the search 'how do you have Docusaurus with Structured Data FAQs with MDX' and the FAQs showing up as a featured snippet](screenshot-featured-snippets-faqs.webp)
+
+That's our FAQs being surfaced as a [featured snippet](https://support.google.com/websearch/answer/9351707?hl=en-GB&visit_id=638180439903372599-4066254776&p=featured_snippets&rd=1#zippy=%2Cwhy-featured-snippets-may-be-removed). Nice!
+
 ## Conclusion
 
 We've now got a reusable FAQs component that renders the FAQs as markdown, and the same information as Structured Data. We can use it in our MDX files, and we can use it in our blog posts. We can also use it in regular MD files. Yay! I've only used this in the context of Docusaurus, but I suspect it can be used in other contexts too.
