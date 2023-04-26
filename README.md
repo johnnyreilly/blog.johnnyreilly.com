@@ -42,4 +42,4 @@ Auth between GitHub and Azure is handled by https://github.com/jongio/github-azu
 
 Historically this blog lived on Blogger; from 2012-2021. It only exists there for reference now; it can be found mouldering here: <https://icanmakethiswork.blogspot.com>
 
-If you're interested in how we migrated from Blogger to Docusaurus, then take a look at [our definitive guide to migrating from Blogger to Docusaurus](https://johnnyreilly.com/definitive-guide-to-migrating-from-blogger-to-docusaurus)
+If you're interested in how we migrated from Blogger to Docusaurus, then take a look at [our definitive guide to migrating from Blogger to Docusaurus](https://johnnyreilly.com/definitive-guide-to-migrating-from-blogger-to-docusaurus).
