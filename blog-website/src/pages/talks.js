@@ -6,6 +6,13 @@ import styles from './styles.module.css';
 
 const talks = [
   {
+    id: 'G4WTEEwI6Qs',
+    permalink: 'https://youtube.com/watch?v=G4WTEEwI6Qs',
+    formattedDate: 'February 27th, 2023',
+    title:
+      'Cloudinary DevJams Live-Stream: Serving Optimized Docusaurus Images with Rehype and Cloudinary',
+  },
+  {
     id: '3W8vCEtRn68?start=220',
     permalink: 'https://www.youtube.com/watch?v=3W8vCEtRn68&t=220s',
     formattedDate: 'February 16th, 2023',
