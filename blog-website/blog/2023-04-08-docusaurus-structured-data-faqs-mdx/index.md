@@ -40,6 +40,8 @@ I've been working with [Growtika](https://growtika.com/) to repair my SEO after 
 
 My blog is written in [MDX](https://mdxjs.com/), and hosted on [Docusaurus](https://docusaurus.io/). I wanted to see if I could create an MDX component that would render the FAQs into a page, and the same information as Structured Data. The [Docusaurus docs suggested this was feasible](https://docusaurus.io/docs/markdown-features/react), and I wanted to see if I could make it work.
 
+And it turns out that other people are interested in this too; there's a feature request on [Docusaurus's Canny](https://docusaurus.io/feature-requests/p/creation-of-structured-faq) for exactly this.
+
 So I created a component that could be used to render FAQs into a page as markdown, and the same information as Structured Data. I thought it would be useful to share that component with the world. Hello world, herewith the component:
 
 ## The FAQStructuredData MDX component
@@ -188,3 +190,5 @@ That's our FAQs being surfaced as a [featured snippet](https://support.google.co
 ## Conclusion
 
 We've now got a reusable FAQs component that renders the FAQs as markdown, and the same information as Structured Data. We can use it in our MDX files, and we can use it in our blog posts. We can also use it in regular MD files. Yay! I've only used this in the context of Docusaurus, but I suspect it can be used in other contexts too.
+
+I'd rather like it if this was built into Docusaurus, and if it could read directly from the Markdown files. But this is a good start. I hope you find it useful.
