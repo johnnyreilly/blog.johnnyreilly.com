@@ -79,7 +79,7 @@ const config = {
         configureWebpack(_config, _isServer) {
           return {
             plugins: [
-              fontaine.fontaineTransform.webpack({
+              fontaine.FontaineTransform.webpack({
                 fallbacks: [
                   'system-ui',
                   '-apple-system',
