@@ -30,7 +30,7 @@ var ipAddresses = union([
   '0.0.0.0'
 ], allowedIPAddresses)
 
-resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' = {
+resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2023-04-15' = {
   name: cosmosDbAccountName
   kind: 'GlobalDocumentDB'
   location: location
