@@ -57,7 +57,7 @@ function makeRequest(url: string, data: object) {
       'Content-Type': 'application/json',
     },
     method: 'POST',
-    data: telemetryRequestWrapper,
+    data: { some: 'data' },
   });
 }
 ```
