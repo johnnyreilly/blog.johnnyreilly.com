@@ -181,7 +181,7 @@ Ultimately, it's just a [POST request to the webhook connector](../2023-03-09-no
 
 The part that's relevant to us is the `msteams` property. This is where we specify the user we want to mention. We do this by specifying the `id` and `name` properties. The `id` property is the email address of the user we want to mention. The `name` property is the display name of the user we want to mention.
 
-This is the secret sauce that allows our Power Automate flow to work. It reads these values and uses them to send a message to the user we want to mention.
+This is the secret sauce that allows our Power Automate flow to work. It reads these values and uses them to send a message to the user we want to mention. Alongside that, the `msteams.entities[].text` property must be in your message body. That's what Teams uses to link the mention to the part of the message that's "doing the mentioning" (thanks Chris for pointing this out).
 
 ## Conclusion
 
