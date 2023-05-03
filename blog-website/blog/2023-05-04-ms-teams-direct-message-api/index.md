@@ -46,21 +46,21 @@ Before we start this, I should warn you there's going to be lots of screenshots.
 
 The first thing to do, is fire up Teams and install the Power Automate app:
 
-![screenshot of installing the Power Automate app](screenshot-power-automate-app.png)
+![screenshot of installing the Power Automate app](screenshot-power-automate-app.webp)
 
 Then we could get into the Power Automate app and create a new workflow (from blank) with the "when a new channel message is added" trigger:
 
-![screenshot of creating the Power Automate flow with the when a new channel message is added trigger](screenshot-power-automate-when-a-new-channel-message-is-added.png)
+![screenshot of creating the Power Automate flow with the when a new channel message is added trigger](screenshot-power-automate-when-a-new-channel-message-is-added.webp)
 
 We then needed to select the team and channel that we wanted to trigger the workflow:
 
-![screenshot of selecting the team and channel](screenshot-power-automate-team-and-channel.png)
+![screenshot of selecting the team and channel](screenshot-power-automate-team-and-channel.webp)
 
 You'll note in the screenshot above, we've got a dedicated channel for this workflow. This is because we don't want to disturb channels people are already using with the messages we will write to this channel. To all intents and purposes, this channel could actually be invisible to users - we just need it to exist to be our carrier pidgeon.
 
 With the trigger in place, we need to create the action. We're going to use the "apply to each" control, which will run for every message that comes through. We want to use the "Message mentions" output, which will give us the user that was mentioned in the message. We don't want to use the similarly named "Message mentions item":
 
-![screenshot of selecting the output from previous steps](screenshot-power-automate-select-output-previous-steps.png)
+![screenshot of selecting the output from previous steps](screenshot-power-automate-select-output-previous-steps.webp)
 
 Now it's action stations! We want to use the "Get user profile (V2)" operation so we can look up our user.
 
@@ -104,15 +104,15 @@ This expression is operating on JSON similar to the following:
 
 So that expression is just some JavaScript that gets us to the value we need; the id of the first mentioned user. We provide that in the "Expression" field and then click the "OK" button:
 
-![screenshot of entering that into PA](screenshot-power-automate-expression1.png)
+![screenshot of entering that into PA](screenshot-power-automate-expression1.webp)
 
 Now it's time for our final action - sending on the message with the "post card in chat or channel" operation:
 
-![screenshot of adding a post card entry](screenshot-power-automate-post-card.png)
+![screenshot of adding a post card entry](screenshot-power-automate-post-card.webp)
 
 We'll post as the Flow bot, post in a chat with the Flow bot and make our recipient "Mail" (which behind the scenes is the expression `outputs('Get_user_profile_(V2)')?['body/mail']`).
 
-![screenshot of adding the recipient mail](screenshot-power-automate-recipient-mail.png)
+![screenshot of adding the recipient mail](screenshot-power-automate-recipient-mail.webp)
 
 Finally, it's once more expression time, as we use this value for our Adaptive Card:
 
@@ -120,11 +120,11 @@ Finally, it's once more expression time, as we use this value for our Adaptive C
 triggerOutputs()?['body/attachments'][0]['content']
 ```
 
-![screenshot of entering expression](screenshot-power-automate-expression2.png)
+![screenshot of entering expression](screenshot-power-automate-expression2.webp)
 
 This leaves us with a workflow that looks like this:
 
-![screenshot of the Power Automate workflow](screenshot-power-automate-workflow.png)
+![screenshot of the Power Automate workflow](screenshot-power-automate-workflow.webp)
 
 ## Triggering the Power Automate workflow
 
