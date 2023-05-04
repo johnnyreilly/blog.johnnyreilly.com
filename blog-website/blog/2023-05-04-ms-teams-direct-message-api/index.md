@@ -9,13 +9,15 @@ authors:
     image_url: https://avatars.githubusercontent.com/u/11404995?v=4
 tags: [Teams, Power Automate]
 image: ./title-image.png
-description: 'Teams does not have a public API for sending direct messages. This post describes a workaround using Power Automate and the Teams Notification API.'
+description: 'Teams does not have a public API for sending direct messages to people rather than channels. This post describes a workaround using Power Automate and the Teams Notification API.'
 hide_table_of_contents: false
 ---
 
 I've written previously about [sending Teams notifications using a webhook](../2019-12-18-teams-notification-webhooks/index.md), and it's a technique I've used a lot. But I've always wanted to be able to send a direct message to a user, and that's not possible with the webhook approach. I work with a marvellous fellow named Chris Tacey-Green, and he's figured out a way to do this using Power Automate and the Teams Notification API. I'm going to describe how he did it here, with a little help from him.
 
-It's probably worth saying, both Chris and I work for Investec, and we're going to share some of the things we've learned about using Teams in the hope that it's useful to others. But we're not speaking on behalf of Investec, and we're not suggesting that this is the best way to do things. It's probably in the category of "do things that do not scale" - but it's a start, and we're hoping to improve on it over time. You will see some screenshots of our internal Teams environment, but we've tried to keep them to a minimum, and we're not going to share any sensitive information.
+It's probably worth saying, both Chris and I work for Investec, and we're going to share some of the things we've learned about using Teams and Power Automate in the hope that it's useful to others. But we're not speaking on behalf of Investec, and we're not suggesting that this is the best way to do things. This is likely in the "do things that do not scale" category. Significantly though, it works!
+
+You will see some screenshots of our internal Teams environment, but we've tried to keep them to a minimum, and we're not going to share any sensitive information.
 
 ![title image reading "Teams Direct Message API with Power Automate" with a Teams logo](title-image.png)
 
@@ -23,7 +25,7 @@ It's probably worth saying, both Chris and I work for Investec, and we're going 
 
 ## What are we trying to do?
 
-Teams is a great way to keep people informed of what's going on. But sometimes you want to send a message to a specific person. You can @mention them in a channel, but that's not the same as a direct message. And you can send them an email, but that's not the same as a direct message either. What we want is a way to send a direct message to a user in Teams. Tragically, sending DMs in Teams via an API is not supported at the time of writing (or if it is - please let us know!)
+Teams is a great way to keep people informed of what's going on. But sometimes you want to send a message to a specific person. You can @mention them in a channel, but that's not the same as a direct message. And you can send them an email, but that's not the same as a direct message either. What we want is a way to send a direct message to a user in Teams, via an API. Because we want to automate. Tragically, sending DMs in Teams via an API is not supported at the time of writing (or if it is - please let us know!)
 
 All is not lost.
 
@@ -36,7 +38,7 @@ You see, it's possible to send a notification to a user in Teams using the Teams
 This post will do two things:
 
 1. Describe how to set up a Power Automate workflow that sends a direct message to a user in Teams
-2. Describe how to trigger that workflow using the Teams Notification API
+2. Describe how to trigger that workflow using the Teams Notification API and Adaptive Card messages
 
 ## Setting up the Power Automate workflow
 
@@ -48,11 +50,11 @@ The first thing to do, is fire up Teams and install the Power Automate app:
 
 ![screenshot of installing the Power Automate app](screenshot-power-automate-app.webp)
 
-Then we could get into the Power Automate app and create a new workflow (from blank) with the "when a new channel message is added" trigger:
+This allows us to access the Power Automate app. There we can create a new workflow (from blank) with the "when a new channel message is added" trigger:
 
 ![screenshot of creating the Power Automate flow with the when a new channel message is added trigger](screenshot-power-automate-when-a-new-channel-message-is-added.webp)
 
-We then needed to select the team and channel that we wanted to trigger the workflow:
+We then need to select the team and channel that we wanted to trigger the workflow:
 
 ![screenshot of selecting the team and channel](screenshot-power-automate-team-and-channel.webp)
 
@@ -62,7 +64,7 @@ With the trigger in place, we need to create the action. We're going to use the 
 
 ![screenshot of selecting the output from previous steps](screenshot-power-automate-select-output-previous-steps.webp)
 
-Now it's action stations! We want to use the "Get user profile (V2)" operation so we can look up our user.
+The message mention gives us our user, we'll then use the "Get user profile (V2)" operation so we can look up that user up.
 
 It's at this point, that we start to do something slightly more complicated in the Power Automate UI. We're going to need to supply an id to the "Get user profile (V2)" operation. We're going to use an expression to determine this id. The expression we're going to use is:
 
@@ -122,7 +124,9 @@ triggerOutputs()?['body/attachments'][0]['content']
 
 ![screenshot of entering expression](screenshot-power-automate-expression2.webp)
 
-This leaves us with a workflow that looks like this:
+Hopefully, what you've realised is that we're just taking the Adaptive Card from the message that triggered the workflow and passing it on to the recipient. We're intentionally doing as little as possible in the Power Automate workflow, as it's the trickiest part to work with. (Debugging Power Automate workflows is possible, but it's not the most fun you'll ever have.)
+
+We now have our complete workflow, and it looks like this:
 
 ![screenshot of the Power Automate workflow](screenshot-power-automate-workflow.webp)
 
@@ -182,6 +186,20 @@ Ultimately, it's just a [POST request to the webhook connector](../2023-03-09-no
 The part that's relevant to us is the `msteams` property. This is where we specify the user we want to mention. We do this by specifying the `id` and `name` properties. The `id` property is the email address of the user we want to mention. The `name` property is the display name of the user we want to mention.
 
 This is the secret sauce that allows our Power Automate flow to work. It reads these values and uses them to send a message to the user we want to mention. Alongside that, the `msteams.entities[].text` property must be in your message body. That's what Teams uses to link the mention to the part of the message that's "doing the mentioning" (thanks Chris for pointing this out).
+
+## Testing it out
+
+So far, so screenshots and code. Does it work? Let's find out.
+
+When we run our tool for triggering the Teams Notification API, we get a message in our channel:
+
+![screenshot of the adaptive card in the shared teams channel](screenshot-adaptive-card-in-channel.png)
+
+Note that it has the @mention of the user: me. Now that this message in the relevant channel exists, our Power Automate workflow will be triggered. I've seen it take between 2 and 10 minutes for the trigger to fire. When it does, the flow runs and we get a direct message from the Flow bot:
+
+![screenshot of the adaptive card in a teams direct chat](screenshot-teams-direct-message.png)
+
+And this is our handrolled direct message to a user in Microsoft Teams. Brilliant. The eagle eyed amongst you will note the ugly `<at id="0">John Reilly</at>`. This could be remedied if we made our Power Automate flow a little more complex, but as mentioned, we're trying to keep our flow as simple as possible.
 
 ## Conclusion
 
