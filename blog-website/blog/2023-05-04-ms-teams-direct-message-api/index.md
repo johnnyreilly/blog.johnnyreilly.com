@@ -54,7 +54,7 @@ This allows us to access the Power Automate app. There we can create a new workf
 
 ![screenshot of creating the Power Automate flow with the when a new channel message is added trigger](screenshot-power-automate-when-a-new-channel-message-is-added.webp)
 
-We then need to select the team and channel that we wanted to trigger the workflow:
+We then need to select the team and channel that we want to trigger the workflow:
 
 ![screenshot of selecting the team and channel](screenshot-power-automate-team-and-channel.webp)
 
@@ -124,7 +124,7 @@ triggerOutputs()?['body/attachments'][0]['content']
 
 ![screenshot of entering expression](screenshot-power-automate-expression2.webp)
 
-Hopefully, what you've realised is that we're just taking the Adaptive Card from the message that triggered the workflow and passing it on to the recipient. We're intentionally doing as little as possible in the Power Automate workflow, as it's the trickiest part to work with. (Debugging Power Automate workflows is possible, but it's not the most fun you'll ever have.)
+Hopefully, what you've realised is that we're just taking the Adaptive Card from the message that triggered the workflow and passing it on to the recipient. We're intentionally doing as little as possible in the Power Automate workflow, as it's the trickiest part of our solution to work with. (Debugging Power Automate workflows is possible, but it's not the most fun you'll ever have.)
 
 We now have our complete workflow, and it looks like this:
 
@@ -132,7 +132,7 @@ We now have our complete workflow, and it looks like this:
 
 ## Triggering the Power Automate workflow
 
-Whilst we have a workflow, we don't have anything to trigger it yet. We need to send a message to the channel we created earlier. We can do this using the Teams Notification API. And it needs to be a special kind of message; it needs to be an Adaptive Card, which includes a mention of the person we want to direct message.
+Whilst we have a workflow, we don't have anything to trigger it yet. To do that, we'll need to send a message to the channel we created earlier. We can do this using the Teams Notification API. And it needs to be a special kind of message; it needs to be an Adaptive Card, which includes a mention of the person we want to direct message.
 
 My post on [sending Teams notifications using a webhook](../2019-12-18-teams-notification-webhooks/index.md) describes how to send a message to a channel using the Teams Notification API. We're going to use the same technique, but we're going to send an [Adaptive Card](https://github.com/Microsoft/AdaptiveCards/) instead of a plain message. I won't repeat the details of creating a webhook connector here, instead let's just focus on what we need to send to the API.
 
@@ -199,7 +199,7 @@ Note that it has the @mention of the user: me. Now that this message in the rele
 
 ![screenshot of the adaptive card in a teams direct chat](screenshot-teams-direct-message.webp)
 
-And this is our handrolled direct message to a user in Microsoft Teams. Brilliant. The eagle eyed amongst you will note the ugly `<at id="0">John Reilly</at>`. This could be remedied if we made our Power Automate flow a little more complex, but as mentioned, we're trying to keep our flow as simple as possible.
+And this is our handrolled direct message to a user in Microsoft Teams. It's the same message we sent to the channel, just forwarded on by the Flow bot. Brilliant. The eagle eyed amongst you will note the ugly `<at id="0">John Reilly</at>`; we're losing something in our forwarding. This could be remedied if we made our Power Automate flow a little more complex, but as mentioned, we're trying to keep our flow as simple as possible. The `<at id="0">` is a small price to pay for the simplicity of our flow.
 
 ## Conclusion
 
