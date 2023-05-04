@@ -193,11 +193,11 @@ So far, so screenshots and code. Does it work? Let's find out.
 
 When we run our tool for triggering the Teams Notification API, we get a message in our channel:
 
-![screenshot of the adaptive card in the shared teams channel](screenshot-adaptive-card-in-channel.png)
+![screenshot of the adaptive card in the shared teams channel](screenshot-adaptive-card-in-channel.webp)
 
 Note that it has the @mention of the user: me. Now that this message in the relevant channel exists, our Power Automate workflow will be triggered. I've seen it take between 2 and 10 minutes for the trigger to fire. When it does, the flow runs and we get a direct message from the Flow bot:
 
-![screenshot of the adaptive card in a teams direct chat](screenshot-teams-direct-message.png)
+![screenshot of the adaptive card in a teams direct chat](screenshot-teams-direct-message.webp)
 
 And this is our handrolled direct message to a user in Microsoft Teams. Brilliant. The eagle eyed amongst you will note the ugly `<at id="0">John Reilly</at>`. This could be remedied if we made our Power Automate flow a little more complex, but as mentioned, we're trying to keep our flow as simple as possible.
 
