@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[33094],{39784:e=>{e.exports=JSON.parse('{"label":"Power Automate","permalink":"/tags/power-automate","allTagsPath":"/tags","count":1}')}}]);
