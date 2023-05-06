@@ -1,6 +1,7 @@
 import type { AzureFunction, Context, HttpRequest } from '@azure/functions';
-const redirect = require('./redirect');
-const saveToDatabase = require('./saveToDatabase');
+
+import { redirect } from './redirect';
+import { saveToDatabase } from './saveToDatabase';
 
 const httpTrigger: AzureFunction = async function (
   context: Context,

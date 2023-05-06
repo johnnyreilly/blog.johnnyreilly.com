@@ -1,7 +1,7 @@
+import type { Logger } from '@azure/functions';
 import { describe, expect, test } from '@jest/globals';
 
 import { redirect } from './redirect';
-import { Logger } from '@azure/functions';
 
 describe('redirect', () => {
   test('blog.johnnyreilly.com should be redirected to johnnyreilly.com', () => {

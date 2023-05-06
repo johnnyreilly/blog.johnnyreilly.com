@@ -1,6 +1,7 @@
+import type { Redirect } from './types';
+import type { Logger } from '@azure/functions';
+
 import { CosmosClient } from '@azure/cosmos';
-import { Redirect } from './types';
-import { Logger } from '@azure/functions';
 
 const key = process.env.COSMOS_KEY || '<cosmos key>';
 const endpoint = process.env.COSMOS_ENDPOINT || '<cosmos endpoint>';
@@ -26,7 +27,7 @@ where redirects.numRedirects > 1
  * @param redirect
  * @param log
  */
-async function saveToDatabase(
+export async function saveToDatabase(
   originalUrl: string,
   redirect: Redirect,
   log: Logger
@@ -53,5 +54,3 @@ async function saveToDatabase(
     log.error('Problem saving redirect to database', error);
   }
 }
-
-module.exports = saveToDatabase;
