@@ -1,4 +1,4 @@
-const redirectsBacklinks = [
+export const redirectsBacklinks = [
   {
     route: '/2019/10/definitely-typed-movie.html',
     redirect: '/definitely-typed-the-movie',
@@ -281,5 +281,3 @@ const redirectsBacklinks = [
     redirect: '/tags/typescript',
   },
 ];
-
-module.exports = redirectsBacklinks;

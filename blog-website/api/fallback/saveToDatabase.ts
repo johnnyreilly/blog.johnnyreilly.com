@@ -1,9 +1,6 @@
-/**
- * @typedef { import("@azure/functions").Logger } Logger
- * @typedef { import('./types').Redirect } Redirect
- */
-
-const { CosmosClient } = require('@azure/cosmos');
+import { CosmosClient } from '@azure/cosmos';
+import { Redirect } from './types';
+import { Logger } from '@azure/functions';
 
 const key = process.env.COSMOS_KEY || '<cosmos key>';
 const endpoint = process.env.COSMOS_ENDPOINT || '<cosmos endpoint>';
@@ -25,12 +22,15 @@ where redirects.numRedirects > 1
 
 /**
  * Save redirect to database
- * @param {string} originalUrl eg https://johnnyreilly.com/2019/06/typescript-webpack-you-down-with-pnp.html
- * @param {Redirect} redirect
- * @param {Logger} log
- * @returns {Promise<void>}
+ * @param originalUrl eg https://johnnyreilly.com/2019/06/typescript-webpack-you-down-with-pnp.html
+ * @param redirect
+ * @param log
  */
-async function saveToDatabase(originalUrl, redirect, log) {
+async function saveToDatabase(
+  originalUrl: string,
+  redirect: Redirect,
+  log: Logger
+): Promise<void> {
   try {
     log(`Saving redirect to database: ${originalUrl} -> ${redirect.location}`);
 

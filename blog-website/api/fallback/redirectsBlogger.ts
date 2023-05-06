@@ -1,4 +1,4 @@
-const redirectsBlogger = [
+export const redirectsBlogger = [
   {
     route: '/2012/01/standing-on-shoulders-of-giants.html',
     redirect: '/standing-on-shoulders-of-giants',
@@ -1012,5 +1012,3 @@ const redirectsBlogger = [
     redirect: '/preload-fonts-with-docusaurus',
   },
 ];
-
-module.exports = redirectsBlogger;

@@ -1,12 +1,11 @@
+import type { AzureFunction, Context, HttpRequest } from '@azure/functions';
 const redirect = require('./redirect');
 const saveToDatabase = require('./saveToDatabase');
 
-/**
- *
- * @param { import("@azure/functions").Context } context
- * @param { import("@azure/functions").HttpRequest } req
- */
-async function fallback(context, req) {
+const httpTrigger: AzureFunction = async function (
+  context: Context,
+  req: HttpRequest
+): Promise<void> {
   try {
     const originalUrl = req.headers['x-ms-original-url'];
 
@@ -27,6 +26,6 @@ async function fallback(context, req) {
       req.headers['x-ms-original-url']
     );
   }
-}
+};
 
-module.exports = fallback;
+export default httpTrigger;

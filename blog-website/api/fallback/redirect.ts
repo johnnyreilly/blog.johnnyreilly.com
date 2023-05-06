@@ -1,22 +1,19 @@
-/**
- * @typedef { import("@azure/functions").Logger } Logger
- * @typedef { import('./types').Redirect } Redirect
- */
+import type { Logger } from '@azure/functions';
 
-const { parseURL } = require('ufo');
-const imagePaths = require('./imagePaths');
-const routes = require('./redirects');
+import { parseURL } from 'ufo';
+import { imagePaths } from './imagePaths';
+import { redirects } from './redirects';
 
 const yearMonthRegex = /\/\d\d\d\d\/(\d\d\/)?/;
 const baseUrl = 'https://johnnyreilly.com';
 
 /**
  * Logic to handle redirects
- * @param {string} originalUrl eg https://johnnyreilly.com/2019/06/typescript-webpack-you-down-with-pnp.html
- * @param {Logger} log
- * @returns {Redirect}
+ * @param originalUrl eg https://johnnyreilly.com/2019/06/typescript-webpack-you-down-with-pnp.html
+ * @param log
+ * @returns
  */
-function redirect(/** @type string */ originalUrl, /** @type {Logger} */ log) {
+export function redirect(originalUrl: string, log: Logger) {
   if (originalUrl) {
     // This URL has been proxied as there was no static file matching it.
     log(`x-ms-original-url: ${originalUrl}`);
@@ -24,7 +21,7 @@ function redirect(/** @type string */ originalUrl, /** @type {Logger} */ log) {
     const parsedURL = parseURL(originalUrl);
     // parsedURL.pathname example: /2019/06/typescript-webpack-you-down-with-pnp.html
 
-    const matchedRoute = routes.find((route) =>
+    const matchedRoute = redirects.find((route) =>
       parsedURL.pathname.includes(route.route)
     );
 
@@ -103,17 +100,18 @@ function redirect(/** @type string */ originalUrl, /** @type {Logger} */ log) {
 }
 
 /**
- * @typedef {Object} Redirect301Params
- * @property {string} redirectUrl
- * @property {Logger} log
- * @property {string} originalUrl
- */
-
-/**
  * Redirects to a new URL with a 301 status code
  * @param {Redirect301Params} redirect301Params
  */
-function redirect301({ redirectUrl, log, originalUrl }) {
+function redirect301({
+  redirectUrl,
+  log,
+  originalUrl,
+}: {
+  redirectUrl: string;
+  log: Logger;
+  originalUrl: string;
+}) {
   const redirectUrlWithBase = `${baseUrl}${redirectUrl}`;
   log(`Redirecting ${originalUrl} to ${redirectUrlWithBase}`);
 
@@ -122,5 +120,3 @@ function redirect301({ redirectUrl, log, originalUrl }) {
     location: redirectUrlWithBase,
   };
 }
-
-module.exports = redirect;
