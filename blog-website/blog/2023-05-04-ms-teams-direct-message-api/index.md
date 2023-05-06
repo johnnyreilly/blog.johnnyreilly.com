@@ -205,7 +205,7 @@ And this is our handrolled direct message to a user in Microsoft Teams. It's the
 
 As you look at your Power Automate Flow runs, you can sometimes spot failures along these lines:
 
-![screenshot of a failed run of the power automate flow](screenshot-power-automate-flow-failure.png)
+![screenshot of a failed run of the power automate flow](screenshot-power-automate-flow-failure.webp)
 
 If you look to the right on that screenshot you can see the error message:
 
@@ -222,7 +222,7 @@ Request to the Bot framework failed with error:
 
 These kinds of failures appear to be a consequence of someone having blocked the Power Automate Flow bot. If you dig into the inputs ("Click to download" in the screenshot) you can discover the user who blocked the bot and have a conversation with them about it. Unblocking seems to be fairly straightforward; you just need to right-click / ctrl-click on the Power Automate app in Teams and select "Unblock":
 
-![screenshot of unblocking the bot](screenshot-unblock-the-bot.png)
+![screenshot of unblocking the bot](screenshot-unblock-the-bot.webp)
 
 In our experience, this is a rare occurrence, but it's worth being aware of.
 
