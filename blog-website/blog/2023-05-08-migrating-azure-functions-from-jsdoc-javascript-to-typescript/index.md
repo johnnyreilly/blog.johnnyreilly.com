@@ -213,3 +213,27 @@ As we can see, the type importing becomes much more succinct. We're also exporti
 I won't walk through migrating the other files, but the process is the same. Rename the file to `.ts`, add TypeScript types, and use `import` rather than `require`.
 
 ## Migrating our tests
+
+We're pretty much on the home stretch now; we just need to migrate our tests. Let's start with the `jest.config.js`:
+
+```diff title="jest.config.js"
++  preset: 'ts-jest',
++  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/dist/'],
+```
+
+We're adding a `preset` of `ts-jest` which will allow us to run TypeScript tests. If you recall we added the `ts-jest` dependency earlier; it was for this.
+
+We're also adding `dist` to our `testPathIgnorePatterns` - this is because we don't want to run our tests against our compiled JavaScript - we'd end up running the tests twice without this.
+
+Let's turn our attention to the tests directly. Again we do the classic rename from `.js` to `.ts`, and our imports become terser and more ES Module-y:
+
+```diff title="index.test.ts"
+-/**
+- * @typedef { import("@azure/functions").Logger } Logger
+- */
++import type { Logger } from '@azure/functions';
+-const { describe, expect, test } = require('@jest/globals');
++import { describe, expect, test } from '@jest/globals';
+-const redirect = require('./redirect');
++import { redirect } from './redirect';
+```
