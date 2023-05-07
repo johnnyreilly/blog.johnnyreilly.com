@@ -35,12 +35,13 @@ Our `tsconfig.json` manages the way the TypeScript compiler interacts with our c
   "compilerOptions": {
 -    "noEmit": true,
 +    "noEmit": false,
++    "outDir": "dist",
++    "rootDir": ".",
++    "sourceMap": true,
+
 +    "allowJs": false,
 +    "checkJs": false,
 
-+    "rootDir": ".",
-+    "outDir": "dist",
-+    "sourceMap": true,
 +    "moduleResolution": "node",
   }
 }
@@ -49,10 +50,10 @@ Our `tsconfig.json` manages the way the TypeScript compiler interacts with our c
 Let's look at the changes we've made:
 
 - We're now emitting files from our compilation thanks to `noEmit` being set to `false`. We will no longer be actually running the code we write, but we will run the JavaScript we emit.
-- We're no longer allowing JavaScript files to be part of our program thanks to `allowJs` being set to `false`. (And we're not checking them either thanks to `checkJs` being set to `false` - I suspect this implicit due to `allowJs` being `false`.)
-- We're specifying a `rootDir` of `.` - this is the root of our TypeScript source files.
 - We're specifying an `outDir` of `dist` - this is where our compiled JavaScript will be emitted.
+- We're specifying a `rootDir` of `.` - this is the root of our TypeScript source files.
 - We're creating source maps for our emitted JavaScript files - this will help us debug our original source code.
+- We're no longer allowing JavaScript files to be part of our program thanks to `allowJs` being set to `false`. (And we're not checking them either thanks to `checkJs` being set to `false` - I suspect this is implicitly set to `false` to `allowJs` being `false` - just to be clear I've specified it.)
 - We're specifying a `moduleResolution` of `node` - this is how TypeScript will look up a file from a given module specifier.
 
 ## Migrating the `package.json`
@@ -227,7 +228,7 @@ We're also adding `dist` to our `testPathIgnorePatterns` - this is because we do
 
 Let's turn our attention to the tests directly. Again we do the classic rename from `.js` to `.ts`, and our imports become terser and more ES Module-y:
 
-```diff title="index.test.ts"
+```diff title="redirect.test.ts"
 -/**
 - * @typedef { import("@azure/functions").Logger } Logger
 - */
@@ -237,3 +238,23 @@ Let's turn our attention to the tests directly. Again we do the classic rename f
 -const redirect = require('./redirect');
 +import { redirect } from './redirect';
 ```
+
+Beautiful. Finally we've got some tweaks to the code of the tests themselves. Firstly, declaring our mock becomes much easier:
+
+```diff title="redirect.test.ts"
+-/** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
++const mockLogger: jest.Mock<Logger> = jest.fn();
+```
+
+Secondly, casting our mock to the type we want is much more straightforward:
+
+```diff title="redirect.test.ts"
+-/** @type {any} */ (mockLogger)
++mockLogger as unknown as Logger
+```
+
+I have no real how to `as` cast twice in JSDoc - and now I don't need to.
+
+## Conclusion
+
+We now have a TypeScript Azure Functions codebase!
