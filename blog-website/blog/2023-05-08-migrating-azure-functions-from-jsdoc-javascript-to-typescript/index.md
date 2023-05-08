@@ -52,7 +52,7 @@ Let's look at the changes we've made:
 - We're now emitting files from our compilation thanks to `noEmit` being set to `false`. We will no longer be actually running the code we write, but we will run the JavaScript we emit.
 - We're specifying an `outDir` of `dist` - this is where our compiled JavaScript will be emitted.
 - We're specifying a `rootDir` of `.` - this is the root of our TypeScript source files.
-- We're creating source maps for our emitted JavaScript files - this will help us debug our original source code.
+- We're creating source maps for our emitted JavaScript files - this will help us debug our original source code. (Even though we're not running it.)
 - We're no longer allowing JavaScript files to be part of our program thanks to `allowJs` being set to `false`. (And we're not checking them either thanks to `checkJs` being set to `false` - I suspect this is implicitly set to `false` to `allowJs` being `false` - just to be clear I've specified it.)
 - We're specifying a `moduleResolution` of `node` - this is how TypeScript will look up a file from a given module specifier.
 
@@ -209,7 +209,7 @@ const httpTrigger: AzureFunction = async function (
 export default httpTrigger;
 ```
 
-As we can see, the type importing becomes much more succinct. We're also exporting the function as `default` rather than `module.exports`. This is because we're using ES Modules rather than CommonJS modules. We can also see that we're using `import` rather than `require` to import our functions. Whilst CommonJS was more straightforward to use, the syntax for ES Modules feels much nicer to use; at least to me.
+As we can see, the type importing becomes much more succinct. We're also exporting the function as `default` rather than `module.exports`. This is because we're using ES Modules rather than CommonJS modules for authoring. We can also see that we're using `import` rather than `require` to import our functions. Whilst CommonJS was more straightforward to use, the syntax for ES Modules feels much nicer to use; at least to me. (It's worth noting that we're not using ES Modules in our compiled JavaScript - we're still using CommonJS there; but we don't need to think about that when we're writing our code.)
 
 I won't walk through migrating the other files, but the process is the same. Rename the file to `.ts`, add TypeScript types, and use `import` rather than `require`.
 
@@ -257,4 +257,4 @@ I have no real how to `as` cast twice in JSDoc - and now I don't need to.
 
 ## Conclusion
 
-We now have a TypeScript Azure Functions codebase!
+We now have a TypeScript Azure Functions codebase, with all of the debugging / testing / deployment affordances we had before. We didn't have to do anything around deployment, because it just works™️. I hope this post has been useful to you!
