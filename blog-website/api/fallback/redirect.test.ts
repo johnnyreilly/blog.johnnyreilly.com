@@ -1,19 +1,16 @@
-/**
- * @typedef { import("@azure/functions").Logger } Logger
- */
+import type { Logger } from '@azure/functions';
+import { describe, expect, test } from '@jest/globals';
 
-const { describe, expect, test } = require('@jest/globals');
-
-const redirect = require('./redirect');
+import { redirect } from './redirect';
 
 describe('redirect', () => {
   test('blog.johnnyreilly.com should be redirected to johnnyreilly.com', () => {
-    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
+    const mockLogger: jest.Mock<Logger> = jest.fn();
 
     expect(
       redirect(
         'https://blog.johnnyreilly.com/2013/12/simple-fading-in-and-out-using-css-transitions.html',
-        /** @type {any} */ (mockLogger)
+        mockLogger as unknown as Logger
       )
     ).toEqual({
       status: 301,
@@ -30,12 +27,12 @@ describe('redirect', () => {
   });
 
   test('blog.johnnyreilly.com should be redirected to matches where possible', () => {
-    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
+    const mockLogger = jest.fn();
 
     expect(
       redirect(
         'https://blog.johnnyreilly.com/2021/01/30/aspnet-serilog-and-application-insights',
-        /** @type {any} */ (mockLogger)
+        mockLogger as unknown as Logger
       )
     ).toEqual({
       status: 301,
@@ -52,12 +49,12 @@ describe('redirect', () => {
   });
 
   test('redirects should be matched', () => {
-    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
+    const mockLogger: jest.Mock<Logger> = jest.fn();
 
     expect(
       redirect(
         'https://johnnyreilly.com/2013/12/simple-fading-in-and-out-using-css-transitions.html',
-        /** @type {any} */ (mockLogger)
+        mockLogger as unknown as Logger
       )
     ).toEqual({
       status: 301,
@@ -74,12 +71,12 @@ describe('redirect', () => {
   });
 
   test('blogger RSS redirects should be handled', () => {
-    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
+    const mockLogger: jest.Mock<Logger> = jest.fn();
 
     expect(
       redirect(
         'https://johnnyreilly.com/feeds/posts/default?alt=rss',
-        /** @type {any} */ (mockLogger)
+        mockLogger as unknown as Logger
       )
     ).toEqual({
       status: 301,
@@ -95,12 +92,12 @@ describe('redirect', () => {
   });
 
   test('blogger Atom redirects should be handled', () => {
-    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
+    const mockLogger: jest.Mock<Logger> = jest.fn();
 
     expect(
       redirect(
         'https://johnnyreilly.com/feeds/posts/default',
-        /** @type {any} */ (mockLogger)
+        mockLogger as unknown as Logger
       )
     ).toEqual({
       status: 301,
@@ -116,12 +113,12 @@ describe('redirect', () => {
   });
 
   test('blogger search redirects should be handled', () => {
-    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
+    const mockLogger: jest.Mock<Logger> = jest.fn();
 
     expect(
       redirect(
         'https://johnnyreilly.com/search/label/uglifyjs',
-        /** @type {any} */ (mockLogger)
+        mockLogger as unknown as Logger
       )
     ).toEqual({
       status: 301,
@@ -137,12 +134,12 @@ describe('redirect', () => {
   });
 
   test('blogger archive year/month redirects should be handled', () => {
-    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
+    const mockLogger: jest.Mock<Logger> = jest.fn();
 
     expect(
       redirect(
         'https://johnnyreilly.com/2020/12/',
-        /** @type {any} */ (mockLogger)
+        mockLogger as unknown as Logger
       )
     ).toEqual({
       status: 301,
@@ -158,12 +155,12 @@ describe('redirect', () => {
   });
 
   test('blogger archive year redirects should be handled', () => {
-    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
+    const mockLogger: jest.Mock<Logger> = jest.fn();
 
     expect(
       redirect(
         'https://johnnyreilly.com/2020/',
-        /** @type {any} */ (mockLogger)
+        mockLogger as unknown as Logger
       )
     ).toEqual({
       status: 301,
@@ -179,12 +176,12 @@ describe('redirect', () => {
   });
 
   test('webp images that used to be png / jpg etc should be redirected where possible', () => {
-    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
+    const mockLogger: jest.Mock<Logger> = jest.fn();
 
     expect(
       redirect(
         'https://johnnyreilly.com/assets/images/robski-dynamic-auth-9ac401590462e2bece9156353b92d187.png',
-        /** @type {any} */ (mockLogger)
+        mockLogger as unknown as Logger
       )
     ).toEqual({
       status: 301,
@@ -201,9 +198,9 @@ describe('redirect', () => {
   });
 
   test('empty originalUrls should redirect to /404', () => {
-    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
+    const mockLogger: jest.Mock<Logger> = jest.fn();
 
-    expect(redirect('', /** @type {any} */ (mockLogger))).toEqual({
+    expect(redirect('', mockLogger as unknown as Logger)).toEqual({
       status: 302,
       location: 'https://johnnyreilly.com/404',
     });
@@ -214,12 +211,12 @@ describe('redirect', () => {
   });
 
   test('no explicit redirect should redirect to 404 with path in query', () => {
-    /** @type {jest.Mock<Logger>} */ const mockLogger = jest.fn();
+    const mockLogger: jest.Mock<Logger> = jest.fn();
 
     expect(
       redirect(
         'https://johnnyreilly.com/robots.txt',
-        /** @type {any} */ (mockLogger)
+        mockLogger as unknown as Logger
       )
     ).toEqual({
       status: 302,

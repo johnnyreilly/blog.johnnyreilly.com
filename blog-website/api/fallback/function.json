@@ -12,5 +12,6 @@
       "direction": "out",
       "name": "res"
     }
-  ]
+  ],
+  "scriptFile": "../dist/fallback/index.js"
 }

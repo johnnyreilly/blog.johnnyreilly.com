@@ -1,4 +1,4 @@
-const redirectsDocusaurusDateToNoDate = [
+export const redirectsDocusaurusDateToNoDate = [
   {
     route: '/2012/01/07/standing-on-shoulders-of-giants',
     redirect: '/standing-on-shoulders-of-giants',
@@ -1183,5 +1183,3 @@ const redirectsDocusaurusDateToNoDate = [
     redirect: '/docusaurus-createfeeditems-api-git-commit-date',
   },
 ];
-
-module.exports = redirectsDocusaurusDateToNoDate;

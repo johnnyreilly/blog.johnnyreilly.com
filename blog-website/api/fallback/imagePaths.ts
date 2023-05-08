@@ -1,4 +1,4 @@
-const imagePaths = [
+export const imagePaths = [
   '/assets/images/6a0120a85dcdae970b0120a86ddeee970b-21f45bc31016b9a08a9668c096b1cc00.webp',
   '/assets/images/1200.JSDoc_in_VS.png-486x314-1568cd0c8b31ea01f2611a089c50d18e.png',
   '/assets/images/2019-10-02-21_51_58-basarat-_-Twitter-2b5ab0647e04111145ac1de1f964ab41.webp',
@@ -417,5 +417,3 @@ const imagePaths = [
   '/assets/images/yarn-outdated-68e521f76ff8178b2583d6742ac7595f.webp',
   '/assets/images/zinserjan-1eff723e89aded196f611775f81af48a.jpg',
 ];
-
-module.exports = imagePaths;
