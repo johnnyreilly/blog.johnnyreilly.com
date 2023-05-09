@@ -8,7 +8,7 @@ description: 'TypeScript deprecated tsconfig.json option "importsNotUsedAsValues
 hide_table_of_contents: false
 ---
 
-I really like imports that are unambiguous. For this reason, I've made use of the `"importsNotUsedAsValues": "error"` option in `tsconfig.json` for a while now. This option has been deprecated in TypeScript 5.0.0, and will be removed in TypeScript 5.5.0. This post will look at what you can do instead.
+I really like type imports that are unambiguous. For this reason, I've made use of the `"importsNotUsedAsValues": "error"` option in `tsconfig.json` for a while now. This option has been deprecated in TypeScript 5.0.0, and will be removed in TypeScript 5.5.0. This post will look at what you can do instead.
 
 ![title image reading "TypeScript 5: `importsNotUsedAsValues` replaced by ESLint `consistent-type-imports`" with the ESLint and TypeScript logo](title-image.png)
 
@@ -44,11 +44,11 @@ And if I rebelled, the TypeScript compiler would complain:
 
 However, when I upgraded to TypeScript 5, I started seeing the following error:
 
-> `Option 'importsNotUsedAsValues' is deprecated and will stop functioning in TypeScript 5.5. Specify compilerOption '"ignoreDeprecations": "5.0"' to silence this error.` > `Use 'verbatimModuleSyntax' instead.`
+> `Option 'importsNotUsedAsValues' is deprecated and will stop functioning in TypeScript 5.5. Specify compilerOption '"ignoreDeprecations": "5.0"' to silence this error. Use 'verbatimModuleSyntax' instead.`
 
 ![screenshot of VS Code displaying the error message](screenshot-importsnotusedasvalues-deprecated.png)
 
-This was the result of [this pull request](https://github.com/microsoft/TypeScript/pull/52203). The message made me think I just needed to migrate to `verbatimModuleSyntax`, like so:
+The error was the result of [this pull request](https://github.com/microsoft/TypeScript/pull/52203). The message made me think I just needed to migrate to `verbatimModuleSyntax`, like so:
 
 ```diff title="tsconfig.json"
 -    "importsNotUsedAsValues": "error",
@@ -68,7 +68,7 @@ src/telemetry.ts:9:1 - error TS1287: A top-level 'export' modifier cannot be use
 export async function sendTelemetry({
 ```
 
-It turns out that `verbatimModuleSyntax` doesn't work with CommonJS.
+It turns out that `verbatimModuleSyntax` doesn't work with CommonJS - and my codebase is CommonJS.
 
 It further turns out that `importsNotUsedAsValues` was never intended to be used in in the way that I did; effectively as a linting mechanism. [Andrew Branch](https://github.com/andrewbranch), who is part of the TypeScript team, [said this](https://github.com/microsoft/TypeScript/pull/52203#issuecomment-1476574601):
 
