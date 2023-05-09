@@ -1,6 +1,6 @@
 ---
 slug: typescript-5-importsnotusedasvalues-error-eslint-consistent-type-imports
-title: 'TypeScript 5: `importsNotUsedAsValues` replaced by ESLint `consistent-type-imports`'
+title: 'TypeScript 5: importsNotUsedAsValues replaced by ESLint consistent-type-imports'
 authors: johnnyreilly
 tags: [typescript, eslint]
 image: ./title-image.png
@@ -44,8 +44,7 @@ And if I rebelled, the TypeScript compiler would complain:
 
 However, when I upgraded to TypeScript 5, I started seeing the following error:
 
-> `Option 'importsNotUsedAsValues' is deprecated and will stop functioning in TypeScript 5.5. Specify compilerOption '"ignoreDeprecations": "5.0"' to silence this error.`
-> `Use 'verbatimModuleSyntax' instead.`
+> `Option 'importsNotUsedAsValues' is deprecated and will stop functioning in TypeScript 5.5. Specify compilerOption '"ignoreDeprecations": "5.0"' to silence this error.` > `Use 'verbatimModuleSyntax' instead.`
 
 ![screenshot of VS Code displaying the error message](screenshot-importsnotusedasvalues-deprecated.png)
 
