@@ -68,7 +68,9 @@ src/telemetry.ts:9:1 - error TS1287: A top-level 'export' modifier cannot be use
 export async function sendTelemetry({
 ```
 
-It turns out that `verbatimModuleSyntax` doesn't work with CommonJS - and my codebase is CommonJS.
+The big thing with `verbatimModuleSyntax` is you can't write ESM syntax in CJS files.
+
+In TypeScript 5.0, a new compiler option called `verbatimModuleSyntax` was introduced to help TypeScript authors know exactly how their `import` and `export` statements will be emitted. When enabled, the flag requires imports and exports in input files to be written in the form that will undergo the least amount of transformation before emit. So if a file will be emitted as ESM, imports and exports must be written in ESM syntax; if a file will be emitted as CJS, it must be written in the CommonJS-inspired TypeScript syntax (`import fs = require("fs")` and `export = {}`). This setting is particularly recommended for Node projects that use mostly ESM, but have a select few CJS files. It is not recommended for projects that currently target CJS, but may want to target ESM in the future.
 
 It further turns out that `importsNotUsedAsValues` was never intended to be used in in the way that I did; effectively as a linting mechanism. [Andrew Branch](https://github.com/andrewbranch), who is part of the TypeScript team, [said this](https://github.com/microsoft/TypeScript/pull/52203#issuecomment-1476574601):
 
@@ -114,3 +116,31 @@ With this in place, we're back to where we were before; just with a different en
 ![screenshot of VS Code displaying the error message](screenshot-consistent-type-imports-error.png)
 
 And we even have the ability to auto-fix the errors as well now. Thanks `typescript-eslint`!
+
+## `no-import-type-side-effects`
+
+We are not quite done. There's another typescript-eslint rule that we can use to help us. [`no-import-type-side-effects`](https://typescript-eslint.io/rules/no-import-type-side-effects/) is a rule that will warn you if you have any side effects in your type imports. What does that mean? Well, consider the following code:
+
+```ts
+import { type A, type B } from 'mod';
+
+// is transpiled to
+import {} from 'mod';
+
+// which is the same as
+import 'mod';
+```
+
+You may not want a runtime import at all. You can do that by using a **top-level** `type` qualifier for imports when it only imports specifiers with an inline `type` qualifier:
+
+```ts
+import type { A, B } from 'mod';
+
+// is transpiled to.... nothing! Hence no side effects
+```
+
+So if side effects is something you're concerned about, consider this rule as well.
+
+## Summary
+
+Thanks to Andrew Branch for reviewing this post, and massively improving it! Any mistakes are mine, not his.
