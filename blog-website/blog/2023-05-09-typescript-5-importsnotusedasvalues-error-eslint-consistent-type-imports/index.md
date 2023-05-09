@@ -139,7 +139,7 @@ import type { A, B } from 'mod';
 // is transpiled to.... nothing! Hence no side effects
 ```
 
-So if side effects is something you're concerned about, consider this rule as well.
+So if side effects is something you're concerned about, consider this rule as well. Note that whether `import { type A } from 'mod'` transpiles to a side-effect import or gets completely removed depends on your `tsc` options, or what transpiler you’re using. But `import type` statements _always_ get removed.
 
 ## Summary
 
