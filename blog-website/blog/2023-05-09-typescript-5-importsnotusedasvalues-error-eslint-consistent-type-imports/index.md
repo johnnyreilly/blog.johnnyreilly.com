@@ -68,7 +68,7 @@ src/telemetry.ts:9:1 - error TS1287: A top-level 'export' modifier cannot be use
 export async function sendTelemetry({
 ```
 
-It turns out that in verbatimModuleSyntax, you can't write ESM syntax in files that will emit as CommonJS - which is exactly what my codebase is doing. [Andrew Branch](https://github.com/andrewbranch), who is part of the TypeScript team, sent me an explanation from a draft of some new TypeScript docs:
+It turns out that in `verbatimModuleSyntax`, you can't write ESM syntax in files that will emit as CommonJS - which is exactly what my codebase is doing. [Andrew Branch](https://github.com/andrewbranch), who is part of the TypeScript team, sent me an explanation from a draft of some new TypeScript docs:
 
 > In TypeScript 5.0, a new compiler option called `verbatimModuleSyntax` was introduced to help TypeScript authors know exactly how their `import` and `export` statements will be emitted. When enabled, the flag requires imports and exports in input files to be written in the form that will undergo the least amount of transformation before emit. So if a file will be emitted as ESM, imports and exports must be written in ESM syntax; if a file will be emitted as CJS, it must be written in the CommonJS-inspired TypeScript syntax (`import fs = require("fs")` and `export = {}`). This setting is particularly recommended for Node projects that use mostly ESM, but have a select few CJS files. It is not recommended for projects that currently target CJS, but may want to target ESM in the future.
 
