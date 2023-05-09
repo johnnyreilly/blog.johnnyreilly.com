@@ -2,7 +2,7 @@
 slug: typescript-and-eslint-meet-fork-ts-checker-webpack-plugin
 title: 'Using TypeScript and ESLint with webpack (fork-ts-checker-webpack-plugin new feature!)'
 authors: johnnyreilly
-tags: [ESLint, typescript, fork-ts-checker-webpack-plugin, Webpack]
+tags: [eslint, typescript, fork-ts-checker-webpack-plugin, webpack]
 hide_table_of_contents: false
 ---
 
