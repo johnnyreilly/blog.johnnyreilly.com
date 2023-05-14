@@ -37,11 +37,13 @@ The above is legitimate JSX, but it is not legitimate TypeScript. The TypeScript
 
 [You can see this in the TypeScript Playground](https://www.typescriptlang.org/play?#code/JYWwDg9gTgLgBAJQKYEMDG8BmUIjgIilQ3wG4AoczAVwDsNgJa4BhXSWpWmAFQAsUMZDGpRaAZwCCAOWogARkigAKAJRwA3uThwiIsXAAsAJgoBfSgB424Jl14ChSfRJlzFUOAHoAfOSA)
 
-This errors because function components that return anything but `JSX.Element | null` are not allowed as element types in React according to TypeScript. (Incidentally, this return value would be perfectly fine in class components - the restrictions are different there.) To quote Sebastian:
+This errors because function components that return anything but `JSX.Element | null` are not allowed as element types in React according to TypeScript. However, in React, function components **can** return a `ReactNode`. That type includes `number | string | Iterable<ReactNode> | undefined` ([and will likely include `Promise<ReactNode>` in the future](https://github.com/reactjs/rfcs/pull/229)).
 
-> However, in React, components can return a `ReactNode`. That type includes `number | string | Iterable<ReactNode> | undefined` ([and will likely include `Promise<ReactNode>` in the future](https://github.com/reactjs/rfcs/pull/229)).
+As an aside, a return value of `number` would be perfectly fine in class components - the restrictions are different there. I spoke to Sebastian about this and he said:
 
-So this is the problem: what it actually possible in React (or other JSX libraries) is not possible to represent in TypeScript today. Furthermore, what's returned from JSX may change over time, and TypeScript needs to be able to represent that.
+> An interesting note is that before function components we did have full control. Due to `ElementClass`, class components already could return `ReactNode` at the type level. It was just function components that were missing full control (or any other component types Suspense or Profiler).
+
+So this is the problem: is not possible to represent in TypeScript today what is actually possible in React (or other JSX libraries). Furthermore, what's returned from JSX may change over time, and TypeScript needs to be able to represent that.
 
 ## The arrival of `JSX.ElementType`
 
@@ -82,6 +84,12 @@ Remember how we mentioned earlier on that function components couldn't return nu
 
 With this change, React components that return numbers are now valid JSX elements. This is because `JSX.ElementType` is now `ReactNode`, which includes numbers. Essentially this represents that new things are possible as a consequence of this change. The library and type definition author now has more control over what is possible in JSX.
 
+To quote Sebastian again:
+
+> Now we have control over any potential component type.
+
 ## Summary
 
-The TL;DR of this post is "TypeScript will better allow for the modelling of JSX in TypeScript 5.1". I'm indebted to [Sebastian Silbermann](https://github.com/eps1lon) and [Daniel Rosenwasser](https://github.com/DanielRosenwasser) for their explanations of this feature. I hope this post helps you understand the feature a little better.
+The TL;DR of this post is "TypeScript will better allow for the modelling of JSX in TypeScript 5.1". I'm indebted to [Sebastian Silbermann](https://github.com/eps1lon) and [Daniel Rosenwasser](https://github.com/DanielRosenwasser) for their explanations of this feature. Thanks in particular to Sebastian for implementing this feature and for reviewing this post.
+
+I hope this post helps you understand the feature a little better.
