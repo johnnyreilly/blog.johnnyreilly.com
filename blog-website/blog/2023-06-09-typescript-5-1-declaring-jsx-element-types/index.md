@@ -64,17 +64,17 @@ The TypeScript pull request was merged, and so Sebastian (who helps maintain the
 The changes are subtle; You can see in this pull request that `ReactElement | null` is generally replaced with `ReactNode`:
 
 ```diff
-    type JSXElementConstructor<P> =
+     type JSXElementConstructor<P> =
 -        | ((props: P) => ReactElement<any, any> | null)
 +        | ((props: P) => ReactNode)
-        | (new (props: P) => Component<any, any>);
+         | (new (props: P) => Component<any, any>);
 ```
 
 Remember how we mentioned earlier on that function components couldn't return numbers? Let's look at the updated tests in the PR:
 
 ```diff
     const ReturnNumber = () => 0xeac1;
-+    const FCNumber: React.FC = ReturnNumber;
++   const FCNumber: React.FC = ReturnNumber;
     class RenderNumber extends React.Component {
         render() {
           return 0xeac1;
