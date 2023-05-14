@@ -52,17 +52,17 @@ So this is the problem: what it actually possible in React (or other JSX librari
 
 Sebastian Silbermann [opened a pull request to TypeScript](https://github.com/microsoft/TypeScript/pull/51328). It had the title "RFC: Consult new JSX.ElementType for valid JSX element types". In that PR Sebastian explained the issue we've just looked at above, and proposed a solution. The solution was to introduce a new type, `JSX.ElementType`. This type would be used to represent the type of a JSX element. This would allow library authors to control what types are used for JSX elements.
 
-To illustrate the what `JSX.ElementType` actually is, consider Sebastian's illustration:
+To illustrate the what `JSX.ElementType` actually is, consider this illustration:
 
-```tsx
-<Component />
-// ^^^^^^^^^ JSX element type
-//^^^^^^^^^^^^^ JSX element
+```
+// <Component />
+//  ^^^^^^^^^    JSX element type
+// ^^^^^^^^^^^^^ JSX element
 ```
 
-The significance of `JSX.ElementType` is that it hands control to type definition and library authors to implement.
+The significance of `JSX.ElementType` is that it allows handing control to type definition and library authors to implement. This control was not available before.
 
-The PR was merged, and so Sebastian (who helps maintain the React type definitions) did exactly this in [this pull request to the DefinitelyTyped repository for the React type definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135). At the time of writing, this pull request is still open, but once merged and shipped the React community will feel the benefits.
+The TypeScript pull request was merged, and so Sebastian (who helps maintain the React type definitions) exercised the new powers in [this pull request to the DefinitelyTyped repository for the React type definitions](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/65135). At the time of writing, this pull request is still open, but once merged and shipped the React community will feel the benefits.
 
 The changes are subtle; You can see in this pull request that `ReactElement | null` is generally replaced with `ReactNode`:
 
@@ -85,7 +85,7 @@ Remember how we mentioned earlier on that function components couldn't return nu
     }
 ```
 
-With this change, React components that return numbers are now valid JSX elements. This is because `JSX.ElementType` is now `ReactNode`, which includes numbers.
+With this change, React components that return numbers are now valid JSX elements. This is because `JSX.ElementType` is now `ReactNode`, which includes numbers. Essentially this represents that new things are possible as a consequence of this change.
 
 ## Summary
 
