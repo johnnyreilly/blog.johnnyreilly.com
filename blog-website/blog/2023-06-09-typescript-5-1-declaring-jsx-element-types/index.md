@@ -33,10 +33,7 @@ function ComponentThatReturnsANumber() {
 
 The above is legitimate JSX, but it is not legitimate TypeScript. The TypeScript compiler will complain:
 
-> 'ComponentThatReturnsANumber' cannot be used as a JSX component.
-> Its return type 'number' is not a valid JSX element.(2786)
->
-> function ComponentThatReturnsANumber(): number
+![screenshot of typescript playground saying 'ComponentThatReturnsANumber' cannot be used as a JSX component. Its return type 'number' is not a valid JSX element.(2786)](screenshot-typescript-playground.png)
 
 [You can see this in the TypeScript Playground](https://www.typescriptlang.org/play?#code/JYWwDg9gTgLgBAJQKYEMDG8BmUIjgIilQ3wG4AoczAVwDsNgJa4BhXSWpWmAFQAsUMZDGpRaAZwCCAOWogARkigAKAJRwA3uThwiIsXAAsAJgoBfSgB424Jl14ChSfRJlzFUOAHoAfOSA)
 
