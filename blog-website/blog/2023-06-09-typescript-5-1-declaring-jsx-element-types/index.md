@@ -1,8 +1,9 @@
 ---
 slug: typescript-5-1-declaring-jsx-element-types
-title: 'TypeScript 5.1: Declaring JSX element types'
+title: 'TypeScript 5.1: declaring JSX element types'
 authors: johnnyreilly
 tags: [typescript, JSX, React]
+image: ./title-image.png
 description: 'With TypeScript 5.1, it becomes possible for libraries to control what types are used for JSX elements. This post looks at why this matters.'
 hide_table_of_contents: false
 ---
@@ -12,6 +13,8 @@ A new feature arrives with TypeScript 5.1, [it is described as "Decoupled Type-C
 It's all about handing control of JSX type definitions to libraries. With this feature, libraries can control what types are used for JSX elements. Why does this matter? Great question! Until version 5.1, TypeScript did an imperfect job of representing what is possible with JSX. This feature allows libraries to do a better job of that, and we'll look into it in this post.
 
 It's probably worth saying, that this is a complicated feature. If you don't understand it (and as the author of this post I'll confess that I had to work quite hard to understand it), **that is okay**. This is a low level feature that is only likely to be used by library / type definition authors. It's a primitive that will unlock possibilites for people writing JSX - but it's something that people will mainly feel the benefit of, without directly doing anything themselves, or necessarily noticing that things have changed for the better.
+
+![title image reading "TypeScript 5.1: declaring JSX element types" with the TypeScript logo](title-image.png)
 
 <!--truncate-->
 
