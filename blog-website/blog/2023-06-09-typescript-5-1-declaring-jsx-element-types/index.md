@@ -91,6 +91,22 @@ To quote Sebastian again:
 
 > Now we have control over any potential component type.
 
+Let's look again at our component that produces a number again:
+
+```tsx
+
+function ComponentThatReturnsANumber() {
+
+  return 42;
+
+}
+
+<ComponentThatReturnsANumber />;
+
+```
+
+With Sebastian's changes, this becomes valid TypeScript. And as React, and other JSX libraries evolve, TypeScript compatibility can also.
+
 ## Summary
 
 The TL;DR of this post is "TypeScript will better allow for the modelling of JSX in TypeScript 5.1". I'm indebted to [Sebastian Silbermann](https://github.com/eps1lon) and [Daniel Rosenwasser](https://github.com/DanielRosenwasser) for their explanations of this feature. Thanks in particular to Sebastian for implementing this feature and for reviewing this post.
