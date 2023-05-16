@@ -22,6 +22,18 @@ It's probably worth saying, that this is a complicated feature. If you don't und
 
 TypeScript creates a type system which sits on top of JavaScript, and provides static typing capabilities. As the language has grown more sophisticated, it has been able to get closer and closer to representing the full range of possibilities that JavaScript offers. As an example of this evolution, if you remember the early days of TypeScript, you'll remember a time before union types. Back then, you had to use `any` to represent a value that could be one of a number of types. That imperfect representation of JavaScript was solved with union types.
 
+```diff
+
+-function printStringOrNumber(stringOrNumber: any) {
+
++function printStringOrNumber(stringOrNumber: string | number) {
+
+    console.log(stringOrNumber);
+
+}
+
+```
+
 The problem we're looking at here is in the same vein. But it specifically applies to JSX; which is widely used in libraries like React. With JSX support in TypeScript (up to and including 5.0), it was not possible to accurately represent all JSX possibilities. This is because the type of a JSX element returned from a function component was always `JSX.Element | null`. This is a type that is defined in the TypeScript compiler, and is not something that can be changed by a library author.
 
 How does this play out? Well, let's take a look at a simple example. Let's say we have a function component that returns a number. We might write something like this:
