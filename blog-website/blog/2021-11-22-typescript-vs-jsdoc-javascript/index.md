@@ -13,7 +13,7 @@ There's a debate to be had about whether using JavaScript or TypeScript leads to
 
 <!--truncate-->
 
-## Updated 6th December 2021
+## Updated 29th March 2023
 
 This blog evolved to become a talk:
 
