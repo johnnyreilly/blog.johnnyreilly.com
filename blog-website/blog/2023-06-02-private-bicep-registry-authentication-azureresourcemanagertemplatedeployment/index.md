@@ -59,7 +59,7 @@ Before the `AzureResourceManagerTemplateDeployment@3` task runs, we can run a ta
 
 Where `service-connection-with-access-to-registry` is an Azure Resource Manager service connection using service principal authentication which has access to the private Bicep registry.
 
-<img width="320" alt="screenshot of service connection" src="https://github.com/microsoft/azure-pipelines-tasks/assets/1010525/6895a255-1ade-4c6c-80a8-78b7377fd1d1">
+![screenshot of service connection](service-connection.png)
 
 So if the above task runs _prior_ to the `AzureResourceManagerTemplateDeployment@3` task, then the modules will be restored and the `AzureResourceManagerTemplateDeployment@3` task will be able to compile the Bicep in to ARM and deploy it to Azure.
 
