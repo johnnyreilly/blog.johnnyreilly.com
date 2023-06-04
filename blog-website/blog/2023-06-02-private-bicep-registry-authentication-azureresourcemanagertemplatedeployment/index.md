@@ -2,13 +2,13 @@
 slug: private-bicep-registry-authentication-azureresourcemanagertemplatedeployment
 title: 'Private Bicep registry authentication with AzureResourceManagerTemplateDeployment@3'
 authors: johnnyreilly
-tags: [Bicep]
+tags: [Bicep, azure devops]
 image: ./title-image.png
 description: 'You can deploy Bicep to Azure with the dedicated Azure DevOps task; however authentication to private Bicep registries is not supported.  This post shares a workaround.'
 hide_table_of_contents: false
 ---
 
-If you deploy Bicep to Azure in Azure DevOps, you'll likely use the dedicated Azure DevOps task; the catchily named [`AzureResourceManagerTemplateDeployment@3`](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-resource-manager-template-deployment-v3?view=azure-pipelines). This task has had support for deploying Bicep since early 2022. But whilst vanilla Bicep is supported, there's a use case which isn't supported; private Bicep registries.
+If you deploy Bicep templates to Azure in Azure DevOps, you'll likely use the dedicated Azure DevOps task; the catchily named [`AzureResourceManagerTemplateDeployment@3`](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-resource-manager-template-deployment-v3?view=azure-pipelines). This task has had support for deploying Bicep since early 2022. But whilst vanilla Bicep is supported, there's a use case which isn't supported; private Bicep registries.
 
 ![title image reading "Private Bicep registry authentication with AzureResourceManagerTemplateDeployment@3" with the Bicep, Azure and Azure DevOps logos](title-image.png)
 
@@ -61,7 +61,7 @@ Where `service-connection-with-access-to-registry` is an Azure Resource Manager 
 
 ![screenshot of service connection](screenshot-service-connection.webp)
 
-So if the above task runs _prior_ to the `AzureResourceManagerTemplateDeployment@3` task, then the modules will be restored and the `AzureResourceManagerTemplateDeployment@3` task will be able to compile the Bicep in to ARM and deploy it to Azure.
+So if the above task runs _prior_ to the `AzureResourceManagerTemplateDeployment@3` task, then the modules will be restored and the `AzureResourceManagerTemplateDeployment@3` task will be able to compile the Bicep in to ARM and deploy it to Azure. This solves the problem; albeit at the cost of an extra task in the pipeline.
 
 ## In the box, in the future?
 
