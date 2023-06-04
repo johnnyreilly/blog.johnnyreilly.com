@@ -4,21 +4,19 @@ title: 'Private Bicep registry authentication with AzureResourceManagerTemplateD
 authors: johnnyreilly
 tags: [Bicep]
 image: ./title-image.png
-description: 'If you deploy Bicep to Azure with the Azure DevOps task AzureResourceManagerTemplateDeployment@3, you can't authenticate to private registries.  This post shares a workaround.'
+description: 'You can deploy Bicep to Azure with the dedicated Azure DevOps task; however authentication to private Bicep registries is not supported.  This post shares a workaround.'
 hide_table_of_contents: false
 ---
 
-write something related to https://github.com/microsoft/azure-pipelines-tasks/issues/18426
+If you deploy Bicep to Azure in Azure DevOps, you'll likely use the dedicated Azure DevOps task; the catchily named [`AzureResourceManagerTemplateDeployment@3`](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-resource-manager-template-deployment-v3?view=azure-pipelines). This task has had support for deploying Bicep since early 2022. But whilst vanilla Bicep is supported, there's a use case which isn't supported; private Bicep registries.
 
 ![title image reading "Private Bicep registry authentication with AzureResourceManagerTemplateDeployment@3" with the Bicep, Azure and Azure DevOps logos](title-image.png)
 
-### Task name
+## Private Bicep registries and authentication
 
-AzureResourceManagerTemplateDeployment@3 - supports bicep deployment - but not with private registries. Would be awesome if it did.
+[Private Bicep registries](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/private-module-registry?tabs=azure-powershell) are a great way to share Bicep modules across your organisation. We use them in the organisation that I'm part of; it's a good a way to help us move faster and to share common security baselines.
 
-### Describe your feature request here
-
-Whilst AzureResourceManagerTemplateDeployment@3 supports Bicep deployment, it doesn't support authenticating for private Bicep registries. Consider the following:
+Alas it turns out that the `AzureResourceManagerTemplateDeployment@3` task doesn't presently play well with private Bicep registries. This is because it's necessary to authenticate to a private registry before you can consume modules. And that's not supported by the `AzureResourceManagerTemplateDeployment@3` task. What does that mean? Well take a look at the following Azure Pipeline:
 
 ```yml
 - task: AzureResourceManagerTemplateDeployment@3
@@ -36,33 +34,17 @@ Whilst AzureResourceManagerTemplateDeployment@3 supports Bicep deployment, it do
     csmFile: 'infra/main.bicep'
 ```
 
-We see the following when we attempt to execute it:
+You'll note that it passes a Bicep file to the `csmFile` property. This is the file that will be deployed. But what if that file references modules from a private registry? Well, you'll see an error like this:
 
-```bash
-/home/vsts/work/1/s/infra/database/cosmos.bicep(57,17) : Error BCP192: Unable to restore the module with reference "br:icebox.azurecr.io/bicep/ice/providers/document-db/database-accounts:v1.3": Service request failed.
-Status: 401 (Unauthorized)
+![screenshot of the failing pipeline including the text 'Error BCP192: Unable to restore the module with reference "br:icebox.azurecr.io/bicep/ice/providers/document-db/database-accounts:v1.3": Service request failed.'](screenshot-authentication-failure.png)
 
-Content:
-{"errors":[{"code":"UNAUTHORIZED","message":"authentication required, visit https://aka.ms/acr/authorization for more information."}]}
-
-Headers:
-Server: openresty
-Date: Fri, 02 Jun 2023 13:11:24 GMT
-Connection: keep-alive
-X-Ms-Correlation-Request-Id: b1ac068c-f69d-4495-90c3-302ff1c93ff6
-x-ms-ratelimit-remaining-calls-per-second: 333.066667
-Strict-Transport-Security: REDACTED
-Content-Type: text/plain; charset=utf-8
-Content-Length: 134
-
-/home/vsts/work/1/s/infra/database/cosmos.bicep(72,25) : Error BCP192: Unable to restore the module with reference "br:icebox.azurecr.io/bicep/ice/providers/document-db/sql-databases:v1.2": Service request failed.
-Status: 401 (Unauthorized)
-
-```
+As you can see from the `Status: 401 (Unauthorized)`, we have an authentication problem; the task doesn't know how to authenticate to the private registry.
 
 ## Workaround
 
-If you want to use this at present, you're required to manually restore the Bicep modules first. We've found it's possible to achieve this by using the `AzureCLI@2` task first and triggering a restore like so:
+You might think, "oh well that's it then, I can't use private Bicep registries with the `AzureResourceManagerTemplateDeployment@3` task". But you'd be wrong. There's a workaround. Essentially, when the `AzureResourceManagerTemplateDeployment@3` task runs, it attempts to restore the modules it needs as a first step to compiling the Bicep in to ARM. But it only does this if it needs to. If we perform the restore manually first, then the task won't need to do it again. That's the trick.
+
+Before the `AzureResourceManagerTemplateDeployment@3` task runs, we can run a task to restore the modules. We can use the `AzureCLI@2` task to do this. Here's an example:
 
 ```yml
 - task: AzureCLI@2
@@ -79,17 +61,8 @@ Where `service-connection-with-access-to-registry` is an Azure Resource Manager 
 
 <img width="320" alt="screenshot of service connection" src="https://github.com/microsoft/azure-pipelines-tasks/assets/1010525/6895a255-1ade-4c6c-80a8-78b7377fd1d1">
 
-## Design thoughts
+So if the above task runs _prior_ to the `AzureResourceManagerTemplateDeployment@3` task, then the modules will be restored and the `AzureResourceManagerTemplateDeployment@3` task will be able to compile the Bicep in to ARM and deploy it to Azure.
 
-I'm actually not sure what support for the private registries should look like; if you look at the service connections we're using here; we have 2:
+## In the box, in the future?
 
-1. with permissions to deploy to Azure used by AzureResourceManagerTemplateDeployment@3
-2. with permissions to read from our Bicep registry, used by our restore workaround
-
-It's probably not unusual to have distinct service connections covering different concerns. This makes me wonder if maybe a dedicated `registryServiceConnection` property might be a good idea.
-
-## See also
-
-Mentioned here also:
-
-https://github.com/microsoft/azure-pipelines-tasks/issues/15337#issuecomment-1573744989
+It would be tremendous if authentication to private Bicep registries was supported by the `AzureResourceManagerTemplateDeployment@3` task. I've raised a feature request for this [here](https://github.com/microsoft/azure-pipelines-tasks/issues/18426). If you'd like to see this too, please do add your voice to the issue.
