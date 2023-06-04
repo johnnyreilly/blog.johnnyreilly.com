@@ -12,7 +12,9 @@ If you deploy Bicep templates to Azure in Azure DevOps, you'll likely use the de
 
 ![title image reading "Private Bicep registry authentication with AzureResourceManagerTemplateDeployment@3" with the Bicep, Azure and Azure DevOps logos](title-image.png)
 
-## Private Bicep registries and authentication
+<!--truncate-->
+
+## "Unable to restore the module... Status: 401 (Unauthorized)"
 
 [Private Bicep registries](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/private-module-registry?tabs=azure-powershell) are a great way to share Bicep modules across your organisation. We use them in the organisation that I'm part of; it's a good a way to help us move faster and to share common security baselines.
 
