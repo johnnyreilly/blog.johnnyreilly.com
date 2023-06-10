@@ -6,13 +6,15 @@ tags: [Azure, easy auth, ASP.NET, authorization]
 hide_table_of_contents: false
 ---
 
-[I wrote recently about how to get Azure Easy Auth to work with roles](../2021-01-14-azure-easy-auth-and-roles-with-dotnet-and-core/index.md). This involved borrowing the approach used by [MaximeRouiller.Azure.AppService.EasyAuth](https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth).
-
-<!--truncate-->
+[I wrote recently about how to get Azure App Service Easy Auth to work with roles](../2021-01-14-azure-easy-auth-and-roles-with-dotnet-and-core/index.md). This involved borrowing the approach used by [MaximeRouiller.Azure.AppService.EasyAuth](https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth).
 
 As a consequence of writing that post I came to learn that official support for Azure Easy Auth had landed in October 2020 in v1.2 of [Microsoft.Identity.Web](https://github.com/AzureAD/microsoft-identity-web/wiki/1.2.0#integration-with-azure-app-services-authentication-of-web-apps-running-with-microsoftidentityweb). This was great news; I was delighted.
 
-However, it turns out that the same authorization issue that `MaximeRouiller.Azure.AppService.EasyAuth` suffers from, is visited upon `Microsoft.Identity.Web` as well.
+However, it turns out that the same authorization issue that `MaximeRouiller.Azure.AppService.EasyAuth` suffers from, is visited upon `Microsoft.Identity.Web` as well. This post shows hoew to resolve it with `IClaimsTransformation`.
+
+<!--truncate-->
+
+If you're looking for information about Easy Auth and authentication with .NET and Azure Container Apps, [you can find it here](../2023-06-11-azure-container-apps-easy-auth-and-dotnet-authentication/index.md).
 
 ## Getting set up
 
@@ -88,7 +90,7 @@ public string GetWithReader() =>
 
 This is because .NET is looking for claims with a `type` of `"http://schemas.microsoft.com/ws/2008/06/identity/claims/role"` and not finding them with Easy Auth.
 
-## Claims transformation FTW
+## Claims transformation with `IClaimsTransformation`
 
 There is a way to work around this issue .NET using `IClaimsTransformation`. This is a poorly documented feature, but fortunately [Gunnar Peipman's blog does a grand job of explaining it](https://gunnarpeipman.com/aspnet-core-adding-claims-to-existing-identity/).
 
