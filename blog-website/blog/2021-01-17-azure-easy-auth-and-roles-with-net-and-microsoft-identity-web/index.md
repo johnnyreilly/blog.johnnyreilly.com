@@ -1,8 +1,8 @@
 ---
 slug: azure-easy-auth-and-roles-with-net-and-microsoft-identity-web
-title: 'Azure Easy Auth and Roles with .NET and Microsoft.Identity.Web'
+title: 'Azure App Service, Easy Auth and Roles with .NET and Microsoft.Identity.Web'
 authors: johnnyreilly
-tags: [Azure, Easy Auth, ASP.NET, authorization]
+tags: [Azure, easy auth, ASP.NET, authorization]
 hide_table_of_contents: false
 ---
 
