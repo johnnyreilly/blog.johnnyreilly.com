@@ -1,20 +1,22 @@
 ---
 slug: azure-easy-auth-and-roles-with-dotnet-and-core
-title: 'Azure Easy Auth and Roles with .NET (and .NET Core)'
+title: 'Azure App Service, Easy Auth and Roles with .NET'
 authors: johnnyreilly
-tags: [Azure, authorization, authentication, Azure AD]
+tags: [Azure, authorization, authentication, easy auth]
 hide_table_of_contents: false
 ---
 
-_If this post is interesting to you, you may also want to [look at this one where we try to use Microsoft.Identity.Web for the same purpose.](../2021-01-17-azure-easy-auth-and-roles-with-net-and-microsoft-identity-web/index.md)_
-
-<!--truncate-->
-
-Azure has a feature which is intended to allow Authentication and Authorization to be applied outside of your application code. It's called ["Easy Auth"](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization). Unfortunately, in the context of App Services it doesn't work with .NET Core and .NET. Perhaps it would be better to say: of the various .NETs, it supports .NET Framework. [To quote the docs](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization#userapplication-claims):
+Azure App Service has a feature which is intended to allow Authentication and Authorization to be applied outside of your application code. It's called ["Easy Auth"](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization). Unfortunately, in the context of App Services it doesn't work with .NET Core and .NET. Perhaps it would be better to say: of the various .NETs, it supports .NET Framework. [To quote the docs](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization#userapplication-claims):
 
 > At this time, ASP.NET Core does not currently support populating the current user with the Authentication/Authorization feature. However, some [3rd party, open source middleware components](https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth) do exist to help fill this gap.
 
 Thanks to [Maxime Rouiller](https://twitter.com/MaximRouiller) there's a way forward here. However, as I was taking this for a spin today, I discovered another issue.
+
+<!--truncate-->
+
+If this post is interesting to you, you may also want to [look at this one where we try to use Microsoft.Identity.Web for the same purpose.](../2021-01-17-azure-easy-auth-and-roles-with-net-and-microsoft-identity-web/index.md)
+
+If you're looking for information about Easy Auth and authentication with .NET and Azure Container Apps, [you can find it here](../2023-06-11-azure-container-apps-easy-auth-and-dotnet-authentication/index.md).
 
 ## Where are our roles?
 
