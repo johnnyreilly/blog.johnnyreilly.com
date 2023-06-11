@@ -8,7 +8,7 @@ description: 'Azure Container Apps support Easy Auth. However, .NET applications
 hide_table_of_contents: false
 ---
 
-Easy Auth is a great way to authenticate your users. However, when used in the context of Azure Container Apps, .NET applications do not, by default, recognise that Easy Auth is in place. What I mean by this, is that you might be authenticated but .NET will still act as if you aren't. `builder.Services.AddAuthentication()` and `app.UseAuthentication()` doesn't change that. This post explains the issue and solves it through the implementation of a middleware.
+Easy Auth is a great way to authenticate your users. However, when used in the context of Azure Container Apps, .NET applications do not, by default, recognise that Easy Auth is in place. You might be authenticated but .NET will still act as if you aren't. `builder.Services.AddAuthentication()` and `app.UseAuthentication()` doesn't change that. This post explains the issue and solves it through the implementation of an `AuthenticationHandler`.
 
 ![title image reading "Azure Container Apps, Easy Auth and .NET authentication" with the Azure Container App logos](title-image.png)
 
@@ -21,17 +21,21 @@ If you're looking for information about Easy Auth and roles with .NET and Azure 
 
 ## `User.Identity.IsAuthenticated == false`
 
-When I'm building an application, I want to focus on the problem I'm solving. I don't want to think about how to implement my own authentication system. Rather, I tend to lean on another provider for that, and if I'm working in the Azure ecosystem, that often means Easy Auth.
+When I'm building an application, I want to focus on the problem I'm solving. I don't want to think about how to implement my own authentication system. Rather, I lean on an auth provider for that, and if I'm working in the Azure ecosystem, that often means Easy Auth, usually with Azure AD.
 
-I recently started building a .NET application using Easy Auth and deploying to Azure Container Apps. One thing that surprised me when I tested it out was that, whilst I was being authenticated, my app didn't seem to be aware of it. What I mean by this is when I inspected the `User.Identity.IsAuthenticated` property in my application, it was `false`. The reason why lies [in the documentation](https://learn.microsoft.com/en-us/azure/container-apps/authentication#access-user-claims-in-application-code):
+I recently started building a .NET application using Easy Auth and deploying to Azure Container Apps. One thing that surprised me when I tested it out was that, whilst I was being authenticated, my app didn't seem to be aware of it. When I inspected the `User.Identity.IsAuthenticated` property in my application, it was `false`. The reason why lies [in the documentation](https://learn.microsoft.com/en-us/azure/container-apps/authentication#access-user-claims-in-application-code):
 
 > For all language frameworks, Container Apps makes the claims in the incoming token available to your application code. The claims are injected into the request headers, which are present whether from an authenticated end user or a client application. External requests aren't allowed to set these headers, so they're present only if set by Container Apps. Some example headers include:
 >
-> `X-MS-CLIENT-PRINCIPAL-NAME` > `X-MS-CLIENT-PRINCIPAL-ID`
+> `X-MS-CLIENT-PRINCIPAL-NAME`
 >
-> **Code that is written in any language or framework can get the information that it needs from these headers.**
+> `X-MS-CLIENT-PRINCIPAL-ID`
+>
+> _Code that is written in any language or framework can get the information that it needs from these headers._
 
 The emphasis above is mine. What it's saying here is this: **you need to implement this yourself**.
+
+## Examining the headers
 
 Sure enough, when I inspected the headers in my application, I could see these:
 
@@ -187,6 +191,12 @@ app.UseAuthorization();
 
 Now when we run our application, we'll see that `User.Identity.IsAuthenticated` is `true` when we're authenticated in Azure Container Apps!
 
-## Conclusion
+## Easy Auth differs Azure App Service, Azure Container Apps, Azure Static Web Apps and Azure Functions
 
-It would be tremendous if this was built into .NET, or in a NuGet package somewhere. I'm not aware of one, so I wrote this. Perhaps this should become a NuGet package? Let me know if you think so!
+One thing that became very clear to me as I worked on this, is that Easy Auth is implemented differently in Azure App Service, Azure Container Apps, Azure Static Web Apps and Azure Functions. Whilst the authentication appears to be the same, the headers are different across the services. So the code above will work in Azure Container Apps; for other Azure services I can't vouch for it.
+
+The code in this post is very similar to that in [`MaximeRouiller.Azure.AppService.EasyAuth`](https://github.com/MaximRouiller/MaximeRouiller.Azure.AppService.EasyAuth). But it's not quite the same, as that library depends upon a `WEBSITE_AUTH_ENABLED` environment variable, which isn't present in Azure Container Apps.
+
+Likewise, the `Microsoft.Identity.Web` package [supports Easy Auth, but for Azure App Service](https://github.com/AzureAD/microsoft-identity-web/wiki/1.2.0#integration-with-azure-app-services-authentication-of-web-apps-running-with-microsoftidentityweb). If you [take a look at the code](https://github.com/AzureAD/microsoft-identity-web/blob/c7f146e93180deece63f879453e98a872cdda658/src/Microsoft.Identity.Web/AppServicesAuth/AppServicesAuthenticationInformation.cs#L38), you'll see it is powered by environment variables and headers, which aren't present in Azure Container Apps.
+
+So whilst it would be tremendous if this was built into .NET, or in a NuGet package somewhere. I'm not aware of one at the time of writing, so I made this. Perhaps this should become a NuGet package? Let me know if you think so!
