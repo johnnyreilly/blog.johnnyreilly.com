@@ -27,10 +27,167 @@ I recently started building a .NET application using Easy Auth and deploying to 
 
 > For all language frameworks, Container Apps makes the claims in the incoming token available to your application code. The claims are injected into the request headers, which are present whether from an authenticated end user or a client application. External requests aren't allowed to set these headers, so they're present only if set by Container Apps. Some example headers include:
 >
-> `X-MS-CLIENT-PRINCIPAL-NAME` > `X-MS-CLIENT-PRINCIPAL-ID`
+> `X-MS-CLIENT-PRINCIPAL-NAME`
+> `X-MS-CLIENT-PRINCIPAL-ID`
 >
 > **Code that is written in any language or framework can get the information that it needs from these headers.**
 
 The emphasis above is mine. What it's saying here is this: **you need to implement this yourself**.
 
-## Implementing `AddEasyAuthContainerAppAuthentication()`
+Sure enough, when I inspected the headers in my application, I could see these:
+
+![screenshot of easy auth headers including X-MS-CLIENT-PRINCIPAL-NAME`, `X-MS-CLIENT-PRINCIPAL-ID`, `X-MS-CLIENT-PRINCIPAL-IDP` and `X-MS-CLIENT-PRINCIPAL`](screenshot-easy-auth-headers.png)
+
+The `X-MS-CLIENT-PRINCIPAL` header is particularly interesting. From the appearance, you might assume it's a [JWT](https://jwt.io/). It's not. It's actually a base 64 encoded JSON string that represents the signed in user and their claims. It's actually super easy to decode in your browser devtools:
+
+```js
+JSON.parse(atob(xMsClientPrincipal));
+```
+
+If you decode it, you'll see something like this:
+
+![a screenshot of the decoded object](screenshot-decoded-x-ms-client-principal-header.png)
+
+Given that this information is present, let's tell .NET about it.
+
+## Implementing `AddAzureContainerAppsEasyAuth()`
+
+We're going to implement an `AuthenticationHandler` that takes the information from the `X-MS-CLIENT-PRINCIPAL` header and uses it to create a `ClaimsPrincipal`:
+
+```cs title="AzureContainerAppsEasyAuth.cs"
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Options;
+using System.Security.Claims;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+/// <summary>
+/// Support for EasyAuth authentication in Azure Container Apps
+/// </summary>
+namespace Azure.ContainerApps.EasyAuth;
+
+public static class EasyAuthAuthenticationBuilderExtensions
+{
+    public const string EASYAUTHSCHEMENAME = "EasyAuth";
+
+    public static AuthenticationBuilder AddAzureContainerAppsEasyAuth(
+        this AuthenticationBuilder builder,
+        Action<EasyAuthAuthenticationOptions>? configure = null)
+    {
+        if (configure == null) configure = o => { };
+
+        return builder.AddScheme<EasyAuthAuthenticationOptions, EasyAuthAuthenticationHandler>(
+            EASYAUTHSCHEMENAME,
+            EASYAUTHSCHEMENAME,
+            configure);
+    }
+}
+
+public class EasyAuthAuthenticationOptions : AuthenticationSchemeOptions
+{
+    public EasyAuthAuthenticationOptions()
+    {
+        Events = new object();
+    }
+}
+
+public class EasyAuthAuthenticationHandler : AuthenticationHandler<EasyAuthAuthenticationOptions>
+{
+    public EasyAuthAuthenticationHandler(
+        IOptionsMonitor<EasyAuthAuthenticationOptions> options,
+        ILoggerFactory logger,
+        UrlEncoder encoder,
+        ISystemClock clock)
+        : base(options, logger, encoder, clock)
+    {
+    }
+    protected override Task<AuthenticateResult> HandleAuthenticateAsync()
+    {
+        try
+        {
+            var easyAuthProvider = Context.Request.Headers["X-MS-CLIENT-PRINCIPAL-IDP"].FirstOrDefault() ?? "aad";
+            var msClientPrincipalEncoded = Context.Request.Headers["X-MS-CLIENT-PRINCIPAL"].FirstOrDefault();
+            if (string.IsNullOrWhiteSpace(msClientPrincipalEncoded))
+                return Task.FromResult(AuthenticateResult.NoResult());
+
+            var decodedBytes = Convert.FromBase64String(msClientPrincipalEncoded);
+            var msClientPrincipalDecoded = System.Text.Encoding.Default.GetString(decodedBytes);
+            var clientPrincipal = JsonSerializer.Deserialize<MsClientPrincipal>(msClientPrincipalDecoded);
+
+            if (clientPrincipal == null) return Task.FromResult(AuthenticateResult.NoResult());
+
+            var claims = clientPrincipal.Claims.Select(claim => new Claim(claim.Type, claim.Value)).ToList();
+
+            var principal = new ClaimsPrincipal();
+            principal.AddIdentity(new ClaimsIdentity(claims, clientPrincipal.AuthenticationType, clientPrincipal.NameType, clientPrincipal.RoleType));
+
+            var ticket = new AuthenticationTicket(principal, easyAuthProvider);
+            var success = AuthenticateResult.Success(ticket);
+            Context.User = principal;
+
+            return Task.FromResult(success);
+        }
+        catch (Exception ex)
+        {
+            return Task.FromResult(AuthenticateResult.Fail(ex));
+        }
+    }
+}
+
+public class MsClientPrincipal
+{
+    [JsonPropertyName("auth_typ")]
+    public string? AuthenticationType { get; set; }
+    [JsonPropertyName("claims")]
+    public IEnumerable<UserClaim> Claims { get; set; } = Array.Empty<UserClaim>();
+    [JsonPropertyName("name_typ")]
+    public string? NameType { get; set; }
+    [JsonPropertyName("role_typ")]
+    public string? RoleType { get; set; }
+}
+
+public class UserClaim
+{
+    [JsonPropertyName("typ")]
+    public string Type { get; set; } = string.Empty;
+    [JsonPropertyName("val")]
+    public string Value { get; set; } = string.Empty;
+}
+```
+
+There's a few things to note from the above:
+
+- `EasyAuthAuthenticationHandler` is an `AuthenticationHandler` that takes the information from the `X-MS-CLIENT-PRINCIPAL` header and uses it to create a `ClaimsPrincipal`.
+- The `MsClientPrincipal` class is a representation of the decoded `X-MS-CLIENT-PRINCIPAL` header.
+- `AddAzureContainerAppsEasyAuth` is an extension method for the `AuthenticationBuilder` object - this allows users to make use of the handler in their application.
+
+## Using `AddAzureContainerAppsEasyAuth()`
+
+Now we've written our handler, we can use it in our application. We do this by calling `AddAzureContainerAppsEasyAuth()` in our `Program.cs`:
+
+```cs title="Program.cs"
+//...
+
+builder.Services
+    .AddAuthentication()
+    .AddAzureContainerAppsEasyAuth(); // <-- here
+builder.Services.AddAuthorization();
+
+//...
+
+var app = builder.Build();
+
+//...
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+//...
+```
+
+Now when we run our application, we'll see that `User.Identity.IsAuthenticated` is `true` when we're authenticated in Azure Container Apps!
+
+## Conclusion
+
+It would be tremendous if this was built into .NET, or in a NuGet package somewhere. I'm not aware of one, so I wrote this. Perhaps this should become a NuGet package? Let me know if you think so!
