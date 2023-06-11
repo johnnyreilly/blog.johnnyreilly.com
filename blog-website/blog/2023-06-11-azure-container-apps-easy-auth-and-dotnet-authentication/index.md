@@ -200,3 +200,5 @@ The code in this post is very similar to that in [`MaximeRouiller.Azure.AppServi
 Likewise, the `Microsoft.Identity.Web` package [supports Easy Auth, but for Azure App Service](https://github.com/AzureAD/microsoft-identity-web/wiki/1.2.0#integration-with-azure-app-services-authentication-of-web-apps-running-with-microsoftidentityweb). If you [take a look at the code](https://github.com/AzureAD/microsoft-identity-web/blob/c7f146e93180deece63f879453e98a872cdda658/src/Microsoft.Identity.Web/AppServicesAuth/AppServicesAuthenticationInformation.cs#L38), you'll see it is powered by environment variables and headers, which aren't present in Azure Container Apps.
 
 So whilst it would be tremendous if this was built into .NET, or in a NuGet package somewhere. I'm not aware of one at the time of writing, so I made this. Perhaps this should become a NuGet package? Let me know if you think so!
+
+I've also raised a [feature request in the `Microsoft.Identity.Web` repo to support Azure Container Apps](https://github.com/AzureAD/microsoft-identity-web/issues/2274). If you'd like to see this, please upvote it!
