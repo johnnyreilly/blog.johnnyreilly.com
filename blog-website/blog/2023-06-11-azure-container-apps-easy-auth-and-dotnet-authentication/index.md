@@ -27,8 +27,7 @@ I recently started building a .NET application using Easy Auth and deploying to 
 
 > For all language frameworks, Container Apps makes the claims in the incoming token available to your application code. The claims are injected into the request headers, which are present whether from an authenticated end user or a client application. External requests aren't allowed to set these headers, so they're present only if set by Container Apps. Some example headers include:
 >
-> `X-MS-CLIENT-PRINCIPAL-NAME`
-> `X-MS-CLIENT-PRINCIPAL-ID`
+> `X-MS-CLIENT-PRINCIPAL-NAME` > `X-MS-CLIENT-PRINCIPAL-ID`
 >
 > **Code that is written in any language or framework can get the information that it needs from these headers.**
 
@@ -36,7 +35,7 @@ The emphasis above is mine. What it's saying here is this: **you need to impleme
 
 Sure enough, when I inspected the headers in my application, I could see these:
 
-![screenshot of easy auth headers including X-MS-CLIENT-PRINCIPAL-NAME`, `X-MS-CLIENT-PRINCIPAL-ID`, `X-MS-CLIENT-PRINCIPAL-IDP` and `X-MS-CLIENT-PRINCIPAL`](screenshot-easy-auth-headers.png)
+![screenshot of easy auth headers including X-MS-CLIENT-PRINCIPAL-NAME`, `X-MS-CLIENT-PRINCIPAL-ID`, `X-MS-CLIENT-PRINCIPAL-IDP` and `X-MS-CLIENT-PRINCIPAL`](screenshot-easy-auth-headers.webp)
 
 The `X-MS-CLIENT-PRINCIPAL` header is particularly interesting. From the appearance, you might assume it's a [JWT](https://jwt.io/). It's not. It's actually a base 64 encoded JSON string that represents the signed in user and their claims. It's actually super easy to decode in your browser devtools:
 
