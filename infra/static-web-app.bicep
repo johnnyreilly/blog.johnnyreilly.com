@@ -23,7 +23,7 @@ var tagsWithHiddenLinks = union({
   'hidden-link: /app-insights-conn-string': appInsightsConnectionString
 }, tags)
 
-resource staticWebApp 'Microsoft.Web/staticSites@2022-03-01' = {
+resource staticWebApp 'Microsoft.Web/staticSites@2022-09-01' = {
   name: staticWebAppName
   location: location
   tags: tagsWithHiddenLinks
