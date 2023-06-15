@@ -5361,14 +5361,14 @@ follow-redirects@^1.0.0, follow-redirects@^1.14.7:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
   integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
 
-fontaine@0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/fontaine/-/fontaine-0.3.1.tgz#b3eae1b6e94457b3a8cd231087cafa41c8ef3be4"
-  integrity sha512-VUOhc5jsVyRDNpU5buXCiIwY8fQ+TXTYCsHl2M0o4+clv2reQb4AqRnysSfRXMVcFIJWk1SspWthcVpNktgR/Q==
+fontaine@0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/fontaine/-/fontaine-0.4.0.tgz#ecc37ada11ab670d0d79bbc3ed930ec5970e34ca"
+  integrity sha512-X3sW8Y+rvmgpkwWVlcgbpZRYL/P4T6QAtShnss0iodPjuBVdPwaemB/aopKY0cCC1yGixtgFgPKSVUiHzEIeIQ==
   dependencies:
     "@capsizecss/metrics" "^1.1.1"
     "@capsizecss/unpack" "^1.0.0"
-    magic-regexp "^0.6.3"
+    magic-regexp "^0.7.0"
     magic-string "^0.30.0"
     pathe "^1.1.0"
     ufo "^1.1.1"
@@ -6865,14 +6865,15 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-magic-regexp@^0.6.3:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/magic-regexp/-/magic-regexp-0.6.3.tgz#bc343eaeec3083ae596c01055ccc1bb792760f7b"
-  integrity sha512-RQJGOUham95/bqe9KaaQDxSP5txZoySk1omZCY7ZiG6/mqRY1t0w8Mmv9TV3XE0VkAD84pjUXs8jFFNLIzf5ow==
+magic-regexp@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/magic-regexp/-/magic-regexp-0.7.0.tgz#085771c977755afa8cd89986ef69da6a6998028d"
+  integrity sha512-C9m5/JqFV1/CMrMFDf1PqmvMc8ohrssmlF5bdgea7nUqqn6D9xzKVTa6DIm0LReCqvEPS35o1UElmb7PmoSfHQ==
   dependencies:
     estree-walker "^3.0.1"
     magic-string "^0.30.0"
     mlly "^1.0.0"
+    type-level-regexp "~0.1.16"
     ufo "^1.0.0"
     unplugin "^1.0.0"
 
@@ -9497,6 +9498,11 @@ type-is@~1.6.18:
   dependencies:
     media-typer "0.3.0"
     mime-types "~2.1.24"
+
+type-level-regexp@~0.1.16:
+  version "0.1.17"
+  resolved "https://registry.yarnpkg.com/type-level-regexp/-/type-level-regexp-0.1.17.tgz#ec1bf7dd65b85201f9863031d6f023bdefc2410f"
+  integrity sha512-wTk4DH3cxwk196uGLK/E9pE45aLfeKJacKmcEgEOA/q5dnPGNxXt0cfYdFxb57L+sEpf1oJH4Dnx/pnRcku9jg==
 
 typed-array-length@^1.0.4:
   version "1.0.4"
