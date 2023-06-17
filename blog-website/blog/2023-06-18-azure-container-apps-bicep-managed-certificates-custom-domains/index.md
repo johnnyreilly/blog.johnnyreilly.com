@@ -8,9 +8,9 @@ description: 'Azure Container Apps support managed certificates and custom domai
 hide_table_of_contents: false
 ---
 
-Azure Container Apps support managed certificates and custom domains. However, deploying them with Bicep is not straightforward - although it is possible. It seems likely there's a bug in the implementation in Azure, but I'm not sure. Either way, it's possible to work around it.
+Azure Container Apps support managed certificates and custom domains. However, deploying them with Bicep is not straightforward - although it is possible. It seems likely there's a bug in the implementation in Azure, but I'm not sure. Either way, it's possible to deploy managed certificates and custom domains using Bicep. You just need to know how.
 
-I've facetiously subtitled this post "a three pipe(line) problem" because it took three Azure Pipelines to get it working. This is not Azure Pipelines specific though, it's just that I was using Azure Pipelines to deploy the Bicep. Really, this applies to any way of deploying Bicep.
+I've facetiously subtitled this post "a three pipe(line) problem" because it took three Azure Pipelines to get it working. This is not Azure Pipelines specific though, it's just that I was using Azure Pipelines to deploy the Bicep. Really, this applies to any way of deploying Bicep. GitHub Actions, Azure CLI or whatever.
 
 If you're here because you've encountered the dread message:
 
@@ -30,14 +30,14 @@ There wasn't any documentation I could find about this, and so I decided to try 
 
 I titled this section "A three pipe(line) problem" because it turned out it required three Azure Pipeline runs to deploy a custom domain with a managed certificate. That, and the fact that it seemed a great way to get a Sherlock Holmes pun into the mix. I feel justified; there was no small amount of detective work involved.
 
-## Reverse engineering the Azure Portal
+## Reverse engineering the Bicep from the Azure Portal
 
 I knew that to get a custom domain working with an Azure Container App I would need to do two things:
 
 1. Create a managed certificate on my managed environment
 2. Create a custom domain on my container app
 
-So I fired up the Azure Portal and did those two things. Then I went to the export template option and downloaded the ARM template. I was hoping to see how the Azure Portal did it. Since my eyes bleed when I attempt to read ARM templates, I [decompiled the ARM template into the Bicep equivalent](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/decompile?tabs=azure-cli).
+So I fired up the Azure Portal and did those two things. Then I went to the export template option and downloaded the ARM template. I was hoping to see how the Azure Portal did it. Since my eyes bleed a little when I attempt to read ARM templates, I [decompiled the ARM template into the Bicep equivalent](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/decompile?tabs=azure-cli).
 
 It actually seemed relatively simple. First there was a [`Microsoft.App/managedEnvironments/managedCertificates`](https://learn.microsoft.com/en-us/azure/templates/microsoft.app/2022-11-01-preview/managedenvironments/managedcertificates?pivots=deployment-language-bicep) resource which created the managed certificate:
 
@@ -54,7 +54,7 @@ resource managedEnvironmentManagedCertificate 'Microsoft.App/managedEnvironments
 }
 ```
 
-Then there was the addition of a [`customDomains`](https://learn.microsoft.com/en-us/azure/templates/microsoft.app/containerapps?pivots=deployment-language-bicep#customdomain) property to the `Microsoft.App/containerApps` resource:
+Then there was the addition of a [`customDomains`](https://learn.microsoft.com/en-us/azure/templates/microsoft.app/containerapps?pivots=deployment-language-bicep#customdomain) property to the `Microsoft.App/containerApps` resource which referenced the managed certificate:
 
 ```bicep
 resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
@@ -156,7 +156,7 @@ Don't sweat it. You should have a managed certificate. That's what we need.
 
 ### Bicep template 3: Create an active custom domain
 
-Ready for the big finish? We're going to take our Bicep template back to what we originally tried in the first place:
+Ready for the big finish? We're going to take our Bicep template back to what we originally tried:
 
 ```bicep
 resource managedEnvironmentManagedCertificate 'Microsoft.App/managedEnvironments/managedCertificates@2022-11-01-preview' = {
@@ -194,12 +194,12 @@ resource containerApp 'Microsoft.App/containerApps@2022-11-01-preview' = {
 }
 ```
 
-But the crucial difference is that _this time it should work_. At this point you should have a working managed certificate and a working custom domain on your container app. Huzzah!
+Note that the `customDomains` property of the `Microsoft.App/containerApps` resource now references the managed certificate and is `SniEnabled`. Deploy this template and you'll have a working managed certificate and a working custom domain on your container app. Huzzah!
 
 ## Conclusion
 
-I write this post purely to help others who may be struggling with this. I hope it helps. I also hope that the Azure Container Apps team will fix this issue soon. I'm sure they will. They're a great bunch of people.
+I write this post purely to help others who may be struggling with this. I'm assuming this is some kind of bug, and I'm hoping the Azure Container Apps team will fix it soon. I've raised a specific issue on the Azure Container Apps GitHub repo for this problem. You can find it [here](https://github.com/microsoft/azure-container-apps/issues/796).
 
 ## Attributions
 
-<a href="https://www.flaticon.com/free-icons/bad-habit" title="bad habit icons">Icon in image created by Freepik - Flaticon</a>
+<a href="https://www.flaticon.com/free-icons/bad-habit" title="bad habit icons">Pipe icon in title image created by Freepik - Flaticon</a>
