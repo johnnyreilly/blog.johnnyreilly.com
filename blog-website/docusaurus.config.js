@@ -1,5 +1,5 @@
 //@ts-check
-const docusaurusCloudinaryRehypePlugin = require('rehype-cloudinary-docusaurus');
+// const docusaurusCloudinaryRehypePlugin = require('rehype-cloudinary-docusaurus');
 
 const USE_CLOUDINARY = process.env['USE_CLOUDINARY'] === 'true';
 console.log('USE_CLOUDINARY', USE_CLOUDINARY);
@@ -7,7 +7,7 @@ console.log('USE_CLOUDINARY', USE_CLOUDINARY);
 const fontaine = require('fontaine');
 const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-const imageFetchPriorityRehypePlugin = require('./image-fetchpriority-rehype-plugin');
+// const imageFetchPriorityRehypePlugin = require('./image-fetchpriority-rehype-plugin');
 const createFeedItems = require('./createFeedItems');
 
 const url = 'https://johnnyreilly.com';
@@ -64,16 +64,18 @@ const config = {
         blog: {
           rehypePlugins: USE_CLOUDINARY
             ? [
-                [
-                  docusaurusCloudinaryRehypePlugin,
-                  {
-                    cloudName: 'priou',
-                    baseUrl: url,
-                  },
-                ],
-                imageFetchPriorityRehypePlugin,
+                // [
+                //   docusaurusCloudinaryRehypePlugin,
+                //   {
+                //     cloudName: 'priou',
+                //     baseUrl: url,
+                //   },
+                // ],
+                // imageFetchPriorityRehypePlugin,
               ]
-            : [imageFetchPriorityRehypePlugin],
+            : [
+                /*imageFetchPriorityRehypePlugin*/
+              ],
           feedOptions: {
             type: ['rss', 'atom'],
             title: 'I CAN MAKE THIS WORK',
