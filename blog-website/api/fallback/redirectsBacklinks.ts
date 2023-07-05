@@ -1,5 +1,9 @@
 export const redirectsBacklinks = [
   {
+    route: '/cache-rules-everything-around-me',
+    redirect: '/dotnet-imemorycache-getorcreatefortimespanasync'
+  },
+  {
     route: '/2019/10/definitely-typed-movie.html',
     redirect: '/definitely-typed-the-movie',
   },

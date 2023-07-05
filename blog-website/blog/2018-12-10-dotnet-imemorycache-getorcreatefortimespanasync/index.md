@@ -1,12 +1,13 @@
 ---
-slug: cache-rules-everything-around-me
-title: 'Cache Rules Everything Around Me'
+slug: dotnet-imemorycache-getorcreatefortimespanasync
+title: 'IMemoryCache and GetOrCreateForTimeSpanAsync'
 authors: johnnyreilly
-tags: [asp.net core]
+tags: [dotnet]
+description: IMemoryCache is a tremendous caching mechanism for .NET. This post demonstrates how to write a helper to allow you to get or create an item for a given TimeSpan.
 hide_table_of_contents: false
 ---
 
-One thing that ASP.Net Core really got right was caching. [`IMemoryCache`](https://docs.microsoft.com/en-us/aspnet/core/performance/caching/memory) is a caching implementation that does just what I want. I love it. I take it everywhere. I've introduced it to my family.
+One thing that ASP.Net Core really got right was caching. [`IMemoryCache`](https://docs.microsoft.com/en-us/aspnet/core/performance/caching/memory) is a caching implementation that does just what I want. 
 
 <!--truncate-->
 
@@ -23,13 +24,14 @@ namespace My.Helpers {
 
     public static class CacheHelpers {
 
-        public static async Task<TItem> GetOrCreateForTimeSpanAsync<TItem>(
+        public static async Task<TItem?> GetOrCreateForTimeSpanAsync<TItem>(
             this IMemoryCache cache,
             string key,
-            Func<Task<TItem>> itemGetterAsync,
+            Func<Task<TItem?>> itemGetterAsync,
             TimeSpan timeToCache
         ) {
-            if (!cache.TryGetValue(key, out object result)) {
+            if (!cache.TryGetValue(key, out object? result))
+            {
                 result = await itemGetterAsync();
                 if (result == null)
                     return default(TItem);
@@ -40,7 +42,7 @@ namespace My.Helpers {
                 cache.Set(key, result, cacheEntryOptions);
             }
 
-            return (TItem) result;
+            return (TItem)result;
         }
     }
 }
@@ -57,7 +59,7 @@ private Task<SuperInterestingThing> GetSuperInterestingThingFromCache(Guid super
     );
 ```
 
-This helper allows the consumer to provide three things:
+Where `_cache` is an instance of `IMemoryCache` that can be dependency injected into your class. This helper allows the consumer to provide three things:
 
 - The `key` key for the item to be cached with
 - A `itemGetterAsync` which is the method that is used to retrieve a new value if an item cannot be found in the cache
@@ -67,4 +69,4 @@ If an item can't be looked up by the `itemGetterAsync` then _nothing_ will be ca
 
 Go on, ask me how I know.
 
-This is a simple, clear and helpful API which makes interacting with `IMemoryCache` even more lovely than it was. Peep it y'all.
+This is a simple, clear and helpful API which makes interacting with `IMemoryCache` even more lovely than it was. 
