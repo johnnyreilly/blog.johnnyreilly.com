@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[69929],{8359:e=>{e.exports=JSON.parse('{"label":"ASP.Net Core","permalink":"/tags/asp-net-core","allTagsPath":"/tags","count":7}')}}]);
