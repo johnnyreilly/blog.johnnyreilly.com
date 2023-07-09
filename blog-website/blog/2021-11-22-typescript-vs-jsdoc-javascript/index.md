@@ -13,11 +13,15 @@ There's a debate to be had about whether using JavaScript or TypeScript leads to
 
 <!--truncate-->
 
-## Updated 6th December 2021
+## Updated 29th March 2023
 
 This blog evolved to become a talk:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/5MZoAcheyE4?start=240" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+
+Slightly surreally, there's an [audiobook version of this post](https://www.youtube.com/watch?v=pj8SoTZbCTE) thanks to ThePrimeagen.  Essentially he reads the blog post and says he didn't like it. But it made me laugh 😉:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/pj8SoTZbCTE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 If you'd talked to me in 2018, I would have solidly recommended using TypeScript, and steering away from JavaScript. The rationale is simple: I'm exceedingly convinced of the value that static typing provides in terms of productivity / avoiding bugs in production. I appreciate this can be a contentious issue, but that is my settled opinion on the subject. Other opinions are available.
 
