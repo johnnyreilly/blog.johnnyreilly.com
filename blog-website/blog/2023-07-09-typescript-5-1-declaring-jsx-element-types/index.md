@@ -115,3 +115,9 @@ With Sebastian's changes, this becomes valid TypeScript. And as React, and other
 The TL;DR of this post is "TypeScript will better allow for the modelling of JSX in TypeScript 5.1". I'm indebted to [Sebastian Silbermann](https://github.com/eps1lon) and [Daniel Rosenwasser](https://github.com/DanielRosenwasser) for their explanations of this feature. Thanks in particular to Sebastian for implementing this feature and for reviewing this post.
 
 I hope this post helps you understand the feature a little better.
+
+[This post was originally published on LogRocket.](https://blog.logrocket.com/declaring-jsx-types-typescript-5-1/)
+
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/declaring-jsx-types-typescript-5-1/" />
+</head>
