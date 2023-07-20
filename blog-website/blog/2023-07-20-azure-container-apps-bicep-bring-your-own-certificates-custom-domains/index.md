@@ -30,7 +30,7 @@ sudo chmod +r poorclaresarundel.org.key
 cat poorclaresarundel.org.crt poorclaresarundel.org.key > poorclaresarundel.org.pem
 ```
 
-You'll note the `8.8.8.8` listed as the IP address above. You should replace that with the static IP address of your Azure Container App. You can find that in the Azure Portal. It's listed on the "Overview" tab of your Azure Container App. It's the "Static IP" value:
+This makes a certificate with a 10 year expiry date. You'll note the `8.8.8.8` listed as the IP address above. You should replace that with the static IP address of your Container Apps Environment. You can find that in the Azure Portal. It's listed on the "Overview" tab of your Azure Container App. It's the "Static IP" value:
 
 ![screenshot of the Azure Portal with the static IP address highlighted](screenshot-azure-portal-static-ip-address.webp)
 
@@ -42,15 +42,15 @@ Now, we'll crack open our Azure Container App's environment in the Azure Portal 
 
 ![Screenshot of Azure Portal on the certificates screen](screenshot-azure-portal-bring-your-own-certificates.webp)
 
-Note the "Add certificate" button. Use that to upload your certificate. You'll need to provide the password for the certificate too. Oh and you'll be asked for a friendly name. We'll remember the friendly name you use - we'll need it later.
+Note the "Add certificate" button. Use that to upload your certificate - in my case that's the `poorclaresarundel.org.pem` file. You'll need to provide the password for the certificate too. Oh and you'll be asked for a friendly name. We'll remember the friendly name you use - we'll need it later.
 
-This is a real world example; my aunt's website. My aunt is Poor Clare nun and, for years, I've done an average job of maintaining her [convent's website](https://www.poorclaresarundel.org/). If I was her, I'd be wishing her nephew was a designed rather than an engineer. Or maybe an engineer with more of a sense what looks good. But here we are - she's a nun and so consequently much too nice to say that. Anyway, I digress. The point is, I've got a certificate for her website and I'm going to use it here.
+This is a real world example; my aunt's website. My aunt is Poor Clare nun and, for years, I've done an average job of maintaining her [convent's website](https://www.poorclaresarundel.org/). If I was her, I'd be wishing her nephew was a designer rather than an engineer. Or maybe an engineer with more of a sense what looks good. But here we are - she's a nun and so consequently much too nice to say that. Anyway, I digress. The point is, I've got a certificate for her website and I'm going to use it here.
 
 ![screenshot of uploaded certificate in the Azure Portal](screenshot-azure-portal-bring-your-own-certificates-uploaded.webp)
 
 ## Bicep for the custom domain
 
-Whilst I haven't managed to work out how one would handle the certificate upload in Bicep, I have worked out how to handle the certificate in the Azure Container App once it's uploaded with regards to custom domains. Find the `Microsoft.App/containerApps` resource in your Bicep and add a `customDomains` property to it. It should look something like this:
+I haven't managed to work out how one would handle the certificate upload in Bicep (and I rather suspect it is not supported). However, I have worked out how to handle the certificate in the Azure Container App once it's been uploaded with regards to custom domains. Find the `Microsoft.App/containerApps` resource in your Bicep and add a `customDomains` property to it. It should look something like this:
 
 ```bicep
 resource environment 'Microsoft.App/managedEnvironments@2022-10-01' = {
@@ -71,7 +71,7 @@ resource webServiceContainerApp 'Microsoft.App/containerApps@2022-10-01' = {
         customDomains: [
           {
               name: 'www.poorclaresarundel.org'
-              certificateId: '${environment.id}/certificates/poorclaresarundel.org' // note the friendly name of "poorclaresarundel.org" here
+              certificateId: '${environment.id}/certificates/poorclaresarundel.org' // note the friendly name of "poorclaresarundel.org" forms the last segment of the id here
               bindingType: 'SniEnabled'
           }
         ]
