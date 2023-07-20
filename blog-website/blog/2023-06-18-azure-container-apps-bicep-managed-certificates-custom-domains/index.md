@@ -1,6 +1,6 @@
 ---
 slug: azure-container-apps-bicep-managed-certificates-custom-domains
-title: 'Azure Container Apps, Bicep, Managed Certificates and Custom Domains'
+title: 'Azure Container Apps, Bicep, managed certificates and custom domains'
 authors: johnnyreilly
 tags: [azure container apps, bicep]
 image: ./title-image.png
@@ -10,6 +10,8 @@ hide_table_of_contents: false
 
 Azure Container Apps support managed certificates and custom domains. However, deploying them with Bicep is not straightforward - although it is possible. It seems likely there's a bug in the implementation in Azure, but I'm not sure. Either way, it's possible to deploy managed certificates and custom domains using Bicep. You just need to know how.
 
+If, instead, you're looking to make use of the "bring your own certificates" approach in Azure Container Apps using Bicep, then you might want to take a look at [this post on the topic](../2023-07-20-azure-container-apps-bicep-bring-your-own-certificates-custom-domains/index.md).
+
 I've facetiously subtitled this post "a three pipe(line) problem" because it took three Azure Pipelines to get it working. This is not Azure Pipelines specific though, it's just that I was using Azure Pipelines to deploy the Bicep. Really, this applies to any way of deploying Bicep. GitHub Actions, Azure CLI or whatever.
 
 If you're here because you've encountered the dread message:
@@ -18,7 +20,7 @@ If you're here because you've encountered the dread message:
 
 Then you're in the right place. I'm going to explain how to get past that error message and get your custom domain working with your Azure Container App whilst still using Bicep. It's going to get ugly. But it will work.
 
-![title image reading "Azure Container Apps, Bicep, Managed Certificates and Custom Domains" with the Azure Container App logos](title-image.png)
+![title image reading "Azure Container Apps, Bicep, managed certificates and custom domains" with the Azure Container App logos](title-image.png)
 
 <!--truncate-->
 
