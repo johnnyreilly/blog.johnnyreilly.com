@@ -42,7 +42,7 @@ Now, we'll crack open our Azure Container App's environment in the Azure Portal 
 
 ![Screenshot of Azure Portal on the certificates screen](screenshot-azure-portal-bring-your-own-certificates.webp)
 
-Note the "Add certificate" button. Use that to upload your certificate. You'll need to provide the password for the certificate too. Oh and you'll be asked for a friendly name.
+Note the "Add certificate" button. Use that to upload your certificate. You'll need to provide the password for the certificate too. Oh and you'll be asked for a friendly name. We'll remember the friendly name you use - we'll need it later.
 
 This is a real world example; my aunt's website. My aunt is Poor Clare nun and, for years, I've done an average job of maintaining her [convent's website](https://www.poorclaresarundel.org/). If I was her, I'd be wishing her nephew was a designed rather than an engineer. Or maybe an engineer with more of a sense what looks good. But here we are - she's a nun and so consequently much too nice to say that. Anyway, I digress. The point is, I've got a certificate for her website and I'm going to use it here.
 
@@ -71,7 +71,7 @@ resource webServiceContainerApp 'Microsoft.App/containerApps@2022-10-01' = {
         customDomains: [
           {
               name: 'www.poorclaresarundel.org'
-              certificateId: '${environment.id}/certificates/poorclaresarundel'
+              certificateId: '${environment.id}/certificates/poorclaresarundel.org' // note the friendly name of "poorclaresarundel.org" here
               bindingType: 'SniEnabled'
           }
         ]
