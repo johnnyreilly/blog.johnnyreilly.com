@@ -71,7 +71,8 @@ resource webServiceContainerApp 'Microsoft.App/containerApps@2022-10-01' = {
         customDomains: [
           {
               name: 'www.poorclaresarundel.org'
-              certificateId: '${environment.id}/certificates/poorclaresarundel.org' // note the friendly name of "poorclaresarundel.org" forms the last segment of the id here
+              // note the friendly name of "poorclaresarundel.org" forms the last segment of the id below
+              certificateId: '${environment.id}/certificates/poorclaresarundel.org'
               bindingType: 'SniEnabled'
           }
         ]
