@@ -139,7 +139,7 @@ jobs:
       - name: Setup bun 🔧
         uses: oven-sh/setup-bun@v1
         with:
-          bun-version: latest
+          bun-version: 0.7.0
 
       - name: Install and build site 🔧
         run: |
