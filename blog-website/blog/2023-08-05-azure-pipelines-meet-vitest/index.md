@@ -13,6 +13,8 @@ This post explains how to integrate the tremendous test runner [Vitest](https://
 2. A failing test fails the build
 3. Test results are reported in Azure Pipelines UI
 
+![title image reading "Azure Pipelines meet Vitest" with the Pipelines and Vitest logos](title-image.png)
+
 <!--truncate-->
 
 Thi post assumes you have a Vitest project set up and an Azure Pipeline in place. Let's get started.
@@ -43,7 +45,7 @@ The test results are written to `reports/junit.xml` which is a path relative to 
 
 ## Tests results are reported in Azure Pipelines UI
 
-Our tests are running, but we're not seeing the results in the Azure Pipelines UI. For that we need the [`PublishTestResults`` task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/test/publish-test-results?view=azure-devops&tabs=trx%2Cyaml).
+Our tests are running, but we're not seeing the results in the Azure Pipelines UI. For that we need the [`PublishTestResults` task](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/publish-test-results-v2).
 
 We need to add a new step to our `azure-pipelines.yml` file _after_ our `npm run test:ci` step:
 
@@ -59,4 +61,4 @@ This will read the test results from our `src/client-app/reports/junit.xml` file
 
 And that's it! Azure Pipelines and Jest integrated.
 
-![screenshot of test results published to Azure Pipelines](test-results.png)
+![screenshot of test results published to Azure Pipelines](test-results.webp)
