@@ -13,7 +13,7 @@ This post explains how to integrate the tremendous test runner [Jest](https://je
 2. A failing test fails the build
 3. Test results are reported in Azure Pipelines UI
 
-Related: there is a [post on Vitest and Azure Pipelines](blog-website/blog/2023-08-05-azure-pipelines-meet-vitest/index.md).
+Related: there is a [post on Vitest and Azure Pipelines](../2023-08-05-azure-pipelines-meet-vitest/index.md).
 
 <!--truncate-->
 
