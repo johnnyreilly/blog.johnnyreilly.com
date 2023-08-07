@@ -59,11 +59,11 @@ We're going to implement an `AuthenticationHandler` that takes the information f
 
 ```cs title="AzureContainerAppsEasyAuth.cs"
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 /// <summary>
 /// Support for EasyAuth authentication in Azure Container Apps
@@ -105,35 +105,41 @@ public class EasyAuthAuthenticationHandler : AuthenticationHandler<EasyAuthAuthe
         : base(options, logger, encoder, clock)
     {
     }
-    protected override Task<AuthenticateResult> HandleAuthenticateAsync()
+
+    protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
     {
         try
         {
             var easyAuthProvider = Context.Request.Headers["X-MS-CLIENT-PRINCIPAL-IDP"].FirstOrDefault() ?? "aad";
             var msClientPrincipalEncoded = Context.Request.Headers["X-MS-CLIENT-PRINCIPAL"].FirstOrDefault();
             if (string.IsNullOrWhiteSpace(msClientPrincipalEncoded))
-                return Task.FromResult(AuthenticateResult.NoResult());
+                return AuthenticateResult.NoResult();
 
             var decodedBytes = Convert.FromBase64String(msClientPrincipalEncoded);
-            var msClientPrincipalDecoded = System.Text.Encoding.Default.GetString(decodedBytes);
-            var clientPrincipal = JsonSerializer.Deserialize<MsClientPrincipal>(msClientPrincipalDecoded);
+            using var memoryStream = new MemoryStream(decodedBytes);
+            var clientPrincipal = await JsonSerializer.DeserializeAsync<MsClientPrincipal>(memoryStream);
 
-            if (clientPrincipal == null) return Task.FromResult(AuthenticateResult.NoResult());
+            if (clientPrincipal == null || !clientPrincipal.Claims.Any())
+                return AuthenticateResult.NoResult();
 
-            var claims = clientPrincipal.Claims.Select(claim => new Claim(claim.Type, claim.Value)).ToList();
+            var claims = clientPrincipal.Claims.Select(claim => new Claim(claim.Type, claim.Value));
+
+            // remap "roles" claims from easy auth to the more standard ClaimTypes.Role / "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+            var easyAuthRoleClaims = claims.Where(claim => claim.Type == "roles");
+            var claimsAndRoles = claims.Concat(easyAuthRoleClaims.Select(role => new Claim(ClaimTypes.Role, role.Value)));
 
             var principal = new ClaimsPrincipal();
-            principal.AddIdentity(new ClaimsIdentity(claims, clientPrincipal.AuthenticationType, clientPrincipal.NameType, clientPrincipal.RoleType));
+            principal.AddIdentity(new ClaimsIdentity(claimsAndRoles, clientPrincipal.AuthenticationType, clientPrincipal.NameType, ClaimTypes.Role));
 
             var ticket = new AuthenticationTicket(principal, easyAuthProvider);
             var success = AuthenticateResult.Success(ticket);
             Context.User = principal;
 
-            return Task.FromResult(success);
+            return success;
         }
         catch (Exception ex)
         {
-            return Task.FromResult(AuthenticateResult.Fail(ex));
+            return AuthenticateResult.Fail(ex);
         }
     }
 }
@@ -164,6 +170,7 @@ There's a few things to note from the above:
 - `EasyAuthAuthenticationHandler` is an `AuthenticationHandler` that takes the information from the `X-MS-CLIENT-PRINCIPAL` header and uses it to create a `ClaimsPrincipal`.
 - The `MsClientPrincipal` class is a representation of the decoded `X-MS-CLIENT-PRINCIPAL` header.
 - `AddAzureContainerAppsEasyAuth` is an extension method for the `AuthenticationBuilder` object - this allows users to make use of the handler in their application.
+- With Easy Auth, role claims arrive in the custom `"roles"` claim.  This is somewhat non-standard and so we remap `"roles"` claims to be `ClaimTypes.Role` / `"http://schemas.microsoft.com/ws/2008/06/identity/claims/role"` claims as well. This should ensure that anything built with the expectation of that type of claim behaves in the way you'd expect.
 
 ## Using `AddAzureContainerAppsEasyAuth()`
 
@@ -173,7 +180,7 @@ Now we've written our handler, we can use it in our application. We do this by c
 //...
 
 builder.Services
-    .AddAuthentication()
+    .AddAuthentication(EasyAuthAuthenticationBuilderExtensions.EASYAUTHSCHEMENAME)
     .AddAzureContainerAppsEasyAuth(); // <-- here
 builder.Services.AddAuthorization();
 
