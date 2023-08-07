@@ -64,6 +64,7 @@ using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 /// <summary>
 /// Support for EasyAuth authentication in Azure Container Apps
