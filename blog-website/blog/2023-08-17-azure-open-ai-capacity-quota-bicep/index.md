@@ -22,7 +22,7 @@ This post grew out of a [GitHub issue](https://github.com/Azure/bicep-types-az/i
 
 If you take a look at the [Azure Open AI Studio](https://oai.azure.com/) you'll notice a "Quotas" section:
 
-![screenshot of azure open ai studio with quotas highlighted](./screenshot-azure-ai-studio.png)
+![screenshot of azure open ai studio with quotas highlighted](./screenshot-azure-ai-studio.webp)
 
 You'll see above that we've got two deployments of GPT-35-Turbo in our subscription. Both of these contribute towards an overall limit of 360K TPM. If we try and deploy resources and have an overall capacity total that exceeds that, our deployment will fail.
 
