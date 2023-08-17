@@ -10,9 +10,9 @@ hide_table_of_contents: false
 
 We're currently in the gold rush period of AI. The world cannot get enough. A consequence of this, is that rationing is in force. It's like the end of the second world war, but with GPUs. This is a good thing, because it means that we can't just spin up as many resources as we like. It's a bad thing, for the exact same reason.
 
-If you're making use of Azure's Open AI resources for your AI needs, you'll be aware that there are [limits in place known as "quotas"](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/quota?tabs=bicep) in place. If you're looking to control how many resources you're using, you'll want to be able to control the capacity of your deployments. This is possible with Bicep.
+If you're making use of Azure's Open AI resources for your AI needs, you'll be aware that there are [limits known as "quotas"](https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/quota?tabs=bicep) in place. If you're looking to control how many resources you're using, you'll want to be able to control the capacity of your deployments. This is possible with Bicep.
 
-This post grew out of a [GitHub issue](https://github.com/Azure/bicep-types-az/issues/1660#issuecomment-1643484703) around the topic where people were bumping on the message `The capacity should be null for standard deployment.` as they attempted to deploy. At the time that issue was raised, there was very little documentation on how to handle this. Since then, things have improved, but I thought it would be useful to have a post on the topic.
+This post grew out of a [GitHub issue](https://github.com/Azure/bicep-types-az/issues/1660#issuecomment-1643484703) around the topic where people were bumping on the message `the capacity should be null for standard deployment` as they attempted to deploy. At the time that issue was raised, there was very little documentation on how to handle this. Since then, things have improved, but I thought it would be useful to have a post on the topic.
 
 ![title image reading "Azure Open AI: handling capacity and quota limits with Bicep" with the Azure Open AI / Bicep logos](title-image.png)
 
@@ -109,15 +109,15 @@ var cognitiveServicesDeployments = [
     }
     sku: {
       name: 'Standard'
-      capacity: repositoryBranch == 'refs/heads/main' ? 100 : 10
+      capacity: repositoryBranch == 'refs/heads/main' ? 100 : 10 // capacity in thousands of TPM
     }
   }
 ]
 
-// Model Deployment
+// Model Deployment - one at a time as parallel deployments are not supported
 @batchSize(1)
 module openAiAccountsDeployments35Turbo 'account-deployments.bicep' = [for deployment in cognitiveServicesDeployments: {
-  name: '${deploymentPrefix}-${deployment.shortName}-cog-accounts-deployments'
+  name: '${deployment.shortName}-cog-accounts-deployments'
   params: {
     cognitiveServicesName: openAi.outputs.cognitiveServicesName
     deploymentName: deployment.name
