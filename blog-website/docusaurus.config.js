@@ -52,10 +52,10 @@ const config = {
       '@docusaurus/preset-classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        googleAnalytics: {
-          trackingID: 'UA-51754530-2',
-          anonymizeIP: true,
-        },
+        // googleAnalytics: {
+        //   trackingID: 'UA-51754530-2',
+        //   anonymizeIP: true,
+        // },
         gtag: {
           trackingID: 'G-3N85G0SL3K',
           anonymizeIP: true,
