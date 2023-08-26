@@ -2,3 +2,4 @@ node_modules
 img.sh
 devto.sh
 APIClientGenerator
+.env
