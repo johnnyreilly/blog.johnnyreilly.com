@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 
 function PrivacyPolicy() {
   return (
-    <Layout title="Talks">
+    <Layout title="Privacy Policy">
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
           <h1 className="hero__title">Privacy Policy of johnnyreilly.com</h1>
@@ -78,11 +78,11 @@ function PrivacyPolicy() {
               </p>
 
               <p>
-                Our website uses these "cookies" to collection information and
-                to improve our Service. You have the option to either accept or
-                refuse these cookies, and know when a cookie is being sent to
-                your computer. If you choose to refuse our cookies, you may not
-                be able to use some portions of our Service.
+                Our website does not use cookies. However it uses Google
+                Analytics to track website traffic. Google Analytics uses
+                [first-party
+                cookies](https://support.google.com/analytics/answer/11397207?hl=en)
+                to distinguish unique users.
               </p>
 
               <h2>Service Providers</h2>
