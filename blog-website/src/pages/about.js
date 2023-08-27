@@ -48,6 +48,11 @@ function About() {
         <script type="application/ld+json">
           {JSON.stringify(personStructuredData)}
         </script>
+
+        <meta
+          property="og:image"
+          content="https://johnnyreilly.com/api/image-with-text"
+        />
       </Head>
 
       <Layout
