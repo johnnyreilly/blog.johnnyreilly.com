@@ -68,7 +68,7 @@ async function generatePostsWithDescription() {
 
       await fs.promises.writeFile(
         post.path,
-        `---${frontmatter}description: '${description.replaceAll("'", "\\'")}'
+        `---${frontmatter}description: '${description.replaceAll("'", '')}'
 ---${article}`,
       );
     } else {

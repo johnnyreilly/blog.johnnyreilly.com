@@ -4,7 +4,7 @@ title: 'Bulletproof uniq with TypeScript generics (yay code reviews!)'
 authors: johnnyreilly
 tags: [typescript]
 hide_table_of_contents: false
-description: 'Code reviews provide opportunities for improvement. A developer shares how their colleague\'s comment led to the creation of a better “uniq” function.'
+description: 'Code reviews provide opportunities for improvement. A developer shares how their colleagues comment led to the creation of a better “uniq” function.'
 ---
 
 Never neglect the possibilities of a code review. There are times when you raise a PR and all you want is for everyone to hit approve so you can merge, merge and ship, ship! This can be a missed opportunity. For as much as I'd like to imagine my code is perfect, it's patently not. There's always scope for improvement.

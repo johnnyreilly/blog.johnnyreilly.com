@@ -5,7 +5,7 @@ authors: johnnyreilly
 image: ./strongly-typing-usequeries.webp
 tags: [useQueries, react-query]
 hide_table_of_contents: false
-description: 'Learn how to strongly type \'useQueries\' in \'react-query\' with \'useQueriesTyped\'. A wrapper function provides the strongly-typed API.'
+description: 'Learn how to strongly type `useQueries` in `react-query` with `useQueriesTyped`. A wrapper function provides the strongly-typed API.'
 ---
 
 `react-query` has a weakly typed hook named `useQueries`. It's possible to turn that into a strong typed hook; this post shows you how.

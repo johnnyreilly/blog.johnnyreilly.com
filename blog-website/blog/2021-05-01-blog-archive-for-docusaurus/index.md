@@ -5,7 +5,7 @@ authors: johnnyreilly
 tags: [Docusaurus, webpack]
 image: ./docusaurus-blog-archive.png
 hide_table_of_contents: false
-description: 'Learn how to add a blog archive to your Docusaurus blog and browse through historic posts. Follow the article\'s steps to implement.'
+description: 'Learn how to add a blog archive to your Docusaurus blog and browse through historic posts. Follow the articles steps to implement.'
 ---
 
 Docusaurus doesn't ship with "blog archive" functionality. By which I mean, something that allows you to look at an overview of your historic blog posts. It turns out it is fairly straightforward to implement your own. This post does just that.
