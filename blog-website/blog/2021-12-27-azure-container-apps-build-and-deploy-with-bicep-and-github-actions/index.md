@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [azure container apps, Bicep, GitHub Actions, GitHub container registry]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'Learn how to deploy a web app to Azure Container Apps using Bicep and GitHub Actions. This post covers the configuration and deployment of secrets.'
 ---
 
 This post shows how to build and deploy a simple web application to Azure Container Apps using Bicep and GitHub Actions. This includes the configuration and deployment of secrets.

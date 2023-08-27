@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [Open Graph]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'Create sharable social media previews with Open Graph tags. Learn the required tags, testing tools, and platform rendering issues in this guide.'
 ---
 
 The Open Graph protocol has become the standard mechanism for sharing rich content on the web. This post looks at what implementing Open Graph tags for sharable previews (often called social media previews) looks like, the tools you can use and also examines the different platform rendering issue.

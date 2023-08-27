@@ -46,7 +46,7 @@ async function generatePostsWithDescription() {
   }
 
   console.log(
-    `Found ${postsWithoutDescription.length} posts without description`
+    `Found ${postsWithoutDescription.length} posts without description`,
   );
 
   const postsWithDescription: BlogPostWithDescription[] = [];
@@ -58,7 +58,7 @@ async function generatePostsWithDescription() {
       `** Generating description for ${post.path
         .replace('/index.md', '')
         .split('/')
-        .pop()}`
+        .pop()}`,
     );
     const description = await produceSummary(article);
 
@@ -69,13 +69,13 @@ async function generatePostsWithDescription() {
       await fs.promises.writeFile(
         post.path,
         `---${frontmatter}description: '${description.replaceAll("'", "\\'")}'
----${article}`
+---${article}`,
       );
     } else {
       console.log(`** no description generated`);
     }
 
-    break;
+    // break;
   }
 
   return postsWithDescription;
@@ -90,7 +90,7 @@ async function main() {
   const finishedAt = new Date();
   const duration = (finishedAt.getTime() - startedAt.getTime()) / 1000;
   console.log(
-    `${postsWithDescription.length} summaries generated in ${duration} seconds`
+    `${postsWithDescription.length} summaries generated in ${duration} seconds`,
   );
 }
 

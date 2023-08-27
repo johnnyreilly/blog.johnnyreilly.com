@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [azure cli, GitHub Actions]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'Discover how to query Azure deployment outputs using the Azure CLI, bash, and jq, and convert them to GitHub Action job outputs.'
 ---
 
 It's often desirable to query the outputs of deployments to Azure. This post demonstrates how to do this using the Azure CLI, bash and jq. It also shows how to generically convert deployment outputs to GitHub Action job outputs.

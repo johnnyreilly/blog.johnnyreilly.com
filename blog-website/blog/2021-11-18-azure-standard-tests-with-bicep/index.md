@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [Azure, Bicep]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'Learn how to deploy Azure standard tests using Bicep! This post goes through the process and includes a complete code snippet.'
 ---
 
 Azure standard tests are a tremendous way to monitor the uptime of your services in Azure. Sometimes also called availability tests, web tests and ping tests, this post goes through how to deploy one using Bicep. It also looks at some of the gotchas that you may encounter as you're setting it up.
