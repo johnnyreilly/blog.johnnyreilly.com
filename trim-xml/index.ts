@@ -213,7 +213,7 @@ async function trimRssXML() {
 async function main() {
   const startedAt = new Date();
 
-  await patchOpenGraphImageToCloudinary();
+  // await patchOpenGraphImageToCloudinary();
   await trimSitemapXML();
   // now handled by createFeedItems
   // await trimAtomXML();
