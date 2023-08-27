@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [webpack, ts-loader, typescript]
 image: ./ts-loader-9.png
 hide_table_of_contents: false
+description: 'TypeScript Webpack loader `ts-loader` has released version 9.0.0, with support for Webpack 5 and a minimum supported Node version of 12.'
 ---
 
 `ts-loader` has just released [v9.0.0](https://github.com/TypeStrong/ts-loader/releases/tag/v9.0.0). This post goes through what this release is all about, and what it took to ship this version. For intrigue, it includes a brief scamper into my mental health along the way. Some upgrades go smoothly - this one had some hiccups. But we'll get into that.

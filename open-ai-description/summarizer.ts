@@ -29,7 +29,7 @@ function getClientAndDeploymentName(): OpenAiClientAndDeploymentName {
   const credential = new AzureCliCredential();
   const openAIClient = new OpenAIClient(
     endpoint,
-    credential /* new AzureKeyCredential(azureApiKey) */
+    credential /* new AzureKeyCredential(azureApiKey) */,
   );
   const deploymentName = 'OpenAi-gpt-35-turbo';
 
@@ -69,7 +69,7 @@ ${article}`,
       messages,
       {
         temperature: 0.9,
-      }
+      },
     );
 
     for (const choice of result.choices) {
@@ -92,12 +92,18 @@ ${article}`,
           summary.length < minChars
             ? `Too short; try again please - we require a summary that is between ${minChars} and ${maxChars} characters long.`
             : `Too long; try again please - we require a summary that is between ${minChars} and ${maxChars} characters long.`,
-      }
+      },
     );
 
     console.log(messages);
+
+    await sleep(500);
   }
 
   console.log(`Failed to produce a summary in ${maxAttempts} attempts`);
   return '';
+}
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }

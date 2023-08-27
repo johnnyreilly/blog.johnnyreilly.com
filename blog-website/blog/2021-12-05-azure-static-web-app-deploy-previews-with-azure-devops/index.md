@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [Azure Static Web Apps, azure devops, Netlify deploy previews]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'This post describes a pull request deployment preview mechanism for Azure Static Web Apps inspired by the Netlify offering.'
 ---
 
 I love [Netlify deploy previews](https://www.netlify.com/products/deploy-previews/). This post implements a pull request deployment preview mechanism for Azure Static Web Apps in the context of Azure DevOps which is very much inspired by the Netlify offering.
@@ -422,48 +423,5 @@ async function updatePullRequestDescription({
 function makePreviewDescriptionMarkdown(desc: string, previewUrl: string) {
   const previewRegex = /(> -*\n> # Preview:\n.*\n>.*\n> -*\n)/;
 
-  const makePreview = (previewUrl: string) => `> ---
-> # Preview:
-> ${previewUrl}
-> 
-> ---
-`;
-
-  const alreadyHasPreview = desc.match(previewRegex);
-  return alreadyHasPreview
-    ? desc.replace(previewRegex, makePreview(previewUrl))
-    : makePreview(previewUrl) + desc;
-}
+  const makePreview = (previewUrl: string) => `>
 ```
-
-The above code does two things:
-
-1. Looks up the pull request, using the details supplied from the pipeline. It's worth noting that the `System.PullRequest.PullRequestId` variable is [initialized only if the build ran because of a Git PR affected by a branch policy](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml). If you don't have that set up, the script falls back to using the latest active pull request. This is generally useful when you're getting set up in the first place; you won't want to rely on this behaviour.
-2. Updates the pull request description with a prefix piece of markdown that provides the link to the preview URL. This is our "browse the preview":
-   ![screenshot of rendered markdown with the preview link](screenshot-of-deploy-preview-small.png)
-
-This script could be refactored into a dedicated Azure Pipelines custom task.
-
-## Permissions
-
-The first time you run this you may encounter a permissions error of the form:
-
-```
-Error: TF401027: You need the Git 'PullRequestContribute' permission to perform this action.
-```
-
-To remedy this you need to give your build service the relevant permissions to update a pull request. You can do that by going to the security settings of your repo and setting "Contribute to pull requests" to "Allow" for your build service:
-
-![Screenshot of "Contribute to pull requests" permission in Azure DevOps Git security being set to "Allow" ](screenshot-of-git-repository-security-settings.webp)
-
-## Enjoy! (and keep Azure tidy)
-
-When the pipeline is now run you can see that a deployment preview link is now updated onto the PR description:
-
-![Screenshot of deployment preview on PR](screenshot-of-deploy-preview.webp)
-
-This will happen whenever a PR is raised which is tremendous.
-
-A thing to remember, is that there's nothing in this post that tears down the temporary deployment after the pull request has been merged. It will hang around. We happen to be using free resources in this post, but if we weren't there would be cost implications. Either way, you'll want to clean up unused environments as a matter of course. And I'd advise automating that.
-
-So be tidy and cost aware with this approach.
