@@ -4,6 +4,7 @@ title: 'The TypeScript webpack PWA'
 authors: johnnyreilly
 tags: [typescript, PWA, webpack]
 hide_table_of_contents: false
+description: 'Learn how to turn a TypeScript, webpack setup into a PWA using Workbox. With service workers, build offline-capable web apps.'
 ---
 
 So, there you sit, conflicted. You've got a lovely build setup; it's a thing of beauty. Precious, polished like a diamond, sharpened like a circular saw. There at the core of your carefully crafted setup sits webpack. Heaving, mysterious... powerful.

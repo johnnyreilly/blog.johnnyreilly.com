@@ -4,6 +4,7 @@ title: 'ts-loader Project References: First Blood'
 authors: johnnyreilly
 tags: [typescript, project references, ts-loader, Webpack]
 hide_table_of_contents: false
+description: 'ts-loader now supports TypeScripts project references. However, composite projects built with `outDir` on Windows cannot be consumed by ts-loader... yet'
 ---
 
 So [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) eh? They shipped with [TypeScript 3](https://blogs.msdn.microsoft.com/typescript/2018/07/30/announcing-typescript-3-0/#project-references). We've just shipped initial support for project references in [`ts-loader v5.2.0`](https://github.com/TypeStrong/ts-loader/releases/tag/v5.2.0). All the hard work was done by the amazing [Andrew Branch](https://twitter.com/atcb). In fact I'd recommend taking a gander at [the PR](https://github.com/TypeStrong/ts-loader/pull/817). Yay Andrew!

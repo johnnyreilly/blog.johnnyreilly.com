@@ -4,6 +4,7 @@ title: 'Snapshot Testing for C#'
 authors: johnnyreilly
 tags: [snapshot testing, c#, jest]
 hide_table_of_contents: false
+description: 'Snapshot testing is an efficient test technique for comparing outputs with JSON. Its applicable to C# too, using Fluent Assertions and a helper tool.'
 ---
 
 If you're a user of Jest, you've no doubt heard of and perhaps made use of [snapshot testing](https://jestjs.io/docs/en/snapshot-testing).
@@ -167,35 +168,5 @@ Someone decides that the implementation of `GetTheLeopards` needs to change. Def
 If we make that change we'd ideally expect our trusty test to fail. Let's see what happens:
 
 ```
------ Test Execution Summary -----
 
-Leopard.Tests.Services.LeopardServiceTests.GetTheLeopards_should_return_expected_Leopards:
-    Outcome: Failed
-    Error Message:
-    Expected item[1].Spots to be 90, but found 900.
 ```
-
-Boom! We are protected!
-
-Since this is a change we're completely happy with we want to update our `leopardsSnapshot.json` file. We could make our test pass by manually updating the JSON. That'd be fine. But why work when you don't have to? Let's uncomment our `Snapshot.Make...` line and run the test the once.
-
-```json
-[
-  {
-    "name": "Nimoy",
-    "spots": 42
-  },
-  {
-    "name": "Dotty",
-    "spots": 90
-  }
-]
-```
-
-That's right, we have an updated snapshot! Minimal effort.
-
-## Next Steps
-
-This is a basic approach to getting the goodness of snapshot testing in C#. It could be refined further. To my mind the uncommenting / commenting of code is not the most elegant way to approach this and so there's some work that could be done around this area.
-
-Happy snapshotting!

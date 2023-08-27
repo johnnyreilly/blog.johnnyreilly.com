@@ -4,6 +4,7 @@ title: "It's Not Dead: webpack and dead code elimination limitations"
 authors: johnnyreilly
 tags: [webpack]
 hide_table_of_contents: false
+description: 'Webpack eliminates dead code through DefinePlugin. Directly use `process.env.NODE_ENV !== production` for smarter code elimination by UglifyJSPlugin.'
 ---
 
 Webpack has long supported the notion of dead code elimination. webpack facilitates this through use of the `DefinePlugin`. The compile time value of `process.env.NODE_ENV` is set either to `'production'` or something else. If it's set to `'production'` then some dead code hackery can happen. [Libraries like React make use of this to serve up different, and crucially smaller, production builds.](https://reactjs.org/docs/optimizing-performance.html#webpack)

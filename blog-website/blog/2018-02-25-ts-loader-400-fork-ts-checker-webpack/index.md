@@ -4,6 +4,7 @@ title: 'ts-loader 4 / fork-ts-checker-webpack-plugin 0.4'
 authors: johnnyreilly
 tags: [webpack, fork-ts-checker-webpack-plugin, ts-loader]
 hide_table_of_contents: false
+description: 'Webpack 4 has been released, along with updates for ts-loader and fork-ts-checker-webpack-plugin. See links for details and examples.'
 ---
 
 webpack 4 has shipped!

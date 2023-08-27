@@ -4,6 +4,7 @@ title: 'Up to the clouds!'
 authors: johnnyreilly
 tags: [docker, kubernetes, asp net core]
 hide_table_of_contents: false
+description: 'Migrating ASP.NET Core app from on-prem to cloud with Kubernetes, Docker, Jenkins, Vault & Azure AD Single Sign-On for greater efficiency.'
 ---
 
 This last four months has been quite the departure for me. Most typically I find myself building applications; for this last period of time I've been taking the platform that I work on, and been migrating it from running on our on premise servers to running in the cloud.

@@ -4,6 +4,7 @@ title: 'You Might Not Need thread-loader'
 authors: johnnyreilly
 tags: [fork-ts-checker-webpack-plugin, ts-loader, webpack]
 hide_table_of_contents: false
+description: 'Jan Nicklas, the creator of webpack-config-plugins, suggests limiting the use of thread-loader for costly operations via `poolTimeout: Infinity`.'
 ---
 
 It all started with a GitHub issue. [Ernst Ammann reported](https://github.com/namics/webpack-config-plugins/issues/24):

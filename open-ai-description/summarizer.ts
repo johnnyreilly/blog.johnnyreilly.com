@@ -46,7 +46,7 @@ export async function produceSummary(article: string): Promise<string> {
   const messages = [
     {
       role: 'system',
-      content: `You are a summarizer. You will be given the text of an article and will produce a summary / meta description which summarizes the article. The summary / meta descriptions you produce must be between ${minChars} and ${maxChars} characters long. If they are longer or shorter than that they cannot be used. Avoid using the \`'\` character as it is not supported by the blog website - you may use the \`’\` character instead.`,
+      content: `You are a summarizer. You will be given the text of an article and will produce a summary / meta description which summarizes the article. The summary / meta descriptions you produce must be between ${minChars} and ${maxChars} characters long. If they are longer or shorter than that they cannot be used. Avoid using the \`'\` character as it is not supported by the blog website - you may use the \`’\` character instead. Do not use the expression "the author" or "the writer" in your summary.`,
     },
     {
       role: 'user',

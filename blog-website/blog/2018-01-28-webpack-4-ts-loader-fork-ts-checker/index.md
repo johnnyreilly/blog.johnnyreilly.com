@@ -4,6 +4,7 @@ title: 'webpack 4 - ts-loader / fork-ts-checker-webpack-plugin betas'
 authors: johnnyreilly
 tags: [fork-ts-checker-webpack-plugin, ts-loader, Webpack]
 hide_table_of_contents: false
+description: 'The TypeScript ts-loader beta to work with Webpack 4 is now available, along with the fork-ts-checker-webpack-plugin, which complements ts-loader.'
 ---
 
 [The first webpack 4 beta dropped on Friday](https://medium.com/webpack/webpack-4-beta-try-it-today-6b1d27d7d7e2). Very exciting! Following hot on the heels of those announcements, I've some news to share too. Can you guess what it is?

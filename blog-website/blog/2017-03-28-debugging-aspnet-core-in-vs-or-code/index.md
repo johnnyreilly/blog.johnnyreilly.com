@@ -4,6 +4,7 @@ title: 'Debugging ASP.Net Core in VS or Code'
 authors: johnnyreilly
 tags: [VS Code, ASP.Net Core, Visual Studio]
 hide_table_of_contents: false
+description: 'Learn how the author became a fan of VS Code for TypeScript and how they managed to debug ASP.Net Core using the extension for C#.'
 ---
 
 I've been using Visual Studio for a long time. Very good it is too. However, it is heavyweight; it does far more than I need. What I really want when I'm working is a fast snappy editor, with intellisense and debugging. What I've basically described is [VS Code](https://code.visualstudio.com/). It rocks and has long become my go-to editor for TypeScript.
@@ -39,45 +40,4 @@ So it wants me to `dotnet restore`. It's even offering to do that for me! Have a
 
 ```ts
 Welcome to .NET Core!
----------------------
-Learn more about .NET Core @ https://aka.ms/dotnet-docs. Use dotnet --help to see available commands or go to https://aka.ms/dotnet-cli-docs.
-
-Telemetry
---------------
-The .NET Core tools collect usage data in order to improve your experience. The data is anonymous and does not include command-line arguments. The data is collected by Microsoft and shared with the community.
-You can opt out of telemetry by setting a DOTNET_CLI_TELEMETRY_OPTOUT environment variable to 1 using your favorite shell.
-You can read more about .NET Core tools telemetry @ https://aka.ms/dotnet-cli-telemetry.
-
-Configuring...
--------------------
-A command is running to initially populate your local package cache, to improve restore speed and enable offline access. This command will take up to a minute to complete and will only happen once.
-Decompressing Decompressing 100% 4026 ms
-Expanding 100% 34814 ms
-  Restoring packages for c:\Source\Debugging\WebApplication1\WebApplication1\WebApplication1.csproj...
-  Restoring packages for c:\Source\Debugging\WebApplication1\WebApplication1\WebApplication1.csproj...
-  Restore completed in 734.05 ms for c:\Source\Debugging\WebApplication1\WebApplication1\WebApplication1.csproj.
-  Generating MSBuild file c:\Source\Debugging\WebApplication1\WebApplication1\obj\WebApplication1.csproj.nuget.g.props.
-  Writing lock file to disk. Path: c:\Source\Debugging\WebApplication1\WebApplication1\obj\project.assets.json
-  Restore completed in 1.26 sec for c:\Source\Debugging\WebApplication1\WebApplication1\WebApplication1.csproj.
-
-  NuGet Config files used:
-      C:\Users\johnr\AppData\Roaming\NuGet\NuGet.Config
-      C:\Program Files (x86)\NuGet\Config\Microsoft.VisualStudio.Offline.config
-
-  Feeds used:
-      https://api.nuget.org/v3/index.json
-      C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\
-Done: 0.
 ```
-
-The other prompt says `"Required assets to build and debug are missing from 'WebApplication1'. Add them?"`. This also sounds very promising and I give it the nod. This creates a `.vscode` directory and 2 enclosed files; `launch.json` and `tasks.json`.
-
-So lets try that F5 thing again... http://localhost:5000/ is now serving the same app. That looks pretty good. So lets add a breakpoint to the `HomeController` and see if we can hit it:
-
-![](firstgo.webp)
-
-Well I can certainly add a breakpoint but all those red squigglies are unnerving me. Let's clean the slate. If you want to simply do that in VS Code hold down `CTRL+SHIFT+P` and then type "reload". Pick "Reload window". A couple of seconds later we're back in and Code is looking much happier. Can we hit our breakpoint?
-
-![](secondgo.webp)
-
-Yes we can! So you're free to develop in either Code or VS; the choice is yours. I think that's pretty awesome - and well done to all the peeople behind Code who've made this a pretty seamless experience!

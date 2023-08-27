@@ -4,6 +4,7 @@ title: 'LICENSE to kill your PWA'
 authors: johnnyreilly
 tags: []
 hide_table_of_contents: false
+description: 'Creating `.LICENSE` files caused issues for a PWA. The `terser-webpack-plugin` was changed to make `.LICENSE.txt` files instead.'
 ---
 
 ## Update: 26/01/2020 - LICENSE to kill revoked!

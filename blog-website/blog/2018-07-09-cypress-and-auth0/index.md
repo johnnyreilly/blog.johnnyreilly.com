@@ -4,6 +4,7 @@ title: 'Cypress and Auth0'
 authors: johnnyreilly
 tags: [auth0-js, Auth0, cypress, auth]
 hide_table_of_contents: false
+description: 'The article explains how to automate Auth0 login using Cypress, by using the auth0-js client library, and creating a custom command.'
 ---
 
 [Cypress](https://www.cypress.io/) is a fantastic way to write UI tests for your web apps. Just world class. Wait, no. Galaxy class. I'm going to go one further: universe class. You get my drift.
@@ -70,13 +71,13 @@ Cypress.Commands.add('loginAsAdmin', (overrides = {}) => {
 
         window.sessionStorage.setItem(
           'my-super-duper-app:storage_token',
-          JSON.stringify(token)
+          JSON.stringify(token),
         );
       } else {
         console.error('Problem logging into Auth0', err);
         throw err;
       }
-    }
+    },
   );
 });
 ```
@@ -128,6 +129,6 @@ You now have a test which automates your Auth0 login using Cypress and goes on t
 
 ## One More Thing...
 
-It's worth saying that it's worth setting up different tenants in Auth0 to support your testing scenarios. This is generally a good idea so you can separate your testing accounts from Production accounts. Further to that, you don't need to have your Production setup supporting the ` Password``Grant Type `.
+It's worth saying that it's worth setting up different tenants in Auth0 to support your testing scenarios. This is generally a good idea so you can separate your testing accounts from Production accounts. Further to that, you don't need to have your Production setup supporting the `Password``Grant Type`.
 
 Also, if you're curious about what the application under test is like then read [this](../2018-01-14-auth0-typescript-and-aspnet-core/index.md).

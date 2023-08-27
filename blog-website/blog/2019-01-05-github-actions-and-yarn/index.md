@@ -4,6 +4,7 @@ title: 'GitHub Actions and Yarn'
 authors: johnnyreilly
 tags: [docker, yarn, GitHub Actions]
 hide_table_of_contents: false
+description: 'Automate npm publishing using GitHub Actions; use `npm` GitHub Action with yarn or any Docker container with Node/npm installed.'
 ---
 
 I'd been meaning to automate the npm publishing of [`ts-loader`](https://github.com/TypeStrong/ts-loader) for the longest time. I had attempted to use Travis to do this in the same way as [`fork-ts-checker-webpack-plugin`](https://github.com/Realytics/fork-ts-checker-webpack-plugin). Alas using secure environment variables in Travis has unfortunate implications for ts-loader's test pack.

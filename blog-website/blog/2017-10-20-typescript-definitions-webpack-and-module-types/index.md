@@ -4,6 +4,7 @@ title: 'TypeScript Definitions, webpack and Module Types'
 authors: johnnyreilly
 tags: [Definitely Typed, typescript, webpack]
 hide_table_of_contents: false
+description: 'Inconsistent module exports cause confusion while using the npm package big.js, leading to `one definition to rule them all.`'
 ---
 
 A funny thing happened on the way to the registry the other day. Something changed in an npm package I was using and confusion arose. You can read my unfiltered confusion [here](https://github.com/Microsoft/TypeScript/issues/18791) but here's the slightly clearer explanation.
