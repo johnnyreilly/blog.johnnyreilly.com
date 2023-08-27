@@ -4,6 +4,7 @@ title: 'Create React App with ts-loader and CRACO'
 authors: johnnyreilly
 tags: [typescript, fork-ts-checker-webpack-plugin, ts-loader]
 hide_table_of_contents: false
+description: 'Create React App now supports TypeScript with React, using Babel webpack loader or `ts-loader`. You can use CRACO to customize configurations.'
 ---
 
 [Create React App](https://create-react-app.dev/) is a fantastic way to get up and running building a web app with React. It also supports using TypeScript with React. Simply entering the following:
@@ -65,14 +66,14 @@ module.exports = {
     configure: (webpackConfig, { paths }) => {
       const { hasFoundAny, matches } = getLoaders(
         webpackConfig,
-        loaderByName('babel-loader')
+        loaderByName('babel-loader'),
       );
       if (!hasFoundAny) throwError('failed to find babel-loader');
 
       console.log('removing babel-loader');
       const { hasRemovedAny, removedCount } = removeLoaders(
         webpackConfig,
-        loaderByName('babel-loader')
+        loaderByName('babel-loader'),
       );
       if (!hasRemovedAny) throwError('no babel-loader to remove');
       if (removedCount !== 2)
@@ -90,7 +91,7 @@ module.exports = {
       const { isAdded: tsLoaderIsAdded } = addAfterLoader(
         webpackConfig,
         loaderByName('url-loader'),
-        tsLoader
+        tsLoader,
       );
       if (!tsLoaderIsAdded) throwError('failed to add ts-loader');
       console.log('added ts-loader');
@@ -99,7 +100,7 @@ module.exports = {
       const { isAdded: babelLoaderIsAdded } = addAfterLoader(
         webpackConfig,
         loaderByName('ts-loader'),
-        matches[1].loader // babel-loader
+        matches[1].loader, // babel-loader
       );
       if (!babelLoaderIsAdded)
         throwError('failed to add back babel-loader for non-application JS');

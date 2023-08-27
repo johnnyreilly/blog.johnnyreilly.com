@@ -5,6 +5,7 @@ authors: johnnyreilly
 image: ./with-great-power-comes-great-responsibility.webp
 tags: [Azure, ARM templates, role assignments, permissions]
 hide_table_of_contents: false
+description: 'ARM templates can help define Azure Role-Based Access Control. By creating role assignments, users can grant Managed Identities access to resources.'
 ---
 
 This post is about Azure's role assignments and ARM templates. Role assignments can be thought of as "permissions for Azure".

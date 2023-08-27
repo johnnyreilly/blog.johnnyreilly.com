@@ -4,6 +4,7 @@ title: 'azure-pipelines-task-lib and isOutput setVariable'
 authors: johnnyreilly
 tags: [Azure Pipelines]
 hide_table_of_contents: false
+description: 'This is a workaround for custom Azure Pipelines task extension to output variable since the library doesn\'t support "isOutput=true."'
 ---
 
 Some blog posts are insightful treatises on the future of web development, some are "here's how I solved my problem". This is most assuredly the latter.
@@ -34,7 +35,7 @@ import * as os from 'os';
 export function setOutputVariable(
   name: string,
   val: string,
-  secret = false
+  secret = false,
 ): void {
   // use the implementation of setVariable to set all the internals,
   // then subsequently set the output variable manually
@@ -51,7 +52,7 @@ export function setOutputVariable(
       isOutput: 'true',
       issecret: (secret || false).toString(),
     },
-    varValue
+    varValue,
   );
 }
 

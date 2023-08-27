@@ -5,6 +5,7 @@ authors: johnnyreilly
 image: ./about-page.png
 tags: [azure pipelines]
 hide_table_of_contents: false
+description: 'Surface build metadata using Azure Pipelines and ASP.NET for both client and server builds in your app with this tutorial.'
 ---
 
 How do you answer the question: "what version of my application is running in Production right now?" This post demonstrates how to surface the build metadata that represents the version of your app, from your app using Azure Pipelines and ASP.NET.
@@ -203,7 +204,7 @@ const useStyles = (cardColor: string) =>
       main: {
         padding: theme.spacing(2),
       },
-    })
+    }),
   )();
 
 type Styles = ReturnType<typeof useStyles>;

@@ -5,6 +5,7 @@ authors: johnnyreilly
 image: ./title-image.png
 tags: [asp.net, Azure, Application Insights, Serilog]
 hide_table_of_contents: false
+description: 'Learn how to integrate Serilog into Azure\'s Application Insights for better diagnostic logging by following these steps and adding dependencies.'
 ---
 
 If you're deploying an ASP.NET application to Azure App Services / Azure Container Apps or similar, there's a decent chance you'll also be using the fantastic [Serilog](https://serilog.net/) and will want to plug it into Azure's [Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview).
