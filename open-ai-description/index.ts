@@ -52,7 +52,7 @@ async function generatePostsWithDescription() {
   const postsWithDescription: BlogPostWithDescription[] = [];
 
   for (const post of postsWithoutDescription) {
-    const article = post.content.split('---')[2];
+    const [, frontmatter, article] = post.content.split('---');
 
     console.log(
       `** Generating description for ${post.path
@@ -65,12 +65,19 @@ async function generatePostsWithDescription() {
     if (description) {
       postsWithDescription.push({ ...post, description });
       console.log(`** description: ${description}`);
+
+      await fs.promises.writeFile(
+        post.path,
+        `---${frontmatter}description: '${description.replaceAll("'", "\\'")}'
+---${article}`
+      );
     } else {
       console.log(`** no description generated`);
     }
 
     break;
   }
+
   return postsWithDescription;
 }
 
