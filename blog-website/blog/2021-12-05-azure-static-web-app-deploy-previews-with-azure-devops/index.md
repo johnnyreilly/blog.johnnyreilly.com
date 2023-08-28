@@ -123,7 +123,7 @@ variables:
   - name: appName
     value: 'our-static-web-app'
   - name: location
-    value: 'westeurope' # at time of writing static sites are available in limited locations such as westeurope
+    value: 'westeurope' # at time of writing static sites are available in limited locations such as westeurope
   - name: serviceConnection
     value: 'azureRMWestEurope'
   - name: azureResourceGroup # this resource group lives in westeurope
@@ -289,7 +289,7 @@ async function run({
 
   if (!pullRequestId)
     console.log(
-      'No pull request id supplied, so will look up latest active PR'
+      'No pull request id supplied, so will look up latest active PR',
     );
 
   const pullRequestIdToUpdate =
@@ -300,7 +300,7 @@ async function run({
   }
 
   console.log(
-    `Updating ${systemCollectionUri}/${project}/_git/${repository}/pullrequest/${pullRequestIdToUpdate} with a preview URL of ${previewUrl}`
+    `Updating ${systemCollectionUri}/${project}/_git/${repository}/pullrequest/${pullRequestIdToUpdate} with a preview URL of ${previewUrl}`,
   );
 
   const pullRequest = await getPullRequest({
@@ -315,12 +315,12 @@ async function run({
     pullRequestId: pullRequestIdToUpdate,
     description: makePreviewDescriptionMarkdown(
       pullRequest.description!,
-      previewUrl
+      previewUrl,
     ),
   });
 
   console.log(
-    `Updated pull request description a preview URL of ${previewUrl}`
+    `Updated pull request description a preview URL of ${previewUrl}`,
   );
 }
 
@@ -341,11 +341,11 @@ async function getGitApi({
   const authHandler = pat
     ? nodeApi.getPersonalAccessTokenHandler(
         pat,
-        /** allowCrossOriginAuthentication */ true
+        /** allowCrossOriginAuthentication */ true,
       )
     : nodeApi.getHandlerFromToken(
         sat,
-        /** allowCrossOriginAuthentication */ true
+        /** allowCrossOriginAuthentication */ true,
       );
 
   const webApi = new nodeApi.WebApi(systemCollectionUri, authHandler);
@@ -367,7 +367,7 @@ async function getActivePullRequestId({
     config.project,
     undefined,
     /** skip */ 0,
-    /** top */ 1
+    /** top */ 1,
   );
 
   return topActivePullRequest.length > 0
@@ -392,7 +392,7 @@ async function getPullRequest({
     /** skip */ 0,
     /** top */ 1,
     /** includeCommits */ false,
-    /** includeWorkItemRefs */ false
+    /** includeWorkItemRefs */ false,
   );
   return pullRequest;
 }
@@ -416,12 +416,55 @@ async function updatePullRequestDescription({
     updatePullRequest,
     config.repository,
     pullRequestId,
-    config.project
+    config.project,
   );
 }
 
 function makePreviewDescriptionMarkdown(desc: string, previewUrl: string) {
   const previewRegex = /(> -*\n> # Preview:\n.*\n>.*\n> -*\n)/;
 
-  const makePreview = (previewUrl: string) => `>
+  const makePreview = (previewUrl: string) => `> ---
+> # Preview:
+> ${previewUrl}
+> 
+> ---
+`;
+
+  const alreadyHasPreview = desc.match(previewRegex);
+  return alreadyHasPreview
+    ? desc.replace(previewRegex, makePreview(previewUrl))
+    : makePreview(previewUrl) + desc;
+}
 ```
+
+The above code does two things:
+
+1. Looks up the pull request, using the details supplied from the pipeline. It's worth noting that the `System.PullRequest.PullRequestId` variable is [initialized only if the build ran because of a Git PR affected by a branch policy](https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml). If you don't have that set up, the script falls back to using the latest active pull request. This is generally useful when you're getting set up in the first place; you won't want to rely on this behaviour.
+2. Updates the pull request description with a prefix piece of markdown that provides the link to the preview URL. This is our "browse the preview":
+   ![screenshot of rendered markdown with the preview link](screenshot-of-deploy-preview-small.png)
+
+This script could be refactored into a dedicated Azure Pipelines custom task.
+
+## Permissions
+
+The first time you run this you may encounter a permissions error of the form:
+
+```
+Error: TF401027: You need the Git 'PullRequestContribute' permission to perform this action.
+```
+
+To remedy this you need to give your build service the relevant permissions to update a pull request. You can do that by going to the security settings of your repo and setting "Contribute to pull requests" to "Allow" for your build service:
+
+![Screenshot of "Contribute to pull requests" permission in Azure DevOps Git security being set to "Allow" ](screenshot-of-git-repository-security-settings.webp)
+
+## Enjoy! (and keep Azure tidy)
+
+When the pipeline is now run you can see that a deployment preview link is now updated onto the PR description:
+
+![Screenshot of deployment preview on PR](screenshot-of-deploy-preview.webp)
+
+This will happen whenever a PR is raised which is tremendous.
+
+A thing to remember, is that there's nothing in this post that tears down the temporary deployment after the pull request has been merged. It will hang around. We happen to be using free resources in this post, but if we weren't there would be cost implications. Either way, you'll want to clean up unused environments as a matter of course. And I'd advise automating that.
+
+So be tidy and cost aware with this approach.
