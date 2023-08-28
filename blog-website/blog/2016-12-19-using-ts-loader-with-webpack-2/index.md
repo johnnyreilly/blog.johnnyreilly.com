@@ -4,6 +4,7 @@ title: 'Using ts-loader with webpack 2'
 authors: johnnyreilly
 tags: [ts-loader, webpack]
 hide_table_of_contents: false
+description: 'TypeScript loader ts-loader has made its loader compatible with webpack 2. The update allows greater compatibility between the two applications.'
 ---
 
 Hands up, despite being one of the maintainers of [ts-loader](https://github.com/TypeStrong/ts-loader) (a TypeScript loader for webpack) I have not been tracking webpack v2. My reasons? Well, I'm keen on cutting edge but bleeding edge is often not a ton of fun as dealing with regularly breaking changes is frustrating. I'm generally happy to wait for things to settle down a bit before leaping aboard. However, [webpack 2 RC'd last week](https://github.com/webpack/webpack/releases/tag/v2.2.0-rc.0) and so it's time to take a look!
@@ -179,7 +180,7 @@ function buildProduction(done) {
       debug: false,
     }),
 
-    failPlugin
+    failPlugin,
   );
 
   // .....
@@ -204,7 +205,7 @@ function createDevCompiler() {
     new webpack.LoaderOptionsPlugin({
       debug: true,
       options: myDevConfig,
-    })
+    }),
     // it ends here - there wasn't much really....
   );
 
@@ -232,7 +233,7 @@ function buildProduction(done) {
       },
     }),
 
-    failPlugin
+    failPlugin,
   );
 
   // .....
@@ -247,7 +248,10 @@ function createDevCompiler() {
       name: 'vendor',
       filename: 'vendor.js',
     }),
-    new WebpackNotifierPlugin({ title: 'Webpack build', excludeWarnings: true })
+    new WebpackNotifierPlugin({
+      title: 'Webpack build',
+      excludeWarnings: true,
+    }),
   );
 
   // create a single instance of the compiler to allow caching

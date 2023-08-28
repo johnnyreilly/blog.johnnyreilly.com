@@ -4,6 +4,7 @@ title: 'ES6 + TypeScript + Babel + React + Flux + Karma: The Secret Recipe'
 authors: johnnyreilly
 tags: [ES6, Karma, React, ts-loader, webpack]
 hide_table_of_contents: false
+description: 'Learn how to set up a powerful TypeScript-React workflow with Webpack, gulp, Karma, and inject in this comprehensive article.'
 ---
 
 I wrote [a while ago](../2015-09-10-things-done-changed/index.md) about how I was using some different tools in a current project:
@@ -65,7 +66,7 @@ gulp.task(
     webpack.build().then(function () {
       done();
     });
-  }
+  },
 );
 
 gulp.task(
@@ -73,7 +74,7 @@ gulp.task(
   ['delete-dist', 'build-process.env.NODE_ENV'],
   function () {
     staticFiles.build();
-  }
+  },
 );
 
 gulp.task('build', ['build-js', 'build-other', 'lint'], function () {
@@ -92,7 +93,7 @@ gulp.task('watch', ['delete-dist'], function () {
   ])
     .then(function () {
       gutil.log(
-        'Now that initial assets (js and css) are generated inject will start...'
+        'Now that initial assets (js and css) are generated inject will start...',
       );
       inject.watch(postInjectCb);
     })
@@ -165,7 +166,7 @@ function buildProduction(done) {
       filename: 'vendor.[hash].js',
     }),
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin(),
   );
 
   // run webpack
@@ -177,7 +178,7 @@ function buildProduction(done) {
       '[webpack:build]',
       stats.toString({
         colors: true,
-      })
+      }),
     );
 
     if (done) {
@@ -198,7 +199,10 @@ function createDevCompiler() {
       name: 'vendor',
       filename: 'vendor.js',
     }),
-    new WebpackNotifierPlugin({ title: 'Webpack build', excludeWarnings: true })
+    new WebpackNotifierPlugin({
+      title: 'Webpack build',
+      excludeWarnings: true,
+    }),
   );
 
   // create a single instance of the compiler to allow caching
@@ -216,7 +220,7 @@ function buildDevelopment(done, devCompiler) {
       stats.toString({
         chunks: false, // dial down the output from webpack (it can be noisy)
         colors: true,
-      })
+      }),
     );
 
     if (done) {
@@ -327,7 +331,7 @@ module.exports = {
 Your compiled output needs to be referenced from some kind of HTML page. So we've got this:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -377,7 +381,7 @@ function injectIndex(options) {
         './dist/scripts/vendor*.js',
         './dist/scripts/main*.js',
       ],
-      { read: false }
+      { read: false },
     );
 
     return target
@@ -397,7 +401,7 @@ function injectIndex(options) {
           ignorePath: '/dist/',
           addRootSlash: false,
           removeTags: true,
-        })
+        }),
       )
       .pipe(gulp.dest('./dist'));
   }

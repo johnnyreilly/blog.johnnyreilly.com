@@ -4,6 +4,7 @@ title: 'TypeScript 2.0, ES2016 and Babel'
 authors: johnnyreilly
 tags: [typescript, Babel, ES2016]
 hide_table_of_contents: false
+description: 'Upgrading from ES2015 to ES2016 using TypeScript compiler and Babel can be done in a few steps, including a change to tsconfig.json.'
 ---
 
 [TypeScript 2.0 has shipped!](https://blogs.msdn.microsoft.com/typescript/2016/09/22/announcing-typescript-2-0/) Naturally I'm excited. For some time I've been using TypeScript to emit ES2015 code which I pass onto Babel to transpile to ES "old school". You can see how [here](../2015-12-16-es6-typescript-babel-react-flux-karma/index.md).

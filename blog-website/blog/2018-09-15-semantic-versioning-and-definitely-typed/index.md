@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [Definitely Typed, typescript]
 image: ./i-must-break-you.webp
 hide_table_of_contents: false
+description: 'Definitely Typed lacks semantic versioning, causing build failures. Use specific package versions, and breaking changes can be positive.'
 ---
 
 This a tale of things that are and things that aren't. It's a tale of semantic versioning, the lack thereof and heartbreak. It's a story of terror and failing builds. But it has a bittersweet ending wherein our heroes learn a lesson and understand the need for compromise. We all come out better and wiser people. Hopefully there's something for everybody; let's start with an exciting opener and see where it goes...

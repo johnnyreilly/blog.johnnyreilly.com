@@ -4,6 +4,7 @@ title: 'Hands-free HTTPS'
 authors: johnnyreilly
 tags: [TLS, HTTPS, cloudflare]
 hide_table_of_contents: false
+description: 'CloudFlare provides free HTTPS certificates. As HTTPS becomes the web default, it is essential for search engine ranking and service workers.'
 ---
 
 I have had a \***great**\* week. You? Take a look at this blog. Can you see what I can see? Here's a clue:

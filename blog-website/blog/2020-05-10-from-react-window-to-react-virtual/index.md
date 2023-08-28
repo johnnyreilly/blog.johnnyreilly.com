@@ -4,6 +4,7 @@ title: 'From react-window to react-virtual'
 authors: johnnyreilly
 tags: [react-virtual, react-window, React]
 hide_table_of_contents: false
+description: 'Switch from `react-window` to `react-virtual` for simpler code, TypeScript support and improved perceived performance.'
 ---
 
 The tremendous [Tanner Linsley](https://twitter.com/tannerlinsley) recently released [`react-virtual`](https://github.com/tannerlinsley/react-virtual). `react-virtual` provides "hooks for virtualizing scrollable elements in React".
@@ -73,7 +74,7 @@ const ImportantDataList: React.FC<ImportantDataListProps> = React.memo(
     >
       {RenderRow}
     </FixedSizeList>
-  )
+  ),
 );
 
 type ListItemProps = {
@@ -149,7 +150,7 @@ const ImportantDataList: React.FC<ImportantDataListProps> = React.memo(
         </div>
       </div>
     );
-  }
+  },
 );
 ```
 
