@@ -4,7 +4,7 @@ title: 'Journalling the Migration of Jasmine Tests to TypeScript'
 authors: johnnyreilly
 tags: [Jasmine, typescript, javascript]
 hide_table_of_contents: false
-description: 'Author describes issues migrating Jasmine tests from JS to TypeScript, including tooling, typings, and missing dependencies.'
+description: 'John describes issues migrating Jasmine tests from JS to TypeScript, including tooling, typings, and missing dependencies.'
 ---
 
 I previously attempted to migrate my Jasmine tests from JavaScript to TypeScript. The last time I tried it didn't go so well and I bailed. Thank the Lord for source control. But feeling I shouldn't be deterred I decided to have another crack at it.

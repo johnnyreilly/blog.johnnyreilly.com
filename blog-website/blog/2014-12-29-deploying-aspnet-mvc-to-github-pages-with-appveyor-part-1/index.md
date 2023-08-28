@@ -4,7 +4,7 @@ title: 'Deploying from ASP.Net MVC to GitHub Pages using AppVeyor part 1'
 authors: johnnyreilly
 tags: [powershell, github pages, AppVeyor]
 hide_table_of_contents: false
-description: 'The creator of jQuery Validation Unobtrusive Native found a way to use GitHub Pages and automate deployment by creating a static version of the app.'
+description: 'John (creator of jQuery Validation Unobtrusive Native) found a way to use GitHub Pages and automate deployment by creating a static version of the app.'
 ---
 
 There's a small open source project I'm responsible for called [jQuery Validation Unobtrusive Native](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native). (A catchy name is a must for any good open source project. Alas I'm not quite meeting my own exacting standards on this particular point... I should have gone with my gut and called it "Livingstone" instead. Too late now...)
