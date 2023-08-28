@@ -4,6 +4,7 @@ title: 'PartialView.ToString()'
 authors: johnnyreilly
 tags: [asp.net mvc]
 hide_table_of_contents: false
+description: 'Learn three ways to turn a `PartialViewResult` into a `string` to reuse the result returned by a controller in a JSON payload.'
 ---
 
 In the name of [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) I found myself puzzling how one could take a `PartialViewResult` and render it as a `string`. Simple, right?

@@ -4,6 +4,7 @@ title: 'TypeScript and RequireJS (Keep It Simple)'
 authors: johnnyreilly
 tags: [typescript]
 hide_table_of_contents: false
+description: 'This article explains how to mix TypeScript and RequireJS, gives examples of the code changes needed, and shows how to create a demo.'
 ---
 
 I'm not the first to take a look at mixing TypeScript and RequireJS but I wanted to get it clear in my head. Also, I've always felt the best way to learn is to do. So here we go. I'm going to create a TypeScript and RequireJS demo based on [John Papa's "Keep It Simple RequireJS Demo"](https://github.com/johnpapa/kis-requirejs-demo/).
@@ -15,7 +16,7 @@ So let's fire up Visual Studio 2013 and create a new ASP.NET Web Application cal
 Add a new HTML file to the root called “index.html” and base it on “index3.html” from [John Papa’s demo](https://github.com/johnpapa/kis-requirejs-demo/blob/master/ModularDemo/index3.html):
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>TypeScript with RequireJS</title>

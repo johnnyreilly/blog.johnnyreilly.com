@@ -4,6 +4,7 @@ title: 'Back to the Future with Code First Migrations'
 authors: johnnyreilly
 tags: [Entity Framework]
 hide_table_of_contents: false
+description: 'Code First Migrations order is determined by file name, not renaming, and requires changing the IMigrationMetadata.Id property to match.'
 ---
 
 Code First Migrations. They look a little like this in Visual Studio:

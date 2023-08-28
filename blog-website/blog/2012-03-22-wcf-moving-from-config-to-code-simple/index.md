@@ -4,6 +4,7 @@ title: 'WCF - moving from Config to Code, a simple WCF service harness (plus imp
 authors: johnnyreilly
 tags: [WCF, authorization]
 hide_table_of_contents: false
+description: 'John describes his approach to developing a Windows Service-hosted WCF service/client harness, including locking down WCF authorization.'
 ---
 
 Last time I wrote about WCF I was getting up and running with [WCF Transport Windows authentication using NetTcpBinding in an Intranet environment](../2012-02-15-wcf-transport-windows-authentication/index.md). I ended up with a WCF service hosted in a Windows Service which did pretty much what the previous post name implies.

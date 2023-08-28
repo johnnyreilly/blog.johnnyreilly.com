@@ -4,6 +4,7 @@ title: 'Rendering Partial View to a String'
 authors: johnnyreilly
 tags: [asp.net mvc]
 hide_table_of_contents: false
+description: 'John solves a problem with Partial Views in ASP.NET MVC, allowing simplified code and multiple view nesting.'
 ---
 
 ## Well done that man!

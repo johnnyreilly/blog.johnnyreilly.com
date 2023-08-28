@@ -4,6 +4,7 @@ title: "How I'm Using Cassette part 1:Getting Up and Running"
 authors: johnnyreilly
 tags: [asp.net mvc, cassette]
 hide_table_of_contents: false
+description: 'Learn how to serve JavaScript assets efficiently in ASP.Net MVC with Cassette to avoid duplicate scripts and ensure speedy loading.'
 ---
 
 ## Backing into the light
@@ -137,7 +138,7 @@ If you're more familiar with the workings of Web Optimization than Cassette then
 Now we've created our bundles let's get the project serving up CSS and JavaScript using Cassette. First the layout file. Take the `_Layout.cshtml` file from this:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -191,7 +192,7 @@ To this:
 ```html
 @{ Bundles.Reference("~/bundles/css"); Bundles.Reference("~/bundles/head");
 Bundles.Reference("~/bundles/core"); }
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />

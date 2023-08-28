@@ -4,6 +4,7 @@ title: 'Hey tsconfig.json, where have you been all my life?'
 authors: johnnyreilly
 tags: [tsconfig.json, typescript]
 hide_table_of_contents: false
+description: 'The creation of a "tsconfig.json" file will eliminate the need for "reference" comments when using TypeScript, reducing barriers between IDEs.'
 ---
 
 Sometimes, you just miss things. Something seismic happens and you had no idea. So it was with `tsconfig.json`.

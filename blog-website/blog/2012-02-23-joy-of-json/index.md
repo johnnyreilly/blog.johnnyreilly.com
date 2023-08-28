@@ -4,6 +4,7 @@ title: 'The Joy of JSON'
 authors: johnnyreilly
 tags: [json]
 hide_table_of_contents: false
+description: 'JSON is a lightweight data format that helps create and read JavaScript objects. This article traces its discovery and explains its usefulness.'
 ---
 
 So back to JSON. For those of you that don't know JSON stands for JavaScript Object Notation and is lightweight text based data interchange format. Rather than quote other people verbatim you can find thorough explanations of JSON here: - [Introducing JSON](http://www.json.org/)

@@ -4,6 +4,7 @@ title: "How I'm Using Cassette part 2:Get Cassette to Serve Scripts in Dependenc
 authors: johnnyreilly
 tags: [RequireJS, cassette]
 hide_table_of_contents: false
+description: 'Cassettes script dependency order feature is the most useful, managing script order manually is tedious. Use server-side or JavaScript asset references.'
 ---
 
 [Last time](../2013-05-04-how-im-using-cassette/index.md) I wrote about Cassette I was talking about how to generally get up and running. How to use Cassette within an ASP.Net MVC project. What I want to write about now is (in my eyes) the most useful feature of Cassette by a country mile. This is Cassettes ability to ensure scripts are served in dependency order.
@@ -90,7 +91,7 @@ $(document).ready(function () {
     $body
       .html(
         '<div style="width: 150px; margin: 0 auto;">' +
-          'I made it all go away...</div>'
+          'I made it all go away...</div>',
       )
       .fadeIn();
   });

@@ -4,6 +4,7 @@ title: "Getting up to speed with Bloomberg's Open API..."
 authors: johnnyreilly
 tags: [.NET, c#, Bloomberg, Open API]
 hide_table_of_contents: false
+description: 'John documents his experience investigating Bloombergs Open API. He includes a simple C# console application wrapper for the API.'
 ---
 
 A good portion of any devs life is usually spent playing with APIs. If you need to integrate some other system into the system you're working on (and it's rare to come upon a situation where this doesn't happen at some point) then it's API time.

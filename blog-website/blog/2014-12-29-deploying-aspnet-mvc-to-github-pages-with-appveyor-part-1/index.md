@@ -4,6 +4,7 @@ title: 'Deploying from ASP.Net MVC to GitHub Pages using AppVeyor part 1'
 authors: johnnyreilly
 tags: [powershell, github pages, AppVeyor]
 hide_table_of_contents: false
+description: 'The creator of jQuery Validation Unobtrusive Native found a way to use GitHub Pages and automate deployment by creating a static version of the app.'
 ---
 
 There's a small open source project I'm responsible for called [jQuery Validation Unobtrusive Native](https://github.com/johnnyreilly/jQuery.Validation.Unobtrusive.Native). (A catchy name is a must for any good open source project. Alas I'm not quite meeting my own exacting standards on this particular point... I should have gone with my gut and called it "Livingstone" instead. Too late now...)
@@ -145,18 +146,4 @@ Contents of C:\projects\static-site
 
 
 Mode                LastWriteTime     Length Name
-----                -------------     ------ ----
-d----        12/29/2014   7:50 AM            AdvancedDemo
-d----        12/29/2014   7:50 AM            Content
-d----        12/29/2014   7:50 AM            Demo
-d----        12/29/2014   7:50 AM            Home
-d----        12/29/2014   7:50 AM            Scripts
--a---        12/29/2014   7:50 AM       5967 AdvancedDemo.html
--a---        12/29/2014   7:50 AM       6802 Demo.html
--a---        12/29/2014   7:47 AM      12862 favicon.ico
--a---        12/29/2014   7:50 AM       8069 index.html
 ```
-
-And that's it for part 1 my friends! You now have a static version of the ASP.Net MVC site to dazzle the world with. I should say for the purposes of full disclosure that there are 2 pages in the site which are not entirely "static" friendly. For these 2 pages I've put messages in that are displayed when the page is served up in a static format explaining the limitations. Their full glory can still be experienced by cloning the project and running locally.
-
-[Next time](../2015-01-07-deploying-aspnet-mvc-to-github-pages-with-appveyor-part-2/index.md) we'll take the mechanism detailed above and plug it into AppVeyor for some Continuous Integration happiness.
