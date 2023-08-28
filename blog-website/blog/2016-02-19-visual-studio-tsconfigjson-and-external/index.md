@@ -2,7 +2,7 @@
 slug: visual-studio-tsconfigjson-and-external
 title: 'Visual Studio, tsconfig.json and external TypeScript compilation'
 authors: johnnyreilly
-tags: [TFS, Visual Studio, tsconfig.json, typescript, Webpack]
+tags: [TFS, Visual Studio, tsconfig.json, typescript, webpack]
 hide_table_of_contents: false
 description: 'Visual Studio will not gain support for tsconfig.json until TypeScript 1.8, so using external compilation may be preferable.'
 ---

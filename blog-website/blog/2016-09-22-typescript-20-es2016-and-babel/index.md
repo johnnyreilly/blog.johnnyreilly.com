@@ -38,9 +38,9 @@ Well, there's no `"es2016"` target for TypeScript. You carry on with a target of
 
 ## Babel changes
 
-I needed the Babel preset for ES2016; with a quick [`npm install --save-dev babel-preset-es2016`](https://www.npmjs.com/package/babel-preset-es2016) that was sorted. Now just to kick Webpack into gear...
+I needed the Babel preset for ES2016; with a quick [`npm install --save-dev babel-preset-es2016`](https://www.npmjs.com/package/babel-preset-es2016) that was sorted. Now just to kick webpack into gear...
 
-## Webpack changes
+## webpack changes
 
 My webpack config plugs together TypeScript and Babel with the help of [ts-loader](https://www.npmjs.com/package/ts-loader) and [babel-loader](https://www.npmjs.com/package/babel-loader). It allows the transpilation of my (few) JavaScript files so I can write ES2015. However, mainly it allows the transpilation of my (many) TypeScript files so I can write ES2015-flavoured TypeScript. I'll now tweak the `loaders` so they cater for ES2016 as well.
 

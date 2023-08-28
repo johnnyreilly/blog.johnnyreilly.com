@@ -1,8 +1,8 @@
 ---
 slug: typescript-webpack-super-pursuit-mode
-title: 'TypeScript + Webpack: Super Pursuit Mode'
+title: 'TypeScript + webpack: Super Pursuit Mode'
 authors: johnnyreilly
-tags: [typescript, fork-ts-checker-webpack-plugin, Webpack]
+tags: [typescript, fork-ts-checker-webpack-plugin, webpack]
 hide_table_of_contents: false
 description: 'Learn how to improve build speeds with TypeScript and webpack using fork-ts-checker-webpack-plugin, HappyPack, and thread-loader/cache-loader.'
 ---
@@ -27,7 +27,7 @@ Apologies for the image quality above; there appear to be no high quality pictur
 
 ["Faster type checking with forked process"](https://github.com/TypeStrong/ts-loader/issues/537) read the enticing name of the issue. It turned out to be [Piotr Oleś](https://github.com/piotr-oles) ([@OlesDev](https://twitter.com/OlesDev)) telling the world about his beautiful creation. He'd put together a mighty fine plugin that can be used alongside ts-loader called the [fork-ts-checker-webpack-plugin](https://github.com/Realytics/fork-ts-checker-webpack-plugin). The name is a bit of a mouthful but the purpose is mouth-watering. To quote the README, it is a:
 
-> Webpack plugin that runs typescript type checker on a separate process.
+> webpack plugin that runs typescript type checker on a separate process.
 
 What does this mean and how does this fit with ts-loader? Well, ts-loader does 2 jobs:
 

@@ -197,11 +197,11 @@ function createDevCompiler() {
       filename: 'vendor.js',
     }),
     new WebpackNotifierPlugin({
-      title: 'Webpack build',
+      title: 'webpack build',
       excludeWarnings: true,
     }),
 
-    // this is the Webpack 2 hotness!
+    // this is the webpack 2 hotness!
     new webpack.LoaderOptionsPlugin({
       debug: true,
       options: myDevConfig,
@@ -249,7 +249,7 @@ function createDevCompiler() {
       filename: 'vendor.js',
     }),
     new WebpackNotifierPlugin({
-      title: 'Webpack build',
+      title: 'webpack build',
       excludeWarnings: true,
     }),
   );

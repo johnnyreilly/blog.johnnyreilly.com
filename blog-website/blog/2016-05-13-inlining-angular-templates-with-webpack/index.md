@@ -4,7 +4,7 @@ title: 'Inlining Angular Templates with WebPack and TypeScript'
 authors: johnnyreilly
 tags: [AngularJS, webpack]
 hide_table_of_contents: false
-description: '`raw-loader` package in Webpack configuration for Angular 1.x projects preloads templates and enables compile-time error checking.'
+description: '`raw-loader` package in webpack configuration for Angular 1.x projects preloads templates and enables compile-time error checking.'
 ---
 
 This technique actually applies to pretty much any web stack where you have to supply templates; it just so happens that I'm using Angular 1.x in this case. Also I have an extra technique which is useful to handle the [ng-include](https://docs.angularjs.org/api/ng/directive/ngInclude) scenario.

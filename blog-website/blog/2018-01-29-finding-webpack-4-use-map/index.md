@@ -4,7 +4,7 @@ title: 'Finding webpack 4 (use a Map)'
 authors: johnnyreilly
 tags: [webpack]
 hide_table_of_contents: false
-description: 'Webpack 4s new plugin architecture requires migrating from "kebab-case" to "camelCase". A migration guide for plugins and loaders is available.'
+description: 'webpack 4s new plugin architecture requires migrating from "kebab-case" to "camelCase". A migration guide for plugins and loaders is available.'
 ---
 
 ## Update: 03/02/2018
