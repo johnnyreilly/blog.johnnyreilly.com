@@ -10,7 +10,7 @@ import type { SitemapUrl, Sitemap, AtomFeed, RssItem, RssFeed } from './types';
 const rootUrl = 'https://johnnyreilly.com';
 
 async function enrichUrlsWithLastmodAndFilterCanonicals(
-  filteredUrls: SitemapUrl[]
+  filteredUrls: SitemapUrl[],
 ): Promise<SitemapUrl[]> {
   const urls: SitemapUrl[] = [];
   let blogFilePath: string | undefined;
@@ -51,10 +51,10 @@ async function patchOpenGraphImageToCloudinary() {
     .filter((dir) =>
       fs
         .statSync(path.resolve('..', 'blog-website', 'build', dir))
-        .isDirectory()
+        .isDirectory(),
     )
     .map((dir) =>
-      path.resolve('..', 'blog-website', 'build', dir, 'index.html')
+      path.resolve('..', 'blog-website', 'build', dir, 'index.html'),
     )
     .filter((file) => fs.existsSync(file));
 
@@ -77,7 +77,7 @@ async function patchOpenGraphImageToCloudinary() {
         })
         .replace(ogImageRegex, function (_match, url) {
           return `<meta data-rh="true" property="og:image" content="https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${url}">`;
-        })
+        }),
     );
   }
 }
@@ -87,7 +87,7 @@ async function trimSitemapXML() {
     '..',
     'blog-website',
     'build',
-    'sitemap.xml'
+    'sitemap.xml',
   );
 
   console.log(`Loading ${sitemapPath}`);
@@ -102,16 +102,15 @@ async function trimSitemapXML() {
     (url) =>
       // url.loc !== `${rootUrl}/tags` &&
       // !url.loc.startsWith(rootUrl + '/tags/') &&
-      !url.loc.startsWith(rootUrl + '/page/')
+      !url.loc.startsWith(rootUrl + '/page/'),
   );
 
   console.log(
-    `Reducing ${sitemap.urlset.url.length} urls to ${filteredUrls.length} urls`
+    `Reducing ${sitemap.urlset.url.length} urls to ${filteredUrls.length} urls`,
   );
 
-  sitemap.urlset.url = await enrichUrlsWithLastmodAndFilterCanonicals(
-    filteredUrls
-  );
+  sitemap.urlset.url =
+    await enrichUrlsWithLastmodAndFilterCanonicals(filteredUrls);
 
   const builder = new XMLBuilder({ format: false, ignoreAttributes: false });
   const shorterSitemapXml = builder.build(sitemap);
@@ -149,7 +148,7 @@ async function trimAtomXML() {
   }
 
   console.log(
-    `Reducing ${rss.feed.entry.length} entries to ${top20Entries.length} entries`
+    `Reducing ${rss.feed.entry.length} entries to ${top20Entries.length} entries`,
   );
 
   rss.feed.entry = top20Entries;
@@ -194,7 +193,7 @@ async function trimRssXML() {
   }
 
   console.log(
-    `Reducing ${rss.rss.channel.item.length} entries to ${top20Entries.length} entries`
+    `Reducing ${rss.rss.channel.item.length} entries to ${top20Entries.length} entries`,
   );
 
   rss.rss.channel.item = top20Entries;
@@ -213,7 +212,7 @@ async function trimRssXML() {
 async function main() {
   const startedAt = new Date();
 
-  // await patchOpenGraphImageToCloudinary();
+  await patchOpenGraphImageToCloudinary();
   await trimSitemapXML();
   // now handled by createFeedItems
   // await trimAtomXML();
