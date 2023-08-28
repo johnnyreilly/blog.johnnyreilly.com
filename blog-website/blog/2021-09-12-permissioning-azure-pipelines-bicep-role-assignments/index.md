@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [Role Assignments, Bicep, azure devops, Azure Pipelines]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'Learn to permission Azure Pipelines to access resources through RBAC role assignments with Bicep. Includes examples and integration tests.'
 ---
 
 How can we deploy resources to Azure, and then run an integration test through them in the context of an Azure Pipeline? This post will show how to do this by permissioning our Azure Pipeline to access these resources using Azure RBAC role assignments. It will also demonstrate a dotnet test that runs in the context of the pipeline and makes use of those role assignments.

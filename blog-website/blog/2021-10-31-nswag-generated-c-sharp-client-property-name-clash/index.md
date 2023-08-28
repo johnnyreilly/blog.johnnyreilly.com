@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [NSwag, C#]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'Generate C# and TypeScript client libraries from OpenAPI / Swagger definitions using NSwag while overcoming language conflicts and numeric types.'
 ---
 
 NSwag is a great tool for generating client libraries in C# and TypeScript from Open API / Swagger definitions. You can face issues where Open API property names collide due to the nature of the C# language, and when you want to use `decimal` for your floating point numeric type over `double`. This post demonstrates how to get over both issues.

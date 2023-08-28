@@ -4,6 +4,7 @@ title: 'Throttling data requests with React Hooks'
 authors: johnnyreilly
 tags: [React]
 hide_table_of_contents: false
+description: 'A custom React Hook `useThrottleRequests` is used to solve the problem of loading large amounts of data gradually and displaying loading progress.'
 ---
 
 When an application loads data, typically relatively few HTTP requests will be made. For example, if we imagine we're making a student administration application, then a "view" screen might make a single HTTP request to load that student's data before displaying it.
@@ -104,11 +105,11 @@ function use10_000Requests(startedAt: string) {
     const results = await Promise.all(
       Array.from(Array(10_000)).map(async (_, index) => {
         const response = await fetch(
-          `/manifest.json?querystringValueToPreventCaching=${startedAt}_request-${index}`
+          `/manifest.json?querystringValueToPreventCaching=${startedAt}_request-${index}`,
         );
         const json = await response.json();
         return json;
-      })
+      }),
     );
 
     return results;
@@ -185,7 +186,7 @@ export type RequestToMake = () => Promise<void>;
  */
 async function throttleRequests(
   requestsToMake: RequestToMake[],
-  maxParallelRequests = 6
+  maxParallelRequests = 6,
 ) {
   // queue up simultaneous calls
   const queue: Promise<void>[] = [];
@@ -225,7 +226,7 @@ export type ThrottledProgress<TData> = {
 };
 
 function createThrottledProgress<TData>(
-  totalRequests: number
+  totalRequests: number,
 ): ThrottledProgress<TData> {
   return {
     totalRequests,
@@ -241,7 +242,7 @@ function createThrottledProgress<TData>(
  */
 function updateThrottledProgress<TData>(
   currentProgress: ThrottledProgress<TData>,
-  newData: AsyncState<TData>
+  newData: AsyncState<TData>,
 ): ThrottledProgress<TData> {
   const errors = newData.error
     ? [...currentProgress.errors, newData.error]
@@ -256,7 +257,7 @@ function updateThrottledProgress<TData>(
       ? 0
       : Math.round(
           ((errors.length + values.length) / currentProgress.totalRequests) *
-            100
+            100,
         );
 
   const loading =
@@ -293,7 +294,7 @@ type ThrottleActions<TValue> =
 export function useThrottleRequests<TValue>() {
   function reducer(
     throttledProgressAndState: ThrottledProgress<TValue>,
-    action: ThrottleActions<TValue>
+    action: ThrottleActions<TValue>,
   ): ThrottledProgress<TValue> {
     switch (action.type) {
       case 'initialise':
@@ -315,7 +316,7 @@ export function useThrottleRequests<TValue>() {
 
   const [throttle, dispatch] = useReducer(
     reducer,
-    createThrottledProgress<TValue>(/** totalRequests */ 0)
+    createThrottledProgress<TValue>(/** totalRequests */ 0),
   );
 
   const updateThrottle = useMemo(() => {
@@ -351,7 +352,7 @@ export function useThrottleRequests<TValue>() {
      */
     function queueRequests(
       requestsToMake: RequestToMake[],
-      maxParallelRequests = 6
+      maxParallelRequests = 6,
     ) {
       dispatch({
         type: 'initialise',
@@ -414,7 +415,7 @@ function use10_000Requests(startedAt: string) {
           setProgressMessage(`loading ${index}...`);
 
           const response = await fetch(
-            `/manifest.json?querystringValueToPreventCaching=${startedAt}_request-${index}`
+            `/manifest.json?querystringValueToPreventCaching=${startedAt}_request-${index}`,
           );
           const json = await response.json();
 
@@ -423,7 +424,7 @@ function use10_000Requests(startedAt: string) {
           console.error(`failed to load ${index}`, error);
           updateThrottle.requestFailedWithError(error);
         }
-      }
+      },
     );
 
     await updateThrottle.queueRequests(requestsToMake);
@@ -551,7 +552,7 @@ function useContributors(contributorsUrlToLoad: string) {
     const requestsToMake = contributors.map(({ url }, index) => async () => {
       try {
         setProgressMessage(
-          `loading ${index} / ${contributors.length}: ${url}...`
+          `loading ${index} / ${contributors.length}: ${url}...`,
         );
 
         const response = await fetch(url);
@@ -585,11 +586,11 @@ function App() {
   const handleOwnerChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) =>
       setOwner(event.target.value),
-    [setOwner]
+    [setOwner],
   );
   const handleRepoChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => setRepo(event.target.value),
-    [setRepo]
+    [setRepo],
   );
 
   const contributorsUrl = `https://api.github.com/repos/${owner}/${repo}/contributors`;
@@ -599,7 +600,7 @@ function App() {
 
   const bloggers = useMemo(
     () => throttle.values.filter((contributor) => contributor.blog),
-    [throttle]
+    [throttle],
   );
 
   return (

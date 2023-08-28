@@ -4,6 +4,7 @@ title: 'Brand New Fonting Awesomeness'
 authors: johnnyreilly
 tags: [React]
 hide_table_of_contents: false
+description: 'Learn how to use brand icons with Font Awesome 5 in React with these helpful instructions on @fortawesome/free-brands-svg-icons.'
 ---
 
 Love me some [Font Awesome](https://fontawesome.com). Absolutely wonderful. However, I came a cropper when following the instructions [on using the all new Font Awesome 5 with React](https://fontawesome.com/how-to-use/on-the-web/using-with/react). The instructions for standard icons work _fine_. But if you want to use brand icons then this does not help you out much. There's 2 problems:

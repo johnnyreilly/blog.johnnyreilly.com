@@ -4,6 +4,7 @@ title: 'How to activate your emoji keyboard on Android 5.0 (Lollipop)'
 authors: johnnyreilly
 tags: [android]
 hide_table_of_contents: false
+description: 'Learn how to get emoji on your Android phone by activating the "iWnn IME Japanese" keyboard and selecting the "Emoji" option.'
 ---
 
 A departure from from my normal content - I need to tell you about [emoji](http://en.wikipedia.org/wiki/Emoji)! You'll probably already know about them - just imagine a emoticon but about 300,000 times better. They really add spice to to textual content. Oh and they're Japanese - which is also way cool.

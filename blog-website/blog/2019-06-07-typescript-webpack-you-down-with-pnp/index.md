@@ -4,6 +4,7 @@ title: 'TypeScript / webpack - you down with PnP? Yarn, you know me!'
 authors: johnnyreilly
 tags: [typescript, yarn, webpack, PnP]
 hide_table_of_contents: false
+description: 'Yarn PnP speeds up module installation and eliminates node_modules. Converting to it is easy but some rough edges exist.'
 ---
 
 Yarn PnP is an innovation by the Yarn team designed to speed up module resolution by node. To quote the [(excellent) docs](https://yarnpkg.com/en/docs/pnp):

@@ -4,6 +4,7 @@ title: 'Giving OData to CRM 4.0'
 authors: johnnyreilly
 tags: [OData, WCF, CRM, LINQ]
 hide_table_of_contents: false
+description: 'The article explains how to create an OData service to access Dynamics CRM 4.0 by using LINQ to CRM provider and WCF Data Services.'
 ---
 
 Just recently I was tasked with seeing if we could provide a way to access our Dynamics CRM instance via OData. My initial investigations made it seem like there was nothing for me to do; [CRM 2011 provides OData support out of the box](http://msdn.microsoft.com/en-us/library/gg309461.aspx). Small problem. We were running CRM 4.0.

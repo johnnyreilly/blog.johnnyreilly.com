@@ -4,6 +4,7 @@ title: 'JSHint - Customising your hurt feelings'
 authors: johnnyreilly
 tags: [jslint, jshint, eslint]
 hide_table_of_contents: false
+description: 'JSHint is a tool for evaluating JavaScript code quality. Its configurable, has an extension for Visual Studio and is better than JSLint.'
 ---
 
 As I've started making greater use of JavaScript to give a richer GUI experience the amount of JS in my ASP.NET apps has unsurprisingly ballooned. If I'm honest, I hadn't given much consideration to the code quality of my JavaScript in the past. However, if I was going to make increasing use of it (and given the way the web is going at the moment I'd say that's a given) I didn't think this was tenable position to maintain. A friend of mine works for [Coverity](http://www.coverity.com/) which is a company that provides tools for analysing code quality. I understand, from conversations with him, that their tools provide static analysis for compiled languages such as C++ / C# / Java etc. I was looking for something similar for JavaScript. Like many, I have read and loved [Douglas Crockford's "JavaScript: The Good Parts"](http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742); it is by some margin the most useful and interesting software related book I have read.So I was aware that Crockford had come up with his own JavaScript code quality tool called [JSLint](http://www.jslint.com/). JSLint is quite striking when you first encounter it:

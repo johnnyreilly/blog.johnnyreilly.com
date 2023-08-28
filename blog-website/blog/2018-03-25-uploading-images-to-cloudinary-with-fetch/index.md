@@ -4,6 +4,7 @@ title: 'Uploading Images to Cloudinary with the Fetch API'
 authors: johnnyreilly
 tags: [React, Cloudinary]
 hide_table_of_contents: false
+description: 'Learn how to handle image uploads to Cloudinary using Fetch instead of SuperAgent with a sample code demonstrating the replacement of FormData.'
 ---
 
 I was recently checking out a [very good post](https://css-tricks.com/image-upload-manipulation-react/) which explained how to upload images using [React Dropzone](https://github.com/react-dropzone/react-dropzone) and [SuperAgent](https://github.com/visionmedia/superagent) to [Cloudinary](https://cloudinary.com/).

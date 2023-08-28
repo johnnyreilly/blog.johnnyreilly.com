@@ -11,6 +11,7 @@ tags:
     Chutzpah,
   ]
 hide_table_of_contents: false
+description: 'Learn how to run JavaScript tests on TFS/VSO by creating a separate unit test project to house tests, and installing Chutzpah on TFS/VSO.'
 ---
 
 Do you like to separate out your unit tests from the project you are testing? I imagine so. My own practice when creating a new project in Visual Studio is to create a separate unit test project alongside whose responsibility is to house unit tests for that new project.

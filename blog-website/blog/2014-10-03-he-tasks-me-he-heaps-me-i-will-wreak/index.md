@@ -4,6 +4,7 @@ title: 'He tasks me; he heaps me.... I will wreak that MOQ upon him.'
 authors: johnnyreilly
 tags: [unit testing, MOQ]
 hide_table_of_contents: false
+description: 'Use Moq to simplify async testing, with ReturnAsync method. For testing a class that consumes async API, mock it using Task.Delay with Moqs Returns.'
 ---
 
 Enough with the horrific misquotes - this is about Moq and async (that's my slight justification for robbing Herman Melville).

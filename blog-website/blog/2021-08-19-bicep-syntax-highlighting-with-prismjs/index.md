@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [Bicep, PrismJS]
 image: ./bicep-syntax-highlighting-with-prismjs.webp
 hide_table_of_contents: false
+description: 'Learn how to write attractive code snippets about Bicep using PrismJS and Docusaurus. This post shows you how to add syntax highlighting for Bicep.'
 ---
 
 Bicep is an amazing language, it's also very new. If you want to write attractive code snippets about Bicep, you can by using PrismJS (and Docusaurus). This post shows you how.

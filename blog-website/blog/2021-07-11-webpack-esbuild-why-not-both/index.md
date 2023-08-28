@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [webpack, esbuild, ts-loader, babel-loader]
 image: ./webpack-esbuild-why-not-both.webp
 hide_table_of_contents: false
+description: 'Using both webpack and esbuild for faster builds is possible with esbuild-loader. This post guides through using it with webpack and migrating to it.'
 ---
 
 Builds can be made faster using tools like [esbuild](https://github.com/evanw/esbuild). However, if you're invested in [webpack](https://github.com/webpack/webpack) but would still like to take advantage of speedier builds, there is a way. This post takes us through using esbuild alongside webpack using [esbuild-loader](https://github.com/privatenumber/esbuild-loader).
@@ -148,14 +149,14 @@ module.exports = {
     configure: (webpackConfig, { paths }) => {
       const { hasFoundAny, matches } = getLoaders(
         webpackConfig,
-        loaderByName('babel-loader')
+        loaderByName('babel-loader'),
       );
       if (!hasFoundAny) throwError('failed to find babel-loader');
 
       console.log('removing babel-loader');
       const { hasRemovedAny, removedCount } = removeLoaders(
         webpackConfig,
-        loaderByName('babel-loader')
+        loaderByName('babel-loader'),
       );
       if (!hasRemovedAny) throwError('no babel-loader to remove');
       if (removedCount !== 2)
@@ -176,7 +177,7 @@ module.exports = {
       const { isAdded: tsLoaderIsAdded } = addAfterLoader(
         webpackConfig,
         loaderByName('url-loader'),
-        tsLoader
+        tsLoader,
       );
       if (!tsLoaderIsAdded) throwError('failed to add esbuild-loader');
       console.log('added esbuild-loader');
@@ -185,7 +186,7 @@ module.exports = {
       const { isAdded: babelLoaderIsAdded } = addAfterLoader(
         webpackConfig,
         loaderByName('esbuild-loader'),
-        matches[1].loader // babel-loader
+        matches[1].loader, // babel-loader
       );
       if (!babelLoaderIsAdded)
         throwError('failed to add back babel-loader for non-application JS');

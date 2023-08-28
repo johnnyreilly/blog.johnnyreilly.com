@@ -4,6 +4,7 @@ title: 'TypeScript: In Praise of Union Types'
 authors: johnnyreilly
 tags: [typescript, Union Types]
 hide_table_of_contents: false
+description: 'TypeScript 1.4s Union Types offer a way to specify a value that is of one of many different types and results in a much terser definition file.'
 ---
 
 ## (& How to Express Functions in UTs)

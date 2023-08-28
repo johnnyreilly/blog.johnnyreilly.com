@@ -4,6 +4,7 @@ title: 'HTML to PDF using a WCF Service'
 authors: johnnyreilly
 tags: [wkhtmltopdf, WCF, pdf]
 hide_table_of_contents: false
+description: 'This ASP.NET WCF service creates PDFs from HTML and is remotely fired with wkhtmltopdf, using `webHttpBinding` for simple service calls.'
 ---
 
 ## TL; DR - "Talk is cheap. Show me the code."

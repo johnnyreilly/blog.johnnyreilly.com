@@ -4,6 +4,7 @@ title: 'jQuery Validation Globalize hits 1.0'
 authors: johnnyreilly
 tags: [Globalize, jQuery Validation]
 hide_table_of_contents: false
+description: 'jQuery Validation Globalize plugin now supports Globalize 1.x, with minor code changes. Users can customize date parsing format.'
 ---
 
 This is just a quick post - the tl;dr is this: jQuery Validation Globalize has been ported to Globalize 1.x. Yay! In one of those twists of fate I'm not actually using this plugin in my day job anymore but I thought it might be useful to other people. So here you go. You can read more about this plugin in an [older post](../2012-09-06-globalize-and-jquery-validate/index.md) and you can see a demo of it in action [here](http://johnnyreilly.github.io/jQuery.Validation.Unobtrusive.Native/AdvancedDemo/Globalize.html).
@@ -82,7 +83,7 @@ To this:
   $.validator.methods.date = function (value, element) {
     var val = Globalize.parseDate(
       value,
-      $.validator.methods.dateGlobalizeOptions.dateParseFormat
+      $.validator.methods.dateGlobalizeOptions.dateParseFormat,
     );
     return this.optional(element) || val instanceof Date;
   };

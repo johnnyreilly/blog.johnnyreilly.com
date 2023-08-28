@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags:
   [Jasmine, javascript, Unit tests, Continuous Integration, AppVeyor, Chutzpah]
 hide_table_of_contents: false
+description: 'AppVeyor and Chutzpah were integrated to run C# and JavaScript unit tests in a single PowerShell script for CI purposes.'
 ---
 
 ## With a little help from Chutzpah...

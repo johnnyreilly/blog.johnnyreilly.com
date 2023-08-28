@@ -4,6 +4,7 @@ title: 'IE 10 Install Torches JavaScript Debugging in Visual Studio 2012 Through
 authors: johnnyreilly
 tags: [Visual Studio, javascript, IE 10]
 hide_table_of_contents: false
+description: 'Learn how to fix missing Script Documents when debugging JavaScript in Visual Studio 2012, likely caused by auto-updating from IE9 to IE10.'
 ---
 
 OK the title of this post is a little verbose. I've just wasted a morning of my life trying to discover what happened to my ability to debug JavaScript in Visual Studio 2012. If you don't want to experience the same pain then read on...

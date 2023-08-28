@@ -4,6 +4,7 @@ title: 'NuGet and WebMatrix: How to install a specific version of a package'
 authors: johnnyreilly
 tags: [jquery, NuGet]
 hide_table_of_contents: false
+description: 'WebMatrix lacks NuGet command line, but users can still install a specific version manually by following the necessary steps - a bit of a challenge.'
 ---
 
 I've recently been experimenting with WebMatrix. If you haven't heard of it, WebMatrix is Microsoft's _["free, lightweight, cloud-connected web development tool"](http://www.microsoft.com/web/webmatrix/)_. All marketing aside, it's pretty cool. You can whip up a site in next to no time, it has source control, publishing abilities, intellisense. Much good stuff. And one thing it has, that I genuinely hadn't expected is [NuGet](https://www.nuget.org/). Brilliant!

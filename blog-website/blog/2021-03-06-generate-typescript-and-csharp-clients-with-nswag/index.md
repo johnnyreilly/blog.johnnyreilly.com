@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [NSwag, Swagger, open-api, typescript, C#]
 image: ./use-generated-client.gif
 hide_table_of_contents: false
+description: 'NSwag simplifies APIs by auto-generating OpenAPI specs and clients. Learn to create TypeScript clients from NSwag using a .NET console app.'
 ---
 
 Generating clients for APIs is a tremendous way to reduce the amount of work you have to do when you're building a project. Why handwrite that code when it can be auto-generated for you quickly and accurately by a tool like [NSwag](https://github.com/RicoSuter/NSwag)? To quote the docs:

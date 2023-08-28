@@ -4,6 +4,7 @@ title: 'Azure App Service, Easy Auth and Roles with .NET'
 authors: johnnyreilly
 tags: [Azure, authorization, authentication, easy auth]
 hide_table_of_contents: false
+description: '"Easy Auth" in Azure App Service doesnt currently work with .NET Core and .NET due to discrepancies. Open-source middleware can help solve the issue.'
 ---
 
 Azure App Service has a feature which is intended to allow Authentication and Authorization to be applied outside of your application code. It's called ["Easy Auth"](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization). Unfortunately, in the context of App Services it doesn't work with .NET Core and .NET. Perhaps it would be better to say: of the various .NETs, it supports .NET Framework. [To quote the docs](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization#userapplication-claims):

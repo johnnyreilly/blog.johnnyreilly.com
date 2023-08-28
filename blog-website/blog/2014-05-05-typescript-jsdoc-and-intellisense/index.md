@@ -4,6 +4,7 @@ title: 'TypeScript, JSDoc and Intellisense'
 authors: johnnyreilly
 tags: [jquery, JSDoc, typescript]
 hide_table_of_contents: false
+description: 'Transforming API documentation into JSDoc for TypeScript: author explains how he enriched popular `jquery.d.ts` file with comments.'
 ---
 
 ## Days of Yore

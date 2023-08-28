@@ -149,7 +149,7 @@ The error message was suggesting I needed to explicitly state that I wanted to u
   {
     "compilerOptions": {
 -      // "moduleResolution": "node",
-+      "moduleResolution": "nodenext",
++      "moduleResolution": "Bundler",
     },
   }
 ```

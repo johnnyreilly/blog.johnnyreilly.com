@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [autofac, ASP.Net Core, Integration Testing]
 image: ./autofac-webapplicationfactory-tests.webp
 hide_table_of_contents: false
+description: 'A bug in ASP.NET Core v3.0 thwarts swapping in Autofac as an IOC container in WebApplicationFactory tests. A workaround exists.'
 ---
 
 **Updated 2nd Oct 2020:** _for an approach that works with Autofac 6 and `ConfigureTestContainer` see [this post](../2020-10-02-autofac-6-integration-tests-and-generic-hosting/index.md)._

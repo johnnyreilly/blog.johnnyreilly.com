@@ -4,6 +4,7 @@ title: 'Beg, Steal or Borrow a Decent JavaScript DateTime Converter'
 authors: johnnyreilly
 tags: [javascript, Serialization, .NET]
 hide_table_of_contents: false
+description: 'ASP.NETs JavaScriptSerializer class is improved through ISO 8601 and a custom converter for better DateTime serialisation.'
 ---
 
 I've so named this blog post because it shamelessly borrows from the fine work of others: Sebastian Markbåge and Nathan Vonnahme. Sebastian wrote a blog post documenting a good solution to the ASP.NET JavaScriptSerializer DateTime problem at the tail end of last year. However, his solution didn't get me 100% of the way there when I tried to use it because of a need to support IE 8 which lead me to use Nathan Vonnahme's ISO 8601 JavaScript Date parser. I thought it was worth documenting this, hence this post, but just so I'm clear; the hard work here was done by Sebastian Markbåge and Nathan Vonnahme and not me. Consider me just a curator in this case. The original blog posts that I am drawing upon can be found here: 1. [http://blog.calyptus.eu/seb/2011/12/custom-datetime-json-serialization/](http://blog.calyptus.eu/seb/2011/12/custom-datetime-json-serialization/) and here: 2. [http://n8v.enteuxis.org/2010/12/parsing-iso-8601-dates-in-javascript/](http://n8v.enteuxis.org/2010/12/parsing-iso-8601-dates-in-javascript/)

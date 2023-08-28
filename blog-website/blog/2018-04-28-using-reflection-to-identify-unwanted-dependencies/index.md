@@ -4,6 +4,7 @@ title: 'Using Reflection to Identify Unwanted Dependencies'
 authors: johnnyreilly
 tags: [.NET]
 hide_table_of_contents: false
+description: 'Learn how to identify unwelcome dependencies in complex web apps by walking a dependency tree using reflection-based tests.'
 ---
 
 I having a web app which is fairly complex. It's made up of services, controllers and all sorts of things. So far, so unremarkable. However, I needed to ensure that the controllers did not attempt to access the database via any of their dependencies. Or their dependencies, dependencies. Or their dependencies. You get my point.

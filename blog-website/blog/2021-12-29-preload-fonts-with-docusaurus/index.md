@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [Docusaurus, webpack]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'Improve website performance by preloading web fonts in Docusaurus using `webpack-font-preload-plugin` or `headTags` API, as described in this tutorial.'
 ---
 
 When we're using custom fonts in our websites, it's good practice to preload the fonts to minimise the [flash of unstyled text](https://css-tricks.com/fout-foit-foft/). This post shows how to achieve this with Docusaurus.

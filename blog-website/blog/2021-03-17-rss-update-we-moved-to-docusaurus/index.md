@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [Blogger, Docusaurus, RSS, Atom]
 image: ./rss.png
 hide_table_of_contents: false
+description: 'A blogger migrated to Docusaurus and GitHub Pages, shares feed updates, with new Atom and RSS feeds and all historic links still working.'
 ---
 
 My blog lived happily on [Blogger](https://icanmakethiswork.blogspot.com/) for the past decade. It's now built with [Docusaurus](https://v2.docusaurus.io/) and hosted on [GitHub Pages](https://pages.github.com/). To understand the why, [read my last post](../2021-03-15-definitive-guide-to-migrating-from-blogger-to-docusaurus/index.md). This post serves purely to share details of feed updates for RSS / Atom subscribers.

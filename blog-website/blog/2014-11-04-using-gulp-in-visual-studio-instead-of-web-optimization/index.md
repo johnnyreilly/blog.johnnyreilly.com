@@ -4,6 +4,7 @@ title: 'Using Gulp in Visual Studio instead of Web Optimization'
 authors: johnnyreilly
 tags: [Task Runner Explorer, Visual Studio, typescript, javascript, gulpjs]
 hide_table_of_contents: false
+description: 'The ASP.NET team may replace Web Optimization with Grunt or Gulp. John Reilly tried out Gulp, which concatenates, minimises & version-numbers files.'
 ---
 
 ### Updated 17/02/2015: I've taken the approach discussed in this post a little further - you can see [here](../2012-10-05-using-web-optimization-with-mvc-3/index.md)
@@ -244,7 +245,7 @@ function getManifest(
   manifestName,
   bundleName,
   includeRelativePath,
-  pathPrepend
+  pathPrepend,
 ) {
   // Determine filename ("./build/manifest-debug.json" or "./build/manifest-release.json"
   var manifestFile =
@@ -298,7 +299,7 @@ gulp.task(
         //.pipe(ignore.exclude("**/*.{ts,js.map}")) // Exclude ts and js.map files from the manifest (as they won't become script tags)
         .pipe(getManifest(filesAndFolders.debug, bundleNames.styles, true))
     );
-  }
+  },
 );
 
 // Concatenate & Minify JS for release into a single file
@@ -335,7 +336,7 @@ gulp.task('styles-release', ['clean'], function () {
       .pipe(minifyCss()) // Make the file titchy tiny small
       .pipe(rev()) // Suffix a version number to it
       .pipe(
-        gulp.dest(filesAndFolders.releaseFolder + '/' + filesAndFolders.css)
+        gulp.dest(filesAndFolders.releaseFolder + '/' + filesAndFolders.css),
       )
   ); // Write single versioned file to build/release folder
 });
@@ -352,10 +353,10 @@ gulp.task(
           filesAndFolders.release,
           bundleNames.styles,
           false,
-          filesAndFolders.css + '/'
-        )
+          filesAndFolders.css + '/',
+        ),
       );
-  }
+  },
 );
 
 // Copy across all fonts in filesAndFolders.fonts to both release and debug locations
@@ -482,7 +483,7 @@ That would be pretty simple - and for what it's worth \*\*simple is <u>good</u>
 Before I make all the changes let's review where we were. I had a single MVC view which, in terms of bundles, CSS and JavaScript pretty much looked like this:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <!-- ... -->
@@ -494,23 +495,23 @@ Before I make all the changes let's review where we were. I had a single MVC vie
     @Scripts.Render("~/angularApp")
     <script>
       (function () {
-        $.getJSON('@Url.Content("~/Home/StartApp")').done(function (
-          startUpData
-        ) {
-          var appConfig = $.extend({}, startUpData, {
-            appRoot: '@Url.Content("~/")',
-            remoteServiceRoot: '@Url.Content("~/api/")',
-          });
+        $.getJSON('@Url.Content("~/Home/StartApp")').done(
+          function (startUpData) {
+            var appConfig = $.extend({}, startUpData, {
+              appRoot: '@Url.Content("~/")',
+              remoteServiceRoot: '@Url.Content("~/api/")',
+            });
 
-          angularApp.start({
-            thirdPartyLibs: {
-              moment: window.moment,
-              toastr: window.toastr,
-              underscore: window._,
-            },
-            appConfig: appConfig,
-          });
-        });
+            angularApp.start({
+              thirdPartyLibs: {
+                moment: window.moment,
+                toastr: window.toastr,
+                underscore: window._,
+              },
+              appConfig: appConfig,
+            });
+          },
+        );
       })();
     </script>
   </body>
@@ -522,7 +523,7 @@ This is already more a complicated example than most peoples use cases. Essentia
 After reading [an article about script loading by the magnificently funny Jake Archibald](http://www.html5rocks.com/en/tutorials/speed/script-loading/) I felt ready. I cast my MVC view to the four winds and created myself a straight HTML file:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <!-- ... -->

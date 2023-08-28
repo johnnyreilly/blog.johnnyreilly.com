@@ -4,6 +4,7 @@ title: 'Using Expressions with Constructors'
 authors: johnnyreilly
 tags: [.NET]
 hide_table_of_contents: false
+description: 'This article explains how John used LINQs expression to extend a validation class and automatically change the property name.'
 ---
 
 Every now and then you think "x should be easy" - and it isn't. I had one of those situations this morning. Something I thought would take 5 minutes had me still pondering 30 minutes later. I finally cracked it (with the help of a colleague - thanks Marc!) and I wanted to note down what I did since I'm sure to forget this.

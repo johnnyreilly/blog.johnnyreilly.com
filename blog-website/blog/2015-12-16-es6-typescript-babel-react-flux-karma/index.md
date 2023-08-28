@@ -4,6 +4,7 @@ title: 'ES6 + TypeScript + Babel + React + Flux + Karma: The Secret Recipe'
 authors: johnnyreilly
 tags: [ES6, Karma, React, ts-loader, webpack]
 hide_table_of_contents: false
+description: 'Learn how to set up a powerful TypeScript-React workflow with webpack, gulp, Karma, and inject in this comprehensive article.'
 ---
 
 I wrote [a while ago](../2015-09-10-things-done-changed/index.md) about how I was using some different tools in a current project:
@@ -26,7 +27,7 @@ But the pain is over. The dark days are gone. It's possible to have strong typin
 I decided a couple of months ago what I wanted to have in my setup:
 
 1. I want to be able to write React / JSX in TypeScript. Naturally I couldn't achieve that by myself but handily the TypeScript team decided to add support for JSX with [TypeScript 1.6](https://blogs.msdn.com/b/typescript/archive/2015/09/16/announcing-typescript-1-6.aspx). Ooh yeah.
-2. I wanted to be able to write ES6. When I realised [the approach for writing ES6 and having the transpilation handled by TypeScript wasn't clear](https://github.com/Microsoft/TypeScript/issues/3956) I had another idea. I thought ["what if I write ES6 and hand off the transpilation to Babel?"](https://github.com/Microsoft/TypeScript/issues/4765) i.e. Use TypeScript for type checking, not for transpilation. I realised that [James Brantly had my back](http://www.jbrantly.com/es6-modules-with-typescript-and-webpack/#configuringwebpack) here already. Enter [Webpack](https://webpack.github.io/) and [ts-loader](https://github.com/TypeStrong/ts-loader).
+2. I wanted to be able to write ES6. When I realised [the approach for writing ES6 and having the transpilation handled by TypeScript wasn't clear](https://github.com/Microsoft/TypeScript/issues/3956) I had another idea. I thought ["what if I write ES6 and hand off the transpilation to Babel?"](https://github.com/Microsoft/TypeScript/issues/4765) i.e. Use TypeScript for type checking, not for transpilation. I realised that [James Brantly had my back](http://www.jbrantly.com/es6-modules-with-typescript-and-webpack/#configuringwebpack) here already. Enter [webpack](https://webpack.github.io/) and [ts-loader](https://github.com/TypeStrong/ts-loader).
 3. Debugging. Being able to debug my code is non-negotiable for me. If I can't debug it I'm less productive. (I'm also bitter and twisted inside.) I should say that I wanted to be able to debug my _original_ source code. Thanks to the magic of [sourcemaps](https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit?usp=sharing), that mad thing is possible.
 4. Karma for unit testing. I've become accustomed to writing my tests in ES6 and running them on a continual basis with [Karma](https://karma-runner.github.io/0.13/index.html). This allows for a rather good debugging story as well. I didn't want to lose this when I moved to TypeScript. I didn't.
 
@@ -65,7 +66,7 @@ gulp.task(
     webpack.build().then(function () {
       done();
     });
-  }
+  },
 );
 
 gulp.task(
@@ -73,7 +74,7 @@ gulp.task(
   ['delete-dist', 'build-process.env.NODE_ENV'],
   function () {
     staticFiles.build();
-  }
+  },
 );
 
 gulp.task('build', ['build-js', 'build-other', 'lint'], function () {
@@ -92,7 +93,7 @@ gulp.task('watch', ['delete-dist'], function () {
   ])
     .then(function () {
       gutil.log(
-        'Now that initial assets (js and css) are generated inject will start...'
+        'Now that initial assets (js and css) are generated inject will start...',
       );
       inject.watch(postInjectCb);
     })
@@ -165,7 +166,7 @@ function buildProduction(done) {
       filename: 'vendor.[hash].js',
     }),
     new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin(),
   );
 
   // run webpack
@@ -177,7 +178,7 @@ function buildProduction(done) {
       '[webpack:build]',
       stats.toString({
         colors: true,
-      })
+      }),
     );
 
     if (done) {
@@ -198,7 +199,10 @@ function createDevCompiler() {
       name: 'vendor',
       filename: 'vendor.js',
     }),
-    new WebpackNotifierPlugin({ title: 'Webpack build', excludeWarnings: true })
+    new WebpackNotifierPlugin({
+      title: 'webpack build',
+      excludeWarnings: true,
+    }),
   );
 
   // create a single instance of the compiler to allow caching
@@ -216,7 +220,7 @@ function buildDevelopment(done, devCompiler) {
       stats.toString({
         chunks: false, // dial down the output from webpack (it can be noisy)
         colors: true,
-      })
+      }),
     );
 
     if (done) {
@@ -327,7 +331,7 @@ module.exports = {
 Your compiled output needs to be referenced from some kind of HTML page. So we've got this:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -377,7 +381,7 @@ function injectIndex(options) {
         './dist/scripts/vendor*.js',
         './dist/scripts/main*.js',
       ],
-      { read: false }
+      { read: false },
     );
 
     return target
@@ -397,7 +401,7 @@ function injectIndex(options) {
           ignorePath: '/dist/',
           addRootSlash: false,
           removeTags: true,
-        })
+        }),
       )
       .pipe(gulp.dest('./dist'));
   }

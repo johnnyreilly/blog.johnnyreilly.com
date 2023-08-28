@@ -4,6 +4,7 @@ title: 'Offline storage in a PWA'
 authors: johnnyreilly
 tags: [PWA]
 hide_table_of_contents: false
+description: 'Learn how to use IndexedDB for offline storage in your web app or PWA with the IDB-Keyval library and a React custom hook.'
 ---
 
 When you are building any kind of application it's typical to want to store information which persists beyond a single user session. Sometimes that will be information that you'll want to live in some kind of centralised database, but not always.
@@ -82,7 +83,7 @@ async function testIDBKeyval() {
   await set('hello', 'world');
   const whatDoWeHave = await get('hello');
   console.log(
-    `When we queried idb-keyval for 'hello', we found: ${whatDoWeHave}`
+    `When we queried idb-keyval for 'hello', we found: ${whatDoWeHave}`,
   );
 }
 
@@ -179,7 +180,7 @@ function App() {
   useEffect(() => {
     get<boolean>('darkModeOn').then((value) =>
       // If a value is retrieved then use it; otherwise default to true
-      setDarkModeOn(value ?? true)
+      setDarkModeOn(value ?? true),
     );
   }, [setDarkModeOn]);
 
@@ -249,14 +250,14 @@ import { set, get } from 'idb-keyval';
 
 export function usePersistedState<TState>(
   keyToPersistWith: string,
-  defaultState: TState
+  defaultState: TState,
 ) {
   const [state, setState] = useState<TState | undefined>(undefined);
 
   useEffect(() => {
     get<TState>(keyToPersistWith).then((retrievedState) =>
       // If a value is retrieved then use it; otherwise default to defaultValue
-      setState(retrievedState ?? defaultState)
+      setState(retrievedState ?? defaultState),
     );
   }, [keyToPersistWith, setState, defaultState]);
 
@@ -265,7 +266,7 @@ export function usePersistedState<TState>(
       setState(newValue);
       set(keyToPersistWith, newValue);
     },
-    [keyToPersistWith, setState]
+    [keyToPersistWith, setState],
   );
 
   return [state, setPersistedValue] as const;
@@ -290,7 +291,7 @@ const sharedStyles = {
 function App() {
   const [darkModeOn, setDarkModeOn] = usePersistedState<boolean>(
     'darkModeOn',
-    true
+    true,
   );
 
   const handleOnChange = ({ target }: React.ChangeEvent<HTMLInputElement>) =>

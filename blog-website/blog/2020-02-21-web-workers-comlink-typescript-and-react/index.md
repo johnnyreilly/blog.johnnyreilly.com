@@ -4,6 +4,7 @@ title: 'Web Workers, comlink, TypeScript and React'
 authors: johnnyreilly
 tags: [typescript, React]
 hide_table_of_contents: false
+description: 'Learn how to use Web Workers in a React app using Googles comlink library. Offload long-running calculations to a separate thread.'
 ---
 
 JavaScript is famously single threaded. However, if you're developing for the web, you may well know that this is not quite accurate. There are [`Web Workers`](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers):
@@ -343,7 +344,7 @@ import { useEffect, useState, useMemo } from 'react';
  */
 export function useTakeALongTimeToAddTwoNumbers(
   number1: number,
-  number2: number
+  number2: number,
 ) {
   // We'll want to expose a wrapping object so we know when a calculation is in progress
   const [data, setData] = useState({

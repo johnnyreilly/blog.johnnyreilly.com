@@ -4,6 +4,7 @@ title: 'A Simple Technique for Initialising Properties with Internal Setters for
 authors: johnnyreilly
 tags: [unit testing, MOQ]
 hide_table_of_contents: false
+description: 'Refactoring a legacy app includes adding unit tests, but properties with internal setters pose a problem. John explores various approaches.'
 ---
 
 I was recently working with my colleagues on refactoring a legacy application. We didn't have an immense amount of time available for this but the plan was to try and improve what was there as much as possible. In its initial state the application had no unit tests in place at all and so the plan was to refactor the code base in such a way as to make testing it a realistic proposition. To that end the [domain layer](http://en.wikipedia.org/wiki/Domain_layer) was being heavily adjusted and the GUI was being migrated from WebForms to MVC 3. The intention was to build up a pretty solid collection of unit tests. However, as we were working on this we realised we had a problem with properties on our models with [`internal`](<http://msdn.microsoft.com/en-us/library/7c5ka91b(v=vs.80).aspx>) setters...

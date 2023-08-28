@@ -4,6 +4,7 @@ title: 'Globalize and jQuery Validation'
 authors: johnnyreilly
 tags: [asp.net mvc, Globalize, jQuery Validation]
 hide_table_of_contents: false
+description: 'A jQuery plugin has been replaced by Globalize and makes locale specific number and date formatting easy with Javascript; a tutorial on how to use it.'
 ---
 
 ## Updated 05/10/2015

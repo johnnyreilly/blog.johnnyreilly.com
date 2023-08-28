@@ -4,6 +4,7 @@ title: 'Karma: From PhantomJS to Headless Chrome'
 authors: johnnyreilly
 tags: [Chrome, Karma, PhantomJS]
 hide_table_of_contents: false
+description: 'Replace PhantomJS with new Chrome Headless to run Chrome without a UI. Migrate a test and add Chrome to your build environment.'
 ---
 
 Like pretty much everyone else I've been using PhantomJS to run my JavaScript (or compiled-to-JS) unit tests. It's been great. So when I heard the news that [PhantomJS was dead](https://news.ycombinator.com/item?id=14105489) I was genuinely sad. However, the King is dead.... Long live the King! For there is a new hope; it's called [Chrome Headless ](https://developers.google.com/web/updates/2017/04/headless-chrome). It's not a separate version of Chrome; rather the ability to run Chrome without a UI is now baked into Google's favourite browser as of v59. (For those history buffs I might as well be clear: the main reason PhantomJS died is because Chrome Headless was in the works.)

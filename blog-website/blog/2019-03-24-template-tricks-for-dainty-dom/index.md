@@ -4,6 +4,7 @@ title: 'Template Tricks for a Dainty DOM'
 authors: johnnyreilly
 tags: [Materialized]
 hide_table_of_contents: false
+description: 'Wrapping data in HTML templates can help with performance. This trick kept rendering server-side but only rendered content when necessary.'
 ---
 
 I'm somewhat into code golf. Placing restrictions on what you're "allowed" to do in code and seeing what the happens as a result. I'd like to share with you something that came out of some recent dabblings.

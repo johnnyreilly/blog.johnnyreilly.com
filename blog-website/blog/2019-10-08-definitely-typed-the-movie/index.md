@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [typescript, Definitely Typed]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'The history of the TypeScript GitHub project Definitely Typed. And some TypeScript history as well'
 ---
 
 I'd like to tell you a story. It's the tale of the ecosystem that grew up around a language: TypeScript. TypeScript is, for want of a better description, JavaScript after a trip to Saville Row. Essentially the same language, but a little more together, a little less wild west. JS with a decent haircut and a new suit. These days, the world seems to be written in TypeScript. And when you pause to consider just how young the language is, well, that's kind of amazing.
@@ -103,7 +104,7 @@ So, imagine your definition looked like this:
 
 ```ts
 declare function turnANumberIntoAString(
-  numberToMakeStringOutOf: number
+  numberToMakeStringOutOf: number,
 ): string;
 ```
 
@@ -165,7 +166,7 @@ On December 28th 2013 Basarat decided that a regular contributor to Definitely T
 
 ![A photograph of John Reilly](johnny_reilly.webp)
 
-That's me. Or [johnny_reilly on Twitter](https://twitter.com/johnny_reilly), [johnny_reilly on Fosstodon](https://fosstodon.org/@johnny_reilly) and [johnnyreilly on GitHub](https://github.com/johnnyreilly). Relatively few people call me Johnny. I'm named that online because back when I applied for an email address, someone had already bagsied `johnreilly@hotmail.com`. (Hotmail was what everyone used back when I came online - I am *that* old.) So rather than sully my handle with a number or a middle name I settled for `johnny_reilly` and went with the underscore as someone already had the email address without one. I haven't looked back and have generally tried to keep that nom de plume wherever I lay my hat online. I have learned to my chagrin that GitHub doesn't support the `_` character in usernames. This bothers me more than is reasonable.
+That's me. Or [johnny_reilly on Twitter](https://twitter.com/johnny_reilly), [johnny_reilly on Fosstodon](https://fosstodon.org/@johnny_reilly) and [johnnyreilly on GitHub](https://github.com/johnnyreilly). Relatively few people call me Johnny. I'm named that online because back when I applied for an email address, someone had already bagsied `johnreilly@hotmail.com`. (Hotmail was what everyone used back when I came online - I am _that_ old.) So rather than sully my handle with a number or a middle name I settled for `johnny_reilly` and went with the underscore as someone already had the email address without one. I haven't looked back and have generally tried to keep that nom de plume wherever I lay my hat online. I have learned to my chagrin that GitHub doesn't support the `_` character in usernames. This bothers me more than is reasonable.
 
 In contrast to others I was a relatively late starter to TypeScript. I was intrigued right from the initial announcement, but held off from properly getting my hands dirty until generics was added to the language in 0.9. (This predisposition towards generics in a language perhaps explains why I didn't get too far with Golang.)
 
