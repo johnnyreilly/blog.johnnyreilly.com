@@ -292,7 +292,7 @@ const config = {
         },
         */
           { to: 'about', label: 'About', position: 'left' },
-          { to: 'archive', label: 'Blog Archive', position: 'left' },
+          { to: 'blog', label: 'Blog', position: 'left' },
           { to: 'talks', label: 'Talks', position: 'left' },
           // {
           //   href: 'https://polywork.johnnyreilly.com/',

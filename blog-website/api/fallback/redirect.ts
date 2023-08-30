@@ -22,7 +22,7 @@ export function redirect(originalUrl: string, log: Logger) {
     // parsedURL.pathname example: /2019/06/typescript-webpack-you-down-with-pnp.html
 
     const matchedRoute = redirects.find((route) =>
-      parsedURL.pathname.includes(route.route)
+      parsedURL.pathname.includes(route.route),
     );
 
     if (matchedRoute) {
@@ -56,7 +56,7 @@ export function redirect(originalUrl: string, log: Logger) {
 
     // cater for https://johnnyreilly.com/2019/06/ or https://johnnyreilly.com/2019/
     if (parsedURL.pathname.match(yearMonthRegex)) {
-      const bloggerArchiveRedirect = '/archive';
+      const bloggerArchiveRedirect = '/blog';
       return redirect301({
         log,
         originalUrl,
@@ -68,11 +68,11 @@ export function redirect(originalUrl: string, log: Logger) {
     if (parsedURL.pathname.startsWith('/assets/images/')) {
       const fileNameWithoutHashAndSuffix = parsedURL.pathname.substring(
         0,
-        parsedURL.pathname.lastIndexOf('-')
+        parsedURL.pathname.lastIndexOf('-'),
       );
 
       const likelyImageRedirect = imagePaths.find((imageFile) =>
-        imageFile.includes(fileNameWithoutHashAndSuffix)
+        imageFile.includes(fileNameWithoutHashAndSuffix),
       );
 
       if (likelyImageRedirect) {
@@ -90,7 +90,7 @@ export function redirect(originalUrl: string, log: Logger) {
     : `${baseUrl}/404`;
 
   log(
-    `Redirecting ${originalUrl} to ${location} as no explicit redirect exists`
+    `Redirecting ${originalUrl} to ${location} as no explicit redirect exists`,
   );
 
   return {

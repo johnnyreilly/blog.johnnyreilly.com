@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
 import styles from './styles.module.css';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 /**
  * @typedef {Object} BlogPost - creates a new type named 'BlogPost'
@@ -46,7 +47,7 @@ const yearsOfPosts = Array.from(postsByYear, ([year, posts]) => ({
 }));
 
 function Year(
-  /** @type {{ year: string; posts: BlogPost[]; }} */ { year, posts }
+  /** @type {{ year: string; posts: BlogPost[]; }} */ { year, posts },
 ) {
   return (
     <div className={clsx('col col--4', styles.feature)}>
@@ -65,28 +66,55 @@ function Year(
 }
 
 function BlogArchive() {
+  const { siteConfig } = useDocusaurusContext();
+
+  // https://developers.google.com/search/docs/appearance/structured-data/breadcrumb#json-ld
+  const breadcrumbStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    name: 'Blog breadcrumb',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteConfig.url,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blog',
+      },
+    ],
+  };
+
   return (
-    <Layout title="Blog Archive">
-      <header className={clsx('hero hero--primary', styles.heroBanner)}>
-        <div className="container">
-          <h1 className="hero__title">Blog Archive</h1>
-          <p className="hero__subtitle">Historic posts</p>
-        </div>
-      </header>
-      <main>
-        {yearsOfPosts && yearsOfPosts.length > 0 && (
-          <section className={styles.features}>
-            <div className="container">
-              <div className="row">
-                {yearsOfPosts.map((props, idx) => (
-                  <Year key={idx} {...props} />
-                ))}
+    <>
+      <script type="application/ld+json">
+        {JSON.stringify(breadcrumbStructuredData)}
+      </script>
+      <Layout title="Blog Archive">
+        <header className={clsx('hero hero--primary', styles.heroBanner)}>
+          <div className="container">
+            <h1 className="hero__title">Blog</h1>
+            <p className="hero__subtitle">Historic posts</p>
+          </div>
+        </header>
+        <main>
+          {yearsOfPosts && yearsOfPosts.length > 0 && (
+            <section className={styles.features}>
+              <div className="container">
+                <div className="row">
+                  {yearsOfPosts.map((props, idx) => (
+                    <Year key={idx} {...props} />
+                  ))}
+                </div>
               </div>
-            </div>
-          </section>
-        )}
-      </main>
-    </Layout>
+            </section>
+          )}
+        </main>
+      </Layout>
+    </>
   );
 }
 
