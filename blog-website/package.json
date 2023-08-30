@@ -8,7 +8,7 @@
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
     "build": "tsc && cross-env WEBPACK_URL_LOADER_LIMIT=0 docusaurus build",
-    "postbuild": "cd ../trim-xml && bun install && bun start",
+    "postbuild": "cd ../post-processing && bun install && bun start",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
