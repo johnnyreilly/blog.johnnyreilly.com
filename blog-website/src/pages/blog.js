@@ -100,7 +100,7 @@ function BlogArchive() {
         <header className={clsx('hero hero--primary', styles.heroBanner)}>
           <div className="container">
             <h1 className="hero__title">Blog</h1>
-            <p className="hero__subtitle">Historic posts</p>
+            <p className="hero__subtitle">All the posts I ever wrote!</p>
           </div>
         </header>
         <main>

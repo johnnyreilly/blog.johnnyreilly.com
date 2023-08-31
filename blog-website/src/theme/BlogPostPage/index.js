@@ -28,7 +28,7 @@ export default function BlogPostPageWrapper(props) {
       },
       {
         '@type': 'ListItem',
-        position: 1,
+        position: 3,
         name: blogMetaData.title,
       },
     ],
