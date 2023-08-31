@@ -45,9 +45,12 @@ function About() {
   return (
     <>
       <Head>
-        <script type="application/ld+json">
-          {JSON.stringify(personStructuredData)}
-        </script>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personStructuredData),
+          }}
+        />
 
         <meta
           property="og:image"

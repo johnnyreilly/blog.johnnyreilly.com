@@ -90,9 +90,12 @@ function BlogArchive() {
 
   return (
     <>
-      <script type="application/ld+json">
-        {JSON.stringify(breadcrumbStructuredData)}
-      </script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbStructuredData),
+        }}
+      />
       <Layout title="Blog Archive">
         <header className={clsx('hero hero--primary', styles.heroBanner)}>
           <div className="container">

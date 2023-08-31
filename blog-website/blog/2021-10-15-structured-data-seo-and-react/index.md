@@ -97,15 +97,18 @@ function App() {
     author: {
       '@type': 'Person',
       name: 'John Reilly',
-      url: 'https://twitter.com/johnny_reilly',
+      url: 'https://johnnyreilly.com/about',
     },
   };
 
   return (
     <div className="App">
-      <script type="application/ld+json">
-        {JSON.stringify(articleStructuredData)}
-      </script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleStructuredData),
+        }}
+      />
 
       <h1>{articleStructuredData.headline}</h1>
       <h3>
@@ -135,7 +138,7 @@ export default App;
 If we look at the code above, we can see we're creating a JavaScript object literal named `articleStructuredData` which contains the data of an https://schema.org/Article. `articleStructuredData` is then used to do two things:
 
 1. to contribute to the content of the page
-2. to render a JSON-LD script tag: `<script type="application/ld+json">` which is populated by calling `JSON.stringify(articleStructuredData)`
+2. to render a JSON-LD script tag: `<script type="application/ld+json">` which is populated by calling `JSON.stringify(articleStructuredData)` (you'll note we're using `dangerouslySetInnerHTML` to do this and that's because otherwise the `"` characters in the JSON-LD would be escaped and that would make the JSON-LD invalid to some parsers)
 
 When we run our site locally with `npm start` we see a simple article site that looks like this:
 

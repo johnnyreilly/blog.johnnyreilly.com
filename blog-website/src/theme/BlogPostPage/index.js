@@ -38,9 +38,12 @@ export default function BlogPostPageWrapper(props) {
 
   return (
     <>
-      <script type="application/ld+json">
-        {JSON.stringify(breadcrumbStructuredData)}
-      </script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbStructuredData),
+        }}
+      />
       <BlogPostPage {...props} />
     </>
   );

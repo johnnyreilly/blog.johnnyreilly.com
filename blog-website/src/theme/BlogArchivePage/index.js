@@ -27,9 +27,12 @@ export default function BlogArchivePageWrapper(props) {
 
   return (
     <>
-      <script type="application/ld+json">
-        {JSON.stringify(breadcrumbStructuredData)}
-      </script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbStructuredData),
+        }}
+      />
       <BlogArchivePage {...props} />
     </>
   );
