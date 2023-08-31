@@ -32,9 +32,9 @@ function About() {
     email: 'johnny_reilly@hotmail.com',
     birthPlace: 'Bristol',
     sameAs: [
+      'https://github.com/johnnyreilly',
       'https://fosstodon.org/@johnny_reilly',
       'https://twitter.com/johnny_reilly',
-      'https://github.com/johnnyreilly',
       'https://stackoverflow.com/users/761388/john-reilly',
       'https://blog.logrocket.com/author/johnreilly/',
       'https://polywork.com/johnnyreilly',
@@ -42,19 +42,23 @@ function About() {
     ],
   };
 
+  const organizationStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    url: 'https://johnnyreilly.com',
+    image: 'https://johnnyreilly.com/img/profile.jpg',
+  };
+
+  const structuredData = [personStructuredData, organizationStructuredData];
+
   return (
     <>
       <Head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(personStructuredData),
+            __html: JSON.stringify(structuredData),
           }}
-        />
-
-        <meta
-          property="og:image"
-          content="https://johnnyreilly.com/api/image-with-text"
         />
       </Head>
 
