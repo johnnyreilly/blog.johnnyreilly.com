@@ -82,6 +82,25 @@ async function patchOpenGraphImageToCloudinary() {
   }
 }
 
+function deleteFolderRecursive(folderPath: string) {
+  if (fs.existsSync(folderPath)) {
+    fs.readdirSync(folderPath).forEach((file) => {
+      const curPath = path.join(folderPath, file);
+
+      if (fs.lstatSync(curPath).isDirectory()) {
+        // Recursively delete subdirectories
+        deleteFolderRecursive(curPath);
+      } else {
+        // Delete files within the folder
+        fs.unlinkSync(curPath);
+      }
+    });
+
+    // Finally, delete the main folder itself
+    fs.rmdirSync(folderPath);
+  }
+}
+
 async function trimSitemapXML() {
   const sitemapPath = path.resolve(
     '..',
@@ -100,6 +119,7 @@ async function trimSitemapXML() {
 
   const filteredUrls = sitemap.urlset.url.filter(
     (url) =>
+      url.loc !== `${rootUrl}/archive` &&
       // url.loc !== `${rootUrl}/tags` &&
       // !url.loc.startsWith(rootUrl + '/tags/') &&
       !url.loc.startsWith(rootUrl + '/page/'),
@@ -214,6 +234,7 @@ async function main() {
 
   await patchOpenGraphImageToCloudinary();
   await trimSitemapXML();
+  deleteFolderRecursive(path.resolve('..', 'blog-website', 'build', 'archive'));
   // now handled by createFeedItems
   // await trimAtomXML();
   // await trimRssXML();

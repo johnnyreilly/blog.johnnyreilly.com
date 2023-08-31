@@ -27,9 +27,10 @@ export default function FAQStructuredData(props) {
   };
   return (
     <>
-      <script type="application/ld+json">
-        {JSON.stringify(faqStructuredData)}
-      </script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+      />
 
       <h2>FAQs</h2>
       {faqStructuredData.mainEntity.map((faq) => (
