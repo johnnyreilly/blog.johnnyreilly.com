@@ -27,11 +27,11 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
       }
 
       // eg blog-website/blog/2013-04-26-a-navigation-animation-for-your-users/index.md
-      //const blogMarkdown = await Bun.file('../' + blogFilePath).text();
-      //if (blogMarkdown.includes('<link rel="canonical" href=')) {
-      //  console.log('excluding external canonical URL', url.loc);
-      //  continue;
-      //}
+      const blogMarkdown = await Bun.file('../' + blogFilePath).text();
+      if (blogMarkdown.includes('<link rel="canonical" href=')) {
+        console.log('excluding external canonical URL', url.loc);
+        continue;
+      }
 
       const lastmod = await getGitLastUpdatedFromFilePath(blogFilePath);
 
