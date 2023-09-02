@@ -56,10 +56,16 @@ const config = {
         //   trackingID: 'UA-51754530-2',
         //   anonymizeIP: true,
         // },
-        gtag: {
-          trackingID: 'G-3N85G0SL3K',
-          anonymizeIP: true,
-        },
+
+        ...(USE_CLOUDINARY
+          ? {
+              gtag: {
+                trackingID: 'G-3N85G0SL3K',
+                anonymizeIP: true,
+              },
+            }
+          : {}),
+
         docs: false,
         blog: {
           rehypePlugins: USE_CLOUDINARY
