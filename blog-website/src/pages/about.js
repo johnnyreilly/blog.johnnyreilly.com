@@ -83,10 +83,11 @@ function About() {
               <div className={clsx('col col--6', styles.feature)}>
                 <h3>Who am I?</h3>
                 <p>
-                  I'm an engineer, writer, hedge chopper, father, food botherer,
-                  Christian and husband to the most wonderful Geordie wife there
-                  ever was! I live in London / Twickenham. I was born in Bristol
-                  and I was raised in Fleet.
+                  I'm a software engineer, blogger, dawn photographer of
+                  Twickenham riverside and Hammerton's Ferry Terminal in
+                  particular, father, coffee lover, Christian and husband to the
+                  most wonderful Geordie wife there ever was! I live in London /
+                  Twickenham. I was born in Bristol and I was raised in Fleet.
                 </p>
 
                 <p>

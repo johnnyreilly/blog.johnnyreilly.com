@@ -59,9 +59,10 @@ function getSlugToPath() {
 
 export function getBlogPathFromUrl(
   rootUrl: string,
+  /** eg https://johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants */
   url: string,
 ): string | undefined {
-  // eg url.loc: https://blog.johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants
+  // eg url.loc: https://johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants
   const pathWithoutRootUrl = url.replace(rootUrl + '/', ''); // eg 2012/01/07/standing-on-shoulders-of-giants
 
   // eg lighthouse-meet-github-actions
@@ -93,6 +94,25 @@ export function getBlogPathFromUrl(
     match !== null ? match : undefined,
   );
   return undefined;
+}
+
+export function getPagesPathFromUrl(
+  rootUrl: string,
+  /** eg https://johnnyreilly.com/about */
+  url: string,
+): string | undefined {
+  // eg url.loc: https://johnnyreilly.com/about
+  const pathWithoutRootUrl = url.replace(rootUrl + '/', ''); // eg about
+
+  const blogPath = `blog-website/src/pages/${pathWithoutRootUrl}.js`;
+
+  try {
+    const pageSrc = fs.readFileSync(`../${blogPath}`, 'utf8');
+    return blogPath;
+  } catch (e) {
+    console.log('cannot look up pages path', blogPath);
+    return undefined;
+  }
 }
 
 export async function getGitLastUpdatedFromFilePath(filePath: string) {
