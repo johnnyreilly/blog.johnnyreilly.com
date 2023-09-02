@@ -59,9 +59,10 @@ function getSlugToPath() {
 
 export function getBlogPathFromUrl(
   rootUrl: string,
+  /** eg https://johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants */
   url: string,
 ): string | undefined {
-  // eg url.loc: https://blog.johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants
+  // eg url.loc: https://johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants
   const pathWithoutRootUrl = url.replace(rootUrl + '/', ''); // eg 2012/01/07/standing-on-shoulders-of-giants
 
   // eg lighthouse-meet-github-actions

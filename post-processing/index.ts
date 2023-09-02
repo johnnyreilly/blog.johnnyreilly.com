@@ -14,6 +14,7 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
 ): Promise<SitemapUrl[]> {
   const urls: SitemapUrl[] = [];
   let blogFilePath: string | undefined;
+  const fallbackLastMod = new Date().toISOString();
   for (const url of filteredUrls) {
     if (urls.includes(url)) {
       continue;
@@ -22,7 +23,11 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
     try {
       blogFilePath = getBlogPathFromUrl(rootUrl, url.loc);
       if (!blogFilePath) {
-        urls.push(url);
+        if (!url.loc.includes('/tags/') && !url.loc.endsWith('/tags')) {
+          urls.push({ ...url, lastmod: fallbackLastMod }); // mark non blog posts with a lastmod reflecting the time of this script running
+        } else {
+          urls.push(url);
+        }
         continue;
       }
 
@@ -120,6 +125,7 @@ async function trimSitemapXML() {
   const filteredUrls = sitemap.urlset.url.filter(
     (url) =>
       url.loc !== `${rootUrl}/archive` &&
+      url.loc !== `${rootUrl}/search` &&
       // url.loc !== `${rootUrl}/tags` &&
       // !url.loc.startsWith(rootUrl + '/tags/') &&
       !url.loc.startsWith(rootUrl + '/page/'),
