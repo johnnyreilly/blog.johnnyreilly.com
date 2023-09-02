@@ -50,7 +50,7 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
 
       const lastmod = await getGitLastUpdatedFromFilePath(filePath);
 
-      urls.push(lastmod ? { loc, lastmod } : { loc });
+      urls.push(lastmod ? { loc, lastmod } : { loc, lastmod: fallbackLastMod });
       console.log(loc, lastmod);
     } catch (e) {
       console.log(`file date not looked up: ${filePath}`, url.loc, e);
