@@ -4,6 +4,7 @@ import path from 'path';
 import {
   getBlogPathFromUrl,
   getGitLastUpdatedFromFilePath,
+  getPagesPathFromUrl,
 } from './getGitLastUpdated';
 import type { SitemapUrl, Sitemap, AtomFeed, RssItem, RssFeed } from './types';
 
@@ -13,8 +14,13 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
   filteredUrls: SitemapUrl[],
 ): Promise<SitemapUrl[]> {
   const urls: SitemapUrl[] = [];
-  let blogFilePath: string | undefined;
-  const fallbackLastMod = new Date().toISOString();
+  let filePath: string | undefined;
+
+  const today = new Date();
+  // Set the date to the first day of the current month
+  today.setDate(1);
+  const fallbackLastMod = today.toISOString();
+
   for (const url of filteredUrls) {
     if (urls.includes(url)) {
       // can this happen? not sure why I added this
@@ -24,29 +30,30 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
     const { loc } = url;
 
     try {
-      blogFilePath = getBlogPathFromUrl(rootUrl, loc);
-      if (!blogFilePath) {
-        if (!loc.includes('/tags/') && !loc.endsWith('/tags')) {
-          urls.push({ loc, lastmod: fallbackLastMod }); // mark non blog posts with a lastmod reflecting the time of this script running
-        } else {
-          urls.push({ loc });
-        }
+      filePath =
+        getBlogPathFromUrl(rootUrl, loc) ?? getPagesPathFromUrl(rootUrl, loc);
+      if (!filePath) {
+        // if (!loc.includes('/tags/') && !loc.endsWith('/tags')) {
+        //   urls.push({ loc, lastmod: fallbackLastMod }); // mark non blog posts with a lastmod reflecting the time of this script running
+        // } else {
+        urls.push({ loc });
+        // }
         continue;
       }
 
       // eg blog-website/blog/2013-04-26-a-navigation-animation-for-your-users/index.md
-      const blogMarkdown = await Bun.file('../' + blogFilePath).text();
+      const blogMarkdown = await Bun.file('../' + filePath).text();
       if (blogMarkdown.includes('<link rel="canonical" href=')) {
         console.log('excluding external canonical URL', url.loc);
         continue;
       }
 
-      const lastmod = await getGitLastUpdatedFromFilePath(blogFilePath);
+      const lastmod = await getGitLastUpdatedFromFilePath(filePath);
 
       urls.push(lastmod ? { loc, lastmod } : { loc });
       console.log(loc, lastmod);
     } catch (e) {
-      console.log(`file date not looked up: ${blogFilePath}`, url.loc, e);
+      console.log(`file date not looked up: ${filePath}`, url.loc, e);
       urls.push({ loc, lastmod: fallbackLastMod });
     }
   }
