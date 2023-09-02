@@ -58,6 +58,15 @@ const talks = [
   },
 ];
 
+// eg https://img.youtube.com/vi/G4WTEEwI6Qs/default.jpg
+const thumbnailResolutions = [
+  'default.jpg',
+  'hqdefault.jpg',
+  'mqdefault.jpg',
+  'sddefault.jpg',
+  'maxresdefault.jpg',
+];
+
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
@@ -67,11 +76,11 @@ const structuredData = {
     name: talk.title,
     url: talk.permalink,
     description: talk.title,
-    // thumbnailUrl: [
-    //   'https://www.example.com/video/self-driving-bicycle/1x1/photo.jpg',
-    //   'https://www.example.com/video/self-driving-bicycle/4x3/photo.jpg',
-    //   'https://www.example.com/video/self-driving-bicycle/16x9/photo.jpg',
-    // ],
+
+    thumbnailUrl: thumbnailResolutions.map(
+      (resolution) => `https://img.youtube.com/vi/${talk.id}/${resolution}`,
+    ),
+
     uploadDate: talk.date,
     // duration: 'PT1M54S',
     contentUrl: talk.permalink,
