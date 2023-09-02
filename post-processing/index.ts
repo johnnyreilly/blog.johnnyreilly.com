@@ -17,16 +17,19 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
   const fallbackLastMod = new Date().toISOString();
   for (const url of filteredUrls) {
     if (urls.includes(url)) {
+      // can this happen? not sure why I added this
       continue;
     }
 
+    const { loc } = url;
+
     try {
-      blogFilePath = getBlogPathFromUrl(rootUrl, url.loc);
+      blogFilePath = getBlogPathFromUrl(rootUrl, loc);
       if (!blogFilePath) {
-        if (!url.loc.includes('/tags/') && !url.loc.endsWith('/tags')) {
-          urls.push({ ...url, lastmod: fallbackLastMod }); // mark non blog posts with a lastmod reflecting the time of this script running
+        if (!loc.includes('/tags/') && !loc.endsWith('/tags')) {
+          urls.push({ loc, lastmod: fallbackLastMod }); // mark non blog posts with a lastmod reflecting the time of this script running
         } else {
-          urls.push(url);
+          urls.push({ loc });
         }
         continue;
       }
@@ -40,11 +43,11 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
 
       const lastmod = await getGitLastUpdatedFromFilePath(blogFilePath);
 
-      urls.push(lastmod ? { ...url, lastmod } : url);
-      console.log(url.loc, lastmod);
+      urls.push(lastmod ? { loc, lastmod } : { loc });
+      console.log(loc, lastmod);
     } catch (e) {
       console.log(`file date not looked up: ${blogFilePath}`, url.loc, e);
-      urls.push(url);
+      urls.push({ loc, lastmod: fallbackLastMod });
     }
   }
   return urls;
@@ -128,7 +131,7 @@ async function trimSitemapXML() {
       url.loc !== `${rootUrl}/search` &&
       // url.loc !== `${rootUrl}/tags` &&
       // !url.loc.startsWith(rootUrl + '/tags/') &&
-      !url.loc.startsWith(rootUrl + '/page/'),
+      !url.loc.includes('/page/'),
   );
 
   console.log(

@@ -1,7 +1,7 @@
 export interface SitemapUrl {
   loc: string;
-  changefreq: string;
-  priority: number;
+  changefreq?: string;
+  priority?: number;
   lastmod?: string;
 }
 
