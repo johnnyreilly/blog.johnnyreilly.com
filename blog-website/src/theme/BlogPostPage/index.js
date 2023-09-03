@@ -12,6 +12,7 @@ export default function BlogPostPageWrapper(props) {
   const blogBreadcrumbStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
+    '@id': `${blogMetaData.permalink}#breadcrumb`,
     name: 'Blog breadcrumb',
     itemListElement: [
       {

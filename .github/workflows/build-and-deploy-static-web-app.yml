@@ -145,7 +145,7 @@ jobs:
         run: |
           cd blog-website
           yarn install --frozen-lockfile
-          DOCUSAURUS_SSR_CONCURRENCY=5 USE_CLOUDINARY=${{ github.event_name != 'pull_request' }} yarn run build
+          DOCUSAURUS_SSR_CONCURRENCY=5 IS_LIVE_SITE=${{ github.event_name != 'pull_request' }} yarn run build
           cp staticwebapp.config.json build/staticwebapp.config.json
 
       - name: Get API key 🔑
