@@ -39,6 +39,12 @@
       }
     },
     {
+      "route": "/tags/*",
+      "headers": {
+        "X-Robots-Tag": "noindex"
+      }
+    },
+    {
       "route": "/search",
       "headers": {
         "X-Robots-Tag": "noindex"
