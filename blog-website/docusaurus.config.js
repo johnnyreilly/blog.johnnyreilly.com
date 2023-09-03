@@ -165,26 +165,6 @@ const siteStructuredData = {
     },
 
     {
-      '@id': 'https://johnnyreilly.com/about#organization',
-      '@type': ['Organization', 'Brand'],
-      url,
-      name: title,
-      description,
-      logo: {
-        '@type': 'ImageObject',
-        inLanguage: 'en-UK',
-        '@id': 'https://johnnyreilly.com/#logo',
-        url: 'https://johnnyreilly.com/img/profile.jpg',
-        contentUrl: 'https://johnnyreilly.com/img/profile.jpg',
-        width: 200,
-        height: 200,
-        caption: 'John Reilly',
-      },
-      image: { '@id': 'https://johnnyreilly.com/#logo' },
-      sameAs,
-    },
-
-    {
       '@id': 'https://johnnyreilly.com/about',
       '@type': 'Person',
       name: 'John Reilly',
@@ -213,6 +193,26 @@ const siteStructuredData = {
       birthPlace: 'Bristol',
       sameAs,
     },
+
+    // {
+    //   '@id': 'https://johnnyreilly.com/about#organization',
+    //   '@type': ['Organization', 'Brand'],
+    //   url,
+    //   name: title,
+    //   description,
+    //   logo: {
+    //     '@type': 'ImageObject',
+    //     inLanguage: 'en-UK',
+    //     '@id': 'https://johnnyreilly.com/#logo',
+    //     url: 'https://johnnyreilly.com/img/profile.jpg',
+    //     contentUrl: 'https://johnnyreilly.com/img/profile.jpg',
+    //     width: 200,
+    //     height: 200,
+    //     caption: 'John Reilly',
+    //   },
+    //   image: { '@id': 'https://johnnyreilly.com/#logo' },
+    //   sameAs,
+    // },
   ],
 };
 
