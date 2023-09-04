@@ -51,7 +51,7 @@ export async function readFromDatabase({
 
     const querySpec = {
       query:
-        'SELECT r.originalUrl, r.redirectUrl, r.statusCode, r.redirectedAt FROM releases r WHERE r.raisedAt >= @dateFrom AND r.raisedAt <= @dateTo',
+        'SELECT r.originalUrl, r.redirectUrl, r.statusCode, r.redirectedAt FROM releases r WHERE r.redirectedAt >= @dateFrom AND r.redirectedAt <= @dateTo',
       parameters: [
         {
           name: '@dateFrom',
