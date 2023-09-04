@@ -4,6 +4,7 @@ title: "Dynamic import: I've been awaiting you..."
 authors: johnnyreilly
 tags: [typescript, webpack]
 hide_table_of_contents: false
+description: 'TypeScript 2.4 gains asynchronous, dynamic import expression for modules with no browser support. Webpack2 supports this feature.'
 ---
 
 One of the most exciting features to ship with TypeScript 2.4 was support for the dynamic import expression. To quote the [release blog post](https://blogs.msdn.microsoft.com/typescript/2017/06/27/announcing-typescript-2-4/#dynamic-import-expressions):

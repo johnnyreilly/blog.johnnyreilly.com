@@ -4,6 +4,7 @@ title: 'AngularJS meet ASP.Net Server Validation'
 authors: johnnyreilly
 tags: [asp.net, typescript, AngularJS]
 hide_table_of_contents: false
+description: 'Learn how to perform server-side validation in your AngularJS and ASP.Net project using a `serverError` directive and server response error messages.'
 ---
 
 So. You're using AngularJS to build your front end with ASP.Net running on the server side. You're a trustworthy dev - you know that validation on the client will only get you so far. You need to validate on the server.
@@ -129,7 +130,7 @@ app.directive('serverError', [
         safeWatch(function () {
           return ngModelController.$error.server;
         }),
-        showHideValidation
+        showHideValidation,
       );
 
       function showHideValidation(serverError) {
@@ -141,7 +142,7 @@ app.directive('serverError', [
           var errorKey = scope.name;
           errorHtml = template.replace(
             /%error%/,
-            errorDictionary[errorKey] || 'Unknown error occurred...'
+            errorDictionary[errorKey] || 'Unknown error occurred...',
           );
         }
         decorator.html(errorHtml);
@@ -274,7 +275,7 @@ module controllers {
       private $routeParams: sageEditRouteParams,
       private $scope: sageEditScope,
       private common: common,
-      private datacontext: datacontext
+      private datacontext: datacontext,
     ) {
       this.errors = {};
       this.log = common.logger.getLogFn(controllerId);
@@ -315,7 +316,7 @@ module controllers {
         if (response.success) {
           this.sage = response.entity;
           this.logSuccess(
-            'Saved ' + this.sage.name + ' [' + this.sage.id + ']'
+            'Saved ' + this.sage.name + ' [' + this.sage.id + ']',
           );
           this.$location.path('/sages/detail/' + this.sage.id);
         } else {
@@ -324,7 +325,7 @@ module controllers {
           angular.forEach(response.errors, (errors, field) => {
             (<ng.INgModelController>this.$scope.form[field]).$setValidity(
               'server',
-              false
+              false,
             );
             this.errors[field] = errors.join(',');
           });
@@ -404,7 +405,7 @@ var controllers;
         if (response.success) {
           _this.sage = response.entity;
           _this.logSuccess(
-            'Saved ' + _this.sage.name + ' [' + _this.sage.id + ']'
+            'Saved ' + _this.sage.name + ' [' + _this.sage.id + ']',
           );
 
           _this.$location.path('/sages/detail/' + _this.sage.id);

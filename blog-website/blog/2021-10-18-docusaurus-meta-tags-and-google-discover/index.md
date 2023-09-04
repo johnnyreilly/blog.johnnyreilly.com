@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [Docusaurus]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'Boost your websites appearance in Google Discover with high-quality images and `max-image-preview:large` meta tag setting in Docusaurus.'
 ---
 
 Google Discover is a way that people can find your content. To make your content more attractive, Google encourage using high quality images which are enabled by setting the `max-image-preview:large` meta tag. This post shows you how to achieve that with Docusaurus.

@@ -5,6 +5,7 @@ authors: johnnyreilly
 image: ./title-image.png
 tags: [Prettier]
 hide_table_of_contents: false
+description: 'Standardise C# formatting with `dotnet format` and `lint-staged`. Customise formatting and integrate with `husky` in this guide.'
 ---
 
 Consistent formatting in a codebase is a good thing. We can achieve this in dotnet using `dotnet format`, used in combination with the npm packages `husky` and `lint-staged`. This post shows how.

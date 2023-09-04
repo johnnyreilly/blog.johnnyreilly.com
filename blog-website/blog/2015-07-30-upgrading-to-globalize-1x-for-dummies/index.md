@@ -4,6 +4,7 @@ title: 'Upgrading to Globalize 1.x for Dummies'
 authors: johnnyreilly
 tags: [Globalize]
 hide_table_of_contents: false
+description: 'Migrating to Globalize 1.0, which modularized the code, requires a significant amount of work, as shown by John Reilly’s examples.'
 ---
 
 Globalize has hit 1.0. Anyone who reads my blog will likely be aware that I'm a long time user of [Globalize 0.1.x](../2012-05-07-globalizejs-number-and-date/index.md). I've been a little daunted by the leap that the move from 0.1.x to 1.x represents. It appears to be the very definition of "breaking changes". :-) But hey, this is Semantic Versioning being used correctly so how could I complain? Either way, I've decided to write up the migration here as I'm not expecting this to be easy.
@@ -47,11 +48,11 @@ To kick things off I've set up a very [simple repo](https://github.com/johnnyrei
       document.querySelector('#date').innerText = date;
       document.querySelector('#numberFormatted').innerText = Globalize.format(
         number,
-        'n2'
+        'n2',
       );
       document.querySelector('#dateFormatted').innerText = Globalize.format(
         date,
-        'd'
+        'd',
       );
     </script>
   </body>
@@ -259,10 +260,10 @@ To do this I'm going to lean heavily upon [an example put together by Rafael](ht
 
         // Date
         fetch(
-          'bower_components/cldr-data/main/' + locale + '/ca-gregorian.json'
+          'bower_components/cldr-data/main/' + locale + '/ca-gregorian.json',
         ),
         fetch(
-          'bower_components/cldr-data/main/' + locale + '/timeZoneNames.json'
+          'bower_components/cldr-data/main/' + locale + '/timeZoneNames.json',
         ),
         fetch('bower_components/cldr-data/supplemental/timeData.json'),
         fetch('bower_components/cldr-data/supplemental/weekData.json'),
@@ -275,7 +276,7 @@ To do this I'm going to lean heavily upon [an example put together by Rafael](ht
           return Promise.all(
             responses.map(function (response) {
               return response.json();
-            })
+            }),
           );
         })
         .then(Globalize.load)
@@ -346,7 +347,7 @@ gulp.task('make-globalize-culture-de-js', function () {
       } else {
         console.log('The file was created!');
       }
-    }
+    },
   );
 });
 ```

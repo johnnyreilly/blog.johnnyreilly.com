@@ -4,6 +4,7 @@ title: 'Caching and Cache-Busting in AngularJS with HTTP interceptors'
 authors: johnnyreilly
 tags: [typescript, AngularJS]
 hide_table_of_contents: false
+description: 'Learn how to modify GET request URLs for static resources and AngularJS views with HTTP interceptors using version numbers and unique querystrings.'
 ---
 
 ## Loading On-Demand and Caching

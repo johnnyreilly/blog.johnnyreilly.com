@@ -4,6 +4,7 @@ title: 'Snapshot Testing for C#'
 authors: johnnyreilly
 tags: [snapshot testing, c#, jest]
 hide_table_of_contents: false
+description: 'Snapshot testing is an efficient test technique for comparing outputs with JSON. Its applicable to C# too, using Fluent Assertions and a helper tool.'
 ---
 
 If you're a user of Jest, you've no doubt heard of and perhaps made use of [snapshot testing](https://jestjs.io/docs/en/snapshot-testing).

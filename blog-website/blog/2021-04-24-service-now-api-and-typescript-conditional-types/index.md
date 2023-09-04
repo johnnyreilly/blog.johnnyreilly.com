@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [Service Now, typescript]
 image: ./ts-ervice-now.png
 hide_table_of_contents: false
+description: 'Learn how to model ServiceNow REST API results using TypeScript conditional types to minimise repetition and remain strongly typed.'
 ---
 
 The [Service Now REST API](https://docs.servicenow.com/bundle/paris-application-development/page/build/applications/concept/api-rest.html) is an API which allows you to interact with Service Now. It produces different shaped results based upon the [`sysparm_display_value` query parameter](https://docs.servicenow.com/bundle/paris-application-development/page/integrate/inbound-rest/concept/c_TableAPI.html#c_TableAPI__table-GET). This post looks at how we can model these API results with TypeScripts conditional types. The aim being to minimise repetition whilst remaining strongly typed. This post is specifically about the Service Now API, but the principles around conditional type usage are generally applicable.
@@ -143,7 +144,7 @@ Now we're going to create our first conditional type:
 export type PropertyValue<
   TAllTrueFalse extends DisplayValue,
   TValue = string,
-  TDisplayValue = string
+  TDisplayValue = string,
 > = TAllTrueFalse extends 'all'
   ? ValueAndDisplayValue<TValue, TDisplayValue>
   : TAllTrueFalse extends 'true'

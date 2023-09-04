@@ -4,6 +4,7 @@ title: 'Symbiotic Definitely Typed'
 authors: johnnyreilly
 tags: [typescript, react-testing-library, Definitely Typed]
 hide_table_of_contents: false
+description: 'New approach by `react-testing-library` improves TypeScript experience. Type definitions are maintained separately for `@testing-library/react`.'
 ---
 
 I did ponder calling this post "how to enable a good TypeScript developer experience for npm modules that aren't written in TypeScript"... Not exactly pithy though.

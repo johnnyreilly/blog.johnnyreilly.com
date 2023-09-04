@@ -3,8 +3,9 @@ slug: easy-auth-tokens-survive-releases-on-linux-azure-app-service
 title: 'Making Easy Auth tokens survive releases on Linux Azure App Service'
 authors: johnnyreilly
 image: ./easy-auth-zero-downtime-deployment.webp
-tags: [Azure, Easy Auth, ASP.NET, authorization]
+tags: [Azure, easy auth, ASP.NET, authorization]
 hide_table_of_contents: false
+description: 'To prevent authentication issues during restarts or deployments, Microsoft is recommending Blob Storage for Token Cache to store and fetch tokens.'
 ---
 
 I [wrote recently about zero downtime deployments on Azure App Service](../2021-02-11-azure-app-service-health-checks-and-zero-downtime-deployments/index.md). Many applications require authentication, and ours is no exception. In our case we're using Azure Active Directory facilitated by ["Easy Auth"](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization) which provides authentication to our App Service.

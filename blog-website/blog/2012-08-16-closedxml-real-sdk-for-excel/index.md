@@ -4,6 +4,7 @@ title: 'ClosedXML - the real SDK for Excel'
 authors: johnnyreilly
 tags: [Open XML, Excel, ClosedXML]
 hide_table_of_contents: false
+description: 'Closed XML simplifies Excel document creation for developers with its straightforward API, sitting on top of Open XML. A frustration-solver for many!'
 ---
 
 Simplicity appeals to me. It always has. Something that is simple is straightforward to comprehend and is consequently easy to use. It's clarity.

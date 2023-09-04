@@ -11,6 +11,7 @@ tags:
     AppVeyor,
   ]
 hide_table_of_contents: false
+description: 'To save time, automating open source projects is key. Using AppVeyor and creating static sites with tools like Wget can help update documentation.'
 ---
 
 "Automation, automation, automation." Those were and are Tony Blair's priorities for keeping open source projects well maintained.

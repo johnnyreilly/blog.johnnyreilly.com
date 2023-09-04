@@ -4,6 +4,7 @@ title: 'Windows Defender Step Away From npm'
 authors: johnnyreilly
 tags: [VS Code, Windows, npm]
 hide_table_of_contents: false
+description: 'A bug causing issues with Windows Defender has been fixed with the release of VS Code 1.14. The bug was causing problems with the program open.'
 ---
 
 ## Updated 18/06/2017
@@ -15,8 +16,6 @@ Whilst things did improve by fiddling with Windows Defender it wasn't a 100% fix
 The issue was VS Code. The bug has now been fixed and shipped last night with [VS Code 1.14.0](https://code.visualstudio.com/updates/v1_14). Yay!
 
 <!--truncate-->
-
----
 
 I've recently experienced many of my `npm install`s failing for no consistent reason. The error message would generally be something along the lines of:
 

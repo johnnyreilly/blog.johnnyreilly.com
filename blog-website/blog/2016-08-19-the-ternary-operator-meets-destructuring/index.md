@@ -4,6 +4,7 @@ title: 'The Ternary Operator <3 Destructuring'
 authors: johnnyreilly
 tags: [typescript, ES2015]
 hide_table_of_contents: false
+description: 'ES2015 destructuring allows setting multiple variables using the ternary operator. Change the return type of each branch to an object for this to work.'
 ---
 
 I'm addicted to the [ternary operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator). For reasons I can't explain, I cannot get enough of:

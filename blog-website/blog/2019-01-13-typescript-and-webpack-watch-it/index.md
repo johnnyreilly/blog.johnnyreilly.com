@@ -4,6 +4,7 @@ title: 'TypeScript and webpack: Watch It'
 authors: johnnyreilly
 tags: [typescript, webpack]
 hide_table_of_contents: false
+description: 'TypeScripts "watch" API shortens time between incremental builds for quicker development; updates are available for fork-ts-checker-webpack-plugin.'
 ---
 
 All I ask for is a compiler and a tight feedback loop. Narrowing the gap between making a change to a program and seeing the effect of that is a productivity boon. The TypeScript team are wise cats and dig this. They've taken strides to improve the developer experience of TypeScript users by [introducing a "watch" API which can be leveraged by other tools](https://github.com/Microsoft/TypeScript/wiki/Using-the-Compiler-API#writing-an-incremental-program-watcher). To quote the docs:

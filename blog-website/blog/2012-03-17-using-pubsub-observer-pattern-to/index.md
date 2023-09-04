@@ -4,6 +4,7 @@ title: 'Using the PubSub / Observer pattern to emulate constructor chaining with
 authors: johnnyreilly
 tags: [javascript]
 hide_table_of_contents: false
+description: 'Pass objects between JavaScript files using PubSub interface to achieve code reusability without global scope pollution. No prototypes needed.'
 ---
 
 Yes the title of this post is \***painfully**\* verbose. Sorry about that. Couple of questions for you: - Have you ever liked the way you can have base classes in C# which can then be inherited and subclassed <u>in a different file / class</u>

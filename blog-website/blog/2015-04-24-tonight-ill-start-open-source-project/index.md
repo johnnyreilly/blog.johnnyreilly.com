@@ -4,6 +4,7 @@ title: "Tonight I'll Start an Open Source Project..."
 authors: johnnyreilly
 tags: [asp.net mvc, validation, AngularJS]
 hide_table_of_contents: false
+description: 'A new AngularJS validation mechanism aims to propagate data annotations on ASP.NET MVC server models into ng-* directive attributes in HTML.'
 ---
 
 ### Further posts on this topic
@@ -125,8 +126,14 @@ I could tweak it to push in the validation directive attributes like this:
   <form>
     <div class="row">
       <label
-        >Something must be entered: <input name="RequiredField" type="text"
-        value="" @Html.NgValidationFor(x => x.RequiredField) />
+        >Something must be entered:
+        <input
+          name="RequiredField"
+          type="text"
+          value=""
+          @Html.NgValidationFor(x=""
+        />
+        x.RequiredField) />
       </label>
     </div>
   </form>

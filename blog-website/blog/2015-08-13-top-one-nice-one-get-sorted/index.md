@@ -4,6 +4,7 @@ title: '(Top One, Nice One) Get Sorted'
 authors: johnnyreilly
 tags: [javascript, LINQ]
 hide_table_of_contents: false
+description: 'John creates a way to use .NETs LINQ feature to sort JavaScript arrays. The tools allow sorting by one or more criteria.'
 ---
 
 I was recently reading [a post by Jaime González García](http://www.barbarianmeetscoding.com/blog/2015/07/09/mastering-the-arcane-art-of-javascript-mancy-for-c-sharp-developers-chapter-7-using-linq-in-javascript/) which featured the following mind-bending proposition:
@@ -108,7 +109,7 @@ If we use the `numberComparer` on our original array it looks like this:
 
 ```js
 const foodInTheHouseSorted = foodInTheHouse.sort(
-  numberComparer((x) => x.daysSincePurchase)
+  numberComparer((x) => x.daysSincePurchase),
 );
 
 // foodInTheHouseSorted: [
@@ -147,7 +148,7 @@ Which is more optimal and even simpler as it just swaps the values supplied to t
 
 ```js
 const foodInTheHouseSorted = foodInTheHouse.sort(
-  reverse(stringComparer((x) => x.what))
+  reverse(stringComparer((x) => x.what)),
 );
 
 // foodInTheHouseSorted: [
@@ -181,8 +182,8 @@ This fine function takes any number of comparers that have been supplied to it. 
 const foodInTheHouseSorted = foodInTheHouse.sort(
   composeComparers(
     stringComparer((x) => x.what),
-    numberComparer((x) => x.daysSincePurchase)
-  )
+    numberComparer((x) => x.daysSincePurchase),
+  ),
 );
 
 // foodInTheHouseSorted: [
@@ -280,7 +281,7 @@ You want to do this with TypeScript? Use this:
 type Comparer<TObject> = (obj1: TObject, obj2: TObject) => number;
 
 export function stringComparer<TObject>(
-  propLambda: (obj: TObject) => string
+  propLambda: (obj: TObject) => string,
 ): Comparer<TObject> {
   return (obj1: TObject, obj2: TObject) => {
     const obj1Val = propLambda(obj1) || '';
@@ -290,7 +291,7 @@ export function stringComparer<TObject>(
 }
 
 export function numberComparer<TObject>(
-  propLambda: (obj: TObject) => number
+  propLambda: (obj: TObject) => number,
 ): Comparer<TObject> {
   return (obj1: TObject, obj2: TObject) => {
     const obj1Val = propLambda(obj1);

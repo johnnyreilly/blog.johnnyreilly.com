@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [typescript]
 image: ./reactions-on-github.webp
 hide_table_of_contents: false
+description: 'TypeScript 4.4 introduces "Control Flow Analysis of Aliased Conditions" which improves code readability by more expressive and less repetitive code.'
 ---
 
 An exciting feature is shipping with TypeScript 4.4. It has the name ["Control Flow Analysis of Aliased Conditions"](https://devblogs.microsoft.com/typescript/announcing-typescript-4-4-beta/#cfa-aliased-conditions) which is quite a mouthful. This post unpacks what this feature is, and demonstrates the contribution it makes to improving the readability of code.

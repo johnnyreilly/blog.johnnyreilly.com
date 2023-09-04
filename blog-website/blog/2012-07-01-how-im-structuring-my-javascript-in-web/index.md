@@ -4,6 +4,7 @@ title: 'Optimally Serving Up JavaScript'
 authors: johnnyreilly
 tags: [asp.net mvc, javascript, cassette]
 hide_table_of_contents: false
+description: 'John describes his "JS second" approach to structuring JavaScript and using HtmlHelper to control the order of scripts in web apps for internal use.'
 ---
 
 I have occasionally done some server-side JavaScript with Rhino and Node.js but this is the exception rather than the rule. Like most folk at the moment, almost all the JavaScript I write is in a web context.

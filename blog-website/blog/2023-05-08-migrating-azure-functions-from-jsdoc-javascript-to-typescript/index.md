@@ -10,7 +10,7 @@ hide_table_of_contents: false
 
 I wrote previously about how to implement a [dynamic redirect mechanism for Azure Static Web Apps using Azure Functions](../2022-12-22-azure-static-web-apps-dynamic-redirects-azure-functions/index.md). I implemented this using JSDoc JavaScript. I've since migrated this to TypeScript and I thought it would be interesting to share the process.
 
-![title image reading "Azure Static Web Apps: dynamic redirects with Azure Functions" with the Static Web Apps and Azure Functions logo](title-image.png)
+![title image reading "Migrating Azure Functions from JSDoc JavaScript to TypeScript" with the JS and TS logos and Azure Functions logo](title-image.png)
 
 <!--truncate-->
 

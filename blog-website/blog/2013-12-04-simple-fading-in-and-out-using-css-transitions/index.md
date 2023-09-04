@@ -4,6 +4,7 @@ title: 'Simple fading in and out using CSS transitions and classes'
 authors: johnnyreilly
 tags: [CSS]
 hide_table_of_contents: false
+description: 'Learn to create a fade effect with CSS transitions for improved animation and battery life. Warning: display: none behaves differently than jQuery.'
 ---
 
 Caveat emptor folks... Let me start off by putting my hands up and saying I am no expert on CSS. And furthermore let me say that this blog post is essentially the distillation of a heady session of googling on the topic of CSS transitions. The credit for the technique detailed here belongs to many others, I'm just documenting it for my own benefit (and for anyone who stumbles upon this).
@@ -84,7 +85,7 @@ $(document).on(
     if ($faded.hasClass('fadedOut')) {
       $faded.css('display', 'none');
     }
-  }
+  },
 );
 ```
 

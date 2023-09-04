@@ -4,6 +4,11 @@
   "description": "[![blog status badge](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/blog.yml/badge.svg)](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/blog.yml)",
   "main": "index.js",
   "scripts": {
+    "start": "cd blog-website && yarn start",
+    "build": "cd blog-website && yarn build",
+    "install:blog": "cd blog-website && yarn",
+    "install:blogapi": "cd blog-website/api && npm install",
+    "postinstall": "npm run install:blog && npm run install:blogapi",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write --ignore-unknown .",
     "prepare": "husky install"
@@ -21,8 +26,8 @@
   "homepage": "https://github.com/johnnyreilly/blog.johnnyreilly.com#readme",
   "devDependencies": {
     "husky": "8.0.3",
-    "lint-staged": "13.2.2",
-    "prettier": "2.8.8"
+    "lint-staged": "14.0.1",
+    "prettier": "3.0.2"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"

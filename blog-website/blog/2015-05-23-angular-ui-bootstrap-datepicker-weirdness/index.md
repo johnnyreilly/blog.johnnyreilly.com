@@ -4,6 +4,7 @@ title: 'Angular UI Bootstrap Datepicker Weirdness'
 authors: johnnyreilly
 tags: [Bootstrap, AngularJS]
 hide_table_of_contents: false
+description: 'Add a calendar glyph to your Angular UI Bootstrap Datepicker popup by passing along $event and calling stopPropagation() to avoid an issue.'
 ---
 
 The [Angular UI Bootstrap Datepicker](https://angular-ui.github.io/bootstrap/#/datepicker) is fan-dabby-dozy. But it has a ... pecularity. You can use the picker like this:

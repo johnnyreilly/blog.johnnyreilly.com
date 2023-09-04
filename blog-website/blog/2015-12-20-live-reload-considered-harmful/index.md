@@ -4,6 +4,7 @@ title: 'Live Reload Considered Harmful'
 authors: johnnyreilly
 tags: []
 hide_table_of_contents: false
+description: 'Live Reload is a popular development tool that refreshes web pages automatically, however, its usefulness is questionable. It can disrupt app design.'
 ---
 
 I've seen it go by many names; [live reload](http://livereload.com/), hot reload, [browser sync](https://browsersync.io/)... the list goes on. It's been the subject of a million demos. It's the focus of a thousand npm packages. Someone tweaks a file and... wait for it... _doesn't have to refresh their browser to see the changes_... The future is now!

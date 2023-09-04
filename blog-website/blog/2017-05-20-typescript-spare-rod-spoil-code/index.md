@@ -4,6 +4,7 @@ title: 'TypeScript: Spare the Rod, Spoil the Code'
 authors: johnnyreilly
 tags: [tsconfig.json, typescript]
 hide_table_of_contents: false
+description: 'TypeScript settings catch bugs. Use compiler options to increase strictness gradually & catch errors such as unused variables with VS Code.'
 ---
 
 I've recently started a new role. Perhaps unsurprisingly, part of the technology stack is TypeScript. A couple of days into the new codebase I found a bug. Well, I say I found a bug, TypeScript and VS Code found the bug - I just let everyone else know.

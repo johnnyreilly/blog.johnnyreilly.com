@@ -4,6 +4,7 @@ title: "Definitely Typed Shouldn't Exist"
 authors: johnnyreilly
 tags: [npm, DefinitelyTyped, typescript]
 hide_table_of_contents: false
+description: 'Using TypeScript definition files with npm packages can produce accurate typing information. Making npm a first class citizen may replace Definitely Typed.'
 ---
 
 OK - the title's total clickbait but stay with me; there's a point here.
@@ -166,7 +167,7 @@ function determineRequiredCldrData(globalizeOptions) {
     globalizeOptions,
     _populateDependencyCurrier('json', function (json) {
       return json.dependency;
-    })
+    }),
   );
 }
 
@@ -177,8 +178,8 @@ function determineRequiredCldrGlobalizeFiles(globalizeOptions) {
       'cldrGlobalizeFiles',
       function (cldrGlobalizeFile) {
         return cldrGlobalizeFile;
-      }
-    )
+      },
+    ),
   );
 }
 
@@ -401,7 +402,7 @@ function determineRequiredCldrData(globalizeOptions) {
     globalizeOptions,
     _populateDependencyCurrier('json', function (json) {
       return json.dependency;
-    })
+    }),
   );
 }
 exports.determineRequiredCldrData = determineRequiredCldrData;
@@ -417,8 +418,8 @@ function determineRequiredCldrGlobalizeFiles(globalizeOptions) {
       'cldrGlobalizeFiles',
       function (cldrGlobalizeFile) {
         return cldrGlobalizeFile;
-      }
-    )
+      },
+    ),
   );
 }
 exports.determineRequiredCldrGlobalizeFiles =
@@ -444,7 +445,7 @@ export interface Options {
  * @param options The globalize modules being used.
  */
 export declare function determineRequiredCldrData(
-  globalizeOptions: Options
+  globalizeOptions: Options,
 ): string[];
 /**
  * The string array returned will contain a list of the required cldr / globalize files you need, listed in the order they are required.
@@ -452,7 +453,7 @@ export declare function determineRequiredCldrData(
  * @param options The globalize modules being used.
  */
 export declare function determineRequiredCldrGlobalizeFiles(
-  globalizeOptions: Options
+  globalizeOptions: Options,
 ): string[];
 ```
 

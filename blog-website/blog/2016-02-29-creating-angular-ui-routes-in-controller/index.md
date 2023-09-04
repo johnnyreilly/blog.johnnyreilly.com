@@ -4,6 +4,7 @@ title: 'Creating Angular UI Routes in the Controller'
 authors: johnnyreilly
 tags: [AngularJS]
 hide_table_of_contents: false
+description: 'Dont let your Angular UI Router link get too big - move the URL generation to the controller! Use the $state.href() method instead of ui-sref.'
 ---
 
 So you're creating a link with the Angular UI Router. You're passing more than a few parameters and it's getting kinda big. Something like this:

@@ -4,6 +4,7 @@ title: 'Death to compatibility mode'
 authors: johnnyreilly
 tags: [internet explorer]
 hide_table_of_contents: false
+description: 'John discusses compatibility mode in Internet Explorer and suggests using custom HTTP headers or meta tags to prevent rendering and CSS issues.'
 ---
 
 For just over 10 years my bread and butter has been the development and maintenance of line of business apps. More particularly, web apps built on the Microsoft stack of love ([© Scott Hanselman](https://channel9.msdn.com/Events/MIX/MIX11/FRM02)). These sort of apps are typically accessed via the company intranet and since "bring your own device" is still a relatively new innovation these apps are invariably built for everyones favourite browser: Internet Explorer. As we all know, enterprises are generally not that speedy when it comes to upgrades. So we're basically talking IE 9 at best, but more often than not, IE 8.
@@ -74,7 +75,7 @@ Obviously there's a whole raft of ways you could get this in, using `Application
 The final approach uses meta tags. And, in my experience it is the most quirky approach - it doesn't always seem to work. First up, what do we do? Well, in each page served we include the following meta tag like this:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />

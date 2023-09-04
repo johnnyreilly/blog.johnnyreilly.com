@@ -4,6 +4,7 @@ title: 'Integration Tests with SQL Server Database Snapshots'
 authors: johnnyreilly
 tags: [Database Snapshots, Integration Testing, SQL Server]
 hide_table_of_contents: false
+description: 'Discover the benefits of using database snapshots for integration tests to reduce complexity & errors in this informative article.'
 ---
 
 ## Once More With Feeling

@@ -4,6 +4,7 @@ title: 'Devcontainers AKA performance in a secure sandbox'
 authors: johnnyreilly
 tags: [devcontainer]
 hide_table_of_contents: false
+description: 'Speedy ASP.NET Core and JavaScript development is made possible by devcontainers, which isolate tools and code to improve productivity.'
 ---
 
 Many corporate machines arrive in engineers hands with a preponderance of pre-installed background tools; from virus checkers to backup utilities to port blockers; the list is long.
@@ -70,8 +71,8 @@ Enough talk... We're going to need a `.devcontainer/devcontainer.json`:
 
 Now the `docker-compose.devcontainer.yml` which lives in the root of the project. It provisions a SQL Server container (using the official image) and our devcontainer:
 
-```
-version: "3.7"
+```yml
+version: '3.7'
 services:
   my-devcontainer:
     image: my-devcontainer
@@ -85,8 +86,8 @@ services:
 
     # user: vscode
     ports:
-      - "5000:5000"
-      - "8080:8080"
+      - '5000:5000'
+      - '8080:8080'
     environment:
       - CONNECTIONSTRINGS__MYDATABASECONNECTION
     depends_on:
@@ -97,13 +98,13 @@ services:
     ports:
       - 1433:1433
     environment:
-      SA_PASSWORD: "Your_password123"
-      ACCEPT_EULA: "Y"
+      SA_PASSWORD: 'Your_password123'
+      ACCEPT_EULA: 'Y'
 ```
 
 The devcontainer will be built with the `Dockerfile.devcontainer` in the root of our repo. It relies upon your SSH keys and a `.env` file being available to be copied in:
 
-```
+```Dockerfile
 #-----------------------------------------------------------------------------------------------------------
 # Based upon: https://github.com/microsoft/vscode-dev-containers/tree/master/containers/dotnetcore
 #-----------------------------------------------------------------------------------------------------------

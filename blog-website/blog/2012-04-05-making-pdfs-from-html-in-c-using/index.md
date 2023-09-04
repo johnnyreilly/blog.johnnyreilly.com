@@ -4,6 +4,7 @@ title: 'Making PDFs from HTML in C# using WKHTMLtoPDF'
 authors: johnnyreilly
 tags: [wkhtmltopdf, c#, pdf]
 hide_table_of_contents: false
+description: 'Create PDF reports from HTML with WKHTMLtoPDF, an open source tool that renders web pages to PDF, using a simple wrapper class.'
 ---
 
 ## Updated 03/01/2013

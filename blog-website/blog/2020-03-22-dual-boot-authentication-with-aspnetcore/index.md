@@ -4,6 +4,7 @@ title: 'Dual boot authentication with ASP.NET'
 authors: johnnyreilly
 tags: [Authentication, Azure AD, ASP.NET]
 hide_table_of_contents: false
+description: 'The article explains how to have different authentication methods for two classes of users accessing an app. Code snippets are provided.'
 ---
 
 This is a post about having two kinds of authentication working at the same time in ASP.Net Core. But choosing which authentication method to use dynamically at runtime; based upon the criteria of your choice.

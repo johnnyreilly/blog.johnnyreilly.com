@@ -4,6 +4,7 @@ title: 'Unit Testing an Angular Controller with Jasmine'
 authors: johnnyreilly
 tags: [Jasmine, unit tests, AngularJS]
 hide_table_of_contents: false
+description: 'John shares how they wrote unit tests for an Angular controller in Proverb using Jasmine 2.0, with heavily annotated JavaScript tests.'
 ---
 
 Anyone who reads my blog will know that I have been long in the habit of writing unit tests for my C# code. I'm cool like that. However, it took me a while to get up and running writing unit tests for my JavaScript code. I finally [got there](../2014-03-17-the-surprisingly-happy-tale-of-visual/index.md) using a combination of Jasmine 2.0 and Chutzpah. (Jasmine being my test framework and Chutzpah being my test runner.)
@@ -55,7 +56,7 @@ module controllers {
       private $location: ng.ILocationService,
       private $routeParams: sageDetailRouteParams,
       private common: common,
-      private datacontext: datacontext
+      private datacontext: datacontext,
     ) {
       this.sage = undefined;
       this.title = 'Sage Details';
@@ -179,7 +180,7 @@ describe('Proverb.Web -> app-> controllers ->', function () {
       _$q_,
       _$location_,
       _common_,
-      _datacontext_
+      _datacontext_,
     ) {
       // Note how each parameter is prefixed and suffixed with "_" - this an Angular nicety
       // which allows you to have variables in your tests with the original reference name.
@@ -204,7 +205,7 @@ describe('Proverb.Web -> app-> controllers ->', function () {
       // this allows us to #1 detect that getById has been called
       // and #2 resolve / reject our promise as our test requires using getById_deferred
       spyOn(datacontext.sage, 'getById').and.returnValue(
-        getById_deferred.promise
+        getById_deferred.promise,
       );
 
       // set up a spy on common.activateController and set it to call through
@@ -214,7 +215,7 @@ describe('Proverb.Web -> app-> controllers ->', function () {
 
       // set up spys on common.logger.getLogFn and $location.path so we can detect they have been called
       spyOn(common.logger, 'getLogFn').and.returnValue(
-        jasmine.createSpy('log')
+        jasmine.createSpy('log'),
       );
       spyOn($location, 'path').and.returnValue(jasmine.createSpy('path'));
 
@@ -281,10 +282,10 @@ describe('Proverb.Web -> app-> controllers ->', function () {
         // this.log("Activated Sage Details View");
         // this.title = "Sage Details: " + this.sage.name;
         expect(sageDetailController.log).toHaveBeenCalledWith(
-          'Activated Sage Details View'
+          'Activated Sage Details View',
         );
         expect(sageDetailController.title).toBe(
-          'Sage Details: ' + sage_stub.name
+          'Sage Details: ' + sage_stub.name,
         );
       });
     });
@@ -309,7 +310,7 @@ describe('Proverb.Web -> app-> controllers ->', function () {
         // tests this code has executed:
         // this.$location.path("/sages/edit/" + this.sage.id);
         expect($location.path).toHaveBeenCalledWith(
-          '/sages/edit/' + sage_stub.id
+          '/sages/edit/' + sage_stub.id,
         );
       });
     });

@@ -5,6 +5,7 @@ authors: johnnyreilly
 tags: [Microsoft Teams, webhook]
 image: ./teams-notification.gif
 hide_table_of_contents: false
+description: 'Learn how to automate notifications using Microsoft Teams and Markdown webhooks, and discover how to use ASP.Net Core to send notifications.'
 ---
 
 Teams notifications are mighty useful. You can send them using Markdown via a webhook.

@@ -4,6 +4,7 @@ title: 'VSTS... YAML up!'
 authors: johnnyreilly
 tags: [yaml, vsts, travis, AppVeyor]
 hide_table_of_contents: false
+description: 'Visual Studio Team Services now has a YAML build definition preview feature that enables users to keep their build scripts with their code.'
 ---
 
 For the longest time I've been using the likes of [Travis](https://travis-ci.org/) and [AppVeyor](https://www.appveyor.com/) to build open source projects that I work on. They rock. I've also recently been dipping my toes back in the water of [Visual Studio Team Services](https://www.visualstudio.com/team-services/). VSTS offers a whole stack of stuff, but my own area of interest has been the Continuous Integration / Continuous Deployment offering.

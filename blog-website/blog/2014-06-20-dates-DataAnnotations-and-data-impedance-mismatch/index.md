@@ -4,6 +4,7 @@ title: 'A folk story wherein we shall find dates, DataAnnotations & data impedan
 authors: johnnyreilly
 tags: [Date]
 hide_table_of_contents: false
+description: 'This article offers developers an attribute-based solution to prevent datetime errors, ensuring that DateTime properties only include dates.'
 ---
 
 If you ever take a step back from what you're doing it can sometimes seem pretty abstract. Here's an example. I was looking at an issue in an app that I was supporting. The problem concerned a field which was to store a date value. Let's call it, for the sake of argument, `valuation_date`. (Clearly in reality the field name was entirely different... Probably.) This field was supposed to represent a specific date, like June 15th 2012 or 19th August 2014. To be clear, a date and \***not**\* in any way, a time.

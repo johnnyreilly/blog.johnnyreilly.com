@@ -4,42 +4,57 @@ import path from 'path';
 import {
   getBlogPathFromUrl,
   getGitLastUpdatedFromFilePath,
+  getPagesPathFromUrl,
 } from './getGitLastUpdated';
 import type { SitemapUrl, Sitemap, AtomFeed, RssItem, RssFeed } from './types';
 
 const rootUrl = 'https://johnnyreilly.com';
 
 async function enrichUrlsWithLastmodAndFilterCanonicals(
-  filteredUrls: SitemapUrl[]
+  filteredUrls: SitemapUrl[],
 ): Promise<SitemapUrl[]> {
   const urls: SitemapUrl[] = [];
-  let blogFilePath: string | undefined;
+  let filePath: string | undefined;
+
+  const today = new Date();
+  // Set the date to the first day of the current month
+  today.setDate(1);
+  const fallbackLastMod = today.toISOString();
+
   for (const url of filteredUrls) {
     if (urls.includes(url)) {
+      // can this happen? not sure why I added this
       continue;
     }
 
+    const { loc } = url;
+
     try {
-      blogFilePath = getBlogPathFromUrl(rootUrl, url.loc);
-      if (!blogFilePath) {
-        urls.push(url);
+      filePath =
+        getBlogPathFromUrl(rootUrl, loc) ?? getPagesPathFromUrl(rootUrl, loc);
+      if (!filePath) {
+        // if (!loc.includes('/tags/') && !loc.endsWith('/tags')) {
+        //   urls.push({ loc, lastmod: fallbackLastMod }); // mark non blog posts with a lastmod reflecting the time of this script running
+        // } else {
+        urls.push({ loc });
+        // }
         continue;
       }
 
       // eg blog-website/blog/2013-04-26-a-navigation-animation-for-your-users/index.md
-      //const blogMarkdown = await Bun.file('../' + blogFilePath).text();
-      //if (blogMarkdown.includes('<link rel="canonical" href=')) {
-      //  console.log('excluding external canonical URL', url.loc);
-      //  continue;
-      //}
+      const blogMarkdown = await Bun.file('../' + filePath).text();
+      if (blogMarkdown.includes('<link rel="canonical" href=')) {
+        console.log('excluding external canonical URL', url.loc);
+        continue;
+      }
 
-      const lastmod = await getGitLastUpdatedFromFilePath(blogFilePath);
+      const lastmod = await getGitLastUpdatedFromFilePath(filePath);
 
-      urls.push(lastmod ? { ...url, lastmod } : url);
-      console.log(url.loc, lastmod);
+      urls.push(lastmod ? { loc, lastmod } : { loc, lastmod: fallbackLastMod });
+      console.log(loc, lastmod);
     } catch (e) {
-      console.log(`file date not looked up: ${blogFilePath}`, url.loc, e);
-      urls.push(url);
+      console.log(`file date not looked up: ${filePath}`, url.loc, e);
+      urls.push({ loc, lastmod: fallbackLastMod });
     }
   }
   return urls;
@@ -51,10 +66,10 @@ async function patchOpenGraphImageToCloudinary() {
     .filter((dir) =>
       fs
         .statSync(path.resolve('..', 'blog-website', 'build', dir))
-        .isDirectory()
+        .isDirectory(),
     )
     .map((dir) =>
-      path.resolve('..', 'blog-website', 'build', dir, 'index.html')
+      path.resolve('..', 'blog-website', 'build', dir, 'index.html'),
     )
     .filter((file) => fs.existsSync(file));
 
@@ -77,8 +92,27 @@ async function patchOpenGraphImageToCloudinary() {
         })
         .replace(ogImageRegex, function (_match, url) {
           return `<meta data-rh="true" property="og:image" content="https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${url}">`;
-        })
+        }),
     );
+  }
+}
+
+function deleteFolderRecursive(folderPath: string) {
+  if (fs.existsSync(folderPath)) {
+    fs.readdirSync(folderPath).forEach((file) => {
+      const curPath = path.join(folderPath, file);
+
+      if (fs.lstatSync(curPath).isDirectory()) {
+        // Recursively delete subdirectories
+        deleteFolderRecursive(curPath);
+      } else {
+        // Delete files within the folder
+        fs.unlinkSync(curPath);
+      }
+    });
+
+    // Finally, delete the main folder itself
+    fs.rmdirSync(folderPath);
   }
 }
 
@@ -87,7 +121,7 @@ async function trimSitemapXML() {
     '..',
     'blog-website',
     'build',
-    'sitemap.xml'
+    'sitemap.xml',
   );
 
   console.log(`Loading ${sitemapPath}`);
@@ -100,18 +134,19 @@ async function trimSitemapXML() {
 
   const filteredUrls = sitemap.urlset.url.filter(
     (url) =>
-      // url.loc !== `${rootUrl}/tags` &&
-      // !url.loc.startsWith(rootUrl + '/tags/') &&
-      !url.loc.startsWith(rootUrl + '/page/')
+      url.loc !== `${rootUrl}/archive` && // we have /blog and /archive; we only want /blog
+      url.loc !== `${rootUrl}/search` &&
+      url.loc !== `${rootUrl}/tags` &&
+      !url.loc.includes('/tags/') &&
+      !url.loc.includes('/page/'),
   );
 
   console.log(
-    `Reducing ${sitemap.urlset.url.length} urls to ${filteredUrls.length} urls`
+    `Reducing ${sitemap.urlset.url.length} urls to ${filteredUrls.length} urls`,
   );
 
-  sitemap.urlset.url = await enrichUrlsWithLastmodAndFilterCanonicals(
-    filteredUrls
-  );
+  sitemap.urlset.url =
+    await enrichUrlsWithLastmodAndFilterCanonicals(filteredUrls);
 
   const builder = new XMLBuilder({ format: false, ignoreAttributes: false });
   const shorterSitemapXml = builder.build(sitemap);
@@ -149,7 +184,7 @@ async function trimAtomXML() {
   }
 
   console.log(
-    `Reducing ${rss.feed.entry.length} entries to ${top20Entries.length} entries`
+    `Reducing ${rss.feed.entry.length} entries to ${top20Entries.length} entries`,
   );
 
   rss.feed.entry = top20Entries;
@@ -194,7 +229,7 @@ async function trimRssXML() {
   }
 
   console.log(
-    `Reducing ${rss.rss.channel.item.length} entries to ${top20Entries.length} entries`
+    `Reducing ${rss.rss.channel.item.length} entries to ${top20Entries.length} entries`,
   );
 
   rss.rss.channel.item = top20Entries;
@@ -215,6 +250,7 @@ async function main() {
 
   await patchOpenGraphImageToCloudinary();
   await trimSitemapXML();
+  deleteFolderRecursive(path.resolve('..', 'blog-website', 'build', 'archive'));
   // now handled by createFeedItems
   // await trimAtomXML();
   // await trimRssXML();
