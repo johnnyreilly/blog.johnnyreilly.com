@@ -19,6 +19,7 @@ const sameAs = [
   'https://github.com/johnnyreilly',
   'https://fosstodon.org/@johnny_reilly',
   'https://twitter.com/johnny_reilly',
+  'https://dev.to/johnnyreilly',
   'https://stackoverflow.com/users/761388/john-reilly',
   'https://blog.logrocket.com/author/johnreilly/',
   'https://polywork.com/johnnyreilly',
