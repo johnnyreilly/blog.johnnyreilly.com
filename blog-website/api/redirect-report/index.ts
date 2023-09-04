@@ -1,24 +1,30 @@
 import type { AzureFunction, Context, HttpRequest } from '@azure/functions';
 
+import { startOfWeek } from 'date-fns';
+
 import { readFromDatabase } from './readFromDatabase';
 
 const httpTrigger: AzureFunction = async function (
   context: Context,
-  req: HttpRequest
+  req: HttpRequest,
 ): Promise<void> {
   try {
-    await readFromDatabase(context.log);
+    const dateFrom =
+      req.query.dateFrom || startOfWeek(new Date()).toISOString();
+    const dateTo = req.query.dateTo || new Date().toISOString();
+
+    const redirects = await readFromDatabase({
+      log: context.log,
+      dateFrom,
+      dateTo,
+    });
 
     context.res = {
       status: 200,
-      body: 'OK',
+      body: redirects,
     };
   } catch (error) {
-    context.log.error(
-      'Problem with fallback',
-      error,
-      req.headers['x-ms-original-url']
-    );
+    context.log.error('Problem with redirect report', error, req.headers);
   }
 };
 

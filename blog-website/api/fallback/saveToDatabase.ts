@@ -1,4 +1,4 @@
-import type { Redirect } from './types';
+import type { Redirect, RedirectInDb } from './types';
 import type { Logger } from '@azure/functions';
 
 import { CosmosClient } from '@azure/cosmos';
@@ -30,7 +30,7 @@ where redirects.numRedirects > 1
 export async function saveToDatabase(
   originalUrl: string,
   redirect: Redirect,
-  log: Logger
+  log: Logger,
 ): Promise<void> {
   try {
     log(`Saving redirect to database: ${originalUrl} -> ${redirect.location}`);
@@ -47,7 +47,7 @@ export async function saveToDatabase(
       redirectUrl: redirect.location,
       statusCode: redirect.status,
       redirectedAt: new Date().toISOString(),
-    });
+    } as RedirectInDb);
 
     log(`Saved redirect to database: ${originalUrl} -> ${redirect.location}`);
   } catch (error) {

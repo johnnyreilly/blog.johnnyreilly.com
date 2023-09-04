@@ -2,6 +2,8 @@ import type { Logger } from '@azure/functions';
 
 import { CosmosClient } from '@azure/cosmos';
 
+import { RedirectInDb } from '../fallback/types';
+
 const key = process.env.COSMOS_KEY || '<cosmos key>';
 const endpoint = process.env.COSMOS_ENDPOINT || '<cosmos endpoint>';
 const cosmosDbDatabaseName = 'sitedb';
@@ -26,9 +28,19 @@ where redirects.numRedirects > 1
  * @param redirect
  * @param log
  */
-export async function readFromDatabase(log: Logger): Promise<void> {
+export async function readFromDatabase({
+  log,
+  dateFrom,
+  dateTo,
+}: {
+  log: Logger;
+  dateFrom: string;
+  dateTo: string;
+}): Promise<RedirectInDb[]> {
   try {
-    log(`Reading database: ${endpoint} -> ${key}`);
+    log(
+      `Reading redirects from database, dateFrom: ${dateFrom}, dateTo: ${dateTo}`,
+    );
 
     const client = new CosmosClient({
       key,
@@ -37,15 +49,36 @@ export async function readFromDatabase(log: Logger): Promise<void> {
     const database = client.database(cosmosDbDatabaseName);
     const container = database.container(cosmosDbContainerName);
 
-    // await container.items.create({
-    //   originalUrl,
-    //   redirectUrl: redirect.location,
-    //   statusCode: redirect.status,
-    //   redirectedAt: new Date().toISOString(),
-    // });
+    const querySpec = {
+      query:
+        'SELECT r.originalUrl, r.redirectUrl, r.statusCode, r.redirectedAt FROM releases r WHERE r.raisedAt >= @dateFrom AND r.raisedAt <= @dateTo',
+      parameters: [
+        {
+          name: '@dateFrom',
+          value: dateFrom,
+        },
+        {
+          name: '@dateTo',
+          value: dateTo,
+        },
+      ],
+    };
 
-    // log(`Saved redirect to database: ${originalUrl} -> ${redirect.location}`);
+    const iterator = container.items.query<RedirectInDb>(querySpec);
+    const results: RedirectInDb[] = [];
+    while (iterator.hasMoreResults()) {
+      const { resources } = await iterator.fetchNext();
+      results.push(...resources);
+    }
+
+    return results;
   } catch (error) {
-    log.error('Problem saving redirect to database', error);
+    log.error(
+      `Problem reading redirects from database, dateFrom: ${dateFrom}, dateTo: ${dateTo}`,
+      error,
+    );
+    throw new Error(
+      `Problem reading redirects from database, dateFrom: ${dateFrom}, dateTo: ${dateTo}`,
+    );
   }
 }
