@@ -267,25 +267,25 @@ jobs:
           header: lighthouse
           message: ${{ steps.format_lighthouse_score.outputs.comment }}
 
-  deploy_to_devto_job:
-    name: Publish to dev.to 🗞️
-    needs: build_and_deploy_swa_job
-    if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+  # deploy_to_devto_job:
+  #   name: Publish to dev.to 🗞️
+  #   needs: build_and_deploy_swa_job
+  #   if: github.event_name != 'pull_request'
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
 
-      - name: Setup Node.js 🔧
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'yarn'
+  #     - name: Setup Node.js 🔧
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '18'
+  #         cache: 'yarn'
 
-      - name: Publish to dev.to 🗞️
-        run: |
-          cd from-docusaurus-to-devto
-          yarn install --frozen-lockfile
-          DEVTO_APIKEY=${{ secrets.DEVTO_APIKEY }} yarn start
+  #     - name: Publish to dev.to 🗞️
+  #       run: |
+  #         cd from-docusaurus-to-devto
+  #         yarn install --frozen-lockfile
+  #         DEVTO_APIKEY=${{ secrets.DEVTO_APIKEY }} yarn start
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
