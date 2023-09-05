@@ -7,7 +7,6 @@ import { RedirectInDb } from '../fallback/types';
 const key = process.env.COSMOS_KEY || '<cosmos key>';
 const endpoint = process.env.COSMOS_ENDPOINT || '<cosmos endpoint>';
 const cosmosDbDatabaseName = 'sitedb';
-const cosmosDbContainerName = 'redirects';
 
 /*
 sample query 
@@ -30,10 +29,12 @@ where redirects.numRedirects > 1
  */
 export async function readFromDatabase({
   log,
+  containerName,
   dateFrom,
   dateTo,
 }: {
   log: Logger;
+  containerName: string;
   dateFrom: string;
   dateTo: string;
 }): Promise<RedirectInDb[]> {
@@ -47,7 +48,7 @@ export async function readFromDatabase({
       endpoint,
     });
     const database = client.database(cosmosDbDatabaseName);
-    const container = database.container(cosmosDbContainerName);
+    const container = database.container(containerName);
 
     const querySpec = {
       query:
