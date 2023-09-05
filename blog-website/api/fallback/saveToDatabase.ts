@@ -2,7 +2,7 @@ import type { Redirect, RedirectInDb } from './types';
 import type { Logger } from '@azure/functions';
 
 import { CosmosClient } from '@azure/cosmos';
-import { format } from 'date-fns';
+
 import {
   cosmosDbDatabaseName,
   cosmosDbRedirectsContainerName,
