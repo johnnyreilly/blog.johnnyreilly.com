@@ -15,6 +15,11 @@ const httpTrigger: AzureFunction = async function (
     const dateTo = req.query.dateTo || new Date().toISOString();
     const raw = req.query.raw === 'true';
 
+    context.log.info(
+      `Running redirect report with raw: ${raw} between ${dateFrom} and ${dateTo}`,
+      req.query,
+    );
+
     const redirects = await readFromDatabase({
       log: context.log,
       dateFrom,

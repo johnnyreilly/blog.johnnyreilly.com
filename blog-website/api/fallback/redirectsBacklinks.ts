@@ -288,4 +288,8 @@ export const redirectsBacklinks = [
     route: '/archive',
     redirect: '/blog',
   },
+  {
+    route: '/blog-archive',
+    redirect: '/blog',
+  },
 ];
