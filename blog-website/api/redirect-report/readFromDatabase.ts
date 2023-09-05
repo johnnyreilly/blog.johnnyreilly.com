@@ -3,10 +3,13 @@ import type { Logger } from '@azure/functions';
 import { CosmosClient } from '@azure/cosmos';
 
 import { RedirectInDb } from '../fallback/types';
+import {
+  cosmosDbDatabaseName,
+  cosmosDbRedirectsContainerName,
+} from '../constants';
 
 const key = process.env.COSMOS_KEY || '<cosmos key>';
 const endpoint = process.env.COSMOS_ENDPOINT || '<cosmos endpoint>';
-const cosmosDbDatabaseName = 'sitedb';
 
 /*
 sample query 
@@ -29,12 +32,10 @@ where redirects.numRedirects > 1
  */
 export async function readFromDatabase({
   log,
-  containerName,
   dateFrom,
   dateTo,
 }: {
   log: Logger;
-  containerName: string;
   dateFrom: string;
   dateTo: string;
 }): Promise<RedirectInDb[]> {
@@ -48,7 +49,7 @@ export async function readFromDatabase({
       endpoint,
     });
     const database = client.database(cosmosDbDatabaseName);
-    const container = database.container(containerName);
+    const container = database.container(cosmosDbRedirectsContainerName);
 
     const querySpec = {
       query:

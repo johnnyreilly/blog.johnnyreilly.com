@@ -10,7 +10,6 @@ export interface Redirect {
 }
 
 export interface RedirectInDb {
-  date?: string;
   originalUrl: string;
   redirectUrl: string;
   statusCode: number;

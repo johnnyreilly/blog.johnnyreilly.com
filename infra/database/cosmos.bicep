@@ -56,11 +56,6 @@ resource sqlDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2023-04
     resource: {
       id: cosmosDbDatabaseName
     }
-    options: {
-      autoscaleSettings: {
-        maxThroughput: 1000
-      }
-    }
   }
 }
 
@@ -92,42 +87,7 @@ resource redirectsContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/
           }
         ]
       }
-      defaultTtl: 86400
-    }
-    options: {
-      autoscaleSettings: {
-        maxThroughput: 1000
-      }
-    }
-  }
-}
-
-resource urlRedirectsContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15' = {
-  parent: sqlDatabase
-  name: 'url-redirects'
-  properties: {
-    resource: {
-      id: 'url-redirects'
-      partitionKey: {
-        paths: [
-          '/date'
-        ]
-        kind: 'Hash'
-      }
-      indexingPolicy: {
-        indexingMode: 'consistent'
-        includedPaths: [
-          {
-            path: '/*'
-          }
-        ]
-        excludedPaths: [
-          {
-            path: '/_etag/?'
-          }
-        ]
-      }
-      defaultTtl: 86400
+      defaultTtl: 15552000 // 180 days expressed in seconds - after this time, the document will be deleted
     }
     options: {
       autoscaleSettings: {
