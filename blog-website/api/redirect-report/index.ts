@@ -26,6 +26,7 @@ const httpTrigger: AzureFunction = async function (
         status: 200,
         body: orderBy(redirects, (x) => x.redirectedAt, 'desc'),
       };
+      return;
     }
 
     const groupedBy = groupBy(redirects, (x) => x.originalUrl);
