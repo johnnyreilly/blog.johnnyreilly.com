@@ -30,7 +30,7 @@ var ipAddresses = union([
   '0.0.0.0'
 ], allowedIPAddresses)
 
-resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' = {
+resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2023-04-15' = {
   name: cosmosDbAccountName
   kind: 'GlobalDocumentDB'
   location: location
@@ -43,11 +43,11 @@ resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' = {
     ipRules: [for ipAddress in ipAddresses: {
       ipAddressOrRange: ipAddress
     }]
-    // backupPolicy: { type: 'Periodic', periodicModeProperties: { backupIntervalInMinutes: 240, backupRetentionIntervalInHours: 720 }}
+    backupPolicy: { type: 'Periodic', periodicModeProperties: { backupIntervalInMinutes: 240, backupRetentionIntervalInHours: 720 }}
   }
 }
 
-resource sqlDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2022-08-15' = {
+resource sqlDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2023-04-15' = {
   parent: databaseAccount
   name: cosmosDbDatabaseName
   tags: tags
@@ -60,7 +60,7 @@ resource sqlDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2022-08
 
 var cosmosDbContainerName = 'redirects'
 
-resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2022-05-15' = {
+resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15' = {
   parent: sqlDatabase
   name: cosmosDbContainerName
   properties: {
