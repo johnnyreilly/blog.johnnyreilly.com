@@ -13,9 +13,6 @@ param complexData {
 var workspaceName = 'blog-app-insights-workspace'
 var appInsightsName = 'blog-app-insights'
 
-var cosmosDbAccountName = 'johnnyreilly-com-database'
-var cosmosDbDatabaseName = 'sitedb'
-
 module appInsights './app-insights.bicep' = {
   name: '${deployment().name}-appInsights'
   params: {

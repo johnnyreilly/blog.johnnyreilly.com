@@ -72,44 +72,6 @@ resource redirectsContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/
       id: 'redirects'
       partitionKey: {
         paths: [
-          '/originalUrl'
-        ]
-        kind: 'Hash'
-      }
-      indexingPolicy: {
-        indexingMode: 'consistent'
-        includedPaths: [
-          {
-            path: '/*'
-          }
-        ]
-        excludedPaths: [
-          {
-            path: '/myPathToNotIndex/*'
-          }
-          {
-            path: '/_etag/?'
-          }
-        ]
-      }
-      defaultTtl: 86400
-    }
-    options: {
-      autoscaleSettings: {
-        maxThroughput: 1000
-      }
-    }
-  }
-}
-
-resource urlRedirectsContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15' = {
-  parent: sqlDatabase
-  name: 'url-redirects'
-  properties: {
-    resource: {
-      id: 'url-redirects'
-      partitionKey: {
-        paths: [
           '/date'
         ]
         kind: 'Hash'
@@ -122,6 +84,9 @@ resource urlRedirectsContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabas
           }
         ]
         excludedPaths: [
+//          {
+//            path: '/myPathToNotIndex/*'
+//          }
           {
             path: '/_etag/?'
           }
@@ -137,12 +102,12 @@ resource urlRedirectsContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabas
   }
 }
 
-resource advancedThreatProtectionSettings 'Microsoft.Security/advancedThreatProtectionSettings@2019-01-01' = {
-  name: 'current'
-  scope: databaseAccount
-  properties: {
-    isEnabled: true
-  }
-}
+// resource advancedThreatProtectionSettings 'Microsoft.Security/advancedThreatProtectionSettings@2019-01-01' = {
+//  name: 'current'
+//  scope: databaseAccount
+//  properties: {
+//    isEnabled: true
+//  }
+//}
 
 output cosmosDbAccountName string = databaseAccount.name

@@ -2,11 +2,11 @@ import type { Logger } from '@azure/functions';
 
 import { CosmosClient } from '@azure/cosmos';
 
+import { cosmosDbDatabaseName } from '../constants';
 import { RedirectInDb } from '../fallback/types';
 
 const key = process.env.COSMOS_KEY || '<cosmos key>';
 const endpoint = process.env.COSMOS_ENDPOINT || '<cosmos endpoint>';
-const cosmosDbDatabaseName = 'sitedb';
 
 /*
 sample query 

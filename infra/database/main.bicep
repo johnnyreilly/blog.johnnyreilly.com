@@ -20,6 +20,9 @@ param allowedIPAddresses array
 @description('Specifies if Az is enabled for Cosmos')
 param isCosmosDbZoneRedundant bool = false
 
+var cosmosDbAccountName = 'johnnyreilly-com-account'
+var cosmosDbDatabaseName = 'johnnyreilly-com-database'
+
 module cosmos 'cosmos.bicep' = {
   name: '${deployment().name}-cosmos'
   params: {
