@@ -38,6 +38,7 @@ resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2023-04-15' = {
   properties: {
     consistencyPolicy: { defaultConsistencyLevel: 'Session' }
     locations: locations
+    enableAutomaticFailover: true
     databaseAccountOfferType: 'Standard'
     publicNetworkAccess: 'Enabled' // TODO: change to 'Disabled'?
     ipRules: [for ipAddress in ipAddresses: {
@@ -55,17 +56,20 @@ resource sqlDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2023-04
     resource: {
       id: cosmosDbDatabaseName
     }
+    options: {
+      autoscaleSettings: {
+        maxThroughput: 1000
+      }
+    }
   }
 }
 
-var cosmosDbContainerName = 'redirects'
-
-resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15' = {
+resource redirectsContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15' = {
   parent: sqlDatabase
-  name: cosmosDbContainerName
+  name: 'redirects'
   properties: {
     resource: {
-      id: cosmosDbContainerName
+      id: 'redirects'
       partitionKey: {
         paths: [
           '/originalUrl'
@@ -83,6 +87,41 @@ resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/container
           {
             path: '/myPathToNotIndex/*'
           }
+          {
+            path: '/_etag/?'
+          }
+        ]
+      }
+      defaultTtl: 86400
+    }
+    options: {
+      autoscaleSettings: {
+        maxThroughput: 1000
+      }
+    }
+  }
+}
+
+resource urlRedirectsContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15' = {
+  parent: sqlDatabase
+  name: 'url-redirects'
+  properties: {
+    resource: {
+      id: 'url-redirects'
+      partitionKey: {
+        paths: [
+          '/date'
+        ]
+        kind: 'Hash'
+      }
+      indexingPolicy: {
+        indexingMode: 'consistent'
+        includedPaths: [
+          {
+            path: '/*'
+          }
+        ]
+        excludedPaths: [
           {
             path: '/_etag/?'
           }
