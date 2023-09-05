@@ -2,11 +2,14 @@ import type { Redirect, RedirectInDb } from './types';
 import type { Logger } from '@azure/functions';
 
 import { CosmosClient } from '@azure/cosmos';
+import { format } from 'date-fns';
+import {
+  cosmosDbDatabaseName,
+  cosmosDbRedirectsContainerName,
+} from '../constants';
 
 const key = process.env.COSMOS_KEY || '<cosmos key>';
 const endpoint = process.env.COSMOS_ENDPOINT || '<cosmos endpoint>';
-const cosmosDbDatabaseName = 'sitedb';
-const cosmosDbContainerName = 'redirects';
 
 /*
 sample query 
@@ -40,16 +43,24 @@ export async function saveToDatabase(
       endpoint,
     });
     const database = client.database(cosmosDbDatabaseName);
-    const container = database.container(cosmosDbContainerName);
 
-    await container.items.create({
+    const now = new Date();
+
+    const redirectInDb: RedirectInDb = {
       originalUrl,
       redirectUrl: redirect.location,
       statusCode: redirect.status,
-      redirectedAt: new Date().toISOString(),
-    } as RedirectInDb);
+      redirectedAt: now.toISOString(),
+    };
 
-    log(`Saved redirect to database: ${originalUrl} -> ${redirect.location}`);
+    const redirectsContainer = database.container(
+      cosmosDbRedirectsContainerName,
+    );
+    const savedRedirects = await redirectsContainer.items.create(redirectInDb);
+    log(
+      `Saved redirect to database: ${originalUrl} -> ${redirect.location}`,
+      savedRedirects,
+    );
   } catch (error) {
     log.error('Problem saving redirect to database', error);
   }

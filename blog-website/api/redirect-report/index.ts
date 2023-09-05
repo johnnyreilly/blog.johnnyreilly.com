@@ -13,7 +13,7 @@ const httpTrigger: AzureFunction = async function (
     const dateFrom =
       req.query.dateFrom || startOfWeek(new Date()).toISOString();
     const dateTo = req.query.dateTo || new Date().toISOString();
-    const raw = Boolean(req.query.raw || false);
+    const raw = req.query.raw === 'true';
 
     const redirects = await readFromDatabase({
       log: context.log,

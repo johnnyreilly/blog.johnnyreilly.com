@@ -3,11 +3,13 @@ import type { Logger } from '@azure/functions';
 import { CosmosClient } from '@azure/cosmos';
 
 import { RedirectInDb } from '../fallback/types';
+import {
+  cosmosDbDatabaseName,
+  cosmosDbRedirectsContainerName,
+} from '../constants';
 
 const key = process.env.COSMOS_KEY || '<cosmos key>';
 const endpoint = process.env.COSMOS_ENDPOINT || '<cosmos endpoint>';
-const cosmosDbDatabaseName = 'sitedb';
-const cosmosDbContainerName = 'redirects';
 
 /*
 sample query 
@@ -47,7 +49,7 @@ export async function readFromDatabase({
       endpoint,
     });
     const database = client.database(cosmosDbDatabaseName);
-    const container = database.container(cosmosDbContainerName);
+    const container = database.container(cosmosDbRedirectsContainerName);
 
     const querySpec = {
       query:

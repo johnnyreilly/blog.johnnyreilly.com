@@ -38,6 +38,7 @@ resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2023-04-15' = {
   properties: {
     consistencyPolicy: { defaultConsistencyLevel: 'Session' }
     locations: locations
+    enableAutomaticFailover: true
     databaseAccountOfferType: 'Standard'
     publicNetworkAccess: 'Enabled' // TODO: change to 'Disabled'?
     ipRules: [for ipAddress in ipAddresses: {
@@ -58,14 +59,12 @@ resource sqlDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2023-04
   }
 }
 
-var cosmosDbContainerName = 'redirects'
-
-resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15' = {
+resource redirectsContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15' = {
   parent: sqlDatabase
-  name: cosmosDbContainerName
+  name: 'redirects'
   properties: {
     resource: {
-      id: cosmosDbContainerName
+      id: 'redirects'
       partitionKey: {
         paths: [
           '/originalUrl'
@@ -88,7 +87,7 @@ resource container 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/container
           }
         ]
       }
-      defaultTtl: 86400
+      defaultTtl: 15552000 // 180 days expressed in seconds - after this time, the document will be deleted
     }
     options: {
       autoscaleSettings: {
