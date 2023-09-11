@@ -17,7 +17,7 @@ jobs:
     name: Docusaurus build 🦕
     steps:
       - name: Checkout 📥
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           # Number of commits to fetch. 0 indicates all history for all branches and tags.
           # Default: 1
