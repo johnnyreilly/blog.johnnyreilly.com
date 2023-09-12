@@ -3,7 +3,7 @@ slug: aspnet-serilog-and-application-insights
 title: 'ASP.NET, Serilog and Application Insights'
 authors: johnnyreilly
 image: ./title-image.png
-tags: [asp.net, Azure, Application Insights, Serilog]
+tags: [Azure, ASP.NET]
 hide_table_of_contents: false
 description: 'Learn how to integrate Serilog into Azures Application Insights for better diagnostic logging by following these steps and adding dependencies.'
 ---

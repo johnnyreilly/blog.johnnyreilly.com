@@ -2,7 +2,7 @@
 slug: github-actions-and-yarn
 title: 'GitHub Actions and Yarn'
 authors: johnnyreilly
-tags: [docker, yarn, GitHub Actions]
+tags: [GitHub Actions, Node.js]
 hide_table_of_contents: false
 description: 'Automate npm publishing using GitHub Actions; use `npm` GitHub Action with yarn or any Docker container with Node/npm installed.'
 ---

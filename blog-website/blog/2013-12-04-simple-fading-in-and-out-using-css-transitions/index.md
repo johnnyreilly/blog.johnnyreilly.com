@@ -2,7 +2,7 @@
 slug: simple-fading-in-and-out-using-css-transitions
 title: 'Simple fading in and out using CSS transitions and classes'
 authors: johnnyreilly
-tags: [CSS]
+tags: []
 hide_table_of_contents: false
 description: 'Learn to create a fade effect with CSS transitions for improved animation and battery life. Warning: display: none behaves differently than jQuery.'
 ---

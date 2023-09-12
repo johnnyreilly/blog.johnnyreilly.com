@@ -2,7 +2,7 @@
 slug: azure-easy-auth-and-roles-with-net-and-microsoft-identity-web
 title: 'Azure App Service, Easy Auth and Roles with .NET and Microsoft.Identity.Web'
 authors: johnnyreilly
-tags: [Azure, easy auth, ASP.NET, authorization]
+tags: [Azure, ASP.NET, Easy Auth, Auth]
 hide_table_of_contents: false
 description: 'The `Microsoft.Identity.Web` library has authorization issues with roles. A `IClaimsTransformation` can map claims to fix the problem.'
 ---

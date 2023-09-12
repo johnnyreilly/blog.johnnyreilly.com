@@ -2,7 +2,7 @@
 slug: teams-notification-webhooks
 title: 'Teams notification webhooks'
 authors: johnnyreilly
-tags: [Microsoft Teams, webhook]
+tags: []
 image: ./teams-notification.gif
 hide_table_of_contents: false
 description: 'Learn how to automate notifications using Microsoft Teams and Markdown webhooks, and discover how to use ASP.Net Core to send notifications.'

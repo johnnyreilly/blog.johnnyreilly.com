@@ -2,7 +2,7 @@
 slug: setting-build-version-using-appveyor
 title: 'Setting Build Version Using AppVeyor and ASP.Net Core'
 authors: johnnyreilly
-tags: [powershell, Version, dot net core, AppVeyor]
+tags: [ASP.NET]
 hide_table_of_contents: false
 description: 'AppVeyor doesnt have support for setting version of a binary in dot net core, but it can be done easily through PowerShell.'
 ---

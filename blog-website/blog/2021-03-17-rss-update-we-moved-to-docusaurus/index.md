@@ -2,7 +2,7 @@
 slug: rss-update-we-moved-to-docusaurus
 title: 'RSS update; we moved to Docusaurus'
 authors: johnnyreilly
-tags: [Blogger, Docusaurus, RSS, Atom]
+tags: [Docusaurus]
 image: ./rss.png
 hide_table_of_contents: false
 description: 'A blogger migrated to Docusaurus and GitHub Pages, shares feed updates, with new Atom and RSS feeds and all historic links still working.'

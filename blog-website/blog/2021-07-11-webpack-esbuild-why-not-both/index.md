@@ -2,7 +2,7 @@
 slug: webpack-esbuild-why-not-both
 title: 'webpack? esbuild? Why not both?'
 authors: johnnyreilly
-tags: [webpack, esbuild, ts-loader, babel-loader]
+tags: [webpack, ts-loader, Node.js]
 image: ./webpack-esbuild-why-not-both.webp
 hide_table_of_contents: false
 description: 'Using both webpack and esbuild for faster builds is possible with esbuild-loader. This post guides through using it with webpack and migrating to it.'

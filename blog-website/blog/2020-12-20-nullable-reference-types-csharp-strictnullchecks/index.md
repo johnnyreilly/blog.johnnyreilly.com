@@ -2,7 +2,7 @@
 slug: nullable-reference-types-csharp-strictnullchecks
 title: "Nullable reference types; CSharp's very own strictNullChecks"
 authors: johnnyreilly
-tags: [C#, nullable reference types]
+tags: [C#]
 hide_table_of_contents: false
 description: 'C# introduces nullable reference types similar to TypeScripts `strictNullChecks`. Enabling raises warnings and solves null reference risks.'
 ---

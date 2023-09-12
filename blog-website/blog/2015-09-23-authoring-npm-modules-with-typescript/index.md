@@ -2,7 +2,7 @@
 slug: authoring-npm-modules-with-typescript
 title: "Definitely Typed Shouldn't Exist"
 authors: johnnyreilly
-tags: [npm, DefinitelyTyped, typescript]
+tags: [Node.js, TypeScript]
 hide_table_of_contents: false
 description: 'Using TypeScript definition files with npm packages can produce accurate typing information. Making npm a first class citizen may replace Definitely Typed.'
 ---

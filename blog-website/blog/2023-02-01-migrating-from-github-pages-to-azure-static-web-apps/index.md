@@ -2,7 +2,7 @@
 slug: migrating-from-github-pages-to-azure-static-web-apps
 title: 'Migrating from GitHub Pages to Azure Static Web Apps'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, Bicep, GitHub Actions, github pages]
+tags: [Azure Static Web Apps, Bicep, GitHub Actions]
 image: ./title-image.png
 description: 'How to migrate from GitHub Pages to Azure Static Web Apps, using Bicep and GitHub Actions to deploy.'
 hide_table_of_contents: false

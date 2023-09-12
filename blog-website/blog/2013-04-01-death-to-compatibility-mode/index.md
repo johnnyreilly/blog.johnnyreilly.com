@@ -2,7 +2,7 @@
 slug: death-to-compatibility-mode
 title: 'Death to compatibility mode'
 authors: johnnyreilly
-tags: [internet explorer]
+tags: []
 hide_table_of_contents: false
 description: 'John discusses compatibility mode in Internet Explorer and suggests using custom HTTP headers or meta tags to prevent rendering and CSS issues.'
 ---

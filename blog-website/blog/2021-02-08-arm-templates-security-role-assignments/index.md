@@ -3,7 +3,7 @@ slug: arm-templates-security-role-assignments
 title: 'Azure RBAC: role assignments and ARM templates'
 authors: johnnyreilly
 image: ./with-great-power-comes-great-responsibility.webp
-tags: [Azure, ARM templates, role assignments, permissions]
+tags: [Azure]
 hide_table_of_contents: false
 description: 'ARM templates can help define Azure Role-Based Access Control. By creating role assignments, users can grant Managed Identities access to resources.'
 ---

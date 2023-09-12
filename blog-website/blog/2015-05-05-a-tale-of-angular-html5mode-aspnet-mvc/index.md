@@ -2,7 +2,7 @@
 slug: a-tale-of-angular-html5mode-aspnet-mvc
 title: 'A tale of Angular, html5mode, ASP.Net MVC and ASP.Net Web API'
 authors: johnnyreilly
-tags: [asp.net, AngularJS]
+tags: [AngularJS, ASP.NET]
 hide_table_of_contents: false
 description: 'This article offers tips on how to preserve specific routes while redirecting non-specified URLs to the root angular app page for ASP.Net MVC and Web API.'
 ---

@@ -2,7 +2,7 @@
 slug: giving-odata-to-crm-40
 title: 'Giving OData to CRM 4.0'
 authors: johnnyreilly
-tags: [OData, WCF, CRM, LINQ]
+tags: [C#]
 hide_table_of_contents: false
 description: 'The article explains how to create an OData service to access Dynamics CRM 4.0 by using LINQ to CRM provider and WCF Data Services.'
 ---

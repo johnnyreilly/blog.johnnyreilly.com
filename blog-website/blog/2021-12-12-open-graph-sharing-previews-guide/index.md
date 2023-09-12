@@ -2,7 +2,7 @@
 slug: open-graph-sharing-previews-guide
 title: 'Open Graph: a guide to sharable social media previews'
 authors: johnnyreilly
-tags: [Open Graph]
+tags: []
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'Create sharable social media previews with Open Graph tags. Learn the required tags, testing tools, and platform rendering issues in this guide.'

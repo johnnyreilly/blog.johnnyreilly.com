@@ -2,7 +2,7 @@
 slug: typescript-dont-forget-build-action-for-implicit-referencing
 title: "TypeScript: Don't forget Build Action for Implicit Referencing..."
 authors: johnnyreilly
-tags: [typescript, Definitely Typed, typescript, nuget]
+tags: [Definitely Typed, TypeScript]
 hide_table_of_contents: false
 description: 'TypeScript files in Visual Studio now implicitly reference each other. This caused problems for some projects and its important to check file settings.'
 ---

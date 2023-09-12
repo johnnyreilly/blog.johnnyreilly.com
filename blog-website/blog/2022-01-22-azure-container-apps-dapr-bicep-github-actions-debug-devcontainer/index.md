@@ -2,7 +2,7 @@
 slug: azure-container-apps-dapr-bicep-github-actions-debug-devcontainer
 title: 'Azure Container Apps: dapr, devcontainer, debug and deploy'
 authors: johnnyreilly
-tags: [azure container apps, Bicep, GitHub Actions, devcontainer]
+tags: [Bicep, GitHub Actions, Azure Container Apps]
 image: ./title-image.png
 description: 'Build and deploy two Azure Container Apps using Bicep and GitHub Actions, communicate using dapr, build, run and debug in VS Code using a devcontainer.'
 hide_table_of_contents: false
@@ -262,7 +262,7 @@ app.use(async (ctx) => {
       `${daprSidecarBaseUrl}/weatherForecast`,
       {
         headers: weatherServiceAppIdHeaders,
-      }
+      },
     );
 
     ctx.body = `And the weather today will be ${data.data[0].summary}`;

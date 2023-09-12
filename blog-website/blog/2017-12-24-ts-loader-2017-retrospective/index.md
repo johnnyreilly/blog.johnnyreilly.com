@@ -2,7 +2,7 @@
 slug: ts-loader-2017-retrospective
 title: 'ts-loader 2017 retrospective'
 authors: johnnyreilly
-tags: [typescript, ts-loader, webpack]
+tags: [ts-loader, webpack, TypeScript]
 hide_table_of_contents: false
 description: 'ts-loader has improved in 2017, now sitting at v3.2.0 and supporting webpack 2 and 3. Future plans include using the new watch API.'
 ---

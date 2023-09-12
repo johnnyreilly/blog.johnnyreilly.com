@@ -2,7 +2,7 @@
 slug: ts-loader-goes-webpack-5
 title: 'ts-loader goes webpack 5'
 authors: johnnyreilly
-tags: [webpack, ts-loader, typescript]
+tags: [webpack, ts-loader, TypeScript]
 image: ./ts-loader-9.png
 hide_table_of_contents: false
 description: 'TypeScript webpack loader `ts-loader` has released version 9.0.0, with support for webpack 5 and a minimum supported Node version of 12.'

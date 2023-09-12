@@ -2,7 +2,7 @@
 slug: typescript-and-high-cpu-usage-watch
 title: "TypeScript and high CPU usage - watch don't stare!"
 authors: johnnyreilly
-tags: [typescript, fork-ts-checker-webpack-plugin, webpack]
+tags: [fork-ts-checker-webpack-plugin, webpack, TypeScript]
 hide_table_of_contents: false
 description: 'High CPU usage in watch mode on idle due to TypeScripts fs.watchFile. fs.watch recommended instead. Env variable controls file watching.'
 ---

@@ -2,7 +2,7 @@
 slug: definitely-typed-the-movie
 title: 'Definitely Typed: The Movie'
 authors: johnnyreilly
-tags: [typescript, Definitely Typed]
+tags: [Definitely Typed, TypeScript]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'The history of the TypeScript GitHub project Definitely Typed. And some TypeScript history as well'

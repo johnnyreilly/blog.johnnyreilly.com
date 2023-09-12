@@ -2,7 +2,7 @@
 slug: jqgrid-its-just-far-better-grid
 title: "jqGrid - it's just a far better grid"
 authors: johnnyreilly
-tags: [jqgrid, ajax, jquery]
+tags: [jQuery]
 hide_table_of_contents: false
 description: 'jqGrid is a sleek & efficient grid component for ASP.NET projects. Its minimal data exchange between client and server impressed John no end.'
 ---

@@ -2,7 +2,7 @@
 slug: the-convent-with-continuous-delivery
 title: 'The Convent with Continuous Delivery'
 authors: johnnyreilly
-tags: [Continuous Delivery, AppVeyor]
+tags: []
 hide_table_of_contents: false
 description: 'Programmer has open-sourced the Poor Clares Arundel website, making tweaks and site updating easier, with continuous delivery and collaboration.'
 ---

@@ -2,7 +2,7 @@
 slug: dual-boot-authentication-with-aspnetcore
 title: 'Dual boot authentication with ASP.NET'
 authors: johnnyreilly
-tags: [Authentication, Azure AD, ASP.NET]
+tags: [ASP.NET, Auth, Azure]
 hide_table_of_contents: false
 description: 'The article explains how to have different authentication methods for two classes of users accessing an app. Code snippets are provided.'
 ---

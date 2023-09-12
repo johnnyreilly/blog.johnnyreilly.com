@@ -2,7 +2,7 @@
 slug: web-workers-comlink-typescript-and-react
 title: 'Web Workers, comlink, TypeScript and React'
 authors: johnnyreilly
-tags: [typescript, React]
+tags: [React, TypeScript]
 hide_table_of_contents: false
 description: 'Learn how to use Web Workers in a React app using Googles comlink library. Offload long-running calculations to a separate thread.'
 ---

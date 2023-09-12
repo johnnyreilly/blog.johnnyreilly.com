@@ -2,7 +2,7 @@
 slug: wpf-and-mystic-meg-or-playing
 title: 'WPF and Mystic Meg or Playing Futurologist'
 authors: johnnyreilly
-tags: [SPA]
+tags: []
 hide_table_of_contents: false
 description: 'Native client apps will eventually be replaced by rich web apps/SPAs. WPF will become more niche, but wont die, predicts John.'
 ---

@@ -2,7 +2,7 @@
 slug: rolling-your-own-confirm-mechanism
 title: 'Rolling your own confirm mechanism using Promises and jQuery UI'
 authors: johnnyreilly
-tags: [jQuery UI]
+tags: [jQuery]
 hide_table_of_contents: false
 description: 'Learn how to create a custom confirm dialog using jQuery UI’s dialog and promises. The custom dialog is more configurable than the default `window.confirm`.'
 ---

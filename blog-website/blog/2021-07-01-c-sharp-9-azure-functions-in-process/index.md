@@ -2,7 +2,7 @@
 slug: c-sharp-9-azure-functions-in-process
 title: 'C# 9 in-process Azure Functions'
 authors: johnnyreilly
-tags: [C#, Azure Functions, .NET]
+tags: [C#, Azure Functions, ASP.NET]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'Learn to use C# 9 with .NET Core 3.1 Azure Functions in this step-by-step guide by adding new elements to your .csproj file.'

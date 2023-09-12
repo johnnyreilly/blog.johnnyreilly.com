@@ -2,7 +2,7 @@
 slug: devcontainers-and-ssl-interception
 title: 'Devcontainers and SSL interception'
 authors: johnnyreilly
-tags: [devcontainer, ssl interception]
+tags: []
 hide_table_of_contents: false
 description: 'Developers may need to overcome MITM certificate issues to use devcontainers, which can optimize productivity for new starters when developing software.'
 ---

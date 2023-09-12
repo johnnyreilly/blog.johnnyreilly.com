@@ -2,7 +2,7 @@
 slug: deploying-aspnet-mvc-to-github-pages-with-appveyor-part-1
 title: 'Deploying from ASP.Net MVC to GitHub Pages using AppVeyor part 1'
 authors: johnnyreilly
-tags: [powershell, github pages, AppVeyor]
+tags: []
 hide_table_of_contents: false
 description: 'John (creator of jQuery Validation Unobtrusive Native) found a way to use GitHub Pages and automate deployment by creating a static version of the app.'
 ---

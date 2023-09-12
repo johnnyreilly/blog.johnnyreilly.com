@@ -2,7 +2,7 @@
 slug: devcontainers-aka-performance-in-secure
 title: 'Devcontainers AKA performance in a secure sandbox'
 authors: johnnyreilly
-tags: [devcontainer]
+tags: []
 hide_table_of_contents: false
 description: 'Speedy ASP.NET Core and JavaScript development is made possible by devcontainers, which isolate tools and code to improve productivity.'
 ---

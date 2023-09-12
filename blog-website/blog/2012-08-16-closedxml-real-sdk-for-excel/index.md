@@ -2,7 +2,7 @@
 slug: closedxml-real-sdk-for-excel
 title: 'ClosedXML - the real SDK for Excel'
 authors: johnnyreilly
-tags: [Open XML, Excel, ClosedXML]
+tags: [C#]
 hide_table_of_contents: false
 description: 'Closed XML simplifies Excel document creation for developers with its straightforward API, sitting on top of Open XML. A frustration-solver for many!'
 ---
@@ -41,7 +41,7 @@ Shortly after I started using ClosedXML I was asked if we could use it to perfor
 
 When I discovered this [I raised a ticket](http://closedxml.codeplex.com/workitem/8174) against the project asking if the functionality was likely to be added at any point. I honestly didn't expect to hear back any time soon and was mentally working out ways to get round the issue for now.
 
-To my surprise within _5 hours_[MDeLeon](http://www.codeplex.com/site/users/view/MDeLeon) the developer behind ClosedXML had released a patch to the source code! By any stretch of the imagination that is fast! As it happened there were a few bugs that needed ironing out and over the course of the next 3 working days MDeLeon performed a number of fixes and left me quickly in the position of having a version of ClosedXML which allowed me to achieve my goal.
+To my surprise within _5 hours_ [MDeLeon](http://www.codeplex.com/site/users/view/MDeLeon) the developer behind ClosedXML had released a patch to the source code! By any stretch of the imagination that is fast! As it happened there were a few bugs that needed ironing out and over the course of the next 3 working days MDeLeon performed a number of fixes and left me quickly in the position of having a version of ClosedXML which allowed me to achieve my goal.
 
 So this blog post exists in part to point anyone who is battling Open XML to ClosedXML. It's brilliant, well documented and I'd advise anyone to use it. You won't be disappointed. And in part I wanted to say thanks and well done to MDeLeon who quite made my week! Thank you!
 

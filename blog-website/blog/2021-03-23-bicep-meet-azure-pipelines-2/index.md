@@ -2,7 +2,7 @@
 slug: bicep-meet-azure-pipelines-2
 title: 'Bicep meet Azure Pipelines 2'
 authors: johnnyreilly
-tags: [Bicep, ARM templates, Azure Pipelines, Azure CLI]
+tags: [Bicep, Azure Pipelines, Azure]
 image: ./bicep-meet-azure-pipelines.webp
 hide_table_of_contents: false
 description: 'With Azure CLI, Bicep can be run in Azure Pipeline with minimal effort. Compile Bicep to ARM in a simple one-liner bash step.'
