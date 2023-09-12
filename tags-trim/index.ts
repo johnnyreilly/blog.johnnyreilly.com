@@ -1,5 +1,131 @@
 import fs from 'fs';
+import { orderBy } from 'lodash';
 import path from 'path';
+
+const tagsWeWantToKeepOrRemap = new Map<string, string | undefined>([
+  ['typescript', 'TypeScript'],
+  ['webpack', undefined],
+  ['Docusaurus', undefined],
+  ['Bicep', undefined],
+  ['ts-loader', undefined],
+  ['Azure Static Web Apps', undefined],
+  ['javascript', 'JavaScript'],
+  ['React', undefined],
+  ['GitHub Actions', undefined],
+  ['AngularJS', undefined],
+  ['.NET', 'ASP.NET'],
+  ['azure devops', 'Azure DevOps'],
+  ['C#', undefined],
+  ['asp.net mvc', 'ASP.NET'],
+  ['asp.net', 'ASP.NET'],
+  ['Azure', undefined],
+  ['fork-ts-checker-webpack-plugin', undefined],
+  ['Azure Pipelines', undefined],
+  ['Node.js', undefined],
+  ['Azure Functions', undefined],
+  ['Definitely Typed', undefined],
+  ['ASP.NET', undefined],
+  ['jquery', 'jQuery'],
+  ['azure container apps', 'Azure Container Apps'],
+  ['VS Code', undefined],
+  ['unit testing', 'Automated Testing'],
+  ['easy auth', 'Easy Auth'],
+  ['authorization', 'Auth'],
+  ['Visual Studio', undefined],
+  ['TFS', 'Azure DevOps'],
+  ['jQuery Validation', 'jQuery'],
+  ['Bootstrap', 'JavaScript'],
+  ['eslint', 'JavaScript'],
+  ['JSDoc', 'TypeScript'],
+  ['ARM templates', 'Azure'],
+  ['Integration Testing', 'Automated Testing'],
+  ['LINQ', 'C#'],
+  ['ASP.Net Core', 'ASP.NET'],
+  ['Entity Framework', 'SQL Server'],
+  ['c#', 'C#'],
+  ['npm', 'Node.js'],
+  ['Globalize', undefined],
+  ['Jasmine', 'Automated Testing'],
+  ['cassette', 'ASP.NET'],
+  ['bicep', 'Bicep'],
+  ['Structured Data', 'SEO'],
+  ['SEO', undefined],
+  ['Azure AD', 'Azure'],
+  ['Authentication', 'Auth'],
+  ['tsconfig.json', 'TypeScript'],
+  ['ES6', 'JavaScript'],
+  ['MOQ', 'Automated Testing'],
+  ['Globalization', 'Globalize'],
+  ['azure-pipelines', 'Azure Pipelines'],
+  ['authentication', 'Auth'],
+  ['Application Insights', 'Azure'],
+  ['Swashbuckle', 'Swagger'],
+  ['NSwag', 'Swagger'],
+  ['Azure CLI', 'Azure'],
+  ['jest', 'Automated Testing'],
+  ['asp net core', 'ASP.NET'],
+  ['yarn', 'Node.js'],
+  ['Auth0', 'Auth'],
+  ['vsts', 'Azure DevOps'],
+  ['Karma', 'Automated Testing'],
+  ['Database Snapshots', 'SQL Server'],
+  ['SQL Server', undefined],
+  ['ES2015', 'JavaScript'],
+  ['.NET Framework', 'ASP.NET'],
+  ['Coded UI', 'Automated Testing'],
+  ['gulpjs', 'Node.js'],
+  ['jQuery UI', 'jQuery'],
+  ['jquery unobtrusive validation', 'jQuery'],
+  ['json', 'JavaScript'],
+  ['jqgrid', 'jQuery'],
+  ['azure-open-ai', 'Azure'],
+  ['vitest', 'Automated Testing'],
+  ['JSX', 'React'],
+  ['Easy Auth', 'Auth'],
+  ['Static Web Apps', 'Azure Static Web Apps'],
+  ['Linked Backends', 'Azure Static Web Apps'],
+  ['Unit Tests', 'Automated Testing'],
+  ['React Router', 'React'],
+  ['Azure Application Insights', 'Azure'],
+  ['ECMAScript Modules', 'JavaScript'],
+  ['Oryx', 'Azure'],
+  ['ECMAScript', 'JavaScript'],
+  ['Roslyn Analyzers', 'C#'],
+  ['Azure Artifacts', 'Azure DevOps'],
+  ['azure cli', 'Azure'],
+  ['Role Assignments', 'Azure'],
+  ['Directory.Build.props', 'ASP.NET'],
+  ['esbuild', 'Node.js'],
+  ['babel-loader', 'webpack'],
+  ['React 18', 'React'],
+  ['managed identity', 'Azure'],
+  ['Swagger', undefined],
+  ['open-api', 'Azure'],
+  ['Azure App Service', 'Azure'],
+  ['role assignments', 'Azure'],
+  ['azure pipelines', 'Azure Pipelines'],
+  ['useQueries', 'React'],
+  ['react-query', 'React'],
+  ['nullable reference types', 'C#'],
+  ['react-virtual', 'React'],
+  ['react-window', 'React'],
+  ['create-react-app', 'React'],
+  ['react-select', 'React'],
+  ['dotnet', 'ASP.NET'],
+  ['project references', 'ts-loader'],
+  ['auth0-js', 'Auth'],
+  ['cypress', 'Automated Testing'],
+  ['auth', 'Auth'],
+  ['OAuth', 'Auth'],
+  ['dot net core', 'ASP.NET'],
+  ['jsx', 'React'],
+  ['stateless functional components', 'React'],
+  ['ES2016', 'JavaScript'],
+  ['json.net', 'ASP.NET'],
+  ['DefinitelyTyped', 'TypeScript'],
+  ['unit tests', 'Automated Testing'],
+  ['Unit tests', 'Automated Testing'],
+]);
 
 const docusaurusDirectory = '../blog-website';
 
@@ -48,7 +174,14 @@ async function generatePostsWithDescription() {
 
   const postsWithDescription: BlogPostWithDescription[] = [];
 
+  const tagsToKeep = Array.from(tagsWeWantToKeepOrRemap.entries())
+    .map(([tag, remap]) => ({ remap, tag }))
+    .filter(({ remap }) => remap === undefined)
+    .map(({ tag }) => tag);
+
   const regex = /tags: \[(.*)\]/;
+
+  const tagsAndTotal = new Map<string, number>();
 
   for (const post of postsWithoutDescription) {
     const blogShort = post.path.replace('/index.md', '').split('/').pop();
@@ -56,7 +189,26 @@ async function generatePostsWithDescription() {
     if (match) {
       const tagsInBrackets = match[1]; // eg "azure-open-ai, bicep"
       const tags = tagsInBrackets.split(',').map((tag) => tag.trim());
-      console.log(`${blogShort} | tags | ${tags}`);
+      // console.log(`${blogShort} | tags | ${tags}`);
+
+      const newTags = tags.filter((tag) => tagsToKeep.includes(tag));
+      tags
+        .filter((tag) => !tagsToKeep.includes(tag))
+        .forEach((tag) => {
+          const remap = tagsWeWantToKeepOrRemap.get(tag);
+          if (tag && remap) {
+            console.log(`${blogShort} | remapping ${tag} to ${remap}`);
+            newTags.push(remap);
+          }
+        });
+
+      newTags.forEach((tag) => {
+        const currentCount = tagsAndTotal.get(tag) ?? 0;
+        tagsAndTotal.set(tag, currentCount + 1);
+      });
+      console.log(`${blogShort} | tags | ${newTags}`);
+
+      // const newTags = tags.filter
       // console.log(match);
       // break;
     } else {
@@ -89,6 +241,16 @@ async function generatePostsWithDescription() {
 */
     // break;
   }
+
+  const tagsAndTotalArray = orderBy(
+    Array.from(tagsAndTotal.entries()).map(([tag, total]) => ({ tag, total })),
+    ({ total }) => total,
+    'desc',
+  );
+
+  tagsAndTotalArray.forEach(({ tag, total }) => {
+    console.log(`['${tag}', ${total}],`);
+  });
 
   return postsWithDescription;
 }
