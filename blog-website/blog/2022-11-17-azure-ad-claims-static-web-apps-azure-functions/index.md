@@ -2,8 +2,7 @@
 slug: azure-ad-claims-static-web-apps-azure-functions
 title: 'Azure AD Claims with Static Web Apps and Azure Functions'
 authors: johnnyreilly
-tags:
-  [Authorization, Azure Functions, Static Web Apps, Linked Backends, Azure AD]
+tags: [Auth, Azure Functions, Azure Static Web Apps, Linked Backends, Azure]
 image: ./title-image.png
 description: 'Authorization with Azure Static Web Apps linked to Azure Functions has an issue. Azure AD app role claims are not supplied; this post will demo a workaround.'
 hide_table_of_contents: false

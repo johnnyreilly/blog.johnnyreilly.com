@@ -2,8 +2,7 @@
 slug: running-javascript-unit-tests-in-appveyor
 title: 'Running JavaScript Unit Tests in AppVeyor'
 authors: johnnyreilly
-tags:
-  [Jasmine, javascript, Unit tests, Continuous Integration, AppVeyor, Chutzpah]
+tags: [JavaScript, Automated Testing]
 hide_table_of_contents: false
 description: 'AppVeyor and Chutzpah were integrated to run C# and JavaScript unit tests in a single PowerShell script for CI purposes.'
 ---
