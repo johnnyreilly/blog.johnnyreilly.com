@@ -3,7 +3,7 @@ slug: azure-pipelines-meet-jest
 title: 'Azure Pipelines meet Jest'
 authors: johnnyreilly
 image: ./test-results.webp
-tags: [azure-pipelines, jest]
+tags: [Azure Pipelines, Automated Testing]
 hide_table_of_contents: false
 description: 'Learn how to integrate Jest with Azure Pipelines to run tests as a part of your pipeline and utilize results reporting in the Azure Pipelines UI.'
 ---

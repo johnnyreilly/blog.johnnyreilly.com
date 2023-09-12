@@ -2,7 +2,7 @@
 slug: vsts-yaml-up
 title: 'VSTS... YAML up!'
 authors: johnnyreilly
-tags: [yaml, vsts, travis, AppVeyor]
+tags: [Azure DevOps]
 hide_table_of_contents: false
 description: 'Visual Studio Team Services now has a YAML build definition preview feature that enables users to keep their build scripts with their code.'
 ---

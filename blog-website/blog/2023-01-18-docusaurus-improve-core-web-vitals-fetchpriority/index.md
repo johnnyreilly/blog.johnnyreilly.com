@@ -2,7 +2,7 @@
 slug: docusaurus-improve-core-web-vitals-fetchpriority
 title: 'Docusaurus: improving Core Web Vitals with fetchpriority'
 authors: johnnyreilly
-tags: [Core Web Vitals, Docusaurus, web performance]
+tags: [Docusaurus]
 image: ./title-image.png
 description: 'By using `fetchpriority` on your Largest Contentful Paint you can improve your Core Web Vitals. This post implements that with Docusaurus.'
 hide_table_of_contents: false
@@ -137,12 +137,12 @@ function imageFetchPriorityRehypePluginFactory() {
         if (fetchpriorityThisImage) {
           node['value'] = node['value'].replace(
             /<img /g,
-            '<img loading="eager" fetchpriority="high" '
+            '<img loading="eager" fetchpriority="high" ',
           );
         } else {
           node['value'] = node['value'].replace(
             /<img /g,
-            '<img loading="lazy" '
+            '<img loading="lazy" ',
           );
         }
       }

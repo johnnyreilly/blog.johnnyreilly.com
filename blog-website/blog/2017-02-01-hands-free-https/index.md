@@ -2,7 +2,7 @@
 slug: hands-free-https
 title: 'Hands-free HTTPS'
 authors: johnnyreilly
-tags: [TLS, HTTPS, cloudflare]
+tags: []
 hide_table_of_contents: false
 description: 'CloudFlare provides free HTTPS certificates. As HTTPS becomes the web default, it is essential for search engine ranking and service workers.'
 ---

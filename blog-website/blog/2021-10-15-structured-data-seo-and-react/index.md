@@ -2,7 +2,7 @@
 slug: structured-data-seo-and-react
 title: 'Structured data, SEO and React'
 authors: johnnyreilly
-tags: [Structured Data, SEO, React]
+tags: [SEO, React]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'Add structured data to your website to help search engines understand your content & get it in front of more people. Example shown in a React app.'

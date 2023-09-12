@@ -2,7 +2,7 @@
 slug: docusaurus-image-cloudinary-rehype-plugin
 title: 'Serving Docusaurus images with Cloudinary'
 authors: johnnyreilly
-tags: [Docusaurus, Cloudinary, rehype plugin]
+tags: [Docusaurus]
 image: ./title-image.png
 description: Cloudinary offers an image CDN which can improve performance of your site. This post details how to get Docusaurus to use Cloudinary to serve optimised images.
 hide_table_of_contents: false
@@ -92,7 +92,7 @@ const visit = require('unist-util-visit');
  * @returns rehype plugin that will replace image URLs with Cloudinary URLs
  */
 function imageCloudinaryRehypePluginFactory(
-  /** @type {{ cloudName: string; baseUrl: string }} */ options
+  /** @type {{ cloudName: string; baseUrl: string }} */ options,
 ) {
   const { cloudName, baseUrl } = options;
   const srcRegex = / src={(.*)}/;
@@ -131,7 +131,7 @@ function imageCloudinaryRehypePluginFactory(
           const urlOrRequire = match[1];
           node['value'] = node['value'].replace(
             srcRegex,
-            ` src={${`\`https://res.cloudinary.com/${cloudName}/image/fetch/${baseUrl}\$\{${urlOrRequire}\}\``}}`
+            ` src={${`\`https://res.cloudinary.com/${cloudName}/image/fetch/${baseUrl}\$\{${urlOrRequire}\}\``}}`,
           );
         }
       }

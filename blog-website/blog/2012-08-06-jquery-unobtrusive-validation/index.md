@@ -2,7 +2,7 @@
 slug: jquery-unobtrusive-validation
 title: 'jQuery Unobtrusive Validation (+ associated gotchas)'
 authors: johnnyreilly
-tags: [jquery unobtrusive validation]
+tags: [jQuery]
 hide_table_of_contents: false
 description: 'Implement unobtrusive jQuery validation in your MVC application using HTML 5 data attributes to simplify code maintenance and reduce mistakes.'
 ---

@@ -2,7 +2,7 @@
 slug: azure-container-apps-easy-auth-and-dotnet-authentication
 title: 'Azure Container Apps, Easy Auth and .NET authentication'
 authors: johnnyreilly
-tags: [azure container apps, easy auth, asp.net, authentication]
+tags: [Azure Container Apps, Easy Auth, ASP.NET, Auth]
 image: ./title-image.png
 description: 'Azure Container Apps support Easy Auth. However, .NET applications run in ACAs do not recognise Easy Auth authentication. This post explains the issue and solves it.'
 hide_table_of_contents: false
@@ -171,7 +171,7 @@ There's a few things to note from the above:
 - `EasyAuthAuthenticationHandler` is an `AuthenticationHandler` that takes the information from the `X-MS-CLIENT-PRINCIPAL` header and uses it to create a `ClaimsPrincipal`.
 - The `MsClientPrincipal` class is a representation of the decoded `X-MS-CLIENT-PRINCIPAL` header.
 - `AddAzureContainerAppsEasyAuth` is an extension method for the `AuthenticationBuilder` object - this allows users to make use of the handler in their application.
-- With Easy Auth, role claims arrive in the custom `"roles"` claim.  This is somewhat non-standard and so we remap `"roles"` claims to be `ClaimTypes.Role` / `"http://schemas.microsoft.com/ws/2008/06/identity/claims/role"` claims as well. This should ensure that anything built with the expectation of that type of claim behaves in the way you'd expect.
+- With Easy Auth, role claims arrive in the custom `"roles"` claim. This is somewhat non-standard and so we remap `"roles"` claims to be `ClaimTypes.Role` / `"http://schemas.microsoft.com/ws/2008/06/identity/claims/role"` claims as well. This should ensure that anything built with the expectation of that type of claim behaves in the way you'd expect.
 
 ## Using `AddAzureContainerAppsEasyAuth()`
 

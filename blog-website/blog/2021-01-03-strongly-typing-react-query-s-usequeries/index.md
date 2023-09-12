@@ -3,7 +3,7 @@ slug: strongly-typing-react-query-s-usequeries
 title: 'react-query: strongly typing useQueries'
 authors: johnnyreilly
 image: ./strongly-typing-usequeries.webp
-tags: [useQueries, react-query]
+tags: [React]
 hide_table_of_contents: false
 description: 'Learn how to strongly type `useQueries` in `react-query` with `useQueriesTyped`. A wrapper function provides the strongly-typed API.'
 ---

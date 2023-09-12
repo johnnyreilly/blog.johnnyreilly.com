@@ -18,8 +18,11 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
 
   const today = new Date();
   // Set the date to the first day of the current month
-  today.setDate(1);
-  const fallbackLastMod = today.toISOString();
+  const fallbackLastMod = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    1,
+  ).toISOString();
 
   for (const url of filteredUrls) {
     if (urls.includes(url)) {
@@ -36,7 +39,7 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
         // if (!loc.includes('/tags/') && !loc.endsWith('/tags')) {
         //   urls.push({ loc, lastmod: fallbackLastMod }); // mark non blog posts with a lastmod reflecting the time of this script running
         // } else {
-        urls.push({ loc });
+        urls.push({ loc, lastmod: fallbackLastMod });
         // }
         continue;
       }

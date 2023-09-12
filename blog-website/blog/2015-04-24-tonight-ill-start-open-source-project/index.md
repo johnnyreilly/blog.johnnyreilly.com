@@ -2,7 +2,7 @@
 slug: tonight-ill-start-open-source-project
 title: "Tonight I'll Start an Open Source Project..."
 authors: johnnyreilly
-tags: [asp.net mvc, validation, AngularJS]
+tags: [AngularJS, ASP.NET]
 hide_table_of_contents: false
 description: 'A new AngularJS validation mechanism aims to propagate data annotations on ASP.NET MVC server models into ng-* directive attributes in HTML.'
 ---

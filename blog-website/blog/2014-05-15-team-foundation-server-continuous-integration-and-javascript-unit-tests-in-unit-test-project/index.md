@@ -2,14 +2,7 @@
 slug: team-foundation-server-continuous-integration-and-javascript-unit-tests-in-unit-test-project
 title: 'Team Foundation Server, Continuous Integration and separate projects for JavaScript unit tests'
 authors: johnnyreilly
-tags:
-  [
-    Jasmine,
-    Visual Studio,
-    Continuous Integration,
-    Team Foundation Server,
-    Chutzpah,
-  ]
+tags: [Automated Testing, Visual Studio]
 hide_table_of_contents: false
 description: 'Learn how to run JavaScript tests on TFS/VSO by creating a separate unit test project to house tests, and installing Chutzpah on TFS/VSO.'
 ---

@@ -2,7 +2,7 @@
 slug: xsdxml-schema-generator-xsdexe-taking
 title: 'XSD/XML Schema Generator + Xsd.exe:Taking the pain out of manual XML'
 authors: johnnyreilly
-tags: [XSD, LINQ to XML]
+tags: []
 hide_table_of_contents: false
 description: 'Discover how to use XSD for validating XML and generating C# classes from XSD files, including an online tool to simplify the task.'
 ---

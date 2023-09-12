@@ -2,7 +2,7 @@
 slug: generate-typescript-and-csharp-clients-with-nswag
 title: 'NSwag: TypeScript and CSharp client generation based on an API'
 authors: johnnyreilly
-tags: [NSwag, Swagger, open-api, typescript, C#]
+tags: [Swagger, C#, Azure, TypeScript]
 image: ./use-generated-client.gif
 hide_table_of_contents: false
 description: 'NSwag simplifies APIs by auto-generating OpenAPI specs and clients. Learn to create TypeScript clients from NSwag using a .NET console app.'

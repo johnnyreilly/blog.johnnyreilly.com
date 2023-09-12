@@ -2,7 +2,7 @@
 slug: he-tasks-me-he-heaps-me-i-will-wreak
 title: 'He tasks me; he heaps me.... I will wreak that MOQ upon him.'
 authors: johnnyreilly
-tags: [unit testing, MOQ]
+tags: [Automated Testing]
 hide_table_of_contents: false
 description: 'Use Moq to simplify async testing, with ReturnAsync method. For testing a class that consumes async API, mock it using Task.Delay with Moqs Returns.'
 ---

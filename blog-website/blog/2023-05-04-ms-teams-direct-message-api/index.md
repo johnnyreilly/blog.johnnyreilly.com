@@ -7,7 +7,7 @@ authors:
     title: Engineer, Architect, Human
     url: https://github.com/ctaceygreen
     image_url: https://avatars.githubusercontent.com/u/11404995?v=4
-tags: [Teams, Power Automate]
+tags: []
 image: ./title-image.png
 description: 'Teams does not have a public API for sending direct messages to people rather than channels. This post describes a workaround using Power Automate and the Teams Notification API.'
 hide_table_of_contents: false

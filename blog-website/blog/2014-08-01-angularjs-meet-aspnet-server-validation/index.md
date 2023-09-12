@@ -2,7 +2,7 @@
 slug: angularjs-meet-aspnet-server-validation
 title: 'AngularJS meet ASP.Net Server Validation'
 authors: johnnyreilly
-tags: [asp.net, typescript, AngularJS]
+tags: [AngularJS, ASP.NET, TypeScript]
 hide_table_of_contents: false
 description: 'Learn how to perform server-side validation in your AngularJS and ASP.Net project using a `serverError` directive and server response error messages.'
 ---

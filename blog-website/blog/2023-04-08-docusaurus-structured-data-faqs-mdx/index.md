@@ -2,7 +2,7 @@
 slug: docusaurus-structured-data-faqs-mdx
 title: 'Docusaurus: Structured Data FAQs with MDX'
 authors: johnnyreilly
-tags: [Docusaurus, Structured Data]
+tags: [Docusaurus, SEO]
 image: ./title-image.png
 description: 'This demos how to make an MDX component that renders FAQs into a page, and the same information as Structured Data. It also shows how to use it with Docusaurus.'
 hide_table_of_contents: false

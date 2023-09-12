@@ -2,7 +2,7 @@
 slug: how-to-make-azure-ad-403
 title: 'Make Microsoft.Identity.Web respond with 403 forbidden instead of a 302 redirect'
 authors: johnnyreilly
-tags: [Azure AD, ASP.NET]
+tags: [ASP.NET, Azure]
 image: ./Forbidden.webp
 hide_table_of_contents: false
 description: 'The `Microsoft.Identity.Web` library redirects to AccessDenied with a 302 (redirect) status code. Learn to return a 403 (forbidden) status code instead.'

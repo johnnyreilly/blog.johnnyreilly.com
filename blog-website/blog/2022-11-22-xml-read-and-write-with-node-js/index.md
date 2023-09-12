@@ -2,7 +2,7 @@
 slug: xml-read-and-write-with-node-js
 title: 'XML: read and write with Node.js'
 authors: johnnyreilly
-tags: [XML, Node.js, Docusaurus]
+tags: [Node.js, Docusaurus]
 image: ./title-image.png
 description: 'This post demonstrates reading and writing XML in Node.js using fast-xml-parser. We will use the Docusauruses XML sitemap as an example.'
 hide_table_of_contents: false
@@ -92,7 +92,7 @@ async function trimXML() {
     '..',
     'blog-website',
     'build',
-    'sitemap.xml'
+    'sitemap.xml',
   );
 
   console.log(`Loading ${sitemapPath}`);
@@ -161,7 +161,7 @@ const filteredUrls = sitemap.urlset.url.filter(
   (url) =>
     url.loc !== `${rootUrl}/tags` &&
     !url.loc.startsWith(rootUrl + '/tags/') &&
-    !url.loc.startsWith(rootUrl + '/page/')
+    !url.loc.startsWith(rootUrl + '/page/'),
 );
 ```
 
@@ -203,7 +203,7 @@ async function trimXML() {
     '..',
     'blog-website',
     'build',
-    'sitemap.xml'
+    'sitemap.xml',
   );
 
   console.log(`Loading ${sitemapPath}`);
@@ -219,11 +219,11 @@ async function trimXML() {
     (url) =>
       url.loc !== `${rootUrl}/tags` &&
       !url.loc.startsWith(rootUrl + '/tags/') &&
-      !url.loc.startsWith(rootUrl + '/page/')
+      !url.loc.startsWith(rootUrl + '/page/'),
   );
 
   console.log(
-    `Reducing ${sitemap.urlset.url.length} urls to ${filteredUrls.length} urls`
+    `Reducing ${sitemap.urlset.url.length} urls to ${filteredUrls.length} urls`,
   );
 
   sitemap.urlset.url = filteredUrls;

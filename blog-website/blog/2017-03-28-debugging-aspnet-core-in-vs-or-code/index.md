@@ -2,7 +2,7 @@
 slug: debugging-aspnet-core-in-vs-or-code
 title: 'Debugging ASP.Net Core in VS or Code'
 authors: johnnyreilly
-tags: [VS Code, ASP.Net Core, Visual Studio]
+tags: [VS Code, Visual Studio, ASP.NET]
 hide_table_of_contents: false
 description: 'Learn how John became a fan of VS Code for TypeScript and how they managed to debug ASP.Net Core using the extension for C#.'
 ---

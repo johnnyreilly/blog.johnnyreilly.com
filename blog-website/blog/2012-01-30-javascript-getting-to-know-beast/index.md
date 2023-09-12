@@ -2,7 +2,7 @@
 slug: javascript-getting-to-know-beast
 title: 'JavaScript - getting to know the beast...'
 authors: johnnyreilly
-tags: [javascript, c#]
+tags: [JavaScript, C#]
 hide_table_of_contents: false
 description: 'Discovering jQuery and advice from Elijah Manor and Douglas Crockford changes Johns initial dislike of JavaScripts quirks.'
 ---

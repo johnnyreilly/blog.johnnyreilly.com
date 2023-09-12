@@ -2,7 +2,7 @@
 slug: decimalmodelbinder-for-nullable-decimals
 title: 'DecimalModelBinder for nullable Decimals'
 authors: johnnyreilly
-tags: [Globalization, .NET]
+tags: [Globalize, ASP.NET]
 hide_table_of_contents: false
 description: 'John forgot that MVCs ModelBinding doesnt handle regionalised numbers well. Provides solution found on Phil Haacks post.'
 ---

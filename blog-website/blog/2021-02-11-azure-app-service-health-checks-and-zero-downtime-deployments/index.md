@@ -2,7 +2,7 @@
 slug: azure-app-service-health-checks-and-zero-downtime-deployments
 title: 'Azure App Service, Health checks and zero downtime deployments'
 authors: johnnyreilly
-tags: [Azure App Service]
+tags: [Azure]
 hide_table_of_contents: false
 description: 'Azure App Service enables zero downtime deployments using health checks and deployment slots. Automated swapping slots ensure constant service.'
 ---

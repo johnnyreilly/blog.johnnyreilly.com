@@ -2,7 +2,7 @@
 slug: lazy-loading-images-with-docusaurus
 title: 'Lazy loading images with Docusaurus'
 authors: johnnyreilly
-tags: [Docusaurus, rehype plugin]
+tags: [Docusaurus]
 image: ./title-image.png
 description: 'Docusaurus websites can implement native lazy-loading of images, you can by writing a Rehype plugin.'
 hide_table_of_contents: false

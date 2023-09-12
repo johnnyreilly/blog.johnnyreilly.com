@@ -2,7 +2,7 @@
 slug: migrating-from-angularjs-to-angularts
 title: 'Migrating from AngularJS to AngularTS - a walkthrough'
 authors: johnnyreilly
-tags: [Jasmine, typescript, Unit tests, AngularJS]
+tags: [AngularJS, Automated Testing, TypeScript]
 hide_table_of_contents: false
 description: 'Learn how to migrate an AngularJS app from JavaScript to TypeScript in this walkthrough on a simple website/app for sending prayer requests.'
 ---

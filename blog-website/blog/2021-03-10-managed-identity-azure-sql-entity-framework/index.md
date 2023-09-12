@@ -2,7 +2,7 @@
 slug: managed-identity-azure-sql-entity-framework
 title: 'Managed Identity, Azure SQL and Entity Framework'
 authors: johnnyreilly
-tags: [connection string, managed identity, entity framework]
+tags: [Azure]
 image: ./entity-framework-core-nuget.png
 hide_table_of_contents: false
 description: 'Managed Identity provides secure, developer-friendly access to Azure SQL databases without the need for usernames and passwords.'

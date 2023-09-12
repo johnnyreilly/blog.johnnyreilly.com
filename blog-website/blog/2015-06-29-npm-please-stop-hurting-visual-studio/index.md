@@ -2,7 +2,7 @@
 slug: npm-please-stop-hurting-visual-studio
 title: 'npm please stop hurting Visual Studio'
 authors: johnnyreilly
-tags: [npm, Windows]
+tags: [Node.js]
 hide_table_of_contents: false
 description: 'Windows handling of long paths can be problematic when using Visual Studio with npm; using rimraf for deletions can help until npm 3.0 comes out.'
 ---

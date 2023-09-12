@@ -2,7 +2,7 @@
 slug: semantic-versioning-and-definitely-typed
 title: 'Semantic Versioning and Definitely Typed'
 authors: johnnyreilly
-tags: [Definitely Typed, typescript]
+tags: [Definitely Typed, TypeScript]
 image: ./i-must-break-you.webp
 hide_table_of_contents: false
 description: 'Definitely Typed lacks semantic versioning, causing build failures. Use specific package versions, and breaking changes can be positive.'

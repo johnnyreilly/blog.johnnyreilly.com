@@ -2,7 +2,7 @@
 slug: image-optimisation-tinypng-api
 title: 'Image Optimisation with the TinyPNG API'
 authors: johnnyreilly
-tags: [image optimisation, TinyPNG]
+tags: []
 image: ./title-image.webp
 description: 'Image optimisation can be automated with the TinyPNG API. This post demonstrates how to do that.'
 hide_table_of_contents: false
@@ -70,7 +70,7 @@ import tinify from 'tinify';
 function setUpTinify() {
   if (!process.env.TINIFY_KEY) {
     console.log(
-      'Run with: TINIFY_KEY=$YOUR_API_KEY IMAGE_DIR=$YOUR_IMAGE_DIRECTORY yarn start'
+      'Run with: TINIFY_KEY=$YOUR_API_KEY IMAGE_DIR=$YOUR_IMAGE_DIRECTORY yarn start',
     );
     process.exit(1);
   }
@@ -86,7 +86,7 @@ function getImageFilesFromDirectory(dir: string) {
         file.endsWith('.jpg') ||
         file.endsWith('.jpeg') ||
         file.endsWith('.webp') ||
-        file.endsWith('.png')
+        file.endsWith('.png'),
     )
     .map((file) => path.resolve(dir, file))
     .filter((file) => fs.statSync(file).size > 0);
@@ -105,7 +105,7 @@ async function processImageFiles(imageFiles: string[]) {
 `);
       const originalImageFilePrefix = imageFilePath.substring(
         0,
-        imageFilePath.lastIndexOf('.')
+        imageFilePath.lastIndexOf('.'),
       );
 
       const originalStats = await fs.promises.stat(imageFilePath, {
@@ -133,7 +133,7 @@ async function processImageFiles(imageFiles: string[]) {
       console.log(`- 🔴 ${originalSizeKb}kb - ${imageFileName}
 - 🟢 ${newSizeKb}kb - ${newImageFileName}
 - 🔽 ${calculatePercentageReduction({ originalSizeKb, newSizeKb }).toFixed(
-        2
+        2,
       )}% reduction
 
 ✅ Processed! (${++processed} of ${imageFiles.length})

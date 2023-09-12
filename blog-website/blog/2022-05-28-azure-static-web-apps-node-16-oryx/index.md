@@ -2,7 +2,7 @@
 slug: azure-static-web-apps-node-16-oryx
 title: 'Azure Static Web Apps: Node.js 16 / 18 and Oryx'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, GitHub Actions, Docusaurus, Node.js, Oryx]
+tags: [Azure Static Web Apps, GitHub Actions, Docusaurus, Node.js, Azure]
 image: ./title-image.png
 description: 'Azure Static Web Apps presently fixes to Node.js 14 when building. If you require a different version of Node to build, here is how.'
 hide_table_of_contents: false

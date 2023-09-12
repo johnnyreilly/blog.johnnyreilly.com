@@ -2,7 +2,7 @@
 slug: docusaurus-createfeeditems-api-git-commit-date
 title: 'Docusaurus blogs: using the createFeedItems API with git commit date'
 authors: johnnyreilly
-tags: [Docusaurus, RSS]
+tags: [Docusaurus]
 image: ./title-image.png
 description: 'The Docusaurus createFeedItems API can be used to tweak RSS feeds for your blog. This post shows how to use it with the git commit date.'
 hide_table_of_contents: false
@@ -99,7 +99,7 @@ async function createFeedItems(params) {
     // blogPost.metadata.permalink: '/2023/01/22/image-optimisation-tinypng-api',
     // feedItem.link: 'https://johnnyreilly.com/2023/01/22/image-optimisation-tinypng-api',
     const relatedBlogEntry = blogPosts.find((blogPost) =>
-      feedItem.link.endsWith(blogPost.metadata.permalink)
+      feedItem.link.endsWith(blogPost.metadata.permalink),
     );
     if (!relatedBlogEntry) {
       console.log('blogFilePath not found', feedItem.link);
@@ -108,7 +108,7 @@ async function createFeedItems(params) {
 
     // source: '@site/blog/2023-01-22-image-optimisation-tinypng-api/index.md',
     const gitLatestCommitString = await getGitLatestCommitDateFromFilePath(
-      relatedBlogEntry.metadata.source.replace('@site/', 'blog-website/')
+      relatedBlogEntry.metadata.source.replace('@site/', 'blog-website/'),
     );
     const gitLatestCommitDate = gitLatestCommitString
       ? new Date(gitLatestCommitString)

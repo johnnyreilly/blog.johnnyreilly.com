@@ -2,7 +2,7 @@
 slug: react-select-with-less-typing-lag
 title: 'react-select with less typing lag'
 authors: johnnyreilly
-tags: [react-select]
+tags: [React]
 hide_table_of_contents: false
 description: 'Fix lagging in `react-select`. Change `filterOption` to `ignoreAccents: false` for faster typing experience with 1000+ items.'
 ---

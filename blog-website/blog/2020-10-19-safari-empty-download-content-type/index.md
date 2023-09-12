@@ -2,7 +2,7 @@
 slug: safari-empty-download-content-type
 title: 'Safari: The Mysterious Case of the Empty Download'
 authors: johnnyreilly
-tags: [Safari]
+tags: []
 hide_table_of_contents: false
 description: 'Safari requires a `Content-Type` header in responses to avoid empty downloads. Providing a `Content-Type` header resolved an authentication issue.'
 ---

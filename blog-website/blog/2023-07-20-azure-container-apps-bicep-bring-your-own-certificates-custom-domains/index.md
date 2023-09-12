@@ -2,7 +2,7 @@
 slug: azure-container-apps-bicep-bring-your-own-certificates-custom-domains
 title: 'Azure Container Apps, Bicep, bring your own certificates and custom domains'
 authors: johnnyreilly
-tags: [azure container apps, bicep]
+tags: [Azure Container Apps, Bicep]
 image: ./title-image.png
 description: 'Azure Container Apps supports custom domains with "bring your own certificates" and this post demonstrates how to do it with Bicep.'
 hide_table_of_contents: false

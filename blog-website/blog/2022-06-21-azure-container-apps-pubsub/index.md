@@ -2,16 +2,7 @@
 slug: azure-container-apps-pubsub
 title: 'Azure Container Apps: dapr pubsub'
 authors: johnnyreilly
-tags:
-  [
-    Azure Container Apps,
-    dapr,
-    Bicep,
-    GitHub Actions,
-    GitHub container registry,
-    devcontainer,
-    debug,
-  ]
+tags: [Azure Container Apps, Bicep]
 image: ./title-image.png
 description: 'This post shows how to build and deploy two Azure Container Apps using Bicep and GitHub Actions which communicate using daprs pubsub building block.'
 hide_table_of_contents: false
@@ -254,7 +245,7 @@ router.post('/', koaBody(), async (ctx, next) => {
         },
         {
           headers: weatherServiceAppIdHeaders,
-        }
+        },
       );
 
       ctx.body = formHtml('Message sent');
@@ -586,7 +577,7 @@ router.post('/', koaBody(), async (ctx, next) => {
         /* topic */ 'weather-forecasts',
         /* data */ {
           email: ctx.request.body.email,
-        }
+        },
       );
 
       ctx.body = formHtml(`Message sent: ${sent}`);

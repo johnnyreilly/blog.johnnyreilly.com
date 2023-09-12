@@ -2,7 +2,7 @@
 slug: but-you-cant-die-i-love-you-ts-loader
 title: "But you can't die... I love you!"
 authors: johnnyreilly
-tags: [open source, typescript, ts-loader]
+tags: [ts-loader, TypeScript]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'How John Reilly becomes main caretaker of ts-loader, fixing bugs and actively maintaining the project to encourage communal contributions.'

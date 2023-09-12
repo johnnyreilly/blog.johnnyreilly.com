@@ -2,7 +2,7 @@
 slug: ie-10-install-torches-javascript
 title: 'IE 10 Install Torches JavaScript Debugging in Visual Studio 2012 Through Auto Update (Probably)'
 authors: johnnyreilly
-tags: [Visual Studio, javascript, IE 10]
+tags: [Visual Studio, JavaScript]
 hide_table_of_contents: false
 description: 'Learn how to fix missing Script Documents when debugging JavaScript in Visual Studio 2012, likely caused by auto-updating from IE9 to IE10.'
 ---

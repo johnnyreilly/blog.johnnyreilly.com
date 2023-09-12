@@ -2,7 +2,7 @@
 slug: striving-for-javascript-convention
 title: 'Striving for (JavaScript) Convention'
 authors: johnnyreilly
-tags: [javascript]
+tags: [JavaScript]
 hide_table_of_contents: false
 description: 'Visual Studio 11 beta resolved issues. John has moved away from Hungarian Notation but retained using "$" as a prefix for jQuery objects.'
 ---

@@ -3,7 +3,7 @@ slug: surfacing-azure-pipelines-build-info-in-an-aspnet-react-app
 title: 'Azure Pipelines Build Info in an ASP.NET React app'
 authors: johnnyreilly
 image: ./about-page.png
-tags: [azure pipelines]
+tags: [Azure Pipelines]
 hide_table_of_contents: false
 description: 'Surface build metadata using Azure Pipelines and ASP.NET for both client and server builds in your app with this tutorial.'
 ---

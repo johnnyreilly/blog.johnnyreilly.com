@@ -2,7 +2,7 @@
 slug: node-18-axios-and-unsafe-legacy-renegotiation-disabled
 title: 'Node.js 18, Axios and unsafe legacy renegotiation disabled'
 authors: johnnyreilly
-tags: [TLS, Node.js]
+tags: [Node.js]
 image: ./title-image.png
 description: 'With Node.js 18, unsafe legacy renegotiation was disabled. However, there are APIs that still need it. This post shows how support them with Axios.'
 hide_table_of_contents: false

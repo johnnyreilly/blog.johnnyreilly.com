@@ -2,7 +2,7 @@
 slug: service-now-api-and-typescript-conditional-types
 title: 'The Service Now API and TypeScript Conditional Types'
 authors: johnnyreilly
-tags: [Service Now, typescript]
+tags: [TypeScript]
 image: ./ts-ervice-now.png
 hide_table_of_contents: false
 description: 'Learn how to model ServiceNow REST API results using TypeScript conditional types to minimise repetition and remain strongly typed.'

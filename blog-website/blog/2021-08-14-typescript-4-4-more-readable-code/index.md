@@ -2,7 +2,7 @@
 slug: typescript-4-4-more-readable-code
 title: 'TypeScript 4.4 and more readable code'
 authors: johnnyreilly
-tags: [typescript]
+tags: [TypeScript]
 image: ./reactions-on-github.webp
 hide_table_of_contents: false
 description: 'TypeScript 4.4 introduces "Control Flow Analysis of Aliased Conditions" which improves code readability by more expressive and less repetitive code.'

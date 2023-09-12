@@ -2,7 +2,7 @@
 slug: using-bootstrap-tooltips-to-display
 title: 'Using Bootstrap Tooltips to display jQuery Validation error messages'
 authors: johnnyreilly
-tags: [Tooltip, Bootstrap, jQuery Validation]
+tags: [JavaScript, jQuery]
 hide_table_of_contents: false
 description: 'Using tooltips can be a better approach than displaying validation messages next to the element being validated in jQuery Validation.'
 ---

@@ -2,7 +2,7 @@
 slug: fork-ts-checker-webpack-plugin-v1
 title: 'fork-ts-checker-webpack-plugin v1.0'
 authors: johnnyreilly
-tags: [typescript, fork-ts-checker-webpack-plugin, ts-loader, tslint, webpack]
+tags: [fork-ts-checker-webpack-plugin, ts-loader, webpack, TypeScript]
 hide_table_of_contents: false
 description: '`fork-ts-checker-webpack-plugin` released v1.0.0 with TypeScript 3+ support, incremental watch API by default, and compatibility with webpack and TSLint.'
 ---

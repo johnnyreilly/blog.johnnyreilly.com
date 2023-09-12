@@ -2,7 +2,7 @@
 slug: getting-typescript-compile-on-save-and-continous-integration-to-play-nice
 title: 'Getting TypeScript Compile-on-Save and Continuous Integration to play nice'
 authors: johnnyreilly
-tags: [TFS, typescript]
+tags: [Azure DevOps, TypeScript]
 hide_table_of_contents: false
 description: 'Learn how to compile TypeScript in Visual Studio without making TypeScript compilation part of the build process on the server.'
 ---
