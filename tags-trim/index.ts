@@ -160,19 +160,15 @@ async function generatePostsWithDescription() {
     const indexMdPath = path.join(blogDir, 'index.md');
     const blogPostContent = await fs.promises.readFile(indexMdPath, 'utf-8');
 
-    // const frontMatter = blogPostContent.split('---')[1];
-    // const hasDescription = frontMatter.includes('\ndescription: ');
-    // if (!hasDescription) {
     postsWithoutDescription.push({
       path: indexMdPath,
       content: blogPostContent,
     });
-    // }
   }
 
   console.log(`Found ${postsWithoutDescription.length} posts`);
 
-  const postsWithDescription: BlogPostWithDescription[] = [];
+  const postsWithTags: BlogPostWithDescription[] = [];
 
   const tagsToKeep = Array.from(tagsWeWantToKeepOrRemap.entries())
     .map(([tag, remap]) => ({ remap, tag }))
@@ -191,14 +187,14 @@ async function generatePostsWithDescription() {
       const tags = tagsInBrackets.split(',').map((tag) => tag.trim());
       // console.log(`${blogShort} | tags | ${tags}`);
 
-      const newTags = tags.filter((tag) => tagsToKeep.includes(tag));
+      const newTags = new Set(tags.filter((tag) => tagsToKeep.includes(tag)));
       tags
         .filter((tag) => !tagsToKeep.includes(tag))
         .forEach((tag) => {
           const remap = tagsWeWantToKeepOrRemap.get(tag);
           if (tag && remap) {
             console.log(`${blogShort} | remapping ${tag} to ${remap}`);
-            newTags.push(remap);
+            newTags.add(remap);
           }
         });
 
@@ -208,8 +204,12 @@ async function generatePostsWithDescription() {
       });
       console.log(`${blogShort} | tags | ${newTags}`);
 
-      // const newTags = tags.filter
-      // console.log(match);
+      const newContent = post.content.replace(
+        regex,
+        `tags: [${[...newTags].join(', ')}]`,
+      );
+
+      await fs.promises.writeFile(post.path, newContent);
       // break;
     } else {
       console.log(`${blogShort} | no tags found`);
@@ -252,7 +252,7 @@ async function generatePostsWithDescription() {
     console.log(`['${tag}', ${total}],`);
   });
 
-  return postsWithDescription;
+  return postsWithTags;
 }
 
 async function main() {
