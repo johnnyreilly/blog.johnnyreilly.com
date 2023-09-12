@@ -214,31 +214,6 @@ async function generatePostsWithDescription() {
     } else {
       console.log(`${blogShort} | no tags found`);
     }
-
-    /*
-    const [, frontmatter, article] = post.content.split('---');
-
-    console.log(
-      `** Generating description for ${post.path
-        .replace('/index.md', '')
-        .split('/')
-        .pop()}`,
-    );
-    const description = await produceSummary(article);
-
-    if (description) {
-      postsWithDescription.push({ ...post, description });
-      console.log(`** description: ${description}`);
-
-      await fs.promises.writeFile(
-        post.path,
-        `---${frontmatter}description: '${description.replaceAll("'", '')}'
----${article}`,
-      );
-    } else {
-      console.log(`** no description generated`);
-    }
-*/
     // break;
   }
 
