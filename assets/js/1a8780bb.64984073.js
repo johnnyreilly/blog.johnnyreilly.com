@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[2551],{49446:e=>{e.exports=JSON.parse('{"label":"ECMAScript","permalink":"/tags/ecma-script","allTagsPath":"/tags","count":1}')}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[17670],{73178:e=>{e.exports=JSON.parse('{"label":"XSD","permalink":"/tags/xsd","allTagsPath":"/tags","count":1}')}}]);

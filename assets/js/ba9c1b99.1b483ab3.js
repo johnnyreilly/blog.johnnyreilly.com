@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[58100],{53288:e=>{e.exports=JSON.parse('{"label":"azure-open-ai","permalink":"/tags/azure-open-ai","allTagsPath":"/tags","count":1}')}}]);

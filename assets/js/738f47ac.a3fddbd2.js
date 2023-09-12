@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[61385],{68283:a=>{a.exports=JSON.parse('{"label":"Structured Data","permalink":"/tags/structured-data","allTagsPath":"/tags","count":3}')}}]);

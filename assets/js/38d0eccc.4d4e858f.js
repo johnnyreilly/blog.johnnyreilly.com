@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[2397],{54541:e=>{e.exports=JSON.parse('{"label":"Open XML","permalink":"/tags/open-xml","allTagsPath":"/tags","count":1}')}}]);

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[38096],{51167:s=>{s.exports=JSON.parse('{"label":"stateless functional components","permalink":"/tags/stateless-functional-components","allTagsPath":"/tags","count":1}')}}]);

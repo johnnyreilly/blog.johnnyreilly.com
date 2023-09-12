@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[16550],{16363:e=>{e.exports=JSON.parse('{"label":"web performance","permalink":"/tags/web-performance","allTagsPath":"/tags","count":1}')}}]);

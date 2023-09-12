@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[74812],{75544:s=>{s.exports=JSON.parse('{"label":"Microsoft Teams","permalink":"/tags/microsoft-teams","allTagsPath":"/tags","count":1}')}}]);

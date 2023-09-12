@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[99432],{24802:e=>{e.exports=JSON.parse('{"label":"Core Web Vitals","permalink":"/tags/core-web-vitals","allTagsPath":"/tags","count":1}')}}]);
