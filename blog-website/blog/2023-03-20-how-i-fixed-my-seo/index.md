@@ -112,5 +112,7 @@ We no longer need to swizzle the `BlogListPage` anymore as a result.
 
 In this change we are *heavily* borrowing from https://yoast.com/features/structured-data/
 
+## Reduced number of tags used on blogs significantly
 
+ https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/686
 
