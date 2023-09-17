@@ -2,7 +2,7 @@
 slug: from-react-window-to-react-virtual
 title: 'From react-window to react-virtual'
 authors: johnnyreilly
-tags: [React]
+tags: [react]
 hide_table_of_contents: false
 description: 'Switch from `react-window` to `react-virtual` for simpler code, TypeScript support and improved perceived performance.'
 ---

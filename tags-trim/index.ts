@@ -170,10 +170,10 @@ async function generatePostsWithDescription() {
 
   const postsWithTags: BlogPostWithDescription[] = [];
 
-  const tagsToKeep = Array.from(tagsWeWantToKeepOrRemap.entries())
-    .map(([tag, remap]) => ({ remap, tag }))
-    .filter(({ remap }) => remap === undefined)
-    .map(({ tag }) => tag);
+  // const tagsToKeep = Array.from(tagsWeWantToKeepOrRemap.entries())
+  //   .map(([tag, remap]) => ({ remap, tag }))
+  //   .filter(({ remap }) => remap === undefined)
+  //   .map(({ tag }) => tag);
 
   const regex = /tags: \[(.*)\]/;
 
@@ -187,16 +187,17 @@ async function generatePostsWithDescription() {
       const tags = tagsInBrackets.split(',').map((tag) => tag.trim());
       // console.log(`${blogShort} | tags | ${tags}`);
 
-      const newTags = new Set(tags.filter((tag) => tagsToKeep.includes(tag)));
-      tags
-        .filter((tag) => !tagsToKeep.includes(tag))
-        .forEach((tag) => {
-          const remap = tagsWeWantToKeepOrRemap.get(tag);
-          if (tag && remap) {
-            console.log(`${blogShort} | remapping ${tag} to ${remap}`);
-            newTags.add(remap);
-          }
-        });
+      const newTags = new Set(tags.map((tag) => tag.toLocaleLowerCase()));
+      // const newTags = new Set(tags.filter((tag) => tagsToKeep.includes(tag)));
+      // tags
+      //   .filter((tag) => !tagsToKeep.includes(tag))
+      //   .forEach((tag) => {
+      //     const remap = tagsWeWantToKeepOrRemap.get(tag);
+      //     if (tag && remap) {
+      //       console.log(`${blogShort} | remapping ${tag} to ${remap}`);
+      //       newTags.add(remap);
+      //     }
+      //   });
 
       newTags.forEach((tag) => {
         const currentCount = tagsAndTotal.get(tag) ?? 0;

@@ -2,7 +2,7 @@
 slug: coded-ui-and-curse-of-docking-station
 title: 'Coded UI and the Curse of the Docking Station'
 authors: johnnyreilly
-tags: [Automated Testing]
+tags: [automated testing]
 hide_table_of_contents: false
 description: 'Coded UI tests struggle with docking stations due to resolution changes, causing the mouse to miss the element its aiming for.'
 ---

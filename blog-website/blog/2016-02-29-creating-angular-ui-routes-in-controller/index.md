@@ -2,7 +2,7 @@
 slug: creating-angular-ui-routes-in-controller
 title: 'Creating Angular UI Routes in the Controller'
 authors: johnnyreilly
-tags: [AngularJS]
+tags: [angularjs]
 hide_table_of_contents: false
 description: 'Dont let your Angular UI Router link get too big - move the URL generation to the controller! Use the $state.href() method instead of ui-sref.'
 ---

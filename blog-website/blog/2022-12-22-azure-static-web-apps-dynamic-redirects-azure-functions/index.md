@@ -2,7 +2,7 @@
 slug: azure-static-web-apps-dynamic-redirects-azure-functions
 title: 'Azure Static Web Apps: dynamic redirects with Azure Functions'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, Azure Functions, GitHub Actions]
+tags: [azure static web apps, azure functions, github actions]
 image: ./title-image.png
 description: 'Azure Static Web Apps can perform URL redirects using the `routes` section in the `staticwebapp.config.json`. However it is limited. This post will demonstrate dynamic URL redirects with Azure Functions.'
 hide_table_of_contents: false
@@ -49,7 +49,7 @@ async function fallback(context, req) {
     const parsedURL = parseURL(originalUrl);
 
     const matchedRoute = routes.find((route) =>
-      parsedURL.pathname.includes(route.route)
+      parsedURL.pathname.includes(route.route),
     );
 
     if (matchedRoute) {
@@ -64,7 +64,7 @@ async function fallback(context, req) {
   }
 
   context.log(
-    `No explicit redirect for ${originalUrl} so will redirect to 404`
+    `No explicit redirect for ${originalUrl} so will redirect to 404`,
   );
 
   context.res = {

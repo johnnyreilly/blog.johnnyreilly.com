@@ -2,7 +2,7 @@
 slug: react-usesearchparamsstate
 title: 'React: storing state in URL with URLSearchParams'
 authors: johnnyreilly
-tags: [React, TypeScript]
+tags: [react, typescript]
 description: 'The React `useState` hook is a great way to persist state. This post demos a simple React hook that stores state in the URL querystring.'
 hide_table_of_contents: false
 ---

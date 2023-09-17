@@ -2,7 +2,7 @@
 slug: azure-devops-node-api-git-api-getrefs-wiki-api
 title: 'Azure DevOps Client for Node.js - GitApi / WikiApi limitations'
 authors: johnnyreilly
-tags: [Node.js, Azure DevOps]
+tags: [node.js, azure devops]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'The Azure DevOps Node.js client library has limitations and missing features. Workarounds are possible for using Azure DevOps REST API directly.'

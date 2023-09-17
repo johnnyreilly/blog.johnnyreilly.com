@@ -2,7 +2,7 @@
 slug: taskwhenall-select-is-footgun
 title: 'Task.WhenAll / Select is a footgun 👟🔫'
 authors: johnnyreilly
-tags: [C#]
+tags: [c#]
 hide_table_of_contents: false
 description: 'The writer warns against LINQ code that causes concurrent API requests and shares plans for better metrics and a development container.'
 ---

@@ -2,7 +2,7 @@
 slug: jquery-validate-native-unobtrusive-validation
 title: 'jQuery Validation - Native Unobtrusive Validation Support!'
 authors: johnnyreilly
-tags: [jQuery]
+tags: [jquery]
 hide_table_of_contents: false
 description: 'Use HTML5 data attributes with jQuery Validation to simplify code and achieve validation unobtrusively. Ideal for dynamically added DOM elements.'
 ---

@@ -2,7 +2,7 @@
 slug: react-18-and-typescript
 title: 'React 18 and TypeScript'
 authors: johnnyreilly
-tags: [React, TypeScript]
+tags: [react, typescript]
 image: ./createNode-error.png
 hide_table_of_contents: false
 description: 'Upgrade React to `@next` and add new type definitions to use React 18 alpha with TypeScript. Use `ReactDOM.createRoot` API.'

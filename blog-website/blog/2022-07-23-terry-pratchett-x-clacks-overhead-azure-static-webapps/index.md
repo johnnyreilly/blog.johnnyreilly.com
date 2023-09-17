@@ -2,7 +2,7 @@
 slug: terry-pratchett-x-clacks-overhead-azure-static-webapps
 title: 'Terry Pratchett and the Azure Static Web Apps'
 authors: johnnyreilly
-tags: [Azure Static Web Apps]
+tags: [azure static web apps]
 image: ./title-image.png
 description: 'Terry Pratchett has a HTTP header: X-Clacks-Overhead. This post shows how we can make Azure Static Web Apps join in.'
 hide_table_of_contents: false

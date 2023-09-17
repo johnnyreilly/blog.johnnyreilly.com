@@ -2,7 +2,7 @@
 slug: typescript-spare-rod-spoil-code
 title: 'TypeScript: Spare the Rod, Spoil the Code'
 authors: johnnyreilly
-tags: [TypeScript]
+tags: [typescript]
 hide_table_of_contents: false
 description: 'TypeScript settings catch bugs. Use compiler options to increase strictness gradually & catch errors such as unused variables with VS Code.'
 ---

@@ -2,7 +2,7 @@
 slug: caching-and-cache-busting-with-requirejs
 title: 'Caching and cache-busting with RequireJS'
 authors: johnnyreilly
-tags: [ASP.NET]
+tags: [asp.net]
 hide_table_of_contents: false
 description: 'Learn how to use "urlArgs" in RequireJS to manage caching and offer a reusable solution for both development and production environments.'
 ---

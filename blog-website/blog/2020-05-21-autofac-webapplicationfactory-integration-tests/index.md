@@ -2,7 +2,7 @@
 slug: autofac-webapplicationfactory-integration-tests
 title: 'Autofac, WebApplicationFactory and integration tests'
 authors: johnnyreilly
-tags: [ASP.NET, Automated Testing]
+tags: [asp.net, automated testing]
 image: ./autofac-webapplicationfactory-tests.webp
 hide_table_of_contents: false
 description: 'A bug in ASP.NET Core v3.0 thwarts swapping in Autofac as an IOC container in WebApplicationFactory tests. A workaround exists.'

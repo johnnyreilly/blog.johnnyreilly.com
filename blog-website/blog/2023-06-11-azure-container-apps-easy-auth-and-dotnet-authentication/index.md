@@ -2,7 +2,7 @@
 slug: azure-container-apps-easy-auth-and-dotnet-authentication
 title: 'Azure Container Apps, Easy Auth and .NET authentication'
 authors: johnnyreilly
-tags: [Azure Container Apps, Easy Auth, ASP.NET, Auth]
+tags: [azure container apps, easy auth, asp.net, auth]
 image: ./title-image.png
 description: 'Azure Container Apps support Easy Auth. However, .NET applications run in ACAs do not recognise Easy Auth authentication. This post explains the issue and solves it.'
 hide_table_of_contents: false

@@ -2,7 +2,7 @@
 slug: font-awesome-brand-icons-react
 title: 'Brand New Fonting Awesomeness'
 authors: johnnyreilly
-tags: [React]
+tags: [react]
 hide_table_of_contents: false
 description: 'Learn how to use brand icons with Font Awesome 5 in React with these helpful instructions on @fortawesome/free-brands-svg-icons.'
 ---

@@ -2,7 +2,7 @@
 slug: integration-testing-with-entity
 title: 'Integration Testing with Entity Framework and Snapshot Backups'
 authors: johnnyreilly
-tags: [SQL Server, Automated Testing]
+tags: [sql server, automated testing]
 hide_table_of_contents: false
 description: 'The article shows how to use SQL Servers snapshot backups for creating effective integration tests that dont affect production data.'
 ---

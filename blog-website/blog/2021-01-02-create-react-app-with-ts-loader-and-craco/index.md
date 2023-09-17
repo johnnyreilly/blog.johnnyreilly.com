@@ -2,7 +2,7 @@
 slug: create-react-app-with-ts-loader-and-craco
 title: 'Create React App with ts-loader and CRACO'
 authors: johnnyreilly
-tags: [fork-ts-checker-webpack-plugin, ts-loader, TypeScript]
+tags: [fork-ts-checker-webpack-plugin, ts-loader, typescript]
 hide_table_of_contents: false
 description: 'Create React App now supports TypeScript with React, using Babel webpack loader or `ts-loader`. You can use CRACO to customize configurations.'
 ---

@@ -2,7 +2,7 @@
 slug: bicep-meet-azure-pipelines
 title: 'Bicep meet Azure Pipelines'
 authors: johnnyreilly
-tags: [Bicep, Azure Pipelines, Azure]
+tags: [bicep, azure pipelines, azure]
 image: ./bicep-meet-azure-pipelines.webp
 hide_table_of_contents: false
 description: 'Bicep is a more readable alternative to ARM templates. Though no Bicep task is available yet, Azure CLI can still deploy Bicep.'

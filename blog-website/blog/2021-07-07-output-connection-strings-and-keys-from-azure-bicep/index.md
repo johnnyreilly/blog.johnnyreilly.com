@@ -2,7 +2,7 @@
 slug: output-connection-strings-and-keys-from-azure-bicep
 title: 'Output connection strings and keys from Azure Bicep'
 authors: johnnyreilly
-tags: [Bicep, Azure]
+tags: [bicep, azure]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'Learn how to acquire connection strings and access keys in Azure with Bicep using the `listKeys` helper, and optionally consume them in Azure Pipelines.'

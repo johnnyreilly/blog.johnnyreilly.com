@@ -2,7 +2,7 @@
 slug: typescript-webpack-super-pursuit-mode
 title: 'TypeScript + webpack: Super Pursuit Mode'
 authors: johnnyreilly
-tags: [fork-ts-checker-webpack-plugin, webpack, TypeScript]
+tags: [fork-ts-checker-webpack-plugin, webpack, typescript]
 hide_table_of_contents: false
 description: 'Learn how to improve build speeds with TypeScript and webpack using fork-ts-checker-webpack-plugin, HappyPack, and thread-loader/cache-loader.'
 ---

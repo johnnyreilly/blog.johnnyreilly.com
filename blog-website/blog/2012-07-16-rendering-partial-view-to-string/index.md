@@ -2,7 +2,7 @@
 slug: rendering-partial-view-to-string
 title: 'Rendering Partial View to a String'
 authors: johnnyreilly
-tags: [ASP.NET]
+tags: [asp.net]
 hide_table_of_contents: false
 description: 'John solves a problem with Partial Views in ASP.NET MVC, allowing simplified code and multiple view nesting.'
 ---

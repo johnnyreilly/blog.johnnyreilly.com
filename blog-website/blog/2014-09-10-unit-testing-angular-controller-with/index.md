@@ -2,7 +2,7 @@
 slug: unit-testing-angular-controller-with
 title: 'Unit Testing an Angular Controller with Jasmine'
 authors: johnnyreilly
-tags: [AngularJS, Automated Testing]
+tags: [angularjs, automated testing]
 hide_table_of_contents: false
 description: 'John shares how they wrote unit tests for an Angular controller in Proverb using Jasmine 2.0, with heavily annotated JavaScript tests.'
 ---

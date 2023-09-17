@@ -2,7 +2,7 @@
 slug: aspnet-core-allowlist-proxying-http-requests
 title: 'ASP.NET Core: Proxying HTTP Requests with an AllowList'
 authors: johnnyreilly
-tags: [ASP.NET]
+tags: [asp.net]
 image: ./hang-on-lads-ive-got-a-great-idea.webp
 hide_table_of_contents: false
 description: 'ASP.NET Core can proxy HTTP requests selectively, allowing only acceptable traffic via a middleware for specified paths.'

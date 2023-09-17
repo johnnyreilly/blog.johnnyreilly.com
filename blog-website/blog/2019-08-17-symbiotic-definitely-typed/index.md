@@ -2,7 +2,7 @@
 slug: symbiotic-definitely-typed
 title: 'Symbiotic Definitely Typed'
 authors: johnnyreilly
-tags: [Definitely Typed, TypeScript]
+tags: [definitely typed, typescript]
 hide_table_of_contents: false
 description: 'New approach by `react-testing-library` improves TypeScript experience. Type definitions are maintained separately for `@testing-library/react`.'
 ---

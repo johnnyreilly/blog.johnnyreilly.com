@@ -2,7 +2,7 @@
 slug: throttle-data-requests-with-react-hooks
 title: 'Throttling data requests with React Hooks'
 authors: johnnyreilly
-tags: [React]
+tags: [react]
 hide_table_of_contents: false
 description: 'A custom React Hook `useThrottleRequests` is used to solve the problem of loading large amounts of data gradually and displaying loading progress.'
 ---

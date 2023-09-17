@@ -2,7 +2,7 @@
 slug: the-mysterious-case-of-webpack-angular-and-jquery
 title: 'The Mysterious Case of webpack, AngularJS and jQuery'
 authors: johnnyreilly
-tags: [AngularJS, webpack, jQuery]
+tags: [angularjs, webpack, jquery]
 hide_table_of_contents: false
 description: 'Angular can use jQuery instead of jQLite, but this becomes complicated when using webpack. We need to use the ProvidePlugin function in webpack.config.js.'
 ---

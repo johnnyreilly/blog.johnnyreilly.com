@@ -2,7 +2,7 @@
 slug: azure-static-web-app-deploy-previews-with-azure-devops
 title: 'Azure Static Web App Deploy Previews with Azure DevOps'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, Azure DevOps]
+tags: [azure static web apps, azure devops]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'This post describes a pull request deployment preview mechanism for Azure Static Web Apps inspired by the Netlify offering.'

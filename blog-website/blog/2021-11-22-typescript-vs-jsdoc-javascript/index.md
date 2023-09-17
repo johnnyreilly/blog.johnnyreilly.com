@@ -2,7 +2,7 @@
 slug: typescript-vs-jsdoc-javascript
 title: 'TypeScript vs JSDoc JavaScript'
 authors: johnnyreilly
-tags: [JavaScript, TypeScript]
+tags: [javascript, typescript]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'JSDoc annotations in JavaScript codebase add a new dynamic to the debate between JavaScript and TypeScript. It allows for type checking of JavaScript code.'

@@ -2,7 +2,7 @@
 slug: inlining-angular-templates-with-webpack
 title: 'Inlining Angular Templates with WebPack and TypeScript'
 authors: johnnyreilly
-tags: [AngularJS, webpack]
+tags: [angularjs, webpack]
 hide_table_of_contents: false
 description: '`raw-loader` package in webpack configuration for Angular 1.x projects preloads templates and enables compile-time error checking.'
 ---

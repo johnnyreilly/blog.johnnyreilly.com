@@ -2,7 +2,7 @@
 slug: karma-from-phantomjs-to-headless-chrome
 title: 'Karma: From PhantomJS to Headless Chrome'
 authors: johnnyreilly
-tags: [Automated Testing]
+tags: [automated testing]
 hide_table_of_contents: false
 description: 'Replace PhantomJS with new Chrome Headless to run Chrome without a UI. Migrate a test and add Chrome to your build environment.'
 ---

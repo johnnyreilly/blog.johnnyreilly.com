@@ -2,7 +2,7 @@
 slug: from-create-react-app-to-pwa
 title: 'From create-react-app to PWA'
 authors: johnnyreilly
-tags: [React]
+tags: [react]
 hide_table_of_contents: false
 description: 'Learn how to build a basic Progressive Web App with React and TypeScript, as well as how to add features like code splitting and deployment.'
 ---

@@ -2,7 +2,7 @@
 slug: hello-world-bicep
 title: 'Hello World Bicep'
 authors: johnnyreilly
-tags: [Bicep, Azure]
+tags: [bicep, azure]
 image: ./hello-world-bicep.webp
 hide_table_of_contents: false
 description: 'Bicep simplifies Azure Resource Management through concise syntax. The "Hello World" example highlights how Bicep outperforms ARM templates.'

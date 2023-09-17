@@ -2,7 +2,7 @@
 slug: snapshot-testing-for-c
 title: 'Snapshot Testing for C#'
 authors: johnnyreilly
-tags: [C#, Automated Testing]
+tags: [c#, automated testing]
 hide_table_of_contents: false
 description: 'Snapshot testing is an efficient test technique for comparing outputs with JSON. Its applicable to C# too, using Fluent Assertions and a helper tool.'
 ---

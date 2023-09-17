@@ -2,7 +2,7 @@
 slug: upgrading-to-globalize-1x-for-dummies
 title: 'Upgrading to Globalize 1.x for Dummies'
 authors: johnnyreilly
-tags: [Globalize]
+tags: [globalize]
 hide_table_of_contents: false
 description: 'Migrating to Globalize 1.0, which modularized the code, requires a significant amount of work, as shown by John Reilly’s examples.'
 ---

@@ -2,7 +2,7 @@
 slug: application-insights-bicep-azure-static-web-apps
 title: 'Using Application Insights with Bicep to monitor Azure Static Web Apps and Azure Functions'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, Azure Functions, Bicep, Azure]
+tags: [azure static web apps, azure functions, bicep, azure]
 image: ./title-image.png
 description: Application Insights are a great way to monitor Azure Static Web Apps and Azure Functions. But how do you deploy that using Bicep? Let's find out!
 hide_table_of_contents: false

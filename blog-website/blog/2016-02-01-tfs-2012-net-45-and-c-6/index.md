@@ -2,7 +2,7 @@
 slug: tfs-2012-net-45-and-c-6
 title: 'TFS 2012, .NET 4.5 and C# 6'
 authors: johnnyreilly
-tags: [C#, ASP.NET, Azure DevOps]
+tags: [c#, asp.net, azure devops]
 hide_table_of_contents: false
 description: 'Use C# 6 features on .NET 4.5 with Visual Studio 2015, set MSBuild Arguments and install Microsoft.Net.Compilers on the old build server.'
 ---

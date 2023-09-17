@@ -2,7 +2,7 @@
 slug: usestaticfiles-for-aspnet-vold
 title: 'UseStaticFiles for ASP.Net Framework'
 authors: johnnyreilly
-tags: [ASP.NET]
+tags: [asp.net]
 hide_table_of_contents: false
 description: 'Learn how to prevent exposing static files to the public when working with ASP.Net Framework. Discover how to implement an allowlist approach.'
 ---

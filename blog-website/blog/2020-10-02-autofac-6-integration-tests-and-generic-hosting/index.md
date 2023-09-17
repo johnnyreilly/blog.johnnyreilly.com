@@ -2,7 +2,7 @@
 slug: autofac-6-integration-tests-and-generic-hosting
 title: 'Autofac 6, integration tests and .NET generic hosting'
 authors: johnnyreilly
-tags: [ASP.NET, Automated Testing]
+tags: [asp.net, automated testing]
 image: ./autofac-integration-tests.webp
 hide_table_of_contents: false
 description: 'Integration tests using Autofac have been affected by a long-standing issue in .NET Core 3.0. Alternative approaches may not last long.'

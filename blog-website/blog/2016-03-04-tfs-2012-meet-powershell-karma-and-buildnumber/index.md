@@ -2,7 +2,7 @@
 slug: tfs-2012-meet-powershell-karma-and-buildnumber
 title: 'TFS 2012 meet PowerShell, Karma and BuildNumber'
 authors: johnnyreilly
-tags: [Azure DevOps]
+tags: [azure devops]
 hide_table_of_contents: false
 description: 'This guide explains how to run PowerShell scripts for TFS 2012 build processes and how to publish Karma test results in the platform.'
 ---

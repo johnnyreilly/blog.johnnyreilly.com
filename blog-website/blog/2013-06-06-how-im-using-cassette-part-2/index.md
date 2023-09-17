@@ -2,7 +2,7 @@
 slug: how-im-using-cassette-part-2
 title: "How I'm Using Cassette part 2:Get Cassette to Serve Scripts in Dependency Order"
 authors: johnnyreilly
-tags: [ASP.NET]
+tags: [asp.net]
 hide_table_of_contents: false
 description: 'Cassettes script dependency order feature is the most useful, managing script order manually is tedious. Use server-side or JavaScript asset references.'
 ---

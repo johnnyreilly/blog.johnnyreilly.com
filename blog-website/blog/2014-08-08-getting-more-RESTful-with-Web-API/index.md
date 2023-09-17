@@ -2,7 +2,7 @@
 slug: getting-more-RESTful-with-Web-API
 title: 'Getting more RESTful with Web API and IHttpActionResult'
 authors: johnnyreilly
-tags: [ASP.NET]
+tags: [asp.net]
 hide_table_of_contents: false
 description: 'Learn how to use HTTP status codes in Web API methods to return successful or failed requests without wrapping the outcomes.'
 ---

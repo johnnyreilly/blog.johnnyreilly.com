@@ -2,7 +2,7 @@
 slug: typescript-webpack-you-down-with-pnp
 title: 'TypeScript / webpack - you down with PnP? Yarn, you know me!'
 authors: johnnyreilly
-tags: [webpack, TypeScript, Node.js]
+tags: [webpack, typescript, node.js]
 hide_table_of_contents: false
 description: 'Yarn PnP speeds up module installation and eliminates node_modules. Converting to it is easy but some rough edges exist.'
 ---

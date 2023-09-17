@@ -2,7 +2,7 @@
 slug: using-expressions-with-constructors
 title: 'Using Expressions with Constructors'
 authors: johnnyreilly
-tags: [ASP.NET]
+tags: [asp.net]
 hide_table_of_contents: false
 description: 'This article explains how John used LINQs expression to extend a validation class and automatically change the property name.'
 ---

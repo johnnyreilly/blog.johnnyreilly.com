@@ -2,7 +2,7 @@
 slug: integration-tests-with-sql-server
 title: 'Integration Tests with SQL Server Database Snapshots'
 authors: johnnyreilly
-tags: [SQL Server, Automated Testing]
+tags: [sql server, automated testing]
 hide_table_of_contents: false
 description: 'Discover the benefits of using database snapshots for integration tests to reduce complexity & errors in this informative article.'
 ---
