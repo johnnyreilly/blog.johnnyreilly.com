@@ -218,18 +218,30 @@ const siteStructuredData = {
 };
 
 /**
+ * @typedef {object} Title a label and an href and an optional icon
+ * @property {string} label - a babel for the link
+ * @property {string=} href - the href
+ * @property {string=} icon - the icon image
+ */
+/**
  * @typedef {object} Link a label and an href
  * @property {string} label - a babel for the link
  * @property {string} href - the href
  */
 
 /**
- * @param {{ title: Link; links: Link[]}} titleAndLinks
+ * @param {{ title: Title; links: Link[]}} titleAndLinks
  */
 function makeFooterColumnWithMultipleTitles({ title, links }) {
-  return `<div class="footer__title"><a href="${
+  return `<div class="footer__title">${
     title.href
-  }" class="footer__title-item">${title.label}</div>
+      ? `<a href="${title.href}" class="footer__link-item">${title.label}</a>`
+      : title.label
+  }${
+    title.icon
+      ? `<img src="${title.icon}" alt="${title.label} icon" class="footer__icon" />`
+      : ''
+  }</div>
 <ul class="footer__items clean-list">
   ${links
     .map(
@@ -568,7 +580,11 @@ const config = {
               {
                 html: [
                   makeFooterColumnWithMultipleTitles({
-                    title: { label: 'TypeScript', href: '/tags/typescript' },
+                    title: {
+                      label: 'TypeScript',
+                      href: '/tags/typescript',
+                      icon: '/img/ts-logo-128.svg',
+                    },
                     links: [
                       {
                         href: '/typescript-vs-jsdoc-javascript',
@@ -582,12 +598,47 @@ const config = {
                     ],
                   }),
                   makeFooterColumnWithMultipleTitles({
-                    title: { label: 'Azure', href: '/tags/azure' },
+                    title: {
+                      label: 'Azure',
+                      href: '/tags/azure',
+                      icon: '/img/azure-logo.svg',
+                    },
                     links: [
+                      {
+                        href: '/azure-container-apps-easy-auth-and-dotnet-authentication',
+                        label: 'Azure Container Apps: Easy Auth and .NET',
+                      },
                       {
                         href: '/azure-static-web-apps-dynamic-redirects-azure-functions',
                         label:
                           'Azure Static Web Apps: dynamic redirects with Azure Functions',
+                      },
+                    ],
+                  }),
+                  makeFooterColumnWithMultipleTitles({
+                    title: { label: 'ASP.NET', href: '/tags/asp-net' },
+                    links: [
+                      {
+                        href: '/eslint-your-csharp-in-vs-code-with-roslyn-analyzers',
+                        label: 'ESLint your C# with Roslyn Analyzers',
+                      },
+                      {
+                        href: '/aspnet-serilog-and-application-insights',
+                        label: 'ASP.NET, Serilog and Application Insights',
+                      },
+                    ],
+                  }),
+                  makeFooterColumnWithMultipleTitles({
+                    title: { label: 'React', href: '/tags/react' },
+                    links: [
+                      {
+                        href: '/structured-data-seo-and-react',
+                        label: 'Structured data and React',
+                      },
+                      {
+                        href: '/react-usesearchparamsstate',
+                        label:
+                          'React: storing state in URL with URLSearchParams',
                       },
                     ],
                   }),
@@ -596,14 +647,40 @@ const config = {
             ],
           },
           {
-            title: 'Misc',
+            items: [
+              {
+                html: [
+                  makeFooterColumnWithMultipleTitles({
+                    title: { label: 'Notable articles' },
+                    links: [
+                      {
+                        href: '/definitely-typed-the-movie',
+                        label: 'The history of Definitely Typed',
+                      },
+                      {
+                        href: '/definitive-guide-to-migrating-from-blogger-to-docusaurus',
+                        label:
+                          'The definitive guide to migrating from Blogger to Docusaurus',
+                      },
+                      {
+                        href: '/teams-notification-webhooks',
+                        label: 'Teams notification webhooks',
+                      },
+                    ],
+                  }),
+                ].join(''),
+              },
+            ],
+          },
+          {
+            title: 'Learn more / support me',
             items: [
               {
                 label: 'Blog source code on GitHub',
                 href: 'https://github.com/johnnyreilly/blog.johnnyreilly.com',
               },
               {
-                label: 'Blog tags / categories',
+                label: 'Blog categories',
                 href: '/tags',
               },
               {
@@ -618,16 +695,11 @@ const config = {
                 label: 'Privacy Policy',
                 href: '/privacy-policy',
               },
-            ],
-          },
-          {
-            title: 'Support me',
-            items: [
               {
-                html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" rel="noopener" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" loading="lazy" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
+                html: `<iframe src="https://github.com/sponsors/johnnyreilly/card" title="Sponsor johnnyreilly" style="margin-top: 10px; border: 0; border-radius: 10px; background-color: white; min-height: 400px;"></iframe>`,
               },
               {
-                html: `<iframe src="https://github.com/sponsors/johnnyreilly/card" title="Sponsor johnnyreilly" style="border: 0; border-radius: 10px; background-color: white; min-height: 400px;"></iframe>`,
+                html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" rel="noopener" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" loading="lazy" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
               },
             ],
           },
