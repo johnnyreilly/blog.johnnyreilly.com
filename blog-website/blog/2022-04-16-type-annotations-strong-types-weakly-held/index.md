@@ -1,5 +1,5 @@
 ---
-slug: type-annotations-strong-types-weakly-held
+slug: type-annotations-proposal-strong-types-weakly-held
 title: 'Type annotations: strong types, weakly held'
 authors: johnnyreilly
 tags: [TypeScript, JavaScript]

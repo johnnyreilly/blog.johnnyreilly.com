@@ -217,6 +217,29 @@ const siteStructuredData = {
   ],
 };
 
+/**
+ * @typedef {object} Link a label and an href
+ * @property {string} label - a babel for the link
+ * @property {string} href - the href
+ */
+
+/**
+ * @param {{ title: Link; links: Link[]}} titleAndLinks
+ */
+function makeFooterColumnWithMultipleTitles({ title, links }) {
+  return `<div class="footer__title"><a href="${
+    title.href
+  }" class="footer__title-item">${title.label}</div>
+<ul class="footer__items clean-list">
+  ${links
+    .map(
+      (link) =>
+        `<li class="footer__item"><a href="${link.href}" class="footer__link-item">${link.label}</a></li>`,
+    )
+    .join('')}
+</ul>`;
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title,
@@ -541,13 +564,34 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Support me',
             items: [
               {
-                html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" rel="noopener" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" loading="lazy" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
-              },
-              {
-                html: `<iframe src="https://github.com/sponsors/johnnyreilly/card" title="Sponsor johnnyreilly" style="border: 0; border-radius: 10px; background-color: white; min-height: 400px;"></iframe>`,
+                html: [
+                  makeFooterColumnWithMultipleTitles({
+                    title: { label: 'TypeScript', href: '/tags/typescript' },
+                    links: [
+                      {
+                        href: '/typescript-vs-jsdoc-javascript',
+                        label: 'TypeScript vs JSDoc JavaScript',
+                      },
+                      {
+                        href: '/type-annotations-strong-types-weakly-held',
+                        label:
+                          'Type annotations proposal: strong types, weakly held',
+                      },
+                    ],
+                  }),
+                  makeFooterColumnWithMultipleTitles({
+                    title: { label: 'Azure', href: '/tags/azure' },
+                    links: [
+                      {
+                        href: '/azure-static-web-apps-dynamic-redirects-azure-functions',
+                        label:
+                          'Azure Static Web Apps: dynamic redirects with Azure Functions',
+                      },
+                    ],
+                  }),
+                ].join(''),
               },
             ],
           },
@@ -573,6 +617,17 @@ const config = {
               {
                 label: 'Privacy Policy',
                 href: '/privacy-policy',
+              },
+            ],
+          },
+          {
+            title: 'Support me',
+            items: [
+              {
+                html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" rel="noopener" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" loading="lazy" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
+              },
+              {
+                html: `<iframe src="https://github.com/sponsors/johnnyreilly/card" title="Sponsor johnnyreilly" style="border: 0; border-radius: 10px; background-color: white; min-height: 400px;"></iframe>`,
               },
             ],
           },
