@@ -5331,10 +5331,10 @@ follow-redirects@^1.0.0, follow-redirects@^1.14.7:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.2.tgz#b460864144ba63f2681096f274c4e57026da2c13"
   integrity sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==
 
-fontaine@0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/fontaine/-/fontaine-0.4.0.tgz#ecc37ada11ab670d0d79bbc3ed930ec5970e34ca"
-  integrity sha512-X3sW8Y+rvmgpkwWVlcgbpZRYL/P4T6QAtShnss0iodPjuBVdPwaemB/aopKY0cCC1yGixtgFgPKSVUiHzEIeIQ==
+fontaine@0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/fontaine/-/fontaine-0.4.1.tgz#73b918c99a7a27c6a415147c9439095a9dabb3fd"
+  integrity sha512-Ps7KS0xFkbeZWa+ynuNQncHYz6j7gs6+SXcWWeA7+HCeidXTnIQNryCuUxQdjxBwmRBY0Or998brldt4WFwfcQ==
   dependencies:
     "@capsizecss/metrics" "^1.1.1"
     "@capsizecss/unpack" "^1.0.0"
