@@ -36,11 +36,7 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
       filePath =
         getBlogPathFromUrl(rootUrl, loc) ?? getPagesPathFromUrl(rootUrl, loc);
       if (!filePath) {
-        // if (!loc.includes('/tags/') && !loc.endsWith('/tags')) {
-        //   urls.push({ loc, lastmod: fallbackLastMod }); // mark non blog posts with a lastmod reflecting the time of this script running
-        // } else {
         urls.push({ loc, lastmod: fallbackLastMod });
-        // }
         continue;
       }
 
