@@ -1,13 +1,11 @@
 //@ts-check
-const { simpleGit } = require('simple-git');
-const path = require('path');
-const fs = require('fs');
-const { orderBy } = require('lodash');
-
-const isProd = process.env.NODE_ENV === 'production';
+import { type SimpleGitOptions, simpleGit } from 'simple-git';
+import path from 'path';
+import fs from 'fs';
+import { orderBy } from 'lodash';
 
 async function getBlogIndexMds() {
-  const rootBlogPath = path.resolve('blog');
+  const rootBlogPath = path.resolve('..', 'blog-website', 'blog');
   const blogIndexMds = (await fs.promises.readdir(rootBlogPath))
     .filter((file) => fs.statSync(path.join(rootBlogPath, file)).isDirectory())
     .map((file) => path.join(rootBlogPath, file, 'index.md'));
@@ -18,8 +16,7 @@ async function getBlogIndexMds() {
 async function getPopularPosts() {
   const baseDir = path.resolve(process.cwd(), '..');
 
-  /** @type {Partial<import('simple-git').SimpleGitOptions>} */
-  const options = {
+  const options: Partial<SimpleGitOptions> = {
     baseDir,
     binary: 'git',
     maxConcurrentProcesses: 6,
@@ -28,8 +25,10 @@ async function getPopularPosts() {
 
   const git = simpleGit(options);
 
-  /** @type {{ blogIndexMd: string; lastUpdated: string | undefined; }[]} */
-  const blogIndexMdsAndLastCommitDates = [];
+  const blogIndexMdsAndLastCommitDates: {
+    blogIndexMd: string;
+    lastUpdated: string | undefined;
+  }[] = [];
 
   const blogIndexMds = await getBlogIndexMds();
   for (const blogIndexMd of blogIndexMds) {
@@ -50,13 +49,12 @@ async function getPopularPosts() {
     ['desc'],
   ).slice(0, 3);
 
-  console.log(
-    'blogIndexMdsOrderedByLastCommitDates',
-    blogIndexMdsOrderedByLastCommitDates,
-  );
+  // console.log(
+  //   'blogIndexMdsOrderedByLastCommitDates',
+  //   blogIndexMdsOrderedByLastCommitDates,
+  // );
 
-  /** @type {{ link: string; title: string; }[]} */
-  const recentlyUpdatedPosts = [];
+  const recentlyUpdatedPosts: { link: string; title: string }[] = [];
   const slugRegex = /slug: (.*)\n/;
   const titleRegex = /title: ["'](.*)["']\n/;
 
@@ -68,8 +66,8 @@ async function getPopularPosts() {
     const slugMatch = blogPostContent.match(slugRegex);
     const titleMatch = blogPostContent.match(titleRegex);
 
-    console.log(slugMatch);
-    console.log(titleMatch);
+    // console.log(slugMatch);
+    // console.log(titleMatch);
     if (!slugMatch || !titleMatch) {
       throw new Error(`no match ${blogIndexMd.blogIndexMd}`);
     }
@@ -83,6 +81,11 @@ async function getPopularPosts() {
   }
 
   console.log(recentlyUpdatedPosts);
+  const rootBlogWebsitePath = path.resolve('..', 'blog-website');
+  await fs.promises.writeFile(
+    path.join(rootBlogWebsitePath, 'recently-updated-posts.json'),
+    JSON.stringify(recentlyUpdatedPosts, null, 2),
+  );
 }
 
-getPopularPosts().catch((err) => console.error(err));
+await getPopularPosts();

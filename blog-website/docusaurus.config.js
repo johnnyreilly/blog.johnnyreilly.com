@@ -9,6 +9,7 @@ const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const imageFetchPriorityRehypePlugin = require('./image-fetchpriority-rehype-plugin');
 const createFeedItems = require('./createFeedItems');
+const recentlyUpdatedPostsJson = require('./recently-updated-posts.json');
 
 const url = 'https://johnnyreilly.com';
 const title = 'johnnyreilly';
@@ -616,7 +617,11 @@ const config = {
                     ],
                   }),
                   makeFooterColumnWithMultipleTitles({
-                    title: { label: 'ASP.NET', href: '/tags/asp-net' },
+                    title: {
+                      label: 'ASP.NET',
+                      href: '/tags/asp-net',
+                      icon: '/img/dotnet-logo.svg',
+                    },
                     links: [
                       {
                         href: '/eslint-your-csharp-in-vs-code-with-roslyn-analyzers',
@@ -629,7 +634,11 @@ const config = {
                     ],
                   }),
                   makeFooterColumnWithMultipleTitles({
-                    title: { label: 'React', href: '/tags/react' },
+                    title: {
+                      label: 'React',
+                      href: '/tags/react',
+                      icon: '/img/react-logo.svg',
+                    },
                     links: [
                       {
                         href: '/structured-data-seo-and-react',
@@ -667,6 +676,31 @@ const config = {
                         label: 'Teams notification webhooks',
                       },
                     ],
+                  }),
+                  makeFooterColumnWithMultipleTitles({
+                    title: { label: 'Popular articles' },
+                    links: [
+                      {
+                        href: '/definitely-typed-the-movie',
+                        label: 'The history of Definitely Typed',
+                      },
+                      {
+                        href: '/definitive-guide-to-migrating-from-blogger-to-docusaurus',
+                        label:
+                          'The definitive guide to migrating from Blogger to Docusaurus',
+                      },
+                      {
+                        href: '/teams-notification-webhooks',
+                        label: 'Teams notification webhooks',
+                      },
+                    ],
+                  }),
+                  makeFooterColumnWithMultipleTitles({
+                    title: { label: 'Recently updated' },
+                    links: recentlyUpdatedPostsJson.map((post) => ({
+                      href: post.link,
+                      label: post.title,
+                    })),
                   }),
                 ].join(''),
               },
