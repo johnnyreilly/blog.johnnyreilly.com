@@ -99,18 +99,6 @@ const siteStructuredData = {
     },
 
     {
-      '@type': 'ImageObject',
-      inLanguage: 'en-US',
-      '@id': 'https://yoast.com/wordpress-seo/#primaryimage',
-      url: 'https://yoast.com/app/uploads/2020/06/wordpress_seo_definitive_guide_2400x1350.png',
-      contentUrl:
-        'https://yoast.com/app/uploads/2020/06/wordpress_seo_definitive_guide_2400x1350.png',
-      width: 2400,
-      height: 1350,
-      caption: 'WordPress SEO: The definitive guide',
-    },
-
-    {
       '@type': 'BreadcrumbList',
       '@id': 'https://yoast.com/wordpress-seo/#breadcrumb',
       itemListElement: [
@@ -219,35 +207,42 @@ const siteStructuredData = {
 };
 
 /**
- * @typedef {object} Title a label and an href and an optional icon
- * @property {string} label - a babel for the link
- * @property {string=} href - the href
- * @property {string=} icon - the icon image
- */
-/**
- * @typedef {object} Link a label and an href
+ * @typedef {object} FooterLinkAndOrTitle a label and an href
  * @property {string} label - a babel for the link
  * @property {string} href - the href
+ * @property {string=} icon - the icon image
  */
 
 /**
- * @param {{ title: Title; links: Link[]}} titleAndLinks
+ * @param {FooterLinkAndOrTitle} link
+ * @returns
+ */
+function makeIconImage(link) {
+  return link.icon
+    ? `<img src="${link.icon}" alt="${link.label} icon" class="footer__icon" />`
+    : '';
+}
+
+/**
+ * @param {{ title: FooterLinkAndOrTitle; links: FooterLinkAndOrTitle[]}} titleAndLinks
  */
 function makeFooterColumnWithMultipleTitles({ title, links }) {
+  const icon = makeIconImage(title);
+
   return `<div class="footer__title">${
     title.href
-      ? `<a href="${title.href}" class="footer__link-item">${title.label}</a>`
-      : title.label
-  }${
-    title.icon
-      ? `<img src="${title.icon}" alt="${title.label} icon" class="footer__icon" />`
-      : ''
+      ? `<a href="${title.href}" class="footer__link-item">${title.label}${icon}</a>`
+      : title.label + icon
   }</div>
 <ul class="footer__items clean-list">
   ${links
     .map(
       (link) =>
-        `<li class="footer__item"><a href="${link.href}" class="footer__link-item">${link.label}</a></li>`,
+        `<li class="footer__item"><a href="${
+          link.href
+        }" class="footer__link-item">${link.label}${makeIconImage(
+          link,
+        )}</a></li>`,
     )
     .join('')}
 </ul>`;
@@ -660,16 +655,18 @@ const config = {
               {
                 html: [
                   makeFooterColumnWithMultipleTitles({
-                    title: { label: 'Notable articles' },
+                    title: { label: 'Notable articles', href: '' },
                     links: [
                       {
                         href: '/definitely-typed-the-movie',
                         label: 'The history of Definitely Typed',
+                        icon: '/img/definitely-typed-logo.png',
                       },
                       {
                         href: '/definitive-guide-to-migrating-from-blogger-to-docusaurus',
                         label:
                           'The definitive guide to migrating from Blogger to Docusaurus',
+                        icon: '/img/docusaurus-logo.svg',
                       },
                       {
                         href: '/teams-notification-webhooks',
@@ -677,8 +674,9 @@ const config = {
                       },
                     ],
                   }),
+
                   makeFooterColumnWithMultipleTitles({
-                    title: { label: 'Popular articles' },
+                    title: { label: 'Popular articles', href: '' },
                     links: [
                       {
                         href: '/aspnet-serilog-and-application-insights',
@@ -697,26 +695,7 @@ const config = {
                   }),
 
                   makeFooterColumnWithMultipleTitles({
-                    title: { label: 'Notable articles' },
-                    links: [
-                      {
-                        href: '/definitely-typed-the-movie',
-                        label: 'The history of Definitely Typed',
-                      },
-                      {
-                        href: '/definitive-guide-to-migrating-from-blogger-to-docusaurus',
-                        label:
-                          'The definitive guide to migrating from Blogger to Docusaurus',
-                      },
-                      {
-                        href: '/teams-notification-webhooks',
-                        label: 'Teams notification webhooks',
-                      },
-                    ],
-                  }),
-
-                  makeFooterColumnWithMultipleTitles({
-                    title: { label: 'Recently updated' },
+                    title: { label: 'Recently updated', href: '' },
                     links: recentlyUpdatedPostsJson.map((post) => ({
                       href: post.link,
                       label: post.title,
