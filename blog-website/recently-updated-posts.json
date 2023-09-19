@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "link": "type-annotations-proposal-strong-types-weakly-held",
+    "title": "Type annotations: strong types, weakly held"
+  },
+  {
+    "link": "eslint-your-csharp-in-vs-code-with-roslyn-analyzers",
+    "title": "ESLint your C# in VS Code with Roslyn Analyzers"
+  },
+  {
+    "link": "azure-container-apps-easy-auth-and-dotnet-authentication",
+    "title": "Azure Container Apps, Easy Auth and .NET authentication"
+  }
+]

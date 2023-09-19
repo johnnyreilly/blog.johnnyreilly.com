@@ -681,6 +681,25 @@ const config = {
                     title: { label: 'Popular articles' },
                     links: [
                       {
+                        href: '/aspnet-serilog-and-application-insights',
+                        label: 'ASP.NET, Serilog and Application Insights',
+                      },
+                      {
+                        href: '/eslint-your-csharp-in-vs-code-with-roslyn-analyzers',
+                        label: 'ESLint your C# with Roslyn Analyzers',
+                      },
+                      {
+                        href: '/prettier-your-csharp-with-dotnet-format-and-lint-staged',
+                        label:
+                          'dotnet-format: Prettier your C# with lint-staged & husky',
+                      },
+                    ],
+                  }),
+
+                  makeFooterColumnWithMultipleTitles({
+                    title: { label: 'Notable articles' },
+                    links: [
+                      {
                         href: '/definitely-typed-the-movie',
                         label: 'The history of Definitely Typed',
                       },
@@ -695,6 +714,7 @@ const config = {
                       },
                     ],
                   }),
+
                   makeFooterColumnWithMultipleTitles({
                     title: { label: 'Recently updated' },
                     links: recentlyUpdatedPostsJson.map((post) => ({
@@ -730,7 +750,7 @@ const config = {
                 href: '/privacy-policy',
               },
               {
-                html: `<iframe src="https://github.com/sponsors/johnnyreilly/card" title="Sponsor johnnyreilly" style="margin-top: 10px; border: 0; border-radius: 10px; background-color: white; min-height: 400px;"></iframe>`,
+                html: `<iframe src="https://github.com/sponsors/johnnyreilly/card" title="Sponsor johnnyreilly" style="margin-top: 20px; border: 0; border-radius: 10px; background-color: white; min-height: 400px;"></iframe>`,
               },
               {
                 html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" rel="noopener" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" loading="lazy" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
