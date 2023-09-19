@@ -2,7 +2,7 @@
 slug: how-im-using-cassette
 title: "How I'm Using Cassette part 1:Getting Up and Running"
 authors: johnnyreilly
-tags: [ASP.NET]
+tags: [asp.net]
 hide_table_of_contents: false
 description: 'Learn how to serve JavaScript assets efficiently in ASP.Net MVC with Cassette to avoid duplicate scripts and ensure speedy loading.'
 ---

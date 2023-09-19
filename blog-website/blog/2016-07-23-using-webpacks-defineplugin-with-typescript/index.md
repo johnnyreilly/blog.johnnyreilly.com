@@ -3,7 +3,7 @@ slug: using-webpacks-defineplugin-with-typescript
 title: "Understanding webpack's DefinePlugin (and using with TypeScript)"
 description: "webpack's DefinePlugin allows you to create global constants which can be configured at compile time; here's how to use it with TypeScript"
 authors: johnnyreilly
-tags: [webpack, TypeScript]
+tags: [webpack, typescript]
 hide_table_of_contents: false
 ---
 

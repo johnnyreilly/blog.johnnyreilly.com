@@ -3,7 +3,7 @@ slug: azure-pipelines-meet-vitest
 title: 'Azure Pipelines meet Vitest'
 authors: johnnyreilly
 image: ./title-image.png
-tags: [Azure Pipelines, Automated Testing]
+tags: [azure pipelines, automated testing]
 description: This post details how to integrate the test runner Vitest with Azure Pipelines.
 hide_table_of_contents: false
 ---

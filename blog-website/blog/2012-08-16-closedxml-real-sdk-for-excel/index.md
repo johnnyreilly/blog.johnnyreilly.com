@@ -2,7 +2,7 @@
 slug: closedxml-real-sdk-for-excel
 title: 'ClosedXML - the real SDK for Excel'
 authors: johnnyreilly
-tags: [C#]
+tags: [c#]
 hide_table_of_contents: false
 description: 'Closed XML simplifies Excel document creation for developers with its straightforward API, sitting on top of Open XML. A frustration-solver for many!'
 ---

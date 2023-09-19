@@ -2,7 +2,7 @@
 slug: deploying-aspnet-mvc-to-github-pages-with-appveyor-part-2
 title: 'Deploying from ASP.Net MVC to GitHub Pages using AppVeyor part 2'
 authors: johnnyreilly
-tags: [ASP.NET]
+tags: [asp.net]
 hide_table_of_contents: false
 description: 'To save time, automating open source projects is key. Using AppVeyor and creating static sites with tools like Wget can help update documentation.'
 ---

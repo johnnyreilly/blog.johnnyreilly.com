@@ -2,7 +2,7 @@
 slug: using-pubsub-observer-pattern-to
 title: 'Using the PubSub / Observer pattern to emulate constructor chaining without cluttering up global scope'
 authors: johnnyreilly
-tags: [JavaScript]
+tags: [javascript]
 hide_table_of_contents: false
 description: 'Pass objects between JavaScript files using PubSub interface to achieve code reusability without global scope pollution. No prototypes needed.'
 ---

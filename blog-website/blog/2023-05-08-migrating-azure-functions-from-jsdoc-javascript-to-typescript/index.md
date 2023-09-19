@@ -2,7 +2,7 @@
 slug: migrating-azure-functions-from-jsdoc-javascript-to-typescript
 title: 'Migrating Azure Functions from JSDoc JavaScript to TypeScript'
 authors: johnnyreilly
-tags: [Azure Functions, TypeScript, JavaScript]
+tags: [azure functions, typescript, javascript]
 image: ./title-image.png
 description: 'Azure Functions can be written in JavaScript or TypeScript. This post will demonstrate how to migrate an Azure Function from JSDoc JavaScript to TypeScript.'
 hide_table_of_contents: false

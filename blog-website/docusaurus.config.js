@@ -9,6 +9,7 @@ const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const imageFetchPriorityRehypePlugin = require('./image-fetchpriority-rehype-plugin');
 const createFeedItems = require('./createFeedItems');
+const recentlyUpdatedPostsJson = require('./recently-updated-posts.json');
 
 const url = 'https://johnnyreilly.com';
 const title = 'johnnyreilly';
@@ -216,6 +217,41 @@ const siteStructuredData = {
     },
   ],
 };
+
+/**
+ * @typedef {object} Title a label and an href and an optional icon
+ * @property {string} label - a babel for the link
+ * @property {string=} href - the href
+ * @property {string=} icon - the icon image
+ */
+/**
+ * @typedef {object} Link a label and an href
+ * @property {string} label - a babel for the link
+ * @property {string} href - the href
+ */
+
+/**
+ * @param {{ title: Title; links: Link[]}} titleAndLinks
+ */
+function makeFooterColumnWithMultipleTitles({ title, links }) {
+  return `<div class="footer__title">${
+    title.href
+      ? `<a href="${title.href}" class="footer__link-item">${title.label}</a>`
+      : title.label
+  }${
+    title.icon
+      ? `<img src="${title.icon}" alt="${title.label} icon" class="footer__icon" />`
+      : ''
+  }</div>
+<ul class="footer__items clean-list">
+  ${links
+    .map(
+      (link) =>
+        `<li class="footer__item"><a href="${link.href}" class="footer__link-item">${link.label}</a></li>`,
+    )
+    .join('')}
+</ul>`;
+}
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -541,25 +577,164 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Support me',
             items: [
               {
-                html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" rel="noopener" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" loading="lazy" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
-              },
-              {
-                html: `<iframe src="https://github.com/sponsors/johnnyreilly/card" title="Sponsor johnnyreilly" style="border: 0; border-radius: 10px; background-color: white; min-height: 400px;"></iframe>`,
+                html: [
+                  makeFooterColumnWithMultipleTitles({
+                    title: {
+                      label: 'TypeScript',
+                      href: '/tags/typescript',
+                      icon: '/img/ts-logo-128.svg',
+                    },
+                    links: [
+                      {
+                        href: '/typescript-vs-jsdoc-javascript',
+                        label: 'TypeScript vs JSDoc JavaScript',
+                      },
+                      {
+                        href: '/type-annotations-strong-types-weakly-held',
+                        label:
+                          'Type annotations proposal: strong types, weakly held',
+                      },
+                    ],
+                  }),
+                  makeFooterColumnWithMultipleTitles({
+                    title: {
+                      label: 'Azure',
+                      href: '/tags/azure',
+                      icon: '/img/azure-logo.svg',
+                    },
+                    links: [
+                      {
+                        href: '/azure-container-apps-easy-auth-and-dotnet-authentication',
+                        label: 'Azure Container Apps: Easy Auth and .NET',
+                      },
+                      {
+                        href: '/azure-static-web-apps-dynamic-redirects-azure-functions',
+                        label:
+                          'Azure Static Web Apps: dynamic redirects with Azure Functions',
+                      },
+                    ],
+                  }),
+                  makeFooterColumnWithMultipleTitles({
+                    title: {
+                      label: 'ASP.NET',
+                      href: '/tags/asp-net',
+                      icon: '/img/dotnet-logo.svg',
+                    },
+                    links: [
+                      {
+                        href: '/eslint-your-csharp-in-vs-code-with-roslyn-analyzers',
+                        label: 'ESLint your C# with Roslyn Analyzers',
+                      },
+                      {
+                        href: '/aspnet-serilog-and-application-insights',
+                        label: 'ASP.NET, Serilog and Application Insights',
+                      },
+                    ],
+                  }),
+                  makeFooterColumnWithMultipleTitles({
+                    title: {
+                      label: 'React',
+                      href: '/tags/react',
+                      icon: '/img/react-logo.svg',
+                    },
+                    links: [
+                      {
+                        href: '/structured-data-seo-and-react',
+                        label: 'Structured data and React',
+                      },
+                      {
+                        href: '/react-usesearchparamsstate',
+                        label:
+                          'React: storing state in URL with URLSearchParams',
+                      },
+                    ],
+                  }),
+                ].join(''),
               },
             ],
           },
           {
-            title: 'Misc',
+            items: [
+              {
+                html: [
+                  makeFooterColumnWithMultipleTitles({
+                    title: { label: 'Notable articles' },
+                    links: [
+                      {
+                        href: '/definitely-typed-the-movie',
+                        label: 'The history of Definitely Typed',
+                      },
+                      {
+                        href: '/definitive-guide-to-migrating-from-blogger-to-docusaurus',
+                        label:
+                          'The definitive guide to migrating from Blogger to Docusaurus',
+                      },
+                      {
+                        href: '/teams-notification-webhooks',
+                        label: 'Teams notification webhooks',
+                      },
+                    ],
+                  }),
+                  makeFooterColumnWithMultipleTitles({
+                    title: { label: 'Popular articles' },
+                    links: [
+                      {
+                        href: '/aspnet-serilog-and-application-insights',
+                        label: 'ASP.NET, Serilog and Application Insights',
+                      },
+                      {
+                        href: '/eslint-your-csharp-in-vs-code-with-roslyn-analyzers',
+                        label: 'ESLint your C# with Roslyn Analyzers',
+                      },
+                      {
+                        href: '/prettier-your-csharp-with-dotnet-format-and-lint-staged',
+                        label:
+                          'dotnet-format: Prettier your C# with lint-staged & husky',
+                      },
+                    ],
+                  }),
+
+                  makeFooterColumnWithMultipleTitles({
+                    title: { label: 'Notable articles' },
+                    links: [
+                      {
+                        href: '/definitely-typed-the-movie',
+                        label: 'The history of Definitely Typed',
+                      },
+                      {
+                        href: '/definitive-guide-to-migrating-from-blogger-to-docusaurus',
+                        label:
+                          'The definitive guide to migrating from Blogger to Docusaurus',
+                      },
+                      {
+                        href: '/teams-notification-webhooks',
+                        label: 'Teams notification webhooks',
+                      },
+                    ],
+                  }),
+
+                  makeFooterColumnWithMultipleTitles({
+                    title: { label: 'Recently updated' },
+                    links: recentlyUpdatedPostsJson.map((post) => ({
+                      href: post.link,
+                      label: post.title,
+                    })),
+                  }),
+                ].join(''),
+              },
+            ],
+          },
+          {
+            title: 'Learn more / support me',
             items: [
               {
                 label: 'Blog source code on GitHub',
                 href: 'https://github.com/johnnyreilly/blog.johnnyreilly.com',
               },
               {
-                label: 'Blog tags / categories',
+                label: 'Blog categories',
                 href: '/tags',
               },
               {
@@ -573,6 +748,12 @@ const config = {
               {
                 label: 'Privacy Policy',
                 href: '/privacy-policy',
+              },
+              {
+                html: `<iframe src="https://github.com/sponsors/johnnyreilly/card" title="Sponsor johnnyreilly" style="margin-top: 20px; border: 0; border-radius: 10px; background-color: white; min-height: 400px;"></iframe>`,
+              },
+              {
+                html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" rel="noopener" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" loading="lazy" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
               },
             ],
           },

@@ -2,7 +2,7 @@
 slug: iqueryable-ienumerable-hmmm
 title: 'IQueryable... IEnumerable... Hmmm...'
 authors: johnnyreilly
-tags: [C#]
+tags: [c#]
 hide_table_of_contents: false
 description: 'The debate surrounding passing IQueryable<T> as IEnumerable<T> is discussed. Changing the method signature is proposed as a solution.'
 ---

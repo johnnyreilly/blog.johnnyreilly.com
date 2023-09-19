@@ -2,7 +2,7 @@
 slug: azure-standard-tests-with-bicep
 title: 'Azure standard availability tests with Bicep'
 authors: johnnyreilly
-tags: [Azure, Bicep]
+tags: [azure, bicep]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'Learn how to deploy Azure standard tests using Bicep! This post goes through the process and includes a complete code snippet.'

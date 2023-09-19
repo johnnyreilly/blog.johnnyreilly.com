@@ -2,7 +2,7 @@
 slug: using-gulp-in-visual-studio-instead-of-web-optimization
 title: 'Using Gulp in Visual Studio instead of Web Optimization'
 authors: johnnyreilly
-tags: [Visual Studio, TypeScript, JavaScript, Node.js]
+tags: [visual studio, typescript, javascript, node.js]
 hide_table_of_contents: false
 description: 'The ASP.NET team may replace Web Optimization with Grunt or Gulp. John Reilly tried out Gulp, which concatenates, minimises & version-numbers files.'
 ---

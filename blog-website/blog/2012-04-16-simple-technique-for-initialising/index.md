@@ -2,7 +2,7 @@
 slug: simple-technique-for-initialising
 title: 'A Simple Technique for Initialising Properties with Internal Setters for Unit Testing'
 authors: johnnyreilly
-tags: [Automated Testing]
+tags: [automated testing]
 hide_table_of_contents: false
 description: 'Refactoring a legacy app includes adding unit tests, but properties with internal setters pose a problem. John explores various approaches.'
 ---

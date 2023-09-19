@@ -2,7 +2,7 @@
 slug: blog-archive-for-docusaurus
 title: 'Blog Archive for Docusaurus'
 authors: johnnyreilly
-tags: [Docusaurus, webpack]
+tags: [docusaurus, webpack]
 image: ./docusaurus-blog-archive.png
 hide_table_of_contents: false
 description: 'Learn how to add a blog archive to your Docusaurus blog and browse through historic posts. Follow the articles steps to implement.'

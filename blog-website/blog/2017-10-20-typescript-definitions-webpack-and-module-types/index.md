@@ -2,7 +2,7 @@
 slug: typescript-definitions-webpack-and-module-types
 title: 'TypeScript Definitions, webpack and Module Types'
 authors: johnnyreilly
-tags: [Definitely Typed, webpack, TypeScript]
+tags: [definitely typed, webpack, typescript]
 hide_table_of_contents: false
 description: 'Inconsistent module exports cause confusion while using the npm package big.js, leading to `one definition to rule them all.`'
 ---

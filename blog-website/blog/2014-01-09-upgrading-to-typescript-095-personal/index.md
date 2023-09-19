@@ -2,7 +2,7 @@
 slug: upgrading-to-typescript-095-personal
 title: 'Upgrading to TypeScript 0.9.5 - A Personal Memoir'
 authors: johnnyreilly
-tags: [TypeScript]
+tags: [typescript]
 hide_table_of_contents: false
 description: 'Upgrade to TypeScript 0.9.5 worth it despite Visual Studio issues. Declaration merging glitches resolved by interface-driven approach.'
 ---

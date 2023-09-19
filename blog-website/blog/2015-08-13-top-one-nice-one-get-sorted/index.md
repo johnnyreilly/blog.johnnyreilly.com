@@ -2,7 +2,7 @@
 slug: top-one-nice-one-get-sorted
 title: '(Top One, Nice One) Get Sorted'
 authors: johnnyreilly
-tags: [JavaScript, C#]
+tags: [javascript, c#]
 hide_table_of_contents: false
 description: 'John creates a way to use .NETs LINQ feature to sort JavaScript arrays. The tools allow sorting by one or more criteria.'
 ---

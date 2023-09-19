@@ -2,7 +2,7 @@
 slug: twitterbootstrapmvc4-meet-bootstrap_14
 title: 'Twitter.Bootstrap.MVC4 meet Bootstrap Datepicker *and* get your Internationalization on...'
 authors: johnnyreilly
-tags: [Globalize, JavaScript]
+tags: [globalize, javascript]
 hide_table_of_contents: false
 description: 'Learn how to internationalize ASP.NET web apps using Globalize and Bootstrap Datepicker in this developers comprehensive step by step guide.'
 ---

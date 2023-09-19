@@ -2,7 +2,7 @@
 slug: docusaurus-meta-tags-and-google-discover
 title: 'Docusaurus, meta tags and Google Discover'
 authors: johnnyreilly
-tags: [Docusaurus]
+tags: [docusaurus]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'Boost your websites appearance in Google Discover with high-quality images and `max-image-preview:large` meta tag setting in Docusaurus.'

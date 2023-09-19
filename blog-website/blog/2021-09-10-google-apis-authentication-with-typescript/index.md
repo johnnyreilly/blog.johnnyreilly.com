@@ -2,7 +2,7 @@
 slug: google-apis-authentication-with-typescript
 title: 'Google APIs: authentication with TypeScript'
 authors: johnnyreilly
-tags: [TypeScript]
+tags: [typescript]
 image: ./app-registration.png
 hide_table_of_contents: false
 description: 'This guide shows how to use TypeScript to authenticate and access Google APIs with OAuth 2.0, specifically the Google Calendar API.'

@@ -2,7 +2,7 @@
 slug: azure-container-apps-bicep-and-github-actions
 title: 'Azure Container Apps, Bicep and GitHub Actions'
 authors: johnnyreilly
-tags: [Bicep, GitHub Actions, Azure Container Apps]
+tags: [bicep, github actions, azure container apps]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'Learn how to deploy an Azure Container App to Azure with Bicep and GitHub Actions. A basic template is provided for deployment.'

@@ -2,7 +2,7 @@
 slug: the-typescript-webpack-pwa
 title: 'The TypeScript webpack PWA'
 authors: johnnyreilly
-tags: [webpack, TypeScript]
+tags: [webpack, typescript]
 hide_table_of_contents: false
 description: 'Learn how to turn a TypeScript, webpack setup into a PWA using Workbox. With service workers, build offline-capable web apps.'
 ---

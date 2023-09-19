@@ -2,7 +2,7 @@
 slug: partialview-tostring
 title: 'PartialView.ToString()'
 authors: johnnyreilly
-tags: [ASP.NET]
+tags: [asp.net]
 hide_table_of_contents: false
 description: 'Learn three ways to turn a `PartialViewResult` into a `string` to reuse the result returned by a controller in a JSON payload.'
 ---

@@ -2,7 +2,7 @@
 slug: ts-loader-project-references-first-blood
 title: 'ts-loader Project References: First Blood'
 authors: johnnyreilly
-tags: [ts-loader, webpack, TypeScript]
+tags: [ts-loader, webpack, typescript]
 hide_table_of_contents: false
 description: 'ts-loader now supports TypeScripts project references. However, composite projects built with `outDir` on Windows cannot be consumed by ts-loader... yet'
 ---

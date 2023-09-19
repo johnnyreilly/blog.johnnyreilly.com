@@ -2,7 +2,7 @@
 slug: typescript-5-1-declaring-jsx-element-types
 title: 'TypeScript 5.1: declaring JSX element types'
 authors: johnnyreilly
-tags: [React, TypeScript]
+tags: [react, typescript]
 image: ./title-image.png
 description: 'With TypeScript 5.1, it becomes possible for libraries to control what types are used for JSX elements. This post looks at why this matters.'
 hide_table_of_contents: false

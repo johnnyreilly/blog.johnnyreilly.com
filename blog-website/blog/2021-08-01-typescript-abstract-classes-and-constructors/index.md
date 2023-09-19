@@ -2,7 +2,7 @@
 slug: typescript-abstract-classes-and-constructors
 title: 'TypeScript, abstract classes, and constructors'
 authors: johnnyreilly
-tags: [TypeScript]
+tags: [typescript]
 image: ./vs-code-abstract-screenshot.png
 hide_table_of_contents: false
 description: 'TypeScript abstract classes cannot be directly instantiated, but only used as a base for non-abstract subclasses with specific constructor usage rules.'

@@ -56,3 +56,12 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 .navbar__title {
   font-size: 1.2em;
 }
+
+.footer__title {
+  margin: calc(0.5 * var(--ifm-heading-margin-bottom)) 0;
+}
+
+.footer__icon {
+  margin: 0 0.25em;
+  max-height: 18px;
+}

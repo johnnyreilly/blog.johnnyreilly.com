@@ -2,7 +2,7 @@
 slug: instant-stubs-with-jsonnet
 title: 'Instant Stubs with JSON.Net (just add hot water)'
 authors: johnnyreilly
-tags: [Automated Testing, ASP.NET]
+tags: [automated testing, asp.net]
 hide_table_of_contents: false
 description: 'A utility class can create stubs to test an untested system with complex I/O. Serializing complex data to JSON files eases the process.'
 ---

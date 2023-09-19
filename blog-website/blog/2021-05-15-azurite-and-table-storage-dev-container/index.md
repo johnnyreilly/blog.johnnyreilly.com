@@ -2,7 +2,7 @@
 slug: azurite-and-table-storage-dev-container
 title: 'Azurite and Table Storage in a dev container'
 authors: johnnyreilly
-tags: [VS Code]
+tags: [vs code]
 image: ./dev-container-start.gif
 hide_table_of_contents: false
 description: 'Learn to use Azurite v3 in a dev container to access the Table Storage API in preview for local development without a real database.'

@@ -2,7 +2,7 @@
 slug: lighthouse-meet-github-actions
 title: 'Lighthouse meet GitHub Actions'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, GitHub Actions, Docusaurus]
+tags: [azure static web apps, github actions, docusaurus]
 image: ./title-image.png
 description: 'This post illustrates how to integrate Lighthouse into a GitHub Actions workflow for an Azure Static Web App.'
 hide_table_of_contents: false
@@ -356,7 +356,7 @@ const emojiScore = (/** @type { number } */ score) =>
 
 const scoreRow = (
   /** @type { string } */ label,
-  /** @type { number } */ score
+  /** @type { number } */ score,
 ) => `| ${emojiScore(score)} ${label} | ${formatScore(score)} |`;
 
 /**

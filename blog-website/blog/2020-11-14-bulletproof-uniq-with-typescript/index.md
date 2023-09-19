@@ -2,7 +2,7 @@
 slug: bulletproof-uniq-with-typescript
 title: 'Bulletproof uniq with TypeScript generics (yay code reviews!)'
 authors: johnnyreilly
-tags: [TypeScript]
+tags: [typescript]
 hide_table_of_contents: false
 description: 'Code reviews provide opportunities for improvement. A developer shares how their colleagues comment led to the creation of a better “uniq” function.'
 ---

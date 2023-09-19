@@ -2,7 +2,7 @@
 slug: azure-cli-show-query-output-properties
 title: 'Query deployment outputs with the Azure CLI'
 authors: johnnyreilly
-tags: [GitHub Actions, Azure]
+tags: [github actions, azure]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'Discover how to query Azure deployment outputs using the Azure CLI, bash, and jq, and convert them to GitHub Action job outputs.'

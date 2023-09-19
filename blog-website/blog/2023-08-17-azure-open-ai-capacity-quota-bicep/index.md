@@ -3,7 +3,7 @@ slug: azure-open-ai-capacity-quota-bicep
 title: 'Azure Open AI: handling capacity and quota limits with Bicep'
 authors: johnnyreilly
 image: ./title-image.png
-tags: [Azure, Bicep]
+tags: [azure, bicep]
 description: This post details how to control the capacity of an Azure Open AI deployment with Bicep so that you don't exceed your quota.
 hide_table_of_contents: false
 ---

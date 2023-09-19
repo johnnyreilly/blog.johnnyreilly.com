@@ -2,7 +2,7 @@
 slug: azure-easy-auth-and-roles-with-dotnet-and-core
 title: 'Azure App Service, Easy Auth and Roles with .NET'
 authors: johnnyreilly
-tags: [Azure, Auth, Easy Auth]
+tags: [azure, auth, easy auth]
 hide_table_of_contents: false
 description: '"Easy Auth" in Azure App Service doesnt currently work with .NET Core and .NET due to discrepancies. Open-source middleware can help solve the issue.'
 ---

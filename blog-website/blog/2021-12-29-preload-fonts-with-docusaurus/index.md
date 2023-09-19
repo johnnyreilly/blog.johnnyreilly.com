@@ -2,7 +2,7 @@
 slug: preload-fonts-with-docusaurus
 title: 'Preload fonts with Docusaurus (updated 03/11/2022)'
 authors: johnnyreilly
-tags: [Docusaurus, webpack]
+tags: [docusaurus, webpack]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'Improve website performance by preloading web fonts in Docusaurus using `webpack-font-preload-plugin` or `headTags` API, as described in this tutorial.'

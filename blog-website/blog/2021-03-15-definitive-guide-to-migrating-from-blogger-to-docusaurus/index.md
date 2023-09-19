@@ -2,7 +2,7 @@
 slug: definitive-guide-to-migrating-from-blogger-to-docusaurus
 title: 'The definitive guide to migrating from Blogger to Docusaurus'
 authors: johnnyreilly
-tags: [Docusaurus, TypeScript]
+tags: [docusaurus, typescript]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'Learn how to transfer a Blogger website to Docusaurus without losing content. Use a TypeScript console app to convert HTML to Markdown.'

@@ -2,7 +2,7 @@
 slug: twitterbootstrapmvc4-meet-bootstrap
 title: 'Twitter.Bootstrap.MVC4 meet Bootstrap Datepicker'
 authors: johnnyreilly
-tags: [ASP.NET, JavaScript]
+tags: [asp.net, javascript]
 hide_table_of_contents: false
 description: 'Learn about responsive web design and how to incorporate Twitter Bootstrap and Bootstrap Datepicker into ASP.Net MVC projects in this beginner’s guide.'
 ---

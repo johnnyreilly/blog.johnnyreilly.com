@@ -2,7 +2,7 @@
 slug: dynamic-import-ive-been-await-ing-you
 title: "Dynamic import: I've been awaiting you..."
 authors: johnnyreilly
-tags: [webpack, TypeScript]
+tags: [webpack, typescript]
 hide_table_of_contents: false
 description: 'TypeScript 2.4 gains asynchronous, dynamic import expression for modules with no browser support. Webpack2 supports this feature.'
 ---

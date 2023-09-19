@@ -2,7 +2,7 @@
 slug: dotnet-imemorycache-getorcreatefortimespanasync
 title: 'IMemoryCache and GetOrCreateForTimeSpanAsync'
 authors: johnnyreilly
-tags: [ASP.NET]
+tags: [asp.net]
 description: IMemoryCache is a tremendous caching mechanism for .NET. This post demonstrates how to write a helper to allow you to get or create an item for a given TimeSpan.
 hide_table_of_contents: false
 ---

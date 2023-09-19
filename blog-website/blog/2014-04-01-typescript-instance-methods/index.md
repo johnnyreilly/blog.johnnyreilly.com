@@ -2,7 +2,7 @@
 slug: typescript-instance-methods
 title: 'TypeScript this is what I want! (the unfortunate neglect of Instance Methods / callback functions)'
 authors: johnnyreilly
-tags: [TypeScript]
+tags: [typescript]
 hide_table_of_contents: false
 description: 'TypeScripts "Instance Methods" feature solves the `this` keyword issues in classes, unlike prototype methods. It suggests using a combination of the two.'
 ---

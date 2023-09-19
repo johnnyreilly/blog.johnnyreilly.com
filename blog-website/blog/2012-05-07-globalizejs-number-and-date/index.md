@@ -2,7 +2,7 @@
 slug: globalizejs-number-and-date
 title: 'Globalize.js - number and date localisation made easy'
 authors: johnnyreilly
-tags: [JavaScript, Globalize]
+tags: [javascript, globalize]
 hide_table_of_contents: false
 description: 'Globalize.js is a JavaScript library allowing developers to format and parse numbers and dates in a culture specific fashion for better user experience.'
 ---

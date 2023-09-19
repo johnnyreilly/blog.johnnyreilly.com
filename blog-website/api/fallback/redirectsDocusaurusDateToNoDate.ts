@@ -1050,7 +1050,11 @@ export const redirectsDocusaurusDateToNoDate = [
   },
   {
     route: '/2022/04/16/type-annotations-strong-types-weakly-held',
-    redirect: '/type-annotations-strong-types-weakly-held',
+    redirect: '/type-annotations-proposal-strong-types-weakly-held',
+  },
+  {
+    route: '/type-annotations-strong-types-weakly-held',
+    redirect: '/type-annotations-proposal-strong-types-weakly-held',
   },
   {
     route: '/2022/05/01/upgrading-to-react-18-typescript',

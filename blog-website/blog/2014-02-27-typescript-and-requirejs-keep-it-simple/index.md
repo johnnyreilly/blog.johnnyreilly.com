@@ -2,7 +2,7 @@
 slug: typescript-and-requirejs-keep-it-simple
 title: 'TypeScript and RequireJS (Keep It Simple)'
 authors: johnnyreilly
-tags: [TypeScript]
+tags: [typescript]
 hide_table_of_contents: false
 description: 'This article explains how to mix TypeScript and RequireJS, gives examples of the code changes needed, and shows how to create a demo.'
 ---

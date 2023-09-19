@@ -2,7 +2,7 @@
 slug: Back-to-the-Future-with-Code-First-Migrations
 title: 'Back to the Future with Code First Migrations'
 authors: johnnyreilly
-tags: [SQL Server]
+tags: [sql server]
 hide_table_of_contents: false
 description: 'Code First Migrations order is determined by file name, not renaming, and requires changing the IMigrationMetadata.Id property to match.'
 ---

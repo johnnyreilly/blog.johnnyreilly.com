@@ -2,7 +2,7 @@
 slug: typescript-20-es2016-and-babel
 title: 'TypeScript 2.0, ES2016 and Babel'
 authors: johnnyreilly
-tags: [TypeScript, JavaScript]
+tags: [typescript, javascript]
 hide_table_of_contents: false
 description: 'Upgrading from ES2015 to ES2016 using TypeScript compiler and Babel can be done in a few steps, including a change to tsconfig.json.'
 ---

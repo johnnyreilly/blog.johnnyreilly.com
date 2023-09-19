@@ -2,7 +2,7 @@
 slug: adding-lastmod-to-sitemap-git-commit-date
 title: 'Adding lastmod to sitemap based on git commits'
 authors: johnnyreilly
-tags: [Node.js, Docusaurus]
+tags: [node.js, docusaurus]
 image: ./title-image.png
 description: 'This post demonstrates enriching an XML sitemap with `lastmod` timestamps based on git commits.'
 hide_table_of_contents: false
@@ -73,7 +73,7 @@ As long as we don't have a custom slug in play (and I rarely do), we have a reli
 const dateBlogUrlRegEx = /(\d\d\d\d\/\d\d\/\d\d)\/(.+)/;
 
 async function enrichUrlsWithLastmod(
-  filteredUrls: SitemapUrl[]
+  filteredUrls: SitemapUrl[],
 ): Promise<SitemapUrl[]> {
   const git = getSimpleGit();
 
