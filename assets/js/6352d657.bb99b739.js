@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[19252],{94207:s=>{s.exports=JSON.parse('{"label":"visual studio","permalink":"/tags/visual-studio","allTagsPath":"/tags","count":6}')}}]);
