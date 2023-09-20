@@ -8,9 +8,9 @@ description: A documentary has been made about TypeScript and it is coming out S
 hide_table_of_contents: false
 ---
 
-I am excited to announce that a documentary has been made about TypeScript! It premieres on YouTube at 5pm British Summertime September 21st 2023! You can see a trailer for it below:
+I am excited to announce that a documentary has been made about TypeScript! It premieres on YouTube at 5pm British Summertime September 21st 2023!
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/0btI_sXessI?si=6DMVgTsbd33ifMXB" title="TypeScript Origins trailer" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/U6s2pdxebSo?si=7X3eRhmSXLUnlGr5" title="TypeScript Origins documentary" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
 
 I had the good fortune to be involved in the making of the documentary. In part this was thanks to my work on Definitely Typed. Another reason was my work on recording [the history of DefinitelyTyped](../2019-10-08-definitely-typed-the-movie/index.md).
 
