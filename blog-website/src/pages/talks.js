@@ -6,6 +6,13 @@ import styles from './styles.module.css';
 
 const talks = [
   {
+    id: 'U6s2pdxebSo',
+    permalink: 'https://youtube.com/watch?v=U6s2pdxebSo',
+    date: '2023-09-21',
+    formattedDate: 'September 21st, 2023',
+    title: 'TypeScript Origins: The Documentary - not just me, but I am in it!',
+  },
+  {
     id: 'G4WTEEwI6Qs',
     permalink: 'https://youtube.com/watch?v=G4WTEEwI6Qs',
     date: '2023-02-27',
