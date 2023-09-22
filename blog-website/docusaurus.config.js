@@ -663,6 +663,11 @@ const config = {
                         icon: '/img/definitely-typed-logo.png',
                       },
                       {
+                        href: '/typescript-documentary',
+                        label: 'TypeScript: the documentary',
+                        icon: '/img/ts-logo-128.svg',
+                      },
+                      {
                         href: '/definitive-guide-to-migrating-from-blogger-to-docusaurus',
                         label:
                           'The definitive guide to migrating from Blogger to Docusaurus',
