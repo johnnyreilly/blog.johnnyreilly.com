@@ -8,13 +8,21 @@ hide_table_of_contents: false
 description: 'The history of the TypeScript GitHub project Definitely Typed. And some TypeScript history as well'
 ---
 
-I'd like to tell you a story. It's the tale of the ecosystem that grew up around a language: TypeScript. TypeScript is, for want of a better description, JavaScript after a trip to Saville Row. Essentially the same language, but a little more together, a little less wild west. JS with a decent haircut and a new suit. These days, the world seems to be written in TypeScript. And when you pause to consider just how young the language is, well, that's kind of amazing.
+This post is a a little different from most that sit on my site. It's the story of the Definitely Typed project, of which I was an early member. It had a seismic impact on the development of TypeScript. When exchanging messages with [Andrew Branch](https://github.com/andrewbranch) (member of the TypeScipt team), I realised it was an untold story, and perhaps I should tell it, before I forget! So I did, and this is it.
+
+I named it "Definitely Typed: The Movie" as the name entertained me. Little did I know, that a few years later, a documentary would be made about TypeScript, and I'd be in it; in part thanks to writing this history. You can see [more about that here](../2023-09-20-typescript-documentary/index.md).
+
+For now, back to Definitely Typed...
+
+![A title image that reads "Definitely Typed: The Movie"](title-image.png)
 
 <!--truncate-->
 
-Who could have predicted it would end up like this? When I was a boy I remember coming down the stairs in my childhood home. Shuffling to the edge of each step on my bottom before thumping down to the one beneath. When I look at those same stairs now they're so small. I barely notice the difference between one step and the next. But back then each step seemed giant, each one so far apart. Definitely Typed had any number of steps in its evolution. They all seemed so significant then; whereas now they're just a memory. Let's remember together…
+## Preface
 
-![A title image that reads "Definitely Typed: The Movie"](title-image.png)
+I'd like to tell you a story. It's the tale of the ecosystem that grew up around a language: TypeScript. TypeScript is, for want of a better description, JavaScript after a trip to Saville Row. Essentially the same language, but a little more together, a little less wild west. JS with a decent haircut and a new suit. These days, the world seems to be written in TypeScript. And when you pause to consider just how young the language is, well, that's kind of amazing.
+
+Who could have predicted it would end up like this? When I was a boy I remember coming down the stairs in my childhood home. Shuffling to the edge of each step on my bottom before thumping down to the one beneath. When I look at those same stairs now they're so small. I barely notice the difference between one step and the next. But back then each step seemed giant, each one so far apart. Definitely Typed had any number of steps in its evolution. They all seemed so significant then; whereas now they're just a memory. Let's remember together…
 
 ## Prolog(ue)
 
