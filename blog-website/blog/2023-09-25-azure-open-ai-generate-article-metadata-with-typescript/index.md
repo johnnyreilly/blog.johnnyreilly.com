@@ -8,7 +8,7 @@ description: Use the TypeScript Azure Open AI SDK to generate article metadata.
 hide_table_of_contents: false
 ---
 
-This post grew out of my desire to improve the metadata for my blog posts. I have been blogging for more than ten years, and the majority of my posts lack descriptions. A description is meta tag that sits in a page and describes the contents of the page. This is what this posts description looks like in HTML:
+This post grew out of my desire to improve the metadata for my blog posts. I have been blogging for more than ten years, and the majority of my posts lack descriptions. A description is meta tag that sits in a page and describes the contents of the page. This is what this posts description meta tag looks like in HTML:
 
 ```html
 <meta
@@ -17,7 +17,7 @@ This post grew out of my desire to improve the metadata for my blog posts. I hav
 />
 ```
 
-Descriptions are important for search engine optimisation (SEO) and for accessibility. You can [read up more on the topic here](https://developers.google.com/search/docs/appearance/snippet). I wanted to be able to generate descriptions for my blog posts based on the content of the post itself. But writing around 230 descriptions for my existing posts was not something I wanted to do manually. I wanted to automate it.
+Descriptions are important for search engine optimisation (SEO) and for accessibility. You can [read up more on the topic here](https://developers.google.com/search/docs/appearance/snippet). I wanted to have descriptions for _all_ my blog posts. But writing around 230 descriptions for my existing posts was not something I wanted to do manually. I wanted to automate it.
 
 ![title image reading "Azure Open AI: generate article metadata with TypeScript" with the Azure Open AI / TypeScript logos](title-image.png)
 
@@ -25,14 +25,14 @@ Descriptions are important for search engine optimisation (SEO) and for accessib
 
 ## TypeScript Azure Open AI SDK
 
-I've been using Azure Open AI for a while now, and I've been using the [TypeScript SDK in the `@azure/openai` package](https://github.com/Azure/azure-sdk-for-js/blob/main/sdk/openai/openai/README.md) to interact with it. What I wanted to do, was to use the SDK to generate descriptions for my blog posts. Since my blog is powered by Docusaurus and each post is a Markdown file, I wanted to be able to generate descriptions for each post based on the content of the post itself.
+I've been using Azure Open AI for a while now, and I've been using the [TypeScript SDK in the `@azure/openai` package](https://github.com/Azure/azure-sdk-for-js/blob/main/sdk/openai/openai/README.md) to interact with it. What I wanted to do, was to use the SDK to generate descriptions for my blog posts based on the content. Since my blog is powered by Docusaurus and each post is a Markdown file, I had easy access to a individual files that could be summarised.
 
 ## What I wanted to do
 
 The plan was, to build a script to do the following:
 
-- read all of my blog posts
-- for each post, generate a description using Azure Open AI
+- read all of my blog posts without descriptions
+- for each one, generate a description using Azure Open AI
 - write the description to the Markdown file
 
 I wanted to use [Bun](https://bun.sh/) for this as it supports TypeScript by default. Using Node.js would equally be possible; but it wouldn't have been so easy to use TypeScript.
@@ -42,8 +42,8 @@ I wanted to use [Bun](https://bun.sh/) for this as it supports TypeScript by def
 I started off by creating a new Bun project:
 
 ```bash
-mkdir open-ai-description2
-cd open-ai-description2
+mkdir open-ai-description
+cd open-ai-description
 bun init
 ```
 
@@ -372,4 +372,6 @@ What's quite interesting, is that you really can't rely on the AI do what you as
 
 ## Running the script
 
-When the script ran (after I'd `az login`-ed) it produced descriptions for all my blog posts! If you take a look at [this giant PR](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/656) you can see them all landing.
+When the script ran (after I'd `az login`-ed) it produced descriptions for all my blog posts. I reviewed each summary and tweaked them where necessary. If I really didn't like a description I'd delete and run the script again. In the end I had descriptions for all my blog posts that I was pretty happy with. If you take a look at [this giant PR](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/656) you can see them all landing.
+
+Hopefully this post provides a useful example of how to use the TypeScript Azure Open AI SDK to generate article metadata. You can see the raw code [here](https://github.com/johnnyreilly/blog.johnnyreilly.com/tree/main/open-ai-description).
