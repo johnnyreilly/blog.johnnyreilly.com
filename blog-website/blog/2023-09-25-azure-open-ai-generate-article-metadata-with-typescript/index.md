@@ -297,7 +297,7 @@ You need to set the `endpoint` variable to the endpoint of your Azure Open AI re
 
 ### Producing the summary
 
-Once you've authenticated and got the client you can start to summarise. The first thing to do is provide a system message to prime the model with context on what we're trying to do. As part of writing a good description, there's a sweet spot to hit in terms of length; too short and it's not useful, too long and it gets truncated. So we're going to aim for between 120 and 156 characters. We're also going to encourage the AI to avoid certain wording constructs and also avoid using the `\`` character as it upsets the front matter.
+Once you've authenticated and got the client you can start to summarise. The first thing to do is provide a system message to prime the model with context on what we're trying to do. As part of writing a good description, there's a sweet spot to hit in terms of length; too short and it's not useful, too long and it gets truncated. So we're going to aim for between 120 and 156 characters. We're also going to encourage the AI to avoid certain wording constructs and also avoid using the `'` character as it upsets the front matter.
 
 Once primed, we hand over the blog content to the AI and ask it to produce a summary.
 
