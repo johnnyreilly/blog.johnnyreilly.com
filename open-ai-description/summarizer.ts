@@ -21,16 +21,18 @@ function getClientAndDeploymentName(): OpenAiClientAndDeploymentName {
   }
 
   // You will need to set these environment variables or edit the following values
-  const endpoint =
-    process.env['ENDPOINT'] || 'https://<resource name>.openai.azure.com';
+  const endpoint = process.env['ENDPOINT'];
+
+  if (!endpoint) {
+    throw new Error(
+      'Missing ENDPOINT environment variable with a value like https://<resource name>.openai.azure.com',
+    );
+  }
 
   // This will use the Azure CLI's currently logged in user;
   // make sure you've done `az login` and have the correct subscription selected
   const credential = new AzureCliCredential();
-  const openAIClient = new OpenAIClient(
-    endpoint,
-    credential /* new AzureKeyCredential(azureApiKey) */,
-  );
+  const openAIClient = new OpenAIClient(endpoint, credential);
   const deploymentName = 'OpenAi-gpt-35-turbo';
 
   openAiClientAndDeploymentName = { openAIClient, deploymentName };
