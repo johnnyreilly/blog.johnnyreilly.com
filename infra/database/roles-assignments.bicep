@@ -8,7 +8,7 @@ param roleDefinitionId string
 @description('principal id')
 param principalId string
 
-resource cosmosDbAccount 'Microsoft.DocumentDB/databaseAccounts@2023-04-15' existing = {
+resource cosmosDbAccount 'Microsoft.DocumentDB/databaseAccounts@2023-09-15' existing = {
   name: cosmosDbAccountName
 }
 
