@@ -1,11 +1,11 @@
 // @ts-check
-const visit = require('unist-util-visit');
+import { visit } from 'unist-util-visit';
 
 /**
  * Create a rehype plugin that will make the first image eager loaded with fetchpriority="high" and lazy load all other images
  * @returns rehype plugin that will make the first image eager loaded with fetchpriority="high" and lazy load all other images
  */
-function imageFetchPriorityRehypePluginFactory() {
+export default function imageFetchPriorityRehypePluginFactory() {
   /** @type {Map<string, string>} */ const files = new Map();
 
   /** @type {import('unified').Transformer} */
@@ -61,17 +61,15 @@ function imageFetchPriorityRehypePluginFactory() {
         if (fetchpriorityThisImage) {
           node['value'] = node['value'].replace(
             /<img /g,
-            '<img loading="eager" fetchpriority="high" '
+            '<img loading="eager" fetchpriority="high" ',
           );
         } else {
           node['value'] = node['value'].replace(
             /<img /g,
-            '<img loading="lazy" '
+            '<img loading="lazy" ',
           );
         }
       }
     });
   };
 }
-
-module.exports = imageFetchPriorityRehypePluginFactory;
