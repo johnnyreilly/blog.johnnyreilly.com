@@ -2,6 +2,7 @@
   "extends": "@docusaurus/tsconfig/tsconfig.json",
   "include": ["src/", "static/"],
   "compilerOptions": {
+    "baseUrl": ".",
     "checkJs": true
   }
 }
