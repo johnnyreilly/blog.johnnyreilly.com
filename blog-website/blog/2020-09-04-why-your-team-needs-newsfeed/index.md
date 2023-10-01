@@ -61,8 +61,6 @@ This crucially includes the ability to include links. This was significant becau
 >
 > — John Reilly (@johnny_reilly) [October 8, 2019](https://twitter.com/johnny_reilly/status/1181542739994976256?ref_src=twsrc%5Etfw)
 
-<script async="" src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
-
 Again consider this example news story:
 
 > Jane Smith logged in at 10:03am for 25 minutes. They placed [an order](https://my-glorious-platform.io/orders/janes-order) worth £3,000.

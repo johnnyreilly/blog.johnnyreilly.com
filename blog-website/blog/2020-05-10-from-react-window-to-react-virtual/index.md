@@ -25,8 +25,6 @@ I tweeted my delight at this and Tanner asked if there was commit diff I could s
 >
 > — Tanner Linsley ⚛️ (@tannerlinsley) [May 10, 2020](https://twitter.com/tannerlinsley/status/1259503283103608832?ref_src=twsrc%5Etfw)
 
-<script async="" src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
-
 In case you hadn't guessed, this is that blog post...
 
 ## Make that change

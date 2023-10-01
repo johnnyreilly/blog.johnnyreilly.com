@@ -61,8 +61,6 @@ When I [tweeted this article](https://twitter.com/johnny_reilly/status/116284391
 >
 > — Kent C. Dodds (@kentcdodds) [August 18, 2019](https://twitter.com/kentcdodds/status/1162876792287293440?ref_src=twsrc%5Etfw)
 
-<script async="" src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
-
 Andrew makes the useful point that if you are adding support for TypeScript via an `@types/...` dependency then it's wise to do so with a loose version range. [In the case of RTL we did it like this:](https://github.com/testing-library/react-testing-library/blob/c4ba755e42938018ec67dbc716037cfafca15e03/package.json#L46)
 
 ```json
