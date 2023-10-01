@@ -1,6 +1,4 @@
 //@ts-check
-// const docusaurusCloudinaryRehypePlugin = require('rehype-cloudinary-docusaurus');
-
 const IS_LIVE_SITE = process.env['IS_LIVE_SITE'] === 'true';
 console.log('IS_LIVE_SITE', IS_LIVE_SITE);
 
@@ -253,6 +251,10 @@ module.exports = async function createConfigAsync() {
     await import('./image-fetchpriority-rehype-plugin.mjs')
   ).default;
 
+  const docusaurusCloudinaryRehypePlugin =
+    // await import('rehype-cloudinary-docusaurus')
+    (await import('./image-cloudinary-rehype-plugin.mjs')).default;
+
   return {
     title,
     tagline,
@@ -308,18 +310,29 @@ module.exports = async function createConfigAsync() {
 
           docs: false,
           blog: {
-            rehypePlugins: IS_LIVE_SITE
-              ? [
-                  // [
-                  //   docusaurusCloudinaryRehypePlugin,
-                  //   {
-                  //     cloudName: 'priou',
-                  //     baseUrl: url,
-                  //   },
-                  // ],
-                  imageFetchPriorityRehypePlugin,
-                ]
-              : [imageFetchPriorityRehypePlugin],
+            rehypePlugins: [
+              [
+                docusaurusCloudinaryRehypePlugin,
+                {
+                  cloudName: 'priou',
+                  baseUrl: url,
+                },
+              ],
+              // imageFetchPriorityRehypePlugin,
+            ],
+
+            // rehypePlugins: IS_LIVE_SITE
+            //   ? [
+            //       [
+            //         docusaurusCloudinaryRehypePlugin,
+            //         {
+            //           cloudName: 'priou',
+            //           baseUrl: url,
+            //         },
+            //       ],
+            //       imageFetchPriorityRehypePlugin,
+            //     ]
+            //   : [imageFetchPriorityRehypePlugin],
             feedOptions: {
               type: ['rss', 'atom'],
               title: 'I CAN MAKE THIS WORK',
