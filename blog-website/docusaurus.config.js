@@ -297,11 +297,6 @@ module.exports = async function createConfigAsync() {
         '@docusaurus/preset-classic',
         /** @type {import('@docusaurus/preset-classic').Options} */
         ({
-          // googleAnalytics: {
-          //   trackingID: 'UA-51754530-2',
-          //   anonymizeIP: true,
-          // },
-
           ...(IS_LIVE_SITE
             ? {
                 gtag: {
@@ -432,27 +427,6 @@ module.exports = async function createConfigAsync() {
           },
         };
       },
-
-      // [
-      //   'client-redirects',
-      //   /** @type {import('@docusaurus/plugin-client-redirects').Options} */
-      //   ({
-      // redirects: [
-      //   {
-      //     to: '/2018/07/28/azure-app-service-web-app-containers-asp-net-nested-configuration',
-      //     from: '/2018/07/28/configuring-docker-azure-web-app-containers',
-      //   },
-      // ],
-      // createRedirects: function (existingPath) {
-      //   if (existingPath.match(urlRegex)) {
-      //     const [, year, month, date, slug] = existingPath.split('/');
-      //     const oldUrl = `/${year}/${month}/${slug}.html`;
-      //     console.log(`redirect from ${oldUrl} -> ${existingPath}`);
-      //     return [oldUrl, `/${year}/${month}/${slug}`];
-      //   }
-      // },
-      //   }),
-      // ],
 
       [
         'pwa',
