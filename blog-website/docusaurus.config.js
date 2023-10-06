@@ -251,9 +251,9 @@ module.exports = async function createConfigAsync() {
     await import('./image-fetchpriority-rehype-plugin.mjs')
   ).default;
 
-  const docusaurusCloudinaryRehypePlugin =
-    // await import('rehype-cloudinary-docusaurus')
-    (await import('./image-cloudinary-rehype-plugin.mjs')).default;
+  // const docusaurusCloudinaryRehypePlugin =
+  //   // await import('rehype-cloudinary-docusaurus')
+  //   (await import('./image-cloudinary-rehype-plugin.mjs')).default;
 
   return {
     title,
@@ -310,17 +310,6 @@ module.exports = async function createConfigAsync() {
 
           docs: false,
           blog: {
-            rehypePlugins: [
-              [
-                docusaurusCloudinaryRehypePlugin,
-                {
-                  cloudName: 'priou',
-                  baseUrl: url,
-                },
-              ],
-              // imageFetchPriorityRehypePlugin,
-            ],
-
             // rehypePlugins: IS_LIVE_SITE
             //   ? [
             //       [
@@ -333,6 +322,8 @@ module.exports = async function createConfigAsync() {
             //       imageFetchPriorityRehypePlugin,
             //     ]
             //   : [imageFetchPriorityRehypePlugin],
+            rehypePlugins: [imageFetchPriorityRehypePlugin],
+
             feedOptions: {
               type: ['rss', 'atom'],
               title: 'I CAN MAKE THIS WORK',

@@ -6,7 +6,7 @@ test('page should have title and a root navigation link', async ({
 }) => {
   await page.goto(baseURL!);
   const title = await page.title();
-  expect(title).toBe('johnnyreilly | johnnyreilly');
+  expect(title).toBe('johnnyreilly');
 
   const navTitle = page.getByRole('link', {
     name: 'Profile picture of John Reilly John Reilly ❤️🌻',
