@@ -9,6 +9,8 @@ import {
 import type { SitemapUrl, Sitemap, AtomFeed, RssItem, RssFeed } from './types';
 
 const rootUrl = 'https://johnnyreilly.com';
+const cloudinaryUrl =
+  'https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/';
 
 async function enrichUrlsWithLastmodAndFilterCanonicals(
   filteredUrls: SitemapUrl[],
@@ -59,7 +61,7 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
   return urls;
 }
 
-async function patchOpenGraphImageToCloudinary() {
+async function patchHtmlImagesToCloudinary() {
   const indexHtmlPaths = fs
     .readdirSync(path.resolve('..', 'blog-website', 'build'))
     .filter((dir) =>
@@ -72,6 +74,8 @@ async function patchOpenGraphImageToCloudinary() {
     )
     .filter((file) => fs.existsSync(file));
 
+  const imageRegex =
+    /<img .*src="\/assets\/images\/([-a-zA-Z0-9()@:%_\+.~#?&//=]*)" [^,<]*>/g;
   const ogImageRegex =
     /<meta data-rh="true" property="og:image" content="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))">/;
   const twitterImageRegex =
@@ -86,13 +90,51 @@ async function patchOpenGraphImageToCloudinary() {
     await Bun.write(
       indexHtmlPath,
       indexHtml
+        .replaceAll(imageRegex, function (match, url) {
+          return match.replace(
+            `/assets/images/${url}`,
+            `${cloudinaryUrl}${rootUrl}/assets/images/${url}`,
+          );
+        })
         .replace(twitterImageRegex, function (_match, url) {
-          return `<meta data-rh="true" name="twitter:image" content="https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${url}">`;
+          return `<meta data-rh="true" name="twitter:image" content="${cloudinaryUrl}${url}">`;
         })
         .replace(ogImageRegex, function (_match, url) {
-          return `<meta data-rh="true" property="og:image" content="https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${url}">`;
+          return `<meta data-rh="true" property="og:image" content="${cloudinaryUrl}${url}">`;
         }),
     );
+  }
+}
+
+async function patchJsImagesToCloudinary() {
+  const assetsJsPaths = fs
+    .readdirSync(path.resolve('..', 'blog-website', 'build', 'assets', 'js'))
+    .filter((file) => file.endsWith('.js'))
+    .map((file) =>
+      path.resolve('..', 'blog-website', 'build', 'assets', 'js', file),
+    );
+
+  const imageRegex = /"assets\/images\/([-a-zA-Z0-9()@:%_\+.~#?&//=]*)"/g;
+
+  // https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/https://johnnyreilly.com/assets/images/title-image-934557b5733320b51dc0b371cf808e3a.png
+  for (const assetJsPath of assetsJsPaths) {
+    console.log(`Loading ${assetJsPath}`);
+    const jsCode = await Bun.file(assetJsPath).text();
+
+    if (jsCode.match(imageRegex)) {
+      console.log(`Saving ${assetJsPath}`);
+      await Bun.write(
+        assetJsPath,
+        jsCode.replaceAll(imageRegex, function (match, url) {
+          return match.replace(
+            `assets/images/${url}`,
+            `${cloudinaryUrl}${rootUrl}/assets/images/${url}`,
+          );
+        }),
+      );
+    } else {
+      console.log(`No change to ${assetJsPath}`);
+    }
   }
 }
 
@@ -247,7 +289,8 @@ async function trimRssXML() {
 async function main() {
   const startedAt = new Date();
 
-  await patchOpenGraphImageToCloudinary();
+  await patchHtmlImagesToCloudinary();
+  await patchJsImagesToCloudinary();
   await trimSitemapXML();
   deleteFolderRecursive(path.resolve('..', 'blog-website', 'build', 'archive'));
   // now handled by createFeedItems
