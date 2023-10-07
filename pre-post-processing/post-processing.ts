@@ -74,8 +74,8 @@ async function patchHtmlImagesToCloudinary() {
     )
     .filter((file) => fs.existsSync(file));
 
-  const imageRegex =
-    /<img .*src="\/assets\/images\/([-a-zA-Z0-9()@:%_\+.~#?&//=]*)" [^,<]*>/g;
+  // const imageRegex =
+  //   /<img .*src="\/assets\/images\/([-a-zA-Z0-9()@:%_\+.~#?&//=]*)" [^,<]*>/g;
   const ogImageRegex =
     /<meta data-rh="true" property="og:image" content="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))">/;
   const twitterImageRegex =
@@ -90,12 +90,12 @@ async function patchHtmlImagesToCloudinary() {
     await Bun.write(
       indexHtmlPath,
       indexHtml
-        .replaceAll(imageRegex, function (match, url) {
-          return match.replace(
-            `/assets/images/${url}`,
-            `${cloudinaryUrl}${rootUrl}/assets/images/${url}`,
-          );
-        })
+        // .replaceAll(imageRegex, function (match, url) {
+        //   return match.replace(
+        //     `/assets/images/${url}`,
+        //     `${cloudinaryUrl}${rootUrl}/assets/images/${url}`,
+        //   );
+        // })
         .replace(twitterImageRegex, function (_match, url) {
           return `<meta data-rh="true" name="twitter:image" content="${cloudinaryUrl}${url}">`;
         })
@@ -290,7 +290,7 @@ async function main() {
   const startedAt = new Date();
 
   await patchHtmlImagesToCloudinary();
-  await patchJsImagesToCloudinary();
+  // await patchJsImagesToCloudinary(); // now handled by rehype plugin
   await trimSitemapXML();
   deleteFolderRecursive(path.resolve('..', 'blog-website', 'build', 'archive'));
   // now handled by createFeedItems

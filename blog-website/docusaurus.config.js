@@ -251,9 +251,9 @@ module.exports = async function createConfigAsync() {
     await import('./image-fetchpriority-rehype-plugin.mjs')
   ).default;
 
-  // const docusaurusCloudinaryRehypePlugin =
-  //   // await import('rehype-cloudinary-docusaurus')
-  //   (await import('./image-cloudinary-rehype-plugin.mjs')).default;
+  const docusaurusCloudinaryRehypePlugin =
+    // await import('rehype-cloudinary-docusaurus')
+    (await import('./image-cloudinary-rehype-plugin.mjs')).default;
 
   return {
     title,
@@ -310,19 +310,18 @@ module.exports = async function createConfigAsync() {
 
           docs: false,
           blog: {
-            // rehypePlugins: IS_LIVE_SITE
-            //   ? [
-            //       [
-            //         docusaurusCloudinaryRehypePlugin,
-            //         {
-            //           cloudName: 'priou',
-            //           baseUrl: url,
-            //         },
-            //       ],
-            //       imageFetchPriorityRehypePlugin,
-            //     ]
-            //   : [imageFetchPriorityRehypePlugin],
-            rehypePlugins: [imageFetchPriorityRehypePlugin],
+            rehypePlugins: IS_LIVE_SITE
+              ? [
+                  [
+                    docusaurusCloudinaryRehypePlugin,
+                    {
+                      cloudName: 'priou',
+                      baseUrl: url,
+                    },
+                  ],
+                  imageFetchPriorityRehypePlugin,
+                ]
+              : [imageFetchPriorityRehypePlugin],
 
             feedOptions: {
               type: ['rss', 'atom'],
