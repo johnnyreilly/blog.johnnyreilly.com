@@ -5,14 +5,14 @@ import { visit } from 'unist-util-visit';
  * @param {*} baseUrl the base URL of your website eg https://blog.johnnyreilly.com - should not include a trailing slash, will likely be the same as the config.url in your docusaurus.config.js
  * @returns rehype plugin that will replace image URLs with Cloudinary URLs
  */
-export function imageCloudinaryRehypePlugin({ cloudName, baseUrl }) {
+export default function imageCloudinaryRehypePlugin({ cloudName, baseUrl }) {
   const imageCloudinaryRehypeVisitor = imageCloudinaryRehypeVisitorFactory({
     cloudName,
     baseUrl,
   });
   return (tree) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    visit(tree, ['mdxJsxTextElement'], imageCloudinaryRehypeVisitor);
+    visit(tree, /*['mdxJsxTextElement'],*/ imageCloudinaryRehypeVisitor);
   };
 }
 /**
@@ -21,12 +21,18 @@ export function imageCloudinaryRehypePlugin({ cloudName, baseUrl }) {
  * @param {*} baseUrl the base URL of your website eg https://blog.johnnyreilly.com - should not include a trailing slash, will likely be the same as the config.url in your docusaurus.config.js
  * @returns rehype plugin that will replace image URLs with Cloudinary URLs
  */
-export default function imageCloudinaryRehypeVisitorFactory({
-  cloudName,
-  baseUrl,
-}) {
+export function imageCloudinaryRehypeVisitorFactory({ cloudName, baseUrl }) {
+  let done = false;
   return function imageCloudinaryRehypeVisitor(node) {
     const nodeWithAttributes = node;
+    // if (nodeWithAttributes.type !== 'root') {
+    //   console.log(
+    //     'nodeWithAttributes',
+    //     nodeWithAttributes.type,
+    //     nodeWithAttributes.tagName,
+    //     nodeWithAttributes.name,
+    //   );
+    // }
     if (
       nodeWithAttributes.type === 'mdxJsxTextElement' &&
       nodeWithAttributes.name === 'img'
@@ -62,8 +68,25 @@ export default function imageCloudinaryRehypeVisitorFactory({
       if (typeof requireAttribute !== 'string') {
         const requireString = requireAttribute.value;
         const cloudinaryRequireString = `\`https://res.cloudinary.com/${cloudName}/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${baseUrl}\$\{${requireString}\}\``;
-        // console.log("old", requireAttribute.value);
-        // console.log("new", cloudinaryRequireString);
+
+        if (!done) {
+          console.log('old', requireAttribute.value);
+          console.log('new', cloudinaryRequireString);
+          console.log(requireAttribute.data?.estree?.body);
+          console.log(requireAttribute.data?.estree?.body[0]?.expression?.left);
+          console.log(
+            requireAttribute.data?.estree?.body[0]?.expression?.left?.object
+              ?.arguments[0],
+          );
+          console.log(
+            requireAttribute.data?.estree?.body[0]?.expression?.right,
+          );
+          console.log();
+          done = true;
+        }
+
+        // const cloudinaryRequireString2 = `(() => \`https://res.cloudinary.com/${cloudName}/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${baseUrl}\$\{${requireString}\}\`)()`;
+        // console.log("new", cloudinaryRequireString2);
 
         /*
 old require("!/home/john/code/github/blog.johnnyreilly.com/blog-website/node_modules/url-loader/dist/cjs.js?limit=10000&name=assets/images/[name]-[contenthash].[ext]&fallback=/home/john/code/github/blog.johnnyreilly.com/blog-website/node_modules/file-loader/dist/cjs.js!./screenshot-rich-results-test.webp").default
