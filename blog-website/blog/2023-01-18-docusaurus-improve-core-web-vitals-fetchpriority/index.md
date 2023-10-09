@@ -8,7 +8,7 @@ description: 'By using `fetchpriority` on your Largest Contentful Paint you can 
 hide_table_of_contents: false
 ---
 
-By using `fetchpriority` on your Largest Contentful Paint you can improve your Core Web Vitals. This post implements that with Docusaurus.
+By using `fetchpriority` on your Largest Contentful Paint you can improve your Core Web Vitals. This post implements that with Docusaurus v2. There is a follow on post that details [migrating this plugin to Docusaurus v3](../2023-10-09-migrate-rehype-plugins-to-docusaurus-3/index.md).
 
 ![title image reading "Docusaurus: improving Core Web Vitals with fetchpriority"](title-image.png)
 

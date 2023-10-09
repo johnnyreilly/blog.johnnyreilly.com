@@ -8,7 +8,7 @@ description: Cloudinary offers an image CDN which can improve performance of you
 hide_table_of_contents: false
 ---
 
-Cloudinary offers an image CDN which can improve performance of your site. This post details how to get Docusaurus to use Cloudinary to serve optimised images.
+Cloudinary offers an image CDN which can improve performance of your site. This post details how to get Docusaurus v2 to use Cloudinary to serve optimised images. There is a follow on post that details [migrating this plugin to Docusaurus v3](../2023-10-09-migrate-rehype-plugins-to-docusaurus-3/index.md).
 
 ![title image reading "Serving Docusaurus images with Cloudinary" with the Docusaurus and Cloudinary logos](title-image.png)
 
