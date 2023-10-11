@@ -227,13 +227,22 @@ Further to that, the old plugin used `module.exports = imageFetchPriorityRehypeP
 
 ### Different AST
 
-The abstract syntax tree (AST) is different. MDX 1 and MDX 2 make different ASTs and we must migrate to the new one. Interestingly, it seems to be slightly simpler in some ways. MDX 1 surfaced both `element` / `img` nodes and `jsx` nodes. By contrast, MDX 2 appears to surface just `mdxJsxTextElement` which are similar to MDX 1's `jsx` nodes, but come which their own AST representation of expression based attributes in the `data` property.
+The abstract syntax tree (AST) is different. MDX 1 and MDX 2 make different ASTs and we must migrate to the new one. Interestingly, it seems to be slightly simpler in some ways. MDX 1 surfaced both `element` / `img` nodes and `jsx` nodes. By contrast, MDX 2 appears to surface just `mdxJsxTextElement` which are similar to MDX 1's `jsx` nodes, but come with their own AST representation of expression based attributes in the `data` property.
 
 The logic of the new plugin is similar to the old plugin, but the code is different to cater for the different AST.
 
 And that's it - we have a new plugin that works with Docusaurus 3 and MDX 2!
 
 ## Migrating the `cloudinary` plugin
+
+Firstly, let's remind ourselves what the cloudinary plugin does. It takes an image URL and transforms it into a Cloudinary URL. So like this:
+
+```diff
+-https://my.website.com/cat.gif
++https://res.cloudinary.com/demo/image/fetch/https://my.website.com/cat.gif
+```
+
+And at runtime, Cloudinary's [Fetch mechanism](https://cloudinary.com/documentation/fetch_remote_images#fetch_and_deliver_remote_files) will handle transforming the image into a format that is optimised for the browser that is requesting it.
 
 It turns out that the `fetchpriority` plugin is a much more straightforward migration than the `cloudinary` plugin. And the reason for that is related to the aforementioned AST changes. Let's start with the old plugin:
 
@@ -299,26 +308,24 @@ module.exports = imageCloudinaryRehypePlugin;
 
 The old plugin had two kinds of nodes it had to deal with, `element` and `jsx`. The new plugin will have to deal with just one kind of node, `mdxJsxTextElement`. (Just the same as with the `fetchpriority` plugin.)
 
-Firstly, let's remind ourselves what the cloudinary plugin does. It takes an image URL and transforms it into a Cloudinary URL. So like this:
-
-```diff
--https://my.website.com/cat.gif
-+https://res.cloudinary.com/demo/image/fetch/https://my.website.com/cat.gif
-```
-
-And at runtime, Cloudinary's [Fetch mechanism](https://cloudinary.com/documentation/fetch_remote_images#fetch_and_deliver_remote_files) will handle transforming the image into a format that is optimised for the browser that is requesting it.
-
 Now you may have noticed that the JSX node in the old plugin has a slightly more complex `src` attribute:
 
 ```jsx
 <img src={require("!/workspaces/blog.johnnyreilly.com/blog-website/node_modules/url-loader/dist/cjs.js?limit=10000&name=assets/images/[name]-[hash].[ext]&fallback=/workspaces/blog.johnnyreilly.com/blog-website/node_modules/file-loader/dist/cjs.js!./bower-with-the-long-paths.png").default} width="640" height="497" />`
 ```
 
-That `src` attribute is a JavaScript expression. It's not a string. It's a JavaScript expression that will be evaluated at runtime through some webpack goodness and resolved to the path to the image in the final build.
+That `src` attribute is a JavaScript expression. It's not a string. It's a JavaScript expression that will be evaluated later by webpack, and will return the path to the image in the final (webpack-based) Docusaurus build.
 
-So transformationinto a Cloudinary URL for JSX nodes is a little tougher. In the MDX 1 plugin, we need to wrap the `require` expression in backticks and prefix it with `https://res.cloudinary.com/${cloudName}/image/fetch/${baseUrl}` where `${baseUrl}` is the base URL of our website. We also need to prefix the expression with a `$` to indicate that it's a JavaScript expression. Tough to read but it works.
+So transformation into a Cloudinary URL for JSX nodes is a little tougher. In the MDX 1 plugin, we needed to wrap the `require` expression in backticks and prefix it with `https://res.cloudinary.com/${cloudName}/image/fetch/${baseUrl}` where `${baseUrl}` is the base URL of our website. We also need to prefix the expression with a `$` to indicate that it's a JavaScript expression. Tough to read but it works.
 
-It turns out it's even tougher with MDX 2. This is because MDX 2's AST includes all kinds of metadata around these attributes:
+Rereading that paragraph, I realise it's hard to understand. Perhaps easier to see it in action. Here's what we want our plugin to do to the JSX node above:
+
+```diff
+-require("!/home/john/code/github/blog.johnnyreilly.com/blog-website/node_modules/url-loader/dist/cjs.js?limit=10000&name=assets/images/[name]-[contenthash].[ext]&fallback=/home/john/code/github/blog.johnnyreilly.com/blog-website/node_modules/file-loader/dist/cjs.js!./screenshot-azure-portal-bring-your-own-certificates.webp").default
++`https://res.cloudinary.com/demo/image/fetch/f_auto,q_auto,w_auto,dpr_auto/https://johnnyreilly.com${require("!/home/john/code/github/blog.johnnyreilly.com/blog-website/node_modules/url-loader/dist/cjs.js?limit=10000&name=assets/images/[name]-[contenthash].[ext]&fallback=/home/john/code/github/blog.johnnyreilly.com/blog-website/node_modules/file-loader/dist/cjs.js!./screenshot-azure-portal-bring-your-own-certificates.webp").default}`
+```
+
+It turns out it's even tougher doing this with MDX 2 as compared to MDX 1. This is because MDX 2's AST includes all kinds of metadata around the `mdxJsxAttributeValueExpression`:
 
 ```js
 {
@@ -327,7 +334,7 @@ It turns out it's even tougher with MDX 2. This is because MDX 2's AST includes 
   value: {
     type: 'mdxJsxAttributeValueExpression',
     value: 'require("!/home/john/code/github/blog.johnnyreilly.com/blog-website/node_modules/url-loader/dist/cjs.js?limit=10000&name=assets/images/[name]-[contenthash].[ext]&fallback=/home/john/code/github/blog.johnnyreilly.com/blog-website/node_modules/file-loader/dist/cjs.js!./screenshot-azure-portal-bring-your-own-certificates.webp").default',
-    data: [Object] // <--- There's a lot of data here!
+    data: [Object] // <--- There's a lot of metadata in here!
   }
 },
 ```
@@ -468,3 +475,7 @@ The hardest of this (and it is hard) is dealing with the `require` expression. W
 3. Transform the `require` expression to a Cloudinary URL
 4. Convert the markdown back to an `mdxJsxTextElement` using a technique adapted from [`mdast-util-mdx-jsx`](https://github.com/syntax-tree/mdast-util-mdx-jsx#use)
 5. Replace the `src` attribute with the new `src` attribute including the updated `require` expression AST in the `mdxJsxAttributeValueExpression` attribute.
+
+And that's it - we have a new plugin that works with Docusaurus 3 and MDX 2!
+
+You may recall that I published an npm package named [`rehype-cloudinary-docusaurus`](https://www.npmjs.com/package/rehype-cloudinary-docusaurus) which makes it easy to use the plugin. I'm working on updating that package to use the new plugin and it will be available soon. You can see the [pull request](https://github.com/johnnyreilly/rehype-cloudinary-docusaurus/pull/9).
