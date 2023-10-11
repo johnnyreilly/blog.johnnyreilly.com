@@ -231,11 +231,11 @@ The abstract syntax tree (AST) is different. MDX 1 and MDX 2 make different ASTs
 
 The logic of the new plugin is similar to the old plugin, but the code is different to cater for the different AST.
 
-And that's it - we have a new plugin that works with Docusaurus 3 and MDX 2!
+And that's it - we have a new `fetchpriority` plugin that works with Docusaurus 3 and MDX 2!
 
 ## Migrating the `cloudinary` plugin
 
-Firstly, let's remind ourselves what the cloudinary plugin does. It takes an image URL and transforms it into a Cloudinary URL. So like this:
+Firstly, let's remind ourselves what the `cloudinary` plugin does. It takes an image URL and transforms it into a Cloudinary URL. So like this:
 
 ```diff
 -https://my.website.com/cat.gif
@@ -462,20 +462,24 @@ Much is happening here. Let's go through it.
 
 ### CommonJS to ES Module
 
-This amounts to the same changes as the `fetchpriority` plugin. The old plugin has the name `cloudinary-rehype-plugin.js` and the new plugin has the name `cloudinary-rehype-plugin.mjs`. This is because the new plugin is an ES Module and the old plugin is CommonJS. Likewise the old plugin used `module.exports = imageCloudinaryRehypePlugin` to expose functionality and the new plugin uses `export default imageCloudinaryRehypePlugin`.
+This amounts to the same changes as the `fetchpriority` plugin. The old plugin has the name `cloudinary-rehype-plugin.js` and the new plugin has the name `cloudinary-rehype-plugin.mjs`. This is because the new plugin is an ES Module and the old plugin is CommonJS. Related to this, the old plugin used `module.exports = imageCloudinaryRehypePlugin` to expose functionality and the new plugin uses `export default imageCloudinaryRehypePlugin`.
 
 ### Different AST
 
 We're dealing with a different AST and just need to tackle the `mdxJsxTextElement` which are similar to MDX 1's `jsx` nodes, but come with their own AST representation of expression based attributes in the `data` property.
 
-The hardest of this (and it is hard) is dealing with the `require` expression. What we do is:
+The hardest part of this (and it is hard / confusing) is dealing with the `require` expression in the `src` attribute. What we do is:
 
-1. Convert the `mdxJsxTextElement` to markdown
-2. Use a regex to find the `require` expression in the `src` attribute
-3. Transform the `require` expression to a Cloudinary URL
+1. Convert the `mdxJsxTextElement` to back to markdown - this is the full `img` element in its AST form
+2. Use a regex to find the `require` expression in the `src` attribute of the markdown
+3. Transform the `require` expression to a Cloudinary URL using the same mechanism as with the MDX 1 plugin 
 4. Convert the markdown back to an `mdxJsxTextElement` using a technique adapted from [`mdast-util-mdx-jsx`](https://github.com/syntax-tree/mdast-util-mdx-jsx#use)
-5. Replace the `src` attribute with the new `src` attribute including the updated `require` expression AST in the `mdxJsxAttributeValueExpression` attribute.
+5. Replace the `src` attribute with the new `src` attribute including the updated `require` expression AST in the `mdxJsxAttributeValueExpression` attributes `data` property.
 
-And that's it - we have a new plugin that works with Docusaurus 3 and MDX 2!
+If you were to compare the MDX 1 plugin with the MDX 2 plugin, 2 and 3 from the above points are the same.  Points 1, 4 and 5 are new.
 
-You may recall that I published an npm package named [`rehype-cloudinary-docusaurus`](https://www.npmjs.com/package/rehype-cloudinary-docusaurus) which makes it easy to use the plugin. I'm working on updating that package to use the new plugin and it will be available soon. You can see the [pull request](https://github.com/johnnyreilly/rehype-cloudinary-docusaurus/pull/9).
+With this in place we have a new plugin that works with Docusaurus 3 and MDX 2!
+
+## `rehype-cloudinary-docusaurus@2`
+
+You may recall that I published an npm package named [`rehype-cloudinary-docusaurus`](https://www.npmjs.com/package/rehype-cloudinary-docusaurus) which packages up the plugin to make it easy for people to use. I'm working on updating that package to use the new plugin and it will be available soon. You can see the [pull request here](https://github.com/johnnyreilly/rehype-cloudinary-docusaurus/pull/9).
