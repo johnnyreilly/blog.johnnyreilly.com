@@ -8,7 +8,7 @@ description: Learn how to migrate rehype plugins to Docusaurus 3.
 hide_table_of_contents: false
 ---
 
-Docusaurus v3 is on the way. One of the big changes that is coming with Docusaurus 3 is MDX 2. I use MDX 1 in my blog and I have a number of rehype plugins that I use to improve the experience of my blog. I have:
+Docusaurus v3 is on the way. One of the big changes that is coming with Docusaurus 3 is MDX 2. My blog has been built with Docusaurus 2 and I have a number of rehype plugins that I use to improve the experience of the blog. These include:
 
 - [a plugin to improve Core Web Vitals with fetchpriority / lazy loading](../2023-01-18-docusaurus-improve-core-web-vitals-fetchpriority/index.md)
 - [a plugin to serving Docusaurus images with Cloudinary](../2022-12-26-docusaurus-image-cloudinary-rehype-plugin/index.md)
@@ -43,7 +43,7 @@ const visit = require('unist-util-visit');
  * Create a rehype plugin that will make the first image eager loaded with fetchpriority="high" and lazy load all other images
  * @returns rehype plugin that will make the first image eager loaded with fetchpriority="high" and lazy load all other images
  */
-function imageFetchPriorityRehypePluginFactory() {
+function imageFetchPriorityRehypePlugin() {
   /** @type {Map<string, string>} */ const files = new Map();
 
   /** @type {import('unified').Transformer} */
@@ -112,7 +112,7 @@ function imageFetchPriorityRehypePluginFactory() {
   };
 }
 
-module.exports = imageFetchPriorityRehypePluginFactory;
+module.exports = imageFetchPriorityRehypePlugin;
 ```
 
 The new plugin looks like this:
@@ -125,7 +125,7 @@ import { visit } from 'unist-util-visit';
  * Create a rehype plugin that will make the first image eager loaded with fetchpriority="high" and lazy load all other images
  * @returns rehype plugin that will make the first image eager loaded with fetchpriority="high" and lazy load all other images
  */
-export default function imageFetchPriorityRehypePluginFactory() {
+export default function imageFetchPriorityRehypePlugin() {
   /** @type {Map<string, string>} */ const files = new Map();
 
   /** @type {import('unified').Transformer} */
@@ -223,7 +223,7 @@ What's different? Well, a number of things; let's go through them.
 
 You'll note the old plugin has the name `image-fetch-priority-rehype-plugin.js` and the new plugin has the name `image-fetch-priority-rehype-plugin.mjs`. This is because the new plugin is an ES Module and the old plugin is CommonJS.
 
-Further to that, the old plugin used `module.exports = imageFetchPriorityRehypePluginFactory` to expose functionality and the new plugin uses `export default imageFetchPriorityRehypePluginFactory`.
+Further to that, the old plugin used `module.exports = imageFetchPriorityRehypePlugin` to expose functionality and the new plugin uses `export default imageFetchPriorityRehypePlugin`.
 
 ### Different AST
 
@@ -357,7 +357,7 @@ import { toMarkdown } from 'mdast-util-to-markdown';
  * @returns rehype plugin that will replace image URLs with Cloudinary URLs
  */
 export default function imageCloudinaryRehypePlugin({ cloudName, baseUrl }) {
-  const imageCloudinaryRehypeVisitor = imageCloudinaryRehypeVisitorFactory({
+  const imageCloudinaryRehypeVisitor = imageCloudinaryRehypeVisitor({
     cloudName,
     baseUrl,
   });
@@ -371,7 +371,7 @@ export default function imageCloudinaryRehypePlugin({ cloudName, baseUrl }) {
  * @param {Params} params
  * @returns rehype plugin that will replace image URLs with Cloudinary URLs
  */
-export function imageCloudinaryRehypeVisitorFactory({ cloudName, baseUrl }) {
+export function imageCloudinaryRehypeVisitor({ cloudName, baseUrl }) {
   const srcRegex = / src=\{(.*)\}/;
   return function imageCloudinaryRehypeVisitor(node) {
     const imgWithAttributes = node;
@@ -459,7 +459,7 @@ This amounts to the same changes as the `fetchpriority` plugin. The old plugin h
 
 ### Different AST
 
-We're dealing with a different AST and just need to tackle the `mdxJsxTextElement` which are similar to MDX 1's `jsx` nodes, but come which their own AST representation of expression based attributes in the `data` property.
+We're dealing with a different AST and just need to tackle the `mdxJsxTextElement` which are similar to MDX 1's `jsx` nodes, but come with their own AST representation of expression based attributes in the `data` property.
 
 The hardest of this (and it is hard) is dealing with the `require` expression. What we do is:
 
