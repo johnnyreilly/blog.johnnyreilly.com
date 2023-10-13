@@ -1,5 +1,5 @@
 {
-  "extends": "@docusaurus/tsconfig/tsconfig.json",
+  "extends": "@tsconfig/docusaurus/tsconfig.json",
   "include": ["src/", "static/"],
   "compilerOptions": {
     "checkJs": true
