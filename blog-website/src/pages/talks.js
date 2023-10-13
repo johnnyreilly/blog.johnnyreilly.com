@@ -123,7 +123,7 @@ function Talks() {
           <div className="container">
             <div className="row">
               {talks.map((talk) => (
-                <div className="card-demo margin--md">
+                <div className="card-demo margin--md" key={talk.id}>
                   <div className="card shadow--tl">
                     <div className="card__header">
                       <h3 style={{ maxWidth: '560px' }}>

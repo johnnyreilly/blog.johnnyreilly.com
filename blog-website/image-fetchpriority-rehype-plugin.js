@@ -61,12 +61,12 @@ function imageFetchPriorityRehypePluginFactory() {
         if (fetchpriorityThisImage) {
           node['value'] = node['value'].replace(
             /<img /g,
-            '<img loading="eager" fetchpriority="high" '
+            '<img loading="eager" fetchpriority="high" ',
           );
         } else {
           node['value'] = node['value'].replace(
             /<img /g,
-            '<img loading="lazy" '
+            '<img loading="lazy" ',
           );
         }
       }

@@ -1,14 +1,16 @@
 {
   "name": "blog.johnnyreilly.com",
   "version": "1.0.0",
-  "description": "[![blog status badge](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/blog.yml/badge.svg)](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/blog.yml)",
+  "description": "This is the code for my blog, https://johnnyreilly.com. It's a Docusaurus app, and it's hosted on Azure Static Web Apps.",
   "main": "index.js",
   "scripts": {
     "start": "cd blog-website && yarn start",
     "build": "cd blog-website && yarn build",
-    "install:blog": "cd blog-website && yarn",
-    "install:blogapi": "cd blog-website/api && npm install",
-    "postinstall": "npm run install:blog && npm run install:blogapi",
+    "install:blog-website": "cd blog-website && yarn",
+    "install:blog-api": "cd blog-website/api && npm install",
+    "install:blog-website-tests": "cd blog-website-tests && npm install",
+    "install:pre-post-processing": "cd pre-post-processing && bun install",
+    "postinstall": "npm run install:blog-website && npm run install:blog-api && npm run install:blog-website-tests && npm run install:pre-post-processing",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write --ignore-unknown .",
     "prepare": "husky install"

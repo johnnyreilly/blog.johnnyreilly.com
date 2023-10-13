@@ -17,8 +17,6 @@ Following the original publication of this post I received this tweet suggesting
 >
 > — Tobias Koppers (@wSokra) [January 22, 2020](https://twitter.com/wSokra/status/1220069497660411904?ref_src=twsrc%5Etfw)
 
-<script async="" src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
-
 That seemed like an excellent idea! I raised [this PR](https://github.com/webpack-contrib/terser-webpack-plugin/pull/210) which changes the behaviour such that instead of `.LICENSE` files being produced, `.LICENSE.txt` files are pumped out instead. Crucially they are IIS (and other servers) friendly. The great news is that future users of webpack / create-react-app etc will not face this problem at all; result!
 
 ## The tragedy

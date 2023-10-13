@@ -23,8 +23,6 @@ Up until now, really not much. It just wasn't possible. Until it was:
 >
 > — Martin Woodward (@martinwoodward) [March 4, 2018](https://twitter.com/martinwoodward/status/970250739510534144?ref_src=twsrc%5Etfw)
 
-<script async="" src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
-
 When I started testing it out I found things to like and some things I didn't understand. Crucially, my CI now builds based upon `.vsts-ci.yml`. YAML baby!
 
 ## It Begins!

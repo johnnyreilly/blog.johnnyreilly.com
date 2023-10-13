@@ -52,7 +52,7 @@ So in our case we'd want to pass an object with `name: 'robots'` and `content: '
 module.exports = {
   //...
   themeConfig: {
-    // <meta name="robots" content="max-image-preview:large">
+    // <meta name="robots" content="max-image-preview:large" />
     metadata: [{ name: 'robots', content: 'max-image-preview:large' }],
     //...
   },
@@ -62,7 +62,7 @@ module.exports = {
 
 With that in place, we find our expected `meta` tag is now part of our rendered HTML:
 
-![screenshot of the <meta name="robots" content="max-image-preview:large"> tag taken from Chrome Devtools](screenshot-of-meta-tag.png)
+![screenshot of the meta robots max-image-preview:large tag taken from Chrome Devtools](screenshot-of-meta-tag.png)
 
 ## Meta meta
 

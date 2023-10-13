@@ -22,7 +22,7 @@ This blog evolved to become a talk:
 
 Slightly surreally, there's an [audiobook version of this post](https://www.youtube.com/watch?v=pj8SoTZbCTE) thanks to ThePrimeagen. Essentially he reads the blog post and says he didn't like it. But it made me laugh 😉:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/pj8SoTZbCTE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/pj8SoTZbCTE" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
 
 If you're looking for a good reference on using JSDoc with TypeScript then [read this guide](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html).
 

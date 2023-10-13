@@ -44,7 +44,7 @@ In order that we can run pipelines related to Azure, we mostly need to have an A
 
 Without this in place, we may encounter errors of the type:
 
-> ##[error]The template deployment failed with error: 'Authorization failed for template resource '{GUID-THE-FIRST}' of type 'Microsoft.Authorization/roleAssignments'. The client '{GUID-THE-SECOND}' with object id '{GUID-THE-SECOND}' does not have permission to perform action 'Microsoft.Authorization/roleAssignments/write' at scope '/subscriptions/\*\*\*/resourceGroups/johnnyreilly/providers/Microsoft.EventHub/namespaces/evhns-demo/providers/Microsoft.Authorization/roleAssignments/{GUID-THE-FIRST}'.'.
+> ##[error]The template deployment failed with error: 'Authorization failed for template resource `{GUID-THE-FIRST}` of type `Microsoft.Authorization/roleAssignments`. The client `{GUID-THE-SECOND}` with object id `{GUID-THE-SECOND}` does not have permission to perform action `Microsoft.Authorization/roleAssignments/write` at scope `/subscriptions/\*\*\*/resourceGroups/johnnyreilly/providers/Microsoft.EventHub/namespaces/evhns-demo/providers/Microsoft.Authorization/roleAssignments/{GUID-THE-FIRST}`.'.
 
 Essentially, we want to be able to run pipelines that say "hey Azure, we want to give permissions to our service connection". We are doing this _with_ the self same service connection, so (chicken and egg) we first need to give it permission to give those commands in future. This is a little confusing; but let's role with it. (Pun most definitely intended. 😉)
 
