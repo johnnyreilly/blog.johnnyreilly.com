@@ -5,3 +5,4 @@ APIClientGenerator
 .env
 __azurite*
 __blobstorage*
+__queuestorage*

@@ -1,7 +1,7 @@
 {
   "name": "blog.johnnyreilly.com",
   "version": "1.0.0",
-  "description": "[![blog status badge](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/blog.yml/badge.svg)](https://github.com/johnnyreilly/blog.johnnyreilly.com/actions/workflows/blog.yml)",
+  "description": "This is the code for my blog, https://johnnyreilly.com. It's a Docusaurus app, and it's hosted on Azure Static Web Apps.",
   "main": "index.js",
   "scripts": {
     "start": "cd blog-website && yarn start",
