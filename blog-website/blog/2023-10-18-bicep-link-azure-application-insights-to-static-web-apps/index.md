@@ -8,7 +8,7 @@ description: Learn how to link Azure Application Insights to an Azure Static Web
 hide_table_of_contents: false
 ---
 
-If you're looking into a Production issue with your Azure Static Web App, you'll want to be able to get to your logs as fast as possible. You can do this by linking your Azure Static Web App to an Azure Application Insights instance. If you've used the Azure Portal to create your Static Web App, the setup phase will likely have done this for you already. But if you're using Bicep to create your Static Web App, you'll need to do this yourself.
+If you're looking into a Production issue with your Azure Static Web App, you'll want to be able to get to your logs as fast as possible. You can do this by linking your Static Web App to an Azure Application Insights instance. If you've used the Azure Portal to create your Static Web App, the setup phase will likely have done this for you already. But if you're using Bicep to create your Static Web App, you'll need to do this yourself.
 
 This post will show you how to do that using Bicep.
 
@@ -57,13 +57,13 @@ resource staticWebApp 'Microsoft.Web/staticSites@2022-09-01' = {
 }
 ```
 
-Consider the code above; it's a fairly standard Bicep resource declaration for a Static Web App. The only difference is the `tags` property. We're using the `union` function to add three additional tags to the `tags` property. These tags are the "hidden-link" tags that link the Static Web App to the App Insights instance.
+Consider the code above; it's a fairly standard Bicep resource declaration for a Static Web App. The only difference is the `tags` property. We're using the `union` function to add three additional tags to the `tags` property that has been passed into the `static-web-app.bicep` module. These tags are the `hidden-link` tags that link the Static Web App to the App Insights instance.
 
-Luke Murray has a great post on [`hidden-` tags in Azure](https://luke.geek.nz/azure/hidden-tags-in-azure/) that I recommend you read if you want to know more about it. Essentially, hidden tags are tags that don't show up in the Azure Portal. And `hidden-link` tags are a subset of those that are used to link resources together.
+Luke Murray has a great post on [`hidden-` tags in Azure](https://luke.geek.nz/azure/hidden-tags-in-azure/) that I recommend you read if you want to know more about them. Essentially, hidden tags are tags that don't show up in the Azure Portal and have some metadata purpose. `hidden-link` tags are a subset of those that are used to link resources together.
 
 ## Where would you get the values for the `hidden-link` tags?
 
-In the case of the `hidden-link` tags we're using here, we need to know the `id`, `instrumentationKey` and `connectionString` of the App Insights instance we want to link to. We can get these values from the App Insights instance itself. Because of the way Bicep works, it's necessary to get those in a parent module to the Static Web App module. Here's an example:
+In the case of the `hidden-link` tags we're using here, we need to know the `id`, `InstrumentationKey` and `ConnectionString` of the App Insights instance we want to link to. We can get these values from the App Insights instance itself. Because of the way Bicep works, it's necessary to get those in a parent module to the Static Web App module. Here's an example:
 
 ```bicep
 resource appInsightsResource 'Microsoft.Insights/components@2020-02-02' existing = {
@@ -84,4 +84,4 @@ module staticWebApp './static-web-app.bicep' = {
 
 ## Summary
 
-With this is place we have the linking we need to get to our logs quickly. And we have it in place in a way that's repeatable and consistent. I hope you find this useful.
+With this is place we have the linking we need to get to our logs quickly as we navigate around inside the Azure Portal. And we have it in place in a way that's repeatable and consistent. I hope you find this useful.
