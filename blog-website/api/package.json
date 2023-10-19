@@ -17,7 +17,7 @@
     "ufo": "^1.0.1"
   },
   "devDependencies": {
-    "@azure/functions": "^3.5.0",
+    "@azure/functions": "^4.0.0",
     "@types/jest": "^29.2.5",
     "@types/lodash": "^4.14.197",
     "@types/node": "^18.x",
