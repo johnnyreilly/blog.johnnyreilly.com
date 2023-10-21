@@ -12,7 +12,7 @@ Node.js 18 doesn't allow legacy TLS renegotion by default. But some APIs still n
 
 This post shows how to support work around this issue with Axios.
 
-![title image reading "Node.js 18, Axios and unsafe legacy renegotiation disabled"](title-image.png)
+![title image reading "Node.js 18, Axios and unsafe legacy renegotiation disabled" and Axios / Node.js logos](title-image.png)
 
 <!--truncate-->
 
@@ -44,7 +44,7 @@ But what say you can't disable SSL inspection? Or what if you're using an API th
 
 [I found details on how to do this using Axios on Stack Overflow](https://stackoverflow.com/questions/74324019/allow-legacy-renegotiation-for-nodejs/74600467#74600467). I kept needing to come back to it again and again, to make it easier for me to find.
 
-To cope with older APIs, making an Axios request ends up looking like this:
+So if you are facing this issue, here's how to work around it with Axios.
 
 ```ts
 import crypto from 'crypto';
@@ -78,7 +78,7 @@ function makeRequest(url: string, data: object) {
 }
 ```
 
-With the approach above, you can make Axios requests to APIs that use legacy TLS renegotiation. I'd love to be able to do this with the Fetch API, but I haven't found a way to do that yet.
+There's not much going on here; we're just telling Axios to use an https agent that allows legacy TLS renegotiation. No more than that. With this approach, you can make Axios requests to APIs that use legacy TLS renegotiation. I'd love to be able to do this with the Fetch API, but I haven't found a way to do that yet.
 
 ## Summary
 
