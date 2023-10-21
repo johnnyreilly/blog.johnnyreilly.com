@@ -53,14 +53,14 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
       const match = blogMarkdown.match(regex);
       if (match) {
         const tagsInBrackets = match[1]; // eg "azure-open-ai, bicep"
-        const tags = tagsInBrackets.split(',').map((tag) => tag.trim());
+        const tags = tagsInBrackets.split(',').map((tag) => tag.trim()).filter(tag => tag);
 
         tags.forEach((tag) => {
           const currentCount = tagsAndTotal.get(tag) ?? 0;
           tagsAndTotal.set(tag, currentCount + 1);
         });
       } else {
-        throw new Error(`No tags found in ${filePath}`);
+        // throw new Error(`No tags found in ${filePath}`);
       }
 
       if (blogMarkdown.includes('<link rel="canonical" href=')) {
