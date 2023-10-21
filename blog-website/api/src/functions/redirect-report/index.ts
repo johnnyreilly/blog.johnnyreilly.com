@@ -1,10 +1,10 @@
 // based on https://github.com/Azure/azure-functions-nodejs-samples/blob/main/ts/src/functions/httpTrigger3.ts
-import {
-  app,
+import type {
   HttpRequest,
   HttpResponseInit,
   InvocationContext,
 } from '@azure/functions';
+import { app } from '@azure/functions';
 
 import { startOfWeek } from 'date-fns';
 import { groupBy, orderBy } from 'lodash';

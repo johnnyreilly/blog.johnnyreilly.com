@@ -2,7 +2,7 @@ import type { InvocationContext } from '@azure/functions';
 
 import { CosmosClient } from '@azure/cosmos';
 
-import { RedirectInDb } from '../fallback/types';
+import type { RedirectInDb } from '../fallback/types';
 import {
   cosmosDbDatabaseName,
   cosmosDbRedirectsContainerName,

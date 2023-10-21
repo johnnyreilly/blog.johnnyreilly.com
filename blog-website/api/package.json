@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "tsc",
+    "build": "eslint . && tsc",
     "watch": "tsc -w",
     "prestart": "npm run build",
     "start": "func start",
@@ -21,9 +21,12 @@
     "@types/jest": "^29.2.5",
     "@types/lodash": "^4.14.197",
     "@types/node": "^18.x",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
+    "eslint": "^8.52.0",
     "jest": "^29.3.1",
     "ts-jest": "^29.1.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.2.2"
   },
   "main": "dist/src/functions/*/index.js"
 }
