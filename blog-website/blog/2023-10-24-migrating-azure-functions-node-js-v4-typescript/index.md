@@ -16,72 +16,241 @@ This post fills in the gaps for a TypeScript Azure Function. It's probably worth
 
 <!--truncate-->
 
-## A linked Azure Application Insights instance
+I'm going to walk through the migration of my blog from v3 to v4. This takes place in [this pull request](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/728/files). I'll probably cover some of the ground of the offical JavaScript upgrade docs, but I'll also cover some of the TypeScript specific stuff.
 
-What we want to achieve can be summmed up by this screenshot:
+## `package.json`
 
-![screenshot of the Azure Portal displaying the App Insights tab of a Static Web App, with a linked App Insights in view](screenshot-azure-portal-open-in-application-insights.png)
+There's three changes to make to `package.json`:
 
-Inside the Azure Portal, inside our Static Web App, we want to see the App Insights tab and we want to see a linked App Insights instance. We do. But how?
+```diff
+  "dependencies": {
++    "@azure/functions": "^4.0.1",
+  },
+  "devDependencies": {
+-    "@azure/functions": "^3.5.0",
+  },
++  "main": "dist/src/functions/*/index.js"
+```
 
-## Bicep linking
+1. Update the `@azure/functions` dependency to `^4.0.1` (or later)
+2. `@azure/functions` dev dependency becomes a regular dependency - this is because we'll be using the package at runtime now - previously we just used it to get the types at build time
+3. Add a `main` property to the `package.json` with a glob that matches the functions in your project; in my case `dist/src/functions/*/index.js` - which will be our output from the TypeScript build
 
-The Bicep code to achieve this is pretty simple:
+As I did **3.**, I found myself changing the folder structure of my functions. Actually, this isn't mandatory, but it was tricky for me to come up with a glob for my current structure. So I moved things around - you may not need to. All that matters is that your glob matches the output of your build.
 
-```bicep title="static-web-app.bicep"
-var tagsWithHiddenLinks = union({
-  'hidden-link: /app-insights-resource-id': appInsightsId
-  'hidden-link: /app-insights-instrumentation-key': appInsightsInstrumentationKey
-  'hidden-link: /app-insights-conn-string': appInsightsConnectionString
-}, tags)
+## Migrating a Function
 
-resource staticWebApp 'Microsoft.Web/staticSites@2022-09-01' = {
-  name: staticWebAppName
-  location: location
-  tags: tagsWithHiddenLinks // <--- here
-  sku: {
-    name: 'Free'
-    tier: 'Free'
+In order that we can understand what migration looks like, we must first take a look at the v3 version of a function. Here's the `fallback` function from my blog:
+
+```ts
+import type { AzureFunction, Context, HttpRequest } from '@azure/functions';
+
+import { redirect } from './redirect';
+import { saveToDatabase } from './saveToDatabase';
+
+const httpTrigger: AzureFunction = async function (
+  context: Context,
+  req: HttpRequest,
+): Promise<void> {
+  try {
+    const originalUrl = req.headers['x-ms-original-url'];
+
+    const { status, location } = redirect(originalUrl, context.log);
+
+    await saveToDatabase(originalUrl, { status, location }, context.log);
+
+    context.res = {
+      status,
+      headers: {
+        location,
+      },
+    };
+  } catch (error) {
+    context.log.error(
+      'Problem with fallback',
+      error,
+      req.headers['x-ms-original-url'],
+    );
   }
-  properties: {
-    repositoryUrl: 'https://github.com/johnnyreilly/blog.johnnyreilly.com'
-    repositoryToken: repositoryToken
-    branch: branch
-    provider: 'GitHub'
-    stagingEnvironmentPolicy: 'Enabled'
-    allowConfigFileUpdates: true
-    buildProperties:{
-      skipGithubActionWorkflowGeneration: true
+};
+
+export default httpTrigger;
+```
+
+The above is the code I use to power [dynamic redirects with my Azure Static Web App with my Azure Function back-end](../2022-12-22-azure-static-web-apps-dynamic-redirects-azure-functions/index.md). It's a TypeScript Azure Function that takes a request, redirects to a new location and saves the redirect to a database.
+
+What it does isn't significant for this post, but the structure is. Now let's look at the migrated version:
+
+```ts
+import type {
+  HttpRequest,
+  HttpResponseInit,
+  InvocationContext,
+} from '@azure/functions';
+import { app } from '@azure/functions';
+
+import { redirect } from './redirect';
+import { saveToDatabase } from './saveToDatabase';
+
+export async function fallback(
+  request: HttpRequest,
+  context: InvocationContext,
+): Promise<HttpResponseInit> {
+  try {
+    const originalUrl = request.headers.get('x-ms-original-url') || '';
+
+    const { status, location } = redirect(originalUrl, context);
+
+    await saveToDatabase(originalUrl, { status, location }, context);
+
+    return {
+      status,
+      headers: {
+        location,
+      },
+    };
+  } catch (error) {
+    context.error(
+      'Problem with fallback',
+      error,
+      request.headers.get('x-ms-original-url'),
+    );
+    return {
+      status: 500,
+      body: 'something went wrong',
+    };
+  }
+}
+
+app.http('fallback', {
+  methods: ['GET'],
+  handler: fallback,
+});
+```
+
+What's different? We'll go through the changes one by one.
+
+### `import`s used
+
+Starting at the top, the `import`s we use are different:
+
+```diff
+-import type { AzureFunction, Context, HttpRequest } from '@azure/functions';
++import type {
++  HttpRequest,
++  HttpResponseInit,
++  InvocationContext,
++} from '@azure/functions';
++import { app } from '@azure/functions';
+```
+
+We're no longer just importing types, we're importing the `app` function from `@azure/functions` also. The types being imported are different too. We're no longer importing `AzureFunction, Context, HttpRequest` - instead we're importing `HttpRequest, HttpResponseInit,  InvocationContext`.
+
+### Hello `app`, goodbye `function.json`
+
+As we saw, we're making use of the `app` function from `@azure/functions`. This is a new function that we use to register our functions. We no longer use `function.json` to register our functions. Instead we use `app` to register our functions. In the case of my `fallback` function, we register it like this:
+
+```ts
+app.http('fallback', {
+  methods: ['GET'],
+  handler: fallback,
+});
+```
+
+The replaces the more verbose `function.json` that used to sit alongside:
+
+```json
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": ["get", "post"]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
     }
-  }
+  ],
+  "scriptFile": "../dist/fallback/index.js"
 }
 ```
 
-Consider the code above; it's a fairly standard Bicep resource declaration for a Static Web App. The only difference is the `tags` property. We're using the `union` function to add three additional tags to the `tags` property that has been passed into the `static-web-app.bicep` module. These tags are the `hidden-link` tags that link the Static Web App to the App Insights instance.
+As you've probably guessed, the `scriptFile` property above was covered by our `main` addition to the `package.json`. The rest of the `function.json` is covered by the `app.http` call. Much terser.
 
-Luke Murray has a great post on [`hidden-` tags in Azure](https://luke.geek.nz/azure/hidden-tags-in-azure/) that I recommend you read if you want to know more about them. Essentially, hidden tags are tags that don't show up in the Azure Portal and have some metadata purpose. `hidden-link` tags are a subset of those that are used to link resources together.
+### function signature
 
-## Where would you get the values for the `hidden-link` tags?
+The signature of the function has changed too:
 
-In the case of the `hidden-link` tags we're using here, we need to know the `id`, `InstrumentationKey` and `ConnectionString` of the App Insights instance we want to link to. We can get these values from the App Insights instance itself. Because of the way Bicep works, it's necessary to get those in a parent module to the Static Web App module. Here's an example:
-
-```bicep
-resource appInsightsResource 'Microsoft.Insights/components@2020-02-02' existing = {
-  name: appInsightsName
-}
-
-module staticWebApp './static-web-app.bicep' = {
-  name: '${deployment().name}-staticWebApp'
-  params: {
-    // ...
-    appInsightsId: appInsightsResource.id
-    appInsightsConnectionString: appInsightsResource.properties.ConnectionString
-    appInsightsInstrumentationKey: appInsightsResource.properties.InstrumentationKey
-    // ...
-  }
-}
+```diff
+-const httpTrigger: AzureFunction = async function (
+-  context: Context,
+-  req: HttpRequest
+-): Promise<void> {
++export async function fallback(
++  request: HttpRequest,
++  context: InvocationContext,
++): Promise<HttpResponseInit> {
 ```
 
-## Summary
+You'll see here that we're using a function declaration rather than a function expression. Our new function takes our new types, the subtly different `HttpRequest` and `InvocationContext`, which are similar to, but different from the previous `Context` and `HttpRequest` types. The order of the parameters has changed too.
 
-With this is place we have the linking we need to get to our logs quickly as we navigate around inside the Azure Portal. And we have it in place in a way that's repeatable and consistent. I hope you find this useful.
+The return type is now `Promise<HttpResponseInit>` rather than `Promise<void>`. What this means is, we're going to return values from our function, which we didn't do previously. Let's look at the implications of this.
+
+### From `context.res` to `Promise<HttpResponseInit>`
+
+With a v3 function, we'd set properties on the `context` object to return values from our function. With a v4 function, we return values from our function directly. What does this look like?
+
+```diff
+-    context.res = {
+-      status,
+-      headers: {
+-        location,
+-      },
+-    };
++    return {
++      status,
++      headers: {
++        location,
++      },
++    };
+```
+
+This is rather a nice change, as we no longer need to remember to subsequently `return` after setting the `context.res` property. We just return the value we want to return from our function.
+
+### `body` vs `jsonBody`
+
+Another difference is that we no longer set the `body` property of the `context.res` object. Instead we return an object with a `jsonBody` property, if we're returning JSON from our API. (And that's the most common case, right?)
+
+This wasn't illustrated in the `fallback` function above, but here's an example of migrating a function that returns JavaScript object literal named `redirectSummary`:
+
+```diff
+-    context.res = {
+-      status: 200,
+-      body: redirectSummary,
+-    };
++    return {
++      status: 200,
++      jsonBody: redirectSummary,
++    };
+```
+
+The `body` property still exists, but it's for returning strings, rather than JSON. If you're returning JSON, you should use the `jsonBody` property.
+
+### Runtime APIs
+
+Finally, the APIs offered by the `request` and `context` objects are different. I shan't go into detail here as it's [well covered in the official documentation](https://learn.microsoft.com/en-us/azure/azure-functions/functions-node-upgrade-v4?tabs=v4#review-your-usage-of-http-types). But I will show you the changes I made to my `fallback` function:
+
+```diff
+-    const originalUrl = req.headers['x-ms-original-url'];
++    const originalUrl = request.headers.get('x-ms-original-url') || '';
+```
+
+Not too significant, but there's a number of changes like this to make.
+
+## Conclusion
+
+Migrating an Azure Function from v3 to v4 with TypeScript is a little more involved than I'd expected. But it's not too bad. The official documentation is good, but it's not complete right now. Hopefully this post will help you migrate your TypeScript Azure Functions to v4.
