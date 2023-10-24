@@ -1,12 +1,12 @@
 import type { Redirect, RedirectInDb } from './types';
-import type { Logger } from '@azure/functions';
+import type { InvocationContext } from '@azure/functions';
 
 import { CosmosClient } from '@azure/cosmos';
 
 import {
   cosmosDbDatabaseName,
   cosmosDbRedirectsContainerName,
-} from '../constants';
+} from '../../constants';
 
 const key = process.env.COSMOS_KEY || '<cosmos key>';
 const endpoint = process.env.COSMOS_ENDPOINT || '<cosmos endpoint>';
@@ -33,10 +33,12 @@ where redirects.numRedirects > 1
 export async function saveToDatabase(
   originalUrl: string,
   redirect: Redirect,
-  log: Logger,
+  context: InvocationContext,
 ): Promise<void> {
   try {
-    log(`Saving redirect to database: ${originalUrl} -> ${redirect.location}`);
+    context.log(
+      `Saving redirect to database: ${originalUrl} -> ${redirect.location}`,
+    );
 
     const client = new CosmosClient({
       key,
@@ -57,11 +59,11 @@ export async function saveToDatabase(
       cosmosDbRedirectsContainerName,
     );
     const savedRedirects = await redirectsContainer.items.create(redirectInDb);
-    log(
+    context.log(
       `Saved redirect to database: ${originalUrl} -> ${redirect.location}`,
       savedRedirects,
     );
   } catch (error) {
-    log.error('Problem saving redirect to database', error);
+    context.error('Problem saving redirect to database', error);
   }
 }

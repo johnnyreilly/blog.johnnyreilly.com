@@ -1,4 +1,4 @@
-import type { Logger } from '@azure/functions';
+import type { InvocationContext } from '@azure/functions';
 
 import { parseURL } from 'ufo';
 import { imagePaths } from './imagePaths';
@@ -13,10 +13,10 @@ const baseUrl = 'https://johnnyreilly.com';
  * @param log
  * @returns
  */
-export function redirect(originalUrl: string, log: Logger) {
+export function redirect(originalUrl: string, context: InvocationContext) {
   if (originalUrl) {
     // This URL has been proxied as there was no static file matching it.
-    log(`x-ms-original-url: ${originalUrl}`);
+    context.log(`x-ms-original-url: ${originalUrl}`);
 
     const parsedURL = parseURL(originalUrl);
     // parsedURL.pathname example: /2019/06/typescript-webpack-you-down-with-pnp.html
@@ -27,7 +27,7 @@ export function redirect(originalUrl: string, log: Logger) {
 
     if (matchedRoute) {
       return redirect301({
-        log,
+        context,
         originalUrl,
         redirectUrl: matchedRoute.redirect,
       });
@@ -39,7 +39,7 @@ export function redirect(originalUrl: string, log: Logger) {
         ? '/rss.xml'
         : '/atom.xml';
 
-      return redirect301({ log, originalUrl, redirectUrl: atomOrRss });
+      return redirect301({ context, originalUrl, redirectUrl: atomOrRss });
     }
 
     // cater for https://johnnyreilly.com/search/label/uglifyjs
@@ -48,7 +48,7 @@ export function redirect(originalUrl: string, log: Logger) {
         '/search?q=' + parsedURL.pathname.replace('/search/label/', '');
 
       return redirect301({
-        log,
+        context,
         originalUrl,
         redirectUrl: bloggerSearchRedirect,
       });
@@ -58,7 +58,7 @@ export function redirect(originalUrl: string, log: Logger) {
     if (parsedURL.pathname.match(yearMonthRegex)) {
       const bloggerArchiveRedirect = '/blog';
       return redirect301({
-        log,
+        context,
         originalUrl,
         redirectUrl: bloggerArchiveRedirect,
       });
@@ -77,7 +77,7 @@ export function redirect(originalUrl: string, log: Logger) {
 
       if (likelyImageRedirect) {
         return redirect301({
-          log,
+          context,
           originalUrl,
           redirectUrl: likelyImageRedirect,
         });
@@ -89,7 +89,7 @@ export function redirect(originalUrl: string, log: Logger) {
     ? `${baseUrl}/404?originalUrl=${encodeURIComponent(originalUrl)}`
     : `${baseUrl}/404`;
 
-  log(
+  context.log(
     `Redirecting ${originalUrl} to ${location} as no explicit redirect exists`,
   );
 
@@ -105,15 +105,15 @@ export function redirect(originalUrl: string, log: Logger) {
  */
 function redirect301({
   redirectUrl,
-  log,
+  context,
   originalUrl,
 }: {
   redirectUrl: string;
-  log: Logger;
+  context: InvocationContext;
   originalUrl: string;
 }) {
   const redirectUrlWithBase = `${baseUrl}${redirectUrl}`;
-  log(`Redirecting ${originalUrl} to ${redirectUrlWithBase}`);
+  context.log(`Redirecting ${originalUrl} to ${redirectUrlWithBase}`);
 
   return {
     status: 301,
