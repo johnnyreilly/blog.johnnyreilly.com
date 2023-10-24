@@ -18,9 +18,16 @@ This post fills in the gaps for a TypeScript Azure Function. It's probably worth
 
 I'm going to walk through the migration of my blog from v3 to v4. This takes place in [this pull request](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/728/files). I'll probably cover some of the ground of the offical JavaScript upgrade docs, but I'll also cover some of the TypeScript specific stuff.
 
-## `package.json`
+There will be two main parts to this post:
 
-There's three changes to make to `package.json`:
+1. Changes to make to `package.json`
+2. Migrating a Function
+
+The second part will be the bulk of the post, but the first part is important too.
+
+## 1. Changes to make to `package.json`
+
+So, starting with the first part, there are three changes to make to the `package.json`:
 
 ```diff
   "dependencies": {
@@ -33,12 +40,12 @@ There's three changes to make to `package.json`:
 ```
 
 1. Update the `@azure/functions` dependency to `^4.0.1` (or later)
-2. `@azure/functions` dev dependency becomes a regular dependency - this is because we'll be using the package at runtime now - previously we just used it to get the types at build time
+2. The `@azure/functions` dev dependency becomes a regular dependency - this is because we'll be using the package at runtime now - previously we just used it to get the types at build time
 3. Add a `main` property to the `package.json` with a glob that matches the functions in your project; in my case `dist/src/functions/*/index.js` - which will be our output from the TypeScript build
 
-As I did **3.**, I found myself changing the folder structure of my functions. Actually, this isn't mandatory, but it was tricky for me to come up with a glob for my current structure. So I moved things around - you may not need to. All that matters is that your glob matches the output of your build.
+As I took care of **3.**, I found myself changing the folder structure of my functions. Actually, this isn't mandatory, but it was tricky for me to come up with a glob for my current structure. So I moved things around - you may not need to. All that matters is that your glob matches the output of your build.
 
-## Migrating a Function
+## 2. Migrating a Function
 
 In order that we can understand what migration looks like, we must first take a look at the v3 version of a function. Here's the `fallback` function from my blog:
 
@@ -77,9 +84,11 @@ const httpTrigger: AzureFunction = async function (
 export default httpTrigger;
 ```
 
-The above is the code I use to power [dynamic redirects with my Azure Static Web App with my Azure Function back-end](../2022-12-22-azure-static-web-apps-dynamic-redirects-azure-functions/index.md). It's a TypeScript Azure Function that takes a request, redirects to a new location and saves the redirect to a database.
+The above is the code I use to power [dynamic redirects in my Azure Static Web App with the Azure Function back-end](../2022-12-22-azure-static-web-apps-dynamic-redirects-azure-functions/index.md). It's a TypeScript Azure Function that takes a request, redirects to a new location and saves metadata about the redirect to a database.
 
-What it does isn't significant for this post, but the structure is. Now let's look at the migrated version:
+Looking at the code now, I rather think I should have called the function `redirect` rather than `fallback`. I'll leave it as is for now, but I'll probably change it in the future.
+
+What the `fallback` function does isn't significant for this post, but the structure is. Now let's look at the migrated version:
 
 ```ts
 import type {
@@ -128,7 +137,7 @@ app.http('fallback', {
 });
 ```
 
-What's different? We'll go through the changes one by one.
+As we can see, the logic looks pretty much the same. But a lot has changed. Same, same but different. What's different? We'll go through the changes one by one.
 
 ### `import`s used
 
@@ -144,11 +153,11 @@ Starting at the top, the `import`s we use are different:
 +import { app } from '@azure/functions';
 ```
 
-We're no longer just importing types, we're importing the `app` function from `@azure/functions` also. The types being imported are different too. We're no longer importing `AzureFunction, Context, HttpRequest` - instead we're importing `HttpRequest, HttpResponseInit,  InvocationContext`.
+We're no longer just importing types, we're importing the `app` function from `@azure/functions` also. The types that are being imported are different too. We're no longer importing `AzureFunction, Context, HttpRequest` - instead we're importing `HttpRequest, HttpResponseInit,  InvocationContext`.
 
 ### Hello `app`, goodbye `function.json`
 
-As we saw, we're making use of the `app` function from `@azure/functions`. This is a new function that we use to register our functions. We no longer use `function.json` to register our functions. Instead we use `app` to register our functions. In the case of my `fallback` function, we register it like this:
+As we saw, we're making use of the `app` function from `@azure/functions`. This is a new function that we use to register our Azure Functions. We no longer use `function.json`. Instead we use `app`. In the case of my `fallback` Azure Functions, we register it like this:
 
 ```ts
 app.http('fallback', {
@@ -157,7 +166,9 @@ app.http('fallback', {
 });
 ```
 
-The replaces the more verbose `function.json` that used to sit alongside:
+We're registering an HTTP trigger called `fallback` that responds to `GET` requests. The `handler` is the function that will be called when the trigger is invoked. There's more options available, but this is the minimum we need to register our function.
+
+This minimal TypeScript/JavaScript replaces the more verbose `function.json` that used to sit alongside:
 
 ```json
 {
@@ -179,11 +190,13 @@ The replaces the more verbose `function.json` that used to sit alongside:
 }
 ```
 
-As you've probably guessed, the `scriptFile` property above was covered by our `main` addition to the `package.json`. The rest of the `function.json` is covered by the `app.http` call. Much terser.
+All of this is gone, replaced by the `app` function usage. There's one part of the `function.json` that isn't covered by the `app` function, and that's the `scriptFile` property. This is covered by the `main` property we added to the `package.json` earlier.
 
-### function signature
+The rest of the `function.json` is covered by the `app.http` call. Much terser.
 
-The signature of the function has changed too:
+### Signature and types of our `function`
+
+The signature of our function has changed too:
 
 ```diff
 -const httpTrigger: AzureFunction = async function (
@@ -196,9 +209,9 @@ The signature of the function has changed too:
 +): Promise<HttpResponseInit> {
 ```
 
-You'll see here that we're using a function declaration rather than a function expression. Our new function takes our new types, the subtly different `HttpRequest` and `InvocationContext`, which are similar to, but different from the previous `Context` and `HttpRequest` types. The order of the parameters has changed too.
+You'll see here that we're using a function declaration rather than a function expression. Our new function takes our new types, the subtly different `HttpRequest` and `InvocationContext`, which are similar to, but different from, the previous `Context` and `HttpRequest` types. The order of these parameters has changed also.
 
-The return type is now `Promise<HttpResponseInit>` rather than `Promise<void>`. What this means is, we're going to return values from our function, which we didn't do previously. Let's look at the implications of this.
+The return type of the function is now `Promise<HttpResponseInit>` rather than `Promise<void>`. What this means is, we're going to return values from our function, which we didn't do previously. Let's look at the implications of this.
 
 ### From `context.res` to `Promise<HttpResponseInit>`
 
@@ -219,7 +232,7 @@ With a v3 function, we'd set properties on the `context` object to return values
 +    };
 ```
 
-This is rather a nice change, as we no longer need to remember to subsequently `return` after setting the `context.res` property. We just return the value we want to return from our function.
+I rather like this change. My reasoning is that, in the event that there is subsequent code that would otherwise run after `context.res` was set, we no longer need to remember to subsequently `return` to prevent that running. (And yes, I have made that mistake on multiple occasions.) All we need do is return the value we want to return from our function.
 
 ### `body` vs `jsonBody`
 
@@ -238,19 +251,21 @@ This wasn't illustrated in the `fallback` function above, but here's an example 
 +    };
 ```
 
-The `body` property still exists, but it's for returning strings, rather than JSON. If you're returning JSON, you should use the `jsonBody` property.
+The `body` property still exists, but it's for returning strings and other things, rather than JSON. If you're returning JSON, the easiest approach is to use the `jsonBody` property.
 
 ### Runtime APIs
 
-Finally, the APIs offered by the `request` and `context` objects are different. I shan't go into detail here as it's [well covered in the official documentation](https://learn.microsoft.com/en-us/azure/azure-functions/functions-node-upgrade-v4?tabs=v4#review-your-usage-of-http-types). But I will show you the changes I made to my `fallback` function:
+Finally, the APIs offered by the `request` and `context` objects are different. I shan't go into detail here as it's [well covered in the official documentation](https://learn.microsoft.com/en-us/azure/azure-functions/functions-node-upgrade-v4?tabs=v4#review-your-usage-of-http-types). But I will show you one of the changes I made to my `fallback` function:
 
 ```diff
 -    const originalUrl = req.headers['x-ms-original-url'];
 +    const originalUrl = request.headers.get('x-ms-original-url') || '';
 ```
 
-Not too significant, but there's a number of changes like this to make.
+Not too significant a tweak, but there's a number of slight changes like this to make.
 
 ## Conclusion
 
-Migrating an Azure Function from v3 to v4 with TypeScript is a little more involved than I'd expected. But it's not too bad. The official documentation is good, but it's not complete right now. Hopefully this post will help you migrate your TypeScript Azure Functions to v4.
+Migrating an Azure Function from v3 to v4 with TypeScript is a little more involved than I'd expected. But I do like that this moves us to a code style that feels more "Node-y". The official documentation is good, but it's not complete right now.
+
+Hopefully this post will help you migrate your TypeScript Azure Functions to v4.
