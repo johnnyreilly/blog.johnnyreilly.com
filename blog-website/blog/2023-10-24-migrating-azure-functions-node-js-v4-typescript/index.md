@@ -3,14 +3,14 @@ slug: migrating-azure-functions-node-js-v4-typescript
 title: 'Migrating to v4 Azure Functions Node.js with TypeScript'
 authors: johnnyreilly
 image: ./title-image.png
-tags: [typescript, azure, azure static web apps]
+tags: [typescript, azure, azure functions, azure static web apps]
 description: Learn how to migrate a TypeScript Azure Functions app to the v4 Node.js programming model.
 hide_table_of_contents: false
 ---
 
 There's a new programming model available for Node.js Azure Functions known as v4. There's documentation out there for [how to migrate JavaScript Azure Functions from v3 to v4](https://learn.microsoft.com/en-us/azure/azure-functions/functions-node-upgrade-v4?tabs=v4), but at the time of writing, TypeScript wasn't covered.
 
-This post fills in the gaps for a TypeScript Azure Function. It's probably worth mentioning that [my blog](https://johnnyreilly.com) is an [Azure Static Web App](https://learn.microsoft.com/en-us/azure/static-web-apps/overview) with an Azure Functions back end. So, this post is based on my experience migrating my blog to v4.
+This post fills in the gaps for a TypeScript Azure Function. It's probably worth mentioning that [my blog](https://johnnyreilly.com) is an [Azure Static Web App](https://learn.microsoft.com/en-us/azure/static-web-apps/overview) with a TypeScript Node.js Azure Functions back end. So, this post is based on my experience migrating my blog to v4.
 
 ![title image reading "Link Azure Application Insights to Static Web Apps with Bicep" with the Bicep and Azure Static Web App logos](title-image.png)
 
