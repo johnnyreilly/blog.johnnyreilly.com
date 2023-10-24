@@ -25,7 +25,7 @@ There will be two main parts to this post:
 
 The second part will be the bulk of the post, but the first part is important too.
 
-## 1. Changes to make to `package.json`
+## 1. Changes to make to the `package.json`
 
 So, starting with the first part, there are three changes to make to the `package.json`:
 
@@ -137,7 +137,7 @@ app.http('fallback', {
 });
 ```
 
-As we can see, the logic looks pretty much the same. But a lot has changed. Same, same but different. What's different? We'll go through the changes one by one.
+As we can see, the logic looks pretty much the same. But a lot has changed. What's different? We'll go through the changes one by one.
 
 ### `import`s used
 
@@ -215,7 +215,7 @@ The return type of the function is now `Promise<HttpResponseInit>` rather than `
 
 ### From `context.res` to `Promise<HttpResponseInit>`
 
-With a v3 function, we'd set properties on the `context` object to return values from our function. With a v4 function, we return values from our function directly. What does this look like?
+With a v3 function, we'd set the `context.res` property to return values from our function. With a v4 function, we return values from our function directly. What does this look like?
 
 ```diff
 -    context.res = {
@@ -234,9 +234,9 @@ With a v3 function, we'd set properties on the `context` object to return values
 
 I rather like this change. My reasoning is that, in the event that there is subsequent code that would otherwise run after `context.res` was set, we no longer need to remember to subsequently `return` to prevent that running. (And yes, I have made that mistake on multiple occasions.) All we need do is return the value we want to return from our function.
 
-### `body` vs `jsonBody`
+### `body -> jsonBody`
 
-Another difference is that we no longer set the `body` property of the `context.res` object. Instead we return an object with a `jsonBody` property, if we're returning JSON from our API. (And that's the most common case, right?)
+Another difference is that we no longer set the `body` property of the `context.res`. Instead we return an object with a `jsonBody` property, assuming we're returning JSON from our API. (And that's the most common case, right?)
 
 This wasn't illustrated in the `fallback` function above, but here's an example of migrating a function that returns JavaScript object literal named `redirectSummary`:
 
@@ -262,7 +262,7 @@ Finally, the APIs offered by the `request` and `context` objects are different. 
 +    const originalUrl = request.headers.get('x-ms-original-url') || '';
 ```
 
-Not too significant a tweak, but there's a number of slight changes like this to make.
+Not too significant a tweak, but there's a number of slight changes like this to make. (Related to this, the logging API on the `context` object is also different - but not significantly.)
 
 ## Conclusion
 
