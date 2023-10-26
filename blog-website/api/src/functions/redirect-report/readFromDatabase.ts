@@ -1,12 +1,12 @@
-import type { Logger } from '@azure/functions';
+import type { InvocationContext } from '@azure/functions';
 
 import { CosmosClient } from '@azure/cosmos';
 
-import { RedirectInDb } from '../fallback/types';
+import type { RedirectInDb } from '../fallback/types';
 import {
   cosmosDbDatabaseName,
   cosmosDbRedirectsContainerName,
-} from '../constants';
+} from '../../constants';
 
 const key = process.env.COSMOS_KEY || '<cosmos key>';
 const endpoint = process.env.COSMOS_ENDPOINT || '<cosmos endpoint>';
@@ -31,16 +31,16 @@ where redirects.numRedirects > 1
  * @param log
  */
 export async function readFromDatabase({
-  log,
+  context,
   dateFrom,
   dateTo,
 }: {
-  log: Logger;
+  context: InvocationContext;
   dateFrom: string;
   dateTo: string;
 }): Promise<RedirectInDb[]> {
   try {
-    log(
+    context.log(
       `Reading redirects from database, dateFrom: ${dateFrom}, dateTo: ${dateTo}`,
     );
 
@@ -75,7 +75,7 @@ export async function readFromDatabase({
 
     return results;
   } catch (error) {
-    log.error(
+    context.error(
       `Problem reading redirects from database, dateFrom: ${dateFrom}, dateTo: ${dateTo}`,
       error,
     );

@@ -7,6 +7,7 @@ import {
   getPagesPathFromUrl,
 } from './getGitLastUpdated';
 import type { SitemapUrl, Sitemap, AtomFeed, RssItem, RssFeed } from './types';
+import { orderBy } from 'lodash';
 
 const rootUrl = 'https://johnnyreilly.com';
 const cloudinaryUrl =
@@ -14,8 +15,8 @@ const cloudinaryUrl =
 
 async function enrichUrlsWithLastmodAndFilterCanonicals(
   filteredUrls: SitemapUrl[],
-): Promise<SitemapUrl[]> {
-  const urls: SitemapUrl[] = [];
+): Promise<{ sitemapUrls: SitemapUrl[]; tagsAndTotal: Map<string, number> }> {
+  const sitemapUrls: SitemapUrl[] = [];
   let filePath: string | undefined;
 
   const today = new Date();
@@ -26,8 +27,12 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
     1,
   ).toISOString();
 
+  const regex = /tags: \[(.*)\]/;
+
+  const tagsAndTotal = new Map<string, number>();
+
   for (const url of filteredUrls) {
-    if (urls.includes(url)) {
+    if (sitemapUrls.includes(url)) {
       // can this happen? not sure why I added this
       continue;
     }
@@ -38,12 +43,29 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
       filePath =
         getBlogPathFromUrl(rootUrl, loc) ?? getPagesPathFromUrl(rootUrl, loc);
       if (!filePath) {
-        urls.push({ loc, lastmod: fallbackLastMod });
+        sitemapUrls.push({ loc, lastmod: fallbackLastMod });
         continue;
       }
 
       // eg blog-website/blog/2013-04-26-a-navigation-animation-for-your-users/index.md
       const blogMarkdown = await Bun.file('../' + filePath).text();
+
+      const match = blogMarkdown.match(regex);
+      if (match) {
+        const tagsInBrackets = match[1]; // eg "azure-open-ai, bicep"
+        const tags = tagsInBrackets
+          .split(',')
+          .map((tag) => tag.trim())
+          .filter((tag) => tag);
+
+        tags.forEach((tag) => {
+          const currentCount = tagsAndTotal.get(tag) ?? 0;
+          tagsAndTotal.set(tag, currentCount + 1);
+        });
+      } else {
+        // throw new Error(`No tags found in ${filePath}`);
+      }
+
       if (blogMarkdown.includes('<link rel="canonical" href=')) {
         console.log('excluding external canonical URL', url.loc);
         continue;
@@ -51,14 +73,16 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
 
       const lastmod = await getGitLastUpdatedFromFilePath(filePath);
 
-      urls.push(lastmod ? { loc, lastmod } : { loc, lastmod: fallbackLastMod });
+      sitemapUrls.push(
+        lastmod ? { loc, lastmod } : { loc, lastmod: fallbackLastMod },
+      );
       console.log(loc, lastmod);
     } catch (e) {
       console.log(`file date not looked up: ${filePath}`, url.loc, e);
-      urls.push({ loc, lastmod: fallbackLastMod });
+      sitemapUrls.push({ loc, lastmod: fallbackLastMod });
     }
   }
-  return urls;
+  return { sitemapUrls, tagsAndTotal };
 }
 
 async function patchHtmlImagesToCloudinary() {
@@ -186,8 +210,25 @@ async function trimSitemapXML() {
     `Reducing ${sitemap.urlset.url.length} urls to ${filteredUrls.length} urls`,
   );
 
-  sitemap.urlset.url =
+  const { sitemapUrls, tagsAndTotal } =
     await enrichUrlsWithLastmodAndFilterCanonicals(filteredUrls);
+
+  console.log('Tags and totals:');
+  orderBy(
+    Array.from(tagsAndTotal.entries()).map(([tag, total]) => ({ tag, total })),
+    ({ total }) => total,
+    'desc',
+  ).forEach(({ tag, total }) => {
+    console.log(`['${tag}', ${total}],`);
+  });
+
+  Array.from(tagsAndTotal.keys()).forEach((tag) => {
+    if (tag.toLocaleLowerCase() !== tag) {
+      console.log(`'${tag}' should be '${tag.toLocaleLowerCase()}'`);
+    }
+  });
+
+  sitemap.urlset.url = sitemapUrls;
 
   const builder = new XMLBuilder({ format: false, ignoreAttributes: false });
   const shorterSitemapXml = builder.build(sitemap);
@@ -292,7 +333,7 @@ async function main() {
   await patchHtmlImagesToCloudinary();
   // await patchJsImagesToCloudinary(); // now handled by rehype plugin
   await trimSitemapXML();
-  deleteFolderRecursive(path.resolve('..', 'blog-website', 'build', 'archive'));
+  deleteFolderRecursive(path.resolve('..', 'blog-website', 'build', 'archive')); // using handrolled archive page as prettier
   // now handled by createFeedItems
   // await trimAtomXML();
   // await trimRssXML();
