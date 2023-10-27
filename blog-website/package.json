@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "prefuncDev": "cd api && npm run build",
-    "funcDev": "swa start http://localhost:3000 --run \"npm start\" --api-location api",
+    "predev": "cd api && npm run build",
+    "dev": "swa start http://localhost:3000 --run \"npm start\" --api-location api",
     "funcBuild": "swa start build --api-location api",
     "docusaurus": "docusaurus",
     "start": "docusaurus start",

@@ -7,17 +7,17 @@ hide_table_of_contents: false
 description: 'Using TypeScript definition files with npm packages can produce accurate typing information. Making npm a first class citizen may replace Definitely Typed.'
 ---
 
-OK - the title's total clickbait but stay with me; there's a point here.
+I'm a member of the Definitely Typed team - and hopefully I won't be kicked out for writing this. My point is this: `.d.ts` files should live with the package they provide typing information for, in npm / GitHub etc. Not separately.
 
 <!--truncate-->
 
-I'm a member of the Definitely Typed team - and hopefully I won't be kicked out for writing this. My point is this: `.d.ts` files should live with the package they provide typing information for, in npm / GitHub etc. Not separately. TypeScript 1.6 has just been released. Yay! In the [release blog post](https://blogs.msdn.com/b/typescript/archive/2015/09/16/announcing-typescript-1-6.aspx) it says this:
+TypeScript 1.6 has just been released. Yay! In the [release blog post](https://blogs.msdn.com/b/typescript/archive/2015/09/16/announcing-typescript-1-6.aspx) it says this:
 
 > We’ve changed module resolution when doing CommonJS output to work more closely to how Node does module resolution. If a module name is non-relative, we now follow these steps to find the associated typings:
 >
-> 1. Check in `node_modules` for `&lt;module name&gt;.d.ts`
-> 2. Search `node_modules\&lt;module name&gt;\package.json` for a `typings` field
-> 3. Look for `node_modules\&lt;module name&gt;\index.d.ts`
+> 1. Check in `node_modules` for `MODULE_NAME.d.ts`
+> 2. Search `node_modules\MODULE_NAME\package.json` for a `typings` field
+> 3. Look for `node_modules\MODULE_NAME\index.d.ts`
 > 4. Then we go one level higher and repeat the process
 >
 > **Please note:** when we search through node_modules, we assume these are the packaged node modules which have type information and a corresponding `.js` file. As such, we resolve only `.d.ts` files (not `.ts` file) for non-relative names.
@@ -28,7 +28,7 @@ The TL;DR is this: consuming npm packages which come with definition files shoul
 
 ## Wrong!
 
-Yeah, it's never going to happen. Surprising as it is, there are many people who are quite happy without TypeScript in their lives (I know - mad right?). These poor unfortunates are unlikely to ever take the extra steps necessary to write definition files. For this reason, there will probably _always_ be a need for a provider of typings such as Definitely Typed. As well as that, the vast majority of people using TypeScript probably don't use npm to manage dependencies. There are, however, an increasing number of users who are using npm. Some (like me) may even be using tools like [Browserify](http://browserify.org/) (with the [TSIFY plugin](https://github.com/smrq/tsify)) or [WebPack](https://webpack.github.io/) (with the [TS loader](https://github.com/jbrantly/ts-loader)) to bring it all together. My feeling is that, over time, using npm will become more common; particularly given the improvements being made to module resolution in the language.
+Yeah, it's never going to happen. Surprising as it is, there are many people who are quite happy without TypeScript in their lives (I know - mad right?). These poor unfortunates are unlikely to ever take the extra steps necessary to write definition files. For this reason, there will probably _always_ be a need for a provider of typings such as Definitely Typed. As well as that, the vast majority of people using TypeScript probably don't use npm to manage dependencies. There are, however, an increasing number of users who are using npm. Some (like me) may even be using tools like [Browserify](http://browserify.org/) (with the [TSIFY plugin](https://github.com/smrq/tsify)) or [WebPack](https://webpack.github.io/) (with the [TS loader](https://github.com/TypeStrong/ts-loader)) to bring it all together. My feeling is that, over time, using npm will become more common; particularly given the improvements being made to module resolution in the language.
 
 An advantage of shipping typings with an npm package is this: those typings should accurately describe their accompanying package. In Definitely Typed we only aim to support the latest and greatest typings. So if you find yourself looking for the typings of an older version of a package you're going to have to pick your way back through the history of a `.d.ts` file and hope you happen upon the version you're looking for. Not a fantastic experience.
 
@@ -50,7 +50,7 @@ What is relevant, and what I want you to think about, is this: I wrote globalize
 
 At this point globalize-so-what-cha-want consisted of a single `index.js` file in the root of the package. My end goal was to end up with that file still sat there, but now generated from TypeScript. Alongside it I wanted to see a `index.d.ts` which was generated from the same TypeScript.
 
-`index.js`[before](https://github.com/johnnyreilly/globalize-so-what-cha-want/tree/6cce84289134a555fe8462247b43eddb051303e3) looked like this:
+[`index.js` before](https://github.com/johnnyreilly/globalize-so-what-cha-want/tree/6cce84289134a555fe8462247b43eddb051303e3) looked like this:
 
 ```js
 /* jshint varstmt: false, esnext: false */
