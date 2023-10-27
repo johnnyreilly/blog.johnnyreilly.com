@@ -234,14 +234,18 @@ jobs:
         uses: treosh/lighthouse-ci-action@v10
         with:
           urls: |
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/sitemap.xml
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/rss.xml
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/atom.xml
             ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
             ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/about
             ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/blog
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/tags
             ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/definitely-typed-the-movie
           configPath: ./.github/workflows/lighthousesrc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
-          runs: 3
+          runs: 1
 
       - name: Dump steps.lighthouse_audit.outputs
         id: github_context_step
