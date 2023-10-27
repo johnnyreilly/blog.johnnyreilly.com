@@ -3,9 +3,8 @@ const IS_LIVE_SITE = process.env['IS_LIVE_SITE'] === 'true';
 console.log('IS_LIVE_SITE', IS_LIVE_SITE);
 
 const fontaine = require('fontaine');
-const { themes } = require('prism-react-renderer');
-const lightCodeTheme = themes.github;
-const darkCodeTheme = themes.dracula;
+const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
+const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const createFeedItems = require('./createFeedItems');
 const recentlyUpdatedPostsJson = require('./recently-updated-posts.json');
 
