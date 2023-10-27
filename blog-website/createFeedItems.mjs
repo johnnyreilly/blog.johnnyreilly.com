@@ -1,5 +1,6 @@
+//@ts-check
 import path from 'path';
-import { simpleGit, SimpleGit, SimpleGitOptions } from 'simple-git';
+import { simpleGit } from 'simple-git';
 
 /** @type {import('@docusaurus/plugin-content-blog').CreateFeedItemsFn} */
 export async function createFeedItems(params) {
@@ -35,7 +36,7 @@ export async function createFeedItems(params) {
 
   // keep only the 20 most recently updated blog posts in the feed
   const latest20FeedItems = Array.from(feedItems)
-    .sort((a, b) => b.date - a.date)
+    .sort((a, b) => b.date.getDate() - a.date.getDate())
     .slice(0, 20);
 
   return latest20FeedItems;
@@ -58,7 +59,7 @@ async function getGitLatestCommitDateFromFilePath(filePath) {
   return latestCommitDate;
 }
 
-/** @type {SimpleGit | undefined} */
+/** @type {import('simple-git').SimpleGit | undefined} */
 let git;
 
 /**
@@ -69,7 +70,7 @@ function getSimpleGit() {
   if (!git) {
     const baseDir = path.resolve(process.cwd(), '..');
 
-    /** @type {Partial<SimpleGitOptions>} */
+    /** @type {Partial<import('simple-git').SimpleGitOptions>} */
     const options = {
       baseDir,
       binary: 'git',

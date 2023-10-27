@@ -1,5 +1,5 @@
 //@ts-check
-const IS_LIVE_SITE = true; // process.env['IS_LIVE_SITE'] === 'true';
+const IS_LIVE_SITE = process.env['IS_LIVE_SITE'] === 'true';
 console.log('IS_LIVE_SITE', IS_LIVE_SITE);
 
 import { readFileSync } from 'fs';

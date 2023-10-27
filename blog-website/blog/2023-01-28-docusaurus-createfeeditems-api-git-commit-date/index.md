@@ -14,6 +14,10 @@ A new API landed in Docusaurus 2.3.0 - it's called `createFeedItems`. It's a gre
 
 <!--truncate-->
 
+## Updated 27/11/2023 - Docusaurus 3
+
+This post was originally written targetting Docusaurus 2. Now Docusaurus 3 is landing, this post has been updated to cater for Docusaurus 3 usage.
+
 ## `createFeedItems` API
 
 [I worked on the createFeedItems API for Docusaurus](https://github.com/facebook/docusaurus/pull/8378). When the [feature was announced](https://twitter.com/docusaurus/status/1619019412610191379), there were a number of suggested use cases:
@@ -42,7 +46,8 @@ We're going to implement both of these.
 The `createFeedItems` API is a function that takes a list of feed items and returns a list of feed items. I find looking at code easier than reading about code so let's look at [the example code from the docs](https://docusaurus.io/docs/blog#feed):
 
 ```js
-module.exports = {
+/** @type {import('@docusaurus/types').Config} */
+const config = {
   // ...
   presets: [
     [
@@ -80,14 +85,15 @@ Now we know how to use the API, let's implement it to handle our use cases. To g
 yarn add simple-git
 ```
 
-We're going to create a new file to sit alongside our `docusaurus.config.js` file. We'll call it `createFeedItems.js`:
+We're going to create a new file to sit alongside our `docusaurus.config.js` file. We'll call it `createFeedItems.mjs` (as it's an ESM file):
 
 ```js
-const path = require('path');
-const { simpleGit, SimpleGit, SimpleGitOptions } = require('simple-git');
+//@ts-check
+import path from 'path';
+import { simpleGit } from 'simple-git';
 
 /** @type {import('@docusaurus/plugin-content-blog').CreateFeedItemsFn} */
-async function createFeedItems(params) {
+export async function createFeedItems(params) {
   const { blogPosts, defaultCreateFeedItems, ...rest } = params;
 
   const feedItems = await defaultCreateFeedItems({
@@ -120,7 +126,7 @@ async function createFeedItems(params) {
 
   // keep only the 20 most recently updated blog posts in the feed
   const latest20FeedItems = Array.from(feedItems)
-    .sort((a, b) => b.date - a.date)
+    .sort((a, b) => b.date.getDate() - a.date.getDate())
     .slice(0, 20);
 
   return latest20FeedItems;
@@ -143,7 +149,7 @@ async function getGitLatestCommitDateFromFilePath(filePath) {
   return latestCommitDate;
 }
 
-/** @type {SimpleGit | undefined} */
+/** @type {import('simple-git').SimpleGit | undefined} */
 let git;
 
 /**
@@ -154,7 +160,7 @@ function getSimpleGit() {
   if (!git) {
     const baseDir = path.resolve(process.cwd(), '..');
 
-    /** @type {Partial<SimpleGitOptions>} */
+    /** @type {Partial<import('simple-git').SimpleGitOptions>} */
     const options = {
       baseDir,
       binary: 'git',
@@ -167,8 +173,6 @@ function getSimpleGit() {
 
   return git;
 }
-
-module.exports = createFeedItems;
 ```
 
 What's happening here? Well, the `createFeedItems` function is taking the blog posts that come in and then calling `defaultCreateFeedItems` to get the default behaviour. We then iterate over the feed items and for each one we find the related blog post. We then use `simple-git` to get the last commit date for the blog post. We then set the feed item's date to the last commit date. We then sort the feed items by date and take the first 20. We then return those 20 feed items.
@@ -179,7 +183,7 @@ With this implemented, we'll reference this in our `docusaurus.config.js` file:
 
 ```js
 //@ts-check
-const createFeedItems = require('./createFeedItems');
+import { createFeedItems } from './createFeedItems.mjs';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -202,7 +206,7 @@ const config = {
   // ...
 };
 
-module.exports = config;
+export default config;
 ```
 
 And we're done! We can now run `yarn build` and see the results:
