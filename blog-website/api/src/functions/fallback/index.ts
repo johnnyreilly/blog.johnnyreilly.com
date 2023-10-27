@@ -34,7 +34,7 @@ export async function fallback(
     );
     return {
       status: 500,
-      body: 'something went wrong',
+      body: 'something went wrong with the fallback',
     };
   }
 }
