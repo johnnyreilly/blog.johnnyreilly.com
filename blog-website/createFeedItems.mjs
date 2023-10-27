@@ -1,8 +1,8 @@
-const path = require('path');
-const { simpleGit, SimpleGit, SimpleGitOptions } = require('simple-git');
+import path from 'path';
+import { simpleGit, SimpleGit, SimpleGitOptions } from 'simple-git';
 
 /** @type {import('@docusaurus/plugin-content-blog').CreateFeedItemsFn} */
-async function createFeedItems(params) {
+export async function createFeedItems(params) {
   const { blogPosts, defaultCreateFeedItems, ...rest } = params;
 
   const feedItems = await defaultCreateFeedItems({
@@ -14,7 +14,7 @@ async function createFeedItems(params) {
     // blogPost.metadata.permalink: '/2023/01/22/image-optimisation-tinypng-api',
     // feedItem.link: 'https://johnnyreilly.com/2023/01/22/image-optimisation-tinypng-api',
     const relatedBlogEntry = blogPosts.find((blogPost) =>
-      feedItem.link.endsWith(blogPost.metadata.permalink)
+      feedItem.link.endsWith(blogPost.metadata.permalink),
     );
     if (!relatedBlogEntry) {
       console.log('blogFilePath not found', feedItem.link);
@@ -23,7 +23,7 @@ async function createFeedItems(params) {
 
     // source: '@site/blog/2023-01-22-image-optimisation-tinypng-api/index.md',
     const gitLatestCommitString = await getGitLatestCommitDateFromFilePath(
-      relatedBlogEntry.metadata.source.replace('@site/', 'blog-website/')
+      relatedBlogEntry.metadata.source.replace('@site/', 'blog-website/'),
     );
     const gitLatestCommitDate = gitLatestCommitString
       ? new Date(gitLatestCommitString)
@@ -82,5 +82,3 @@ function getSimpleGit() {
 
   return git;
 }
-
-module.exports = createFeedItems;
