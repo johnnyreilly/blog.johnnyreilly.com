@@ -333,7 +333,9 @@ async function main() {
   await patchHtmlImagesToCloudinary();
   // await patchJsImagesToCloudinary(); // now handled by rehype plugin
   await trimSitemapXML();
-  deleteFolderRecursive(path.resolve('..', 'blog-website', 'build', 'archive')); // using handrolled archive page as prettier
+  deleteFolderRecursive(
+    path.resolve('..', 'blog-website', 'build', 'blog-handrolled'),
+  ); // using handrolled archive page as prettier
   // now handled by createFeedItems
   // await trimAtomXML();
   // await trimRssXML();

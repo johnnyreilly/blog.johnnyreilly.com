@@ -320,6 +320,7 @@ const config = {
 
         docs: false,
         blog: {
+          archiveBasePath: '/blog',
           rehypePlugins: IS_LIVE_SITE
             ? [
                 [
