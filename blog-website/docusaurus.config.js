@@ -268,9 +268,10 @@ const config = {
   projectName: 'blog.johnnyreilly.com', // Usually your repo name.
 
   markdown: {
+    // based on https://github.com/facebook/docusaurus/blob/main/website/docs/migration/v3.mdx
     mdx1Compat: {
       comments: true,
-      admonitions: true,
+      admonitions: false,
       headingIds: true,
     },
   },
