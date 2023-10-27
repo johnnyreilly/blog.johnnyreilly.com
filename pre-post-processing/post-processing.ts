@@ -199,7 +199,7 @@ async function trimSitemapXML() {
 
   const filteredUrls = sitemap.urlset.url.filter(
     (url) =>
-      url.loc !== `${rootUrl}/archive` && // we have /blog and /archive; we only want /blog
+      url.loc !== `${rootUrl}/blog-handrolled` && // we have /blog and /blog-handrolled; we only want /blog
       url.loc !== `${rootUrl}/search` &&
       url.loc !== `${rootUrl}/tags` &&
       !url.loc.includes('/tags/') &&
@@ -335,7 +335,7 @@ async function main() {
   await trimSitemapXML();
   deleteFolderRecursive(
     path.resolve('..', 'blog-website', 'build', 'blog-handrolled'),
-  ); // using handrolled archive page as prettier
+  ); // not using handrolled anymore and deleting the folder
   // now handled by createFeedItems
   // await trimAtomXML();
   // await trimRssXML();
