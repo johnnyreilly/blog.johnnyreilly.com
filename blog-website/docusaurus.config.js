@@ -734,7 +734,13 @@ module.exports = async function createConfigAsync() {
         prism: {
           theme: lightCodeTheme,
           darkTheme: darkCodeTheme,
-          additionalLanguages: ['powershell', 'csharp', 'docker', 'bicep'],
+          additionalLanguages: [
+            'powershell',
+            'csharp',
+            'docker',
+            'bicep',
+            'diff',
+          ],
         },
       }),
   };
