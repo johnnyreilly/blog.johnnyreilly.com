@@ -740,6 +740,8 @@ const config = {
           'docker',
           'bicep',
           'diff',
+          'bash',
+          'json',
         ],
       },
     }),
