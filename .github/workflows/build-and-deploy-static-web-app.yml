@@ -234,9 +234,6 @@ jobs:
         uses: treosh/lighthouse-ci-action@v10
         with:
           urls: |
-            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/sitemap.xml
-            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/rss.xml
-            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/atom.xml
             ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
             ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/about
             ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/blog
