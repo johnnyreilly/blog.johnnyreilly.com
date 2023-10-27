@@ -122,6 +122,11 @@ const createMarkdownTableHeader = () => [
  * @param {LighthouseOutputs} lighthouseOutputs
  */
 const createLighthouseReport = ({ links, manifest }) => {
+  console.log('links');
+  console.log(links);
+  console.log('manifest');
+  console.log(manifest);
+
   const tableHeader = createMarkdownTableHeader();
   const tableBody = manifest.map((result) => {
     const testUrl = /** @type {string} */ (
