@@ -23,13 +23,19 @@
     {
       "route": "/img/*",
       "headers": {
-        "cache-control": "must-revalidate, max-age=15770000"
+        "cache-control": "max-age=604800"
+      }
+    },
+    {
+      "route": "/assets/*",
+      "headers": {
+        "cache-control": "max-age=31536000, immutable"
       }
     },
     {
       "route": "/fonts/*",
       "headers": {
-        "cache-control": "must-revalidate, max-age=15770000"
+        "cache-control": "max-age=31536000, immutable"
       }
     },
     {
