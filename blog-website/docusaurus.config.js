@@ -732,8 +732,8 @@ const config = {
         copyright: `Copyright © 2012 - ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
       },
       prism: {
-        theme: prismThemes.github,
-        darkTheme: prismThemes.dracula,
+        theme: prismThemes.okaidia,
+        darkTheme: prismThemes.nightOwl,
         additionalLanguages: [
           'powershell',
           'csharp',
