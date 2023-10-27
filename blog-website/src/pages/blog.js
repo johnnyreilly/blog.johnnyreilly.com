@@ -1,5 +1,3 @@
-// NOW USING NATIVE DOCUSAURUS SUPPORT
-import React from 'react';
 import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';

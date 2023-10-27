@@ -1,4 +1,3 @@
-import React from 'react';
 import BlogPostPage from '@theme-original/BlogPostPage';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
