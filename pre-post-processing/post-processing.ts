@@ -53,7 +53,10 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
       const match = blogMarkdown.match(regex);
       if (match) {
         const tagsInBrackets = match[1]; // eg "azure-open-ai, bicep"
-        const tags = tagsInBrackets.split(',').map((tag) => tag.trim()).filter(tag => tag);
+        const tags = tagsInBrackets
+          .split(',')
+          .map((tag) => tag.trim())
+          .filter((tag) => tag);
 
         tags.forEach((tag) => {
           const currentCount = tagsAndTotal.get(tag) ?? 0;
@@ -196,7 +199,7 @@ async function trimSitemapXML() {
 
   const filteredUrls = sitemap.urlset.url.filter(
     (url) =>
-      url.loc !== `${rootUrl}/archive` && // we have /blog and /archive; we only want /blog
+      url.loc !== `${rootUrl}/blog-handrolled` && // we have /blog and /blog-handrolled; we only want /blog
       url.loc !== `${rootUrl}/search` &&
       url.loc !== `${rootUrl}/tags` &&
       !url.loc.includes('/tags/') &&
@@ -330,7 +333,9 @@ async function main() {
   await patchHtmlImagesToCloudinary();
   // await patchJsImagesToCloudinary(); // now handled by rehype plugin
   await trimSitemapXML();
-  deleteFolderRecursive(path.resolve('..', 'blog-website', 'build', 'archive')); // using handrolled archive page as prettier
+  deleteFolderRecursive(
+    path.resolve('..', 'blog-website', 'build', 'blog-handrolled'),
+  ); // not using handrolled anymore and deleting the folder
   // now handled by createFeedItems
   // await trimAtomXML();
   // await trimRssXML();

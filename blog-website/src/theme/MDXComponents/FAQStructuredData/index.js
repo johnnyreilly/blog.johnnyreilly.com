@@ -1,9 +1,9 @@
+import React from 'react';
+
 /**
  * @typedef { import('./types').FAQStructuredDataProps } FAQStructuredDataProps
  * @typedef { import('./types').FAQStructuredData } FAQStructuredData
  */
-
-import React from 'react';
 
 /**
  * A component that renders a FAQ structured data and markdown entries

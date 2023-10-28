@@ -1,15 +1,15 @@
-import React from 'react';
 import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import Head from '@docusaurus/Head';
 import styles from './styles.module.css';
 
 function About() {
   const imgUrl = useBaseUrl('img/profile.jpg');
   const context = useDocusaurusContext();
   const { siteConfig = { title: '', tagline: '' } } = context;
+
+  /* Now provided in docusaurus.config.js
 
   // details on structured data support:
   // https://developers.google.com/search/docs/data-types/article#non-amp
@@ -35,6 +35,7 @@ function About() {
       'https://github.com/johnnyreilly',
       'https://fosstodon.org/@johnny_reilly',
       'https://twitter.com/johnny_reilly',
+      'https://app.daily.dev/johnnyreilly',
       'https://stackoverflow.com/users/761388/john-reilly',
       'https://blog.logrocket.com/author/johnreilly/',
       'https://polywork.com/johnnyreilly',
@@ -50,18 +51,19 @@ function About() {
   };
 
   const structuredData = [personStructuredData, organizationStructuredData];
+  */
 
   return (
     <Layout
       title={`About ${siteConfig.title}`}
       description={`What is ${siteConfig.title}`}
     >
-      <script
+      {/* <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(structuredData),
         }}
-      />
+      /> */}
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
           {/* <h1 className="hero__title">{siteConfig.title}</h1> */}

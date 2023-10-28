@@ -8,7 +8,7 @@ description: Learn how to migrate rehype plugins to Docusaurus 3.
 hide_table_of_contents: false
 ---
 
-Docusaurus v3 is on the way. One of the big changes that is coming with Docusaurus 3 is MDX 2. My blog has been built with Docusaurus 2 and I have a number of rehype plugins that I use to improve the experience of the blog. These include:
+Docusaurus v3 is on the way. One of the big changes that is coming with Docusaurus 3 is MDX 3. My blog has been built with Docusaurus 2 and I have a number of rehype plugins that I use to improve the experience of the blog. These include:
 
 - [a plugin to improve Core Web Vitals with fetchpriority / lazy loading](../2023-01-18-docusaurus-improve-core-web-vitals-fetchpriority/index.md)
 - [a plugin to serving Docusaurus images with Cloudinary](../2022-12-26-docusaurus-image-cloudinary-rehype-plugin/index.md)
@@ -227,11 +227,11 @@ Further to that, the old plugin used `module.exports = imageFetchPriorityRehypeP
 
 ### Different AST
 
-The abstract syntax tree (AST) is different. MDX 1 and MDX 2 make different ASTs and we must migrate to the new one. Interestingly, it seems to be slightly simpler in some ways. MDX 1 surfaced both `element` / `img` nodes and `jsx` nodes. By contrast, MDX 2 appears to surface just `mdxJsxTextElement` which are similar to MDX 1's `jsx` nodes, but come with their own AST representation of expression based attributes in the `data` property.
+The abstract syntax tree (AST) is different. MDX 1 and MDX 3 make different ASTs and we must migrate to the new one. Interestingly, it seems to be slightly simpler in some ways. MDX 1 surfaced both `element` / `img` nodes and `jsx` nodes. By contrast, MDX 3 appears to surface just `mdxJsxTextElement` which are similar to MDX 1's `jsx` nodes, but come with their own AST representation of expression based attributes in the `data` property.
 
 The logic of the new plugin is similar to the old plugin, but the code is different to cater for the different AST.
 
-And that's it - we have a new `fetchpriority` plugin that works with Docusaurus 3 and MDX 2!
+And that's it - we have a new `fetchpriority` plugin that works with Docusaurus 3 and MDX 3!
 
 ## Migrating the `cloudinary` plugin
 
@@ -325,7 +325,7 @@ Rereading that paragraph, I realise it's hard to understand. Perhaps easier to s
 +`https://res.cloudinary.com/demo/image/fetch/f_auto,q_auto,w_auto,dpr_auto/https://johnnyreilly.com${require("!/home/john/code/github/blog.johnnyreilly.com/blog-website/node_modules/url-loader/dist/cjs.js?limit=10000&name=assets/images/[name]-[contenthash].[ext]&fallback=/home/john/code/github/blog.johnnyreilly.com/blog-website/node_modules/file-loader/dist/cjs.js!./screenshot-azure-portal-bring-your-own-certificates.webp").default}`
 ```
 
-It turns out it's even tougher doing this with MDX 2 as compared to MDX 1. This is because MDX 2's AST includes all kinds of metadata around the `mdxJsxAttributeValueExpression`:
+It turns out it's even tougher doing this with MDX 3 as compared to MDX 1. This is because MDX 3's AST includes all kinds of metadata around the `mdxJsxAttributeValueExpression`:
 
 ```js
 {
@@ -339,7 +339,7 @@ It turns out it's even tougher doing this with MDX 2 as compared to MDX 1. This 
 },
 ```
 
-The `data` object above is a full on AST representation of the `require` expression. And to make a plugin that works with MDX 2, we need to use that AST representation to build up the new `src` attribute. This involves some string manipulation and some AST traversal. It's not pretty but it works.
+The `data` object above is a full on AST representation of the `require` expression. And to make a plugin that works with MDX 3, we need to use that AST representation to build up the new `src` attribute. This involves some string manipulation and some AST traversal. It's not pretty but it works.
 
 Here's the new plugin:
 
@@ -472,14 +472,14 @@ The hardest part of this (and it is hard / confusing) is dealing with the `requi
 
 1. Convert the `mdxJsxTextElement` to back to markdown - this is the full `img` element in its AST form
 2. Use a regex to find the `require` expression in the `src` attribute of the markdown
-3. Transform the `require` expression to a Cloudinary URL using the same mechanism as with the MDX 1 plugin 
+3. Transform the `require` expression to a Cloudinary URL using the same mechanism as with the MDX 1 plugin
 4. Convert the markdown back to an `mdxJsxTextElement` using a technique adapted from [`mdast-util-mdx-jsx`](https://github.com/syntax-tree/mdast-util-mdx-jsx#use)
 5. Replace the `src` attribute with the new `src` attribute including the updated `require` expression AST in the `mdxJsxAttributeValueExpression` attributes `data` property.
 
-If you were to compare the MDX 1 plugin with the MDX 2 plugin, 2 and 3 from the above points are the same.  Points 1, 4 and 5 are new.
+If you were to compare the MDX 1 plugin with the MDX 3 plugin, 2 and 3 from the above points are the same. Points 1, 4 and 5 are new.
 
-With this in place we have a new plugin that works with Docusaurus 3 and MDX 2!
+With this in place we have a new plugin that works with Docusaurus 3 and MDX 3!
 
 ## `rehype-cloudinary-docusaurus@2`
 
-You may recall that I published an npm package named [`rehype-cloudinary-docusaurus`](https://www.npmjs.com/package/rehype-cloudinary-docusaurus) which packages up the plugin to make it easy for people to use. I'm working on updating that package to use the new plugin and it will be available soon. You can see the [pull request here](https://github.com/johnnyreilly/rehype-cloudinary-docusaurus/pull/9).
+You may recall that I published an npm package named [`rehype-cloudinary-docusaurus`](https://www.npmjs.com/package/rehype-cloudinary-docusaurus) which packages up the plugin to make it easy for people to use. I've updated that package to use the new plugin and it is available now. You can see the [pull request here](https://github.com/johnnyreilly/rehype-cloudinary-docusaurus/pull/9). The new version is `3.0.0`.

@@ -15,9 +15,9 @@ TypeScript 1.6 has just been released. Yay! In the [release blog post](https://b
 
 > We’ve changed module resolution when doing CommonJS output to work more closely to how Node does module resolution. If a module name is non-relative, we now follow these steps to find the associated typings:
 >
-> 1. Check in `node_modules` for `[module name].d.ts`
-> 2. Search `node_modules\[module name]\package.json` for a `typings` field
-> 3. Look for `node_modules\[module name]\index.d.ts`
+> 1. Check in `node_modules` for `MODULE_NAME.d.ts`
+> 2. Search `node_modules\MODULE_NAME\package.json` for a `typings` field
+> 3. Look for `node_modules\MODULE_NAME\index.d.ts`
 > 4. Then we go one level higher and repeat the process
 >
 > **Please note:** when we search through node_modules, we assume these are the packaged node modules which have type information and a corresponding `.js` file. As such, we resolve only `.d.ts` files (not `.ts` file) for non-relative names.
@@ -28,7 +28,7 @@ The TL;DR is this: consuming npm packages which come with definition files shoul
 
 ## Wrong!
 
-Yeah, it's never going to happen. Surprising as it is, there are many people who are quite happy without TypeScript in their lives (I know - mad right?). These poor unfortunates are unlikely to ever take the extra steps necessary to write definition files. For this reason, there will probably _always_ be a need for a provider of typings such as Definitely Typed. As well as that, the vast majority of people using TypeScript probably don't use npm to manage dependencies. There are, however, an increasing number of users who are using npm. Some (like me) may even be using tools like [Browserify](http://browserify.org/) (with the [TSIFY plugin](https://github.com/smrq/tsify)) or [WebPack](https://webpack.github.io/) (with the [ts-loader](https://github.com/TypeStrong/ts-loader)) to bring it all together. My feeling is that, over time, using npm will become more common; particularly given the improvements being made to module resolution in the language.
+Yeah, it's never going to happen. Surprising as it is, there are many people who are quite happy without TypeScript in their lives (I know - mad right?). These poor unfortunates are unlikely to ever take the extra steps necessary to write definition files. For this reason, there will probably _always_ be a need for a provider of typings such as Definitely Typed. As well as that, the vast majority of people using TypeScript probably don't use npm to manage dependencies. There are, however, an increasing number of users who are using npm. Some (like me) may even be using tools like [Browserify](http://browserify.org/) (with the [TSIFY plugin](https://github.com/smrq/tsify)) or [webpack](https://webpack.github.io/) (with the [ts-loader](https://github.com/TypeStrong/ts-loader)) to bring it all together. My feeling is that, over time, using npm will become more common; particularly given the improvements being made to module resolution in the language.
 
 An advantage of shipping typings with an npm package is this: those typings should accurately describe their accompanying package. In Definitely Typed we only aim to support the latest and greatest typings. So if you find yourself looking for the typings of an older version of a package you're going to have to pick your way back through the history of a `.d.ts` file and hope you happen upon the version you're looking for. Not a fantastic experience.
 

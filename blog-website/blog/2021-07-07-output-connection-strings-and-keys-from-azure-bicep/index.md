@@ -12,7 +12,7 @@ If we're provisioning resources in Azure with Bicep, we may have a need to acqui
 
 <!--truncate-->
 
-Please note that exporting keys / connection strings etc from Bicep / ARM templates is generally considered to be a less secure approach. This is because these values will be visible inside the deployments section of the Azure Portal. Anyone who has access to this will be able to see them. An alternative approach would be permissioning our pipeline to access the resources directly. You can read about that approach [here](2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/index.md).
+Please note that exporting keys / connection strings etc from Bicep / ARM templates is generally considered to be a less secure approach. This is because these values will be visible inside the deployments section of the Azure Portal. Anyone who has access to this will be able to see them. An alternative approach would be permissioning our pipeline to access the resources directly. You can read about that approach [here](../2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/index.md).
 
 ![image which contains the blog title](title-image.png)
 

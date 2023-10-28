@@ -1,15 +1,22 @@
 //@ts-check
-const docusaurusCloudinaryRehypePlugin = require('rehype-cloudinary-docusaurus');
-
 const IS_LIVE_SITE = process.env['IS_LIVE_SITE'] === 'true';
 console.log('IS_LIVE_SITE', IS_LIVE_SITE);
 
-const fontaine = require('fontaine');
-const lightCodeTheme = require('prism-react-renderer/themes/nightOwl'); //github
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-const imageFetchPriorityRehypePlugin = require('./image-fetchpriority-rehype-plugin');
-const createFeedItems = require('./createFeedItems');
-const recentlyUpdatedPostsJson = require('./recently-updated-posts.json');
+import { readFileSync } from 'fs';
+import fontaine from 'fontaine';
+import { themes as prismThemes } from 'prism-react-renderer';
+import imageFetchPriorityRehypePlugin from './image-fetchpriority-rehype-plugin.mjs';
+import docusaurusCloudinaryRehypePlugin from 'rehype-cloudinary-docusaurus';
+// import docusaurusCloudinaryRehypePlugin from './image-cloudinary-rehype-plugin.mjs';
+
+import { createFeedItems } from './createFeedItems.mjs';
+// import recentlyUpdatedPostsJson from "./recently-updated-posts.json" assert { type: "json" };
+// const recentlyUpdatedPostsJson = await import("./recently-updated-posts.json", {
+//   assert: { type: "json" },
+// });
+const recentlyUpdatedPostsJson = JSON.parse(
+  readFileSync('./recently-updated-posts.json', { encoding: 'utf-8' }),
+);
 
 const url = 'https://johnnyreilly.com';
 const title = 'johnnyreilly';
@@ -21,6 +28,7 @@ const sameAs = [
   'https://fosstodon.org/@johnny_reilly',
   'https://twitter.com/johnny_reilly',
   'https://dev.to/johnnyreilly',
+  'https://app.daily.dev/johnnyreilly',
   'https://stackoverflow.com/users/761388/john-reilly',
   'https://blog.logrocket.com/author/johnreilly/',
   'https://polywork.com/johnnyreilly',
@@ -260,6 +268,15 @@ const config = {
   organizationName: 'johnnyreilly', // Usually your GitHub org/user name.
   projectName: 'blog.johnnyreilly.com', // Usually your repo name.
 
+  markdown: {
+    // based on https://github.com/facebook/docusaurus/blob/main/website/docs/migration/v3.mdx
+    mdx1Compat: {
+      comments: true,
+      admonitions: false,
+      headingIds: true,
+    },
+  },
+
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
@@ -304,6 +321,7 @@ const config = {
 
         docs: false,
         blog: {
+          archiveBasePath: '/blog',
           rehypePlugins: IS_LIVE_SITE
             ? [
                 [
@@ -316,6 +334,7 @@ const config = {
                 imageFetchPriorityRehypePlugin,
               ]
             : [imageFetchPriorityRehypePlugin],
+
           feedOptions: {
             type: ['rss', 'atom'],
             title: 'I CAN MAKE THIS WORK',
@@ -724,11 +743,19 @@ const config = {
         copyright: `Copyright © 2012 - ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
-        additionalLanguages: ['powershell', 'csharp', 'docker', 'bicep'],
+        theme: prismThemes.okaidia,
+        darkTheme: prismThemes.nightOwl,
+        additionalLanguages: [
+          'powershell',
+          'csharp',
+          'docker',
+          'bicep',
+          'diff',
+          'bash',
+          'json',
+        ],
       },
     }),
 };
 
-module.exports = config;
+export default config;
