@@ -1270,14 +1270,14 @@
   integrity sha512-LG4opVs2ANWZ1TJoKc937iMmNstM/d0ae1vNbnBvBhqCSezgVUOzcLCqbI5elV8Vy6WKwKjaqR+zO9VKirBBCA==
 
 "@types/he@^1.1.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@types/he/-/he-1.2.1.tgz#a4f6e7e379757705225abc561b86a64df02af39a"
-  integrity sha512-CdNmJMcSqX1BiP3iSsWt+VgixndRIDGzWyaGpBnW3i5heATSk5bJu2j3buutsoBQNjyryqxaNpr8M7fRsGL15w==
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@types/he/-/he-1.2.2.tgz#feff24b8b7fd24a5f6b0eb88e57243ed65bdca4e"
+  integrity sha512-v2gT1gRK65k9nz8SVSXo3lh7AHnRPL3mRcYNhhsqL/L2S1xt/MGyEI5a7vJPXWik/IxTtAktXf8/HlCxDR1nsw==
 
 "@types/jsdom@^21.0.0":
-  version "21.1.3"
-  resolved "https://registry.yarnpkg.com/@types/jsdom/-/jsdom-21.1.3.tgz#a88c5dc65703e1b10b2a7839c12db49662b43ff0"
-  integrity sha512-1zzqSP+iHJYV4lB3lZhNBa012pubABkj9yG/GuXuf6LZH1cSPIJBqFDrm5JX65HHt6VOnNYdTui/0ySerRbMgA==
+  version "21.1.4"
+  resolved "https://registry.yarnpkg.com/@types/jsdom/-/jsdom-21.1.4.tgz#82105c8fb5a1072265dde1a180336ca74a8fbabf"
+  integrity sha512-NzAMLEV0KQ4cBaDx3Ls8VfJUElyDUm1xrtYRmcMK0gF8L5xYbujFVaQlJ50yinQ/d47j2rEP1XUzkiYrw4YRFA==
   dependencies:
     "@types/node" "*"
     "@types/tough-cookie" "*"
