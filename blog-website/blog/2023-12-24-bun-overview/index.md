@@ -95,40 +95,48 @@ Bun strives to implement standard Web APIs wherever possible. Bun introduces new
 
 ## Why use Bun?
 
-As we've seen, there are features that come with Bun that are great reasons to use it.
+JavaScript is a great language, and the npm ecosystem is vast. These combined have powered large numbers of systems and development experiences for years. Given that this is the case, why would you want to use Bun? What are the benefits?
 
-It's worth saying that JavaScript is a great language, and the npm ecosystem is a great ecosystem. These combined have powered vast numbers of systems and development experiences for years. Given that this is the case, why would you want to use Bun? What are the benefits?
-
-Speaking personally, If I was to explain why I've been using Bun, it's because it is like using Node.js but simply a better version of it. Bun is the Node.js I want. Let's go through some of the reasons why:
+If I was to explain why I've been using Bun, it's because it is like using Node.js but simply a better version of it. Bun is the Node.js I want to use. Let's go through some of the reasons why:
 
 - Performance / speed - Bun is fast. Really fast. That speed really makes a difference in terms of your efficiency when developing software. Bun gives you time back.
+- TypeScript support - Bun has great TypeScript support. It's easy to use TypeScript with Bun. You don't need to do anything special to get it to work. It just works.
 - Ease of use / DX - Bun is a joy to use; because it targets Node.js compatibility, it means that there isn't much to learn if you were doing Node.js before; you just use Bun.
 - Community & ecosystem - Bun has a great community and ecosystem. It's a joy to be a part of it. If you reach out with an issue, you're likely to get a response very quickly indeed. The Bun team are very responsive and helpful.
 - Documentation - the documentation for Bun is excellent. It's clear, concise, and easy to follow. It's also very comprehensive. If you're looking for something, you'll likely find it in the docs.
 
 ## Use cases for Bun
 
-Business cases
-Cross-link to relevant LogRocket articles
+So where would I use Bun? What are the use cases for Bun? Here are some of the use cases that I've used Bun for:
 
-## Bun vs. similar
+- Installing npm packages - because Bun is compatible with npm, you can use it to install npm packages. But your install will be faster than with Node.js.
+- Running scripts - I've long used JavaScript and TypeScript to write command line scripts. Bun is a great way to run these bun have them execute much faster.
+- Local development - Bun is great for local development. It's fast, it's easy to use, and it's a joy to use. Let me say it again: it's fast!
+
+There are many use cases and the best resource to consider is [Bun's guides](https://bun.sh/guides).
+
+## Bun vs. Node.js and Deno
+
+Bun is a JavaScript runtime. So is Node.js and so is Deno. So what's the difference between them? Why would you use Bun over Node.js or Deno?
 
 It's possible to look at Bun as "Node.js - but better!". By this I mean, it supports the same APIs as Node.js, but it's faster and often easier to use. If you want to write TypeScript with Node.js, you can but you will need to do some work to get it to work. With Bun, you can just write TypeScript. The speed of Bun is also a big selling point. Bun is much faster than Node.js. And not just a little bit faster, but a lot faster.
 
-It's also possible to look at Bun as "Deno - but better!". By this I mean, it's easier to use and has a better ecosystem.
+A very similar project to Bun is Deno. It is also a JavaScript runtime; it's also fast and supports TypeScript. However, Bun is faster in many benchmarks than Deno. Even though Deno itself is very fast! Deno is a great project, but at launch it intentionally didn't support npm. The [launch blog of Deno](https://deno.com/blog/v1) stated:
 
-Node.js
-Deno
-Features
-Performance
-Community
-Documentation/resources
-[Bun: The JavaScript runtime taking on Node.js and Deno](https://blog.logrocket.com/bun-javascript-runtime-taking-node-js-deno/)
-[Migrating a TypeScript app from Node.js to Bun](https://blog.logrocket.com/migrating-typescript-app-node-js-bun/)
+> Unfortunately, many users will find a frustrating lack of compatibility with existing JavaScript tooling. Deno is not compatible, in general, with Node (NPM) packages. There is a nascent compatibility layer being built at https://deno.land/std/node/ but it is far from complete.
+
+This lack of compatibility increased the friction that existed in migrating a Node.js app across to Deno. Times have changed; Deno now supports npm and that friction is lessened. But Bun has supported npm from the start, and always intended to.
+
+There's some great articles on the differences between Node.js, Bun and Deno:
+
+- [Bun: The JavaScript runtime taking on Node.js and Deno](https://blog.logrocket.com/bun-javascript-runtime-taking-node-js-deno/)
+- [Migrating a TypeScript app from Node.js to Bun](https://blog.logrocket.com/migrating-typescript-app-node-js-bun/)
 
 ## Conclusion
 
-Summary/Wrapping up/Final thoughts
-Link to any remaining LogRocket resources or related topic overviews
-[Getting started with Bun and React](https://blog.logrocket.com/getting-started-bun-react/)
-[Build a fast, Next.js-like app with Bun](https://blog.logrocket.com/build-fast-next-js-like-app-bun/)
+If you love writing JavaScript and TypeScript, then you'll love Bun. It's fast, it's easy to use, and it's a joy to use. Bun is a great project and I'm excited to see where it goes next.
+
+Do take a look at the [Bun website](https://bun.sh/) and the [Bun documentation](https://bun.sh/docs/). Also check out the [Bun guides](https://bun.sh/guides/) and these articles:
+
+- [Getting started with Bun and React](https://blog.logrocket.com/getting-started-bun-react/)
+- [Build a fast, Next.js-like app with Bun](https://blog.logrocket.com/build-fast-next-js-like-app-bun/)
