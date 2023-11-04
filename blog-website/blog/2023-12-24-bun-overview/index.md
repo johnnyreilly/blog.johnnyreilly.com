@@ -13,19 +13,19 @@ Bun is an all-in-one JavaScript runtime and toolkit designed for speed, complete
 
 Bun was created by was designed by Jarred Sumner as a drop-in replacement for Node.js. Bun uses JavaScriptCore as the JavaScript engine, unlike other JavaScript runtimes like Node.js and Deno, which both use V8. The 1.0 release of Bun was [September 8, 2023](https://bun.sh/blog/bun-v1.0). However, long before that, Bun was already widely known and used.
 
-Jarred Sumner even appeared on the [LogRocket podcast; PodRocket on August 5th, 2022](https://podrocket.logrocket.com/bun).
+Jarred Sumner even appeared on the [LogRocket podcast; PodRocket on August 5th, 2022](https://podrocket.logrocket.com/bun) discussing Bun - more than a year before 1.0.
 
-In the words of the Bun team:
+The Bun team describe Bun as follows:
 
 > Bun's goal is simple: eliminate slowness and complexity without throwing away everything that's great about JavaScript. Your favorite libraries and frameworks should still work, and you shouldn't need to unlearn the conventions you're familiar with.
 
 Bun is written using the Zig programming language. Zig is a general-purpose programming language and toolchain for maintaining robust, optimal and reusable software. By contrast, Node.js is written in C++ and Deno is written in Rust. One of the reasons that Bun is so fast is that Zig makes it possible to write code that is both fast and safe.
 
-So what you do with Bun? Let's take a look at some of the features.
+So what does Bun offer? Let's take a look at some of the features.
 
 ### Node.js compatibility / npm support
 
-Bun aims for complete Node.js API compatibility. Most npm packages intended for Node.js environments will work with Bun out of the box; the best way to know for certain is to try it.
+Bun aims for complete Node.js API compatibility. Most npm packages intended for Node.js environments will work with Bun out of the box.
 
 Bun also includes a built-in package manager, `bun install`, which is compatible with npm. You can use it to install packages from npm, or from a Bun registry. Significantly, you still use `package.json` to manage your dependencies; this makes migration from Node.js to Bun very easy and reduces the learning curve.
 
@@ -45,9 +45,9 @@ Likewise, JSX just works. Bun internally transpiles JSX syntax to vanilla JavaSc
 
 Bun has great support for watch mode and hot reloading. Reloads are fast. The filesystem watchers you're likely used to have several layers of libraries wrapping the native APIs or worse, rely on polling.
 
-Instead, Bun uses operating system native filesystem watcher APIs like kqueue or inotify to detect changes to files. Bun also does a number of optimizations to enable it scale to larger projects (such as setting a high rlimit for file descriptors, statically allocated file path buffers, reuse file descriptors when possible, etc).
+Instead, Bun uses operating system native filesystem watcher APIs like `kqueue1` or `inotify` to detect changes to files. Bun also does a number of optimizations to enable it scale to larger projects (such as setting a high rlimit for file descriptors, statically allocated file path buffers, reuse file descriptors when possible, etc).
 
-The Bun team demonstrate this in their documentation:
+The Bun team demonstrate the performance of watch mode in their documentation:
 
 ![incredibly fast hot reloading in VS Code](https://user-images.githubusercontent.com/709451/228439002-7b9fad11-0db2-4e48-b82d-2b88c8625625.gif)
 
@@ -57,11 +57,11 @@ That is fast.
 
 The JavaScript ecosystem is currently in the midst of a years-long transition from CommonJS modules to native ES modules. TypeScript enforces its own set of rules around import extensions that aren't compatible with ESM. Different build tools support path re-mapping via disparate non-compatible mechanisms. Node.js for instance, has many gotchas around ESM resolution which make it difficult to use in practice.
 
-Bun aims to provide a consistent and predictable module resolution system that just works. It does this very well indeed. Code that Node.js might struggle with, Bun handles with ease.
+Bun aims to provide a consistent and predictable module resolution system that just works. It does this very well indeed. Code that Node.js might struggle with, Bun handles with ease. This is a great example of Bun taking the pain out of using JavaScript. This is saved time and increased happiness.
 
 ### Support for web standard APIs
 
-Some Web APIs aren't relevant in the context of a server-first runtime like Bun. For instance, the DOM API or History API. Many others, though, are broadly useful outside of the browser context; when possible, Bun implements these Web-standard APIs instead of introducing new APIs. A great example is Fetch; an API that has been around for a long time in the browser but is relatively new to Node.js. Bun supports Fetch out of the box along with [many others](https://bun.sh/docs/runtime/web-apis).
+Some Web APIs aren't relevant in the context of a server-first runtime like Bun. For instance, the DOM API or History API. Many others, though, are broadly useful outside of the browser context; when possible, Bun implements these Web-standard APIs instead of introducing new APIs. It doesn't reinvent the wheel; it leans into the ecosystem. A great example is the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API); an API that has been around for a long time in the browser but is relatively new to Node.js. Bun supports Fetch out of the box along with [many others](https://bun.sh/docs/runtime/web-apis).
 
 ### Bundling
 
@@ -109,7 +109,7 @@ If I was to explain why I've been using Bun, it's because it is like using Node.
 
 So where would I use Bun? What are the use cases for Bun? Here are some of the use cases that I've used Bun for:
 
-- Installing npm packages - because Bun is compatible with npm, you can use it to install npm packages. But your install will be faster than with Node.js.
+- Installing npm packages - because Bun is compatible with npm, you can use it to install npm packages. But your install will be faster than with Node.js. The time you can waste sitting looking at a console to install locally / waiting for your CI to install packages is time you can get back.
 - Running scripts - I've long used JavaScript and TypeScript to write command line scripts. Bun is a great way to run these bun have them execute much faster.
 - Local development - Bun is great for local development. It's fast, it's easy to use, and it's a joy to use. Let me say it again: it's fast!
 
@@ -119,7 +119,7 @@ There are many use cases and the best resource to consider is [Bun's guides](htt
 
 Bun is a JavaScript runtime. So is Node.js and so is Deno. So what's the difference between them? Why would you use Bun over Node.js or Deno?
 
-It's possible to look at Bun as "Node.js - but better!". By this I mean, it supports the same APIs as Node.js, but it's faster and often easier to use. If you want to write TypeScript with Node.js, you can but you will need to do some work to get it to work. With Bun, you can just write TypeScript. The speed of Bun is also a big selling point. Bun is much faster than Node.js. And not just a little bit faster, but a lot faster.
+It's possible to look at Bun as "Node.js - but better!". By this I mean, it supports the same APIs as Node.js, but it's faster and often easier to use. If you want to write TypeScript with Node.js, you can but you will need to do some work to get it to work. With Bun, you can just write TypeScript. The speed of Bun is also a big selling point. Bun is much faster than Node.js. And not just a little bit faster, but a **lot** faster.
 
 A very similar project to Bun is Deno. It is also a JavaScript runtime; it's also fast and supports TypeScript. However, Bun is faster in many benchmarks than Deno. Even though Deno itself is very fast! Deno is a great project, but at launch it intentionally didn't support npm. The [launch blog of Deno](https://deno.com/blog/v1) stated:
 
