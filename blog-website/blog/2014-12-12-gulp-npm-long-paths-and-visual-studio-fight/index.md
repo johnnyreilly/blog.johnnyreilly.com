@@ -2,17 +2,18 @@
 slug: gulp-npm-long-paths-and-visual-studio-fight
 title: 'Gulp, npm, long paths and Visual Studio.... Fight!'
 authors: johnnyreilly
-tags: [npm, Visual Studio]
+tags: [visual studio, node.js]
 hide_table_of_contents: false
+description: 'Installing gulp-angular-templatecache plugin caused issues with Visual Studio. A temporary solution is to install lodash.bind at root level.'
 ---
 
-## <sub>How I managed to gulp-angular-templatecache working inside Visual Studio</sub>
-
-<!--truncate-->
+## How I managed to gulp-angular-templatecache working inside Visual Studio
 
 Every now and then something bites you unexpectedly. After a certain amount of pain, the answer comes to you and you know you want to save others from falling into the same deathtrap.
 
 There I was minding my own business and having a play with a Gulp plugin called [gulp-angular-templatecache](https://www.npmjs.com/package/gulp-angular-templatecache). If you're not aware of it, it "Concatenates and registers AngularJS templates in the $templateCache". I was planning to use it so that all the views in an [Angular app of mine](https://github.com/johnnyreilly/proverb-offline) were loaded up-front rather than on demand. (It's a first step in making an "offline-first" version of that particular app.)
+
+<!--truncate-->
 
 I digress already. No sooner had I tapped in:
 

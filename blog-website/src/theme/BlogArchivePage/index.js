@@ -1,4 +1,3 @@
-import React from 'react';
 import BlogArchivePage from '@theme-original/BlogArchivePage';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
@@ -9,7 +8,7 @@ export default function BlogArchivePageWrapper(props) {
   const breadcrumbStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    name: 'Archive breadcrumb',
+    name: 'Blog breadcrumb',
     itemListElement: [
       {
         '@type': 'ListItem',
@@ -20,16 +19,19 @@ export default function BlogArchivePageWrapper(props) {
       {
         '@type': 'ListItem',
         position: 2,
-        name: 'Archive',
+        name: 'Blog',
       },
     ],
   };
 
   return (
     <>
-      <script type="application/ld+json">
-        {JSON.stringify(breadcrumbStructuredData)}
-      </script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbStructuredData),
+        }}
+      />
       <BlogArchivePage {...props} />
     </>
   );

@@ -2,9 +2,10 @@
 slug: docusaurus-meta-tags-and-google-discover
 title: 'Docusaurus, meta tags and Google Discover'
 authors: johnnyreilly
-tags: [Docusaurus]
+tags: [docusaurus]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'Boost your websites appearance in Google Discover with high-quality images and `max-image-preview:large` meta tag setting in Docusaurus.'
 ---
 
 Google Discover is a way that people can find your content. To make your content more attractive, Google encourage using high quality images which are enabled by setting the `max-image-preview:large` meta tag. This post shows you how to achieve that with Docusaurus.
@@ -51,7 +52,7 @@ So in our case we'd want to pass an object with `name: 'robots'` and `content: '
 module.exports = {
   //...
   themeConfig: {
-    // <meta name="robots" content="max-image-preview:large">
+    // <meta name="robots" content="max-image-preview:large" />
     metadata: [{ name: 'robots', content: 'max-image-preview:large' }],
     //...
   },
@@ -61,7 +62,7 @@ module.exports = {
 
 With that in place, we find our expected `meta` tag is now part of our rendered HTML:
 
-![screenshot of the <meta name="robots" content="max-image-preview:large"> tag taken from Chrome Devtools](screenshot-of-meta-tag.png)
+![screenshot of the meta robots max-image-preview:large tag taken from Chrome Devtools](screenshot-of-meta-tag.png)
 
 ## Meta meta
 

@@ -2,8 +2,9 @@
 slug: debugging-aspnet-core-in-vs-or-code
 title: 'Debugging ASP.Net Core in VS or Code'
 authors: johnnyreilly
-tags: [VS Code, ASP.Net Core, Visual Studio]
+tags: [vs code, visual studio, asp.net]
 hide_table_of_contents: false
+description: 'Learn how John became a fan of VS Code for TypeScript and how they managed to debug ASP.Net Core using the extension for C#.'
 ---
 
 I've been using Visual Studio for a long time. Very good it is too. However, it is heavyweight; it does far more than I need. What I really want when I'm working is a fast snappy editor, with intellisense and debugging. What I've basically described is [VS Code](https://code.visualstudio.com/). It rocks and has long become my go-to editor for TypeScript.

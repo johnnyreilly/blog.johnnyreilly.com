@@ -2,7 +2,7 @@
 slug: azure-static-web-apps-easyauth-deeplink
 title: 'Deep linking with Azure Static Web Apps and Easy Auth'
 authors: johnnyreilly
-tags: [authorization, Easy Auth, Azure Static Web Apps, Azure AD]
+tags: [azure static web apps, auth, azure]
 image: ./title-image.png
 description: 'Azure Static Web Apps does not support deep linking with authentication. This post describes how to work around this limitation.'
 hide_table_of_contents: false
@@ -178,7 +178,7 @@ export async function deeplink(loginUrl: string) {
   } else if (!deeplinkPathAndQuery) {
     if (pathAndQuery !== '/' && pathAndQuery !== loginUrl) {
       console.log(
-        `deeplink: Storing redirect URL of ${pathAndQuery} and redirecting to ${loginUrl}`
+        `deeplink: Storing redirect URL of ${pathAndQuery} and redirecting to ${loginUrl}`,
       );
       localStorage.setItem(deeplinkPathAndQueryKey, pathAndQuery);
       location.href = loginUrl;
@@ -241,7 +241,7 @@ function main() {
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      </StrictMode>
+      </StrictMode>,
     );
   }
 }

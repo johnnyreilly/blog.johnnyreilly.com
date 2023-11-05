@@ -4,6 +4,7 @@ title: 'Working with Extrahop on webpack and ts-loader'
 authors: johnnyreilly
 tags: [ts-loader, webpack]
 hide_table_of_contents: false
+description: 'John shares his excitement for working with talented individuals on open source software - its everywhere and a privilege to work on.'
 ---
 
 I'm quite proud of this: [https://www.extrahop.com/company/blog/2017/extrahop-webpack-accelerating-build-times/](https://www.extrahop.com/company/blog/2017/extrahop-webpack-accelerating-build-times/)

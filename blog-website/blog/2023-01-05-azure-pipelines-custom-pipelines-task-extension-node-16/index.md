@@ -2,7 +2,7 @@
 slug: azure-pipelines-custom-pipelines-task-extension-node-16
 title: 'Azure Pipelines - Node.js 16 and custom pipelines task extensions'
 authors: johnnyreilly
-tags: [Azure Pipelines, Node.js, typescript]
+tags: [azure pipelines, node.js, typescript]
 image: ./title-image.png
 description: 'Support for Node.js 16 for Azure Pipelines custom pipelines task extensions has arrived. From a TypeScript perspective, this post documents how to migrate.'
 hide_table_of_contents: false
@@ -82,4 +82,8 @@ As we can see, we're using Node 16. This is great news!
 
 ## Conclusion
 
-That's it, we're now writing modern custom pipelines task extensions using Node.js 16 and TypeScript. Fingers crossed it won't be such a long wait for newer versions of Node.js to be supported! 🤞
+That's it, we're now writing modern custom pipelines task extensions using Node.js 16 and TypeScript. [Microsoft have commented](https://learn.microsoft.com/en-us/azure/devops/release-notes/2022/sprint-210-update#node-16-task-runner-in-pipeline-agent) on the lack of alignment between Node task runners and the Node release cycle:
+
+> The original design of the Node task runner did not make Node version upgrades straightforward for task authors, and as a result has not kept up with the latest Node releases. We've heard feedback from customers on this, and are now making a number of changes to enable Azure Pipelines agents to keep installed Node versions in sync with the Node release cadence and support lifecycle while minimizing impacts on task and pipeline authors.
+
+So, by the sounds of it, the problem is being taken seriously and will be addressed.

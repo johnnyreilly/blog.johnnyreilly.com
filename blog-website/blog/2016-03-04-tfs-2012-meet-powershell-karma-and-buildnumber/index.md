@@ -2,8 +2,9 @@
 slug: tfs-2012-meet-powershell-karma-and-buildnumber
 title: 'TFS 2012 meet PowerShell, Karma and BuildNumber'
 authors: johnnyreilly
-tags: [TFS]
+tags: [azure devops]
 hide_table_of_contents: false
+description: 'This guide explains how to run PowerShell scripts for TFS 2012 build processes and how to publish Karma test results in the platform.'
 ---
 
 To my lasting regret, TFS 2012 has no direct support for PowerShell. Such a shame as PowerShell scripts can do a lot of heavy lifting in a build process. Well, here we're going to brute force TFS 2012 into running PowerShell scripts. And along the way we'll also get Karma test results publishing into TFS 2012 as an example usage. Nice huh? Let's go!
@@ -44,7 +45,7 @@ And _replace_ it with this:
     '/p:SkipInvalidConfigurations=true /p:BuildNumber={1} /p:BuildDefinitionName={2} {0}',
     MSBuildArguments,
     BuildDetail.BuildNumber,
-    BuildDetail.BuildDefinition.Name
+    BuildDetail.BuildDefinition.Name,
   ),
 ];
 ```

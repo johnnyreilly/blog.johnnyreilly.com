@@ -2,8 +2,9 @@
 slug: instant-stubs-with-jsonnet
 title: 'Instant Stubs with JSON.Net (just add hot water)'
 authors: johnnyreilly
-tags: [unit testing, json.net]
+tags: [automated testing, asp.net]
 hide_table_of_contents: false
+description: 'A utility class can create stubs to test an untested system with complex I/O. Serializing complex data to JSON files eases the process.'
 ---
 
 I'd like you to close your eyes and imagine a scenario. You're handed a prototype system. You're told it works. It has no documentation. It has 0 unit tests. The hope is that you can take it on, refactor it, make it better and (crucially) not break it. Oh, and you don't really understand what the code does or why it does it either; information on that front is, alas, sorely lacking.

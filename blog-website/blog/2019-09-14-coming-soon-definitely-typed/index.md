@@ -2,8 +2,9 @@
 slug: coming-soon-definitely-typed
 title: 'Coming Soon: Definitely Typed'
 authors: johnnyreilly
-tags: [typescript, Definitely Typed]
+tags: [definitely typed, typescript]
 hide_table_of_contents: false
+description: 'The story of Definitely Typed, a project aiming to provide type definitions for JavaScript libraries, from creation to top 10 in GitHub in 2018.'
 ---
 
 A long time ago (well, 2012) in a galaxy far, far away (okay; Plovdiv, Bulgaria)....

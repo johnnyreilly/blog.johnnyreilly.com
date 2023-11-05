@@ -2,8 +2,9 @@
 slug: integration-testing-with-entity
 title: 'Integration Testing with Entity Framework and Snapshot Backups'
 authors: johnnyreilly
-tags: [Database Snapshots, Integration Testing, SQL Server]
+tags: [sql server, automated testing]
 hide_table_of_contents: false
+description: 'The article shows how to use SQL Servers snapshot backups for creating effective integration tests that dont affect production data.'
 ---
 
 I've written before about how unit testing [Entity Framework is a contentious and sometimes pointless activity](../2012-10-03-unit-testing-and-entity-framework-filth/index.md). The TL;DR is that LINQ-to-Objects != Linq-to-Entities and so if you want some useful tests around your data tier then integration tests that actually hit a database are what you want.

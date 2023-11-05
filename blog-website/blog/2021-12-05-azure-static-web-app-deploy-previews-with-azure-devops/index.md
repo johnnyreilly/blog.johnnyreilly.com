@@ -2,9 +2,10 @@
 slug: azure-static-web-app-deploy-previews-with-azure-devops
 title: 'Azure Static Web App Deploy Previews with Azure DevOps'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, azure devops, Netlify deploy previews]
+tags: [azure static web apps, azure devops]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'This post describes a pull request deployment preview mechanism for Azure Static Web Apps inspired by the Netlify offering.'
 ---
 
 I love [Netlify deploy previews](https://www.netlify.com/products/deploy-previews/). This post implements a pull request deployment preview mechanism for Azure Static Web Apps in the context of Azure DevOps which is very much inspired by the Netlify offering.
@@ -122,7 +123,7 @@ variables:
   - name: appName
     value: 'our-static-web-app'
   - name: location
-    value: 'westeurope' # at time of writing static sites are available in limited locations such as westeurope
+    value: 'westeurope' # at time of writing static sites are available in limited locations such as westeurope
   - name: serviceConnection
     value: 'azureRMWestEurope'
   - name: azureResourceGroup # this resource group lives in westeurope
@@ -288,7 +289,7 @@ async function run({
 
   if (!pullRequestId)
     console.log(
-      'No pull request id supplied, so will look up latest active PR'
+      'No pull request id supplied, so will look up latest active PR',
     );
 
   const pullRequestIdToUpdate =
@@ -299,7 +300,7 @@ async function run({
   }
 
   console.log(
-    `Updating ${systemCollectionUri}/${project}/_git/${repository}/pullrequest/${pullRequestIdToUpdate} with a preview URL of ${previewUrl}`
+    `Updating ${systemCollectionUri}/${project}/_git/${repository}/pullrequest/${pullRequestIdToUpdate} with a preview URL of ${previewUrl}`,
   );
 
   const pullRequest = await getPullRequest({
@@ -314,12 +315,12 @@ async function run({
     pullRequestId: pullRequestIdToUpdate,
     description: makePreviewDescriptionMarkdown(
       pullRequest.description!,
-      previewUrl
+      previewUrl,
     ),
   });
 
   console.log(
-    `Updated pull request description a preview URL of ${previewUrl}`
+    `Updated pull request description a preview URL of ${previewUrl}`,
   );
 }
 
@@ -340,11 +341,11 @@ async function getGitApi({
   const authHandler = pat
     ? nodeApi.getPersonalAccessTokenHandler(
         pat,
-        /** allowCrossOriginAuthentication */ true
+        /** allowCrossOriginAuthentication */ true,
       )
     : nodeApi.getHandlerFromToken(
         sat,
-        /** allowCrossOriginAuthentication */ true
+        /** allowCrossOriginAuthentication */ true,
       );
 
   const webApi = new nodeApi.WebApi(systemCollectionUri, authHandler);
@@ -366,7 +367,7 @@ async function getActivePullRequestId({
     config.project,
     undefined,
     /** skip */ 0,
-    /** top */ 1
+    /** top */ 1,
   );
 
   return topActivePullRequest.length > 0
@@ -391,7 +392,7 @@ async function getPullRequest({
     /** skip */ 0,
     /** top */ 1,
     /** includeCommits */ false,
-    /** includeWorkItemRefs */ false
+    /** includeWorkItemRefs */ false,
   );
   return pullRequest;
 }
@@ -415,7 +416,7 @@ async function updatePullRequestDescription({
     updatePullRequest,
     config.repository,
     pullRequestId,
-    config.project
+    config.project,
   );
 }
 

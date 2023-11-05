@@ -4,6 +4,7 @@ title: '@types is rogue'
 authors: johnnyreilly
 tags: []
 hide_table_of_contents: false
+description: 'Type definitions from Definitely Typed under @types namespace on npm cannot be trusted to follow semantic versioning, leading to breakages.'
 ---
 
 Or perhaps I should call this "@types and repeatable builds"....

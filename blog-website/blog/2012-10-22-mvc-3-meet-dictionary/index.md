@@ -2,8 +2,9 @@
 slug: mvc-3-meet-dictionary
 title: 'MVC 3 meet Dictionary'
 authors: johnnyreilly
-tags: [.NET Framework]
+tags: [asp.net]
 hide_table_of_contents: false
+description: 'MVC 3 has a Dictionary deserialization bug resolved in MVC 4. Workaround includes using JSON stringify and manual deserialization.'
 ---
 
 ## Documenting a JsonValueProviderFactory Gotcha

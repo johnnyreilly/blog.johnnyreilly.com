@@ -12,11 +12,11 @@
     "description": "The 2nd paragraph of the 404 page"
   },
   "theme.blog.archive.title": {
-    "message": "Blog Archive",
+    "message": "Blog",
     "description": "The page & hero title of the blog archive page"
   },
   "theme.blog.archive.description": {
-    "message": "I can make this work - historic posts",
+    "message": "All the posts I ever wrote!",
     "description": "The page & hero description of the blog archive page"
   },
   "theme.BackToTopButton.buttonAriaLabel": {

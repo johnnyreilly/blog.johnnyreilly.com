@@ -2,8 +2,9 @@
 slug: auth0-typescript-and-aspnet-core
 title: 'Auth0, TypeScript and ASP.NET Core'
 authors: johnnyreilly
-tags: [ASP.Net Core, Auth0, typescript, OAuth, React]
+tags: [react, asp.net, auth, typescript]
 hide_table_of_contents: false
+description: 'Auth0 makes authentication and authorization simple. They offer Auth-As-A-Service, quick start and easy customization of settings.'
 ---
 
 Most applications I write have some need for authentication and perhaps authorisation too. In fact, most apps most people write fall into that bracket. Here's the thing: Auth done well is a \*big\* chunk of work. And the minute you start thinking about that you almost invariably lose focus on the thing you actually want to build and ship.
@@ -93,7 +94,10 @@ export class AuthStore {
   @observable.ref userProfile: Auth0UserProfile;
   @observable.ref token: IStorageToken;
 
-  constructor(config: IAuth0Config, private storage: StorageFacade) {
+  constructor(
+    config: IAuth0Config,
+    private storage: StorageFacade,
+  ) {
     this.auth0 = new WebAuth({
       domain: config.domain,
       clientID: config.clientId,

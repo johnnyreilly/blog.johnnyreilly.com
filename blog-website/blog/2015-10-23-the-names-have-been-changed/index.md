@@ -4,6 +4,7 @@ title: 'The Names Have Been Changed...'
 authors: johnnyreilly
 tags: []
 hide_table_of_contents: false
+description: 'John changes the domain name of his blog from .io to .com to save money and has set up a redirect from old site to new one.'
 ---
 
 ...to protect my wallet.

@@ -2,7 +2,7 @@
 slug: playwright-github-actions-and-azure-static-web-apps-staging-environments
 title: 'Playwright, GitHub Actions and Azure Static Web Apps staging environments'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, GitHub Actions]
+tags: [azure static web apps, github actions]
 image: ./title-image.png
 description: 'Azure Static Web Apps staging environments allow you to test changes before they go live. This shows how to use Playwright against staging environments.'
 hide_table_of_contents: false
@@ -69,7 +69,7 @@ test('page should have title and a root navigation link', async ({
 }) => {
   await page.goto(baseURL!);
   const title = await page.title();
-  expect(title).toBe('johnnyreilly | johnnyreilly');
+  expect(title).toBe('johnnyreilly');
 
   const navTitle = page.getByRole('link', {
     name: 'Profile picture of John Reilly John Reilly ❤️🌻',

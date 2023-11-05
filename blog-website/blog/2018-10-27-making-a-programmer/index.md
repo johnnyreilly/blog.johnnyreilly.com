@@ -3,6 +3,7 @@ slug: making-a-programmer
 title: 'Making a Programmer'
 authors: johnnyreilly
 hide_table_of_contents: false
+description: 'Learn programming in a relaxed atmosphere with a coding bootcamp that values repetition, feedback and team facilitation.'
 ---
 
 I recently had the good fortune to help run a coding bootcamp. The idea was simple: there are many people around us who are interested in programming but don't know where to start. Let's take some folk who do and share the knowledge.

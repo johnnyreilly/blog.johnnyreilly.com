@@ -3,6 +3,7 @@ slug: compromising-guide-for-developers
 title: 'Compromising: A Guide for Developers'
 authors: johnnyreilly
 hide_table_of_contents: false
+description: 'Weighing opinions with a voting system can reduce friction and boost productivity when working with developers of different opinions.'
 ---
 
 It is a truth universally acknowledged, that a single developer, will not be short of an opinion. Opinions on tabs vs spaces. Upon OOP vs FP. Upon `class`es vs `function`s. Just opinions, opinions, opinions. Opinions that are felt with all the sincerity of a Witchfinder General. And, alas, not always the same level of empathy.

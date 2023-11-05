@@ -2,8 +2,9 @@
 slug: atom-recovering-from-corrupted-packages
 title: 'Atom - Recovering from Corrupted Packages'
 authors: johnnyreilly
-tags: [Atom]
+tags: []
 hide_table_of_contents: false
+description: 'Atom packages corrupt? Locate `.apm` folder at `[Your name]/.atom`, then delete. On reopening Atom, packages will be restored.'
 ---
 
 Every now and then when I try and update my packages in [Atom](https://atom.io/) I find this glaring back at me:

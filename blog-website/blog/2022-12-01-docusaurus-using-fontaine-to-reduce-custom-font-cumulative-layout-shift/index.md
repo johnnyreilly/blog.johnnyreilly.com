@@ -2,7 +2,7 @@
 slug: docusaurus-using-fontaine-to-reduce-custom-font-cumulative-layout-shift
 title: 'Docusaurus: Using fontaine to reduce custom font cumulative layout shift'
 authors: johnnyreilly
-tags: [Docusaurus]
+tags: [docusaurus]
 image: ./title-image.png
 description: 'Custom font usage can introduce cumulative layout shift (or "jank") to your website. This post shows how to use fontaine to reduce this with Docusaurus sites.'
 hide_table_of_contents: false
@@ -79,7 +79,7 @@ const config = {
         configureWebpack(_config, _isServer) {
           return {
             plugins: [
-              fontaine.fontaineTransform.webpack({
+              fontaine.FontaineTransform.webpack({
                 fallbacks: [
                   'system-ui',
                   '-apple-system',

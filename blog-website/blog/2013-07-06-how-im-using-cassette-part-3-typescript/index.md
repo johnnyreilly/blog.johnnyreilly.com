@@ -2,7 +2,7 @@
 slug: how-im-using-cassette-part-3-typescript
 title: "How I'm Using Cassette part 3:Cassette and TypeScript Integration"
 authors: johnnyreilly
-tags: [typescript, javascript, cassette]
+tags: [typescript, javascript, asp.net]
 hide_table_of_contents: false
 ---
 
@@ -93,7 +93,7 @@ $(document).ready(function () {
   $body.fadeOut(1000, function () {
     $body
       .html(
-        '<div style="width: 150px; margin: 0 auto;">I made it all go away...</div>'
+        '<div style="width: 150px; margin: 0 auto;">I made it all go away...</div>',
       )
       .fadeIn();
   });
@@ -111,7 +111,7 @@ $(document).ready(function () {
   $body.fadeOut(1000, function () {
     $body
       .html(
-        '<div style="width: 150px; margin: 0 auto;">I made it all go away...</div>'
+        '<div style="width: 150px; margin: 0 auto;">I made it all go away...</div>',
       )
       .fadeIn();
   });

@@ -2,18 +2,27 @@
 slug: definitely-typed-the-movie
 title: 'Definitely Typed: The Movie'
 authors: johnnyreilly
-tags: [typescript, Definitely Typed]
+tags: [definitely typed, typescript]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'The history of the TypeScript GitHub project Definitely Typed. And some TypeScript history as well'
 ---
 
-I'd like to tell you a story. It's the tale of the ecosystem that grew up around a language: TypeScript. TypeScript is, for want of a better description, JavaScript after a trip to Saville Row. Essentially the same language, but a little more together, a little less wild west. JS with a decent haircut and a new suit. These days, the world seems to be written in TypeScript. And when you pause to consider just how young the language is, well, that's kind of amazing.
+This post is a a little different from most that sit on my site. It's the story of the Definitely Typed project, of which I was an early member. It had a seismic impact on the development of TypeScript. When exchanging messages with [Andrew Branch](https://github.com/andrewbranch) (member of the TypeScipt team), I realised it was an untold story, and perhaps I should tell it, before I forget! So I did, and this is it.
+
+I named it "Definitely Typed: The Movie" as the name entertained me. Little did I know, that a few years later, a documentary would be made about TypeScript, and I'd be in it; in part thanks to writing this history. You can see [more about that here](../2023-09-20-typescript-documentary/index.md).
+
+For now, back to Definitely Typed...
+
+![A title image that reads "Definitely Typed: The Movie"](title-image.png)
 
 <!--truncate-->
 
-Who could have predicted it would end up like this? When I was a boy I remember coming down the stairs in my childhood home. Shuffling to the edge of each step on my bottom before thumping down to the one beneath. When I look at those same stairs now they're so small. I barely notice the difference between one step and the next. But back then each step seemed giant, each one so far apart. Definitely Typed had any number of steps in its evolution. They all seemed so significant then; whereas now they're just a memory. Let's remember together…
+## Preface
 
-![A title image that reads "Definitely Typed: The Movie"](title-image.png)
+I'd like to tell you a story. It's the tale of the ecosystem that grew up around a language: TypeScript. TypeScript is, for want of a better description, JavaScript after a trip to Saville Row. Essentially the same language, but a little more together, a little less wild west. JS with a decent haircut and a new suit. These days, the world seems to be written in TypeScript. And when you pause to consider just how young the language is, well, that's kind of amazing.
+
+Who could have predicted it would end up like this? When I was a boy I remember coming down the stairs in my childhood home. Shuffling to the edge of each step on my bottom before thumping down to the one beneath. When I look at those same stairs now they're so small. I barely notice the difference between one step and the next. But back then each step seemed giant, each one so far apart. Definitely Typed had any number of steps in its evolution. They all seemed so significant then; whereas now they're just a memory. Let's remember together…
 
 ## Prolog(ue)
 
@@ -33,7 +42,7 @@ I want to tell you the story of the history of type definitions in the TypeScrip
 
 I was hanging out for something like TypeScript. I'd been busily developing rich client applications in JS and, whilst I loved the language, I was dearly missing static typing. All the things broke all of the time and I wanted help. I wanted a compiler to take me by the hand and say "hey John, you just did a silly thing. Don't do it John; you'll only be filled with regret...". The TypeScript team wrote that compiler.
 
-When TypeScript was announced, it was important that the world could see that interop with JS was a first class citizen. Accordingly, a jQuery type definition was demonstrated as well. At the time, jQuery was the number one JavaScript library downloaded on the internet. So naturally it was the obvious choice for a demo. The type definition was fairly rough and ready but it worked. [You can see Anders Hejlsberg showing off the jQuery definition 45 minutes into this presentation introducing TypeScript.](https://channel9.msdn.com/posts/Anders-Hejlsberg-Introducing-TypeScript)
+When TypeScript was announced, it was important that the world could see that interop with JS was a first class citizen. Accordingly, a jQuery type definition was demonstrated as well. At the time, jQuery was the number one JavaScript library downloaded on the internet. So naturally it was the obvious choice for a demo. The type definition was fairly rough and ready but it worked. [You can see Anders Hejlsberg showing off the jQuery definition 43 minutes into this presentation introducing TypeScript.](https://youtu.be/3dqZW_DqHIQ?t=2584)
 
 Consumption was straightforward, if perhaps quirky. You took the `jquery.d.ts` file, copied it into your project location. Back then, to let the compiler know that a JS library had come to the party you had to use a kind of comment pragma in the header of your TypeScript files. For example: `/// <reference path="jquery/jquery.d.ts" />`. This let TypeScript know that the type definition living at that path was relevant for the current script and it should scope it in.
 
@@ -103,7 +112,7 @@ So, imagine your definition looked like this:
 
 ```ts
 declare function turnANumberIntoAString(
-  numberToMakeStringOutOf: number
+  numberToMakeStringOutOf: number,
 ): string;
 ```
 
@@ -165,7 +174,7 @@ On December 28th 2013 Basarat decided that a regular contributor to Definitely T
 
 ![A photograph of John Reilly](johnny_reilly.webp)
 
-That's me. Or [johnny_reilly on Twitter](https://twitter.com/johnny_reilly) and [johnnyreilly](https://github.com/johnnyreilly) on GitHub (as John Papa and I have learned to our chagrin; GitHub don't support the "\_" character in usernames). Relatively few people call me Johnny. I'm named that online because back when I applied for an email address, someone had already bagsied john\_reilly@popularemailhotness.com. So rather than sully my handle with a number or a middle name I settled for johnny_reilly. I haven't looked back and have generally tried to keep that nom de plume wherever I lay my hat online.
+That's me. Or [johnny_reilly on Twitter](https://twitter.com/johnny_reilly), [johnny_reilly on Fosstodon](https://fosstodon.org/@johnny_reilly) and [johnnyreilly on GitHub](https://github.com/johnnyreilly). Relatively few people call me Johnny. I'm named that online because back when I applied for an email address, someone had already bagsied `johnreilly@hotmail.com`. (Hotmail was what everyone used back when I came online - I am _that_ old.) So rather than sully my handle with a number or a middle name I settled for `johnny_reilly` and went with the underscore as someone already had the email address without one. I haven't looked back and have generally tried to keep that nom de plume wherever I lay my hat online. I have learned to my chagrin that GitHub doesn't support the `_` character in usernames. This bothers me more than is reasonable.
 
 In contrast to others I was a relatively late starter to TypeScript. I was intrigued right from the initial announcement, but held off from properly getting my hands dirty until generics was added to the language in 0.9. (This predisposition towards generics in a language perhaps explains why I didn't get too far with Golang.)
 

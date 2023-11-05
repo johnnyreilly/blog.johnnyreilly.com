@@ -2,8 +2,9 @@
 slug: making-ie-10s-clear-field-x-button-and
 title: "Making IE 10's clear field (X) button and jQuery UI autocomplete play nice"
 authors: johnnyreilly
-tags: [jQuery UI]
+tags: [jquery]
 hide_table_of_contents: false
+description: 'IE 10 installed w/o notice on Johns machine, causing issues with jQuery UI auto-complete loading gifs which have been resolved with a CSS fix.'
 ---
 
 This morning when I logged on I was surprised to discover IE 10 had been installed onto my machine. I hadn't taken any action to trigger this myself and so I’m assuming that this was part of the general Windows Update mechanism. I know [Microsoft had planned to push IE 10 out through this mechanism](http://technet.microsoft.com/en-us/ie/jj898508.aspx).

@@ -2,8 +2,9 @@
 slug: unit-testing-modelstate
 title: 'Unit testing ModelState'
 authors: johnnyreilly
-tags: [asp.net mvc, unit testing]
+tags: [asp.net, automated testing]
 hide_table_of_contents: false
+description: 'Testing Model validation in ASP.NET MVC can be accomplished by making use of ModelStateTestController class which simulates the functional tests.'
 ---
 
 - Me: "It can't be done"

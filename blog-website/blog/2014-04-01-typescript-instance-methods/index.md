@@ -4,6 +4,7 @@ title: 'TypeScript this is what I want! (the unfortunate neglect of Instance Met
 authors: johnnyreilly
 tags: [typescript]
 hide_table_of_contents: false
+description: 'TypeScripts "Instance Methods" feature solves the `this` keyword issues in classes, unlike prototype methods. It suggests using a combination of the two.'
 ---
 
 I was recently reading [Jeff Walker's blog post "Why TypeScript Isn't the Answer"](http://www.walkercoderanger.com/blog/2014/02/typescript-isnt-the-answer/). This is part of series in which Jeff goes through various compile-to-JavaScript technologies including TypeScript, CoffeeScript and Dart and explains his view of why he feels they don't quite hit the mark.

@@ -2,9 +2,10 @@
 slug: structured-data-seo-and-react
 title: 'Structured data, SEO and React'
 authors: johnnyreilly
-tags: [Structured Data, SEO, React]
+tags: [seo, react]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'Add structured data to your website to help search engines understand your content & get it in front of more people. Example shown in a React app.'
 ---
 
 People being able to discover your website when they search is important. This post is about how you can add structured data to a site. Adding structured data will help search engines like Google understand your content, and get it in front of more eyeballs. We'll illustrate this by making a simple React app which incorporates structured data.
@@ -96,15 +97,18 @@ function App() {
     author: {
       '@type': 'Person',
       name: 'John Reilly',
-      url: 'https://twitter.com/johnny_reilly',
+      url: 'https://johnnyreilly.com/about',
     },
   };
 
   return (
     <div className="App">
-      <script type="application/ld+json">
-        {JSON.stringify(articleStructuredData)}
-      </script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(articleStructuredData),
+        }}
+      />
 
       <h1>{articleStructuredData.headline}</h1>
       <h3>
@@ -134,7 +138,7 @@ export default App;
 If we look at the code above, we can see we're creating a JavaScript object literal named `articleStructuredData` which contains the data of an https://schema.org/Article. `articleStructuredData` is then used to do two things:
 
 1. to contribute to the content of the page
-2. to render a JSON-LD script tag: `<script type="application/ld+json">` which is populated by calling `JSON.stringify(articleStructuredData)`
+2. to render a JSON-LD script tag: `<script type="application/ld+json">` which is populated by calling `JSON.stringify(articleStructuredData)` (You'll note we're using `dangerouslySetInnerHTML` to do this and that's because otherwise the `"` characters in the JSON-LD would be escaped and that would make the JSON-LD invalid to some parsers. The "HTML" we're actually rendering is JSON, and it's safe to render that as HTML because we know it's valid JSON.)
 
 When we run our site locally with `npm start` we see a simple article site that looks like this:
 

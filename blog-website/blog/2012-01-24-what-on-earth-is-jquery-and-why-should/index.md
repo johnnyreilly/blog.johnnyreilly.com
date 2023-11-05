@@ -2,8 +2,9 @@
 slug: what-on-earth-is-jquery-and-why-should
 title: 'What on earth is jQuery?  And why should I care?'
 authors: johnnyreilly
-tags: [jqgrid, ajax, jquery]
+tags: [jquery]
 hide_table_of_contents: false
+description: 'What is jQuery? Discover the truth about the JavaScript library thats taking the web development world by storm - its simply brilliant!'
 ---
 
 What on earth is jQuery? What's a jQuery plugin?

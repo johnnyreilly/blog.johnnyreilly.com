@@ -3,6 +3,7 @@ slug: why-your-team-needs-newsfeed
 title: 'Why your team needs a newsfeed'
 authors: johnnyreilly
 hide_table_of_contents: false
+description: 'A newsfeed was built to narrow the gap between an online platform team and their users. It generates real-time stories in Markdown with links.'
 ---
 
 I'm part of a team that builds an online platform. I'm often preoccupied by how to narrow the gap between our users and "us" - the people that build the platform. It's important we understand how people use and interact with what we've built. If we don't then we're liable to waste our time and energy building the wrong things. Or the wrong amount of the right things.
@@ -59,8 +60,6 @@ This crucially includes the ability to include links. This was significant becau
 > This is the history of [@DefinitelyTyped](https://twitter.com/DefinitelyTyped?ref_src=twsrc%5Etfw): [https://t.co/AY6s3bWnKP](https://t.co/AY6s3bWnKP) Thanks to [@SeaRyanC](https://twitter.com/SeaRyanC?ref_src=twsrc%5Etfw) & [@drosenwasser](https://twitter.com/drosenwasser?ref_src=twsrc%5Etfw) of the [@typescript](https://twitter.com/typescript?ref_src=twsrc%5Etfw) team, [@blakeembrey](https://twitter.com/blakeembrey?ref_src=twsrc%5Etfw) inventor of typings, [@vvakame](https://twitter.com/vvakame?ref_src=twsrc%5Etfw), [@\_stevefenton](https://twitter.com/_stevefenton?ref_src=twsrc%5Etfw), [@basarat](https://twitter.com/basarat?ref_src=twsrc%5Etfw), and of course [@borisyankov](https://twitter.com/borisyankov?ref_src=twsrc%5Etfw) for telling me their parts of the story❤️🌻
 >
 > — John Reilly (@johnny_reilly) [October 8, 2019](https://twitter.com/johnny_reilly/status/1181542739994976256?ref_src=twsrc%5Etfw)
-
-<script async="" src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
 
 Again consider this example news story:
 

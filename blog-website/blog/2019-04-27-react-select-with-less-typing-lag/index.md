@@ -2,8 +2,9 @@
 slug: react-select-with-less-typing-lag
 title: 'react-select with less typing lag'
 authors: johnnyreilly
-tags: [react-select]
+tags: [react]
 hide_table_of_contents: false
+description: 'Fix lagging in `react-select`. Change `filterOption` to `ignoreAccents: false` for faster typing experience with 1000+ items.'
 ---
 
 This is going out to all those people using [`react-select`](https://react-select.com) with 1000+ items to render. To those people typing into the select and saying out loud "it's _so_ laggy.... This can't be... It's 2019... I mean, right?" To the people who read this [GitHub issue](https://github.com/JedWatson/react-select/issues/3128) top to bottom 30 times and still came back unsure of what to do. This is for you.

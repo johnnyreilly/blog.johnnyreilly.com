@@ -2,7 +2,7 @@
 slug: reverse-engineering-azure-app-insights-transactions-url
 title: 'Reverse engineering the Azure Application Insights Transactions URL'
 authors: johnnyreilly
-tags: [Azure Application Insights, typescript, C#]
+tags: [c#, azure, typescript]
 image: ./title-image.png
 description: 'This post reverse engineers the Azure Application Insights Transactions URL, showing how to make a link href, using both TypeScript and C#.'
 hide_table_of_contents: false
@@ -58,7 +58,7 @@ If we run it through `decodeURIComponent` you can see it in it's raw form:
 
 ```js
 decodeURIComponent(
-  '%2Fsubscriptions%2F4e41a677-9a57-4a7c-9c4c-e71bae5d998e%2Fresourcegroups%2Frg-maas-shared-storage-dev-001%2Fproviders%2Fmicrosoft.insights%2Fcomponents%2Fappi-maas-shared-dev'
+  '%2Fsubscriptions%2F4e41a677-9a57-4a7c-9c4c-e71bae5d998e%2Fresourcegroups%2Frg-maas-shared-storage-dev-001%2Fproviders%2Fmicrosoft.insights%2Fcomponents%2Fappi-maas-shared-dev',
 );
 
 // creates: /subscriptions/4e41a677-9a57-4a7c-9c4c-e71bae5d998e/resourcegroups/rg-maas-shared-storage-dev-001/providers/microsoft.insights/components/appi-maas-shared-dev'
@@ -88,7 +88,7 @@ Initially this doesn't look like much. It's just a long string of characters. Bu
 
 ```js
 decodeURIComponent(
-  '%7B%22tables%22%3A%5B%22traces%22%5D%2C%22timeContextWhereClause%22%3A%22%7C+where+timestamp+%3E+datetime(%5C%222022-05-03T10%3A04%3A33.267Z%5C%22)+and+timestamp+%3C+datetime(%5C%222022-05-03T10%3A34%3A33.267Z%5C%22)%22%2C%22filterWhereClause%22%3A%22%7C+where+severityLevel+in+(%5C%223%5C%22)%7C+where+_+has+%5C%22healthcheck%5C%22%7C+order+by+timestamp+desc%22%2C%22originalParams%22%3A%7B%22eventTypes%22%3A%5B%7B%22value%22%3A%22availabilityResult%22%2C%22tableName%22%3A%22availabilityResults%22%2C%22label%22%3A%22Availability%22%7D%2C%7B%22value%22%3A%22request%22%2C%22tableName%22%3A%22requests%22%2C%22label%22%3A%22Request%22%7D%2C%7B%22value%22%3A%22exception%22%2C%22tableName%22%3A%22exceptions%22%2C%22label%22%3A%22Exception%22%7D%2C%7B%22value%22%3A%22pageView%22%2C%22tableName%22%3A%22pageViews%22%2C%22label%22%3A%22Page+View%22%7D%2C%7B%22value%22%3A%22trace%22%2C%22tableName%22%3A%22traces%22%2C%22label%22%3A%22Trace%22%7D%2C%7B%22value%22%3A%22customEvent%22%2C%22tableName%22%3A%22customEvents%22%2C%22label%22%3A%22Custom+Event%22%7D%2C%7B%22value%22%3A%22dependency%22%2C%22tableName%22%3A%22dependencies%22%2C%22label%22%3A%22Dependency%22%7D%5D%2C%22timeContext%22%3A%7B%22durationMs%22%3A1800000%2C%22endTime%22%3A%222022-05-03T10%3A34%3A33.267Z%22%7D%2C%22filter%22%3A%5B%5D%2C%22searchPhrase%22%3A%7B%22originalPhrase%22%3A%22healthcheck%22%2C%22_tokens%22%3A%5B%7B%22conjunction%22%3A%22and%22%2C%22value%22%3A%22healthcheck%22%2C%22isNot%22%3Afalse%2C%22kql%22%3A%22+_+has+%5C%22healthcheck%5C%22%22%7D%5D%7D%2C%22sort%22%3A%22desc%22%7D%7D'
+  '%7B%22tables%22%3A%5B%22traces%22%5D%2C%22timeContextWhereClause%22%3A%22%7C+where+timestamp+%3E+datetime(%5C%222022-05-03T10%3A04%3A33.267Z%5C%22)+and+timestamp+%3C+datetime(%5C%222022-05-03T10%3A34%3A33.267Z%5C%22)%22%2C%22filterWhereClause%22%3A%22%7C+where+severityLevel+in+(%5C%223%5C%22)%7C+where+_+has+%5C%22healthcheck%5C%22%7C+order+by+timestamp+desc%22%2C%22originalParams%22%3A%7B%22eventTypes%22%3A%5B%7B%22value%22%3A%22availabilityResult%22%2C%22tableName%22%3A%22availabilityResults%22%2C%22label%22%3A%22Availability%22%7D%2C%7B%22value%22%3A%22request%22%2C%22tableName%22%3A%22requests%22%2C%22label%22%3A%22Request%22%7D%2C%7B%22value%22%3A%22exception%22%2C%22tableName%22%3A%22exceptions%22%2C%22label%22%3A%22Exception%22%7D%2C%7B%22value%22%3A%22pageView%22%2C%22tableName%22%3A%22pageViews%22%2C%22label%22%3A%22Page+View%22%7D%2C%7B%22value%22%3A%22trace%22%2C%22tableName%22%3A%22traces%22%2C%22label%22%3A%22Trace%22%7D%2C%7B%22value%22%3A%22customEvent%22%2C%22tableName%22%3A%22customEvents%22%2C%22label%22%3A%22Custom+Event%22%7D%2C%7B%22value%22%3A%22dependency%22%2C%22tableName%22%3A%22dependencies%22%2C%22label%22%3A%22Dependency%22%7D%5D%2C%22timeContext%22%3A%7B%22durationMs%22%3A1800000%2C%22endTime%22%3A%222022-05-03T10%3A34%3A33.267Z%22%7D%2C%22filter%22%3A%5B%5D%2C%22searchPhrase%22%3A%7B%22originalPhrase%22%3A%22healthcheck%22%2C%22_tokens%22%3A%5B%7B%22conjunction%22%3A%22and%22%2C%22value%22%3A%22healthcheck%22%2C%22isNot%22%3Afalse%2C%22kql%22%3A%22+_+has+%5C%22healthcheck%5C%22%22%7D%5D%7D%2C%22sort%22%3A%22desc%22%7D%7D',
 );
 
 // creates: '{"tables":["traces"],"timeContextWhereClause":"|+where+timestamp+>+datetime(\\"2022-05-03T10:04:33.267Z\\")+and+timestamp+<+datetime(\\"2022-05-03T10:34:33.267Z\\")","filterWhereClause":"|+where+severityLevel+in+(\\"3\\")|+where+_+has+\\"healthcheck\\"|+order+by+timestamp+desc","originalParams":{"eventTypes":[{"value":"availabilityResult","tableName":"availabilityResults","label":"Availability"},{"value":"request","tableName":"requests","label":"Request"},{"value":"exception","tableName":"exceptions","label":"Exception"},{"value":"pageView","tableName":"pageViews","label":"Page+View"},{"value":"trace","tableName":"traces","label":"Trace"},{"value":"customEvent","tableName":"customEvents","label":"Custom+Event"},{"value":"dependency","tableName":"dependencies","label":"Dependency"}],"timeContext":{"durationMs":1800000,"endTime":"2022-05-03T10:34:33.267Z"},"filter":[],"searchPhrase":{"originalPhrase":"healthcheck","_tokens":[{"conjunction":"and","value":"healthcheck","isNot":false,"kql":"+_+has+\\"healthcheck\\""}]},"sort":"desc"}}'
@@ -240,7 +240,7 @@ function makeAzureApplicationInsightsTransactionUrl({
 
   const baseUrl = `https://portal.azure.com/#blade/AppInsightsExtension/BladeRedirect/BladeName/searchV1/ResourceId/`;
   const encodedApplicationInsightsId = encodeURIComponent(
-    applicationInsightsId
+    applicationInsightsId,
   );
   const moreRouting = `/BladeInputs/`;
   const encodedLogsQuery = encodeURIComponent(JSON.stringify(logsQuery));

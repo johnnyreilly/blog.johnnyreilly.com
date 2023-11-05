@@ -4,6 +4,7 @@ title: 'webpack: syncing the enhanced-resolve'
 authors: johnnyreilly
 tags: [webpack]
 hide_table_of_contents: false
+description: 'How to create a sync webpack resolver instead of the default async resolver using `enhanced-resolve`.'
 ---
 
 Like Captain Ahab I resolve to sync the white whale that is webpack's [`enhanced-resolve`](https://github.com/webpack/enhanced-resolve)... English you say? Let me start again:
@@ -48,7 +49,7 @@ Put it all together and what have you got?
 const resolvedFileName = resolveSync(
   undefined,
   'C:source\ts-loader.test\babel-issue92',
-  './submodule/submodule'
+  './submodule/submodule',
 );
 
 // resolvedFileName: C:\source\ts-loader\.test\babel-issue92\submodule\submodule.tsx

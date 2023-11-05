@@ -2,8 +2,9 @@
 slug: how-im-using-cassette
 title: "How I'm Using Cassette part 1:Getting Up and Running"
 authors: johnnyreilly
-tags: [asp.net mvc, cassette]
+tags: [asp.net]
 hide_table_of_contents: false
+description: 'Learn how to serve JavaScript assets efficiently in ASP.Net MVC with Cassette to avoid duplicate scripts and ensure speedy loading.'
 ---
 
 ## Backing into the light
@@ -113,7 +114,21 @@ namespace CassetteDemo
 
 In the script above I've created 4 bundles, 1 stylesheet bundle and 3 JavaScript bundles - each of these is roughly equivalent to Web Optimization bundles that are part of the MVC 4 template:
 
-<dl><dt>~/bundles/css</dt><dd>Our site CSS - this includes both our own CSS and the jQuery UI CSS as well. This is the rough equivalent of the Web Optimization bundles <em>~/Content/css</em> and <em>~/Content/themes/base/css</em> brought together.</dd><dt>~/bundles/head</dt><dd>What scripts we want served in the head tag - Modernizr basically. Do note the setting of the <em>PageLocation</em> property - the purpose of this will become apparent later. This is the direct equivalent of the Web Optimization bundle: <em>~/bundles/modernizr</em>.</dd><dt>~/bundles/core</dt><dd>The scripts we want served on every page. For this example project I've picked jQuery and jQuery UI. This is the rough equivalent of the Web Optimization bundles <em>~/bundles/jquery</em> and <em>~/bundles/jqueryui</em> brought together.</dd><dt>~/bundles/validate</dt><dd>The validation scripts (that are dependent on the core scripts). This is the rough equivalent of the Web Optimization bundle: <em>~/bundles/jqueryval</em>.</dd></dl>
+#### `~/bundles/css`
+
+Our site CSS - this includes both our own CSS and the jQuery UI CSS as well. This is the rough equivalent of the Web Optimization bundles `~/Content/css` and `~/Content/themes/base/css` brought together.
+
+#### `~/bundles/head`
+
+What scripts we want served in the head tag - Modernizr basically. Do note the setting of the `PageLocation` property - the purpose of this will become apparent later. This is the direct equivalent of the Web Optimization bundle: `~/bundles/modernizr`.
+
+#### `~/bundles/core`
+
+The scripts we want served on every page. For this example project I've picked jQuery and jQuery UI. This is the rough equivalent of the Web Optimization bundles `~/bundles/jquery` and `~/bundles/jqueryui` brought together.
+
+#### `~/bundles/validate`
+
+The validation scripts (that are dependent on the core scripts). This is the rough equivalent of the Web Optimization bundle: `~/bundles/jqueryval`.
 
 At this point we've set up Cassette in our project - although we're not making use of it yet. If you want to double check that everything is working properly then you can fire up your project and browse to "Cassette.axd" in the root.
 
@@ -137,7 +152,7 @@ If you're more familiar with the workings of Web Optimization than Cassette then
 Now we've created our bundles let's get the project serving up CSS and JavaScript using Cassette. First the layout file. Take the `_Layout.cshtml` file from this:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -191,7 +206,7 @@ To this:
 ```html
 @{ Bundles.Reference("~/bundles/css"); Bundles.Reference("~/bundles/head");
 Bundles.Reference("~/bundles/core"); }
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />

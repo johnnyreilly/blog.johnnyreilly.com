@@ -2,8 +2,9 @@
 slug: hey-tsconfigjson-where-have-you-been
 title: 'Hey tsconfig.json, where have you been all my life?'
 authors: johnnyreilly
-tags: [tsconfig.json, typescript]
+tags: [typescript]
 hide_table_of_contents: false
+description: 'The creation of a "tsconfig.json" file will eliminate the need for "reference" comments when using TypeScript, reducing barriers between IDEs.'
 ---
 
 Sometimes, you just miss things. Something seismic happens and you had no idea. So it was with `tsconfig.json`.
@@ -32,7 +33,7 @@ This has important implications. Important I tell you, yes important! Well, impo
 
 I feel I should be clear - you can already set up TypeScript projects to work regardless of IDE. But there's friction. It's not clear cut. You can see a full on discussion around this [here](https://github.com/Microsoft/TypeScript/issues/1066) but in the end it comes down to making a choice between these 3 options:
 
-1. Set <TypeScriptEnabled>false</TypeScriptEnabled> in a project file. [This flag effectively deactivates implicit referencing.](https://github.com/Microsoft/TypeScript/issues/1066#issuecomment-63727612) This approach requires that all developers (regardless of IDE) use `/// &lt;reference`s to build context. Compiler options in VS can be controlled using the project file as is.
+1. Set `<TypeScriptEnabled>false</TypeScriptEnabled>` in a project file. [This flag effectively deactivates implicit referencing.](https://github.com/Microsoft/TypeScript/issues/1066#issuecomment-63727612) This approach requires that all developers (regardless of IDE) use `/// &lt;reference`s to build context. Compiler options in VS can be controlled using the project file as is.
 2. Using Visual Studio without any csproj tweaks. This approach requires that all files will need `/// &lt;reference`s at their heads in order to build compilation context _outside_ of Visual Studio. It's possible that `/// &lt;reference`s and the csproj could get out of line - care is required to avoid this. Compiler options in VS can be controlled using the project file as is.
 3. Using just files in Visual Studio with `/// &lt;reference`s to build compilation context. This scenario also requires that all developers (regardless of IDE) use `/// &lt;reference`s to build context. In Visual Studio there will be no control over compiler options.
 

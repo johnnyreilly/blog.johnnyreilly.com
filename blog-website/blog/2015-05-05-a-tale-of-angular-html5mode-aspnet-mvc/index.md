@@ -2,8 +2,9 @@
 slug: a-tale-of-angular-html5mode-aspnet-mvc
 title: 'A tale of Angular, html5mode, ASP.Net MVC and ASP.Net Web API'
 authors: johnnyreilly
-tags: [asp.net, AngularJS]
+tags: [angularjs, asp.net]
 hide_table_of_contents: false
+description: 'This article offers tips on how to preserve specific routes while redirecting non-specified URLs to the root angular app page for ASP.Net MVC and Web API.'
 ---
 
 So. You want to kick hash based routing to the kerb. You want _real_ URLs. You've read the HTML5 mode section of the [Angular $location docs](https://docs.angularjs.org/guide/$location) and you're good to go. It's just a matter of dropping `$locationProvider.html5Mode(true)` into your app initialisation right?

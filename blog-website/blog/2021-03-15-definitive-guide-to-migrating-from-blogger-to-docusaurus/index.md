@@ -2,9 +2,10 @@
 slug: definitive-guide-to-migrating-from-blogger-to-docusaurus
 title: 'The definitive guide to migrating from Blogger to Docusaurus'
 authors: johnnyreilly
-tags: [Blogger, Docusaurus, typescript]
+tags: [docusaurus, typescript]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'Learn how to transfer a Blogger website to Docusaurus without losing content. Use a TypeScript console app to convert HTML to Markdown.'
 ---
 
 This post documents how to migrate a blog from Blogger to Docusaurus.
@@ -125,7 +126,7 @@ const notMarkdownable: string[] = [];
 const author = 'johnnyreilly';
 const author_name = 'John Reilly';
 const author_url = 'https://twitter.com/johnny_reilly';
-const author_image_url = 'https://blog.johnnyreilly.com/img/profile.jpg';
+const author_image_url = 'https://johnnyreilly.com/img/profile.jpg';
 
 async function makePostsFromXML() {
   const blogDir = path.resolve(docusaurusDirectory, 'blog');
@@ -142,7 +143,7 @@ async function makePostsFromXML() {
   if (notMarkdownable.length)
     console.log(
       'These blog posts could not be turned into MarkDown - go find out why!',
-      notMarkdownable
+      notMarkdownable,
     );
 }
 
@@ -166,7 +167,7 @@ async function deleteExistingFiles(directory: string) {
  * johnnyreilly:
  *   name: John Reilly
  *   url: https://twitter.com/johnny_reilly
- *   image_url: https://blog.johnnyreilly.com/img/profile.jpg
+ *   image_url: https://johnnyreilly.com/img/profile.jpg
  */
 async function makeAuthorsYml(directory: string) {
   const authorsYml = `${author}:
@@ -178,7 +179,7 @@ async function makeAuthorsYml(directory: string) {
   await fs.promises.writeFile(
     path.join(directory, 'authors.yml'),
     authorsYml,
-    'utf-8'
+    'utf-8',
   );
 }
 
@@ -212,13 +213,13 @@ async function getPosts(): Promise<Post[]> {
       entry.category.some(
         (category: any) =>
           category.attr['@_term'] ===
-          'http://schemas.google.com/blogger/2008/kind#post'
+          'http://schemas.google.com/blogger/2008/kind#post',
       ) &&
       entry.link.some(
         (link: any) =>
-          link.attr['@_href'] && link.attr['@_type'] === 'text/html'
+          link.attr['@_href'] && link.attr['@_type'] === 'text/html',
       ) &&
-      entry.published < '2021-03-07'
+      entry.published < '2021-03-07',
   );
 
   const posts: Post[] = postsRaw.map((entry: any) => {
@@ -228,25 +229,25 @@ async function getPosts(): Promise<Post[]> {
       published: entry.published,
       link: entry.link.find(
         (link: any) =>
-          link.attr['@_href'] && link.attr['@_type'] === 'text/html'
+          link.attr['@_href'] && link.attr['@_type'] === 'text/html',
       )
         ? entry.link.find(
             (link: any) =>
-              link.attr['@_href'] && link.attr['@_type'] === 'text/html'
+              link.attr['@_href'] && link.attr['@_type'] === 'text/html',
           ).attr['@_href']
         : undefined,
       tags:
         Array.isArray(entry.category) &&
         entry.category.some(
           (category: any) =>
-            category.attr['@_scheme'] === 'http://www.blogger.com/atom/ns#'
+            category.attr['@_scheme'] === 'http://www.blogger.com/atom/ns#',
         )
           ? entry.category
               .filter(
                 (category: any) =>
                   category.attr['@_scheme'] ===
                     'http://www.blogger.com/atom/ns#' &&
-                  category.attr['@_term'] !== 'constructor'
+                  category.attr['@_term'] !== 'constructor',
               ) // 'constructor' will make docusaurus choke
               .map((category: any) => category.attr['@_term'])
           : [],
@@ -323,7 +324,7 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
       .replace(
         /\[!\[null\]\(<(.*?)\].*?>\)/g,
         (match) =>
-          `![](${match.slice(match.indexOf('<') + 1, match.indexOf('>'))})\n\n`
+          `![](${match.slice(match.indexOf('<') + 1, match.indexOf('>'))})\n\n`,
       )
 
       // Blogger tends to put images in HTML that looks like this:
@@ -341,7 +342,7 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
           if (src) images.push(src);
 
           return `![${alt}](${src})`;
-        }
+        },
       );
   } catch (e) {
     console.log(post.link);
@@ -370,7 +371,7 @@ ${markdown}
 
   await fs.promises.writeFile(
     path.resolve(docusaurusDirectory, 'blog', blogdirPath, 'index.md'),
-    content
+    content,
   );
 }
 
@@ -449,7 +450,7 @@ If you've got some curiously named image files you might encounter some minor is
 
 ## Redirecting from Blogger URLs to Docusaurus URLs
 
-The final step is to redirect from the old Blogger URLs to the new Docusaurus URLs. Blogger URLs look like this: `/2019/10/definitely-typed-movie.html`. On the other hand, Docusaurus URLs look like this: [`/2019/10/08/definitely-typed-movie`](https://blog.johnnyreilly.com/2019/10/08/definitely-typed-movie).
+The final step is to redirect from the old Blogger URLs to the new Docusaurus URLs. Blogger URLs look like this: `/2019/10/definitely-typed-movie.html`. On the other hand, Docusaurus URLs look like this: [`/2019/10/08/definitely-typed-movie`](https://johnnyreilly.com/definitely-typed-the-movie).
 
 I'll want to redirect from the former to the latter. I'll use the `@docusaurus/plugin-client-redirects` plugin to do this. Inside the `docusaurus.config.js` file, I'll add the following to the `plugins` section:
 
@@ -514,7 +515,7 @@ If you're like me, you'll want to keep your RSS feed. I didn't want to disruptin
 
 Happily, [Docusaurus ships with RSS / Atom in the box](https://docusaurus.io/docs/blog#feed). Even happier still, most of the feed URLs in Blogger match the same URLs in Docusaurus. There was one exception in the form of the `/feeds/posts/default` feed which is an Atom feed. Docusaurus has an `atom.xml` feed but it's not in the same place.
 
-This isn't a significant issue as I can create a page rule in Cloudflare to redirect from the old URL (https://blog.johnnyreilly.com/feeds/posts/default) to the new URL (https://blog.johnnyreilly.com/atom.xml):
+This isn't a significant issue as I can create a page rule in Cloudflare to redirect from the old URL (https://johnnyreilly.com/feeds/posts/default) to the new URL (https://johnnyreilly.com/atom.xml):
 
 ![screenshot of the page rule in Cloudflare](screenshot-cloudflare-atom-page-rule.png)
 

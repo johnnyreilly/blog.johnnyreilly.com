@@ -2,8 +2,9 @@
 slug: migrating-from-angularjs-to-angularts
 title: 'Migrating from AngularJS to AngularTS - a walkthrough'
 authors: johnnyreilly
-tags: [Jasmine, typescript, Unit tests, AngularJS]
+tags: [angularjs, automated testing, typescript]
 hide_table_of_contents: false
+description: 'Learn how to migrate an AngularJS app from JavaScript to TypeScript in this walkthrough on a simple website/app for sending prayer requests.'
 ---
 
 It started with nuns. Don't all good stories start that way? One of my (many) aunts is a Poor Clare nun. At some point in the distant past I was cajoled into putting together a simple website for her convent. This post is a walkthrough of how to migrate from AngularJS using JavaScript to AngularJS using TypeScript. It just so happens that the AngularJS app in question is the one that belongs to my mother's sister's convent.
@@ -169,7 +170,7 @@ angular.module('poorClaresApp.services').factory(
         determineSiteSection: determineSiteSection,
       };
     },
-  ]
+  ],
 );
 ```
 
@@ -189,7 +190,7 @@ As with `siteSectionService` we need to create an interface to define what `pray
 interface IPrayerRequestService {
   sendPrayerRequest: (
     email: string,
-    prayFor: string
+    prayFor: string,
   ) => ng.IPromise<{
     success: boolean;
     text: string;
@@ -219,7 +220,7 @@ angular.module('poorClaresApp.services').factory(
         sendPrayerRequest: sendPrayerRequest,
       };
     },
-  ]
+  ],
 );
 ```
 
@@ -264,7 +265,7 @@ angular.module('poorClaresApp.controllers').controller(
           });
       };
     },
-  ]
+  ],
 );
 ```
 
@@ -282,7 +283,7 @@ module poorClaresApp.controllers {
     static $inject = ['$scope', 'prayerRequestService'];
     constructor(
       private $scope: ng.IScope,
-      private prayerRequestService: IPrayerRequestService
+      private prayerRequestService: IPrayerRequestService,
     ) {}
 
     message: { success: boolean; text: string };
@@ -345,7 +346,7 @@ angular.module('poorClaresApp.controllers').controller(
     'siteSectionService',
     function (
       $scope: INavControllerScope,
-      siteSectionService: ISiteSectionService
+      siteSectionService: ISiteSectionService,
     ) {
       $scope.isCollapsed = true;
       $scope.siteSection = siteSectionService.getSiteSection();
@@ -354,10 +355,10 @@ angular.module('poorClaresApp.controllers').controller(
         siteSectionService.getSiteSection,
         function (newValue, oldValue) {
           $scope.siteSection = newValue;
-        }
+        },
       );
     },
-  ]
+  ],
 );
 ```
 
@@ -378,7 +379,7 @@ module poorClaresApp.controllers {
     static $inject = ['$scope', 'siteSectionService'];
     constructor(
       private $scope: INavControllerScope,
-      private siteSectionService: ISiteSectionService
+      private siteSectionService: ISiteSectionService,
     ) {
       $scope.isCollapsed = true;
       $scope.siteSection = siteSectionService.getSiteSection();
@@ -387,7 +388,7 @@ module poorClaresApp.controllers {
         siteSectionService.getSiteSection,
         function (newValue, oldValue) {
           $scope.siteSection = newValue;
-        }
+        },
       );
     }
   }
@@ -413,11 +414,11 @@ angular.module('poorClaresApp.controllers').controller(
     'siteSectionService',
     function (
       $location: ng.ILocationService,
-      siteSectionService: ISiteSectionService
+      siteSectionService: ISiteSectionService,
     ) {
       siteSectionService.determineSiteSection($location.path());
     },
-  ]
+  ],
 );
 ```
 
@@ -431,7 +432,7 @@ module poorClaresApp.controllers {
     static $inject = ['$location', 'siteSectionService'];
     constructor(
       private $location: ng.ILocationService,
-      private siteSectionService: ISiteSectionService
+      private siteSectionService: ISiteSectionService,
     ) {
       siteSectionService.determineSiteSection($location.path());
     }

@@ -2,8 +2,9 @@
 slug: react-component-curry
 title: 'React Component Curry'
 authors: johnnyreilly
-tags: [jsx, React, stateless functional components]
+tags: [react]
 hide_table_of_contents: false
+description: 'React 0.14 introduces stateless functional components to reduce code for components where state isnt required, while also allowing for currying.'
 ---
 
 Everyone loves curry don't they? I don't know about you but I'm going for one on Friday.

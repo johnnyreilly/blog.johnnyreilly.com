@@ -2,8 +2,9 @@
 slug: the-convent-with-continuous-delivery
 title: 'The Convent with Continuous Delivery'
 authors: johnnyreilly
-tags: [Continuous Delivery, AppVeyor]
+tags: []
 hide_table_of_contents: false
+description: 'Programmer has open-sourced the Poor Clares Arundel website, making tweaks and site updating easier, with continuous delivery and collaboration.'
 ---
 
 I've done it. I've open sourced the [website that I maintain for my aunt what is a nun](http://www.poorclaresarundel.org/). Because I think we can all agree that nuns need open source and continuous integration about as much as anyone else.

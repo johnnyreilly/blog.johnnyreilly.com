@@ -2,8 +2,9 @@
 slug: getting-more-RESTful-with-Web-API
 title: 'Getting more RESTful with Web API and IHttpActionResult'
 authors: johnnyreilly
-tags: [ASP.NET]
+tags: [asp.net]
 hide_table_of_contents: false
+description: 'Learn how to use HTTP status codes in Web API methods to return successful or failed requests without wrapping the outcomes.'
 ---
 
 Up until, well yesterday really, I tended to have my Web API action methods all returning [200](http://en.wikipedia.org/wiki/HTTP_200#2xx_Success)'s no matter what. Successful request? 200 for you sir! Some validation error in the model? 200 for you too ma'am - but I'll wrap up the validation errors and send them back too. Database error? 200 and and an error message.

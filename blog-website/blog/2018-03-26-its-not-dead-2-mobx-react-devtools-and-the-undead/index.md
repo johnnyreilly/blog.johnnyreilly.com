@@ -2,8 +2,9 @@
 slug: its-not-dead-2-mobx-react-devtools-and-the-undead
 title: "It's Not Dead 2: mobx-react-devtools and the undead"
 authors: johnnyreilly
-tags: [uglifyjs, mobx, webpack]
+tags: [webpack]
 hide_table_of_contents: false
+description: 'Using `mobx-react-devtools` with `process.env.NODE_ENV` caused problems with webpack production mode. A different approach fixed the issue.'
 ---
 
 I spent today digging through our webpack 4 config trying to work out why a production bundle contained code like this:

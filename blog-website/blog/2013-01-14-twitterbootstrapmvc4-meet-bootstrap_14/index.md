@@ -2,8 +2,9 @@
 slug: twitterbootstrapmvc4-meet-bootstrap_14
 title: 'Twitter.Bootstrap.MVC4 meet Bootstrap Datepicker *and* get your Internationalization on...'
 authors: johnnyreilly
-tags: [Globalization, Bootstrap]
+tags: [globalize, javascript]
 hide_table_of_contents: false
+description: 'Learn how to internationalize ASP.NET web apps using Globalize and Bootstrap Datepicker in this developers comprehensive step by step guide.'
 ---
 
 [Last time](../2013-01-09-twitterbootstrapmvc4-meet-bootstrap/index.md) I wrote about marrying up Twitter.Bootstrap.MVC4 and Bootstrap Datepicker. It came together quite nicely but when I took a more in depth look at what I'd done I discovered a problem. The brief work on regionalisation / internationalisation / localisation / globalisation / whatever it's called this week... wasn't really working. We had problems with the validation.
@@ -158,7 +159,7 @@ The code above creates a script bundle for each culture when the application sta
 `_BootstrapLayout.basic.cshtml` has been amended to make use of the new bundles and also to include a meta tag that will used to drive regionalisation:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <!-- Existing head content goes here -->

@@ -2,8 +2,9 @@
 slug: concatting-ienumerables-in-csharp
 title: 'Concatting IEnumerables in C#'
 authors: johnnyreilly
-tags: [C#]
+tags: [c#]
 hide_table_of_contents: false
+description: 'Author proposes clean alternatives to `IEnumerable`s concatenation which entail creating custom extensions & using nulls for null-conditional operator.'
 ---
 
 I hate LINQ's [`Enumerable.Concat`](https://msdn.microsoft.com/en-us/library/bb302894%28v=vs.110%29.aspx?f=255&MSPPError=-2147217396) when bringing together `IEnumerable`s. Not the behaviour (I love that!) but rather how code ends up looking when you use it. Consider this:

@@ -2,8 +2,9 @@
 slug: a-navigation-animation-for-your-users
 title: 'A navigation animation (for your users delectation)'
 authors: johnnyreilly
-tags: [CSS]
+tags: []
 hide_table_of_contents: false
+description: 'Adding a CSS animation or GIF can help users navigating an app in an iframe get visual feedback despite the lack of browser feedback tics.'
 ---
 
 ## The Vexation

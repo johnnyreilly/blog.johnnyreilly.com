@@ -2,9 +2,10 @@
 slug: managed-identity-azure-sql-entity-framework
 title: 'Managed Identity, Azure SQL and Entity Framework'
 authors: johnnyreilly
-tags: [connection string, managed identity, entity framework]
+tags: [azure]
 image: ./entity-framework-core-nuget.png
 hide_table_of_contents: false
+description: 'Managed Identity provides secure, developer-friendly access to Azure SQL databases without the need for usernames and passwords.'
 ---
 
 Managed Identity offers a very secure way for applications running in Azure to connect to Azure SQL databases. It's an approach that does not require code changes; merely configuration of connection string and associated resources. Hence it has a good developer experience. Importantly, it allows us to avoid exposing our database to username / password authentication, and hence making it a tougher target for bad actors.

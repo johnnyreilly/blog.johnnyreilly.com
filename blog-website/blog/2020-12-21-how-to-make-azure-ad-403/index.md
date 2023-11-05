@@ -2,9 +2,10 @@
 slug: how-to-make-azure-ad-403
 title: 'Make Microsoft.Identity.Web respond with 403 forbidden instead of a 302 redirect'
 authors: johnnyreilly
-tags: [Azure AD, ASP.NET]
+tags: [asp.net, azure]
 image: ./Forbidden.webp
 hide_table_of_contents: false
+description: 'The `Microsoft.Identity.Web` library redirects to AccessDenied with a 302 (redirect) status code. Learn to return a 403 (forbidden) status code instead.'
 ---
 
 By default `Microsoft.Identity.Web` responds to unauthorized requests with a 302 (redirect). Do you want a 403 (forbidden) instead? Here's how.
@@ -73,4 +74,4 @@ services.Configure<CookieAuthenticationOptions>(CookieAuthenticationDefaults.Aut
 });
 ```
 
-So above, we check the request `Accept` headers and see if they contain `"text/html"`; which we're using as a signal that the request came from a users browsing. (This may not be bulletproof; better suggestions gratefully received.) If the request does contain a ` "text/html"``Accept ` header then we redirect the client to an `/unauthorized` screen, otherwise we return `403` as we did before. Super flexible and powerful!
+So above, we check the request `Accept` headers and see if they contain `"text/html"`; which we're using as a signal that the request came from a users browsing. (This may not be bulletproof; better suggestions gratefully received.) If the request does contain a `"text/html"``Accept` header then we redirect the client to an `/unauthorized` screen, otherwise we return `403` as we did before. Super flexible and powerful!

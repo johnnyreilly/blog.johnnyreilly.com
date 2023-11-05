@@ -2,9 +2,10 @@
 slug: c-sharp-9-azure-functions-in-process
 title: 'C# 9 in-process Azure Functions'
 authors: johnnyreilly
-tags: [C#, Azure Functions, .NET]
+tags: [c#, azure functions, asp.net]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'Learn to use C# 9 with .NET Core 3.1 Azure Functions in this step-by-step guide by adding new elements to your .csproj file.'
 ---
 
 C# 9 has some amazing features. Azure Functions are have two modes: isolated and in-process. Whilst isolated supports .NET 5 (and hence C# 9), in-process supports .NET Core 3.1 (C# 8). This post shows how we can use C# 9 with in-process Azure Functions running on .NET Core 3.1.
@@ -73,9 +74,7 @@ There's a [great post on Reddit addressing using C# 9 with .NET Core 3.1 which s
 > However, there are three categories of features in C#:
 >
 > 1. features that are entirely part of the compiler. Those will work.
->
 > 2. features that require BCL additions. Since you're on the older BCL, those will need to be backported. For example, to use init; and record, you can use https://github.com/manuelroemer/IsExternalInit.
->
 > 3. features that require runtime additions. Those cannot be added at all. For example, default interface members in C# 8, and covariant return types in C# 9.
 
 Of the above, 1 and 2 add a tremendous amount of value. The features of 3 are great, but more niche. Speaking personally, I care a great deal about [Record types](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9#record-types). So let's apply this.

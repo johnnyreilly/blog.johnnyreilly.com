@@ -2,7 +2,7 @@
 slug: react-usesearchparamsstate
 title: 'React: storing state in URL with URLSearchParams'
 authors: johnnyreilly
-tags: [React, typescript, React Router]
+tags: [react, typescript]
 description: 'The React `useState` hook is a great way to persist state. This post demos a simple React hook that stores state in the URL querystring.'
 hide_table_of_contents: false
 ---
@@ -70,10 +70,10 @@ import { useSearchParams } from 'react-router-dom';
 
 export function useSearchParamsState(
   searchParamName: string,
-  defaultValue: string
+  defaultValue: string,
 ): readonly [
   searchParamsState: string,
-  setSearchParamsState: (newState: string) => void
+  setSearchParamsState: (newState: string) => void,
 ] {
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -85,9 +85,9 @@ export function useSearchParamsState(
       {},
       [...searchParams.entries()].reduce(
         (o, [key, value]) => ({ ...o, [key]: value }),
-        {}
+        {},
       ),
-      { [searchParamName]: newState }
+      { [searchParamName]: newState },
     );
     setSearchParams(next);
   };

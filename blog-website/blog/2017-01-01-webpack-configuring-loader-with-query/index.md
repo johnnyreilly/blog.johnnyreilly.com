@@ -4,6 +4,7 @@ title: 'webpack: configuring a loader with query / options'
 authors: johnnyreilly
 tags: [webpack]
 hide_table_of_contents: false
+description: 'webpack 2 now enforces a strict schema for `webpack.config.js`. Loaders should be configured using `query` or `options`.'
 ---
 
 [webpack 2 is on it's way](https://medium.com/webpack/webpack-2-2-the-release-candidate-2e614d05d75f#.ntniu44u6). As one of the maintainers of [ts-loader](https://github.com/TypeStrong/ts-loader/) I've been checking out that ts-loader works with webpack 2. It does: phew!

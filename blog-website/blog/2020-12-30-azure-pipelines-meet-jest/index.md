@@ -3,17 +3,20 @@ slug: azure-pipelines-meet-jest
 title: 'Azure Pipelines meet Jest'
 authors: johnnyreilly
 image: ./test-results.webp
-tags: [azure-pipelines, jest]
+tags: [azure pipelines, automated testing]
 hide_table_of_contents: false
+description: 'Learn how to integrate Jest with Azure Pipelines to run tests as a part of your pipeline and utilize results reporting in the Azure Pipelines UI.'
 ---
 
 This post explains how to integrate the tremendous test runner [Jest](https://jestjs.io/) with the continuous integration platform [Azure Pipelines](https://azure.microsoft.com/en-gb/services/devops/pipelines/?nav=min). Perhaps we're setting up a new project and we've created a new React app with [Create React App](https://create-react-app.dev/). This ships with Jest support out of the box. How do we get that plugged into Pipelines such that:
 
-<!--truncate-->
-
 1. Tests run as part of our pipeline
 2. A failing test fails the build
-3. Test results are reported in Azure Pipelines UI?
+3. Test results reported in Azure Pipelines UI
+
+Related: there is a [post on Vitest and Azure Pipelines](../2023-08-05-azure-pipelines-meet-vitest/index.md).
+
+<!--truncate-->
 
 ## Tests run as part of our pipeline
 

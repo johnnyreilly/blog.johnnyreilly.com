@@ -1,0 +1,17 @@
+{
+  "name": "open-ai-description",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@azure/openai": "next",
+    "@azure/identity": "^1.4.0"
+  },
+  "devDependencies": {
+    "bun-types": "^1.0.0",
+    "typescript": "^5.2.0"
+  },
+  "scripts": {
+    "start": "bun index.ts"
+  }
+}

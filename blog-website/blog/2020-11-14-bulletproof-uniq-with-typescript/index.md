@@ -4,6 +4,7 @@ title: 'Bulletproof uniq with TypeScript generics (yay code reviews!)'
 authors: johnnyreilly
 tags: [typescript]
 hide_table_of_contents: false
+description: 'Code reviews provide opportunities for improvement. A developer shares how their colleagues comment led to the creation of a better “uniq” function.'
 ---
 
 Never neglect the possibilities of a code review. There are times when you raise a PR and all you want is for everyone to hit approve so you can merge, merge and ship, ship! This can be a missed opportunity. For as much as I'd like to imagine my code is perfect, it's patently not. There's always scope for improvement.
@@ -78,7 +79,7 @@ I like compilers shouting at me. Or more accurately, I like compilers telling me
  * Return the unique values found in the passed iterable
  */
 function uniq<TElement extends string | number | bigint | boolean | symbol>(
-  iterableToGetUniqueValuesOf: Iterable<TElement>
+  iterableToGetUniqueValuesOf: Iterable<TElement>,
 ) {
   return [...new Set(iterableToGetUniqueValuesOf)];
 }

@@ -2,8 +2,9 @@
 slug: google-analytics-api-and-aspnet-core
 title: 'Google Analytics API and ASP.Net Core'
 authors: johnnyreilly
-tags: [asp net core, google analytics]
+tags: [asp.net]
 hide_table_of_contents: false
+description: 'Accessing Google Analytics API from ASP.Net Core can be tough due to lack of examples. This article provides an example code to get page access stats.'
 ---
 
 I recently had need to be able to access the API for Google Analytics from ASP.Net Core. Getting this up and running turned out to be surprisingly tough because of an absence of good examples. So here it is; an example of how you can access a simple page access stat using [the API](https://www.nuget.org/packages/Google.Apis.AnalyticsReporting.v4/):

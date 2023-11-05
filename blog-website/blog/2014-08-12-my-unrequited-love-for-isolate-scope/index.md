@@ -2,8 +2,9 @@
 slug: my-unrequited-love-for-isolate-scope
 title: 'My Unrequited Love for Isolate Scope'
 authors: johnnyreilly
-tags: [typescript, javascript, Bootstrap, AngularJS]
+tags: [angularjs, typescript, javascript]
 hide_table_of_contents: false
+description: 'A new version of the serverError directive is presented without isolated scope after discovering directives can only create one isolated scope.'
 ---
 
 [I wrote a little while ago about creating a directive to present server errors on the screen in an Angular application](../2014-08-01-angularjs-meet-aspnet-server-validation/index.md). In my own (not so humble opinion), it was really quite nice. I was particularly proud of my usage of isolate scope. However, pride comes before a fall.
@@ -50,7 +51,7 @@ So ladies and gentlemen, let me present serverError 2.0 – this time without is
         scope: ng.IScope,
         element: ng.IAugmentedJQuery,
         attrs: ng.IAttributes,
-        ngModelController: ng.INgModelController
+        ngModelController: ng.INgModelController,
       ) {
         // Extract values from attributes (deliberately not using isolated scope)
         var errorKey: string = attrs['name']; // eg "sage.name"
@@ -67,7 +68,7 @@ So ladies and gentlemen, let me present serverError 2.0 – this time without is
         // Watch ngModelController.$error.server & show/hide validation accordingly
         scope.$watch(
           safeWatch(() => ngModelController.$error.server),
-          showHideValidation
+          showHideValidation,
         );
 
         function showHideValidation(serverError: boolean) {
@@ -75,11 +76,11 @@ So ladies and gentlemen, let me present serverError 2.0 – this time without is
           var errorHtml = '';
           if (serverError) {
             var errorDictionary: { [field: string]: string } = scope.$eval(
-              errorDictionaryExpression
+              errorDictionaryExpression,
             );
             errorHtml = template.replace(
               /%error%/,
-              errorDictionary[errorKey] || 'Unknown error occurred...'
+              errorDictionary[errorKey] || 'Unknown error occurred...',
             );
           }
           decorator.html(errorHtml);
@@ -147,7 +148,7 @@ So ladies and gentlemen, let me present serverError 2.0 – this time without is
           safeWatch(function () {
             return ngModelController.$error.server;
           }),
-          showHideValidation
+          showHideValidation,
         );
 
         function showHideValidation(serverError) {
@@ -157,7 +158,7 @@ So ladies and gentlemen, let me present serverError 2.0 – this time without is
             var errorDictionary = scope.$eval(errorDictionaryExpression);
             errorHtml = template.replace(
               /%error%/,
-              errorDictionary[errorKey] || 'Unknown error occurred...'
+              errorDictionary[errorKey] || 'Unknown error occurred...',
             );
           }
           decorator.html(errorHtml);

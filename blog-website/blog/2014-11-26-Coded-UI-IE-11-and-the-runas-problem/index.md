@@ -2,8 +2,9 @@
 slug: Coded-UI-IE-11-and-the-runas-problem
 title: "Pretending to be someone you're not and the dark pit of despair"
 authors: johnnyreilly
-tags: [Coded UI, internet explorer]
+tags: [automated testing]
 hide_table_of_contents: false
+description: 'Workaround for issues with Coded UI impersonation feature. Tests can be unreliable, but the fix works well.'
 ---
 
 ## Coded UI, IE 11 and the "runas" problem

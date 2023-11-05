@@ -2,8 +2,9 @@
 slug: knockout-globalize-valuenumber-binding
 title: 'Knockout + Globalize = valueNumber Binding Handler'
 authors: johnnyreilly
-tags: [Globalize, Knockout]
+tags: [globalize]
 hide_table_of_contents: false
+description: 'Learn how to use Globalize and Knockout to create a "valueNumber" binding handler that makes numeric validation and localization easy.'
 ---
 
 I’ve long used [Globalize](https://github.com/jquery/globalize/) for my JavaScript number formatting / parsing needs. In a current project I’m using Knockout for the UI. When it came to data-binding numeric values none of the default binding handlers seemed appropriate. What I wanted was a binding handler that:
@@ -24,7 +25,7 @@ ko.bindingHandlers.valueNumber = {
     valueAccessor,
     allBindingsAccessor,
     viewModel,
-    bindingContext
+    bindingContext,
   ) {
     /**
      * Adapted from the KO hasfocus handleElementFocusChange function

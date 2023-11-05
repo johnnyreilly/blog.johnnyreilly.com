@@ -2,8 +2,9 @@
 slug: using-gulp-in-asp-net-instead-of-web-optimization
 title: 'Using Gulp to inject scripts and styles tags directly into your HTML'
 authors: johnnyreilly
-tags: [asp.net, Web Optimization, gulpjs]
+tags: [asp.net, node.js]
 hide_table_of_contents: false
+description: 'Learn how to use Gulp to directly inject scripts and styles into your HTML, which speeds up app times and makes the setup simpler.'
 ---
 
 This is very probably the dullest title for a blog post I've ever come up with. Read on though folks - it's definitely going to pick up...
@@ -33,7 +34,7 @@ gulp-inject (as the name suggests) is used to inject `script` and `link` tags in
 So, let's get the launch page (`index.html`) ready for gulp-inject:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
@@ -213,11 +214,11 @@ function getScriptsOrStyles(jsOrCss) {
   var bowerScriptsRelative = bowerScriptsAbsolute.map(
     function makePathRelativeToCwd(file) {
       return path.relative('', file);
-    }
+    },
   );
 
   var appScripts = bowerScriptsRelative.concat(
-    jsOrCss === 'js' ? config.scripts : config.styles
+    jsOrCss === 'js' ? config.scripts : config.styles,
   );
 
   return appScripts;
@@ -290,10 +291,10 @@ gulp.task('inject-debug', ['styles-debug', 'scripts-debug'], function () {
               config.debugFolder + '**/*.{js,css}',
               '!build\\debug\\bower_components\\spin.js', // Exclude weird spin js path
             ],
-            { read: false }
+            { read: false },
           )
-          .pipe(order(scriptsAndStyles))
-      )
+          .pipe(order(scriptsAndStyles)),
+      ),
     )
     .pipe(gulp.dest(config.buildDir));
 });
@@ -304,7 +305,7 @@ gulp.task('inject-release', ['styles-release', 'scripts-release'], function () {
   return gulp
     .src(config.bootFile)
     .pipe(
-      inject(gulp.src(config.releaseFolder + '**/*.{js,css}', { read: false }))
+      inject(gulp.src(config.releaseFolder + '**/*.{js,css}', { read: false })),
     )
     .pipe(gulp.dest(config.buildDir));
 });

@@ -4,6 +4,7 @@ title: 'webpack: resolveLoader / alias with query / options'
 authors: johnnyreilly
 tags: [webpack]
 hide_table_of_contents: false
+description: 'Webpacks enhanced-resolve has a bug with aliased loaders. A workaround involves suffixing the aliased path with query options.'
 ---
 
 Sometimes you write a post for the ages. Sometimes you write one you hope is out of date before you hit "publish". This is one of those.
@@ -57,7 +58,7 @@ rules.forEach(function (rule) {
   var options = rule.query || rule.options;
   rule.loader = rule.loader.replace(
     'ts-loader',
-    loaderAliasPath + (options ? '?' + JSON.stringify(options) : '')
+    loaderAliasPath + (options ? '?' + JSON.stringify(options) : ''),
   );
 });
 ```

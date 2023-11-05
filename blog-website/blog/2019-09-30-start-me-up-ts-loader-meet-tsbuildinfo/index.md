@@ -4,6 +4,7 @@ title: 'Start Me Up: ts-loader meet .tsbuildinfo'
 authors: johnnyreilly
 tags: [ts-loader, typescript]
 hide_table_of_contents: false
+description: 'TypeScript 3.4 introduced `.tsbuildinfo` files for faster compilations. With TypeScript 3.6, APIs landed to enable third party tool integration.'
 ---
 
 With TypeScript 3.4, [a new behaviour landed and a magical new file type appeared; `.tsbuildinfo`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html)

@@ -2,9 +2,10 @@
 slug: autofac-6-integration-tests-and-generic-hosting
 title: 'Autofac 6, integration tests and .NET generic hosting'
 authors: johnnyreilly
-tags: [autofac, asp.net, Integration Testing]
+tags: [asp.net, automated testing]
 image: ./autofac-integration-tests.webp
 hide_table_of_contents: false
+description: 'Integration tests using Autofac have been affected by a long-standing issue in .NET Core 3.0. Alternative approaches may not last long.'
 ---
 
 I [blogged a little while ago around to support integration tests using Autofac](../2020-05-21-autofac-webapplicationfactory-integration-tests/index.md). This was specific to Autofac but documented a workaround for a [long standing issue with `ConfigureTestContainer` that was introduced into .NET core 3.0](https://github.com/dotnet/aspnetcore/issues/14907) which affects [all third-party containers](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-3.1#default-service-container-replacement) that use `ConfigureTestContainer` in their tests.

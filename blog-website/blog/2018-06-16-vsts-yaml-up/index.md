@@ -2,8 +2,9 @@
 slug: vsts-yaml-up
 title: 'VSTS... YAML up!'
 authors: johnnyreilly
-tags: [yaml, vsts, travis, AppVeyor]
+tags: [azure devops]
 hide_table_of_contents: false
+description: 'Visual Studio Team Services now has a YAML build definition preview feature that enables users to keep their build scripts with their code.'
 ---
 
 For the longest time I've been using the likes of [Travis](https://travis-ci.org/) and [AppVeyor](https://www.appveyor.com/) to build open source projects that I work on. They rock. I've also recently been dipping my toes back in the water of [Visual Studio Team Services](https://www.visualstudio.com/team-services/). VSTS offers a whole stack of stuff, but my own area of interest has been the Continuous Integration / Continuous Deployment offering.
@@ -21,8 +22,6 @@ Up until now, really not much. It just wasn't possible. Until it was:
 > If you prefer a build definition in YAML then we’re currently hard at work on that. You can enable it as a preview feature: [https://t.co/hau9Sv8brf](https://t.co/hau9Sv8brf)
 >
 > — Martin Woodward (@martinwoodward) [March 4, 2018](https://twitter.com/martinwoodward/status/970250739510534144?ref_src=twsrc%5Etfw)
-
-<script async="" src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
 
 When I started testing it out I found things to like and some things I didn't understand. Crucially, my CI now builds based upon `.vsts-ci.yml`. YAML baby!
 

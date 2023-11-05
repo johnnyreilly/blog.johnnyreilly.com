@@ -2,9 +2,10 @@
 slug: azure-container-apps-bicep-and-github-actions
 title: 'Azure Container Apps, Bicep and GitHub Actions'
 authors: johnnyreilly
-tags: [Azure Container Apps, Bicep, GitHub Actions]
+tags: [bicep, github actions, azure container apps]
 image: ./title-image.png
 hide_table_of_contents: false
+description: 'Learn how to deploy an Azure Container App to Azure with Bicep and GitHub Actions. A basic template is provided for deployment.'
 ---
 
 Azure Container Apps are an exciting way to deploy containers to Azure. This post shows how to deploy the infrastructure for an Azure Container App to Azure using Bicep and GitHub Actions. The [Azure Container App documentation](https://docs.microsoft.com/en-us/azure/container-apps/) features quickstarts for deploying your first container app using both the Azure Portal and the Azure CLI. These are great, but there's a gap if you prefer to deploy using Bicep and you'd like to get your CI/CD setup right from the beginning. This post aims to fill that gap.

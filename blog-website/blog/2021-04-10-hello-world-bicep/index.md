@@ -2,9 +2,10 @@
 slug: hello-world-bicep
 title: 'Hello World Bicep'
 authors: johnnyreilly
-tags: [Bicep, ARM templates]
+tags: [bicep, azure]
 image: ./hello-world-bicep.webp
 hide_table_of_contents: false
+description: 'Bicep simplifies Azure Resource Management through concise syntax. The "Hello World" example highlights how Bicep outperforms ARM templates.'
 ---
 
 Bicep makes Azure Resource Management a great deal simpler than ARM templates. The selling point here is grokkability. This post takes a look at the ["Hello World" example recently added to the Bicep repo](https://github.com/Azure/bicep/pull/2011) to appreciate quite what a difference it makes.

@@ -2,7 +2,7 @@
 slug: publishing-docusaurus-to-devto-with-devto-api
 title: 'Publishing Docusaurus to dev.to with the dev.to API'
 authors: johnnyreilly
-tags: [Docusaurus, GitHub Actions]
+tags: [docusaurus, github actions]
 image: ./title-image.png
 description: 'The dev.to API provides a way to cross post your Docusaurus blogs to dev.to. This post describes how to do that with TypeScript, Node.js and the dev.to API.'
 hide_table_of_contents: false
@@ -227,7 +227,7 @@ import {
   devtoApiClientFactory,
 } from './devtoApiClient';
 
-const rootUrl = 'https://blog.johnnyreilly.com';
+const rootUrl = 'https://johnnyreilly.com';
 const rootGitHubUrl =
   'https://raw.githubusercontent.com/johnnyreilly/blog.johnnyreilly.com/main/blog-website/blog/';
 const docusaurusBlogDirectory = '../blog-website/blog';
@@ -265,7 +265,7 @@ async function publishBlogPostToDevTo({
   const blogFilePath = path.join(
     docusaurusBlogDirectory,
     blogFilePathRelative,
-    'index.md'
+    'index.md',
   );
   console.log(`Processing ${blogFilePath}`);
 
@@ -274,12 +274,12 @@ async function publishBlogPostToDevTo({
 
   const canonicalUrl = makeCanonicalUrl(
     blogFilePathRelative,
-    frontMatter['slug'] as string | undefined
+    frontMatter['slug'] as string | undefined,
   );
   const contentWithCanonicalUrls = enrichMarkdownWithCanonicalUrls(content);
   const contentWithGitHubImages = enrichMarkdownWithImagesFromGitHub(
     contentWithCanonicalUrls,
-    blogFilePathRelative
+    blogFilePathRelative,
   );
   const tags = frontMatter['tags'] as string[];
   const title = frontMatter['title'] as string;
@@ -318,7 +318,7 @@ ${contentWithGitHubImages}`;
 
 function makeMainImage(
   frontMatter: { [key: string]: unknown },
-  blogFilePathRelative: string
+  blogFilePathRelative: string,
 ) {
   const image =
     typeof frontMatter['image'] === 'string'
@@ -335,7 +335,7 @@ function makeMainImage(
 
 function makeCanonicalUrl(
   blogFilePathRelative: string,
-  frontMatterSlug?: string
+  frontMatterSlug?: string,
 ) {
   const parsedBlogFileName = `${rootUrl}/${blogFilePathRelative
     .substring(0, 10)
@@ -350,14 +350,14 @@ function makeCanonicalUrl(
 
 function enrichMarkdownWithImagesFromGitHub(
   content: string,
-  blogFilePathRelative: string
+  blogFilePathRelative: string,
 ) {
   return Array.from(content.matchAll(markdownImageRexEx))
     .map((matches) => {
       const [completeMatch, url] = matches;
       const withGitHubUrl = completeMatch.replace(
         url,
-        rootGitHubUrl + blogFilePathRelative + '/' + url
+        rootGitHubUrl + blogFilePathRelative + '/' + url,
       );
       console.log(`Replacing ${completeMatch} with ${withGitHubUrl}`);
       return { oldImage: completeMatch, newImage: withGitHubUrl };
@@ -365,7 +365,7 @@ function enrichMarkdownWithImagesFromGitHub(
     .reduce(
       (contentInProgress, { oldImage, newImage }) =>
         contentInProgress.replace(oldImage, newImage),
-      content
+      content,
     );
 }
 
@@ -381,7 +381,7 @@ function enrichMarkdownWithCanonicalUrls(content: string) {
 
       const withCanonicalUrl = completeMatch.replace(
         `../${relativeBlogPath}/index.md`,
-        makeCanonicalUrl(relativeBlogPath)
+        makeCanonicalUrl(relativeBlogPath),
       );
       console.log(`Replacing ${completeMatch} with ${withCanonicalUrl}`);
       return { oldImage: completeMatch, newImage: withCanonicalUrl };
@@ -389,7 +389,7 @@ function enrichMarkdownWithCanonicalUrls(content: string) {
     .reduce(
       (contentInProgress, { oldImage, newImage }) =>
         contentInProgress.replace(oldImage, newImage),
-      content
+      content,
     );
 }
 
@@ -411,7 +411,7 @@ async function run() {
   const devtoApiClient = makeDevtoApiClient();
   const articles = await devtoApiClient.getArticles();
   const articlesByCanonicalUrl = new Map<string, Article>(
-    Array.from(articles).map((article) => [article.canonical_url, article])
+    Array.from(articles).map((article) => [article.canonical_url, article]),
   );
   const blogPostsToPublish = await getLastXBlogPostsToPublish({
     numberOfPosts: 5,

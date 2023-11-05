@@ -2,7 +2,7 @@
 slug: docusaurus-structured-data-faqs-mdx
 title: 'Docusaurus: Structured Data FAQs with MDX'
 authors: johnnyreilly
-tags: [Docusaurus, Structured Data]
+tags: [docusaurus, seo]
 image: ./title-image.png
 description: 'This demos how to make an MDX component that renders FAQs into a page, and the same information as Structured Data. It also shows how to use it with Docusaurus.'
 hide_table_of_contents: false
@@ -40,6 +40,8 @@ I've been working with [Growtika](https://growtika.com/) to repair my SEO after 
 
 My blog is written in [MDX](https://mdxjs.com/), and hosted on [Docusaurus](https://docusaurus.io/). I wanted to see if I could create an MDX component that would render the FAQs into a page, and the same information as Structured Data. The [Docusaurus docs suggested this was feasible](https://docusaurus.io/docs/markdown-features/react), and I wanted to see if I could make it work.
 
+And it turns out that other people are interested in this too; there's a feature request on [Docusaurus's Canny](https://docusaurus.io/feature-requests/p/creation-of-structured-faq) for exactly this.
+
 So I created a component that could be used to render FAQs into a page as markdown, and the same information as Structured Data. I thought it would be useful to share that component with the world. Hello world, herewith the component:
 
 ## The FAQStructuredData MDX component
@@ -76,9 +78,10 @@ export default function FAQStructuredData(props) {
   };
   return (
     <>
-      <script type="application/ld+json">
-        {JSON.stringify(faqStructuredData)}
-      </script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+      />
 
       <h2>FAQs</h2>
       {faqStructuredData.mainEntity.map((faq) => (
@@ -179,6 +182,14 @@ You can see, we have FAQs rendered in the body of our blog post. If we put the U
 
 ![Screenshot of rich results test showing FAQs are detected](screenshot-rich-results-test.webp)
 
+We can even go one better, shortly after I posted this article, I did a search in Google for "how do you have Docusaurus with Structured Data FAQs with MDX" and I got this:
+
+![A screenshot of the Google search window with the search 'how do you have Docusaurus with Structured Data FAQs with MDX' and the FAQs showing up as a featured snippet](screenshot-featured-snippets-faqs.webp)
+
+That's our FAQs being surfaced as a [featured snippet](https://support.google.com/websearch/answer/9351707?hl=en-GB&visit_id=638180439903372599-4066254776&p=featured_snippets&rd=1#zippy=%2Cwhy-featured-snippets-may-be-removed). Nice!
+
 ## Conclusion
 
 We've now got a reusable FAQs component that renders the FAQs as markdown, and the same information as Structured Data. We can use it in our MDX files, and we can use it in our blog posts. We can also use it in regular MD files. Yay! I've only used this in the context of Docusaurus, but I suspect it can be used in other contexts too.
+
+I'd rather like it if this was built into Docusaurus, and if it could read directly from the Markdown files. But this is a good start. I hope you find it useful.

@@ -2,8 +2,9 @@
 slug: things-done-changed
 title: 'Things Done Changed'
 authors: johnnyreilly
-tags: [ES6, Atom, Babel, React, WebSockets]
+tags: [react, javascript]
 hide_table_of_contents: false
+description: 'Embracing change is key to being a developer; John discusses some of the tools that have taken his fancy, including React and ES6.'
 ---
 
 Some people fear change. Most people actually. I'm not immune to that myself, but not in the key area of technology. Any developer that fears change when it comes to the tools and languages that he / she is using is in the _wrong_ business. Because what you're using to cut code today will not last. The language will evolve, the tools and frameworks that you love will die out and be replaced by new ones that are different and strange. In time, the language you feel you write as a native will fall out of favour, replaced by a new upstart.

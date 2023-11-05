@@ -2,7 +2,7 @@
 slug: adding-lastmod-to-sitemap-git-commit-date
 title: 'Adding lastmod to sitemap based on git commits'
 authors: johnnyreilly
-tags: [Node.js, Docusaurus]
+tags: [node.js, docusaurus]
 image: ./title-image.png
 description: 'This post demonstrates enriching an XML sitemap with `lastmod` timestamps based on git commits.'
 hide_table_of_contents: false
@@ -52,12 +52,12 @@ It's worth pausing to consider what our sitemap looks like:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
-    <loc>https://blog.johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants</loc>
+    <loc>https://johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://blog.johnnyreilly.com/2022/09/20/react-usesearchparamsstate</loc>
+    <loc>https://johnnyreilly.com/2022/09/20/react-usesearchparamsstate</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -65,7 +65,7 @@ It's worth pausing to consider what our sitemap looks like:
 </urlset>
 ```
 
-If you look at the URL (`loc`) you can see that it's fairly easy to determine the path to the original markdown file. If we take https://blog.johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants, we can see that the path to the markdown file is `blog-website/blog/2012-01-07-standing-on-shoulders-of-giants/index.md`.
+If you look at the URL (`loc`) you can see that it's fairly easy to determine the path to the original markdown file. If we take https://johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants, we can see that the path to the markdown file is `blog-website/blog/2012-01-07-standing-on-shoulders-of-giants/index.md`.
 
 As long as we don't have a custom slug in play (and I rarely do), we have a reliable way to get from blog post URL (`loc`) to markdown file. With that we can use `simple-git` to get the git log for that file. We can then use that to populate the `lastmod` property.
 
@@ -73,7 +73,7 @@ As long as we don't have a custom slug in play (and I rarely do), we have a reli
 const dateBlogUrlRegEx = /(\d\d\d\d\/\d\d\/\d\d)\/(.+)/;
 
 async function enrichUrlsWithLastmod(
-  filteredUrls: SitemapUrl[]
+  filteredUrls: SitemapUrl[],
 ): Promise<SitemapUrl[]> {
   const git = getSimpleGit();
 
@@ -84,7 +84,7 @@ async function enrichUrlsWithLastmod(
     }
 
     try {
-      // example url.loc: https://blog.johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants
+      // example url.loc: https://johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants
       const pathWithoutRootUrl = url.loc.replace(rootUrl + '/', ''); // eg 2012/01/07/standing-on-shoulders-of-giants
 
       const match = pathWithoutRootUrl.match(dateBlogUrlRegEx);
@@ -127,13 +127,13 @@ Our new sitemap looks like this:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
-    <loc>https://blog.johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants</loc>
+    <loc>https://johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <lastmod>2021-12-19</lastmod>
   </url>
   <url>
-    <loc>https://blog.johnnyreilly.com/2012/01/14/jqgrid-its-just-far-better-grid</loc>
+    <loc>https://johnnyreilly.com/2012/01/14/jqgrid-its-just-far-better-grid</loc>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
     <lastmod>2022-11-03</lastmod>

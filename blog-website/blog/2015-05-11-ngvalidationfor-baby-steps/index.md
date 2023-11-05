@@ -2,8 +2,9 @@
 slug: ngvalidationfor-baby-steps
 title: 'NgValidationFor Baby Steps'
 authors: johnnyreilly
-tags: [asp.net mvc, AngularJS]
+tags: [angularjs, asp.net]
 hide_table_of_contents: false
+description: 'The NgValidationFor project translates data annotations to Angular validation directive attributes while minimising dependencies.'
 ---
 
 I thought as I start the [NgValidationFor project](../2015-04-24-tonight-ill-start-open-source-project/index.md) I'd journal my progress. I'm writing this with someone particular in mind: me. Specifically, me in 2 years who will no doubt wonder why I made some of the choices I did. Everyone else, move along now - nothing to see. Unless the inner workings of someone else's mind are interesting to you... In which case: welcome!
@@ -48,8 +49,14 @@ When used in an MVC View for which `RequiredDemoModel` is the Model, NgValiditio
 
 ```html
 @using NgValidationFor.Core @using NgValidationFor.Documentation.Models @model
-RequiredDemoModel <input type="text" name="userName" ng-model="user.name"
-@Html.Raw(Model.GetAttributes(x => Model.RequiredField)) >
+RequiredDemoModel
+<input
+  type="text"
+  name="userName"
+  ng-model="user.name"
+  @Html.Raw(Model.GetAttributes(x=""
+/>
+Model.RequiredField)) >
 ```
 
 Which results in this HTML:

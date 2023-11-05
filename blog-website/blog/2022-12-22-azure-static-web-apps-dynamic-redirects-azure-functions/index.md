@@ -2,7 +2,7 @@
 slug: azure-static-web-apps-dynamic-redirects-azure-functions
 title: 'Azure Static Web Apps: dynamic redirects with Azure Functions'
 authors: johnnyreilly
-tags: [Azure Static Web Apps, Azure Functions, GitHub Actions]
+tags: [azure static web apps, azure functions, github actions]
 image: ./title-image.png
 description: 'Azure Static Web Apps can perform URL redirects using the `routes` section in the `staticwebapp.config.json`. However it is limited. This post will demonstrate dynamic URL redirects with Azure Functions.'
 hide_table_of_contents: false
@@ -49,7 +49,7 @@ async function fallback(context, req) {
     const parsedURL = parseURL(originalUrl);
 
     const matchedRoute = routes.find((route) =>
-      parsedURL.pathname.includes(route.route)
+      parsedURL.pathname.includes(route.route),
     );
 
     if (matchedRoute) {
@@ -64,7 +64,7 @@ async function fallback(context, req) {
   }
 
   context.log(
-    `No explicit redirect for ${originalUrl} so will redirect to 404`
+    `No explicit redirect for ${originalUrl} so will redirect to 404`,
   );
 
   context.res = {
@@ -125,7 +125,7 @@ And now our Azure Function will be built and deployed alongside our blog.
 
 ## Testing our Azure Function
 
-We can demonstrate this works pretty easily. Let's take a super old blog post of mine, where I upgraded to TypeScript 0.9.5 (!!!) The route has changed since I originally posted back in 2014. If we go to https://blog.johnnyreilly.com/2014/01/upgrading-to-typescript-095-personal.html (the old Blogger URL), we'll be redirected (301'd to be specific - signalling a permanent move) to https://blog.johnnyreilly.com/2014/01/09/upgrading-to-typescript-095-personal - the new URL. This is demonstrated in the following screenshot - note the `location` header in the response:
+We can demonstrate this works pretty easily. Let's take a super old blog post of mine, where I upgraded to TypeScript 0.9.5 (!!!) The route has changed since I originally posted back in 2014. If we go to https://johnnyreilly.com/2014/01/upgrading-to-typescript-095-personal.html (the old Blogger URL), we'll be redirected (301'd to be specific - signalling a permanent move) to https://johnnyreilly.com/2014/01/09/upgrading-to-typescript-095-personal - the new URL. This is demonstrated in the following screenshot - note the `location` header in the response:
 
 ![screenshot of redirect in Chrome Devtools](screenshot-redirect-in-chrome-devtools.png)
 

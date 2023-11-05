@@ -2,8 +2,9 @@
 slug: create-es2015-map-from-array-in-typescript
 title: 'Creating an ES2015 Map from an Array in TypeScript'
 authors: johnnyreilly
-tags: [typescript, ES6, ES2015]
+tags: [typescript, javascript]
 hide_table_of_contents: false
+description: 'TypeScript `Map` initialization from an `Array` is discussed with a workaround using a type assertion of ` as [string, string]`.'
 ---
 
 I'm a great lover of ES2015's [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map). However, just recently I tumbled over something I find a touch inconvenient about how you initialise a new `Map` from the contents of an `Array` in TypeScript.

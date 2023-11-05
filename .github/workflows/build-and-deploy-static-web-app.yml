@@ -31,7 +31,7 @@ jobs:
     name: Site build and deploy 🏗️
     steps:
       - name: Checkout 📥
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           # Number of commits to fetch. 0 indicates all history for all branches and tags.
           fetch-depth: 0
@@ -131,7 +131,7 @@ jobs:
             echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_OUTPUT
 
       - name: Setup Node.js 🔧
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'yarn'
@@ -145,7 +145,7 @@ jobs:
         run: |
           cd blog-website
           yarn install --frozen-lockfile
-          DOCUSAURUS_SSR_CONCURRENCY=5 USE_CLOUDINARY=${{ github.event_name != 'pull_request' }} yarn run build
+          DOCUSAURUS_SSR_CONCURRENCY=5 IS_LIVE_SITE=${{ github.event_name != 'pull_request' }} yarn run build
           cp staticwebapp.config.json build/staticwebapp.config.json
 
       - name: Get API key 🔑
@@ -176,7 +176,7 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Wait for preview ${{ needs.build_and_deploy_swa_job.outputs.preview-url }} ⌚
         id: static_web_app_wait_for_preview
@@ -187,7 +187,7 @@ jobs:
           timeout: 600000
           interval: 1000
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
 
@@ -218,7 +218,7 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Wait for preview ${{ needs.build_and_deploy_swa_job.outputs.preview-url }} ⌚
         id: static_web_app_wait_for_preview
@@ -231,14 +231,18 @@ jobs:
 
       - name: Audit URLs 🧐
         id: lighthouse_audit
-        uses: treosh/lighthouse-ci-action@v9
+        uses: treosh/lighthouse-ci-action@v10
         with:
           urls: |
             ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/about
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/blog
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/tags
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/definitely-typed-the-movie
           configPath: ./.github/workflows/lighthousesrc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
-          runs: 5
+          runs: 1
 
       - name: Dump steps.lighthouse_audit.outputs
         id: github_context_step
@@ -261,31 +265,31 @@ jobs:
 
       - name: Add Lighthouse stats as comment ✍️
         id: comment_to_pr
-        uses: marocchino/sticky-pull-request-comment@v2.5.0
+        uses: marocchino/sticky-pull-request-comment@v2.8.0
         with:
           number: ${{ github.event.pull_request.number }}
           header: lighthouse
           message: ${{ steps.format_lighthouse_score.outputs.comment }}
 
-  deploy_to_devto_job:
-    name: Publish to dev.to 🗞️
-    needs: build_and_deploy_swa_job
-    if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+  # deploy_to_devto_job:
+  #   name: Publish to dev.to 🗞️
+  #   needs: build_and_deploy_swa_job
+  #   if: github.event_name != 'pull_request'
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
 
-      - name: Setup Node.js 🔧
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'yarn'
+  #     - name: Setup Node.js 🔧
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: '18'
+  #         cache: 'yarn'
 
-      - name: Publish to dev.to 🗞️
-        run: |
-          cd from-docusaurus-to-devto
-          yarn install --frozen-lockfile
-          DEVTO_APIKEY=${{ secrets.DEVTO_APIKEY }} yarn start
+  #     - name: Publish to dev.to 🗞️
+  #       run: |
+  #         cd from-docusaurus-to-devto
+  #         yarn install --frozen-lockfile
+  #         DEVTO_APIKEY=${{ secrets.DEVTO_APIKEY }} yarn start
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'

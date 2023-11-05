@@ -13,7 +13,7 @@ param appInsightsInstrumentationKey string
 param appInsightsConnectionString string
 param cosmosDbAccountName string
 
-resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2022-08-15' existing = {
+resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2023-04-15' existing = {
   name: cosmosDbAccountName
 }
 
@@ -23,7 +23,7 @@ var tagsWithHiddenLinks = union({
   'hidden-link: /app-insights-conn-string': appInsightsConnectionString
 }, tags)
 
-resource staticWebApp 'Microsoft.Web/staticSites@2022-03-01' = {
+resource staticWebApp 'Microsoft.Web/staticSites@2022-09-01' = {
   name: staticWebAppName
   location: location
   tags: tagsWithHiddenLinks
@@ -44,7 +44,7 @@ resource staticWebApp 'Microsoft.Web/staticSites@2022-03-01' = {
   }
 }
 
-resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' = {
+resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2022-09-01' = {
   name: 'appsettings'
   kind: 'config'
   parent: staticWebApp
@@ -56,13 +56,13 @@ resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2022-03-01' =
   }
 }
 
-resource rootCustomDomain 'Microsoft.Web/staticSites/customDomains@2022-03-01' = {
+resource rootCustomDomain 'Microsoft.Web/staticSites/customDomains@2022-09-01' = {
   parent: staticWebApp
   name: rootCustomDomainName
   properties: {}
 }
 
-resource blogCustomDomain 'Microsoft.Web/staticSites/customDomains@2022-03-01' = {
+resource blogCustomDomain 'Microsoft.Web/staticSites/customDomains@2022-09-01' = {
   parent: staticWebApp
   name: blogCustomDomainName
   properties: {}

@@ -2,8 +2,9 @@
 slug: jquery-validate-native-unobtrusive-validation
 title: 'jQuery Validation - Native Unobtrusive Validation Support!'
 authors: johnnyreilly
-tags: [jQuery Validation]
+tags: [jquery]
 hide_table_of_contents: false
+description: 'Use HTML5 data attributes with jQuery Validation to simplify code and achieve validation unobtrusively. Ideal for dynamically added DOM elements.'
 ---
 
 Did you know that jQuery Validation natively supports the use of [HTML 5 data attributes](http://ejohn.org/blog/html-5-data-attributes/) to drive validation unobtrusively? Neither did I - I haven't seen any documentation for it. However, I was reading the [jQuery Validation test suite](https://github.com/jzaefferer/jquery-validation/blob/master/test/index.html) and that's what I spotted being used in some of the tests.
@@ -19,7 +20,7 @@ So when I realised that there was native alternative available I was delighted. 
 Not particularly exciting? Not noticably different to any other jQuery Validate demo you've ever seen? Fair enough. Now look at the source:
 
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
