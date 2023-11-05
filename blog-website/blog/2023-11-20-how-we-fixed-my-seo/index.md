@@ -4,12 +4,29 @@ title: 'How we fixed my SEO'
 authors: johnnyreilly
 tags: [SEO]
 image: ./title-image.png
+description: In October 2022 traffic to my blog dropped like a stone. Growtika collaborated with me to fix it. This is what we did.
 hide_table_of_contents: false
 ---
 
-In October 2022 traffic to my blog dropped like a stone. What happened? Somehow I ruined my SEO. Don't be me. I'll tell you what I got up to and hopefully you can avoid doing the same.
+This is a follow up to my ["How I ruined my SEO"](../2023-01-15-how-i-ruined-my-seo/index.md) post. That was about my blog's SEO dropping off a cliff in October 2022. This post is about how [Growtika](https://growtika.com/) and I worked together to fix it.
 
 ![title image reading "How we fixed my SEO" with images of graphs trending upwards in the background](title-image.png)
+
+## Growtika answers my cry for help
+
+I wrote ["How I ruined my SEO"](../2023-01-15-how-i-ruined-my-seo/index.md) almost as self therapy. I was frustrated that my blog's traffic had dropped. I knew it didn't really matter; my motivation for writing my blog is mostly creating a long term memory for myself. But I was still frustrated. I write things that I know others find useful, and so it was suboptimal that my blog was no longer being found by them.
+
+I shared the post on Hacker News, not really expecting much to happen. But it ranked, and in amongst the conversation that followed, [someone named Growtika offered to help](https://news.ycombinator.com/item?id=34389421#34390189). I hadn't heard of [Growtika](https://growtika.com/) before; SEO is not my world. SEO was very much Growtika's world though, and they offered to assist me. Never one to look a gift horse in the mouth, I leapt at the offer.
+
+## Growtika's initial analysis
+
+I spent some time with Growtika talking through my blog. They made some suggestions around getting my blog to align with best practices. They also schooled me on some of the basics of SEO. I was very much a novice in this area, and so I was grateful for the education.
+
+Here's the thing: SEO is a mystery. Google doesn't publish the rules of the game. They do publish [SEO guidelines](https://developers.google.com/search/docs/fundamentals/seo-starter-guide), but they are just that: guidelines. They are not the rules of the game. They have a secret algorithm that is ever evolving. And so, whilst there are best practices, there is no guarantee that following them will result in success.
+
+What's more, the feedback loop for changes is **long**. It's not like fixing a program with a bug, where you tweak the code, run the tests and see if it's fixed. It's more like making a change to a program, and then waiting 6 months to see if it's fixed. And if it's not, you have to wait another 6 months to see if the next change you make fixes it. It's a long, slow, frustrating process.
+
+One of the deeply frustrating aspects about this, is that when you make changes
 
 we made sure your site follow all the guidelines
 
