@@ -9,7 +9,21 @@ hide_table_of_contents: false
 
 In October 2022 traffic to my blog dropped like a stone. What happened? Somehow I ruined my SEO. Don't be me. I'll tell you what I got up to and hopefully you can avoid doing the same.
 
-![title image reading "How I ruined my SEO" with an image of a tire fire in the background](title-image.png)
+![title image reading "How we fixed my SEO" with images of graphs trending upwards in the background](title-image.png)
+
+we made sure your site follow all the guidelines
+
+- not needed pages were removed or marked as noindex
+- improved crawlability
+- added bio and author box to make the site follow the E-E-A-T algorithm update
+- improved the internal links to strategic articles
+- cleaned subdomain and everything that's not needed
+- follow the new sitemap guidelines
+- docosaurus by default have the tagging system and every tag page just copied all the content from the article without canonical tag, we changed it to avoid having the same content on hundreds of pages
+- improved the about me page
+- meta optimization
+- robots txt
+- optimized the speed (i think it was done at one point you can check, not sure haha)
 
 ## What I did
 
@@ -104,13 +118,14 @@ Growtika resubmitted the page we added FAQs to Google for indexing and two thing
 ## Site wide structured data
 
 [This PR](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/676) uses the `headTags` API in docusaurus to add site wide JSON-LD structured data containing the following schema types:
+
 - Website
 - Organisation / Brand
 - Person
 
 We no longer need to swizzle the `BlogListPage` anymore as a result.
 
-In this change we are *heavily* borrowing from https://yoast.com/features/structured-data/
+In this change we are _heavily_ borrowing from https://yoast.com/features/structured-data/
 
 ## Footer
 
@@ -120,5 +135,4 @@ https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/692
 
 ## Reduced number of tags used on blogs significantly
 
- https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/686
-
+https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/686
