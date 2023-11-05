@@ -52,6 +52,8 @@ It would be good to get this into Docusaurus if it makes sense - the question is
 
 https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/425
 
+this was refined in https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/664 to use dangerouslySetHtml.
+
 ## Reduce duplicate content
 
 start using truncate to have summaries and reduce duplicate content https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/419
@@ -97,7 +99,26 @@ https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/516
 Growtika resubmitted the page we added FAQs to Google for indexing and two things happened. Firstly, the page was indexed:
 
 ![screenshot showing the page featuring in search results](screenshot-faqs-structured-data-indexed.png)
-
-Secondly, the page was indexed with the FAQ structured data.
-
 ![screenshot showing the page featuring in search results and showing FAQs as well](screenshot-faqs-structured-data.png)
+
+## Site wide structured data
+
+[This PR](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/676) uses the `headTags` API in docusaurus to add site wide JSON-LD structured data containing the following schema types:
+- Website
+- Organisation / Brand
+- Person
+
+We no longer need to swizzle the `BlogListPage` anymore as a result.
+
+In this change we are *heavily* borrowing from https://yoast.com/features/structured-data/
+
+## Footer
+
+Add links to significant posts in the footer
+
+https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/692
+
+## Reduced number of tags used on blogs significantly
+
+ https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/686
+
