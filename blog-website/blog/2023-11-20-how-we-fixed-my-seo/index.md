@@ -10,7 +10,11 @@ hide_table_of_contents: false
 
 This is a follow up to my ["How I ruined my SEO"](../2023-01-15-how-i-ruined-my-seo/index.md) post. That was about my blog's SEO dropping off a cliff in October 2022. This post is about how [Growtika](https://growtika.com/) and I worked together to fix it.
 
+It's a biggie; so buckle up!
+
 ![title image reading "How we fixed my SEO" with images of graphs trending upwards in the background](title-image.png)
+
+<!--truncate-->
 
 ## Growtika answers my cry for help
 
@@ -18,7 +22,7 @@ I wrote ["How I ruined my SEO"](../2023-01-15-how-i-ruined-my-seo/index.md) almo
 
 I shared the post on Hacker News, not really expecting much to happen. But it ranked, and in amongst the conversation that followed, [someone named Growtika offered to help](https://news.ycombinator.com/item?id=34389421#34390189). I hadn't heard of [Growtika](https://growtika.com/) before; SEO is not my world. SEO was very much Growtika's world though, and they offered to assist me. Never one to look a gift horse in the mouth, I leapt at the offer.
 
-## Growtika's initial analysis
+## The mysterious SEO feedback loop
 
 I spent some time with Growtika talking through my blog. They made some suggestions around getting my blog to align with best practices. They also schooled me on some of the basics of SEO. I was very much a novice in this area, and so I was grateful for the education.
 
@@ -26,7 +30,7 @@ Here's the thing: SEO is a mystery. Google doesn't publish the rules of the game
 
 What's more, the feedback loop for changes is **long**. It's not like fixing a program with a bug, where you tweak the code, run the tests and see if it's fixed. It's more like making a change to a program, and then waiting 6 months to see if it's fixed. And if it's not, you have to wait another 6 months to see if the next change you make fixes it. It's a long, slow, frustrating process.
 
-One of the deeply frustrating aspects about this, is that when you make changes
+One of the deeply frustrating aspects about this, is that when you make changes it is not deterministic whether they will help or not. You can make a change, and then wait 6 months to see if it helps. And if it doesn't, you have no idea whether it was the wrong change, or whether it was the right change but it just hasn't had time to take effect yet. Gosh it is painful.
 
 we made sure your site follow all the guidelines
 
