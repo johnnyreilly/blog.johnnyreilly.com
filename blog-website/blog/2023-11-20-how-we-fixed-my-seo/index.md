@@ -20,17 +20,56 @@ It's a biggie; so buckle up!
 
 I wrote ["How I ruined my SEO"](../2023-01-15-how-i-ruined-my-seo/index.md) almost as self therapy. I was frustrated that my blog's traffic had dropped. I knew it didn't really matter; my motivation for writing my blog is mostly creating a long term memory for myself. But I was still frustrated. I write things that I know others find useful, and so it was suboptimal that my blog was no longer being found by them.
 
-I shared the post on Hacker News, not really expecting much to happen. But it ranked, and in amongst the conversation that followed, [someone named Growtika offered to help](https://news.ycombinator.com/item?id=34389421#34390189). I hadn't heard of [Growtika](https://growtika.com/) before; SEO is not my world. SEO was very much Growtika's world though, and they offered to assist me. Never one to look a gift horse in the mouth, I leapt at the offer.
+And I'll admit it, when I'm trying to remember how to do something that I once knew how to do, I'll often Google it. And so I was frustrated that my blog was no longer being found by me. I was missing me. Vanity.
+
+I shared the post on Hacker News, not really expecting much to happen. But it ranked, and in amongst the conversation that followed, [someone named Growtika offered to help](https://news.ycombinator.com/item?id=34389421#34390189). I hadn't heard of [Growtika](https://growtika.com/) before; SEO is not my world. Bit it was theirs, and they offered to assist me. Never one to look a gift horse in the mouth, I leapt at the offer.
 
 ## The mysterious SEO feedback loop
 
 I spent some time with Growtika talking through my blog. They made some suggestions around getting my blog to align with best practices. They also schooled me on some of the basics of SEO. I was very much a novice in this area, and so I was grateful for the education.
 
-Here's the thing: SEO is a mystery. Google doesn't publish the rules of the game. They do publish [SEO guidelines](https://developers.google.com/search/docs/fundamentals/seo-starter-guide), but they are just that: guidelines. They are not the rules of the game. They have a secret algorithm that is ever evolving. And so, whilst there are best practices, there is no guarantee that following them will result in success.
+Here's the thing: SEO is a mystery. Or at least, it's not fully understood. Like Coke haven't published their recipe, Google doesn't publish its (ever evolving) algorithm. They do publish [SEO guidelines](https://developers.google.com/search/docs/fundamentals/seo-starter-guide), but they are just that: guidelines. And so, whilst there are best practices, there is no guarantee that following them will result in success.
 
-What's more, the feedback loop for changes is **long**. It's not like fixing a program with a bug, where you tweak the code, run the tests and see if it's fixed. It's more like making a change to a program, and then waiting 6 months to see if it's fixed. And if it's not, you have to wait another 6 months to see if the next change you make fixes it. It's a long, slow, frustrating process.
+What's more, the feedback loop for changes is **long**. It's not like fixing a program with a bug, where you tweak the code, run the tests and see if it's fixed. It's more like making a change to a program, and then waiting weeks or months to see if it's fixed. And if it's not, you have to wait again to see if the next change you make fixes it.
 
-One of the deeply frustrating aspects about this, is that when you make changes it is not deterministic whether they will help or not. You can make a change, and then wait 6 months to see if it helps. And if it doesn't, you have no idea whether it was the wrong change, or whether it was the right change but it just hasn't had time to take effect yet. Gosh it is painful.
+Cause and effect are just not obvious when it comes to SEO.
+
+## Growtika's suggestions
+
+Growtika made a number of suggestions for changes to my blog. I'm going to go through them over the rest of the post. I'll also include some of the PRs and commits that implemented the changes and some of the rationale that Growtika shared with me.
+
+### Updated profile and about page
+
+There's a concept used by Google for ranking known as Experience, Expertise, Authoritativeness, and Trust (E-E-A-T). It's about how much Google trusts the content on your site. Growtika suggested that I update the profile on my blog and about page to demonstrate my expertise and authority on topics.
+
+On each blog post I have a profile that looks like this:
+
+![picture of the profile image of this blog's author](screenshot-profile-picture.png)
+
+I used to have no text next to my profile; it was just a link that said "John Reilly" which lead to my Twitter profile page. At Growtika's behest I added a title to demonstrate my expertise and authority on topics, and also I switched the link to my about page instead of Twitter.
+
+The about page itself was also updated to include a bio and a list of places where my blog has been featured. This was to demonstrate my expertise and authority on topics.
+
+### Remove or `noindex` unnecessary pages
+
+My blog is built using [Docusaurus](https://docusaurus.io/). Docusaurus has a number of pages that are generated by default. There are "pagination" pages which allow you to navigate click by click through the whole history of a blog. Also there are "tags" pages that reproduce blog posts under tags that have been added to blog posts. In both cases, these amount to duplicate and unnecessary content. Growtika also spotted that, on occasion, tags and pages content was being prioritised over original blog posts. They suggested that I remove or `noindex` the pagination and tags pages.
+
+```json title="staticwebapp.config.json"
+    {
+      "route": "/page/*",
+      "headers": {
+        "X-Robots-Tag": "noindex"
+      }
+    },
+    {
+      "route": "/tags/*",
+      "headers": {
+        "X-Robots-Tag": "noindex"
+      }
+    },
+```
+
+### Structured data
 
 we made sure your site follow all the guidelines
 
@@ -57,12 +96,6 @@ DMCA takedown request for my own content
 not sharing their details as I dont like them
 
 ![screenshot of screen acknowledging my report](screenshot-google-webmasters-report.webp)
-
-## Profile title and link changed
-
-https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/240adb439de0232697e1d458c0341fd679420d64
-
-I used to have no title next to my profile, and the link was to my blog. Growtika suggested adding a title to demostrate my expertise and authority on topics, and also linking to my about page instead of Twitter. This also gave me the chance to power up my about page. JSON-LD structured data support etc
 
 ## Add custom 404 page with "Back to Homepage" link
 
