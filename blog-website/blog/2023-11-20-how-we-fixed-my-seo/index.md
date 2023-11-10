@@ -60,7 +60,7 @@ Also there are "tags" pages that reproduce blog posts under tags that have been 
 
 In both cases, these pages duplicate content. Rather frustratingly, the pagination and tags pages feature `canonical` tags which rather suggest that they are the canonical source of the content:
 
-![screenshot of a canonical tag which reads: <link rel="canonical" href="https://johnnyreilly.com/page/2">](screenshot-not-helpful-canonical.png)
+![screenshot of a canonical tag which reads: link rel="canonical" href="https://johnnyreilly.com/page/2"](screenshot-not-helpful-canonical.png)
 
 Growtika spotted that some of these pagination or tags pages were being prioritised over original blog posts. They suggested that I remove or `noindex` the pagination and tags pages to provide a clear signal to search engines about which pages were the most important. I chose to `noindex` them. My blog is hosted on Azure Static Web Apps and so I was able to achieve this fairly easily by adding the following to my `staticwebapp.config.json` file:
 
