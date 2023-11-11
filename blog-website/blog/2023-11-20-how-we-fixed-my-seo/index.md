@@ -137,19 +137,25 @@ Growtika said what I had was good, but I could do better. They suggested that I:
 
 With this done, I had a much better backlink story.
 
-## Remove date from urls with `slug`
+### Remove date from urls
 
 It used to be the case that the URLs for my blog posts always featured the date of publication. This was a hangover from when I used to use Blogger as my blogging platform. I'd migrated from Blogger to Docusaurus, and I'd kept the date in the URL. It so happens that Docusaurus has a similar behaviour too.
 
 Growtika suggested that I remove the date from the URL. This was to make the URLs shorter and more readable. It was also to make the URLs more stable; if I ever changed the date of a blog post, the URL would change. This would break any backlinks to the blog post.
 
-I must admit, I didn't really want to make this change. I rather liked having the date in the URL. But, in Growtika we trust. I did it. Where you used to go to https://johnnyreilly.com/2019/10/08/definitely-typed-movie, you now go to https://johnnyreilly.com/definitely-typed-the-movie. And of course, we made sure my redirect mechanism was in place to ensure that the old URLs still worked.
+I must admit, I didn't really want to make this change. I rather liked having the date in the URL. But, in Growtika we trust. I did it.
+
+Where you used to go to:
+https://johnnyreilly.com/2019/10/08/definitely-typed-movie
+
+... You now go to:
+https://johnnyreilly.com/definitely-typed-the-movie
+
+And of course, we made sure the redirect mechanism was in place to ensure that the old URLs still worked.
 
 ![screenshot of 301 redirect from the old url to the dateless one](screenshot-301-redirect.webp)
 
-To do this we used the [`slug feature of Docusaurus`](https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog#slug).
-
-If you want to see the mega PR that implemented this [it's here](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/423/files). You won't be surprised to learn I scripted this change - life's too short to do boring things by hand.
+To implement this we used the [`slug feature of Docusaurus`](https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog#slug). If you want to see the mega PR that implemented this on nearly 300 blog posts [it's here](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/423/files). You won't be surprised to learn I scripted this change - life's too short to do boring things by hand.
 
 ### Improve crawlability
 
