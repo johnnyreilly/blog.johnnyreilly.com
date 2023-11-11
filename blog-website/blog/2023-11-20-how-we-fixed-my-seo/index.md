@@ -117,6 +117,18 @@ You can see how it's implemented in [this PR](https://github.com/johnnyreilly/bl
 
 In this change we are _heavily_ inspired by the work [Yoast have done with structured data](https://yoast.com/rich-results-schema-structured-data-story/).
 
+### Do backlinks better!
+
+I mentioned in ["How I ruined my SEO"](../2023-01-15-how-i-ruined-my-seo/index.md) that I had a number of backlinks to my blog. I also mentioned that I had a number of backlinks that were broken by my carelessness. Growtika suggested that I fix the broken backlinks and also that I do a better job of backlinks in general.
+
+I'd already [implemented support for dynamic redirects on my blog](../2022-12-22-azure-static-web-apps-dynamic-redirects-azure-functions/index.md); aiming to ensure that at least some of the broken backlinks were redirected to the correct place. (Using Azure Static Web Apps as my hosting mechanism really helped me out here as the dynamic redirect mechanism I had was super powerful.)
+
+Growtika said what I had was good, but I could do better. They suggested that I:
+
+- exhaustively fix all my broken backlinks; getting them all to redirect to the correct place. Tedious, but worth it.
+- add a redirect from my old blog domain to my new one (blog.johnnyreilly.com -> johnnyreilly.com)
+- redirect **only once**. I had a number of redirects that were chained together. Growtika suggested that I redirect only once. This was to ensure that search engines didn't have to follow a chain of redirects to get to the content they were looking for. They don't like that; you lose "link juice" the more redirects there are. Also, multi redirects makes my website work harder than it needs to.
+
 ### Improve crawlability
 
 rename archive to blog
@@ -190,10 +202,6 @@ Either way, whilst we tried to get help from the community here, we rather drew 
 
 8 recent posts, 20 posts per page:
 https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/56ff7b76efc74e43494daa2ebe55b86f9806b5b5
-
-## Redirect URLs but once
-
-This PR moves the redirect mechanism to redirect only once, and to fully qualified URLs. Aligned with this, we'll also remove the redirect from blog.johnnyreilly.com -> johnnyreilly.com that sits in Cloudflare. https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/471
 
 ## Footer
 
