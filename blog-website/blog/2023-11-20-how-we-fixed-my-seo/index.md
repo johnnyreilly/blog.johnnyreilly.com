@@ -44,7 +44,7 @@ There's a concept used by Google for ranking known as Experience, Expertise, Aut
 
 On each blog post I have a profile that looks like this:
 
-![picture of the profile image of this blog's author](screenshot-profile-picture.png)
+![picture of the profile image of this blog's author](screenshot-profile-picture.webp)
 
 I used to have no text next to my profile; it was just a link that said "John Reilly" which lead to my Twitter profile page. At Growtika's behest I added a title to demonstrate my expertise and authority on topics, and also I switched the link to my about page instead of Twitter.
 
@@ -95,11 +95,11 @@ One of the experiments we ran was to add FAQs to a post, and with that, the equi
 
 I also added FAQ structured data to another post and Growtika resubmitted it to Google for indexing. Then two things happened. Firstly, the page was indexed:
 
-![screenshot showing the page featuring in search results](screenshot-faqs-structured-data-indexed.png)
+![screenshot showing the page featuring in search results](screenshot-faqs-structured-data-indexed.webp)
 
 And then the page started feature FAQs in the search results:
 
-![screenshot showing the page featuring in search results and showing FAQs as well](screenshot-faqs-structured-data.png)
+![screenshot showing the page featuring in search results and showing FAQs as well](screenshot-faqs-structured-data.webp)
 
 I've included the reactions at the bottom of each screenshot above - we were quite excited!
 
@@ -145,7 +145,7 @@ Growtika suggested that I remove the date from the URL. This was to make the URL
 
 I must admit, I didn't really want to make this change. I rather liked having the date in the URL. But, in Growtika we trust. I did it. Where you used to go to https://johnnyreilly.com/2019/10/08/definitely-typed-movie, you now go to https://johnnyreilly.com/definitely-typed-the-movie. And of course, we made sure my redirect mechanism was in place to ensure that the old URLs still worked.
 
-![screenshot of 301 redirect from the old url to the dateless one](screenshot-301-redirect.png)
+![screenshot of 301 redirect from the old url to the dateless one](screenshot-301-redirect.webp)
 
 To do this we used the [`slug feature of Docusaurus`](https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog#slug).
 
