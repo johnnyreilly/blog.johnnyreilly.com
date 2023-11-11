@@ -36,9 +36,9 @@ Cause and effect are just not obvious when it comes to SEO.
 
 ## Growtika's suggestions
 
-Growtika made a number of suggestions for changes to my blog. I'm going to go through them over the rest of the post. I'll also share some of the rationale for thre changes.
+Growtika made a number of suggestions for changes to my blog. I'm going to go through them over the rest of the post. I'll also share some of the rationale for the changes.
 
-### Updated profile and about page
+### Updated profile and about page
 
 There's a concept used by Google for ranking known as Experience, Expertise, Authoritativeness, and Trust (E-E-A-T). It's about how much Google trusts the content on your site. Growtika suggested that I update the profile on my blog and about page to demonstrate my expertise and authority on topics.
 
@@ -117,6 +117,12 @@ You can see how it's implemented in [this PR](https://github.com/johnnyreilly/bl
 
 In this change we are _heavily_ inspired by the work [Yoast have done with structured data](https://yoast.com/rich-results-schema-structured-data-story/).
 
+With this in place, every page that search engines index on my blog will have structured data that describes the site as a whole.
+
+#### Breadcrumbs with Structured Data
+
+Finally Growtika suggested that I add breadcrumbs to my blog posts. Breadcrumbs are a way of indicating to search engines where a page sits in the hierarchy of a site. [I wrote about how I did this](../2023-02-05-docusaurus-blogs-adding-breadcrumb-structured-data/index.md). It's worth noting that the approach outlined in that post I've subsequently simplified. Originally I added a breadcrumb for the page structure and also one per tag on the post. I've since removed the tag breadcrumbs as they were not adding much value. Less is more.
+
 ### Do backlinks better!
 
 I mentioned in ["How I ruined my SEO"](../2023-01-15-how-i-ruined-my-seo/index.md) that I had a number of backlinks to my blog. I also mentioned that I had a number of backlinks that were broken by my carelessness. Growtika suggested that I fix the broken backlinks and also that I do a better job of backlinks in general.
@@ -128,6 +134,22 @@ Growtika said what I had was good, but I could do better. They suggested that I:
 - exhaustively fix all my broken backlinks; getting them all to redirect to the correct place. Tedious, but worth it.
 - add a redirect from my old blog domain to my new one (blog.johnnyreilly.com -> johnnyreilly.com)
 - redirect **only once**. I had a number of redirects that were chained together. Growtika suggested that I redirect only once. This was to ensure that search engines didn't have to follow a chain of redirects to get to the content they were looking for. They don't like that; you lose "link juice" the more redirects there are. Also, multi redirects makes my website work harder than it needs to.
+
+With this done, I had a much better backlink story.
+
+## Remove date from urls with `slug`
+
+It used to be the case that the URLs for my blog posts always featured the date of publication. This was a hangover from when I used to use Blogger as my blogging platform. I'd migrated from Blogger to Docusaurus, and I'd kept the date in the URL. It so happens that Docusaurus has a similar behaviour too.
+
+Growtika suggested that I remove the date from the URL. This was to make the URLs shorter and more readable. It was also to make the URLs more stable; if I ever changed the date of a blog post, the URL would change. This would break any backlinks to the blog post.
+
+I must admit, I didn't really want to make this change. I rather liked having the date in the URL. But, in Growtika we trust. I did it. Where you used to go to https://johnnyreilly.com/2019/10/08/definitely-typed-movie, you now go to https://johnnyreilly.com/definitely-typed-the-movie. And of course, we made sure my redirect mechanism was in place to ensure that the old URLs still worked.
+
+![screenshot of 301 redirect from the old url to the dateless one](screenshot-301-redirect.png)
+
+To do this we used the [`slug feature of Docusaurus`](https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog#slug).
+
+If you want to see the mega PR that implemented this [it's here](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/423/files). You won't be surprised to learn I scripted this change - life's too short to do boring things by hand.
 
 ### Improve crawlability
 
@@ -177,16 +199,6 @@ It does 2 things:
 - implements a rehype plugin which sets `fetchpriority` on the first image and lazy loading on the rest
 
 It would be good to get this into Docusaurus if it makes sense - the question is: does it? And if it does, what sort of implementation makes sense?
-
-## JSON-LD breadcrumbs
-
-https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/425
-
-this was refined in https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/664 to use dangerouslySetHtml.
-
-## remove date from urls with `slug`
-
-https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/423
 
 ## Reported to webmaster tools
 
