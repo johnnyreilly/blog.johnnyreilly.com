@@ -83,11 +83,43 @@ This meant that the pagination and tags pages were still available, but search e
 
 Growtika also encouraged me to do something of a tag rationalisation. I had a lot of tags, and many of them were not used on more than one blog post. I removed a lot of tags and also added a number of tags to blog posts that were missing them. This was to help search engines understand the content of my blog posts.
 
+### Structured data
+
+One of the most intriguing suggestions that Growtika made was to build on the structured data support in blog. Structured data is a way of providing metadata about a page in a machine readable format. It's a way of providing a clear signal to search engines about the content of a page; it makes their lives easier.
+
+As it turned out, I already had some structured data support in my blog; [I'd written about how to add it previously](../2021-10-15-structured-data-seo-and-react/index.md). But Growtika suggested that I add more structured data to my blog. They suggested that I add:
+
+#### FAQs with Structured Data
+
+One of the experiments we ran was to add FAQs to a post, and with that, the equivalent FAQ Structured Data. The intent being to see if this would help with the SEO for that post. So, because I'm super meta, I wrote a [post about how to do that](../2023-04-08-docusaurus-structured-data-faqs-mdx/index.md) **which included** FAQs and the equivalent structured data.
+
+I also added FAQ structured data to another post and Growtika resubmitted it to Google for indexing. Then two things happened. Firstly, the page was indexed:
+
+![screenshot showing the page featuring in search results](screenshot-faqs-structured-data-indexed.png)
+
+And then the page started feature FAQs in the search results:
+
+![screenshot showing the page featuring in search results and showing FAQs as well](screenshot-faqs-structured-data.png)
+
+I've included the reactions at the bottom of each screenshot above - we were quite excited!
+
+#### Site wide structured data
+
+Beyond adding individual structured data to each page and post, Growtika suggested that I add site wide structured data. This would proclaim from the rooftops about the nature of my site.
+
+So I decided to add site wide structured data for:
+
+- Website
+- Organisation / Brand
+- Person
+
+You can see how it's implemented in [this PR](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/676). We used the [`headTags` API in Docusaurus](https://docusaurus.io/docs/api/docusaurus-config#headTags) to add site wide JSON-LD structured data. Funnily enough, [I contributed the `headTags` API to Docusaurus](https://github.com/facebook/docusaurus/pull/8151) long before I thought I'd end up using it for this!
+
+In this change we are _heavily_ inspired by the work [Yoast have done with structured data](https://yoast.com/rich-results-schema-structured-data-story/).
+
 ### Improve crawlability
 
 rename archive to blog
-
-### Structured data
 
 we made sure your site follow all the guidelines
 
@@ -162,29 +194,6 @@ https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/56ff7b76efc74e43494
 ## Redirect URLs but once
 
 This PR moves the redirect mechanism to redirect only once, and to fully qualified URLs. Aligned with this, we'll also remove the redirect from blog.johnnyreilly.com -> johnnyreilly.com that sits in Cloudflare. https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/471
-
-## FAQs with Structured Data
-
-One of the experiments we ran was to add FAQs to a post, and with that, the equivalent FAQ Structured Data. The intent being to see if this would help with the SEO for that post.
-
-https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/516
-
-Growtika resubmitted the page we added FAQs to Google for indexing and two things happened. Firstly, the page was indexed:
-
-![screenshot showing the page featuring in search results](screenshot-faqs-structured-data-indexed.png)
-![screenshot showing the page featuring in search results and showing FAQs as well](screenshot-faqs-structured-data.png)
-
-## Site wide structured data
-
-[This PR](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/676) uses the `headTags` API in docusaurus to add site wide JSON-LD structured data containing the following schema types:
-
-- Website
-- Organisation / Brand
-- Person
-
-We no longer need to swizzle the `BlogListPage` anymore as a result.
-
-In this change we are _heavily_ borrowing from https://yoast.com/features/structured-data/
 
 ## Footer
 
