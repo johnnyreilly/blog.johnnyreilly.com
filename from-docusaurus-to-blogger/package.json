@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "@docusaurus/utils": "^2.0.0-alpha.70",
+    "@docusaurus/utils": "^3.0.0",
     "@types/axios": "^0.14.0",
     "@types/he": "^1.1.1",
     "@types/jsdom": "^21.0.0",
