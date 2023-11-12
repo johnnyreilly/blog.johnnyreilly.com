@@ -14,12 +14,6 @@ Consistent formatting in a codebase is a good thing. We can achieve this in dotn
 
 <!--truncate-->
 
-## Updated 17/09/2021
-
-This has been updated to work with the latest versions of `lint-staged` and `husky`.
-
-## Updated linting 07/04/2022
-
 If you're interested in formatting, you might be interested in **linting**. Whilst we use ESLint in JavaScript, there's Roslyn Analyzers for C# and you can [read about it here](../2022-04-06-eslint-your-csharp-in-vs-code-with-roslyn-analyzers/index.md).
 
 ## Why format?

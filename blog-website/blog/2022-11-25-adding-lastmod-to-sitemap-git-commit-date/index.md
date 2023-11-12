@@ -8,7 +8,9 @@ description: 'This post demonstrates enriching an XML sitemap with `lastmod` tim
 hide_table_of_contents: false
 ---
 
-This post demonstrates enriching an XML sitemap with `lastmod` timestamps based on git commits.
+This post demonstrates enriching an XML sitemap with `lastmod` timestamps based on git commits. The sitemap being enriched in this post was generated automatically by Docusaurus. The techniques used are predicated on the way Docusaurus works; in that it is file based. You could easily use this technique for another file based website solution; but you would need tweaks to target the relevant files you would use to drive your `lastmod`.
+
+If you're interested in applying the same technique to your RSS / Atom / JSON feeds in Docusaurus, [you may find this post interesting](../2023-01-28-docusaurus-createfeeditems-api-git-commit-date/index.md).
 
 ![title image reading "Adding lastmod to sitemap based on git commits" with XML and Docusaurus logos](title-image.png)
 
@@ -17,6 +19,8 @@ This post demonstrates enriching an XML sitemap with `lastmod` timestamps based 
 ## Reading git log in Node.js
 
 [In the last post I showed how to manipulate XML in Node.js, and filter our sitemap](../2022-11-22-xml-read-and-write-with-node-js/index.md). In this post we'll build upon what we did last time, read the git log in Node.js and use that to power a `lastmod` property.
+
+The `lastmod` property ([documented here](https://sitemaps.org/protocol.html#lastmoddef)) is a optional, and if supplied, should be date of last modification of a page in a W3C Datetime format. (This allows `YYYY-MM-DD`.)
 
 To read the git log in Node.js we'll use the [simple-git](https://www.npmjs.com/package/simple-git) package. It's a great package that makes it easy to read the git log. Other stuff too - but that's what we care about today.
 
@@ -65,7 +69,7 @@ It's worth pausing to consider what our sitemap looks like:
 </urlset>
 ```
 
-If you look at the URL (`loc`) you can see that it's fairly easy to determine the path to the original markdown file. If we take https://johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants, we can see that the path to the markdown file is `blog-website/blog/2012-01-07-standing-on-shoulders-of-giants/index.md`.
+If you look at the URL (`loc`) you can see that it's fairly easy to determine the path to the original markdown file. If we take the URL `https://johnnyreilly.com/2012/01/07/standing-on-shoulders-of-giants`, we can see that the path to the markdown file is `blog-website/blog/2012-01-07-standing-on-shoulders-of-giants/index.md`.
 
 As long as we don't have a custom slug in play (and I rarely do), we have a reliable way to get from blog post URL (`loc`) to markdown file. With that we can use `simple-git` to get the git log for that file. We can then use that to populate the `lastmod` property.
 
@@ -157,3 +161,13 @@ When I tested this locally, it worked fine. However, when I pushed it to GitHub 
     # Default: 1
     fetch-depth: 0
 ```
+
+## Updated 12th November 2023: Google's view on `lastmod`, `changefreq` and `priority`
+
+Google have announced that they [use `lastmod` as a specific signal for triggering recrawling](https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping#the-lastmod-element). It goes on to say that it doesn't use the `changefreq` or `priority` elements to trigger recrawling of URLs. 
+
+So if you want to have a sitemap that triggers reindexing well, having an accurate `lastmod` will help.
+
+## Conclusion
+
+This post demonstrates how you can enrich a `lastmod`less sitemap to have one that is driven by git commit date. I hope it helps!
