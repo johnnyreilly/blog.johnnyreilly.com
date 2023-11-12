@@ -95,12 +95,14 @@ As well as filtering my `sitemap.xml`, I went a little further and added `lastmo
 
 Alongside this, I added a `robots.txt` to my blog. These are files that search engines use to understand the structure of a site and what they should and should not index. I didn't previously have one and the one I added was pretty rudimentary:
 
-```text title="sitemap.xml"
+```text title="robots.txt"
 User-agent: *
 Allow: /
 
 Sitemap: https://johnnyreilly.com/sitemap.xml
 ```
+
+I don't know how much this helped, but it certainly didn't hurt.
 
 ### Structured data
 
@@ -176,6 +178,41 @@ And of course, we made sure the redirect mechanism was in place to ensure that t
 
 To implement this we used the [`slug feature of Docusaurus`](https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog#slug). If you want to see the mega PR that implemented this on nearly 300 blog posts [it's here](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/423/files). You won't be surprised to learn I scripted this change - life's too short to do boring things by hand.
 
+### Improving site performance
+
+Another aspect which factors into SEO is performance. Google has a [Core Web Vitals](https://web.dev/articles/vitals) measurement which is about measuring the performance of websites. It covers how fast a website loads, how responsive it is / how quickly it becomes interactive.
+
+The thing that was hurting my blog's performance was images. The images on my blog were generally not optimised at all. They were also not lazy loaded. This meant that the images were slowing down the loading of my blog, and this reflected in my [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/) scores.
+
+I took a number of actions to improve the performance of my blog.
+
+#### Improved performance using TinyPNG's image optimisation API
+
+The first, and most obvious, was to optimise the images on my blog. There's many ways you can do this; I chose to use [TinyPNG's API](https://tinypng.com/developers). I wrote about [how I did this](../2023-01-22-image-optimisation-tinypng-api/index.md). Ultimately I wrote a script that optimised all the images on my blog, and wrote allowed me to run it on demand for the images of a particular post.
+
+This shrunk the file size of images my site served significantly, and improved the performance of my blog.
+
+I also [added Lighthouse to my blog's build step](../2022-03-20-lighthouse-meet-github-actions/index.md). This made it easy to catch regressions where I might accidentally add unoptimised images to my blog.
+
+#### Improved performance using Cloudinary's on demand image transformation CDN
+
+Having tackled the low hanging fruit of images not being optimal in the first place, I then went further.
+
+My website
+
+../2022-12-26-docusaurus-image-cloudinary-rehype-plugin/index.md
+
+#### Improved performance using `fetchpriority="high"` and `loading="lazy"`
+
+[I've written about this in depth here](../2023-01-18-docusaurus-improve-core-web-vitals-fetchpriority/index.md):
+
+It does 2 things:
+
+- swizzles the img component to opt out of lazy loading
+- implements a rehype plugin which sets `fetchpriority` on the first image and lazy loading on the rest
+
+It would be good to get this into Docusaurus if it makes sense - the question is: does it? And if it does, what sort of implementation makes sense?
+
 ### Improve crawlability
 
 rename archive to blog
@@ -209,17 +246,6 @@ https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/57d722905204d48e0e0
 https://github.com/facebook/docusaurus/discussions/6030
 
 Added privacy policy https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/743e80f0205cafc7e1ef90c9e9b6da7f1e810b43
-
-## Improve performance with fetchpriority on LCP image / no lazy loading
-
-[I've implemented an approach to tackle this on my blog](../2023-01-18-docusaurus-improve-core-web-vitals-fetchpriority/index.md):
-
-It does 2 things:
-
-- swizzles the img component to opt out of lazy loading
-- implements a rehype plugin which sets `fetchpriority` on the first image and lazy loading on the rest
-
-It would be good to get this into Docusaurus if it makes sense - the question is: does it? And if it does, what sort of implementation makes sense?
 
 ## Reported to webmaster tools
 
