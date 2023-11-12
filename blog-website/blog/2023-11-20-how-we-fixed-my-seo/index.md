@@ -218,6 +218,16 @@ The effect of these two combined, is that when a browser lands on a blog post it
 
 [I've written about this was implemented in depth here](../2023-01-18-docusaurus-improve-core-web-vitals-fetchpriority/index.md).
 
+### Footer
+
+Add links to significant posts in the footer
+
+https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/692
+
+### Add meta description to blog posts
+
+blog-website/blog/2023-09-25-azure-open-ai-generate-article-metadata-with-typescript/index.md
+
 ### Improve crawlability
 
 rename archive to blog
@@ -266,9 +276,3 @@ Either way, whilst we tried to get help from the community here, we rather drew 
 
 8 recent posts, 20 posts per page:
 https://github.com/johnnyreilly/blog.johnnyreilly.com/commit/56ff7b76efc74e43494daa2ebe55b86f9806b5b5
-
-## Footer
-
-Add links to significant posts in the footer
-
-https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/692
