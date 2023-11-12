@@ -16,13 +16,17 @@ It's a biggie; so buckle up!
 
 <!--truncate-->
 
-## Growtika answers my cry for help
+## Growtika steps up!
 
 I wrote ["How I ruined my SEO"](../2023-01-15-how-i-ruined-my-seo/index.md) almost as self therapy. I was frustrated that my blog's traffic had dropped. I knew it didn't really matter; my motivation for writing my blog is mostly creating a long term memory for myself. But I was still frustrated. I write things that I know others find useful, and so it was suboptimal that my blog was no longer being found by them.
 
 And I'll admit it, when I'm trying to remember how to do something that I once knew how to do, I'll often Google it. And so I was frustrated that my blog was no longer being found by me. I was missing me. Vanity.
 
-I shared the post on Hacker News, not really expecting much to happen. But it ranked, and in amongst the conversation that followed, [someone named Growtika offered to help](https://news.ycombinator.com/item?id=34389421#34390189). I hadn't heard of [Growtika](https://growtika.com/) before; SEO is not my world. Bit it was theirs, and they offered to assist me. Never one to look a gift horse in the mouth, I leapt at the offer.
+I shared the post on Hacker News, not really expecting much to happen. But it ranked, and in amongst the conversation that followed, [someone named Growtika offered to help](https://news.ycombinator.com/item?id=34389421#34390189).
+
+![The Growtika company logo](growtika-logo.png)
+
+I hadn't heard of [Growtika](https://growtika.com/) before; SEO is not my world. Bit it was theirs, and they offered to assist me. Never one to look a gift horse in the mouth, I leapt at the offer.
 
 ## The mysterious SEO feedback loop
 
@@ -180,11 +184,11 @@ To implement this we used the [`slug feature of Docusaurus`](https://docusaurus.
 
 ### Improving site performance
 
-Another aspect which factors into SEO is performance. Google has a [Core Web Vitals](https://web.dev/articles/vitals) measurement which is about measuring the performance of websites. It covers how fast a website loads, how responsive it is / how quickly it becomes interactive.
+Another aspect which factors into SEO is performance. Google has a [Core Web Vitals](https://web.dev/articles/vitals) measurement which is about evaluating the performance of websites. It covers how fast a website loads, how responsive it is / how quickly it becomes interactive.
 
 The thing that was hurting my blog's performance was images. The images on my blog were generally not optimised at all. They were also not lazy loaded. This meant that the images were slowing down the loading of my blog, and this reflected in my [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/) scores.
 
-I took a number of actions to improve the performance of my blog.
+I took a number of actions to improve the site image performance.
 
 #### Improved performance using TinyPNG's image optimisation API
 
@@ -196,22 +200,23 @@ I also [added Lighthouse to my blog's build step](../2022-03-20-lighthouse-meet-
 
 #### Improved performance using Cloudinary's on demand image transformation CDN
 
-Having tackled the low hanging fruit of images not being optimal in the first place, I then went further.
+Having tackled the low hanging fruit of images not being optimal in the first place, I then went further. Cloudinary offer a [CDN that can transform images on demand](https://cloudinary.com/documentation/image_transformations). This means that you can serve the same image in different sizes, formats and qualities depending on the device that is requesting it. This is a great way to improve performance.
 
-My website
+I was able to plug the Cloudinary CDN into my blog using by building a the [`rehype-cloudinary-docusaurus` plugin](https://github.com/johnnyreilly/rehype-cloudinary-docusaurus) which can be used to integrate Cloudinary into Docusaurus. You can [read more about how it works here](../2022-12-26-docusaurus-image-cloudinary-rehype-plugin/index.md).
 
-../2022-12-26-docusaurus-image-cloudinary-rehype-plugin/index.md
+Now when my blog serves an image, it serves the optimal image for the device that is requesting it. This improves the performance of my blog. (And you can do this too if you're using Docusaurus!)
+
+In fact I went a little further and scripted the patching of my [Open Graph images](../2021-12-12-open-graph-sharing-previews-guide/index.md) to make use of Cloudinary too. This meant that the images that were shared on social media were also optimised for the device that was requesting them. I don't think this helped with SEO, but I'd noticed that large / slow loading Open Graph images aren't always used by platforms that support the Open Graph protocol. With this in place, this became much less of an issue.
 
 #### Improved performance using `fetchpriority="high"` and `loading="lazy"`
 
-[I've written about this in depth here](../2023-01-18-docusaurus-improve-core-web-vitals-fetchpriority/index.md):
+So far we'd handled the performance of images on my blog by optimising them and serving them in an optimal way. But there was more we could do. We could also make sure that the images on my blog were loaded in an optimal way.
 
-It does 2 things:
+We did this by adding `fetchpriority="high"` to the first image on each blog post. This is a hint to the browser that the image is important and should be loaded as soon as possible. We also added `loading="lazy"` to all the other images on the blog post. This is a hint to the browser that the image is not important and can be loaded lazily.
 
-- swizzles the img component to opt out of lazy loading
-- implements a rehype plugin which sets `fetchpriority` on the first image and lazy loading on the rest
+The effect of these two combined, is that when a browser lands on a blog post it loads the first image as soon as possible, and then loads the rest of the images lazily. Or mazybe not at all - it depends if people scroll down to that image. The upshot of this is that the Largest Contentful Paint (LCP) is loaded as soon as possible and then the browser **isn't** immediately going to load the rest of the images. This translates into improved perceived performance / user experience.
 
-It would be good to get this into Docusaurus if it makes sense - the question is: does it? And if it does, what sort of implementation makes sense?
+[I've written about this was implemented in depth here](../2023-01-18-docusaurus-improve-core-web-vitals-fetchpriority/index.md).
 
 ### Improve crawlability
 
