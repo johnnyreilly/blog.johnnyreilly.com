@@ -4,7 +4,7 @@ title: 'Overview of Bun, a JavaScript runtime'
 authors:
   - johnnyreilly
   - name: Megan Lee
-    title: Engineer, Architect, Human
+    title: Content Marketing Manager
     url: https://www.linkedin.com/in/leemeganj/
     image_url: https://media.licdn.com/dms/image/C4D03AQFSGZ5WM0U3MQ/profile-displayphoto-shrink_800_800/0/1516959703212?e=1705536000&v=beta&t=3JcqFyOGoIFse9XyBD3KZCPb3Z4hEPgbj-8dgcDfxWQ
 tags: [bun]
@@ -194,7 +194,7 @@ If you love writing JavaScript and TypeScript, then you'll love Bun. It's fast, 
 
 Do take a look at the Bun website to see its documentation and developer guides. I hope this resource will be helpful as you consider a JavaScript runtime to use in your next project.
 
-[This post was originally published on LogRocket.](https://blog.logrocket.com/bun-adoption-guide/)
+[This post was originally published on LogRocket](https://blog.logrocket.com/bun-adoption-guide/) and edited by [Megan Lee](https://www.linkedin.com/in/leemeganj/).
 
 <head>
     <link rel="canonical" href="https://blog.logrocket.com/bun-adoption-guide/" />
