@@ -24,7 +24,7 @@ In other words, you should be able to quickly take advantage of Bun’s awesome 
 
 The Bun team released v1.0 on 8 September 2023. However, Bun was already widely known and used long before that. Jarred Sumner even appeared on PodRocket on 5 August 2022 to discuss Bun, more than a year before the release of v1.0.
 
-<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/512NHtxknFNeipHSZHIRXP?utm_source=generator" width="100%" height="352" frameBorder="0" allowFullScreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<iframe width="100%" height="352" src="https://open.spotify.com/embed/episode/512NHtxknFNeipHSZHIRXP?utm_source=generator" frameBorder="0" allowFullScreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 Part of the reason for Bun’s rise in popularity even before its stable release is its speed and ease of use.
 
