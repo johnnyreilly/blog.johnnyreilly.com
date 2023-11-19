@@ -168,7 +168,7 @@ Again, less is more. With these changes made, I had a much better backlink story
 
 It used to be the case that the URLs for my blog posts always featured the date of publication. This was a hangover from when I used to use Blogger as my blogging platform. I'd [migrated from Blogger to Docusaurus](../2021-03-15-definitive-guide-to-migrating-from-blogger-to-docusaurus/index.md), and I'd kept the date in the URL. It so happens that Docusaurus has a similar behaviour too.
 
-Growtika suggested that I remove the date from the URL. This was to make the URLs shorter and more readable. It was also to make the URLs more stable; if I ever changed the date of a blog post, the URL would change. This would break any backlinks to the blog post.
+Growtika suggested that I remove the date from the URL. This was to make the URLs shorter and more readable. Search engines also have a preference both for shorter URLs and for pages that are recent, rather than pages that are old. So removing the date from the URL would help with both of those things. Or at least it would stop search engines that looked for the date in the URL from thinking that older content was irrelevant. (And with our `lastmod` timestamps in the `sitemap.xml` we were already helping search engines understand how recent the content on my site was.)
 
 I must admit, I didn't really want to make this change. I rather liked having the date in the URL. But, in Growtika we trust. I did it.
 
@@ -200,7 +200,7 @@ The first, and most obvious, was to optimise the images on my site. There's many
 
 This shrunk the file size of images on my site served significantly, and improved the performance. Once again, less is more.
 
-I also [added Lighthouse to my site's build step](../2022-03-20-lighthouse-meet-github-actions/index.md), so I could get some performance measurements being surfaced into my PRs. This made it easy to catch regressions where I might accidentally add unoptimised images to my site.
+I also [added Lighthouse to my site's build step](../2022-03-20-lighthouse-meet-github-actions/index.md), so I could get some performance measurements surfaced into my pull requests. This made it easy to catch potential regressions, where I might accidentally add unoptimised images to my site.
 
 #### 2. Improved performance using Cloudinary's on demand image transformation CDN
 
@@ -210,7 +210,7 @@ I was able to plug the Cloudinary CDN into my site using by building a the [`reh
 
 Now when my site serves an image, it serves the optimal image for the device that is requesting it. This improves the performance of my site. (And you can do this too if you're using Docusaurus!)
 
-In fact I went a little further and scripted the patching of my [Open Graph images](../2021-12-12-open-graph-sharing-previews-guide/index.md) to make use of Cloudinary too. This meant that the images that were shared on social media were also optimised for the device that was requesting them. I don't think this helped with SEO, but I'd noticed that large / slow loading Open Graph images aren't always used by platforms that support the Open Graph protocol. With this in place, this became much less of an issue.
+In fact I went a little further and scripted the patching of my [Open Graph images](../2021-12-12-open-graph-sharing-previews-guide/index.md) to make use of Cloudinary too. This meant that the images that were shared on social media were also optimised for the device that was requesting them. I don't think this helped with SEO, but I'd noticed that large and / or slow loading Open Graph images aren't always used by platforms that support the Open Graph protocol. With the Cloudinary image transformation CDN in place, this became much less of an issue.
 
 Incidentally, Cloudinary got wind of this change and invited me onto their [DevJams live stream to talk about it](https://youtube.com/watch?v=G4WTEEwI6Qs). I was very flattered to be asked and it was a lot of fun!
 
@@ -232,7 +232,7 @@ This was something that I did a little, but I didn't really think about. I'm now
 
 You'll possibly have noticed a good number of internal links in this post! I'm careful about how I do this - I have internal links where they are relevant and where I think it adds value. I don't have internal links for the sake of it. Whilst I want to improve my SEO, the main readers of my blog are humans, and I want to make sure that I'm not making the experience worse for them.
 
-Alongside upping my internal linking game, Growtika suggested that the footer of my site was a prime place to add links to notable posts on my site, and also to give an indication of topics that this site seeks to cover.
+Alongside upping my internal linking game, Growtika suggested that the footer of my site was a prime place to add links to notable posts on my site, and also to provide an indication of topics that this site seeks to cover.
 
 A picture is worth a thousand words, so here's what the footer of my site used to look like:
 
@@ -242,15 +242,15 @@ And here is what it looks like now:
 
 ![screenshot of the site with a good number of links in the footer](screenshot-footer-after.png)
 
-As you can see, the difference is significant. With the new enhanced footer I can call out particular articles around themes that I cover, I can highlight popular articles, and I can also highlight articles that I think are particularly important. This is both about helping search engines understand what I consider to be important in my site, it's also helpful for humans that might scroll that far down. And goshdarnit, I think it looks rather fine too!
+As you can see, the difference is significant. With the new enhanced footer I can call out particular articles around themes that I cover, I can highlight popular articles, and I can also emphasise articles that I think are particularly important, or recently updated. This is both about helping search engines understand what I consider to be important in my site, it's also helpful for humans that might scroll that far down. And goshdarnit, I think it looks rather fine too!
 
 ### Add meta description to blog posts
 
-The final suggestion we're going to cover, is that Growtika suggested adding meta descriptions to my blog posts. This is a short description of the content of the blog post that is included in the HTML of the page. It's not visible to humans, but it is visible to search engines. And it's kind of visible to humans at one remove, in that it is used as the description of the page in search results.
+The final suggestion we're going to cover, is that Growtika suggested adding meta descriptions to my blog posts. This is a short description of the content of the blog post that is included in the HTML of the page. It's not visible to humans, but it is visible to search engines. And it's kind of visible to humans at one remove, in that it is often used as the description of the page in search results.
 
 I'd previously not included meta descriptions on my blog posts. But since Growtika suggested that I add them, I found myself with the daunting task of writing meta descriptions for nearly 300 blog posts. I decided to script it. I wrote a script that would generate a meta description for each blog post based on the content of the blog post, powered by Azure Open AI. I then ran the script and added the meta descriptions to my blog posts. I wrote about [how I did this here](../2023-09-25-azure-open-ai-generate-article-metadata-with-typescript/index.md).
 
-This left me with meta descriptions for all my blog posts. It was also rather fun to use AI for something not GPT or copilot related!
+This left me with meta descriptions for all my blog posts. It was also rather fun to use AI for something that was not GPT or copilot related!
 
 ## The results
 
@@ -262,10 +262,10 @@ The graph alone tells a story, a phenomenal drop off in traffic followed by a re
 
 ## Conclusion
 
-I never would have expected to come to write a post like this. SEO was something I didn't think about much. But it turns out that a way to get my attention, is taking away my traffic! I'm actually rather grateful that all this happened as it got me to thinking and learning about SEO in a way that I quite enjoyed.
+This is not a post I'd expected to write. SEO used to be something I didn't think about much. But it turns out that a way to get my attention, is taking away my traffic! I'm actually rather grateful that all this happened as it got me to thinking and learning about SEO in a way that I quite enjoyed.
 
 As I say, whilst I can't be certain which of the changes we made made the difference, I'm confident that my site now is better than my site a year ago. It loads faster, it's more performant, it's more structured, it's better linked, it's better optimised. It's better. It looks the part too. I'm really quite proud of it.
 
 I'm also phenomenally grateful to Growtika for their help. I should say that a few others offered pointers and suggestions which I was thankful for. But it was Growtika who stuck by my side for the long haul. For nearly a year they worked with me; and for a long time saw no improvements in my sites traffic at all. They didn't give up. They were patient with me, and they were generous with their time and expertise. I'm very grateful to them for all their help.
 
-If you're looking for help with SEO, I'd recommend you check out [Growtika](https://growtika.com/). They're fantastic people.
+If you're looking for help with SEO, I'd recommend you check out [Growtika](https://growtika.com/). They're fantastic folk!
