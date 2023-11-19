@@ -12,7 +12,7 @@ In October 2022 traffic to my blog dropped like a stone. What happened? Somehow 
 
 ## Updated 20/11/2023: SEO fixed!
 
-There's a follow up to this named ["How we fixed my SEO"](../2023-11-20-how-we-fixed-my-seo/index.md) that you may enjoy.
+There's a follow up to this named ["How we fixed my SEO"](../2023-11-27-how-we-fixed-my-seo/index.md) that you may enjoy.
 
 ![title image reading "How I ruined my SEO" with an image of a tire fire in the background](title-image.png)
 
