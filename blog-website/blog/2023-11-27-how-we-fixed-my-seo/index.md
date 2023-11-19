@@ -257,3 +257,9 @@ As I mentioned earlier, my SEO has now recovered. I'm ranking again in search re
 ![screenshot from ahrefs showing a massive drop off then recovery](screenshot-ahrefs-two-years.webp)
 
 The graph alone tells a story, a phenomenal drop off in traffic followed by a recovery. Significantly, you can see the drop off and recovery both happen around the time of a Google algorithm update. It shows the power of that algorithm over my site's traffic.
+
+I never would have expected to come to write a post like this. SEO was something I didn't think about much. But it turns out that a way to get my attention, is taking away my traffic! I'm actually rather grateful that all this happened as it got me to thinking and learning about SEO in a way that I quite enjoyed.
+
+I'm also phenomenally grateful to Growtika for their help. I should say that a few others offered pointers and suggestions which I was thankful for. But it was Growtika who stuck by my side for the long haul. For nearly a year they worked with me; and for a long time saw no improvements in my sites traffic at all. They didn't give up. They were patient with me, and they were generous with their time and expertise. I'm very grateful to them for all their help.
+
+If you're looking for help with SEO, I'd recommend you check out [Growtika](https://growtika.com/). They're fantastic people.
