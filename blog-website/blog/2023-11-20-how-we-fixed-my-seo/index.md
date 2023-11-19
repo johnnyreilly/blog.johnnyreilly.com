@@ -234,7 +234,7 @@ Alongside that, Growtika suggested that the footer of my site was a prime place 
 
 A picture is worth a thousand words, so here's what the footer of my site used to look like:
 
-![screenshot of the site with very few links or much at all in the footer](screenshot-footer-before.png)
+![screenshot of the site with very few links or much at all in the footer](screenshot-footer-before.webp)
 
 And here is what it looks like now:
 
