@@ -2,7 +2,7 @@
 slug: how-we-fixed-my-seo
 title: 'How we fixed my SEO'
 authors: johnnyreilly
-tags: [SEO]
+tags: [seo]
 image: ./title-image.png
 description: In October 2022 traffic to my blog dropped like a stone. Growtika collaborated with me to fix it. This is what we did.
 hide_table_of_contents: false
@@ -20,7 +20,7 @@ This post is a biggie; so buckle up!
 
 ## Growtika steps up!
 
-I wrote ["How I ruined my SEO"](../2023-01-15-how-i-ruined-my-seo/index.md) almost as self therapy. I was frustrated that my blog's traffic had dropped. I knew it didn't really matter; my motivation for writing my blog is mostly creating a long term memory for myself. But I was still frustrated. I write things that I know people find useful, and so it was suboptimal that my posts were no longer being found.
+I wrote ["How I ruined my SEO"](../2023-01-15-how-i-ruined-my-seo/index.md) almost as self therapy. I was frustrated that my blog's traffic had dropped. I knew it didn't really matter; my motivation for writing my blog is, in large part, about creating a long term memory for myself. But I was still frustrated. I write things that I know people find useful, and so it was suboptimal that my posts were no longer being found.
 
 I should include myself in that. When I'm trying to remember how to do something, and I know I once knew how to do it, I'll often Google it. So it was frustrating that my own blog was no longer being found by me. I was missing me. Vanity, I know.
 
@@ -224,11 +224,23 @@ The effect of these two combined, is that when a browser lands on a blog post it
 
 [I've written about this was implemented in depth here](../2023-01-18-docusaurus-improve-core-web-vitals-fetchpriority/index.md).
 
-### Footer
+### Internal linking / footer links
 
-Add links to significant posts in the footer
+Growtika advised that it was worth taking a look at our internal linking strategy. This is about how we link to other pages on our blog from within our blog posts. The idea is that we should link to other pages on our blog that are relevant to the topic of the blog post. This helps search engines understand the structure of our blog and the relationships between the pages.
 
-https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/692
+This was something that I did a little, but I didn't really think about. I'm now much more intentional around internal linking. I'm very much an editor of my content, and as I'm editing my posts / writing new posts I'll take a look at whether I'm linking to other relevant posts on my blog.
+
+Alongside that, Growtika suggested that the footer of my site was a prime place to add links to significant posts on my site, and also to give an indication of topics that this site seeks to cover.
+
+A picture is worth a thousand words, so here's what the footer of my site used to look like:
+
+![screenshot of the site with very few links or much at all in the footer](screenshot-footer-before.png)
+
+And here is what it looks like now:
+
+![screenshot of the site with a good number of links in the footer](screenshot-footer-after.png)
+
+As you can see, the difference is significant. With the new enhanced footer I can call out particular articles around themes that I cover, I can highlight popular articles, and I can also highlight articles that I think are particularly important. This is both about helping search engines understand what I consider to be important in my site, it's also helpful for humans that might scroll that far down. And goshdarnit, I think it looks rather fine too!
 
 ### Add meta description to blog posts
 
