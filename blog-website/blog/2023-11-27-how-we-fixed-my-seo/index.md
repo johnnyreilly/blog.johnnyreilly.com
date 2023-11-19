@@ -244,7 +244,19 @@ As you can see, the difference is significant. With the new enhanced footer I ca
 
 ### Add meta description to blog posts
 
-blog-website/blog/2023-09-25-azure-open-ai-generate-article-metadata-with-typescript/index.md
+The final suggestion we're going to cover, is that Growtika suggested adding meta descriptions to my blog posts. This is a short description of the content of the blog post that is included in the HTML of the page. It's not visible to humans, but it is visible to search engines. And it's kind of visible to humans at one remove, in that it is used as the description of the page in search results.
+
+I'd previously not included meta descriptions on my blog posts. But Growtika suggested that I add them, I found myself with the daunting task of writing meta descriptions for nearly 300 blog posts. I decided to script it. I wrote a script that would generate a meta description for each blog post based on the content of the blog post, powered by Azure Open AI. I then ran the script and added the meta descriptions to my blog posts. I wrote about [how I did this here](../2023-09-25-azure-open-ai-generate-article-metadata-with-typescript/index.md).
+
+This left me with meta descriptions for all my blog posts. It was also kinda fun to use AI for something not GPT or copilot related.
+
+## The results
+
+As I mentioned earlier, my SEO has now recovered. I'm ranking again in search results. I'm not ranking as highly as I was before, but I'm ranking. I think my site is possibly still in the throes of recovery, but it's definitely trending in the right direction. Here's a graph from ahrefs showing my site's performance over the last two years:
+
+![screenshot from ahrefs showing a massive drop off then recovery](screenshot-ahrefs-two-years.png)
+
+The graph alone tells a story, a phenomenal drop off in traffic followed by a recovery. Significantly, you can see the drop off and recovery both happen around the time of a Google algorithm update. It shows the power of that algorithm over my site's traffic.
 
 ### Improve crawlability
 
