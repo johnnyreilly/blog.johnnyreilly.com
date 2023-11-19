@@ -12,7 +12,7 @@ This is a follow up to my ["How I ruined my SEO"](../2023-01-15-how-i-ruined-my-
 
 As we'll see, the art of SEO (Search Engine Optimisation) is a mysterious one. We made a number of changes that we believe helped. All told, my site spent about a year out in the cold - barely surfacing in search results. But in October 2023 it started ranking again. And it's been ranking ever since.
 
-This post is a biggie; so buckle up!
+I put that down to the assistance rendered by Growtika. What was the nature of that assistance? I'll tell you. This post is a biggie; so buckle up!
 
 ![title image reading "How we fixed my SEO" with images of graphs trending upwards in the background](title-image.png)
 
@@ -38,11 +38,11 @@ Here's the thing: SEO is a mystery. Or at least, it's not fully understood. Like
 
 What's more, the feedback loop for changes is **long**. It's not like fixing a program with a bug, where you tweak the code, run the tests and see if it's fixed. It's more like making a change to a program, and then waiting weeks or months to see if it's fixed. And if it's not, you have to wait again to see if the next change you make fixes it.
 
-Cause and effect are just not as obvious as you might like, when it comes to SEO. So whilst I'm going to share what we did, I can't say for sure what actually lead to the improvement in my site's SEO. I'm confident that they were all good things to do. But I be certain which of them made the difference.
+Cause and effect are just not as obvious as you might like, when it comes to SEO. So whilst I'm going to share what we did, I can't say for sure what actually lead to the improvement in my site's SEO. I'm confident that they were all good things to do. But I cannot be certain which of them made the difference.
 
 ## Growtika's suggestions
 
-Over time Growtika worked with me, making suggestions of changes we might make that could improve my SEO. I'm going to go through the suggestions over the rest of the post. I'll also share some of the rationale.
+Over the time we worked together, Growtika made a number of suggestions. Changes we might make that could improve my SEO. I'm going to go through the suggestions over the rest of the post. I'll also share some of the rationale.
 
 ### Updated profile and about page
 
@@ -116,7 +116,7 @@ One of the most intriguing suggestions that Growtika made was to build on the st
 
 As it turned out, I already had some structured data support in my site; [I'd written about how to add it previously](../2021-10-15-structured-data-seo-and-react/index.md). But Growtika suggested that I add more structured data to my site. They suggested that I add:
 
-#### FAQs with Structured Data
+#### 1. FAQs with Structured Data
 
 One of the experiments we ran was to add FAQs to a post, and with that, the equivalent FAQ Structured Data. The intent being to see if this would help with the SEO for that post. So, because I'm super meta, I wrote a [post about how to do that](../2023-04-08-docusaurus-structured-data-faqs-mdx/index.md) **which included** FAQs and the equivalent structured data.
 
@@ -130,11 +130,11 @@ And then the page started featuring FAQs in the search results:
 
 I've included the reactions at the bottom of each screenshot above - we were quite excited!
 
-#### Site wide structured data
+#### 2. Site wide structured data
 
 Beyond adding individual structured data to each page and post, Growtika suggested that I add site wide structured data. This would proclaim from the rooftops about the nature of my site.
 
-So I decided to add site wide structured data of the following types: (there are many types of structured data which you can read about at https://schema.org/ and [which Google document](https://developers.google.com/search/docs/appearance/structured-data/search-gallery))
+So I decided to add site wide structured data of the following types: (there are many types of structured data which you can read about at https://schema.org/ and in [this Google document on the topic](https://developers.google.com/search/docs/appearance/structured-data/search-gallery))
 
 - Website
 - Organisation / Brand
@@ -142,11 +142,11 @@ So I decided to add site wide structured data of the following types: (there are
 
 You can see how the structured data is implemented in [this PR](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/676). We used the [`headTags` API in Docusaurus](https://docusaurus.io/docs/api/docusaurus-config#headTags) to add site wide JSON-LD structured data. Funnily enough, [I contributed the `headTags` API to Docusaurus](https://github.com/facebook/docusaurus/pull/8151) long before I thought I'd end up using it for this!
 
-In this change we are _heavily_ inspired by the work [Yoast have done with structured data](https://yoast.com/rich-results-schema-structured-data-story/).
+In this change we are _heavily_ inspired by the work [Yoast have done with structured data](https://yoast.com/rich-results-schema-structured-data-story/); particularly in the sense of having a full structured data graph.
 
 With this in place, every page that search engines index on my site will have structured data that describes the site as a whole.
 
-#### Breadcrumbs with Structured Data
+#### 3. Breadcrumbs with Structured Data
 
 Finally Growtika suggested that I add breadcrumbs to my blog posts. Breadcrumbs are a way of indicating to search engines where a page sits in the hierarchy of a site. [I wrote about how I did this](../2023-02-05-docusaurus-blogs-adding-breadcrumb-structured-data/index.md). It's worth noting that the approach outlined in that post I've subsequently simplified. Originally I added a breadcrumb for the page structure and also one per tag on the post. I've since removed the tag breadcrumbs as they were not adding much value. Less is more.
 
@@ -158,11 +158,11 @@ I'd already implemented support for dynamic redirects on my site. What this mean
 
 Growtika said what I had was good, but I could do better. They suggested that I:
 
-- exhaustively fix all my broken backlinks; getting them all to redirect to the correct place. Tedious, but worth it.
+- exhaustively fix all my broken backlinks; getting them all to redirect to the correct place. This meant logging broken backlinks and repairing them over time. Tedious, but worth it.
 - add a redirect from my old site domain to my new one (blog.johnnyreilly.com -> johnnyreilly.com)
 - redirect **only once**. I had a number of redirects that were chained together. 301 leading to 301 leading to 301 (yes!) and only then leading to a 200. Growtika suggested that I redirect only once. This was to ensure that search engines didn't have to follow a chain of redirects to get to the content they were looking for. Search engines don't like that by all accounts; you lose "link juice" the more redirects there are. Also, multi redirects make my website work harder than it needs to.
 
-Again, less is more! With these changes made, I had a much better backlink story.
+Again, less is more. With these changes made, I had a much better backlink story.
 
 ### Remove date from urls
 
@@ -194,15 +194,15 @@ The thing that was hurting my site's performance was images. The images on my si
 
 I took a number of actions to improve the site image performance.
 
-#### Improved performance using TinyPNG's image optimisation API
+#### 1. Improved performance using TinyPNG's image optimisation API
 
-The first, and most obvious, was to optimise the images on my site. There's many ways you can do this; I chose to use [TinyPNG's API](https://tinypng.com/developers). I wrote about [how I did this](../2023-01-22-image-optimisation-tinypng-api/index.md). Ultimately I wrote a script that optimised all the images on my site, and wrote allowed me to run it on demand for the images of a particular post.
+The first, and most obvious, was to optimise the images on my site. There's many ways you can do this; I chose to use [TinyPNG's API](https://tinypng.com/developers). I wrote about [how I did this](../2023-01-22-image-optimisation-tinypng-api/index.md). Ultimately I wrote a script that optimised all the images on my site, and allowed me to run it on demand for the images of a particular post.
 
-This shrunk the file size of images my site served significantly, and improved the performance of my site.
+This shrunk the file size of images on my site served significantly, and improved the performance. Once again, less is more.
 
 I also [added Lighthouse to my site's build step](../2022-03-20-lighthouse-meet-github-actions/index.md), so I could get some performance measurements being surfaced into my PRs. This made it easy to catch regressions where I might accidentally add unoptimised images to my site.
 
-#### Improved performance using Cloudinary's on demand image transformation CDN
+#### 2. Improved performance using Cloudinary's on demand image transformation CDN
 
 Having tackled the low hanging fruit of images not being optimal in the first place, I then went further. Cloudinary offer a [CDN that can transform images on demand](https://cloudinary.com/documentation/image_transformations). This means that you can serve the same image in different sizes, formats and qualities depending on the device that is requesting it. This is a great way to improve performance.
 
@@ -214,21 +214,21 @@ In fact I went a little further and scripted the patching of my [Open Graph imag
 
 Incidentally, Cloudinary got wind of this change and invited me onto their [DevJams live stream to talk about it](https://youtube.com/watch?v=G4WTEEwI6Qs). I was very flattered to be asked and it was a lot of fun!
 
-#### Improved performance using `fetchpriority="high"` and `loading="lazy"`
+#### 3. Improved performance using `fetchpriority="high"` and `loading="lazy"`
 
 So far we'd handled the performance of images on my site by optimising them and serving them in an optimal way. But there was more we could do. We could also make sure that the images on my site were loaded in an optimal way.
 
-We did this by adding `fetchpriority="high"` to the first image on each blog post; the "title" image if you will. This is a hint to the browser that the image is important and should be loaded as soon as possible. We also added `loading="lazy"` to all the other images on the blog post. This is a hint to the browser that those images (the "below the fold" images) are not as important and can be loaded later if and when they are required.
+We did this by adding `fetchpriority="high"` to the first image on each blog post; the "title" image if you will. This is a hint to the browser that the image is important and should be loaded as soon as possible. We also added `loading="lazy"` to all the other images on a given blog post. This is a hint to the browser that those images (the "below the fold" images) are not as important, and can be loaded later if and when they are required.
 
-The effect of these two combined, is that when a browser lands on a blog post it loads the first image as soon as possible, and then stops. The upshot of this is that the Largest Contentful Paint (LCP) is loaded as soon as possible and then the browser **isn't** immediately going to load the rest of the images. They may be loaded... Or they may not - it depends on whether people scroll down to that image. This translates into improved perceived performance / user experience.
+The effect of these two changes combined, is that when a browser lands on a blog post it loads the first image as soon as possible, and then it doesn't immediately load the rest images; it focuses on giving the user a usable page. The upshot of this is that the Largest Contentful Paint (LCP) is loaded as soon as possible and the browser remain more responsive. The remaining images may be loaded... Or they may not - it depends on whether people scroll down to them. This translates into improved perceived performance / user experience.
 
-[I've written about this was implemented in depth here](../2023-01-18-docusaurus-improve-core-web-vitals-fetchpriority/index.md).
+And again: less is more. [I've written about how using `fetchpriority="high"` and `loading="lazy"` was implemented in depth here](../2023-01-18-docusaurus-improve-core-web-vitals-fetchpriority/index.md).
 
 ### Internal linking / footer links
 
 Growtika advised that it was worth taking a look at our internal linking strategy. This is about how we link to other pages on our blog from within our blog posts. The idea is that we should link to other pages on our blog that are relevant to the topic of the blog post. This helps search engines understand the structure of our blog and the relationships between the pages.
 
-This was something that I did a little, but I didn't really think about. I'm now much more intentional around internal linking. I'm very much an editor of my content, and as I'm editing my posts / writing new posts I'll take a look at whether I'm linking to other relevant posts on my blog.
+This was something that I did a little, but I didn't really think about. I'm now much more intentional around internal linking. I'm very much an editor of my content, and as I'm editing my posts / writing new posts I'll take a look at whether I'm linking to other relevant posts on my blog and whether perhaps I should be.
 
 You'll possibly have noticed a good number of internal links in this post! I'm careful about how I do this - I have internal links where they are relevant and where I think it adds value. I don't have internal links for the sake of it. Whilst I want to improve my SEO, the main readers of my blog are humans, and I want to make sure that I'm not making the experience worse for them.
 
@@ -248,7 +248,7 @@ As you can see, the difference is significant. With the new enhanced footer I ca
 
 The final suggestion we're going to cover, is that Growtika suggested adding meta descriptions to my blog posts. This is a short description of the content of the blog post that is included in the HTML of the page. It's not visible to humans, but it is visible to search engines. And it's kind of visible to humans at one remove, in that it is used as the description of the page in search results.
 
-I'd previously not included meta descriptions on my blog posts. But Growtika suggested that I add them, I found myself with the daunting task of writing meta descriptions for nearly 300 blog posts. I decided to script it. I wrote a script that would generate a meta description for each blog post based on the content of the blog post, powered by Azure Open AI. I then ran the script and added the meta descriptions to my blog posts. I wrote about [how I did this here](../2023-09-25-azure-open-ai-generate-article-metadata-with-typescript/index.md).
+I'd previously not included meta descriptions on my blog posts. But since Growtika suggested that I add them, I found myself with the daunting task of writing meta descriptions for nearly 300 blog posts. I decided to script it. I wrote a script that would generate a meta description for each blog post based on the content of the blog post, powered by Azure Open AI. I then ran the script and added the meta descriptions to my blog posts. I wrote about [how I did this here](../2023-09-25-azure-open-ai-generate-article-metadata-with-typescript/index.md).
 
 This left me with meta descriptions for all my blog posts. It was also rather fun to use AI for something not GPT or copilot related!
 
@@ -256,7 +256,7 @@ This left me with meta descriptions for all my blog posts. It was also rather fu
 
 As I mentioned earlier, my SEO has now recovered. I'm ranking again in search results. I'm not ranking as highly as I was before, but I'm ranking. I think my site is possibly still in the throes of recovery, but it's definitely trending in the right direction. Here's a graph from ahrefs showing my site's performance over the last two years:
 
-![screenshot from ahrefs showing a massive drop off then recovery](screenshot-ahrefs-two-years.webp)
+![gif from ahrefs showing a massive drop off then recovery](screenshot-ahrefs-two-years.gif)
 
 The graph alone tells a story, a phenomenal drop off in traffic followed by a recovery. Significantly, you can see the drop off and recovery both happen around the time of a Google algorithm update. It shows the power of that algorithm over my site's traffic.
 
