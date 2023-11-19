@@ -4,7 +4,7 @@ title: 'How we fixed my SEO'
 authors: johnnyreilly
 tags: [seo]
 image: ./title-image.png
-description: In October 2022 traffic to my blog dropped like a stone. Growtika collaborated with me to fix it. This is what we did.
+description: In October 2022 traffic to my site dropped like a stone. Growtika collaborated with me to fix it. This is what we did.
 hide_table_of_contents: false
 ---
 
@@ -20,9 +20,9 @@ This post is a biggie; so buckle up!
 
 ## Growtika steps up!
 
-I wrote ["How I ruined my SEO"](../2023-01-15-how-i-ruined-my-seo/index.md) almost as self therapy. I was frustrated that my blog's traffic had dropped. I knew it didn't really matter; my motivation for writing my blog is, in large part, about creating a long term memory for myself. But I was still frustrated. I write things that I know people find useful, and so it was suboptimal that my posts were no longer being found.
+I wrote ["How I ruined my SEO"](../2023-01-15-how-i-ruined-my-seo/index.md) almost as self therapy. I was frustrated that my site's traffic had dropped. I knew it didn't really matter; my motivation for writing my blog is, in large part, about creating a long term memory for myself. But I was still frustrated. I write things that I know people find useful, and so it was suboptimal that my posts were no longer being found.
 
-I should include myself in that. When I'm trying to remember how to do something, and I know I once knew how to do it, I'll often Google it. So it was frustrating that my own blog was no longer being found by me. I was missing me. Vanity, I know.
+I should include myself in that. When I'm trying to remember how to do something, and I know I once knew how to do it, I'll often Google it. So it was frustrating that my own site was no longer being found by me. I was missing me. Vanity, I know.
 
 I shared the post on Hacker News, not really expecting much to happen. But it ranked, and in amongst the conversation that followed, [someone named Growtika offered to help](https://news.ycombinator.com/item?id=34389421#34390189).
 
@@ -32,13 +32,13 @@ I hadn't heard of [Growtika](https://growtika.com/) before; SEO is not my world.
 
 ## The mysterious SEO feedback loop
 
-I spent some time with Growtika talking through my blog. They made some suggestions around getting my blog to align with best practices. They also schooled me on some of the basics of SEO. I was very much a novice in this area, and so I was grateful for the education.
+I spent some time with Growtika talking through my site. They made some suggestions around getting my site to align with best practices. They also schooled me on some of the basics of SEO. I was very much a novice in this area, and so I was grateful for the education.
 
 Here's the thing: SEO is a mystery. Or at least, it's not fully understood. Like Coke haven't published their recipe, Google doesn't publish its (ever evolving) algorithm. They do publish [SEO guidelines](https://developers.google.com/search/docs/fundamentals/seo-starter-guide), but they are just that: guidelines. And so, whilst there are best practices, there is no guarantee that following them will result in success.
 
 What's more, the feedback loop for changes is **long**. It's not like fixing a program with a bug, where you tweak the code, run the tests and see if it's fixed. It's more like making a change to a program, and then waiting weeks or months to see if it's fixed. And if it's not, you have to wait again to see if the next change you make fixes it.
 
-Cause and effect are just not as obvious as you might like, when it comes to SEO. So whilst I'm going to share what we did, I can't say for sure what actually lead to the improvement in my blog's SEO. I'm confident that they were all good things to do. But I be certain which of them made the difference.
+Cause and effect are just not as obvious as you might like, when it comes to SEO. So whilst I'm going to share what we did, I can't say for sure what actually lead to the improvement in my site's SEO. I'm confident that they were all good things to do. But I be certain which of them made the difference.
 
 ## Growtika's suggestions
 
@@ -46,7 +46,7 @@ Over time Growtika worked with me, making suggestions of changes we might make t
 
 ### Updated profile and about page
 
-There's a concept used by Google for ranking known as Experience, Expertise, Authoritativeness, and Trust (E-E-A-T). It's about how much Google trusts the content on your site. Growtika suggested that I update the profile on my blog and the about page to demonstrate my expertise and authority on topics.
+There's a concept used by Google for ranking known as Experience, Expertise, Authoritativeness, and Trust (E-E-A-T). It's about how much Google trusts the content on your site. Growtika suggested that I update the profile on my site and the about page to demonstrate my expertise and authority on topics.
 
 On each blog post I have a profile that looks like this:
 
@@ -54,13 +54,13 @@ On each blog post I have a profile that looks like this:
 
 I used to have no text next to my profile; it was just a link that said "John Reilly" which lead to my Twitter profile page. At Growtika's behest I added a title to demonstrate my expertise and authority on topics, and also I switched the link to my about page instead of Twitter.
 
-The about page itself was also updated to include a richer bio and a list of places where my blog has been featured. This was to demonstrate my expertise and authority on topics. We even snuck in some structured data - more on that later!
+The about page itself was also updated to include a richer bio and a list of places where my site has been featured. This was to demonstrate my expertise and authority on topics. We even snuck in some structured data - more on that later!
 
 ### Remove or `noindex` unnecessary pages
 
-My blog is built using [Docusaurus](https://docusaurus.io/). Docusaurus has a number of pages that are generated by default that duplicate content. There are "pagination" pages which allow you to navigate click by click through the whole history of a blog.
+My site is built using [Docusaurus](https://docusaurus.io/). Docusaurus has a number of pages that are generated by default that duplicate content. There are "pagination" pages which allow you to navigate click by click through the whole history of a blog.
 
-Also there are "tags" (or category) pages that reproduce blog posts under tags that have been added to blog posts:
+Also there are "tags" (or category) pages that reproduce blog posts under tags that have been used to categorise the posts:
 
 ![screenshot of tags](screenshot-tags.png)
 
@@ -68,7 +68,7 @@ In both cases, these pages duplicate content. Rather frustratingly, the pages al
 
 ![screenshot of a canonical tag which reads: link rel="canonical" href="https://johnnyreilly.com/page/2"](screenshot-not-helpful-canonical.png)
 
-Growtika spotted that some of these pagination or tags pages were being prioritised over original blog posts. They suggested that I remove or `noindex` the pagination and tags pages to provide a clear signal to search engines about which pages were the most important. I chose to `noindex` them. My blog is hosted on [Azure Static Web Apps](../2023-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.md) and so I was able to achieve this fairly easily by adding the following to my `staticwebapp.config.json` file:
+Growtika spotted that some of these pagination or tags pages were being prioritised over original blog posts. They suggested that I remove or `noindex` the pagination and tags pages to provide a clear signal to search engines about which pages were the most important. I chose to `noindex` them. My site is hosted on [Azure Static Web Apps](../2023-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.md) and so I was able to achieve this fairly easily by adding the following to my `staticwebapp.config.json` file:
 
 ```json title="staticwebapp.config.json"
 {
@@ -95,11 +95,11 @@ Alongside `noindex`ing the pagination and tags pages, Growtika suggested that I 
 
 Further to that, I write posts for other websites sometimes and cross post it on my own blog, with a canonical pointing to the original post. Growtika suggested that I remove these posts from the `sitemap.xml` as they are not the canonical source of the content.
 
-I've a number of post processing steps that run in my blogs build step and I included this filtering in it. In the end it amounted to [filtering an XML file; which is pretty straightforward - I wrote about it to demonstrate](../2022-11-22-xml-read-and-write-with-node-js/index.md).
+I've a number of post processing steps that run in my sites build step and I included this filtering in it. In the end it amounted to [filtering an XML file; which is pretty straightforward - I wrote about it to demonstrate](../2022-11-22-xml-read-and-write-with-node-js/index.md).
 
-As well as filtering my `sitemap.xml`, I went a little further and added `lastmod` timestamps to the `sitemap.xml` based on the git commit date of the markdown file that the blog post was generated from. This was to help search engines understand the how recent of the content on my blog is. [I wrote about how I did this](../2022-11-25-adding-lastmod-to-sitemap-git-commit-date/index.md). Google have subsequently announced that they use [`lastmod` as a signal for scheduling re-crawling URLs](https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping#the-lastmod-element) and so this turns out to have been a helpful change to make.
+As well as filtering my `sitemap.xml`, I went a little further and added `lastmod` timestamps to the `sitemap.xml` based on the git commit date of the markdown file that the blog post was generated from. This was to help search engines understand the how recent of the content on my site is. [I wrote about how I did this](../2022-11-25-adding-lastmod-to-sitemap-git-commit-date/index.md). Google have subsequently announced that they use [`lastmod` as a signal for scheduling re-crawling URLs](https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping#the-lastmod-element) and so this turns out to have been a helpful change to make.
 
-Alongside this, I added a `robots.txt` to my blog. These are files that search engines use to understand the structure of a site and what they should and should not index. I didn't previously have one and the one I added was pretty rudimentary:
+Alongside this, I added a `robots.txt` to my site. These are files that search engines use to understand the structure of a site and what they should and should not index. I didn't previously have one and the one I added was pretty rudimentary:
 
 ```text title="robots.txt"
 User-agent: *
@@ -114,7 +114,7 @@ I don't know how much this helped, but it certainly didn't hurt.
 
 One of the most intriguing suggestions that Growtika made was to build on the structured data support in my site. Structured data is a way of providing metadata about a page in a machine readable format. It's a way of providing a clear signal to search engines about the content of a page; it makes their lives easier.
 
-As it turned out, I already had some structured data support in my blog; [I'd written about how to add it previously](../2021-10-15-structured-data-seo-and-react/index.md). But Growtika suggested that I add more structured data to my blog. They suggested that I add:
+As it turned out, I already had some structured data support in my site; [I'd written about how to add it previously](../2021-10-15-structured-data-seo-and-react/index.md). But Growtika suggested that I add more structured data to my site. They suggested that I add:
 
 #### FAQs with Structured Data
 
@@ -144,7 +144,7 @@ You can see how the structured data is implemented in [this PR](https://github.c
 
 In this change we are _heavily_ inspired by the work [Yoast have done with structured data](https://yoast.com/rich-results-schema-structured-data-story/).
 
-With this in place, every page that search engines index on my blog will have structured data that describes the site as a whole.
+With this in place, every page that search engines index on my site will have structured data that describes the site as a whole.
 
 #### Breadcrumbs with Structured Data
 
@@ -152,21 +152,21 @@ Finally Growtika suggested that I add breadcrumbs to my blog posts. Breadcrumbs 
 
 ### Do backlinks better!
 
-I mentioned in ["How I ruined my SEO"](../2023-01-15-how-i-ruined-my-seo/index.md) that I had a number of backlinks to my blog. I also mentioned that I had broken a number of the backlinks by my carelessness. Growtika suggested that I fix the broken backlinks and also that I do a better job of backlinks in general.
+I mentioned in ["How I ruined my SEO"](../2023-01-15-how-i-ruined-my-seo/index.md) that I had a number of backlinks to my site. I also mentioned that I had broken a number of the backlinks by my carelessness. Growtika suggested that I fix the broken backlinks and also that I do a better job of backlinks in general.
 
-I'd already implemented support for dynamic redirects on my blog. What this meant was, if someone linked through to a non-existent page on my blog, rather than having just a 404 Not Found, I could do some fairly sophisticated work to redirect them to the correct URL. Thus protecting (and unbreaking previously broken) backlinks. By the way, using Azure Static Web Apps as my hosting mechanism really helped me out here as the dynamic redirect mechanism I had was super powerful - I wasn't limited to regexes. If you want see how I did that [have a read of this](../2022-12-22-azure-static-web-apps-dynamic-redirects-azure-functions/index.md).
+I'd already implemented support for dynamic redirects on my site. What this meant was, if someone linked through to a non-existent page on my site, rather than having just a 404 Not Found, I could do some fairly sophisticated work to redirect them to the correct URL. Thus protecting (and unbreaking previously broken) backlinks. By the way, using Azure Static Web Apps as my hosting mechanism really helped me out here as the dynamic redirect mechanism I had was super powerful - I wasn't limited to regexes. If you want see how I did that [have a read of this](../2022-12-22-azure-static-web-apps-dynamic-redirects-azure-functions/index.md).
 
 Growtika said what I had was good, but I could do better. They suggested that I:
 
 - exhaustively fix all my broken backlinks; getting them all to redirect to the correct place. Tedious, but worth it.
-- add a redirect from my old blog domain to my new one (blog.johnnyreilly.com -> johnnyreilly.com)
+- add a redirect from my old site domain to my new one (blog.johnnyreilly.com -> johnnyreilly.com)
 - redirect **only once**. I had a number of redirects that were chained together. 301 leading to 301 leading to 301 (yes!) and only then leading to a 200. Growtika suggested that I redirect only once. This was to ensure that search engines didn't have to follow a chain of redirects to get to the content they were looking for. Search engines don't like that by all accounts; you lose "link juice" the more redirects there are. Also, multi redirects make my website work harder than it needs to.
 
 Again, less is more! With these changes made, I had a much better backlink story.
 
 ### Remove date from urls
 
-It used to be the case that the URLs for my blog posts always featured the date of publication. This was a hangover from when I used to use Blogger as my blogging platform. I'd migrated from Blogger to Docusaurus, and I'd kept the date in the URL. It so happens that Docusaurus has a similar behaviour too.
+It used to be the case that the URLs for my blog posts always featured the date of publication. This was a hangover from when I used to use Blogger as my blogging platform. I'd [migrated from Blogger to Docusaurus](../2021-03-15-definitive-guide-to-migrating-from-blogger-to-docusaurus/index.md), and I'd kept the date in the URL. It so happens that Docusaurus has a similar behaviour too.
 
 Growtika suggested that I remove the date from the URL. This was to make the URLs shorter and more readable. It was also to make the URLs more stable; if I ever changed the date of a blog post, the URL would change. This would break any backlinks to the blog post.
 
@@ -190,25 +190,25 @@ To implement this we used the [`slug feature of Docusaurus`](https://docusaurus.
 
 Another aspect which factors into SEO is performance. Google has a [Core Web Vitals](https://web.dev/articles/vitals) measurement which is about evaluating the performance of websites. It covers how fast a website loads, how responsive it is / how quickly it becomes interactive.
 
-The thing that was hurting my blog's performance was images. The images on my blog were generally not optimised at all. They were also not lazy loaded. This meant that the images were slowing down the loading of my blog, and this reflected in my [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/) scores.
+The thing that was hurting my site's performance was images. The images on my site were generally not optimised at all. They were also not lazy loaded. This meant that the images were slowing down the loading of my site, and this reflected in my [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/) scores.
 
 I took a number of actions to improve the site image performance.
 
 #### Improved performance using TinyPNG's image optimisation API
 
-The first, and most obvious, was to optimise the images on my blog. There's many ways you can do this; I chose to use [TinyPNG's API](https://tinypng.com/developers). I wrote about [how I did this](../2023-01-22-image-optimisation-tinypng-api/index.md). Ultimately I wrote a script that optimised all the images on my blog, and wrote allowed me to run it on demand for the images of a particular post.
+The first, and most obvious, was to optimise the images on my site. There's many ways you can do this; I chose to use [TinyPNG's API](https://tinypng.com/developers). I wrote about [how I did this](../2023-01-22-image-optimisation-tinypng-api/index.md). Ultimately I wrote a script that optimised all the images on my site, and wrote allowed me to run it on demand for the images of a particular post.
 
-This shrunk the file size of images my site served significantly, and improved the performance of my blog.
+This shrunk the file size of images my site served significantly, and improved the performance of my site.
 
-I also [added Lighthouse to my blog's build step](../2022-03-20-lighthouse-meet-github-actions/index.md), so I could get some performance measurements being surfaced into my PRs. This made it easy to catch regressions where I might accidentally add unoptimised images to my blog.
+I also [added Lighthouse to my site's build step](../2022-03-20-lighthouse-meet-github-actions/index.md), so I could get some performance measurements being surfaced into my PRs. This made it easy to catch regressions where I might accidentally add unoptimised images to my site.
 
 #### Improved performance using Cloudinary's on demand image transformation CDN
 
 Having tackled the low hanging fruit of images not being optimal in the first place, I then went further. Cloudinary offer a [CDN that can transform images on demand](https://cloudinary.com/documentation/image_transformations). This means that you can serve the same image in different sizes, formats and qualities depending on the device that is requesting it. This is a great way to improve performance.
 
-I was able to plug the Cloudinary CDN into my blog using by building a the [`rehype-cloudinary-docusaurus` plugin](https://github.com/johnnyreilly/rehype-cloudinary-docusaurus) which can be used to integrate Cloudinary into Docusaurus. You can [read more about how it works here](../2022-12-26-docusaurus-image-cloudinary-rehype-plugin/index.md).
+I was able to plug the Cloudinary CDN into my site using by building a the [`rehype-cloudinary-docusaurus` plugin](https://github.com/johnnyreilly/rehype-cloudinary-docusaurus) which can be used to integrate Cloudinary into Docusaurus. You can [read more about how it works here](../2022-12-26-docusaurus-image-cloudinary-rehype-plugin/index.md).
 
-Now when my blog serves an image, it serves the optimal image for the device that is requesting it. This improves the performance of my blog. (And you can do this too if you're using Docusaurus!)
+Now when my site serves an image, it serves the optimal image for the device that is requesting it. This improves the performance of my site. (And you can do this too if you're using Docusaurus!)
 
 In fact I went a little further and scripted the patching of my [Open Graph images](../2021-12-12-open-graph-sharing-previews-guide/index.md) to make use of Cloudinary too. This meant that the images that were shared on social media were also optimised for the device that was requesting them. I don't think this helped with SEO, but I'd noticed that large / slow loading Open Graph images aren't always used by platforms that support the Open Graph protocol. With this in place, this became much less of an issue.
 
@@ -216,7 +216,7 @@ Incidentally, Cloudinary got wind of this change and invited me onto their [DevJ
 
 #### Improved performance using `fetchpriority="high"` and `loading="lazy"`
 
-So far we'd handled the performance of images on my blog by optimising them and serving them in an optimal way. But there was more we could do. We could also make sure that the images on my blog were loaded in an optimal way.
+So far we'd handled the performance of images on my site by optimising them and serving them in an optimal way. But there was more we could do. We could also make sure that the images on my site were loaded in an optimal way.
 
 We did this by adding `fetchpriority="high"` to the first image on each blog post; the "title" image if you will. This is a hint to the browser that the image is important and should be loaded as soon as possible. We also added `loading="lazy"` to all the other images on the blog post. This is a hint to the browser that those images (the "below the fold" images) are not as important and can be loaded later if and when they are required.
 
@@ -230,7 +230,9 @@ Growtika advised that it was worth taking a look at our internal linking strateg
 
 This was something that I did a little, but I didn't really think about. I'm now much more intentional around internal linking. I'm very much an editor of my content, and as I'm editing my posts / writing new posts I'll take a look at whether I'm linking to other relevant posts on my blog.
 
-Alongside that, Growtika suggested that the footer of my site was a prime place to add links to significant posts on my site, and also to give an indication of topics that this site seeks to cover.
+You'll possibly have noticed a good number of internal links in this post! I'm careful about how I do this - I have internal links where they are relevant and where I think it adds value. I don't have internal links for the sake of it. Whilst I want to improve my SEO, the main readers of my blog are humans, and I want to make sure that I'm not making the experience worse for them.
+
+Alongside upping my internal linking game, Growtika suggested that the footer of my site was a prime place to add links to notable posts on my site, and also to give an indication of topics that this site seeks to cover.
 
 A picture is worth a thousand words, so here's what the footer of my site used to look like:
 
@@ -248,7 +250,7 @@ The final suggestion we're going to cover, is that Growtika suggested adding met
 
 I'd previously not included meta descriptions on my blog posts. But Growtika suggested that I add them, I found myself with the daunting task of writing meta descriptions for nearly 300 blog posts. I decided to script it. I wrote a script that would generate a meta description for each blog post based on the content of the blog post, powered by Azure Open AI. I then ran the script and added the meta descriptions to my blog posts. I wrote about [how I did this here](../2023-09-25-azure-open-ai-generate-article-metadata-with-typescript/index.md).
 
-This left me with meta descriptions for all my blog posts. It was also kinda fun to use AI for something not GPT or copilot related.
+This left me with meta descriptions for all my blog posts. It was also rather fun to use AI for something not GPT or copilot related!
 
 ## The results
 
@@ -258,7 +260,11 @@ As I mentioned earlier, my SEO has now recovered. I'm ranking again in search re
 
 The graph alone tells a story, a phenomenal drop off in traffic followed by a recovery. Significantly, you can see the drop off and recovery both happen around the time of a Google algorithm update. It shows the power of that algorithm over my site's traffic.
 
+## Conclusion
+
 I never would have expected to come to write a post like this. SEO was something I didn't think about much. But it turns out that a way to get my attention, is taking away my traffic! I'm actually rather grateful that all this happened as it got me to thinking and learning about SEO in a way that I quite enjoyed.
+
+As I say, whilst I can't be certain which of the changes we made made the difference, I'm confident that my site now is better than my site a year ago. It loads faster, it's more performant, it's more structured, it's better linked, it's better optimised. It's better. It looks the part too. I'm really quite proud of it.
 
 I'm also phenomenally grateful to Growtika for their help. I should say that a few others offered pointers and suggestions which I was thankful for. But it was Growtika who stuck by my side for the long haul. For nearly a year they worked with me; and for a long time saw no improvements in my sites traffic at all. They didn't give up. They were patient with me, and they were generous with their time and expertise. I'm very grateful to them for all their help.
 
