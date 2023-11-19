@@ -254,6 +254,6 @@ This left me with meta descriptions for all my blog posts. It was also kinda fun
 
 As I mentioned earlier, my SEO has now recovered. I'm ranking again in search results. I'm not ranking as highly as I was before, but I'm ranking. I think my site is possibly still in the throes of recovery, but it's definitely trending in the right direction. Here's a graph from ahrefs showing my site's performance over the last two years:
 
-![screenshot from ahrefs showing a massive drop off then recovery](screenshot-ahrefs-two-years.png)
+![screenshot from ahrefs showing a massive drop off then recovery](screenshot-ahrefs-two-years.webp)
 
 The graph alone tells a story, a phenomenal drop off in traffic followed by a recovery. Significantly, you can see the drop off and recovery both happen around the time of a Google algorithm update. It shows the power of that algorithm over my site's traffic.
