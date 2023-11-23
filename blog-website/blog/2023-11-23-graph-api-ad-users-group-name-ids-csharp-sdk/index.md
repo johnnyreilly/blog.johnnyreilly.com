@@ -41,8 +41,10 @@ Now we've configured our app registration, we can query the Graph API. I'm going
 
 The first thing we need to do is install the SDK. I'm using the [Microsoft.Graph](https://www.nuget.org/packages/Microsoft.Graph/) package. At the time of writing, the latest version is 5.35.0.
 
-```xml
-    <PackageReference Include="Microsoft.Graph" Version="5.35.0" />
+Once you have added it, you'll have an entry in your `.csproj` along these lines:
+
+```xml title="MyApp.csproj"
+<PackageReference Include="Microsoft.Graph" Version="5.35.0" />
 ```
 
 If you're interested in the underlying project, you can find it as [`msgraph-sdk-dotnet` on GitHub](https://github.com/microsoftgraph/msgraph-sdk-dotnet).
