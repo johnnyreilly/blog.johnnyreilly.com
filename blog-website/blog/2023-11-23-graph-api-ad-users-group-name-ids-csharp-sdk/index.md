@@ -51,7 +51,7 @@ If you're interested in the underlying project, you can find it as [`msgraph-sdk
 
 ### Create a GraphServiceClient
 
-Next, we need to create a `GraphServiceClient`. This is the object that we'll use to query the Graph API. We'll need to pass in the `tenantId`, `clientId` and `clientSecret` that we got from our app registration:
+Next, we need to create a `GraphServiceClient`. This is the object that we'll use to query the Graph API. For that we'll need a credential which we'll construct using the `tenantId`, `clientId` and `clientSecret` that we got from our app registration:
 
 ```cs
 using Azure.Identity;
