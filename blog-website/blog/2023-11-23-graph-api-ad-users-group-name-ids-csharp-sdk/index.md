@@ -1,6 +1,6 @@
 ---
 slug: graph-api-ad-users-group-name-ids-csharp-sdk
-title: 'Graph API: getting user's Active Directory group names and ids with the C# SDK'
+title: 'Graph API: getting users Active Directory group names and ids with the C# SDK'
 authors: johnnyreilly
 image: ./title-image.png
 tags: [auth, azure, c#, asp.net]
