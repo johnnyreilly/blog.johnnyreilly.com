@@ -10,7 +10,7 @@ hide_table_of_contents: false
 
 The Graph API is a great way to get information about users in Azure Active Directory. I recently needed to get the names and ids of the Active Directory groups that a user was a member of. Here's how to do it with the C# SDK.
 
-I'm writing this post as, whilst it ends up being a relatively small amount of code and configuration required, if you don't know what that is, you can end up somewhat stuck. This should hopefully unstick you. And me in six months time when I've forgotten how to do it. 😅
+I'm writing this post as, whilst it ends up being a relatively small amount of code and configuration required, if you don't know what that is, you can end up somewhat stuck. This should hopefully unstick you.
 
 ![title image reading "Graph API: getting users AD group names and ids with the C# SDK" with the Azure Graph and C# logos](title-image.png)
 
