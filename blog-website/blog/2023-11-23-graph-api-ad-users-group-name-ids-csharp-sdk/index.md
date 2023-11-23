@@ -4,7 +4,7 @@ title: 'Graph API: getting users Active Directory group names and ids with the C
 authors: johnnyreilly
 image: ./title-image.png
 tags: [auth, azure, c#, asp.net]
-description: Learn how to get Active Directory group names and ids from the Graph API using the C# SDK.
+description: Learn how to get the Azure Active Directory group names and ids from the Graph API using the C# SDK.
 hide_table_of_contents: false
 ---
 
