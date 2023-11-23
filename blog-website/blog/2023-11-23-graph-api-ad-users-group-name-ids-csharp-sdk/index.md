@@ -112,7 +112,7 @@ Let's unpack the code above. It does the following:
 
 The `PageIterator` is somewhat confusing, in my opinion. I'm used to paging through results, but this way of doing it did puzzle me. If you're interested in learning more about the `PageIterator`, check out the ["paging" documentation](https://learn.microsoft.com/en-us/graph/sdks/paging?tabs=csharp). I also found [this documentation helpful](https://github.com/microsoftgraph/msgraph-sdk-dotnet/blob/dev/docs/upgrade-to-v5.md#pageiterator).
 
-I also found that the `PageIterator` was throwing an exception when I first tried to use it. [I found the answer to that on StackOverflow](https://stackoverflow.com/questions/75860298/graphserviceclient-pageitarator-failes-with-the-parsable-does-not-contain-a-col). It turns out that the types you specify for the `PageIterator` need to be correct for the request above; and if not you may be impaced by type mismatches at runtime. I've the correct types in my code now - but I mention it just in case.
+Initially the `PageIterator` was throwing an exception when I used it. [I found the answer to that on StackOverflow](https://stackoverflow.com/questions/75860298/graphserviceclient-pageitarator-failes-with-the-parsable-does-not-contain-a-col). It turns out that the types you specify for the `PageIterator` need to be correct for the request above; and if not you may be impaced by type mismatches at runtime. The entries that are returned from the API may be wider or simply different to what you require. I've the correct types in my code now - but I mention it just in case.
 
 ## Putting it all together
 
