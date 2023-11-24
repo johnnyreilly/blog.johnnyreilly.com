@@ -1,14 +1,14 @@
 [
   {
-    "link": "bun-overview",
-    "title": "Overview of Bun, a JavaScript runtime"
+    "link": "graph-api-ad-users-group-name-ids-csharp-sdk",
+    "title": "Graph API: getting users AD group names and ids with the C# SDK"
   },
   {
-    "link": "docusaurus-3-how-to-migrate-rehype-plugins",
-    "title": "Docusaurus 3: how to migrate rehype plugins"
+    "link": "graph-api-ad-users-group-name-ids-csharp-sdk",
+    "title": "Graph API: getting users Active Directory group names and ids with the C# SDK"
   },
   {
-    "link": "output-connection-strings-and-keys-from-azure-bicep",
-    "title": "Output connection strings and keys from Azure Bicep"
+    "link": "azure-container-apps-easy-auth-and-dotnet-authentication",
+    "title": "Azure Container Apps, Easy Auth and .NET authentication"
   }
 ]

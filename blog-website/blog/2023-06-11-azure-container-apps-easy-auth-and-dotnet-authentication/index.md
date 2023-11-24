@@ -35,7 +35,7 @@ I recently started building a .NET application using Easy Auth and deploying to 
 
 The emphasis above is mine. What it's saying here is this: **you need to implement this yourself**.
 
-## Examining the headers
+## Easy Auth Azure Container App headers
 
 Sure enough, when I inspected the headers in my application, I could see these:
 
@@ -51,7 +51,52 @@ If you decode it, you'll see something like this:
 
 ![a screenshot of the decoded object](screenshot-decoded-x-ms-client-principal-header.png)
 
-Given that this information is present, let's tell .NET about it.
+Given that this information is present, what we can do is tell .NET about it.
+
+But before we do that, let's pause to talk about a current limitation with Easy Auth on Azure Container Apps; JWT support.
+
+## Lack of JWT / Token support
+
+The problem is, there's not JWT token that we can make use of in the headers of an Azure Container App. This is supported in [App Service which has a token store](https://learn.microsoft.com/en-us/azure/app-service/overview-authentication-authorization#token-store) and supports the [following headers](https://learn.microsoft.com/en-us/azure/app-service/configure-authentication-oauth-tokens#retrieve-tokens-in-app-code):
+
+```
+X-MS-TOKEN-AAD-ID-TOKEN
+X-MS-TOKEN-AAD-ACCESS-TOKEN
+X-MS-TOKEN-AAD-EXPIRES-ON
+X-MS-TOKEN-AAD-REFRESH-TOKEN
+```
+
+If there was a populated `X-MS-TOKEN-AAD-ACCESS-TOKEN` then it would unlock all manner of possibilities. Let's say I want to make use of the Graph API on behalf of my logged in user. I cannot.
+
+Reading [the docs](https://learn.microsoft.com/en-us/graph/sdks/choose-authentication-providers?tabs=csharp#on-behalf-of-provider) I believe I should be trying to use the "on behalf of" approach:
+
+```cs
+var scopes = new[] { "https://graph.microsoft.com/.default" };
+
+// Multi-tenant apps can use "common",
+// single-tenant apps must use the tenant ID from the Azure portal
+var tenantId = "common";
+
+// Values from app registration
+var clientId = "YOUR_CLIENT_ID";
+var clientSecret = "YOUR_CLIENT_SECRET";
+
+// using Azure.Identity;
+var options = new OnBehalfOfCredentialOptions
+{
+    AuthorityHost = AzureAuthorityHosts.AzurePublicCloud,
+};
+
+// This is the incoming token to exchange using on-behalf-of flow
+var oboToken = "JWT_TOKEN_TO_EXCHANGE";
+
+var onBehalfOfCredential = new OnBehalfOfCredential(
+    tenantId, clientId, clientSecret, oboToken, options);
+
+var graphClient = new GraphServiceClient(onBehalfOfCredential, scopes);
+```
+
+But because we have no token to exchange, we can't make use of delegated permissions in the Graph API. This is a current limitation of using Easy Auth and Azure Container Apps. Keep an eye on [this GitHub issue if this is interesting to you](https://github.com/microsoft/azure-container-apps/issues/479).
 
 ## Implementing `AddAzureContainerAppsEasyAuth()`
 
