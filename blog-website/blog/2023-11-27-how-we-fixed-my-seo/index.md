@@ -1,7 +1,12 @@
 ---
 slug: how-we-fixed-my-seo
 title: 'How we fixed my SEO'
-authors: johnnyreilly
+authors:
+  - johnnyreilly
+  - name: Growtika
+    title: A dedicated SEO and growth marketing firm for dev-focused, cybersecurity, fintech and deep tech startups
+    url: https://growtika.com/
+    image_url: ./growtika-logo.jpg
 tags: [seo]
 image: ./title-image.png
 description: In October 2022 traffic to my site dropped like a stone. Growtika collaborated with me to fix it. This is what we did.
