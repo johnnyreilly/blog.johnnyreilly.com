@@ -334,19 +334,28 @@ The value of canonicals boosting your SEO may be overblown. It certainly didn't 
 
 ### Get your site featured in relevant places
 
-Whilst actually publishing your content on other sites is a bad idea, getting your site featured in relevant places is a good idea. This is about getting your site linked to from other sites. This is a signal to search engines that your site is relevant and important.
+Whilst actually publishing your content on other sites with a canonical turns out not to be the best idea, getting your site featured in relevant places is a good idea. This is about getting your site linked to from other sites. This is a signal to search engines that your site is relevant and important.
 
 I already had a number of links to my site from other sites. For instance, I'd regularly show up in [Azure Weekly](https://azureweekly.info/), [The Morning Brew](https://blog.cwa.me.uk/) and a number of other sites. Many of these use my RSS feed.
 
-I also submitted my site to a number of other places. For instance, I submitted my site to [daily.dev](https://daily.dev/).
+I also submitted my site to a number of other places. For instance, I submitted my site to [daily.dev](https://daily.dev/). A good rule of thumb here for picking places tended to be "where do you go to read about the topics you write about?". But crucially I didn't place my content on others sites, I just linked to my site from other sites.
+
+As a side note, I rather wish that RSS still thrived. I support it - people still use it to read my blog. But it's not as popular as it once was.
 
 ### Add meta description to blog posts
 
-The final suggestion we're going to cover, is adding meta descriptions to my blog posts. This is a short description of the content of the blog post that is included in the HTML of the page. It's not visible to humans, but it is visible to search engines. And it's kind of visible to humans at one remove, in that it is often used as the description of the page in search results.
+The final tweak we're going to cover, is adding meta descriptions to my posts. This is a short description of the content of the blog post that is included in the HTML of the page:
 
-Meta descriptions can technically be any length, but Google generally truncates snippets to ~155-160 characters. It's best to keep meta descriptions long enough that they're sufficiently descriptive, so we recommend descriptions between 50 and 160 characters.
+```html
+<meta
+  name="description"
+  content="In October 2022 traffic to my site dropped like a stone. Growtika collaborated with me to fix it. This is what we did."
+/>
+```
 
-Recommended meta description guidelines:
+It's not visible to humans, but it is visible to search engines. And it's kind of visible to humans at one remove, in that it is often used as the description of the page in search results.
+
+We followed these meta description guidelines:
 
 - Keep it between 150-155 characters
 - Use an active voice and make it actionable / include a call to action
@@ -366,7 +375,7 @@ As I mentioned earlier, my SEO has now recovered. I'm ranking again in search re
 
 The graph alone tells a story, a phenomenal drop off in traffic followed by a recovery.
 
-Significantly, you can see the drop off happened around the time of a Google algorithm update. Likewise, it's really important to highlight that the traffic increased also around the time Google made another algorithm update. It's impossible to know if the traffic would still have gone up if we had not made our changes. Maybe it would, maybe it would; but not as much. We just don't know. It does demonstrate the power of Google's algorithm updates though.
+Significantly, you can see the drop off happened around the time of a Google algorithm update. Likewise, it's really important to highlight that the traffic **increased** around the time Google made _another_ algorithm update. It's impossible to know if the traffic would still have gone up if we had not made our changes. Maybe it would, maybe it would; but not as much. We just don't know. It does demonstrate the power of Google's algorithm updates though.
 
 ## Conclusion
 
