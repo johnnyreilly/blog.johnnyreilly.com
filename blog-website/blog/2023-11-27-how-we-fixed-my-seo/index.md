@@ -53,7 +53,12 @@ Over the time we worked together, Growtika made a number of suggestions. Changes
 
 ### Updated profile and about page
 
-There's a concept used by Google for ranking known as Experience, Expertise, Authoritativeness, and Trust (E-E-A-T). It's about how much Google trusts the content on your site. I update the profile on my site and the about page to demonstrate my expertise and authority on topics.
+There's a concept used by Google for ranking known as Experience, Expertise, Authoritativeness, and Trust (E-E-A-T). It's about how much Google trusts the content on your site. When evaluating an author's profile for a blog post, it's worth considering the following E-E-A-T aspects:
+
+- **Experience**: What is the author's practical experience in the topic area?
+- **Expertise**: Does the author have specialized knowledge or educational background in the subject?
+- **Authoritativeness**: How is the author recognized by peers or industry experts? Are there publications or professional achievements highlighting their authority?
+- **Trustworthiness**: Can the reader rely on the author for accurate and ethical information? Consider their track record and any endorsements by credible sources.
 
 On each blog post I had a profile picture. But it wasn't being all it could be; it looked like this:
 
@@ -65,7 +70,7 @@ It's my face and the text "John Reilly" which linked through to my Twitter (now 
 
 Alongside my picture and name I added a byline to demonstrate my expertise and authority on topics: "OSS Engineer - TypeScript, Azure, React, Node.js, .NET". Alongside that, I switched the link to the about page on my site instead of Twitter.
 
-The [about](/about) page itself was also updated to include a richer bio and a list of places where my site has been featured:
+Since the author profile at the top of the page can't answer all the E-E-A-T points, adding enriching my about page was the way forward. The [about](/about) page itself was also updated to include a richer bio and a list of places where my site has been featured:
 
 ![screenshot of the "where has this blog featured section"](screenshot-where-has-this-blog-featured.webp)
 
