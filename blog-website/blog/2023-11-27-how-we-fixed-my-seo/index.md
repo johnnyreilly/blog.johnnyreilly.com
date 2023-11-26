@@ -33,9 +33,7 @@ I shared the post on Hacker News, not really expecting much to happen. But it ra
 
 ![screenshot of the Hacker News conversation with Growtika](screenshot-hacker-news-growtika.webp)
 
-I hadn't heard of [Growtika](https://growtika.com/) before; SEO is not my world. But it turned out that Growtika specialise in helping organisations with that. Out of the goodness of their hearts, they offered to assist me. Never one to look a gift horse in the mouth, I leapt at the offer.
-
-![The Growtika company logo](growtika-logo.png)
+I hadn't heard of Growtika before; SEO is not my world. But it turned out that Growtika specialise in helping organisations with that. Out of the goodness of their hearts, they offered to assist me. Never one to look a gift horse in the mouth, I leapt at the offer.
 
 ## The mysterious SEO feedback loop
 
