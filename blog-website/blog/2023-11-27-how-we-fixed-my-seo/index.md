@@ -6,7 +6,7 @@ authors:
   - name: Growtika
     title: A dedicated SEO and growth marketing firm for dev-focused, cybersecurity, fintech and deep tech startups
     url: https://growtika.com/
-    image_url: ./growtika-logo.jpg
+    image_url: ./growtika-logo.webp
 tags: [seo]
 image: ./title-image.png
 description: In October 2022 traffic to my site dropped like a stone. Growtika collaborated with me to fix it. This is what we did.
@@ -31,7 +31,7 @@ I should include myself in that. When I'm trying to remember how to do something
 
 I shared the post on Hacker News, not really expecting much to happen. But it ranked, and in amongst the conversation that followed, [someone named Growtika offered to help](https://news.ycombinator.com/item?id=34389421#34390189).
 
-![screenshot of the Hacker News conversation with Growtika](screenshot-hacker-news-growtika.png)
+![screenshot of the Hacker News conversation with Growtika](screenshot-hacker-news-growtika.webp)
 
 I hadn't heard of [Growtika](https://growtika.com/) before; SEO is not my world. But it turned out that Growtika specialise in helping organisations with that. Out of the goodness of their hearts, they offered to assist me. Never one to look a gift horse in the mouth, I leapt at the offer.
 
@@ -59,17 +59,17 @@ There's a concept used by Google for ranking known as Experience, Expertise, Aut
 
 On each blog post I had a profile picture. But it wasn't being all it could be; it looked like this:
 
-![picture of the profile image of this blog's author](screenshot-profile-picture-before.png)
+![picture of the profile image of this blog's author](screenshot-profile-picture-before.webp)
 
 It's my face and the text "John Reilly" which linked through to my Twitter (now X) profile page. Nice enough but not really demonstrating my expertise and authority on topics. I updated it to look like this:
 
-![picture of the profile image of this blog's author with a byline](screenshot-profile-picture-after.png)
+![picture of the profile image of this blog's author with a byline](screenshot-profile-picture-after.webp)
 
 Alongside my picture and name I added a byline to demonstrate my expertise and authority on topics: "OSS Engineer - TypeScript, Azure, React, Node.js, .NET". Alongside that, I switched the link to the about page on my site instead of Twitter.
 
 The [about](/about) page itself was also updated to include a richer bio and a list of places where my site has been featured:
 
-![screenshot of the "where has this blog featured section"](screenshot-where-has-this-blog-featured.png)
+![screenshot of the "where has this blog featured section"](screenshot-where-has-this-blog-featured.webp)
 
 This was to demonstrate my expertise and authority on topics. We even snuck in some structured data - more on that later!
 
@@ -77,15 +77,15 @@ This was to demonstrate my expertise and authority on topics. We even snuck in s
 
 My site is built using [Docusaurus](https://docusaurus.io/). Now I love Docusaurus, but it's not perfect. One of the problems with it is that it generates a number of pages that are not helpful for SEO as they **duplicate content**. (This is a bad thing for SEO.)
 
-![screenshot of duplicate content report](screenshot-duplicate-content.png)
+![screenshot of duplicate content report](screenshot-duplicate-content.webp)
 
 Docusaurus generates "pagination" pages which allow you to navigate click by click through the whole history of a blog.
 
-![screenshot of the Docusaurus pagination mechanism](screenshot-docusaurus-pagination.png)
+![screenshot of the Docusaurus pagination mechanism](screenshot-docusaurus-pagination.webp)
 
 Also there are "tags" (or category) pages that reproduce blog posts under tags that have been used to categorise the posts:
 
-![screenshot of the Docusaurus tags mechanism](screenshot-docusaurus-tags.png)
+![screenshot of the Docusaurus tags mechanism](screenshot-docusaurus-tags.webp)
 
 In both cases, these pages duplicate content - which lead to the above report. Rather frustratingly, the pages also feature `canonical` link tags which rather suggest that they are the canonical source of the content:
 
@@ -187,7 +187,7 @@ You likely know that a primary way that search engines find content on your site
 
 My initial site structure was not great. I had a number of pages that were 4+ clicks away from the home page:
 
-![screenshot of a pages depth report](screenshot-pages-depth.png)
+![screenshot of a pages depth report](screenshot-pages-depth.webp)
 
 A primary reason for my pages crawl depth this was the pagination and tags pages I mentioned earlier. We originally displayed a single blog post per page, and so the pagination pages were many. Likewise, we had a lot of tags, and so the tags pages were many. This meant that the pages crawl depth was high. You want to keep the pages crawl depth as low as possible. Less is more.
 
