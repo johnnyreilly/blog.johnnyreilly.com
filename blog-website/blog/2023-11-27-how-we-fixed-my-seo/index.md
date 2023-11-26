@@ -155,9 +155,9 @@ Alongside `noindex`ing the pagination and tags pages, we took a look at my `site
 
 Further to that, I write posts for other websites sometimes and cross post it on my own blog, with a canonical pointing to the original post. Having these posts in the `sitemap.xml` wasn't quite right as they are not the canonical source of the content. I removed them.
 
-I've a number of post processing steps that run in my sites build step and I included this filtering in it. In the end it amounted to [filtering an XML file; which is pretty straightforward - I wrote about it to demonstrate](../2022-11-22-xml-read-and-write-with-node-js/index.md).
+I've a number of post processing steps that run in my build step of my site, and I included this filtering in it. In the end it amounted to [filtering an XML file; which is pretty straightforward - I wrote about it to demonstrate](../2022-11-22-xml-read-and-write-with-node-js/index.md).
 
-As well as filtering my `sitemap.xml`, I went a little further and added `lastmod` timestamps to the `sitemap.xml` based on the git commit date of the markdown file that the blog post was generated from. This was to help search engines understand the how recent of the content on my site is. [I wrote about how I did this](../2022-11-25-adding-lastmod-to-sitemap-git-commit-date/index.md). Google have subsequently announced that they use [`lastmod` as a signal for scheduling re-crawling URLs](https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping#the-lastmod-element) and so this turns out to have been a helpful change to make.
+As well as filtering my `sitemap.xml`, I went a little further and added `lastmod` timestamps to the `sitemap.xml` based on the git commit date of the markdown file that the blog post was generated from. This was to help search engines understand how recent of the content on my site is. [I wrote about how I did this](../2022-11-25-adding-lastmod-to-sitemap-git-commit-date/index.md). Google have subsequently announced that they use [`lastmod` as a signal for scheduling re-crawling URLs](https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping#the-lastmod-element) and so this turns out to have been a helpful change to make.
 
 Alongside this, I added a `robots.txt` to my site. These are files that search engines use to understand the structure of a site and what they should and should not index. I didn't previously have one and the one I added was pretty rudimentary:
 
@@ -235,7 +235,7 @@ I hand-rolled [my own blog archive for Docusaurus](../2021-05-01-blog-archive-fo
 My implementation was later made part of Docusaurus itself by [Gabriel Csapo](https://github.com/gabrielcsapo) in [this PR](https://github.com/facebook/docusaurus/pull/5428). So now by default, all Docusaurus sites have a blog archive that lives at `/archive` in the blog. This is great news for Docusaurus users!
 
 In one if the more speculative changes we made, we changed the URL of the blog archive from `/archive` to `/blog` (and the associated navbar label).
-It was a wild guess (and it not have made any difference) but the thinking was that it might affect the CTA (call to action) of people who see my site on Google. If they saw old date in the URL and "archive" in the breadcrumbs, maybe they'd think the site is "not relevant for the search I have now"?
+It was a wild guess (and it may not have made any difference) but the thinking was that it might affect the CTA (call to action) of people who see my site on Google. If they saw old date in the URL and "archive" in the breadcrumbs, maybe they'd think the site is "not relevant for the search I have now"?
 
 So our tweaked blog archive page now looked like this:
 
@@ -251,7 +251,7 @@ As it turned out, I already had some structured data support in my site; [I'd wr
 
 #### 1. FAQs with Structured Data
 
-One of the experiments we ran was to add FAQs to a post, and with that, the equivalent FAQ Structured Data. The intent being to see if this would help with the SEO for that post. So, because I'm super meta, I wrote a [post about how to do that](../2023-04-08-docusaurus-structured-data-faqs-mdx/index.md) **which included** FAQs and the equivalent structured data.
+One of the experiments we ran was to add FAQs to a post, and with that, the equivalent FAQ Structured Data. The intent being to see if this would help with the SEO for that post. So, because I'm super meta, I wrote a [post about how to do that](../2023-04-08-docusaurus-structured-data-faqs-mdx/index.md) which included FAQs and the equivalent structured data.
 
 I also added FAQ structured data to another post and Growtika resubmitted it to Google for indexing. Then two things happened. Firstly, the page was indexed:
 
