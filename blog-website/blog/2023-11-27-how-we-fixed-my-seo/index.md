@@ -27,7 +27,7 @@ I put that down to the assistance rendered by Growtika. What was the nature of t
 
 I wrote ["How I ruined my SEO"](../2023-01-15-how-i-ruined-my-seo/index.md) almost as self therapy. I was frustrated that my site's traffic had dropped. I knew it didn't really matter; my motivation for writing my blog is, in large part, about creating a long term memory for myself. But I was still frustrated. I write things that I know people find useful, and so it was suboptimal that my posts were no longer being found.
 
-I should include myself in that. When I'm trying to remember how to do something, and I know I once knew how to do it, I'll often Google it. So it was frustrating that my own site was no longer being found by me. I was missing me. Vanity, I know.
+I should include myself in that. When I'm trying to remember how to do something (and I know I once knew how to do it) I'll often Google it. Hoping to see a blog post I once wrote that answers my question. But, no more. My own site was no longer being found by me. I was missing me. Vanity, I know.
 
 I shared the post on Hacker News, not really expecting much to happen. But it ranked, and in amongst the conversation that followed, [someone named Growtika offered to help](https://news.ycombinator.com/item?id=34389421#34390189).
 
@@ -47,11 +47,11 @@ What's more, the feedback loop for changes is **long**. It's not like fixing a p
 
 Cause and effect are just not as obvious as you might like, when it comes to SEO. So whilst I'm going to share what we did, I can't say for sure what actually lead to the improvement in my site's SEO. I'm confident that they were all good things to do. But I cannot be certain which of them made the difference.
 
-As an aside, Growtika think that it's pretty absurd that developers who write high quality technical articles that other developers enjoy reading, need to follow all sorts of SEO best practices. With one of the recent Google algorithm updates; [the helpful content algorithm update](https://developers.google.com/search/docs/appearance/helpful-content-system), it feels like Google are starting to understand that it and prioritize it in their search engine. But there's still a long way to go.
+As an aside, Growtika think that it's pretty absurd that developers who write high quality technical articles (that other developers enjoy reading), need to run the gauntlet of following all sorts of SEO best practices. It really shouldn't be necessary. With one of the recent Google algorithm updates; [the helpful content algorithm update](https://developers.google.com/search/docs/appearance/helpful-content-system), it feels like Google are starting to understand that it and prioritize it in their search engine. But there's still a long way to go.
 
 ## The changes we made
 
-Over the time we worked together, Growtika made a number of suggestions. Changes we might make that could improve my SEO. I'm going to go through the suggestions over the rest of the post. I'll also share some of the rationale.
+Over the time we worked together, Growtika made a number of suggestions. Changes we might make that could improve my SEO. I'm going to go through the suggestions over the rest of the post. I'll also share some of the rationale as I go along.
 
 ### Updated profile and about page
 
@@ -67,7 +67,11 @@ It's my face and the text "John Reilly" which linked through to my Twitter (now 
 
 Alongside my picture and name I added a byline to demonstrate my expertise and authority on topics: "OSS Engineer - TypeScript, Azure, React, Node.js, .NET". Alongside that, I switched the link to the about page on my site instead of Twitter.
 
-The about page itself was also updated to include a richer bio and a list of places where my site has been featured. This was to demonstrate my expertise and authority on topics. We even snuck in some structured data - more on that later!
+The [about](/about) page itself was also updated to include a richer bio and a list of places where my site has been featured:
+
+![screenshot of the "where has this blog featured section"](screenshot-where-has-this-blog-featured.png)
+
+This was to demonstrate my expertise and authority on topics. We even snuck in some structured data - more on that later!
 
 ### Duplicate content
 
@@ -91,7 +95,7 @@ In my case, some of these pagination or tags pages were being prioritised over t
 
 #### 1. Remove or `noindex` unnecessary pages
 
-I wanted to remove or `noindex` the pagination and tags pages to provide a clear signal to search engines about which pages were the most important. I couldn't remove the pages without breaking the navigation on my site, so I chose insteas to `noindex` them. My site is hosted on [Azure Static Web Apps](../2023-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.md) and so I was able to achieve this fairly easily by adding the following to my `staticwebapp.config.json` file:
+I wanted to remove or `noindex` the pagination and tags pages to provide a clear signal to search engines about which pages were the most important. I couldn't remove the pages without breaking the navigation on my site, so I chose instead to `noindex` them. My site is hosted on [Azure Static Web Apps](../2023-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.md) and so I was able to achieve this fairly easily by adding the following to my `staticwebapp.config.json` file:
 
 ```json title="staticwebapp.config.json"
 {
@@ -130,9 +134,11 @@ I also performed something of a tag rationalisation. I had a lot of tags, and ma
 
 ![screenshot of the tags before my rationalisation](screenshot-tags-before.png)
 
-As is probably apparent, I'd not really thought about tags much. I'd just added them as I'd written blog posts. I'd tagged first, asked questions later. I removed a lot of the (rather pointless) tags I had and also added a tags to blog posts that were missing them. This removed the "noise" to both search engines understand the content of my blog posts, and readers also. Less is more.
+As is probably apparent, I'd not really thought about tags much. I'd just added them as I'd written blog posts. I'd tagged first, asked questions later. I removed a lot of the (rather pointless) tags I had and also added a tags to blog posts that were missing them. This removed the "noise", so search engines understand the content of my blog posts, and readers also. Less is more.
 
 ![screenshot of the tags after my rationalisation](screenshot-tags-after.png)
+
+Much better!
 
 ### `sitemap.xml` and `robots.txt`
 
@@ -187,6 +193,47 @@ A primary reason for my pages crawl depth this was the pagination and tags pages
 
 We increased the number of blog posts displayed per page from **1** to **20** which dramatically reduced the amount of work the crawlers had to do. So instead of having few hundred pagination pages we reduced it to 16. Much better.
 
+### Remove date from urls
+
+It used to be the case that the URLs for my blog posts always featured the date of publication. This was a hangover from when I used to use Blogger as my blogging platform. I'd [migrated from Blogger to Docusaurus](../2021-03-15-definitive-guide-to-migrating-from-blogger-to-docusaurus/index.md), and I'd kept the date in the URL. It so happens that Docusaurus has a similar behaviour too.
+
+Growtika suggested that I remove the date from the URL. This was to make the URLs shorter and more readable. Search engines also have a preference both for shorter URLs and for pages that are recent, rather than pages that are old. So removing the date from the URL would help with both of those things. Or at least it would stop search engines that looked for the date in the URL from thinking that older content was irrelevant. (And with our `lastmod` timestamps in the `sitemap.xml` we were already helping search engines understand how recent the content on my site was.)
+
+I must admit, I didn't really want to make this change. I rather liked having the date in the URL. But, in Growtika we trust. I did it.
+
+Where you used to go to:
+
+https://johnnyreilly.com/2019/10/08/definitely-typed-movie
+
+You now go to:
+
+https://johnnyreilly.com/definitely-typed-the-movie
+
+And of course, we made sure the redirect mechanism was in place to ensure that the old URLs still worked. You can test it if you like!
+
+![screenshot of 301 redirect from the old url to the dateless one](screenshot-301-redirect.webp)
+
+To implement this we used the [slug feature of Docusaurus](https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog#slug). If you want to see the mega PR that implemented this on nearly 300 blog posts [it's here](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/423/files). You won't be surprised to learn I scripted this change - life's too short to do boring things by hand.
+
+### Blog archive renamed to blog
+
+As I've said, Docusaurus is _great_ but it historically has had some defaults that hurt SEO from a blogging perspective. One of these I identified when I was first planning to migrate from Blogger to Docusaurus. Docusaurus didn't ship with a blog archive. This is a page that allows you to browse through your historic blog posts. A place where you can see all that you've written and when. I find this very helpful. It's also helpful for search engines to understand the structure of your site.
+
+I hand-rolled [my own blog archive for Docusaurus](../2021-05-01-blog-archive-for-docusaurus/index.md) before I migrated. It looked like this:
+
+![screenshot of the original blog archive functionality](../2021-05-01-blog-archive-for-docusaurus/docusaurus-blog-archive-small.webp)
+
+My implementation was later made part of Docusaurus itself by [Gabriel Csapo](https://github.com/gabrielcsapo) in [this PR](https://github.com/facebook/docusaurus/pull/5428). So now by default, all Docusaurus sites have a blog archive that lives at `/archive` in the blog. This is great news for Docusaurus users!
+
+In one if the more speculative changes we made, we changed the URL of the blog archive from `/archive` to `/blog` (and the associated navbar label).
+It was a wild guess (and it not have made any difference) but the thinking was that it might affect the CTA (call to action) of people who see my site on Google. If they saw old date in the URL and "archive" in the breadcrumbs, maybe they'd think the site is "not relevant for the search I have now"?
+
+So our tweaked blog archive page now looked like this:
+
+![screenshot of the blog archive functionality as it looks now](screenshot-blog-archive-now.png)
+
+We also added a `301` redirect from `/archive` to `/blog` to ensure that any links to the old URL would still work.
+
 ### Structured data
 
 One of the most intriguing strategies we followed was to build on the structured data support in my site. Structured data is a way of providing metadata about a page in a machine readable format. It's a way of providing a clear signal to search engines about the content of a page; it makes their lives easier.
@@ -219,9 +266,7 @@ So I decided to add site wide structured data of the following types: (there are
 
 You can see how the structured data is implemented in [this PR](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/676). We used the [`headTags` API in Docusaurus](https://docusaurus.io/docs/api/docusaurus-config#headTags) to add site wide JSON-LD structured data. Funnily enough, [I contributed the `headTags` API to Docusaurus](https://github.com/facebook/docusaurus/pull/8151) long before I thought I'd end up using it for this!
 
-In this change we are _heavily_ inspired by the work [Yoast have done with structured data](https://yoast.com/rich-results-schema-structured-data-story/); particularly in the sense of having a full structured data graph.
-
-With this in place, every page that search engines index on my site will have structured data that describes the site as a whole.
+In this change we are _heavily_ inspired by the full structured data graph work [Yoast have done](https://yoast.com/rich-results-schema-structured-data-story/). With site wide structured data in place, every page that search engines index on my site will have structured data that describes the site as a whole.
 
 #### 3. Breadcrumbs with Structured Data
 
@@ -240,28 +285,6 @@ What I had was good, but I could do better. I did the following:
 - redirect **only once**. I had a number of redirects that were chained together. I had a 301 leading to 301 leading to 301 (yes!) and only then leading to a 200. Redirecting only once would be better. This would ensure that search engines didn't have to follow a chain of redirects to get to the content they were looking for. Search engines don't like that; you lose "link juice" the more redirects there are. Also, multi redirects make my website work harder than it needs to.
 
 Again, less is more. With these changes made, I had a much better backlink story.
-
-### Remove date from urls
-
-It used to be the case that the URLs for my blog posts always featured the date of publication. This was a hangover from when I used to use Blogger as my blogging platform. I'd [migrated from Blogger to Docusaurus](../2021-03-15-definitive-guide-to-migrating-from-blogger-to-docusaurus/index.md), and I'd kept the date in the URL. It so happens that Docusaurus has a similar behaviour too.
-
-Growtika suggested that I remove the date from the URL. This was to make the URLs shorter and more readable. Search engines also have a preference both for shorter URLs and for pages that are recent, rather than pages that are old. So removing the date from the URL would help with both of those things. Or at least it would stop search engines that looked for the date in the URL from thinking that older content was irrelevant. (And with our `lastmod` timestamps in the `sitemap.xml` we were already helping search engines understand how recent the content on my site was.)
-
-I must admit, I didn't really want to make this change. I rather liked having the date in the URL. But, in Growtika we trust. I did it.
-
-Where you used to go to:
-
-https://johnnyreilly.com/2019/10/08/definitely-typed-movie
-
-You now go to:
-
-https://johnnyreilly.com/definitely-typed-the-movie
-
-And of course, we made sure the redirect mechanism was in place to ensure that the old URLs still worked. You can test it if you like!
-
-![screenshot of 301 redirect from the old url to the dateless one](screenshot-301-redirect.webp)
-
-To implement this we used the [`slug feature of Docusaurus`](https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog#slug). If you want to see the mega PR that implemented this on nearly 300 blog posts [it's here](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/423/files). You won't be surprised to learn I scripted this change - life's too short to do boring things by hand.
 
 ### Improving site performance
 
@@ -300,6 +323,22 @@ We did this by adding `fetchpriority="high"` to the first image on each blog pos
 The effect of these two changes combined, is that when a browser lands on a blog post it loads the first image as soon as possible, and then it doesn't immediately load the rest images; it focuses on giving the user a usable page. The upshot of this is that the Largest Contentful Paint (LCP) is loaded as soon as possible and the browser remain more responsive. The remaining images may be loaded... Or they may not - it depends on whether people scroll down to them. This translates into improved perceived performance / user experience.
 
 And again: less is more. [I've written about how using `fetchpriority="high"` and `loading="lazy"` was implemented in depth here](../2023-01-18-docusaurus-improve-core-web-vitals-fetchpriority/index.md).
+
+### Stop publishing your content on other sites
+
+One of the ideas I'd had as I attempted to fix my SEO was to publish my content on other sites. I'd seen other people do this, and I thought it might be a good idea. So I set up a mechanism that published my blog posts to [dev.to](https://dev.to/johnnyreilly) with the canonical pointing back to my site. I was so pleased with my idea I even wrote about [how I did it](../2022-12-11-publishing-docusaurus-to-devto-with-devto-api/index.md).
+
+It didn't do what I hoped. Instead the content published on dev.to started to rank whilst my blog remained in the doldrums. I was frustrated. I'd hoped that publishing my content on dev.to would help my SEO. It didn't. It just helped dev.to's SEO.
+
+The value of canonicals boosting your SEO may be overblown. It certainly didn't help me. I ended up just turning the mechanism off.
+
+### Get your site featured in relevant places
+
+Whilst actually publishing your content on other sites is a bad idea, getting your site featured in relevant places is a good idea. This is about getting your site linked to from other sites. This is a signal to search engines that your site is relevant and important.
+
+I already had a number of links to my site from other sites. For instance, I'd regularly show up in [Azure Weekly](https://azureweekly.info/), [The Morning Brew](https://blog.cwa.me.uk/) and a number of other sites. Many of these use my RSS feed.
+
+I also submitted my site to a number of other places. For instance, I submitted my site to [daily.dev](https://daily.dev/).
 
 ### Add meta description to blog posts
 
