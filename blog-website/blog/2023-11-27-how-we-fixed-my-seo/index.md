@@ -322,13 +322,13 @@ The effect of these two changes combined, is that when a browser lands on a blog
 
 And again: less is more. [I've written about how using `fetchpriority="high"` and `loading="lazy"` was implemented in depth here](../2023-01-18-docusaurus-improve-core-web-vitals-fetchpriority/index.md).
 
-### Stop publishing your content on other sites
+### Be careful publishing your content on other sites
 
 One of the ideas I'd had as I attempted to fix my SEO was to publish my content on other sites. I'd seen other people do this, and I thought it might be a good idea. So I set up a mechanism that published my blog posts to [dev.to](https://dev.to/johnnyreilly) with the canonical pointing back to my site. I was so pleased with my idea I even wrote about [how I did it](../2022-12-11-publishing-docusaurus-to-devto-with-devto-api/index.md).
 
-It didn't do what I hoped. Instead the content published on dev.to started to rank whilst my blog remained in the doldrums. I was frustrated. I'd hoped that publishing my content on dev.to would help my SEO. It didn't. It just helped dev.to's SEO.
+Publishing content on other sites isn't inherently negative. However, in my case, it created confusion. I'd hoped that publishing my content on dev.to would help my SEO. It didn't. My content on dev.to ranked higher than the original content on my own website (most times my site didn't rank at all).
 
-The value of canonicals boosting your SEO may be overblown. It certainly didn't help me. I ended up just turning the mechanism off.
+Growtika were keen to "cancel the noise", which would improved their understanding of my ranking situation. I turned the mechanism off. This helped them determine the time it took for my site to achieve a ranking. Since dev.to was ranking instead, it was difficult to analyze how long it took for articles to rank on your site. Therefore, stopping the submission of content to external sites helped clarify the situation.
 
 ### Get your site featured in relevant places
 
