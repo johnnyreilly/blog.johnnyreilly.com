@@ -9,7 +9,7 @@ authors:
     image_url: ./growtika-logo.webp
 tags: [seo]
 image: ./title-image.png
-description: In October 2022 traffic to my site dropped like a stone. Growtika collaborated with me to fix it. This is what we did.
+description: In October 2022 traffic to my site tanked. Growtika collaborated with me to fix it. This is what we did. Read it if you're trying to improve your SEO.
 hide_table_of_contents: false
 ---
 
@@ -349,7 +349,7 @@ The final tweak we're going to cover, is adding meta descriptions to my posts. T
 ```html
 <meta
   name="description"
-  content="In October 2022 traffic to my site dropped like a stone. Growtika collaborated with me to fix it. This is what we did."
+  content="In October 2022 traffic to my site tanked. Growtika collaborated with me to fix it. This is what we did. Read it if you're trying to improve your SEO."
 />
 ```
 
