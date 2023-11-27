@@ -390,11 +390,15 @@ Notably, you can see the drop off happened around the time of a Google algorithm
 
 ### Google Search Console
 
-An simpler graph from Google Search Console tells a similar story:
+A couple of simpler graphs from Google Search Console tell a similar story. Here's a graph showing my site's performance over time:
+
+![screenshot from Google Search Console showing performance over time](screenshot-of-performance.webp)
+
+Observe the massive drop off in February 2023. And then the recovery in October / November 2023. It's a similar story to the ahrefs graph above. Further to that, here is the traffic for 28 days in February 2023 vs 28 days in October / November 2023:
 
 ![screenshot from Google Search Console showing few results in February 2023 vs lots of results in October / November 2023](screenshot-google-search-console.webp)
 
-What you're looking at here is the traffic for 28 days in February 2023 vs 28 days in October / November 2023. If you're reading on a mobile device you may not even realise that there are two lines on the graph; the February 2023 line is so low and flat as to be almost invisible.
+If you're reading on a mobile device you may not even realise that there are two lines on the graph; the February 2023 line is so low and flat as to be almost invisible.
 
 The difference is stark. I couldn't get arrested from a search perspective in February 2023; showing up a mere **5,000** times in search results. That sounds like a big number, but in search terms it's really not. But by October / November 2023 I was back in the game, showing up **274,000** times in search results. That's a **55x** increase!
 
