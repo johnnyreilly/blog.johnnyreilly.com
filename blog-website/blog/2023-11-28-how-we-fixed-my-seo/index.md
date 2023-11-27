@@ -27,7 +27,7 @@ I put that down to the assistance rendered by Growtika. What was the nature of t
 
 I wrote ["How I ruined my SEO"](../2023-01-15-how-i-ruined-my-seo/index.md) almost as self therapy. I was frustrated that my site's traffic had dropped. I knew it didn't really matter; my motivation for writing my blog is, in large part, about creating a long term memory for myself. But I was still frustrated. I write things that I know people find useful, and so it was suboptimal that my posts were no longer being found.
 
-I should include myself in that. When I'm trying to remember how to do something (and I know I once knew how to do it) I'll often Google it. Hoping to see a blog post I once wrote that answers my question. But, no more. My own site was no longer being found by me. I was missing me. Vanity, I know.
+I should include myself in that. When I'm trying to remember how to do something (and I know I once knew how to do it) I'll often Google it. Hoping to see a blog post I once wrote that answers my question. But, no more. My own site was no longer being found by me. I was missing me. Vanity.
 
 I shared the post on Hacker News, not really expecting much to happen. But it ranked, and in amongst the conversation that followed, [someone named Growtika offered to help](https://news.ycombinator.com/item?id=34389421#34390189).
 
@@ -45,7 +45,7 @@ What's more, the feedback loop for changes is **long**. It's not like fixing a p
 
 Cause and effect are just not as obvious as you might like, when it comes to SEO. So whilst I'm going to share what we did, I can't say for sure what actually lead to the improvement in my site's SEO. I'm confident that they were all good things to do. But I cannot be certain which of them made the difference.
 
-As an aside, Growtika think that it's pretty absurd that developers who write high quality technical articles (that other developers enjoy reading), need to run the gauntlet of following all sorts of SEO best practices. It really shouldn't be necessary. With one of the recent Google algorithm updates; [the helpful content algorithm update](https://developers.google.com/search/docs/appearance/helpful-content-system), it feels like Google are starting to understand that it and prioritize it in their search engine. But there's still a long way to go.
+As an aside, Growtika think that it's pretty absurd that developers who write high quality technical articles (and for the sake of this point, let's say mine fit into this category sometimes), need to run the gauntlet of SEO best practices to get ranked. It really shouldn't be necessary. With one of the recent Google algorithm updates; [the helpful content algorithm update](https://developers.google.com/search/docs/appearance/helpful-content-system), it feels like Google are starting to understand that it and prioritize it in their search engine. But there's still a long way to go.
 
 ## The changes we made
 
@@ -68,11 +68,11 @@ On each blog post I had a profile picture. But it wasn't being all it could be; 
 
 ![picture of the profile image of this blog's author](screenshot-profile-picture-before.webp)
 
-It's my face and the text "John Reilly" which linked through to my Twitter (now X) profile page. Nice enough but not really demonstrating my expertise and authority on topics. I updated it to look like this:
+It's my face and the text _"John Reilly"_ which linked through to my Twitter (now X) profile page. Nice enough but not really demonstrating my expertise and authority on topics. I updated it to look like this:
 
 ![picture of the profile image of this blog's author with a byline](screenshot-profile-picture-after.webp)
 
-Alongside my picture and name I added a byline to demonstrate my expertise and authority on topics: "OSS Engineer - TypeScript, Azure, React, Node.js, .NET". Alongside that, I switched the link to the about page on my site instead of Twitter.
+Alongside my picture and name I added a byline to demonstrate my expertise and authority on topics: _"OSS Engineer - TypeScript, Azure, React, Node.js, .NET"_. Alongside that, I switched the link to the about page on my site instead of Twitter.
 
 #### 2. About page
 
@@ -84,15 +84,15 @@ This was to demonstrate my expertise and authority on topics. We even snuck in s
 
 ### Duplicate content
 
-My site is built using [Docusaurus](https://docusaurus.io/). Now I love Docusaurus, but it's not perfect. One of the problems with it is that it generates a number of pages that are not helpful for SEO as they **duplicate content**. (This is a bad thing for SEO.)
+My site is built using [Docusaurus](https://docusaurus.io/). Now I love Docusaurus, but it's not perfect. One of the problems with it is that it generates a number of pages that are not helpful for SEO as they **duplicate content**. (This is a bad thing for SEO.) Consider this report:
 
 ![screenshot of duplicate content report](screenshot-duplicate-content.webp)
 
-Docusaurus generates "pagination" pages which allow you to navigate click by click through the whole history of a blog.
+The report suggests there was a good amount of duplicate content on my site. This was because Docusaurus generates "pagination" pages which allow you to navigate click by click through the whole history of a blog.
 
 ![screenshot of the Docusaurus pagination mechanism](screenshot-docusaurus-pagination.webp)
 
-Also there are "tags" (or category) pages that reproduce blog posts under tags that have been used to categorise the posts:
+Also Docusaurus creates "tag" (or category) pages that reproduce blog posts under tags that have been used to categorise the posts:
 
 ![screenshot of the Docusaurus tags mechanism](screenshot-docusaurus-tags.webp)
 
@@ -104,7 +104,7 @@ In my case, some of these pagination or tags pages were being prioritised over t
 
 #### 1. Remove or `noindex` unnecessary pages
 
-I wanted to remove or `noindex` the pagination and tags pages to provide a clear signal to search engines about which pages were the most important. I couldn't remove the pages without breaking the navigation on my site, so I chose instead to `noindex` them. My site is hosted on [Azure Static Web Apps](../2023-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.md) and so I was able to achieve this fairly easily by adding the following to my `staticwebapp.config.json` file:
+I wanted to remove or `noindex` the pagination and tags pages to provide a clear signal to search engines about which pages were the most important. I couldn't remove the pages without breaking the navigation on my site, so I chose instead to `noindex` them. My site is hosted on [Azure Static Web Apps](../2023-02-01-migrating-from-github-pages-to-azure-static-web-apps/index.md) and so I was able to achieve this fairly easily by adding the following to my [`staticwebapp.config.json`](https://learn.microsoft.com/en-us/azure/static-web-apps/configuration) file:
 
 ```json title="staticwebapp.config.json"
 {
@@ -157,7 +157,7 @@ Further to that, I write posts for other websites sometimes and cross post it on
 
 I've a number of post processing steps that run in my build step of my site, and I included this filtering in it. In the end it amounted to [filtering an XML file; which is pretty straightforward - I wrote about it to demonstrate](../2022-11-22-xml-read-and-write-with-node-js/index.md).
 
-As well as filtering my `sitemap.xml`, I went a little further and added `lastmod` timestamps to the `sitemap.xml` based on the git commit date of the markdown file that the blog post was generated from. This was to help search engines understand how recent of the content on my site is. [I wrote about how I did this](../2022-11-25-adding-lastmod-to-sitemap-git-commit-date/index.md). Google have subsequently announced that they use [`lastmod` as a signal for scheduling re-crawling URLs](https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping#the-lastmod-element) and so this turns out to have been a helpful change to make.
+As well as filtering my `sitemap.xml`, I went a little further and added `lastmod` timestamps to the `sitemap.xml` based on the git commit date of the markdown file that the blog post was generated from. This was to help search engines understand how recent the content on my site is. [I wrote about how I did this](../2022-11-25-adding-lastmod-to-sitemap-git-commit-date/index.md). Google have subsequently announced that they use [`lastmod` as a signal for scheduling re-crawling URLs](https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping#the-lastmod-element) and so this turns out to have been a helpful change to make.
 
 Alongside this, I added a `robots.txt` to my site. These are files that search engines use to understand the structure of a site and what they should and should not index. I didn't previously have one and the one I added was pretty rudimentary:
 
@@ -198,7 +198,7 @@ My initial site structure was not great. I had a number of pages that were 4+ cl
 
 ![screenshot of a pages depth report](screenshot-pages-depth.webp)
 
-A primary reason for my pages crawl depth this was the pagination and tags pages I mentioned earlier. We originally displayed a single blog post per page, and so the pagination pages were many. Likewise, we had a lot of tags, and so the tags pages were many. This meant that the pages crawl depth was high. You want to keep the pages crawl depth as low as possible. Less is more.
+A primary reason for my pages crawl depth this was the pagination and tags pages I mentioned earlier. We originally displayed a single full length (not truncated) blog post per page, and so the pagination pages were many. Likewise, we had a lot of tags, and so the tags pages were many. This meant that the pages crawl depth was high. You want to keep the pages crawl depth as low as possible. Less is more.
 
 We increased the number of blog posts displayed per page from **1** to **20** which dramatically reduced the amount of work the crawlers had to do. So instead of having few hundred pagination pages we reduced it to 16. Much better.
 
@@ -218,7 +218,7 @@ You now go to:
 
 https://johnnyreilly.com/definitely-typed-the-movie
 
-And of course, we made sure the redirect mechanism was in place to ensure that the old URLs still worked. You can test it if you like!
+And of course, we made sure a redirect mechanism was in place to ensure that the old URLs still worked. More on that later - you can test the redirect if you like!
 
 ![screenshot of 301 redirect from the old url to the dateless one](screenshot-301-redirect.webp)
 
@@ -329,7 +329,7 @@ So far we'd handled the performance of images on my site by optimising them and 
 
 We did this by adding `fetchpriority="high"` to the first image on each blog post; the "title" image if you will. This is a hint to the browser that the image is important and should be loaded as soon as possible. We also added `loading="lazy"` to all the other images on a given blog post. This is a hint to the browser that those images (the "below the fold" images) are not as important, and can be loaded later if and when they are required.
 
-The effect of these two changes combined, is that when a browser lands on a blog post it loads the first image as soon as possible, and then it doesn't immediately load the rest images; it focuses on giving the user a usable page. The upshot of this is that the Largest Contentful Paint (LCP) is loaded as soon as possible and the browser remain more responsive. The remaining images may be loaded... Or they may not - it depends on whether people scroll down to them. This translates into improved perceived performance / user experience.
+The effect of these two changes combined, is that when a browser lands on a blog post it loads the first image as soon as possible, and then it doesn't immediately load the rest images; it focuses on giving the user a usable page. The upshot of this is that the Largest Contentful Paint (LCP) is loaded as soon as possible and the browser remains more responsive. The remaining images may be loaded... Or they may not - it depends on whether people scroll down to them. This translates into improved perceived performance / user experience.
 
 And again: less is more. [I've written about how using `fetchpriority="high"` and `loading="lazy"` was implemented in depth here](../2023-01-18-docusaurus-improve-core-web-vitals-fetchpriority/index.md).
 
@@ -339,7 +339,9 @@ One of the ideas I'd had as I attempted to fix my SEO was to publish my content 
 
 Publishing content on other sites isn't inherently negative. However, in my case, it created confusion. I'd hoped that publishing my content on dev.to would help my SEO. It didn't. My content on dev.to ranked higher than the original content on my own website (most times my site didn't rank at all).
 
-Growtika were keen to "cancel the noise", which would improved their understanding of my ranking situation. I turned the mechanism off. This helped them determine the time it took for my site to achieve a ranking. Since dev.to was ranking instead, it was difficult to analyze how long it took for articles to rank on your site. Therefore, stopping the submission of content to external sites helped clarify the situation.
+Growtika were keen to "cancel the noise", which would improve their understanding of my ranking situation. Since dev.to was ranking instead of my site, it was difficult to analyze how long it took for articles to rank on my site. Stopping the submission of content to external sites would help clarify the situation.
+
+I turned the mechanism off. This helped them determine the time it took for my site to achieve a ranking.
 
 ### Get your site featured in relevant places
 
