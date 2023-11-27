@@ -386,13 +386,13 @@ Significantly, you can see the drop off happened around the time of a Google alg
 
 The graph alone tells a story, a phenomenal drop off in traffic followed by a recovery. A more simple graph from Google Search Console tells a similar story:
 
-![screenshot from Google Search Console showing few results in February 2023 vs lots of results in October / November 2023](screenshot-google-search-console.png)
+![screenshot from Google Search Console showing few results in February 2023 vs lots of results in October / November 2023](screenshot-google-search-console.webp)
 
 What you're looking at here is the traffic for 28 days in February 2023 vs 28 days in October / November 2023. The difference is stark. I couldn't get arrested from a search perspective in February 2023; showing up a mere **5,000** times in search results. (That sounds like a big number, but in search terms it's really not.) But by October / November 2023 I was back in the game, showing up **274,000** times in search results. That's a **5,500%** increase!
 
 This post has mostly been driven by how Google stopped ranking my site in their search results. What I haven't really mentioned is that other search engines **did not** stop ranking my site. I was still ranking in Bing and DuckDuckGo. Here's a graph from Bing webmaster tools showing my site's performance over the last six months:
 
-![screenshot from Bing webmaster tools](screenshot-bing-webmaster-tools-graph.png)
+![screenshot from Bing webmaster tools](screenshot-bing-webmaster-tools-graph.webp)
 
 There's two things to take from the above graph; firstly that my site is ranking in Bing. Secondly, that the traffic from Bing is significantly lower than the traffic from Google. So whilst I was still ranking in Bing, it wasn't making up for the loss of traffic from Google.
 
