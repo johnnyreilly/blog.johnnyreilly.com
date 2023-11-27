@@ -376,31 +376,48 @@ I'd previously not included meta descriptions on my blog posts. I found myself w
 
 This left me with meta descriptions for all my blog posts. It was also rather fun to use AI for something that was not GPT or copilot related!
 
-## The results
+## Drop off and recovery in numbers and graphs
 
-As I mentioned earlier, my SEO has now recovered. I'm ranking again in search results. I'm not ranking as highly as I was before, but I'm ranking. I think my site is possibly still in the throes of recovery, but it's definitely trending in the right direction. Here's a graph from ahrefs showing my site's performance over the last two years:
+As I mentioned earlier, my SEO has now recovered. I'm ranking again in search results. I'm not ranking quite as highly as I was before; I think my site is possibly still in the throes of recovery. But without a doubt, it's definitely trending in the right direction. I want to show you some graphs and numbers to demonstrate this.
+
+### Ahrefs
+
+Here's a graph from Ahrefs showing my site's performance over the last two years:
 
 ![gif from ahrefs showing a massive drop off then recovery](screenshot-ahrefs-two-years.gif)
 
-Significantly, you can see the drop off happened around the time of a Google algorithm update. Likewise, it's really important to highlight that the traffic **increased** around the time Google made _another_ algorithm update. It's impossible to know if the traffic would still have gone up if we had not made our changes. Maybe it would, maybe it would; but not as much. We just don't know. It does demonstrate the power of Google's algorithm updates though.
+Notably, you can see the drop off happened around the time of a Google algorithm update. Likewise, it's really important to highlight that the traffic **increased** around the time Google made _another_ algorithm update. It's impossible to know if the traffic would still have gone up if we had not made our changes. Perhaps it would, maybe to a lesser extent. We just don't know. It does demonstrate the power of Google's algorithm updates though. The graph alone tells a story, a phenomenal drop off in traffic followed by a recovery.
 
-The graph alone tells a story, a phenomenal drop off in traffic followed by a recovery. A more simple graph from Google Search Console tells a similar story:
+### Google Search Console
+
+An simpler graph from Google Search Console tells a similar story:
 
 ![screenshot from Google Search Console showing few results in February 2023 vs lots of results in October / November 2023](screenshot-google-search-console.webp)
 
-What you're looking at here is the traffic for 28 days in February 2023 vs 28 days in October / November 2023. The difference is stark. I couldn't get arrested from a search perspective in February 2023; showing up a mere **5,000** times in search results. (That sounds like a big number, but in search terms it's really not.) But by October / November 2023 I was back in the game, showing up **274,000** times in search results. That's a **5,500%** increase!
+What you're looking at here is the traffic for 28 days in February 2023 vs 28 days in October / November 2023. If you're reading on a mobile device you may not even realise that there are two lines on the graph; the February 2023 line is so low and flat as to be almost invisible.
 
-This post has mostly been driven by how Google stopped ranking my site in their search results. What I haven't really mentioned is that other search engines **did not** stop ranking my site. I was still ranking in Bing and DuckDuckGo. Here's a graph from Bing webmaster tools showing my site's performance over the last six months:
+The difference is stark. I couldn't get arrested from a search perspective in February 2023; showing up a mere **5,000** times in search results. That sounds like a big number, but in search terms it's really not. But by October / November 2023 I was back in the game, showing up **274,000** times in search results. That's a **55x** increase!
+
+An interesting aside, that I've excluded from the graph, is that my total clicks increased from **1,160** to **5,470** when comparing Februray to October / November. This is a mere factor of **4**. What does that mean? It means when my site was showing up very rarely in search results, it enjoyed a very healthy click through rate. People clicked on my search results when they saw them!
+
+### Bing webmaster tools
+
+This post has mostly been driven by discussing how Google stopped ranking my site in their search results. What I haven't really mentioned is that other search engines **did not** stop ranking my site. I was still showing up in Bing and DuckDuckGo's search results. Here's a graph from Bing webmaster tools (Bing's equivalent to Google Search Console) showing my site's performance over the last six months:
 
 ![screenshot from Bing webmaster tools](screenshot-bing-webmaster-tools-graph.webp)
 
-There's two things to take from the above graph; firstly that my site is ranking in Bing. Secondly, that the traffic from Bing is significantly lower than the traffic from Google. So whilst I was still ranking in Bing, it wasn't making up for the loss of traffic from Google.
+There's two things to take from the above graph:
+
+1. My site consistently ranked (and ranks) in Bing search results. There was no drop off in Bing as there was in Google.
+2. The numbers from Bing are much lower than the numbers from Google. So whilst I was still ranking in Bing, it wasn't making up for the loss of traffic from Google. This is probably a reflection of the fact that Google is the dominant search engine.
+
+### Google Analytics
 
 You might be curious as to what the actual impact of that is on my sites traffic. It's fairly significant; around 80% of my sites traffic comes from search engines. So when my Google SEO tanked, my traffic was significantly (but not terminally) impacted. Consider the graph below from Google Analytics:
 
 ![screenshot of Google Analytics graph showing higher traffic now as compared to earlier](screenshot-google-analytics.png)
 
-It covers a similar time frame to the Google Search Console and ahrefs graphs above. It shows that now, on a weekday (weekends are quieter) I get around **350** unique visitors to my site. Whereas for the comparison period it was more like **100** unique users per day. That's roughly a **350%** increase in traffic; which is not to be sniffed at.
+It covers a similar time frame to the Google Search Console and ahrefs graphs above. It shows that now, on a weekday (weekends are quieter) I get around **350** unique visitors to my site. Whereas for the comparison period it was more like **100** unique users per day. That's roughly a **3.5x%** increase in traffic; which is not to be sniffed at.
 
 ## Conclusion
 
