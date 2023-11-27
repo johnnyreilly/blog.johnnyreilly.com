@@ -7,7 +7,7 @@ authors:
     title: A dedicated SEO and growth marketing firm for dev-focused, cybersecurity, fintech and deep tech startups
     url: https://growtika.com/
     image_url: ./growtika-logo.webp
-tags: [seo]
+tags: [seo, docusaurus, azure static web apps]
 image: ./title-image.png
 description: In October 2022 traffic to my site tanked. Growtika collaborated with me to fix it. This is what we did. Read it if you're trying to improve your SEO.
 hide_table_of_contents: false
