@@ -396,7 +396,7 @@ A couple of simpler graphs from Google Search Console tell a similar story. Here
 
 ![screenshot from Google Search Console showing performance over time](screenshot-of-performance.webp)
 
-Observe the massive drop off in February 2023. And then the recovery in October / November 2023. It's a similar story to the ahrefs graph above. Further to that, here is the traffic for 28 days in February 2023 vs 28 days in October / November 2023:
+Observe the massive drop off in October 2022. And then the recovery in October / November 2023. It's a similar story to the ahrefs graph above. Further to that, here is the traffic for 28 days in February 2023 vs 28 days in October / November 2023:
 
 ![screenshot from Google Search Console showing few results in February 2023 vs lots of results in October / November 2023](screenshot-google-search-console.webp)
 
