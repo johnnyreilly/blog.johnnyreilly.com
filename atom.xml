@@ -12,7 +12,7 @@
         <title type="html"><![CDATA[How we fixed my SEO]]></title>
         <id>https://johnnyreilly.com/how-we-fixed-my-seo</id>
         <link href="https://johnnyreilly.com/how-we-fixed-my-seo"/>
-        <updated>2023-11-28T05:15:10.000Z</updated>
+        <updated>2023-11-28T06:46:07.000Z</updated>
         <summary type="html"><![CDATA[In October 2022 traffic to my site tanked. Growtika collaborated with me to fix it. This is what we did. Read it if you're trying to improve your SEO.]]></summary>
         <content type="html"><![CDATA[<p>This is a follow up to my <a href="https://johnnyreilly.com/how-i-ruined-my-seo">"How I ruined my SEO"</a> post. That was about how my site stopped ranking in Google's search results around October 2022. This post is about how <a href="https://growtika.com/" target="_blank" rel="noopener noreferrer">Growtika</a> and I worked together to fix it.</p>
 <p>As we'll see, the art of SEO (Search Engine Optimisation) is a mysterious one. We made a number of changes that we believe helped. All told, my site spent about a year out in the cold - barely surfacing in search results. But in October 2023 it started ranking again. And it's been ranking ever since.</p>
@@ -206,7 +206,7 @@ It was a wild guess (and it may not have made any difference) but the thinking w
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="google-search-console">Google Search Console<a href="https://johnnyreilly.com/how-we-fixed-my-seo#google-search-console" class="hash-link" aria-label="Direct link to heading" title="Direct link to heading">​</a></h3>
 <p>A couple of simpler graphs from Google Search Console tell a similar story. Here's a graph showing my site's performance over time:</p>
 <p><img loading="lazy" alt="screenshot from Google Search Console showing performance over time" src="https://johnnyreilly.com/assets/images/screenshot-of-performance-18493275b3b00e779ce1894577884b40.webp" width="900" height="294" class="img_ev3q"></p>
-<p>Observe the massive drop off in February 2023. And then the recovery in October / November 2023. It's a similar story to the ahrefs graph above. Further to that, here is the traffic for 28 days in February 2023 vs 28 days in October / November 2023:</p>
+<p>Observe the massive drop off in October 2022. And then the recovery in October / November 2023. It's a similar story to the ahrefs graph above. Further to that, here is the traffic for 28 days in February 2023 vs 28 days in October / November 2023:</p>
 <p><img loading="lazy" alt="screenshot from Google Search Console showing few results in February 2023 vs lots of results in October / November 2023" src="https://johnnyreilly.com/assets/images/screenshot-google-search-console-af96833d6ddd48eca6d90e75d54083b1.webp" width="1392" height="576" class="img_ev3q"></p>
 <p>If you're reading on a mobile device you may not even realise that there are two lines on the graph; the February 2023 line is so low and flat as to be almost invisible.</p>
 <p>The difference is stark. I couldn't get arrested from a search perspective in February 2023; showing up a mere <strong>5,000</strong> times in search results. That sounds like a big number, but in search terms it's really not. But by October / November 2023 I was back in the game, showing up <strong>274,000</strong> times in search results. That's a <strong>55x</strong> increase!</p>
