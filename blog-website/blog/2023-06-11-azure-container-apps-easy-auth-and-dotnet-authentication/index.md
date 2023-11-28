@@ -51,13 +51,13 @@ If you decode it, you'll see something like this:
 
 ![a screenshot of the decoded object](screenshot-decoded-x-ms-client-principal-header.png)
 
-Given that this information is present, what we can do is tell .NET about it. 
+Given that this information is present, what we can do is tell .NET about it.
 
-But before we do that, let's pause to talk about a current limitation with Easy Auth on Azure Container Apps; JWT support. 
+But before we do that, let's pause to talk about a current limitation with Easy Auth on Azure Container Apps; JWT support.
 
 ## Lack of JWT / Token support
 
-The problem is, there's not JWT token that we can make use of in the headers of an Azure Container App.  This is supported in [App Service which has a token store](https://learn.microsoft.com/en-us/azure/app-service/overview-authentication-authorization#token-store) and supports the [following headers](https://learn.microsoft.com/en-us/azure/app-service/configure-authentication-oauth-tokens#retrieve-tokens-in-app-code):
+The problem is, there's not JWT token that we can make use of in the headers of an Azure Container App. This is supported in [App Service which has a token store](https://learn.microsoft.com/en-us/azure/app-service/overview-authentication-authorization#token-store) and supports the [following headers](https://learn.microsoft.com/en-us/azure/app-service/configure-authentication-oauth-tokens#retrieve-tokens-in-app-code):
 
 ```
 X-MS-TOKEN-AAD-ID-TOKEN
@@ -66,7 +66,7 @@ X-MS-TOKEN-AAD-EXPIRES-ON
 X-MS-TOKEN-AAD-REFRESH-TOKEN
 ```
 
-If there was a populated `X-MS-TOKEN-AAD-ACCESS-TOKEN` then it would unlock all manner of possibilities. Let's say I want to make use of the Graph API on behalf of my logged in user.  I cannot.
+If there was a populated `X-MS-TOKEN-AAD-ACCESS-TOKEN` then it would unlock all manner of possibilities. Let's say I want to make use of the Graph API on behalf of my logged in user. I cannot.
 
 Reading [the docs](https://learn.microsoft.com/en-us/graph/sdks/choose-authentication-providers?tabs=csharp#on-behalf-of-provider) I believe I should be trying to use the "on behalf of" approach:
 

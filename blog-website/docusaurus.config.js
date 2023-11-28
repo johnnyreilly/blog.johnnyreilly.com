@@ -672,8 +672,8 @@ const config = {
                         icon: '/img/docusaurus-logo.svg',
                       },
                       {
-                        href: '/teams-notification-webhooks',
-                        label: 'Teams notification webhooks',
+                        href: '/how-we-fixed-my-seo',
+                        label: 'How we fixed my SEO',
                       },
                     ],
                   }),

@@ -59,6 +59,12 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
           .filter((tag) => tag);
 
         tags.forEach((tag) => {
+          if (tag.toLocaleLowerCase() !== tag) {
+            console.log(
+              `'${tag}' should be '${tag.toLocaleLowerCase()}' in ${filePath}`,
+            );
+          }
+
           const currentCount = tagsAndTotal.get(tag) ?? 0;
           tagsAndTotal.set(tag, currentCount + 1);
         });

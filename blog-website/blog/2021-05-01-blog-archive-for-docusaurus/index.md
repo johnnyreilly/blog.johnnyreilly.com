@@ -12,13 +12,13 @@ Docusaurus doesn't ship with "blog archive" functionality. By which I mean, some
 
 ![Docusaurus blog archive](docusaurus-blog-archive.png)
 
-<!--truncate-->
-
 ## Updated 2021-09-01
 
 As of [v2.0.0-beta.6](https://github.com/facebook/docusaurus/releases/tag/v2.0.0-beta.6), Docusauras _does_ ship with blog archive functionality that lives at the `archive` route. This is down to the work of [Gabriel Csapo](https://github.com/gabrielcsapo) in [this PR](https://github.com/facebook/docusaurus/pull/5428).
 
 If you'd like to know how to build your own, read on... But you may not need to!
+
+<!--truncate-->
 
 ## Blogger's blog archive
 
