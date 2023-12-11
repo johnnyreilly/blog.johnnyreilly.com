@@ -141,6 +141,24 @@ import type { A, B } from 'mod';
 
 So if side effects is something you're concerned about, consider this rule as well. Note that whether `import { type A } from 'mod'` transpiles to a side-effect import or gets completely removed depends on your `tsc` options, or what transpiler you’re using. But `import type` statements _always_ get removed.
 
+## Make VS Code prefer type imports
+
+One of the delightful features of TypeScript in VS Code is TypeScript generated auto-imports. Thanks in large part to the work of [Andrew Branch](https://github.com/andrewbranch) on the TypeScript team, the editor will often generate the `import` that you need when you're coding. However, it will generally create value imports; *not* type imports. So it might auto add this:
+
+```ts
+import { ResourceGraphClient } from '@azure/arm-resourcegraph';
+```
+
+Not this:
+
+```ts
+import type { ResourceGraphClient } from '@azure/arm-resourcegraph';
+```
+
+As of TypeScript 5.3, this is now an editor-specific option. In Visual Studio Code, it can be enabled in the settings UI under "TypeScript › Preferences: Prefer Type Only Auto Imports", or as the JSON configuration option `typescript.preferences.preferTypeOnlyAutoImports`. You can read about this in the [TypeScript 5.3 release notes](https://devblogs.microsoft.com/typescript/announcing-typescript-5-3/#settings-to-prefer-type-auto-imports).
+
+Turn it on - it'll make you happy!
+
 ## Summary
 
 Thanks to Andrew Branch for reviewing this post, and massively improving it! Any mistakes are mine, not his.
