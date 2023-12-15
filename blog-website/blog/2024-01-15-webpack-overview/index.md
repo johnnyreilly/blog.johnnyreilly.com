@@ -51,17 +51,24 @@ But it was **so much better** than what we had before. So it became very popular
 
 ### The rise of the module bundler
 
-Around 2014, a new tool started to become popular: the module bundler. The first module bundler to become popular was [Browserify](http://browserify.org/). It was followed by [webpack](https://webpack.js.org/), [Rollup](https://rollupjs.org/guide/en/), and [Parcel](https://parceljs.org/).
+Around 2014, a new tool started to become popular: the module bundler. But what is a module bundler? Well, it's a tool that allows you to write your code in modules, and then bundle those modules into a single file. It also allows you to use other tools, like TypeScript, and CSS preprocessors like Sass and Less.
 
-But what is a module bundler? Well, it's a tool that allows you to write your code in modules, and then bundle those modules into a single file. It also allows you to use other tools, like TypeScript, and CSS preprocessors like Sass and Less.
+That's a lot of words, let's unpack them a little. For some time, the defacto way of acquiring JavaScript libraries has been through npm. npm is a package manager for JavaScript. However, it's worth remembering its history. npm started out as the package manager for Node.js. It was originally used to house packages that were used to build Node.js applications. It was never intended to be used for front end development. In fact, for a while there was an alternative front end package manager called [Bower](https://bower.io/).
 
-npm
+The thing is, there's a lot of commonality between Node.js and front end development. Both use JavaScript. You're unlikely to need to run a web server in the browser. However, whether running in a browser or on a server, you might want to order an array with lodash, or make use of TypeScript, or perform validation with Zod. So it makes sense to use the same package manager for both.
 
-import / require
+The first tool that tackled this was [Browserify](http://browserify.org/). As the name suggests, it was a tool that allowed you to use Node.js style modules in the browser. It did this by taking your code, and recursively walking through it, finding all the `require` calls, and bundling them into a single file.
+
+By doing this, it performed two useful functions:
+
+1. It opened up the ecosystem of Node.js packages to front end developers.
+2. It allowed you to write your code in modules, which made it easier to reason about.
+
+Both of these are tremendously significant. The first one is obvious. The second one is less obvious, but it's very important. It's worth remembering that JavaScript didn't have modules until ES2015. But npm had its own module standard called CommonJS. Given that Browserify and webpack were both created before ES2015, they both used CommonJS modules in the context of the browser. This was a huge improvement over the previous way of doing things, which was to include a bunch of script tags in your HTML file. The reason it's so wildly different is because the dependencies in your codebase moved from being **implicit** to being **explicit**. Instead of having to remember to include a bunch of script tags in your HTML file, you could just `require` the modules you needed. This made it much easier to reason about your codebase. What's more, you had a a `package.json` file that listed all your dependencies, so you could see at a glance what your dependencies were.
 
 ## What is webpack?
 
-By the way, it's definitely not "Webpack" or "WebPack". It's "webpack".
+Now we understand a little of the history, we come to webpack. By the way, it's definitely not "Webpack" or "WebPack". It's "webpack".
 
 Tobias Koppers
 
