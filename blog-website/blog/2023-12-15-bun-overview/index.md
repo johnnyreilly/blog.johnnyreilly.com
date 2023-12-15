@@ -8,7 +8,7 @@ authors:
     url: https://www.linkedin.com/in/leemeganj/
     image_url: https://media.licdn.com/dms/image/C4D03AQFSGZ5WM0U3MQ/profile-displayphoto-shrink_800_800/0/1516959703212?e=1705536000&v=beta&t=3JcqFyOGoIFse9XyBD3KZCPb3Z4hEPgbj-8dgcDfxWQ
 tags: [bun]
-description: Get an overview of the JavaScript runtime Bun.
+description: Bun is a new, fast, TypeScript-first, npm compatible-first JavaScript runtime. This is a walkthrough of it!
 hide_table_of_contents: false
 ---
 
