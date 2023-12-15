@@ -8,6 +8,7 @@ authors:
     url: https://www.linkedin.com/in/leemeganj/
     image_url: https://media.licdn.com/dms/image/C4D03AQFSGZ5WM0U3MQ/profile-displayphoto-shrink_800_800/0/1516959703212?e=1705536000&v=beta&t=3JcqFyOGoIFse9XyBD3KZCPb3Z4hEPgbj-8dgcDfxWQ
 tags: [bun]
+image: ./title-image.png
 description: Bun is a new, fast, TypeScript-first, npm compatible-first JavaScript runtime. This is a walkthrough of it!
 hide_table_of_contents: false
 ---
@@ -16,15 +17,15 @@ Like Node.js and Deno, Bun is a JavaScript runtime that provides a faster develo
 
 In this evaluation guide, we’ll explore the features that make Bun an excellent choice for developing fast, performant, error-free frontend apps. By the end of this article, you’ll have a clear understanding of when and why you should use Bun in your projects.
 
+![title image reading "Bun overview: whats cooking" with the Bun logo](title-image.png)
+
 ## What is Bun?
 
 Bun was created by Jarred Sumner with the intention that, if you currently use Node.js, you should easily be able to swap it out and replace it with Bun instead.
 
 In other words, you should be able to quickly take advantage of Bun’s awesome features without having to deal with a steep learning curve. Generally, you can use the same frameworks, libraries, and conventions you’re used to, often without issue. Keep in mind there may be exceptions to this.
 
-The Bun team released v1.0 on 8 September 2023. However, Bun was already widely known and used long before that. Jarred Sumner even appeared on PodRocket on 5 August 2022 to discuss Bun, more than a year before the release of v1.0.
-
-<iframe width="100%" height="352" src="https://open.spotify.com/embed/episode/512NHtxknFNeipHSZHIRXP?utm_source=generator" frameBorder="0" allowFullScreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+The Bun team released v1.0 on 8 September 2023. However, Bun was already widely known and used long before that. Jarred Sumner even [appeared on PodRocket](https://open.spotify.com/episode/512NHtxknFNeipHSZHIRXP) on 5 August 2022 to discuss Bun, more than a year before the release of v1.0.
 
 Part of the reason for Bun’s rise in popularity even before its stable release is its speed and ease of use.
 
