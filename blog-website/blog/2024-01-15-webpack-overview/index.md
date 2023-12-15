@@ -68,8 +68,26 @@ Both of these are tremendously significant. The first one is obvious. The second
 
 ## What is webpack?
 
-Now we understand a little of the history, we come to webpack. By the way, it's definitely not "Webpack" or "WebPack". It's "webpack".
+Now we understand a little of the history, we come to webpack. By the way, it's definitely not "Webpack" or "WebPack". It's "webpack". The person initially behind webpack is [Tobias Koppers](https://github.com/sokra); an engineer from Germany. Many, many people have contributed to the project since then, but Tobias is the person who has done the most work on it.
 
-Tobias Koppers
+I mentioned that I was a web developer whilst the web was evolving its developer tooling. In my case I was a longtime user of Gulp, and then Browserify. I moved to webpack in 2015. I can't remember exactly why I moved, but I think it was because I wanted to use TypeScript, and webpack had better TypeScript support than Browserify (more on this later). I also think I was attracted to webpack because it was a more holistic solution than Browserify. It had a plugin system, and it had loaders. I'll talk about those in a moment.
 
-https://github.com/sokra
+First and foremost, it's worth saying that webpack is a module bundler. It takes your code, and recursively walks through it, finding all the `require` or `import` calls, building up a dependency graph, performing preprocessing tasks and producing runnable output, in the form of HTML, CSS and JavaScript. It also allows you to use other tools, like TypeScript, and CSS preprocessors like Sass and Less.
+
+One of the most surprising things about webpack has been both its popularity, and how it has lasted. The web development world is famous for having the attention span of a distracted toddler. Tools replace tools, libraries replace libraries, and frameworks replace frameworks. But webpack has been around for a long time, and it's still the most popular bundler. At the time of writing it still has 110 million downloads a month. Why is that?
+
+I think there are a few reasons.
+
+Firstly, because of the richness of the ecosystem and the flexibility of the tool, it's possible to solve pretty much all web development problems with webpack. There are newer, shinier tools (and as we'll see later, webpack is starting to be displaced by some of these) but as a reliable tool that can solve all your problems, webpack is hard to beat.
+
+That doesn't mean it's the easiest tool to work with on all occasions. The internet is awash with people bitterly complaining about the scars they bear from configuring webpack. It's true that webpack can be difficult to configure. But it's also true that webpack is a very powerful tool. Once you have it working, you generally don't have to touch it again.
+
+A second reason why webpack is so popular, is that it has become a "primitive". What I mean by that, is that it has become a library that other libraries depend upon. If you use Docusaurus, you're also using webpack as the underlying build tool. Many projects have a need of a build tool and have picked webpack to be that. This has led to a huge ecosystem of plugins and loaders. It's also led to a plethora of tutorials and blog posts. If you have a problem, it's likely that someone else has had the same problem and has written a blog post about it.
+
+By way of example, a [blog post I wrote in 2016 about the webpack `DefinePlugin`](https://johnnyreilly.com/using-webpacks-defineplugin-with-typescript) still ranks highly in Google for "use webpack defineplugin with typescript" and is (to my surprise) one of my most popular blog posts. Here's a screenshot of it in Google search results:
+
+![screenshot of the blog post in Google search results](screenshot-google-search-results-webpack-defineplugin.png)
+
+This speaks to the level of popularity around all things webpack.
+
+## Getting started
