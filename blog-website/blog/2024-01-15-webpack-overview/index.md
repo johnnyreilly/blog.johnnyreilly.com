@@ -91,3 +91,126 @@ By way of example, a [blog post I wrote in 2016 about the webpack `DefinePlugin`
 This speaks to the level of popularity around all things webpack.
 
 ## Getting started
+
+This article is intended to be an overview of webpack. The documentation, as you might expect from such a big project, is excellent and can be found here: https://webpack.js.org
+
+Whilst we won't go through every scenario and use case of webpack, we want to give you a sense of what working with webpack looks like. For the purposes of this article, let's get started with a simple example. We'll create a simple "Hello, webpack" app. And we'll enrich it as we go through the piece.
+
+## Creating a simple app
+
+First, let's make a folder, create a `package.json` file and install the webpack dependencies we need:
+
+```bash
+mkdir hello-webpack
+cd hello-webpack
+npm init -y
+npm install webpack webpack-cli webpack-dev-server html-webpack-plugin --save-dev
+```
+
+The dependencies we're installing are:
+
+- webpack
+- the [`webpack-cli`](https://github.com/webpack/webpack-cli) - a command line interface for webpack
+- [`webpack-dev-server`](https://webpack.js.org/configuration/dev-server/) - a development server that allows you to serve up your app in a browser
+- [`html-webpack-plugin`](https://github.com/jantimon/html-webpack-plugin/) - a plugin that allows you to generate an HTML file that includes your bundled JavaScript file(s)
+
+Whilst it is possible to use webpack without configuring it, it's more typical to have a `webpack.config.js` file (or more than one!). So let's create one:
+
+```javascript
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  mode: 'development', // mode can be "development", "production" or "none" https://webpack.js.org/configuration/mode/
+  entry: {
+    index: './src/index.js', // the entry point of our app https://webpack.js.org/concepts/entry-points/
+  },
+  devtool: 'inline-source-map', // the type of sourcemap to generate for debugging https://webpack.js.org/configuration/devtool/
+  plugins: [
+    new HtmlWebpackPlugin(), // a plugin to generate an HTML file https://github.com/jantimon/html-webpack-plugin
+  ],
+  output: {
+    // where to put the bundled output https://webpack.js.org/concepts/output/
+    filename: '[name].[contenthash].js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
+  },
+};
+```
+
+Now we're going to add two scripts to our `package.json` file. One to build our app, and one to serve it up in a browser whilst we're developing it:
+
+```json
+  "scripts": {
+    "build": "webpack build --mode production",
+    "start": "webpack serve --open"
+  },
+```
+
+What we need now, is some code to bundle. Let's create a `src` folder, and a `src/index.js` file; our first JavaScript file:
+
+```javascript
+function app() {
+  const element = document.createElement('div');
+
+  element.innerHTML = 'Hello, webpack';
+
+  return element;
+}
+
+document.body.appendChild(app());
+```
+
+We're ready now; we can build our app:
+
+```bash
+npm run build
+
+> hello-webpack@1.0.0 build
+> webpack build --mode production
+
+asset index.fa57459b38ec1f34e79c.js 866 bytes [emitted] [immutable] [minimized] (name: index)
+asset index.html 236 bytes [emitted]
+./src/index.js 163 bytes [built] [code generated]
+webpack 5.89.0 compiled successfully in 514 ms
+```
+
+This has created a `dist` folder, and a `dist/index.html` file. Alongside that, it's created a `dist/index.fa57459b38ec1f34e79c.js` file. If you open the `index.html` file in a browser, you'll see your "Hello, webpack" message.
+
+Not only can we build our app, we can also serve it up in a browser locally at http://localhost:8080/ whilst we're developing it:
+
+```bash
+npm start
+
+> hello-webpack@1.0.0 start
+> webpack serve --open
+
+<i> [webpack-dev-server] Project is running at:
+<i> [webpack-dev-server] Loopback: http://localhost:8080/
+<i> [webpack-dev-server] On Your Network (IPv4): http://172.30.170.28:8080/
+<i> [webpack-dev-server] On Your Network (IPv6): http://[fe80::1]:8080/
+<i> [webpack-dev-server] Content not from webpack is served from '/hello-webpack/public' directory
+<i> [webpack-dev-middleware] wait until bundle finished: /
+asset index.234fd419b9a4e8698328.js 621 KiB [emitted] [immutable] (name: index)
+asset index.html 253 bytes [emitted]
+runtime modules 27.3 KiB 12 modules
+modules by path ./node_modules/ 178 KiB
+  modules by path ./node_modules/webpack-dev-server/client/ 71.8 KiB 16 modules
+  modules by path ./node_modules/webpack/hot/*.js 5.3 KiB
+    ./node_modules/webpack/hot/dev-server.js 1.94 KiB [built] [code generated]
+    ./node_modules/webpack/hot/log.js 1.86 KiB [built] [code generated]
+    + 2 modules
+  modules by path ./node_modules/html-entities/lib/*.js 81.8 KiB
+    ./node_modules/html-entities/lib/index.js 7.91 KiB [built] [code generated]
+    ./node_modules/html-entities/lib/named-references.js 73 KiB [built] [code generated]
+    ./node_modules/html-entities/lib/numeric-unicode-map.js 339 bytes [built] [code generated]
+    ./node_modules/html-entities/lib/surrogate-pairs.js 537 bytes [built] [code generated]
+  ./node_modules/ansi-html-community/index.js 4.16 KiB [built] [code generated]
+  ./node_modules/events/events.js 14.5 KiB [built] [code generated]
+./src/index.js 163 bytes [built] [code generated]
+webpack 5.89.0 compiled successfully in 800 ms
+```
+
+If we open that file in a browser, we'll see our "Hello, webpack" message. At this point we have a simple app built with webpack. It's not doing much, but it's a start. Let's add some more features.
+
+## Integrating with plugins and loaders
