@@ -122,9 +122,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development', // mode can be "development", "production" or "none" https://webpack.js.org/configuration/mode/
-  entry: {
-    index: './src/index.js', // the entry point of our app https://webpack.js.org/concepts/entry-points/
-  },
+  entry: './src/index.js', // the entry point of our app https://webpack.js.org/concepts/entry-points/
   devtool: 'inline-source-map', // the type of sourcemap to generate for debugging https://webpack.js.org/configuration/devtool/
   plugins: [
     new HtmlWebpackPlugin(), // a plugin to generate an HTML file https://github.com/jantimon/html-webpack-plugin
@@ -169,19 +167,17 @@ npm run build
 > hello-webpack@1.0.0 build
 > webpack build --mode production
 
-asset index.fa57459b38ec1f34e79c.js 866 bytes [emitted] [immutable] [minimized] (name: index)
-asset index.html 236 bytes [emitted]
+asset main.82d3f64b186c8eec8e7c.js 862 bytes [emitted] [immutable] [minimized] (name: main)
+asset index.html 235 bytes [emitted]
 ./src/index.js 163 bytes [built] [code generated]
-webpack 5.89.0 compiled successfully in 514 ms
+webpack 5.89.0 compiled successfully in 516 ms
 ```
 
-This has created a `dist` folder, and a `dist/index.html` file. Alongside that, it's created a `dist/index.fa57459b38ec1f34e79c.js` file. If you open the `index.html` file in a browser, you'll see your "Hello, webpack" message.
+This has created a `dist` folder, and a `dist/index.html` file. Alongside that, it's created a `dist/main.82d3f64b186c8eec8e7c.js` file. If you open the `index.html` file in a browser, you'll see your "Hello, webpack" message.
 
 Not only can we build our app, we can also serve it up in a browser locally at http://localhost:8080/ whilst we're developing it:
 
 ```bash
-npm start
-
 > hello-webpack@1.0.0 start
 > webpack serve --open
 
@@ -189,10 +185,10 @@ npm start
 <i> [webpack-dev-server] Loopback: http://localhost:8080/
 <i> [webpack-dev-server] On Your Network (IPv4): http://172.30.170.28:8080/
 <i> [webpack-dev-server] On Your Network (IPv6): http://[fe80::1]:8080/
-<i> [webpack-dev-server] Content not from webpack is served from '/hello-webpack/public' directory
+<i> [webpack-dev-server] Content not from webpack is served from '/Users/jreilly/code/github.com/hello-webpack/public' directory
 <i> [webpack-dev-middleware] wait until bundle finished: /
-asset index.234fd419b9a4e8698328.js 621 KiB [emitted] [immutable] (name: index)
-asset index.html 253 bytes [emitted]
+asset main.4d4379bc3adfa037dc27.js 621 KiB [emitted] [immutable] (name: main)
+asset index.html 252 bytes [emitted]
 runtime modules 27.3 KiB 12 modules
 modules by path ./node_modules/ 178 KiB
   modules by path ./node_modules/webpack-dev-server/client/ 71.8 KiB 16 modules
@@ -208,7 +204,7 @@ modules by path ./node_modules/ 178 KiB
   ./node_modules/ansi-html-community/index.js 4.16 KiB [built] [code generated]
   ./node_modules/events/events.js 14.5 KiB [built] [code generated]
 ./src/index.js 163 bytes [built] [code generated]
-webpack 5.89.0 compiled successfully in 800 ms
+webpack 5.89.0 compiled successfully in 861 ms
 ```
 
 If we open that file in a browser, we'll see our "Hello, webpack" message. At this point we have a simple app built with webpack. It's not doing much, but it's a start. And it'll give us a chance to talk about some concepts. Let's add some more features.
@@ -217,6 +213,82 @@ If we open that file in a browser, we'll see our "Hello, webpack" message. At th
 
 If you want to do anything more than the most basic of apps, you'll need to use plugins and loaders. Let's add some more features to our app, and we'll use plugins and loaders to do it.
 
+### Loaders
+
 The first thing we'll do is look at loaders. Loaders allow webpack to process other types of files (for example, TypeScript) and convert them into valid modules that can be consumed by your application and added to the dependency graph. An example of a loader is [`ts-loader`](https://github.com/TypeStrong/ts-loader) which allows you to use TypeScript with webpack.
 
 I should not brush past this, I'm the primary maintainer of `ts-loader` and I'm very proud of it. It gets around 30 million downloads a month at the time of writing. That suggests that roughly a quarter of webpacks users are also `ts-loader` users. `ts-loader` is a great loader, and I'm very happy to have worked on it since 2016. There's actually a story behind how I came to work on it, [you can read it here](https://johnnyreilly.com/but-you-cant-die-i-love-you-ts-loader).
+
+Let's install `ts-loader` and TypeScript, and create a `tsconfig.json` file:
+
+```bash
+npm install typescript ts-loader --save-dev
+npx tsc --init
+```
+
+Now we need to configure webpack to use `ts-loader`. We do this by updating our entry point to be a TypeScript file and adding a `module` section to our `webpack.config.js` file:
+
+```diff
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  mode: 'development', // mode can be "development", "production" or "none" https://webpack.js.org/configuration/mode/
+-  entry: './src/index.js', // the entry point of our app https://webpack.js.org/concepts/entry-points/
++  entry: './src/index.ts', // the entry point of our app https://webpack.js.org/concepts/entry-points/
+  devtool: 'inline-source-map', // the type of sourcemap to generate for debugging https://webpack.js.org/configuration/devtool/
+  plugins: [
+    new HtmlWebpackPlugin(), // a plugin to generate an HTML file https://github.com/jantimon/html-webpack-plugin
+  ],
++  module: {
++    rules: [
++      {
++        test: /\.([cm]?ts|tsx)$/,
++        loader: 'ts-loader',
++      },
++    ],
++  },
+  output: {
+    // where to put the bundled output https://webpack.js.org/concepts/output/
+    filename: '[name].[contenthash].js',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
+  },
+};
+```
+
+The `test` property is a regular expression that matches the files we want to process. In this case, we're matching `.ts`, `.tsx`, `.cts` and `.cts` files. The `loader` property is the name of the loader we want to use; `ts-loader`.
+
+Let's rename our `src/index.js` file to `src/index.ts` and change the code to use TypeScript:
+
+```typescript
+function app(): HTMLDivElement {
+  // the only TypeScript change we made is to add a return type
+  const element = document.createElement('div');
+
+  element.innerHTML = 'Hello, webpack';
+
+  return element;
+}
+
+document.body.appendChild(app());
+```
+
+And just like that, we can use TypeScript in our app!
+
+What is `ts-loader` actually doing? Well, it's taking our TypeScript code, and converting it into JavaScript. For each TypeScript file, `ts-loader` is invoked. It takes the TypeScript code, and passes it to the TypeScript compiler. The TypeScript compiler converts the TypeScript code into JavaScript. `ts-loader` then takes the JavaScript code and passes it to webpack. webpack then takes the JavaScript code and bundles it.
+
+This is what all loaders do; they take a file, process it, and pass it to webpack. There are many loaders available, and you can even write your own. You can find a list of loaders here: https://webpack.js.org/loaders/
+
+### Using plugins and loaders - some resources
+
+There's a wealth of guides on the LogRocket blog that show you how to use webpack plugins and loaders to achieve all kinds of use cases. Here are some of them:
+
+- [How to detect dead code in a frontend project](https://blog.logrocket.com/how-detect-dead-code-frontend-project/#using-webpack-for-dead-code-detection)
+- [Tree shaking JSON files with webpack](https://blog.logrocket.com/tree-shaking-json-files-webpack/)
+- [Tree shaking and code splitting in webpack](https://blog.logrocket.com/tree-shaking-and-code-splitting-in-webpack/)
+- [Building micro-frontends with webpack’s Module Federation](https://blog.logrocket.com/building-micro-frontends-webpacks-module-federation/)
+- [Improve your webpack build with the DLL plugin](https://blog.logrocket.com/speed-up-your-webpack-build-with-the-dll-plugin/)
+- [Slimming down your bundle size](https://blog.logrocket.com/slimming-down-your-bundle-size/)
+- [Parsing raw text inputs in web applications using ANTLR](https://blog.logrocket.com/parsing-raw-text-inputs-in-web-applications-using-antlr/)
+- [An in-depth guide to performance optimization with webpack](https://blog.logrocket.com/guide-performance-optimization-webpack/)
