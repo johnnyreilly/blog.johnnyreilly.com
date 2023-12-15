@@ -211,6 +211,12 @@ modules by path ./node_modules/ 178 KiB
 webpack 5.89.0 compiled successfully in 800 ms
 ```
 
-If we open that file in a browser, we'll see our "Hello, webpack" message. At this point we have a simple app built with webpack. It's not doing much, but it's a start. Let's add some more features.
+If we open that file in a browser, we'll see our "Hello, webpack" message. At this point we have a simple app built with webpack. It's not doing much, but it's a start. And it'll give us a chance to talk about some concepts. Let's add some more features.
 
 ## Integrating with plugins and loaders
+
+If you want to do anything more than the most basic of apps, you'll need to use plugins and loaders. Let's add some more features to our app, and we'll use plugins and loaders to do it.
+
+The first thing we'll do is look at loaders. Loaders allow webpack to process other types of files (for example, TypeScript) and convert them into valid modules that can be consumed by your application and added to the dependency graph. An example of a loader is [`ts-loader`](https://github.com/TypeStrong/ts-loader) which allows you to use TypeScript with webpack.
+
+I should not brush past this, I'm the primary maintainer of `ts-loader` and I'm very proud of it. It gets around 30 million downloads a month at the time of writing. That suggests that roughly a quarter of webpacks users are also `ts-loader` users. `ts-loader` is a great loader, and I'm very happy to have worked on it since 2016. There's actually a story behind how I came to work on it, [you can read it here](https://johnnyreilly.com/but-you-cant-die-i-love-you-ts-loader).
