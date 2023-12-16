@@ -44,7 +44,7 @@ resource staticWebApp 'Microsoft.Web/staticSites@2022-09-01' = {
   }
 }
 
-resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2022-09-01' = {
+resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2023-01-01' = {
   name: 'appsettings'
   kind: 'config'
   parent: staticWebApp
