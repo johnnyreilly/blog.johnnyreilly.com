@@ -41,7 +41,7 @@
     "fontaine": "0.4.1",
     "rehype-cloudinary-docusaurus": "3.0.0",
     "simple-git": "3.21.0",
-    "typescript": "5.3.2"
+    "typescript": "5.3.3"
   },
   "browserslist": {
     "production": [
