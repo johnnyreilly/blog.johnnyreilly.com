@@ -468,3 +468,41 @@ We've seen a number of examples of plugins. Almost all customisation of webpack 
 - [Slimming down your bundle size](https://blog.logrocket.com/slimming-down-your-bundle-size/)
 - [Parsing raw text inputs in web applications using ANTLR](https://blog.logrocket.com/parsing-raw-text-inputs-in-web-applications-using-antlr/)
 - [An in-depth guide to performance optimization with webpack](https://blog.logrocket.com/guide-performance-optimization-webpack/)
+
+## webpack and the competition
+
+There has been a lot of competition in the bundler space. webpack has been the most popular bundler for a long time, but it's not the only game in town, and never has been. It's beyond the scope of this article to do a full comparison of webpack and its competitors, but there's some excellent articles out there that do just that:
+
+- [Snowpack vs. webpack: A build tool comparison](https://blog.logrocket.com/snowpack-vs-webpack-build-tool-comparison/)
+- [Migrating to SWC: A brief overview](https://blog.logrocket.com/migrating-swc-webpack-babel-overview/)
+- [webpack or esbuild: Why not both?](https://blog.logrocket.com/webpack-or-esbuild-why-not-both/)
+- [Switching to Parcel from webpack](https://blog.logrocket.com/switching-to-parcel-from-webpack/)
+- [Why you should migrate to Rspack from webpack](https://blog.logrocket.com/migrate-rspack-webpack/)
+- [Introducing Turbopack: A Rust-based successor to webpack](https://blog.logrocket.com/introducing-turbopack-rust-based-successor-webpack/)
+- [Benchmarking bundlers 2020: Rollup vs. Parcel vs. webpack](https://blog.logrocket.com/benchmarking-bundlers-2020-rollup-parcel-webpack/)
+
+For the longest time, webpack has been the most popular bundler. Apparently incapable of being dislodged from that position. However, it looks like that might be changing. If we look at the npm download stats for webpack for the last five years, we can see that, for the first time, its popularity is starting to decrease. It's still the most popular bundler, but it's no longer increasing in popularity:
+
+![screenshot of a chart comparing webpack, esbuild, swc and vite usage over the years 2018-2023](screenshot-stats-webpack-vite-esbuild-swc.png)
+
+I've included some tools alongside webpack in the above chart; vite and esbuild. [Vite](https://vitejs.dev/) is a bundler that came out of the Vue ecosystem. It's a very fast bundler that uses esbuild under the hood. [esbuild](https://esbuild.github.io/) is a bundler that came out of the Go ecosystem. [swc](https://github.com/swc-project/swc) is a super-fast TypeScript / JavaScript compiler written in Rust.
+
+The thing to note about all these competitors is that they are all faster than webpack. There's a reason for that. webpack is written in JavaScript. For most of the history of bundlers, JavaScript was what they were generally implemented in. But the next generation of tools are written in other languages. esbuild is written in Go. swc is written in Rust. These languages have allowed massively increased performance. webpack cannot compete in terms of speed with these; so it's no surprise that the next generation of tools are faster than webpack.
+
+New next generation tools are still appearing. [Bun](https://blog.logrocket.com/bun-adoption-guide/) is an alternative JavaScript runtime, implemented in Zig. It also ships with its own [Bun bundler](https://bun.sh/docs/bundler) which is reportedly even faster than esbuild and Rspack! We're likely to see more of these tools in the future.
+
+Speed is a very attractive proposition, and so we're starting to see the community move away from webpack. It's not a mass exodus, when people are starting new projects now, they're more likely to use one of the newer tools. webpack is not going anywhere. But it's fair to say that it is starting to be displaced by some of the newer tools. This trend is only going to continue.
+
+## Conclusion
+
+In this article we've looked at what webpack is, and why it's so popular. We've looked at its history, and how it came to be the most popular bundler. We've examined how to get started with webpack, some of the high level concepts such as plugins and loaders. We've also considered some of the competition, and how webpack is starting to be displaced by some of the newer tools.
+
+To close out, let me share some posts that detail using webpack with popular frameworks / libraries:
+
+- [Writing webpack plugins in Rust using SWC for faster builds](https://blog.logrocket.com/writing-webpack-plugins-rust-using-swc/)
+- [The best webpack configurations for React applications](https://blog.logrocket.com/versatile-webpack-configurations-react-application/)
+- [5 useful development tools for Vue.js](https://blog.logrocket.com/5-useful-development-tools-for-vue-js/)
+- [Configuring webpack from scratch for Tailwind CSS with React](https://blog.logrocket.com/webpack-from-scratch-for-tailwind-css-with-react/)
+- [How to configure CSS Modules for webpack](https://blog.logrocket.com/how-to-configure-css-modules-webpack/)
+- [vanilla-extract tutorial: Create zero-runtime style sheets in TypeScript](https://blog.logrocket.com/vanilla-extract-tutorial-create-zero-runtime-stylesheets-in-typescript/)
+- [Quick guide to webpack bundle and code splitting with React](https://blog.logrocket.com/quick-guide-to-webpack-bundle-and-code-splitting-with-react-43d1045f1064/)
