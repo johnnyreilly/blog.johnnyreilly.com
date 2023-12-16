@@ -278,11 +278,187 @@ And just like that, we can use TypeScript in our app!
 
 What is `ts-loader` actually doing? Well, it's taking our TypeScript code, and converting it into JavaScript. For each TypeScript file, `ts-loader` is invoked. It takes the TypeScript code, and passes it to the TypeScript compiler. The TypeScript compiler converts the TypeScript code into JavaScript. `ts-loader` then takes the JavaScript code and passes it to webpack. webpack then takes the JavaScript code and bundles it.
 
-This is what all loaders do; they take a file, process it, and pass it to webpack. There are many loaders available, and you can even write your own. You can find a list of loaders here: https://webpack.js.org/loaders/
+This is what all loaders do; they take a file, process it, and pass it to webpack. There are many loaders available, and you can even write your own. They aren't restricted to languages that compile to JavaScript. You can find a list of loaders here: https://webpack.js.org/loaders/
+
+### Plugins
+
+We've covered loaders, now we'll cover plugins. Plugins allow you to do all kinds of things with webpack. The definition in the webpack documentation is delightfully broad:
+
+> Plugins are the backbone of webpack. ... They serve the purpose of doing anything else that a loader cannot do.
+
+So maybe it's easier to give you some examples. We already have one plugin in our app, the `HtmlWebpackPlugin`. This plugin generates an HTML file that includes our bundled JavaScript file(s). It's a very useful plugin, and it's one of the most popular plugins in the webpack ecosystem. It's also a good example of a plugin that does something that a loader can't do.
+
+#### `DefinePlugin`
+
+Let's add another plugin to our app. We'll add the [`DefinePlugin`](https://webpack.js.org/plugins/define-plugin/). This plugin allows you to define global constants that can be used in your code. Let's add it to our `webpack.config.js` file:
+
+```diff
+const path = require("path");
++const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+module.exports = {
+  mode: "development",
+  entry: './src/index.ts', // the entry point of our app https://webpack.js.org/concepts/entry-points/
+  devtool: "inline-source-map",
+  plugins: [
+      new HtmlWebpackPlugin(),
++      new webpack.DefinePlugin({
++        'MODE': JSON.stringify("PRODUCTION"),
++      })
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.([cm]?ts|tsx)$/,
+        loader: 'ts-loader',
+      },
+    ],
+  },
+  output: {
+    filename: "[name].[contenthash].js",
+    path: path.resolve(__dirname, "dist"),
+    clean: true,
+  },
+};
+```
+
+With the change above, we've added the `DefinePlugin` to our list of plugins. We've also defined a global constant called `MODE` that will be available in our code. We've set the value of `MODE` to be the value of the `NODE_ENV` environment variable. We'll use this in our code in a moment.
+
+Let's update our `src/index.ts` file to use the `MODE` constant, and tell TypeScript about it:
+
+```diff
++declare const MODE: string;
+
+function app(): HTMLDivElement {
+  const element = document.createElement("div");
+
+-  element.innerHTML = 'Hello, webpack';
++  element.innerHTML = `Hello, webpack, we are in ${MODE} mode.`;
+
+  return element;
+}
+
+document.body.appendChild(app());
+```
+
+Now if we build our app, we'll see that the `MODE` constant is available in our code, and we can use it. At runtime it will be replaced with the value we defined in our `webpack.config.js` file and our app will say:
+
+> Hello, webpack, we are in PRODUCTION mode.
+
+#### `fork-ts-checker-webpack-plugin`
+
+Before we move on, let's add one more plugin to our app. We're going to add the [`fork-ts-checker-webpack-plugin`](https://github.com/TypeStrong/fork-ts-checker-webpack-plugin). This plugin allows you to run the TypeScript compiler in a separate process. This is useful because it means that webpack can run in parallel with the TypeScript compiler. This can significantly speed up your build times. I have worked on this plugin, as it has a sibling relationship with `ts-loader`. It's quite common to use both together; `ts-loader` to compile your code, and `fork-ts-checker-webpack-plugin` to type check it.
+
+Let's install `fork-ts-checker-webpack-plugin`:
+
+```bash
+npm install fork-ts-checker-webpack-plugin --save-dev
+```
+
+And let's configure it in our `webpack.config.js` file:
+
+```diff
+const path = require("path");
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+
+module.exports = {
+  mode: "development",
+  entry: './src/index.ts', // the entry point of our app https://webpack.js.org/concepts/entry-points/
+  devtool: "inline-source-map",
+  plugins: [
+      new HtmlWebpackPlugin(),
+      new webpack.DefinePlugin({
+        'MODE': JSON.stringify('PRODUCTION'),
+      }),
++      new ForkTsCheckerWebpackPlugin()
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.([cm]?ts|tsx)$/,
+        loader: 'ts-loader',
++        // we only need to explicitly specify transpileOnly option if you use ts-loader < 9.3.0
++        options: {
++          transpileOnly: true
++        }
+      },
+    ],
+  },
+  output: {
+    filename: "[name].[contenthash].js",
+    path: path.resolve(__dirname, "dist"),
+    clean: true,
+  },
+};
+```
+
+We can see here that we're providing some configuration to `ts-loader`; setting it to `transpileOnly: true`. This means that `ts-loader` will only transpile our code, and not type check it. We're also adding the `ForkTsCheckerWebpackPlugin` to our list of plugins. This will run the TypeScript compiler in a separate process and perform type checking there.
+
+It's worth noting that because of [this excellent PR](https://github.com/TypeStrong/ts-loader/pull/1451) by the primary maintainer [Piotr Oleś](https://github.com/piotr-oles), we don't need to explicitly specify `transpileOnly: true` anymore. It's the default behaviour of `ts-loader` when the `fork-ts-checker-webpack-plugin` is detected. I've left it in the example above to illustrate what configuring a loader looks like.
+
+To test that this is working, let's add a type error to our `src/index.ts` file:
+
+```diff
+declare const MODE: string;
+
+function app(): HTMLDivElement {
+  const element = document.createElement("div");
+
+  element.innerHTML = `Hello, webpack, we are in ${MODE} mode.`;
+
+-  return element;
++  return elemen;
+}
+
+document.body.appendChild(app());
+```
+
+And let's build our app:
+
+```bash
+npm run build
+
+> hello-webpack@1.0.0 build
+> webpack build --mode production
+
+assets by status 1.09 KiB [cached] 2 assets
+./src/index.ts 204 bytes [built] [code generated]
+
+ERROR in ./src/index.ts:8:10
+TS2552: Cannot find name 'elemen'. Did you mean 'element'?
+     6 |   element.innerHTML = `Hello, webpack, we are in ${MODE} mode.`;
+     7 |
+  >  8 |   return elemen;
+       |          ^^^^^^
+     9 | }
+    10 |
+    11 | document.body.appendChild(app());
+
+webpack 5.89.0 compiled with 1 error in 1710 ms
+```
+
+We can see that the TypeScript compiler has picked up our type error. If we remove the `fork-ts-checker-webpack-plugin` from our list of plugins, we'll see that the type error is no longer picked up:
+
+```bash
+npm run build
+
+> hello-webpack@1.0.0 build
+> webpack build --mode production
+
+asset main.a1d11e49d0129cad93aa.js 885 bytes [emitted] [immutable] [minimized] (name: main)
+asset index.html 235 bytes [emitted] [compared for emit]
+./src/index.ts 204 bytes [built] [code generated]
+webpack 5.89.0 compiled successfully in 772 ms
+```
+
+So we can see that the `fork-ts-checker-webpack-plugin` is working.
 
 ### Using plugins and loaders - some resources
 
-There's a wealth of guides on the LogRocket blog that show you how to use webpack plugins and loaders to achieve all kinds of use cases. Here are some of them:
+We've seen a number of examples of plugins. Almost all customisation of webpack is done through plugins and loaders. If you want to do something with webpack, it's likely that there's a plugin or loader that will help you do it. If you want to learn more about plugins and loaders, I recommend the following resources:
 
 - [How to detect dead code in a frontend project](https://blog.logrocket.com/how-detect-dead-code-frontend-project/#using-webpack-for-dead-code-detection)
 - [Tree shaking JSON files with webpack](https://blog.logrocket.com/tree-shaking-json-files-webpack/)
