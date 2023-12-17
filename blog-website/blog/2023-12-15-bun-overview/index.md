@@ -19,6 +19,8 @@ In this evaluation guide, we’ll explore the features that make Bun an excellen
 
 ![title image reading "Bun overview: whats cooking" with the Bun logo](title-image.png)
 
+<!--truncate-->
+
 ## What is Bun?
 
 Bun was created by Jarred Sumner with the intention that, if you currently use Node.js, you should easily be able to swap it out and replace it with Bun instead.
