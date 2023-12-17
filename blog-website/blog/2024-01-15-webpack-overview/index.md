@@ -3,10 +3,6 @@ slug: webpack-overview
 title: 'Overview of webpack, a JavaScript bundler'
 authors:
   - johnnyreilly
-  - name: Megan Lee
-    title: Content Marketing Manager
-    url: https://www.linkedin.com/in/leemeganj/
-    image_url: https://media.licdn.com/dms/image/C4D03AQFSGZ5WM0U3MQ/profile-displayphoto-shrink_800_800/0/1516959703212?e=1705536000&v=beta&t=3JcqFyOGoIFse9XyBD3KZCPb3Z4hEPgbj-8dgcDfxWQ
 tags: [webpack]
 image: ./title-image.png
 description: webpack is a JavaScript bundler that helps you bundle your code into a single file. It's a great tool for optimizing your code and improving performance.
