@@ -15,9 +15,11 @@ hide_table_of_contents: false
 
 If you're a JavaScript developer, you've probably heard of webpack. It's a JavaScript bundler that helps you bundle your code into a single file. It's a great tool for optimizing your code and improving performance. This article will give you an overview of webpack, its history and how it works.
 
-It'll be a little different than your typical "what is webpack?" article, in that I write this as the maintainer of [`ts-loader`](https://github.com/TypeStrong/ts-loader), a loader used for integrating TypeScript with webpack. I've worked in the webpack ecosystem for some years now and I'll share some of my experiences with you. I'm go through a little history around bundling, and try to understand why webpack came to be such a popular choice.
+It'll be a little different than your typical "what is webpack?" article, in that I write this as the maintainer of [`ts-loader`](https://github.com/TypeStrong/ts-loader), a loader used for integrating TypeScript with webpack. I've worked in the webpack ecosystem for some years now and I'll share some of my experiences with you. I'll go through a little history around bundling, and try to understand why webpack came to be such a popular choice.
 
 ![title image reading "Overview of webpack, a JavaScript bundler" with the webpack logo](title-image.png)
+
+<!--truncate-->
 
 ## A short history of web development
 
@@ -27,13 +29,13 @@ To answer the question "what is webpack?", we need to understand what a bundler 
 
 If you started web development after 2016, you might not realise that bundling is a relatively new concept.
 
-Let's roll back the clock to the late 2000's. This was when JavaScript development started to become mainstream. Around that time, jQuery was becoming popular and the web was a very different place. We didn't have the same tools we have today. We didn't have npm, we didn't have webpack, we didn't have React, we didn't have TypeScript. We didn't even have ES2015. We were still writing JavaScript in ES5.
+Let's roll back the clock to the late 2000's. This was when JavaScript development started to go mainstream. Around that time, jQuery was becoming popular and the web was a very different place. We didn't have the same tools we have today. We didn't have npm, we didn't have webpack, we didn't have React, we didn't have TypeScript. We didn't even have ES2015. We were still writing JavaScript in ES5.
 
-So what did building a front end application look like back then? Well, I was a web developer back then, and I can tell you that it was a lot of work. To make a simple app you would have to:
+So what did building a front end application look like back then? Well, I was a web developer, and I can tell you that it was a lot of work. To make a simple app you would have to:
 
 - Go to the websites of libraries you wanted to use, usually jQuery and jQuery UI.
 - Download the library files you needed (both `jquery-1.4.4.js` and the minified `jquery-1.4.4.min.js` because there weren't minification tools back then)
-- Include the library files in your HTML file, and significantly **before** other JavaScript files that would depend upon jQuery.
+- Include the library files in your HTML file using `script` tags, and significantly **before** other JavaScript files that would depend upon jQuery.
 - For bonus points, you would also download the jQuery UI CSS files and include them in your HTML file.
 - For extra bonus points, you would figure out a way to serve up non-minified versions of your JavaScript files in development, and minified versions in production.
 
@@ -64,27 +66,29 @@ By doing this, it performed two useful functions:
 1. It opened up the ecosystem of Node.js packages to front end developers.
 2. It allowed you to write your code in modules, which made it easier to reason about.
 
-Both of these are tremendously significant. The first one is obvious. The second one is less obvious, but it's very important. It's worth remembering that JavaScript didn't have modules until ES2015. But npm had its own module standard called CommonJS. Given that Browserify and webpack were both created before ES2015, they both used CommonJS modules in the context of the browser. This was a huge improvement over the previous way of doing things, which was to include a bunch of script tags in your HTML file. The reason it's so wildly different is because the dependencies in your codebase moved from being **implicit** to being **explicit**. Instead of having to remember to include a bunch of script tags in your HTML file, you could just `require` the modules you needed. This made it much easier to reason about your codebase. What's more, you had a a `package.json` file that listed all your dependencies, so you could see at a glance what your dependencies were.
+Both of these are tremendously significant. The first one is obvious; there's a rich ecosystem of modules which can be used to speed up the task of web development.
+
+The value of modularity is less obvious, but it's very important. It's worth remembering that JavaScript didn't have modules until ES2015. But npm had its own module standard called CommonJS. Given that Browserify and webpack were both created before ES2015, they both used CommonJS modules in the context of the browser. This was a huge improvement over the previous way of doing things, which was to include a bunch of script tags in your HTML file, and writing all your code in a giant global object. The reason it's so wildly different is because the dependencies in your codebase moved from being **implicit** to being **explicit**. Instead of having to remember to include a bunch of script tags in your HTML file, you could just `require` the modules you needed. This made it much easier to reason about your codebase. What's more, you had a a `package.json` file that listed all your dependencies, so you could see at a glance what your dependencies were.
 
 ## What is webpack?
 
-Now we understand a little of the history, we come to webpack. By the way, it's definitely not "Webpack" or "WebPack". It's "webpack". The person initially behind webpack is [Tobias Koppers](https://github.com/sokra); an engineer from Germany. Many, many people have contributed to the project since then, but Tobias is the person who has done the most work on it.
+Now we understand a little of the history, we come to webpack. By the way, it's definitely not "Webpack" or "WebPack". It's ["webpack"](https://webpack.js.org/branding/). The person initially behind webpack is [Tobias Koppers](https://github.com/sokra); an engineer from Germany. Many, many people have contributed to the project since then, but Tobias is the person who has done the most work on it.
 
 I mentioned that I was a web developer whilst the web was evolving its developer tooling. In my case I was a longtime user of Gulp, and then Browserify. I moved to webpack in 2015. I can't remember exactly why I moved, but I think it was because I wanted to use TypeScript, and webpack had better TypeScript support than Browserify (more on this later). I also think I was attracted to webpack because it was a more holistic solution than Browserify. It had a plugin system, and it had loaders. I'll talk about those in a moment.
 
 First and foremost, it's worth saying that webpack is a module bundler. It takes your code, and recursively walks through it, finding all the `require` or `import` calls, building up a dependency graph, performing preprocessing tasks and producing runnable output, in the form of HTML, CSS and JavaScript. It also allows you to use other tools, like TypeScript, and CSS preprocessors like Sass and Less.
 
-One of the most surprising things about webpack has been both its popularity, and how it has lasted. The web development world is famous for having the attention span of a distracted toddler. Tools replace tools, libraries replace libraries, and frameworks replace frameworks. But webpack has been around for a long time, and it's still the most popular bundler. At the time of writing it still has 110 million downloads a month. Why is that?
+One of the most surprising things about webpack has been both its popularity, and how it has lasted. The web development world is famous for having the attention span of a distracted toddler. Tools replace tools, libraries replace libraries, and frameworks replace frameworks. But webpack has been around for a long time, and it's still the most popular bundler. At the time of writing it still has **110 million downloads a month**. That's a lot! Why is that?
 
 I think there are a few reasons.
 
-Firstly, because of the richness of the ecosystem and the flexibility of the tool, it's possible to solve pretty much all web development problems with webpack. There are newer, shinier tools (and as we'll see later, webpack is starting to be displaced by some of these) but as a reliable tool that can solve all your problems, webpack is hard to beat.
+Firstly, because of the richness of the ecosystem and the flexibility of the tool, it's possible to solve pretty much all web development problems with webpack. There are newer, shinier, faster tools (and as we'll see later, webpack is starting to be displaced by some of these) but as a reliable tool that can solve all your problems, webpack is hard to beat.
 
 That doesn't mean it's the easiest tool to work with on all occasions. The internet is awash with people bitterly complaining about the scars they bear from configuring webpack. It's true that webpack can be difficult to configure. But it's also true that webpack is a very powerful tool. Once you have it working, you generally don't have to touch it again.
 
 A second reason why webpack is so popular, is that it has become a "primitive". What I mean by that, is that it has become a library that other libraries depend upon. If you use Docusaurus, you're also using webpack as the underlying build tool. Many projects have a need of a build tool and have picked webpack to be that. This has led to a huge ecosystem of plugins and loaders. It's also led to a plethora of tutorials and blog posts. If you have a problem, it's likely that someone else has had the same problem and has written a blog post about it.
 
-By way of example, a [blog post I wrote in 2016 about the webpack `DefinePlugin`](https://johnnyreilly.com/using-webpacks-defineplugin-with-typescript) still ranks highly in Google for "use webpack defineplugin with typescript" and is (to my surprise) one of my most popular blog posts. Here's a screenshot of it in Google search results:
+By way of example, a [blog post I wrote in 2016 about the webpack `DefinePlugin`](https://johnnyreilly.com/using-webpacks-defineplugin-with-typescript) still ranks highly in Google for "use webpack defineplugin with typescript" and is (to my surprise) one of my most popular blog posts. Here's a screenshot of it in the Google search results:
 
 ![screenshot of the blog post in Google search results](screenshot-google-search-results-webpack-defineplugin.png)
 
@@ -92,7 +96,7 @@ This speaks to the level of popularity around all things webpack.
 
 ## Getting started
 
-This article is intended to be an overview of webpack. The documentation, as you might expect from such a big project, is excellent and can be found here: https://webpack.js.org
+This article is intended to be an overview of webpack. The documentation, as you might expect from such a big project, is comprehensive and can be found here: https://webpack.js.org
 
 Whilst we won't go through every scenario and use case of webpack, we want to give you a sense of what working with webpack looks like. For the purposes of this article, let's get started with a simple example. We'll create a simple "Hello, webpack" app. And we'll enrich it as we go through the piece.
 
@@ -110,11 +114,13 @@ npm install webpack webpack-cli webpack-dev-server html-webpack-plugin --save-de
 The dependencies we're installing are:
 
 - webpack
-- the [`webpack-cli`](https://github.com/webpack/webpack-cli) - a command line interface for webpack
+- [`webpack-cli`](https://github.com/webpack/webpack-cli) - a command line interface for webpack
 - [`webpack-dev-server`](https://webpack.js.org/configuration/dev-server/) - a development server that allows you to serve up your app in a browser
 - [`html-webpack-plugin`](https://github.com/jantimon/html-webpack-plugin/) - a plugin that allows you to generate an HTML file that includes your bundled JavaScript file(s)
 
-Whilst it is possible to use webpack without configuring it, it's more typical to have a `webpack.config.js` file (or more than one!). So let's create one:
+### Configuration with `webpack.config.js`
+
+Whilst it is possible to use webpack without configuring it, it's more typical to have a configuration file. This is typically called `webpack.config.js`, and you may have more than one; perhaps one for development and one for production. We'll create a single `webpack.config.js` to use with our example app:
 
 ```javascript
 const path = require('path');
@@ -136,14 +142,15 @@ module.exports = {
 };
 ```
 
-Now we're going to add two scripts to our `package.json` file. One to build our app, and one to serve it up in a browser whilst we're developing it:
+Let's go through this configuration file property by property:
 
-```json
-  "scripts": {
-    "build": "webpack build --mode production",
-    "start": "webpack serve --open"
-  },
-```
+- `mode` - this is the mode that webpack will run in. It can be `development`, `production` or `none`. We're using `development` because we're developing locally. If we were building for production, we'd use `production`. (Incidentally, we can override this on the command line with the `--mode` flag. And we will.) Read more about modes here: https://webpack.js.org/configuration/mode/
+- `entry` - this is the entry point of our app. It's the file that webpack will start with. In this case, it's `src/index.js`. It is possible to have multiple entry points, but we'll keep it simple for now. Read more about entry points here: https://webpack.js.org/concepts/entry-points/
+- `devtool` - this is the type of sourcemap that webpack will generate. We're using `inline-source-map` because we're developing locally and we'd like to be able to debug our source code in the browser. If we were building for production, we might make a different choice. Read more about sourcemaps here: https://webpack.js.org/configuration/devtool/ - there are many different types of sourcemap, and they all have different tradeoffs.
+- `plugins` - this is a list of plugins that we want to use. We're using the `HtmlWebpackPlugin` to generate an HTML file that includes our bundled JavaScript file(s). Read more about plugins here: https://webpack.js.org/concepts/plugins/ - we'll talk more about plugins later.
+- `output` - this is where we want webpack to put the bundled output. We're using `dist` as the folder name. We're also using a `[name].[contenthash].js` naming convention for our bundled JavaScript file. This means that webpack will generate a file called `main.[contenthash].js` in the `dist` folder. The `[contenthash]` part is a hash of the contents of the file. This is useful because it means that if the contents of the file change, the hash will change, and the filename will change. This helps because it means that we can cache the file for a long time, and if the contents change, the filename will change and the browser will download the new file. We're also providing the [`clean: true`](https://webpack.js.org/guides/output-management/#cleaning-up-the-dist-folder) option which deletes the contents of our `dist` folder on each build. Read more about output here: https://webpack.js.org/concepts/output/
+
+### Creating a simple app
 
 What we need now, is some code to bundle. Let's create a `src` folder, and a `src/index.js` file; our first JavaScript file:
 
@@ -159,23 +166,18 @@ function app() {
 document.body.appendChild(app());
 ```
 
-We're ready now; we can build our app:
+### Local development with `webpack-dev-server`
 
-```bash
-npm run build
+Now we're going to add two scripts to our `package.json` file. One to build our app, and one to serve it up in a browser whilst we're developing it:
 
-> hello-webpack@1.0.0 build
-> webpack build --mode production
-
-asset main.82d3f64b186c8eec8e7c.js 862 bytes [emitted] [immutable] [minimized] (name: main)
-asset index.html 235 bytes [emitted]
-./src/index.js 163 bytes [built] [code generated]
-webpack 5.89.0 compiled successfully in 516 ms
+```json
+  "scripts": {
+    "build": "webpack build --mode production",
+    "start": "webpack serve --open"
+  },
 ```
 
-This has created a `dist` folder, and a `dist/index.html` file. Alongside that, it's created a `dist/main.82d3f64b186c8eec8e7c.js` file. If you open the `index.html` file in a browser, you'll see your "Hello, webpack" message.
-
-Not only can we build our app, we can also serve it up in a browser locally at http://localhost:8080/ whilst we're developing it:
+With this in place, we can develop locally with `npm start`. This will serve up our app in a browser at http://localhost:8080/ using `webpack-dev-server`:
 
 ```bash
 > hello-webpack@1.0.0 start
@@ -207,7 +209,27 @@ modules by path ./node_modules/ 178 KiB
 webpack 5.89.0 compiled successfully in 861 ms
 ```
 
-If we open that file in a browser, we'll see our "Hello, webpack" message. At this point we have a simple app built with webpack. It's not doing much, but it's a start. And it'll give us a chance to talk about some concepts. Let's add some more features.
+If we open the browser at http://localhost:8080, we'll see our "Hello, webpack" message.
+
+### Building for production
+
+We can build our app for production with `npm run build`:
+
+```bash
+npm run build
+
+> hello-webpack@1.0.0 build
+> webpack build --mode production
+
+asset main.82d3f64b186c8eec8e7c.js 862 bytes [emitted] [immutable] [minimized] (name: main)
+asset index.html 235 bytes [emitted]
+./src/index.js 163 bytes [built] [code generated]
+webpack 5.89.0 compiled successfully in 516 ms
+```
+
+This has created a `dist` folder, and a `dist/index.html` file. Alongside that, it's created a `dist/main.82d3f64b186c8eec8e7c.js` file. If you open the `index.html` file in a browser, you'll see your "Hello, webpack" message.
+
+At this point we have a simple app built with webpack. It's not doing much, but it's a start. And it'll give us a chance to talk about some concepts. Let's add some more features.
 
 ## Integrating with plugins and loaders
 
