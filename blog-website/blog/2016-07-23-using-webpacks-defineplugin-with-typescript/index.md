@@ -13,9 +13,7 @@ I've been searching for a way to describe what the DefinePlugin actually does. T
 
 <!--truncate-->
 
-I think I would describe it thusly: the DefinePlugin allows you to create global constants which can be _configured at compile time_. I find this very useful for allowing different behaviour between development builds and release builds. This post will demonstrate usage of this approach, talk about what's actually happening and how to get this working nicely with TypeScript.
-
-If you just want to see this in action then take a look at this [repo](https://github.com/johnnyreilly/poorclaresarundel/) and keep your eyes open for usage of [`__VERSION__`](https://github.com/johnnyreilly/poorclaresarundel/search?utf8=%E2%9C%93&q=__VERSION__) and [`__IN_DEBUG__`](https://github.com/johnnyreilly/poorclaresarundel/search?utf8=%E2%9C%93&q=__IN_DEBUG__).
+I think I would describe it like this: the DefinePlugin allows you to create global constants which can be _configured at compile time_. I find this very useful for allowing different behaviour between development builds and release builds. This post will demonstrate usage of this approach, talk about what's actually happening and how to get this working nicely with TypeScript.
 
 ## What Globals?
 
@@ -52,7 +50,7 @@ What's going on here? Well, each key of the object literal above represents one 
 
 ```ts
 __IN_DEBUG__: false,
-          __VERSION__: '1.0.0.' + Date.now()
+__VERSION__: '1.0.0.' + Date.now()
 ```
 
 A little clearer, right? `__IN_DEBUG__` is given the boolean value `false` and `__VERSION__` is given the string value of `1.0.0.` plus the ticks off of `Date.now()`. What's happening here is well explained in Pete Hunt's excellent [webpack howto](https://github.com/petehunt/webpack-howto#6-feature-flags): "definePlugin takes raw strings and inserts them". `JSON.stringify` facilitates this; it produces a string representation of a value that can be inlined into code. When the inlining takes place the actual output would be something like this:
