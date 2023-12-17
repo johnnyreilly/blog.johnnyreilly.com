@@ -174,7 +174,9 @@ Read more about plugins here: https://webpack.js.org/concepts/plugins/ - we'll t
 
 #### `output`
 
-This is where we want webpack to put the bundled output. We're using `dist` as the folder name. We're also using a `[name].[contenthash].js` naming convention for our bundled JavaScript file. This means that webpack will generate a file called `main.[contenthash].js` in the `dist` folder. The `[contenthash]` part is a hash of the contents of the file. This is useful because it means that if the contents of the file change, the hash will change, and the filename will change. This helps because it means that we can cache the file for a long time, and if the contents change, the filename will change and the browser will download the new file. We're also providing the [`clean: true`](https://webpack.js.org/guides/output-management/#cleaning-up-the-dist-folder) option which deletes the contents of our `dist` folder on each build.
+This is where we want webpack to put the bundled output. We're using `dist` as the folder name. We're also using a `[name].[contenthash].js` naming convention for our bundled JavaScript file. This means that webpack will generate a file called `main.[contenthash].js` in the `dist` folder. The `[contenthash]` part is a hash of the contents of the file. This is useful because it means that if the contents of the file change, the hash will change, and the filename will change. This helps because it means that we can cache the file for a long time, and if the contents change, the filename will change and the browser will download the new file.
+
+We're also providing the [`clean: true`](https://webpack.js.org/guides/output-management/#cleaning-up-the-dist-folder) option which deletes the contents of our `dist` folder on each build.
 
 Read more about output here: https://webpack.js.org/concepts/output/
 
@@ -205,7 +207,7 @@ Now we're going to add two scripts to our `package.json` file. One to build our 
   },
 ```
 
-With this in place, we can develop locally with `npm start`. This will serve up our app in a browser at http://localhost:8080/ using `webpack-dev-server`:
+With this in place, we can develop locally with `npm start`. This will serve up our app in a browser at `http://localhost:8080/` using `webpack-dev-server`:
 
 ```bash
 > hello-webpack@1.0.0 start
@@ -237,7 +239,7 @@ modules by path ./node_modules/ 178 KiB
 webpack 5.89.0 compiled successfully in 861 ms
 ```
 
-If we open the browser at http://localhost:8080, we'll see our "Hello, webpack" message.
+If we open the browser at `http://localhost:8080`, we'll see our "Hello, webpack" message.
 
 ### Building for production
 
@@ -336,7 +338,9 @@ We've covered loaders, now we'll cover plugins. Plugins allow you to do all kind
 
 > Plugins are the backbone of webpack. ... They serve the purpose of doing anything else that a loader cannot do.
 
-So maybe it's easier to give you some examples. We already have one plugin in our app, the `HtmlWebpackPlugin`. This plugin generates an HTML file that includes our bundled JavaScript file(s). It's a very useful plugin, and it's one of the most popular plugins in the webpack ecosystem. It's also a good example of a plugin that does something that a loader can't do.
+This is helpful when you remind yourself that a loader takes a file, processes it, and passes the output of that processing to webpack. It is single-file-oriented, if you like. A plugin is what you use when you want to do something that isn't single-file-oriented.
+
+So maybe it's easier to give you some examples. We already have one plugin in our app, the `HtmlWebpackPlugin`. This plugin generates an HTML file that includes our bundled JavaScript file(s).
 
 #### `DefinePlugin`
 
@@ -398,7 +402,7 @@ Now if we build our app, we'll see that the `MODE` constant is available in our 
 
 #### `fork-ts-checker-webpack-plugin`
 
-Before we move on, let's add one more plugin to our app. We're going to add the [`fork-ts-checker-webpack-plugin`](https://github.com/TypeStrong/fork-ts-checker-webpack-plugin). This plugin allows you to run the TypeScript compiler in a separate process. This is useful because it means that webpack can run in parallel with the TypeScript compiler. This can significantly speed up your build times. I have worked on this plugin, as it has a sibling relationship with `ts-loader`. It's quite common to use both together; `ts-loader` to compile your code, and `fork-ts-checker-webpack-plugin` to type check it.
+Before we move on, let's add one more plugin to our app. We're going to add the [`fork-ts-checker-webpack-plugin`](https://github.com/TypeStrong/fork-ts-checker-webpack-plugin). This plugin allows you to run the TypeScript compiler in a separate process, and relieve `ts-loader` of the responsibility of handling type checking. This is useful because it means that webpack can run in parallel with the TypeScript compiler. This can significantly speed up your build times. I have worked on this plugin, as it has a sibling relationship with `ts-loader`. It's quite common to use both together; `ts-loader` to compile your code, and `fork-ts-checker-webpack-plugin` to type check it.
 
 Let's install `fork-ts-checker-webpack-plugin`:
 
