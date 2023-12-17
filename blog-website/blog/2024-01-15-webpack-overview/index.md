@@ -120,7 +120,7 @@ The dependencies we're installing are:
 
 ### Configuration with `webpack.config.js`
 
-Whilst it is possible to use webpack without configuring it, it's more typical to have a configuration file. This is typically called `webpack.config.js`, and you may have more than one; perhaps one for development and one for production. We'll create a single `webpack.config.js` to use with our example app:
+Whilst it is possible to use webpack without configuring it, it's more typical to have a configuration file. This file is often called `webpack.config.js`; where a single configuration file is being used. It's also comon to may have more than one configuration file; perhaps one for development and one for production. We'll create a single `webpack.config.js` to use with our example app:
 
 ```javascript
 const path = require('path');
@@ -142,13 +142,41 @@ module.exports = {
 };
 ```
 
-Let's go through this configuration file property by property:
+This may seem a little overwhelming, so we'll through this configuration file property by property in a moment.
 
-- `mode` - this is the mode that webpack will run in. It can be `development`, `production` or `none`. We're using `development` because we're developing locally. If we were building for production, we'd use `production`. (Incidentally, we can override this on the command line with the `--mode` flag. And we will.) Read more about modes here: https://webpack.js.org/configuration/mode/
-- `entry` - this is the entry point of our app. It's the file that webpack will start with. In this case, it's `src/index.js`. It is possible to have multiple entry points, but we'll keep it simple for now. Read more about entry points here: https://webpack.js.org/concepts/entry-points/
-- `devtool` - this is the type of sourcemap that webpack will generate. We're using `inline-source-map` because we're developing locally and we'd like to be able to debug our source code in the browser. If we were building for production, we might make a different choice. Read more about sourcemaps here: https://webpack.js.org/configuration/devtool/ - there are many different types of sourcemap, and they all have different tradeoffs.
-- `plugins` - this is a list of plugins that we want to use. We're using the `HtmlWebpackPlugin` to generate an HTML file that includes our bundled JavaScript file(s). Read more about plugins here: https://webpack.js.org/concepts/plugins/ - we'll talk more about plugins later.
-- `output` - this is where we want webpack to put the bundled output. We're using `dist` as the folder name. We're also using a `[name].[contenthash].js` naming convention for our bundled JavaScript file. This means that webpack will generate a file called `main.[contenthash].js` in the `dist` folder. The `[contenthash]` part is a hash of the contents of the file. This is useful because it means that if the contents of the file change, the hash will change, and the filename will change. This helps because it means that we can cache the file for a long time, and if the contents change, the filename will change and the browser will download the new file. We're also providing the [`clean: true`](https://webpack.js.org/guides/output-management/#cleaning-up-the-dist-folder) option which deletes the contents of our `dist` folder on each build. Read more about output here: https://webpack.js.org/concepts/output/
+The one thing that you might be puzzled by, is the absence of a `module` section to cover loaders. This is because webpack supports processing JavaScript by default. We'll add a `module` section later when we want to process other types of files.
+
+#### `mode`
+
+This is the mode that webpack will run in, and it essentially tells webpack to provide helpful defaults around how builds are performed. It can be `development`, `production` or `none`. We're using `development` because we're developing locally. If we were building for production, we'd use `production`.
+
+Read more about modes here: https://webpack.js.org/configuration/mode/
+
+Incidentally, we can override this on the command line with the `--mode` flag. And we will.
+
+#### `entry`
+
+This is the entry point of our app. It's the file that webpack will start with. In this case, it's `src/index.js`. It is possible to have multiple entry points, but we'll keep it simple for now.
+
+Read more about entry points here: https://webpack.js.org/concepts/entry-points/
+
+#### `devtool`
+
+This is the type of sourcemap that webpack will generate. We're using `inline-source-map` because we're developing locally and we'd like to be able to debug our source code in the browser. If we were building for production, we might make a different choice.
+
+Read more about sourcemaps here: https://webpack.js.org/configuration/devtool/ - there are many different types of sourcemap, and they all have different tradeoffs.
+
+#### `plugins`
+
+This is a list of plugins that we want to use. We're using the `HtmlWebpackPlugin` to generate an HTML file that includes our bundled JavaScript file(s).
+
+Read more about plugins here: https://webpack.js.org/concepts/plugins/ - we'll talk more about plugins later.
+
+#### `output`
+
+This is where we want webpack to put the bundled output. We're using `dist` as the folder name. We're also using a `[name].[contenthash].js` naming convention for our bundled JavaScript file. This means that webpack will generate a file called `main.[contenthash].js` in the `dist` folder. The `[contenthash]` part is a hash of the contents of the file. This is useful because it means that if the contents of the file change, the hash will change, and the filename will change. This helps because it means that we can cache the file for a long time, and if the contents change, the filename will change and the browser will download the new file. We're also providing the [`clean: true`](https://webpack.js.org/guides/output-management/#cleaning-up-the-dist-folder) option which deletes the contents of our `dist` folder on each build.
+
+Read more about output here: https://webpack.js.org/concepts/output/
 
 ### Creating a simple app
 
