@@ -525,7 +525,7 @@ We've seen a number of examples of plugins. Almost all customisation of webpack 
 
 ## webpack and the competition
 
-There has been a lot of competition in the bundler space. webpack has been the most popular bundler for a long time, but it's not the only game in town, and never has been. It's beyond the scope of this article to do a full comparison of webpack and its competitors, but there's some excellent articles out there that do just that:
+There has been a lot of competition in the bundler space. For a long time, webpack has been the most popular bundler. But it's not the only game in town, and never has been. It's beyond the scope of this article to do a full comparison of webpack and its competitors, but there's some excellent articles out there that do just that:
 
 - [Snowpack vs. webpack: A build tool comparison](https://blog.logrocket.com/snowpack-vs-webpack-build-tool-comparison/)
 - [Migrating to SWC: A brief overview](https://blog.logrocket.com/migrating-swc-webpack-babel-overview/)
@@ -535,17 +535,19 @@ There has been a lot of competition in the bundler space. webpack has been the m
 - [Introducing Turbopack: A Rust-based successor to webpack](https://blog.logrocket.com/introducing-turbopack-rust-based-successor-webpack/)
 - [Benchmarking bundlers 2020: Rollup vs. Parcel vs. webpack](https://blog.logrocket.com/benchmarking-bundlers-2020-rollup-parcel-webpack/)
 
-For the longest time, webpack has been the most popular bundler. Apparently incapable of being dislodged from that position. However, it looks like that might be changing. If we look at the npm download stats for webpack for the last five years, we can see that, for the first time, its popularity is starting to decrease. It's still the most popular bundler, but it's no longer increasing in popularity:
+For the longest time, webpack has been the most popular bundler. Apparently incapable of being dislodged from that position. However, it looks like that might be changing. If we look at the npm download stats for webpack for the last five years, we can see that, for the first time, its popularity is starting to decrease. It's still the most popular bundler, but it's starting to decrease in popularity and competitors are starting to increase. This chart shows the npm download stats for webpack, esbuild, swc and vite over the last five years:
 
 ![screenshot of a chart comparing webpack, esbuild, swc and vite usage over the years 2018-2023](screenshot-stats-webpack-vite-esbuild-swc.png)
 
-I've included some tools alongside webpack in the above chart; vite and esbuild. [Vite](https://vitejs.dev/) is a bundler that came out of the Vue ecosystem. It's a very fast bundler that uses esbuild under the hood. [esbuild](https://esbuild.github.io/) is a bundler that came out of the Go ecosystem. [swc](https://github.com/swc-project/swc) is a super-fast TypeScript / JavaScript compiler written in Rust.
+[Vite](https://vitejs.dev/) is a bundler that came out of the Vue ecosystem. It's a very fast bundler that uses esbuild under the hood. [esbuild](https://esbuild.github.io/) is a bundler that came out of the Go ecosystem. [swc](https://github.com/swc-project/swc) is a super-fast TypeScript / JavaScript compiler written in Rust. All of these compete with webpack in some way.
 
-The thing to note about all these competitors is that they are all faster than webpack. There's a reason for that. webpack is written in JavaScript. For most of the history of bundlers, JavaScript was what they were generally implemented in. But the next generation of tools are written in other languages. esbuild is written in Go. swc is written in Rust. These languages have allowed massively increased performance. webpack cannot compete in terms of speed with these; so it's no surprise that the next generation of tools are faster than webpack.
+The thing to note about all these competitors is that they are all faster than webpack. There's a reason for that. webpack is written in JavaScript. For most of the history of bundlers, JavaScript was what bundlers were implemented in. But the next generation of tools are written in other languages. esbuild is written in Go. swc is written in Rust. These languages have allowed massively improved performance. In terms of speed, webpack cannot compete with these tools. It's worth noting that even the creator of webpack, Tobias Koppers is now working on a [Rust-based successor to webpack named Turbopack](https://turbo.build/pack).
 
-New next generation tools are still appearing. [Bun](https://blog.logrocket.com/bun-adoption-guide/) is an alternative JavaScript runtime, implemented in Zig. It also ships with its own [Bun bundler](https://bun.sh/docs/bundler) which is reportedly even faster than esbuild and Rspack! We're likely to see more of these tools in the future.
+Next generation tools keep appearing. [Bun](https://blog.logrocket.com/bun-adoption-guide/) is an alternative JavaScript runtime, implemented in Zig. It also ships with its own built in [Bun bundler](https://bun.sh/docs/bundler) which is reportedly even faster than esbuild and Rspack! We're likely to see even more of these tools in the future.
 
-Speed is a very attractive proposition, and so we're starting to see the community move away from webpack. It's not a mass exodus, when people are starting new projects now, they're more likely to use one of the newer tools. webpack is not going anywhere. But it's fair to say that it is starting to be displaced by some of the newer tools. This trend is only going to continue.
+Speed is a very attractive proposition, and as we can see, we're starting to see the community move away from webpack. It's not a mass exodus, when people are starting new projects now, they're more than likely to use one of the newer tools. When I've started a new project over the last year I've tended to use Vite. I've not used webpack for a new project for a long time. I'm not alone in this.
+
+To be clear: webpack is not going anywhere. But it's fair to say that it is starting to be displaced by some of the newer tools. This trend is only going to continue.
 
 ## Conclusion
 
