@@ -86,7 +86,7 @@ A second reason why webpack is so popular, is that it has become a "primitive". 
 
 By way of example, a [blog post I wrote in 2016 about the webpack `DefinePlugin`](https://johnnyreilly.com/using-webpacks-defineplugin-with-typescript) still ranks highly in Google for "use webpack defineplugin with typescript" and is (to my surprise) one of my most popular blog posts. Here's a screenshot of it in the Google search results:
 
-![screenshot of the blog post in Google search results](screenshot-google-search-results-webpack-defineplugin.png)
+![screenshot of the blog post in Google search results](screenshot-google-search-results-webpack-defineplugin.webp)
 
 This speaks to the level of popularity around all things webpack.
 
@@ -533,7 +533,7 @@ There has been a lot of competition in the bundler space. For a long time, webpa
 
 For the longest time, webpack has been the most popular bundler. Apparently incapable of being dislodged from that position. However, it looks like that might be changing. If we look at the npm download stats for webpack for the last five years, we can see that, for the first time, its popularity is starting to decrease. It's still the most popular bundler, but it's starting to decrease in popularity and competitors are starting to increase. This chart shows the npm download stats for webpack, esbuild, swc and vite over the last five years:
 
-![screenshot of a chart comparing webpack, esbuild, swc and vite usage over the years 2018-2023](screenshot-stats-webpack-vite-esbuild-swc.png)
+![screenshot of a chart comparing webpack, esbuild, swc and vite usage over the years 2018-2023](screenshot-stats-webpack-vite-esbuild-swc.webp)
 
 [Vite](https://vitejs.dev/) is a bundler that came out of the Vue ecosystem. It's a very fast bundler that uses esbuild under the hood. [esbuild](https://esbuild.github.io/) is a bundler that came out of the Go ecosystem. [swc](https://github.com/swc-project/swc) is a super-fast TypeScript / JavaScript compiler written in Rust. All of these compete with webpack in some way.
 
