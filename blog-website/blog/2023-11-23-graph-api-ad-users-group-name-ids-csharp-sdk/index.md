@@ -90,7 +90,7 @@ List<GroupIdDisplayName> groupIds = new();
 
 Microsoft.Graph.Models.GroupCollectionResponse? response = await _graphClient.Users[usernameOrId].MemberOf.GraphGroup.GetAsync(requestConfiguration =>
 {
-    requestConfiguration.QueryParameters.Select = new string[] { "id", "displayName" };
+    requestConfiguration.QueryParameters.Select = ["id", "displayName"];
     requestConfiguration.QueryParameters.Top = 100;
 });
 
@@ -169,14 +169,13 @@ public class GroupService : IGroupService
     public async Task<List<GroupIdDisplayName>> GetGroups(string usernameOrId)
     {
         // https://stackoverflow.com/questions/75860298/graphserviceclient-pageitarator-failes-with-the-parsable-does-not-contain-a-col
-
         try
         {
             List<GroupIdDisplayName> groupIds = new();
 
             Microsoft.Graph.Models.GroupCollectionResponse? response = await _graphClient.Users[usernameOrId].MemberOf.GraphGroup.GetAsync(requestConfiguration =>
             {
-                requestConfiguration.QueryParameters.Select = new string[] { "id", "displayName" };
+                requestConfiguration.QueryParameters.Select = ["id", "displayName"];
                 requestConfiguration.QueryParameters.Top = 100;
             });
 
