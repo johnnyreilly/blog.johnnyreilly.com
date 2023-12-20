@@ -10,7 +10,7 @@ hide_table_of_contents: false
 
 Writing tests is important. The easier it is to write tests, the more likely they'll be written. I've long loved snapshot testing for this reason. Snapshot testing takes away the need to manually write verification code in your tests. Instead, you write tests that compare the output of a call to your method with JSON serialised output you've generated on a previous occasion. This approach takes less time to write, less time to maintain, and the solid readability of JSON makes it more likely you'll pick up on bugs. It's so much easier to scan JSON than it is a list of assertions.
 
-Loving snapshot testing as I do, I want to show you how to write high quality and low effort log assertions using snapshot testing. The behaviour of logging code is really important; it's this that we tend to rely upon when debugging production issues. But how do you test logging code? Well, you could write a bunch of assertions that check the output of your logging code. But that's a lot of work, it's not super readable and it's not fun. (Always remember: if it's not fun, you're doing it wrong.)
+Loving snapshot testing as I do, I want to show you how to write high quality and low effort log assertions using snapshot testing. The behaviour of logging code is really important; it's this that we tend to rely upon when debugging production issues. But how do you test logging code? Well, you could write a bunch of assertions that check how your logger is used. But that's a lot of work, it's not super readable and it's not fun. (Always remember: if it's not fun, you're doing it wrong.)
 
 Instead, we'll achieve this using snapshot testing.
 
@@ -127,8 +127,8 @@ When the test is first run, a `GreetingServiceTests.GetGreeting_greets_and_logs.
 }
 ```
 
-And that's it, we're done! We've tested our logging code with minimal effort; the only assertion we wrote was `Snapshot.Match(new { log, greeting })`.
+And that's it, we're done! We've tested our logging code with minimal effort; the only assertion we wrote was `Snapshot.Match(new { log, greeting })`. If we change behaviour of the `GetGreeting` method, the test will fail. We can then update the snapshot and we're good to go.
 
 ## Conclusion
 
-In this post we've seen how to use Snapshooter to test logging code. This approach is easy to implement, easy to maintain and easy to read. It's a great way to test logging code. I hope you find it useful.
+In this post we've seen how to use Snapshooter to test logging code. This approach is easy to implement, easy to maintain and easy to read. Significantly: it involves very little work on our part. If you're not already using snapshot testing, I hope this post has inspired you to give it a try. If you are already using snapshot testing, I hope this post has inspired you to use it to test your logging code.
