@@ -278,10 +278,10 @@
             <title><![CDATA[TypeScript: The Movie]]></title>
             <link>https://johnnyreilly.com/typescript-documentary</link>
             <guid>https://johnnyreilly.com/typescript-documentary</guid>
-            <pubDate>Thu, 21 Sep 2023 20:04:41 GMT</pubDate>
+            <pubDate>Sun, 24 Dec 2023 11:30:21 GMT</pubDate>
             <description><![CDATA[A documentary has been made about TypeScript and I feature in the story of how it came to be what it is today.]]></description>
             <content:encoded><![CDATA[<p>I am excited to announce that a documentary has been made about TypeScript! It premiered on YouTube at 5pm British Summertime September 21st 2023.</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/U6s2pdxebSo?si=7X3eRhmSXLUnlGr5" title="TypeScript Origins documentary" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+<iframe src="https://www.youtube.com/embed/U6s2pdxebSo?si=7X3eRhmSXLUnlGr5" title="TypeScript Origins documentary" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
 <p>I had the good fortune to be involved in the making of the documentary. In part this was thanks to my work on Definitely Typed. Another reason was my work on recording <a href="https://johnnyreilly.com/definitely-typed-the-movie">the history of DefinitelyTyped</a>.</p>
 <p>You can <a href="https://youtu.be/U6s2pdxebSo?si=Bw6scRpzmmSw5J2j" target="_blank" rel="noopener noreferrer">see it on YouTube here</a> or hit play on the embedded video above. Thanks to the <a href="https://www.keyboard-stories.com/" target="_blank" rel="noopener noreferrer">Keyboard Stories</a> team for making this happen!</p>]]></content:encoded>
             <category>typescript</category>
