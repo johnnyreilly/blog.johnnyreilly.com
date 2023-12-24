@@ -132,8 +132,6 @@ function Talks() {
                     </div>
                     <div className="card__image padding--md">
                       <iframe
-                        width="560"
-                        height="315"
                         src={`https://www.youtube-nocookie.com/embed/${talk.id}`}
                         title={talk.title}
                         frameBorder="0"
