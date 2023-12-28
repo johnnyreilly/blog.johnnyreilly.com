@@ -84,6 +84,12 @@ public class FakeLogger<T> : ILogger<T>
 
 This fake logger is a simple implementation of `ILogger<T>`. It's a fake because it doesn't actually write anything to a log. Instead, it records the log messages it's asked to write in a list of `LogEntry` objects. We can then use this list to verify that the log messages were written correctly. It's inspired by [this post](https://pnguyen.io/posts/verify-ilogger-call-in-dotnet-core/) but takes it further by keeping a full record of each call.
 
+## .NET and `FakeLogger`
+
+After writing this post I came to learn that as of .NET 8, there is a `FakeLogger` built in. You can read more about that here: https://devblogs.microsoft.com/dotnet/fake-it-til-you-make-it-to-production/#logging-fake
+
+I'll update this post to use that directly at some point if it works in the way that I hope.
+
 ## How to test `ILogger` with Snapshooter?
 
 Now that we have a fake logger, we can use it to test our `GetGreeting` method. Here's how we might do that:
