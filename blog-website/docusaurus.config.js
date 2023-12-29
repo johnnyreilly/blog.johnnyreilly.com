@@ -417,6 +417,7 @@ const config = {
         rel: 'webmention',
         href: 'https://webmention.io/johnnyreilly.com/webmention'
       },
+    },
   ],
 
   plugins: [
