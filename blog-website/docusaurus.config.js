@@ -31,7 +31,7 @@ const sameAs = [
   'https://app.daily.dev/johnnyreilly',
   'https://stackoverflow.com/users/761388/john-reilly',
   'https://blog.logrocket.com/author/johnreilly/',
-  'https://polywork.com/johnnyreilly',
+  'https://www.reddit.com/user/johnny_reilly',
   'https://uk.linkedin.com/in/johnnyreilly',
 ];
 
