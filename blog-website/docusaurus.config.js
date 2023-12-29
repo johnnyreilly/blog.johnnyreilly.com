@@ -411,6 +411,12 @@ const config = {
       },
       innerHTML: JSON.stringify(siteStructuredData),
     },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'webmention',
+        href: 'https://webmention.io/johnnyreilly.com/webmention'
+      },
   ],
 
   plugins: [
