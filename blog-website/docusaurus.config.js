@@ -550,11 +550,13 @@ const config = {
           {
             href: 'https://github.com/johnnyreilly',
             label: 'GitHub',
+            rel: 'me',
             position: 'right',
           },
           {
             href: 'https://twitter.com/johnny_reilly',
             label: 'Twitter',
+            rel: 'me',
             position: 'right',
           },
           // <a rel="me" href="https://fosstodon.org/@johnny_reilly">Mastodon</a>
