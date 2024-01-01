@@ -298,8 +298,28 @@ jobs:
             ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/blog
             ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/definitely-typed-the-movie
 
-      - name: Dump steps.structured_data_audit.outputs
-        run: echo '${{ toJSON(steps.structured_data_audit.outputs) }}'
+      # - name: Dump steps.structured_data_audit.outputs
+      #   run: echo '${{ toJSON(steps.structured_data_audit.outputs) }}'
+
+      - name: Format structured data results
+        id: format_structured_data_results
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const structuredDataCommentMaker = require('./.github/workflows/structuredDataCommentMaker.js');
+
+            const results = ${{ steps.structured_data_audit.outputs.results }};
+
+            const comment = structuredDataCommentMaker(results);
+            core.setOutput("comment", comment);
+
+      - name: Add structured data results as comment ✍️
+        id: comment_to_pr
+        uses: marocchino/sticky-pull-request-comment@v2.8.0
+        with:
+          number: ${{ github.event.pull_request.number }}
+          header: lighthouse
+          message: ${{ steps.format_structured_data_results.outputs.comment }}
 
   # deploy_to_devto_job:
   #   name: Publish to dev.to 🗞️
