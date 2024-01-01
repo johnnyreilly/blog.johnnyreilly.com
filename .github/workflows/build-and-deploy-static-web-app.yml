@@ -271,6 +271,10 @@ jobs:
           header: lighthouse
           message: ${{ steps.format_lighthouse_score.outputs.comment }}
 
+      - uses: johnnyreilly/schemar@initial-version
+        with:
+          url: ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
+
   # deploy_to_devto_job:
   #   name: Publish to dev.to 🗞️
   #   needs: build_and_deploy_swa_job
