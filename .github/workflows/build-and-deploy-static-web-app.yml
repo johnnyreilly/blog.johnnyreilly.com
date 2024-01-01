@@ -244,9 +244,9 @@ jobs:
           temporaryPublicStorage: true
           runs: 1
 
-      - name: Dump steps.lighthouse_audit.outputs
-        id: github_context_step
-        run: echo '${{ toJSON(steps.lighthouse_audit.outputs) }}'
+      # - name: Dump steps.lighthouse_audit.outputs
+      #   id: github_context_step
+      #   run: echo '${{ toJSON(steps.lighthouse_audit.outputs) }}'
 
       - name: Format lighthouse score
         id: format_lighthouse_score
@@ -289,6 +289,7 @@ jobs:
           interval: 1000
 
       - name: Audit URLs for structured data 🧐
+        id: structured_data_audit
         uses: johnnyreilly/schemar@initial-version
         with:
           urls: |
@@ -296,6 +297,9 @@ jobs:
             ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/about
             ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/blog
             ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/definitely-typed-the-movie
+
+      - name: Dump steps.structured_data_audit.outputs
+        run: echo '${{ toJSON(steps.structured_data_audit.outputs) }}'
 
   # deploy_to_devto_job:
   #   name: Publish to dev.to 🗞️
