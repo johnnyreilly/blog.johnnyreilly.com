@@ -271,9 +271,31 @@ jobs:
           header: lighthouse
           message: ${{ steps.format_lighthouse_score.outputs.comment }}
 
-      - uses: johnnyreilly/schemar@initial-version
+  structured_data_report_job:
+    name: Structured data report 📝
+    needs: build_and_deploy_swa_job
+    if: github.event_name == 'pull_request' && github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for preview ${{ needs.build_and_deploy_swa_job.outputs.preview-url }} ⌚
+        id: static_web_app_wait_for_preview
+        uses: nev7n/wait_for_response@v1
         with:
-          url: ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
+          url: '${{ needs.build_and_deploy_swa_job.outputs.preview-url }}'
+          responseCode: 200
+          timeout: 600000
+          interval: 1000
+
+      - name: Audit URLs for structured data 🧐
+        uses: johnnyreilly/schemar@initial-version
+        with:
+          urls: |
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/about
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/blog
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/definitely-typed-the-movie
 
   # deploy_to_devto_job:
   #   name: Publish to dev.to 🗞️
