@@ -303,6 +303,7 @@ jobs:
 
       - name: Format structured data results
         id: format_structured_data_results
+        if: always()
         uses: actions/github-script@v7
         with:
           script: |
@@ -312,6 +313,7 @@ jobs:
 
       - name: Add structured data results as comment ✍️
         id: structured_data_comment_to_pr
+        if: always()
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           number: ${{ github.event.pull_request.number }}
