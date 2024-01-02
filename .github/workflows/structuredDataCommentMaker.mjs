@@ -17,7 +17,7 @@
  * @param {Result[]} results
  */
 function createStructuredDataReport(baseUrl, results) {
-  const comment = `### 📝 Structured data report for the deploy preview of this PR
+  const comment = `### 📝 Structured data report
 
 ${results
   .map((result) => {
