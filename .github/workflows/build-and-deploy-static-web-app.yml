@@ -306,7 +306,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const structuredDataCommentMaker = (await import('./.github/workflows/structuredDataCommentMaker.js')).default;
+            const structuredDataCommentMaker = (await import(`${process.env.GITHUB_WORKSPACE}/.github/workflows/structuredDataCommentMaker.js`)).default;
             const results = ${{ steps.structured_data_audit.outputs.results }};
             core.setOutput("comment", structuredDataCommentMaker(results));
 
