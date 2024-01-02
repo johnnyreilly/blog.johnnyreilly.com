@@ -43,7 +43,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: johnnyreilly/schemar@v0.1.0
+      - uses: johnnyreilly/schemar@v0.1.1
 	  	with:
 		  urls: https://johnnyreilly.com
 
@@ -102,7 +102,7 @@ structured_data_report_job:
 
     - name: Audit URLs for structured data 🧐
       id: structured_data_audit
-      uses: johnnyreilly/schemar@v0.1.0
+      uses: johnnyreilly/schemar@v0.1.1
       with:
         urls: |
           ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
@@ -212,5 +212,7 @@ This is great! It means that I can be confident that my structured data is alway
 ## Conclusion
 
 My hope is that Schemar can be used to increase the quality of structured data on the web. I'm using it to increase the quality of structured data on my blog. I hope you'll find it useful too.
+
+I've also [shared this with the good folk of Schema.org](https://github.com/schemaorg/schemaorg/discussions/3432) in the hope they'll find it useful too.
 
 The [source code can be found here](https://github.com/johnnyreilly/schemar).
