@@ -265,7 +265,7 @@ jobs:
 
       - name: Add Lighthouse stats as comment ✍️
         id: comment_to_pr
-        uses: marocchino/sticky-pull-request-comment@v2.8.0
+        uses: marocchino/sticky-pull-request-comment@v2
         with:
           number: ${{ github.event.pull_request.number }}
           header: lighthouse
@@ -311,11 +311,11 @@ jobs:
             core.setOutput("comment", structuredDataCommentMaker(results));
 
       - name: Add structured data results as comment ✍️
-        id: comment_to_pr
-        uses: marocchino/sticky-pull-request-comment@v2.8.0
+        id: structured_data_comment_to_pr
+        uses: marocchino/sticky-pull-request-comment@v2
         with:
           number: ${{ github.event.pull_request.number }}
-          header: lighthouse
+          header: structured_data
           message: ${{ steps.format_structured_data_results.outputs.comment }}
 
   # deploy_to_devto_job:
