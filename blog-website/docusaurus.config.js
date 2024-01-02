@@ -762,7 +762,7 @@ const config = {
           'diff',
           'bash',
           'json',
-          'yml',
+          'yaml',
         ],
       },
     }),
