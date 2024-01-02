@@ -415,7 +415,7 @@ const config = {
       tagName: 'link',
       attributes: {
         rel: 'webmention',
-        href: 'https://webmention.io/johnnyreilly.com/webmention'
+        href: 'https://webmention.io/johnnyreilly.com/webmention',
       },
     },
   ],
@@ -762,6 +762,7 @@ const config = {
           'diff',
           'bash',
           'json',
+          'yaml',
         ],
       },
     }),
