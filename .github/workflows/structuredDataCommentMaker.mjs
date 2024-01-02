@@ -13,17 +13,18 @@
  */
 
 /**
+ * @param {string} baseUrl
  * @param {Result[]} results
  */
-function createStructuredDataReport(results) {
+function createStructuredDataReport(baseUrl, results) {
   const comment = `### 📝 Structured data report for the deploy preview of this PR
 
 ${results
   .map((result) => {
-    console.log(result.url, result.processedValidationResult.resultText);
-    return `#### ${result.processedValidationResult.success ? '🟢' : '🔴'} \`${
-      result.url
-    }\` 
+    const shortUrl = result.url.replace(baseUrl, '');
+    return `#### ${
+      result.processedValidationResult.success ? '🟢' : '🔴'
+    } [${shortUrl}](${result.url}) 
 ${result.processedValidationResult.resultText}`;
   })
   .join('\n')}
