@@ -56,9 +56,12 @@ on:
       - main
 ```
 
-Then you'd have a GitHub Action that would validate the structured data on your site and fail if it wasn't valid. The `urls` input is a list of URLs to validate. In this case, we're just validating the home page of my blog. The results look like this:
+Then you'd have a GitHub workflow that would validate the structured data on `https://johnnyreilly.com` and fail if it wasn't valid.
+
+The `urls` input of Schemar is a list of URLs to validate. In this case, we're just validating only one. The results look like this:
 
 > Validating https://johnnyreilly.com for structured data...
+>
 > https://johnnyreilly.com has structured data of these types:
 >
 > - Organization / Brand
@@ -69,7 +72,7 @@ Then you'd have a GitHub Action that would validate the structured data on your 
 
 We can see that the home page of my blog has structured data of the types `Organization / Brand`, `WebSite` and `Blog`. And we can even click into the Schema Markup Validator to see the details.
 
-If at some point I were to omit or break the structured data on my blog, then the GitHub Action would fail. This is a great way to ensure that your structured data is always present and valid.
+If at some point I were to omit or break the structured data on my blog, then Schemar would fail the build. This is a great way to ensure that your structured data is always present and valid.
 
 We're going to see what usage looks like in a minute, as we dive into a more sophisticated example.
 
@@ -214,6 +217,4 @@ This is great! It means that I can be confident that my structured data is alway
 
 My hope is that Schemar can be used to increase the quality of structured data on the web. I'm using it to increase the quality of structured data on my blog. I hope you'll find it useful too.
 
-I've also [shared this with the good folk of Schema.org](https://github.com/schemaorg/schemaorg/discussions/3432) in the hope they'll find it useful too.
-
-The [source code can be found here](https://github.com/johnnyreilly/schemar).
+I've also [shared this with the good folk of Schema.org](https://github.com/schemaorg/schemaorg/discussions/3432) in the hope they'll find it useful too. The [source code of Schemar can be found here](https://github.com/johnnyreilly/schemar).
