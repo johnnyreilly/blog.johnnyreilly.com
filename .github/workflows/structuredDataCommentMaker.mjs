@@ -21,7 +21,7 @@ function createStructuredDataReport(baseUrl, results) {
 
 ${results
   .map((result) => {
-    const shortUrl = result.url.replace(baseUrl, '');
+    const shortUrl = result.url.replace(baseUrl, '') || '/';
     return `#### ${
       result.processedValidationResult.success ? '🟢' : '🔴'
     } [${shortUrl}](${result.url}) 
