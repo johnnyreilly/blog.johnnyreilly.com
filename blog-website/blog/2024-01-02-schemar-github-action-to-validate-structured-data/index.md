@@ -1,5 +1,5 @@
 ---
-slug: schemar-validate-structured-data-in-a-github-action
+slug: schemar-github-action-to-validate-structured-data
 title: 'Schemar: a GitHub Action to validate structured data'
 authors: johnnyreilly
 tags: [seo]
@@ -38,7 +38,7 @@ I'm going to take my blog (that's what you're reading right now BTW) and use Sch
 
 But before we do that, let's look at simple usage of Schemar. If you were to add a `.github/workflows/schemar.yml` file to your repo with the following contents:
 
-```yml
+```yaml
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -86,7 +86,7 @@ I won't reiterate the whole GitHub workflow that spins up a preview environment 
 
 Here is the key part of the GitHub workflow:
 
-```yml
+```yaml
 structured_data_report_job:
   name: Structured data report 📝
   needs: build_and_deploy_swa_job
