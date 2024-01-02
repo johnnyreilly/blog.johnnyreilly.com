@@ -164,7 +164,7 @@ const siteStructuredData = {
 
     {
       '@id': 'https://johnnyreilly.com/about',
-      '@type': 'Person',
+      '@type': 'Blarg', // 'Person', // let's break the schema!
       name: 'John Reilly',
       alternateName: 'Johnny Reilly',
       image: {
@@ -415,7 +415,7 @@ const config = {
       tagName: 'link',
       attributes: {
         rel: 'webmention',
-        href: 'https://webmention.io/johnnyreilly.com/webmention'
+        href: 'https://webmention.io/johnnyreilly.com/webmention',
       },
     },
   ],
