@@ -1,6 +1,6 @@
 ---
 slug: schemar-validate-structured-data-in-a-github-action
-title: 'Schemar: Validate structured data in a GitHub Action'
+title: 'Schemar: a GitHub Action to validate structured data'
 authors: johnnyreilly
 tags: [seo]
 image: ./title-image.png
@@ -12,7 +12,7 @@ Of late, I've found myself getting more and more into structured data. Structure
 
 Specifically, how can we validate structured data in the context of a GitHub workflow? I've created a GitHub Action called [Schemar](https://github.com/marketplace/actions/schemar-ci-action) that facilitates just that. In this post we'll see how to use it.
 
-![title image reading "Schemar: Validate structured data in a GitHub Action" with the GitHub Action logo](title-image.png)
+![title image reading "Schemar: a GitHub Action to validate structured data" with the GitHub Action logo](title-image.png)
 
 <!--truncate-->
 
