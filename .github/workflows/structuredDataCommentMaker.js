@@ -1,16 +1,5 @@
 // @ts-check
 
-// export interface Result {
-// 	url: string;
-// 	validationResult: ValidationResult;
-// 	processedValidationResult: ProcessedValidationResult;
-// }
-
-// export interface ProcessedValidationResult {
-// 	success: boolean;
-// 	resultText: string;
-// }
-
 /**
  * @typedef {Object} Result
  * @prop {string} url
@@ -26,22 +15,20 @@
 /**
  * @param {Result[]} results
  */
-const createStructuredDataReport = (results) => {
-  const comment = `### ⚡️ Structured data report for the deploy preview of this PR
+function createStructuredDataReport(results) {
+  const comment = `### 📝 Structured data report for the deploy preview of this PR
 
 ${results
   .map((result) => {
     console.log(result.url, result.processedValidationResult.resultText);
-    return `#### ${result.url} ${
-      result.processedValidationResult.success ? '🟢' : '🔴'
-    }
+    return `#### ${result.processedValidationResult.success ? '🟢' : '🔴'} \`${
+      result.url
+    }\` 
 ${result.processedValidationResult.resultText}`;
   })
   .join('\n')}
 `;
   return comment;
-};
+}
 
-module.exports = (results) => {
-  return createStructuredDataReport(results);
-};
+export default createStructuredDataReport;
