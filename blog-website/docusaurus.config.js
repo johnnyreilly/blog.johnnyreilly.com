@@ -164,7 +164,7 @@ const siteStructuredData = {
 
     {
       '@id': 'https://johnnyreilly.com/about',
-      '@type': 'Blarg', // 'Person', // let's break the schema!
+      '@type': 'Person',
       name: 'John Reilly',
       alternateName: 'Johnny Reilly',
       image: {
