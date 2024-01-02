@@ -10,7 +10,7 @@ hide_table_of_contents: false
 
 Of late, I've found myself getting more and more into structured data. Structured data is a way of adding machine-readable information to web pages. I've written about structured data before, but in this post I want to focus on how to validate structured data.
 
-Specifically, I want to show how to validate structured data using a GitHub Action. I've created a GitHub Action called [Schemar](https://github.com/johnnyreilly/schemar) that does just that. In this post we'll see how to use it.
+Specifically, I want to show how to validate structured data using a GitHub Action. I've created a GitHub Action called [Schemar](https://github.com/marketplace/actions/schemar-ci-action) that does just that. In this post we'll see how to use it.
 
 ![title image reading "Schemar: Validate structured data in a GitHub Action" with the GitHub Action logo](title-image.png)
 
@@ -102,7 +102,7 @@ structured_data_report_job:
 
     - name: Audit URLs for structured data 🧐
       id: structured_data_audit
-      uses: johnnyreilly/schemar@initial-version
+      uses: johnnyreilly/schemar@v0.1.0
       with:
         urls: |
           ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
@@ -192,9 +192,7 @@ The question is, what does the pull request look like after the GitHub Action ha
 
 It failed! And it put a comment on the PR that looks like this:
 
-![screenshot of the GitHub Action comment on the PR](screenshot-pull-request-comment.png)
-
-This is great! It means that I can be confident that my structured data is always present and valid. And if it isn't, then I'll know about it. I can even click through to the Schema Markup Validator to see the details.
+![screenshot of the GitHub Action comment on the PR](screenshot-pull-request-failed-comment.png)
 
 Let's unbreak the structured data and see what happens:
 
@@ -202,3 +200,17 @@ Let's unbreak the structured data and see what happens:
 -'@type': 'Blarg', // let's break the schema!
 +'@type': 'Person',
 ```
+
+![screenshot of the GitHub Action failing](screenshot-succeeded-github-action.png)
+
+It succeeded! And it put a comment on the PR that looks like this:
+
+![screenshot of the GitHub Action comment on the PR](screenshot-pull-request-succeeded-comment.png)
+
+This is great! It means that I can be confident that my structured data is always present and valid. And if it isn't, then I'll know about it. I can even click through to the Schema Markup Validator to see the details.
+
+## Conclusion
+
+My hope is that Schemar can be used to increase the quality of structured data on the web. I'm using it to increase the quality of structured data on my blog. I hope you'll find it useful too.
+
+The [source code can be found here](https://github.com/johnnyreilly/schemar).

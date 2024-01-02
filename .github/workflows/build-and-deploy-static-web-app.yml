@@ -290,7 +290,7 @@ jobs:
 
       - name: Audit URLs for structured data 🧐
         id: structured_data_audit
-        uses: johnnyreilly/schemar@initial-version
+        uses: johnnyreilly/schemar@v0.1.0
         with:
           urls: |
             ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
