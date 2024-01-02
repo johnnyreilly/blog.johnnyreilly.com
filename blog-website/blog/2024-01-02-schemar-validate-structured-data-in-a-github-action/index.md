@@ -8,9 +8,9 @@ description: This post demonstrates how to use Schemar to validate structured da
 hide_table_of_contents: false
 ---
 
-Of late, I've found myself getting more and more into structured data. Structured data is a way of adding machine-readable information to web pages. I've written about structured data before, but in this post I want to focus on how to validate structured data.
+Of late, I've found myself getting more and more into structured data. Structured data is a way of adding machine-readable information to web pages. To entertain myself, I liken it to static typing for websites. I've written about structured data before, but in this post I want to focus on how to validate structured data.
 
-Specifically, I want to show how to validate structured data using a GitHub Action. I've created a GitHub Action called [Schemar](https://github.com/marketplace/actions/schemar-ci-action) that does just that. In this post we'll see how to use it.
+Specifically, how can we validate structured data in the context of a GitHub workflow? I've created a GitHub Action called [Schemar](https://github.com/marketplace/actions/schemar-ci-action) that facilitates just that. In this post we'll see how to use it.
 
 ![title image reading "Schemar: Validate structured data in a GitHub Action" with the GitHub Action logo](title-image.png)
 
@@ -28,7 +28,7 @@ Schemar is a GitHub Action that validates structured data. It's a wrapper around
 
 If you haven't heard of Schema.orgs validator; it originally started at Google as the Structured Data Testing Tool but was [repurposed and gifted to the community](https://developers.google.com/search/blog/2020/12/structured-data-testing-tool-update).
 
-That tool is a website; Schemar is a wrapper around the tool that makes it easy to validate structured data in the context of a GitHub Action. Let's imagine it's very important to you that your structured data is both present and valid. You could use Schemar to validate your structured data as part of your CI/CD pipeline.
+That tool is a website; Schemar is a wrapper around the tool that makes it easy to validate structured data in the context of a GitHub workflow. Let's imagine it's very important to you that your structured data is both present and valid. You could use Schemar to validate your structured data as part of your CI/CD pipeline.
 
 Imagine Schemar to be the structured data equivalent of the [`lighthouse-ci-action`](https://github.com/treosh/lighthouse-ci-action) GitHub Action.
 
@@ -44,8 +44,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: johnnyreilly/schemar@v0.1.1
-	  	with:
-		  urls: https://johnnyreilly.com
+        with:
+          urls: https://johnnyreilly.com
 
 name: Validate structured data
 
@@ -58,19 +58,20 @@ on:
 
 Then you'd have a GitHub Action that would validate the structured data on your site and fail if it wasn't valid. The `urls` input is a list of URLs to validate. In this case, we're just validating the home page of my blog. The results look like this:
 
-```
-Validating https://johnnyreilly.com for structured data...
-https://johnnyreilly.com has structured data of these types:
- - Organization / Brand
- - WebSite
- - Blog
-
-For more details see https://validator.schema.org/#url=https%3A%2F%2Fjohnnyreilly.com
-```
+> Validating https://johnnyreilly.com for structured data...
+> https://johnnyreilly.com has structured data of these types:
+>
+> - Organization / Brand
+> - WebSite
+> - Blog
+>
+> For more details see https://validator.schema.org/#url=https%3A%2F%2Fjohnnyreilly.com
 
 We can see that the home page of my blog has structured data of the types `Organization / Brand`, `WebSite` and `Blog`. And we can even click into the Schema Markup Validator to see the details.
 
 If at some point I were to omit or break the structured data on my blog, then the GitHub Action would fail. This is a great way to ensure that your structured data is always present and valid.
+
+We're going to see what usage looks like in a minute, as we dive into a more sophisticated example.
 
 ## Surfacing Schemar results in your pull requests
 
@@ -78,9 +79,9 @@ Now that we've seen a basic example, let's see what it looks like to use Schemar
 
 ### Adding Schemar to the GitHub Action
 
-I won't reiterate the whole GitHub Action here, but I'll show the key parts. You can see the whole thing in the [`build-and-deploy-static-web-app.yml` of the blog repo](https://github.com/johnnyreilly/blog.johnnyreilly.com/blob/main/.github/workflows/build-and-deploy-static-web-app.yml)
+I won't reiterate the whole GitHub workflow that spins up a preview environment here, but I'll show the key parts. You can see the whole thing in the [`build-and-deploy-static-web-app.yml` of the blog repo](https://github.com/johnnyreilly/blog.johnnyreilly.com/blob/main/.github/workflows/build-and-deploy-static-web-app.yml). You'll note I'm using Azure Static Web Apps to host my blog - but any web platform will do.
 
-Here is the key part of the GitHub Action:
+Here is the key part of the GitHub workflow:
 
 ```yml
 structured_data_report_job:
