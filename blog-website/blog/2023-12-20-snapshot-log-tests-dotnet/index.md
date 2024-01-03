@@ -44,25 +44,47 @@ public class GreetingService(ILogger<GreetingService> log)
 
 If we look at the class above, we can see it has a dependency on `ILogger<GreetingService>`. This is a common pattern in .NET applications. The `ILogger` interface is used to write log messages. I wouldn't be surprised if it's the most commonly used interface in .NET applications.
 
-If we execute the `GetGreeting` method above, we'll both get a greeting returned and a log message will be written. In order that we can test this method, we need to be able to verify that the log message was written correctly. We're going to do that by making use of a fake logger:
+If we execute the `GetGreeting` method above, we'll both get a greeting returned and a log message will be written. In order that we can test this method, we need to be able to verify that the log message was written correctly. We're going to do that by making use of a fake logger.
+
+## `FakeLogger`
+
+As of .NET 8, there is a `FakeLogger` that ships as part of .NET. You can read more about that here: https://devblogs.microsoft.com/dotnet/fake-it-til-you-make-it-to-production/#logging-fake
+
+We're going to make use of the official `FakeLogger` in this post. However, I'm mindful that not everyone is on .NET 8 yet. So, I'm going to show you how to implement a fake logger yourself. So if you're on .NET 6 / .NET 7 then you can use this.
+
+Whichever fake logger we use, it is a simple implementation of `ILogger<T>`. It's a fake because it doesn't actually write anything to a log. Instead, it records the log messages it's asked to write in a list of `FakeLogRecord`. We can then use this list to verify that the log messages were written correctly.
+
+### `FakeLogger` for .NET 8+
+
+If you're working with .NET 8 or later, you can use the `FakeLogger` that ships with .NET. To add this to your project, add the [`Microsoft.Extensions.Logging.Testing`](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Testing) and [`Microsoft.Extensions.TimeProvider.Testing`](https://www.nuget.org/packages/Microsoft.Extensions.TimeProvider.Testing) packages to your test project:
+
+```bash
+dotnet add package Microsoft.Extensions.Diagnostics.Testing
+dotnet add package Microsoft.Extensions.TimeProvider.Testing
+```
+
+#### `FakeLogger` for earlier .NET versions
+
+If you're working with an earlier version of .NET, you can implement a fake logger yourself:
 
 ```cs
 using Microsoft.Extensions.Logging;
 
 namespace MyApp.Tests.TestUtilities;
 
-public record LogEntry(LogLevel Level, string Message, Exception? Exception);
+public record FakeLogRecord(LogLevel Level, string Message, Exception? Exception);
 
 public class FakeLogger<T> : ILogger<T>
 {
-    public List<LogEntry> Entries { get; } = [];
+    public IReadOnlyList<FakeLogRecord> GetSnapshot() => _records;
+    readonly List<FakeLogRecord> _records = [];
 
     public IDisposable? BeginScope<TState>(TState state) where TState : notnull => NullScope.Instance;
 
     public bool IsEnabled(LogLevel logLevel) => true;
 
     public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter) =>
-        Entries.Add(new LogEntry(logLevel, formatter(state, exception), exception));
+        _records.Add(new FakeLogRecord(logLevel, formatter(state, exception), exception));
 
     /// <summary>
     /// Reference: https://github.com/aspnet/Logging/blob/master/src/Microsoft.Extensions.Logging.Abstractions/Internal/NullScope.cs
@@ -82,19 +104,107 @@ public class FakeLogger<T> : ILogger<T>
 }
 ```
 
-This fake logger is a simple implementation of `ILogger<T>`. It's a fake because it doesn't actually write anything to a log. Instead, it records the log messages it's asked to write in a list of `LogEntry` objects. We can then use this list to verify that the log messages were written correctly. It's inspired by [this post](https://pnguyen.io/posts/verify-ilogger-call-in-dotnet-core/) but takes it further by keeping a full record of each call.
+This implementation is inspired by both the .NET 8 `FakeLogger` implementation and [David Nguyen's post](https://pnguyen.io/posts/verify-ilogger-call-in-dotnet-core/). It's not identical to the official implementation, but it's close enough for our purposes.
 
-## .NET and `FakeLogger`
+## Testing `ILogger` with Snapshooter
 
-After writing this post I came to learn that as of .NET 8, there is a `FakeLogger` built in. You can read more about that here: https://devblogs.microsoft.com/dotnet/fake-it-til-you-make-it-to-production/#logging-fake
+Now that we have a fake logger, we can use it to test the logging caused by calling our `GetGreeting` method.
 
-I'll update this post to use that directly at some point if it works in the way that I hope.
+### Testing `ILogger` with Snapshooter for .NET 8+
 
-## How to test `ILogger` with Snapshooter?
-
-Now that we have a fake logger, we can use it to test our `GetGreeting` method. Here's how we might do that:
+Here's how we might do that with our .NET 8 `FakeLogger`:
 
 ```cs
+using Microsoft.Extensions.Logging.Testing;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Time.Testing;
+
+using Snapshooter.Xunit;
+
+namespace MyApp.Tests.Services;
+
+public class GreetingServiceTests
+{
+    [Fact]
+    public void GetGreeting_greets_and_logs()
+    {
+        // Arrange
+        var fixedTimeLogCollector = new FakeLogCollector(Options.Create(new FakeLogCollectorOptions {
+            TimeProvider = new FakeTimeProvider()
+        }));
+        var log = new FakeLogger<GreetingService>(fixedTimeLogCollector);
+
+        var greetingService = new GreetingService(log);
+
+        // Act
+        var greeting = greetingService.GetGreeting("John");
+
+        // Assert
+        Snapshot.Match(new { log = log.Collector.GetSnapshot(), greeting });
+    }
+}
+```
+
+Here, we create an instance of `FakeLogger<GreetingService>`. That `FakeLogger` is instantiated with an instance of `FakeLogCollector`. We're doing this because we want to stub out the time provider. If we don't do this, the log messages will contain the current time. That would will make our snapshot tests brittle. By stubbing out the time provider, we can ensure that the log messages will always contain the same time. This will make our snapshot tests more robust.
+
+If you'd like to learn more about stubbing out the time provider, I recommend you read [Andrew Lock's post on the subject](https://andrewlock.net/exploring-the-dotnet-8-preview-avoiding-flaky-tests-with-timeprovider-and-itimer/#testing-with-the-microsoft-extensions-timeprovider-testing-library).
+
+Our `FakeLogger` is passed into the `GreetingService` constructor, ready to be used. We call `GetGreeting`, and then we use Snapshooter to verify that the log messages were written correctly and that the greeting generated is what we expect. The log messages are acquired by calling the `GetSnapshot` method of the `FakeLogCollector`.
+
+When the test is first run, a `GreetingServiceTests.GetGreeting_greets_and_logs.snap` snapshot is created. This snapshot contains the serialised `log` and `greeting` objects. Subsequent runs of the test will compare the current output with the snapshot. If the output matches the snapshot, the test passes. If it doesn't, the test fails. Here is what the contents of the snapshot should look like:
+
+```json
+{
+  "log": [
+    {
+      "Level": "Information",
+      "Id": {
+        "Id": 0,
+        "Name": null
+      },
+      "State": [
+        {
+          "Key": "name",
+          "Value": "John"
+        },
+        {
+          "Key": "{OriginalFormat}",
+          "Value": "Greeting {name}"
+        }
+      ],
+      "StructuredState": [
+        {
+          "Key": "name",
+          "Value": "John"
+        },
+        {
+          "Key": "{OriginalFormat}",
+          "Value": "Greeting {name}"
+        }
+      ],
+      "Exception": null,
+      "Message": "Greeting John",
+      "Scopes": [],
+      "Category": "MyApp.Tests.Services.GreetingService",
+      "LevelEnabled": true,
+      "Timestamp": "2000-01-01T00:00:00+00:00"
+    }
+  ],
+  "greeting": "Hello, John!"
+}
+```
+
+And that's it, we're done! We've tested our logging code with minimal effort; the only assertion we wrote was `Snapshot.Match`. If we change behaviour of the `GetGreeting` method, the test will fail. To remedy we can then update the snapshot and we're good to go.
+
+### Testing `ILogger` with Snapshooter for earlier .NET versions
+
+If we were using our own `FakeLogger` implementation, we'd almost the same thing:
+
+```cs
+using Snapshooter.Xunit;
+
+namespace MyApp.Tests.Services;
+
 public class GreetingServiceTests
 {
     [Fact]
@@ -109,32 +219,32 @@ public class GreetingServiceTests
         var greeting = greetingService.GetGreeting("John");
 
         // Assert
-        Snapshot.Match(new { log, greeting });
+        Snapshot.Match(new { log = log.GetSnapshot(), greeting });
     }
 }
 ```
 
-Here, we create an instance of `FakeLogger<GreetingService>` and pass it into the `GreetingService` constructor. We then call `GetGreeting` and finally we use Snapshooter to verify that the log messages were written correctly and that the greeting generated is what we expect.
+You'll notice that actually less code is involved this time. That's because we don't need to stub out the time provider. Our simple implementation of `FakeLogger` doesn't bother with time. So we can just call `GetSnapshot` on the `FakeLogger` instance.
 
-When the test is first run, a `GreetingServiceTests.GetGreeting_greets_and_logs.snap` snapshot is created. This snapshot contains the serialised `log` and `greeting` objects. Subsequent runs of the test will compare the current output with the snapshot. If the output matches the snapshot, the test passes. If it doesn't, the test fails. Here is what the contents of the snapshot should look like:
+The snapshot generated by this test will look like this:
 
 ```json
 {
-  "log": {
-    "Entries": [
-      {
-        "Level": "Information",
-        "Message": "Greeting John",
-        "Exception": null
-      }
-    ]
-  },
+  "log": [
+    {
+      "Level": "Information",
+      "Message": "Greeting John",
+      "Exception": null
+    }
+  ],
   "greeting": "Hello, John!"
 }
 ```
 
-And that's it, we're done! We've tested our logging code with minimal effort; the only assertion we wrote was `Snapshot.Match(new { log, greeting })`. If we change behaviour of the `GetGreeting` method, the test will fail. We can then update the snapshot and we're good to go.
+There's a lot less information in this snapshot. That's because our simple implementation of `FakeLogger` doesn't bother with all of the things the official `FakeLogger` does. But for what we're doing here, it's enough.
 
 ## Conclusion
 
-In this post we've seen how to use Snapshooter to test logging code. This approach is easy to implement, easy to maintain and easy to read. Significantly: it involves very little work on our part. If you're not already using snapshot testing, I hope this post has inspired you to give it a try. If you are already using snapshot testing, I hope this post has inspired you to use it to test your logging code.
+In this post we've seen how to use Snapshooter to test logging code.
+
+This approach is easy to implement, easy to maintain and easy to read. Significantly: it involves very little work on our part. If you're not already using snapshot testing, I hope this post has inspired you to give it a try. If you are already using snapshot testing, I hope this post has inspired you to use it to test your logging code.
