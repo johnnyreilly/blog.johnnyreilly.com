@@ -102,7 +102,7 @@ My assumption here is that by failing to implement redirects, I've lost a lot of
 
 ## RSS feeds
 
-I mentioned that I've been blogging a long time. Consequently I have a lot of blog posts. I also have [Atom](/atom.xml) / [RSS](/rss.xml) feeds on my blog. I didn't realise that there are limits on the size of these feeds. It doesn't appear to be standardised; but when I took a look at my feeds in various feed readers, I found they were erroring due to the size of the feeds.
+I mentioned that I've been blogging a long time. Consequently I have a lot of blog posts. I also have [Atom](https://johnnyreilly.com/atom.xml) / [RSS](https://johnnyreilly.com/rss.xml) feeds on my blog. I didn't realise that there are limits on the size of these feeds. It doesn't appear to be standardised; but when I took a look at my feeds in various feed readers, I found they were erroring due to the size of the feeds.
 
 I decided to start truncating the number of entries in my feeds. It's not so hard to do, just a post build step which [reads, amends and writes the XML](../2022-11-22-xml-read-and-write-with-node-js/index.md).
 
