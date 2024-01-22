@@ -55,6 +55,20 @@ jobs:
 
           echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_OUTPUT
 
+      - name: Lint Bicep
+        if: github.event_name == 'pull_request'
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az bicep lint --file ./infra/main.bicep --diagnostics-format sarif > bicep.sarif
+
+      - name: Upload SARIF
+        if: github.event_name == 'pull_request' && (success() || failure())
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          category: bicep
+          sarif_file: bicep.sarif
+
       - name: Infra - detect changes & validate 📝
         id: static_web_app_what_if
         if: github.event_name == 'pull_request'
