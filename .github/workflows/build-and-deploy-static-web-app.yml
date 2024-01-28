@@ -60,6 +60,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
+            az version
             az bicep install
             az bicep version
             az bicep lint --file ./infra/main.bicep --diagnostics-format sarif > bicep.sarif
