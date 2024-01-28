@@ -60,6 +60,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
+            az bicep version
             az bicep lint --file ./infra/main.bicep --diagnostics-format sarif > bicep.sarif
             echo '::warning::Bicep linting results:'
             cat bicep.sarif
