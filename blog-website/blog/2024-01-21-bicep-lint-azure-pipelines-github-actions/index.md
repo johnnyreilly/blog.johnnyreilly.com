@@ -12,7 +12,7 @@ Bicep has had linting [since version 0.4.1](https://github.com/Azure/bicep/relea
 
 As of [version 0.21.1](https://github.com/Azure/bicep/releases/tag/v0.21.1) there is a dedicated [`bicep lint`](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/linter) command. This is great as it makes it clear that you're running the linter. And it is useful if you want to run the linter as part of a CI/CD pipeline. What's more the `bicep lint` command is now available in the Azure CLI as well. You can run [`az bicep lint`](https://docs.microsoft.com/en-us/cli/azure/bicep?view=azure-cli-latest#az-bicep-lint) to lint your bicep files.
 
-In this post we'll look at how to run lint Bicep in Azure Pipelines and GitHub Actions, and surface the output.
+In this post we'll look at how to run lint Bicep in Azure Pipelines and GitHub Actions, and surface the output in the UI.
 
 ![title image reading "Bicep lint with Azure Pipelines and GitHub Actions" with the Bicep logo](title-image.png)
 
