@@ -16,8 +16,6 @@ var appInsightsName = 'blog-app-insights'
 var cosmosDbAccountName = 'johnnyreilly-com-database'
 var cosmosDbDatabaseName = 'sitedb'
 
-var unusedVar = 1 
-
 module appInsights './app-insights.bicep' = {
   name: '${deployment().name}-appInsights'
   params: {
