@@ -90,7 +90,7 @@ The above:
 
 The `upload-sarif` action is provided by GitHub. It's allows surfacing the results of static analysis tools in GitHub. It will show the results of the linting process in the GitHub UI, and it will also show them in the GitHub Security / Code Scanning UI, like so:
 
-![screenshot of the no-unused-vars rule in GitHub UI](screenshot-github-actions-no-unused-vars.png)
+![screenshot of the no-unused-vars rule in GitHub UI](screenshot-github-actions-no-unused-vars.webp)
 
 ## Linting Bicep in GitHub Actions with the Bicep CLI
 
@@ -171,7 +171,7 @@ jobs:
 
 The above is essentially the same as the GitHub Actions example, but it uses the Azure CLI instead of the Bicep CLI. The `PublishBuildArtifacts` task is provided by Azure Pipelines. It allows you to publish build artifacts, which will show up in the scans part of Azure Pipelines. You can see the results of the linting process in the scans part of Azure Pipelines, like so:
 
-![screenshot of the no-unused-vars rule in Azure Pipelines scans](screenshot-azure-pipelines-scans-no-unused-vars.png)
+![screenshot of the no-unused-vars rule in Azure Pipelines scans](screenshot-azure-pipelines-scans-no-unused-vars.webp)
 
 ### Surface the results in the tests part of Azure Pipelines
 
@@ -210,7 +210,7 @@ jobs:
 
 So the above is the same approach again but the results end up in the tests part of Azure Pipelines. You can see the results of the linting process in the tests part of Azure Pipelines, like so:
 
-![screenshot of the no-unused-vars rule in Azure Pipelines tests](screenshot-azure-pipelines-tests-no-unused-vars.png)
+![screenshot of the no-unused-vars rule in Azure Pipelines tests](screenshot-azure-pipelines-tests-no-unused-vars.webp)
 
 ## Summary
 
