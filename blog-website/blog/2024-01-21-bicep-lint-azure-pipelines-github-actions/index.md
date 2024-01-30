@@ -20,13 +20,13 @@ In this post we'll look at how to run lint Bicep in Azure Pipelines and GitHub A
 
 ## The general approach
 
-The general approach is the same for both Azure Pipelines and GitHub Actions. One way or another, we'll make use the Bicep `lint` command to lint our Bicep files. As yet, there is no option to export the results of the lint command as a file. This may come, and [there is a discussion about it](https://github.com/Azure/bicep/issues/11960). However, there is a way to achieve our goal, which came out in discussion with [Anthony Martin](https://github.com/anthony-c-martin) of the Bicep team. We can write the output of the `lint` command to a file like so:
+The general approach is the same for both Azure Pipelines and GitHub Actions. One way or another, we'll run the Bicep `lint` command to lint our Bicep files and capture the output. As yet, there is no option to export the results of the lint command as a file. This may come, and [there is a discussion about it](https://github.com/Azure/bicep/issues/11960). However, there is a way to achieve our goal, which came out in discussion with [Anthony Martin](https://github.com/anthony-c-martin) of the Bicep team. We can write the output of the `lint` command to a file like so:
 
 ```
 bicep lint main.bicep --diagnostics-format sarif > lint.sarif
 ```
 
-This will write the output of the `lint` command to a file called `lint.sarif`. This is a [SARIF](https://sarifweb.azurewebsites.net/) file. SARIF stands for Static Analysis Results Interchange Format. It's a standard for representing the results of static analysis tools. It's a JSON file, and it's easy to parse.
+This will write the output of the `lint` command to a file called `lint.sarif`. This is a [SARIF](https://sarifweb.azurewebsites.net/) file. SARIF stands for Static Analysis Results Interchange Format. It's a standard for representing the results of static analysis tools. It's a JSON file, easy to parse and has integrations with GitHub Actions / Azure Pipelines.
 
 In the example above we directly used the `bicep lint` command. An alternative approach is to use the Azure CLI like so:
 
@@ -84,7 +84,7 @@ In a GitHub workflow in your repository you should have steps like these:
 
 The above:
 
-- Installs Bicep using the Azure CLI
+- Installs Bicep to the Azure CLI
 - Runs the `lint` command and writes the results to a file called `bicep.sarif`
 - Uploads the SARIF file to GitHub
 
@@ -171,7 +171,7 @@ jobs:
           artifactName: CodeAnalysisLogs # required to show up in the scans tab
 ```
 
-The above is essentially the same as the GitHub Actions example, but it uses the Azure CLI instead of the Bicep CLI. The `PublishBuildArtifacts` task is provided by Azure Pipelines. It allows you to publish build artifacts, which will show up in the scans part of Azure Pipelines. You can see the results of the linting process in the scans part of Azure Pipelines, like so:
+The above is essentially the same as the GitHub Actions example, but it uses the Azure CLI instead of the Bicep CLI. The `PublishBuildArtifacts` task is provided by Azure Pipelines. It allows you to publish build artifacts, which will show up in the Scans part of Azure Pipelines. You can see the results of the linting process in Scans, like so:
 
 ![screenshot of the no-unused-vars rule in Azure Pipelines scans](screenshot-azure-pipelines-scans-no-unused-vars.webp)
 
@@ -210,7 +210,7 @@ jobs:
           testResultsFiles: '$(System.DefaultWorkingDirectory)/bicep.xml'
 ```
 
-So the above is the same approach again but the results end up in the tests part of Azure Pipelines. You can see the results of the linting process in the tests part of Azure Pipelines, like so:
+So the above is the same approach again but requires Node.js to be installed, and the results end up in the Tests part of Azure Pipelines. You can see the results of the linting process in Tests, like so:
 
 ![screenshot of the no-unused-vars rule in Azure Pipelines tests](screenshot-azure-pipelines-tests-no-unused-vars.webp)
 
