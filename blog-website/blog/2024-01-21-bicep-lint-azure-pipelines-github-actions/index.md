@@ -8,9 +8,9 @@ description: Bicep lint allows you to lint bicep files to ensure they conform to
 hide_table_of_contents: false
 ---
 
-Bicep has had linting [since version 0.4.1](https://github.com/Azure/bicep/releases/tag/v0.4.1). It's a great way to ensure that your bicep files conform to best practices. Interestingly, when the linting feature first shipped, there wasn't an explicit lint command. Instead, you had to run `bicep build` and it would run the linter as part of the build process. This was a little confusing as it was not obvious that the linter was running.
+Bicep has had linting [since version 0.4.1](https://github.com/Azure/bicep/releases/tag/v0.4.1). It's a great way to ensure that your bicep files conform to best practices. Interestingly, when the linting feature first shipped, there wasn't an explicit lint command as part of the CLI. Instead, you had to run `bicep build` and it would run the linter as part of the build process. This was a little confusing as it was not obvious that the linter was running.
 
-As of [version 0.21.1](https://github.com/Azure/bicep/releases/tag/v0.21.1) there is a dedicated [`bicep lint`](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/linter) command. This is great as it makes it clear that you're running the linter. And it is useful if you want to run the linter as part of a CI/CD pipeline. What's more the `bicep lint` command is now available in the Azure CLI as well. You can run [`az bicep lint`](https://docs.microsoft.com/en-us/cli/azure/bicep?view=azure-cli-latest#az-bicep-lint) to lint your bicep files.
+As of [version 0.21.1](https://github.com/Azure/bicep/releases/tag/v0.21.1) there is a dedicated [`bicep lint`](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/linter) command. This is a nice step forwards; it allows you to explicitly lint your your code, rather than have it happen as a side effect of build. And it is useful if you want to run the linter as part of a CI/CD pipeline. What's more the `bicep lint` command is now available in the Azure CLI as well. You can run [`az bicep lint`](https://docs.microsoft.com/en-us/cli/azure/bicep?view=azure-cli-latest#az-bicep-lint) to lint your bicep files.
 
 In this post we'll look at how to run lint Bicep in Azure Pipelines and GitHub Actions, and surface the output in the UI.
 
@@ -20,7 +20,7 @@ In this post we'll look at how to run lint Bicep in Azure Pipelines and GitHub A
 
 ## The general approach
 
-The general approach is the same for both Azure Pipelines and GitHub Actions. One way or another, we'll make use the Bicep `lint` command to lint our Bicep files. As yet, there is no way to export the results of the lint command as a file. This may come, and [there is a discussion about it](https://github.com/Azure/bicep/issues/11960). However, there is a way to achieve our goal, which came out in discussion with [Anthony Martin](https://github.com/anthony-c-martin) of the Bicep team. We can write the output of the `lint` command to a file like so:
+The general approach is the same for both Azure Pipelines and GitHub Actions. One way or another, we'll make use the Bicep `lint` command to lint our Bicep files. As yet, there is no option to export the results of the lint command as a file. This may come, and [there is a discussion about it](https://github.com/Azure/bicep/issues/11960). However, there is a way to achieve our goal, which came out in discussion with [Anthony Martin](https://github.com/anthony-c-martin) of the Bicep team. We can write the output of the `lint` command to a file like so:
 
 ```
 bicep lint main.bicep --diagnostics-format sarif > lint.sarif
@@ -46,7 +46,7 @@ We'll start off by looking at how to lint Bicep in GitHub Actions with the Azure
 var unusedVar = 1 // unused variable
 ```
 
-And alongside that, we want a [`bicepconfig.json`](https://aka.ms/bicep/config) file that looks like this:
+As it suggests, this is an unused variable. We're just using this to demonstrate the linting process. And alongside that, we want a [`bicepconfig.json`](https://aka.ms/bicep/config) file that looks like this:
 
 ```json
 {
@@ -86,9 +86,9 @@ The above:
 
 - Installs Bicep using the Azure CLI
 - Runs the `lint` command and writes the results to a file called `bicep.sarif`
-- [Uploads the SARIF file to GitHub](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/uploading-a-sarif-file-to-github)
+- Uploads the SARIF file to GitHub
 
-The `upload-sarif` action is provided by GitHub. It's allows surfacing the results of static analysis tools in GitHub. It will show the results of the linting process in the GitHub UI, and it will also show them in the GitHub Security / Code Scanning UI, like so:
+The `upload-sarif` action is provided by GitHub. [It allows surfacing the results of static analysis tools in GitHub](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/uploading-a-sarif-file-to-github). Doing this will show the results of the linting process in the GitHub UI, and it will also show them in the GitHub Security / Code Scanning UI, like so:
 
 ![screenshot of the no-unused-vars rule in GitHub UI](screenshot-github-actions-no-unused-vars.webp)
 
@@ -102,13 +102,15 @@ We can also lint Bicep in GitHub Actions with the Bicep CLI. At the time of writ
     "core": {
       "rules": {
         "no-unused-vars": {
-          "level": "warning"
+          "level": "error"
         }
       }
     }
   }
 }
 ```
+
+Now an unused variable will cause the build to fail. But the output of the `lint` command will not be surfaced in the GitHub UI. This is because the Azure CLI is not surfacing the output of the `lint` command when it fails.
 
 The issue with the Azure CLI will hopefully be remedied; [you can track that here](https://github.com/Azure/azure-cli/issues/28259). For now you can use the Bicep CLI directly, where this isn't an issue. We'll do that now.
 
@@ -130,7 +132,7 @@ I'm basing this approach on Anthony Martin's example of [Bicep linting with GitH
     sarif_file: bicep.sarif
 ```
 
-The above does the same as the Azure CLI approach, but it uses the Bicep CLI directly. The `setup-bicep` action is provided by Anthony Martin and installs the Bicep CLI on your build agent.
+The above does the same as the Azure CLI approach, but it uses the Bicep CLI directly. The [`setup-bicep` action](https://github.com/marketplace/actions/setup-bicep) is provided by Anthony Martin and installs the Bicep CLI on your build agent.
 
 As I say, right now you may want to favour this approach over the Azure CLI approach to cover both surfacing warnings and errors. But hopefully that will change soon.
 
@@ -138,9 +140,9 @@ As I say, right now you may want to favour this approach over the Azure CLI appr
 
 We've now seen how to lint Bicep in GitHub Actions with both the Azure CLI and the Bicep CLI. We can do the same in Azure Pipelines; but only the Azure CLI approach (as I'm not sure if there's a `setup-bicep` equivalent for Azure Pipelines).
 
-How you want to surface the results in Azure Pipelines is up to you. You could surface into the scans part of Azure Pipelines or into tests. I'll show you how to do both.
+How you want to surface the results in Azure Pipelines is up to you. You could surface into the "Scans" portion of Azure Pipelines UI or into "Tests". I'll show you how to do both.
 
-### Surface the results in the scans part of Azure Pipelines
+### Surface the results in Scans
 
 To surface the results in the scans part of Azure Pipelines you need to publish the SARIF file as a build artifact. You can do that like so:
 
@@ -173,7 +175,7 @@ The above is essentially the same as the GitHub Actions example, but it uses the
 
 ![screenshot of the no-unused-vars rule in Azure Pipelines scans](screenshot-azure-pipelines-scans-no-unused-vars.webp)
 
-### Surface the results in the tests part of Azure Pipelines
+### Surface the results in Tests
 
 You can also surface the results in the tests part of Azure Pipelines. To do that we're going to borrow a [suggestion from Anthony Martin](https://github.com/Azure/bicep/issues/11960#issuecomment-1737226501) and use the [`sarif-junit`](https://www.npmjs.com/package/sarif-junit) package. This package allows us to convert a SARIF file to a JUnit file. JUnit is a standard for representing test results and can be used with the `PublishTestResults` task.
 
@@ -215,3 +217,5 @@ So the above is the same approach again but the results end up in the tests part
 ## Summary
 
 That's it! We've seen how to lint Bicep in Azure Pipelines and GitHub Actions. We've seen how to surface the results in the scans and tests parts of Azure Pipelines and in GitHub. We've seen how to do it with the Azure CLI and the Bicep CLI. And we've seen how to do it with warnings and errors. Hopefully this will help you to ensure that your Bicep files conform to best practices.
+
+Many thanks to Anthony Martin for his help, which laid the groundwork for much of what we explored in this post.
