@@ -213,6 +213,48 @@ The above is essentially the same as the GitHub Actions example, but it uses the
 
 ![screenshot of the no-unused-vars rule in Azure Pipelines scans](screenshot-azure-pipelines-scans-no-unused-vars.webp)
 
+You'll notice that the path above has a `file:///home/vsts/work/1/s` prefix before the bicep path report of `infra/main.bicep`. This is unfortunate and breaks "clickability". You cannot click on this and be taken to the file. It's possible to remedy this behaviour by doing a little find and replace magic on the SARIF file. You don't need to do this, but it does add to the developer experience.
+
+Below is the same portion of the Azure Pipelines yaml file but with some additional bash that will use `sed` to replace all instances of the `file:///home/vsts/work/1/s` prefix with an empty string:
+
+```yml
+jobs:
+  - job: LintInfra
+    displayName: Lint Infra
+    dependsOn: []
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - task: AzureCLI@2
+        displayName: Lint main.bicep
+        inputs:
+          azureSubscription: service-connection-with-access-to-registry # you may not need this
+          scriptType: bash
+          scriptLocation: inlineScript
+          inlineScript: |
+            az bicep install
+            az bicep lint --file infra/main.bicep --diagnostics-format sarif > $(System.DefaultWorkingDirectory)/bicep.sarif
+
+            STRING_TO_REPLACE='file://$(Build.SourcesDirectory)/'
+            echo "##[group]Bicep linting results before $STRING_TO_REPLACE replace:"
+            cat $(System.DefaultWorkingDirectory)/bicep.sarif
+            echo "##[endgroup]"
+
+            sed -i "s|$STRING_TO_REPLACE||g" $(System.DefaultWorkingDirectory)/bicep.sarif
+
+            echo "##[group]Bicep linting results after $STRING_TO_REPLACE replace:"
+            cat $(System.DefaultWorkingDirectory)/bicep.sarif
+            echo "##[endgroup]"
+
+      - task: PublishBuildArtifacts@1
+        condition: always()
+        inputs:
+          pathToPublish: $(System.DefaultWorkingDirectory)/bicep.sarif
+          artifactName: CodeAnalysisLogs # required to show up in the scans tab
+```
+
+And hey presto! Clickability restored.
+
 ### Surface the results in Tests
 
 You can also surface the results in the tests part of Azure Pipelines. To do that we're going to borrow a [suggestion from Anthony Martin](https://github.com/Azure/bicep/issues/11960#issuecomment-1737226501) and use the [`sarif-junit`](https://www.npmjs.com/package/sarif-junit) package. This package allows us to convert a SARIF file to a JUnit file. JUnit is a standard for representing test results and can be used with the `PublishTestResults` task.
