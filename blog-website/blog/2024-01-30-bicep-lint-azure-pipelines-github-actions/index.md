@@ -26,7 +26,45 @@ The general approach is the same for both Azure Pipelines and GitHub Actions. On
 bicep lint main.bicep --diagnostics-format sarif > lint.sarif
 ```
 
-This will write the output of the `lint` command to a file called `lint.sarif`. This is a [SARIF](https://sarifweb.azurewebsites.net/) file. SARIF stands for Static Analysis Results Interchange Format. It's a standard for representing the results of static analysis tools. It's a JSON file, easy to parse and has integrations with GitHub Actions / Azure Pipelines.
+This will write the output of the `lint` command to a file called `lint.sarif`. This is a [SARIF](https://sarifweb.azurewebsites.net/) file. SARIF stands for Static Analysis Results Interchange Format. It's a standard for representing the results of static analysis tools. It's a JSON file, easy to parse and has integrations with GitHub Actions / Azure Pipelines. An example SARIF output is below:
+
+```json
+{
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.6.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "bicep"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "no-unused-vars",
+          "message": {
+            "text": "Variable \"unusedVar\" is declared but never used. [https://aka.ms/bicep/linter/no-unused-vars]"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/runner/work/blog.johnnyreilly.com/blog.johnnyreilly.com/./infra/main.bicep"
+                },
+                "region": {
+                  "startLine": 19,
+                  "charOffset": 5
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "columnKind": "utf16CodeUnits"
+    }
+  ]
+}
+```
 
 In the example above we directly used the `bicep lint` command. An alternative approach is to use the Azure CLI like so:
 
