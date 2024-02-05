@@ -37,4 +37,5 @@ jobs:
       - name: Docusaurus build 🦕
         run: |
           cd blog-website
+          bun install
           DOCUSAURUS_SSR_CONCURRENCY=5 bun run build
