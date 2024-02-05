@@ -23,11 +23,11 @@ jobs:
           # Default: 1
           fetch-depth: 0
 
-      - name: Setup Node.js 🔧
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'yarn'
+      # - name: Setup Node.js 🔧
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '18'
+      #     cache: 'yarn'
 
       - name: Setup bun 🔧
         uses: oven-sh/setup-bun@v1
@@ -37,11 +37,5 @@ jobs:
       - name: Docusaurus build 🦕
         run: |
           cd blog-website
-          if [ -e yarn.lock ]; then
-          yarn install --frozen-lockfile
-          elif [ -e package-lock.json ]; then
-          npm ci
-          else
-          npm i
-          fi
-          DOCUSAURUS_SSR_CONCURRENCY=5 npm run build
+          bun install
+          DOCUSAURUS_SSR_CONCURRENCY=5 bun run build

@@ -149,11 +149,11 @@ jobs:
 
             echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_OUTPUT
 
-      - name: Setup Node.js 🔧
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'yarn'
+      # - name: Setup Node.js 🔧
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '18'
+      #     cache: 'yarn'
 
       - name: Setup bun 🔧
         uses: oven-sh/setup-bun@v1
@@ -163,9 +163,15 @@ jobs:
       - name: Install and build site 🔧
         run: |
           cd blog-website
-          yarn install --frozen-lockfile
-          DOCUSAURUS_SSR_CONCURRENCY=5 IS_LIVE_SITE=${{ github.event_name != 'pull_request' }} yarn run build
+          bun install
+          DOCUSAURUS_SSR_CONCURRENCY=5 IS_LIVE_SITE=${{ github.event_name != 'pull_request' }} bun run build
           cp staticwebapp.config.json build/staticwebapp.config.json
+
+      - name: Install and build api 🔧
+        run: |
+          cd blog-website/api
+          bun install
+          bun run build
 
       - name: Get API key 🔑
         id: static_web_app_apikey
@@ -183,8 +189,9 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: 'upload'
           skip_app_build: true
+          skip_api_build: true
           app_location: '/blog-website/build' # App source code path
-          api_location: '/blog-website/api' # Api source code path - optional
+          api_location: '/blog-website/api' # Api source code path
 
     outputs:
       preview-url: ${{steps.static_web_app_preview_url.outputs.PREVIEW_URL}}
