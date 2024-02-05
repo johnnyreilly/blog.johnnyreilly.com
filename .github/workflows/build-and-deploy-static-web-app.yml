@@ -149,11 +149,11 @@ jobs:
 
             echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_OUTPUT
 
-      - name: Setup Node.js 🔧
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-          cache: 'yarn'
+      # - name: Setup Node.js 🔧
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '18'
+      #     cache: 'yarn'
 
       - name: Setup bun 🔧
         uses: oven-sh/setup-bun@v1
@@ -163,8 +163,8 @@ jobs:
       - name: Install and build site 🔧
         run: |
           cd blog-website
-          yarn install --frozen-lockfile
-          DOCUSAURUS_SSR_CONCURRENCY=5 IS_LIVE_SITE=${{ github.event_name != 'pull_request' }} yarn run build
+          bun install
+          DOCUSAURUS_SSR_CONCURRENCY=5 IS_LIVE_SITE=${{ github.event_name != 'pull_request' }} bun run build
           cp staticwebapp.config.json build/staticwebapp.config.json
 
       - name: Get API key 🔑

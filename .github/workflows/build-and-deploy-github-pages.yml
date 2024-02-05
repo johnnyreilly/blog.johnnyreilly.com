@@ -42,8 +42,8 @@ jobs:
       - name: Install and Build 🔧
         run: |
           cd blog-website
-          yarn install --frozen-lockfile
-          DOCUSAURUS_SSR_CONCURRENCY=5 yarn run build
+          bun install
+          DOCUSAURUS_SSR_CONCURRENCY=5 bun run build
 
       - name: Publish to GitHub Pages 🗞️
         uses: JamesIves/github-pages-deploy-action@v4
