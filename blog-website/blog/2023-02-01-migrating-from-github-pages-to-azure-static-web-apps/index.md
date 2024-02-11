@@ -184,7 +184,7 @@ jobs:
         run: |
           REF_SHA='${{ github.ref }}.${{ github.sha }}'
           DEPLOYMENT_NAME="${REF_SHA////-}"
-          echo "::set-output name=DEPLOYMENT_NAME::$DEPLOYMENT_NAME"
+          echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_OUTPUT
 
       - name: Static Web App - change details
         id: static_web_app_what_if
@@ -228,7 +228,7 @@ jobs:
         with:
           inlineScript: |
             APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
-            echo "::set-output name=APIKEY::$APIKEY"
+            echo "APIKEY=$APIKEY" >> $GITHUB_OUTPUT
 
       - name: Static Web App - build and deploy
         id: static_web_app_build_and_deploy
@@ -255,7 +255,7 @@ jobs:
             PREVIEW_URL="https://${DEFAULTHOSTNAME/.[1-9]./-${{github.event.pull_request.number }}.${{ env.LOCATION }}.1.}"
             echo $PREVIEW_URL
 
-            echo "::set-output name=PREVIEW_URL::$PREVIEW_URL"
+            echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_OUTPUT
 
     outputs:
       preview-url: ${{steps.static_web_app_preview_url.outputs.PREVIEW_URL}}
@@ -276,7 +276,7 @@ jobs:
         with:
           inlineScript: |
             APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
-            echo "::set-output name=APIKEY::$APIKEY"
+            echo "APIKEY=$APIKEY" >> $GITHUB_OUTPUT
 
       - name: Close Pull Request
         id: closepullrequest
