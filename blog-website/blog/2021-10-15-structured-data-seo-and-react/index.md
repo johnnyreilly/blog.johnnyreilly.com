@@ -75,7 +75,7 @@ Incidentally, there's a special name for this "carousel"; it is a "rich result".
 
 Now we'll make ourselves a React app and add structured data to it. In the console we'll execute the following command:
 
-```
+```bash
 npx create-react-app my-app
 ```
 
@@ -135,10 +135,68 @@ function App() {
 export default App;
 ```
 
-If we look at the code above, we can see we're creating a JavaScript object literal named `articleStructuredData` which contains the data of an https://schema.org/Article. `articleStructuredData` is then used to do two things:
+If we look at the code above, we can see we're creating a JavaScript object literal named `articleStructuredData` which contains the data of an `https://schema.org/Article`. Our `articleStructuredData` is then used to do two things:
 
 1. to contribute to the content of the page
-2. to render a JSON-LD script tag: `<script type="application/ld+json">` which is populated by calling `JSON.stringify(articleStructuredData)` (You'll note we're using `dangerouslySetInnerHTML` to do this and that's because otherwise the `"` characters in the JSON-LD would be escaped and that would make the JSON-LD invalid to some parsers. The "HTML" we're actually rendering is JSON, and it's safe to render that as HTML because we know it's valid JSON.)
+2. to render a JSON-LD script element: `<script type="application/ld+json">` which is populated by calling `JSON.stringify(articleStructuredData)`
+
+### A note on JSON-LD and `dangerouslySetInnerHTML`
+
+You'll note we're using `dangerouslySetInnerHTML` to render the JSON-LD script element. That is because an issue arises if we instead inline it like so:
+
+```html
+<script type="application/ld+json">
+  {JSON.stringify(articleStructuredData)}
+</script>
+```
+
+If we do this, the `"` characters in the JSON would be escaped as `&quot;` and would look like something this:
+
+```html
+<script type="application/ld+json">
+  {
+    &quot;@context&quot;: &quot;https://schema.org&quot;,
+    &quot;@type&quot;: &quot;Article&quot;,
+    &quot;headline&quot;: &quot;Structured data for you&quot;,
+    &quot;description&quot;: &quot;This is an article that demonstrates structured data.&quot;,
+    &quot;image&quot;: &quot;https://upload.wikimedia.org/wikipedia/commons/4/40/JSON-LD.svg&quot;,
+    &quot;datePublished&quot;: &quot;2020-02-11T06:42:03.706Z&quot;,
+    &quot;author&quot;: {
+      &quot;@type&quot;: &quot;Person&quot;,
+      &quot;name&quot;: &quot;John Reilly&quot;,
+      &quot;url&quot;: &quot;https://johnnyreilly.com/about&quot;,
+    }
+  }
+</script>
+```
+
+Rather than:
+
+```html
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Structured data for you",
+    "description": "This is an article that demonstrates structured data.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/40/JSON-LD.svg",
+    "datePublished": "2020-02-11T06:42:03.706Z",
+    "author": {
+      "@type": "Person",
+      "name": "John Reilly",
+      "url": "https://johnnyreilly.com/about"
+    }
+  }
+</script>
+```
+
+That `&quot;`s would make the JSON-LD invalid to some parsers. A great example of a parser troubled by this is the Google Search Console, which can trip up with a `Parsing error: Missing '}' or object member name.` error:
+
+![screenshot of the Google Search Console with the issue Parsing error: Missing } or object member name.](screenshot-google-search-console.webp)
+
+Using `dangerouslySetInnerHTML` resolves issues like this. It's worth noting that the "HTML" we're actually rendering is JSON, and it's safe to render that because we are the creators of it.
+
+## Running the site
 
 When we run our site locally with `npm start` we see a simple article site that looks like this:
 
@@ -148,7 +206,7 @@ Now let's see if it supports structured data in the way we hope.
 
 ## Using the Rich Results Test
 
-If we go to https://search.google.com/test/rich-results we find the Rich Results Test tool. There's two ways you can test; providing a URL or providing code. In our case we don't have a public facing URL and so we're going to use the HTML that React is rendering.
+If we go to `https://search.google.com/test/rich-results` we find the Rich Results Test tool. There's two ways you can test; providing a URL or providing code. In our case we don't have a public facing URL and so we're going to use the HTML that React is rendering.
 
 In devtools we'll use the "copy outerHTML" feature to grab the HTML, then we'll paste it into Rich Results:
 
