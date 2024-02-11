@@ -90,6 +90,6 @@ echo $DEPLOYMENT_OUTPUTS | jq -c '. | to_entries[] | [.key, .value.value]' |
     OUTPUT_NAME=$(echo "$c" | jq -r '.[0]')
     OUTPUT_VALUE=$(echo "$c" | jq -r '.[1]')
     echo "setting output $OUTPUT_NAME=$OUTPUT_VALUE"
-    echo "::set-output name=$OUTPUT_NAME::$OUTPUT_VALUE"
+    echo "$OUTPUT_NAME=$OUTPUT_VALUE" >> $GITHUB_OUTPUT
   done
 ```

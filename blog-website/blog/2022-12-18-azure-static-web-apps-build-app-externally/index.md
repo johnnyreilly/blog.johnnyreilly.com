@@ -29,7 +29,7 @@ Let's start by looking at a simple Azure Static Web Apps configuration:
   with:
     inlineScript: |
       APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
-      echo "::set-output name=APIKEY::$APIKEY"
+      echo "APIKEY=$APIKEY" >> $GITHUB_OUTPUT
 
 - name: Static Web App - build and deploy
   id: static_web_app_build_and_deploy
@@ -58,7 +58,7 @@ So, I decided to build the app externally and then deploy it. I did this by twea
   with:
     inlineScript: |
       APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
-      echo "::set-output name=APIKEY::$APIKEY"
+      echo "APIKEY=$APIKEY" >> $GITHUB_OUTPUT
 
 - name: Setup Node.js 🔧
   uses: actions/setup-node@v3
