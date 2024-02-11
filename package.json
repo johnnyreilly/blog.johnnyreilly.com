@@ -13,7 +13,7 @@
     "postinstall": "npm run install:blog-website && npm run install:blog-api && npm run install:blog-website-tests && npm run install:pre-post-processing",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write --ignore-unknown .",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
