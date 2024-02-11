@@ -4,7 +4,7 @@ title: 'Using Bun in Azure Pipelines'
 authors: johnnyreilly
 tags: [bun, azure pipelines, azure devops]
 image: ./title-image.png
-description: Bun is a fast TypeScript / JavaScript runtime which can be used to speed up the TypeScript / JavaScript you have. This post shows you how to use it in Azure Pipelines.
+description: Bun is a fast JavaScript runtime which can be used to speed up the TypeScript / JavaScript you have. This post shows you how to use it in Azure Pipelines.
 hide_table_of_contents: false
 ---
 
