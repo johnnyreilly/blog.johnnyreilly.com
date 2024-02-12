@@ -34,7 +34,7 @@ jobs:
         with:
           bun-version: latest
 
-      - name: Docusaurus lint and build 🦕
+      - name: Docusaurus build 🦕
         run: |
           cd blog-website
           yarn install --frozen-lockfile
