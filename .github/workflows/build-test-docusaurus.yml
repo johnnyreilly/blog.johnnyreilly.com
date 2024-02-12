@@ -34,14 +34,9 @@ jobs:
         with:
           bun-version: latest
 
-      - name: Docusaurus build 🦕
+      - name: Docusaurus lint and build 🦕
         run: |
           cd blog-website
-          if [ -e yarn.lock ]; then
           yarn install --frozen-lockfile
-          elif [ -e package-lock.json ]; then
-          npm ci
-          else
-          npm i
-          fi
-          DOCUSAURUS_SSR_CONCURRENCY=5 npm run build
+          yarn lint
+          DOCUSAURUS_SSR_CONCURRENCY=5 yarn build

@@ -1,4 +1,5 @@
 //@ts-check
+/* eslint-env node */
 const IS_LIVE_SITE = process.env['IS_LIVE_SITE'] === 'true';
 console.log('IS_LIVE_SITE', IS_LIVE_SITE);
 
@@ -421,9 +422,11 @@ const config = {
   ],
 
   plugins: [
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function fontainePlugin(_context, _options) {
       return {
         name: 'fontaine-plugin',
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         configureWebpack(_config, _isServer) {
           return {
             plugins: [
