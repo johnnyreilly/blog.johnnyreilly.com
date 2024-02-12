@@ -1,14 +1,14 @@
 [
   {
-    "link": "graph-api-ad-users-group-name-ids-csharp-sdk",
-    "title": "Graph API: getting users AD group names and ids with the C# SDK"
+    "link": "using-bun-in-azure-pipelines",
+    "title": "Using Bun in Azure Pipelines"
   },
   {
-    "link": "graph-api-ad-users-group-name-ids-csharp-sdk",
-    "title": "Graph API: getting users Active Directory group names and ids with the C# SDK"
+    "link": "azure-static-web-apps-build-app-externally",
+    "title": "Azure Static Web Apps: build app externally"
   },
   {
-    "link": "azure-container-apps-easy-auth-and-dotnet-authentication",
-    "title": "Azure Container Apps, Easy Auth and .NET authentication"
+    "link": "migrating-from-github-pages-to-azure-static-web-apps",
+    "title": "Migrating from GitHub Pages to Azure Static Web Apps"
   }
 ]
