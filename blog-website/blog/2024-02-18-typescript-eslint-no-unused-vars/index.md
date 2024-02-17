@@ -1,6 +1,6 @@
 ---
 slug: typescript-eslint-no-unused-vars
-title: 'From TypeScript noUnusedLocals and noUnusedParameters to ESLint no-unused-vars (with `_` prefix)'
+title: 'ESLint no-unused-vars _ ignore prefix'
 authors: johnnyreilly
 tags: [typescript, javascript]
 image: ./title-image.png
@@ -8,7 +8,7 @@ description: 'ESLints no-unused-vars is more flexible than TypeScript noUnusedLo
 hide_table_of_contents: false
 ---
 
-I'm a longtime user of TypeScripts `noUnusedLocals` and `noUnusedParameters` settings. I've always found them to be a great way to ensure that I'm not leaving unused variables in my code. However, I've recently been working on a project where we're using ESLint alongside TypeScript and specifically the `no-unused-vars` rule, which provides similar functionality to TypeScripts `noUnusedLocals` and `noUnusedParameters` settings. One thing that I missed when using the ESLint option is that you can ignore unused variables by simply prefixing a variable with the `_` character. That's right, sometimes I want to declare a variable that I know I'm not going to use, and I want to do that without getting a warning from the linter.
+I'm a longtime user of TypeScripts [`noUnusedLocals`](https://www.typescriptlang.org/tsconfig#noUnusedLocals) and [`noUnusedParameters`](https://www.typescriptlang.org/tsconfig#noUnusedParameters) settings. I've always found them to be a great way to ensure that I'm not leaving unused variables in my code. However, I've recently been working on a project where we're using ESLint alongside TypeScript and specifically the [`no-unused-vars`](https://eslint.org/docs/latest/rules/no-unused-vars) rule, which provides similar functionality to TypeScripts `noUnusedLocals` and `noUnusedParameters` settings. One thing that I missed when using the ESLint option is that you can ignore unused variables by simply prefixing a variable with the `_` character. That's right, sometimes I want to declare a variable that I know I'm not going to use, and I want to do that without getting a warning from the linter.
 
 It turns out you can get ESLint respect the TypeScript default of ignoring variables prefixed with `_`, it just needs a little configuration. This post is a quick guide to how to do that.
 
