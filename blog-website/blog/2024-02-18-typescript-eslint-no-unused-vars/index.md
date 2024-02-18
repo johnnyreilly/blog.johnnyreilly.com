@@ -14,7 +14,7 @@ I use ESLint alongside TypeScript. The [`no-unused-vars`](https://eslint.org/doc
 
 One thing that I missed when switching to the ESLint option is that, with `noUnusedLocals` and `noUnusedParameters`, you can simply ignore unused variables by prefixing a variable with the `_` character. That's right, sometimes I want to declare a variable that I know I'm not going to use, and I want to do that without getting shouted at by the linter.
 
-It turns out you can get ESLint respect the TypeScript default of ignoring variables prefixed with `_`, it just needs a little configuration. This post is a quick guide to how to do that.
+It turns out you can get ESLint respect the TypeScript default of ignoring variables prefixed with `_`; [it's just not the default configuration for `no-unused-vars`](https://github.com/typescript-eslint/typescript-eslint/issues/8464#issuecomment-1943325441). But with a little configuration we can have it. This post is a quick guide to how to implement that configuration.
 
 ![title image reading "From TypeScript noUnusedLocals and noUnusedParameters to ESLint no-unused-vars (with `_` prefix)" with the ESLint and TypeScript logo](title-image.png)
 
@@ -25,7 +25,7 @@ It turns out you can get ESLint respect the TypeScript default of ignoring varia
 There are various scenarios when I want to ignore unused variables. Here are a few:
 
 - I'm writing a function but I'm not using all of the parameters yet. I plan to use them later, but I want to declare them now so I don't forget about them.
-- An ignored variable can be a form of documentation. It can be a way to say "I know this is here, but I'm not using it right now".
+- An ignored variable can be a form of documentation. It can be a way to say "I know this is here, but I'm not using it intentionally".
 
 Not everyone will agree with these reasons, but they work for me in certain situations.
 
@@ -50,7 +50,7 @@ Brad has a valid point, but let's say you've decided to `--ignore-pattern 'brad'
 
 ## The TypeScript settings
 
-I mentioned that I like to use TypeScript's `noUnusedLocals` and `noUnusedParameters` settings. Here's how they would be configured in a `tsconfig.json`:
+I mentioned that I like to use the TypeScript `noUnusedLocals` and `noUnusedParameters` settings. Here's how they would be configured in a `tsconfig.json`:
 
 ```json
 {
@@ -150,7 +150,7 @@ The [`ignoreRestSiblings`](https://eslint.org/docs/latest/rules/no-unused-vars#i
 const { formattedDate, date, ...totals } = payload;
 ```
 
-In this case I don't want to use `formattedDate` or `date` but I do want to use `totals`. I can use the `ignoreRestSiblings` setting to ignore the unused variables. And I do.
+In this case I don't want to use `formattedDate` or `date` but I do want to use `totals`. I can use the `ignoreRestSiblings` setting to ignore the unused variables without even needing a `_` prefix or similar. So I do.
 
 ## Conclusion
 
