@@ -82,6 +82,7 @@ With those off in TypeScript, we can now configure ESLint to respect the `_` pre
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
+        "args": "all",
         "argsIgnorePattern": "^_",
         "caughtErrors": "all",
         "caughtErrorsIgnorePattern": "^_",
@@ -96,7 +97,9 @@ With those off in TypeScript, we can now configure ESLint to respect the `_` pre
 
 The `argsIgnorePattern`, `caughtErrorsIgnorePattern`, `destructuredArrayIgnorePattern`, and `varsIgnorePattern` settings are the ones that respect the `_` prefix. You have to set them all to `^_` to make it work. `^_` is a regular expression that matches any string that starts with an underscore. So if you actually had a different convention for ignoring variables, you could change this to match your convention.
 
-Incidentally, you have to explicitly set `caughtErrors` to `"all"` to make the `caughtErrorsIgnorePattern` setting work. This is because the default value of `caughtErrors` is `"none"`. There's an `ignoreRestSiblings` setting specified above that we'll get to in a minute. First of all, let's see how the linting we've activated works in practice. Here's some code that demonstrates the settings in action:
+Incidentally, you have to explicitly set `args` to `"all"` and `caughtErrors` to `"all"` to make the `argsIgnorePattern`/`caughtErrorsIgnorePattern` settings work. If you don't, the settings are ignored.
+
+There's an `ignoreRestSiblings` setting specified above that we'll get to in a minute. First of all, let's see how the linting we've activated works in practice. Here's some code that demonstrates the settings in action:
 
 ```ts
 export function demoTheProblems(
@@ -112,7 +115,6 @@ export function demoTheProblems(
       unusedAndReportedDestructuredArray,
       _unusedButIgnoredDestructuredArray, // destructuredArrayIgnorePattern
     ] = someArray;
-
     // caughtErrors
   } catch (unusedAndReportedErr) {
     // ...
@@ -128,6 +130,15 @@ export function demoTheProblems(
 In this code, the `unusedAndReportedArg`, `unusedAndReportedVar`, `unusedAndReportedDestructuredArray`, and `unusedAndReportedErr` variables are all reported as unused. ESLint considers them errors and shouts about them.
 
 By contrast, the `_unusedButIgnoredArg`, `_unusedAndButIgnoredVar`, `_unusedButIgnoredDestructuredArray`, and `_unusedButIgnoredErr` variables are all ignored, because they are prefixed with an underscore. ESLint notices them but lets them past.
+
+If we run ESLint on this code, we get the following output:
+
+```bash
+   2:3   error  'unusedAndReportedArg' is defined but never used. Allowed unused args must match /^_/u                                                             @typescript-eslint/no-unused-vars
+   7:11  error  'unusedAndReportedVar' is assigned a value but never used. Allowed unused vars must match /^_/u                                                    @typescript-eslint/no-unused-vars
+  11:7   error  'unusedAndReportedDestructuredArray' is assigned a value but never used. Allowed unused elements of array destructuring patterns must match /^_/u  @typescript-eslint/no-unused-vars
+  15:12  error  'unusedAndReportedErr' is defined but never used. Allowed unused args must match /^_/u                                                             @typescript-eslint/no-unused-vars
+```
 
 Perfect! This is exactly what we wanted.
 
