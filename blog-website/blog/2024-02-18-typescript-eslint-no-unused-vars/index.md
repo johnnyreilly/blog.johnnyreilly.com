@@ -14,7 +14,7 @@ I use ESLint alongside TypeScript. The [`no-unused-vars`](https://eslint.org/doc
 
 One thing that I missed when switching to the ESLint option is that, with `noUnusedLocals` and `noUnusedParameters`, you can simply ignore unused variables by prefixing a variable with the `_` character. That's right, sometimes I want to declare a variable that I know I'm not going to use, and I want to do that without getting shouted at by the linter.
 
-It turns out you can get ESLint respect the TypeScript default of ignoring variables prefixed with `_`; [it's just not the default configuration for `no-unused-vars`](https://github.com/typescript-eslint/typescript-eslint/issues/8464#issuecomment-1943325441). But with a little configuration we can have it. This post is a quick guide to how to implement that configuration.
+It turns out you can get ESLint to respect the TypeScript default of ignoring variables prefixed with `_`; [it's just not the default configuration for `no-unused-vars`](https://github.com/typescript-eslint/typescript-eslint/issues/8464#issuecomment-1943325441). But with a little configuration we can have it. This post is a quick guide to how to implement that configuration.
 
 ![title image reading "From TypeScript noUnusedLocals and noUnusedParameters to ESLint no-unused-vars (with `_` prefix)" with the ESLint and TypeScript logo](title-image.png)
 
