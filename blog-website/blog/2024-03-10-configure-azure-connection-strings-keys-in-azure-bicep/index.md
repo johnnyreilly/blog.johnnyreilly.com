@@ -10,13 +10,13 @@ description: 'Learn how to configure Azure resources like Azure Static Web Apps 
 
 Imagine you're deploying a solution to Azure. It'll feature some resources like a database or a storage account. How do can you configure your application with access to these resources? One approach would be using Managed Identity. Another approach is configuring the connection strings and access keys in our application's configuration store as the Bicep templates are deployed. This is a common approach when working with Azure Functions, Azure Static Web Apps, Azure Container Apps and similar.
 
-A wonderful aspect of this approach is that no human need ever get to see the connection strings / access keys. They'll be discovered and consumed by Azure during a deployment, and known to your application at runtime, but untrustworthy humans need never get to see them. This is secure, and therefore _good_.
-
 ![title image reading "Configure Azure connection strings and keys in Azure Bicep" with the Bicep and Azure logos](title-image.png)
+
+A wonderful aspect of this approach is that no human need ever get to see the connection strings / access keys. They'll be discovered and consumed by Azure during a deployment, and known to your application at runtime, but untrustworthy humans need never get to see them. This is secure, and therefore _good_.
 
 <!--truncate-->
 
-## Configure an Azure Static Web App with a connection string and access key
+## Configure an Azure Static Web App with a connection string and an access key
 
 The blog you are reading this on is hosted on Azure Static Web Apps and deployed with Bicep. It also has an Azure Cosmos DB database and an Application Insights instance. The Azure Static Web App has access to the database via its access key and has access to the Application Insights instance through a connection string. The key and connection string are supplied to the configuration of the SWA during deployment.
 
@@ -33,7 +33,7 @@ resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2023-04-15' = {
     locations: locations
     enableAutomaticFailover: true
     databaseAccountOfferType: 'Standard'
-    publicNetworkAccess: 'Enabled' // TODO: change to 'Disabled'?
+    publicNetworkAccess: 'Enabled'
     ipRules: [for ipAddress in ipAddresses: {
       ipAddressOrRange: ipAddress
     }]
@@ -61,7 +61,7 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
 }
 ```
 
-Given that both of these resources are deployed, we can reference them.
+Given that both of these resources are deployed, we can reference them sunsequently and acquire connection strings / access keys.
 
 So when we're getting ready to deploy the Azure Static Web App, we are able reference both the database and the Application Insights instance. Here's a snippet of the Bicep template that acquires the references:
 
@@ -120,7 +120,7 @@ You can see the effect of this configuration in the Azure Portal. Here's a scree
 
 ![Screenshot of the Azure Static Web App in the Azure Portal](screenshot-azure-portal-environment-variables.png)
 
-## Configure an Azure Container App with a connection string and access key
+## Configure an Azure Container App with a connection string and an access key
 
 What's hopefully apparent from the previous section is that in the end this amounts to injecting a string to the appropriate place in the configuration of the resource. This is true for Azure Container Apps as well. Here's a snippet of the Bicep template that configures an Azure Container App with a connection string and access key:
 
