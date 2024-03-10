@@ -2,7 +2,7 @@
 slug: typescript-5-importsnotusedasvalues-error-eslint-consistent-type-imports
 title: 'TypeScript 5: importsNotUsedAsValues replaced by ESLint consistent-type-imports'
 authors: johnnyreilly
-tags: [typescript, javascript, ESLint]
+tags: [typescript, javascript, eslint]
 image: ./title-image.png
 description: 'TypeScript deprecated tsconfig.json option "importsNotUsedAsValues": "error" in 5. You can make type imports explicit with CommonJS if you use ESLint consistent-type-imports.'
 hide_table_of_contents: false

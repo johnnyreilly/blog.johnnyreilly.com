@@ -2,7 +2,7 @@
 slug: typescript-eslint-no-unused-vars
 title: 'ESLint no-unused-vars: _ ignore prefix'
 authors: johnnyreilly
-tags: [typescript, javascript, ESLint]
+tags: [typescript, javascript, eslint]
 image: ./title-image.png
 description: 'ESLints no-unused-vars is more flexible than TypeScript noUnusedLocals and noUnusedParameters. Here is how to make respect the TypeScript default of ignoring variables prefixed with _'
 hide_table_of_contents: false
