@@ -10,11 +10,13 @@ description: 'Learn how to acquire connection strings and access keys in Azure w
 
 If we're provisioning resources in Azure with Bicep, we may have a need to acquire the connection strings and keys of our newly deployed infrastructure. For example, the connection strings of an event hub or the access keys of a storage account. Perhaps we'd like to use them to run an end-to-end test, perhaps we'd like to store these secrets somewhere for later consumption. This post shows how to do that using Bicep and the `listKeys` helper. Optionally it shows how we could consume this in Azure Pipelines.
 
-<!--truncate-->
-
 Please note that exporting keys / connection strings etc from Bicep / ARM templates is generally considered to be a less secure approach. This is because these values will be visible inside the deployments section of the Azure Portal. Anyone who has access to this will be able to see them. An alternative approach would be permissioning our pipeline to access the resources directly. You can read about that approach [here](../2021-09-12-permissioning-azure-pipelines-bicep-role-assignments/index.md).
 
+Alternatively, if you're just thinking about how to configure your Azure Container Apps / Azure Static Web Apps / Azure Function Apps etc with connection strings and keys there is another way. You can perform configuration directly within Bicep, without ever exposing secrets. [Read about that approach here](../2024-03-10-configure-azure-connection-strings-keys-in-azure-bicep/index.md).
+
 ![image which contains the blog title](title-image.png)
+
+<!--truncate-->
 
 ## Event Hub connection string
 
