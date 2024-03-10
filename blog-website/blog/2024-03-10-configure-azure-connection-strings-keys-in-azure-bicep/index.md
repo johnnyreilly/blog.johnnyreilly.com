@@ -116,6 +116,10 @@ resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2022-09-01' =
 
 I've slightly tweaked the code to make it more readable, if you'd like to see the full configuration of the Azure Static Web App in the source of my blog, you can find it [here](https://github.com/johnnyreilly/blog.johnnyreilly.com/blob/df2382e31dab82604e98d91f83967b8b559eb507/infra/static-web-app.bicep#L47C1-L57C2).
 
+You can see the effect of this configuration in the Azure Portal. Here's a screenshot of the configured environment variables of the Azure Static Web App:
+
+![Screenshot of the Azure Static Web App in the Azure Portal](screenshot-azure-portal-environment-variables.png)
+
 ## Configure an Azure Container App with a connection string and access key
 
 What's hopefully apparent from the previous section is that in the end this amounts to injecting a string to the appropriate place in the configuration of the resource. This is true for Azure Container Apps as well. Here's a snippet of the Bicep template that configures an Azure Container App with a connection string and access key:
