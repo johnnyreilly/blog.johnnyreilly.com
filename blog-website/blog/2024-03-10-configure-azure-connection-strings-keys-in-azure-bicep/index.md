@@ -61,7 +61,7 @@ resource appInsights 'Microsoft.Insights/components@2020-02-02' = {
 }
 ```
 
-Given that both of these resources are deployed, we can reference them sunsequently and acquire connection strings / access keys.
+Given that both of these resources are deployed, we can reference them subsequently and acquire connection strings / access keys.
 
 So when we're getting ready to deploy the Azure Static Web App, we are able reference both the database and the Application Insights instance. Here's a snippet of the Bicep template that acquires the references:
 
