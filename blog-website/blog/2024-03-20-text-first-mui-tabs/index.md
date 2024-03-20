@@ -8,9 +8,9 @@ hide_table_of_contents: false
 description: 'Learn how to use the MUI tabs component in a text first way that remains strongly typed.'
 ---
 
-I love the Material-UI (MUI) library for React. Hand on heart, I'm not very good at making UIs that are attractive. So I always grab for something to paper over my cracks. MUI is awesome for that. Cracking some might say.
+I love the Material-UI (MUI) library for React. Hand on heart, I'm not very good at making UIs that are attractive. So I always grab for something to paper over the cracks. MUI is awesome for that.
 
-One of the components that I use frequently is the tabs component. However, I've found that it component can be a little tricky to use it in a "text-first" way that remains strongly typed. This post documents how to do just that!
+One of the components that I use frequently is the tabs component. However, I've found that it can be a little tricky to use in a "text-first" way, that also remains strongly typed. This post documents how to do just that!
 
 ![title image reading "Text-first MUI Tabs" with the MUI logo](title-image.png)
 
@@ -22,7 +22,7 @@ What does the tabs component look like? Well, here's a screenshot of it in actio
 
 ![screenshot of the tabs component](screenshot-mui-tabs.png)
 
-It's a great component that allows you to switch between different views easily. The official MUI documentation provides an example of how to use the tabs component:
+It's very useful if you'd like your users to be able to switch between different views easily. The official MUI documentation provides an example of how to use the tabs component:
 
 ```tsx
 import * as React from 'react';
@@ -100,7 +100,7 @@ export default function BasicTabs() {
 
 This example is great, but (personally) I find it a little hard to read. There's a direct relationship between the tabs and the tab panels, but it's not immediately obvious. When you see the `0` passed to `a11yProps` and the `0` passed to `CustomTabPanel`, it's not immediately clear that they're related. And if the `a11yProps` function call was not present, it would be even less clear.
 
-I'd like to see the tabs and tab panels together in a more text-first way.
+I'd like to see the tabs and tab panels presented together in a more text-first way, that makes the relationship between tab and tab panel more apparent.
 
 ## Text-first tabs
 
@@ -131,9 +131,9 @@ The code I'd like to see would look something like this:
 </Box>
 ```
 
-In this code snippet, the tabs and tab panels are together in a more text-first way. It's hopefully clear that the "Item One" `Tab` and the "Item One" `CustomTabPanel` are related.
+In this code snippet, the tabs and tab panels have more of a linkage, in a text-first way. It's hopefully clear that the "Item One" `Tab` and the "Item One" `CustomTabPanel` are related.
 
-The `customTabProps` function is used to generate the props for the tabs (it's an evolution of the `a11yProps` function that handles accessibility props as well as all others). The `CustomTabPanel` component is used to render the tab panels. The `selectedTab` state is used to keep track of the selected tab.
+In the code above, the `customTabProps` function is used to generate the props for the tabs (it's an evolution of the `a11yProps` function that handles accessibility props as well as all others). Meanwhile, the `CustomTabPanel` component is used to render the tab panels. The `selectedTab` state is used to keep track of the selected tab.
 
 How does this work? And is it strongly typed? Let's find out.
 
@@ -155,7 +155,9 @@ type TabIndex = (typeof tabs)[TabText];
 
 So "Item One" is `0`, "Item Two" is `1`, and "Item Three" is `2`.
 
-We then do some TypeScript magic to strongly type this. We use `as const` to tell TypeScript this is an immutable object. With that done we can then extract the keys and values from the object and use them to create the types `TabText` and `TabIndex`. So `TabText` is `"Item One" | "Item Two" | "Item Three"` and `TabIndex` is `0 | 1 | 2`. If we should subsequently amend the `tabs` object in our code, TypeScript will ensure that the `TabText` and `TabIndex` types are updated accordingly.
+We then do some TypeScript magic to strongly type this. We use `as const` to tell TypeScript this is an immutable object. With that done we can then extract the keys and values from the object and use them to create the derived types `TabText` and `TabIndex`.
+
+`TabText` is the keys of the `tabs` object and `TabIndex` is the values. So `TabText` is `"Item One" | "Item Two" | "Item Three"` and `TabIndex` is `0 | 1 | 2`. If we should subsequently amend the `tabs` object in our code, TypeScript will ensure that the `TabText` and `TabIndex` types are updated accordingly.
 
 We can then use these types in our components:
 
@@ -337,4 +339,4 @@ As an aside, I'd like the code even more if I had the following instead of using
 <CustomTab tab="Item One" />
 ```
 
-But this approach seemed simpler.
+I avoided that in this post because it would have made the example more complicated. But I think it would be a nice improvement.
