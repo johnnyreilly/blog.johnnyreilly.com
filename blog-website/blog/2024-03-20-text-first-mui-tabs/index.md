@@ -10,7 +10,7 @@ description: 'Learn how to use the MUI tabs component in a text first way that r
 
 I love the Material-UI (MUI) library for React. Hand on heart, I'm not very good at making UIs that are attractive. So I always grab for something to paper over the cracks. MUI is awesome for that.
 
-One of the components that I use frequently is the tabs component. However, I've found that it can be a little tricky to use in a "text-first" way, that also remains strongly typed. This post documents how to do just that!
+One of the components that I use frequently is the [tabs component](https://mui.com/material-ui/react-tabs/). However, I've found that it can be a little tricky to use in a "text-first" way, that also remains strongly typed. This post documents how to do just that!
 
 ![title image reading "Text-first MUI Tabs" with the MUI logo](title-image.png)
 
@@ -98,7 +98,7 @@ export default function BasicTabs() {
 }
 ```
 
-This example is great, but (personally) I find it a little hard to read. There's a direct relationship between the tabs and the tab panels, but it's not immediately obvious. When you see the `0` passed to `a11yProps` and the `0` passed to `CustomTabPanel`, it's not immediately clear that they're related. And if the `a11yProps` function call was not present, it would be even less clear.
+This example is great, but (personally) I find it a little hard to read. There's a direct relationship between the tabs and the tab panels, but it's not immediately obvious. When you see the `0` passed to `a11yProps` and the `0` passed to `CustomTabPanel`, it's not clear that they're related. And if the `a11yProps` function call was not present, it would be even less clear.
 
 I'd like to see the tabs and tab panels presented together in a more text-first way, that makes the relationship between tab and tab panel more apparent.
 
