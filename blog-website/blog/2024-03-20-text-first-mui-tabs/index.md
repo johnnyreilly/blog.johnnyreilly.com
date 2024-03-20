@@ -8,7 +8,9 @@ hide_table_of_contents: false
 description: 'Learn how to use the MUI tabs component in a text first way that remains strongly typed.'
 ---
 
-I love the Material-UI (MUI) library for React. It's a fantastic library that provides a lot of components out of the box. One of the components that I use frequently is the tabs component. However, I've found that the tabs component can be a little tricky to use in a text-first way that remains strongly typed. This post documents how to use the MUI tabs component in a text-first way that remains strongly typed.
+I love the Material-UI (MUI) library for React. Hand on heart, I'm not very good at making UIs that are attractive. So I always grab for something to paper over my cracks. MUI is awesome for that. Cracking some might say.
+
+One of the components that I use frequently is the tabs component. However, I've found that it component can be a little tricky to use it in a "text-first" way that remains strongly typed. This post documents how to do just that!
 
 ![title image reading "Text-first MUI Tabs" with the MUI logo](title-image.png)
 
@@ -16,11 +18,11 @@ I love the Material-UI (MUI) library for React. It's a fantastic library that pr
 
 ## Official example
 
-The tabs component in MUI is a great way to display content in a tabbed interface:
+What does the tabs component look like? Well, here's a screenshot of it in action:
 
 ![screenshot of the tabs component](screenshot-mui-tabs.png)
 
-The official MUI documentation provides an example of how to use the tabs component:
+It's a great component that allows you to switch between different views easily. The official MUI documentation provides an example of how to use the tabs component:
 
 ```tsx
 import * as React from 'react';
@@ -129,7 +131,9 @@ The code I'd like to see would look something like this:
 </Box>
 ```
 
-In this code snippet, the tabs and tab panels are together in a more text-first way. The `customTabProps` function is used to generate the props for the tabs (it's an evolution of the `a11yProps` function that handles accessibility props as well as all others). The `CustomTabPanel` component is used to render the tab panels. The `selectedTab` state is used to keep track of the selected tab.
+In this code snippet, the tabs and tab panels are together in a more text-first way. It's hopefully clear that the "Item One" `Tab` and the "Item One" `CustomTabPanel` are related.
+
+The `customTabProps` function is used to generate the props for the tabs (it's an evolution of the `a11yProps` function that handles accessibility props as well as all others). The `CustomTabPanel` component is used to render the tab panels. The `selectedTab` state is used to keep track of the selected tab.
 
 How does this work? And is it strongly typed? Let's find out.
 
@@ -325,4 +329,12 @@ export default function BasicTabs() {
 }
 ```
 
-It's certainly more complicated than the official example (and this may well be why the official example is the way it is), but I find it easier to work with and understand. I hope you do too!
+It's certainly more complicated than the official example (and this may well be why the official example is the way it is), but it matches my preferences.
+
+As an aside, I'd like the code even more if I had the following instead of using `Tab` with `customTabProps`:
+
+```tsx
+<CustomTab tab="Item One" />
+```
+
+But this approach seemed simpler.
