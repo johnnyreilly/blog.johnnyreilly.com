@@ -12,7 +12,7 @@
     "@types/showdown": "^1.9.3",
     "@types/yargs": "^16.0.0",
     "axios": "^0.28.0",
-    "date-fns": "^2.19.0",
+    "date-fns": "^3.0.0",
     "googleapis": "^67.0.0",
     "he": "^1.2.0",
     "jsdom": "^16.4.0",
