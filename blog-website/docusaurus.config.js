@@ -320,7 +320,7 @@ const config = {
             }
           : {}),
         sitemap: {
-          lastmod: 'date',
+          lastmod: 'datetime',
           priority: null,
           changefreq: null,
         },
