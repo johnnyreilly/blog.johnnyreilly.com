@@ -308,7 +308,7 @@ const config = {
 
   presets: [
     [
-      '@docusaurus/preset-classic',
+      'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         ...(IS_LIVE_SITE
@@ -319,6 +319,11 @@ const config = {
               },
             }
           : {}),
+        sitemap: {
+          lastmod: 'date',
+          priority: null,
+          changefreq: null,
+        },
 
         docs: false,
         blog: {
@@ -343,11 +348,6 @@ const config = {
             language: 'en',
             copyright: `Copyright © 2012 - ${new Date().getFullYear()} John Reilly.`,
             createFeedItems,
-          },
-          sitemap: {
-            lastmod: 'date',
-            priority: null,
-            changefreq: null,
           },
           blogTitle: 'I CAN MAKE THIS WORK',
           blogDescription: 'The blog of John Reilly ❤️🌻',
