@@ -308,7 +308,7 @@ const config = {
 
   presets: [
     [
-      '@docusaurus/preset-classic',
+      'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         ...(IS_LIVE_SITE
@@ -319,6 +319,11 @@ const config = {
               },
             }
           : {}),
+        sitemap: {
+          lastmod: 'datetime',
+          priority: null,
+          changefreq: null,
+        },
 
         docs: false,
         blog: {
