@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[84306],{18032:e=>{e.exports=JSON.parse('{"label":"vs code","permalink":"/tags/vs-code","allTagsPath":"/tags","count":6,"unlisted":false}')}}]);

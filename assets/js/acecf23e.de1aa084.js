@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkjohnnyreilly_com=self.webpackChunkjohnnyreilly_com||[]).push([[81903],{1912:e=>{e.exports=JSON.parse('{"blogBasePath":"/","blogTitle":"I CAN MAKE THIS WORK"}')}}]);
