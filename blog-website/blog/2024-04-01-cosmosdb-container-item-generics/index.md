@@ -169,3 +169,22 @@ public record MyItem<TData>(
 
 #pragma warning restore IDE1006
 ```
+
+```cs
+    public static ItemViewModel ItemToItemViewModel(Item item)
+    {
+        var data = item.data is not Newtonsoft.Json.Linq.JObject dataJObject
+            ? null
+            : System.Text.Json.JsonSerializer.Deserialize<object>(dataJObject.ToString());
+
+        return new(
+            ItemName: item.itemName,
+            Type: item.type,
+            Data: data,
+            CreatedAt: item.createdAt,
+            CreatedBy: item.createdBy,
+            UpdatedAt: item.updatedAt,
+            UpdatedBy: item.updatedBy
+        );
+    }
+```
