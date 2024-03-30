@@ -320,6 +320,11 @@ const config = {
             }
           : {}),
 
+        sitemap: {
+          lastmod: 'date',
+          priority: null,
+          changefreq: null,
+        },
         docs: false,
         blog: {
           archiveBasePath: '/blog',

@@ -16,6 +16,10 @@ If you're interested in applying the same technique to your RSS / Atom / JSON fe
 
 <!--truncate-->
 
+## Updated 30/03/2024 - this is built into Docusaurus 3.2
+
+I'm delighted to say that [Docusaurus 3.2 has this functionality built in](https://docusaurus.io/blog/releases/3.2#sitemap-lastmod). So you don't need this anymore!
+
 ## Reading git log in Node.js
 
 [In the last post I showed how to manipulate XML in Node.js, and filter our sitemap](../2022-11-22-xml-read-and-write-with-node-js/index.md). In this post we'll build upon what we did last time, read the git log in Node.js and use that to power a `lastmod` property.
@@ -164,7 +168,7 @@ When I tested this locally, it worked fine. However, when I pushed it to GitHub 
 
 ## Updated 12th November 2023: Google's view on `lastmod`, `changefreq` and `priority`
 
-Google have announced that they [use `lastmod` as a specific signal for triggering recrawling](https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping#the-lastmod-element). It goes on to say that it doesn't use the `changefreq` or `priority` elements to trigger recrawling of URLs. 
+Google have announced that they [use `lastmod` as a specific signal for triggering recrawling](https://developers.google.com/search/blog/2023/06/sitemaps-lastmod-ping#the-lastmod-element). It goes on to say that it doesn't use the `changefreq` or `priority` elements to trigger recrawling of URLs.
 
 So if you want to have a sitemap that triggers reindexing well, having an accurate `lastmod` will help.
 
