@@ -47,7 +47,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "fontaine": "0.4.1",
     "rehype-cloudinary-docusaurus": "3.0.0",
-    "simple-git": "3.22.0",
+    "simple-git": "3.24.0",
     "typescript": "^5.3.3"
   },
   "browserslist": {
