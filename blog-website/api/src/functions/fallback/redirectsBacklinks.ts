@@ -1,5 +1,9 @@
 export const redirectsBacklinks = [
   {
+    route: '/schemar-validate-structured-data-in-a-github-action',
+    redirect: '/schemar-github-action-to-validate-structured-data',
+  },
+  {
     route: '/cache-rules-everything-around-me',
     redirect: '/dotnet-imemorycache-getorcreatefortimespanasync',
   },

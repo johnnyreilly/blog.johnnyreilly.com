@@ -7,6 +7,9 @@
         "no-unused-params": {
           "level": "warning"
         },
+        "no-unused-vars": {
+          "level": "error"
+        },
         "secure-secrets-in-params": {
           "level": "error"
         },

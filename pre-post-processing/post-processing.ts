@@ -40,12 +40,12 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
     const { loc } = url;
 
     try {
-      filePath =
-        getBlogPathFromUrl(rootUrl, loc) ?? getPagesPathFromUrl(rootUrl, loc);
-      if (!filePath) {
-        sitemapUrls.push({ loc, lastmod: fallbackLastMod });
-        continue;
-      }
+      // filePath =
+      //   getBlogPathFromUrl(rootUrl, loc) ?? getPagesPathFromUrl(rootUrl, loc);
+      // if (!filePath) {
+      //   sitemapUrls.push({ loc, lastmod: fallbackLastMod });
+      //   continue;
+      // }
 
       // eg blog-website/blog/2013-04-26-a-navigation-animation-for-your-users/index.md
       const blogMarkdown = await Bun.file('../' + filePath).text();
@@ -77,12 +77,13 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
         continue;
       }
 
-      const lastmod = await getGitLastUpdatedFromFilePath(filePath);
+      // const lastmod = await getGitLastUpdatedFromFilePath(filePath);
 
-      sitemapUrls.push(
-        lastmod ? { loc, lastmod } : { loc, lastmod: fallbackLastMod },
-      );
-      console.log(loc, lastmod);
+      // sitemapUrls.push(
+      //   lastmod ? { loc, lastmod } : { loc, lastmod: fallbackLastMod },
+      // );
+      // console.log(loc, lastmod);
+      sitemapUrls.push(url);
     } catch (e) {
       console.log(`file date not looked up: ${filePath}`, url.loc, e);
       sitemapUrls.push({ loc, lastmod: fallbackLastMod });

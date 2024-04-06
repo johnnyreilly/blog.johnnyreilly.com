@@ -42,7 +42,7 @@ I subsequently encountered the self same issue with the [Azure SDK for JavaScrip
 
 But what say you can't disable SSL inspection? Or what if you're using an API that doesn't support modern TLS negotiation? Well, you can work around the issue by allowing legacy TLS renegotiation.
 
-[I found details on how to do this using Axios on Stack Overflow](https://stackoverflow.com/questions/74324019/allow-legacy-renegotiation-for-nodejs/74600467#74600467). I kept needing to come back to it again and again, to make it easier for me to find.
+[I found details on how to do this using Axios on Stack Overflow](https://stackoverflow.com/questions/74324019/allow-legacy-renegotiation-for-nodejs/74600467#74600467). I kept needing to come back to it again and again, so I wrote this up to make the solution easier for me to find.
 
 So if you are facing this issue, here's how to work around it with Axios.
 

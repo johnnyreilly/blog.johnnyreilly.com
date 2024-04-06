@@ -9,61 +9,11 @@ function About() {
   const context = useDocusaurusContext();
   const { siteConfig = { title: '', tagline: '' } } = context;
 
-  /* Now provided in docusaurus.config.js
-
-  // details on structured data support:
-  // https://developers.google.com/search/docs/data-types/article#non-amp
-  // and https://schema.org/Person
-  const personStructuredData = {
-    '@context': 'http://www.schema.org',
-    '@type': 'Person',
-    name: 'John Reilly',
-    alternateName: 'Johnny Reilly',
-    description:
-      'Open Source Software Engineer - TypeScript, Azure, React, Node.js, .NET',
-    url: 'https://johnnyreilly.com',
-    image: 'https://johnnyreilly.com/img/profile.jpg',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: 'Twickenham',
-      addressLocality: 'London',
-      addressCountry: 'United Kingdom',
-    },
-    email: 'johnny_reilly@hotmail.com',
-    birthPlace: 'Bristol',
-    sameAs: [
-      'https://github.com/johnnyreilly',
-      'https://fosstodon.org/@johnny_reilly',
-      'https://twitter.com/johnny_reilly',
-      'https://app.daily.dev/johnnyreilly',
-      'https://stackoverflow.com/users/761388/john-reilly',
-      'https://blog.logrocket.com/author/johnreilly/',
-      'https://polywork.com/johnnyreilly',
-      'https://uk.linkedin.com/in/johnnyreilly',
-    ],
-  };
-
-  const organizationStructuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    url: 'https://johnnyreilly.com',
-    image: 'https://johnnyreilly.com/img/profile.jpg',
-  };
-
-  const structuredData = [personStructuredData, organizationStructuredData];
-  */
-
   return (
     <Layout
       title={`About ${siteConfig.title}`}
       description={`What is ${siteConfig.title}`}
     >
-      {/* <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(structuredData),
-        }}
-      /> */}
       <header className={clsx('hero hero--primary', styles.heroBanner)}>
         <div className="container">
           {/* <h1 className="hero__title">{siteConfig.title}</h1> */}
@@ -85,20 +35,21 @@ function About() {
               <div className={clsx('col col--6', styles.feature)}>
                 <h3>Who am I?</h3>
                 <p>
-                  I'm a software engineer, blogger, dawn photographer of
-                  Twickenham riverside and Hammerton's Ferry Terminal in
+                  I&lsquo;m a software engineer, blogger, dawn photographer of
+                  Twickenham riverside and Hammerton&lsquo;s Ferry Terminal in
                   particular, father, coffee lover, Christian and husband to the
                   most wonderful Geordie wife there ever was! I live in London /
                   Twickenham. I was born in Bristol and I was raised in Fleet.
                 </p>
 
                 <p>
-                  I answer to "John", but online I'm "johnnyreilly",
-                  "johnny_reilly" or similar. Mostly because way back when I was
-                  getting online, someone else had nabbed "johnreilly" first. In
+                  I answer to &quot;John&quot;, but online I&lsquo;m
+                  &quot;johnnyreilly&quot;, &quot;johnny_reilly&quot; or
+                  similar. Mostly because way back when I was getting online,
+                  someone else had nabbed &quot;johnreilly&quot; first. In
                   retrospect it turns out to be useful differentiation from the
-                  actor John C. Reilly that very much <em>isn't</em> me. (Look
-                  him up - he's great!)
+                  actor John C. Reilly that very much <em>isn&lsquo;t</em> me.
+                  (Look him up - he&lsquo;s great!)
                 </p>
 
                 <p>
@@ -118,32 +69,37 @@ function About() {
                     rel="noopener noreferrer nofollow"
                     target="_blank"
                   >
-                    on Blogger with the title "I can make this work"
+                    on Blogger with the title &quot;I can make this work&quot;
                   </a>{' '}
                   - which was a pun on{' '}
-                  <a href="http://en.wikipedia.org/wiki/ICANN" target="_blank">
+                  <a
+                    href="http://en.wikipedia.org/wiki/ICANN"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     ICANN
                   </a>
-                  . Not, if I'm honest, the finest joke in the world.{' '}
+                  . Not, if I&lsquo;m honest, the finest joke in the world.{' '}
                   <a href="https://johnnyreilly.com/2014/12/05/whats-in-a-name">
-                    It's lived under a couple of domains since then.
+                    It&lsquo;s lived under a couple of domains since then.
                   </a>{' '}
-                  We're now pretty firmly on{' '}
+                  We&lsquo;re now pretty firmly on{' '}
                   <a href="https://johnnyreilly.com">johnnyreilly.com</a>.
                 </p>
                 <p>
-                  These days it's mostly the blog of an open source software
-                  engineer. A great deal of "here's how I solved X". Some talks
-                  I've given as well. Essentially, whatever I feel like putting
-                  out.
+                  These days it&lsquo;s mostly the blog of an open source
+                  software engineer. A great deal of &quot;here&lsquo;s how I
+                  solved X&quot;. Some talks I&lsquo;ve given as well.
+                  Essentially, whatever I feel like putting out.
                 </p>
               </div>
 
               <div className={clsx('col col--6', styles.feature)}>
                 <h3>What do I do?</h3>
                 <p>
-                  I blog and work on open source software. I've more than ten
-                  years experience blogging and working on open source software.{' '}
+                  I blog and work on open source software. I&lsquo;ve more than
+                  ten years experience blogging and working on open source
+                  software.{' '}
                   <a href="https://twitter.com/johnny_reilly/status/1541020953299128320">
                     Open source software I work on has been used by GitHub
                   </a>

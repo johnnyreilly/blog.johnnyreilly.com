@@ -1,4 +1,5 @@
 //@ts-check
+/* eslint-env node */
 const IS_LIVE_SITE = process.env['IS_LIVE_SITE'] === 'true';
 console.log('IS_LIVE_SITE', IS_LIVE_SITE);
 
@@ -31,7 +32,7 @@ const sameAs = [
   'https://app.daily.dev/johnnyreilly',
   'https://stackoverflow.com/users/761388/john-reilly',
   'https://blog.logrocket.com/author/johnreilly/',
-  'https://polywork.com/johnnyreilly',
+  'https://www.reddit.com/user/johnny_reilly',
   'https://uk.linkedin.com/in/johnnyreilly',
 ];
 
@@ -307,7 +308,7 @@ const config = {
 
   presets: [
     [
-      '@docusaurus/preset-classic',
+      'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         ...(IS_LIVE_SITE
@@ -318,6 +319,11 @@ const config = {
               },
             }
           : {}),
+        sitemap: {
+          lastmod: 'datetime',
+          priority: null,
+          changefreq: null,
+        },
 
         docs: false,
         blog: {
@@ -411,12 +417,21 @@ const config = {
       },
       innerHTML: JSON.stringify(siteStructuredData),
     },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'webmention',
+        href: 'https://webmention.io/johnnyreilly.com/webmention',
+      },
+    },
   ],
 
   plugins: [
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function fontainePlugin(_context, _options) {
       return {
         name: 'fontaine-plugin',
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         configureWebpack(_config, _isServer) {
           return {
             plugins: [
@@ -550,11 +565,13 @@ const config = {
           {
             href: 'https://github.com/johnnyreilly',
             label: 'GitHub',
+            rel: 'me',
             position: 'right',
           },
           {
             href: 'https://twitter.com/johnny_reilly',
             label: 'Twitter',
+            rel: 'me',
             position: 'right',
           },
           // <a rel="me" href="https://fosstodon.org/@johnny_reilly">Mastodon</a>
@@ -743,7 +760,7 @@ const config = {
         copyright: `Copyright © 2012 - ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
       },
       prism: {
-        theme: prismThemes.okaidia,
+        theme: prismThemes.shadesOfPurple,
         darkTheme: prismThemes.nightOwl,
         additionalLanguages: [
           'powershell',
@@ -753,6 +770,7 @@ const config = {
           'diff',
           'bash',
           'json',
+          'yaml',
         ],
       },
     }),

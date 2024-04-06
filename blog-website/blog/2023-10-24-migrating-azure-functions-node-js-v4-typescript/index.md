@@ -264,8 +264,42 @@ Finally, the APIs offered by the `request` and `context` objects are different. 
 
 Not too significant a tweak, but there's a number of slight changes like this to make. (Related to this, the logging API on the `context` object is also different - but not significantly.)
 
+## 3. Running locally
+
+If you're a fan of running locally then you may need to make this tweak to your `host.json`:
+
+```diff
+    "extensionBundle": {
+        "id": "Microsoft.Azure.Functions.ExtensionBundle",
+-        "version": "[3.*, 4.0.0)"
++        "version": "[4.*, 5.0.0)"
+    }
+```
+
+A complete `host.json` might look like this:
+
+```json
+{
+    "version": "2.0",
+    "logging": {
+        "applicationInsights": {
+            "samplingSettings": {
+                "isEnabled": true,
+                "excludedTypes": "Request"
+            }
+        }
+    },
+    "extensionBundle": {
+        "id": "Microsoft.Azure.Functions.ExtensionBundle",
+        "version": "[4.*, 5.0.0)"
+    }
+}
+```
+
+As discussed with [Eric Jizba](https://github.com/ejizba) on [this GitHub issue](https://github.com/Azure/azure-functions-core-tools/issues/3508#issuecomment-1894356158), updating the `host.json` may not actually be necessary.  For me it seemed to be the thing that turned a not working setup into a working setup; but it's possible I was mistaken. Certainly if I revert the change now I'm still able to run locally.  What I'm saying is: your mileage may vary.
+
 ## Conclusion
 
-Migrating an Azure Function from v3 to v4 with TypeScript is a little more involved than I'd expected. But I do like that this moves us to a code style that feels more "Node-y". The official documentation is good, but it's not complete right now.
+Migrating an Azure Function from v3 to v4 with TypeScript is a little more involved than I'd expected. But I do like that this moves us to a code style that feels more "Node-y". ~~The official documentation is good, but it's not complete right now.~~ There's now a decent upgrade guide available: https://learn.microsoft.com/en-us/azure/azure-functions/functions-node-upgrade-v4?tabs=v4
 
 Hopefully this post will help you migrate your TypeScript Azure Functions to v4.

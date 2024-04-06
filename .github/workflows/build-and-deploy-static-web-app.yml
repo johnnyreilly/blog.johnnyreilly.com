@@ -55,6 +55,25 @@ jobs:
 
           echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_OUTPUT
 
+      - name: Lint Bicep
+        if: github.event_name == 'pull_request'
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az version
+            az bicep install
+            az bicep version
+            az bicep lint --file ./infra/main.bicep --diagnostics-format sarif > bicep.sarif
+            echo '::warning::Bicep linting results:'
+            cat bicep.sarif
+
+      - name: Upload SARIF
+        if: github.event_name == 'pull_request' && (success() || failure())
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          category: bicep
+          sarif_file: bicep.sarif
+
       - name: Infra - detect changes & validate 📝
         id: static_web_app_what_if
         if: github.event_name == 'pull_request'
@@ -205,7 +224,7 @@ jobs:
         run: npx playwright test
         working-directory: ./blog-website-tests
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
@@ -231,7 +250,7 @@ jobs:
 
       - name: Audit URLs 🧐
         id: lighthouse_audit
-        uses: treosh/lighthouse-ci-action@v10
+        uses: treosh/lighthouse-ci-action@v11
         with:
           urls: |
             ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
@@ -244,9 +263,9 @@ jobs:
           temporaryPublicStorage: true
           runs: 1
 
-      - name: Dump steps.lighthouse_audit.outputs
-        id: github_context_step
-        run: echo '${{ toJSON(steps.lighthouse_audit.outputs) }}'
+      # - name: Dump steps.lighthouse_audit.outputs
+      #   id: github_context_step
+      #   run: echo '${{ toJSON(steps.lighthouse_audit.outputs) }}'
 
       - name: Format lighthouse score
         id: format_lighthouse_score
@@ -265,11 +284,60 @@ jobs:
 
       - name: Add Lighthouse stats as comment ✍️
         id: comment_to_pr
-        uses: marocchino/sticky-pull-request-comment@v2.8.0
+        uses: marocchino/sticky-pull-request-comment@v2
         with:
           number: ${{ github.event.pull_request.number }}
           header: lighthouse
           message: ${{ steps.format_lighthouse_score.outputs.comment }}
+
+  structured_data_report_job:
+    name: Structured data report 📝
+    needs: build_and_deploy_swa_job
+    if: github.event_name == 'pull_request' && github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for preview ${{ needs.build_and_deploy_swa_job.outputs.preview-url }} ⌚
+        id: static_web_app_wait_for_preview
+        uses: nev7n/wait_for_response@v1
+        with:
+          url: '${{ needs.build_and_deploy_swa_job.outputs.preview-url }}'
+          responseCode: 200
+          timeout: 600000
+          interval: 1000
+
+      - name: Audit URLs for structured data 🧐
+        id: structured_data_audit
+        uses: johnnyreilly/schemar@v0.1.1
+        with:
+          urls: |
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/about
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/blog
+            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/definitely-typed-the-movie
+
+      # - name: Dump steps.structured_data_audit.outputs
+      #   run: echo '${{ toJSON(steps.structured_data_audit.outputs) }}'
+
+      - name: Format structured data results
+        id: format_structured_data_results
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const structuredDataCommentMaker = (await import('${{ github.workspace }}/.github/workflows/structuredDataCommentMaker.mjs')).default;
+            const results = ${{ steps.structured_data_audit.outputs.results }};
+            core.setOutput("comment", structuredDataCommentMaker('${{ needs.build_and_deploy_swa_job.outputs.preview-url }}', results));
+
+      - name: Add structured data results as comment ✍️
+        id: structured_data_comment_to_pr
+        if: always()
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          number: ${{ github.event.pull_request.number }}
+          header: structured_data
+          message: ${{ steps.format_structured_data_results.outputs.comment }}
 
   # deploy_to_devto_job:
   #   name: Publish to dev.to 🗞️

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "eslint . && tsc",
+    "lint": "eslint .",
+    "build": "tsc",
     "watch": "tsc -w",
     "prestart": "npm run build",
     "start": "func start",

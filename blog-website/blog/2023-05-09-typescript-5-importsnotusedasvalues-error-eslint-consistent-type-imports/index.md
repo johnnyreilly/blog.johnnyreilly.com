@@ -2,7 +2,7 @@
 slug: typescript-5-importsnotusedasvalues-error-eslint-consistent-type-imports
 title: 'TypeScript 5: importsNotUsedAsValues replaced by ESLint consistent-type-imports'
 authors: johnnyreilly
-tags: [typescript, javascript]
+tags: [typescript, javascript, eslint]
 image: ./title-image.png
 description: 'TypeScript deprecated tsconfig.json option "importsNotUsedAsValues": "error" in 5. You can make type imports explicit with CommonJS if you use ESLint consistent-type-imports.'
 hide_table_of_contents: false
@@ -143,7 +143,7 @@ So if side effects is something you're concerned about, consider this rule as we
 
 ## Make VS Code prefer type imports
 
-One of the delightful features of TypeScript in VS Code is TypeScript generated auto-imports. Thanks in large part to the work of [Andrew Branch](https://github.com/andrewbranch) on the TypeScript team, the editor will often generate the `import` that you need when you're coding. However, it will generally create value imports; *not* type imports. So it might auto add this:
+One of the delightful features of TypeScript in VS Code is TypeScript generated auto-imports. Thanks in large part to the work of [Andrew Branch](https://github.com/andrewbranch) on the TypeScript team, the editor will often generate the `import` that you need when you're coding. However, it will generally create value imports; _not_ type imports. So it might auto add this:
 
 ```ts
 import { ResourceGraphClient } from '@azure/arm-resourcegraph';

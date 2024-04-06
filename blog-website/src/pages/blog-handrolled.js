@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import Link from '@docusaurus/Link';
@@ -17,7 +19,7 @@ const allPosts = ((ctx) => {
   /** @type {string[]} */
   const blogpostNames = ctx.keys();
 
-  return blogpostNames.reduce((blogposts, blogpostName, i) => {
+  return blogpostNames.reduce((blogposts, blogpostName) => {
     const module = ctx(blogpostName);
     const { date, formattedDate, title, permalink } = module.metadata;
     return [
@@ -30,7 +32,7 @@ const allPosts = ((ctx) => {
       },
     ];
   }, /** @type {BlogPost[]}>} */ ([]));
-  // @ts-ignore
+  // @ts-expect-error 2339
 })(require.context('../../blog', true, /index.md/));
 
 const postsByYear = allPosts.reduceRight((posts, post) => {
