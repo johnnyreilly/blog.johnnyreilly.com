@@ -549,12 +549,8 @@ To be clear: webpack is not going anywhere. But it's fair to say that it is star
 
 In this article we've looked at what webpack is, and why it's so popular. We've looked at its history, and how it came to be the most popular bundler. We've examined how to get started with webpack, some of the high level concepts such as plugins and loaders. We've also considered some of the competition, and how webpack is starting to be displaced by some of the newer tools.
 
-To close out, let me share some posts that detail using webpack with popular frameworks / libraries:
+[This post was originally published on LogRocket.](https://blog.logrocket.com/webpack-adoption-guide/)
 
-- [Writing webpack plugins in Rust using SWC for faster builds](https://blog.logrocket.com/writing-webpack-plugins-rust-using-swc/)
-- [The best webpack configurations for React applications](https://blog.logrocket.com/versatile-webpack-configurations-react-application/)
-- [5 useful development tools for Vue.js](https://blog.logrocket.com/5-useful-development-tools-for-vue-js/)
-- [Configuring webpack from scratch for Tailwind CSS with React](https://blog.logrocket.com/webpack-from-scratch-for-tailwind-css-with-react/)
-- [How to configure CSS Modules for webpack](https://blog.logrocket.com/how-to-configure-css-modules-webpack/)
-- [vanilla-extract tutorial: Create zero-runtime style sheets in TypeScript](https://blog.logrocket.com/vanilla-extract-tutorial-create-zero-runtime-stylesheets-in-typescript/)
-- [Quick guide to webpack bundle and code splitting with React](https://blog.logrocket.com/quick-guide-to-webpack-bundle-and-code-splitting-with-react-43d1045f1064/)
+<head>
+    <link rel="canonical" href="https://blog.logrocket.com/webpack-adoption-guide/" />
+</head>
