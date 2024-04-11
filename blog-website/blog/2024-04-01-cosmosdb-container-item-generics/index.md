@@ -227,9 +227,12 @@ Here's an example of how you might convert our domain model to our view model. I
 ```cs
 public static MyItemViewModel ItemToItemViewModel(MyItem item)
 {
-    var data = item.data is not Newtonsoft.Json.Linq.JObject dataJObject
-        ? null
-        : System.Text.Json.JsonSerializer.Deserialize<object>(dataJObject.ToString());
+    var data = creditReviewPackItem.data switch
+    {
+        Newtonsoft.Json.Linq.JObject dataJObject => System.Text.Json.JsonSerializer.Deserialize<object>(dataJObject.ToString()),
+        Newtonsoft.Json.Linq.JArray dataJArray => System.Text.Json.JsonSerializer.Deserialize<object>(dataJArray.ToString()),
+        _ => null
+    };
 
     return new(
         ItemName: item.itemName,
