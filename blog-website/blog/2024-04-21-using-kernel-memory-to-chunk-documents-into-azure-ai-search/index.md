@@ -22,11 +22,11 @@ In this post, I'll show you how to use Kernel Memory to chunk documents in the b
 
 ## Kernel Memory: Serverless vs Service
 
-There's two ways that you can run Kernel Memory: "Serverless" and "Service".
+There's two ways that we can run Kernel Memory: "Serverless" and "Service".
 
-Running the full service is more powerful, but effectively requires running a separate application, which you then need to integrate your main application with. Given that I'm building a simple ASP.NET application, I'll be using the serverless approach, which allows us to run Kernel Memory within the context of a single application (which will contain our own application code as well). We can then manage our integrations with Kernel Memory as simple method calls.
+Running the full service is more powerful, but effectively requires running a separate application, which we then need to integrate your main application with. Given that I'm building a simple ASP.NET application, I'll be using the serverless approach, which allows us to run Kernel Memory within the context of a single application (which will contain our own application code as well). We can then manage our integrations with Kernel Memory as simple method calls.
 
-The documentation is very clear that if you want to scale then you'll likely want to consider the service approach. But my own experience has been that serverless works well for small to medium-sized applications.
+The documentation is very clear that if we want to scale then we'll likely want to consider the service approach. But my own experience has been that serverless works well for small to medium-sized applications.
 
 Perhaps surprisingly, using serverless we can still have the experience of running Kernel Memory as a **non-blocking** separate service within the context of our ASP.NET application. This is achieved by running Kernel Memory as a [hosted service](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-8.0) - this is the standard ASP.NET mechanism for background tasks. That's what we're going to do.
 
@@ -43,7 +43,7 @@ There's a number of dependencies that we need to add to our project to get Kerne
 
 ```bash
 dotnet add Azure.AI.OpenAI
-dotnet add Azure.AI.FormRecognizer # if you want to use Document Intelligence - you don't have too
+dotnet add Azure.AI.FormRecognizer # if we want to use Document Intelligence - we don't have too
 dotnet add Azure.Identity
 dotnet add Azure.Storage.Blobs
 dotnet add Microsoft.KernelMemory.Core
@@ -92,7 +92,7 @@ With our `IKernelMemory` ready to go, we now need a way to chunk documents. Deep
 
 However, it's often helpful to have a number of other things in place to manage:
 
-1. Applying tags to documents (this gives you more power when querying later)
+1. Applying tags to documents (this gives us more power when querying later)
 2. Creating acceptable names / ids for the Azure AI Search Service
 3. Handling rate limiting - more on that in a moment
 
@@ -199,7 +199,7 @@ int? HandleRequestFailed(Azure.RequestFailedException azureRequestFailedExceptio
 static string MakeDocumentId(string fileName) => Regex.Replace(fileName, "[^A-Za-z0-9._-]", ""); // eg "A Booklet.pdf"
 ```
 
-Much of the code above concerns rate limiting / 429s. It's not uncommon when chunking to be hit by 429s - "Too many requests". Chunking documents requires use of Azure Open AI resources, and the level of access you have is typically restricted and controlled via quotas. There's an element of this that you can avoid by controlling the quota available on your Azure Open AI deployments ([you can read more about this here](../2023-08-17-azure-open-ai-capacity-quota-bicep/index.md)), and as well you can do a certain amount of retrying chunking operations until you succeed.
+Much of the code above concerns rate limiting / 429s. It's not uncommon when chunking to be hit by 429s - "Too many requests". Chunking documents requires use of Azure Open AI resources, and the level of access we have is typically restricted and controlled via quotas. There's an element of this that we can avoid by controlling the quota available on your Azure Open AI deployments ([you can read more about this here](../2023-08-17-azure-open-ai-capacity-quota-bicep/index.md)), and as well we can do a certain amount of retrying chunking operations until we succeed.
 
 The code above tries to handle a number of re-attempts as wisely as it can, and using the information that Azure APIs surface around when re-attempting is allowed. (Interestingly you'll see a number of strategies employed here as, frankly, the way information is surfaced just keeps changing! We can likely have less code in future when a final standard is committed to.)
 
@@ -253,7 +253,7 @@ public class ChunkerService : IChunkerService
                 Auth = AzureAISearchConfig.AuthTypes.AzureIdentity,
                 Endpoint = "https://srch-ourapp-dev.search.windows.net",
             })
-            // Only necessary if you want to add Document Intelligence
+            // Only necessary if we want to add Document Intelligence
             .WithAzureAIDocIntel(new AzureAIDocIntelConfig
             {
                 Auth = AzureAIDocIntelConfig.AuthTypes.AzureIdentity,
@@ -363,7 +363,7 @@ public class ChunkerService : IChunkerService
 }
 ```
 
-With your own implementation you wouldn't be hard-coding the Azure resources like I have here, but rather you'd be passing them in as configuration. Incidentally, you could also use Dependency Injection to inject the `IKernelMemory` instance into your service, but again, I've kept it simple here for clarity.
+With your own implementation you wouldn't be hard-coding the Azure resources like I have here, but rather you'd be passing them in as configuration. Incidentally, we could also use Dependency Injection to inject the `IKernelMemory` instance into your service, but again, I've kept it simple here for clarity.
 
 ## 2. Our document processor queue
 
@@ -541,11 +541,11 @@ This service will run in the background of your ASP.NET application, and will pi
 
 Ultimately, the `ChunkDocumentAndStoreInAzureAISearchIndex` method is where the magic happens. It downloads the document from Blob Storage, chunks it using Kernel Memory, and then stores it in Azure AI Search.
 
-You'll see we're doing some timing here - this is because it's useful to know how long the process takes. If you're processing a lot of documents, you'll want to know how long it's taking to process each one.
+You'll see we're doing some timing here - this is because it's useful to know how long the process takes. If we're processing a lot of documents, we'll want to know how long it's taking to process each one.
 
 ## 4. Adding documents to the queue
 
-To add documents to the queue, you'll need to create an endpoint in your ASP.NET application. This endpoint will accept files and add them to the queue. Here's an example of how you might do that:
+To add documents to the queue, we'll need to create an endpoint in your ASP.NET application. This endpoint will accept files and add them to the queue. Here's an example of how we might do that:
 
 ```cs
 using Microsoft.AspNetCore.Mvc;
@@ -655,11 +655,11 @@ public class UploadController : ControllerBase
 }
 ```
 
-As you can see, this endpoint accepts files, uploads them to Blob Storage and adds them to the queue with `_documentProcessorQueue.EnqueueDocumentUri`. This will then be picked up by the background service and processed.
+As we can see, this endpoint accepts files, uploads them to Blob Storage and adds them to the queue with `_documentProcessorQueue.EnqueueDocumentUri`. This will then be picked up by the background service and processed.
 
-## Registering your services
+## Registering our services
 
-Finally, you'll need to register your services in your `Program.cs` file. You'll want to add the following:
+Finally, we'll need to register our services in the `Program.cs` file. We'll want to add the following:
 
 ```cs
 builder.Services
@@ -675,6 +675,6 @@ With this in place we have an application that can upload documents and chunk th
 
 ## Conclusion
 
-And that's it! You now have an ASP.NET application that can chunk documents in the background using Kernel Memory running in serverless mode. I haven't yet had the need to upgrade to the full Kernel Memory service. Perhaps the day will come, but the mileage you can get with just this approach is considerable.
+And that's it! You now have an ASP.NET application that can chunk documents in the background using Kernel Memory running in serverless mode. I haven't yet had the need to upgrade to the full Kernel Memory service. Perhaps the day will come, but the mileage we can get with just this approach is considerable.
 
 With thanks to David Rosevear and George Karsas for their help working on this mechanism.
