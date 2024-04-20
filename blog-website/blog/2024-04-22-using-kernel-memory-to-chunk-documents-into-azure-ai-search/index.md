@@ -201,7 +201,7 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Text.Json;
 
-namespace OurApp.Services.Implementations;
+namespace OurApp.Services;
 
 public interface IChunkerService
 {
@@ -484,13 +484,13 @@ public class DocumentProcessorBackgroundService : BackgroundService
         var watch = System.Diagnostics.Stopwatch.StartNew();
         try
         {
-            var credential = env.IsDevelopment() ? new AzureCliCredential() : new DefaultAzureCredential(new DefaultAzureCredentialOptions
+            TokenCredential credential = env.IsDevelopment() ? new AzureCliCredential() : new DefaultAzureCredential(new DefaultAzureCredentialOptions
             {
                 ManagedIdentityClientId = "[Managed Identity ClientId Here]",
             });
 
             BlobServiceClient azureBlobServiceClient = new (
-                new Uri(appSettings.StorageAccountEndpoint!), credentialService.Credential
+                new Uri("https://stourappdev.blob.core.windows.net"), credential
             );
             var containerClient = azureBlobServiceClient.GetBlobContainerClient(documentToProcess.IndexName);
 
@@ -534,5 +534,131 @@ You'll see we're doing some timing here - this is because it's useful to know ho
 Finally, you'll need to register your services in your `Program.cs` file. You'll want to add the following:
 
 ```cs
+builder.Services
+    .AddSingleton<IChunkerService, ChunkerService>()
+    .AddSingleton<IRagGestionService, RagGestionService>()
+    .AddSingleton<IDocumentProcessorQueue, DocumentProcessorQueue>()
 
+    .AddHostedService<DocumentProcessorBackgroundService>()
+;
 ```
+
+With this in place we have an application that can chunk documents in the background. The final part of the puzzle is to add documents to the queue.
+
+## Adding documents to the queue
+
+To add documents to the queue, you'll need to create an endpoint in your ASP.NET application. This endpoint will accept files and add them to the queue. Here's an example of how you might do that:
+
+```cs
+using Microsoft.AspNetCore.Mvc;
+
+using Azure.Storage.Blobs;
+using Azure.Identity;
+using Azure.Core;
+
+namespace OurApp.Controllers;
+
+public record UploadedFile(
+    string FileName,
+    bool Succeeded,
+    long Size,
+    string DocumentUrl
+);
+
+[ApiController]
+public class UploadController : ControllerBase
+{
+    private readonly IDocumentProcessorQueue _documentProcessorQueue;
+    private readonly ILogger<UploadController> _log;
+    private readonly IHostEnvironment _env;
+
+
+    public UploadController(
+        ILogger<UploadController> log,
+        IHostEnvironment env,
+        IDocumentProcessorQueue documentProcessorQueue
+    )
+    {
+        _log = log;
+        _env = env;
+        _documentProcessorQueue = documentProcessorQueue;
+    }
+
+    [RequestSizeLimit(104857600)]// For 100 MB
+    [HttpPost($"api/{nameof(UploadFiles)}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<UploadedFile>))]
+    [ProducesResponseType(StatusCodes.Status403Forbidden, Type = typeof(string))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
+    public async Task<ActionResult<List<UploadedFile>>> UploadFiles(
+        [FromQuery] string indexName,
+        List<IFormFile> files
+    )
+    {
+        var processedFiles = new List<UploadedFile>();
+
+        try
+        {
+            foreach (var formFile in files)
+            {
+                try
+                {
+                    TokenCredential credential = _env.IsDevelopment() ? new AzureCliCredential() : new DefaultAzureCredential(new DefaultAzureCredentialOptions
+                    {
+                        ManagedIdentityClientId = "[Managed Identity ClientId Here]",
+                    });
+
+                    BlobServiceClient azureBlobServiceClient = new(
+                        new Uri("https://stourappdev.blob.core.windows.net"), credential
+                    );
+                    var containerClient = azureBlobServiceClient.GetBlobContainerClient(indexName);
+                    if (!await containerClient.ExistsAsync())
+                        await containerClient.CreateIfNotExistsAsync();
+
+                    var blobClient = containerClient.GetBlobClient(formFile.FileName);
+                    StreamReader streamReader = new(formFile.OpenReadStream());
+                    var uploaded = await blobClient.UploadAsync(streamReader.BaseStream, overwrite: true);
+
+                    var uploadedFile = new UploadedFile(
+                        FileName: formFile.FileName,
+                        Succeeded: true,
+                        Size: formFile.Length,
+                        DocumentUrl: blobClient.Uri.AbsoluteUri
+                    );
+                    processedFiles.Add(uploadedFile);
+
+                    _documentProcessorQueue.EnqueueDocumentUri(
+                        new DocumentToProcess(
+                            DocumentUrl: uploadedFile.DocumentUrl,
+                            IndexName: indexName
+                        )
+                    );
+                }
+                catch (Exception ex)
+                {
+                    processedFiles.Add(new UploadedFile(
+                        FileName: formFile.FileName,
+                        Succeeded: false,
+                        Size: formFile.Length,
+                        DocumentUrl: string.Empty
+                    ));
+
+                    _log.LogError(ex, "Failed to upload {file}", formFile.FileName);
+                }
+            }
+
+            return Ok(processedFiles);
+        }
+        catch (Exception ex)
+        {
+            _log.LogError(ex, "Problem uploading files");
+            return BadRequest("Problem uploading files");
+        }
+    }
+}
+```
+
+As you can see, this endpoint accepts files, uploads them to Blob Storage and adds them to the queue with `_documentProcessorQueue.EnqueueDocumentUri`. This will then be picked up by the background service and processed.
+
+## Conclusion
+
+And that's it! You now have an ASP.NET application that can chunk documents in the background using Kernel Memory running in serverless mode. I haven't yet had the need to upgrade to the full Kernel Memory service. Perhaps the day will come, but the mileage you can get with just this approach is considerable.
