@@ -24,17 +24,18 @@ In this post, I'll show you how to use Kernel Memory to chunk documents in the b
 
 There's two ways that you can run Kernel Memory: "Serverless" and "Service".
 
-Running the full service is more powerful and complex, but effectively requires running a separate application, which you then need to integrate with. Given that I'm building a simple ASP.NET application, I'll be using the serverless approach, which allows us to run Kernel Memory within the context of a single application (which will contain our own application code as well). We can then manage our integrations with Kernel Memory as simple method calls.
+Running the full service is more powerful, but effectively requires running a separate application, which you then need to integrate your main application with. Given that I'm building a simple ASP.NET application, I'll be using the serverless approach, which allows us to run Kernel Memory within the context of a single application (which will contain our own application code as well). We can then manage our integrations with Kernel Memory as simple method calls.
 
 The documentation is very clear that if you want to scale then you'll likely want to consider the service approach. But my own experience has been that serverless works well for small to medium-sized applications.
 
-Perhaps surprisingly, using serverless we can still have the experience of running Kernel Memory as a non-blocking separate service **within** the context of our ASP.NET application. This is achieved by running Kernel Memory as a [hosted service](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-8.0) - this is the standard ASP.NET mechanism for background tasks. That's what we're going to do.
+Perhaps surprisingly, using serverless we can still have the experience of running Kernel Memory as a **non-blocking** separate service within the context of our ASP.NET application. This is achieved by running Kernel Memory as a [hosted service](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-8.0) - this is the standard ASP.NET mechanism for background tasks. That's what we're going to do.
 
 There's three parts to bring this to life:
 
 1. Our Kernel Memory serverless instance - this is where the integration between Kernel Memory, Azure Open AI, Azure AI Search and the actual chunking takes place
 2. A queue which we'll use to provide documents for chunking with Kernel Memory
 3. Our hosted service which will be bringing together the queue and the Kernel Memory integration to manage our background document processing
+4. An endpoint in our ASP.NET application to add documents to the queue
 
 ## 1. Setting up Kernel Memory serverless
 
@@ -72,14 +73,16 @@ _memory = new KernelMemoryBuilder()
 
 What we're doing here, is creating `IKernelMemory` instance and making it aware of all our deployed Azure resources. Going through how to deploy those is out of the scope of this post, but it's probably worth highlighting that we're using `AzureIdentity` for auth as it's particularly secure, if you would like to use other options, you certainly can.
 
-### Chunking with Kernel Memory Serverless
+You'll also note we're using Azure AI Document Intelligence; this is optional and just tackles a few more document scenarios. It's not mandatory.
+
+### Chunking with Kernel Memory serverless
 
 With our `IKernelMemory` ready to go, we now need a way to chunk documents. Deep down, this is achieved by calling `_memory.ImportDocumentAsync` and passing the name of your index, your document etc. In fact, feel free to just use that!
 
 However, it's often helpful to have a number of other things in place to manage:
 
 1. Applying tags to documents (this gives you more power when querying later)
-2. Creating acceptable names / ids for the Azure AI Search Service (it has criteria we must meet!)
+2. Creating acceptable names / ids for the Azure AI Search Service
 3. Handling rate limiting - more on that in a moment
 
 To that end, I tend to end up implementing a `Store` method that looks something like this:
@@ -95,8 +98,8 @@ public async Task Store(string index, string documentUrl, string fileName, Strea
 
     TagCollection tags = new()
     {
-        { Constants.TagDocumentUrl, documentUrl },
-        { Constants.TagFileName, fileName },
+        { "DocumentUrl", documentUrl },
+        { "FileName", fileName },
     };
 
     var stopwatch = new Stopwatch();
@@ -529,23 +532,7 @@ Ultimately, the `ChunkDocumentAndStoreInAzureAISearchIndex` method is where the 
 
 You'll see we're doing some timing here - this is because it's useful to know how long the process takes. If you're processing a lot of documents, you'll want to know how long it's taking to process each one.
 
-## Registering your services
-
-Finally, you'll need to register your services in your `Program.cs` file. You'll want to add the following:
-
-```cs
-builder.Services
-    .AddSingleton<IChunkerService, ChunkerService>()
-    .AddSingleton<IRagGestionService, RagGestionService>()
-    .AddSingleton<IDocumentProcessorQueue, DocumentProcessorQueue>()
-
-    .AddHostedService<DocumentProcessorBackgroundService>()
-;
-```
-
-With this in place we have an application that can chunk documents in the background. The final part of the puzzle is to add documents to the queue.
-
-## Adding documents to the queue
+## 4. Adding documents to the queue
 
 To add documents to the queue, you'll need to create an endpoint in your ASP.NET application. This endpoint will accept files and add them to the queue. Here's an example of how you might do that:
 
@@ -658,6 +645,22 @@ public class UploadController : ControllerBase
 ```
 
 As you can see, this endpoint accepts files, uploads them to Blob Storage and adds them to the queue with `_documentProcessorQueue.EnqueueDocumentUri`. This will then be picked up by the background service and processed.
+
+## Registering your services
+
+Finally, you'll need to register your services in your `Program.cs` file. You'll want to add the following:
+
+```cs
+builder.Services
+    .AddSingleton<IChunkerService, ChunkerService>()
+    .AddSingleton<IRagGestionService, RagGestionService>()
+    .AddSingleton<IDocumentProcessorQueue, DocumentProcessorQueue>()
+
+    .AddHostedService<DocumentProcessorBackgroundService>()
+;
+```
+
+With this in place we have an application that can upload documents and chunk them in the background.
 
 ## Conclusion
 
