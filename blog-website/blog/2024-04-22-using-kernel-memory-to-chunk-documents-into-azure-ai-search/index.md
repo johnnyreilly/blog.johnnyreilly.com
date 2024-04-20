@@ -409,7 +409,7 @@ By contrast, the `DequeueDocumentUri` method will be called from the context of 
 
 ## 3. Our background service
 
-Finally, we need a background service to bring together our queue and our `ChunkerService`. This is a standard ASP.NET Core hosted service. It will look like this:
+Finally, we need a background service to bring together our `DocumentProcessorQueue` and our `ChunkerService`. This is a standard ASP.NET hosted service. It will look like this:
 
 ```cs
 using Azure.Storage.Blobs;
@@ -439,9 +439,10 @@ public class DocumentProcessorBackgroundService : BackgroundService
             _logger.LogInformation("Starting RagGestion");
 
             var env = _services.GetRequiredService<IHostEnvironment>();
+            var chunkerService = _services.GetRequiredService<IChunkerService>();
             var documentProcessorQueue = _services.GetRequiredService<IDocumentProcessorQueue>();
 
-            await PerformRagGestion(env, documentProcessorQueue, stoppingToken);
+            await PerformRagGestion(env, chunkerService, documentProcessorQueue, stoppingToken);
         }
         catch (Exception e)
         {
@@ -449,7 +450,7 @@ public class DocumentProcessorBackgroundService : BackgroundService
         }
     }
 
-    async Task PerformRagGestion(IHostEnvironment env, IDocumentProcessorQueue documentProcessorQueue, CancellationToken stoppingToken)
+    async Task PerformRagGestion(IHostEnvironment env, IChunkerService chunkerService, IDocumentProcessorQueue documentProcessorQueue, CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -465,7 +466,7 @@ public class DocumentProcessorBackgroundService : BackgroundService
             try
             {
                 _logger.LogInformation($"Processing document: {{{nameof(documentToProcess)}}}", documentToProcess);
-                await ChunkDocumentAndStoreInAzureAISearchIndex(documentToProcess);
+                await ChunkDocumentAndStoreInAzureAISearchIndex(env, chunkerService, documentToProcess);
             }
             catch (Exception e)
             {
@@ -476,6 +477,7 @@ public class DocumentProcessorBackgroundService : BackgroundService
 
     public async Task ChunkDocumentAndStoreInAzureAISearchIndex(
         IHostEnvironment env,
+        IChunkerService chunkerService,
         DocumentToProcess documentToProcess
     )
     {
@@ -498,7 +500,7 @@ public class DocumentProcessorBackgroundService : BackgroundService
 
             MemoryStream stream = new();
             var response = await blobClient.DownloadToAsync(stream);
-            await _azureAISearchService.Store(
+            await chunkerService.Store(
                 indexName: documentToProcess.IndexName,
                 documentUrl: documentToProcess.DocumentUrl,
                 fileName: fileName,
@@ -519,4 +521,18 @@ public class DocumentProcessorBackgroundService : BackgroundService
         }
     }
 }
+```
+
+This service will run in the background of your ASP.NET application, and will pick up documents from the queue and process them. You might be puzzled by the name "RagGestion" - this is a term my good friend [George Karsas](https://medium.com/@georgekarsas) coined to describe the process of preparing documents for Retrieval Augmented Generation. It's a great term, and I've adopted it!
+
+Ultimately, the `ChunkDocumentAndStoreInAzureAISearchIndex` method is where the magic happens. It downloads the document from Blob Storage, chunks it using Kernel Memory, and then stores it in Azure AI Search.
+
+You'll see we're doing some timing here - this is because it's useful to know how long the process takes. If you're processing a lot of documents, you'll want to know how long it's taking to process each one.
+
+## Registering your services
+
+Finally, you'll need to register your services in your `Program.cs` file. You'll want to add the following:
+
+```cs
+
 ```
