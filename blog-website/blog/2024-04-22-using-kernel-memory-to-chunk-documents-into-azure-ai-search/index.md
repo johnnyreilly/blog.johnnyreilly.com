@@ -20,14 +20,389 @@ If you haven't heard of Kernel Memory before, it's a library that, amongst other
 
 In this post, I'll show you how to use Kernel Memory to chunk documents in the background of an ASP.NET application.
 
-## Serverless vs Kernel Memory Service
+## Kernel Memory: Serverless vs Service
 
 There's two ways that you can run Kernel Memory: "Serverless" and "Service".
 
-Running the full service is more powerful and complex, but effectively requires running a separate service. Given that I'm building a simple ASP.NET application, I'll be using the "Serverless" approach, which allows us to run Kernel Memory as well as our own application code within the context of a single application.
+Running the full service is more powerful and complex, but effectively requires running a separate application, which you then need to integrate with. Given that I'm building a simple ASP.NET application, I'll be using the serverless approach, which allows us to run Kernel Memory within the context of a single application (which will contain our own application code as well). We can then manage our integrations with Kernel Memory as simple method calls.
 
-The documentation is very clear that if you want to scale then you'll likely want to consider the "Service" approach. But my own experience has been that "Serverless" works well for small to medium-sized applications.
+The documentation is very clear that if you want to scale then you'll likely want to consider the service approach. But my own experience has been that serverless works well for small to medium-sized applications.
 
-We can still have the experience of running Kernel Memory as a separate service, but within the context of our ASP.NET application. This is achieved by running Kernel Memory as a [hosted service](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-8.0) - this is the standard ASP.NET mechanism for background tasks.
+Perhaps surprisingly, using serverless we can still have the experience of running Kernel Memory as a non-blocking separate service **within** the context of our ASP.NET application. This is achieved by running Kernel Memory as a [hosted service](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-8.0) - this is the standard ASP.NET mechanism for background tasks. That's what we're going to do.
 
-## Setting up Kernel Memory
+There's three parts to bring this to life:
+
+1. Our Kernel Memory serverless instance - this is where the integration between Kernel Memory, Azure Open AI, Azure AI Search and the actual chunking takes place
+2. A queue which we'll use to provide documents for chunking with Kernel Memory
+3. Our hosted service which will be bringing together the queue and the Kernel Memory integration to manage our background document processing
+
+## 1. Setting up Kernel Memory serverless
+
+To integrate with Kernel Memory, we must construct ourselves an `IKernelMemory` like so:
+
+```cs
+_memory = new KernelMemoryBuilder()
+    .WithAzureOpenAITextEmbeddingGeneration(new AzureOpenAIConfig
+    {
+        APIType = AzureOpenAIConfig.APITypes.EmbeddingGeneration,
+        Auth = AzureOpenAIConfig.AuthTypes.AzureIdentity,
+        Endpoint = "https://cog-ourapp-dev.openai.azure.com/",
+        Deployment = "OpenAi-text-embedding-ada2"
+    })
+    .WithAzureOpenAITextGeneration(new AzureOpenAIConfig
+    {
+        APIType = AzureOpenAIConfig.APITypes.ChatCompletion,
+        Auth = AzureOpenAIConfig.AuthTypes.AzureIdentity,
+        Endpoint = "https://cog-ourapp-dev.openai.azure.com/",
+        Deployment = "OpenAi-gpt-35-turbo-16k"
+    })
+    .WithAzureAISearchMemoryDb(new AzureAISearchConfig
+    {
+        Auth = AzureAISearchConfig.AuthTypes.AzureIdentity,
+        Endpoint = "https://srch-ourapp-dev.search.windows.net",
+    })
+    // Only necessary if you want to add Document Intelligence
+    .WithAzureAIDocIntel(new AzureAIDocIntelConfig
+    {
+        Auth = AzureAIDocIntelConfig.AuthTypes.AzureIdentity,
+        Endpoint = "https://cog-ourapp-dev.cognitiveservices.azure.com/",
+    })
+    .Build();
+```
+
+What we're doing here, is creating `IKernelMemory` instance and making it aware of all our deployed Azure resources. Going through how to deploy those is out of the scope of this post, but it's probably worth highlighting that we're using `AzureIdentity` for auth as it's particularly secure, if you would like to use other options, you certainly can.
+
+### Chunking with Kernel Memory Serverless
+
+With our `IKernelMemory` ready to go, we now need a way to chunk documents. Deep down, this is achieved by calling `_memory.ImportDocumentAsync` and passing the name of your index, your document etc. In fact, feel free to just use that!
+
+However, it's often helpful to have a number of other things in place to manage:
+
+1. Applying tags to documents (this gives you more power when querying later)
+2. Creating acceptable names / ids for the Azure AI Search Service (it has criteria we must meet!)
+3. Handling rate limiting - more on that in a moment
+
+To that end, I tend to end up implementing a `Store` method that looks something like this:
+
+```cs
+public async Task Store(string index, string documentUrl, string fileName, Stream documentContent)
+{
+    // example documentUrl:
+    // Chunking, getting embeddings for and storing for documentUrl consisting of 103469 characters in https://stourappdev.blob.core.windows.net/mh=y-index/A%20Booklet.pdf
+    _logger.LogInformation($"Chunking, getting embeddings for and storing for {{{nameof(documentUrl)}}} consisting of {{count}} characters in {{{nameof(index)}}}", documentUrl, documentContent.Length, index);
+
+    string documentId = MakeDocumentId(documentUrl);
+
+    TagCollection tags = new()
+    {
+        { Constants.TagDocumentUrl, documentUrl },
+        { Constants.TagFileName, fileName },
+    };
+
+    var stopwatch = new Stopwatch();
+    stopwatch.Start();
+
+    int? waitForSeconds = null;
+    bool done = false;
+    int attempt = 0;
+    do
+    {
+        attempt++;
+
+        if (attempt == 4) // if we've tried 3 times, give up
+            throw new Exception($"Failed to store document {documentUrl} after {attempt - 1} attempts and {stopwatch.Elapsed.TotalSeconds} seconds");
+
+        try
+        {
+            if (waitForSeconds != null)
+            {
+                _logger.LogInformation($"Waiting {{{nameof(waitForSeconds)}}} seconds", waitForSeconds.Value);
+                await Task.Delay(TimeSpan.FromSeconds(waitForSeconds.Value));
+                waitForSeconds = null;
+            }
+
+            _logger.LogInformation("Importing documentId {documentId} attempt {attempt}", documentId, attempt);
+            await _memory.ImportDocumentAsync(content: documentContent, fileName: fileName, documentId: documentId, index: index, tags: tags);
+
+            done = true;
+        }
+        catch (Microsoft.SemanticKernel.HttpOperationException e) when (e.InnerException is Azure.RequestFailedException azureRequestFailedException)
+        {
+            waitForSeconds = HandleRequestFailed(azureRequestFailedException);
+        }
+        catch (Azure.RequestFailedException azureRequestFailedException)
+        {
+            waitForSeconds = HandleRequestFailed(azureRequestFailedException);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Error storing document {documentUrl} on attempt {attempt} after {stopwatch.Elapsed.TotalSeconds} seconds", ex);
+        }
+    } while (!done);
+
+    stopwatch.Stop();
+
+    _logger.LogInformation($"Processed {{{nameof(documentId)}}} into {{{nameof(index)}}} index in {{{nameof(stopwatch.Elapsed.TotalSeconds)}}} seconds", documentId, index, stopwatch.Elapsed.TotalSeconds);
+}
+
+int? HandleRequestFailed(Azure.RequestFailedException azureRequestFailedException)
+{
+    int? waitForSeconds;
+    var response = azureRequestFailedException.GetRawResponse();
+    var retryAfterSeconds = response?.Headers.FirstOrDefault(h => h.Name == "x-ratelimit-reset-requests").Value
+        ?? response?.Headers.FirstOrDefault(h => h.Name == "Retry-After").Value;
+
+    //x-ratelimit-reset-requests: 4,x-ms-client-request-id: XXXX,apim-request-id: 69569dd5-2e4a-4bfa-9b52-f3eb08481a83,Strict-Transport-Security: max-age=31536000; includeSubDomains; preload,X-Content-Type-Options: nosniff,policy-id: DeploymentRatelimit-Call,x-ms-region: West Europe,Date: Fri, 01 Dec 2023 13:29:12 GMT,Content-Length: 85,Content-Type: application/json
+    waitForSeconds = retryAfterSeconds != null ? int.Parse(retryAfterSeconds) : null;
+
+    if (waitForSeconds == null)
+    {
+        const string pattern = @"Try again in (\d+) seconds";
+        var match = Regex.Match(azureRequestFailedException.Message, pattern);
+        // wait for 60 seconds if a specific value is not provided
+        waitForSeconds = match.Success && int.TryParse(match.Groups[1].Value, out int seconds) ? seconds + 1 : 60;
+    }
+
+    if (azureRequestFailedException.Status == (int)System.Net.HttpStatusCode.TooManyRequests)
+    {
+        // var headers = response?.Headers.Select(h => $"{h.Name}: {h.Value}").ToList() ?? new List<string>();
+        // _logger.LogWarning(azureRequestFailedException, $"429 - too many requests, will wait {{{nameof(waitForSeconds)}}} seconds - HEADERS: {{{nameof(headers)}}}", waitForSeconds, string.Join(",", headers));
+        _logger.LogWarning(azureRequestFailedException, $"429 - too many requests, will wait {{{nameof(waitForSeconds)}}} seconds", waitForSeconds);
+    }
+    else
+    {
+        var headers = response?.Headers.Select(h => $"{h.Name}: {h.Value}").ToList() ?? [];
+        _logger.LogError(azureRequestFailedException, $"Azure.RequestFailedException - {{{nameof(azureRequestFailedException.Status)}}} status code, will wait {{{nameof(waitForSeconds)}}} seconds - HEADERS: {{{nameof(headers)}}}", azureRequestFailedException.Status, waitForSeconds, string.Join(",", headers));
+    }
+
+    return waitForSeconds;
+}
+
+
+/// <summary>
+/// Make a documentId from a fileName; remove all characters except A-Z, a-z, 0-9, ., _, -
+/// </summary>
+static string MakeDocumentId(string fileName) => Regex.Replace(fileName, "[^A-Za-z0-9._-]", ""); // eg "A Booklet.pdf"
+```
+
+Much of the code above concerns rate limiting / 429s. It's not uncommon when chunking to be hit by 429s - "Too many requests". Chunking documents requires use of Azure Open AI resources, and the level of access you have is typically restricted and controlled via quotas. There's an element of this that you can avoid by controlling the quota available on your Azure Open AI deployments ([you can read more about this here](../2023-08-17-azure-open-ai-capacity-quota-bicep/index.md)), and as well you can do a certain amount of retrying chunking operations until you succeed.
+
+The code above tries to handle a number of re-attempts as wisely as it can, and using the information that Azure APIs surface around when re-attempting is allowed. (Interestingly you'll see a number of strategies employed here as, frankly, the way information is surfaced just keeps changing! We can likely have less code in future when a final standard is committed to.)
+
+### Bringing it together
+
+We're going to put this all together in a single class called `AzureAISearchService`. It will look like this:
+
+```cs
+using Microsoft.KernelMemory;
+
+using OurApp.Model;
+using System.Diagnostics;
+using System.Text.RegularExpressions;
+using System.Text.Json;
+
+namespace OurApp.Services.Implementations;
+
+public interface IAzureAISearchService
+{
+    Task Store(string indexName, string documentUrl, string fileName, Stream documentContent);
+}
+
+public class AzureAISearchService : IAzureAISearchService
+{
+    private readonly IKernelMemory _memory;
+    private readonly ILogger<AzureAISearchService> _logger;
+
+    public AzureAISearchService(
+        ILogger<AzureAISearchService> logger
+    )
+    {
+        _logger = logger;
+
+        _memory = new KernelMemoryBuilder()
+            .WithAzureOpenAITextEmbeddingGeneration(new AzureOpenAIConfig
+            {
+                APIType = AzureOpenAIConfig.APITypes.EmbeddingGeneration,
+                Auth = AzureOpenAIConfig.AuthTypes.AzureIdentity,
+                Endpoint = "https://cog-ourapp-dev.openai.azure.com/",
+                Deployment = "OpenAi-text-embedding-ada2"
+            })
+            .WithAzureOpenAITextGeneration(new AzureOpenAIConfig
+            {
+                APIType = AzureOpenAIConfig.APITypes.ChatCompletion,
+                Auth = AzureOpenAIConfig.AuthTypes.AzureIdentity,
+                Endpoint = "https://cog-ourapp-dev.openai.azure.com/",
+                Deployment = "OpenAi-gpt-35-turbo-16k"
+            })
+            .WithAzureAISearchMemoryDb(new AzureAISearchConfig
+            {
+                Auth = AzureAISearchConfig.AuthTypes.AzureIdentity,
+                Endpoint = "https://srch-ourapp-dev.search.windows.net",
+            })
+            // Only necessary if you want to add Document Intelligence
+            .WithAzureAIDocIntel(new AzureAIDocIntelConfig
+            {
+                Auth = AzureAIDocIntelConfig.AuthTypes.AzureIdentity,
+                Endpoint = "https://cog-ourapp-dev.cognitiveservices.azure.com/",
+            })
+            .Build();
+    }
+
+    public async Task Store(string index, string documentUrl, string fileName, Stream documentContent)
+    {
+        // example documentUrl:
+        // Chunking, getting embeddings for and storing for documentUrl consisting of 103469 characters in https://stourappdev.blob.core.windows.net/mh=y-index/A%20Booklet.pdf
+        _logger.LogInformation($"Chunking, getting embeddings for and storing for {{{nameof(documentUrl)}}} consisting of {{count}} characters in {{{nameof(index)}}}", documentUrl, documentContent.Length, index);
+
+        string documentId = MakeDocumentId(documentUrl);
+
+        TagCollection tags = new()
+        {
+            { Constants.TagDocumentUrl, documentUrl },
+            { Constants.TagFileName, fileName },
+        };
+
+        var stopwatch = new Stopwatch();
+        stopwatch.Start();
+
+        int? waitForSeconds = null;
+        bool done = false;
+        int attempt = 0;
+        do
+        {
+            attempt++;
+
+            if (attempt == 4) // if we've tried 3 times, give up
+                throw new Exception($"Failed to store document {documentUrl} after {attempt - 1} attempts and {stopwatch.Elapsed.TotalSeconds} seconds");
+
+            try
+            {
+                if (waitForSeconds != null)
+                {
+                    _logger.LogInformation($"Waiting {{{nameof(waitForSeconds)}}} seconds", waitForSeconds.Value);
+                    await Task.Delay(TimeSpan.FromSeconds(waitForSeconds.Value));
+                    waitForSeconds = null;
+                }
+
+                _logger.LogInformation("Importing documentId {documentId} attempt {attempt}", documentId, attempt);
+                await _memory.ImportDocumentAsync(content: documentContent, fileName: fileName, documentId: documentId, index: index, tags: tags);
+
+                done = true;
+            }
+            catch (Microsoft.SemanticKernel.HttpOperationException e) when (e.InnerException is Azure.RequestFailedException azureRequestFailedException)
+            {
+                waitForSeconds = HandleRequestFailed(azureRequestFailedException);
+            }
+            catch (Azure.RequestFailedException azureRequestFailedException)
+            {
+                waitForSeconds = HandleRequestFailed(azureRequestFailedException);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error storing document {documentUrl} on attempt {attempt} after {stopwatch.Elapsed.TotalSeconds} seconds", ex);
+            }
+        } while (!done);
+
+        stopwatch.Stop();
+
+        _logger.LogInformation($"Processed {{{nameof(documentId)}}} into {{{nameof(index)}}} index in {{{nameof(stopwatch.Elapsed.TotalSeconds)}}} seconds", documentId, index, stopwatch.Elapsed.TotalSeconds);
+    }
+
+    int? HandleRequestFailed(Azure.RequestFailedException azureRequestFailedException)
+    {
+        int? waitForSeconds;
+        var response = azureRequestFailedException.GetRawResponse();
+        var retryAfterSeconds = response?.Headers.FirstOrDefault(h => h.Name == "x-ratelimit-reset-requests").Value
+            ?? response?.Headers.FirstOrDefault(h => h.Name == "Retry-After").Value;
+
+        //x-ratelimit-reset-requests: 4,x-ms-client-request-id: XXXX,apim-request-id: 69569dd5-2e4a-4bfa-9b52-f3eb08481a83,Strict-Transport-Security: max-age=31536000; includeSubDomains; preload,X-Content-Type-Options: nosniff,policy-id: DeploymentRatelimit-Call,x-ms-region: West Europe,Date: Fri, 01 Dec 2023 13:29:12 GMT,Content-Length: 85,Content-Type: application/json
+        waitForSeconds = retryAfterSeconds != null ? int.Parse(retryAfterSeconds) : null;
+
+        if (waitForSeconds == null)
+        {
+            const string pattern = @"Try again in (\d+) seconds";
+            var match = Regex.Match(azureRequestFailedException.Message, pattern);
+            // wait for 60 seconds if a specific value is not provided
+            waitForSeconds = match.Success && int.TryParse(match.Groups[1].Value, out int seconds) ? seconds + 1 : 60;
+        }
+
+        if (azureRequestFailedException.Status == (int)System.Net.HttpStatusCode.TooManyRequests)
+        {
+            // var headers = response?.Headers.Select(h => $"{h.Name}: {h.Value}").ToList() ?? new List<string>();
+            // _logger.LogWarning(azureRequestFailedException, $"429 - too many requests, will wait {{{nameof(waitForSeconds)}}} seconds - HEADERS: {{{nameof(headers)}}}", waitForSeconds, string.Join(",", headers));
+            _logger.LogWarning(azureRequestFailedException, $"429 - too many requests, will wait {{{nameof(waitForSeconds)}}} seconds", waitForSeconds);
+        }
+        else
+        {
+            var headers = response?.Headers.Select(h => $"{h.Name}: {h.Value}").ToList() ?? [];
+            _logger.LogError(azureRequestFailedException, $"Azure.RequestFailedException - {{{nameof(azureRequestFailedException.Status)}}} status code, will wait {{{nameof(waitForSeconds)}}} seconds - HEADERS: {{{nameof(headers)}}}", azureRequestFailedException.Status, waitForSeconds, string.Join(",", headers));
+        }
+
+        return waitForSeconds;
+    }
+
+
+    /// <summary>
+    /// Make a documentId from a fileName; remove all characters except A-Z, a-z, 0-9, ., _, -
+    /// </summary>
+    static string MakeDocumentId(string fileName) => Regex.Replace(fileName, "[^A-Za-z0-9._-]", ""); // eg "A Booklet.pdf"
+}
+```
+
+With your own implementation you wouldn't be hard-coding the Azure resources like I have here, but rather you'd be passing them in as configuration. Incidentally, you could also use Dependency Injection to inject the `IKernelMemory` instance into your service, but again, I've kept it simple here for clarity.
+
+## 2. Our document processor queue
+
+In order that we have a way to provide documents for chunking, we need a queue. This is a simple queue that we can add documents to, and then process them in the background. We're going to use a `ConcurrentQueue` for this, with a little wrapper around it so we can encapsulate the queue for sharing between our UI and our background task, and also to do some logging.
+
+```cs
+using System.Collections.Concurrent;
+
+using OurApp.Model;
+
+namespace OurApp.Services.Implementations;
+
+public record DocumentToProcess(
+    string DocumentUrl,
+    string IndexName
+);
+
+public interface IDocumentProcessorQueue
+{
+    DocumentToProcess? DequeueDocumentUri();
+    void EnqueueDocumentUri(DocumentToProcess documentToProcess);
+}
+
+public class DocumentProcessorQueue : IDocumentProcessorQueue
+{
+    readonly ConcurrentQueue<DocumentToProcess> _documentUrlQueue;
+    readonly ILogger<DocumentProcessorQueue> _logger;
+
+    public DocumentProcessorQueue(ILogger<DocumentProcessorQueue> logger)
+    {
+        _documentUrlQueue = new();
+        _logger = logger;
+    }
+
+    public void EnqueueDocumentUri(DocumentToProcess documentToProcess)
+    {
+        _logger.LogInformation($"Adding document for background processing onto {{{nameof(documentToProcess.CreditReviewPackName)}}} index later: {{{nameof(documentToProcess.DocumentUrl)}}} ({{{nameof(_documentUrlQueue.Count)}}} items on queue)", documentToProcess.CreditReviewPackName, documentToProcess.DocumentUrl, _documentUrlQueue.Count);
+        _documentUrlQueue.Enqueue(documentToProcess);
+    }
+
+    public DocumentToProcess? DequeueDocumentUri()
+    {
+        if (_documentUrlQueue.TryDequeue(out var documentToProcess))
+        {
+            _logger.LogInformation($"Document picked up for background processing onto {{{nameof(documentToProcess.CreditReviewPackName)}}} index: {{{nameof(documentToProcess.DocumentUrl)}}} ({{{nameof(_documentUrlQueue.Count)}}} items remain on queue)", documentToProcess.CreditReviewPackName, documentToProcess.DocumentUrl, _documentUrlQueue.Count);
+            return documentToProcess;
+        }
+
+        return null;
+    }
+}
+```
+
+The `EnqueueDocumentUri` method above will be called from the context of our UI - likely from an ASP.NET controller. (This will be invoked when someone uploads a file.) By contrast, the `DequeueDocumentUri` method will be called from the context of our background service; it will pick call this method to pick up a file for processing.
+
+## 3. Our background service
