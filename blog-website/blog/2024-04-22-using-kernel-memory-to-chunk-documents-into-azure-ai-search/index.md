@@ -88,7 +88,7 @@ To that end, I tend to end up implementing a `Store` method that looks something
 public async Task Store(string index, string documentUrl, string fileName, Stream documentContent)
 {
     // example documentUrl:
-    // Chunking, getting embeddings for and storing for documentUrl consisting of 103469 characters in https://stourappdev.blob.core.windows.net/mh=y-index/A%20Booklet.pdf
+    // Chunking, getting embeddings for and storing for documentUrl consisting of 103469 characters in https://stourappdev.blob.core.windows.net/my-index/A%20Booklet.pdf
     _logger.LogInformation($"Chunking, getting embeddings for and storing for {{{nameof(documentUrl)}}} consisting of {{count}} characters in {{{nameof(index)}}}", documentUrl, documentContent.Length, index);
 
     string documentId = MakeDocumentId(documentUrl);
@@ -191,7 +191,7 @@ The code above tries to handle a number of re-attempts as wisely as it can, and 
 
 ### Bringing it together
 
-We're going to put this all together in a single class called `AzureAISearchService`. It will look like this:
+We're going to put this all together in a single class called `ChunkerService`. It will look like this:
 
 ```cs
 using Microsoft.KernelMemory;
@@ -203,18 +203,18 @@ using System.Text.Json;
 
 namespace OurApp.Services.Implementations;
 
-public interface IAzureAISearchService
+public interface IChunkerService
 {
     Task Store(string indexName, string documentUrl, string fileName, Stream documentContent);
 }
 
-public class AzureAISearchService : IAzureAISearchService
+public class ChunkerService : IChunkerService
 {
     private readonly IKernelMemory _memory;
-    private readonly ILogger<AzureAISearchService> _logger;
+    private readonly ILogger<ChunkerService> _logger;
 
-    public AzureAISearchService(
-        ILogger<AzureAISearchService> logger
+    public ChunkerService(
+        ILogger<ChunkerService> logger
     )
     {
         _logger = logger;
@@ -251,7 +251,7 @@ public class AzureAISearchService : IAzureAISearchService
     public async Task Store(string index, string documentUrl, string fileName, Stream documentContent)
     {
         // example documentUrl:
-        // Chunking, getting embeddings for and storing for documentUrl consisting of 103469 characters in https://stourappdev.blob.core.windows.net/mh=y-index/A%20Booklet.pdf
+        // Chunking, getting embeddings for and storing for documentUrl consisting of 103469 characters in https://stourappdev.blob.core.windows.net/my-index/A%20Booklet.pdf
         _logger.LogInformation($"Chunking, getting embeddings for and storing for {{{nameof(documentUrl)}}} consisting of {{count}} characters in {{{nameof(index)}}}", documentUrl, documentContent.Length, index);
 
         string documentId = MakeDocumentId(documentUrl);
@@ -386,7 +386,7 @@ public class DocumentProcessorQueue : IDocumentProcessorQueue
 
     public void EnqueueDocumentUri(DocumentToProcess documentToProcess)
     {
-        _logger.LogInformation($"Adding document for background processing onto {{{nameof(documentToProcess.CreditReviewPackName)}}} index later: {{{nameof(documentToProcess.DocumentUrl)}}} ({{{nameof(_documentUrlQueue.Count)}}} items on queue)", documentToProcess.CreditReviewPackName, documentToProcess.DocumentUrl, _documentUrlQueue.Count);
+        _logger.LogInformation($"Adding document for background processing onto {{{nameof(documentToProcess.IndexName)}}} index later: {{{nameof(documentToProcess.DocumentUrl)}}} ({{{nameof(_documentUrlQueue.Count)}}} items on queue)", documentToProcess.IndexName, documentToProcess.DocumentUrl, _documentUrlQueue.Count);
         _documentUrlQueue.Enqueue(documentToProcess);
     }
 
@@ -394,7 +394,7 @@ public class DocumentProcessorQueue : IDocumentProcessorQueue
     {
         if (_documentUrlQueue.TryDequeue(out var documentToProcess))
         {
-            _logger.LogInformation($"Document picked up for background processing onto {{{nameof(documentToProcess.CreditReviewPackName)}}} index: {{{nameof(documentToProcess.DocumentUrl)}}} ({{{nameof(_documentUrlQueue.Count)}}} items remain on queue)", documentToProcess.CreditReviewPackName, documentToProcess.DocumentUrl, _documentUrlQueue.Count);
+            _logger.LogInformation($"Document picked up for background processing onto {{{nameof(documentToProcess.IndexName)}}} index: {{{nameof(documentToProcess.DocumentUrl)}}} ({{{nameof(_documentUrlQueue.Count)}}} items remain on queue)", documentToProcess.IndexName, documentToProcess.DocumentUrl, _documentUrlQueue.Count);
             return documentToProcess;
         }
 
@@ -403,6 +403,120 @@ public class DocumentProcessorQueue : IDocumentProcessorQueue
 }
 ```
 
-The `EnqueueDocumentUri` method above will be called from the context of our UI - likely from an ASP.NET controller. (This will be invoked when someone uploads a file.) By contrast, the `DequeueDocumentUri` method will be called from the context of our background service; it will pick call this method to pick up a file for processing.
+The `EnqueueDocumentUri` method above will be called from the context of our UI - from an ASP.NET controller. This will be invoked when someone uploads a file and will also be responsible for adding the file to a BlobService for storage prior to processing.
+
+By contrast, the `DequeueDocumentUri` method will be called from the context of our background service; it will pick call this method to pick up a file for processing.
 
 ## 3. Our background service
+
+Finally, we need a background service to bring together our queue and our `ChunkerService`. This is a standard ASP.NET Core hosted service. It will look like this:
+
+```cs
+using Azure.Storage.Blobs;
+using Azure.Core;
+using Azure.Identity;
+
+using OurApp.Model;
+using OurApp.Services;
+
+namespace OurApp.BackgroundServices;
+
+public class DocumentProcessorBackgroundService : BackgroundService
+{
+    private readonly ILogger<DocumentProcessorBackgroundService> _logger;
+    private readonly IServiceProvider _services;
+
+    public DocumentProcessorBackgroundService(IServiceProvider services, ILogger<DocumentProcessorBackgroundService> logger)
+    {
+        _services = services;
+        _logger = logger;
+    }
+
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        try
+        {
+            _logger.LogInformation("Starting RagGestion");
+
+            var env = _services.GetRequiredService<IHostEnvironment>();
+            var documentProcessorQueue = _services.GetRequiredService<IDocumentProcessorQueue>();
+
+            await PerformRagGestion(env, documentProcessorQueue, stoppingToken);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, $"Error processing document");
+        }
+    }
+
+    async Task PerformRagGestion(IHostEnvironment env, IDocumentProcessorQueue documentProcessorQueue, CancellationToken stoppingToken)
+    {
+        while (!stoppingToken.IsCancellationRequested)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+
+            DocumentToProcess? documentToProcess = documentProcessorQueue.DequeueDocumentUri();
+            if (documentToProcess == null)
+            {
+                _logger.LogDebug("No documents to process");
+                continue;
+            }
+
+            try
+            {
+                _logger.LogInformation($"Processing document: {{{nameof(documentToProcess)}}}", documentToProcess);
+                await ChunkDocumentAndStoreInAzureAISearchIndex(documentToProcess);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"Error processing document: {{{nameof(documentToProcess)}}}", documentToProcess);
+            }
+        }
+    }
+
+    public async Task ChunkDocumentAndStoreInAzureAISearchIndex(
+        IHostEnvironment env,
+        DocumentToProcess documentToProcess
+    )
+    {
+        var watch = System.Diagnostics.Stopwatch.StartNew();
+        try
+        {
+            var credential = env.IsDevelopment() ? new AzureCliCredential() : new DefaultAzureCredential(new DefaultAzureCredentialOptions
+            {
+                ManagedIdentityClientId = "[Managed Identity ClientId Here]",
+            });
+
+            BlobServiceClient azureBlobServiceClient = new (
+                new Uri(appSettings.StorageAccountEndpoint!), credentialService.Credential
+            );
+            var containerClient = azureBlobServiceClient.GetBlobContainerClient(documentToProcess.IndexName);
+
+            // eg DocumentUrl: https://stourappdev.blob.core.windows.net/my-index/A%20Booklet.pdf
+            string fileName = System.Web.HttpUtility.UrlDecode(documentToProcess.DocumentUrl.Split('/').Last());
+            var blobClient = containerClient.GetBlobClient(fileName);
+
+            MemoryStream stream = new();
+            var response = await blobClient.DownloadToAsync(stream);
+            await _azureAISearchService.Store(
+                indexName: documentToProcess.IndexName,
+                documentUrl: documentToProcess.DocumentUrl,
+                fileName: fileName,
+                documentContent: stream
+            );
+
+            watch.Stop();
+
+            _log.LogInformation(
+                $"Chunked and stored {{{nameof(documentToProcess.DocumentUrl)}}} in Azure AI Search {{{nameof(documentToProcess.IndexName)}}} index in {{{nameof(watch.Elapsed.Seconds)}}} seconds",
+                documentToProcess.DocumentUrl, documentToProcess.IndexName, watch.Elapsed.TotalSeconds);
+        }
+        catch (Exception ex)
+        {
+            _log.LogError(ex, "Problem chunking document: {DocumentUrl}", documentToProcess.DocumentUrl);
+
+            throw new Exception($"Problem chunking document: {documentToProcess.DocumentUrl}", ex);
+        }
+    }
+}
+```
