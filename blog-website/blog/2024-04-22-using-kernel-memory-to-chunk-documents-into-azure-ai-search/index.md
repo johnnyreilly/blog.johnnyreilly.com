@@ -10,7 +10,7 @@ hide_table_of_contents: false
 
 I've recently been working on building RAG (Retrieval Augmented Generation) experiences into applications; building systems where large language models (LLMs) can query documents. To achieve this, you first need a strategy to chunk those documents and make them LLM-friendly. [Kernel Memory](https://github.com/microsoft/kernel-memory), a sister project of [Semantic Kernel](https://github.com/microsoft/semantic-kernel) supports this.
 
-![title image reading "Azure Open AI: generate article metadata with TypeScript" with the Azure Open AI / TypeScript logos](title-image.png)
+![title image reading "Using Kernel Memory to Chunk Documents into Azure AI Search" with the Azure Open AI / Azure AI Search logos](title-image.png)
 
 <!--truncate-->
 
@@ -662,3 +662,5 @@ As you can see, this endpoint accepts files, uploads them to Blob Storage and ad
 ## Conclusion
 
 And that's it! You now have an ASP.NET application that can chunk documents in the background using Kernel Memory running in serverless mode. I haven't yet had the need to upgrade to the full Kernel Memory service. Perhaps the day will come, but the mileage you can get with just this approach is considerable.
+
+With thanks to David Rosevear and George Karsas for their help working on this mechanism.
