@@ -3,7 +3,7 @@ slug: azure-open-ai-generate-article-metadata-with-typescript
 title: 'Azure Open AI: generate article metadata with TypeScript'
 authors: johnnyreilly
 image: ./title-image.png
-tags: [azure, typescript]
+tags: [azure, typescript, ai]
 description: Use the TypeScript Azure Open AI SDK to generate article metadata.
 hide_table_of_contents: false
 ---
