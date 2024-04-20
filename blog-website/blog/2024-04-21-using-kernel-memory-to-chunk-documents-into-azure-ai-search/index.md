@@ -30,7 +30,7 @@ The documentation is very clear that if you want to scale then you'll likely wan
 
 Perhaps surprisingly, using serverless we can still have the experience of running Kernel Memory as a **non-blocking** separate service within the context of our ASP.NET application. This is achieved by running Kernel Memory as a [hosted service](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-8.0) - this is the standard ASP.NET mechanism for background tasks. That's what we're going to do.
 
-There's three parts to bring this to life:
+There's four parts to bring this to life:
 
 1. Our Kernel Memory serverless instance - this is where the integration between Kernel Memory, Azure Open AI, Azure AI Search and the actual chunking takes place
 2. A queue which we'll use to provide documents for chunking with Kernel Memory
@@ -39,7 +39,18 @@ There's three parts to bring this to life:
 
 ## 1. Setting up Kernel Memory serverless
 
-To integrate with Kernel Memory, we must construct ourselves an `IKernelMemory` like so:
+There's a number of dependencies that we need to add to our project to get Kernel Memory working. These are:
+
+```bash
+dotnet add Azure.AI.OpenAI
+dotnet add Azure.AI.FormRecognizer # if you want to use Document Intelligence - you don't have too
+dotnet add Azure.Identity
+dotnet add Azure.Storage.Blobs
+dotnet add Microsoft.KernelMemory.Core
+dotnet add Microsoft.SemanticKernel
+```
+
+With this in place we'll start to integrate with Kernel Memory, we must construct ourselves an `IKernelMemory` like so:
 
 ```cs
 _memory = new KernelMemoryBuilder()
