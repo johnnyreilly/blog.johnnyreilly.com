@@ -423,7 +423,7 @@ By contrast, the `DequeueDocumentUri` method will be called from the context of 
 
 ## 3. Our background service
 
-Finally, we need a background service to bring together our `DocumentProcessorQueue` and our `ChunkerService`. This is a standard ASP.NET hosted service. It will look like this:
+Next, we need a background service to bring together our `DocumentProcessorQueue` and our `ChunkerService`. This is a standard ASP.NET hosted service. It will look like this:
 
 ```cs
 using Azure.Storage.Blobs;
