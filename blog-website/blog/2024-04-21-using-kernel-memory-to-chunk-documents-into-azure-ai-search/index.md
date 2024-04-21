@@ -90,7 +90,7 @@ You'll also note we're using Azure AI Document Intelligence; this is optional an
 
 ### Chunking with Kernel Memory serverless
 
-With our `IKernelMemory` ready to go, we now need a way to chunk documents. Deep down, this is achieved by acquiring the document we want to chunk from blob storage and passing it to `_memory.ImportDocumentAsync` with the name of the index we want to process into.
+With our `IKernelMemory` ready to go, we now need a way to chunk documents. Deep down, this is achieved by acquiring the document we want to chunk from blob storage and passing it to `_memory.ImportDocumentAsync` with the name of the index we want to process into. You can see examples of this usage in the [Kernel Memory docs](https://microsoft.github.io/kernel-memory/serverless).
 
 However, it's often helpful to have a number of other things in place to manage:
 
