@@ -8,7 +8,7 @@ description: To build RAG (Retrieval Augmented Generation) experiences, where LL
 hide_table_of_contents: false
 ---
 
-I've recently been working on building retrieval augmented generation (RAG) experiences into applications; building systems where large language models (LLMs) can query documents. To achieve this, you first need a strategy to chunk those documents and make them LLM-friendly. [Kernel Memory](https://github.com/microsoft/kernel-memory), a sister project of [Semantic Kernel](https://github.com/microsoft/semantic-kernel) supports this.
+I've recently been working on building retrieval augmented generation (RAG) experiences into applications; building systems where large language models (LLMs) can query documents. To achieve this, we first need a strategy to chunk those documents and make them LLM-friendly. [Kernel Memory](https://github.com/microsoft/kernel-memory), a sister project of [Semantic Kernel](https://github.com/microsoft/semantic-kernel) supports this.
 
 ![title image reading "Using Kernel Memory to Chunk Documents into Azure AI Search" with the Azure Open AI / Azure AI Search logos](title-image.png)
 
