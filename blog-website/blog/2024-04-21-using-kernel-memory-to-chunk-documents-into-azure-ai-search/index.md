@@ -59,14 +59,14 @@ _memory = new KernelMemoryBuilder()
         APIType = AzureOpenAIConfig.APITypes.EmbeddingGeneration,
         Auth = AzureOpenAIConfig.AuthTypes.AzureIdentity,
         Endpoint = "https://cog-ourapp-dev.openai.azure.com/",
-        Deployment = "OpenAi-text-embedding-ada2"
+        Deployment = "OpenAi-text-embedding-ada2" // text-embedding-ada-002
     })
     .WithAzureOpenAITextGeneration(new AzureOpenAIConfig
     {
         APIType = AzureOpenAIConfig.APITypes.ChatCompletion,
         Auth = AzureOpenAIConfig.AuthTypes.AzureIdentity,
         Endpoint = "https://cog-ourapp-dev.openai.azure.com/",
-        Deployment = "OpenAi-gpt-35-turbo-16k"
+        Deployment = "OpenAi-gpt-35-turbo-16k" // gpt-3.5-turbo-16k
     })
     .WithAzureAISearchMemoryDb(new AzureAISearchConfig
     {
@@ -83,6 +83,8 @@ _memory = new KernelMemoryBuilder()
 ```
 
 What we're doing here, is creating an `IKernelMemory` instance and making it aware of all our deployed Azure resources. Going through how to deploy those is out of the scope of this post, but it's probably worth highlighting that we're using `AzureIdentity` for auth as it's particularly secure, if you would like to use other options, you certainly can.
+
+It's probably worth highlighting that we're using the `text-embedding-ada-002` model for text embedding and the `gpt-3.5-turbo-16k` model for text generation. These are the models that I've found to be most effective for my use cases. Of these, the text embedding model is the most important - it's the one that will be used to chunk documents.
 
 You'll also note we're using Azure AI Document Intelligence; this is optional and just tackles a few more document chunking scenarios. It's not mandatory.
 
