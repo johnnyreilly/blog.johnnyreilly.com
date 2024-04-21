@@ -26,9 +26,9 @@ There's two ways that we can run Kernel Memory: "Serverless" and "Service".
 
 Running the full service is more powerful, but effectively requires running a separate application. We would then need to integrate our main app with that. Given that I'm building with ASP.NET, I'll be using the serverless approach, which allows us to run Kernel Memory within the context of a single application (which will contain our main app code as well). We can then manage our integrations with Kernel Memory as simple method calls.
 
-This is simpler and more cost-effective, but it does have some limitations. The service approach offers more features; including persistent retry logic. The documentation is very clear that if we want to scale then we'll likely want to consider the service approach. But my own experience has been that serverless works very well for small to medium-sized applications.
+This is simpler and more cost-effective, but it does have some limitations. The service approach offers more features; including persistent retry logic. The documentation states that if we want to scale then we'll likely want to consider the service approach. But my own experience has been that serverless works very well for small to medium-sized applications.
 
-Perhaps surprisingly, using serverless we can still have the experience of running Kernel Memory as a **non-blocking** separate service within the context of our ASP.NET application. This is achieved by running Kernel Memory as a [hosted service](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-8.0) - this is the standard ASP.NET mechanism for background tasks. That's what we're going to do.
+Perhaps surprisingly, using serverless we can still have the experience of running Kernel Memory as a **non-blocking** separate service within the context of our ASP.NET application. This is achieved by running Kernel Memory as a [hosted service](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-8.0) - this is the standard ASP.NET mechanism for running background tasks. That's what we're going to use.
 
 There's four parts to bring this to life:
 
