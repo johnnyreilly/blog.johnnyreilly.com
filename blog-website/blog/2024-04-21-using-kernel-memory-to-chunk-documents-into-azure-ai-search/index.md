@@ -545,7 +545,7 @@ You'll see we're doing some timing here - this is because it's useful to know ho
 
 ## 4. Adding documents to the queue
 
-To add documents to the queue, we'll need to create an endpoint in your ASP.NET application. This endpoint will accept files and add them to the queue. Here's an example of how we might do that:
+To add documents to the queue, we'll need to create an endpoint in our ASP.NET application. This endpoint will accept files and add them to the queue. Here's an example of how we might do that:
 
 ```cs
 using Microsoft.AspNetCore.Mvc;
