@@ -24,9 +24,9 @@ In this post, I'll show you how to use Kernel Memory to chunk documents in the b
 
 There's two ways that we can run Kernel Memory: "Serverless" and "Service".
 
-Running the full service is more powerful, but effectively requires running a separate application, which we then need to integrate your main application with. Given that I'm building a simple ASP.NET application, I'll be using the serverless approach, which allows us to run Kernel Memory within the context of a single application (which will contain our own application code as well). We can then manage our integrations with Kernel Memory as simple method calls.
+Running the full service is more powerful, but effectively requires running a separate application, which we will then need to integrate our main app with. Given that I'm building with ASP.NET, I'll be using the serverless approach, which allows us to run Kernel Memory within the context of a single application (which will contain our main app code as well). We can then manage our integrations with Kernel Memory as simple method calls.
 
-The documentation is very clear that if we want to scale then we'll likely want to consider the service approach. But my own experience has been that serverless works well for small to medium-sized applications.
+This is simpler and more cost-effective, but it does have some limitations. The ful service offers more features such as persistent retry logic. The documentation is very clear that if we want to scale then we'll likely want to consider the service approach. But my own experience has been that serverless works very well for small to medium-sized applications.
 
 Perhaps surprisingly, using serverless we can still have the experience of running Kernel Memory as a **non-blocking** separate service within the context of our ASP.NET application. This is achieved by running Kernel Memory as a [hosted service](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-8.0) - this is the standard ASP.NET mechanism for background tasks. That's what we're going to do.
 
@@ -34,7 +34,7 @@ There's four parts to bring this to life:
 
 1. Our Kernel Memory serverless instance - this is where the integration between Kernel Memory, Azure Open AI, Azure AI Search and the actual chunking takes place
 2. A queue which we'll use to provide documents for chunking with Kernel Memory
-3. Our hosted service which will be bringing together the queue and the Kernel Memory integration to manage our background document processing
+3. Our hosted service which will bring together the queue and the Kernel Memory integration to manage our background document processing
 4. An endpoint in our ASP.NET application to add documents to the queue
 
 ## 1. Setting up Kernel Memory serverless
@@ -43,7 +43,7 @@ There's a number of dependencies that we need to add to our project to get Kerne
 
 ```bash
 dotnet add Azure.AI.OpenAI
-dotnet add Azure.AI.FormRecognizer # if we want to use Document Intelligence - we don't have too
+dotnet add Azure.AI.FormRecognizer # if we want to use Document Intelligence - not mandatory
 dotnet add Azure.Identity
 dotnet add Azure.Storage.Blobs
 dotnet add Microsoft.KernelMemory.Core
@@ -88,7 +88,7 @@ You'll also note we're using Azure AI Document Intelligence; this is optional an
 
 ### Chunking with Kernel Memory serverless
 
-With our `IKernelMemory` ready to go, we now need a way to chunk documents. Deep down, this is achieved by calling `_memory.ImportDocumentAsync` and passing the name of your index, your document etc. In fact, feel free to just use that!
+With our `IKernelMemory` ready to go, we now need a way to chunk documents. Deep down, this is achieved by acquiring the document we want to chunk from blob storage and passing it to `_memory.ImportDocumentAsync` with the name of the index we want to process into.
 
 However, it's often helpful to have a number of other things in place to manage:
 
@@ -96,11 +96,28 @@ However, it's often helpful to have a number of other things in place to manage:
 2. Creating acceptable names / ids for the Azure AI Search Service
 3. Handling rate limiting - more on that in a moment
 
-To that end, I tend to end up implementing a `Store` method that looks something like this:
+To that end, I tend to end up implementing a `Process` method that looks something like this:
 
 ```cs
-public async Task Store(string index, string documentUrl, string fileName, Stream documentContent)
+public async Task Process(string index, string documentUrl)
 {
+    TokenCredential credential = _env.IsDevelopment() ? new AzureCliCredential() : new DefaultAzureCredential(new DefaultAzureCredentialOptions
+    {
+        ManagedIdentityClientId = "[Managed Identity ClientId Here]",
+    });
+
+    BlobServiceClient azureBlobServiceClient = new (
+        new Uri("https://stourappdev.blob.core.windows.net"), credential
+    );
+    var containerClient = azureBlobServiceClient.GetBlobContainerClient(index);
+
+    // eg DocumentUrl: https://stourappdev.blob.core.windows.net/my-index/A%20Booklet.pdf
+    string fileName = System.Web.HttpUtility.UrlDecode(documentToProcess.DocumentUrl.Split('/').Last());
+    var blobClient = containerClient.GetBlobClient(fileName);
+
+    MemoryStream documentContent = new();
+    var response = await blobClient.DownloadToAsync(documentContent);
+
     // example documentUrl:
     // Chunking, getting embeddings for and storing for documentUrl consisting of 103469 characters in https://stourappdev.blob.core.windows.net/my-index/A%20Booklet.pdf
     _logger.LogInformation($"Chunking, getting embeddings for and storing for {{{nameof(documentUrl)}}} consisting of {{count}} characters in {{{nameof(index)}}}", documentUrl, documentContent.Length, index);
@@ -205,30 +222,37 @@ The code above tries to handle a number of re-attempts as wisely as it can, and 
 
 ### Bringing it together
 
-We're going to put this all together in a single class called `ChunkerService`. It will look like this:
+We're going to put this all together in a single class called `RagGestionService`.
+
+You might be puzzled by the name "RagGestion" - this is a term my good friend [George Karsas](https://medium.com/@georgekarsas) coined to describe the process of preparing documents for Retrieval Augmented Generation. It's a great term, and I've adopted it! It will look like this:
 
 ```cs
+using Azure.Storage.Blobs;
+using Azure.Core;
+using Azure.Identity;
+
 using Microsoft.KernelMemory;
 
 using OurApp.Model;
+
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Text.Json;
 
 namespace OurApp.Services;
 
-public interface IChunkerService
+public interface IRagGestionService
 {
-    Task Store(string indexName, string documentUrl, string fileName, Stream documentContent);
+    Task Process(string indexName, string documentUrl);
 }
 
-public class ChunkerService : IChunkerService
+public class RagGestionService : IRagGestionService
 {
     private readonly IKernelMemory _memory;
-    private readonly ILogger<ChunkerService> _logger;
+    private readonly ILogger<RagGestionService> _logger;
 
-    public ChunkerService(
-        ILogger<ChunkerService> logger
+    public RagGestionService(
+        ILogger<RagGestionService> logger
     )
     {
         _logger = logger;
@@ -262,8 +286,25 @@ public class ChunkerService : IChunkerService
             .Build();
     }
 
-    public async Task Store(string index, string documentUrl, string fileName, Stream documentContent)
+    public async Task Process(string index, string documentUrl)
     {
+        TokenCredential credential = _env.IsDevelopment() ? new AzureCliCredential() : new DefaultAzureCredential(new DefaultAzureCredentialOptions
+        {
+            ManagedIdentityClientId = "[Managed Identity ClientId Here]",
+        });
+
+        BlobServiceClient azureBlobServiceClient = new (
+            new Uri("https://stourappdev.blob.core.windows.net"), credential
+        );
+        var containerClient = azureBlobServiceClient.GetBlobContainerClient(index);
+
+        // eg DocumentUrl: https://stourappdev.blob.core.windows.net/my-index/A%20Booklet.pdf
+        string fileName = System.Web.HttpUtility.UrlDecode(documentToProcess.DocumentUrl.Split('/').Last());
+        var blobClient = containerClient.GetBlobClient(fileName);
+
+        MemoryStream documentContent = new();
+        var response = await blobClient.DownloadToAsync(documentContent);
+
         // example documentUrl:
         // Chunking, getting embeddings for and storing for documentUrl consisting of 103469 characters in https://stourappdev.blob.core.windows.net/my-index/A%20Booklet.pdf
         _logger.LogInformation($"Chunking, getting embeddings for and storing for {{{nameof(documentUrl)}}} consisting of {{count}} characters in {{{nameof(index)}}}", documentUrl, documentContent.Length, index);
@@ -272,8 +313,8 @@ public class ChunkerService : IChunkerService
 
         TagCollection tags = new()
         {
-            { Constants.TagDocumentUrl, documentUrl },
-            { Constants.TagFileName, fileName },
+            { "DocumentUrl", documentUrl },
+            { "FileName", fileName },
         };
 
         var stopwatch = new Stopwatch();
@@ -423,13 +464,9 @@ By contrast, the `DequeueDocumentUri` method will be called from the context of 
 
 ## 3. Our background service
 
-Next, we need a background service to bring together our `DocumentProcessorQueue` and our `ChunkerService`. This is a standard ASP.NET hosted service. It will look like this:
+Next, we need a background service to bring together our `DocumentProcessorQueue` and our `RagGestionService`. This is a standard ASP.NET hosted service. It will look like this:
 
 ```cs
-using Azure.Storage.Blobs;
-using Azure.Core;
-using Azure.Identity;
-
 using OurApp.Model;
 using OurApp.Services;
 
@@ -452,8 +489,7 @@ public class DocumentProcessorBackgroundService : BackgroundService
         {
             _logger.LogInformation("Starting RagGestion");
 
-            var env = _services.GetRequiredService<IHostEnvironment>();
-            var chunkerService = _services.GetRequiredService<IChunkerService>();
+            var ragGestionService = _services.GetRequiredService<IRagGestionService>();
             var documentProcessorQueue = _services.GetRequiredService<IDocumentProcessorQueue>();
 
             await PerformRagGestion(env, chunkerService, documentProcessorQueue, stoppingToken);
@@ -464,7 +500,7 @@ public class DocumentProcessorBackgroundService : BackgroundService
         }
     }
 
-    async Task PerformRagGestion(IHostEnvironment env, IChunkerService chunkerService, IDocumentProcessorQueue documentProcessorQueue, CancellationToken stoppingToken)
+    async Task PerformRagGestion(IRagGestionService ragGestionService, IDocumentProcessorQueue documentProcessorQueue, CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -479,8 +515,20 @@ public class DocumentProcessorBackgroundService : BackgroundService
 
             try
             {
-                _logger.LogInformation($"Processing document: {{{nameof(documentToProcess)}}}", documentToProcess);
-                await ChunkDocumentAndStoreInAzureAISearchIndex(env, chunkerService, documentToProcess);
+                var watch = System.Diagnostics.Stopwatch.StartNew();
+
+                _logger.LogInformation($"Processing document: {{{nameof(documentToProcess.DocumentUrl)}}}", documentToProcess.DocumentUrl);
+
+                await ragGestionService.Process(
+                    indexName: documentToProcess.IndexName,
+                    documentUrl: documentToProcess.DocumentUrl
+                );
+
+                watch.Stop();
+
+                _logger.LogInformation(
+                    $"Chunked and stored {{{nameof(documentToProcess.DocumentUrl)}}} into Azure AI Search {{{nameof(documentToProcess.IndexName)}}} index in {{{nameof(watch.Elapsed.Seconds)}}} seconds",
+                    documentToProcess.DocumentUrl, documentToProcess.IndexName, watch.Elapsed.TotalSeconds);
             }
             catch (Exception e)
             {
@@ -488,58 +536,10 @@ public class DocumentProcessorBackgroundService : BackgroundService
             }
         }
     }
-
-    public async Task ChunkDocumentAndStoreInAzureAISearchIndex(
-        IHostEnvironment env,
-        IChunkerService chunkerService,
-        DocumentToProcess documentToProcess
-    )
-    {
-        var watch = System.Diagnostics.Stopwatch.StartNew();
-        try
-        {
-            TokenCredential credential = env.IsDevelopment() ? new AzureCliCredential() : new DefaultAzureCredential(new DefaultAzureCredentialOptions
-            {
-                ManagedIdentityClientId = "[Managed Identity ClientId Here]",
-            });
-
-            BlobServiceClient azureBlobServiceClient = new (
-                new Uri("https://stourappdev.blob.core.windows.net"), credential
-            );
-            var containerClient = azureBlobServiceClient.GetBlobContainerClient(documentToProcess.IndexName);
-
-            // eg DocumentUrl: https://stourappdev.blob.core.windows.net/my-index/A%20Booklet.pdf
-            string fileName = System.Web.HttpUtility.UrlDecode(documentToProcess.DocumentUrl.Split('/').Last());
-            var blobClient = containerClient.GetBlobClient(fileName);
-
-            MemoryStream stream = new();
-            var response = await blobClient.DownloadToAsync(stream);
-            await chunkerService.Store(
-                indexName: documentToProcess.IndexName,
-                documentUrl: documentToProcess.DocumentUrl,
-                fileName: fileName,
-                documentContent: stream
-            );
-
-            watch.Stop();
-
-            _log.LogInformation(
-                $"Chunked and stored {{{nameof(documentToProcess.DocumentUrl)}}} in Azure AI Search {{{nameof(documentToProcess.IndexName)}}} index in {{{nameof(watch.Elapsed.Seconds)}}} seconds",
-                documentToProcess.DocumentUrl, documentToProcess.IndexName, watch.Elapsed.TotalSeconds);
-        }
-        catch (Exception ex)
-        {
-            _log.LogError(ex, "Problem chunking document: {DocumentUrl}", documentToProcess.DocumentUrl);
-
-            throw new Exception($"Problem chunking document: {documentToProcess.DocumentUrl}", ex);
-        }
-    }
 }
 ```
 
-This service will run in the background of your ASP.NET application, and will pick up documents from the queue and process them. You might be puzzled by the name "RagGestion" - this is a term my good friend [George Karsas](https://medium.com/@georgekarsas) coined to describe the process of preparing documents for Retrieval Augmented Generation. It's a great term, and I've adopted it!
-
-Ultimately, the `ChunkDocumentAndStoreInAzureAISearchIndex` method is where the magic happens. It downloads the document from Blob Storage, chunks it using Kernel Memory, and then stores it in Azure AI Search.
+This service will run in the background of the ASP.NET application, will pick up documents from the queue (if there are any) and pass them to the `RagGestionService` for processing. It will trigger every 5 seconds, running for the lifetime of the application.
 
 You'll see we're doing some timing here - this is because it's useful to know how long the process takes. If we're processing a lot of documents, we'll want to know how long it's taking to process each one.
 
@@ -663,7 +663,6 @@ Finally, we'll need to register our services in the `Program.cs` file. We'll wan
 
 ```cs
 builder.Services
-    .AddSingleton<IChunkerService, ChunkerService>()
     .AddSingleton<IRagGestionService, RagGestionService>()
     .AddSingleton<IDocumentProcessorQueue, DocumentProcessorQueue>()
 
@@ -675,6 +674,6 @@ With this in place we have an application that can upload documents and chunk th
 
 ## Conclusion
 
-And that's it! You now have an ASP.NET application that can chunk documents (or raggest 😉) in the background using Kernel Memory running in serverless mode. I haven't yet had the need to upgrade to the full Kernel Memory service. Perhaps the day will come, but the mileage we can get with just this approach is considerable.
+And that's it! This is an ASP.NET application that can chunk documents (or RagGest 😉) in the background using Kernel Memory running in serverless mode. I haven't yet had the need to upgrade to the full Kernel Memory service. Perhaps the day will come, but the mileage we can get with this approach is considerable.
 
-With thanks to David Rosevear and George Karsas for their help working on this mechanism.
+Many thanks to David Rosevear and George Karsas for their help working on this mechanism. And George for "RagGestion" - I love it!
