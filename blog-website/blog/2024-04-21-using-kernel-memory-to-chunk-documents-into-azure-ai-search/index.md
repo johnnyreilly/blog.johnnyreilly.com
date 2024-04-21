@@ -82,7 +82,7 @@ _memory = new KernelMemoryBuilder()
     .Build();
 ```
 
-What we're doing here, is creating `IKernelMemory` instance and making it aware of all our deployed Azure resources. Going through how to deploy those is out of the scope of this post, but it's probably worth highlighting that we're using `AzureIdentity` for auth as it's particularly secure, if you would like to use other options, you certainly can.
+What we're doing here, is creating an `IKernelMemory` instance and making it aware of all our deployed Azure resources. Going through how to deploy those is out of the scope of this post, but it's probably worth highlighting that we're using `AzureIdentity` for auth as it's particularly secure, if you would like to use other options, you certainly can.
 
 You'll also note we're using Azure AI Document Intelligence; this is optional and just tackles a few more document chunking scenarios. It's not mandatory.
 
@@ -406,7 +406,7 @@ public class RagGestionService : IRagGestionService
 }
 ```
 
-By the way, I don't advise hard-coding the Azure resources as I have here, but rather passing them in as configuration. Incidentally, we could also use Dependency Injection to inject a prepared `IKernelMemory` instance into the service, but again, I'm keeping it simple here for clarity.
+By the way, I don't advise hard-coding the Azure resources as I have here, but rather passing them in as configuration. Incidentally, we could also use dependency injection to inject a prepared `IKernelMemory` instance into the service, but again, I'm keeping it simple here for clarity.
 
 ## 2. Our document processor queue
 
@@ -681,4 +681,4 @@ With this in place we have an application that can upload documents and chunk th
 
 And that's it! This is an ASP.NET application that can chunk documents (or RagGest 😉) in the background using Kernel Memory running in serverless mode. I haven't yet had the need to upgrade to the full Kernel Memory service. Perhaps the day will come, but the mileage we can get with this approach is considerable.
 
-Many thanks to David Rosevear and George Karsas for their help working on this mechanism. And George for "RagGestion" - I love it!
+Many thanks to [David Rosevear](https://www.linkedin.com/in/david-rosevear) and George Karsas for their help working on this mechanism. And George for "RagGestion" - I love it!
