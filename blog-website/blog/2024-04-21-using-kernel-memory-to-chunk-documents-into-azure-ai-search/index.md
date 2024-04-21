@@ -675,6 +675,6 @@ With this in place we have an application that can upload documents and chunk th
 
 ## Conclusion
 
-And that's it! You now have an ASP.NET application that can chunk documents in the background using Kernel Memory running in serverless mode. I haven't yet had the need to upgrade to the full Kernel Memory service. Perhaps the day will come, but the mileage we can get with just this approach is considerable.
+And that's it! You now have an ASP.NET application that can chunk documents (or raggest 😉) in the background using Kernel Memory running in serverless mode. I haven't yet had the need to upgrade to the full Kernel Memory service. Perhaps the day will come, but the mileage we can get with just this approach is considerable.
 
 With thanks to David Rosevear and George Karsas for their help working on this mechanism.
