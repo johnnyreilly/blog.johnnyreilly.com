@@ -24,9 +24,9 @@ In this post, I'll show you how to use Kernel Memory to chunk documents in the b
 
 There's two ways that we can run Kernel Memory: "Serverless" and "Service".
 
-Running the full service is more powerful, but effectively requires running a separate application, which we will then need to integrate our main app with. Given that I'm building with ASP.NET, I'll be using the serverless approach, which allows us to run Kernel Memory within the context of a single application (which will contain our main app code as well). We can then manage our integrations with Kernel Memory as simple method calls.
+Running the full service is more powerful, but effectively requires running a separate application. We would then need to integrate our main app with that. Given that I'm building with ASP.NET, I'll be using the serverless approach, which allows us to run Kernel Memory within the context of a single application (which will contain our main app code as well). We can then manage our integrations with Kernel Memory as simple method calls.
 
-This is simpler and more cost-effective, but it does have some limitations. The ful service offers more features such as persistent retry logic. The documentation is very clear that if we want to scale then we'll likely want to consider the service approach. But my own experience has been that serverless works very well for small to medium-sized applications.
+This is simpler and more cost-effective, but it does have some limitations. The service approach offers more features; including persistent retry logic. The documentation is very clear that if we want to scale then we'll likely want to consider the service approach. But my own experience has been that serverless works very well for small to medium-sized applications.
 
 Perhaps surprisingly, using serverless we can still have the experience of running Kernel Memory as a **non-blocking** separate service within the context of our ASP.NET application. This is achieved by running Kernel Memory as a [hosted service](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-8.0) - this is the standard ASP.NET mechanism for background tasks. That's what we're going to do.
 
@@ -84,7 +84,7 @@ _memory = new KernelMemoryBuilder()
 
 What we're doing here, is creating `IKernelMemory` instance and making it aware of all our deployed Azure resources. Going through how to deploy those is out of the scope of this post, but it's probably worth highlighting that we're using `AzureIdentity` for auth as it's particularly secure, if you would like to use other options, you certainly can.
 
-You'll also note we're using Azure AI Document Intelligence; this is optional and just tackles a few more document scenarios. It's not mandatory.
+You'll also note we're using Azure AI Document Intelligence; this is optional and just tackles a few more document chunking scenarios. It's not mandatory.
 
 ### Chunking with Kernel Memory serverless
 
@@ -216,15 +216,17 @@ int? HandleRequestFailed(Azure.RequestFailedException azureRequestFailedExceptio
 static string MakeDocumentId(string fileName) => Regex.Replace(fileName, "[^A-Za-z0-9._-]", ""); // eg "A Booklet.pdf"
 ```
 
-Much of the code above concerns rate limiting / 429s. It's not uncommon when chunking to be hit by 429s - "Too many requests". Chunking documents requires use of Azure Open AI resources, and the level of access we have is typically restricted and controlled via quotas. There's an element of this that we can avoid by controlling the quota available on your Azure Open AI deployments ([you can read more about this here](../2023-08-17-azure-open-ai-capacity-quota-bicep/index.md)), and as well we can do a certain amount of retrying chunking operations until we succeed.
+Much of the code above concerns rate limiting / 429s. It's not uncommon when chunking to be hit by 429s - "Too many requests". Chunking documents requires use of Azure Open AI resources, and the level of access we have is typically restricted and controlled via quotas. There's an element of this that we can avoid by controlling the quota available on our Azure Open AI deployments ([you can read more about this here](../2023-08-17-azure-open-ai-capacity-quota-bicep/index.md)), and we can implement a certain amount of retry logic also.
 
-The code above tries to handle a number of re-attempts as wisely as it can, and using the information that Azure APIs surface around when re-attempting is allowed. (Interestingly you'll see a number of strategies employed here as, frankly, the way information is surfaced just keeps changing! We can likely have less code in future when a final standard is committed to.)
+The code above tries to handle a number of re-attempts as wisely as it can, and using the information that Azure APIs surface around when re-attempting is allowed. Interestingly you'll see a variety of strategies employed here around retry times, as the way information is surfaced to support this keeps changing! We can likely have less code in future when a final standard is committed to.
 
 ### Bringing it together
 
 We're going to put this all together in a single class called `RagGestionService`.
 
-You might be puzzled by the name "RagGestion" - this is a term my good friend [George Karsas](https://medium.com/@georgekarsas) coined to describe the process of preparing documents for Retrieval Augmented Generation. It's a great term, and I've adopted it! It will look like this:
+You might be puzzled by the name "RagGestion" - this is a term my good friend [George Karsas](https://medium.com/@georgekarsas) coined to describe the process of preparing documents for Retrieval Augmented Generation. It's a great term, and I've adopted it!
+
+The `RagGestionService` will look like this:
 
 ```cs
 using Azure.Storage.Blobs;
@@ -404,7 +406,7 @@ public class RagGestionService : IRagGestionService
 }
 ```
 
-With your own implementation you wouldn't be hard-coding the Azure resources like I have here, but rather you'd be passing them in as configuration. Incidentally, we could also use Dependency Injection to inject the `IKernelMemory` instance into your service, but again, I've kept it simple here for clarity.
+By the way, I don't advise hard-coding the Azure resources as I have here, but rather passing them in as configuration. Incidentally, we could also use Dependency Injection to inject a prepared `IKernelMemory` instance into the service, but again, I'm keeping it simple here for clarity.
 
 ## 2. Our document processor queue
 
@@ -570,7 +572,6 @@ public class UploadController : ControllerBase
     private readonly ILogger<UploadController> _log;
     private readonly IHostEnvironment _env;
 
-
     public UploadController(
         ILogger<UploadController> log,
         IHostEnvironment env,
@@ -582,7 +583,7 @@ public class UploadController : ControllerBase
         _documentProcessorQueue = documentProcessorQueue;
     }
 
-    [RequestSizeLimit(104857600)]// For 100 MB
+    [RequestSizeLimit(104857600)] // For files of up to 100 MB - perhaps larger than you'd want to upload in a single go
     [HttpPost($"api/{nameof(UploadFiles)}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<UploadedFile>))]
     [ProducesResponseType(StatusCodes.Status403Forbidden, Type = typeof(string))]
@@ -655,7 +656,11 @@ public class UploadController : ControllerBase
 }
 ```
 
-As we can see, this endpoint accepts files, uploads them to Blob Storage and adds them to the queue with `_documentProcessorQueue.EnqueueDocumentUri`. This will then be picked up by the background service and processed.
+As we can see, this endpoint:
+
+1. Accepts files from a POST request with an index name in the querystring
+2. Uploads them to Blob Storage (matching the container name to the index they will be processed into in future)
+3. Adds them to the queue with `_documentProcessorQueue.EnqueueDocumentUri`. This will then be picked up by the background service and processed.
 
 ## Registering our services
 
