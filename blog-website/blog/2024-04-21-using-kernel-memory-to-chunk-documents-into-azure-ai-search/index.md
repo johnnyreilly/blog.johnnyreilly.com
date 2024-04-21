@@ -419,7 +419,7 @@ public class DocumentProcessorQueue : IDocumentProcessorQueue
 
 The `EnqueueDocumentUri` method above will be called from the context of our UI - from an ASP.NET controller. This will be invoked when someone uploads a file and will also be responsible for adding the file to a BlobService for storage prior to processing.
 
-By contrast, the `DequeueDocumentUri` method will be called from the context of our background service; it will pick call this method to pick up a file for processing.
+By contrast, the `DequeueDocumentUri` method will be called from the context of our background service; it will call this method to pick up a file for processing.
 
 ## 3. Our background service
 
