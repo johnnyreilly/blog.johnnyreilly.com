@@ -50,7 +50,7 @@ dotnet add Microsoft.KernelMemory.Core
 dotnet add Microsoft.SemanticKernel
 ```
 
-With this in place we'll start to integrate with Kernel Memory, we must construct ourselves an `IKernelMemory` like so:
+With this in place we'll start to integrate with Kernel Memory. We will first construct ourselves an `IKernelMemory` like so:
 
 ```cs
 _memory = new KernelMemoryBuilder()
