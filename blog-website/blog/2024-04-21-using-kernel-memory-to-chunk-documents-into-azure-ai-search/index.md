@@ -681,4 +681,4 @@ With this in place we have an application that can upload documents and chunk th
 
 And that's it! This is an ASP.NET application that can chunk documents (or RagGest 😉) in the background using Kernel Memory running in serverless mode. I haven't yet had the need to upgrade to the full Kernel Memory service. Perhaps the day will come, but the mileage we can get with this approach is considerable.
 
-Many thanks to [David Rosevear](https://www.linkedin.com/in/david-rosevear) and George Karsas for their help working on this mechanism. And George for "RagGestion" - I love it!
+Many thanks to [David Rosevear](https://github.com/drosevear) and [George Karsas](https://www.linkedin.com/in/george-karsas) for their help working on this mechanism. And George for "RagGestion" - I love it!
