@@ -15,7 +15,9 @@ How things panned out reflects well on the webpack community. I thought it might
 
 ### 3:55pm
 
-I'm sat at my desk in the City of London. I have to leave at 4pm to go to the dentist. I'm working away on a project which is built and bundled using ts-loader and webpack. However, having just npm installed and tried to spin up webpack in watch mode, I discover that everything is broken. Watch mode is not working - there's an error being thrown in ts-loader. It's to do with a webpack property called `mtimes`. ts-loader depends upon it and it looks like it is no longer always passed through. Go figure. ### 4:01pm
+I'm sat at my desk in the City of London. I have to leave at 4pm to go to the dentist. I'm working away on a project which is built and bundled using ts-loader and webpack. However, having just npm installed and tried to spin up webpack in watch mode, I discover that everything is broken. Watch mode is not working - there's an error being thrown in ts-loader. It's to do with a webpack property called `mtimes`. ts-loader depends upon it and it looks like it is no longer always passed through. Go figure.
+
+### 4:01pm
 
 I've got to go. I'm 15 minutes from Bank station. So, I grab my bag and scarper out the door. On my phone I notice [an issue](https://github.com/TypeStrong/ts-loader/issues/479) has been raised - other people are being affected by the problem too. As I trot down the various alleys that lead to the station I wonder whether I can work around this issue. Using GitHub to fork, edit code and submit a PR on a mobile phone is possible. Just. But it's certainly not easy...
 
@@ -123,6 +125,4 @@ I'm tremendously grateful to everyone that helped out - thank you all!
 
 > ts-loader 2.0.1 has shipped; thanks [@wsokra](https://twitter.com/wSokra)[@bancek](https://twitter.com/bancek) and @mredbishop [https://t.co/I00c7sJyFo](https://t.co/I00c7sJyFo)[\#typescript](https://twitter.com/hashtag/typescript?src=hash)
 >
-> — John Reilly (@johnny_reilly) [February 22, 2017](https://twitter.com/johnny_reilly/status/834515296077627392)
-
-<script async="" src="//platform.twitter.com/widgets.js" charSet="utf-8"></script>
+> [— John Reilly (@johnny_reilly) February 22, 2017](https://twitter.com/johnny_reilly/status/834515296077627392)
