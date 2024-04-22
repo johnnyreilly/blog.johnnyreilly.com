@@ -23,13 +23,13 @@ I've got to go. I'm 15 minutes from Bank station. So, I grab my bag and scarper 
 
 [My PR is in](https://github.com/TypeStrong/ts-loader/pull/481), the various test packs are starting to execute somewhere out there in Travis and Appveyor-land. Then I notice [Ed Bishop](https://github.com/mredbishop) has submitted a [near identical PR](https://github.com/TypeStrong/ts-loader/pull/480). Yay Ed! I'm always keen to encourage people to contribute and so I intend to merge that PR rather than my own.
 
-### 16:12
+### 4:12pm
 
 Rubbish. The Waterloo and City Line is out of action. I need to get across London to reach Waterloo or I'll miss my appointment. It's time to start running....
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4IBGernmtKA" frameBorder="0" allowFullScreen=""></iframe>
 
-### 16:15
+### 4:15pm
 
 It's rather nagging at me that behaviour has changed without warning. This has been reliably in place the entire time I've been involved with ts-loader / webpack. Why now? I don't see any obvious mentions on the webpack GitHub repo. So I head over to the webpack Slack channel and ask: (conversation slightly abridged)
 
@@ -97,11 +97,11 @@ It's rather nagging at me that behaviour has changed without warning. This has b
 >
 > Thanks @sokra - when I get to a keyboard I'll swap `mtimes` for `getTimes()` and report back.
 
-### 17:28
+### 5:28pm
 
 Despite various trains being out of action / missing in action I've made it to the dentists; phew! I go in for my checkup and plan to take a look at the issue later that evening. In the meantime I've hoping that Tobias ([Sokra](https://twitter.com/wsokra)) will get chance to republish so that ts-loader users aren't too impacted.
 
-### 18:00
+### 6:00pm
 
 Done at the dentist and I'm heading home. Whilst I've been opening wide and squinting at the ceiling, [TypeScript 2.2 has shipped](https://blogs.msdn.microsoft.com/typescript/2017/02/22/announcing-typescript-2-2/). Whilst this is super exciting, according to Greenkeeper, [the new version has broken the build](https://github.com/TypeStrong/ts-loader/pull/483). Arrrrghhhh...
 
@@ -109,15 +109,15 @@ I start to look into this and realise we're not broken because of TypeScript 2.2
 
 The good news just keeps on coming as [Luka Zakrajšek](https://twitter.com/bancek) has submitted a [PR which uses `getTimes()` in place of `mtimes`](https://github.com/TypeStrong/ts-loader/pull/482). And the tests pass. Awesome! MERGE. I just need to cut a release and we're done.
 
-### 18:15
+### 6:15pm
 
 I'm home. My youngest son has been suffering from chicken pox all week and as a result my wife has been in isolation, taking care of him. We chat whilst the boys watch Paw Patrol as the bath runs. I flick open the laptop and start doing the various housekeeping tasks around cutting a release. This is interrupted by various bathtime / bedtime activities and I abandon work for now.
 
-### 19:30
+### 7:30pm
 
 The boys are down and I get on with the release; updating the changelog, bumping the version number and running the tests. For various reasons this takes longer than it normally does.
 
-### 20:30
+### 8:30pm
 
 Finally we're there; ts-loader 2.0.1 ships: [https://github.com/TypeStrong/ts-loader/releases/tag/v2.0.1](https://github.com/TypeStrong/ts-loader/releases/tag/v2.0.1).
 
