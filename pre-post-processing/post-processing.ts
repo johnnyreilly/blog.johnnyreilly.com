@@ -339,7 +339,7 @@ async function main() {
 
   await patchHtmlImagesToCloudinary();
   // await patchJsImagesToCloudinary(); // now handled by rehype plugin
-  await trimSitemapXML();
+  // await trimSitemapXML();
   deleteFolderRecursive(
     path.resolve('..', 'blog-website', 'build', 'blog-handrolled'),
   ); // not using handrolled anymore and deleting the folder

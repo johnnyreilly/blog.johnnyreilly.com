@@ -11,6 +11,7 @@ import docusaurusCloudinaryRehypePlugin from 'rehype-cloudinary-docusaurus';
 // import docusaurusCloudinaryRehypePlugin from './image-cloudinary-rehype-plugin.mjs';
 
 import { createFeedItems } from './createFeedItems.mjs';
+import { createSitemapItems } from './createSitemapItems.mjs';
 // import recentlyUpdatedPostsJson from "./recently-updated-posts.json" assert { type: "json" };
 // const recentlyUpdatedPostsJson = await import("./recently-updated-posts.json", {
 //   assert: { type: "json" },
@@ -320,9 +321,10 @@ const config = {
             }
           : {}),
         sitemap: {
-          lastmod: 'datetime',
+          lastmod: 'date',
           priority: null,
           changefreq: null,
+          createSitemapItems,
         },
 
         docs: false,

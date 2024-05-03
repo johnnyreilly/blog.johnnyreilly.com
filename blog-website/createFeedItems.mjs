@@ -1,4 +1,5 @@
 //@ts-check
+/* eslint-env node */
 import path from 'path';
 import { simpleGit } from 'simple-git';
 

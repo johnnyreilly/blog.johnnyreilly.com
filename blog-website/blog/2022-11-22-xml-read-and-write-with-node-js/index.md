@@ -14,6 +14,14 @@ This post demonstrates reading and writing XML in Node.js using `fast-xml-parser
 
 <!--truncate-->
 
+## Updated 03/05/2023
+
+This post talks about manipulating the Docusaurus sitemap as an example of how to work on XML with Node.js.
+
+It's worth noting that Docusaurus has offered a way to [configure the sitemap as of Docusaurus 3.3](https://docusaurus.io/blog/releases/3.3#createsitemapitems) which [I worked on](https://github.com/facebook/docusaurus/pull/10083).
+
+However, the techniques described here are still useful for working with XML in Node.js.
+
 ## Docusaurus sitemap
 
 I was prompted to write this post by wanting to edit the sitemap on my Docusaurus blog. I wanted to remove the `/page/` and `/tag/` routes from the sitemap. They effectively serve as duplicate content and I don't want them to be indexed by search engines. (A little more is required to remove them from search engines - see the section at the end of the post.)
