@@ -1,7 +1,7 @@
 //@ts-check
 /* eslint-env node */
 import path from 'path';
-import { simpleGit } from 'simple-git';
+import fs from 'fs';
 
 /**
  * @typedef {import('@docusaurus/plugin-sitemap').PluginOptions["createSitemapItems"]} CreateSitemapItemsFn
@@ -9,96 +9,53 @@ import { simpleGit } from 'simple-git';
 
 /** @type {NonNullable<CreateSitemapItemsFn>} */
 export async function createSitemapItems(params) {
+  const canonicalSlugs = await getCanonicalSlugs();
+  // console.log('canonicalSlugs', canonicalSlugs);
+
   const { defaultCreateSitemapItems, ...rest } = params;
   const items = await defaultCreateSitemapItems(rest);
-  return items.filter(
-    (item) =>
+  return items.filter((item) => {
+    const include =
       !item.url.endsWith(`/blog-handrolled`) && // we have /blog and /blog-handrolled; we only want /blog
       !item.url.endsWith(`/search`) &&
       !item.url.endsWith(`/tags`) &&
       !item.url.includes('/tags/') &&
-      !item.url.includes('/page/'),
-  );
+      !item.url.includes('/page/') &&
+      !canonicalSlugs.some((slug) => item.url.endsWith('/' + slug));
+
+    console.log(`include ${include} ${item.url}`);
+    return include;
+  });
 }
 
-/** @type {import('@docusaurus/plugin-content-blog').CreateFeedItemsFn} */
-export async function createFeedItems(params) {
-  const { blogPosts, defaultCreateFeedItems, ...rest } = params;
+async function getCanonicalSlugs() {
+  /** @type {string[]} */
+  const canonicalSlugs = [];
+  const slugRegex = /slug: (.*)\n/;
 
-  const feedItems = await defaultCreateFeedItems({
-    blogPosts,
-    ...rest,
-  });
+  const blogIndexMds = await getBlogIndexMds();
+  for (const blogIndexMd of blogIndexMds) {
+    const blogPostContent = await fs.promises.readFile(blogIndexMd, 'utf-8');
 
-  for (const feedItem of feedItems) {
-    // blogPost.metadata.permalink: '/2023/01/22/image-optimisation-tinypng-api',
-    // feedItem.link: 'https://johnnyreilly.com/2023/01/22/image-optimisation-tinypng-api',
-    const relatedBlogEntry = blogPosts.find((blogPost) =>
-      feedItem.link.endsWith(blogPost.metadata.permalink),
-    );
-    if (!relatedBlogEntry) {
-      console.log('blogFilePath not found', feedItem.link);
-      throw new Error(`blogFilePath not found ${feedItem.link}`);
+    const slugMatch = blogPostContent.match(slugRegex);
+    if (!slugMatch) {
+      throw new Error(`no slug for ${blogIndexMd}`);
     }
 
-    // source: '@site/blog/2023-01-22-image-optimisation-tinypng-api/index.md',
-    const gitLatestCommitString = await getGitLatestCommitDateFromFilePath(
-      relatedBlogEntry.metadata.source.replace('@site/', 'blog-website/'),
-    );
-    const gitLatestCommitDate = gitLatestCommitString
-      ? new Date(gitLatestCommitString)
-      : undefined;
-    if (gitLatestCommitDate) {
-      feedItem.date = gitLatestCommitDate;
+    const slug = slugMatch[1];
+    if (blogPostContent.includes('<link rel="canonical" href=')) {
+      canonicalSlugs.push(slug);
     }
   }
 
-  // keep only the 20 most recently updated blog posts in the feed
-  const latest20FeedItems = Array.from(feedItems)
-    .sort((a, b) => b.date.getDate() - a.date.getDate())
-    .slice(0, 20);
-
-  return latest20FeedItems;
+  return canonicalSlugs;
 }
 
-/**
- * Given a file path, return the last commit date
- * @param {string} filePath
- * @returns
- */
-async function getGitLatestCommitDateFromFilePath(filePath) {
-  const git = getSimpleGit();
+async function getBlogIndexMds() {
+  const rootBlogPath = path.resolve('blog');
+  const blogIndexMds = (await fs.promises.readdir(rootBlogPath))
+    .filter((file) => fs.statSync(path.join(rootBlogPath, file)).isDirectory())
+    .map((file) => path.join(rootBlogPath, file, 'index.md'));
 
-  const log = await git.log({
-    file: filePath,
-  });
-
-  const latestCommitDate = log.latest?.date;
-
-  return latestCommitDate;
-}
-
-/** @type {import('simple-git').SimpleGit | undefined} */
-let git;
-
-/**
- * get a simple git instance
- * @returns SimpleGit
- */
-function getSimpleGit() {
-  if (!git) {
-    const baseDir = path.resolve(process.cwd(), '..');
-
-    /** @type {Partial<import('simple-git').SimpleGitOptions>} */
-    const options = {
-      baseDir,
-      binary: 'git',
-      maxConcurrentProcesses: 6,
-      trimmed: false,
-    };
-
-    git = simpleGit(options);
-  }
-
-  return git;
+  return blogIndexMds;
 }
