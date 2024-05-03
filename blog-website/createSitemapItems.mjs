@@ -3,6 +3,24 @@
 import path from 'path';
 import { simpleGit } from 'simple-git';
 
+/**
+ * @typedef {import('@docusaurus/plugin-sitemap').PluginOptions["createSitemapItems"]} CreateSitemapItemsFn
+ */
+
+/** @type {NonNullable<CreateSitemapItemsFn>} */
+export async function createSitemapItems(params) {
+  const { defaultCreateSitemapItems, ...rest } = params;
+  const items = await defaultCreateSitemapItems(rest);
+  return items.filter(
+    (item) =>
+      !item.url.endsWith(`/blog-handrolled`) && // we have /blog and /blog-handrolled; we only want /blog
+      !item.url.endsWith(`/search`) &&
+      !item.url.endsWith(`/tags`) &&
+      !item.url.includes('/tags/') &&
+      !item.url.includes('/page/'),
+  );
+}
+
 /** @type {import('@docusaurus/plugin-content-blog').CreateFeedItemsFn} */
 export async function createFeedItems(params) {
   const { blogPosts, defaultCreateFeedItems, ...rest } = params;
