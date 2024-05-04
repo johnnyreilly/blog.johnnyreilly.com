@@ -8,7 +8,7 @@ description: To integrate LLMs with APIs, there is a need for the LLM equivalent
 hide_table_of_contents: false
 ---
 
-Of late, myself and others have been doing work to integrate APIs into LLM interactions, using [Semantic Kernel](https://github.com/microsoft/semantic-kernel). This post is something of a brain dump on the topic. Given how fast this space is moving, I expect what is written here to be out of date, possibly even _before_ I hit publish. But nevertheless, I hope it's useful.
+Of late, I've been involved in work to integrate APIs into LLM interactions, using [Semantic Kernel](https://github.com/microsoft/semantic-kernel). This post is something of a brain dump on the topic. Given how fast this space is moving, I expect what is written here to be out of date, possibly even _before_ I hit publish. But nevertheless, I hope it's useful.
 
 ![title image reading "Large Language Models, Open API, View Models and the Backend for Frontend Pattern" with the Azure Open AI / Swagger logos](title-image.png)
 
@@ -20,7 +20,7 @@ APIs are awesome. Imagine LLMs could interact with APIs to allow you to chat dir
 
 APIs are often documented in Swagger / Open API. This is a great way to document APIs, but it's not always the best way to interact with them from an LLM point of view. We'll go into more detail on the problems it can present in a moment, but first let's look at how we can use Semantic Kernel to integrate with APIs.
 
-It's completely possible to plug an LLM into an Open API / Swagger described API using Semantic Kernel. Here's an example of how you might do that from the [Semantic Kernel GitHub repository](https://github.com/microsoft/semantic-kernel/blob/9a4450622021ce003234863bcf4def9613ae1153/dotnet/samples/Concepts/Plugins/CreatePluginFromOpenApiSpec_Jira.cs#L69-L77):
+It's completely possible to plug an LLM into an Open API / Swagger spec described API using Semantic Kernel. Here's an example of how you might do that from the [Semantic Kernel GitHub repository](https://github.com/microsoft/semantic-kernel/blob/9a4450622021ce003234863bcf4def9613ae1153/dotnet/samples/Concepts/Plugins/CreatePluginFromOpenApiSpec_Jira.cs#L69-L77):
 
 ```cs
 var apiPluginRawFileURL = new Uri("https://raw.githubusercontent.com/microsoft/PowerPlatformConnectors/dev/certified-connectors/JIRA/apiDefinition.swagger.json");
@@ -34,13 +34,13 @@ jiraFunctions = await kernel.ImportPluginFromOpenApiAsync(
 );
 ```
 
-The code above is creating a Jira plugin from an Open API spec. Brilliant! We didn't have to do any work; Semantic Kernel has done the heavy lifting for us. It's created a plugin that we can use to interact with Jira. Ready for the but?
+The code above is creating a Jira plugin from an Open API spec. Brilliant! We didn't have to do any work; Semantic Kernel has done the heavy lifting for us. It's created a plugin that we can use to interact with Jira. Are you ready for the but?
 
 ## The problem with Swagger / Open API and LLMs
 
-The example above illustrates the simplicity of integrating. But what it doesn't reveal is the unfortunate reality that **LLMs are not great at ignoring information**. They will mention fields you explicitly tell them not to. Just to spite you.
+The example above illustrates the simplicity of integrating. But what it doesn't reveal is the unfortunate reality that **LLMs are not great at ignoring information**. They will mention information you explicitly tell them not to. Just to spite you.
 
-I have found myself writing prompts like this:
+Let's take the Jira plugin as an example. When using direct Swagger / Open API integration I have found myself writing prompts like this:
 
 > Please tell me about stories that are assigned to me. Please never refer to the stories by their ids - use titles instead.
 
@@ -48,17 +48,22 @@ Only to find that in the responses the LLM will _still_ refer to the stories by 
 
 It's a bit like having a child who you've told not to do something, only to find they've done it anyway. The LLM may even cheekily say something like "I know you told me not too, but I included the id for reference". The scallywag.
 
-I despair.
-
 ## Bring on the view models and the BFFs
 
-It's not the same thing, but a useful framing for this to my mind is remembering when ORMs started to appear to automate access to databases. You could take your ORM, and host it in a web service and, hey presto, your database was now accessible over HTTP. So let's take our React app (or whatever) and have it talk to our database.
+A useful framing for this problem is remembering when ORMs started to automate access to databases. We could take our ORM, and host it in a web service and, hey presto, our database was now accessible over HTTP. So let's take our React app (or whatever) and have it talk directly to our database.
 
-Except, of course, that's a terrible idea. You don't want your React app talking directly to your database. There's a number of reasons why, too much information going backwards and forward (perhaps including information you'd never like clients to see). There's the security aspect; why are you exposing your database to updates directly from the internet? Is that wise? You get the picture. We don't do that generally and with good reason.
+Except, of course, that's a terrible idea. We don't want our front end talking to our database. There's a number of reasons why:
 
-What we tend to do instead is to have [backend for frontends (BFF)](https://learn.microsoft.com/en-us/azure/architecture/patterns/backends-for-frontends) that sits between your app and your database. One of the things the BFF does is to provide a view of the data that is appropriate for the client. It's a bit like a [view model](https://en.wikipedia.org/wiki/View_model) in the backend. It's a way to ensure that only the necessary information is exposed to the client.
+- Too much information going backwards and forward between client and server (perhaps including information we'd never like clients to see).
+- Security; why are we exposing your database to updates directly from the internet? Is that wise?
 
-We need to do the a similar thing with LLMs. Let's have BFFs / view models for providing data to LLMs. That way we can ensure that only the necessary information is given to them, and our answers do not contain data we would rather not see.
+You get the picture. We don't generally directly integrate our databases directly with our front ends with good reason.
+
+A common approach to tackle these issues is employing the [back end for front ends (BFF) pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/backends-for-frontends); having something that sits between your front end and your database. One of the things the BFF does is to provide a view of the data that is appropriate for the client. So for example, exposing a [view model](https://en.wikipedia.org/wiki/View_model) in the back end to serve the front end. It's a way to ensure that only the necessary information is exposed to the client.
+
+We can take this idea and apply it to building integrations with APIs and LLMs. So rather than plugging a Swagger / Open API spec into Semantic Kernel, instead build a custom plugin that manages access to your API, and have it expose view models for providing data to LLMs.
+
+That way we can ensure that only the necessary information is given to them, and our answers do not contain data we would rather not see.
 
 So rather than giving an LLM a data structure like this:
 
@@ -100,8 +105,18 @@ We give it the trimmed down equivalent:
 
 This has the combined benefit of reducing our token usage (as we're sending less data) and reducing the risk of exposing data we'd rather not.
 
+## "But integrating with APIs is a lot of work!"
+
+A common, and quite reasonable, complaint is that integrating with an API involves a lot of work. You have to write some code to interact with the API, and then you have write the types that you'll use to pass data around. Fortunately there are tools like NSwag that use the Swagger / Open API spec to [automate creating a client with types to manage API interaction](../2021-03-06-generate-typescript-and-csharp-clients-with-nswag/index.md). If you're autogenerating your API clients, then the work of integrating an LLM with an API is significantly reduced.
+
+With Semantic Kernel it effectively is reduced to creating a plugin. You can see [guidance on how to create a plugin here](https://learn.microsoft.com/en-us/semantic-kernel/agents/plugins/using-the-kernelfunction-decorator?tabs=Csharp). So to create a BFF plugin for an API, you'd need to create that plugin and internally use the client generated by NSwag. Very little work indeed!
+
 ## Conclusion
 
-The integrated support for consuming Open API / Swagger specs is definitely going to improve over time, both in Semantic Kernel and in the wider ecosystem. That said, I am wondering if there's a fundamental issue that needs to be solved as well.
+The integrated support for consuming Open API / Swagger specs is definitely going to improve over time, both in Semantic Kernel and in the wider ecosystem. However, it's possible that there is fundamental issue that needs to be solved, and that BFFs for LLMs may solve it. It's a way to ensure that only the necessary information is exposed to LLMs, and that the answers they give are appropriate for the context in which they are being used.
 
-If you want this to work directly with Swagger, is it necessary to have a BFF for LLMs built into the the API in the first place? Is that even a good idea? Maybe it is, maybe it isn't. I'm not sure. But it's something I'm thinking about.
+I'm not aware of a specific name for this pattern as yet. My colleague, Ryan suggested "Frontend for Language Models" (FLM) which is less of a mouthful than "Backend for Frontends for Language Models". Anyway. Naming things is hard.
+
+Another colleague (Rick), suggested that perhaps the BFF for LLMs could be built directly into APIs. So rather than having to implement a custom plugin that manages the interaction with API, you could still perhaps use the direct Swagger / Open API approach. This is an interesting idea.
+
+Many thanks to [David Rosevear](https://github.com/drosevear), [George Karsas](https://www.linkedin.com/in/george-karsas), [Rick Roché](https://www.rickroche.com/), [Ryan Cook](https://github.com/RyanMatCook) and [Ali Somer](https://uk.linkedin.com/in/alisomer) whose thoughts, ideas and experimentation have fed into the thinking in this post.
