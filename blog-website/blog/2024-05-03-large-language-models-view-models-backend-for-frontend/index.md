@@ -55,7 +55,7 @@ A useful framing for this problem is remembering when ORMs started to automate a
 Except, of course, that's a terrible idea. We don't want our front end talking to our database. There's a number of reasons why:
 
 - Too much information going backwards and forward between client and server (perhaps including information we'd never like clients to see).
-- Security; why are we exposing your database to updates directly from the internet? Is that wise?
+- Security; why are we exposing our database to updates directly from the internet? Is that wise?
 
 You get the picture. We don't generally directly integrate our databases directly with our front ends with good reason.
 
@@ -103,7 +103,7 @@ We give it the trimmed down equivalent:
 }
 ```
 
-This has the combined benefit of reducing our token usage (as we're sending less data) and reducing the risk of exposing data we'd rather not.
+This has the combined benefit of reducing our token usage / cost (as we're sending less data to the LLM) and reducing the risk of exposing data we'd rather not.
 
 ## "But integrating with APIs is a lot of work!"
 
