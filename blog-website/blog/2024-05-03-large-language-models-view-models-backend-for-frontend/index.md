@@ -48,7 +48,9 @@ Only to find that in the responses the LLM will _still_ refer to the stories by 
 
 It's a bit like having a child who you've told not to do something, only to find they've done it anyway. The LLM may even cheekily say something like "I know you told me not too, but I included the id for reference". The scallywag.
 
-## Bring on the view models and the BFFs
+Or perhaps, given the variety of endpoints that are available in an API, the LLM will call one that we didn't want it to. Or perhaps our Swagger / Open API spec is poorly documented, and the LLM doesn't think it has an endpoint it can call.
+
+## View models and the BFFs to the rescue
 
 A useful framing for this problem is remembering when ORMs started to automate access to databases. We could take our ORM, and host it in a web service and, hey presto, our database was now accessible over HTTP. So let's take our React app (or whatever) and have it talk directly to our database.
 
@@ -57,7 +59,7 @@ Except, of course, that's a terrible idea. We don't want our front end talking t
 - Too much information going backwards and forward between client and server (perhaps including information we'd never like clients to see).
 - Security; why are we exposing our database to updates directly from the internet? Is that wise?
 
-You get the picture. We don't generally directly integrate our databases directly with our front ends with good reason.
+You get the picture. We tend not to directly integrate our databases directly with our front ends with good reason.
 
 A common approach to tackle these issues is employing the [back end for front ends (BFF) pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/backends-for-frontends); having something that sits between our front end and our database. One of the things the BFF does is to provide a view of the data that is appropriate for the client. So for example, exposing a [view model](https://en.wikipedia.org/wiki/View_model) in the back end to serve the front end. It's a way to ensure that only the necessary information is exposed to the client.
 
@@ -129,7 +131,12 @@ public async Task<JiraStory[]> GetUsersJiraStories(
 {
     var stories = await _jiraClient.GetStories(userEmail);
 
-    return stories.Select(story => new JiraStory(title: story.Title, description: story.Description)).ToArray();
+    return stories
+      .Select(story => new JiraStory(
+        title: story.Title,
+        description: story.Description
+      ))
+      .ToArray();
 }
 ```
 
