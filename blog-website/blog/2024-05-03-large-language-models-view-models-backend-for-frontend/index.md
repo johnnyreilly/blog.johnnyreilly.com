@@ -59,7 +59,7 @@ Except, of course, that's a terrible idea. We don't want our front end talking t
 - Too much information going backwards and forward between client and server (perhaps including information we'd never like clients to see).
 - Security; why are we exposing our database to updates directly from the internet? Is that wise?
 
-You get the picture. We tend not to directly integrate our databases directly with our front ends with good reason.
+You get the picture. We tend not to integrate our databases directly with our front ends with good reason.
 
 A common approach to tackle these issues is employing the [back end for front ends (BFF) pattern](https://learn.microsoft.com/en-us/azure/architecture/patterns/backends-for-frontends); having something that sits between our front end and our database. One of the things the BFF does is to provide a view of the data that is appropriate for the client. So for example, exposing a [view model](https://en.wikipedia.org/wiki/View_model) in the back end to serve the front end. It's a way to ensure that only the necessary information is exposed to the client.
 
@@ -107,6 +107,8 @@ We give it the trimmed down equivalent:
 
 This has the combined benefit of reducing our token usage / cost (as we're sending less data to the LLM) and reducing the risk of exposing data we'd rather not.
 
+It also has the advantage of allowing us to steer the LLM towards the functions we want it to call. If we only expose the functions we want the LLM to call, then we can ensure that it doesn't call functions we'd rather it didn't.
+
 ## "But integrating with APIs is a lot of work!"
 
 A common, and quite reasonable, complaint is that integrating with an API involves a lot of work. We have to write some code to interact with the API, and then we have to write the types that we'll use to pass data around. Fortunately there are tools like NSwag that use the Swagger / Open API spec to [automate creating a client with types to manage API interaction](../2021-03-06-generate-typescript-and-csharp-clients-with-nswag/index.md). If we're autogenerating our API clients, then the work of integrating an LLM with an API is significantly reduced.
@@ -140,7 +142,7 @@ public async Task<JiraStory[]> GetUsersJiraStories(
 }
 ```
 
-Very little work indeed!
+The code above exposes a well defined function to the LLM, which will return the stories for a given user. The function internally calls into the Jira API, and then maps the large amount of data returned from the API to a much slimmer view model that is appropriate for the LLM. As we can see, this was very little work indeed!
 
 ## Conclusion
 
