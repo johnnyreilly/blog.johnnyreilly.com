@@ -109,14 +109,38 @@ This has the combined benefit of reducing our token usage (as we're sending less
 
 A common, and quite reasonable, complaint is that integrating with an API involves a lot of work. You have to write some code to interact with the API, and then you have write the types that you'll use to pass data around. Fortunately there are tools like NSwag that use the Swagger / Open API spec to [automate creating a client with types to manage API interaction](../2021-03-06-generate-typescript-and-csharp-clients-with-nswag/index.md). If you're autogenerating your API clients, then the work of integrating an LLM with an API is significantly reduced.
 
-With Semantic Kernel it effectively is reduced to creating a plugin; annd that's quite simple to do. You can see [guidance on how to create a plugin here](https://learn.microsoft.com/en-us/semantic-kernel/agents/plugins/using-the-kernelfunction-decorator?tabs=Csharp). So to create a BFF plugin for an API, you'd need to create that plugin, exposing the functions you want to be called. Those functions will internally call into the APIs using the auto-generated Swagger clients and then cut the data down to the view models which we want to expose to the LLM. Very little work indeed!
+With Semantic Kernel it effectively is reduced to creating a plugin; and that's quite simple to do. You can see [guidance on how to create a plugin here](https://learn.microsoft.com/en-us/semantic-kernel/agents/plugins/using-the-kernelfunction-decorator?tabs=Csharp). So to create a BFF plugin for an API, we'd need to create that plugin, exposing the functions we want to be called. Those functions will internally call into the APIs using the auto-generated Swagger clients and then map that to the view models which we want to expose to the LLM. Imagine something like this:
+
+```cs
+public record JiraStory(
+    string Title,
+    string Description
+);
+
+[KernelFunction]
+[Description("Provides stories for a given user")]
+[return: Description("Jira user stories for the given user")]
+public async Task<JiraStory[]> GetUsersJiraStories(
+  Kernel kernel,
+
+  [Description("Email of user to filter by")]
+  string userEmail
+)
+{
+    var stories = await _jiraClient.GetStories(userEmail);
+
+    return stories.Select(story => new JiraStory(title: story.Title, description: story.Description)).ToArray();
+}
+```
+
+Very little work indeed!
 
 ## Conclusion
 
 The integrated support for consuming Open API / Swagger specs is definitely going to improve over time, both in Semantic Kernel and in the wider ecosystem. However, it's possible that there is fundamental issue that needs to be solved, and that BFFs for LLMs may solve it. It's a way to ensure that only the necessary information is exposed to LLMs, and that the answers they give are appropriate for the context in which they are being used.
 
-I'm not aware of a specific name for this pattern as yet. My colleague, Ryan suggested "Frontend for Language Models" (FLM) which is less of a mouthful than "Backend for Frontends for Language Models". Anyway. Naming things is hard.
+I'm not aware of a specific name for this pattern as yet. My colleague, Ryan suggested "Frontend for Language Models" (FLM) which is less of a mouthful than "Backend for Frontends for Language Models". Naming things is hard.
 
-Another colleague (Rick), suggested that perhaps the BFF for LLMs could be built directly into APIs. So rather than having to implement a custom plugin that manages the interaction with API, you could still perhaps use the direct Swagger / Open API approach. This is an interesting idea.
+Another colleague (Rick), suggested that perhaps the BFF for LLMs could be built directly into APIs. So rather than having to implement a custom plugin that manages the interaction with API, you could still perhaps use the Swagger / Open API approach and avoid the custom plugin implementation. This is an interesting idea.
 
 Many thanks to [David Rosevear](https://github.com/drosevear), [George Karsas](https://www.linkedin.com/in/george-karsas), [Rick Roché](https://www.rickroche.com/), [Ryan Cook](https://github.com/RyanMatCook) and [Ali Somer](https://uk.linkedin.com/in/alisomer) whose thoughts, ideas and experimentation have fed into the thinking in this post.
