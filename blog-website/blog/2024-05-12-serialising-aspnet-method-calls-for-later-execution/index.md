@@ -8,9 +8,9 @@ description: 'How can we take a method call, serialise it, perhaps store it in a
 hide_table_of_contents: false
 ---
 
-Let's start with "why". Imagine you have an operation that you'd like to perform, but you need an explicit record of what method is to be executed, and it needs to be approved by a third party before execution takes place.
+Let's start with "why". Imagine you have an operation that you'd like to perform, but before that operation is performed, some other things need to take place first. Maybe it needs to be approved by someone, maybe you need an explicit record of what method is to be executed.
 
-Now you could, if course, build a mechanism to manually cater for each method call. But that's a lot of work and given we potentially want to do this a lot, wouldn't scale particularly well. What would start as a simple mechanism would grow and grow very quickly.
+Now you could build a mechanism to manually cater for each scenario that triggered a method call. But that's a lot of boilerplate code for each implementation, and given we might want to cater for many scenarios, it wouldn't scale particularly well as an approach.
 
 So how can we take a method call, serialise it, perhaps store it in a database, and then later rehydrate and execute?
 
@@ -28,9 +28,11 @@ To serialise a method call, what do we need to store? Three things:
 
 Pretty simple, right? It's worth highlighting that there is an underlying assumption for this approach:
 
-_The method call does not depend on the object being in a specific state_
+**The method call does not depend on the object being in a specific state for the operation to succeed.**
 
-So if, before calling a method on that object you can to, for example, call another method called `OpenConnection` then this approach would not work. Likewise if subsequent cleanup was required, this approach would not work. I'm not sure this an entirely accurate analogy, but think of each method call as needing to be an atomic operation and you're probably heading in the right direction.
+So if, before calling a method on that object, you need to call another method called `OpenConnection` (for example) then this approach would not work. Likewise if subsequent cleanup is required after a method is called, this approach would not work.
+
+The analogy may not be entirely accurate, but think of each method call as needing to be an atomic operation and you're probably heading in the right direction.
 
 How then, can we serialise our method call?
 
@@ -44,7 +46,7 @@ public record MethodCall(string ServiceName, string MethodName, object[] Paramet
 
 This record will store the name of the service, the name of the method, and the parameters that will be passed to the method when it is called.
 
-Next we need an example service that we can call. Here's a simple example:
+Next we need an example service that we can call. For instance:
 
 ```cs
 public interface IOurService
@@ -126,7 +128,7 @@ The `MethodCallInvoker` class takes an `IServiceProvider` and a `MethodCall` in 
 
 We then do some more reflection gymnastics to ensure that the parameters that are passed to the method are of the correct type. When it deserialises the parameters, the converter will make a best guess on the types of the parameters. If a parameter is not of the correct type, it uses `Convert.ChangeType` to convert the parameter to the correct type. The canonical example of this is converting a `double` to a `decimal`.
 
-Now it is ready to call the method. Because it's likely that these will be `async` methods, we expect them to return a `Task`. It's possible there may be a value returned as well, and if there is we unwrap it and return it.
+With all this done, the `MethodCallInvoker` is ready to call the method. Because it's likely that the method being invoked will be an `async` method, we expect them to return a `Task`. It's possible there may be a value returned as well, and if there is we unwrap it from the `Task` and return it.
 
 ## How do we use the `MethodCallInvoker`?
 
@@ -145,7 +147,7 @@ object? result = await new MethodCallInvoker(_serviceProvider, deserialized).Inv
 
 The above code serialises the `MethodCall` to a JSON string, deserialises it back to a `MethodCall`, and then uses the `MethodCallInvoker` to execute the method.
 
-Why are we using `Newtonsoft.Json` for our serialisation / deserialisation? We don't have to, but let's say we're persisting this method call to a Cosmos DB, Cosmos uses JSON.NET for JSON handling. Otherwise I'd likely use `System.Text.Json`.
+Why are we using `Newtonsoft.Json` for our serialisation / deserialisation in this example? We don't have to, but let's say we're persisting this method call to a Cosmos DB, Cosmos uses JSON.NET for JSON handling. So this somewhat simulates what would happen during a potential persistence to a Cosmos container / subsequent loading from a Cosmos container. Otherwise I'd likely use `System.Text.Json`.
 
 ## Conclusion
 
