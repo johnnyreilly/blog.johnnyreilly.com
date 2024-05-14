@@ -55,6 +55,83 @@ public interface IOurService
 
 An implementation of this service would be registered with the DI container when the application starts up. We don't need to know anything about the implementation of the service, just that it exists and that we can call methods on it.
 
+If we consider a call to this method, it might look like this:
+
+```cs
+IOurService.DoAThing("the name", 100m, true);
+```
+
+The above can be represented as a `MethodCall` like this:
+
+```cs
+MethodCall methodCall = new (
+    ServiceName: typeof(IOurService).FullName ?? throw new InvalidOperationException("Service name cannot be null"),
+    MethodName: nameof(IOurService.DoAThing),
+    Parameters: [ "the name", 100m, true]
+);
+```
+
+I'm not going to do so in this post, but the `MethodCall` could be stored in a database. This is powerful because it means that we can store the method call, and then later rehydrate it and execute it.
+
+## How do we deserialise our method call and execute it?
+
+Now that we've looked at how to serialise a method call, let's look at how we can deserialise and execute it. We need a class that can take a `MethodCall` and execute it. Herewith the `MethodCallInvoker` class that does just that:
+
+```cs
+public class MethodCallInvoker(
+    IServiceProvider serviceProvider,
+    MethodCall operation
+)
+{
+    public async Task<object?> InvokeAsync()
+    {
+        Type? serviceType = Type.GetType(operation.ServiceName ?? throw new InvalidOperationException("Service name cannot be null"));
+        object? service = serviceProvider.GetService(serviceType ?? throw new InvalidOperationException("Service type cannot be null"));
+        MethodInfo? serviceMethod = serviceType.GetMethod(operation.MethodName) ?? throw new InvalidOperationException("Method info cannot be null");
+
+        List<object> parameters = [];
+        ParameterInfo[] requiredParameters = serviceMethod.GetParameters();
+        for (int i = 0; i < requiredParameters.Length; i++)
+        {
+            ParameterInfo requiredParameter = requiredParameters[i];
+            object? suppliedParameter = operation.Parameters[i];
+
+            bool suppliedValueIsOfCorrectType = requiredParameter.ParameterType == suppliedParameter.GetType();
+
+            if (suppliedValueIsOfCorrectType)
+                parameters.Add(operation.Parameters[i]);
+            else
+                // Convert.ChangeType is used to convert the supplied parameter to the required type eg from double to decimal
+                parameters.Add(Convert.ChangeType(suppliedParameter, requiredParameter.ParameterType, CultureInfo.InvariantCulture));
+        }
+
+        Task? task = (Task?)serviceMethod.Invoke(service, [..parameters]) ?? throw new InvalidOperationException($"Method {operation.MethodName} did not return a task");
+
+        await task;
+
+        object? result = null;
+        if (task.GetType().IsGenericType && task.GetType().GetGenericTypeDefinition() == typeof(Task<>))
+        {
+            // Get the result using reflection
+            PropertyInfo? resultProperty = task.GetType().GetProperty("Result");
+            result = resultProperty?.GetValue(task);
+        }
+
+        return result;
+    }
+}
+```
+
+The `MethodCallInvoker` class takes an `IServiceProvider` and a `MethodCall` in its constructor. Remember that the `IServiceProvider` can be used to get a service that has been registered with the DI container. By giving the `MethodCallInvoker` the `IServiceProvider`, we can get the service that we need to call the method on. The `InvokeAsync` method uses reflection to get the service, and the method that needs to be called.
+
+We then do some more reflection gymnastics to ensure that the parameters that are passed to the method are of the correct type. When it deserialises the parameters, the converter will make a best guess on the types of the parameters. If a parameter is not of the correct type, it uses `Convert.ChangeType` to convert the parameter to the correct type. The canonical example of this is converting a `double` to a `decimal`.
+
+Now it is ready to call the method. Because it's likely that these will be `async` methods, we expect them to return a `Task`. It's possible there may be a value returned as well, and if there is we unwrap it and return it.
+
+## How do we use the `MethodCallInvoker`?
+
+Let's do an end to end demonstration of how to serialise a method call, deserialise it and execute it. Here's how you can do it:
+
 ```cs
 MethodCall methodCall = new (
     ServiceName: typeof(IOurService).FullName ?? throw new InvalidOperationException("Service name cannot be null"),
@@ -66,4 +143,10 @@ MethodCall deserialized = Newtonsoft.Json.JsonConvert.DeserializeObject<MethodCa
 object? result = await new MethodCallInvoker(_serviceProvider, deserialized).InvokeAsync();
 ```
 
-Why `Newtonsoft.Json`? Because I'm using Cosmos DB to persist my method call, and it uses JSON.NET for JSON handling. Otherwise I'd likely use `System.Text.Json`. If you're using SQL Server, you could use System.Text.Json.
+The above code serialises the `MethodCall` to a JSON string, deserialises it back to a `MethodCall`, and then uses the `MethodCallInvoker` to execute the method.
+
+Why are we using `Newtonsoft.Json` for our serialisation / deserialisation? We don't have to, but let's say we're persisting this method call to a Cosmos DB, Cosmos uses JSON.NET for JSON handling. Otherwise I'd likely use `System.Text.Json`.
+
+## Conclusion
+
+In this post, we've looked at how we can serialise a method call (which could be stored in a database), and then later rehydrate and execute it. We've seen how we can use reflection to get the service and method that we need to call, and how we can convert the parameters to the correct type.
