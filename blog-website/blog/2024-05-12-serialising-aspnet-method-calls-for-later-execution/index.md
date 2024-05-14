@@ -34,8 +34,6 @@ So if, before calling a method on that object, you need to call another method c
 
 The analogy may not be entirely accurate, but think of each method call as needing to be an atomic operation and you're probably heading in the right direction.
 
-How then, can we serialise our method call?
-
 ## How do we serialise our method call?
 
 First of all, we need a data structure to store the information we need. We could use a `record` like this:
