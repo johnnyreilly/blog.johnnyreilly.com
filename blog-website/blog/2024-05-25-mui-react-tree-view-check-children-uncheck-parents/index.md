@@ -219,4 +219,4 @@ The first thing it does is determine if a node is being deselected or selected, 
 
 The code above demonstrates how to implement a treeview component with parent-child node selection behaviour. This behaviour is, in my opinion, more intuitive and user-friendly than the default behaviour of the MUI treeview component.
 
-You can also see this code in action on StackBlitz: [https://stackblitz.com/edit/mui-react-tree-view-check-children-uncheck-parents?file=Demo.tsx](https://stackblitz.com/edit/mui-react-tree-view-check-children-uncheck-parents?file=Demo.tsx)
+You can also see this code in action [on StackBlitz](https://stackblitz.com/edit/mui-react-tree-view-check-children-uncheck-parents?file=Demo.tsx).
