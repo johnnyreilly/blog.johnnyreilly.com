@@ -10,7 +10,7 @@ description: 'Learn how to use the MUI treeview component with behaviour that se
 
 Every now and then, I need to use a treeview component in a React application. The Material-UI (MUI) library provides a [treeview component](https://mui.com/x/react-tree-view/) that is very useful. However, some of the default behaviours of the component differ from that which you typically find in a treeview component. I'm speaking, of course, about node selection. I'm used to a treeview component that, when a parent node is selected, auto selects the child nodes underneath. And by turn, when nodes are deselected, the parent nodes get deselected.
 
-This post documents how to do just that!
+This post documents how to implement this behaviour with the MUI treeview component.
 
 ![title image reading "MUI React Tree View: check children, uncheck parents" with the MUI logo](title-image.png)
 
