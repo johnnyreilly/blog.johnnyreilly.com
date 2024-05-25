@@ -12,6 +12,8 @@ Every now and then, I need to use a treeview component in a React application. T
 
 This post documents how to implement this behaviour with the MUI treeview component.
 
+Since initially writing this, I've learned that it is likely that the kind of behaviour I'm hand-rolling here, will natively land in the component. So, all being well, what follows should become unnecessary! To track native support [watch this GitHub issue](https://github.com/mui/mui-x/issues/12883).
+
 ![title image reading "MUI React Tree View: check children, uncheck parents" with the MUI logo](title-image.png)
 
 <!--truncate-->
