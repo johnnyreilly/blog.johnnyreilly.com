@@ -23,7 +23,9 @@ export async function createSitemapItems(params) {
       !item.url.includes('/page/') &&
       !canonicalSlugs.some((slug) => item.url.endsWith('/' + slug));
 
-    console.log(`include ${include} ${item.url}`);
+    if (!include) {
+      console.log(`excluding from sitemap: ${item.url}`);
+    }
     return include;
   });
 }

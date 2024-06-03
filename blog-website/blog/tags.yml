@@ -1,164 +1,164 @@
 ai:
   label: 'AI'
   description: 'All things AI - Artificial Intelligence, Large Language Models and the like.'
-  permalink: /tags/ai
+  permalink: /ai
 
 angularjs:
   label: 'Angular JS'
   description: 'The original Angular JS framework.'
-  permalink: /tags/angularjs
+  permalink: /angularjs
 
 asp.net:
   label: 'ASP.NET'
   description: 'The web framework built by Microsoft.'
-  permalink: /tags/asp-net
+  permalink: /asp-net
 
 auth:
   label: 'Authentication and Authorization'
   description: 'Matters related to identity and permissioning'
-  permalink: /tags/auth
+  permalink: /auth
 
 automated testing:
   label: 'Automated Testing'
   description: 'How to perform the automation of tests.'
-  permalink: /tags/automated-testing
+  permalink: /automated-testing
 
 azure:
   label: 'Azure'
   description: 'The Microsoft cloud platform.'
-  permalink: /tags/azure
+  permalink: /azure
 
 azure container apps:
   label: 'Azure Container Apps'
   description: 'The Azure Container Apps service. Effectively a managed Kubernetes service.'
-  permalink: /tags/azure-container-apps
+  permalink: /azure-container-apps
 
 azure devops:
   label: 'Azure DevOps'
   description: 'The Azure DevOps suite of tools.'
-  permalink: /tags/azure-devops
+  permalink: /azure-devops
 
 azure functions:
   label: 'Azure Functions'
   description: 'The Azure Functions service.'
-  permalink: /tags/azure-functions
+  permalink: /azure-functions
 
 azure pipelines:
   label: 'Azure Pipelines'
   description: 'The Azure Pipelines CI / CD service.'
-  permalink: /tags/azure-pipelines
+  permalink: /azure-pipelines
 
 azure static web apps:
   label: 'Azure Static Web Apps'
   description: 'The Azure Static Web Apps service.'
-  permalink: /tags/azure-static-web-apps
+  permalink: /azure-static-web-apps
 
 bicep:
   label: 'Bicep'
   description: 'The Bicep language for Azure Resource Manager templates.'
-  permalink: /tags/bicep
+  permalink: /bicep
 
 bun:
   label: 'Bun'
   description: 'The Bun framework.'
-  permalink: /tags/bun
+  permalink: /bun
 
 c#:
   label: 'C#'
   description: 'The C# programming language.'
-  permalink: /tags/csharp
+  permalink: /csharp
 
 definitely typed:
   label: 'Definitely Typed'
   description: 'The Definitely Typed project for TypeScript type definitions'
-  permalink: /tags/definitely-typed
+  permalink: /definitely-typed
 
 docusaurus:
   label: 'Docusaurus'
   description: 'The Docusaurus static site generator.'
-  permalink: /tags/docusaurus
+  permalink: /docusaurus
 
 easy auth:
   label: 'Easy Auth'
   description: 'The Azure Easy Auth feature used for authentication and authorization.'
-  permalink: /tags/easy-auth
+  permalink: /easy-auth
 
 eslint:
   label: 'ESLint'
   description: 'The ESLint linter.'
-  permalink: /tags/eslint
+  permalink: /eslint
 
 fork-ts-checker-webpack-plugin:
   label: 'fork-ts-checker-webpack-plugin'
   description: 'The fork-ts-checker-webpack-plugin for webpack.'
-  permalink: /tags/fork-ts-checker-webpack-plugin
+  permalink: /fork-ts-checker-webpack-plugin
 
 github actions:
   label: 'GitHub Actions'
   description: 'The GitHub Actions CI / CD service.'
-  permalink: /tags/github-actions
+  permalink: /github-actions
 
 globalize:
   label: 'Globalize'
   description: 'The Globalize library.'
-  permalink: /tags/globalize
+  permalink: /globalize
 
 javascript:
   label: 'JavaScript'
   description: 'The JavaScript programming language.'
-  permalink: /tags/javascript
+  permalink: /javascript
 
 jquery:
   label: 'jQuery'
   description: 'The jQuery library.'
-  permalink: /tags/jquery
+  permalink: /jquery
 
 node.js:
   label: 'Node.js'
   description: 'The Node.js runtime.'
-  permalink: /tags/node-js
+  permalink: /node-js
 
 react:
   label: 'React'
   description: 'The React library.'
-  permalink: /tags/react
+  permalink: /react
 
 seo:
   label: 'SEO'
   description: 'Search Engine Optimization.'
-  permalink: /tags/seo
+  permalink: /seo
 
 sql server:
   label: 'SQL Server'
   description: 'The SQL Server database.'
-  permalink: /tags/sql-server
+  permalink: /sql-server
 
 swagger:
   label: 'Swagger'
   description: 'The Swagger API documentation framework - now known as OpenAPI.'
-  permalink: /tags/swagger
+  permalink: /swagger
 
 ts-loader:
   label: 'ts-loader'
   description: 'The TypeScript loader for webpack.'
-  permalink: /tags/ts-loader
+  permalink: /ts-loader
 
 typescript:
   label: 'TypeScript'
   description: 'The TypeScript programming language.'
-  permalink: /tags/typescript
+  permalink: /typescript
 
 visual studio:
   label: 'Visual Studio'
   description: 'The Visual Studio IDE.'
-  permalink: /tags/visual-studio
+  permalink: /visual-studio
 
 vs code:
   label: 'VS Code'
   description: 'The Visual Studio Code editor.'
-  permalink: /tags/vs-code
+  permalink: /vs-code
 
 webpack:
   label: 'webpack'
   description: 'The webpack module bundler.'
-  permalink: /tags/webpack
+  permalink: /webpack
