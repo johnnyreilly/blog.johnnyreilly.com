@@ -1,0 +1,164 @@
+ai:
+  label: 'AI'
+  description: 'All things AI - Artificial Intelligence, Large Language Models and the like.'
+  permalink: /ai
+
+angularjs:
+  label: 'Angular JS'
+  description: 'The original Angular JS framework.'
+  permalink: /angularjs
+
+asp.net:
+  label: 'ASP.NET'
+  description: 'The web framework built by Microsoft.'
+  permalink: /asp-net
+
+auth:
+  label: 'Authentication and Authorization'
+  description: 'Matters related to identity and permissioning'
+  permalink: /auth
+
+automated testing:
+  label: 'Automated Testing'
+  description: 'How to perform the automation of tests.'
+  permalink: /automated-testing
+
+azure:
+  label: 'Azure'
+  description: 'The Microsoft cloud platform.'
+  permalink: /azure
+
+azure container apps:
+  label: 'Azure Container Apps'
+  description: 'The Azure Container Apps service. Effectively a managed Kubernetes service.'
+  permalink: /azure-container-apps
+
+azure devops:
+  label: 'Azure DevOps'
+  description: 'The Azure DevOps suite of tools.'
+  permalink: /azure-devops
+
+azure functions:
+  label: 'Azure Functions'
+  description: 'The Azure Functions service.'
+  permalink: /azure-functions
+
+azure pipelines:
+  label: 'Azure Pipelines'
+  description: 'The Azure Pipelines CI / CD service.'
+  permalink: /azure-pipelines
+
+azure static web apps:
+  label: 'Azure Static Web Apps'
+  description: 'The Azure Static Web Apps service.'
+  permalink: /azure-static-web-apps
+
+bicep:
+  label: 'Bicep'
+  description: 'The Bicep language for Azure Resource Manager templates.'
+  permalink: /bicep
+
+bun:
+  label: 'Bun'
+  description: 'The Bun JavaScript runtime.'
+  permalink: /bun
+
+c#:
+  label: 'C#'
+  description: 'The C# programming language.'
+  permalink: /csharp
+
+definitely typed:
+  label: 'Definitely Typed'
+  description: 'The Definitely Typed project for TypeScript type definitions'
+  permalink: /definitely-typed
+
+docusaurus:
+  label: 'Docusaurus'
+  description: 'The Docusaurus static site generator.'
+  permalink: /docusaurus
+
+easy auth:
+  label: 'Easy Auth'
+  description: 'The Azure Easy Auth feature used for authentication and authorization.'
+  permalink: /easy-auth
+
+eslint:
+  label: 'ESLint'
+  description: 'The ESLint linter.'
+  permalink: /eslint
+
+fork-ts-checker-webpack-plugin:
+  label: 'fork-ts-checker-webpack-plugin'
+  description: 'The fork-ts-checker-webpack-plugin for webpack.'
+  permalink: /fork-ts-checker-webpack-plugin
+
+github actions:
+  label: 'GitHub Actions'
+  description: 'The GitHub Actions CI / CD service.'
+  permalink: /github-actions
+
+globalize:
+  label: 'Globalize'
+  description: 'The Globalize library.'
+  permalink: /globalize
+
+javascript:
+  label: 'JavaScript'
+  description: 'The JavaScript programming language.'
+  permalink: /javascript
+
+jquery:
+  label: 'jQuery'
+  description: 'The jQuery library.'
+  permalink: /jquery
+
+node.js:
+  label: 'Node.js'
+  description: 'The Node.js runtime.'
+  permalink: /node-js
+
+react:
+  label: 'React'
+  description: 'The React library.'
+  permalink: /react
+
+seo:
+  label: 'SEO'
+  description: 'Search Engine Optimization.'
+  permalink: /seo
+
+sql server:
+  label: 'SQL Server'
+  description: 'The SQL Server database.'
+  permalink: /sql-server
+
+swagger:
+  label: 'Swagger'
+  description: 'The Swagger API documentation framework - now known as OpenAPI.'
+  permalink: /swagger
+
+ts-loader:
+  label: 'ts-loader'
+  description: 'The TypeScript loader for webpack.'
+  permalink: /ts-loader
+
+typescript:
+  label: 'TypeScript'
+  description: 'The TypeScript programming language.'
+  permalink: /typescript
+
+visual studio:
+  label: 'Visual Studio'
+  description: 'The Visual Studio IDE.'
+  permalink: /visual-studio
+
+vs code:
+  label: 'VS Code'
+  description: 'The Visual Studio Code editor.'
+  permalink: /vs-code
+
+webpack:
+  label: 'webpack'
+  description: 'The webpack module bundler.'
+  permalink: /webpack
