@@ -1,0 +1,164 @@
+ai:
+  label: 'ai'
+  description: 'ai'
+  permalink: /tags/ai
+
+angularjs:
+  label: 'angularjs'
+  description: 'angularjs'
+  permalink: /tags/angularjs
+
+asp.net:
+  label: 'asp.net'
+  description: 'asp.net'
+  permalink: /tags/asp-net
+
+auth:
+  label: 'auth'
+  description: 'auth'
+  permalink: /tags/auth
+
+automated testing:
+  label: 'automated testing'
+  description: 'automated testing'
+  permalink: /tags/automated-testing
+
+azure:
+  label: 'azure'
+  description: 'azure'
+  permalink: /tags/azure
+
+azure container apps:
+  label: 'azure container apps'
+  description: 'azure container apps'
+  permalink: /tags/azure-container-apps
+
+azure devops:
+  label: 'azure devops'
+  description: 'azure devops'
+  permalink: /tags/azure-devops
+
+azure functions:
+  label: 'azure functions'
+  description: 'azure functions'
+  permalink: /tags/azure-functions
+
+azure pipelines:
+  label: 'azure pipelines'
+  description: 'azure pipelines'
+  permalink: /tags/azure-pipelines
+
+azure static web apps:
+  label: 'azure static web apps'
+  description: 'azure static web apps'
+  permalink: /tags/azure-static-web-apps
+
+bicep:
+  label: 'bicep'
+  description: 'bicep'
+  permalink: /tags/bicep
+
+bun:
+  label: 'bun'
+  description: 'bun'
+  permalink: /tags/bun
+
+c#:
+  label: 'c#'
+  description: 'c#'
+  permalink: /tags/c
+
+definitely typed:
+  label: 'definitely typed'
+  description: 'definitely typed'
+  permalink: /tags/definitely-typed
+
+docusaurus:
+  label: 'docusaurus'
+  description: 'docusaurus'
+  permalink: /tags/docusaurus
+
+easy auth:
+  label: 'easy auth'
+  description: 'easy auth'
+  permalink: /tags/easy-auth
+
+eslint:
+  label: 'eslint'
+  description: 'eslint'
+  permalink: /tags/eslint
+
+fork-ts-checker-webpack-plugin:
+  label: 'fork-ts-checker-webpack-plugin'
+  description: 'fork-ts-checker-webpack-plugin'
+  permalink: /tags/fork-ts-checker-webpack-plugin
+
+github actions:
+  label: 'github actions'
+  description: 'github actions'
+  permalink: /tags/github-actions
+
+globalize:
+  label: 'globalize'
+  description: 'globalize'
+  permalink: /tags/globalize
+
+javascript:
+  label: 'javascript'
+  description: 'javascript'
+  permalink: /tags/javascript
+
+jquery:
+  label: 'jquery'
+  description: 'jquery'
+  permalink: /tags/jquery
+
+node.js:
+  label: 'node.js'
+  description: 'node.js'
+  permalink: /tags/node-js
+
+react:
+  label: 'react'
+  description: 'react'
+  permalink: /tags/react
+
+seo:
+  label: 'seo'
+  description: 'seo'
+  permalink: /tags/seo
+
+sql server:
+  label: 'sql server'
+  description: 'sql server'
+  permalink: /tags/sql-server
+
+swagger:
+  label: 'swagger'
+  description: 'swagger'
+  permalink: /tags/swagger
+
+ts-loader:
+  label: 'ts-loader'
+  description: 'ts-loader'
+  permalink: /tags/ts-loader
+
+typescript:
+  label: 'typescript'
+  description: 'typescript'
+  permalink: /tags/typescript
+
+visual studio:
+  label: 'visual studio'
+  description: 'visual studio'
+  permalink: /tags/visual-studio
+
+vs code:
+  label: 'vs code'
+  description: 'vs code'
+  permalink: /tags/vs-code
+
+webpack:
+  label: 'webpack'
+  description: 'webpack'
+  permalink: /tags/webpack

@@ -359,6 +359,8 @@ const config = {
            * 0 to disable
            */
           blogSidebarCount: 8,
+          tags: 'tags.yml',
+          onInlineTags: 'throw',
           postsPerPage: 20,
           path: './blog',
           routeBasePath: '/', // Set this value to '/'.
