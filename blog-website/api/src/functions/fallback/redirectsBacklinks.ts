@@ -289,6 +289,10 @@ export const redirectsBacklinks = [
     redirect: '/tags/typescript',
   },
   {
+    route: '/tags/c',
+    redirect: '/tags/csharp',
+  },
+  {
     route: '/archive',
     redirect: '/blog',
   },

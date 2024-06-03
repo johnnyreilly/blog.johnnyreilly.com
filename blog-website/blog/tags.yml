@@ -60,7 +60,7 @@ bicep:
 
 bun:
   label: 'Bun'
-  description: 'The Bun framework.'
+  description: 'The Bun JavaScript runtime.'
   permalink: /bun
 
 c#:
