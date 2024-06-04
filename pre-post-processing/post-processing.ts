@@ -105,12 +105,13 @@ async function patchHtmlImagesToCloudinary() {
     )
     .filter((file) => fs.existsSync(file));
 
-  // const imageRegex =
-  //   /<img .*src="\/assets\/images\/([-a-zA-Z0-9()@:%_\+.~#?&//=]*)" [^,<]*>/g;
   const ogImageRegex =
     /<meta data-rh="true" property="og:image" content="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))">/;
   const twitterImageRegex =
     /<meta data-rh="true" name="twitter:image" content="(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*))">/;
+  // <img decoding="async" loading="eager" alt="title image reading &amp;quot;Adding lastmod to sitemap based on git commits&amp;quot; with XML and Docusaurus logos" src="/assets/images/title-image-83e5a8ec1684626cf7373c7c6c529fe4.png" width="800" height="450" fetchpriority="high" class="img_ev3q">
+  const imageRegex =
+    /<img[^>]*\bsrc="(\/assets\/images\/[-a-zA-Z0-9()@:%_\+.~#?&//=]*)" [^,<]*>/g;
 
   // https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/https://johnnyreilly.com/assets/images/title-image-934557b5733320b51dc0b371cf808e3a.png
   for (const indexHtmlPath of indexHtmlPaths) {
@@ -132,6 +133,15 @@ async function patchHtmlImagesToCloudinary() {
         })
         .replace(ogImageRegex, function (_match, url) {
           return `<meta data-rh="true" property="og:image" content="${cloudinaryUrl}${url}">`;
+        })
+        .replace(imageRegex, function (match, url) {
+          console.log(`Before: ${match}`);
+          const updated = match.replace(
+            url,
+            `${cloudinaryUrl}${rootUrl}${url}`,
+          );
+          console.log(`After: ${updated}`);
+          return updated;
         }),
     );
   }
@@ -337,7 +347,17 @@ async function trimRssXML() {
 async function main() {
   const startedAt = new Date();
 
-  await patchHtmlImagesToCloudinary();
+  const IS_LIVE_SITE = process.env['IS_LIVE_SITE'] === 'true';
+  console.log('IS_LIVE_SITE', IS_LIVE_SITE);
+
+  if (!IS_LIVE_SITE) {
+    console.log(
+      'Not patching images to Cloudinary as this is not the live site.',
+    );
+    return;
+  } else {
+    await patchHtmlImagesToCloudinary();
+  }
   // await patchJsImagesToCloudinary(); // now handled by rehype plugin
   // await trimSitemapXML();
   deleteFolderRecursive(
