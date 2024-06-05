@@ -73,29 +73,6 @@ const MUI_X_PRODUCTS: TreeViewBaseItem[] = [
   },
 ];
 
-function getParentIds(items: TreeViewBaseItem[], id: string) {
-  const parentIds: string[] = [];
-
-  for (const item of items) {
-    if (item.children) {
-      if (item.children.some((child) => child.id === id)) {
-        // The current item is a parent of the supplied id
-        parentIds.push(item.id);
-
-        // Recursively call the function for the parent item
-        const grandParentIds = getParentIds(items, item.id);
-        parentIds.push(...grandParentIds);
-      } else {
-        // Recursively call the function for the children of the current item
-        const childParentIds = getParentIds(item.children, id);
-        parentIds.push(...childParentIds);
-      }
-    }
-  }
-
-  return parentIds;
-}
-
 function getParentNode(
   items: TreeViewBaseItem[],
   id: string,
@@ -164,7 +141,14 @@ function determineIdsToSet(
   const isDeselectingNode = currentIds.length > newIds.length;
   if (isDeselectingNode) {
     const removed = currentIds.filter((id) => !newIds.includes(id))[0];
-    const parentIdsToRemove = getParentIds(items, removed);
+    
+    const parentIdsToRemove: string[] = [];
+    let parent = getParentNode(items, removed);
+    while (parent) {
+        parentIdsToRemove.push(parent.id);
+        parent = getParentNode(items, parent.id);
+    }
+
     const childIdsToRemove = getSelectedIdsAndChildrenIds(items, [removed]);
 
     const newIdsWithParentsAndChildrenRemoved = newIds.filter(
