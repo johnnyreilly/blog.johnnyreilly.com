@@ -96,6 +96,16 @@ function getParentNode(
   return undefined;
 }
 
+function getAllParentIds(items: TreeViewBaseItem[], id: string) {
+    const parentIds: string[] = [];
+    let parent = getParentNode(items, id);
+    while (parent) {
+        parentIds.push(parent.id);
+        parent = getParentNode(items, parent.id);
+    }
+    return parentIds;
+}
+
 function getSelectedIdsAndChildrenIds(
   items: TreeViewBaseItem[],
   selectedIds: string[],
@@ -142,12 +152,7 @@ function determineIdsToSet(
   if (isDeselectingNode) {
     const removed = currentIds.filter((id) => !newIds.includes(id))[0];
     
-    const parentIdsToRemove: string[] = [];
-    let parent = getParentNode(items, removed);
-    while (parent) {
-        parentIdsToRemove.push(parent.id);
-        parent = getParentNode(items, parent.id);
-    }
+    const parentIdsToRemove = getAllParentIds(items, removed);
 
     const childIdsToRemove = getSelectedIdsAndChildrenIds(items, [removed]);
 
@@ -159,15 +164,21 @@ function determineIdsToSet(
   }
 
   const added = newIds.filter((id) => !currentIds.includes(id))[0];
-  const parent = getParentNode(items, added);
-  if (parent) {
+  const idsToSet = getSelectedIdsAndChildrenIds(items, newIds);
+  let parent = getParentNode(items, added);
+  while (parent) {
     const childIds = parent.children?.map((node) => node.id) ?? [];
-    const allChildrenSelected = childIds.every((id) => newIds.includes(id));
+    const allChildrenSelected = childIds.every((id) =>
+      idsToSet.includes(id),
+    );
     if (allChildrenSelected) {
-      return [...getSelectedIdsAndChildrenIds(items, newIds), parent.id];
+      idsToSet.push(parent.id);
+      parent = getParentNode(items, parent.id);
+    } else {
+      break;
     }
   }
-  return getSelectedIdsAndChildrenIds(items, newIds);
+  return idsToSet;
 }
 
 export default function CheckboxSelection() {
