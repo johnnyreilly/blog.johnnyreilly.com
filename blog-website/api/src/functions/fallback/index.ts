@@ -4,10 +4,19 @@ import type {
   HttpResponseInit,
   InvocationContext,
 } from '@azure/functions';
-import { app } from '@azure/functions';
 
-import { redirect } from './redirect';
-import { saveToDatabase } from './saveToDatabase';
+import { redirect } from './redirect.js';
+import { saveToDatabase } from './saveToDatabase.js';
+import type { FunctionModule } from '../../functionModule.js';
+
+export const GET: FunctionModule = {
+  name: 'fallback',
+  options: {
+    route: 'fallback',
+    methods: ['GET'],
+    handler: fallback,
+  },
+};
 
 export async function fallback(
   request: HttpRequest,
@@ -38,8 +47,3 @@ export async function fallback(
     };
   }
 }
-
-app.http('fallback', {
-  methods: ['GET'],
-  handler: fallback,
-});

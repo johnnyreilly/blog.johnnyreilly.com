@@ -1,12 +1,12 @@
-import type { Redirect, RedirectInDb } from './types';
+import { CosmosClient } from '@azure/cosmos';
 import type { InvocationContext } from '@azure/functions';
 
-import { CosmosClient } from '@azure/cosmos';
+import type { Redirect, RedirectInDb } from './types.js';
 
 import {
   cosmosDbDatabaseName,
   cosmosDbRedirectsContainerName,
-} from '../../constants';
+} from '../../constants.js';
 
 const key = process.env.COSMOS_KEY || '<cosmos key>';
 const endpoint = process.env.COSMOS_ENDPOINT || '<cosmos endpoint>';

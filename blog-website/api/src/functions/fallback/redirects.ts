@@ -1,6 +1,6 @@
-import { redirectsDocusaurusDateToNoDate } from './redirectsDocusaurusDateToNoDate';
-import { redirectsBlogger } from './redirectsBlogger';
-import { redirectsBacklinks } from './redirectsBacklinks';
+import { redirectsDocusaurusDateToNoDate } from './redirectsDocusaurusDateToNoDate.js';
+import { redirectsBlogger } from './redirectsBlogger.js';
+import { redirectsBacklinks } from './redirectsBacklinks.js';
 
 export const redirects = [
   ...redirectsDocusaurusDateToNoDate,

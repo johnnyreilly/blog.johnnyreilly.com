@@ -4,12 +4,21 @@ import type {
   HttpResponseInit,
   InvocationContext,
 } from '@azure/functions';
-import { app } from '@azure/functions';
 
 import { startOfWeek } from 'date-fns';
 import { groupBy, orderBy } from 'lodash';
 
-import { readFromDatabase } from './readFromDatabase';
+import { readFromDatabase } from './readFromDatabase.js';
+import type { FunctionModule } from '../../functionModule.js';
+
+export const GET: FunctionModule = {
+  name: 'redirect-report',
+  options: {
+    route: 'redirect-report',
+    methods: ['GET'],
+    handler: redirectReport,
+  },
+};
 
 export async function redirectReport(
   request: HttpRequest,
@@ -66,8 +75,3 @@ export async function redirectReport(
     };
   }
 }
-
-app.http('redirect-report', {
-  methods: ['GET'],
-  handler: redirectReport,
-});
