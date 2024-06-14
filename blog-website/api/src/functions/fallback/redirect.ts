@@ -1,8 +1,8 @@
 import type { InvocationContext } from '@azure/functions';
 
 import { parseURL } from 'ufo';
-import { imagePaths } from './imagePaths';
-import { redirects } from './redirects';
+import { imagePaths } from './imagePaths.js';
+import { redirects } from './redirects.js';
 
 const yearMonthRegex = /\/\d\d\d\d\/(\d\d\/)?/;
 const baseUrl = 'https://johnnyreilly.com';

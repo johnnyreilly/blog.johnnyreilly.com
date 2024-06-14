@@ -1,7 +1,7 @@
 import type { InvocationContext } from '@azure/functions';
 import { describe, expect, test } from '@jest/globals';
 
-import { redirect } from './redirect';
+import { redirect } from './redirect.js';
 
 describe('redirect', () => {
   test('blog.johnnyreilly.com should be redirected to johnnyreilly.com', () => {
