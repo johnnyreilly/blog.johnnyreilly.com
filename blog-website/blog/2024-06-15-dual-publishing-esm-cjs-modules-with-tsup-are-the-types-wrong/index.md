@@ -40,7 +40,7 @@ In this example, we're building the `src/index.ts` file into both CJS and ESM mo
 
 When you run `npm run build`, you'll see that `tsup` has created a `dist` directory with the following structure:
 
-```
+```bash
 dist/
   index.cjs
   index.cjs.map
@@ -187,4 +187,8 @@ Isn't that great? You can now be confident that your `package.json` file is set 
 
 ## Conclusion
 
-In this post, we've seen how to publish a package that supports both ESM and CJS modules using `tsup`. We've also seen how to ensure that the types are correct using the tool `Are the Types Wrong`. I hope you found this post helpful and that it saves you some time and frustration when publishing your next package. Remember, friends don't let friends publish packages with incorrect types!
+In this post, we've seen how to publish a package that supports both ESM and CJS modules using `tsup`. We've also seen how to ensure that the types are correct using the tool `Are the Types Wrong`. I hope you found this post helpful and that it saves you some time and frustration when publishing your next package.
+
+Thanks to [Andrew Branch](https://github.com/andrewbranch) for putting together `Are the Types Wrong` and to the folk that work on `tsup` for making it easy to build packages that support both ESM and CJS modules.
+
+Remember, friends don't let friends publish packages with incorrect types!
