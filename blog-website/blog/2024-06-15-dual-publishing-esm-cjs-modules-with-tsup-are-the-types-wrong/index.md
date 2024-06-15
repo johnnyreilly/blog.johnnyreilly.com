@@ -8,7 +8,7 @@ hide_table_of_contents: false
 description: 'Learn how to publish a package that supports both ECMAScript modules (ESM) and CommonJS modules (CJS) using tsup and Are the Types Wrong?'
 ---
 
-If you need to publish a package that supports both ECMAScript modules (ESM) and CommonJS modules (CJS), you can use [`tsup`](https://github.com/egoist/tsup) to do so. This post will show you how to do that and how to ensure that the types are correct using the tool [`Are the Types Wrong`](https://github.com/arethetypeswrong/arethetypeswrong.github.io)?
+If you need to publish a package that supports both ECMAScript modules (ESM) and CommonJS modules (CJS), you can use [`tsup`](https://github.com/egoist/tsup) to do so. This post will show you how to do that and how to ensure that the types are correct using the tool [`Are the Types Wrong?`](https://github.com/arethetypeswrong/arethetypeswrong.github.io).
 
 ![title image reading "Dual Publishing ESM and CJS Modules with tsup and Are the Types Wrong?" with the Are the Types Wrong logo](title-image.png)
 
@@ -56,13 +56,13 @@ This is great news! You now have a package that supports both ESM and CJS module
 
 ## Linting your package.json file with Are the Types Wrong?
 
-When you're publishing a package, it's important to ensure that your `package.json` file is set up correctly. This includes ensuring that the `exports` field is set up correctly to support both ESM and CJS modules. This can be a bit tricky to get right, so it's a good idea to use a tool to help you.
+When you're publishing a package, it's important to ensure that your `package.json` file is set up correctly. It is the manifest that other packages consume. If it is not set up correctly, things won't work at runtime and you'll have an unpleasant engineering experience in your IDE as well. Getting it right includes ensuring that the `exports` field is set up correctly to support both ESM and CJS modules. This can be a bit tricky to get right, so it's a good idea to use a tool to help you.
 
 I made the following additions to my `package.json` file to support both ESM and CJS modules:
 
 ```json
 {
-  "//": "This is the correct way to set up the exports field for a package that supports both ESM and CJS modules.",
+  "//": "This is the correct way to set up a package with a `src/index.ts` root file that supports both ESM and CJS modules.",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -87,9 +87,9 @@ Let's break this down:
 - The `module` field is set to `./dist/index.js` to indicate the entry point for ESM modules.
 - The `types` field is set to `./dist/index.d.ts` to indicate the type definitions file for CJS modules.
 
-We then set up the `exports` field to support both ESM and CJS modules. The `import` field is set up to support ESM modules and the `require` field is set up to support CJS modules.
+We then set up the `exports` field to support both ESM and CJS modules. The `import` field is set up to support ESM modules and the `require` field is set up to support CJS modules. In each, the `types` field is set to the relevant type definitions file - significantly, the `types` comes first.
 
-Now I've jumped straight to the good part here. I've given you the correct way to set up the `exports` field for a package that supports both ESM and CJS modules. But how do you know if your `package.json` file is set up correctly?
+Here I've jumped straight to the good part here. I've given you the correct way to set up the `exports` field for a package that supports both ESM and CJS modules. But how do you know if your `package.json` file is set up correctly?
 
 Well, in my case I used the tool [`Are the Types Wrong`](https://arethetypeswrong.github.io/) to lint my `package.json` file. `Are the Types Wrong` is a tool that checks your `package.json` file to ensure that it's set up correctly for publishing a package that supports both ESM and CJS modules. You're possibly aware of the [website](https://arethetypeswrong.github.io/) but did you know that there's a CLI tool that you can use to lint your `package.json` file?
 
@@ -99,7 +99,7 @@ If you would like to read the full documentation on the CLI tool, you can find i
 
 - cd into your project directory
 - run `npx @arethetypeswrong/cli`
-- when prompted 'Run `npm pack`? (Pass -P/--pack to skip) (Y/n)' hit enter
+- when prompted `Run npm pack? (Pass -P/--pack to skip) (Y/n)` hit enter
 - et voila, your `package.json` file will be linted for type issues
 
 To see what this looks like, here's the output from running `npx @arethetypeswrong/cli` in the project directory of a package with the `package.json` file _not_ set up correctly:
@@ -187,8 +187,10 @@ Isn't that great? You can now be confident that your `package.json` file is set 
 
 ## Conclusion
 
-In this post, we've seen how to publish a package that supports both ESM and CJS modules using `tsup`. We've also seen how to ensure that the types are correct using the tool `Are the Types Wrong`. I hope you found this post helpful and that it saves you some time and frustration when publishing your next package.
+In this post, we've seen how to publish a package that supports both ESM and CJS modules using `tsup`. We've also seen how to ensure that the types are correct using the tool `Are the Types Wrong`.
 
-Thanks to [Andrew Branch](https://github.com/andrewbranch) for putting together `Are the Types Wrong` and to the folk that work on `tsup` for making it easy to build packages that support both ESM and CJS modules.
+It's probably worth saying that `Are the Types Wrong` doesn't check everything, and that `tsup`s method of dual compilation makes some unchecked assumptions too. Using these tools isn't a silver bullet, given how complicated the ESM/CJS compatibility story is, but they do their best to help.
+
+Thanks to [Andrew Branch](https://github.com/andrewbranch) for putting together `Are the Types Wrong` and to the folk that work on `tsup` for making it easy to build packages that support both ESM and CJS modules. Thanks also to Andrew for his help in reviewing this post.
 
 Remember, friends don't let friends publish packages with incorrect types!
