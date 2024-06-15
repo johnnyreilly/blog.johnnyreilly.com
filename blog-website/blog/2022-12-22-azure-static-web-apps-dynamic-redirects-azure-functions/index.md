@@ -125,16 +125,16 @@ And now our Azure Function will be built and deployed alongside our blog.
 
 ## Testing our Azure Function
 
-We can demonstrate this works pretty easily. Let's take a super old blog post of mine, where I upgraded to TypeScript 0.9.5 (!!!) The route has changed since I originally posted back in 2014. If we go to https://johnnyreilly.com/2014/01/upgrading-to-typescript-095-personal.html (the old Blogger URL), we'll be redirected (301'd to be specific - signalling a permanent move) to https://johnnyreilly.com/2014/01/09/upgrading-to-typescript-095-personal - the new URL. This is demonstrated in the following screenshot - note the `location` header in the response:
+We can demonstrate this works pretty easily. Let's take a super old blog post of mine, where I upgraded to TypeScript 0.9.5 (!!!) The route has changed since I originally posted back in 2014. If we go to <https://johnnyreilly.com/2014/01/upgrading-to-typescript-095-personal.html> (the old Blogger URL), we'll be redirected (301'd to be specific - signalling a permanent move) to <https://johnnyreilly.com/upgrading-to-typescript-095-personal> - the new URL. This is demonstrated in the following screenshot - note the `location` header in the response:
 
-![screenshot of redirect in Chrome Devtools](screenshot-redirect-in-chrome-devtools.png)
+![screenshot of redirect in Chrome Devtools](screenshot-redirect-in-chrome-devtools.webp)
 
 This particular redirect is driven by [an entry in our `redirects.js`](https://github.com/johnnyreilly/blog.johnnyreilly.com/blob/e21d3faf897505e860fc351260ab45ef6fa21d60/blog-website/api/fallback/redirects.js#L475-L479) file:
 
 ```json
   {
     route: '/2014/01/upgrading-to-typescript-095-personal.html',
-    redirect: '/2014/01/09/upgrading-to-typescript-095-personal',
+    redirect: '/upgrading-to-typescript-095-personal',
     statusCode: 301,
   },
 ```
