@@ -103,15 +103,15 @@ With the Vite `server.proxy` configuration in place, our app is now usable on 2 
 
 I'm going to take a medium sized app and run it with both configurations. I'll then use the Chrome DevTools to compare the performance of the two configurations. It'll be a basic test, but it should give us an idea of the performance difference.
 
-The Static Web App CLI (`http://localhost:4280`) takes just over 10 seconds to load the app.
+The Static Web App CLI (`http://localhost:4280`) takes just over **10 seconds** to load the app.
 
 ![screenshot of devtools showing 10 seconds finish time](devtools-performance-static-web-app-cli.png)
 
-The Vite server proxy (`http://localhost:5173`) takes just around 1.5 seconds to load the app.
+The Vite server proxy (`http://localhost:5173`) takes just around **1.5 seconds** to load the app.
 
 ![screenshot of devtools showing 10 seconds finish time](devtools-performance-vite-server-proxy.png)
 
-This is a significant improvement in performance. The Vite server proxy is **much** faster than the Static Web Apps CLI proxy server.
+This is a significant improvement in performance. The Vite server proxy approach is nearly 10x faster than the Static Web Apps CLI proxy server.
 
 It's worth noting that we're still using the Static Web Apps CLI for authentication / authorization and for hitting the backend server. However, given that static assets are by far the most common request, this change will make a big difference to your local development experience.
 
