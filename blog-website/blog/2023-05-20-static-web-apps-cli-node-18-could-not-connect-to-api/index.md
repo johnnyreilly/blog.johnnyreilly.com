@@ -12,13 +12,15 @@ I make use of Azure Static Web Apps a lot. I recently upgraded to Node.js 18 and
 
 `[swa] ❌ Could not connect to "http://localhost:7071/". Is the server up and running?`
 
-This post shares a workaround.
+This post shares a workaround. This works for v1.1.3 or earlier of the Static Web Apps CLI. If you're using v1.1.4 or later, you should not need this workaround. But in that case [you might find this post helpful on improving performance with 1.1.4 or later](../2024-06-18-static-web-apps-cli-improve-performance-with-vite-server-proxy/index.md).
 
 ![title image reading "Static Web Apps CLI and Node.js 18: could not connect to API" with the Static Web Apps CLI and Node.js logos](title-image.png)
 
 <!--truncate-->
 
-## The issue
+With Node.js 17 onwards there were changes in the behaviour of Node.js concerning DNS names. Although it's not obvious, the [changes happened here](https://github.com/nodejs/node/pull/39987) and the result of this was that IPv6 became the default DNS instead of IPv4. You can read more about this [on this GitHub issue](https://github.com/nodejs/node/issues/40537).
+
+## How this affects the Static Web Apps CLI
 
 My own setup is a Vite front end and a Function App back end. I have a `package.json` in the folder of the front end app with the following scripts:
 
@@ -31,9 +33,11 @@ I could see both front end and back end starting up in the console, but inevitab
 
 `[swa] ❌ Could not connect to "http://localhost:7071/". Is the server up and running?`
 
-It turned out this came down to the version of Node.js I was using. I was using Node.js 18. Or rather it was due to an issue with a dependency of the Static Web Apps CLI; the [wait-on](https://github.com/jeffbski/wait-on) library which waits for endpoints to become available. [With Node.js 18 this is broken](https://github.com/jeffbski/wait-on/issues/137). It's not clear a fix is imminent.
+I experienced this when moving from Node.js 16 to Node.js 18. A dependency of the Static Web Apps CLI; the [wait-on](https://github.com/jeffbski/wait-on) library which waits for endpoints to become available, was impacted by the new behavior. [With Node.js 18 this is broken](https://github.com/jeffbski/wait-on/issues/137).
 
-## The workaround
+A fix to the overall issue was released in [v1.1.4 of the Static Web Apps CLI](https://github.com/Azure/static-web-apps-cli/releases/tag/v1.1.4). Unfortunately, it caused performance issues with the proxy server. [This post shows you how to work around this issue](../2024-06-18-static-web-apps-cli-improve-performance-with-vite-server-proxy/index.md). If you'd like to work around the issue with v1.1.3 or earlier, read on.
+
+## The workaround for v1.1.3 or earlier
 
 Various workarounds are suggested in [this GitHub issue](https://github.com/Azure/static-web-apps-cli/issues/663). I shared my own there, and I'm sharing it here too. (Mostly for me, I'll lay money I need this again and again.)
 
