@@ -111,7 +111,7 @@ The Vite server proxy (`http://localhost:5173`) takes just around **1.5 seconds*
 
 ![screenshot of devtools showing 10 seconds finish time](devtools-performance-vite-server-proxy.png)
 
-This is a significant improvement in performance. The Vite server proxy approach is nearly 10x faster than the Static Web Apps CLI proxy server.
+This is a significant improvement in performance. The Vite server proxy approach is nearly **10x faster** than the Static Web Apps CLI proxy server.
 
 It's worth noting that we're still using the Static Web Apps CLI for authentication / authorization and for hitting the backend server. However, given that static assets are by far the most common request, this change will make a big difference to your local development experience.
 
