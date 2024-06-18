@@ -20,7 +20,7 @@ This post shows you how to improve your developer experience by using Vite serve
 
 ## What the Static Web Apps CLI does
 
-The Static Web Apps CLI is a great tool for local development. It spins up a local server which serves your frontend and proxies requests to your backend. This is particularly handy if you're building an app which has a frontend and a backend, and you want to run them both locally. There's also an extra bonus in the box, in that you can spoof authentication / authorization.
+The Static Web Apps CLI is a great tool for local development. It spins up a local server which proxies requests to your frontend / backend servers. This is a great way to handle local development without having to work around CORS issues. There's also an extra bonus in the box, in that you can spoof authentication / authorization as well.
 
 So to be clear, for the purposes of local development, the Static Web Apps CLI is a dev server that does three important things:
 
@@ -85,9 +85,9 @@ You'll note a few options being set:
 - [`changeOrigin`](https://vitejs.dev/config/server-options.html#server-proxy) - will change both host and origin headers to match the target
 - [`autoRewrite`](https://github.com/http-party/node-http-proxy#options) - rewrites the location host/port on (201/301/302/307/308) redirects based on requested host/port.
 
-You'll also note we're using a `target` of `http://127.0.0.1:4280` rather than `http://localhost:4280`. This is because of the changes in Node.js 17 and above which mean that IPv6 is the default DNS instead of IPv4. I picked this up from [this GitHub issue](https://github.com/vitejs/vite/discussions/7620#discussioncomment-5689650).
+You'll also note we're using a `target` of `http://127.0.0.1:4280` rather than `http://localhost:4280`. This is because of the changes in Node.js 17 and above which mean that IPv6 is the default DNS instead of IPv4.
 
-If you were to try using a `target` of `http://localhost:4280` in the configuration you may see an error like this:
+If you were to try using a `target` of `http://localhost:4280` in the configuration you may see an error like below due to the IPv6 DNS issue:
 
 ```bash
 [run] 1:38:29 PM [vite] http proxy error: /.auth/login/aad
@@ -95,11 +95,11 @@ If you were to try using a `target` of `http://localhost:4280` in the configurat
 [run]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16)
 ```
 
-But stick with `http://127.0.0.1:4280` and you should be fine.
+If you stick with `http://127.0.0.1:4280` and you should be fine. I discovered the workaround from [this GitHub issue](https://github.com/vitejs/vite/discussions/7620#discussioncomment-5689650).
 
 ## Comparing performance
 
-With this in place, we are free to browse to both `http://localhost:5173` and `http://localhost:4280` - both ports will show our app running. Going to `http://localhost:5173` is using Vite as the proxy, going to `http://localhost:4280` is using the Static Web Apps CLI as the proxy.
+With the Vite `server.proxy` configuration in place, our app is now usable on 2 ports. We can browse to both `http://localhost:5173` and `http://localhost:4280` - both ports will show our app running. Going to `http://localhost:5173` is using Vite directly for static assets and proxying back to `http://localhost:4280` for API / auth. Going to `http://localhost:4280` is using the Static Web Apps CLI to proxy to Vite for static assets, uses itself for auth and proxies any API requests.
 
 I'm going to take a medium sized app and run it with both configurations. I'll then use the Chrome DevTools to compare the performance of the two configurations. It'll be a basic test, but it should give us an idea of the performance difference.
 
