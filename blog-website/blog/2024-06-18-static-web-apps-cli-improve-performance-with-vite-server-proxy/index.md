@@ -10,7 +10,7 @@ hide_table_of_contents: false
 
 I often use the Azure Static Web Apps CLI for local development. It's not only handy when building Azure Static Web Apps, but also when building other types of web app, which also rely upon both a frontend server and some kind of API server. The Azure Static Web Apps CLI is particularly handy if you want to spoof authentication / authorization as well.
 
-Changes in the behaviour of Node.js in version 17 caused issues with the Static Web Apps CLI. You can read a [previous post which discussed this](../2023-05-20-static-web-apps-cli-node-18-could-not-connect-to-api/index.md). However, whilst the issue was fixed in version 1.1.4 of the Static Web Apps CLI, it caused performance issues with the Static Web Apps CLI.
+Changes in the behaviour of Node.js in version 17 caused issues with the Static Web Apps CLI. You can read a [previous post which discussed this](../2023-05-20-static-web-apps-cli-node-18-could-not-connect-to-api/index.md). However, whilst the issue was fixed in version 1.1.4 of the Static Web Apps CLI, it caused significant performance regressions in the CLIs dev server functionality.
 
 This post shows you how to improve your developer experience by using Vite server proxy instead.
 
