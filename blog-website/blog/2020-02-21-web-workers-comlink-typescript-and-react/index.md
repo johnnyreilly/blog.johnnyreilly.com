@@ -9,9 +9,11 @@ description: 'Learn how to use Web Workers in a React app using Googles comlink 
 
 JavaScript is famously single threaded. However, if you're developing for the web, you may well know that this is not quite accurate. There are [`Web Workers`](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers):
 
-<!--truncate-->
-
 > A worker is an object created using a constructor (e.g. `Worker()`) that runs a named JavaScript file — this file contains the code that will run in the worker thread; workers run in another global context that is different from the current window.
+
+If you're using Vite to build your React app, you may [prefer to read this post](../2024-06-23-web-workers-comlink-vite-react-query/index.md).
+
+<!--truncate-->
 
 Given that there is a way to use other threads for background processing, why doesn't this happen all the time? Well there's a number of reasons; not the least of which is the ceremony involved in interacting with Web Workers. Consider the following example that illustrates moving a calculation into a worker:
 
@@ -123,7 +125,7 @@ yarn eject
 Then let's install the packages we're going to be using:
 
 - [`worker-plugin`](https://github.com/GoogleChromeLabs/worker-plugin) \- this webpack plugin automatically compiles modules loaded in Web Workers
-- `comlink` \- this library provides the RPC-like experience that we want from our workers
+- `comlink` - this library provides the RPC-like experience that we want from our workers
 
 ```
 yarn add comlink worker-plugin
