@@ -9,9 +9,11 @@ description: 'Learn how to use Web Workers in a React app using Googles comlink 
 
 JavaScript is famously single threaded. However, if you're developing for the web, you may well know that this is not quite accurate. There are [`Web Workers`](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers):
 
-<!--truncate-->
-
 > A worker is an object created using a constructor (e.g. `Worker()`) that runs a named JavaScript file — this file contains the code that will run in the worker thread; workers run in another global context that is different from the current window.
+
+If you're using Vite to build your React app, you may [prefer to read this post](../2024-06-23-web-workers-comlink-vite-tanstack-query/index.md).
+
+<!--truncate-->
 
 Given that there is a way to use other threads for background processing, why doesn't this happen all the time? Well there's a number of reasons; not the least of which is the ceremony involved in interacting with Web Workers. Consider the following example that illustrates moving a calculation into a worker:
 
@@ -106,7 +108,7 @@ console.log('Do another thing');
 
 When our application runs we see this behaviour:
 
-![](blocking.gif)
+![janky application](blocking.gif)
 
 The app starts and logs `Do something` and `Start our long running job...` to the console. It then blocks the UI until the `takeALongTimeToDoSomething` function has completed running. During this time the screen is empty and unresponsive. This is a poor user experience.
 
@@ -116,16 +118,16 @@ To start using comlink we're going to need to eject our `create-react-app` appli
 
 Web Workers are not that commonly used in day to day development at present. Consequently there isn't yet a "plug'n'play" solution for workers supported by `create-react-app`. There's a number of potential ways to support this use case and you can track the various discussions happening against `create-react-app` that covers this. For now, let's eject with:
 
-```
+```bash
 yarn eject
 ```
 
 Then let's install the packages we're going to be using:
 
 - [`worker-plugin`](https://github.com/GoogleChromeLabs/worker-plugin) \- this webpack plugin automatically compiles modules loaded in Web Workers
-- `comlink` \- this library provides the RPC-like experience that we want from our workers
+- `comlink` - this library provides the RPC-like experience that we want from our workers
 
-```
+```bash
 yarn add comlink worker-plugin
 ```
 
@@ -148,16 +150,13 @@ Do note that there's a number of `plugins` statements in the `webpack.config.js`
 
 Now we're ready to take our long running process and move it into a worker. Inside the `src` folder, create a new folder called `my-first-worker`. Our worker is going to live in here. Into this folder we're going to add a `tsconfig.json` file:
 
-```
+```json
 {
   "compilerOptions": {
     "strict": true,
     "target": "esnext",
     "module": "esnext",
-    "lib": [
-      "webworker",
-      "esnext"
-    ],
+    "lib": ["webworker", "esnext"],
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "sourceMap": true,
@@ -238,7 +237,7 @@ function takeALongTimeToDoSomething() {
 
 Now we're ready to demo our application using our function offloaded into a Web Worker. It now behaves like this:
 
-![](non-blocking.gif)
+![not janky app](non-blocking.gif)
 
 There's a number of exciting things to note here:
 
@@ -311,7 +310,7 @@ export default App;
 
 When you try it out you'll notice that entering a single digit locks the UI for 5 seconds whilst it adds the numbers. From the moment the cursor stops blinking to the moment the screen updates the UI is non-responsive:
 
-![](blocking-react.gif)
+![janky](blocking-react.gif)
 
 So far, so classic. Let's Web Workerify this!
 
@@ -459,7 +458,7 @@ export default App;
 
 Now our calculation takes place off the main thread and the UI is no longer blocked!
 
-![](non-blocking-react.gif)
+![not janky](non-blocking-react.gif)
 
 [This post was originally published on LogRocket.](https://blog.logrocket.com/integrating-web-workers-in-a-react-app-with-comlink/)
 
