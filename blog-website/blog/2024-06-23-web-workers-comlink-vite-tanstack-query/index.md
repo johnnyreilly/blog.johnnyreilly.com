@@ -25,7 +25,7 @@ export function expensiveCalculation(
   data: BigLumpOfData,
   from: Date,
   to: Date,
-): LeadTimeCycleTimeData {
+): number {
   // SUPER EXPENSIVE COMPUTATION CODE HERE...
   return importantNumber;
 }
