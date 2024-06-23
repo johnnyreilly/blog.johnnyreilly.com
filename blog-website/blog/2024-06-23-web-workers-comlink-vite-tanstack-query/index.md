@@ -16,7 +16,7 @@ I've written previously about combining [Web Workers and Comlink](../2020-02-21-
 
 ## A use case for Web Workers
 
-Web Workers are a great way to offload work from the main thread. This can be particularly useful if you have a long running task that you don't want to block the UI thread. In my case, I was working on a feature that required a lot of computation. I wanted to keep the UI responsive whilst the computation was happening.
+Web Workers are a great way to offload work from the main thread. This can be particularly useful if you have a long running task that you don't want to block the UI thread. In my case, I was working on a feature that required a lot of computation. I wanted to keep the UI responsive whilst the numbers got crunched.
 
 Imagine the following function in our `calculations.ts` file:
 
@@ -31,11 +31,11 @@ export function expensiveCalculation(
 }
 ```
 
-This function is doing some very expensive computation. We don't want to block the main thread with this computation. We can use a Web Worker to offload this work. Because the naked Web Worker API is a bit of a pain to work with, we can use Comlink to make it easier.
+This function is doing some very expensive computation. We don't want to block the main thread with it. We want to use a Web Worker to offload this work. But the naked Web Worker API is a bit of a pain to work with. Instead then, we can use Comlink to make it easier.
 
 ## Vite Comlink setup with `vite-plugin-comlink`
 
-As I've mentioned, we're working with Vite in this codebase. To get Comlink working with Vite, we can use the [`vite-plugin-comlink` plugin](https://github.com/mathe42/vite-plugin-comlink). This plugin is a wrapper around Comlink that makes it easy to use with Vite.
+As I've mentioned, we're working with Vite in this codebase. To get Comlink working with Vite, we can use the dedicated plugin named [`vite-plugin-comlink`](https://github.com/mathe42/vite-plugin-comlink). It is a wrapper around Comlink that simplifies using it with Vite.
 
 To get started, we need to install the plugin and Comlink:
 
@@ -84,6 +84,8 @@ const calculationsWorker = new ComlinkWorker<
 
 There's not much code above, but it's doing a lot. We're creating a new Web Worker with Comlink using the `ComlinkWorker`. This is an affordance provided by `vite-plugin-comlink` and it creates a Web Worker with Comlink. We're pointing it at our `calculations.js` file (`.js` as this is an ESM import representing the `calculations.ts` file). We're also giving the Web Worker a name, `calculationsComlink` - this will be handy when debugging. Finally, we're telling the Web Worker that it's a module. So we can use ESM imports in our Web Worker. Actually, we're not do that right now, but we could.
 
+Note also that the types will be inferred from the `calculations.js` file thanks to the `typeof import('./calculations.js')`. This is a really nice feature of TypeScript.
+
 The API of the `calculationsWorker` is the same as the `calculations.ts` file, with one subtle difference. All sync functions will move to being `Promise` based. So the API of the `calculationsWorker` is
 
 ```typescript
@@ -97,9 +99,9 @@ Which is pretty much the same as the original function in `calculations.ts`:
 expensiveCalculation: (data: BigLumpOfData, from: Date, to: Date) => number;
 ```
 
-If your function was async originally, then the API remains identical.
+The only difference is that the return type is now a `Promise<number>` rather than a `number`. If your function was `async` / `Promise`-based originally, then the API remains identical.
 
-Incidentally; this is terrific. The journey from a standard codebase to a Web Worker codebase is really smooth.
+Incidentally; this is terrific. The journey from a standard codebase to a Web Worker enabled codebase is really smooth.
 
 ## Using TanStack Query to interact with the Comlink Web Worker
 
