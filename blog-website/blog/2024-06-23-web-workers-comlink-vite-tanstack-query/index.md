@@ -33,7 +33,7 @@ export function expensiveCalculation(
 
 This function is doing some very expensive computation. We don't want to block the main thread with this computation. We can use a Web Worker to offload this work. Because the naked Web Worker API is a bit of a pain to work with, we can use Comlink to make it easier.
 
-## Vite Comlink setup with `vite-plugin-comlink`
+## Vite Comlink setup with `vite-plugin-comlink`
 
 As I've mentioned, we're working with Vite in this codebase. To get Comlink working with Vite, we can use the [`vite-plugin-comlink` plugin](https://github.com/mathe42/vite-plugin-comlink). This plugin is a wrapper around Comlink that makes it easy to use with Vite.
 
