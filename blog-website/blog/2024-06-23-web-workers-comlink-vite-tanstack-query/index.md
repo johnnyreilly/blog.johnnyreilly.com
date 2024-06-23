@@ -1,5 +1,5 @@
 ---
-slug: web-workers-comlink-vite-react-query
+slug: web-workers-comlink-vite-tanstack-query
 title: 'Web Workers, Comlink, Vite and TanStack Query'
 authors: johnnyreilly
 tags: [typescript, react]
