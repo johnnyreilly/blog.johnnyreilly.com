@@ -85,7 +85,7 @@ Let's break this down:
 - The `type` field is set to `module` to indicate that the package supports ESM modules.
 - The `main` field is set to `./dist/index.cjs` to indicate the entry point for CJS modules.
 - The `module` field is set to `./dist/index.js` to indicate the entry point for ESM modules.
-- The `types` field is set to `./dist/index.d.ts` to indicate the type definitions file for CJS modules.
+- The `types` field is set to `./dist/index.d.ts` to indicate the type definitions file for ESM modules.
 
 We then set up the `exports` field to support both ESM and CJS modules. The `import` field is set up to support ESM modules and the `require` field is set up to support CJS modules. In each, the `types` field is set to the relevant type definitions file - significantly, the `types` comes first.
 
