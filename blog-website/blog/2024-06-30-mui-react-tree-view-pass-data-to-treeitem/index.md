@@ -14,7 +14,7 @@ Achieving this required passing data to individual nodes in the treeview compone
 
 The comment on [this GitHub issue](https://github.com/mui/material-ui/issues/33175#issuecomment-1469725522) suggests that this will be directly supported in MUI v6. Until that time, you'll have to slightly hack the component to achieve this.
 
-I've written previously about [how to check children and uncheck parents in the MUI treeview component](../2024-05-25-mui-react-tree-view-check-children-uncheck-parents/index.md). This post builds on that one. And in fact, the behaviour we're implementing here is related to the behaviour we implemented in that post.
+I've written previously about [how to check children and uncheck parents in the MUI treeview component](../2024-05-25-mui-react-tree-view-check-children-uncheck-parents/index.md). This post builds on that one. But, you need not be using multiselect / checkboxes etc to use the approach in this post. It applies generally to usage of the treeview component.
 
 ![title image reading "MUI React Tree View: pass data to TreeItem" with the MUI logo](title-image.png)
 
@@ -22,7 +22,7 @@ I've written previously about [how to check children and uncheck parents in the 
 
 ## The behaviour we want to implement
 
-In the application I'm working on we load data for each node in our treeview that is selected. While a nodes data is loading, we want to show a loader so users know that work is being done. We want to achieve something like this:
+In the application I'm working on, we load data for each node in our treeview that is selected. While a nodes data is loading, we want to show a loader so users know that work is being done. We want to achieve something like this:
 
 ![a treeview with a loading spinner](recording-loader.gif)
 
@@ -60,9 +60,9 @@ function OurComponent() {
 }
 ```
 
-The two key parts of the code above are the `slots` and `slotProps` props. We're passing a `TreeItemWithLoading` component to customise the rendering - we'll implement that component in moment. We're also passing a `data-still-to-load-ids` prop to the `TreeItemWithLoading` component. This is the data we want to pass to the individual nodes in the treeview component. In our case, it's a list of node ids that we're still loading the data for. You could pass any data you like here.
+The two key parts of the code above are the `slots` and `slotProps` props. In `slots`, we're passing a `TreeItemWithLoading` component to customise the rendering - we'll implement that component in moment. We're also passing a `data-still-to-load-ids` prop to the `TreeItemWithLoading` component. This is the data we want to pass to the individual nodes in the treeview component. In our case, it's a list of node ids that we're still loading the data for. You could pass any data you like here.
 
-The thing that's probably (hopefully) setting off alarm bells in your head is the `//@ts-expect-error` comment. This is in place because MUI doesn't officially support passing data to individual nodes in the treeview component. However, passing arbitrary data does work. It will be received by the rendering component and so can be used. The comment is there to acknowledge that this is a hack and to get TypeScript to stop complaining about it.
+The thing that's probably (hopefully) setting off alarm bells in your head is the `//@ts-expect-error` comment. This is in place because MUI doesn't officially support passing data to individual nodes in the treeview component, and consequently TypeScript shouts about it. However, passing arbitrary data does work. It will be received by the rendering component and so can be used. The comment is there to acknowledge that this is a hack and to get TypeScript to stop complaining about it.
 
 Now let's look at the `TreeItemWithLoading` component:
 
@@ -93,7 +93,7 @@ const TreeItemWithLoading = forwardRef(function TreeItemWithLoadingInternal(
 
 The `TreeItemWithLoading` component is a wrapper around the `TreeItem2` component. You'll note in our code we're using the [`TreeItem2` component](https://mui.com/x/react-tree-view/#tree-item-components). I won't explicitly discuss this, but it's worth noting that the `TreeItem2` component is intended to replace the `TreeItem` component in a future version of MUI; the `TreeItem2` component is more flexible and allows for more customisation.
 
-Anyway, the `TreeItemWithLoading` component is where the magic happens. For every node in the treeview, this component will be rendered. All it does is render a `TreeItem2` component, but with some customisation. Again using the `slots` / `slotProps` properties, it customises the underlying label component that is rendered. It replaces the default label component (`TreeItem2Label`) with a custom one that shows a loader if the node is still loading called `TreeItemLabelWithLoading`. We'll implement that in a moment.
+Anyway, the `TreeItemWithLoading` component is where the magic happens. For every node in the treeview, this component will be rendered. All it does is render a `TreeItem2` component, but with some customisation. Again using the `slots` / `slotProps` properties, it customises the underlying label component that is rendered. It replaces the default label component (`TreeItem2Label`) with a custom one that shows a loader if the node is still loading, that component is named `TreeItemLabelWithLoading`. We'll implement it in a moment.
 
 The `TreeItemWithLoading` component is also responsible for passing the `data-is-loading` prop to the `TreeItemLabelWithLoading` component. You'll note that we're just passing a `boolean` this time which we construct by comparing the id of the node to the list of ids that are still loading.
 
