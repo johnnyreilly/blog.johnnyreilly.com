@@ -480,7 +480,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy bicep
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         if: github.event_name != 'pull_request'
         with:
           inlineScript: |
@@ -502,7 +502,7 @@ jobs:
                   APPSETTINGS_RECIPIENT_EMAIL="${{ secrets.APPSETTINGS_RECIPIENT_EMAIL }}"
 
       - name: What-if bicep
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         if: github.event_name == 'pull_request'
         with:
           inlineScript: |
@@ -558,7 +558,7 @@ In the case of a pull request, it runs the [`az deployment group what-if`](https
 
 ```yaml
 - name: What-if bicep
-  uses: azure/CLI@v1
+  uses: azure/CLI@v2
   if: github.event_name == 'pull_request'
   with:
     inlineScript: |
@@ -584,7 +584,7 @@ When it's not a pull request, it runs the [`az deployment group create`](https:/
 
 ```yaml
 - name: Deploy bicep
-  uses: azure/CLI@v1
+  uses: azure/CLI@v2
   if: github.event_name != 'pull_request'
   with:
     inlineScript: |

@@ -137,7 +137,7 @@ jobs:
 
       - name: Get preview URL 📝
         id: static_web_app_preview_url
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         with:
           inlineScript: |
             DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATICWEBAPPNAME }}' | jq -r '.defaultHostname')
@@ -161,7 +161,7 @@ jobs:
 
       - name: Get API key 🔑
         id: static_web_app_apikey
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         with:
           inlineScript: |
             APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
@@ -237,7 +237,7 @@ jobs:
 
       - name: Get API key 🔑
         id: apikey
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         with:
           inlineScript: |
             APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')

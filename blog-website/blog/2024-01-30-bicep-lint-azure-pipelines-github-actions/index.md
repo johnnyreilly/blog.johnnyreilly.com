@@ -106,7 +106,7 @@ In a GitHub workflow in your repository you should have steps like these:
 
 ```yaml
 - name: Lint Bicep
-  uses: azure/CLI@v1
+  uses: azure/CLI@v2
   with:
     inlineScript: |
       az bicep install

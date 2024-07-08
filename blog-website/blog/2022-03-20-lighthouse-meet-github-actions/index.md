@@ -201,7 +201,7 @@ lighthouse_report_job:
 
     - name: Static Web App - get preview URL
       id: static_web_app_preview_url
-      uses: azure/CLI@v1
+      uses: azure/CLI@v2
       with:
         inlineScript: |
           DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATICWEBAPPNAME }}' | jq -r '.defaultHostname')
