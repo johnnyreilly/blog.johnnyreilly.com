@@ -25,7 +25,7 @@ Let's start by looking at a simple Azure Static Web Apps configuration:
 ```yaml
 - name: Static Web App - get API key for deployment
   id: static_web_app_apikey
-  uses: azure/CLI@v1
+  uses: azure/CLI@v2
   with:
     inlineScript: |
       APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
@@ -54,7 +54,7 @@ So, I decided to build the app externally and then deploy it. I did this by twea
 ```yaml
 - name: Get API key 🔑
   id: static_web_app_apikey
-  uses: azure/CLI@v1
+  uses: azure/CLI@v2
   with:
     inlineScript: |
       APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')

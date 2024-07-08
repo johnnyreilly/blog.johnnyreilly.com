@@ -189,7 +189,7 @@ jobs:
       - name: Static Web App - change details
         id: static_web_app_what_if
         if: github.event_name == 'pull_request'
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         with:
           inlineScript: |
             az deployment group what-if \
@@ -207,7 +207,7 @@ jobs:
       - name: Static Web App - deploy infra
         id: static_web_app_deploy
         if: github.event_name != 'pull_request'
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         with:
           inlineScript: |
             az deployment group create \
@@ -224,7 +224,7 @@ jobs:
 
       - name: Static Web App - get API key for deployment
         id: static_web_app_apikey
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         with:
           inlineScript: |
             APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
@@ -246,7 +246,7 @@ jobs:
 
       - name: Static Web App - get preview URL
         id: static_web_app_preview_url
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         with:
           inlineScript: |
             DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATICWEBAPPNAME }}' | jq -r '.defaultHostname')
@@ -272,7 +272,7 @@ jobs:
 
       - name: Get API key for deployment
         id: apikey
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         with:
           inlineScript: |
             APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')

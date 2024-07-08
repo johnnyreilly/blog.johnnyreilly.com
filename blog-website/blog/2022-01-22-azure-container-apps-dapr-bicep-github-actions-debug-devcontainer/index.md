@@ -927,7 +927,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy bicep
-        uses: azure/CLI@v1
+        uses: azure/CLI@v2
         if: github.event_name != 'pull_request'
         with:
           inlineScript: |
@@ -991,7 +991,7 @@ The `deploy` job runs the [`az deployment group create`](https://docs.microsoft.
 
 ```yaml
 - name: Deploy bicep
-  uses: azure/CLI@v1
+  uses: azure/CLI@v2
   if: github.event_name != 'pull_request'
   with:
     inlineScript: |
