@@ -115,15 +115,15 @@ resource app 'Microsoft.App/containerApps@2023-05-01' = {
   tags: union(tags, {'azd-service-name':  'web' }) // note the "web" matches the service name in azure.yml
   // ...
   properties: {
-	// ...
+    // ...
     template: {
       containers: [
         {
           image: fetchLatestImage.outputs.?containers[?0].?image ?? 'mcr.microsoft.com/azuredocs/containerapps-helloworld:latest'
-		  // ...
+          // ...
         }
       ]
-	  // ...
+      // ...
     }
   }
 }
@@ -199,23 +199,23 @@ The `containerAppExists` parameter is determined by the `SERVICE_WEB_RESOURCE_EX
 
 If you're curious about how this actually works [you can read the source code here](https://github.com/Azure/azure-dev/blob/837d4e8592c53375c7d9aa6df8b134c23cdeb487/cli/azd/pkg/project/service_target_containerapp.go#L174-L190):
 
-```golang
+```go
 func (at *containerAppTarget) addPreProvisionChecks(ctx context.Context, serviceConfig *ServiceConfig) error {
-	// Attempt to retrieve the target resource for the current service
-	// This allows the resource deployment to detect whether or not to pull existing container image during
-	// provision operation to avoid resetting the container app back to a default image
-	return serviceConfig.Project.AddHandler("preprovision", func(ctx context.Context, args ProjectLifecycleEventArgs) error {
-		exists := false
+  // Attempt to retrieve the target resource for the current service
+  // This allows the resource deployment to detect whether or not to pull existing container image during
+  // provision operation to avoid resetting the container app back to a default image
+  return serviceConfig.Project.AddHandler("preprovision", func(ctx context.Context, args ProjectLifecycleEventArgs) error {
+    exists := false
 
-		// Check if the target resource already exists
-		targetResource, err := at.resourceManager.GetTargetResource(ctx, at.env.GetSubscriptionId(), serviceConfig)
-		if targetResource != nil && err == nil {
-			exists = true
-		}
+    // Check if the target resource already exists
+    targetResource, err := at.resourceManager.GetTargetResource(ctx, at.env.GetSubscriptionId(), serviceConfig)
+    if targetResource != nil && err == nil {
+      exists = true
+    }
 
-		at.env.SetServiceProperty(serviceConfig.Name, "RESOURCE_EXISTS", strconv.FormatBool(exists))
-		return at.envManager.Save(ctx, at.env)
-	})
+    at.env.SetServiceProperty(serviceConfig.Name, "RESOURCE_EXISTS", strconv.FormatBool(exists))
+    return at.envManager.Save(ctx, at.env)
+  })
 }
 ```
 
@@ -256,48 +256,48 @@ Here's a cut down version of our pipeline replacing the single `AzureResourceMan
 - task: AzureCLI@2
   displayName: Provision Infra
   inputs:
-  	azureSubscription: $(serviceConnection)
-  	scriptType: bash
-  	scriptLocation: inlineScript
-  	inlineScript: |
+    azureSubscription: $(serviceConnection)
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
       azd provision --no-prompt
   env:
-	# https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#environment-variables-provided-by-azd
-	# Poss based on this https://learn.microsoft.com/en-gb/azure/developer/azure-developer-cli/configure-devops-pipeline?tabs=azdo
-	AZURE_LOCATION: $(location)
-	AZURE_SUBSCRIPTION_ID: $(subscriptionId)
-	AZURE_ENV_NAME: ${{parameters.env}}
-	# https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#user-provided-environment-variables
-	AZURE_RESOURCE_GROUP: $(resourceGroupName)
-	AZURE_PRINCIPAL_ID: $(serviceConnectionPrincipalId)
-	# Define the additional variables or secrets that are required only for provision
-	TAGS_BRANCH: $(Build.SourceBranch)
-	TAGS_REPO: $(repo)
-	# ...
+    # https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#environment-variables-provided-by-azd
+    # Poss based on this https://learn.microsoft.com/en-gb/azure/developer/azure-developer-cli/configure-devops-pipeline?tabs=azdo
+    AZURE_LOCATION: $(location)
+    AZURE_SUBSCRIPTION_ID: $(subscriptionId)
+    AZURE_ENV_NAME: ${{parameters.env}}
+    # https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#user-provided-environment-variables
+    AZURE_RESOURCE_GROUP: $(resourceGroupName)
+    AZURE_PRINCIPAL_ID: $(serviceConnectionPrincipalId)
+    # Define the additional variables or secrets that are required only for provision
+    TAGS_BRANCH: $(Build.SourceBranch)
+    TAGS_REPO: $(repo)
+    # ...
 
 - bash: |
-	sed -i "s/\${WEB_VERSION_TAG}/$(containerImageTag)/g" azure.yaml
-  displayName: "Update WEB_VERSION_TAG in azure.yaml"
+    sed -i "s/\${WEB_VERSION_TAG}/$(containerImageTag)/g" azure.yaml
+  displayName: 'Update WEB_VERSION_TAG in azure.yaml'
 
 - task: AzureCLI@2
   displayName: Deploy Application
   retryCountOnTaskFailure: 2
   inputs:
-	azureSubscription: $(serviceConnection)
-	scriptType: bash
-	scriptLocation: inlineScript
-	inlineScript: |
-	  azd deploy --no-prompt
+    azureSubscription: $(serviceConnection)
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      azd deploy --no-prompt
   env:
-	# We appear to be overriding the environment variables provided by azd here
-	# https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#environment-variables-provided-by-azd
-	AZURE_LOCATION: $(location)
-	AZURE_SUBSCRIPTION_ID: $(subscriptionId)
-	AZURE_ENV_NAME: ${{parameters.env}}
-	# https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#user-provided-environment-variables
-	AZURE_RESOURCE_GROUP: $(resourceGroupName)
-	# Define the additional variables or secrets that are required only for deploy
-	# ...
+    # We appear to be overriding the environment variables provided by azd here
+    # https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#environment-variables-provided-by-azd
+    AZURE_LOCATION: $(location)
+    AZURE_SUBSCRIPTION_ID: $(subscriptionId)
+    AZURE_ENV_NAME: ${{parameters.env}}
+    # https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#user-provided-environment-variables
+    AZURE_RESOURCE_GROUP: $(resourceGroupName)
+    # Define the additional variables or secrets that are required only for deploy
+    # ...
 ```
 
 What's happening here? We'll take it step by step:

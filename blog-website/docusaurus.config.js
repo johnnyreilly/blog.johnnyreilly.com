@@ -775,6 +775,7 @@ const config = {
           'bash',
           'json',
           'yaml',
+          'go',
         ],
       },
     }),
