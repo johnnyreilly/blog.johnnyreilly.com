@@ -24,6 +24,19 @@ To quote a trimmed down version of the [announcement](https://devblogs.microsoft
 
 I want this. We're going to unpack how to use this feature in the context of an Azure DevOps pipeline with Azure Container Apps. It turns out that there's a little more to it than just running `azd provision` and hoping for the best. In fact, there's gotchas aplenty - but it's totally achievable.
 
+## What about Bicep `what-if`?
+
+You might be thinking at this point: "What about Bicep `what-if`?" It's a good question. `what-if` is a feature of the Azure CLI that allows you to see what changes would be made if you were to deploy a Bicep file. Unfortunately, my own experience of using `what-if` has been that it's quite unreliable. It will detect changes where there are none, and it will fail to detect changes where there are some. I'd love to use it, but I can't trust it. If you'd like to watch a more in depth discussion of the issue, [this video is a good place to start](https://www.youtube.com/watch?v=jlkwH-fP--M).
+
+There appear to be some known issues with `what-if` that you can follow the progress of here:
+
+- https://github.com/Azure/arm-template-whatif/issues/83
+- https://github.com/Azure/arm-template-whatif/issues/157
+
+Given that `what-if` is not reliable, we're going to use `azd` to speed up our deployments.
+
+## Embracing `azd` in an existing Azure DevOps pipeline
+
 I'm going to start with a pre-existing Azure Pipeline that deploys an Azure Container App. It uses the classic [`AzureResourceManagerTemplateDeployment@3` ARM template deployment v3 task](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-resource-manager-template-deployment-v3?view=azure-pipelines) to deploy our infrastructure in the form of a `main.bicep` (and it's submodules) file.
 
 This existing pipeline and infrastructure as code payload is in a good state. But it's slow. Every time the pipeline runs, the bicep section takes **8 minutes**. We're going to make it faster. Spoiler: we're going to get it down to **1 minute**.
@@ -46,11 +59,11 @@ services:
 
 The yaml above describes a container app service called `web` that uses an image from an Azure Container Registry. The `WEB_VERSION_TAG` is a variable that we'll need to provide in our Azure DevOps pipeline. It's worth noticing the link at the top to the schema for the `azure.yml` file: https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json - much of the work around figuring out how to use `azd` was achieved by looking at the schema for the `azure.yml` file.
 
-One thing we learned as we looked at the schema, was that many parameters support environment variable substitution at runtime:
+One thing we learned, as we looked at the schema, was that many parameters support environment variable substitution at runtime:
 
 ![screenshot of schema file](screenshot-azure-yml-schema.png)
 
-You might imagine that the `WEB_VERSION_TAG` used in the `image` parameter we pass is one of those variables. But it's not.
+You might imagine that the `WEB_VERSION_TAG` used in the `image` parameter we pass is one of those variables. But, alas, it's not.
 
 ![screenshot of the image section of schema file](screenshot-azure-yml-image.png)
 
@@ -68,9 +81,9 @@ I mentioned that we're adding a level of `azd` support to an existing pipeline. 
 
 We're going to start off with a minor tweak to our `main.bicep` file; the entry point to our Bicep deployments. The change allows us to use `azd` deployments targeted at existing resource groups. The default mode of operation for `azd` deployments is deploying a resource group to a subscription. We are seeking to deploy to an existing resource group.
 
-Now, strictly speaking, this isn't necessary for speeding up deployments with `azd`. But if you're not one for creating a resource group per deployment (as I am not), then this is a good idea. It means that you can [target an existing resource group with `azd` deployments](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/resource-group-scoped-deployments). This kind of deployment requires less permissions and may well align with your organisation's security posture.
+Now, strictly speaking, this isn't necessary for speeding up deployments with `azd`. But if you're not one for creating a resource group per deployment (as I am not), then this is a good idea. It means that you can [target an existing resource group with `azd` deployments](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/resource-group-scoped-deployments). This kind of deployment requires less permissions and may well better align with your organisation's security posture.
 
-We'll need to make another change to our pipeline to support this later on. For now, we'll add the following statement to the top of our `main.bicep` file:
+We'll need to make another change to our pipeline to support resource group scoped deployments later on. For now, we'll add the following statement to the top of our `main.bicep` file:
 
 ```bicep
 targetScope = 'resourceGroup'
@@ -116,9 +129,11 @@ resource app 'Microsoft.App/containerApps@2023-05-01' = {
 }
 ```
 
-In the code above, we're using the `containerAppExists` parameter to determine whether we should fetch the currently deployed image from the existing container app. If the container app exists, we'll use the existing image. If it does not, we'll use a default image. We'd typically only expect to use the default image when we're deploying the container app for the first time. (You might be wondering how the new version of the application gets deployed. Typically, container apps have been deployed _as infra_ - right here. The way it works with `azd` is by using `azd deploy`; we'll get to that later.)
+You can see we tag the container app with the service name from the `azure.yml` file (`web`). This is important because it allows `azd` to determine whether the container app already exists and so power the `containerAppExists` parameter we added to our `main.bicep` file.
 
-The `fetch-container-image.bicep` file is a new module that is responsible for attempting to fetch the existing image from the currently deployed container app:
+We're using the `containerAppExists` parameter to determine whether we should fetch the currently deployed image from the existing container app. If the container app exists, we'll use the existing image. If it does not, we'll use a default image. We'd typically only expect to use the default image when we're deploying the container app to an environment for the first time. (You might be wondering how the new version of the application gets deployed; given that we're not using the new container image. It turns out that `azd deploy` is the command responsible for deploying the new image; we'll get to that later.)
+
+You'll have noticed that we're using a new module called `fetch-container-image.bicep`. This module is responsible for attempting to fetch the existing image from the currently deployed container app:
 
 ```bicep
 param exists bool
@@ -135,15 +150,41 @@ This is based on what files are generated when you perform an `azd init`, but ha
 
 ### Parameters in `main.bicep` must be immutable per environment
 
-One thing we learned the hard way is that parameters in `main.bicep` must be immutable per environment. This means that you can't change the value of a parameter in a `main.bicep` file between deployments to an environment. This is because `azd` uses the `main.bicep` file to determine whether a deployment is incremental or not. If the parameters change, then `azd` will assume that the deployment is not incremental and will reprovision the resources.
+It's gotcha time! One thing we learned the hard way is that parameters in `main.bicep` must be **immutable per environment**. This means that you can't change the value of a parameter in a `main.bicep` file between deployments to an environment. This is because `azd` uses the `main.bicep` file to determine whether a deployment is incremental or not. If the parameters change, then `azd` will assume that the deployment requires infrastructure changes, and will reprovision the resources.
 
-What's more, as things stand, `azd` only has the ability to fully reprovision your resources. If your app consists of a database and a container app, and you only want to deploy a new version of the container app, you're out of luck. `azd` will deploy the database again too. This is a limitation of `azd` at the time of writing.
+What's more, as things stand, `azd` only has the ability to **fully** reprovision your resources. If your app consists of a database and a container app, and you only want to deploy a new version of the container app, you're out of luck. `azd` will deploy the database again too. This is a limitation of `azd` at the time of writing.
 
 RAISE A GITHUB ISSUE
 
 ## Welcome `main.bicepparam`
 
-https://github.com/Azure/azure-dev/blob/837d4e8592c53375c7d9aa6df8b134c23cdeb487/cli/azd/pkg/project/service_target_containerapp.go#L174-L190
+Prior to using `azd`, we were using a `main.bicep` file to deploy our infrastructure and we provided parameters to this file via our Azure DevOps pipeline. We're going to make a change to our pipeline to use a [`main.bicepparam`](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameter-files?tabs=Bicep) file instead. This file is going to contain the parameters that we were previously providing to our `main.bicep` file.
+
+The `main.bicepparam` file is going to contain the parameters that we were previously providing to our `main.bicep` file. It's going to pick these up from environment variables that we'll declare. We're also going to add our new `containerAppExists` parameter to this file, which will also collect its value from an environment variable. But it won't be us that provides that value; it will be `azd`.
+
+Consider the following (cut down) `main.bicepparam` file:
+
+```bicep
+using './main.bicep'
+
+param envName = readEnvironmentVariable('AZURE_ENV_NAME', '')
+param location = readEnvironmentVariable('AZURE_LOCATION', '')
+param serviceConnectionPrincipalId = readEnvironmentVariable('AZURE_PRINCIPAL_ID', '')
+
+param tags = {
+  branch: readEnvironmentVariable('TAGS_BRANCH', '')
+  repo: readEnvironmentVariable('TAGS_REPO', '')
+}
+
+// ...
+
+// azd will provide the following parameters
+param containerAppExists = bool(readEnvironmentVariable('SERVICE_WEB_RESOURCE_EXISTS', 'false'))
+```
+
+The `containerAppExists` parameter is determined by the `SERVICE_WEB_RESOURCE_EXISTS` environment variable to provide this value. What's happening here is that we're picking up on a convention that `azd` uses to provide confirmation that a service already exists. `SERVICE_[SERVICENAME]_RESOURCE_EXISTS` is the pattern that `azd` uses to provide this information; where `[SERVICENAME]` is the name of the service as defined in the `azure.yml` file. In our case, it's `web` (or rather `WEB`).
+
+If you're curious about how this actually works [you can read the source code here](https://github.com/Azure/azure-dev/blob/837d4e8592c53375c7d9aa6df8b134c23cdeb487/cli/azd/pkg/project/service_target_containerapp.go#L174-L190):
 
 ```golang
 func (at *containerAppTarget) addPreProvisionChecks(ctx context.Context, serviceConfig *ServiceConfig) error {
@@ -164,6 +205,8 @@ func (at *containerAppTarget) addPreProvisionChecks(ctx context.Context, service
 	})
 }
 ```
+
+Now that we have our `main.bicepparam` file, we're ready to migrate to our pipeline to use `azd`.
 
 ## Azure DevOps pipeline modifications
 
