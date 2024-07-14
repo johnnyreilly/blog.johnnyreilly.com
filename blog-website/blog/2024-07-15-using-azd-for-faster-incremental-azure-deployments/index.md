@@ -210,4 +210,88 @@ Now that we have our `main.bicepparam` file, we're ready to migrate to our pipel
 
 ## Azure DevOps pipeline modifications
 
-https://dev.azure.com/investec/investec-cloud-experience/_git/ae-notebooks/pullrequest/149734?_a=files
+There's no two ways about it; our Azure DevOps pipeline modifications are pretty extensive. Where we were previously using the `AzureResourceManagerTemplateDeployment@3` task to deploy our Bicep files, we're now going to use the `azd` command to deploy our infrastructure and our container app.
+
+Here's a cut down version of our pipeline replacing the single `AzureResourceManagerTemplateDeployment@3` task with a series of tasks that use the `azd` command:
+
+```yaml
+- task: setup-azd@0
+  displayName: Install azd
+
+# If you can't use above task in your organization, you can remove it and uncomment below task to install azd
+# - task: Bash@3
+#   displayName: Install azd
+#   inputs:
+#     targetType: "inline"
+#     script: |
+#       curl -fsSL https://aka.ms/install-azd.sh | bash
+
+- pwsh: |
+    azd config set auth.useAzCliAuth "true"
+    azd config set alpha.resourceGroupDeployments on
+  displayName: Configure `azd` config options.
+
+- task: AzureCLI@2
+  displayName: Login to ACR
+  inputs:
+    azureSubscription: $(registryServiceConnection)
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      az acr login -n myregistry
+
+- task: AzureCLI@2
+  displayName: Provision Infra
+  inputs:
+  	azureSubscription: $(serviceConnection)
+  	scriptType: bash
+  	scriptLocation: inlineScript
+  	inlineScript: |
+      azd provision --no-prompt
+  env:
+	# https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#environment-variables-provided-by-azd
+	# Poss based on this https://learn.microsoft.com/en-gb/azure/developer/azure-developer-cli/configure-devops-pipeline?tabs=azdo
+	AZURE_LOCATION: $(location)
+	AZURE_SUBSCRIPTION_ID: $(subscriptionId)
+	AZURE_ENV_NAME: ${{parameters.env}}
+	# https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#user-provided-environment-variables
+	AZURE_RESOURCE_GROUP: $(resourceGroupName)
+	AZURE_PRINCIPAL_ID: $(serviceConnectionPrincipalId)
+	# Define the additional variables or secrets that are required only for provision
+	TAGS_BRANCH: $(Build.SourceBranch)
+	TAGS_REPO: $(repo)
+	# ...
+
+- bash: |
+	sed -i "s/\${WEB_VERSION_TAG}/$(containerImageTag)/g" azure.yaml
+  displayName: "Update WEB_VERSION_TAG in azure.yaml"
+
+- task: AzureCLI@2
+  displayName: Deploy Application
+  retryCountOnTaskFailure: 2
+  inputs:
+	azureSubscription: $(serviceConnection)
+	scriptType: bash
+	scriptLocation: inlineScript
+	inlineScript: |
+	  azd deploy --no-prompt
+  env:
+	# We appear to be overriding the environment variables provided by azd here
+	# https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#environment-variables-provided-by-azd
+	AZURE_LOCATION: $(location)
+	AZURE_SUBSCRIPTION_ID: $(subscriptionId)
+	AZURE_ENV_NAME: ${{parameters.env}}
+	# https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#user-provided-environment-variables
+	AZURE_RESOURCE_GROUP: $(resourceGroupName)
+	# Define the additional variables or secrets that are required only for deploy
+	# ...
+```
+
+What's happening here? We'll take it step by step:
+
+- We're installing `azd` using the `setup-azd@0` task.
+- We're configuring `azd` to use the Azure CLI for authentication and to enable resource group scoped deployments.
+- We're logging into our Azure Container Registry. (If you're not building your image independently of `azd`, then you may not need this step.)
+- We're provisioning our infrastructure using `azd provision --no-prompt`. Note that we're providing a number of environment variables to `azd` which will be detected in our `main.bicepparam` file.
+- We're updating the `azure.yml` file with the `WEB_VERSION_TAG` that we need to provide.
+- We're deploying our application using `azd deploy --no-prompt`.
