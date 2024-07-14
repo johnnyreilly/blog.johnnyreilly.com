@@ -54,7 +54,11 @@ You might imagine that the `WEB_VERSION_TAG` used in the `image` parameter we pa
 
 ![screenshot of the image section of schema file](screenshot-azure-yml-image.png)
 
+RAISE A GITHUB ISSUE
+
 We'll find another way to pass this value to `azd` later on.
+
+Incidentally, we're using an approach whereby the image is built and pushed to the registry independently of `azd`. You could equally use `azd` to build and push the image. But we're not doing that here.
 
 ## Bicep modifications
 
@@ -72,7 +76,7 @@ We'll need to make another change to our pipeline to support this later on. For 
 targetScope = 'resourceGroup'
 ```
 
-### The "does your container app exist?" parameter
+### The "does your service exist?" parameter
 
 We're going to add a "magic" parameter to our `main.bicep` file. This parameter is going to be used to determine whether the container app we're deploying already exists. This is important because if the container app already exists, we will reuse the existing deployed container image during the `azd provision` stage. If it does not, then we'll deploy a new container image.
 
@@ -81,9 +85,7 @@ We're going to add a "magic" parameter to our `main.bicep` file. This parameter 
 param containerAppExists bool = false
 ```
 
-We'll look later at where this value comes from, but for now, we're just adding it to our `main.bicep` file. How do we use this parameter?
-
-In the module where we deploy our container app, we're going to make a couple of changes:
+We'll look later at where this value comes from, but for now, we're just adding it to our `main.bicep` file. How do we use this parameter? In the module where we deploy our container app, we're going to make a couple of changes:
 
 ```bicep
 module fetchLatestImage '../modules/fetch-container-image.bicep' = {
@@ -114,7 +116,7 @@ resource app 'Microsoft.App/containerApps@2023-05-01' = {
 }
 ```
 
-In the code above, we're using the `containerAppExists` parameter to determine whether we should fetch the currently deployed image from the existing container app. If the container app exists, we'll use the existing image. If it does not, we'll use a default image. We'd typically only expect to use the default image when we're deploying the container app for the first time. You might be wondering how the new version of the application gets deployed. The answer is `azd deploy` and we'll get to that later.
+In the code above, we're using the `containerAppExists` parameter to determine whether we should fetch the currently deployed image from the existing container app. If the container app exists, we'll use the existing image. If it does not, we'll use a default image. We'd typically only expect to use the default image when we're deploying the container app for the first time. (You might be wondering how the new version of the application gets deployed. Typically, container apps have been deployed _as infra_ - right here. The way it works with `azd` is by using `azd deploy`; we'll get to that later.)
 
 The `fetch-container-image.bicep` file is a new module that is responsible for attempting to fetch the existing image from the currently deployed container app:
 
@@ -129,12 +131,15 @@ resource existingApp 'Microsoft.App/containerApps@2023-05-01' existing = if (exi
 output containers array = exists ? existingApp.properties.template.containers : []
 ```
 
-This is based on what you get when you do an `azd init`, but customised for the specific version of the `Microsoft.App/containerApps` resource we're using.
+This is based on what files are generated when you perform an `azd init`, but has been customised for the specific version of the `Microsoft.App/containerApps` resource we're using.
 
 ### Parameters in `main.bicep` must be immutable per environment
 
-unless infra actually changes
-if not then full deploy happens
+One thing we learned the hard way is that parameters in `main.bicep` must be immutable per environment. This means that you can't change the value of a parameter in a `main.bicep` file between deployments to an environment. This is because `azd` uses the `main.bicep` file to determine whether a deployment is incremental or not. If the parameters change, then `azd` will assume that the deployment is not incremental and will reprovision the resources.
+
+What's more, as things stand, `azd` only has the ability to fully reprovision your resources. If your app consists of a database and a container app, and you only want to deploy a new version of the container app, you're out of luck. `azd` will deploy the database again too. This is a limitation of `azd` at the time of writing.
+
+RAISE A GITHUB ISSUE
 
 ## Welcome `main.bicepparam`
 
