@@ -148,6 +148,19 @@ output containers array = exists ? existingApp.properties.template.containers : 
 
 This is based on what files are generated when you perform an `azd init`, but has been customised for the specific version of the `Microsoft.App/containerApps` resource we're using.
 
+### Tagging resources with the environment name
+
+Another addition we're going to make to our `main.bicep` file is to tag our resources with the environment name. This allows `azd` to determine the environment of a given resource. It's achieved by using the our already existing `envName` parameter and adding it to the tags of our resources:
+
+```bicep
+@description('Environment eg dev, prod')
+param envName string
+
+// ...
+
+var combinedTags = union(tags, { 'azd-env-name': envName })
+```
+
 ### Parameters in `main.bicep` must be immutable per environment
 
 It's gotcha time! One thing we learned the hard way is that parameters in `main.bicep` must be **immutable per environment**. This means that you can't change the value of a parameter in a `main.bicep` file between deployments to an environment. This is because `azd` uses the `main.bicep` file to determine whether a deployment is incremental or not. If the parameters change, then `azd` will assume that the deployment requires infrastructure changes, and will reprovision the resources.
