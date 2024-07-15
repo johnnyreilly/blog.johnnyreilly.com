@@ -16,7 +16,7 @@ When deploying Azure Container Apps from Azure DevOps, you can use the `azd` com
 
 ## Faster deployments from `azd` 1.4 and beyond
 
-The azd v1.4.0 release contained a significant feature: `azd provision` is now faster when there are no infrastructure changes.
+The `azd` v1.4.0 release contained a significant feature: `azd provision` is now faster when there are no infrastructure changes.
 
 To quote a trimmed down version of the [announcement](https://devblogs.microsoft.com/azure-sdk/azure-developer-cli-azd-october-2023-release/#azd-provision-is-now-faster-when-there-are-no-infrastructure-changes):
 
@@ -63,13 +63,13 @@ One thing we learned, as we looked at the schema, was that many parameters suppo
 
 ![screenshot of schema file](screenshot-azure-yml-schema.png)
 
-You might imagine that the `WEB_VERSION_TAG` used in the `image` parameter we pass is one of those variables. But, alas, it's not.
+The screenshot above is taken from the Docker section of the configuration where environment variable substitution is widely supported. You might imagine that the `WEB_VERSION_TAG` used in the `image` parameter we pass would also be one of those variables. But, alas, at the time of writing it is not.
 
 ![screenshot of the image section of schema file](screenshot-azure-yml-image.png)
 
 RAISE A GITHUB ISSUE
 
-We'll find another way to pass this value to `azd` later on.
+We'll find another way to pass the `WEB_VERSION_TAG` value to `azd` later on.
 
 Incidentally, we're using an approach whereby the image is built and pushed to the registry independently of `azd`. You could equally use `azd` to build and push the image. But we're not doing that here.
 
@@ -79,15 +79,17 @@ I mentioned that we're adding a level of `azd` support to an existing pipeline. 
 
 ### Using resource group scoped deployments with azd
 
-We're going to start off with a minor tweak to our `main.bicep` file; the entry point to our Bicep deployments. The change allows us to use `azd` deployments targeted at existing resource groups. The default mode of operation for `azd` deployments is deploying a resource group to a subscription. We are seeking to deploy to an existing resource group.
-
-Now, strictly speaking, this isn't necessary for speeding up deployments with `azd`. But if you're not one for creating a resource group per deployment (as I am not), then this is a good idea. It means that you can [target an existing resource group with `azd` deployments](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/resource-group-scoped-deployments). This kind of deployment requires less permissions and may well better align with your organisation's security posture.
-
-We'll need to make another change to our pipeline to support resource group scoped deployments later on. For now, we'll add the following statement to the top of our `main.bicep` file:
+We're going to start off with a minor tweak to our `main.bicep` file; the entry point to our Bicep deployments.
 
 ```bicep
 targetScope = 'resourceGroup'
 ```
+
+The change above allows us to use `azd` deployments targeted at existing resource groups. The default mode of operation for `azd` deployments is deploying a resource group to a subscription. We are seeking to [deploy to an existing resource group](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/resource-group-scoped-deployments).
+
+Now, strictly speaking, this isn't necessary for speeding up deployments with `azd`. But if you're not one for creating a resource group per deployment (as I am not), then this is a good idea. This kind of deployment requires less permissions and may well better align with your organisation's security posture.
+
+We'll need to opt into using this feature with `azd` later on in the pipeline; at present resource group scoped deployments are considered "alpha".
 
 ### The "does your service exist?" parameter
 
@@ -197,7 +199,7 @@ param containerAppExists = bool(readEnvironmentVariable('SERVICE_WEB_RESOURCE_EX
 
 The `containerAppExists` parameter is determined by the `SERVICE_WEB_RESOURCE_EXISTS` environment variable to provide this value. What's happening here is that we're picking up on a convention that `azd` uses to provide confirmation that a service already exists. `SERVICE_[SERVICENAME]_RESOURCE_EXISTS` is the pattern that `azd` uses to provide this information; where `[SERVICENAME]` is the name of the service as defined in the `azure.yml` file. In our case, it's `web` (or rather `WEB`).
 
-If you're curious about how this actually works [you can read the source code here](https://github.com/Azure/azure-dev/blob/837d4e8592c53375c7d9aa6df8b134c23cdeb487/cli/azd/pkg/project/service_target_containerapp.go#L174-L190):
+If you're curious about how this actually works [you can read the source code here](https://github.com/Azure/azure-dev/blob/837d4e8592c53375c7d9aa6df8b134c23cdeb487/cli/azd/pkg/project/service_target_containerapp.go#L174-L190) in the `azd` project. Here's the relevant code snippet:
 
 ```go
 func (at *containerAppTarget) addPreProvisionChecks(ctx context.Context, serviceConfig *ServiceConfig) error {
