@@ -341,7 +341,7 @@
         <title type="html"><![CDATA[Using AZD for faster incremental Azure Container App deployments in Azure DevOps]]></title>
         <id>https://johnnyreilly.com/using-azd-for-faster-incremental-azure-container-app-deployments-in-azure-devops</id>
         <link href="https://johnnyreilly.com/using-azd-for-faster-incremental-azure-container-app-deployments-in-azure-devops"/>
-        <updated>2024-07-15T09:37:33.000Z</updated>
+        <updated>2024-07-15T09:48:25.000Z</updated>
         <summary type="html"><![CDATA[Learn how to speed up deployments using the AZD command.]]></summary>
         <content type="html"><![CDATA[<p>When deploying Azure Container Apps from Azure DevOps, you can use the <code>azd</code> command to speed up deployments that do not affect infrastructure. Given that when you're deploying, it's far more common to be making a code and / or content change and not an infrastructure one, this can be a significant time saver.</p>
 <p><img decoding="async" loading="eager" alt="title image reading &amp;quot;Using AZD for faster incremental Azure Container App deployments in Azure DevOps&amp;quot; with the Azure Container Apps logo" src="https://johnnyreilly.com/assets/images/title-image-ca63b951ef232f0eede02c6a48f0d39b.png" width="800" height="450" fetchpriority="high" class="img_ev3q"></p>
@@ -371,7 +371,7 @@
 <p><img decoding="async" loading="lazy" alt="screenshot of schema file" src="https://johnnyreilly.com/assets/images/screenshot-azure-yml-schema-993e66df439d83bf81c6e6439f964776.png" width="1996" height="1834" class="img_ev3q"></p>
 <p>The screenshot above is taken from the Docker section of the configuration where environment variable substitution is widely supported. You might imagine that the <code>WEB_VERSION_TAG</code> used in the <code>image</code> parameter we pass would also be one of those variables. But, alas, at the time of writing it is not.</p>
 <p><img decoding="async" loading="lazy" alt="screenshot of the image section of schema file" src="https://johnnyreilly.com/assets/images/screenshot-azure-yml-image-a4f57e534631486648a4251fe4f3cd43.png" width="2016" height="1642" class="img_ev3q"></p>
-<p>RAISE A GITHUB ISSUE</p>
+<p>I've raised a <a href="https://github.com/Azure/azure-dev/issues/4124" target="_blank" rel="noopener noreferrer">GitHub issue to investigate whether this could be supported</a>.</p>
 <p>We'll find another way to pass the <code>WEB_VERSION_TAG</code> value to <code>azd</code> later on.</p>
 <p>Incidentally, we're using an approach whereby the image is built and pushed to the registry independently of <code>azd</code>. You could equally use <code>azd</code> to build and push the image. But we're not doing that here.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="bicep-modifications">Bicep modifications<a class="hash-link" aria-label="Direct link to heading" title="Direct link to heading" href="https://johnnyreilly.com/using-azd-for-faster-incremental-azure-container-app-deployments-in-azure-devops#bicep-modifications">​</a></h2>
