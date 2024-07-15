@@ -67,7 +67,7 @@ The screenshot above is taken from the Docker section of the configuration where
 
 ![screenshot of the image section of schema file](screenshot-azure-yml-image.png)
 
-RAISE A GITHUB ISSUE
+I've raised a [GitHub issue to investigate whether this could be supported](https://github.com/Azure/azure-dev/issues/4124).
 
 We'll find another way to pass the `WEB_VERSION_TAG` value to `azd` later on.
 
