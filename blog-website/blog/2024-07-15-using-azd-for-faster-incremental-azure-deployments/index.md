@@ -169,7 +169,7 @@ It's gotcha time! One thing we learned the hard way is that parameters in `main.
 
 What's more, as things stand, `azd` only has the ability to **fully** reprovision your resources. If your app consists of a database and a container app, and you only want to deploy a new version of the container app, you're out of luck. `azd` will deploy the database again too. This is a limitation of `azd` at the time of writing.
 
-RAISE A GITHUB ISSUE
+I've [raised a GitHub issue](https://github.com/Azure/azure-dev/issues/4123) in the hope that this feature might one day land. Perhaps it's super hard - quite possibly.
 
 ## Welcome `main.bicepparam`
 
