@@ -262,8 +262,7 @@ Here's a cut down version of our pipeline replacing the single `AzureResourceMan
     inlineScript: |
       azd provision --no-prompt
   env:
-    # https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#environment-variables-provided-by-azd
-    # Poss based on this https://learn.microsoft.com/en-gb/azure/developer/azure-developer-cli/configure-devops-pipeline?tabs=azdo
+    # See https://learn.microsoft.com/en-gb/azure/developer/azure-developer-cli/configure-devops-pipeline?tabs=azdo
     AZURE_LOCATION: $(location)
     AZURE_SUBSCRIPTION_ID: $(subscriptionId)
     AZURE_ENV_NAME: ${{parameters.env}}
@@ -289,8 +288,7 @@ Here's a cut down version of our pipeline replacing the single `AzureResourceMan
     inlineScript: |
       azd deploy --no-prompt
   env:
-    # We appear to be overriding the environment variables provided by azd here
-    # https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#environment-variables-provided-by-azd
+    # See https://learn.microsoft.com/en-gb/azure/developer/azure-developer-cli/configure-devops-pipeline?tabs=azdo
     AZURE_LOCATION: $(location)
     AZURE_SUBSCRIPTION_ID: $(subscriptionId)
     AZURE_ENV_NAME: ${{parameters.env}}
@@ -306,5 +304,21 @@ What's happening here? We'll take it step by step:
 - We're configuring `azd` to use the Azure CLI for authentication and to enable resource group scoped deployments.
 - We're logging into our Azure Container Registry. (If you're not building your image independently of `azd`, then you may not need this step.)
 - We're provisioning our infrastructure using `azd provision --no-prompt`. Note that we're providing a number of environment variables to `azd` which will be detected in our `main.bicepparam` file.
-- We're updating the `azure.yml` file with the `WEB_VERSION_TAG` that we need to provide.
+- We're updating the `azure.yml` file with the `WEB_VERSION_TAG` that we need to provide. This is us working around the lack of support for environment variables in the `azure.yml` file for the `image` parameter.
 - We're deploying our application using `azd deploy --no-prompt`.
+
+You'll note that as we use `azd`, we make heavy use of environment variables. These environment variables will be picked up in the `main.bicepparam` file and passed through to the `main.bicep`. And of course there's the runtime `SERVICE_[SERVICENAME]_RESOURCE_EXISTS` parameter which `azd` will provide. Much of what you see here is inspired by [this documentation](https://learn.microsoft.com/en-gb/azure/developer/azure-developer-cli/configure-devops-pipeline?tabs=azdo).
+
+## What does it look like when it works?
+
+That is the question! Like this:
+
+![screenshot of azd detecting no changes and so not provisioning](screenshot-of-azd-detecting-no-changes.avif)
+
+The magic sentence in the above screenshot is: `SUCCESS: There are no changes to provision for your application.` This is what we're looking for. This is what makes our deployments faster.
+
+## Conclusion
+
+So we've done it, we've speeded up our subsequent deployments by using `azd` in our Azure DevOps pipeline to avoid unnecessary infrastructure provisioning when there are no changes. This is a significant time saver. However, as we've also seen, this is very easy to get wrong and quite hard to get right! Hopefully this will help you implement `azd` in your Azure DevOps pipelines.
+
+I couldn't have written this without [Marcel Michau](https://twitter.com/MarcelMichau) who did much of the heavy lifting on this project. I am the Boswell to his Johnson. Or something like that.
