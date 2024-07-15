@@ -2,7 +2,7 @@
 slug: using-azd-for-faster-incremental-azure-container-app-deployments-in-azure-devops
 title: 'Using AZD for faster incremental Azure Container App deployments in Azure DevOps'
 authors: johnnyreilly
-tags: [react]
+tags: [azure, bicep, azure container apps, azure devops, azure pipelines]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'Learn how to speed up deployments using the AZD command.'
