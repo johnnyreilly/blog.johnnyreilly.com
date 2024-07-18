@@ -55,6 +55,7 @@ services:
   web:
     image: myregistry.azurecr.io/my-project/my-container-app:${WEB_VERSION_TAG}
     host: containerapp
+    resourceName: ${CONTAINER_APP_NAME}
 ```
 
 The yaml above describes a container app service called `web` that uses an image from an Azure Container Registry. The `WEB_VERSION_TAG` is a variable that we'll need to provide in our Azure DevOps pipeline. It's worth noticing the link at the top to the schema for the `azure.yml` file: https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json - much of the work around figuring out how to use `azd` was achieved by looking at the schema for the `azure.yml` file.
@@ -69,7 +70,7 @@ The screenshot above is taken from the Docker section of the configuration where
 
 I've raised a [GitHub issue to investigate whether this could be supported](https://github.com/Azure/azure-dev/issues/4124).
 
-We'll find another way to pass the `WEB_VERSION_TAG` value to `azd` later on.
+We'll find another way to pass the `WEB_VERSION_TAG` value to `azd` later on. You'll notice that we pass `resourceName: ${CONTAINER_APP_NAME}` - and this **is** a parameter which supports environment variable substitution.  You'll see later that we supply the `CONTAINER_APP_NAME` and this will be consumed by the `azd deploy` stage.
 
 Incidentally, we're using an approach whereby the image is built and pushed to the registry independently of `azd`. You could equally use `azd` to build and push the image. But we're not doing that here.
 
@@ -274,6 +275,7 @@ Here's a cut down version of our pipeline replacing the single `AzureResourceMan
     # Define the additional variables or secrets that are required only for provision
     TAGS_BRANCH: $(Build.SourceBranch)
     TAGS_REPO: $(repo)
+    CONTAINER_APP_NAME: $(myContainerAppName)
     # ...
 
 - bash: |
@@ -297,6 +299,7 @@ Here's a cut down version of our pipeline replacing the single `AzureResourceMan
     # https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#user-provided-environment-variables
     AZURE_RESOURCE_GROUP: $(resourceGroupName)
     # Define the additional variables or secrets that are required only for deploy
+    CONTAINER_APP_NAME: $(myContainerAppName) # this is used to substitute the CONTAINER_APP_NAME value in the azure.yaml file
     # ...
 ```
 
@@ -307,7 +310,7 @@ What's happening here? We'll take it step by step:
 - We're logging into our Azure Container Registry. (If you're not building your image independently of `azd`, then you may not need this step.)
 - We're provisioning our infrastructure using `azd provision --no-prompt`. Note that we're providing a number of environment variables to `azd` which will be detected in our `main.bicepparam` file.
 - We're updating the `azure.yml` file with the `WEB_VERSION_TAG` that we need to provide. This is us working around the lack of support for environment variables in the `azure.yml` file for the `image` parameter.
-- We're deploying our application using `azd deploy --no-prompt`.
+- We're deploying our application using `azd deploy --no-prompt`. As we do that, we pass the `CONTAINER_APP_NAME` environment variable which will substitute into the `azure.yaml` file 
 
 You'll note that as we use `azd`, we make heavy use of environment variables. These environment variables will be picked up in the `main.bicepparam` file and passed through to the `main.bicep`. And of course there's the runtime `SERVICE_[SERVICENAME]_RESOURCE_EXISTS` parameter which `azd` will provide. Much of what you see here is inspired by [this documentation](https://learn.microsoft.com/en-gb/azure/developer/azure-developer-cli/configure-devops-pipeline?tabs=azdo).
 
