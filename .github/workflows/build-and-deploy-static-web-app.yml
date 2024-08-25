@@ -114,7 +114,7 @@ jobs:
 
       - name: Infra - deploy 🔧
         id: static_web_app_deploy
-        if: github.event_name != 'pull_request'
+        # if: github.event_name != 'pull_request' # uncomment before merging
         uses: azure/CLI@v2
         with:
           inlineScript: |
