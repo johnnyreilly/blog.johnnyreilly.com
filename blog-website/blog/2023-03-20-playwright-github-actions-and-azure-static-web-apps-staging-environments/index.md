@@ -108,7 +108,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  id-token: write
+  id-token: write # Require write permission to Fetch an OIDC token.
   contents: write
   pull-requests: write
 
