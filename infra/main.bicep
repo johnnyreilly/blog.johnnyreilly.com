@@ -7,13 +7,8 @@ param location string
 param branch string
 param staticWebAppName string
 param tags object
-@secure()
-param repositoryToken string
 param rootCustomDomainName string
 param blogCustomDomainName string
-param complexData {
-  allowedIPAddresses: string[]
-}
 
 @description('Specifies if the static web app exists - azd will provide this')
 #disable-next-line no-unused-params
@@ -45,7 +40,6 @@ module database 'database/main.bicep' = {
     cosmosDbAccountName: cosmosDbAccountName
     cosmosDbDatabaseName: cosmosDbDatabaseName
     userId: 'fdc0f550-79f0-4c06-9ad9-be0f13ce344b' // https://portal.azure.com/#view/Microsoft_AAD_UsersAndTenants/UserProfileMenuBlade/~/overview/userId/fdc0f550-79f0-4c06-9ad9-be0f13ce344b
-    allowedIPAddresses: complexData.allowedIPAddresses
   }
 }
 
@@ -60,7 +54,6 @@ module staticWebApp './static-web-app.bicep' = {
     branch: branch
     staticWebAppName: staticWebAppName
     tags: combinedTags
-    repositoryToken: repositoryToken
     rootCustomDomainName: rootCustomDomainName
     blogCustomDomainName: blogCustomDomainName
     appInsightsId: appInsights.outputs.appInsightsId

@@ -22,6 +22,8 @@ env:
   ROOTCUSTOMDOMAINNAME: johnnyreilly.com
   BLOGCUSTOMDOMAINNAME: blog.johnnyreilly.com
   TAGS: '{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
+  TAGS_OWNER: johnnyreilly
+  TAGS_EMAIL: johnny_reilly@hotmail.com
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
 jobs:
@@ -80,8 +82,6 @@ jobs:
         uses: azure/CLI@v2
         with:
           inlineScript: |
-            complexData='{"allowedIPAddresses": ${{ secrets.ALLOWEDIPADDRESS }} }'
-
             az deployment group what-if \
               --resource-group ${{ env.RESOURCE_GROUP }} \
               --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
@@ -92,10 +92,8 @@ jobs:
                   location='${{ env.LOCATION }}' \
                   staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
                   tags='${{ env.TAGS }}' \
-                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
-                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  complexData="$complexData"
+                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}'
 
             az deployment group validate \
               --resource-group ${{ env.RESOURCE_GROUP }} \
@@ -107,10 +105,8 @@ jobs:
                   location='${{ env.LOCATION }}' \
                   staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
                   tags='${{ env.TAGS }}' \
-                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
-                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  complexData="$complexData"
+                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}'
 
       - name: Infra - deploy 🔧
         id: static_web_app_deploy
@@ -118,8 +114,6 @@ jobs:
         uses: azure/CLI@v2
         with:
           inlineScript: |
-            complexData='{"allowedIPAddresses": ${{ secrets.ALLOWEDIPADDRESS }} }'
-
             az deployment group create \
               --resource-group ${{ env.RESOURCE_GROUP }} \
               --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
@@ -130,10 +124,8 @@ jobs:
                   location='${{ env.LOCATION }}' \
                   staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
                   tags='${{ env.TAGS }}' \
-                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
                   rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
-                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  complexData="$complexData"
+                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}'
 
       - name: Get preview URL 📝
         id: static_web_app_preview_url
