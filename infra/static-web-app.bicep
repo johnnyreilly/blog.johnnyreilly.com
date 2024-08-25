@@ -3,6 +3,7 @@ param branch string
 param staticWebAppName string
 param tags object
 @secure()
+#disable-next-line no-unused-params
 param repositoryToken string
 param rootCustomDomainName string
 param blogCustomDomainName string
@@ -21,6 +22,7 @@ var tagsWithHiddenLinks = union({
   'hidden-link: /app-insights-resource-id': appInsightsId
   'hidden-link: /app-insights-instrumentation-key': appInsightsInstrumentationKey
   'hidden-link: /app-insights-conn-string': appInsightsConnectionString
+  'azd-service-name': 'web' // note the "web" matches the service name in azure.yml
 }, tags)
 
 resource staticWebApp 'Microsoft.Web/staticSites@2022-09-01' = {
@@ -33,7 +35,7 @@ resource staticWebApp 'Microsoft.Web/staticSites@2022-09-01' = {
   }
   properties: {
     repositoryUrl: 'https://github.com/johnnyreilly/blog.johnnyreilly.com'
-    repositoryToken: repositoryToken
+    // repositoryToken: repositoryToken not sure why this is needed
     branch: branch
     provider: 'GitHub'
     stagingEnvironmentPolicy: 'Enabled'

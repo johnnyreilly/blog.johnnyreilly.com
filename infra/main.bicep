@@ -1,5 +1,8 @@
 targetScope = 'resourceGroup'
 
+@description('Environment eg dev, prod')
+param envName string
+
 param location string
 param branch string
 param staticWebAppName string
@@ -11,9 +14,6 @@ param blogCustomDomainName string
 param complexData {
   allowedIPAddresses: string[]
 }
-
-@description('Environment eg dev, prod')
-param envName string
 
 @description('Specifies if the static web app exists - azd will provide this')
 #disable-next-line no-unused-params
