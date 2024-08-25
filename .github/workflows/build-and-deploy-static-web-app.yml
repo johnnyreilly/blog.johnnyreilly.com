@@ -76,13 +76,10 @@ jobs:
 
       - name: Infra - detect changes & validate 📝
         id: static_web_app_what_if
-        # if: github.event_name == 'pull_request' # do it every time for now
+        if: github.event_name == 'pull_request'
         uses: azure/CLI@v2
         with:
           inlineScript: |
-            # https://github.com/Azure/azure-cli/issues/25710
-            az config set bicep.use_binary_from_path=false
-
             complexData='{"allowedIPAddresses": ${{ secrets.ALLOWEDIPADDRESS }} }'
 
             az deployment group what-if \
@@ -90,6 +87,7 @@ jobs:
               --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
               --template-file ./infra/main.bicep \
               --parameters \
+                  envName='prod' \
                   branch='main' \
                   location='${{ env.LOCATION }}' \
                   staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
@@ -104,6 +102,7 @@ jobs:
               --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
               --template-file ./infra/main.bicep \
               --parameters \
+                  envName='prod' \
                   branch='main' \
                   location='${{ env.LOCATION }}' \
                   staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
@@ -119,9 +118,6 @@ jobs:
         uses: azure/CLI@v2
         with:
           inlineScript: |
-            # https://github.com/Azure/azure-cli/issues/25710
-            az config set bicep.use_binary_from_path=false
-
             complexData='{"allowedIPAddresses": ${{ secrets.ALLOWEDIPADDRESS }} }'
 
             az deployment group create \
@@ -129,6 +125,7 @@ jobs:
               --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
               --template-file ./infra/main.bicep \
               --parameters \
+                  envName='prod' \
                   branch='main' \
                   location='${{ env.LOCATION }}' \
                   staticWebAppName='${{ env.STATICWEBAPPNAME }}' \

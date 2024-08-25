@@ -1,3 +1,5 @@
+targetScope = 'resourceGroup'
+
 param location string
 param branch string
 param staticWebAppName string
@@ -10,6 +12,15 @@ param complexData {
   allowedIPAddresses: string[]
 }
 
+@description('Environment eg dev, prod')
+param envName string
+
+@description('Specifies if the static web app exists - azd will provide this')
+#disable-next-line no-unused-params
+param staticWebAppExists bool = false
+
+var combinedTags = union(tags, { 'azd-env-name': envName })
+
 var workspaceName = 'blog-app-insights-workspace'
 var appInsightsName = 'blog-app-insights'
 
@@ -20,7 +31,7 @@ module appInsights './app-insights.bicep' = {
   name: '${deployment().name}-appInsights'
   params: {
     location: location
-    tags: tags
+    tags: combinedTags
     workspaceName: workspaceName
     appInsightsName: appInsightsName
   }
@@ -29,7 +40,7 @@ module appInsights './app-insights.bicep' = {
 module database 'database/main.bicep' = {
   name: '${deployment().name}-database'
   params: {
-    tags: tags
+    tags: combinedTags
     location: location
     cosmosDbAccountName: cosmosDbAccountName
     cosmosDbDatabaseName: cosmosDbDatabaseName
@@ -48,7 +59,7 @@ module staticWebApp './static-web-app.bicep' = {
     location: location
     branch: branch
     staticWebAppName: staticWebAppName
-    tags: tags
+    tags: combinedTags
     repositoryToken: repositoryToken
     rootCustomDomainName: rootCustomDomainName
     blogCustomDomainName: blogCustomDomainName
