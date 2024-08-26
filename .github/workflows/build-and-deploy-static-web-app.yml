@@ -152,17 +152,6 @@ jobs:
           ROOT_CUSTOM_DOMAIN_NAME: ${{ env.ROOT_CUSTOM_DOMAIN_NAME }}
           BLOG_CUSTOM_DOMAIN_NAME: ${{ env.BLOG_CUSTOM_DOMAIN_NAME }}
 
-      - name: Get preview URL 📝
-        id: static_web_app_preview_url
-        uses: azure/CLI@v2
-        with:
-          inlineScript: |
-            DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.defaultHostname')
-
-            PREVIEW_URL="https://${DEFAULTHOSTNAME/.[1-9]./-${{github.event.pull_request.number }}.${{ env.AZURE_LOCATION }}.1.}"
-
-            echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_OUTPUT
-
       - name: Setup Node.js 🔧
         uses: actions/setup-node@v4
         with:
@@ -207,22 +196,46 @@ jobs:
           app_location: '/blog-website/build' # App source code path
           api_location: '/blog-website/api' # Api source code path
 
+  get_preview_url_job:
+    if: github.event_name == 'pull_request' && github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    name: Get preview URL 🔑
+    needs: build_and_deploy_swa_job
+    steps:
+      - name: AZ CLI login 🔑
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Get preview URL 📝
+        id: static_web_app_preview_url
+        uses: azure/CLI@v2
+        with:
+          inlineScript: |
+            DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.defaultHostname')
+
+            PREVIEW_URL="https://${DEFAULTHOSTNAME/.[1-9]./-${{github.event.pull_request.number }}.${{ env.AZURE_LOCATION }}.1.}"
+
+            echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_OUTPUT
+
     outputs:
       preview-url: ${{steps.static_web_app_preview_url.outputs.PREVIEW_URL}}
 
   integration_tests_job:
     name: Integration tests 💡🏠
-    needs: build_and_deploy_swa_job
+    needs: get_preview_url_job
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Wait for preview ${{ needs.build_and_deploy_swa_job.outputs.preview-url }} ⌚
+      - name: Wait for preview ${{ needs.get_preview_url_job.outputs.preview-url }} ⌚
         id: static_web_app_wait_for_preview
         uses: nev7n/wait_for_response@v1
         with:
-          url: '${{ needs.build_and_deploy_swa_job.outputs.preview-url }}'
+          url: '${{ needs.get_preview_url_job.outputs.preview-url }}'
           responseCode: 200
           timeout: 600000
           interval: 1000
@@ -242,7 +255,7 @@ jobs:
 
       - name: Run Playwright tests
         env:
-          PLAYWRIGHT_TEST_BASE_URL: '${{ needs.build_and_deploy_swa_job.outputs.preview-url }}'
+          PLAYWRIGHT_TEST_BASE_URL: '${{ needs.get_preview_url_job.outputs.preview-url }}'
         run: npx playwright test
         working-directory: ./blog-website-tests
 
@@ -255,17 +268,17 @@ jobs:
 
   lighthouse_report_job:
     name: Lighthouse report 💡🏠
-    needs: build_and_deploy_swa_job
+    needs: get_preview_url_job
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Wait for preview ${{ needs.build_and_deploy_swa_job.outputs.preview-url }} ⌚
+      - name: Wait for preview ${{ needs.get_preview_url_job.outputs.preview-url }} ⌚
         id: static_web_app_wait_for_preview
         uses: nev7n/wait_for_response@v1
         with:
-          url: '${{ needs.build_and_deploy_swa_job.outputs.preview-url }}'
+          url: '${{ needs.get_preview_url_job.outputs.preview-url }}'
           responseCode: 200
           timeout: 600000
           interval: 1000
@@ -275,11 +288,11 @@ jobs:
         uses: treosh/lighthouse-ci-action@v11
         with:
           urls: |
-            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
-            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/about
-            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/blog
-            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/tags
-            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/definitely-typed-the-movie
+            ${{ needs.get_preview_url_job.outputs.preview-url }}
+            ${{ needs.get_preview_url_job.outputs.preview-url }}/about
+            ${{ needs.get_preview_url_job.outputs.preview-url }}/blog
+            ${{ needs.get_preview_url_job.outputs.preview-url }}/tags
+            ${{ needs.get_preview_url_job.outputs.preview-url }}/definitely-typed-the-movie
           configPath: ./.github/workflows/lighthousesrc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
@@ -314,17 +327,17 @@ jobs:
 
   structured_data_report_job:
     name: Structured data report 📝
-    needs: build_and_deploy_swa_job
+    needs: get_preview_url_job
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Wait for preview ${{ needs.build_and_deploy_swa_job.outputs.preview-url }} ⌚
+      - name: Wait for preview ${{ needs.get_preview_url_job.outputs.preview-url }} ⌚
         id: static_web_app_wait_for_preview
         uses: nev7n/wait_for_response@v1
         with:
-          url: '${{ needs.build_and_deploy_swa_job.outputs.preview-url }}'
+          url: '${{ needs.get_preview_url_job.outputs.preview-url }}'
           responseCode: 200
           timeout: 600000
           interval: 1000
@@ -334,10 +347,10 @@ jobs:
         uses: johnnyreilly/schemar@v0.1.1
         with:
           urls: |
-            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}
-            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/about
-            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/blog
-            ${{ needs.build_and_deploy_swa_job.outputs.preview-url }}/definitely-typed-the-movie
+            ${{ needs.get_preview_url_job.outputs.preview-url }}
+            ${{ needs.get_preview_url_job.outputs.preview-url }}/about
+            ${{ needs.get_preview_url_job.outputs.preview-url }}/blog
+            ${{ needs.get_preview_url_job.outputs.preview-url }}/definitely-typed-the-movie
 
       # - name: Dump steps.structured_data_audit.outputs
       #   run: echo '${{ toJSON(steps.structured_data_audit.outputs) }}'
