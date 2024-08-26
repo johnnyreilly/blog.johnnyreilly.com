@@ -21,7 +21,6 @@ env:
   STATIC_WEB_APP_NAME: blog.johnnyreilly.com
   ROOT_CUSTOM_DOMAIN_NAME: johnnyreilly.com
   BLOG_CUSTOM_DOMAIN_NAME: blog.johnnyreilly.com
-  TAGS: '{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
   TAGS_OWNER: johnnyreilly
   TAGS_EMAIL: johnny_reilly@hotmail.com
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
@@ -90,6 +89,8 @@ jobs:
         uses: azure/CLI@v2
         with:
           inlineScript: |
+            TAGS='{"owner":"${{ env.TAGS_OWNER }}", "email":"${{ env.TAGS_EMAIL }}"}'
+
             az deployment group what-if \
               --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
               --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
@@ -122,6 +123,8 @@ jobs:
       #   uses: azure/CLI@v2
       #   with:
       #     inlineScript: |
+      #       TAGS='{"owner":"${{ env.TAGS_OWNER }}", "email":"${{ env.TAGS_EMAIL }}"}'
+      #
       #       az deployment group create \
       #         --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
       #         --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
