@@ -20,6 +20,7 @@ var tagsWithHiddenLinks = union({
   'hidden-link: /app-insights-instrumentation-key': appInsightsInstrumentationKey
   'hidden-link: /app-insights-conn-string': appInsightsConnectionString
   'azd-service-name': 'web' // note the "web" matches the service name in azure.yml
+  'test-tag': 'hello world'
 }, tags)
 
 resource staticWebApp 'Microsoft.Web/staticSites@2022-09-01' = {
