@@ -39,11 +39,13 @@ Specifically, I want to replace my usage of `az deployment group create` to usin
 
 Now when I started trying to see if doing faster deployments of Static Web Apps was possible with `azd`, I couldn't discover any documentation. So I've come to write the documentation I wish had existed. There may be a better way to do this. But this is what I've come up with.
 
-To be clear on scope, my intention here is only to speed up how we handle the deployment of the infrastructure. I don't want to deploy infrastructure if there are no changes and `azd` can help me with that. I'm not going all in on `azd` for the deployment of the application code. For now, we'll focus solely on the infrastructure. Maybe we'll come back to the application code in a future post.
+To be clear on scope, my intention here is only to speed up how we handle the deployment of the infrastructure. I don't want to deploy infrastructure if there are no changes and `azd` can help with that. I'm not going all in on `azd` for the deployment of the application code as well. For now, we'll focus solely on the infrastructure piece. Maybe we'll come back to the application code in a future post.
+
+From here on out, we'll go through the changes we need to make to our project to replace `az deployment group create` with `azd provision` for faster incremental Azure Static Web App deployments in GitHub Actions.
 
 ## Hello `azure.yml`
 
-We're going to need an `azure.yml` file in our project. This file is going to contain the configuration for our `azd` project. Here's what it looks like:
+To migrate to `azd`, we'll requires an `azure.yml` file in our project. This file is going to contain the configuration for our `azd` project. Here's what it looks like:
 
 ```yaml
 # yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
@@ -59,6 +61,13 @@ services:
     language: js
 ```
 
+The particular things to note in this file are:
+
+- we have one service - `web` - this is the service that represents our Static Web App
+- our host is `staticwebapp` - this means we're deploying a Static Web App
+- we provide the resource name of our static web app name in the `STATIC_WEB_APP_NAME` environment variable. (The `resourceName` parameter supports environment variable substitution)
+- we provide the path to the project that contains the code for our Static Web App in the `project` parameter and specify it is `js` code in the `language` parameter. Neither of these parameters are used by `azd` during provisioning, but they are required.
+
 ## Bicep modifications
 
 The feature we want to consume from `azd` is the ability to avoid provisioning infrastructure when there are no changes. To do this, we need to make some modifications to our Bicep files in order that `azd` can determine whether there are changes or not.
@@ -73,7 +82,7 @@ targetScope = 'resourceGroup'
 
 The change above allows us to use `azd` deployments targeted at existing resource groups. The default mode of operation for `azd` deployments is deploying a resource group to a subscription. We are seeking to [deploy to an existing resource group](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/resource-group-scoped-deployments).
 
-Now, strictly speaking, this isn't necessary for speeding up deployments with `azd`. But if you're not one for creating a resource group per deployment (as I am not), then this is a good idea. This kind of deployment requires less permissions and may well better align with your organisation's security posture.
+Now, strictly speaking, this isn't necessary for speeding up deployments with `azd`. But if you're not one for creating a resource group per deployment (as I am not), then this is a good idea. This kind of deployment requires less permissions and aligns with the principle of least privilege.
 
 We'll need to opt into using this feature with `azd` later on in the pipeline; at present resource group scoped deployments are considered "alpha".
 
@@ -92,7 +101,7 @@ param envName string
 param staticWebAppExists bool = false
 ```
 
-Whilst the equivalent "exists" parameter **is** used by Container App provisioning, it's not clear if Static Web Apps need it also. Maybe we'll use this parameter later on. We'll see.
+Whilst the equivalent "exists" parameter **is** used by Container App provisioning, it's not clear if Static Web Apps need it also. I have a feeling this could be omitted, given that the parameter is unused. (As indicated by the `#disable-next-line no-unused-params` to quiet the linter.) But I'm going to include the parameter for now.
 
 ### Tagging resources with the azd tags
 

@@ -12,6 +12,8 @@ When deploying Azure Container Apps from Azure DevOps, you can use the `azd` com
 
 ![title image reading "Using AZD for faster incremental Azure Container App deployments in Azure DevOps" with the Azure Container Apps logo](title-image.png)
 
+If you're looking for information on how to use `azd` to speed up deployments of Azure Static Web Apps in GitHub Actions, then you might want to read [this post](../2024-08-27-using-azd-for-faster-incremental-azure-static-web-app-deployments-in-github-actions/index.md).
+
 <!--truncate-->
 
 ## Faster deployments from `azd` 1.4 and beyond
