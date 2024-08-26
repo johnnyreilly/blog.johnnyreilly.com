@@ -53,7 +53,7 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Lint Bicep
+      - name: Bicep lint
         if: github.event_name == 'pull_request'
         uses: azure/CLI@v2
         with:
@@ -65,7 +65,7 @@ jobs:
             echo '::warning::Bicep linting results:'
             cat bicep.sarif
 
-      - name: Upload SARIF
+      - name: Upload linting results
         if: github.event_name == 'pull_request' && (success() || failure())
         uses: github/codeql-action/upload-sarif@v3
         with:
@@ -120,27 +120,18 @@ jobs:
 
       # - name: Infra - deploy 🔧
       #   id: static_web_app_deploy
-      #   # if: github.event_name != 'pull_request' # uncomment before merging
+      #   if: github.event_name != 'pull_request'
       #   uses: azure/CLI@v2
       #   with:
       #     inlineScript: |
-      #       TAGS='{"owner":"${{ env.TAGS_OWNER }}", "email":"${{ env.TAGS_EMAIL }}"}'
-      #
       #       az deployment group create \
       #         --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
       #         --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
       #         --template-file ./infra/main.bicep \
-      #         --parameters \
-      #             envName='prod' \
-      #             branch='main' \
-      #             location='${{ env.AZURE_LOCATION }}' \
-      #             staticWebAppName='${{ env.STATIC_WEB_APP_NAME }}' \
-      #             tags=$TAGS \
-      #             rootCustomDomainName='${{ env.ROOT_CUSTOM_DOMAIN_NAME }}' \
-      #             blogCustomDomainName='${{ env.BLOG_CUSTOM_DOMAIN_NAME }}'
+      #         --parameters ./infra/main.bicepparam
 
       - name: Infra - provision 🔧
-        # if: github.event_name != 'pull_request' # uncomment before merging
+        if: github.event_name != 'pull_request' # uncomment before merging
         run: azd provision --no-prompt
         env:
           # See https://learn.microsoft.com/en-gb/azure/developer/azure-developer-cli/configure-devops-pipeline?tabs=azdo
@@ -175,7 +166,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'yarn'
+          cache: 'npm'
 
       - name: Setup bun 🔧
         uses: oven-sh/setup-bun@v1
@@ -185,14 +176,14 @@ jobs:
       - name: Install and build app 🔧
         run: |
           cd blog-website
-          yarn install --frozen-lockfile
-          DOCUSAURUS_SSR_CONCURRENCY=5 IS_LIVE_SITE=${{ github.event_name != 'pull_request' }} yarn run build
+          npm ci
+          DOCUSAURUS_SSR_CONCURRENCY=5 IS_LIVE_SITE=${{ github.event_name != 'pull_request' }} npm run build
           cp staticwebapp.config.json build/staticwebapp.config.json
 
       - name: Install and build API 🔧
         run: |
           cd blog-website/api
-          npm install
+          npm ci
           npm run build
 
       - name: Get API key 🔑
@@ -237,7 +228,8 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -385,7 +377,7 @@ jobs:
   #     - name: Publish to dev.to 🗞️
   #       run: |
   #         cd from-docusaurus-to-devto
-  #         yarn install --frozen-lockfile
+  #         npm ci
   #         DEVTO_APIKEY=${{ secrets.DEVTO_APIKEY }} yarn start
 
   close_pull_request_job:

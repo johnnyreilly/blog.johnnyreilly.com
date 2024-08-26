@@ -8,22 +8,22 @@ This repo contains the source code for John Reilly's blog. The blog can be found
 
 ```shell
 cd blog-website
-yarn
-yarn start
+npm i
+npm start
 ```
 
 ## Building locally
 
 ```shell
 cd blog-website
-yarn
-yarn build
+npm i
+npm run build
 ```
 
 To then run that build:
 
 ```shell
-yarn serve
+npm run serve
 ```
 
 ## Hosting
