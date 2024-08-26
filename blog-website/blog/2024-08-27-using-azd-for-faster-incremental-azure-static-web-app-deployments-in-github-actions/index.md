@@ -133,11 +133,11 @@ Prior to using `azd`, we were using a `main.bicep` file to deploy our infrastruc
 
 The `main.bicepparam` file is going to contain the parameters that we were previously providing directly to our `main.bicep` file. It's going to pick these up from environment variables that we'll declare and from environment variables provided by `azd`; such as the one to drive environment name and whether our service exists. So there's a little more indirection in our parameter passing now. It used to be:
 
-GitHub Actions -> `main.bicep`
+_GitHub Actions -> `main.bicep`_
 
 Now it will be:
 
-GitHub Actions -> `main.bicepparam` -> `main.bicep`
+_GitHub Actions -> `main.bicepparam` -> `main.bicep`_
 
 Consider the following (cut down) `main.bicepparam` file:
 
