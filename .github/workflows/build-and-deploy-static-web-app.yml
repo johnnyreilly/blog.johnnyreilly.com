@@ -100,7 +100,7 @@ jobs:
                   branch='main' \
                   location='${{ env.AZURE_LOCATION }}' \
                   staticWebAppName='${{ env.STATIC_WEB_APP_NAME }}' \
-                  tags='${{ env.TAGS }}' \
+                  tags=$TAGS \
                   rootCustomDomainName='${{ env.ROOT_CUSTOM_DOMAIN_NAME }}' \
                   blogCustomDomainName='${{ env.BLOG_CUSTOM_DOMAIN_NAME }}'
 
@@ -113,7 +113,7 @@ jobs:
                   branch='main' \
                   location='${{ env.AZURE_LOCATION }}' \
                   staticWebAppName='${{ env.STATIC_WEB_APP_NAME }}' \
-                  tags='${{ env.TAGS }}' \
+                  tags=$TAGS \
                   rootCustomDomainName='${{ env.ROOT_CUSTOM_DOMAIN_NAME }}' \
                   blogCustomDomainName='${{ env.BLOG_CUSTOM_DOMAIN_NAME }}'
 
@@ -134,7 +134,7 @@ jobs:
       #             branch='main' \
       #             location='${{ env.AZURE_LOCATION }}' \
       #             staticWebAppName='${{ env.STATIC_WEB_APP_NAME }}' \
-      #             tags='${{ env.TAGS }}' \
+      #             tags=$TAGS \
       #             rootCustomDomainName='${{ env.ROOT_CUSTOM_DOMAIN_NAME }}' \
       #             blogCustomDomainName='${{ env.BLOG_CUSTOM_DOMAIN_NAME }}'
 
