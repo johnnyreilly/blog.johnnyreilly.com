@@ -90,38 +90,55 @@ jobs:
         with:
           inlineScript: |
             # TAGS='{"owner":"${{ env.TAGS_OWNER }}", "email":"${{ env.TAGS_EMAIL }}"}'
-            TAGS=$(jq -n \
-                  --arg owner "${{ env.TAGS_OWNER }}" \
-                  --arg email "${{ env.TAGS_EMAIL }}" \
-                   '$ARGS.named')
+            # TAGS=$(jq -n \
+            #      --arg owner "${{ env.TAGS_OWNER }}" \
+            #      --arg email "${{ env.TAGS_EMAIL }}" \
+            #       '$ARGS.named')
 
-            echo "TAGS=$TAGS"
+            # echo "TAGS=$TAGS"
 
             az deployment group what-if \
               --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
               --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
               --template-file ./infra/main.bicep \
-              --parameters \
-                  envName='prod' \
-                  branch='main' \
-                  location='${{ env.AZURE_LOCATION }}' \
-                  staticWebAppName='${{ env.STATIC_WEB_APP_NAME }}' \
-                  tags=$TAGS \
-                  rootCustomDomainName='${{ env.ROOT_CUSTOM_DOMAIN_NAME }}' \
-                  blogCustomDomainName='${{ env.BLOG_CUSTOM_DOMAIN_NAME }}'
+              --parameters ./infra/main.bicepparam
+            #      envName='prod' \
+            #      branch='main' \
+            #      location='${{ env.AZURE_LOCATION }}' \
+            #      staticWebAppName='${{ env.STATIC_WEB_APP_NAME }}' \
+            #      tags=$TAGS \
+            #      rootCustomDomainName='${{ env.ROOT_CUSTOM_DOMAIN_NAME }}' \
+            #      blogCustomDomainName='${{ env.BLOG_CUSTOM_DOMAIN_NAME }}'
 
             az deployment group validate \
               --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
               --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
               --template-file ./infra/main.bicep \
-              --parameters \
-                  envName='prod' \
-                  branch='main' \
-                  location='${{ env.AZURE_LOCATION }}' \
-                  staticWebAppName='${{ env.STATIC_WEB_APP_NAME }}' \
-                  tags=$TAGS \
-                  rootCustomDomainName='${{ env.ROOT_CUSTOM_DOMAIN_NAME }}' \
-                  blogCustomDomainName='${{ env.BLOG_CUSTOM_DOMAIN_NAME }}'
+              --parameters ./infra/main.bicepparam
+            #      envName='prod' \
+            #      branch='main' \
+            #      location='${{ env.AZURE_LOCATION }}' \
+            #      staticWebAppName='${{ env.STATIC_WEB_APP_NAME }}' \
+            #      tags=$TAGS \
+            #      rootCustomDomainName='${{ env.ROOT_CUSTOM_DOMAIN_NAME }}' \
+            #      blogCustomDomainName='${{ env.BLOG_CUSTOM_DOMAIN_NAME }}'
+        env:
+          # See https://learn.microsoft.com/en-gb/azure/developer/azure-developer-cli/configure-devops-pipeline?tabs=azdo
+          AZURE_LOCATION: ${{ env.AZURE_LOCATION }}
+          AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          AZURE_ENV_NAME: prod # we only have one environment for now
+          # https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#user-provided-environment-variables
+          AZURE_RESOURCE_GROUP: ${{ env.AZURE_RESOURCE_GROUP }}
+
+          # Define the additional variables or secrets that are required only for provision - see main.bicepparam
+          REPOSITORY_BRANCH: main # we only provision for the main branch
+          STATIC_WEB_APP_NAME: ${{ env.STATIC_WEB_APP_NAME }}
+
+          TAGS_OWNER: ${{ env.TAGS_OWNER }}
+          TAGS_EMAIL: ${{ env.TAGS_EMAIL }}
+
+          ROOT_CUSTOM_DOMAIN_NAME: ${{ env.ROOT_CUSTOM_DOMAIN_NAME }}
+          BLOG_CUSTOM_DOMAIN_NAME: ${{ env.BLOG_CUSTOM_DOMAIN_NAME }}
 
       # - name: Infra - deploy 🔧
       #   id: static_web_app_deploy
