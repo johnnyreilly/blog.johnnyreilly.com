@@ -12,7 +12,6 @@ on:
     inputs:
       force_deploy_infrastructure:
         description: 'Force deploy infrastructure'
-        required: true
         default: 'false'
 
 permissions:
