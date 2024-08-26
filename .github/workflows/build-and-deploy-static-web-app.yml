@@ -52,7 +52,7 @@ jobs:
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
       - name: Lint Bicep
         if: github.event_name == 'pull_request'
@@ -135,38 +135,13 @@ jobs:
       #             rootCustomDomainName='${{ env.ROOT_CUSTOM_DOMAIN_NAME }}' \
       #             blogCustomDomainName='${{ env.BLOG_CUSTOM_DOMAIN_NAME }}'
 
-      # # can we just use run - do we need to use uses?
-      # - name: Infra - provision 🔧
-      #   # if: github.event_name != 'pull_request' # uncomment before merging
-      #   uses: azure/CLI@v2
-      #   with:
-      #     inlineScript: |
-      #       azd provision --no-prompt
-      #   env:
-      #     # See https://learn.microsoft.com/en-gb/azure/developer/azure-developer-cli/configure-devops-pipeline?tabs=azdo
-      #     AZURE_LOCATION: ${{ env.AZURE_LOCATION }}
-      #     AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      #     AZURE_ENV_NAME: prod # we only have one environment for now
-      #     # https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#user-provided-environment-variables
-      #     AZURE_RESOURCE_GROUP: ${{ env.AZURE_RESOURCE_GROUP }}
-
-      #     # Define the additional variables or secrets that are required only for provision - see main.bicepparam
-      #     REPOSITORY_BRANCH: main # we only provision for the main branch
-      #     STATIC_WEB_APP_NAME: ${{ env.STATIC_WEB_APP_NAME }}
-
-      #     TAGS_OWNER: ${{ env.TAGS_OWNER }}
-      #     TAGS_EMAIL: ${{ env.TAGS_EMAIL }}
-
-      #     ROOT_CUSTOM_DOMAIN_NAME: ${{ env.ROOT_CUSTOM_DOMAIN_NAME }}
-      #     BLOG_CUSTOM_DOMAIN_NAME: ${{ env.BLOG_CUSTOM_DOMAIN_NAME }}
-
       - name: Infra - provision 🔧
         # if: github.event_name != 'pull_request' # uncomment before merging
         run: azd provision --no-prompt
         env:
           # See https://learn.microsoft.com/en-gb/azure/developer/azure-developer-cli/configure-devops-pipeline?tabs=azdo
           AZURE_LOCATION: ${{ env.AZURE_LOCATION }}
-          AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
           AZURE_ENV_NAME: prod # we only have one environment for now
           # https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#user-provided-environment-variables
           AZURE_RESOURCE_GROUP: ${{ env.AZURE_RESOURCE_GROUP }}
@@ -412,7 +387,7 @@ jobs:
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
       - name: Get API key 🔑
         id: apikey
