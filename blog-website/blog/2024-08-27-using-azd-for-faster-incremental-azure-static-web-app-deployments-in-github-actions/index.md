@@ -10,7 +10,7 @@ description: 'Learn how to speed up deployments of Azure Static Web Apps in GitH
 
 This post is a follow on from the post [Using AZD for faster incremental Azure Container App deployments in Azure DevOps](../2024-07-15-using-azd-for-faster-incremental-azure-container-app-deployments-in-azure-devops/index.md). In that post, we looked at how to speed up deployments of Azure Container Apps in Azure DevOps using [Azure Developer CLI (`azd`)](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/). In this post, we're going to look at how to speed up deployments of Azure Static Web Apps in GitHub Actions using `azd`.
 
-There's going to be a lot of overlap between the two posts. I don't want to force you to read two posts, so I'll duplicate some of the content from the previous post here. But I'll also add some new content that's specific to Azure Static Web Apps in GitHub Actions.
+There's going to be a lot of overlap between the two posts. I don't want to force you to read two posts, so I'll duplicate some of the content from the previous post here. But I'll also add some new content that's specific to deploying Azure Static Web Apps in GitHub Actions with `azd`.
 
 ![title image reading "Using AZD for faster incremental Azure Static Web App deployments in GitHub Actions" with the Azure Static Web Apps logo](title-image.png)
 
@@ -35,9 +35,9 @@ You're reading this post on my blog, which, at the time of writing, runs using A
 
 It takes the princely time of **3 minutes** to deploy the infrastructure. Every time the pipeline runs. But most of the time, there are no changes to be made to the infrastructure. So it's a waste of time. I want to speed this up and I think that `azd` can help me do that.
 
-Specifically, I want to replace my usage of `az deployment group create` to using `azd provision`. Because `azd provision` is faster when there are no infrastructure changes. We will drop the infrastructure deployment job time from **3 minutes** to **20 seconds** when there are no infrastructure changes.
+Specifically, I want to switch my usage of `az deployment group create` to `azd provision` because `azd provision` is faster when there are no infrastructure changes. We will drop the infrastructure deployment job time from **3 minutes** to **20 seconds** when there are no infrastructure changes.
 
-Now when I started trying to see if doing faster deployments of Static Web Apps was possible with `azd`, I couldn't discover any documentation. So I've come to write the documentation I wish had existed. There may be a better way to do this. But this is what I've come up with.
+Now when I started trying to see if doing faster deployments of Static Web Apps was possible with `azd`, I couldn't discover any documentation. So I've found myself writing the documentation I wish had existed.
 
 To be clear on scope, my intention here is only to speed up how we handle the deployment of the infrastructure. I don't want to deploy infrastructure if there are no changes and `azd` can help with that. I'm not going all in on `azd` for the deployment of the application code as well. For now, we'll focus solely on the infrastructure piece. Maybe we'll come back to the application code in a future post.
 
@@ -45,7 +45,7 @@ From here on out, we'll go through the changes we need to make to our project to
 
 ## Hello `azure.yml`
 
-To migrate to `azd`, we'll requires an `azure.yml` file in our project. This file is going to contain the configuration for our `azd` project. Here's what it looks like:
+To make use of `azd`, we'll requires an `azure.yml` file in our project. This file is going to contain the configuration for our `azd` project. Here's what it looks like:
 
 ```yaml
 # yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
@@ -65,7 +65,7 @@ The particular things to note in this file are:
 
 - we have one service - `web` - this is the service that represents our Static Web App
 - our host is `staticwebapp` - this means we're deploying a Static Web App
-- we provide the resource name of our static web app name in the `STATIC_WEB_APP_NAME` environment variable. (The `resourceName` parameter supports environment variable substitution)
+- we provide the resource name of our static web app name in the `STATIC_WEB_APP_NAME` environment variable - this allows `azd` to identify it. (The `resourceName` parameter supports environment variable substitution and will plug in the name of the resource when it is used.)
 - we provide the path to the project that contains the code for our Static Web App in the `project` parameter and specify it is `js` code in the `language` parameter. Neither of these parameters are used by `azd` during provisioning, but they are required.
 
 ## Bicep modifications
@@ -84,11 +84,11 @@ The change above allows us to use `azd` deployments targeted at existing resourc
 
 Now, strictly speaking, this isn't necessary for speeding up deployments with `azd`. But if you're not one for creating a resource group per deployment (as I am not), then this is a good idea. This kind of deployment requires less permissions and aligns with the principle of least privilege.
 
-We'll need to opt into using this feature with `azd` later on in the pipeline; at present resource group scoped deployments are considered "alpha".
+We'll need to opt into using this feature with `azd` later on when we update our workflow as at present resource group scoped deployments are considered "alpha".
 
 ### New parameters in `main.bicep`
 
-We're going to add an `envName` parameter that will be used to populate `azd-env-name` tags on resources. We're also going to add a parameter that will be used to determine whether the static web app already exists:
+We're going to add an `envName` parameter that will be used to populate `azd-env-name` tags on resources. We're also going to add a parameter that will be used to determine whether the Static Web App already exists:
 
 ```bicep
 @description('Environment eg dev, prod')
@@ -160,9 +160,11 @@ param tags = {
 param staticWebAppExists = bool(readEnvironmentVariable('SERVICE_WEB_RESOURCE_EXISTS', 'false'))
 ```
 
+This should pick up the values we need from environment values provided both by us and `azd`. Later we'll update the GitHub Actions workflow to ensure these are provided.
+
 ## Updating our GitHub Actions workflow to use `azd`
 
-We're going to need to install and configure `azd` in our GitHub Actions workflow:
+We need to install and configure `azd` in our GitHub Actions workflow:
 
 ```yml
 - name: Install azd 🔧
@@ -174,13 +176,12 @@ We're going to need to install and configure `azd` in our GitHub Actions workflo
     azd config set alpha.resourceGroupDeployments on
 ```
 
-As well as installing `azd`, we're setting two configuration options. The first option tells `azd` to use the Azure CLI for authentication - we already have the [Azure Login Action](https://github.com/marketplace/actions/azure-login) in our workflow, logging in so we can use the Azure CLI. With this option set, `azd` can make use of that existing authentication rather than implementing its own. The second option enables resource group scoped deployments because we're using resource group scoped deployments in our Bicep files as we discussed earlier.
+As well as installing `azd`, we're setting two configuration options. The `auth.useAzCliAuth` option tells `azd` to use the Azure CLI for authentication - we already have the [Azure Login Action](https://github.com/marketplace/actions/azure-login) in our workflow, authenticating our pipeline so it can use the Azure CLI. With the `useAzCliAuth` option set, `azd` can make use of that existing authentication rather than needing us to authenticate it independently. The `alpha.resourceGroupDeployments` option enables resource group scoped deployments because we're using resource group scoped deployments in our Bicep files as we discussed earlier.
 
-Get rid of this:
+Now we have `azd` in place and authenticated, we're ready to swap out `az deployment group create` for `azd provision`. We're going to remove the following job from our workflow:
 
 ```yml
-- name: Infra - deploy 🔧
-  id: static_web_app_deploy
+- name: Infra - provision 🔧
   uses: azure/CLI@v2
   with:
     inlineScript: |
@@ -197,7 +198,7 @@ Get rid of this:
             blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}'
 ```
 
-Replace it with this:
+And in it's place we'll add the following:
 
 ```yml
 - name: Infra - provision 🔧
@@ -221,10 +222,22 @@ Replace it with this:
     BLOG_CUSTOM_DOMAIN_NAME: ${{ env.BLOG_CUSTOM_DOMAIN_NAME }}
 ```
 
+The above amounts simply to a `azd provision --no-prompt` command, but it works because we are first authenticated and because we supply a number of environment variables to the job.
+
 You'll see that we're populating environment variables that will be picked up by our `main.bicepparam` file. These were the same variables that were being passed explicitly to our `main.bicep` file when we were using `az deployment group create`. Now it will be `azd` that will be responsible for passing these values to our `main.bicep` file, using `main.bicepparam` as the connective tissue.
 
 When `azd provision` runs, it will look at the existing infrastructure and determine whether there are changes to be made. If there are no changes, then the deployment will be skipped. This is the magic of `azd`.
 
-https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/913/files
+## What does it look like when it works?
 
-https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/configure-devops-pipeline?tabs=GitHub
+Well, once the initial workflow has run (to tag the resources accordingly), a subsequent no-infra-change will look like this:
+
+![screenshot of azd detecting no changes and so not provisioning](screenshot-of-azd-detecting-no-changes.webp)
+
+The `Skipped: Didn't find new changes` message is a sign that we're now no longer deploying in full each time. Only when we need to. This is us dropping infrastructure deployment job time from **3 minutes** to **20 seconds** when there are no infrastructure changes.
+
+## Conclusion
+
+It is actually fairly straightforward to get the benefits of faster deployments with `azd` for Static Web Apps. In fact it's even more straightforward than with Container Apps, because you can choose to continue with your own preferred method of app code deployment. You're not obliged to use `azd deploy` as well as `azd provision`. So even if you might want to make the switch later, you can choose to do it gradually.
+
+If you're interested in the PR that implemented this for my blog [you can find it here](https://github.com/johnnyreilly/blog.johnnyreilly.com/pull/913/files) - though I should warn you that I did some general refactoring in there as well, so please ignore tweaks to blog content etc.
