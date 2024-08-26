@@ -4,9 +4,9 @@
   "description": "This is the code for my blog, https://johnnyreilly.com. It's a Docusaurus app, and it's hosted on Azure Static Web Apps.",
   "main": "index.js",
   "scripts": {
-    "start": "cd blog-website && yarn start",
-    "build": "cd blog-website && yarn build",
-    "install:blog-website": "cd blog-website && yarn",
+    "start": "cd blog-website && npm start",
+    "build": "cd blog-website && npm run build",
+    "install:blog-website": "cd blog-website && npm install",
     "install:blog-api": "cd blog-website/api && npm install",
     "install:blog-website-tests": "cd blog-website-tests && npm install",
     "install:pre-post-processing": "cd pre-post-processing && bun install",

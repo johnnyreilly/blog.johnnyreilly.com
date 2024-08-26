@@ -5,7 +5,7 @@ import tinify from 'tinify';
 function setUpTinify() {
   if (!process.env.TINIFY_KEY) {
     console.log(
-      'Run with: TINIFY_KEY=$YOUR_API_KEY BLOG_DIR=$YOUR_BLOG_DIRECTORY yarn start'
+      'Run with: TINIFY_KEY=$YOUR_API_KEY BLOG_DIR=$YOUR_BLOG_DIRECTORY npm start',
     );
     process.exit(1);
   }
@@ -19,7 +19,7 @@ async function getBlogDirsOrderedDescending() {
   const blogDirs = (
     await fs.promises.readdir(path.resolve(docusaurusDirectory, 'blog'))
   ).filter((file) =>
-    fs.statSync(path.resolve(docusaurusDirectory, 'blog', file)).isDirectory()
+    fs.statSync(path.resolve(docusaurusDirectory, 'blog', file)).isDirectory(),
   );
 
   blogDirs.sort().reverse();
@@ -35,7 +35,7 @@ function getImageFilesFromDirectory(dir: string) {
         file.endsWith('.jpg') ||
         file.endsWith('.jpeg') ||
         file.endsWith('.webp') ||
-        file.endsWith('.png')
+        file.endsWith('.png'),
     )
     .map((file) => path.resolve(docusaurusDirectory, 'blog', dir, file))
     .filter((file) => fs.statSync(file).size > 0);
@@ -54,10 +54,10 @@ async function processImageFiles(imageFiles: string[]) {
 `);
       const originalImageFilePrefix = imageFilePath.substring(
         0,
-        imageFilePath.lastIndexOf('.')
+        imageFilePath.lastIndexOf('.'),
       );
       const originalImageFileExtension = imageFilePath.substring(
-        imageFilePath.lastIndexOf('.') + 1
+        imageFilePath.lastIndexOf('.') + 1,
       );
 
       const originalStats = await fs.promises.stat(imageFilePath, {
@@ -98,7 +98,7 @@ async function processImageFiles(imageFiles: string[]) {
       console.log(`- 🔴 ${originalSizeKb}kb - ${imageFileName}
 - 🟢 ${newSizeKb}kb - ${newImageFileName}
 - 🔽 ${calculatePercentageReduction({ originalSizeKb, newSizeKb }).toFixed(
-        2
+        2,
       )}% reduction
 
 ✅ Processed! (${++processed} of ${imageFiles.length})
@@ -158,12 +158,12 @@ async function updateBlogPostImageReferences({
 
   await fs.promises.writeFile(
     indexMdPath,
-    blogPostContent.replaceAll(imageFileName, newImageFileName)
+    blogPostContent.replaceAll(imageFileName, newImageFileName),
   );
   console.log(
     `- Image converted from ${originalImageFileExtension} to ${convertedExtension}. References updated in ${path.basename(
-      indexMdPath
-    )}`
+      indexMdPath,
+    )}`,
   );
 
   await fs.promises.unlink(imageFilePath);

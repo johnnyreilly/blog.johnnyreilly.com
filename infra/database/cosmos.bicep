@@ -11,9 +11,6 @@ param cosmosDbAccountName string
 @description('CosmosDb Database Name')
 param cosmosDbDatabaseName string
 
-@description('ip addresses of folk who will run queries in the portal')
-param allowedIPAddresses array
-
 @description('Specifies if Az is enabled for Cosmos')
 param isCosmosDbZoneRedundant bool = false
 
@@ -25,10 +22,10 @@ var locations = [
   }
 ]
 
-var ipAddresses = union([
-  // magic IP to allow requests from Azure
+var ipAddresses = [
+  // magic IP to allow requests from Azure - do we need this?
   '0.0.0.0'
-], allowedIPAddresses)
+]
 
 resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2023-04-15' = {
   name: cosmosDbAccountName

@@ -92,8 +92,6 @@ resource staticWebApp 'Microsoft.Web/staticSites@2020-12-01' = {
     }
   }
 }
-
-output deployment_token string = listSecrets(staticWebApp.id, staticWebApp.apiVersion).properties.apiKey
 ```
 
 As you can see, it's delightfully highlighted by PrismJS. Enjoy!

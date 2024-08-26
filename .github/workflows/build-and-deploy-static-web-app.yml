@@ -11,17 +11,18 @@ on:
   workflow_dispatch:
 
 permissions:
-  id-token: write
+  id-token: write # Require write permission to Fetch an OIDC token.
   contents: write
   pull-requests: write
 
 env:
-  RESOURCE_GROUP: rg-blog-johnnyreilly-com
-  LOCATION: westeurope
-  STATICWEBAPPNAME: blog.johnnyreilly.com
-  ROOTCUSTOMDOMAINNAME: johnnyreilly.com
-  BLOGCUSTOMDOMAINNAME: blog.johnnyreilly.com
-  TAGS: '{"owner":"johnnyreilly", "email":"johnny_reilly@hotmail.com"}'
+  AZURE_RESOURCE_GROUP: rg-blog-johnnyreilly-com
+  AZURE_LOCATION: westeurope
+  STATIC_WEB_APP_NAME: blog.johnnyreilly.com
+  ROOT_CUSTOM_DOMAIN_NAME: johnnyreilly.com
+  BLOG_CUSTOM_DOMAIN_NAME: blog.johnnyreilly.com
+  TAGS_OWNER: johnnyreilly
+  TAGS_EMAIL: johnny_reilly@hotmail.com
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
 jobs:
@@ -37,12 +38,39 @@ jobs:
           fetch-depth: 0
           submodules: true
 
+      - name: Install azd 🔧
+        uses: Azure/setup-azd@v1.0.0
+
+      - name: Set `azd` config options 🔧
+        run: |
+          azd config set auth.useAzCliAuth "true"
+          azd config set alpha.resourceGroupDeployments on
+
       - name: AZ CLI login 🔑
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Bicep lint
+        if: github.event_name == 'pull_request'
+        uses: azure/CLI@v2
+        with:
+          inlineScript: |
+            az version
+            az bicep install
+            az bicep version
+            az bicep lint --file ./infra/main.bicep --diagnostics-format sarif > bicep.sarif
+            echo '::warning::Bicep linting results:'
+            cat bicep.sarif
+
+      - name: Upload Bicep lint results
+        if: github.event_name == 'pull_request' && (success() || failure())
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          category: bicep
+          sarif_file: bicep.sarif
 
       - name: Set deployment name 📝
         id: deployment_name
@@ -55,124 +83,115 @@ jobs:
 
           echo "DEPLOYMENT_NAME=$DEPLOYMENT_NAME" >> $GITHUB_OUTPUT
 
-      - name: Lint Bicep
+      - name: Infra - detect changes & validate 📝
+        id: static_web_app_what_if
         if: github.event_name == 'pull_request'
         uses: azure/CLI@v2
         with:
           inlineScript: |
-            az version
-            az bicep install
-            az bicep version
-            az bicep lint --file ./infra/main.bicep --diagnostics-format sarif > bicep.sarif
-            echo '::warning::Bicep linting results:'
-            cat bicep.sarif
-
-      - name: Upload SARIF
-        if: github.event_name == 'pull_request' && (success() || failure())
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          category: bicep
-          sarif_file: bicep.sarif
-
-      - name: Infra - detect changes & validate 📝
-        id: static_web_app_what_if
-        # if: github.event_name == 'pull_request' # do it every time for now
-        uses: azure/CLI@v2
-        with:
-          inlineScript: |
-            # https://github.com/Azure/azure-cli/issues/25710
-            az config set bicep.use_binary_from_path=false
-
-            complexData='{"allowedIPAddresses": ${{ secrets.ALLOWEDIPADDRESS }} }'
-
             az deployment group what-if \
-              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
               --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
               --template-file ./infra/main.bicep \
-              --parameters \
-                  branch='main' \
-                  location='${{ env.LOCATION }}' \
-                  staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
-                  tags='${{ env.TAGS }}' \
-                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
-                  rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
-                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  complexData="$complexData"
+              --parameters ./infra/main.bicepparam
 
             az deployment group validate \
-              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
               --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
               --template-file ./infra/main.bicep \
-              --parameters \
-                  branch='main' \
-                  location='${{ env.LOCATION }}' \
-                  staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
-                  tags='${{ env.TAGS }}' \
-                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
-                  rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
-                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  complexData="$complexData"
+              --parameters ./infra/main.bicepparam
+        env:
+          # See https://learn.microsoft.com/en-gb/azure/developer/azure-developer-cli/configure-devops-pipeline?tabs=azdo
+          AZURE_LOCATION: ${{ env.AZURE_LOCATION }}
+          AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          AZURE_ENV_NAME: prod # we only have one environment for now
+          # https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#user-provided-environment-variables
+          AZURE_RESOURCE_GROUP: ${{ env.AZURE_RESOURCE_GROUP }}
 
-      - name: Infra - deploy 🔧
-        id: static_web_app_deploy
-        if: github.event_name != 'pull_request'
-        uses: azure/CLI@v2
-        with:
-          inlineScript: |
-            # https://github.com/Azure/azure-cli/issues/25710
-            az config set bicep.use_binary_from_path=false
+          # Define the additional variables or secrets that are required only for provision - see main.bicepparam
+          REPOSITORY_BRANCH: main # we only provision for the main branch
+          STATIC_WEB_APP_NAME: ${{ env.STATIC_WEB_APP_NAME }}
 
-            complexData='{"allowedIPAddresses": ${{ secrets.ALLOWEDIPADDRESS }} }'
+          TAGS_OWNER: ${{ env.TAGS_OWNER }}
+          TAGS_EMAIL: ${{ env.TAGS_EMAIL }}
 
-            az deployment group create \
-              --resource-group ${{ env.RESOURCE_GROUP }} \
-              --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
-              --template-file ./infra/main.bicep \
-              --parameters \
-                  branch='main' \
-                  location='${{ env.LOCATION }}' \
-                  staticWebAppName='${{ env.STATICWEBAPPNAME }}' \
-                  tags='${{ env.TAGS }}' \
-                  repositoryToken='${{ secrets.WORKFLOW_TOKEN }}' \
-                  rootCustomDomainName='${{ env.ROOTCUSTOMDOMAINNAME }}' \
-                  blogCustomDomainName='${{ env.BLOGCUSTOMDOMAINNAME }}' \
-                  complexData="$complexData"
+          ROOT_CUSTOM_DOMAIN_NAME: ${{ env.ROOT_CUSTOM_DOMAIN_NAME }}
+          BLOG_CUSTOM_DOMAIN_NAME: ${{ env.BLOG_CUSTOM_DOMAIN_NAME }}
+
+      # - name: Infra - deploy 🔧
+      #   id: static_web_app_deploy
+      #   if: github.event_name != 'pull_request'
+      #   uses: azure/CLI@v2
+      #   with:
+      #     inlineScript: |
+      #       az deployment group create \
+      #         --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+      #         --name "${{ steps.deployment_name.outputs.DEPLOYMENT_NAME }}" \
+      #         --template-file ./infra/main.bicep \
+      #         --parameters ./infra/main.bicepparam
+
+      - name: Infra - provision 🔧
+        if: github.event_name != 'pull_request' # uncomment before merging
+        run: azd provision --no-prompt
+        env:
+          # See https://learn.microsoft.com/en-gb/azure/developer/azure-developer-cli/configure-devops-pipeline?tabs=azdo
+          AZURE_LOCATION: ${{ env.AZURE_LOCATION }}
+          AZURE_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+          AZURE_ENV_NAME: prod # we only have one environment for now
+          # https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/manage-environment-variables#user-provided-environment-variables
+          AZURE_RESOURCE_GROUP: ${{ env.AZURE_RESOURCE_GROUP }}
+
+          # Define the additional variables or secrets that are required only for provision - see main.bicepparam
+          REPOSITORY_BRANCH: main # we only provision for the main branch
+          STATIC_WEB_APP_NAME: ${{ env.STATIC_WEB_APP_NAME }}
+
+          TAGS_OWNER: ${{ env.TAGS_OWNER }}
+          TAGS_EMAIL: ${{ env.TAGS_EMAIL }}
+
+          ROOT_CUSTOM_DOMAIN_NAME: ${{ env.ROOT_CUSTOM_DOMAIN_NAME }}
+          BLOG_CUSTOM_DOMAIN_NAME: ${{ env.BLOG_CUSTOM_DOMAIN_NAME }}
 
       - name: Get preview URL 📝
         id: static_web_app_preview_url
         uses: azure/CLI@v2
         with:
           inlineScript: |
-            DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATICWEBAPPNAME }}' | jq -r '.defaultHostname')
+            DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.defaultHostname')
 
-            PREVIEW_URL="https://${DEFAULTHOSTNAME/.[1-9]./-${{github.event.pull_request.number }}.${{ env.LOCATION }}.1.}"
+            PREVIEW_URL="https://${DEFAULTHOSTNAME/.[1-9]./-${{github.event.pull_request.number }}.${{ env.AZURE_LOCATION }}.1.}"
 
             echo "PREVIEW_URL=$PREVIEW_URL" >> $GITHUB_OUTPUT
 
       - name: Setup Node.js 🔧
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'yarn'
+          node-version: '20'
+          cache: 'npm'
 
       - name: Setup bun 🔧
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
 
-      - name: Install and build site 🔧
+      - name: Install and build app 🔧
         run: |
           cd blog-website
-          yarn install --frozen-lockfile
-          DOCUSAURUS_SSR_CONCURRENCY=5 IS_LIVE_SITE=${{ github.event_name != 'pull_request' }} yarn run build
+          npm ci
+          DOCUSAURUS_SSR_CONCURRENCY=5 IS_LIVE_SITE=${{ github.event_name != 'pull_request' }} npm run build
           cp staticwebapp.config.json build/staticwebapp.config.json
+
+      - name: Install and build API 🔧
+        run: |
+          cd blog-website/api
+          npm ci
+          npm run build
 
       - name: Get API key 🔑
         id: static_web_app_apikey
         uses: azure/CLI@v2
         with:
           inlineScript: |
-            APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
+            APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.properties.apiKey')
             echo "APIKEY=$APIKEY" >> $GITHUB_OUTPUT
 
       - name: Deploy site 🚀
@@ -183,8 +202,9 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: 'upload'
           skip_app_build: true
+          skip_api_build: true
           app_location: '/blog-website/build' # App source code path
-          api_location: '/blog-website/api' # Api source code path - optional
+          api_location: '/blog-website/api' # Api source code path
 
     outputs:
       preview-url: ${{steps.static_web_app_preview_url.outputs.PREVIEW_URL}}
@@ -208,7 +228,8 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -269,7 +290,7 @@ jobs:
 
       - name: Format lighthouse score
         id: format_lighthouse_score
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const lighthouseCommentMaker = require('./.github/workflows/lighthouseCommentMaker.js');
@@ -356,7 +377,7 @@ jobs:
   #     - name: Publish to dev.to 🗞️
   #       run: |
   #         cd from-docusaurus-to-devto
-  #         yarn install --frozen-lockfile
+  #         npm ci
   #         DEVTO_APIKEY=${{ secrets.DEVTO_APIKEY }} yarn start
 
   close_pull_request_job:
@@ -365,18 +386,18 @@ jobs:
     name: Cleanup staging 💥
     steps:
       - name: AZ CLI login 🔑
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
       - name: Get API key 🔑
         id: apikey
         uses: azure/CLI@v2
         with:
           inlineScript: |
-            APIKEY=$(az staticwebapp secrets list --name '${{ env.STATICWEBAPPNAME }}' | jq -r '.properties.apiKey')
+            APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.properties.apiKey')
             echo "APIKEY=$APIKEY" >> $GITHUB_OUTPUT
 
       - name: Destroy staging environment 💥

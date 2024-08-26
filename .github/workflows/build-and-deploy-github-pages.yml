@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  id-token: write
+  id-token: write # Require write permission to Fetch an OIDC token.
   contents: write
   pull-requests: write
 
@@ -31,8 +31,8 @@ jobs:
       - name: Setup Node.js 🔧
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'yarn'
+          node-version: '20'
+          cache: 'npm'
 
       - name: Setup bun 🔧
         uses: oven-sh/setup-bun@v1
@@ -42,8 +42,8 @@ jobs:
       - name: Install and Build 🔧
         run: |
           cd blog-website
-          yarn install --frozen-lockfile
-          DOCUSAURUS_SSR_CONCURRENCY=5 yarn run build
+          npm ci
+          DOCUSAURUS_SSR_CONCURRENCY=5 npm run build
 
       - name: Publish to GitHub Pages 🗞️
         uses: JamesIves/github-pages-deploy-action@v4

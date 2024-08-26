@@ -5,7 +5,7 @@ authors: johnnyreilly
 tags: [azure, bicep, azure container apps, azure devops, azure pipelines]
 image: ./title-image.png
 hide_table_of_contents: false
-description: 'Learn how to speed up deployments using the AZD command.'
+description: 'Learn how to speed up deployments of Azure Container Apps in GitHub Actions using the AZD command.'
 ---
 
 When deploying Azure Container Apps from Azure DevOps, you can use the `azd` command to speed up deployments that do not affect infrastructure. Given that when you're deploying, it's far more common to be making a code and / or content change and not an infrastructure one, this can be a significant time saver.
@@ -70,7 +70,7 @@ The screenshot above is taken from the Docker section of the configuration where
 
 I've raised a [GitHub issue to investigate whether this could be supported](https://github.com/Azure/azure-dev/issues/4124).
 
-We'll find another way to pass the `WEB_VERSION_TAG` value to `azd` later on. You'll notice that we pass `resourceName: ${CONTAINER_APP_NAME}` - and this **is** a parameter which supports environment variable substitution.  You'll see later that we supply the `CONTAINER_APP_NAME` and this will be consumed by the `azd deploy` stage.
+We'll find another way to pass the `WEB_VERSION_TAG` value to `azd` later on. You'll notice that we pass `resourceName: ${CONTAINER_APP_NAME}` - and this **is** a parameter which supports environment variable substitution. You'll see later that we supply the `CONTAINER_APP_NAME` and this will be consumed by the `azd deploy` stage.
 
 Incidentally, we're using an approach whereby the image is built and pushed to the registry independently of `azd`. You could equally use `azd` to build and push the image. But we're not doing that here.
 
@@ -174,7 +174,7 @@ I've [raised a GitHub issue](https://github.com/Azure/azure-dev/issues/4123) in 
 
 ## Welcome `main.bicepparam`
 
-Prior to using `azd`, we were using a `main.bicep` file to deploy our infrastructure and we provided parameters to this file via our Azure DevOps pipeline. We're going to make a change to our pipeline to use a [`main.bicepparam`](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameter-files?tabs=Bicep) file instead. This file is going to contain the parameters that we were previously providing to our `main.bicep` file.
+Prior to using `azd`, we were using a `main.bicep` file to deploy our infrastructure and we provided parameters to this file via our Azure DevOps pipeline. We're going to make a change to our pipeline to use a [`main.bicepparam`](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameter-files?tabs=Bicep) file instead.
 
 The `main.bicepparam` file is going to contain the parameters that we were previously providing to our `main.bicep` file. It's going to pick these up from environment variables that we'll declare. We're also going to add our new `containerAppExists` parameter to this file, which will also collect its value from an environment variable. But it won't be us that provides that value; it will be `azd`.
 
@@ -310,7 +310,7 @@ What's happening here? We'll take it step by step:
 - We're logging into our Azure Container Registry. (If you're not building your image independently of `azd`, then you may not need this step.)
 - We're provisioning our infrastructure using `azd provision --no-prompt`. Note that we're providing a number of environment variables to `azd` which will be detected in our `main.bicepparam` file.
 - We're updating the `azure.yml` file with the `WEB_VERSION_TAG` that we need to provide. This is us working around the lack of support for environment variables in the `azure.yml` file for the `image` parameter.
-- We're deploying our application using `azd deploy --no-prompt`. As we do that, we pass the `CONTAINER_APP_NAME` environment variable which will substitute into the `azure.yaml` file 
+- We're deploying our application using `azd deploy --no-prompt`. As we do that, we pass the `CONTAINER_APP_NAME` environment variable which will substitute into the `azure.yaml` file
 
 You'll note that as we use `azd`, we make heavy use of environment variables. These environment variables will be picked up in the `main.bicepparam` file and passed through to the `main.bicep`. And of course there's the runtime `SERVICE_[SERVICENAME]_RESOURCE_EXISTS` parameter which `azd` will provide. Much of what you see here is inspired by [this documentation](https://learn.microsoft.com/en-gb/azure/developer/azure-developer-cli/configure-devops-pipeline?tabs=azdo).
 

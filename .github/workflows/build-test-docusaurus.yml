@@ -26,8 +26,8 @@ jobs:
       - name: Setup Node.js 🔧
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'yarn'
+          node-version: '20'
+          cache: 'npm'
 
       - name: Setup bun 🔧
         uses: oven-sh/setup-bun@v1
@@ -37,6 +37,6 @@ jobs:
       - name: Docusaurus build 🦕
         run: |
           cd blog-website
-          yarn install --frozen-lockfile
-          yarn lint
-          DOCUSAURUS_SSR_CONCURRENCY=5 yarn build
+          npm ci
+          npm run lint
+          DOCUSAURUS_SSR_CONCURRENCY=5 npm run build
