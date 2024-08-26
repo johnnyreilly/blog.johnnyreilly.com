@@ -8,11 +8,11 @@ hide_table_of_contents: false
 description: 'Learn how to speed up deployments of Azure Static Web Apps in GitHub Actions using the AZD command.'
 ---
 
-This post is a follow on from the post [Using AZD for faster incremental Azure Container App deployments in Azure DevOps](../2024-07-15-using-azd-for-faster-incremental-azure-container-app-deployments-in-azure-devops/index.md). In that post, we looked at how to speed up deployments of Azure Container Apps in Azure DevOps using [Azure Developer CLI (`azd`)](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/). In this post, we're going to look at how to speed up deployments of Azure Static Web Apps in GitHub Actions using `azd`.
-
-There's going to be a lot of overlap between the two posts. I don't want to force you to read two posts, so I'll duplicate some of the content from the previous post here. But I'll also add some new content that's specific to deploying Azure Static Web Apps in GitHub Actions with `azd`.
+This post is a follow on from the post [Using AZD for faster incremental Azure Container App deployments in Azure DevOps](../2024-07-15-using-azd-for-faster-incremental-azure-container-app-deployments-in-azure-devops/index.md). In that post, we looked at how to speed up deployments of Azure Container Apps in Azure DevOps using the [Azure Developer CLI (`azd`)](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/). In this post, we're going to look at how to speed up deployments of Azure Static Web Apps in GitHub Actions using `azd`.
 
 ![title image reading "Using AZD for faster incremental Azure Static Web App deployments in GitHub Actions" with the Azure Static Web Apps logo](title-image.png)
+
+There's going to be some overlap between the last post and this one. I don't want to force you to read them both, so I'll duplicate some of the content from the previous post here. But I'll also add some new content that's specific to deploying Azure Static Web Apps in GitHub Actions with `azd`.
 
 <!--truncate-->
 
@@ -33,13 +33,13 @@ You're reading this post on my blog, which, at the time of writing, runs using A
 1. deploying infrastructure (the Azure resources that the blog relies upon such as the Azure Static Web App, a Cosmos DB etc)
 2. building and deploying the application code (the blog itself)
 
-It takes the princely time of **3 minutes** to deploy the infrastructure. Every time the pipeline runs. But most of the time, there are no changes to be made to the infrastructure. So it's a waste of time. I want to speed this up and I think that `azd` can help me do that.
+It takes around **3 minutes** to deploy the infrastructure. And this is happening every time we update the site. But most of the time, there are no changes to be made to the infrastructure of the site; just the content. So it's a waste of time. I want to speed this up and `azd` can help me do that.
 
 Specifically, I want to switch my usage of `az deployment group create` to `azd provision` because `azd provision` is faster when there are no infrastructure changes. We will drop the infrastructure deployment job time from **3 minutes** to **20 seconds** when there are no infrastructure changes.
 
-Now when I started trying to see if doing faster deployments of Static Web Apps was possible with `azd`, I couldn't discover any documentation. So I've found myself writing the documentation I wish had existed.
+Now when I started trying to see if doing faster deployments of Static Web Apps was possible with `azd`, I couldn't discover any documentation. So I've found myself writing the documentation I wish had existed. Please forgive me any mistakes I make along the way.
 
-To be clear on scope, my intention here is only to speed up how we handle the deployment of the infrastructure. I don't want to deploy infrastructure if there are no changes and `azd` can help with that. I'm not going all in on `azd` for the deployment of the application code as well. For now, we'll focus solely on the infrastructure piece. Maybe we'll come back to the application code in a future post.
+To be clear on scope, my intention here is only to speed up how we handle the deployment of the infrastructure. I don't want to deploy infrastructure if there are no changes; so I'll use `azd` to accomplish this goal. I'm not going all in on `azd` for the deployment of the application code as well. For now, we'll focus solely on the infrastructure piece. Maybe we'll come back to the application code in a future post.
 
 From here on out, we'll go through the changes we need to make to our project to replace `az deployment group create` with `azd provision` for faster incremental Azure Static Web App deployments in GitHub Actions.
 
