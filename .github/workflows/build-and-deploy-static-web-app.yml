@@ -89,7 +89,13 @@ jobs:
         uses: azure/CLI@v2
         with:
           inlineScript: |
-            TAGS='{"owner":"${{ env.TAGS_OWNER }}", "email":"${{ env.TAGS_EMAIL }}"}'
+            # TAGS='{"owner":"${{ env.TAGS_OWNER }}", "email":"${{ env.TAGS_EMAIL }}"}'
+            TAGS=$(jq -n \
+                  --arg owner "${{ env.TAGS_OWNER }}" \
+                  --arg email "${{ env.TAGS_EMAIL }}" \
+                   '$ARGS.named')
+
+            echo "TAGS=$TAGS"
 
             az deployment group what-if \
               --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
