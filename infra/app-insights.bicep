@@ -4,7 +4,7 @@ param workspaceName string = 'appInsightsWorkspace'
 param appInsightsName string = 'appInsights'
 
 // https://learn.microsoft.com/en-us/azure/templates/microsoft.operationalinsights/workspaces?pivots=deployment-language-bicep
-resource workspace 'Microsoft.OperationalInsights/workspaces@2022-10-01' = {
+resource workspace 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
   name: workspaceName
   location: location
   tags: tags
