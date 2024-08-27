@@ -11,7 +11,7 @@ param appInsightsInstrumentationKey string
 param appInsightsConnectionString string
 param cosmosDbAccountName string
 
-resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2023-04-15' existing = {
+resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2024-05-15' existing = {
   name: cosmosDbAccountName
 }
 

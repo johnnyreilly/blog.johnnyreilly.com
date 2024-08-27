@@ -27,7 +27,7 @@ var ipAddresses = [
   '0.0.0.0'
 ]
 
-resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2023-04-15' = {
+resource databaseAccount 'Microsoft.DocumentDB/databaseAccounts@2024-05-15' = {
   name: cosmosDbAccountName
   kind: 'GlobalDocumentDB'
   location: location
