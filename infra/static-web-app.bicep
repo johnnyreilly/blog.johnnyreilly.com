@@ -54,13 +54,13 @@ resource staticWebAppAppSettings 'Microsoft.Web/staticSites/config@2022-09-01' =
   }
 }
 
-resource rootCustomDomain 'Microsoft.Web/staticSites/customDomains@2022-09-01' = {
+resource rootCustomDomain 'Microsoft.Web/staticSites/customDomains@2023-12-01' = {
   parent: staticWebApp
   name: rootCustomDomainName
   properties: {}
 }
 
-resource blogCustomDomain 'Microsoft.Web/staticSites/customDomains@2022-09-01' = {
+resource blogCustomDomain 'Microsoft.Web/staticSites/customDomains@2023-12-01' = {
   parent: staticWebApp
   name: blogCustomDomainName
   properties: {}
