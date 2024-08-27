@@ -56,7 +56,7 @@ resource sqlDatabase 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases@2023-04
   }
 }
 
-resource redirectsContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2023-04-15' = {
+resource redirectsContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers@2024-05-15' = {
   parent: sqlDatabase
   name: 'redirects'
   properties: {
