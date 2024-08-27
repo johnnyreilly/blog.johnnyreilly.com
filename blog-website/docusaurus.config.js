@@ -360,6 +360,7 @@ const config = {
            */
           blogSidebarCount: 8,
           tags: 'tags.yml',
+          onInlineAuthors: 'ignore',
           onInlineTags: 'throw',
           postsPerPage: 20,
           path: './blog',
