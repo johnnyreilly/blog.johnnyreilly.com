@@ -12,6 +12,3 @@ param tags = {
 
 param rootCustomDomainName = readEnvironmentVariable('ROOT_CUSTOM_DOMAIN_NAME', '')
 param blogCustomDomainName = readEnvironmentVariable('BLOG_CUSTOM_DOMAIN_NAME', '')
-
-// azd will provide the following parameters
-param staticWebAppExists = bool(readEnvironmentVariable('SERVICE_WEB_RESOURCE_EXISTS', 'false'))

@@ -10,10 +10,6 @@ param tags object
 param rootCustomDomainName string
 param blogCustomDomainName string
 
-@description('Specifies if the static web app exists - azd will provide this')
-#disable-next-line no-unused-params
-param staticWebAppExists bool = false
-
 var combinedTags = union(tags, { 'azd-env-name': envName })
 
 var workspaceName = 'blog-app-insights-workspace'

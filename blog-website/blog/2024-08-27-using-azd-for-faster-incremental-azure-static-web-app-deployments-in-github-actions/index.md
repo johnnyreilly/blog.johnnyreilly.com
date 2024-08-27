@@ -88,20 +88,12 @@ We'll need to opt into using this feature with `azd` later on when we update our
 
 ### New parameters in `main.bicep`
 
-We're going to add an `envName` parameter that will be used to populate `azd-env-name` tags on resources. We're also going to add a parameter that will be used to determine whether the Static Web App already exists:
+We're going to add an `envName` parameter that will be used to populate `azd-env-name` tags on resources:
 
 ```bicep
 @description('Environment eg dev, prod')
 param envName string
-
-// ...
-
-@description('Specifies if the static web app exists - azd will provide this')
-#disable-next-line no-unused-params
-param staticWebAppExists bool = false
 ```
-
-Whilst the equivalent "exists" parameter **is** used by Container App provisioning, it's not clear if Static Web Apps need it also. I have a feeling this could be omitted, given that the parameter is unused. (As indicated by the `#disable-next-line no-unused-params` to quiet the linter.) But I'm going to include the parameter for now.
 
 ### Tagging resources with the azd tags
 
@@ -131,7 +123,7 @@ resource staticWebApp 'Microsoft.Web/staticSites@2022-09-01' = {
 
 Prior to using `azd`, we were using a `main.bicep` file to deploy our infrastructure and we provided parameters to this file via our GitHub Actions workflow. We're going to make a change to our pipeline to use a [`main.bicepparam`](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameter-files?tabs=Bicep) file instead.
 
-The `main.bicepparam` file is going to contain the parameters that we were previously providing directly to our `main.bicep` file. It's going to pick these up from environment variables that we'll declare and from environment variables provided by `azd`; such as the one to drive environment name and whether our service exists. So there's a little more indirection in our parameter passing now. It used to be:
+The `main.bicepparam` file is going to contain the parameters that we were previously providing directly to our `main.bicep` file. It's going to pick these up from environment variables that we'll declare and from environment variables provided by `azd`; such as the one to drive environment name. So there's a little more indirection in our parameter passing now. It used to be:
 
 _GitHub Actions -> `main.bicep`_
 
@@ -153,11 +145,6 @@ param tags = {
   owner: readEnvironmentVariable('TAGS_OWNER', '')
   emain: readEnvironmentVariable('TAGS_EMAIL', '')
 }
-
-// ...
-
-// azd will provide the following parameters
-param staticWebAppExists = bool(readEnvironmentVariable('SERVICE_WEB_RESOURCE_EXISTS', 'false'))
 ```
 
 This should pick up the values we need from environment values provided both by us and `azd`. Later we'll update the GitHub Actions workflow to ensure these are provided.
