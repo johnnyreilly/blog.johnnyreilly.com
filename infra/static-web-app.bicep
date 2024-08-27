@@ -22,7 +22,7 @@ var tagsWithHiddenLinks = union({
   'azd-service-name': 'web' // note the "web" matches the service name in azure.yml
 }, tags)
 
-resource staticWebApp 'Microsoft.Web/staticSites@2022-09-01' = {
+resource staticWebApp 'Microsoft.Web/staticSites@2023-12-01' = {
   name: staticWebAppName
   location: location
   tags: tagsWithHiddenLinks
