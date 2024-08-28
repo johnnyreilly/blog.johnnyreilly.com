@@ -8,7 +8,7 @@
     "@types/axios": "^0.14.0",
     "@types/he": "^1.1.1",
     "@types/jsdom": "^21.0.0",
-    "@types/node": "^18.0.0",
+    "@types/node": "^20.0.0",
     "@types/showdown": "^1.9.3",
     "@types/yargs": "^16.0.0",
     "axios": "^0.28.0",

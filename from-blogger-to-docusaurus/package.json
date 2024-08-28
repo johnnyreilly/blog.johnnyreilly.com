@@ -6,7 +6,7 @@
   "dependencies": {
     "@types/he": "^1.1.2",
     "@types/jsdom": "^21.0.0",
-    "@types/node": "^18.11.9",
+    "@types/node": "^20.0.0",
     "@types/showdown": "^2.0.0",
     "axios": "^1.1.3",
     "fast-xml-parser": "3",
