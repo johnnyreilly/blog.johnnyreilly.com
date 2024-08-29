@@ -98,8 +98,7 @@ There is.
 If you would like to read the full documentation on the CLI tool, you can find it [here](https://github.com/arethetypeswrong/arethetypeswrong.github.io/blob/main/packages/cli/README.md). However, if you're like me and in a hurry, you can just use it like this:
 
 - cd into your project directory
-- run `npx @arethetypeswrong/cli`
-- when prompted `Run npm pack? (Pass -P/--pack to skip) (Y/n)` hit enter
+- run `npx --yes @arethetypeswrong/cli --pack .`
 - et voila, your `package.json` file will be linted for type issues
 
 To see what this looks like, here's the output from running `npx @arethetypeswrong/cli` in the project directory of a package with the `package.json` file _not_ set up correctly:
