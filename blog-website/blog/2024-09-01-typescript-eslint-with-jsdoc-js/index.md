@@ -239,4 +239,12 @@ If I were writing a library, I might want to emit types from my JavaScript. The 
 }
 ```
 
-If it was emitting types from a `logger.js` file, it would overwrite the types emitted from an existing `logger.d.ts` file.
+If it was emitting types from a `logger.js` file, it would overwrite the types emitted from an existing `logger.d.ts` file. Having `Types` in the name means that should that case arise, we are safe.
+
+## Setting up `typescript-eslint`
+
+But you didn't come here to just type check your codebase, you want to lint it too! Let's set up [`typescript-eslint`](https://typescript-eslint.io/) to lint our codebase with the benefits of type information.
+
+```bash
+npm install --save-dev eslint @eslint/js @types/eslint__js typescript typescript-eslint eslint-plugin-react globals
+```
