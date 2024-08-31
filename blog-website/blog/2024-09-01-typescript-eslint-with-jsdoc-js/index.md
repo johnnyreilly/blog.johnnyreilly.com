@@ -265,10 +265,11 @@ export default [
       'react/prop-types': 'off', // not appropriate for TypeScript
       'react/display-name': 'off', // nice to have - but not required
 
-      // Not compatible with JSDoc according to @bradzacher https://github.com/typescript-eslint/typescript-eslint/issues/8955#issuecomment-2097518639
+      // Not compatible with JSDoc according to @bradzacher and https://github.com/typescript-eslint/typescript-eslint/issues/8955#issuecomment-2097518639
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/parameter-properties': 'off',
+      '@typescript-eslint/typedef': 'off',
 
       // Not compatible with JSDoc based upon the codebase I'm looking at
       '@typescript-eslint/no-unsafe-assignment': 'off',
