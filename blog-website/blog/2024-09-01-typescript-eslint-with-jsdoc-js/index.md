@@ -265,26 +265,24 @@ export default [
       'react/prop-types': 'off', // not appropriate for TypeScript
       'react/display-name': 'off', // nice to have - but not required
 
-      // Not compatible with JSDoc
+      // Not compatible with JSDoc according to @bradzacher https://github.com/typescript-eslint/typescript-eslint/issues/8955#issuecomment-2097518639
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      '@typescript-eslint/parameter-properties': 'off',
+
+      // Not compatible with JSDoc based upon the codebase I'm looking at
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-return': 'off',
 
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        {
-          args: 'all',
-          argsIgnorePattern: '^_',
-          caughtErrors: 'all',
-          caughtErrorsIgnorePattern: '^_',
-          destructuredArrayIgnorePattern: '^_',
-          varsIgnorePattern: '^_',
-          ignoreRestSiblings: true,
-        },
-      ],
     },
   },
 ];
 ```
+
+
+
+
+--
 
 If I were writing a library, I might want to emit types from my JavaScript. The following `tsconfig.json` option would allow me to do that:
 
