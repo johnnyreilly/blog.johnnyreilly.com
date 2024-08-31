@@ -221,10 +221,69 @@ Thanks also to [Remco Haszing](https://remcohaszing.nl/) for sharing that [`.d.t
 
 ## Setting up `typescript-eslint`
 
-But you didn't come here to just type check your codebase, you want to lint it too! Let's set up [`typescript-eslint`](https://typescript-eslint.io/) to lint our codebase with the benefits of type information.
+But you didn't come here to just type check your codebase, you want to lint it too! Let's set up [`typescript-eslint`](https://typescript-eslint.io/) to lint our codebase with the benefits of type information. We're going to need to install a few more packages:
 
 ```bash
 npm install --save-dev eslint @eslint/js @types/eslint__js typescript typescript-eslint eslint-plugin-react globals
+```
+
+We'll also need to create an `eslint.config.mjs` file to configure `eslint` to work with TypeScript (the eagle eyed amongst you will have noticed that we included this file in our `tsconfig.json`). Here's what that file looks like:
+
+```js
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import eslint from '@eslint/js';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+//@ts-expect-error no type definitions for eslint-plugin-react
+import pluginReact from 'eslint-plugin-react';
+
+export default [
+  { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
+  { languageOptions: { globals: globals.browser } },
+  eslint.configs.recommended,
+  ...tseslint.configs.recommendedTypeChecked,
+  {
+    languageOptions: {
+      parserOptions: {
+        project: true,
+        projectService: true,
+        // @ts-expect-error dirname not defined in import meta
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+  pluginReact.configs.flat.recommended,
+  {
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+  },
+  {
+    rules: {
+      'react/prop-types': 'off', // not appropriate for TypeScript
+      'react/display-name': 'off', // nice to have - but not required
+
+      // Not compatible with JSDoc
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+        },
+      ],
+    },
+  },
+];
 ```
 
 If I were writing a library, I might want to emit types from my JavaScript. The following `tsconfig.json` option would allow me to do that:
