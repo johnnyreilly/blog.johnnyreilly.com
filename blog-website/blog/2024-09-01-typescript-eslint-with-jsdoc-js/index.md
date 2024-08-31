@@ -12,6 +12,8 @@ It's possible to statically type check a JavaScript codebase with TypeScript wit
 
 ![title image reading "typescript-eslint with JSDoc JavaScript" with a typescript-eslint logo and TypeScript logo](title-image.png)
 
+We'll also talk a little about practical ways to write JSDoc annotations in a JavaScript codebase.
+
 <!--truncate-->
 
 ## Background
@@ -95,13 +97,13 @@ Your mission now is to add JSDoc annotations to your codebase to help TypeScript
 
 If you're looking for references on how to write JSDoc annotations, the [TypeScript handbook](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html) is a great place to start. It's also worth reading Gil Tayar's post on [JSDoc typings](https://gils-blog.tayar.org/posts/jsdoc-typings-all-the-benefits-none-of-the-drawbacks/).
 
-Gil, it's worth noting, is one of the people working on the [Type Annotations ECMAScript proposal](https://github.com/tc39/proposal-type-annotations) for adding support for type annotations to JavaScript. I've [a post about that proposal](../2022-04-16-type-annotations-proposal-strong-types-weakly-held/index.md) which you might find useful.
+[Gil](https://gils-blog.tayar.org/about/), it's worth noting, is one of the people working on the [Type Annotations ECMAScript proposal](https://github.com/tc39/proposal-type-annotations) for adding support for type annotations to JavaScript. I've written [a post about that proposal](../2022-04-16-type-annotations-proposal-strong-types-weakly-held/index.md) which you might find useful.
 
 The fact that the proposal exists in the first place, points to how much the community would rather write TypeScript rather than JavaScript. At the time I write this, Bun, Deno and even Node.js now support running TypeScript directly; without a transpilation stage. And should the Type Annotations proposal one day reach Stage 4, then hopefully we can all move to that in browsers as well.
 
-Because what's clear is that writing JSDoc is less fun than writing TypeScript.
+This is subjective, but it feels like a fairly common view that writing JSDoc is less fun than writing TypeScript.
 
-## Playing JSDoc on easy mode
+## Playing JSDoc on easy mode (JSDoc `.js` + `.ts`)
 
 But in the situation I'm in now, I have to write JSDoc. But I can combine writing JSDoc with also writing TypeScript, **when the code in question is type only**. Confused? Let me explain.
 
@@ -173,9 +175,9 @@ export type LoggerFactory = (
 export type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 ```
 
-This is pure TypeScript code. The tremendous news is that we can write this and we can consume this in a JSDoc file **because there is no runtime code in here**. It's purely type information. We'll write this in a `.d.ts` file and then we can `import` it into in our JS files.
+This is pure TypeScript code. The tremendous news is that we can write this and we can consume this in a JSDoc file **because there is no runtime code in here**. It's purely type information. We'll write this in a `.ts` file and then we can `import` it into in our JS files.
 
-So let's imagine we have a `loggerTypes.d.ts` file with the above TypeScript code in it. We can then import the `LoggerFactory` into our `logger.js` file like this:
+So let's imagine we have a `loggerTypes.ts` file with the above TypeScript code in it. We can then import the `LoggerFactory` into our `logger.js` file like this:
 
 ```diff
 +/** @type {import('./loggerTypes').LoggerFactory} */
@@ -199,12 +201,33 @@ And with this single line addition to our `logger.js` file, we've now got type i
 
 So here we've had one line of JSDoc and we've got all the type information we need **using TypeScript**. Our runtime code is still JavaScript, but our type information is TypeScript. This is a great way to get the benefits of TypeScript without having to write all your type information in JSDoc.
 
-## A note on `.d.ts` file naming
+## A note on `.ts` file naming
 
-I was intentional around the naming of the `.d.ts` file. I've called it `loggerTypes.d.ts` because I want to make it clear that this file is all about types. It's not a `.js` file, it's a `.d.ts` file. I've also been deliberate about calling it `[filename]Types.d.ts` for two reasons:
+I was intentional around the naming of the `.ts` file. I've called it `loggerTypes.ts` because I want to make it clear that this file is all about types. It's not a (runtime) `.js` file, it's a `.ts` file - relevant for compile time. The `Types` suffix is deliberate too; it's not `logger.ts` entirely as planned.
 
-1. Due to suffixless imports, the TypeScript compiler can be confused if you have a `logger.js` and a `logger.d.ts` file in the same directory and write a `import('./loggerTypes')` statement. Having `Types` in the name removes this ambiguity.
-2. Although in my case I'm working on a React app and am not likely to be publishing my types, if I were writing a library, I might want to emit types from my JavaScript. The following `tsconfig.json` option would allow me to do that:
+The TypeScript compiler doesn't understand a world in which there is a `logger.js` file which imports types from a `logger.ts` file. Expect difficulty if you try to make it work. Particularly in a world in which ESM has lead to all imports being `.js` files even when they're TypeScript.
+
+What's more, code like that would be far from typical to find that style in a TypeScript (or JavaScript) codebase. It would invite head scratching from anyone who came across it. So having `Types` in the name means that the compiler is not confused, and hopefully neither are your colleagues. You are unambiguously importing a different file. (By the way, having a 1-1 relationship between `.ts` and `.js` files as I'm doing isn't mandatory, but I've found it to be a useful pattern.)
+
+I did also consider the idea that the files I wrote should be `.d.ts` files rather than `.ts` files. After a [healthy discussion on Twitter](https://twitter.com/robpalmer2/status/1829856562422124734) I was directed by [Rob Palmer](https://twitter.com/robpalmer2) to what's probably the definitive answer on this from [Andrew Branch](https://github.com/andrewbranch) of the TypeScript team:
+
+As ever in life, I find I cannot improve on [Andrew's guidance](https://github.com/microsoft/TypeScript/issues/52593#issuecomment-1419505081) and so I'll quote his views on the use of `.d.ts` files for storing hand-written utility types in full:
+
+> I would say it’s discouraged or even harmful (though it won’t be “deprecated”). At best, it’s a technique with serious pitfalls that can be leveraged by people who understand them enough to set up additional tooling and safeguards to make it viable. Because `.d.ts` files only occur “naturally” as a pair with a `.js` file, together as outputs of a `.ts` file, a `.d.ts` file always implies the existence of a `.js` file. So the potential harm is readily apparent: if you hand-author `only-types.d.ts` and then write `import {} from "./only-types.js"`, this resolves and is legal in all settings, but in `verbatimModuleSyntax`, the import will be preserved and crash at runtime. While TypeScript has type-only imports and exports, it lacks the analogous concept of a type-only module, one which exists for type information purposes but is known to not exist at runtime, though I’ve casually suggested multiple times that such a concept could be useful.
+>
+> But the main reason I personally avoid this is just because it doesn’t copy into `outDir`. For my purposes, I’d rather just eat the cost of the empty JS file (which also protects you from crashes should you accidentally import it at runtime).
+
+Thanks also to [Remco Haszing](https://remcohaszing.nl/) for sharing that [`.d.ts` files should not be validated if you use `skipLibCheck`](https://twitter.com/remcohaszing/status/1829808165459804330). (Oddly, I didn't see that behaviour in my own testing, but I wouldn't be surprised if I was doing something quirky.)
+
+## Setting up `typescript-eslint`
+
+But you didn't come here to just type check your codebase, you want to lint it too! Let's set up [`typescript-eslint`](https://typescript-eslint.io/) to lint our codebase with the benefits of type information.
+
+```bash
+npm install --save-dev eslint @eslint/js @types/eslint__js typescript typescript-eslint eslint-plugin-react globals
+```
+
+If I were writing a library, I might want to emit types from my JavaScript. The following `tsconfig.json` option would allow me to do that:
 
 ```json
 {
@@ -216,12 +239,4 @@ I was intentional around the naming of the `.d.ts` file. I've called it `loggerT
 }
 ```
 
-If it was emitting types from a `logger.js` file, it would overwrite the types emitted from an existing `logger.d.ts` file. Having `Types` in the name means that should that case arise, we are safe.
-
-## Setting up `typescript-eslint`
-
-But you didn't come here to just type check your codebase, you want to lint it too! Let's set up [`typescript-eslint`](https://typescript-eslint.io/) to lint our codebase with the benefits of type information.
-
-```bash
-npm install --save-dev eslint @eslint/js @types/eslint__js typescript typescript-eslint eslint-plugin-react globals
-```
+If it was emitting types from a `logger.js` file, it would overwrite the types emitted from an existing `logger.d.ts` file.
