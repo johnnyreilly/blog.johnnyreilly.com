@@ -218,6 +218,8 @@ I was intentional around the naming of the `.d.ts` file. I've called it `loggerT
 
 If it was emitting types from a `logger.js` file, it would overwrite the types emitted from an existing `logger.d.ts` file. Having `Types` in the name means that should that case arise, we are safe.
 
+https://github.com/microsoft/TypeScript/issues/52593#issuecomment-1419505081
+
 ## Setting up `typescript-eslint`
 
 But you didn't come here to just type check your codebase, you want to lint it too! Let's set up [`typescript-eslint`](https://typescript-eslint.io/) to lint our codebase with the benefits of type information.
