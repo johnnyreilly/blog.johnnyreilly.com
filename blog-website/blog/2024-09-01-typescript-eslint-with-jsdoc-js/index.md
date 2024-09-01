@@ -8,7 +8,7 @@ hide_table_of_contents: false
 description: 'You can use typescript-eslint with JSDoc JavaScript to get the benefits of linting powered by type information in a JavaScript codebase; this post shows you how.'
 ---
 
-It's possible to statically type check a JavaScript codebase with TypeScript with JSDoc annotation. [Read this post to learn more.](../2021-11-22-typescript-vs-jsdoc-javascript/index.md) It's possible to go a little further, and use `typescript-eslint` to lint your codebase with the benefits of type information. This post will show you how to set this up and talk about some of the gotchas.
+It's possible to statically type check a JavaScript codebase with TypeScript with JSDoc annotations. It's possible to go a little further, and use `typescript-eslint` to lint your codebase with the benefits of type information. This post will show you how to set this up and talk about some of the gotchas.
 
 ![title image reading "typescript-eslint with JSDoc JavaScript" with a typescript-eslint logo and TypeScript logo](title-image.png)
 
@@ -275,3 +275,9 @@ export default [
 A common misconception is that you cannot use [`typescript-eslint`s linting with type information](https://typescript-eslint.io/getting-started/typed-linting) in JSDoc. You can. And here we are. However, there are some rules that are not compatible with JSDoc. We're turning those off in the `rules` section of the above `eslint.config.mjs` file.
 
 The four rules we're turning off are rules that are not compatible with JSDoc according to [this thread on GitHub](https://github.com/typescript-eslint/typescript-eslint/issues/8955). In general, this is because the syntax required to satisfy the rule is not compatible with JS / JSDoc.
+
+## Conclusion
+
+In this post we've set up a JavaScript project to be type checked with JSDoc and the TypeScript compiler. We've also set up `typescript-eslint` to lint the codebase, including using type information. Hopefully this will help increase the type safety of JavaScript projects of your own!
+
+[To read more on TypeScript vs JavaScript with JSDoc, you may want to read Read this post.](../2021-11-22-typescript-vs-jsdoc-javascript/index.md) 
