@@ -73,11 +73,11 @@ We now have TypeScript installed in our project. We'll need to create a `tsconfi
 
 The main things to draw from the above `tsconfig.json` are:
 
-- enables type checking of JavaScript files with JSDoc annotations with the `allowJs` / `checkJs` options
-- tells the TypeScript compiler to expect a modern browser environment with the `lib` option
-- tells the TypeScript compiler to expect React JSX with the `jsx` option
-- tells the TypeScript compiler not to emit any files with the `noEmit` option (as we're only using TypeScript for type checking - we will have no files output)
-- tells the TypeScript compiler to run in strict mode with the `strict` option - I'm going all in for type checking; you may want to be more selective
+- it enables type checking of JavaScript files with JSDoc annotations with the `allowJs` / `checkJs` options
+- it tells the TypeScript compiler to expect a modern browser environment with the `lib` option
+- it tells the TypeScript compiler to expect React JSX with the `jsx` option
+- it tells the TypeScript compiler not to emit any files with the `noEmit` option (as we're only using TypeScript for type checking - we will have no files output)
+- it tells the TypeScript compiler to run in strict mode with the `strict` option - I'm going all on for type checking; you may want to be more selective
 
 Finally we need to add a script to our `package.json` to run the TypeScript compiler:
 
