@@ -205,7 +205,7 @@ So here we've had one line of JSDoc and we've got all the type information we ne
 
 I was intentional around the naming of the `.ts` file. I've called it `loggerTypes.ts` because I want to make it clear that this file is all about types. It's not a (runtime) `.js` file, it's a `.ts` file - relevant for compile time. The `Types` suffix is deliberate too; it's not `logger.ts` entirely as planned.
 
-The TypeScript compiler doesn't understand a world in which there is a `logger.js` file which imports types from a `logger.ts` file. Expect difficulty if you try to make it work. Particularly in a world in which ESM has lead to all imports being `.js` files even when they're TypeScript.
+The TypeScript compiler doesn't understand a world in which there is a `logger.js` file which imports types from a `logger.ts` file. Expect difficulty if you should try to use that approach. Particularly in a world in which ESM has lead to all imports being from `.js` files even when they are actually `.ts` source files.
 
 What's more, code like that would be far from typical to find that style in a TypeScript (or JavaScript) codebase. It would invite head scratching from anyone who came across it. So having `Types` in the name means that the compiler is not confused, and hopefully neither are your colleagues. You are unambiguously importing a different file. (By the way, having a 1-1 relationship between `.ts` and `.js` files as I'm doing isn't mandatory, but I've found it to be a useful pattern.)
 
