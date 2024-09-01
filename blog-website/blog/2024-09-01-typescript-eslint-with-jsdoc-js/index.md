@@ -79,7 +79,7 @@ The main things to draw from the above `tsconfig.json` are:
 - it tells the TypeScript compiler not to emit any files with the `noEmit` option (as we're only using TypeScript for type checking - we will have no files output)
 - it tells the TypeScript compiler to run in strict mode with the `strict` option - I'm going all on for type checking; you may want to be more selective
 
-Finally we need to add a script to our `package.json` to run the TypeScript compiler:
+Finally we need to add a script to our `package.json` to typecheck our codebase with the TypeScript compiler:
 
 ```json
   "scripts": {
