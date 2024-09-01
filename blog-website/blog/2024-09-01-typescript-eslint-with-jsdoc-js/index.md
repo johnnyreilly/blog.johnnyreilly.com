@@ -241,7 +241,7 @@ export default [
   { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
   { languageOptions: { globals: globals.browser } },
   eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
+  ...tseslint.configs.recommendedTypeChecked, // yes we are using type checked
   {
     languageOptions: {
       parserOptions: {
@@ -262,47 +262,16 @@ export default [
   },
   {
     rules: {
-      'react/prop-types': 'off', // not appropriate for TypeScript
-      'react/display-name': 'off', // nice to have - but not required
-
       // Not compatible with JSDoc according to @bradzacher and https://github.com/typescript-eslint/typescript-eslint/issues/8955#issuecomment-2097518639
       '@typescript-eslint/explicit-function-return-type': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/parameter-properties': 'off',
       '@typescript-eslint/typedef': 'off',
-
-      // Not compatible with JSDoc based upon the codebase I'm looking at
-      '@typescript-eslint/no-unsafe-assignment': 'off',
-      '@typescript-eslint/no-unsafe-return': 'off',
-
     },
   },
 ];
 ```
 
+A common misconception is that you cannot use [`typescript-eslint`s linting with type information](https://typescript-eslint.io/getting-started/typed-linting) in JSDoc. You can. And here we are. However, there are some rules that are not compatible with JSDoc. We're turning those off in the `rules` section of the above `eslint.config.mjs` file.
 
-
-
---
-
-If I were writing a library, I might want to emit types from my JavaScript. The following `tsconfig.json` option would allow me to do that:
-
-```json
-{
-  "compilerOptions": {
-    "emitDeclarationOnly": true,
-    "declarationDir": "types",
-    "declaration": true
-  }
-}
-```
-
-If it was emitting types from a `logger.js` file, it would overwrite the types emitted from an existing `logger.d.ts` file. Having `Types` in the name means that should that case arise, we are safe.
-
-## Setting up `typescript-eslint`
-
-But you didn't come here to just type check your codebase, you want to lint it too! Let's set up [`typescript-eslint`](https://typescript-eslint.io/) to lint our codebase with the benefits of type information.
-
-```bash
-npm install --save-dev eslint @eslint/js @types/eslint__js typescript typescript-eslint eslint-plugin-react globals
-```
+The four rules we're turning off are rules that are not compatible with JSDoc according to [this thread on GitHub](https://github.com/typescript-eslint/typescript-eslint/issues/8955). In general, this is because the syntax required to satisfy the rule is not compatible with JS / JSDoc.
