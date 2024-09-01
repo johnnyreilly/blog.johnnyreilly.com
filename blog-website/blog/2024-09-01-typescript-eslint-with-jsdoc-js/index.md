@@ -8,7 +8,7 @@ hide_table_of_contents: false
 description: 'You can use typescript-eslint with JSDoc JavaScript to get the benefits of linting powered by type information in a JavaScript codebase; this post shows you how.'
 ---
 
-It's possible to statically type check a JavaScript codebase with TypeScript with JSDoc annotations. It's possible to go a little further, and use `typescript-eslint` to lint your codebase with the benefits of type information. This post will show you how to set this up and talk about some of the gotchas.
+It's possible to statically type check a JavaScript codebase with TypeScript with JSDoc annotations. Going a little further, and using `typescript-eslint` to lint your codebase with the benefits of type information can improve your code quality even more. This post will show you how to set this up and talk about some of the gotchas.
 
 ![title image reading "typescript-eslint with JSDoc JavaScript" with a typescript-eslint logo and TypeScript logo](title-image.png)
 
