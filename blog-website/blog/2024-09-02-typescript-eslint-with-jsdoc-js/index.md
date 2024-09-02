@@ -49,8 +49,7 @@ We now have TypeScript installed in our project. We'll need to create a `tsconfi
     "resolveJsonModule": true /* Enable importing .json files. */,
 
     /* JavaScript Support */
-    "allowJs": true /* Allow JavaScript files to be a part of your program. Use the 'checkJS' option to get errors from these files. */,
-    "checkJs": true /* Enable error reporting in type-checked JavaScript files. */,
+    "checkJs": true /* Enable error reporting in type-checked JavaScript files. Implicitly sets `allowJs: true` */,
     // "maxNodeModuleJsDepth": 1,                        /* Specify the maximum folder depth used for checking JavaScript files from 'node_modules'. Only applicable with 'allowJs'. */
 
     /* Emit */
@@ -58,8 +57,6 @@ We now have TypeScript installed in our project. We'll need to create a `tsconfi
 
     /* Interop Constraints */
     "allowSyntheticDefaultImports": true /* Allow 'import x from y' when a module doesn't have a default export. */,
-    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
-    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
 
     /* Type Checking */
     "strict": true /* Enable all strict type-checking options. */,
