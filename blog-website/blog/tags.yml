@@ -113,6 +113,11 @@ jquery:
   description: 'The jQuery library.'
   permalink: /jquery
 
+jsdoc:
+  label: 'JSDoc'
+  description: 'Type safety through JSDoc annotations.'
+  permalink: /jsdoc
+
 node.js:
   label: 'Node.js'
   description: 'The Node.js runtime.'
