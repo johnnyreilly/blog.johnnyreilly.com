@@ -1056,7 +1056,7 @@
             <title><![CDATA[typescript-eslint with JSDoc JavaScript]]></title>
             <link>https://johnnyreilly.com/typescript-eslint-with-jsdoc-js</link>
             <guid>https://johnnyreilly.com/typescript-eslint-with-jsdoc-js</guid>
-            <pubDate>Mon, 02 Sep 2024 10:56:36 GMT</pubDate>
+            <pubDate>Mon, 02 Sep 2024 18:27:01 GMT</pubDate>
             <description><![CDATA[You can use typescript-eslint with JSDoc JavaScript to get the benefits of linting powered by type information in a JavaScript codebase; this post shows you how.]]></description>
             <content:encoded><![CDATA[<p>It's possible to statically type check a JavaScript codebase with TypeScript with JSDoc annotations. Going a little further, and using <code>typescript-eslint</code> to lint your codebase with the benefits of type information can improve your code quality even more. This post will show you how to set this up and talk about some of the gotchas.</p>
 <p><img decoding="async" loading="eager" alt="title image reading &amp;quot;typescript-eslint with JSDoc JavaScript&amp;quot; with a typescript-eslint logo and TypeScript logo" src="https://johnnyreilly.com/assets/images/title-image-b1fd8bccc2a13baa3adb03e186110f25.png" width="800" height="450" fetchpriority="high" class="img_ev3q"></p>
@@ -1122,7 +1122,7 @@
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="conclusion">Conclusion<a href="https://johnnyreilly.com/typescript-eslint-with-jsdoc-js#conclusion" class="hash-link" aria-label="Direct link to heading" title="Direct link to heading">​</a></h2>
 <p>In this post we've set up a JavaScript project to be type checked with JSDoc and the TypeScript compiler. We've also set up <code>typescript-eslint</code> to lint the codebase, including using type information. Hopefully this will help increase the type safety of JavaScript projects of your own.</p>
 <p>I should say, it's been a learning exercise writing this post, and as I continue working on enriching the type safety of this particular codebase I'm likely to learn more. I'll be updating this post as I do.</p>
-<p><a href="https://johnnyreilly.com/typescript-vs-jsdoc-javascript">To read more on TypeScript vs JavaScript with JSDoc, you may want to read read this post.</a></p>]]></content:encoded>
+<p><a href="https://johnnyreilly.com/typescript-vs-jsdoc-javascript">To read more on TypeScript vs JavaScript with JSDoc, you may want to read this post.</a></p>]]></content:encoded>
             <category>JavaScript</category>
             <category>TypeScript</category>
             <category>JSDoc</category>
