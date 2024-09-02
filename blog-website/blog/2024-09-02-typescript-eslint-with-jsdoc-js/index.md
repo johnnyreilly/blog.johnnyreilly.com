@@ -2,7 +2,7 @@
 slug: typescript-eslint-with-jsdoc-js
 title: 'typescript-eslint with JSDoc JavaScript'
 authors: johnnyreilly
-tags: [javascript, typescript]
+tags: [javascript, typescript, jsdoc]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'You can use typescript-eslint with JSDoc JavaScript to get the benefits of linting powered by type information in a JavaScript codebase; this post shows you how.'

@@ -2,7 +2,7 @@
 slug: typescript-vs-jsdoc-javascript
 title: 'TypeScript vs JSDoc JavaScript'
 authors: johnnyreilly
-tags: [javascript, typescript]
+tags: [javascript, typescript, jsdoc]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'JSDoc annotations in JavaScript codebase add a new dynamic to the debate between JavaScript and TypeScript. It allows for type checking of JavaScript code.'
@@ -11,6 +11,8 @@ description: 'JSDoc annotations in JavaScript codebase add a new dynamic to the 
 There's a debate to be had about whether using JavaScript or TypeScript leads to better outcomes when building a project. The introduction of using JSDoc annotations to type a JavaScript codebase introduces a new dynamic to this discussion. This post will investigate what that looks like, and come to an (opinionated) conclusion.
 
 ![title image reading "JSDoc JavaScript vs TypeScript" with a JavaScript logo and TypeScript logo](title-image.png)
+
+If you'd like to learn more about setting up a codebase to be type checked with JSDoc and TypeScript, then [read this guide](../2024-09-02-typescript-eslint-with-jsdoc-js/index.md).
 
 <!--truncate-->
 
