@@ -275,4 +275,4 @@ In this post we've set up a JavaScript project to be type checked with JSDoc and
 
 I should say, it's been a learning exercise writing this post, and as I continue working on enriching the type safety of this particular codebase I'm likely to learn more. I'll be updating this post as I do.
 
-[To read more on TypeScript vs JavaScript with JSDoc, you may want to read read this post.](../2021-11-22-typescript-vs-jsdoc-javascript/index.md)
+[To read more on TypeScript vs JavaScript with JSDoc, you may want to read this post.](../2021-11-22-typescript-vs-jsdoc-javascript/index.md)
