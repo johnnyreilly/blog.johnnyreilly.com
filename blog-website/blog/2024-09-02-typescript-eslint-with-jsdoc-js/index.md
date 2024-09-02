@@ -12,13 +12,13 @@ It's possible to statically type check a JavaScript codebase with TypeScript wit
 
 ![title image reading "typescript-eslint with JSDoc JavaScript" with a typescript-eslint logo and TypeScript logo](title-image.png)
 
-We'll also talk a little about practical ways to write JSDoc annotations in a JavaScript codebase.
+We'll also talk a little about how to use TypeScript in combination with JSDoc annotations in a JavaScript codebase.
 
 <!--truncate-->
 
 ## Background
 
-I recently worked on a project where we had a five year old React JavaScript codebase. There wasn't time to convert the codebase to TypeScript, but we wanted to see if we could get some of the benefits of TypeScript by using JSDoc annotations. The codebase also didn't have linting in place. So we thought we'd see to use `typescript-eslint` to lint our codebase. This was a little tricky to set up, so I thought I'd write a post to help others who might be in the same situation.
+I recently worked on a project where we had a five year old React JavaScript codebase. There wasn't time to convert the codebase to TypeScript, but we wanted to see if we could get some of the benefits of TypeScript by using JSDoc annotations. The codebase also didn't have linting in place. So we thought we'd see if we could use `typescript-eslint` to lint our codebase. This was a little tricky to set up, so I thought I'd write a post to help others who might be in the same situation.
 
 ## Setting up TypeScript
 
@@ -76,8 +76,8 @@ The main things to draw from the above `tsconfig.json` are:
 - it enables type checking of JavaScript files with JSDoc annotations with the `allowJs` / `checkJs` options
 - it tells the TypeScript compiler to expect a modern browser environment with the `lib` option
 - it tells the TypeScript compiler to expect React JSX with the `jsx` option
-- it tells the TypeScript compiler not to emit any files with the `noEmit` option (as we're only using TypeScript for type checking - we will have no files output)
-- it tells the TypeScript compiler to run in strict mode with the `strict` option - I'm going all on for type checking; you may want to be more selective
+- it tells the TypeScript compiler not to emit any files with the `noEmit` option (as we're only using TypeScript for type checking - we will not be transpiling TypeScript into JavaScript)
+- it tells the TypeScript compiler to run in strict mode with the `strict` option - I'm going all in on type checking; you may want to be more selective
 
 Finally we need to add a script to our `package.json` to typecheck our codebase with the TypeScript compiler:
 
@@ -175,7 +175,7 @@ export type LoggerFactory = (
 export type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 ```
 
-This is pure TypeScript code. The tremendous news is that we can write this and we can consume this in a JSDoc file **because there is no runtime code in here**. It's purely type information. We'll write this in a `.ts` file and then we can `import` it into in our JS files.
+This is pure TypeScript code. The tremendous news is that we can write type-only TypeScript and we can consume it in a JSDoc JavaScript file **because there is no runtime code in here**. It's purely type information. We'll write this in a `.ts` file and then we can `import` it into in our JS files.
 
 So let's imagine we have a `loggerTypes.ts` file with the above TypeScript code in it. We can then import the `LoggerFactory` into our `logger.js` file like this:
 
@@ -207,7 +207,7 @@ I was intentional around the naming of the `.ts` file. I've called it `loggerTyp
 
 The TypeScript compiler doesn't understand a world in which there is a `logger.js` file which imports types from a `logger.ts` file. Expect difficulty if you should try to use that approach. Particularly in a world in which ESM has lead to all imports being from `.js` files even when they are actually `.ts` source files.
 
-What's more, code like that would be far from typical to find that style in a TypeScript (or JavaScript) codebase. It would invite head scratching from anyone who came across it. So having `Types` in the name means that the compiler is not confused, and hopefully neither are your colleagues. You are unambiguously importing a different file. (By the way, having a 1-1 relationship between `.ts` and `.js` files as I'm doing isn't mandatory, but I've found it to be a useful pattern.)
+What's more, you would not typically see code like that in a TypeScript (or JavaScript) codebase. It would invite head scratching from anyone who came across it. So having `Types` in the name means that the compiler is not confused, and hopefully neither are your colleagues. You are unambiguously importing a different file. (By the way, having a 1-1 relationship between `.ts` and `.js` files as I'm doing isn't mandatory, but I've found it to be a useful pattern.)
 
 I did also consider the idea that the files I wrote should be `.d.ts` files rather than `.ts` files. After a [healthy discussion on Twitter](https://twitter.com/robpalmer2/status/1829856562422124734) I was directed by [Rob Palmer](https://twitter.com/robpalmer2) to what's probably the definitive answer on this from [Andrew Branch](https://github.com/andrewbranch) of the TypeScript team:
 
@@ -217,7 +217,7 @@ As ever in life, I find I cannot improve on [Andrew's guidance](https://github.c
 >
 > But the main reason I personally avoid this is just because it doesn’t copy into `outDir`. For my purposes, I’d rather just eat the cost of the empty JS file (which also protects you from crashes should you accidentally import it at runtime).
 
-Thanks also to [Remco Haszing](https://remcohaszing.nl/) for sharing that [`.d.ts` files should not be validated if you use `skipLibCheck`](https://twitter.com/remcohaszing/status/1829808165459804330). (Oddly, I didn't see that behaviour in my own testing, but I wouldn't be surprised if I was doing something quirky.)
+Thanks also to [Remco Haszing](https://remcohaszing.nl/) for sharing that [even local `.d.ts` files should not be validated if you use `skipLibCheck`](https://twitter.com/remcohaszing/status/1829808165459804330). (Oddly, I didn't see that behaviour in my own testing, but I wouldn't be surprised if I was doing something quirky.)
 
 ## Setting up `typescript-eslint`
 
@@ -227,7 +227,7 @@ But you didn't come here to just type check your codebase, you want to lint it t
 npm install --save-dev eslint @eslint/js @types/eslint__js typescript typescript-eslint eslint-plugin-react globals
 ```
 
-We'll also need to create an `eslint.config.mjs` file to configure `eslint` to work with TypeScript (the eagle eyed amongst you will have noticed that we included this file in our `tsconfig.json`). Here's what that file looks like:
+We'll also need to create an `eslint.config.mjs` file to configure `eslint` to work with TypeScript (the eagle eyed amongst you will have noticed that we included this file in our `tsconfig.json` earlier). Here's what that file looks like:
 
 ```js
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
