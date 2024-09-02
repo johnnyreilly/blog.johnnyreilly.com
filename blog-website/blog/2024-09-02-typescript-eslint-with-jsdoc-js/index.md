@@ -44,8 +44,7 @@ We now have TypeScript installed in our project. We'll need to create a `tsconfi
     "jsx": "preserve" /* Specify what JSX code is generated. */,
 
     /* Modules */
-    "module": "esnext" /* Specify what module code is generated. */,
-    "moduleResolution": "node" /* Specify how TypeScript looks up a file from a given module specifier. */,
+    "module": "preserve" /* Specify what module code is generated. */,
     "resolveJsonModule": true /* Enable importing .json files. */,
 
     /* JavaScript Support */
@@ -54,9 +53,6 @@ We now have TypeScript installed in our project. We'll need to create a `tsconfi
 
     /* Emit */
     "noEmit": true /* Disable emitting files from a compilation. */,
-
-    /* Interop Constraints */
-    "allowSyntheticDefaultImports": true /* Allow 'import x from y' when a module doesn't have a default export. */,
 
     /* Type Checking */
     "strict": true /* Enable all strict type-checking options. */,
