@@ -42,6 +42,7 @@ We now have TypeScript installed in our project. We'll need to create a `tsconfi
       "ESNext"
     ] /* Specify a set of bundled library declaration files that describe the target runtime environment. */,
     "jsx": "preserve" /* Specify what JSX code is generated. */,
+    "target": "ESNext", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
 
     /* Modules */
     "module": "preserve" /* Specify what module code is generated. */,
