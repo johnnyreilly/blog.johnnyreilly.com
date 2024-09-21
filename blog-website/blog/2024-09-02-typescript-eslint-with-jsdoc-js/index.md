@@ -237,7 +237,6 @@ export default [
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked, // yes we are using type checked
   {
-    env: { node: true }, // this is useful if your codebase includes require statements etc
     languageOptions: {
       parserOptions: {
         project: true,
