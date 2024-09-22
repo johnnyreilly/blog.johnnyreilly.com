@@ -57,6 +57,7 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: azure/CLI@v2
         with:
+          azcliversion: 2.63.0 # pinning because https://github.com/Azure/cli/issues/165
           inlineScript: |
             az version
             az bicep install
@@ -88,6 +89,7 @@ jobs:
         if: github.event_name == 'pull_request'
         uses: azure/CLI@v2
         with:
+          azcliversion: 2.63.0 # pinning because https://github.com/Azure/cli/issues/165
           inlineScript: |
             az deployment group what-if \
               --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
@@ -180,8 +182,10 @@ jobs:
         id: static_web_app_apikey
         uses: azure/CLI@v2
         with:
+          azcliversion: 2.63.0 # pinning because https://github.com/Azure/cli/issues/165
           inlineScript: |
-            APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.properties.apiKey')
+            # APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.properties.apiKey')
+            APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' --query properties.apiKey -o tsv)
             echo "APIKEY=$APIKEY" >> $GITHUB_OUTPUT
 
       - name: Deploy site 🚀
@@ -213,8 +217,10 @@ jobs:
         id: static_web_app_preview_url
         uses: azure/CLI@v2
         with:
+          azcliversion: 2.63.0 # pinning because https://github.com/Azure/cli/issues/165
           inlineScript: |
-            DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.defaultHostname')
+            # DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.defaultHostname')
+            DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATIC_WEB_APP_NAME }}' --query defaultHostname -o tsv)
 
             PREVIEW_URL="https://${DEFAULTHOSTNAME/.[1-9]./-${{github.event.pull_request.number }}.${{ env.AZURE_LOCATION }}.1.}"
 
@@ -410,8 +416,10 @@ jobs:
         id: apikey
         uses: azure/CLI@v2
         with:
+          azcliversion: 2.63.0 # pinning because https://github.com/Azure/cli/issues/165
           inlineScript: |
-            APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.properties.apiKey')
+            # APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.properties.apiKey')
+            APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' --query properties.apiKey -o tsv)
             echo "APIKEY=$APIKEY" >> $GITHUB_OUTPUT
 
       - name: Destroy staging environment 💥
