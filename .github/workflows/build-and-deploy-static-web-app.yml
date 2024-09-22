@@ -215,7 +215,8 @@ jobs:
         uses: azure/CLI@v2
         with:
           inlineScript: |
-            DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.defaultHostname')
+            # DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.defaultHostname')
+            DEFAULTHOSTNAME=$(az staticwebapp show -n '${{ env.STATIC_WEB_APP_NAME }}' --query defaultHostname -o tsv)
 
             PREVIEW_URL="https://${DEFAULTHOSTNAME/.[1-9]./-${{github.event.pull_request.number }}.${{ env.AZURE_LOCATION }}.1.}"
 
