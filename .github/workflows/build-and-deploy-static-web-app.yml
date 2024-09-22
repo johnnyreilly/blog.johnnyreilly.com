@@ -181,7 +181,8 @@ jobs:
         uses: azure/CLI@v2
         with:
           inlineScript: |
-            APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.properties.apiKey')
+            # APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.properties.apiKey')
+            APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' --query properties.apiKey -o tsv)
             echo "APIKEY=$APIKEY" >> $GITHUB_OUTPUT
 
       - name: Deploy site 🚀
@@ -411,7 +412,8 @@ jobs:
         uses: azure/CLI@v2
         with:
           inlineScript: |
-            APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.properties.apiKey')
+            # APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.properties.apiKey')
+            APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' --query properties.apiKey -o tsv)
             echo "APIKEY=$APIKEY" >> $GITHUB_OUTPUT
 
       - name: Destroy staging environment 💥
