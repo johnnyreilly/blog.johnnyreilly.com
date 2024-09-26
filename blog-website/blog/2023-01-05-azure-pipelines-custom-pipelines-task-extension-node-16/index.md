@@ -12,6 +12,15 @@ Support for Node.js 16 for Azure Pipelines custom pipelines task extensions has 
 
 ![title image reading "Azure Pipelines - Node.js 16 and custom pipelines task extensions" with Azure Pipelines, Node.js and TypeScript logos](title-image.png)
 
+## Updated 26th September 2024 - Node.js 20 support available
+
+It's now possible to use Node.js 20 in tasks! See more details below:
+
+- https://aka.ms/node-runner-guidance
+- [There is a guide on how to migrate tasks to Node.js 20 here](https://github.com/microsoft/azure-pipelines-tasks/blob/master/docs/migrateNode20.md)
+
+What's more we're going to start to see [warnings emitted in pipelines](https://learn.microsoft.com/en-us/azure/devops/release-notes/2024/pipelines/sprint-240-update#tasks-that-use-an-end-of-life-node-runner-version-to-execute-emit-warnings) when an EOL Node version is used.
+
 <!--truncate-->
 
 ## The road to Node.js 16
