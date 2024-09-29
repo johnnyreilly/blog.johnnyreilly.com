@@ -66,13 +66,9 @@ One thing we learned, as we looked at the schema, was that many parameters suppo
 
 ![screenshot of schema file](screenshot-azure-yml-schema.png)
 
-The screenshot above is taken from the Docker section of the configuration where environment variable substitution is widely supported. You might imagine that the `WEB_VERSION_TAG` used in the `image` parameter we pass would also be one of those variables. But, alas, at the time of writing it is not.
+The screenshot above is taken from the Docker section of the configuration where environment variable substitution is widely supported. Originally the `image` parameter [did not support substitution](https://github.com/Azure/azure-dev/issues/4124). It does as of [v1.10.0](https://github.com/Azure/azure-dev/releases/tag/azure-dev-cli_1.10.0).
 
-![screenshot of the image section of schema file](screenshot-azure-yml-image.png)
-
-I've raised a [GitHub issue to investigate whether this could be supported](https://github.com/Azure/azure-dev/issues/4124).
-
-We'll find another way to pass the `WEB_VERSION_TAG` value to `azd` later on. You'll notice that we pass `resourceName: ${CONTAINER_APP_NAME}` - and this **is** a parameter which supports environment variable substitution. You'll see later that we supply the `CONTAINER_APP_NAME` and this will be consumed by the `azd deploy` stage.
+You'll notice that we pass `resourceName: ${CONTAINER_APP_NAME}`. You'll see later that we supply the `CONTAINER_APP_NAME` and this will be consumed by the `azd deploy` stage.
 
 Incidentally, we're using an approach whereby the image is built and pushed to the registry independently of `azd`. You could equally use `azd` to build and push the image. But we're not doing that here.
 
@@ -92,7 +88,7 @@ The change above allows us to use `azd` deployments targeted at existing resourc
 
 Now, strictly speaking, this isn't necessary for speeding up deployments with `azd`. But if you're not one for creating a resource group per deployment (as I am not), then this is a good idea. This kind of deployment requires less permissions and may well better align with your organisation's security posture.
 
-We'll need to opt into using this feature with `azd` later on in the pipeline; at present resource group scoped deployments are considered "alpha".
+We'll need to opt into using this feature with `azd` later on in the pipeline; at present resource group scoped deployments are considered "beta".
 
 ### The "does your service exist?" parameter
 
@@ -246,7 +242,6 @@ Here's a cut down version of our pipeline replacing the single `AzureResourceMan
 
 - pwsh: |
     azd config set auth.useAzCliAuth "true"
-    azd config set alpha.resourceGroupDeployments on
   displayName: Configure `azd` config options.
 
 - task: AzureCLI@2
@@ -280,10 +275,6 @@ Here's a cut down version of our pipeline replacing the single `AzureResourceMan
     CONTAINER_APP_NAME: $(myContainerAppName)
     # ...
 
-- bash: |
-    sed -i "s/\${WEB_VERSION_TAG}/$(containerImageTag)/g" azure.yaml
-  displayName: 'Update WEB_VERSION_TAG in azure.yaml'
-
 - task: AzureCLI@2
   displayName: Deploy Application
   retryCountOnTaskFailure: 2
@@ -311,7 +302,6 @@ What's happening here? We'll take it step by step:
 - We're configuring `azd` to use the Azure CLI for authentication and to enable resource group scoped deployments.
 - We're logging into our Azure Container Registry. (If you're not building your image independently of `azd`, then you may not need this step.)
 - We're provisioning our infrastructure using `azd provision --no-prompt`. Note that we're providing a number of environment variables to `azd` which will be detected in our `main.bicepparam` file.
-- We're updating the `azure.yml` file with the `WEB_VERSION_TAG` that we need to provide. This is us working around the lack of support for environment variables in the `azure.yml` file for the `image` parameter.
 - We're deploying our application using `azd deploy --no-prompt`. As we do that, we pass the `CONTAINER_APP_NAME` environment variable which will substitute into the `azure.yaml` file
 
 You'll note that as we use `azd`, we make heavy use of environment variables. These environment variables will be picked up in the `main.bicepparam` file and passed through to the `main.bicep`. And of course there's the runtime `SERVICE_[SERVICENAME]_RESOURCE_EXISTS` parameter which `azd` will provide. Much of what you see here is inspired by [this documentation](https://learn.microsoft.com/en-gb/azure/developer/azure-developer-cli/configure-devops-pipeline?tabs=azdo).
