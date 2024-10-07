@@ -111,15 +111,16 @@ Now we have this type information, we can then use that information to type the 
 
 Whereas previously the `columns` array was not explicitly typed. Now it is with the `satisfies` operator. (For an excellent explanation of `satifies` read [Matt Pocock's post](https://www.totaltypescript.com/clarifying-the-satisfies-operator).)
 
-We are saying that `columns` is an array of `GridColDef<ValidRow>` **and** that the `field` property of each element in the array is has a field which is valid. We need both of these conditions to give us the outcome we want. Using `GridColDef<ValidRow>` ensures that the general columns schema matches what the Data Grid component needs. Using `ColumnWithValidField` ensures that the `field` property of each column is correct; based upon the `rows` field.
+We are saying that `columns` is an array of `GridColDef<ValidRow>` **and** that the `field` property of each element in the array is definitely one of the provided fields in the `rows` data. We need both of these conditions to be true:
 
-Let's validate this works, trying to use our buggy input with this new approach:
+- Using `GridColDef<ValidRow>` ensures that the general columns schema matches what the Data Grid component needs.
+- Using `ColumnWithValidField` ensures that the `field` property of each column is correct; based upon the `rows` field.
+
+Let's validate this approach works, trying to use our buggy input with this new approach:
 
 ![screenshot of a grid with incorrect columns and TypeScript surfacing the issue](screenshot-incorrect-columns-with-helpful-error.png)
 
-We can now see an error from TypeScript: `Type '"user-name"' is not assignable to type '"id" | "username" | "age"'. Did you mean '"username"'?(2820)` It's even an actionable error, suggesting the correct field name!
-
-This means we can now be confident that the columns we pass to the Data Grid are correct.
+We can now see an error from the TypeScript compiler in VS Code: `Type '"user-name"' is not assignable to type '"id" | "username" | "age"'. Did you mean '"username"'?` It's even an actionable error, suggesting the correct field name!
 
 ## Putting it all together
 
