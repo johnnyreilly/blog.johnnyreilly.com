@@ -118,6 +118,11 @@ jsdoc:
   description: 'Type safety through JSDoc annotations.'
   permalink: /jsdoc
 
+mui:
+  label: 'MUI'
+  description: 'The MUI / Material UI component library.'
+  permalink: /mui
+
 node.js:
   label: 'Node.js'
   description: 'The Node.js runtime.'

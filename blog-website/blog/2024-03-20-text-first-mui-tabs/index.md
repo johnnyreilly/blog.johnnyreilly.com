@@ -2,7 +2,7 @@
 slug: text-first-mui-tabs
 title: 'Text-first MUI Tabs'
 authors: johnnyreilly
-tags: [react]
+tags: [react, mui]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'Learn how to use the MUI tabs component in a text first way that remains strongly typed.'

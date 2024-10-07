@@ -2,7 +2,7 @@
 slug: mui-react-tree-view-check-children-uncheck-parents
 title: 'MUI React Tree View: check children, uncheck parents'
 authors: johnnyreilly
-tags: [react]
+tags: [react, mui]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'Learn how to use the MUI treeview component with behaviour that selects child nodes when parents are select and deselects parent nodes when children are deselected.'
@@ -97,13 +97,13 @@ function getParentNode(
 }
 
 function getAllParentIds(items: TreeViewBaseItem[], id: string) {
-    const parentIds: string[] = [];
-    let parent = getParentNode(items, id);
-    while (parent) {
-        parentIds.push(parent.id);
-        parent = getParentNode(items, parent.id);
-    }
-    return parentIds;
+  const parentIds: string[] = [];
+  let parent = getParentNode(items, id);
+  while (parent) {
+    parentIds.push(parent.id);
+    parent = getParentNode(items, parent.id);
+  }
+  return parentIds;
 }
 
 function getSelectedIdsAndChildrenIds(
@@ -151,7 +151,7 @@ function determineIdsToSet(
   const isDeselectingNode = currentIds.length > newIds.length;
   if (isDeselectingNode) {
     const removed = currentIds.filter((id) => !newIds.includes(id))[0];
-    
+
     const parentIdsToRemove = getAllParentIds(items, removed);
 
     const childIdsToRemove = getSelectedIdsAndChildrenIds(items, [removed]);
@@ -168,9 +168,7 @@ function determineIdsToSet(
   let parent = getParentNode(items, added);
   while (parent) {
     const childIds = parent.children?.map((node) => node.id) ?? [];
-    const allChildrenSelected = childIds.every((id) =>
-      idsToSet.includes(id),
-    );
+    const allChildrenSelected = childIds.every((id) => idsToSet.includes(id));
     if (allChildrenSelected) {
       idsToSet.push(parent.id);
       parent = getParentNode(items, parent.id);

@@ -2,7 +2,7 @@
 slug: mui-react-tree-view-pass-data-to-treeitem
 title: 'MUI React Tree View: pass data to TreeItem'
 authors: johnnyreilly
-tags: [react]
+tags: [react, mui]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'Learn how to pass arbitrary data to individual nodes in the MUI treeview component so individual nodes can be customised; for instance implementing a loader.'

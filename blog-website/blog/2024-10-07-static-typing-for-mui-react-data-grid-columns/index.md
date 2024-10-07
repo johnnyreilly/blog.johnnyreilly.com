@@ -2,7 +2,7 @@
 slug: static-typing-for-mui-react-data-grid-columns
 title: 'Static Typing for MUI React Data Grid Columns'
 authors: johnnyreilly
-tags: [typescript]
+tags: [react, typescript, mui]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'The MUI React Data Grid can be used with static typing to ensure the columns you pass to the component are correct. This post will show you how to do that.'
