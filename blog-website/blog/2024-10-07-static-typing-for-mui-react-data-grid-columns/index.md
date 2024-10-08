@@ -158,3 +158,42 @@ export default function BasicColumnsGrid() {
 ```
 
 With this approach, you can be confident that the columns you pass to the Data Grid are correct. This is a great way to ensure that your code is correct and that you are using the Data Grid component as intended.
+
+## The importance of memoizing columns
+
+The [MUI docs say](https://mui.com/x/react-data-grid/column-definition/):
+
+> The `columns` prop should keep the same reference between two renders. The columns are designed to be definitions, to never change once the component is mounted. Otherwise, you take the risk of losing elements like column width or order. You can create the array outside the render function or memoize it.
+
+My own experience has been that I noticed no ill effects on my own use cases by **not** memoizing. When I asked the question I was advised this was still important [when you use a big number of columns and rows](https://github.com/mui/mui-x/issues/14862). To apply that to the example we've been working with, it would look like this:
+
+```tsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+
+export default function BasicColumnsGrid() {
+  const rows = [
+    {
+      id: 1,
+      username: '@MUI',
+      age: 20,
+    },
+  ];
+
+  type ValidRow = (typeof rows)[number];
+  type ValidField = keyof ValidRow;
+  type ColumnWithValidField = { field: ValidField };
+
+  const columns = React.useMemo(() => [
+    { field: 'username', headerName: 'User' },
+    { field: 'age', headerName: 'Age' },
+  ] satisfies GridColDef<ValidRow>[] & ColumnWithValidField[], []);
+
+  return (
+    <Box sx={{ height: 250, width: '100%' }}>
+      <DataGrid columns={columns} rows={rows} />
+    </Box>
+  );
+}
+```
