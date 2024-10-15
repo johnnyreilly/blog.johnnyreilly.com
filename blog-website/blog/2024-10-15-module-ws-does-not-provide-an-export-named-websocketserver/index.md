@@ -3,7 +3,6 @@ slug: module-ws-does-not-provide-an-export-named-websocketserver
 title: 'module ws does not provide an export named WebSocketServer'
 authors: johnnyreilly
 tags: []
-image: ./title-image.png
 hide_table_of_contents: false
 description: 'Resolve the ws npm issue: SyntaxError: The requested module ws does not provide an export named WebSocketServer'
 ---
