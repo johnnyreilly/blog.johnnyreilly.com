@@ -1,11 +1,11 @@
 ---
 slug: module-ws-does-not-provide-an-export-named-websocketserver
-title: 'module \'ws\' does not provide an export named \'WebSocketServer\''
+title: 'module ws does not provide an export named WebSocketServer'
 authors: johnnyreilly
 tags: []
 image: ./title-image.png
 hide_table_of_contents: false
-description: 'Resolve the ws npm issue: SyntaxError: The requested module \'ws\' does not provide an export named \'WebSocketServer\''
+description: 'Resolve the ws npm issue: SyntaxError: The requested module ws does not provide an export named WebSocketServer'
 ---
 
 I use Playwright for testing and mock Web Socket calls with the [ws](https://github.com/websockets/ws) package. I recently did an `npm upgrade` and found myself hitting this error message when I tried to run tests: 
