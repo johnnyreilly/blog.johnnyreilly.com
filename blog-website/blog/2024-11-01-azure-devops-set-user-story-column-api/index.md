@@ -20,6 +20,8 @@ This post explains how to set the column of a User Story in Azure DevOps using t
 
 The [Azure DevOps Client for Node.js](https://github.com/microsoft/azure-devops-node-api) is a great way to interact with the Azure DevOps API if you're building with TypeScript. The library provides an API and the types. In this post, we'll use the client to set the column of a User Story in Azure DevOps rather than directly working with the API.
 
+![A screenshot of a user story in Azure DevOps](screenshot-azure-devops-column.webp)
+
 ## Getting the WorkItemTrackingApi
 
 Consider the following code:
