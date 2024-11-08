@@ -8,13 +8,15 @@ hide_table_of_contents: false
 description: 'Azure DevOps npm auth-lite eases setting up local authentication to Azure DevOps npm feeds, particularly for non Windows users.'
 ---
 
-Azure DevOps has a feature called Azure Artifacts that supports publishing npm packages. Typically those npm packages are intended to be consumed by a restricted audience. To install a package published to a feed so you need to configure authentication. This is done by creating an `.npmrc` file in a users home directory which contains a base 64 encoded Azure DevOps Personal Access Token with the Packaging read and write scopes.
+Azure DevOps has a feature called Azure Artifacts that supports publishing npm packages. Typically those npm packages are intended to be consumed by a restricted audience. To install a package published to a feed so you need to configure authentication, and for non Windows users this is convoluted.
 
 ![title image reading "Introducing Azure DevOps npm auth-lite" with an Azure DevOps and npm logos](title-image.png)
 
-Creating this file on non Windows machines is convoluted. Azure DevOps npm auth-lite exists to ease the setting up of local authentication to Azure DevOps npm feeds, particularly for non Windows users.
+Azure DevOps npm auth-lite exists to ease the setting up of local authentication to Azure DevOps npm feeds, particularly for non Windows users.
 
 <!--truncate-->
+
+## What problem are we solving?
 
 Consider the onboarding process for a Windows user for consuming an Azure Artifact npm feed:
 
@@ -24,9 +26,11 @@ Now consider the onboarding process for a non Windows user:
 
 ![screenshot of the onboarding process for non Windows users](screenshot-onboarding-with-other.png)
 
-This is a significant difference in the onboarding experience. `ado-npm-auth-lite` aims to make the onboarding experience for non Windows users as simple as it is for Windows users.
+This is a significant difference in the onboarding experience. The instructions walk through manually creating an `.npmrc` file in a users home directory which contains information including a base 64 encoded Azure DevOps Personal Access Token with the Packaging read and write scopes. It is tedious to do.
 
-There is an official package named [`ado-npm-auth`](https://github.com/microsoft/ado-npm-auth). However, [due to issues experienced in using the `ado-npm-auth` package](https://github.com/microsoft/ado-npm-auth/issues/50), I found myself creating `ado-npm-auth-lite`. By the way, the "lite" in `ado-npm-auth-lite` doesn't represent anything in particular; I just couldn't think of another good name.
+`ado-npm-auth-lite` aims to automate the toil, and make the onboarding experience for non Windows users as simple as it is for Windows users.
+
+There is an official package named [`ado-npm-auth`](https://github.com/microsoft/ado-npm-auth). However, [due to issues I experienced in using the `ado-npm-auth` package](https://github.com/microsoft/ado-npm-auth/issues/50), I found myself creating `ado-npm-auth-lite`. By the way, the "lite" in `ado-npm-auth-lite` doesn't represent anything in particular; I just couldn't think of another good name.
 
 ## When do I need to run `ado-npm-auth-lite`?
 
