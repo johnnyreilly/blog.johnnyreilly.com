@@ -2,7 +2,7 @@
 slug: introducing-ado-npm-auth-lite
 title: 'Introducing Azure DevOps npm auth-lite'
 authors: johnnyreilly
-tags: [npm, azure devops, node.js]
+tags: [azure devops, node.js]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'Azure DevOps npm auth-lite eases setting up local authentication to Azure DevOps npm feeds, particularly for non Windows users.'
