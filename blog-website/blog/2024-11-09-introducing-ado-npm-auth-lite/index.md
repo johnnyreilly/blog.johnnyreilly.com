@@ -8,7 +8,7 @@ hide_table_of_contents: false
 description: 'Azure DevOps npm auth-lite eases setting up local authentication to Azure DevOps npm feeds, particularly for non Windows users.'
 ---
 
-Azure DevOps has a feature called Azure Artifacts that supports publishing npm packages. Typically those npm packages are intended to be consumed by a restricted audience. To install a package published to a feed so you need to configure authentication, and for non Windows users this is convoluted.
+Azure DevOps has a feature called Azure Artifacts that supports publishing npm packages to a feed for consumption. Typically those npm packages are intended to be consumed by a restricted audience. To install a package published to a private feed you need to configure authentication, and for non Windows users this is a convoluted process.
 
 ![title image reading "Introducing Azure DevOps npm auth-lite" with an Azure DevOps and npm logos](title-image.png)
 
@@ -26,7 +26,7 @@ Now consider the onboarding process for a non Windows user:
 
 ![screenshot of the onboarding process for non Windows users](screenshot-onboarding-with-other.png)
 
-This is a significant difference in the onboarding experience. The instructions walk through manually creating an `.npmrc` file in a users home directory which contains information including a base 64 encoded Azure DevOps Personal Access Token with the Packaging read and write scopes. It is tedious to do.
+As we can see, there is a significant difference in the onboarding experience between operating systems. The instructions walk through manually creating an `.npmrc` file in a users home directory which contains information including a base 64 encoded Azure DevOps Personal Access Token with the Packaging read and write scopes. It is tedious to do.
 
 `ado-npm-auth-lite` aims to automate the toil, and make the onboarding experience for non Windows users as simple as it is for Windows users.
 
@@ -54,7 +54,9 @@ In either case, running `ado-npm-auth-lite` should resolve the issue. To get `ad
 npx --yes ado-npm-auth-lite --config .npmrc
 ```
 
-`ado-npm-auth-lite` requires the project `.npmrc` file exists in order that it can acquire the information to run. There is an optional `config` parameter; if it is not supplied `ado-npm-auth-lite` will default to use the `.npmrc` in the current project directory. There will be information in your Azure DevOps Artifacts section for connecting to the npm feed around creating a project `.npmrc`. The file will look something like this:
+`ado-npm-auth-lite` requires the project `.npmrc` file exists in order that it can acquire the information to run. There is an optional `config` parameter which allows selection of a specific project `.npmrc` file. If the `config` parameter is not supplied, `ado-npm-auth-lite` will default to use the `.npmrc` in the current project directory. 
+
+Should you not have one already, there will be information in your Azure DevOps Artifacts section for connecting to the npm feed around creating a project `.npmrc` file. The required file should look something like this:
 
 ```shell
 registry=https://pkgs.dev.azure.com/johnnyreilly/_packaging/npmrc-script-organization/npm/registry/
@@ -68,7 +70,7 @@ always-auth=true
 
 ## Using a `preinstall` script
 
-A great way to use `ado-npm-auth-lite` is as part of a `preinstall` script in your `package.json`:
+A great way to integrate `ado-npm-auth-lite` is by using it in a `preinstall` script in your `package.json`:
 
 ```json
 "scripts": {
