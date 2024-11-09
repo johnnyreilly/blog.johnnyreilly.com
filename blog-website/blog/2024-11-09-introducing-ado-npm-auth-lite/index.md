@@ -26,7 +26,7 @@ Now consider the onboarding process for a non Windows user:
 
 ![screenshot of the onboarding process for non Windows users](screenshot-onboarding-with-other.png)
 
-As we can see, there is a significant difference in the onboarding experience between operating systems. The instructions walk through manually creating an `.npmrc` file in a users home directory which contains information including a base 64 encoded Azure DevOps Personal Access Token with the Packaging read and write scopes. It is tedious to do.
+As we can see, there is a significant difference in the onboarding experience between operating systems. Windows users can use a tool named [`vsts-npm-auth`](https://www.npmjs.com/package/vsts-npm-auth) which automates onboarding. Non windows users have a longer road to follow. The instructions walk through manually creating an `.npmrc` file in a users home directory which contains information including a base 64 encoded Azure DevOps Personal Access Token with the Packaging read and write scopes. It is tedious to do.
 
 `ado-npm-auth-lite` aims to automate the toil, and make the onboarding experience for non Windows users as simple as it is for Windows users.
 
@@ -54,7 +54,7 @@ In either case, running `ado-npm-auth-lite` should resolve the issue. To get `ad
 npx --yes ado-npm-auth-lite --config .npmrc
 ```
 
-`ado-npm-auth-lite` requires the project `.npmrc` file exists in order that it can acquire the information to run. There is an optional `config` parameter which allows selection of a specific project `.npmrc` file. If the `config` parameter is not supplied, `ado-npm-auth-lite` will default to use the `.npmrc` in the current project directory. 
+`ado-npm-auth-lite` requires the project `.npmrc` file exists in order that it can acquire the information to run. There is an optional `config` parameter which allows selection of a specific project `.npmrc` file. If the `config` parameter is not supplied, `ado-npm-auth-lite` will default to use the `.npmrc` in the current project directory.
 
 Should you not have one already, there will be information in your Azure DevOps Artifacts section for connecting to the npm feed around creating a project `.npmrc` file. The required file should look something like this:
 
