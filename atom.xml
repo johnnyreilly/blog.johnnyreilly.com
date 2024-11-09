@@ -717,11 +717,11 @@
         <title type="html"><![CDATA[Introducing Azure DevOps npm auth-lite]]></title>
         <id>https://johnnyreilly.com/introducing-ado-npm-auth-lite</id>
         <link href="https://johnnyreilly.com/introducing-ado-npm-auth-lite"/>
-        <updated>2024-11-09T08:40:31.000Z</updated>
+        <updated>2024-11-09T09:43:45.000Z</updated>
         <summary type="html"><![CDATA[Azure DevOps npm auth-lite eases setting up local authentication to Azure DevOps npm feeds, particularly for non Windows users.]]></summary>
         <content type="html"><![CDATA[<p>Azure DevOps has a feature called Azure Artifacts that supports publishing npm packages to a feed for consumption. Typically those npm packages are intended to be consumed by a restricted audience. To install a package published to a private feed you need to configure authentication, and for non Windows users this is a convoluted process.</p>
 <p><img decoding="async" loading="eager" alt="title image reading &amp;quot;Introducing Azure DevOps npm auth-lite&amp;quot; with an Azure DevOps and npm logos" src="https://johnnyreilly.com/assets/images/title-image-4c3dfee5229634a1298856a1fc181481.png" width="800" height="450" fetchpriority="high" class="img_ev3q"></p>
-<p>Azure DevOps npm auth-lite exists to ease the setting up of local authentication to Azure DevOps npm feeds, particularly for non Windows users.</p>
+<p><a href="https://github.com/johnnyreilly/ado-npm-auth-lite" target="_blank" rel="noopener noreferrer">Azure DevOps npm auth-lite</a> exists to ease the setting up of local authentication to Azure DevOps npm feeds, particularly for non Windows users.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="what-problem-are-we-solving">What problem are we solving?<a href="https://johnnyreilly.com/introducing-ado-npm-auth-lite#what-problem-are-we-solving" class="hash-link" aria-label="Direct link to heading" title="Direct link to heading">​</a></h2>
 <p>Consider the onboarding process for a Windows user for consuming an Azure Artifact npm feed:</p>
 <p><img decoding="async" loading="lazy" alt="screenshot of the onboarding process for Windows users" src="https://johnnyreilly.com/assets/images/screenshot-onboarding-with-windows-bcf67d66378e527bc7a4a11c9598881a.png" width="2168" height="592" class="img_ev3q"></p>
