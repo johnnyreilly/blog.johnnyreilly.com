@@ -12,7 +12,7 @@ Azure DevOps has a feature called Azure Artifacts that supports publishing npm p
 
 ![title image reading "Introducing Azure DevOps npm auth-lite" with an Azure DevOps and npm logos](title-image.png)
 
-Azure DevOps npm auth-lite exists to ease the setting up of local authentication to Azure DevOps npm feeds, particularly for non Windows users.
+[Azure DevOps npm auth-lite](https://github.com/johnnyreilly/ado-npm-auth-lite) exists to ease the setting up of local authentication to Azure DevOps npm feeds, particularly for non Windows users.
 
 <!--truncate-->
 
