@@ -1,10 +1,10 @@
 //@ts-check
 /* eslint-env node */
-const IS_LIVE_SITE = process.env['IS_LIVE_SITE'] === 'true';
+const IS_LIVE_SITE = true; // process.env['IS_LIVE_SITE'] === 'true';
 console.log('IS_LIVE_SITE', IS_LIVE_SITE);
 
 import { readFileSync } from 'fs';
-import fontaine from 'fontaine';
+import * as fontaine from 'fontaine';
 import { themes as prismThemes } from 'prism-react-renderer';
 import imageFetchPriorityRehypePlugin from './image-fetchpriority-rehype-plugin.mjs';
 import docusaurusCloudinaryRehypePlugin from 'rehype-cloudinary-docusaurus';
@@ -270,6 +270,10 @@ const config = {
   organizationName: 'johnnyreilly', // Usually your GitHub org/user name.
   projectName: 'blog.johnnyreilly.com', // Usually your repo name.
 
+  future: {
+    experimental_faster: true,
+  },
+
   markdown: {
     // based on https://github.com/facebook/docusaurus/blob/main/website/docs/migration/v3.mdx
     mdx1Compat: {
@@ -284,28 +288,28 @@ const config = {
     locales: ['en'],
   },
 
-  webpack: {
-    jsLoader: (isServer) => ({
-      loader: require.resolve('swc-loader'),
-      options: {
-        jsc: {
-          parser: {
-            syntax: 'typescript',
-            tsx: true,
-          },
-          transform: {
-            react: {
-              runtime: 'automatic',
-            },
-          },
-          target: 'es2017',
-        },
-        module: {
-          type: isServer ? 'commonjs' : 'es6',
-        },
-      },
-    }),
-  },
+  // webpack: {
+  //   jsLoader: (isServer) => ({
+  //     loader: require.resolve('swc-loader'),
+  //     options: {
+  //       jsc: {
+  //         parser: {
+  //           syntax: 'typescript',
+  //           tsx: true,
+  //         },
+  //         transform: {
+  //           react: {
+  //             runtime: 'automatic',
+  //           },
+  //         },
+  //         target: 'es2017',
+  //       },
+  //       module: {
+  //         type: isServer ? 'commonjs' : 'es6',
+  //       },
+  //     },
+  //   }),
+  // },
 
   presets: [
     [

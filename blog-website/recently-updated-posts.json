@@ -1,14 +1,14 @@
 [
   {
-    "link": "using-bun-in-azure-pipelines",
-    "title": "Using Bun in Azure Pipelines"
+    "link": "introducing-ado-npm-auth-lite",
+    "title": "Introducing Azure DevOps npm auth-lite"
   },
   {
-    "link": "azure-static-web-apps-build-app-externally",
-    "title": "Azure Static Web Apps: build app externally"
+    "link": "azure-devops-set-user-story-column-api",
+    "title": "Azure DevOps API: Set User Story column with the Azure DevOps Client for Node.js"
   },
   {
-    "link": "migrating-from-github-pages-to-azure-static-web-apps",
-    "title": "Migrating from GitHub Pages to Azure Static Web Apps"
+    "link": "module-ws-does-not-provide-an-export-named-websocketserver",
+    "title": "module ws does not provide an export named WebSocketServer"
   }
 ]
