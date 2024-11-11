@@ -29,6 +29,7 @@ const sameAs = [
   'https://github.com/johnnyreilly',
   'https://fosstodon.org/@johnny_reilly',
   'https://twitter.com/johnny_reilly',
+  'https://bsky.app/profile/johnnyreilly.bsky.social',
   'https://dev.to/johnnyreilly',
   'https://app.daily.dev/johnnyreilly',
   'https://stackoverflow.com/users/761388/john-reilly',
@@ -287,29 +288,6 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
-
-  // webpack: {
-  //   jsLoader: (isServer) => ({
-  //     loader: require.resolve('swc-loader'),
-  //     options: {
-  //       jsc: {
-  //         parser: {
-  //           syntax: 'typescript',
-  //           tsx: true,
-  //         },
-  //         transform: {
-  //           react: {
-  //             runtime: 'automatic',
-  //           },
-  //         },
-  //         target: 'es2017',
-  //       },
-  //       module: {
-  //         type: isServer ? 'commonjs' : 'es6',
-  //       },
-  //     },
-  //   }),
-  // },
 
   presets: [
     [
@@ -580,6 +558,12 @@ const config = {
           {
             href: 'https://twitter.com/johnny_reilly',
             label: 'Twitter',
+            rel: 'me',
+            position: 'right',
+          },
+          {
+            href: 'https://bsky.app/profile/johnnyreilly.bsky.social',
+            label: 'Bluesky',
             rel: 'me',
             position: 'right',
           },
