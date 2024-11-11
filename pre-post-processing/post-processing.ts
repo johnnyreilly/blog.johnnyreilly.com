@@ -347,7 +347,7 @@ async function trimRssXML() {
 async function main() {
   const startedAt = new Date();
 
-  const IS_LIVE_SITE = true; // process.env['IS_LIVE_SITE'] === 'true';
+  const IS_LIVE_SITE = process.env['IS_LIVE_SITE'] === 'true';
   console.log('IS_LIVE_SITE', IS_LIVE_SITE);
 
   if (!IS_LIVE_SITE) {
