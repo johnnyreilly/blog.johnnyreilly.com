@@ -300,4 +300,8 @@ export const redirectsBacklinks = [
     route: '/blog-archive',
     redirect: '/blog',
   },
+  {
+    route: '/introducing-ado-npm-auth-lite',
+    redirect: '/introducing-azdo-npm-auth',
+  },
 ];
