@@ -4,7 +4,7 @@ const IS_LIVE_SITE = process.env['IS_LIVE_SITE'] === 'true';
 console.log('IS_LIVE_SITE', IS_LIVE_SITE);
 
 import { readFileSync } from 'fs';
-import fontaine from 'fontaine';
+import * as fontaine from 'fontaine';
 import { themes as prismThemes } from 'prism-react-renderer';
 import imageFetchPriorityRehypePlugin from './image-fetchpriority-rehype-plugin.mjs';
 import docusaurusCloudinaryRehypePlugin from 'rehype-cloudinary-docusaurus';
@@ -29,6 +29,7 @@ const sameAs = [
   'https://github.com/johnnyreilly',
   'https://fosstodon.org/@johnny_reilly',
   'https://twitter.com/johnny_reilly',
+  'https://bsky.app/profile/johnnyreilly.bsky.social',
   'https://dev.to/johnnyreilly',
   'https://app.daily.dev/johnnyreilly',
   'https://stackoverflow.com/users/761388/john-reilly',
@@ -270,6 +271,10 @@ const config = {
   organizationName: 'johnnyreilly', // Usually your GitHub org/user name.
   projectName: 'blog.johnnyreilly.com', // Usually your repo name.
 
+  future: {
+    experimental_faster: true,
+  },
+
   markdown: {
     // based on https://github.com/facebook/docusaurus/blob/main/website/docs/migration/v3.mdx
     mdx1Compat: {
@@ -282,29 +287,6 @@ const config = {
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
-  },
-
-  webpack: {
-    jsLoader: (isServer) => ({
-      loader: require.resolve('swc-loader'),
-      options: {
-        jsc: {
-          parser: {
-            syntax: 'typescript',
-            tsx: true,
-          },
-          transform: {
-            react: {
-              runtime: 'automatic',
-            },
-          },
-          target: 'es2017',
-        },
-        module: {
-          type: isServer ? 'commonjs' : 'es6',
-        },
-      },
-    }),
   },
 
   presets: [
@@ -576,6 +558,12 @@ const config = {
           {
             href: 'https://twitter.com/johnny_reilly',
             label: 'Twitter',
+            rel: 'me',
+            position: 'right',
+          },
+          {
+            href: 'https://bsky.app/profile/johnnyreilly.bsky.social',
+            label: 'Bluesky',
             rel: 'me',
             position: 'right',
           },
