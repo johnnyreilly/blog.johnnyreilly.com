@@ -562,7 +562,7 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://bsky.app/profile/johnnyreilly.bsky.social',
+            href: 'https://bsky.app/profile/johnnyreilly.com',
             label: 'Bluesky',
             rel: 'me',
             position: 'right',
