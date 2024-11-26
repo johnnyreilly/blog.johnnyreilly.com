@@ -29,7 +29,7 @@ const sameAs = [
   'https://github.com/johnnyreilly',
   'https://fosstodon.org/@johnny_reilly',
   'https://twitter.com/johnny_reilly',
-  'https://bsky.app/profile/johnnyreilly.bsky.social',
+  'https://bsky.app/profile/johnnyreilly.com',
   'https://dev.to/johnnyreilly',
   'https://app.daily.dev/johnnyreilly',
   'https://stackoverflow.com/users/761388/john-reilly',
