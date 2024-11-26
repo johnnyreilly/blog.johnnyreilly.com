@@ -29,7 +29,7 @@ const sameAs = [
   'https://github.com/johnnyreilly',
   'https://fosstodon.org/@johnny_reilly',
   'https://twitter.com/johnny_reilly',
-  'https://bsky.app/profile/johnnyreilly.bsky.social',
+  'https://bsky.app/profile/johnnyreilly.com',
   'https://dev.to/johnnyreilly',
   'https://app.daily.dev/johnnyreilly',
   'https://stackoverflow.com/users/761388/john-reilly',
@@ -556,13 +556,7 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://twitter.com/johnny_reilly',
-            label: 'Twitter',
-            rel: 'me',
-            position: 'right',
-          },
-          {
-            href: 'https://bsky.app/profile/johnnyreilly.bsky.social',
+            href: 'https://bsky.app/profile/johnnyreilly.com',
             label: 'Bluesky',
             rel: 'me',
             position: 'right',
@@ -571,6 +565,13 @@ const config = {
           {
             href: 'https://fosstodon.org/@johnny_reilly',
             label: 'Mastodon',
+            rel: 'me',
+            position: 'right',
+          },
+
+          {
+            href: 'https://twitter.com/johnny_reilly',
+            label: 'Twitter',
             rel: 'me',
             position: 'right',
           },
