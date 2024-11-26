@@ -556,12 +556,6 @@ const config = {
             position: 'right',
           },
           {
-            href: 'https://twitter.com/johnny_reilly',
-            label: 'Twitter',
-            rel: 'me',
-            position: 'right',
-          },
-          {
             href: 'https://bsky.app/profile/johnnyreilly.com',
             label: 'Bluesky',
             rel: 'me',
@@ -571,6 +565,13 @@ const config = {
           {
             href: 'https://fosstodon.org/@johnny_reilly',
             label: 'Mastodon',
+            rel: 'me',
+            position: 'right',
+          },
+
+          {
+            href: 'https://twitter.com/johnny_reilly',
+            label: 'Twitter',
             rel: 'me',
             position: 'right',
           },
