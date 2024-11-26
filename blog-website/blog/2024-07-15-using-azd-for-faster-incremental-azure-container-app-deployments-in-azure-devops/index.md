@@ -55,12 +55,12 @@ metadata:
   template: azd-init@1.9.4
 services:
   web:
-    image: myregistry.azurecr.io/my-project/my-container-app:${WEB_VERSION_TAG}
+    image: myregistry.azurecr.io/my-project/my-container-app:${APP_VERSION_TAG}
     host: containerapp
     resourceName: ${CONTAINER_APP_NAME}
 ```
 
-The yaml above describes a container app service called `web` that uses an image from an Azure Container Registry. The `WEB_VERSION_TAG` is a variable that we'll need to provide in our Azure DevOps pipeline. It's worth noticing the link at the top to the schema for the `azure.yml` file: https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json - much of the work around figuring out how to use `azd` was achieved by looking at the schema for the `azure.yml` file.
+The yaml above describes a container app service called `web` that uses an image from an Azure Container Registry. The `APP_VERSION_TAG` is a variable that we'll need to provide in our Azure DevOps pipeline. It's worth noticing the link at the top to the schema for the `azure.yml` file: https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json - much of the work around figuring out how to use `azd` was achieved by looking at the schema for the `azure.yml` file.
 
 One thing we learned, as we looked at the schema, was that many parameters support environment variable substitution at runtime:
 
@@ -273,6 +273,7 @@ Here's a cut down version of our pipeline replacing the single `AzureResourceMan
     TAGS_BRANCH: $(Build.SourceBranch)
     TAGS_REPO: $(repo)
     CONTAINER_APP_NAME: $(myContainerAppName)
+    APP_VERSION_TAG: $(containerImageTag) # the tag of the built image
     # ...
 
 - task: AzureCLI@2
@@ -293,6 +294,7 @@ Here's a cut down version of our pipeline replacing the single `AzureResourceMan
     AZURE_RESOURCE_GROUP: $(resourceGroupName)
     # Define the additional variables or secrets that are required only for deploy
     CONTAINER_APP_NAME: $(myContainerAppName) # this is used to substitute the CONTAINER_APP_NAME value in the azure.yaml file
+    APP_VERSION_TAG: $(containerImageTag) # the tag of the built image
     # ...
 ```
 
