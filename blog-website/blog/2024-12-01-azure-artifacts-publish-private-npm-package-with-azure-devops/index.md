@@ -24,7 +24,7 @@ If you're trying to find out what feeds are available in Azure Artifacts, you ca
 
 There you'll see a dropdown with the feeds you have access to:
 
-![screenshot of the feeds in Azure DevOps](screenshot-npm-feeds-in-azure-artifacts.png)
+![screenshot of the feeds in Azure DevOps](screenshot-npm-feeds-in-azure-artifacts.webp)
 
 You'll see from the screenshot that I have access to a feed called `npmrc-script-organization`. Let's use that feed to publish a private npm package.
 
@@ -32,7 +32,7 @@ You'll see from the screenshot that I have access to a feed called `npmrc-script
 
 So that you can publish to a private feed, you need to set up an `.npmrc` file in your project. This file will contain the URL of the feed you want to publish to, and your credentials. To set up the `.npmrc` file, you can click on the "Connect to Feed" button in the Azure DevOps UI:
 
-![Screenshot of "connect to feed" in Azure DevOps](screenshot-connect-to-feed.png)
+![Screenshot of "connect to feed" in Azure DevOps](screenshot-connect-to-feed.webp)
 
 Then select `npm` and you'll see the instructions for setting up the `.npmrc` file:
 
