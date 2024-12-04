@@ -54,13 +54,13 @@ name: my-container-app
 metadata:
   template: azd-init@1.9.4
 services:
-  web:
+  app:
     image: myregistry.azurecr.io/${CONTAINER_IMAGE_NAME}:${APP_VERSION_TAG}
     host: containerapp
     resourceName: ${CONTAINER_APP_NAME}
 ```
 
-The yaml above describes a container app service called `web` that uses an image from an Azure Container Registry. The `APP_VERSION_TAG` is a variable that we'll need to provide in our Azure DevOps pipeline. It's worth noticing the link at the top to the schema for the `azure.yml` file: https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json - much of the work around figuring out how to use `azd` was achieved by looking at the schema for the `azure.yml` file.
+The yaml above describes a container app service called `app` that uses an image from an Azure Container Registry. The `APP_VERSION_TAG` is a variable that we'll need to provide in our Azure DevOps pipeline. It's worth noticing the link at the top to the schema for the `azure.yml` file: https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json - much of the work around figuring out how to use `azd` was achieved by looking at the schema for the `azure.yml` file.
 
 One thing we learned, as we looked at the schema, was that many parameters support environment variable substitution at runtime:
 
@@ -196,7 +196,7 @@ param tags = {
 param containerAppExists = bool(readEnvironmentVariable('SERVICE_APP_RESOURCE_EXISTS', 'false'))
 ```
 
-The `containerAppExists` parameter is determined by the `SERVICE_APP_RESOURCE_EXISTS` environment variable to provide this value. What's happening here is that we're picking up on a convention that `azd` uses to provide confirmation that a service already exists. `SERVICE_[SERVICENAME]_RESOURCE_EXISTS` is the pattern that `azd` uses to provide this information; where `[SERVICENAME]` is the name of the service as defined in the `azure.yml` file. In our case, it's `web` (or rather `WEB`).
+The `containerAppExists` parameter is determined by the `SERVICE_APP_RESOURCE_EXISTS` environment variable to provide this value. What's happening here is that we're picking up on a convention that `azd` uses to provide confirmation that a service already exists. `SERVICE_[SERVICENAME]_RESOURCE_EXISTS` is the pattern that `azd` uses to provide this information; where `[SERVICENAME]` is the name of the service as defined in the `azure.yml` file. In our case, it's `app` (or rather `APP`).
 
 If you're curious about how this actually works [you can read the source code here](https://github.com/Azure/azure-dev/blob/837d4e8592c53375c7d9aa6df8b134c23cdeb487/cli/azd/pkg/project/service_target_containerapp.go#L174-L190) in the `azd` project. Here's the relevant code snippet:
 
@@ -222,13 +222,15 @@ func (at *containerAppTarget) addPreProvisionChecks(ctx context.Context, service
 
 Now that we have our `main.bicepparam` file, we're ready to migrate to our pipeline to use `azd`.
 
-## Workaround for `SERVICE_APP_RESOURCE_EXISTS`
+Well, one extra bit first.
+
+## Workaround for `SERVICE_APP_RESOURCE_EXISTS` not being supplied
 
 At the time of writing, there is an issue that means that the `SERVICE_APP_RESOURCE_EXISTS` environment variable is not being set by `azd`. [This is a known issue and is being worked on](https://github.com/Azure/azure-dev/issues/4402).
 
-In the meantime, we have a workaround. We're going to set the `SERVICE_APP_RESOURCE_EXISTS` environment variable in our pipeline. We're going to set it to `true` if we detect a service already exists and `false` if not.
+In the meantime, we have a workaround. We're going to set the `SERVICE_APP_RESOURCE_EXISTS` environment variable in our pipeline with a little bash and Azure CLI magic. We're going to set our manually created `SERVICE_APP_RESOURCE_EXISTS` environment variable to `true` if we detect a service already exists and `false` if not.
 
-You'll note this as the `Check container app exists` step in the modifications to our pipeline below. This is a workaround and will be removed when the issue is resolved in `azd`.
+You'll note this as the `Check container app exists` step in the modifications to our pipeline below. This is a workaround and will be removed when the issue is resolved in `azd` itself.
 
 ## Azure DevOps pipeline modifications
 
