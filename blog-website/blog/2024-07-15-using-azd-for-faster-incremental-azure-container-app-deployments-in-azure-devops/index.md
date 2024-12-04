@@ -55,7 +55,7 @@ metadata:
   template: azd-init@1.9.4
 services:
   web:
-    image: myregistry.azurecr.io/my-project/my-container-app:${APP_VERSION_TAG}
+    image: myregistry.azurecr.io/${CONTAINER_IMAGE_NAME}:${APP_VERSION_TAG}
     host: containerapp
     resourceName: ${CONTAINER_APP_NAME}
 ```
@@ -193,10 +193,10 @@ param tags = {
 // ...
 
 // azd will provide the following parameters
-param containerAppExists = bool(readEnvironmentVariable('SERVICE_WEB_RESOURCE_EXISTS', 'false'))
+param containerAppExists = bool(readEnvironmentVariable('SERVICE_APP_RESOURCE_EXISTS', 'false'))
 ```
 
-The `containerAppExists` parameter is determined by the `SERVICE_WEB_RESOURCE_EXISTS` environment variable to provide this value. What's happening here is that we're picking up on a convention that `azd` uses to provide confirmation that a service already exists. `SERVICE_[SERVICENAME]_RESOURCE_EXISTS` is the pattern that `azd` uses to provide this information; where `[SERVICENAME]` is the name of the service as defined in the `azure.yml` file. In our case, it's `web` (or rather `WEB`).
+The `containerAppExists` parameter is determined by the `SERVICE_APP_RESOURCE_EXISTS` environment variable to provide this value. What's happening here is that we're picking up on a convention that `azd` uses to provide confirmation that a service already exists. `SERVICE_[SERVICENAME]_RESOURCE_EXISTS` is the pattern that `azd` uses to provide this information; where `[SERVICENAME]` is the name of the service as defined in the `azure.yml` file. In our case, it's `web` (or rather `WEB`).
 
 If you're curious about how this actually works [you can read the source code here](https://github.com/Azure/azure-dev/blob/837d4e8592c53375c7d9aa6df8b134c23cdeb487/cli/azd/pkg/project/service_target_containerapp.go#L174-L190) in the `azd` project. Here's the relevant code snippet:
 
@@ -221,6 +221,14 @@ func (at *containerAppTarget) addPreProvisionChecks(ctx context.Context, service
 ```
 
 Now that we have our `main.bicepparam` file, we're ready to migrate to our pipeline to use `azd`.
+
+## Workaround for `SERVICE_APP_RESOURCE_EXISTS`
+
+At the time of writing, there is an issue that means that the `SERVICE_APP_RESOURCE_EXISTS` environment variable is not being set by `azd`. [This is a known issue and is being worked on](https://github.com/Azure/azure-dev/issues/4402).
+
+In the meantime, we have a workaround. We're going to set the `SERVICE_APP_RESOURCE_EXISTS` environment variable in our pipeline. We're going to set it to `true` if we detect a service already exists and `false` if not.
+
+You'll note this as the `Check container app exists` step in the modifications to our pipeline below. This is a workaround and will be removed when the issue is resolved in `azd`.
 
 ## Azure DevOps pipeline modifications
 
@@ -254,6 +262,29 @@ Here's a cut down version of our pipeline replacing the single `AzureResourceMan
       az acr login -n myregistry
 
 - task: AzureCLI@2
+  displayName: Check container app exists # see https://github.com/Azure/azure-dev/issues/4593 for context on why this exists
+  inputs:
+    azureSubscription: ${{ variables.serviceConnection }}
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      containerAppName="$(containerAppName)"
+      resourceGroupName="$(resourceGroupName)"
+
+      if [ -z "$containerAppName" ] || [ -z "$resourceGroupName" ]; then
+          echo "SERVICE_APP_RESOURCE_EXISTS: false"
+          echo "##vso[task.setvariable variable=SERVICE_APP_RESOURCE_EXISTS]false"
+      else
+          if az containerapp show --name "$containerAppName" --resource-group "$resourceGroupName" > /dev/null 2>&1; then
+              echo "SERVICE_APP_RESOURCE_EXISTS: true"
+              echo "##vso[task.setvariable variable=SERVICE_APP_RESOURCE_EXISTS]true"
+          else
+              echo "SERVICE_APP_RESOURCE_EXISTS: false"
+              echo "##vso[task.setvariable variable=SERVICE_APP_RESOURCE_EXISTS]false"
+          fi
+      fi
+
+- task: AzureCLI@2
   displayName: Provision Infra
   inputs:
     azureSubscription: $(serviceConnection)
@@ -272,7 +303,8 @@ Here's a cut down version of our pipeline replacing the single `AzureResourceMan
     # Define the additional variables or secrets that are required only for provision
     TAGS_BRANCH: $(Build.SourceBranch)
     TAGS_REPO: $(repo)
-    CONTAINER_APP_NAME: $(myContainerAppName)
+    CONTAINER_APP_NAME: $(myContainerAppName) # this is used to substitute the CONTAINER_APP_NAME value in the azure.yaml file
+    CONTAINER_IMAGE_NAME: $(myContainerImageName) # this is used to substitute the CONTAINER_IMAGE_NAME value in the azure.yaml file
     APP_VERSION_TAG: $(containerImageTag) # the tag of the built image
     # ...
 
@@ -294,6 +326,7 @@ Here's a cut down version of our pipeline replacing the single `AzureResourceMan
     AZURE_RESOURCE_GROUP: $(resourceGroupName)
     # Define the additional variables or secrets that are required only for deploy
     CONTAINER_APP_NAME: $(myContainerAppName) # this is used to substitute the CONTAINER_APP_NAME value in the azure.yaml file
+    CONTAINER_IMAGE_NAME: $(myContainerImageName) # this is used to substitute the CONTAINER_IMAGE_NAME value in the azure.yaml file
     APP_VERSION_TAG: $(containerImageTag) # the tag of the built image
     # ...
 ```
