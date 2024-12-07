@@ -5,7 +5,7 @@ authors: johnnyreilly
 tags: [azure devops, node.js]
 image: ./title-image.png
 hide_table_of_contents: false
-description: 'By combining npx and Azure Artifacts, you can deliver your command line application to consumers in a way that's easy to use and secure.'
+description: 'By combining npx and Azure Artifacts, you can deliver your command line application to consumers in a way that is easy to use and secure.'
 ---
 
 The [`npx` command](https://docs.npmjs.com/cli/v8/commands/npx) is a powerful tool for running CLI tools shipped as npm packages, without having to install them globally. If you have a private npm feed, you can use `npx` to run your CLI tool from that feed.
