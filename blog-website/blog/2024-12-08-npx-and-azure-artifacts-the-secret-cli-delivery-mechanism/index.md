@@ -32,7 +32,7 @@ We're going to look at how we'd achieve this with Azure Artifacts as the host of
 
 ## Publishing a package to Azure Artifacts
 
-Before you can use `npx` to run your CLI tool, you need to publish it to a private npm feed. Here is a guide on [how to publish a private npm package with Azure Artifacts](../2024-12-07-npx-and-azure-artifacts-the-secret-cli-delivery-mechanism/index.md). In that example we published a package to a feed called `npmrc-script-organization` in the `johnnyreilly` organization of Azure DevOps / Azure Artifacts.
+Before you can use `npx` to run your CLI tool, you need to publish it to a private npm feed. Here is a guide on [how to publish a private npm package with Azure Artifacts](../2024-12-01-azure-artifacts-publish-private-npm-package-with-azure-devops/index.md). In that example we published a package to a feed called `npmrc-script-organization` in the `johnnyreilly` organization of Azure DevOps / Azure Artifacts.
 
 For the sake of this post, we'll say that our package is a CLI tool with the name `@johnnyreilly/my-cli-tool`.
 
