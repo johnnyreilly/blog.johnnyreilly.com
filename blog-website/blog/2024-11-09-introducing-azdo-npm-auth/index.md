@@ -1,6 +1,6 @@
 ---
 slug: introducing-azdo-npm-auth
-title: 'Introducing Azure DevOps npm auth'
+title: 'Introducing azdo-npm-auth (Azure DevOps npm auth)'
 authors: johnnyreilly
 tags: [azure devops, node.js]
 image: ./title-image.png
@@ -12,7 +12,7 @@ Azure DevOps has a feature called Azure Artifacts that supports publishing npm p
 
 ![title image reading "Introducing Azure DevOps npm auth" with an Azure DevOps and npm logos](title-image.png)
 
-[Azure DevOps npm auth](https://github.com/johnnyreilly/azdo-npm-auth) exists to ease the setting up of local authentication to Azure DevOps npm feeds, particularly for non Windows users.
+[`azdo-npm-auth`](https://github.com/johnnyreilly/azdo-npm-auth) exists to ease the setting up of local authentication to Azure DevOps npm feeds, particularly for non Windows users.
 
 <!--truncate-->
 
