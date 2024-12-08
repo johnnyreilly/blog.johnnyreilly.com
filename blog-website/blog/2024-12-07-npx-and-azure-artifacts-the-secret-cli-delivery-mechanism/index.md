@@ -8,7 +8,7 @@ hide_table_of_contents: false
 description: 'By combining npx and Azure Artifacts, you can deliver your command line application to consumers in a way that is easy to use and secure.'
 ---
 
-The [`npx` command](https://docs.npmjs.com/cli/v8/commands/npx) is a powerful tool for running CLI tools shipped as npm packages, without having to install them globally. It's typically used to run packages on the public npm registry. However, if you have a private npm feed, you can also use `npx` to run packages available on that feed.
+The [`npx` command](https://docs.npmjs.com/cli/v8/commands/npx) is a powerful tool for running CLI tools shipped as npm packages, without having to install them globally. `npx` is typically used to run packages on the public npm registry. However, if you have a private npm feed, you can also use `npx` to run packages available on that feed.
 
 Azure Artifacts is a feature of Azure DevOps that supports publishing npm packages to a feed for consumption. By combining `npx` and Azure Artifacts, you can deliver your CLI tool to consumers in a way that's easy to use and secure.
 
@@ -34,7 +34,7 @@ We're going to look at how we'd achieve this with Azure Artifacts as the host of
 
 Before you can use `npx` to run your CLI tool, you need to publish it to a private npm feed. Here is a guide on [how to publish a private npm package with Azure Artifacts](../2024-12-07-npx-and-azure-artifacts-the-secret-cli-delivery-mechanism/index.md). In that example we published a package to a feed called `npmrc-script-organization` in the `johnnyreilly` organization of Azure DevOps / Azure Artifacts.
 
-For the sake of our example, we'll say that our package is a CLI tool with the name `@johnnyreilly/my-cli-tool`.
+For the sake of this post, we'll say that our package is a CLI tool with the name `@johnnyreilly/my-cli-tool`.
 
 Remember, an npm package which houses a CLI tool is merely an npm package with a [`bin` entry in the `package.json`](https://docs.npmjs.com/cli/v10/configuring-npm/package-json#bin). This post is not about how to create a CLI tool, but rather how to deliver one to private consumers. If you would like to see an example of what a CLI tool package looks like, you can check out the [`azdo-npm-auth` package on GitHub](https://github.com/johnnyreilly/azdo-npm-auth). (In fact, we'll use `azdo-npm-auth` later in this post - it's an example of a CLI tool published to the **public** npm registry.)
 
@@ -42,9 +42,9 @@ The question now is, how we can run the (private) `@johnnyreilly/my-cli-tool` pa
 
 ## The `registry` config setting of `npm` / `npx`
 
-The secret sauce of running a CLI tool from a private npm feed with `npx` is the [`registry` config setting of `npm` / `npx`](https://docs.npmjs.com/cli/v8/using-npm/config#registry). The `registry` option allows you to specify the URL of the npm feed that you want to use. In our case, the URL is `https://pkgs.dev.azure.com/johnnyreilly/_packaging/npmrc-script-organization/npm/registry/`.
+The secret sauce of running a CLI tool from a private npm feed with `npx` is the [`registry` config setting of `npm` / `npx`](https://docs.npmjs.com/cli/v8/using-npm/config#registry). The `registry` option allows you to specify the URL of the npm feed that you want to use.
 
-We grabbed the registry URL from the Azure DevOps UI by clicking on the "Connect to Feed" button in the Azure Artifacts section:
+For our case, we grabbed the registry URL from the Azure DevOps UI by clicking on the "Connect to Feed" button in the Azure Artifacts section:
 
 ![Screenshot of "connect to feed" in Azure DevOps](screenshot-connect-to-feed.webp)
 
@@ -52,7 +52,7 @@ When we selected `npm`, ADO displayed instructions for setting up an `.npmrc` fi
 
 ![Screenshot of the instructions for setting up the `.npmrc` file](screenshot-npmrc.png)
 
-We don't need to set up an `.npmrc` file to run the CLI tool with `npx`, but we do need to grab the registry URL.
+We don't need to set up an `.npmrc` file to run the CLI tool with `npx`, but we do need to grab the registry URL, which we can see in the example `.npmrc` file above. In our case, the URL is `https://pkgs.dev.azure.com/johnnyreilly/_packaging/npmrc-script-organization/npm/registry/`. This is the URL of the registry (private npm feed) that we want to use.
 
 ## Running the CLI tool with `npx`
 
@@ -64,10 +64,12 @@ npx -y --registry https://pkgs.dev.azure.com/johnnyreilly/_packaging/npmrc-scrip
 
 This command will download the `@johnnyreilly/my-cli-tool` package from the private npm feed and run it. The `--registry` option tells `npx` to use the specified registry URL to download the package and the `-y` option tells `npx` to answer "yes" to the installation prompt.
 
-If you need to pass arguments to the CLI tool, you can simply add them to the end of the command as you would with any CLI tool:
+If you need to pass arguments to the CLI tool, you can simply add them to the end of the command as you would with any CLI tool: (I'll put this over multiple lines for readability, but you can run it as a single line)
 
 ```shell
-npx -y --registry https://pkgs.dev.azure.com/johnnyreilly/_packaging/npmrc-script-organization/npm/registry/ @johnnyreilly/my-cli-tool --arg1 hello
+npx -y \
+  --registry https://pkgs.dev.azure.com/johnnyreilly/_packaging/npmrc-script-organization/npm/registry/ \
+  @johnnyreilly/my-cli-tool --arg1 hello
 ```
 
 There is another way to specify the registry URL, which is to use the `npm_config_registry` environment variable. This approach is more verbose and is not cross platform (it won't work on Windows). But, if you prefer this approach, you can use this style of command:
@@ -107,7 +109,7 @@ If you encounter a `npm error code E401` as you run the `azdo-npm-auth` command,
 npx -y --registry https://registry.npmjs.org azdo-npm-auth --registry https://pkgs.dev.azure.com/johnnyreilly/_packaging/npmrc-script-organization/npm/registry/
 ```
 
-That's right; we're passing the public npm feed to `npx`'s `--registry` and we're passing our private feed's registry URL to `azdo-npm-auth`'s `--registry`. This is a way to get around the `npm error code E401` issue.
+That's right; we're passing the public npm feed to `npx`'s `--registry` and we're passing our private feed to `azdo-npm-auth`'s `--registry`. This is a way to get around the `npm error code E401` issue.
 
 ## Running the original command again
 
@@ -121,6 +123,6 @@ And that's it! You've successfully run your CLI tool from a private npm feed wit
 
 ## Conclusion
 
-By combining `npx` and Azure Artifacts, you can deliver your CLI tool to consumers in a way that's easy to use and secure. Consumers can run your tool with a single command, without having to install anything up front. This is a great way to share private npm packages with consumers.
-
 In this post we've used Azure Artifacts as the host of the npm package, but you could use any npm feed that you have access to. The key is to use the `registry` option of `npm` / `npx` to specify the URL of the npm feed.
+
+By combining `npx` and private npm feeds, you can deliver your CLI tool to consumers in a way that's easy to use and secure. Consumers can run your tool with a single command, without having to install anything up front. This is a great way to share private CLI tools!
