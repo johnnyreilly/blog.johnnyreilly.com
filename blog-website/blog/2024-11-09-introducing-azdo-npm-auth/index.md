@@ -1,6 +1,6 @@
 ---
 slug: introducing-azdo-npm-auth
-title: 'Introducing Azure DevOps npm auth'
+title: 'Introducing azdo-npm-auth (Azure DevOps npm auth)'
 authors: johnnyreilly
 tags: [azure devops, node.js]
 image: ./title-image.png
@@ -12,7 +12,7 @@ Azure DevOps has a feature called Azure Artifacts that supports publishing npm p
 
 ![title image reading "Introducing Azure DevOps npm auth" with an Azure DevOps and npm logos](title-image.png)
 
-[Azure DevOps npm auth](https://github.com/johnnyreilly/azdo-npm-auth) exists to ease the setting up of local authentication to Azure DevOps npm feeds, particularly for non Windows users.
+[`azdo-npm-auth`](https://github.com/johnnyreilly/azdo-npm-auth) exists to ease the setting up of local authentication to Azure DevOps npm feeds, particularly for non Windows users.
 
 <!--truncate-->
 
@@ -67,16 +67,16 @@ That means either:
 In either case, running `azdo-npm-auth` should resolve the issue. But the way you run it is important. To get `azdo-npm-auth` to create the necessary user `.npmrc` file for local development, run the following command:
 
 ```shell
+npx -y --registry https://registry.npmjs.org azdo-npm-auth
+```
+
+It is possible to use environment variables to control the `registry` setting as well; consider the following (non-Windows compatible) example:
+
+```shell
 npm_config_registry=https://registry.npmjs.org npx azdo-npm-auth
 ```
 
-Or if you need to support Windows users who don't use bash, then this:
-
-```shell
-npx cross-env npm_config_registry=https://registry.npmjs.org npx azdo-npm-auth
-```
-
-You might be wondering what the `npm_config_registry=https://registry.npmjs.org` part is for. It is a way to ensure that the `npx` command uses the **public** npm registry to install `azdo-npm-auth`. Without this, you might encounter a `npm error code E401` error like those above.
+You might be wondering what the `--registry https://registry.npmjs.org` part is for. It is a way to ensure that the `npx` command uses the **public** npm registry to install `azdo-npm-auth`. Without this, you might encounter a `npm error code E401` error like those above.
 
 ## Configuration
 
@@ -122,7 +122,7 @@ If the complexity of nested `package.json`s doesn't work for you, we generally a
 
 ```json
 "scripts": {
-  "auth": "npm_config_registry=https://registry.npmjs.org npx --yes azdo-npm-auth"
+  "auth": "npx -y --registry https://registry.npmjs.org azdo-npm-auth"
 },
 ```
 
