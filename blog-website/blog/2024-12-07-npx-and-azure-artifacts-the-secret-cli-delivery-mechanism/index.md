@@ -22,11 +22,11 @@ This post shows how to use `npx` and Azure Artifacts to deliver your private CLI
 
 If you've ever found a need to deliver a private CLI tool to consumers, you'll know that it can be a challenge.
 
-I work for a large organization and we need to share internal tools with our colleagues. The problem is, that it's hard to get people to install tools. Either you need to provide detailed instructions on how to install the tool, or you need to work out some kind of internal distribution mechanism. You also have to think about how to update the tool. It's not simple.
+I work for a large organization and we need to share internal tools with our colleagues. The problem is, that it's hard to get people to install tools. Either you need to provide detailed instructions on how to acquire and install the tool, or you need to work out some kind of internal distribution mechanism. You also have to think about how to update the tool. It's not simple.
 
-By combining `npx` and Azure Artifacts you no longer need to worry about any of that. You can publish your CLI tool to a private npm feed and then consumers can run it with a single command. They don't need to install anything up front (apart from Node.js which they likely already have), and they don't need to worry about updates.
+By combining `npx` and Azure Artifacts it becomes much simpler. You can publish your CLI tool to a private npm feed and then consumers can run it with a single command. They don't need to install anything up front (apart from Node.js which they likely already have), and they don't need to worry about updates.
 
-A typical usecase is the one I've mentioned; sharing tools internally in an organisation. But, broader than that, if you want to deliver a private npm package to consumers, this is a great way to do it.
+A typical usecase is the one I've mentioned; sharing tools internally in an organisation. But, broader than that, if you want to deliver a private CLI tool to consumers, this is a great way to do it.
 
 We're going to look at how we'd achieve this with Azure Artifacts as the host of the npm package. But, you could use any private npm feed that you have access to.
 
@@ -109,7 +109,7 @@ If you encounter a `npm error code E401` as you run the `azdo-npm-auth` command,
 npx -y --registry https://registry.npmjs.org azdo-npm-auth --registry https://pkgs.dev.azure.com/johnnyreilly/_packaging/npmrc-script-organization/npm/registry/
 ```
 
-That's right; we're passing the public npm feed to `npx`'s `--registry` and we're passing our private feed to `azdo-npm-auth`'s `--registry`. This is a way to get around the `npm error code E401` issue.
+That's right; we're passing the public npm registry to `npx`'s `--registry` and we're passing our private npm feed / registry to `azdo-npm-auth`'s `--registry`. This gets around the `npm error code E401` issue.
 
 ## Running the original command again
 
@@ -125,4 +125,4 @@ And that's it! You've successfully run your CLI tool from a private npm feed wit
 
 In this post we've used Azure Artifacts as the host of the npm package, but you could use any npm feed that you have access to. The key is to use the `registry` option of `npm` / `npx` to specify the URL of the npm feed.
 
-By combining `npx` and private npm feeds, you can deliver your CLI tool to consumers in a way that's easy to use and secure. Consumers can run your tool with a single command, without having to install anything up front. This is a great way to share private CLI tools!
+By combining `npx` and private npm feeds, you can deliver your CLI tool to consumers in a way that's easy to use and secure. Consumers can run your tool with a single command, without having to install anything up front. This is a powerful way to share private CLI tools.
