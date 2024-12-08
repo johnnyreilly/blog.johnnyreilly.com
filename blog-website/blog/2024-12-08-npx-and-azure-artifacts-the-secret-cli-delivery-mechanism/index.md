@@ -48,7 +48,7 @@ For our case, we grabbed the registry URL from the Azure DevOps UI by clicking o
 
 ![Screenshot of "connect to feed" in Azure DevOps](screenshot-connect-to-feed.webp)
 
-When we selected `npm`, ADO displayed instructions for setting up an `.npmrc` file for private feed consumption:
+When we selected `npm`, ADO displayed instructions for setting up an `.npmrc` file for private consumption:
 
 ![Screenshot of the instructions for setting up the `.npmrc` file](screenshot-npmrc.png)
 
@@ -89,7 +89,7 @@ npm error To correct this please try logging in again with:
 npm error npm login
 ```
 
-Then npm is telling you to authenticate with the npm feed. This is because the feed is private and requires authentication. This is a good thing; it means that your package is secure; just as you'd hoped.
+Then npm is telling you to authenticate with the private npm feed / registry. This is because the feed is private and requires authentication. This is a good thing; it means that your package is secure; just as you'd hoped.
 
 You may have your own way of authenticating with the feed. If so, great! Do that now and skip the next section.
 
@@ -103,7 +103,7 @@ npx -y azdo-npm-auth --registry https://pkgs.dev.azure.com/johnnyreilly/_packagi
 
 The above command will acquire a PAT (Personal Access Token) from Azure DevOps and use it to create a user `.npmrc` file, which will be used by `npx` to authenticate with the feed subsequently.
 
-If you encounter a `npm error code E401` as you run the `azdo-npm-auth` command, it's possible that you have a local `.npmrc` file that is tripping `npx` up. You can get around that by explicitly passing the `--registry` of the public npm feed to `npx`:
+If you encounter a `npm error code E401` as you run the `azdo-npm-auth` command, it's possible that you have a local `.npmrc` file that is tripping `npx` up. You can get around that by explicitly passing the `--registry` of the public npm feed / registry to `npx`:
 
 ```shell
 npx -y --registry https://registry.npmjs.org azdo-npm-auth --registry https://pkgs.dev.azure.com/johnnyreilly/_packaging/npmrc-script-organization/npm/registry/
