@@ -61,7 +61,7 @@ We need to add a new step to our `azure-pipelines.yml` file _after_ our `npm run
 
 This will read the test results from our `src/client-app/reports/junit.xml` file and pump them into Pipelines. Do note that we're _always_ running this step; so if the previous step failed (as it would in the case of a failing test) we still pump out the details of what that failure was.
 
-And that's it! Azure Pipelines and Jest integrated.
+And that's it! Azure Pipelines and Vitest integrated.
 
 ![screenshot of test results published to Azure Pipelines](test-results.webp)
 

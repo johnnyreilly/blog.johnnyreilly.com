@@ -10,7 +10,7 @@ description: 'By combining npx and Azure Artifacts, you can deliver your command
 
 The [`npx` command](https://docs.npmjs.com/cli/v8/commands/npx) is a powerful tool for running CLI tools shipped as npm packages, without having to install them globally. `npx` is typically used to run packages on the public npm registry. However, if you have a private npm feed, you can also use `npx` to run packages available on that feed.
 
-Azure Artifacts is a feature of Azure DevOps that supports publishing npm packages to a feed for consumption. By combining `npx` and Azure Artifacts, you can deliver your CLI tool to consumers in a way that's easy to use and secure.
+Azure Artifacts is a feature of Azure DevOps that supports publishing npm packages to a feed for consumption. (You might want to read [this guide on publishing npm packages to Azure Artifacts](../2024-12-01-azure-artifacts-publish-private-npm-package-with-azure-devops/index.md).) By combining `npx` and Azure Artifacts, you can deliver your CLI tool to consumers in a way that's easy to use and secure.
 
 ![title image reading "Azure Artifacts: Publish a private npm package with Azure DevOps" with an Azure DevOps and npm logos](title-image.png)
 
