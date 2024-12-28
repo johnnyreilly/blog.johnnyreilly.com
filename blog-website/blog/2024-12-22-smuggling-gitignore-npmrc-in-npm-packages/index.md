@@ -8,7 +8,7 @@ hide_table_of_contents: false
 description: 'The npm publish command will not just package up .gitignore and .npmrc files. This post shows how to use zipping and unzipping with postinstall and prepare scripts to include these files into your npm package.'
 ---
 
-I recently needed to include a number of `.gitignore` and an `.npmrc` files in an npm package. I was surprised to find that the `npm publish` command strips these out of the published package by default. As a consequence, This broke my package, and so I needed to find a way to get round this shortcoming.
+I recently needed to include a number of `.gitignore` and `.npmrc` files in an npm package. I was surprised to find that the `npm publish` command strips these out of the published package by default. As a consequence, This broke my package, and so I needed to find a way to get round this shortcoming.
 
 I ended up using zipping and unzipping with `postinstall` and `prepare` scripts to include these files into my npm package.
 
