@@ -26,7 +26,7 @@ Sometimes I'd like to eyeball a change before I've shipped it. Not always, somet
 
 So I decided it was time that the "Convent with Continuous Delivery™️" had a staging environment. And I decided that I'd like to be able to deploy to it by entering the slash command `/deploy` in a pull request comment. Like this:
 
-![screenshot of pull request comments](screenshot-pull-request-comments.png)
+![screenshot of pull request comments](screenshot-pull-request-comments.webp)
 
 As we can see, I entered `/deploy` in a comment. In response, a GitHub Actions workflow then kicked off and deployed the staging environment. How did I do this? Let's find out.
 
@@ -332,7 +332,7 @@ What you're hopefully gleaning from the above is that we have 4 jobs in this wor
 
 Or maybe I should have said it better as a screenshot:
 
-![screenshot of pull request comments](screenshot-pull-request-comments.png)
+![screenshot of pull request comments](screenshot-pull-request-comments.webp)
 
 Yup! That's the same screenshot as before. I'm just showing it again to remind you that this is what we've built.
 
