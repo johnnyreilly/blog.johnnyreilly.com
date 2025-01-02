@@ -5,7 +5,7 @@ authors: johnnyreilly
 tags: [github actions, azure container apps]
 image: ./title-image.png
 hide_table_of_contents: false
-description: 'Slash commands are a great way to interact with your GitHub issues. In this post, we look at how to use slash commands to deploy an Azure Container Apps service with GitHub Actions.'
+description: 'Slash commands are a great way to interact with your GitHub issues. In this post, we look at how to implement a `/deploy` slash command to deploy an Azure Container Apps service with GitHub Actions.'
 ---
 
 In the world of computing, slash commands have a proud and noble history. They are a way to interact with a system by typing a command into a chat or terminal, usually with a `/` preceding the command; hence the name "slash commands". [GitHub has its own slash commands](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/about-slash-commands) that you can use in issues and pull requests to add code blocks and tables etc. The slash commands are, in truth, quite limited.
@@ -338,4 +338,6 @@ Yup! That's the same screenshot as before. I'm just showing it again to remind y
 
 ## Writing other slash commands
 
-We've written a slash command for deployment in this post, but you could write a slash command for anything you like. The key is to use the `issue_comment` event to trigger the workflow, and to check the comment body for the command you're interested in. You can then call other workflows to do the heavy lifting for you, remembering to pass in any inputs that are needed.
+We've written a slash command for deployment in this post, but you could write a slash command for anything you like. The key is to use the `issue_comment` event to trigger the workflow, and to check the comment body for the command you're interested in. You could pass more information in the comment body than just the slash command. For example, you could pass the name of the environment you want to deploy to, or the version of the app you want to deploy. You could even pass multiple commands in a single comment. The world is your oyster!
+
+You can then call other workflows to do the heavy lifting for you, remembering to pass in any inputs that are needed.
