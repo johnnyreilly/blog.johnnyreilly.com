@@ -84,7 +84,7 @@ resource redirectsContainer 'Microsoft.DocumentDB/databaseAccounts/sqlDatabases/
           }
         ]
       }
-      defaultTtl: 15552000 // 180 days expressed in seconds - after this time, the document will be deleted
+      defaultTtl: 7776000 // 90 days expressed in seconds - after this time, the document will be deleted
     }
     options: {
       autoscaleSettings: {
