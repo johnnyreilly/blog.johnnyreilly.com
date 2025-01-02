@@ -7,7 +7,7 @@
     <link rel="alternate" href="https://johnnyreilly.com/"/>
     <subtitle>The blog of John Reilly ❤️🌻</subtitle>
     <icon>https://johnnyreilly.com/favicon.ico</icon>
-    <rights>Copyright © 2012 - 2024 John Reilly.</rights>
+    <rights>Copyright © 2012 - 2025 John Reilly.</rights>
     <entry>
         <title type="html"><![CDATA[Dual Publishing ESM and CJS Modules with tsup and Are the Types Wrong?]]></title>
         <id>https://johnnyreilly.com/dual-publishing-esm-cjs-modules-with-tsup-and-are-the-types-wrong</id>
