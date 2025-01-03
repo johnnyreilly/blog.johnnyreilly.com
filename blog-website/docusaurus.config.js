@@ -344,6 +344,7 @@ const config = {
           tags: 'tags.yml',
           onInlineAuthors: 'ignore',
           onInlineTags: 'throw',
+          onUntruncatedBlogPosts: 'ignore',
           postsPerPage: 20,
           path: './blog',
           routeBasePath: '/', // Set this value to '/'.
@@ -614,6 +615,16 @@ const config = {
                         label: 'Azure Container Apps: Easy Auth and .NET',
                       },
                       {
+                        href: '/introducing-azdo-npm-auth',
+                        label:
+                          'Introducing azdo-npm-auth (Azure DevOps npm auth)',
+                      },
+                      {
+                        href: '/npx-and-azure-artifacts-the-secret-cli-delivery-mechanism',
+                        label:
+                          'npx and Azure Artifacts: the secret CLI delivery mechanism',
+                      },
+                      {
                         href: '/azure-static-web-apps-dynamic-redirects-azure-functions',
                         label:
                           'Azure Static Web Apps: dynamic redirects with Azure Functions',
@@ -628,147 +639,4 @@ const config = {
                     },
                     links: [
                       {
-                        href: '/eslint-your-csharp-in-vs-code-with-roslyn-analyzers',
-                        label: 'ESLint your C# with Roslyn Analyzers',
-                      },
-                      {
-                        href: '/aspnet-serilog-and-application-insights',
-                        label: 'ASP.NET, Serilog and Application Insights',
-                      },
-                    ],
-                  }),
-                  makeFooterColumnWithMultipleTitles({
-                    title: {
-                      label: 'React',
-                      href: '/tags/react',
-                      icon: '/img/react-logo.svg',
-                    },
-                    links: [
-                      {
-                        href: '/structured-data-seo-and-react',
-                        label: 'Structured data and React',
-                      },
-                      {
-                        href: '/react-usesearchparamsstate',
-                        label:
-                          'React: storing state in URL with URLSearchParams',
-                      },
-                    ],
-                  }),
-                ].join(''),
-              },
-            ],
-          },
-          {
-            items: [
-              {
-                html: [
-                  makeFooterColumnWithMultipleTitles({
-                    title: { label: 'Notable articles', href: '' },
-                    links: [
-                      {
-                        href: '/definitely-typed-the-movie',
-                        label: 'The history of Definitely Typed',
-                        icon: '/img/definitely-typed-logo.png',
-                      },
-                      {
-                        href: '/typescript-documentary',
-                        label: 'TypeScript: the documentary',
-                        icon: '/img/ts-logo-128.svg',
-                      },
-                      {
-                        href: '/definitive-guide-to-migrating-from-blogger-to-docusaurus',
-                        label:
-                          'The definitive guide to migrating from Blogger to Docusaurus',
-                        icon: '/img/docusaurus-logo.svg',
-                      },
-                      {
-                        href: '/how-we-fixed-my-seo',
-                        label: 'How we fixed my SEO',
-                      },
-                    ],
-                  }),
-
-                  makeFooterColumnWithMultipleTitles({
-                    title: { label: 'Popular articles', href: '' },
-                    links: [
-                      {
-                        href: '/aspnet-serilog-and-application-insights',
-                        label: 'ASP.NET, Serilog and Application Insights',
-                      },
-                      {
-                        href: '/eslint-your-csharp-in-vs-code-with-roslyn-analyzers',
-                        label: 'ESLint your C# with Roslyn Analyzers',
-                      },
-                      {
-                        href: '/prettier-your-csharp-with-dotnet-format-and-lint-staged',
-                        label:
-                          'dotnet-format: Prettier your C# with lint-staged & husky',
-                      },
-                    ],
-                  }),
-
-                  makeFooterColumnWithMultipleTitles({
-                    title: { label: 'Recently updated', href: '' },
-                    links: recentlyUpdatedPostsJson.map((post) => ({
-                      href: post.link,
-                      label: post.title,
-                    })),
-                  }),
-                ].join(''),
-              },
-            ],
-          },
-          {
-            title: 'Learn more / support me',
-            items: [
-              {
-                label: 'Blog source code on GitHub',
-                href: 'https://github.com/johnnyreilly/blog.johnnyreilly.com',
-              },
-              {
-                label: 'Blog categories',
-                href: '/tags',
-              },
-              {
-                label: 'RSS feed',
-                href: 'https://johnnyreilly.com/rss.xml',
-              },
-              {
-                label: 'Atom feed',
-                href: 'https://johnnyreilly.com/atom.xml',
-              },
-              {
-                label: 'Privacy Policy',
-                href: '/privacy-policy',
-              },
-              {
-                html: `<iframe src="https://github.com/sponsors/johnnyreilly/card" title="Sponsor johnnyreilly" style="margin-top: 20px; border: 0; border-radius: 10px; background-color: white; min-height: 400px;"></iframe>`,
-              },
-              {
-                html: `<a href="https://www.buymeacoffee.com/qUBm0Wh" rel="noopener" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" loading="lazy" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>`,
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © 2012 - ${new Date().getFullYear()} John Reilly. Built with Docusaurus.`,
-      },
-      prism: {
-        theme: prismThemes.shadesOfPurple,
-        darkTheme: prismThemes.nightOwl,
-        additionalLanguages: [
-          'powershell',
-          'csharp',
-          'docker',
-          'bicep',
-          'diff',
-          'bash',
-          'json',
-          'yaml',
-          'go',
-        ],
-      },
-    }),
-};
-
-export default config;
+                        href: '/eslint-your-csharp-in-vs-code-wi
