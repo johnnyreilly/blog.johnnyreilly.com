@@ -1,9 +1,10 @@
 {
-  "extends": "@docusaurus/tsconfig/tsconfig.json",
-  "include": ["src/", "static/"],
+  "extends": "@docusaurus/tsconfig",
   "compilerOptions": {
+    "baseUrl": ".",
     "checkJs": true,
     "noUnusedLocals": false,
     "noUnusedParameters": false
-  }
+  },
+  "exclude": [".docusaurus", "build", "api"]
 }

@@ -81,7 +81,7 @@ export function imageCloudinaryRehypeVisitorFactory({ cloudName, baseUrl }) {
         const match = asMarkdown.match(srcRegex);
         if (match) {
           const urlOrRequire = match[1];
-          const cloudinaryRequireString = `\`https://res.cloudinary.com/${cloudName}/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${baseUrl}\$\{${urlOrRequire}\}\``;
+          const cloudinaryRequireString = `\`https://res.cloudinary.com/${cloudName}/image/fetch/f_auto,q_auto,w_auto,dpr_auto/${baseUrl}$\{${urlOrRequire}}\``;
 
           const newMarkdown = asMarkdown.replace(
             srcRegex,
