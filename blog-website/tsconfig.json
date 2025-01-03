@@ -6,5 +6,5 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false
   },
-  "exclude": [".docusaurus", "build"]
+  "exclude": [".docusaurus", "build", "api"]
 }
