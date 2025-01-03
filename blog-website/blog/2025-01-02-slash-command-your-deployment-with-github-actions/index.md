@@ -341,3 +341,5 @@ Yup! That's the same screenshot as before. I'm just showing it again to remind y
 We've written a slash command for deployment in this post, but you could write a slash command for anything you like. The key is to use the `issue_comment` event to trigger the workflow, and to check the comment body for the command you're interested in. You could pass more information in the comment body than just the slash command. For example, you could pass the name of the environment you want to deploy to, or the version of the app you want to deploy. You could even pass multiple commands in a single comment. The world is your oyster!
 
 You can then call other workflows to do the heavy lifting for you, remembering to pass in any inputs that are needed.
+
+If you would like to see the repo where this was implemented, [look here](https://github.com/johnnyreilly/poorclaresarundel-aca/tree/f052dd2f5d55bcec8547624e928bbf90432f3872).
