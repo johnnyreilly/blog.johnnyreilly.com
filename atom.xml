@@ -1161,7 +1161,7 @@
         <title type="html"><![CDATA[Slash command your deployment with GitHub Actions]]></title>
         <id>https://johnnyreilly.com/slash-command-your-deployment-with-github-actions</id>
         <link href="https://johnnyreilly.com/slash-command-your-deployment-with-github-actions"/>
-        <updated>2025-01-02T19:08:35.000Z</updated>
+        <updated>2025-01-03T08:47:57.000Z</updated>
         <summary type="html"><![CDATA[Slash commands are a great way to interact with your GitHub issues. In this post, we look at how to implement a `/deploy` slash command to deploy an Azure Container Apps service with GitHub Actions.]]></summary>
         <content type="html"><![CDATA[<p>In the world of computing, slash commands have a proud and noble history. They are a way to interact with a system by typing a command into a chat or terminal, usually with a <code>/</code> preceding the command; hence the name "slash commands". <a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/about-slash-commands" target="_blank" rel="noopener noreferrer">GitHub has its own slash commands</a> that you can use in issues and pull requests to add code blocks and tables etc. The slash commands are, in truth, quite limited.</p>
 <p>However, through clever use of the GitHub Actions platform, it's possible to build something quite powerful which is "slash-command-shaped". In this post, we'll look at how to implement a <code>/deploy</code> slash command which, when invoked in a pull request, will deploy an Azure Container App with GitHub Actions.</p>
@@ -1217,7 +1217,8 @@
 <p>Yup! That's the same screenshot as before. I'm just showing it again to remind you that this is what we've built.</p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="writing-other-slash-commands">Writing other slash commands<a href="https://johnnyreilly.com/slash-command-your-deployment-with-github-actions#writing-other-slash-commands" class="hash-link" aria-label="Direct link to heading" title="Direct link to heading">​</a></h2>
 <p>We've written a slash command for deployment in this post, but you could write a slash command for anything you like. The key is to use the <code>issue_comment</code> event to trigger the workflow, and to check the comment body for the command you're interested in. You could pass more information in the comment body than just the slash command. For example, you could pass the name of the environment you want to deploy to, or the version of the app you want to deploy. You could even pass multiple commands in a single comment. The world is your oyster!</p>
-<p>You can then call other workflows to do the heavy lifting for you, remembering to pass in any inputs that are needed.</p>]]></content>
+<p>You can then call other workflows to do the heavy lifting for you, remembering to pass in any inputs that are needed.</p>
+<p>If you would like to see the repo where this was implemented, <a href="https://github.com/johnnyreilly/poorclaresarundel-aca/tree/f052dd2f5d55bcec8547624e928bbf90432f3872" target="_blank" rel="noopener noreferrer">look here</a>.</p>]]></content>
         <author>
             <name>John Reilly</name>
             <uri>https://johnnyreilly.com/about</uri>
