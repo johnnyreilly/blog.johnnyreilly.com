@@ -344,6 +344,7 @@ const config = {
           tags: 'tags.yml',
           onInlineAuthors: 'ignore',
           onInlineTags: 'throw',
+          onUntruncatedBlogPosts: 'ignore',
           postsPerPage: 20,
           path: './blog',
           routeBasePath: '/', // Set this value to '/'.
@@ -614,6 +615,16 @@ const config = {
                         label: 'Azure Container Apps: Easy Auth and .NET',
                       },
                       {
+                        href: '/introducing-azdo-npm-auth',
+                        label:
+                          'Introducing azdo-npm-auth (Azure DevOps npm auth)',
+                      },
+                      {
+                        href: '/npx-and-azure-artifacts-the-secret-cli-delivery-mechanism',
+                        label:
+                          'npx and Azure Artifacts: the secret CLI delivery mechanism',
+                      },
+                      {
                         href: '/azure-static-web-apps-dynamic-redirects-azure-functions',
                         label:
                           'Azure Static Web Apps: dynamic redirects with Azure Functions',
@@ -677,12 +688,6 @@ const config = {
                         icon: '/img/ts-logo-128.svg',
                       },
                       {
-                        href: '/definitive-guide-to-migrating-from-blogger-to-docusaurus',
-                        label:
-                          'The definitive guide to migrating from Blogger to Docusaurus',
-                        icon: '/img/docusaurus-logo.svg',
-                      },
-                      {
                         href: '/how-we-fixed-my-seo',
                         label: 'How we fixed my SEO',
                       },
@@ -722,6 +727,10 @@ const config = {
           {
             title: 'Learn more / support me',
             items: [
+              {
+                label: 'About me',
+                href: '/about',
+              },
               {
                 label: 'Blog source code on GitHub',
                 href: 'https://github.com/johnnyreilly/blog.johnnyreilly.com',
