@@ -25,6 +25,17 @@ export async function fallback(
   try {
     const originalUrl = request.headers.get('x-ms-original-url') || '';
 
+    // 404 wordpress hack attempts
+    if (
+      originalUrl.includes('wp-includes') ||
+      originalUrl.includes('wp-admin')
+    ) {
+      return {
+        status: 404,
+        body: 'Not Found',
+      };
+    }
+
     const { status, location } = redirect(originalUrl, context);
 
     await saveToDatabase(originalUrl, { status, location }, context);
