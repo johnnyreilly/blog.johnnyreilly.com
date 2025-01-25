@@ -3,7 +3,7 @@ slug: get-service-connections-with-azure-devops-api
 title: 'Get Service Connections with the Azure DevOps API (REST and TypeScript)'
 authors: johnnyreilly
 tags: [azure pipelines, azure devops, typescript]
-image: ./new-pipeline.webp
+image: ./title-image.png
 hide_table_of_contents: false
 description: 'Learn how to get service connections with the Azure DevOps REST API using both curl and TypeScript.'
 ---
@@ -22,7 +22,7 @@ However, as is often the case, there is a way. The Azure DevOps REST API is ther
 
 Before we get into the code, let's clarify the terminology. In Azure DevOps, service connections are the connections to external services that your pipelines need to run. These are the things you're likely to be interested in. However, the Azure DevOps REST API refers to these as "service endpoints".
 
-![Screenshot of service connections in the Azure DevOps UI](screenshot-azure-devops-service-connections.png)
+![Screenshot of service connections in the Azure DevOps UI](screenshot-azure-devops-service-connections.webp)
 
 So when you're looking the screenshot above and you see "service connections", remember that in the API they're referred to as "service endpoints". If there is an actual distinction between "service connections" and "service endpoints" I'm not aware of it. If you know, please do let me know!
 
