@@ -8,7 +8,7 @@ hide_table_of_contents: false
 description: 'Learn how to create an Azure Pipeline using the Azure DevOps REST API with a personal access token and JSON file, as detailed in this post.'
 ---
 
-Creating an Azure Pipeline using the Azure DevOps REST API is possible, but badly documented. This post goes through how to do this; both using CURL and using TypeScript.
+Creating an Azure Pipeline using the Azure DevOps REST API is possible, but badly documented. This post goes through how to do this; both using curl and using TypeScript.
 
 <!--truncate-->
 
