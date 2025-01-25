@@ -20,7 +20,7 @@ However, as is often the case, there is a way. The Azure DevOps REST API is ther
 
 ## Service connections vs service endpoints
 
-Before we get into the code, let's clarify the terminology. In Azure DevOps, service connections are the connections to external services that your pipelines need to run. These are the things you're likely to be interested in. However, the Azure DevOps REST API refers to these as "service endpoints".
+Before we get into the code, let's clarify the terminology. In Azure DevOps, service connections are the connections to external services that your pipelines need to run. However, the Azure DevOps REST API refers to these as "service endpoints".
 
 ![Screenshot of service connections in the Azure DevOps UI](screenshot-azure-devops-service-connections.webp)
 
