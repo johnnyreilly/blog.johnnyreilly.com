@@ -26,7 +26,7 @@ Before we get into the code, let's clarify the terminology. In Azure DevOps, ser
 
 So when you're looking the screenshot above and you see "service connections", remember that in the API they're referred to as "service endpoints". If there is an actual distinction between "service connections" and "service endpoints" I'm not aware of it. If you know, please do let me know!
 
-## curling service connections
+## Curling service connections
 
 Once you know that service connections are referred to as "service endpoints" in the Azure DevOps REST API, you can use the [documentation](https://learn.microsoft.com/en-us/rest/api/azure/devops/serviceendpoint/endpoints/get-service-endpoints?view=azure-devops-rest-7.2&tabs=HTTP) to get them. Here's a curl to get you started:
 
@@ -36,7 +36,7 @@ curl  --user '':'PERSONAL_ACCESS_TOKEN' --header "Content-Type: application/json
 
 ## What if I want to use TypeScript?
 
-Now that we can see there's a way to get service connections with curl, let's look at how we can do this with TypeScript. Here's a function that will get you the service connections you need:
+Now that we can see there's a way to get service connections with curl, let's look at how we can do this with TypeScript. Effectively we'll want to `fetch` (instead of using curl) and statically type the response with some interfaces. Here's a function that will retrieve service connections:
 
 ```ts
 export async function getAzureDevOpsServiceConnections({
