@@ -5,6 +5,13 @@ import styles from './styles.module.css';
 
 const talks = [
   {
+    id: 'IOnOsyQJYkc?start=200',
+    permalink: 'https://youtu.be/IOnOsyQJYkc?t=200',
+    date: '2025-01-30',
+    formattedDate: 'January 30th, 2025',
+    title: 'The Hitchhiker’s Guide to Open Source Software',
+  },
+  {
     id: 'U6s2pdxebSo',
     permalink: 'https://youtube.com/watch?v=U6s2pdxebSo',
     date: '2023-09-21',
@@ -134,7 +141,6 @@ function Talks() {
                       <iframe
                         src={`https://www.youtube-nocookie.com/embed/${talk.id}`}
                         title={talk.title}
-                        frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen
                       ></iframe>
