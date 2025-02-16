@@ -1,6 +1,6 @@
 ---
 slug: nodejs-azure-appinsights-fastify
-title: 'Node.js, Azure App Insights, and Fastify'
+title: 'Node.js, Azure Application Insights, and Fastify'
 authors: johnnyreilly
 tags: [azure, node.js, typescript]
 image: ./title-image.png
@@ -10,7 +10,7 @@ description: 'Learn how to set up a Node.js with Azure Application Insights and 
 
 If you deploy a Node.js application to Azure, you might want to use Azure Application Insights to monitor it. This post shows you how to set up a Node.js application with Azure Application Insights. It also includes a Fastify plugin to automatically track requests. (Given the out of the box mechanism for tracking requests does not work with Fastify.)
 
-![title image reading "Get Service Connections with the Azure DevOps API" with the Azure DevOps logo](title-image.png)
+![title image reading "Node.js, Azure Application Insights, and Fastify" with the relevant logos](title-image.png)
 
 This is one of those posts that gathers together information I found doing research and puts it in one place.
 
