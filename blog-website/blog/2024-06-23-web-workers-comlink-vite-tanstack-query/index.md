@@ -10,7 +10,7 @@ hide_table_of_contents: false
 
 I've written previously about combining [Web Workers and Comlink](../2020-02-21-web-workers-comlink-typescript-and-react/index.md). I recently found myself needing to use Web Workers again. As I picked them up this time I found myself making some different choices, now I was working in a codebase that used Vite to build. I ended up using [TanStack Query](https://github.com/tanstack/query) in combination with my [Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers) and [Comlink](https://github.com/GoogleChromeLabs/comlink). It was a really good fit and this post will show you how to use Web Workers with Comlink and TanStack Query.
 
-![title image reading "Web Workers, Comlink, Vite and TanStack Query" with the Static Web Apps CLI and Vite logos](title-image.png)
+![title image reading "Web Workers, Comlink, Vite and TanStack Query" with logos](title-image.png)
 
 <!--truncate-->
 

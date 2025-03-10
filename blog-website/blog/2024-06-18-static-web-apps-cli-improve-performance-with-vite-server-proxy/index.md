@@ -2,7 +2,7 @@
 slug: static-web-apps-cli-improve-performance-with-vite-server-proxy
 title: 'Static Web Apps CLI: improve performance with Vite server proxy'
 authors: johnnyreilly
-tags: [azure static web apps, node.js]
+tags: [azure static web apps, node.js, static web apps cli]
 image: ./title-image.png
 description: 'The Static Web Apps CLI has a slow proxy server. This post shows you how to improve performance by using Vite server proxy instead.'
 hide_table_of_contents: false

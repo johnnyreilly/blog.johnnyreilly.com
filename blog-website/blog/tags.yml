@@ -148,6 +148,11 @@ swagger:
   description: 'The Swagger API documentation framework - now known as OpenAPI.'
   permalink: /swagger
 
+static web apps cli:
+  label: 'Static Web Apps CLI'
+  description: 'The Static Web Apps CLI is a local development tool which can be used with Azure Static Web Apps'
+  permalink: /static-web-apps-cli
+
 ts-loader:
   label: 'ts-loader'
   description: 'The TypeScript loader for webpack.'
