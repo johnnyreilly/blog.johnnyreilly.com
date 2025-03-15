@@ -1,11 +1,13 @@
 import BlogPostPage from '@theme-original/BlogPostPage';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
-export default function BlogPostPageWrapper(props) {
+export default function BlogPostPageWrapper(
+  /** @type {import('@theme/BlogPostPage').Props} */
+  props,
+) {
   const { siteConfig } = useDocusaurusContext();
 
-  /** @type {import('@docusaurus/plugin-content-blog').BlogPostMetadata} */ const blogMetaData =
-    props.content.metadata;
+  const blogMetaData = props.content.metadata;
 
   // https://developers.google.com/search/docs/appearance/structured-data/breadcrumb#json-ld
   const blogBreadcrumbStructuredData = {
