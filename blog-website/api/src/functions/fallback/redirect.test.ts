@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import type { InvocationContext } from '@azure/functions';
 import { describe, expect, test } from '@jest/globals';
 
