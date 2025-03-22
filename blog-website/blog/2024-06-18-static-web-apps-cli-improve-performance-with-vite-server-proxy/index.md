@@ -64,12 +64,12 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:4280',
+        target: 'http://127.0.0.1:7071', // our Azure Function is running on port 7071
         changeOrigin: true,
         autoRewrite: true,
       },
       '/.auth': {
-        target: 'http://127.0.0.1:4280',
+        target: 'http://127.0.0.1:4280', // the Static Web Apps local auth emulator is running on port 4280
         changeOrigin: true,
         autoRewrite: true,
       },
@@ -78,7 +78,7 @@ export default defineConfig({
 });
 ```
 
-What does this do? Well, for requests that go to Vite (on `http://localhost:5173`), thanks to this change, requests with the prefix `/api` and `/.auth` are now proxied across back to the Static Web App CLI server at `http://localhost:4280`.
+What does this do? Well, for requests that go to Vite (on `http://localhost:5173`), thanks to this change, requests with the `/.auth` are now proxied across back to the Static Web App CLI server at `http://localhost:4280`. Meanwhile requests with the prefix `/api` are proxied to the Azure Function at `http://localhost:7071`.
 
 You'll note a few options being set:
 
@@ -95,7 +95,7 @@ If you were to try using a `target` of `http://localhost:4280` in the configurat
 [run]     at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16)
 ```
 
-If you stick with `http://127.0.0.1:4280` and you should be fine. I discovered the workaround from [this GitHub issue](https://github.com/vitejs/vite/discussions/7620#discussioncomment-5689650).
+If you stick with `http://127.0.0.1:4280` you should be fine. I discovered the workaround from [this GitHub issue](https://github.com/vitejs/vite/discussions/7620#discussioncomment-5689650).
 
 ## Comparing performance
 
