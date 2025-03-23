@@ -14,7 +14,9 @@ When developing web applications that have some dependency on authentication, it
 
 I build a lot of SPA style applications that run JavaScript / TypeScript on the front end and C# / ASP.NET on the back end. The majority of those apps require some kind of authentication. In fact I'd struggle to think many apps that don't. This post will walk through how to integrate ASP.NET authentication with the Static Web Apps CLI local authentication emulator to achieve a great local development setup. Don't worry if that doesn't make sense right now, once we have walked through the setup, it will.
 
-This post builds somewhat on what I've written about [using the Vite proxy server with the Static Web Apps CLI for enhanced performance](../2024-06-18-static-web-apps-cli-improve-performance-with-vite-server-proxy/index.md) and [connecting directly to the `--api-location`](../2023-05-20-static-web-apps-cli-node-18-could-not-connect-to-api/index.md). However, you need not have read either post to understand what we're doing.
+This post builds somewhat on posts I've written about using the Static Web Apps CLI [with the Vite proxy server with for enhanced performance](../2024-06-18-static-web-apps-cli-improve-performance-with-vite-server-proxy/index.md) and [how to use the `--api-location` argument to connect to a separately running backend API](../2023-05-20-static-web-apps-cli-node-18-could-not-connect-to-api/index.md). However, you need not have read either post to understand what we're doing.
+
+We're going to first walk through what we're trying to achieve, and then we'll walk through the steps to get there. When it comes to implementation, we're going to use Vite as our front end server, and ASP.NET as our back end server. The Static Web Apps CLI will be used for local authentication emulation.
 
 <!--truncate-->
 
@@ -36,3 +38,19 @@ surely it's inappropriate and madness to use it
 we're just using start / auth
 a subset of it
 doug crockford javascript the good parts
+
+alternative https://firebase.google.com/docs/emulator-suite/connect_auth
+
+```mermaid
+graph TD
+    subgraph Network traffic
+        UserBrowser[fa:fa-chrome User's browser]
+        ViteProxy[fa:fa-server Vite server http:\/\/localhost:5173]
+        AuthEmulator[fa:fa-server Static Web App CLI local authentication emulator http:\/\/localhost:4280]
+        DotNetBackend[fa:fa-server ASP.NET Backend http:\/\/localhost:5000]
+    end
+
+    UserBrowser --> ViteProxy
+    ViteProxy --> AuthEmulator
+    ViteProxy --> DotNetBackend
+```
