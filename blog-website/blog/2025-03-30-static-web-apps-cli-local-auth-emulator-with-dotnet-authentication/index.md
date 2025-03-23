@@ -32,14 +32,36 @@ That's what this post is about. How to use the Static Web Apps CLI local authent
 
 ## What is the Static Web Apps CLI?
 
-https://azure.github.io/static-web-apps-cli/docs/cli/local-auth
+We should probably talk about what the [Static Web Apps CLI](https://azure.github.io/static-web-apps-cli/) is. It describes itself as:
 
-surely it's inappropriate and madness to use it
-we're just using start / auth
-a subset of it
-doug crockford javascript the good parts
+> The Static Web Apps (SWA) CLI is an open-source commandline tool that streamlines local development and deployment for Azure Static Web Apps.
 
-alternative https://firebase.google.com/docs/emulator-suite/connect_auth
+It's original purpose was to provide a local development server for Azure Static Web Apps. However, it has a number of features that make it useful for other types of web applications as well. For example, it can be used to [proxy requests to a backend API server](https://azure.github.io/static-web-apps-cli/docs/cli/swa-start#serve-both-the-front-end-app-and-api), and it can also be used to [emulate authentication](https://azure.github.io/static-web-apps-cli/docs/cli/local-auth).
+
+We're going to use the authentication emulator to provide a local authentication server. So we're using a subset of the Static Web Apps CLI functionality. I'm aware of one other local authentication emulator, which is the [Firebase Authentication Emulator](https://firebase.google.com/docs/emulator-suite/connect_auth). However, I prefer the Static Web Apps CLI local authentication emulator.
+
+## How does the Static Web Apps CLI local authentication emulator work?
+
+http://localhost:5173/.auth/login/aad
+
+![screenshot of Static Web Apps CLI local authentication emulator at work](swa-cli-local-auth.png)
+
+![screenshot of the StaticWebAppsAuthCookie in Chrome Devtools](screenshot-staticwebappsauthcookie.png)
+
+https://github.com/Azure/static-web-apps-cli/blob/062fb288d34126a095be6f3e1dc57fe5adb3f4bf/src/public/auth.html
+
+code that saves cookie:
+
+https://github.com/Azure/static-web-apps-cli/blob/062fb288d34126a095be6f3e1dc57fe5adb3f4bf/src/public/auth.html#L193-L196
+
+```js
+function saveCookie(formElement) {
+  const data = localStorage[hashStorageKey(formElement)];
+  document.cookie = `StaticWebAppsAuthCookie=${btoa(data)}; path=/`;
+}
+```
+
+## How is our solution going to work?
 
 ```mermaid
 graph TD
