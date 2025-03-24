@@ -66,13 +66,18 @@ function saveCookie(formElement) {
 ```mermaid
 graph TD
     subgraph Network traffic
-        UserBrowser[fa:fa-chrome User's browser]
-        ViteProxy[fa:fa-server Vite server http:\/\/localhost:5173]
-        AuthEmulator[fa:fa-server Static Web App CLI local authentication emulator http:\/\/localhost:4280]
-        DotNetBackend[fa:fa-server ASP.NET Backend http:\/\/localhost:5000]
+        UserBrowser[<img src="./img/icon-noun-browser.svg" style="height: 50px" /> Developer's local browser]
+        ViteProxy[<img src="./img/icon-noun-server.svg" style="height: 50px" /> Vite server http:\/\/localhost:5173]
+        AuthEmulator[<img src="./img/icon-noun-server.svg" style="height: 50px" /> Static Web App CLI local authentication emulator http:\/\/localhost:4280]
+        DotNetBackend[<img src="./img/icon-noun-server.svg" style="height: 50px" /> ASP.NET Backend http:\/\/localhost:5000]
     end
 
     UserBrowser --> ViteProxy
-    ViteProxy --> AuthEmulator
-    ViteProxy --> DotNetBackend
+    ViteProxy --> | authentication requests | AuthEmulator
+    ViteProxy --> | all other requests | DotNetBackend
 ```
+
+## Credits
+
+- Server icon by Konstantin Velichko from [Noun Project](https://thenounproject.com/browse/icons/term/server/) (CC BY 3.0)
+- Browser icon by syahruni from [Noun Project](https://thenounproject.com/browse/icons/term/browser/) (CC BY 3.0)

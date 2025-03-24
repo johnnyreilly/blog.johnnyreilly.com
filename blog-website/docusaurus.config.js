@@ -514,6 +514,10 @@ const config = {
         // This would become <meta name="monetization" content="$ilp.uphold.com/LwQQhXdpwxeJ"> in the generated HTML
       ],
 
+      mermaid: {
+        theme: { light: 'neutral', dark: 'forest' },
+      },
+
       algolia: {
         // If Algolia did not provide you any appId, use 'BH4D9OD16A'
         appId: 'J3MYR1INLT',
