@@ -36,17 +36,33 @@ We should probably talk about what the [Static Web Apps CLI](https://azure.githu
 
 > The Static Web Apps (SWA) CLI is an open-source commandline tool that streamlines local development and deployment for Azure Static Web Apps.
 
-It's original purpose was to provide a local development server for Azure Static Web Apps. However, it has a number of features that make it useful for other types of web applications as well. For example, it can be used to [proxy requests to a backend API server](https://azure.github.io/static-web-apps-cli/docs/cli/swa-start#serve-both-the-front-end-app-and-api), and it can also be used to [emulate authentication](https://azure.github.io/static-web-apps-cli/docs/cli/local-auth).
+It's original purpose was to provide a local development server for an Azure service known as [Azure Static Web Apps](https://learn.microsoft.com/en-us/azure/static-web-apps/). However, it has a number of features that make it useful for general web application development. For example, it can be used to [proxy requests to a backend API server](https://azure.github.io/static-web-apps-cli/docs/cli/swa-start#serve-both-the-front-end-app-and-api), and it can also be used to [emulate authentication](https://azure.github.io/static-web-apps-cli/docs/cli/local-auth).
 
-We're going to use the authentication emulator to provide a local authentication server. So we're using a subset of the Static Web Apps CLI functionality. I'm aware of one other local authentication emulator, which is the [Firebase Authentication Emulator](https://firebase.google.com/docs/emulator-suite/connect_auth). However, I prefer the Static Web Apps CLI local authentication emulator.
+We're going to use the authentication emulator to provide a local authentication server whilst we're developing. Just that piece of functionality; we're intentionally only using a subset of the Static Web Apps CLI functionality.
+
+Incidentally, there are alternatives. I'm aware of one other local authentication emulator, which is the [Firebase Authentication Emulator](https://firebase.google.com/docs/emulator-suite/connect_auth). This could likely be used in a similar way. However, we'll be using the Static Web Apps CLI local authentication emulator.
 
 ## How does the Static Web Apps CLI local authentication emulator work?
 
-http://localhost:5173/.auth/login/aad
+When running the Static Web Apps `start` command, it surfaces login endpoints at this location: `http://localhost:4280/.auth/login/<PROVIDER_NAME>`. `<PROVIDER_NAME>` is the name of the authentication provider you want to use. If you look at the code ([and you can here](https://github.com/Azure/static-web-apps-cli/blob/062fb288d34126a095be6f3e1dc57fe5adb3f4bf/src/public/auth.html)) you'll realise that the `<PROVIDER_NAME>` can actually be any string; it's not limited to the names of the authentication providers that are supported by Azure Static Web Apps.
+
+The CLI will serve a local authentication UI at this endpoint which looks like this:
 
 ![screenshot of Static Web Apps CLI local authentication emulator at work](swa-cli-local-auth.png)
 
+When you hit the `Login` button, it will use the form data to create a fake user and set a cookie in your browser named `StaticWebAppsAuthCookie`. That cookie looks like this:
+
 ![screenshot of the StaticWebAppsAuthCookie in Chrome Devtools](screenshot-staticwebappsauthcookie.png)
+
+And whilst it looks like a JWT, it isn't. It's actually a base64 encoded string which contains the user information that you provided in the form.
+
+This cookie is used to authenticate requests to your backend API server.
+
+, and it will also set a cookie in your browser. This cookie is used to authenticate requests to your backend API server.
+
+you have access to a local authentication UI. This interface is served locally from the emulator and allows you to set fake user information for the current user from the provider supplied.
+
+http://localhost:5173/.auth/login/aad
 
 https://github.com/Azure/static-web-apps-cli/blob/062fb288d34126a095be6f3e1dc57fe5adb3f4bf/src/public/auth.html
 
