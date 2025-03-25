@@ -79,7 +79,39 @@ This will acquire the cookie that has just been created by the Static Web Apps C
 }
 ```
 
-This cookie will be sent to your backend API server with every request. So to make the ASP.NET authentication work, we need to make sure that the ASP.NET server is configured to accept this cookie and use it to authenticate the user.
+This cookie will be sent to your backend API server with every request.
+
+## How is our solution going to work?
+
+To make a working development setup, we need three things:
+
+1. A front end server (Vite)
+2. A back end server (ASP.NET)
+3. A local authentication server (Static Web Apps CLI)
+
+We'll bring these three things together to create a local development setup that allows us to develop our application locally, with authentication. This diagram shows how the three components will work together:
+
+```mermaid
+graph TD
+    subgraph Network traffic
+        UserBrowser[<img src="./img/icon-noun-browser.svg" style="height: 50px" /> Developer's local browser]
+        ViteProxy[<img src="./img/icon-noun-server.svg" style="height: 50px" /> Vite server http:\/\/localhost:5173]
+        AuthEmulator[<img src="./img/icon-noun-server.svg" style="height: 50px" /> Static Web App CLI local authentication emulator http:\/\/localhost:4280]
+        DotNetBackend[<img src="./img/icon-noun-server.svg" style="height: 50px" /> ASP.NET Backend http:\/\/localhost:5000]
+    end
+
+    UserBrowser --> ViteProxy
+    ViteProxy --> | authentication requests | AuthEmulator
+    ViteProxy --> | all other requests | DotNetBackend
+```
+
+From the developer's browser, HTTP requests will be sent to the Vite server running on `http://localhost:5173`. The Vite server will proxy authentication emulation requests to the Static Web Apps CLI local authentication emulator running on `http://localhost:4280`. All other requests will be proxied to the ASP.NET backend server running on `http://localhost:5000`.
+
+This setup means that the cookie that is set by the Static Web Apps CLI local authentication emulator will be sent to the ASP.NET backend server with every request. So to make the ASP.NET authentication work, we need to make sure that the ASP.NET server is configured to accept this cookie and use it to authenticate the user.
+
+## Time to implement
+
+Now that we've talked about what we're trying to achieve, let's walk through the steps to get there. We'll need both the .NET SDK and Node.js installed on our machine. From here on out it's code.
 
 ## How to set up the Static Web Apps CLI local authentication emulator with ASP.NET
 
@@ -100,22 +132,6 @@ function saveCookie(formElement) {
   const data = localStorage[hashStorageKey(formElement)];
   document.cookie = `StaticWebAppsAuthCookie=${btoa(data)}; path=/`;
 }
-```
-
-## How is our solution going to work?
-
-```mermaid
-graph TD
-    subgraph Network traffic
-        UserBrowser[<img src="./img/icon-noun-browser.svg" style="height: 50px" /> Developer's local browser]
-        ViteProxy[<img src="./img/icon-noun-server.svg" style="height: 50px" /> Vite server http:\/\/localhost:5173]
-        AuthEmulator[<img src="./img/icon-noun-server.svg" style="height: 50px" /> Static Web App CLI local authentication emulator http:\/\/localhost:4280]
-        DotNetBackend[<img src="./img/icon-noun-server.svg" style="height: 50px" /> ASP.NET Backend http:\/\/localhost:5000]
-    end
-
-    UserBrowser --> ViteProxy
-    ViteProxy --> | authentication requests | AuthEmulator
-    ViteProxy --> | all other requests | DotNetBackend
 ```
 
 ## Credits
