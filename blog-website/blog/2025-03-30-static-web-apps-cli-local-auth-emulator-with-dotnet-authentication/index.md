@@ -44,19 +44,44 @@ Incidentally, there are alternatives. I'm aware of one other local authenticatio
 
 ## How does the Static Web Apps CLI local authentication emulator work?
 
-When running the Static Web Apps `start` command, it surfaces login endpoints at this location: `http://localhost:4280/.auth/login/<PROVIDER_NAME>`. `<PROVIDER_NAME>` is the name of the authentication provider you want to use. If you look at the code ([and you can here](https://github.com/Azure/static-web-apps-cli/blob/062fb288d34126a095be6f3e1dc57fe5adb3f4bf/src/public/auth.html)) you'll realise that the `<PROVIDER_NAME>` can actually be any string; it's not limited to the names of the authentication providers that are supported by Azure Static Web Apps.
+When running the Static Web Apps `start` command, it surfaces login endpoints at this location: `http://localhost:4280/.auth/login/<PROVIDER_NAME>`. `<PROVIDER_NAME>` is the name of the authentication provider you want to use. This might be `aad`, `github` etc. If you look at the code ([and you can here](https://github.com/Azure/static-web-apps-cli/blob/062fb288d34126a095be6f3e1dc57fe5adb3f4bf/src/public/auth.html)) you'll realise that the `<PROVIDER_NAME>` can actually be any string; it's not limited to the names of the authentication providers that are supported by Azure Static Web Apps. So if you want to use an arbitary name like `potato` as the provider name, you can do that. In terms of emulation, it doesn't matter what the provider name is.
 
-The CLI will serve a local authentication UI at this endpoint which looks like this:
+When started, the CLI will serve a local authentication UI at this endpoint which looks like this:
 
 ![screenshot of Static Web Apps CLI local authentication emulator at work](swa-cli-local-auth.png)
 
-When you hit the `Login` button, it will use the form data to create a fake user and set a cookie in your browser named `StaticWebAppsAuthCookie`. That cookie looks like this:
+When you hit the `Login` button, it will use the form data to create a fake user and [set a cookie in your browser named `StaticWebAppsAuthCookie`](https://github.com/Azure/static-web-apps-cli/blob/062fb288d34126a095be6f3e1dc57fe5adb3f4bf/src/public/auth.html#L193-L196). That cookie will look something like this:
 
 ![screenshot of the StaticWebAppsAuthCookie in Chrome Devtools](screenshot-staticwebappsauthcookie.png)
 
-And whilst it looks like a JWT, it isn't. It's actually a base64 encoded string which contains the user information that you provided in the form.
+And whilst it looks like a JWT, it isn't. It's actually a base64 encoded string which contains the user information that you provided in the form. In fact you can see what it is by flipping open the browser devtools and running this code in the console after you have hit the `Login` button:
 
-This cookie is used to authenticate requests to your backend API server.
+```js
+JSON.parse(
+  atob(
+    document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('StaticWebAppsAuthCookie='))
+      ?.split('=')[1],
+  ),
+);
+```
+
+This will acquire the cookie that has just been created by the Static Web Apps CLI local authentication emulator from your browser. It then decodes it and parses the JSON string to get the user information that you provided in the form. It produces something like this:
+
+```json
+{
+  "userId": "0106ec0be6200439b6987751b8bf6e7a",
+  "userRoles": ["anonymous", "authenticated", "MyRole"],
+  "claims": [{ "typ": "MyId", "val": "123456789" }],
+  "identityProvider": "could-be-anything",
+  "userDetails": "megan.s@thing.com"
+}
+```
+
+This cookie will be sent to your backend API server with every request. So to make the ASP.NET authentication work, we need to make sure that the ASP.NET server is configured to accept this cookie and use it to authenticate the user.
+
+## How to set up the Static Web Apps CLI local authentication emulator with ASP.NET
 
 , and it will also set a cookie in your browser. This cookie is used to authenticate requests to your backend API server.
 
