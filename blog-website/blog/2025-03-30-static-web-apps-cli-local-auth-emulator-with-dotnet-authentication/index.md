@@ -133,7 +133,7 @@ npm init -y
 
 This `package.json` will be used as a general purpose task runner later on.
 
-## Setting up the ASP.NET backend
+## Setting up the backend
 
 We need to build an `AuthenticationHandler` that will accept the cookie set by the Static Web Apps CLI local authentication emulator. This is a custom authentication handler that will be used to authenticate users based on the cookie set by the Static Web Apps CLI local authentication emulator. So here the `StaticWebAppsCLIAuthentication.cs` in all its glory:
 
@@ -435,9 +435,31 @@ This will return the user information that was set in the cookie by the Static W
 }
 ```
 
-So our authentication works! Now we just need to set up the Vite server and the Static Web Apps CLI local authentication emulator.
+So our authentication mechanism works! Now we just need to set up the Vite server and the Static Web Apps CLI local authentication emulator.
 
-## Setting up the Vite frontend
+## Setting up the frontend
+
+Now we'll move over to the `AppFrontEnd` folder and install the Static Web Apps CLI as a development dependency:
+
+```bash
+npm install -D @azure/static-web-apps-cli
+```
+
+`vite.config.ts` file will look like this:
+
+STUFF
+
+And we'll add a `start` script to the `package.json` file to start the Static Web Apps CLI and the Vite server. The `start` script will look like this:
+
+```json
+{
+  "scripts": {
+    "start": "swa start http://localhost:5173 --run \"npm run dev\" --api-devserver-url http://127.0.0.1:5000"
+  }
+}
+```
+
+When run, this will start the Static Web App CLI and the Vite server. The `--run` argument will start the Vite server, and the `--api-devserver-url` argument will set the URL of the ASP.NET backend server. We'll create a mechanism for starting the ASP.NET server alongside the front end shortly.
 
 ## Setting up the Static Web Apps CLI local authentication emulator
 
