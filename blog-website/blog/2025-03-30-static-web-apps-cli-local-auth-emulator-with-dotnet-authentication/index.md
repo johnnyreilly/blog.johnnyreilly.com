@@ -71,10 +71,10 @@ This will acquire the cookie that has just been created by the Static Web Apps C
 
 ```json
 {
-  "userId": "0106ec0be6200439b6987751b8bf6e7a",
-  "userRoles": ["anonymous", "authenticated", "MyRole"],
+  "userId": "4a27b7326639199f5de91c4b9a62531b",
+  "userRoles": ["anonymous", "authenticated", "other-role"],
   "claims": [{ "typ": "MyId", "val": "123456789" }],
-  "identityProvider": "could-be-anything",
+  "identityProvider": "couldbeanything",
   "userDetails": "megan.s@thing.com"
 }
 ```
@@ -125,11 +125,13 @@ Next we'll create a new ASP.NET project in a folder we'll call `AppBackEnd`:
 dotnet new web -n AppBackEnd
 ```
 
-And we'll initialise a `package.json` in the root of our project. This will be used as a general purpose task runner:
+And we'll initialise a `package.json` in the root of our project:
 
 ```bash
 npm init -y
 ```
+
+This `package.json` will be used as a general purpose task runner later on.
 
 ## Setting up the ASP.NET backend
 
@@ -336,13 +338,12 @@ public class StaticWebAppsCLIClaim
 }
 ```
 
-Whilst there's a good amount of code here, what it's actually doing is relatively simple. It:
+Whilst there's a good amount of code here, what we're actually doing is relatively simple:
 
-- Defines a custom authentication scheme called `StaticWebAppsCLIAuthScheme`
-- Defines a custom authentication handler called `StaticWebAppsCLIAuthenticationHandler` that will be used to authenticate users based on the cookie set by the Static Web Apps CLI local authentication emulator (it will also fallback to the `X-MS-CLIENT-PRINCIPAL` header if the cookie is not present)
-- This handler will decode the cookie and create a `ClaimsPrincipal` object that contains the user information from the cookie
+- We define a custom authentication scheme called `StaticWebAppsCLIAuthScheme`
+- We define a custom authentication handler called `StaticWebAppsCLIAuthenticationHandler`. The handler will decode the cookie and create a `ClaimsPrincipal` object that contains the user information it. This will be used to authenticate users based on the cookie that has been set by the Static Web Apps CLI local authentication emulator. If the `StaticWebAppsAuthCookie` cookie is not detected, the handler will fallback to the `X-MS-CLIENT-PRINCIPAL` header. (This should never happen in practice, but it's there for completeness.)
 
-We need to update the `Program.cs` file in the `AppBackEnd` project to use the Static Web Apps CLI authentication scheme. We'll also add a `/api/me` endpoint to test the authentication. So the modified `Program.cs` file looks like this:
+With our handler in place, we need to update the `Program.cs` file in the `AppBackEnd` project to use it. We'll also add a `/api/me` endpoint to test the authentication. So the modified `Program.cs` file looks like this:
 
 ```cs
 using AppBackEnd;
@@ -371,8 +372,6 @@ app.UseAuthorization();
 
 app.MapGet("/", () => "Hello World!");
 
-// can be tested with curl:
-// curl -X GET http://localhost:5000/api/me --cookie "StaticWebAppsAuthCookie=eyJ1c2VySWQiOiIwMTA2ZWMwYmU2MjAwNDM5YjY5ODc3NTFiOGJmNmU3YSIsInVzZXJSb2xlcyI6WyJhbm9ueW1vdXMiLCJhdXRoZW50aWNhdGVkIl0sImNsYWltcyI6W3sidHlwIjoibmFtZSIsInZhbCI6IkF6dXJlIFN0YXRpYyBXZWIgQXBwcyJ9XSwiaWRlbnRpdHlQcm92aWRlciI6ImFhZCIsInVzZXJEZXRhaWxzIjoiam9obm55cmVpbGx5In0"
 app.MapGet("/api/me", (context) => {
     var user = context.User;
     var roleClaimType = user.Identities.First().RoleClaimType;
@@ -390,6 +389,53 @@ app.Run();
 ```
 
 I haven't included the production authentication scheme here; that will be specific to your application. The important part is that we are using the `StaticWebAppsCLIAuthentication` scheme in only in development.
+
+Let's test this works. We'll start the ASP.NET server with `dotnet run -- --urls "http://localhost:5000"`. Then we'll use the `curl` command to call the `/api/me` endpoint:
+
+```bash
+curl http://localhost:5000/api/me --cookie "StaticWebAppsAuthCookie=eyJ1c2VySWQiOiIxNDdmMTVjNmFiODBhNmY3NjJhOWQyZDRmNzczNzUwOSIsInVzZXJSb2xlcyI6WyJhbm9ueW1vdXMiLCJhdXRoZW50aWNhdGVkIiwib3RoZXItcm9sZSJdLCJjbGFpbXMiOlt7InR5cCI6Ik15SWQiLCJ2YWwiOiIxMjM0NTY3ODkifV0sImlkZW50aXR5UHJvdmlkZXIiOiJjb3VsZGJlYW55dGhpbmciLCJ1c2VyRGV0YWlscyI6Im1lZ2FuLnNAdGhpbmcuY29tIn0="
+```
+
+This will return the user information that was set in the cookie by the Static Web Apps CLI local authentication emulator:
+
+```json
+{
+  "name": "megan.s@thing.com",
+  "isAuthenticated": true,
+  "claims": [
+    {
+      "type": "preferred_username",
+      "value": "megan.s@thing.com"
+    },
+    {
+      "type": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
+      "value": "megan.s@thing.com"
+    },
+    {
+      "type": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
+      "value": "megan.s@thing.com"
+    },
+    {
+      "type": "MyId",
+      "value": "123456789"
+    },
+    {
+      "type": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+      "value": "anonymous"
+    },
+    {
+      "type": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+      "value": "authenticated"
+    },
+    {
+      "type": "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+      "value": "other-role"
+    }
+  ]
+}
+```
+
+So our authentication works! Now we just need to set up the Vite server and the Static Web Apps CLI local authentication emulator.
 
 ## Setting up the Vite frontend
 
