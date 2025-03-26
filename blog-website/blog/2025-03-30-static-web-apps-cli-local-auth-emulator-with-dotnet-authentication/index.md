@@ -111,7 +111,295 @@ This setup means that the cookie that is set by the Static Web Apps CLI local au
 
 ## Time to implement
 
-Now that we've talked about what we're trying to achieve, let's walk through the steps to get there. We'll need both the .NET SDK and Node.js installed on our machine. From here on out it's code.
+Now that we've talked about what we're trying to achieve, let's walk through the steps to get there. We'll need both the .NET SDK and Node.js installed on our machine. From here on out it's code. The full example can be found in [this GitHub repository](https://github.com/johnnyreilly/swa-local-auth-emulator-and-dotnet).
+
+We'll start by creating a new Vite project in a folder we'll call `AppFrontEnd`. We'll use the React + TypeScript template. You can use whatever template you like:
+
+```bash
+npm create vite@latest AppFrontEnd -- --template react-ts
+```
+
+Next we'll create a new ASP.NET project in a folder we'll call `AppBackEnd`:
+
+```bash
+dotnet new web -n AppBackEnd
+```
+
+And we'll initialise a `package.json` in the root of our project. This will be used as a general purpose task runner:
+
+```bash
+npm init -y
+```
+
+## Setting up the ASP.NET backend
+
+We need to build an `AuthenticationHandler` that will accept the cookie set by the Static Web Apps CLI local authentication emulator. This is a custom authentication handler that will be used to authenticate users based on the cookie set by the Static Web Apps CLI local authentication emulator. So here the `StaticWebAppsCLIAuthentication.cs` in all its glory:
+
+```cs
+using System.Security.Claims;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Options;
+
+namespace AppBackEnd;
+
+public static class StaticWebAppsCLIAuthentication
+{
+    public const string STATICWEBAPPSCLIAUTH_SCHEMENAME = "StaticWebAppsCLIAuthScheme";
+
+    public static AuthenticationBuilder AddStaticWebAppsCLIAuth(
+        this AuthenticationBuilder builder,
+        Action<AuthenticationSchemeOptions>? configure = null)
+    {
+        if (configure == null) configure = o => { };
+
+        return builder.AddScheme<AuthenticationSchemeOptions, StaticWebAppsCLIAuthenticationHandler>(
+            STATICWEBAPPSCLIAUTH_SCHEMENAME,
+            STATICWEBAPPSCLIAUTH_SCHEMENAME,
+            configure
+        );
+    }
+}
+
+public class StaticWebAppsCLIAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
+{
+    public StaticWebAppsCLIAuthenticationHandler(
+        IOptionsMonitor<AuthenticationSchemeOptions> options,
+        ILoggerFactory logger,
+        UrlEncoder encoder)
+        : base(options, logger, encoder)
+    {
+    }
+
+    protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
+    {
+        try
+        {
+
+            var principal = await MakeClaimsPrincipalFromHeaderOrCookie(
+                // eg eyJ1c2VySWQiOiIwMTA2ZWMwYmU2MjAwNDM5YjY5ODc3NTFiOGJmNmU3YSIsInVzZXJSb2xlcyI6WyJhbm9ueW1vdXMiLCJhdXRoZW50aWNhdGVkIl0sImNsYWltcyI6W3sidHlwIjoibmFtZSIsInZhbCI6IkF6dXJlIFN0YXRpYyBXZWIgQXBwcyJ9XSwiaWRlbnRpdHlQcm92aWRlciI6ImFhZCIsInVzZXJEZXRhaWxzIjoiam9obm55cmVpbGx5In0
+                Context.Request.Cookies["StaticWebAppsAuthCookie"] ??
+                // eg eyJ1c2VySWQiOiIwMTA2ZWMwYmU2MjAwNDM5YjY5ODc3NTFiOGJmNmU3YSIsInVzZXJSb2xlcyI6WyJhbm9ueW1vdXMiLCJhdXRoZW50aWNhdGVkIl0sImlkZW50aXR5UHJvdmlkZXIiOiJhYWQiLCJ1c2VyRGV0YWlscyI6ImpvaG5ueXJlaWxseSJ9
+                // for reasons that are unclear, the X-MS-CLIENT-PRINCIPAL header presently excludes claims; see https://github.com/Azure/static-web-apps-cli/blob/062fb288d34126a095be6f3e1dc57fe5adb3f4bf/src/msha/handlers/function.handler.ts#L38-L42
+                Context.Request.Headers["X-MS-CLIENT-PRINCIPAL"].FirstOrDefault()
+            );
+
+            if (principal == null)
+                return AuthenticateResult.NoResult();
+
+            Context.User = principal;
+
+            return AuthenticateResult.Success(new AuthenticationTicket(principal, principal.Identity?.AuthenticationType ?? "unknown"));
+        }
+        catch (Exception ex)
+        {
+            return AuthenticateResult.Fail(ex);
+        }
+    }
+
+    private async Task<ClaimsPrincipal?> MakeClaimsPrincipalFromHeaderOrCookie(string? headerOrCookie)
+    {
+        if (string.IsNullOrEmpty(headerOrCookie))
+            return null;
+
+        var decodedBytes = Convert.FromBase64String(headerOrCookie);
+        using var memoryStream = new MemoryStream(decodedBytes);
+        var staticWebAppClientPrinciple = await JsonSerializer.DeserializeAsync<StaticWebAppsCLIClientPrinciple>(memoryStream);
+
+        if (staticWebAppClientPrinciple == null ||
+            string.IsNullOrWhiteSpace(staticWebAppClientPrinciple.UserDetails) ||
+            string.IsNullOrWhiteSpace(staticWebAppClientPrinciple.UserId))
+            return null;
+
+        var claims = DefaultMapClaims(staticWebAppClientPrinciple);
+
+        var principal = new ClaimsPrincipal();
+        principal.AddIdentity(new ClaimsIdentity(
+            claims,
+            authenticationType: staticWebAppClientPrinciple.IdentityProvider ?? "unknown",
+            nameType: ClaimTypes.Email,
+            roleType: ClaimTypes.Role
+        ));
+
+        return principal;
+    }
+
+    /// <summary>
+    /// Method takes the StaticWebAppClientPrinciple and produces a list of claims constructed
+    /// from the claims, user details and user roles
+    /// </summary>
+    static Claim[] DefaultMapClaims(StaticWebAppsCLIClientPrinciple staticWebAppClientPrinciple)
+    {
+        var claims = new List<StaticWebAppsCLIClaim>();
+        if (!string.IsNullOrWhiteSpace(staticWebAppClientPrinciple.UserDetails))
+        {
+            claims.Add(new StaticWebAppsCLIClaim
+            {
+                Type = "preferred_username",
+                Value = staticWebAppClientPrinciple.UserDetails
+            });
+            claims.Add(new StaticWebAppsCLIClaim
+            {
+                Type = ClaimTypes.Email,
+                Value = staticWebAppClientPrinciple.UserDetails
+            });
+            claims.Add(new StaticWebAppsCLIClaim
+            {
+                Type = ClaimTypes.Name,
+                Value = staticWebAppClientPrinciple.UserDetails
+            });
+        }
+
+        if (staticWebAppClientPrinciple.Claims != null)
+        {
+            claims.AddRange(staticWebAppClientPrinciple.Claims);
+        }
+
+        var mappedClaims = claims.Select(claim => new Claim(claim.Type, claim.Value));
+        // translate the user roles into claims with the type ClaimTypes.Role
+        // eg "userRoles": ["anonymous", "authenticated"]
+        var userRoleClaims = staticWebAppClientPrinciple.UserRoles?.Select(role =>
+            new Claim(ClaimTypes.Role, role)) ?? [];
+
+        Claim[] combinedClaims = [..mappedClaims, ..userRoleClaims];
+
+        return combinedClaims;
+    }
+}
+
+/// <summary>
+/// This is the JSON object that is decoded from either the
+/// StaticWebAppsAuthCookie cookie or the X-MS-CLIENT-PRINCIPAL header
+/// when working with the Static Web Apps CLI local authentication emulator.
+///
+/// The claims element is not present on the X-MS-CLIENT-PRINCIPAL header
+///
+/// {
+///     "userId": "9b516349fcf5caf60f715703d8804aa7",
+///     "userRoles": [
+///         "anonymous",
+///         "authenticated"
+///     ],
+///     "claims": [{"typ":"blarg","val":"Azure Static Web Apps"}],
+///     "identityProvider": "aad",
+///     "userDetails": "someone.name@company.com"
+/// }
+/// </summary>
+public class StaticWebAppsCLIClientPrinciple
+{
+    /// <summary>
+    /// User Id
+    /// </summary>
+    [JsonPropertyName("userId")]
+    public string? UserId { get; set; }
+
+    /// <summary>
+    /// User roles
+    /// </summary>
+    [JsonPropertyName("userRoles")]
+    public IEnumerable<string>? UserRoles { get; set; }
+
+    /// <summary>
+    /// Identity provider typically "aad"
+    /// </summary>
+    [JsonPropertyName("identityProvider")]
+    public string? IdentityProvider { get; set; }
+
+    /// <summary>
+    /// User details typically email address
+    /// </summary>
+    [JsonPropertyName("userDetails")]
+    public string? UserDetails { get; set; }
+
+    /// <summary>
+    /// Claims for the user
+    /// </summary>
+    [JsonPropertyName("claims")]
+    public IEnumerable<StaticWebAppsCLIClaim>? Claims { get; set; } = [];
+}
+
+public class StaticWebAppsCLIClaim
+{
+    /// <summary>
+    /// Type of claim eg "name"
+    /// </summary>
+    [JsonPropertyName("typ")]
+    public string Type { get; set; } = string.Empty;
+    /// <summary>
+    /// Value of claim eg "Someone Name"
+    /// </summary>
+    [JsonPropertyName("val")]
+    public string Value { get; set; } = string.Empty;
+}
+```
+
+Whilst there's a good amount of code here, what it's actually doing is relatively simple. It:
+
+- Defines a custom authentication scheme called `StaticWebAppsCLIAuthScheme`
+- Defines a custom authentication handler called `StaticWebAppsCLIAuthenticationHandler` that will be used to authenticate users based on the cookie set by the Static Web Apps CLI local authentication emulator (it will also fallback to the `X-MS-CLIENT-PRINCIPAL` header if the cookie is not present)
+- This handler will decode the cookie and create a `ClaimsPrincipal` object that contains the user information from the cookie
+
+We need to update the `Program.cs` file in the `AppBackEnd` project to use the Static Web Apps CLI authentication scheme. We'll also add a `/api/me` endpoint to test the authentication. So the modified `Program.cs` file looks like this:
+
+```cs
+using AppBackEnd;
+
+var builder = WebApplication.CreateBuilder(args);
+
+if (builder.Environment.IsDevelopment())
+{
+    // in development, we want to use the Static Web Apps CLI authentication scheme
+    builder.Services
+        .AddAuthentication(StaticWebAppsCLIAuthentication.STATICWEBAPPSCLIAUTH_SCHEMENAME)
+        .AddStaticWebAppsCLIAuth();
+}
+else
+{
+    // in production we will use an alternative authentication scheme
+    // ...
+}
+
+builder.Services.AddAuthorization();
+
+var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapGet("/", () => "Hello World!");
+
+// can be tested with curl:
+// curl -X GET http://localhost:5000/api/me --cookie "StaticWebAppsAuthCookie=eyJ1c2VySWQiOiIwMTA2ZWMwYmU2MjAwNDM5YjY5ODc3NTFiOGJmNmU3YSIsInVzZXJSb2xlcyI6WyJhbm9ueW1vdXMiLCJhdXRoZW50aWNhdGVkIl0sImNsYWltcyI6W3sidHlwIjoibmFtZSIsInZhbCI6IkF6dXJlIFN0YXRpYyBXZWIgQXBwcyJ9XSwiaWRlbnRpdHlQcm92aWRlciI6ImFhZCIsInVzZXJEZXRhaWxzIjoiam9obm55cmVpbGx5In0"
+app.MapGet("/api/me", (context) => {
+    var user = context.User;
+    var roleClaimType = user.Identities.First().RoleClaimType;
+
+    var userDetails = new {
+        user.Identity?.Name,
+        user.Identity?.IsAuthenticated,
+        Claims = user.Claims.Select(claim => new { claim.Type, claim.Value }).ToArray(),
+    };
+
+    return context.Response.WriteAsJsonAsync(userDetails);
+});
+
+app.Run();
+```
+
+I haven't included the production authentication scheme here; that will be specific to your application. The important part is that we are using the `StaticWebAppsCLIAuthentication` scheme in only in development.
+
+## Setting up the Vite frontend
+
+## Setting up the Static Web Apps CLI local authentication emulator
+
+## Bringing it all together
+
+```bash
+dotnet run -- --urls "http://localhost:5000"
+```
 
 ## How to set up the Static Web Apps CLI local authentication emulator with ASP.NET
 
