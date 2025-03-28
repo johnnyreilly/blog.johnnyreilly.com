@@ -48,11 +48,11 @@ When running the Static Web Apps `start` command, it surfaces login endpoints at
 
 When started, the CLI will serve a local authentication UI at this endpoint which looks like this:
 
-![screenshot of Static Web Apps CLI local authentication emulator at work](swa-cli-local-auth.png)
+![screenshot of Static Web Apps CLI local authentication emulator at work](swa-cli-local-auth.webp)
 
 When you hit the `Login` button, it will use the form data to create a fake user and [set a cookie in your browser named `StaticWebAppsAuthCookie`](https://github.com/Azure/static-web-apps-cli/blob/062fb288d34126a095be6f3e1dc57fe5adb3f4bf/src/public/auth.html#L193-L196). That cookie will look something like this:
 
-![screenshot of the StaticWebAppsAuthCookie in Chrome Devtools](screenshot-staticwebappsauthcookie.png)
+![screenshot of the StaticWebAppsAuthCookie in Chrome Devtools](screenshot-staticwebappsauthcookie.webp)
 
 And whilst it looks like a JWT, it isn't. It's actually a base64 encoded string which contains the user information that you provided in the form. In fact you can see what it is by flipping open the browser devtools and running this code in the console after you have hit the `Login` button:
 
@@ -556,7 +556,7 @@ npm start
 
 If we then go to `http://localhost:5173`, we should see the Vite server running:
 
-![screenshot of Vite server running](screenshot-vite-server.png)
+![screenshot of Vite server running](screenshot-vite-server.webp)
 
 So far, this is just the Vite server. Time to get our login mechanism in place.
 
@@ -626,11 +626,11 @@ export default App;
 
 Let's test it! First we'll start our local dev setup with `npm start`. When we browse to `http://localhost:5173`, we should see the Vite server running:
 
-![screenshot of the browser when not logged in](screenshot-not-logged-in.png)
+![screenshot of the browser when not logged in](screenshot-not-logged-in.webp)
 
 If we click the `Login` link, we'll be taken to the Static Web Apps CLI local authentication emulator. We'll fill in the form and hit `Login`. This will set the `StaticWebAppsAuthCookie` cookie in our browser.
 
-![screenshot of the Static Web Apps CLI local auth emulator](screenshot-swa-cli-auth.png)
+![screenshot of the Static Web Apps CLI local auth emulator](screenshot-swa-cli-auth.webp)
 
 We'll be redirected back to the Vite server, and the cookie will be sent to the ASP.NET backend server. The ASP.NET backend server will use the cookie to authenticate the user and return the user information when the browser calls the `/api/me` endpoint. This will be displayed in the browser:
 
