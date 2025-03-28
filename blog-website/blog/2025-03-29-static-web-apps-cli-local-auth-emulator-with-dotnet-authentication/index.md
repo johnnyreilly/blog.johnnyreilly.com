@@ -636,6 +636,8 @@ It works!
 
 This has been a long post, but hopefully it has been useful. We've walked through how to set up a local development environment that uses the Static Web Apps CLI local authentication emulator with ASP.NET authentication. This allows us to develop our application locally, with authentication, without being coupled to a third party authentication provider.
 
+The code built in this post [can be found here](https://github.com/johnnyreilly/swa-local-auth-emulator-and-dotnet).
+
 ## Credits
 
 - Server icon by Konstantin Velichko from [Noun Project](https://thenounproject.com/browse/icons/term/server/) (CC BY 3.0)
