@@ -12,7 +12,7 @@ When developing web applications that have some dependency on authentication, it
 
 ![title image reading "Static Web Apps CLI: improve performance with Vite server proxy" with the Static Web Apps CLI and Vite logos](title-image.png)
 
-I build a lot of SPA style applications that run JavaScript / TypeScript on the front end and C# / ASP.NET on the back end. The majority of those apps require some kind of authentication. In fact I'd struggle to think many apps that don't. This post will walk through how to integrate ASP.NET authentication with the Static Web Apps CLI local authentication emulator to achieve a great local development setup. Don't worry if that doesn't make sense right now, once we have walked through the setup, it will.
+I build a lot of SPA style applications that run JavaScript / TypeScript on the front end and C# / ASP.NET on the back end. The majority of those apps require some kind of authentication. In fact I'd struggle to think of many apps that don't. This post will walk through how to integrate ASP.NET authentication with the Static Web Apps CLI local authentication emulator to achieve a great local development setup. Don't worry if that doesn't make sense right now, once we have walked through the setup, it will.
 
 This post builds somewhat on posts I've written about using the Static Web Apps CLI [with the Vite proxy server with for enhanced performance](../2024-06-18-static-web-apps-cli-improve-performance-with-vite-server-proxy/index.md) and [how to use the `--api-location` argument to connect to a separately running backend API](../2023-05-20-static-web-apps-cli-node-18-could-not-connect-to-api/index.md). However, you need not have read either post to understand what we're doing.
 
@@ -107,7 +107,7 @@ graph TD
 
 From the developer's browser, HTTP requests will be sent to the Vite server running on `http://localhost:5173`. The Vite server will proxy authentication emulation requests to the Static Web Apps CLI local authentication emulator running on `http://localhost:4280`. All other requests will be proxied to the ASP.NET backend server running on `http://localhost:5000`.
 
-This setup means that the cookie that is set by the Static Web Apps CLI local authentication emulator will be sent to the ASP.NET backend server with every request. So to make the ASP.NET authentication work, we need to make sure that the ASP.NET server is configured to accept this cookie and use it to authenticate the user.
+This setup means that the cookie that is set by the Static Web Apps CLI local authentication emulator will be shared with the ASP.NET backend server through the Vite proxy mechanism. So to make the ASP.NET authentication work, we need to make sure that the ASP.NET server is configured to accept this cookie and use it to authenticate the user.
 
 ## Time to implement
 
@@ -497,12 +497,14 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:5000', // our .NET application is running on port 5000
+        // our .NET application is running on port 5000
+        target: 'http://127.0.0.1:5000',
         changeOrigin: true,
         autoRewrite: true,
       },
       '/.auth': {
-        target: 'http://127.0.0.1:4280', // the Static Web Apps local auth emulator is running on port 4280
+        // the Static Web Apps local auth emulator is running on port 4280
+        target: 'http://127.0.0.1:4280',
         changeOrigin: true,
         autoRewrite: true,
       },
@@ -519,7 +521,7 @@ With this in place, the Static Web Apps CLI local authentication emulator will b
 
 We now have a back end and a front end in place. We need both to be running for local development. We mentioned earlier we'd be using the `package.json` in the root of the project as a task runner.
 
-We'll use the `concurrently` package to run both the ASP.NET server and the Static Web Apps CLI local authentication emulator at the same time.
+We'll use the [`concurrently`](https://github.com/open-cli-tools/concurrently) package to allow us to run both the ASP.NET server and the Static Web Apps CLI local authentication emulator at the same time.
 
 ```bash
 npm install -D concurrently
@@ -560,7 +562,11 @@ So far, this is just the Vite server. Time to get our login mechanism in place.
 
 ## Testing the authentication
 
-We're going to replace the contents of the `src/App.tsx` file in the `AppFrontEnd` project with the following code. This code will call the `/api/me` endpoint on the ASP.NET backend server to get the user information from the cookie set by the Static Web Apps CLI local authentication emulator and display it in the browser. If the user is not authenticated, it will show a login link.
+We're going to replace the contents of the `src/App.tsx` file in the `AppFrontEnd` project with code that will call the `/api/me` endpoint on the ASP.NET backend server to get the user information from the cookie set by the Static Web Apps CLI local authentication emulator and display it in the browser. If the user is not authenticated, it will show a login link.
+
+A reminder, we're using React and TypeScript for our front end. But that's just because it's my preference; this technique is front end agnostic. You can use whatever framework (or none) that you like.
+
+Our implementation will look like this:
 
 ```tsx
 import { useState, useEffect } from 'react';
