@@ -1,5 +1,6 @@
-//@ts-check
-/* eslint-env node */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable no-undef */
+// @ts-check
 const IS_LIVE_SITE = process.env['IS_LIVE_SITE'] === 'true';
 console.log('IS_LIVE_SITE', IS_LIVE_SITE);
 
@@ -16,6 +17,14 @@ import { createSitemapItems } from './createSitemapItems.mjs';
 // const recentlyUpdatedPostsJson = await import("./recently-updated-posts.json", {
 //   assert: { type: "json" },
 // });
+
+/**
+ * @typedef {Object} Post
+ * @property {string} link
+ * @property {string} title
+ */
+
+/** @type {Post[]} */
 const recentlyUpdatedPostsJson = JSON.parse(
   readFileSync('./recently-updated-posts.json', { encoding: 'utf-8' }),
 );
@@ -275,7 +284,11 @@ const config = {
     experimental_faster: true,
   },
 
+  themes: ['@docusaurus/theme-mermaid'],
+
   markdown: {
+    mermaid: true,
+
     // based on https://github.com/facebook/docusaurus/blob/main/website/docs/migration/v3.mdx
     mdx1Compat: {
       comments: true,
@@ -500,6 +513,10 @@ const config = {
         { name: 'monetization', content: '$ilp.uphold.com/LwQQhXdpwxeJ' },
         // This would become <meta name="monetization" content="$ilp.uphold.com/LwQQhXdpwxeJ"> in the generated HTML
       ],
+
+      mermaid: {
+        theme: { light: 'neutral', dark: 'forest' },
+      },
 
       algolia: {
         // If Algolia did not provide you any appId, use 'BH4D9OD16A'
