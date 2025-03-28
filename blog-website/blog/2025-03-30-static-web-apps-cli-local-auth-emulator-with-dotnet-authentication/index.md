@@ -133,7 +133,28 @@ npm init -y
 
 This `package.json` will be used as a general purpose task runner later on.
 
-## Setting up the backend
+## Setting up the back end
+
+We'd first like to adjust the port that our ASP.NET server runs on in development. We'll update the `launchSettings.json` file to look like this:
+
+```json
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
+```
+
+This will set the ASP.NET server to run on `http://localhost:5000` in development. You can run the server with `dotnet run`.
 
 We need to build an `AuthenticationHandler` that will accept the cookie set by the Static Web Apps CLI local authentication emulator. This is a custom authentication handler that will be used to authenticate users based on the cookie set by the Static Web Apps CLI local authentication emulator. So here the `StaticWebAppsCLIAuthentication.cs` in all its glory:
 
@@ -390,7 +411,7 @@ app.Run();
 
 I haven't included the production authentication scheme here; that will be specific to your application. The important part is that we are using the `StaticWebAppsCLIAuthentication` scheme in only in development.
 
-Let's test this works. We'll start the ASP.NET server with `dotnet run -- --urls "http://localhost:5000"`. Then we'll use the `curl` command to call the `/api/me` endpoint:
+Let's test this works. We'll start the ASP.NET server with `dotnet run`. Then we'll use the `curl` command to call the `/api/me` endpoint:
 
 ```bash
 curl http://localhost:5000/api/me --cookie "StaticWebAppsAuthCookie=eyJ1c2VySWQiOiIxNDdmMTVjNmFiODBhNmY3NjJhOWQyZDRmNzczNzUwOSIsInVzZXJSb2xlcyI6WyJhbm9ueW1vdXMiLCJhdXRoZW50aWNhdGVkIiwib3RoZXItcm9sZSJdLCJjbGFpbXMiOlt7InR5cCI6Ik15SWQiLCJ2YWwiOiIxMjM0NTY3ODkifV0sImlkZW50aXR5UHJvdmlkZXIiOiJjb3VsZGJlYW55dGhpbmciLCJ1c2VyRGV0YWlscyI6Im1lZ2FuLnNAdGhpbmcuY29tIn0="
@@ -435,19 +456,19 @@ This will return the user information that was set in the cookie by the Static W
 }
 ```
 
-So our authentication mechanism works! Now we just need to set up the Vite server and the Static Web Apps CLI local authentication emulator.
+So our authentication mechanism works! Now we just need to set up the Vite server and the Static Web Apps CLI local authentication emulator to provide the full local development experience.
 
-## Setting up the frontend
+## Setting up the front end
 
-Now we'll move over to the `AppFrontEnd` folder and install the Static Web Apps CLI as a development dependency:
+Now we'll move over to the `AppFrontEnd` folder.
+
+### Set up the Static Web Apps CLI
+
+We'll install the Static Web Apps CLI as a development dependency:
 
 ```bash
 npm install -D @azure/static-web-apps-cli
 ```
-
-`vite.config.ts` file will look like this:
-
-STUFF
 
 And we'll add a `start` script to the `package.json` file to start the Static Web Apps CLI and the Vite server. The `start` script will look like this:
 
@@ -461,34 +482,159 @@ And we'll add a `start` script to the `package.json` file to start the Static We
 
 When run, this will start the Static Web App CLI and the Vite server. The `--run` argument will start the Vite server, and the `--api-devserver-url` argument will set the URL of the ASP.NET backend server. We'll create a mechanism for starting the ASP.NET server alongside the front end shortly.
 
-## Setting up the Static Web Apps CLI local authentication emulator
+### Set up the Vite server
 
-## Bringing it all together
+We already have the Vite server in place, but it needs a little configuration.
+
+I'm now going to borrow from [this post on using the Vite proxy server with for enhanced performance](../2024-06-18-static-web-apps-cli-improve-performance-with-vite-server-proxy/index.md). We'll update the `vite.config.ts` file to add a proxy configuration. The `vite.config.ts` file will look like this:
+
+```ts
+import { defineConfig } from 'vite';
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  // ...
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:5000', // our .NET application is running on port 5000
+        changeOrigin: true,
+        autoRewrite: true,
+      },
+      '/.auth': {
+        target: 'http://127.0.0.1:4280', // the Static Web Apps local auth emulator is running on port 4280
+        changeOrigin: true,
+        autoRewrite: true,
+      },
+    },
+  },
+});
+```
+
+The code above is responsible for ensuring that requests to the Vite server with the prefix `/.auth` are proxied to the Static Web Apps CLI local authentication emulator. Requests with the prefix `/api` (most requests) are proxied to the ASP.NET backend server.
+
+With this in place, the Static Web Apps CLI local authentication emulator will be able to set the `StaticWebAppsAuthCookie` cookie in the browser, and the Vite server will proxy requests with that cookie to the ASP.NET backend server for use.
+
+## Bringing front end and back end together
+
+We now have a back end and a front end in place. We need both to be running for local development. We mentioned earlier we'd be using the `package.json` in the root of the project as a task runner.
+
+We'll use the `concurrently` package to run both the ASP.NET server and the Static Web Apps CLI local authentication emulator at the same time.
 
 ```bash
-dotnet run -- --urls "http://localhost:5000"
+npm install -D concurrently
 ```
 
-## How to set up the Static Web Apps CLI local authentication emulator with ASP.NET
+And we'll update the `scripts` section of the `package.json` as follows:
 
-, and it will also set a cookie in your browser. This cookie is used to authenticate requests to your backend API server.
-
-you have access to a local authentication UI. This interface is served locally from the emulator and allows you to set fake user information for the current user from the provider supplied.
-
-http://localhost:5173/.auth/login/aad
-
-https://github.com/Azure/static-web-apps-cli/blob/062fb288d34126a095be6f3e1dc57fe5adb3f4bf/src/public/auth.html
-
-code that saves cookie:
-
-https://github.com/Azure/static-web-apps-cli/blob/062fb288d34126a095be6f3e1dc57fe5adb3f4bf/src/public/auth.html#L193-L196
-
-```js
-function saveCookie(formElement) {
-  const data = localStorage[hashStorageKey(formElement)];
-  document.cookie = `StaticWebAppsAuthCookie=${btoa(data)}; path=/`;
+```json
+{
+  "scripts": {
+    "postinstall": "npm run install:frontend && npm run install:backend",
+    "install:frontend": "cd AppFrontEnd && npm install",
+    "install:backend": "cd AppBackEnd && dotnet restore",
+    "start": "concurrently -n \"FE,BE\" -c \"bgBlue.bold,bgMagenta.bold\" \"npm run start:frontend\" \"npm run start:backend\"",
+    "start:frontend": "cd AppFrontEnd && npm run start",
+    "start:backend": "cd AppBackEnd && dotnet watch run"
+  }
 }
 ```
+
+We can now install all our dependencies (front end and backend) with a single command:
+
+```bash
+npm install
+```
+
+Then we can start the local development server with:
+
+```bash
+npm start
+```
+
+If we then go to `http://localhost:5173`, we should see the Vite server running:
+
+![screenshot of Vite server running](screenshot-vite-server.png)
+
+So far, this is just the Vite server. Time to get our login mechanism in place.
+
+## Testing the authentication
+
+We're going to replace the contents of the `src/App.tsx` file in the `AppFrontEnd` project with the following code. This code will call the `/api/me` endpoint on the ASP.NET backend server to get the user information from the cookie set by the Static Web Apps CLI local authentication emulator and display it in the browser. If the user is not authenticated, it will show a login link.
+
+```tsx
+import { useState, useEffect } from 'react';
+import './App.css';
+
+interface UserData {
+  name: string | null;
+  isAuthenticated: boolean;
+  claims: { type: string; value: string }[];
+}
+
+function App() {
+  const [userData, setUserData] = useState<UserData>();
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch('/api/me');
+        if (!response.ok) {
+          throw new Error('Failed to fetch user data');
+        }
+        const data = await response.json();
+        setUserData(data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  return (
+    <>
+      <h1>Static Web Apps CLI:</h1>
+      <h2>local authentication emulation with ASP.NET</h2>
+      {userData ? (
+        userData.isAuthenticated ? (
+          <p style={{ textAlign: 'left' }}>
+            You are logged in {userData.name} |{' '}
+            <a href="/.auth/logout">Log out</a>
+            <pre>{JSON.stringify(userData, null, 2)}</pre>
+          </p>
+        ) : (
+          <p>
+            <a href="/.auth/login/aad">Log in</a>
+          </p>
+        )
+      ) : (
+        <p>Loading user data...</p>
+      )}
+    </>
+  );
+}
+
+export default App;
+```
+
+Let's test it! First we'll start our local dev setup with `npm start`. When we browse to `http://localhost:5173`, we should see the Vite server running:
+
+![screenshot of the browser when not logged in](screenshot-not-logged-in.png)
+
+If we click the `Login` link, we'll be taken to the Static Web Apps CLI local authentication emulator. We'll fill in the form and hit `Login`. This will set the `StaticWebAppsAuthCookie` cookie in our browser.
+
+![screenshot of the Static Web Apps CLI local auth emulator](screenshot-swa-cli-auth.png)
+
+We'll be redirected back to the Vite server, and the cookie will be sent to the ASP.NET backend server. The ASP.NET backend server will use the cookie to authenticate the user and return the user information when the browser calls the `/api/me` endpoint. This will be displayed in the browser:
+
+![screenshot of the browser when logged in](screenshot-logged-in.png)
+
+It works!
+
+## Summing up
+
+This has been a long post, but hopefully it has been useful. We've walked through how to set up a local development environment that uses the Static Web Apps CLI local authentication emulator with ASP.NET authentication. This allows us to develop our application locally, with authentication, without being coupled to a third party authentication provider.
 
 ## Credits
 
