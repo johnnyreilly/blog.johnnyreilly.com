@@ -3,12 +3,16 @@ slug: list-pipelines-with-azure-devops-api
 title: 'List Pipelines with the Azure DevOps API'
 authors: johnnyreilly
 tags: [azure pipelines, azure devops, typescript]
-image: ./new-pipeline.webp
+image: ./title-image.png
 hide_table_of_contents: false
 description: 'Learn how to list the Azure Pipelines in a project using the Azure DevOps REST API with TypeScript and the continuation token.'
 ---
 
-Listing the Azure Pipelines using the Azure DevOps REST API and TypeScript is possible, but if you use the official [Azure DevOps Client for Node.js](https://github.com/microsoft/azure-devops-node-api), you might have issues.  This is because it does not support pagination.  So if you have a project with a large number of pipelines, then using the official client might mean you cannot retrieve it. This post implements an alternative mechanism, directly using the Azure DevOps API and thus handling pagination.
+Listing the Azure Pipelines using the Azure DevOps REST API and TypeScript is possible, but if you use the official [Azure DevOps Client for Node.js](https://github.com/microsoft/azure-devops-node-api), you might have issues. This is because it does not support pagination. So if you have a project with a large number of pipelines, then using the official client might mean you cannot retrieve it.
+
+![title image reading "List Pipelines with the Azure DevOps API" with the relevant logos](title-image.png)
+
+This post implements an alternative mechanism, directly using the Azure DevOps API and thus handling pagination.
 
 <!--truncate-->
 
@@ -50,7 +54,7 @@ export async function getAzureDevOpsPipelines({
   projectName: string;
 }) {
   const batchSize = 100;
-  let continuationToken = "";
+  let continuationToken = '';
   const pipelines: AzureDevOpsPipeline[] = [];
 
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -59,12 +63,12 @@ export async function getAzureDevOpsPipelines({
     const url = `https://dev.azure.com/${organization}/${projectName}/_apis/pipelines?api-version=7.1&$top=${batchSize.toString()}&continuationToken=${continuationToken}`;
     try {
       const response = await fetch(url, {
-        method: "GET",
+        method: 'GET',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Basic ${Buffer.from(`PAT:${personalAccessToken}`).toString("base64")}`,
-          "X-TFS-FedAuthRedirect": "Suppress",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Basic ${Buffer.from(`PAT:${personalAccessToken}`).toString('base64')}`,
+          'X-TFS-FedAuthRedirect': 'Suppress',
         },
       });
 
@@ -73,7 +77,7 @@ export async function getAzureDevOpsPipelines({
       }
 
       // this will be the name of the next pipeline or not present if there are no more pipelines
-      continuationToken = response.headers.get("x-ms-continuationtoken") ?? "";
+      continuationToken = response.headers.get('x-ms-continuationtoken') ?? '';
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const json = await response.json();
@@ -89,7 +93,7 @@ export async function getAzureDevOpsPipelines({
         break;
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error:', error);
       throw error;
     }
   }
