@@ -10,6 +10,8 @@ description: 'Learn how to create an Azure Pipeline using the Azure DevOps REST 
 
 Creating an Azure Pipeline using the Azure DevOps REST API is possible, but badly documented. This post goes through how to do this; both using curl and using TypeScript.
 
+If you're curious as to how to list pipelines, then check out my post on [listing pipelines with the Azure DevOps API](../2021-05-08-create-pipeline-with-azure-devops-api/index.md).
+
 <!--truncate-->
 
 ## curling a pipeline

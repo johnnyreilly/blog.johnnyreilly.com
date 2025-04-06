@@ -12,7 +12,7 @@ Listing the Azure Pipelines using the Azure DevOps REST API and TypeScript is po
 
 ![title image reading "List Pipelines with the Azure DevOps API" with the relevant logos](title-image.png)
 
-This post implements an alternative mechanism, directly using the Azure DevOps API and thus handling pagination.
+This post implements an alternative mechanism, directly using the Azure DevOps API and thus handling pagination. If you're curious as to how to create a pipeline, then check out my post on [creating a pipeline with the Azure DevOps API](../2025-04-06-list-pipelines-with-azure-devops-api/index.md).
 
 <!--truncate-->
 
