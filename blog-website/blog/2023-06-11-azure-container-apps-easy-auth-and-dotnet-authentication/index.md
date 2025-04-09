@@ -19,6 +19,12 @@ If you're looking for information about Easy Auth and roles with .NET and Azure 
 - [Azure App Service, Easy Auth and Roles with .NET](../2021-01-14-azure-easy-auth-and-roles-with-dotnet-and-core/index.md)
 - [Azure App Service, Easy Auth and Roles with .NET and Microsoft.Identity.Web](../2021-01-17-azure-easy-auth-and-roles-with-net-and-microsoft-identity-web/index.md)
 
+## Updated 09/04/2025 On-behalf-of auth and `X-MS-TOKEN-AAD-ACCESS-TOKEN`
+
+You'll see later in the post that I berate the lack of a `X-MS-TOKEN-AAD-ACCESS-TOKEN` in Azure Container Apps with EasyAuth.  Great news!  Whilst when I first wrote this, it wasn't available. As of the [`microsoft.app/2025-01-01/containerapps`](https://learn.microsoft.com/en-us/azure/templates/microsoft.app/2025-01-01/containerapps?pivots=deployment-language-bicep) release, it is.
+
+[For details on how to use it, read David's post](https://davidrosevear.dev/blog/token-store-and-obo-auth-in-container-apps).
+
 ## `User.Identity.IsAuthenticated == false`
 
 When I'm building an application, I want to focus on the problem I'm solving. I don't want to think about how to implement my own authentication system. Rather, I lean on an auth provider for that, and if I'm working in the Azure ecosystem, that often means Easy Auth, usually with Azure AD.
