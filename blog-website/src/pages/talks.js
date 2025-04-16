@@ -8,15 +8,15 @@ const talks = [
     id: 'IOnOsyQJYkc?start=200',
     permalink: 'https://youtu.be/IOnOsyQJYkc?t=200',
     date: '2025-01-30',
-    formattedDate: 'January 30th, 2025',
+    formattedDate: 'January 30th, 2025 - starts at 3:20',
     title: 'The Hitchhiker’s Guide to Open Source Software',
   },
   {
-    id: 'U6s2pdxebSo',
+    id: 'U6s2pdxebSo?start=1416',
     permalink: 'https://youtube.com/watch?v=U6s2pdxebSo&t=1416s',
     date: '2023-09-21',
-    formattedDate: 'September 21st, 2023',
-    title: 'TypeScript Origins: The Documentary (from 23:45 and 34:00)',
+    formattedDate: 'September 21st, 2023 - starts at 23:45 and 34:00',
+    title: 'TypeScript Origins: The Documentary',
   },
   {
     id: 'G4WTEEwI6Qs',
@@ -37,8 +37,8 @@ const talks = [
     id: 'O58b4r21sz4?start=1735',
     permalink: 'https://www.youtube.com/watch?v=O58b4r21sz4&t=1735s',
     date: '2023-01-13',
-    formattedDate: 'January 13th, 2023',
-    title: 'TypeScript London: Me and Open Source - talk starts at 28:55',
+    formattedDate: 'January 13th, 2023 - starts at 28:55',
+    title: 'TypeScript London: Me and Open Source',
   },
   {
     id: 'Kl9M7eut5Yo',
@@ -91,7 +91,8 @@ const structuredData = {
     description: talk.title,
 
     thumbnailUrl: thumbnailResolutions.map(
-      (resolution) => `https://img.youtube.com/vi/${talk.id}/${resolution}`,
+      (resolution) =>
+        `https://img.youtube.com/vi/${talk.id.split('?')[0]}/${resolution}`,
     ),
 
     uploadDate: talk.date,
@@ -143,6 +144,8 @@ function Talks() {
                         title={talk.title}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen
+                        width="560"
+                        height="315"
                       ></iframe>
                     </div>
                   </div>
