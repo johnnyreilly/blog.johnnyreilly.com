@@ -118,6 +118,11 @@ jsdoc:
   description: 'Type safety through JSDoc annotations.'
   permalink: /jsdoc
 
+microsoft graph:
+  label: 'Microsoft Graph'
+  description: 'The Microsoft Graph.'
+  permalink: /microsoft-graph
+
 mui:
   label: 'MUI'
   description: 'The MUI / Material UI component library.'
