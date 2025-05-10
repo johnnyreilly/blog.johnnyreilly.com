@@ -66,11 +66,20 @@ async function processImageFiles(imageFiles: string[]) {
       const originalSizeKb = originalStats.size / 1024n;
 
       const source = tinify.fromFile(imageFilePath);
-      const converted = source.convert({
-        type: imageFilePath.includes('/title-image.')
-          ? ['image/png'] // title images are always png because social media sharing doesn't support webp well enough
-          : ['image/webp', 'image/png'],
-      });
+
+      const converted = imageFilePath.includes('/title-image.')
+        ? source
+            .resize({
+              method: 'fit',
+              width: 800,
+              height: 450,
+            })
+            .convert({
+              type: ['image/png'], // title images are always png because social media sharing doesn't support webp well enough
+            })
+        : source.convert({
+            type: ['image/webp', 'image/png'],
+          });
       const convertedExtension = await converted.result().extension();
       const newImageFilePath = `${originalImageFilePrefix}.${convertedExtension}`;
       await converted.toFile(newImageFilePath);
