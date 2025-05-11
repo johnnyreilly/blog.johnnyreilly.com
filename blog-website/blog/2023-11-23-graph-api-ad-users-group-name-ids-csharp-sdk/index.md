@@ -3,7 +3,7 @@ slug: graph-api-ad-users-group-name-ids-csharp-sdk
 title: 'Graph API: getting users Active Directory group names and ids with the C# SDK'
 authors: johnnyreilly
 image: ./title-image.png
-tags: [auth, azure, c#, asp.net]
+tags: [auth, azure, c#, asp.net, microsoft graph]
 description: Learn how to get the Azure Active Directory group names and ids from the Graph API using the C# SDK.
 hide_table_of_contents: false
 ---
@@ -15,6 +15,11 @@ I'm writing this post as, whilst it ends up being a relatively small amount of c
 ![title image reading "Graph API: getting users AD group names and ids with the C# SDK" with the Azure Graph and C# logos](title-image.png)
 
 <!--truncate-->
+
+## Related posts
+
+- [Azure AD Claims with Static Web Apps and Azure Functions](../2022-11-17-azure-ad-claims-static-web-apps-azure-functions/index.md)
+- [Microsoft Graph client: how to filter by endswith](../2025-05-11-microsoft-graphclient-filter-endswith-consistencylevel-eventual-header/index.md)
 
 ## Azure AD app registration API permissions
 

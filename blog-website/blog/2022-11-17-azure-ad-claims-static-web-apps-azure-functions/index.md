@@ -2,7 +2,7 @@
 slug: azure-ad-claims-static-web-apps-azure-functions
 title: 'Azure AD Claims with Static Web Apps and Azure Functions'
 authors: johnnyreilly
-tags: [auth, azure functions, azure static web apps, azure]
+tags: [auth, azure functions, azure static web apps, azure, microsoft graph]
 image: ./title-image.png
 description: 'Authorization with Azure Static Web Apps linked to Azure Functions has an issue. Azure AD app role claims are not supplied; this post will demo a workaround.'
 hide_table_of_contents: false
@@ -21,6 +21,11 @@ After I posted this, [Thomas Gauvin](https://twitter.com/thomasgauvin) (Product 
 [![screenshot of tweet from Thomas Gauvin saying "Thanks for writing this @johnny_reilly, I know this is a pain point with SWA auth at the moment. I'm sure this article will help others in the meantime. We're working on correcting our docs + looking to add support for this in the future"](screenshot-twitter-thomas-gauvin-support-in-future.webp)](https://twitter.com/thomasgauvin/status/1596242773686079496)
 
 So by the sounds of it, this blog post will not be required in the longer term, as support should to be added directly. Tremendous news!
+
+## Related posts
+
+- [Graph API: getting users Active Directory group names and ids with the C# SDK](../2023-11-23-graph-api-ad-users-group-name-ids-csharp-sdk/index.md)
+- [Microsoft Graph client: how to filter by endswith](../2025-05-11-microsoft-graphclient-filter-endswith-consistencylevel-eventual-header/index.md)
 
 ## Where's my claims?
 
