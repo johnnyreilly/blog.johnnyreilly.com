@@ -25,7 +25,7 @@ So by the sounds of it, this blog post will not be required in the longer term, 
 ## Related posts
 
 - [Graph API: getting users Active Directory group names and ids with the C# SDK](../2023-11-23-graph-api-ad-users-group-name-ids-csharp-sdk/index.md)
-- [Microsoft Graph client: how to filter by endswith](../2025-05-10-microsoft-graphclient-filter-endswith-consistencylevel-eventual-header/index.md)
+- [Microsoft Graph client: how to filter by endswith](../2025-05-11-microsoft-graphclient-filter-endswith-consistencylevel-eventual-header/index.md)
 
 ## Where's my claims?
 
