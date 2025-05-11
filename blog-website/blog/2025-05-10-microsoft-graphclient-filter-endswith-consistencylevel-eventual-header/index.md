@@ -20,6 +20,8 @@ Then this blog post is for you.
 
 <!--truncate-->
 
+## Related posts
+
 I've written before about the Microsoft Graph client, and how to use it with Azure AD groups. You can find those posts here:
 
 - [Azure AD Claims with Static Web Apps and Azure Functions](../2022-11-17-azure-ad-claims-static-web-apps-azure-functions/index.md)

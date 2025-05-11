@@ -16,6 +16,11 @@ I'm writing this post as, whilst it ends up being a relatively small amount of c
 
 <!--truncate-->
 
+## Related posts
+
+- [Azure AD Claims with Static Web Apps and Azure Functions](../2022-11-17-azure-ad-claims-static-web-apps-azure-functions/index.md)
+- [Microsoft Graph client: how to filter by endswith](../2025-05-10-microsoft-graphclient-filter-endswith-consistencylevel-eventual-header/index.md)
+
 ## Azure AD app registration API permissions
 
 To query the Graph API, we'll need:

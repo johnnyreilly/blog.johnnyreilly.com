@@ -22,6 +22,11 @@ After I posted this, [Thomas Gauvin](https://twitter.com/thomasgauvin) (Product 
 
 So by the sounds of it, this blog post will not be required in the longer term, as support should to be added directly. Tremendous news!
 
+## Related posts
+
+- [Graph API: getting users Active Directory group names and ids with the C# SDK](../2023-11-23-graph-api-ad-users-group-name-ids-csharp-sdk/index.md)
+- [Microsoft Graph client: how to filter by endswith](../2025-05-10-microsoft-graphclient-filter-endswith-consistencylevel-eventual-header/index.md)
+
 ## Where's my claims?
 
 There is a limitation that affects authorization when you have a linked backend paired with an Azure Static Web App. Let's take the case of having an Azure Function App as the linked backend. Essentially the Azure Function app _does not_ receive the claims that the Static Web App receives. [There's an issue tracking this on GitHub](https://github.com/Azure/static-web-apps/issues/988), and it seems that this is a general problem with Static Web Apps, Azure AD and linked backends.
