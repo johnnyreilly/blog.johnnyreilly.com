@@ -8,7 +8,7 @@ hide_table_of_contents: false
 description: 'Learn how to filter by endswith using the Microsoft Graph client. This is a common use case when working with Azure AD groups.'
 ---
 
-In this post we're going to look at filtering using an `endswith` filter with the [Microsoft Graph client](https://learn.microsoft.com/en-us/graph/sdks/create-client?tabs=typescript). This fals into the category of "Advanced query capabilities on Microsoft Entra ID objects" and I found tricky to get working.
+In this post we're going to look at filtering using an `endswith` filter with the [Microsoft Graph client](https://learn.microsoft.com/en-us/graph/sdks/create-client?tabs=typescript). This falls into the category of "Advanced query capabilities on Microsoft Entra ID objects" and I found tricky to get working.
 
 ![title image reading "Microsoft Graph client: how to filter by endswith" with the relevant logos](title-image.png)
 
@@ -33,7 +33,7 @@ First let's quote from the documentation around [advanced query capabilities on 
 
 > Microsoft Graph supports advanced query capabilities on various Microsoft Entra ID objects, also called directory objects, to help you efficiently access data. For example, the addition of **not** (`not`), **not equals** (`ne`), and **ends with** (`endsWith`) operators on the `$filter` query parameter.
 
-You may find that you have a need for the `endsWith` operator or similar, for example: when querying for Entra ID / Azure AD groups. You may want to filter for groups that end with a certain string. And you can, but it does not work by default.
+Let's say we have a need for the `endsWith` operator or similar, for example: when querying for Entra ID / Azure AD groups. We may want to filter for groups that end with a certain string. And you can do that, but it does not work by default.
 
 This is quite disappointing, and the documentation explains why this is the case:
 
@@ -66,7 +66,7 @@ The above code is intended to query for Azure AD groups that start with `startfi
 
 > Operator 'endsWith' is not supported because the 'ConsistencyLevel:eventual' header is missing. Refer to https://aka.ms/graph-docs/advanced-queries for more information
 
-This error is at least helpful in that it points you to the documentation. But it doesn't mention the `$count` query parameter. And it doesn't suggest how you might use them with the Microsoft Graph client.
+This error is at least helpful in that it points you to the documentation. But it doesn't mention the `$count` query parameter. And it doesn't suggest how you might use the query parameter and header with the Microsoft Graph client.
 
 ## Successfully using the `endsWith` operator with the Microsoft Graph client
 
