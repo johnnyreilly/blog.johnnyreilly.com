@@ -4,7 +4,7 @@ title: 'TypeScript is going Go: Why it’s the pragmatic choice'
 authors:
   - johnnyreilly
   - name: Ashley Claymore
-    title: Coder. TC39. Opinions are my own.
+    title: Bloomberg. TC39.
     url: https://github.com/acutmore
     image_url: https://avatars.githubusercontent.com/u/4369552?v=4
 tags: [typescript]
