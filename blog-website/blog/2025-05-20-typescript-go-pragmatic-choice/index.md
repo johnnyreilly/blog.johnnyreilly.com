@@ -1,7 +1,12 @@
 ---
 slug: typescript-go-pragmatic-choice
 title: 'TypeScript is going Go: Why it’s the pragmatic choice'
-authors: johnnyreilly
+authors:
+  - johnnyreilly
+  - name: Ashley Claymore
+    title: Coder. TC39. Opinions are my own.
+    url: https://github.com/acutmore
+    image_url: https://avatars.githubusercontent.com/u/4369552?v=4
 tags: [typescript]
 image: ./title-image.avif
 hide_table_of_contents: false
