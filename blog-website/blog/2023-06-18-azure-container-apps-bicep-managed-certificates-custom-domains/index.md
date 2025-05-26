@@ -87,7 +87,7 @@ It looked simple enough. I added those two resources to my Bicep file and ran th
 
 > `Creating managed certificate requires hostname '....' added as a custom hostname to a container app in environment 'caenv-appname-dev'`
 
-Googling that error message didn't lead me to [this issue](https://github.com/microsoft/azure-container-apps/issues/607) on the Azure Container Apps GitHub repo. Other people were having similar issues. I was able to gather enough clues from that issue to get me to a working approach. I may be the first person in the world to have got this far... Wouldn't that be special?
+Googling that error message led me to [this issue](https://github.com/microsoft/azure-container-apps/issues/607) on the Azure Container Apps GitHub repo. Other people were having similar issues. I was able to gather enough clues from that issue to get me to a working approach. I may be the first person in the world to have got this far... Wouldn't that be special?
 
 ## The three pipe(line) solution
 
@@ -142,7 +142,7 @@ resource managedEnvironmentManagedCertificate 'Microsoft.App/managedEnvironments
 }
 ```
 
-At present there's no relation between the managed certificate and the custom domain. We'll fix that in the third Bicep template. Deploy this template and you'll have a managed certificate. However, the deployment will likely fail with an following error of the following form:
+At present there's no relation between the managed certificate and the custom domain. We'll fix that in the third Bicep template. Deploy this template and you'll have a managed certificate. However, the deployment will likely fail with the following error of the following form:
 
 ```json
 {
