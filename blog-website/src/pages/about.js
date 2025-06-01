@@ -54,7 +54,7 @@ function About() {
 
                 <p>
                   I write the occasional{' '}
-                  <a href="https://reillysontour.blogspot.com/">
+                  <a href="https://johnnyreilly.github.io/reillys-on-tour/">
                     travel blog(ish)
                   </a>{' '}
                   as well. You can{' '}
