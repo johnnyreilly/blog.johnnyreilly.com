@@ -218,8 +218,7 @@ async function getPosts(): Promise<Post[]> {
       entry.link.some(
         (link: any) =>
           link.attr['@_href'] && link.attr['@_type'] === 'text/html',
-      ) &&
-      entry.published < '2021-03-07',
+      ),
   );
 
   const posts: Post[] = postsRaw.map((entry: any) => {
