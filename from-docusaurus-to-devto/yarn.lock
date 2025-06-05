@@ -1301,9 +1301,9 @@
     undici-types "~5.26.4"
 
 "@types/node@^20.0.0":
-  version "20.16.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.16.2.tgz#9e388f503a5af306e8c63319334887390966a11e"
-  integrity sha512-91s/n4qUPV/wg8eE9KHYW1kouTfDk2FPGjXbBMfRWP/2vg1rCXNQL1OCabwGs0XSdukuK+MwCDXE30QpSeMUhQ==
+  version "20.17.57"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.17.57.tgz#f807455e3303ba8ba08fcb1db90619356abfaa99"
+  integrity sha512-f3T4y6VU4fVQDKVqJV4Uppy8c1p/sVvS3peyqxyWnzkqXFJLRU7Y1Bl7rMS1Qe9z0v4M6McY0Fp9yBsgHJUsWQ==
   dependencies:
     undici-types "~6.19.2"
 
