@@ -24,10 +24,10 @@ Build validations in Azure DevOps are a way to ensure that code meets certain cr
 
 The crucial thing to note is that, typically, **build validations must pass before a pull request can be completed**. That's how they provide their value; as a control to prevent potentially breaking things. What we're going to do, is use this to our advantage. We'll include a new stage in our build validation pipeline that, each time it runs, does one of the following:
 
-1. Dynamically adds required a reviewer, if appropriate. The way we choose which reviewers are added is down to us to choose. It's entirely flexbile. It could be based on the code being changed or the people involved in the pull request, or indeed something else. Once the reviewer has been added the pipeline is then failed. OR
-2. If the required rewiewers are already set, check if they have approved the pull request. If they have, the pipeline will pass. If they haven't, the pipeline will fail.
+1. Dynamically adds required a reviewer, if appropriate. The way we choose which reviewers are added is down to us to choose. It's entirely flexible. It could be based on the code being changed or the people involved in the pull request, or indeed something else. If no reviewer is added, the pipeline passes. If a reviewer is added the pipeline is then failed. OR
+2. If the required reviewers has already been assigned, check if they have approved the pull request. If they have, the pipeline will pass. If they haven't, the pipeline will fail.
 
-The thing to pay attention to is that the pipeline will fail if the required reviewers have not given their approval by the end of the pipeline run. This applies equally if the pipeline is running for the first time against a pull request and assigning the reviewers. **This means that the pull request cannot be completed until the required reviewers have approved it.**
+The thing to pay attention to is that the pipeline will fail if the required reviewers have not given their approval by the end of the pipeline run. This applies equally if the pipeline is running for the first time against a pull request and assigning the reviewers. **This means that the pull request cannot be completed until any dynamically assigned required reviewers have approved it.**
 
 This is the part that makes your risk and audit teams happy. You cannot circumvent the required reviewers; the pipeline failing will prevent the pull request from being completed until the required reviewers have approved it. This is a way to ensure that the code is reviewed by the appropriate people before it is merged into the main branch.
 
@@ -117,7 +117,7 @@ We also need a `tsconfig.json` file to configure TypeScript:
     "target": "ES2022",
     "outDir": "dist"
   },
-  "include": ["src", "test"]
+  "include": ["src"]
 }
 ```
 
@@ -306,6 +306,14 @@ async function searchIdentityForReviewer({
   }
 }
 
+const voteValues = {
+  approved: 10,
+  approvedWithSuggestions: 5,
+  noVote: 0,
+  waitingForAuthor: -5,
+  rejected: -10,
+} as const;
+
 async function determineAction({
   requiredReviewer,
   pullRequest,
@@ -367,14 +375,6 @@ async function determineAction({
     throw new Error(errorMessage);
   }
 }
-
-const voteValues = {
-  approved: 10,
-  approvedWithSuggestions: 5,
-  noVote: 0,
-  waitingForAuthor: -5,
-  rejected: -10,
-} as const;
 
 main();
 ```
