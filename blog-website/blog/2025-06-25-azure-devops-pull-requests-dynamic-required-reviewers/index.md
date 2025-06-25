@@ -12,7 +12,7 @@ Have you ever wanted to have required reviewers for a pull request in Azure DevO
 
 ![title image reading "Azure DevOps: pull requests and dynamic required reviewers" with an Azure DevOps logo](title-image.png)
 
-However, the required reviewers are static. You can set them up in the branch policies, but they don't change dynamically based on the code being changed or the people involved in the pull request. I spent many moons trawling the internet for an answer to this question, [and I found that many people were asking the same question](https://stackoverflow.com/questions/64754998/how-do-i-add-a-required-reviewer-when-people-of-a-given-team-create-a-pull-reque). The answer was always the same: "You can't do that."
+However, the required reviewers are static. You can set them up in the branch policies, but they don't change dynamically based on the code being altered or the people involved in the pull request. I spent many moons trawling the internet for an answer to this question, [and I found that many people were asking the same question](https://stackoverflow.com/questions/64754998/how-do-i-add-a-required-reviewer-when-people-of-a-given-team-create-a-pull-reque). The answer was always the same: "You can't do that."
 
 However, there is a way. It is, hand on heart, marginally clunky. But the clunk is marginal, and more than acceptable. It involves co-opting build validations to achieve the desired effect. In this post, I'll show you how to do that.
 
@@ -22,14 +22,14 @@ However, there is a way. It is, hand on heart, marginally clunky. But the clunk 
 
 Build validations in Azure DevOps are a way to ensure that code meets certain criteria before it is merged into the main branch. They are, crucially, Azure DevOps pipelines that run when a pull request is created or updated. They are typically used to ensure that the code builds successfully, runs tests, lints etc. Build validations are set up in the branch policies for a repository. It's pretty typical for a repository to have a build validations.
 
-The crucial thing to note is that **build validations must pass before a pull request can be completed**. What we're going to do is use this to our advantage. We'll set up a build validation that each time it runs does one of the following:
+The crucial thing to note is that, typically, **build validations must pass before a pull request can be completed**. That's how they provide their value; as a control to prevent potentially breaking things. What we're going to do, is use this to our advantage. We'll include a new stage in our build validation pipeline that, each time it runs, does one of the following:
 
-1. Dynamically add required reviewers based on the code being changed or the people involved in the pull request, then fail the pipeline. OR
+1. Dynamically adds required a reviewer, if appropriate. The way we choose which reviewers are added is down to us to choose. It's entirely flexbile. It could be based on the code being changed or the people involved in the pull request, or indeed something else. Once the reviewer has been added the pipeline is then failed. OR
 2. If the required rewiewers are already set, check if they have approved the pull request. If they have, the pipeline will pass. If they haven't, the pipeline will fail.
 
 The thing to pay attention to is that the pipeline will fail if the required reviewers have not given their approval by the end of the pipeline run. This applies equally if the pipeline is running for the first time against a pull request and assigning the reviewers. **This means that the pull request cannot be completed until the required reviewers have approved it.**
 
-This is the part that makes your Audit team happy. You cannot circumvent the required reviewers; the pipeline failing will prevent the pull request from being completed until the required reviewers have approved it. This is a way to ensure that the code is reviewed by the appropriate people before it is merged into the main branch.
+This is the part that makes your risk and audit teams happy. You cannot circumvent the required reviewers; the pipeline failing will prevent the pull request from being completed until the required reviewers have approved it. This is a way to ensure that the code is reviewed by the appropriate people before it is merged into the main branch.
 
 I mentioned "clunky" earlier. The clunkiness comes from the need to rerun the build validation pipeline in the Azure DevOps UI when the approval has been given. This is because there is no way (that I'm aware of) to trigger the build validation pipeline when a reviewer approval has been provided. So, if the required reviewers approve the pull request, you will need to rerun the build validation pipeline to ensure that it passes and the pull request can be completed.
 
@@ -175,7 +175,14 @@ async function main() {
     /* includeWorkItemRefs */ false,
   );
 
-  const requiredReviewerName = await getRequiredReviewerName(pullRequest);
+  const requiredReviewerName = await determineRequiredReviewerName(pullRequest);
+
+  if (!requiredReviewerName) {
+    console.log(
+      '✅ No required reviewer was deemed necessary. No action needed.',
+    );
+    return;
+  }
 
   const requiredReviewer = await searchIdentityForReviewer({
     pat,
@@ -198,9 +205,9 @@ async function main() {
   });
 }
 
-async function getRequiredReviewerName(
+async function determineRequiredReviewerName(
   pullRequest: GitPullRequest,
-): Promise<string> {
+): Promise<string | undefined> {
   // This is a placeholder function. You should implement your logic to determine the required reviewer name.
   return 'Required Reviewer Name'; // Replace with actual logic
 }
@@ -395,4 +402,4 @@ npm start -- --pat [YOUR_PAT] --pullRequestId [PULL_REQUEST_ID] --organization [
 
 In this post, we've seen how to dynamically assign required reviewers for a pull request in Azure DevOps using build validations and the Azure DevOps API brought together with a little TypeScript. By co-opting your existing build validation pipeline, you can ensure that the code is reviewed by the appropriate people before it is merged into the main branch.
 
-Use this. Make your risk folk and auditors happy!
+Use this. Make your risk and audit teams happy!
