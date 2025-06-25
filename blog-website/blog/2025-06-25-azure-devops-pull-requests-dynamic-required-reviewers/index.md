@@ -20,7 +20,7 @@ However, there is a way. It is, hand on heart, marginally clunky. But the clunk 
 
 ## Build validations and required reviewers
 
-Build validations in Azure DevOps are a way to ensure that code meets certain criteria before it is merged into the main branch. They are, crucially, Azure DevOps pipelines that run when a pull request is created or updated. They are typically used to ensure that the code builds successfully, runs tests, lints etc. Build validations are set up in the branch policies for a repository. It's pretty typical for a repository to have a build validations.
+Build validations in Azure DevOps are a way to ensure that code meets certain criteria before it is merged into the main branch. They are, crucially, Azure DevOps pipelines that run when a pull request is created or updated. They are typically used to ensure that the code builds successfully, tests pass, linting succeeds etc. Build validations are set up in the branch policies for a repository. It's pretty typical for a repository to have a build validations.
 
 The crucial thing to note is that, typically, **build validations must pass before a pull request can be completed**. That's how they provide their value; as a control to prevent potentially breaking things. What we're going to do, is use this to our advantage. We'll include a new stage in our build validation pipeline that, each time it runs, does one of the following:
 
