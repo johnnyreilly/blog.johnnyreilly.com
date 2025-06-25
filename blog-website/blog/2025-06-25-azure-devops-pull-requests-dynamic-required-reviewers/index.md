@@ -25,7 +25,7 @@ Build validations in Azure DevOps are a way to ensure that code meets certain cr
 The crucial thing to note is that, typically, **build validations must pass before a pull request can be completed**. That's how they provide their value; as a control to prevent changes breaking the codebase. What we're going to do, is use this blocking aspect to our advantage. We'll include a new stage in our build validation pipeline that, each time it runs, does one of the following:
 
 1. Dynamically adds a required reviewer to the pull request, if appropriate. The way we decide which reviewers are dynamically added, if any, is down to us to determine. It's entirely flexible. It could be based on the code being changed or the people involved in the pull request, or indeed something else. If no reviewer is added, the pipeline will pass. But if a reviewer is added to the pull request, the pipeline will be made to fail.
-2. If the required reviewers has already been assigned, check if they have approved the pull request. If they have, the pipeline will pass. If they haven't, the pipeline will fail.
+2. If a reviewer is determined as required, and has already been assigned, check if the reviewer has approved the pull request. If they have approved, the pipeline will pass. If they haven't approved the pull request, the pipeline will fail.
 
 The thing to pay attention to is that the pipeline will fail if dynamically assigned required reviewers have not given their approval by the end of the pipeline run. This applies equally if the pipeline is running for the first time against a pull request and assigning the reviewers. **This means that the pull request cannot be completed until any dynamically assigned required reviewers have approved it.**
 
