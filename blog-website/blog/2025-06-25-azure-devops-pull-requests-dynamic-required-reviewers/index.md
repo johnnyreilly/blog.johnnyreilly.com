@@ -27,9 +27,9 @@ The crucial thing to note is that, typically, **build validations must pass befo
 1. Dynamically adds required a reviewer, if appropriate. The way we choose which reviewers are added is down to us to choose. It's entirely flexible. It could be based on the code being changed or the people involved in the pull request, or indeed something else. If no reviewer is added, the pipeline passes. If a reviewer is added the pipeline is then failed. OR
 2. If the required reviewers has already been assigned, check if they have approved the pull request. If they have, the pipeline will pass. If they haven't, the pipeline will fail.
 
-The thing to pay attention to is that the pipeline will fail if the required reviewers have not given their approval by the end of the pipeline run. This applies equally if the pipeline is running for the first time against a pull request and assigning the reviewers. **This means that the pull request cannot be completed until any dynamically assigned required reviewers have approved it.**
+The thing to pay attention to is that the pipeline will fail if dynamically assigned required reviewers have not given their approval by the end of the pipeline run. This applies equally if the pipeline is running for the first time against a pull request and assigning the reviewers. **This means that the pull request cannot be completed until any dynamically assigned required reviewers have approved it.**
 
-This is the part that makes your risk and audit teams happy. You cannot circumvent the required reviewers; the pipeline failing will prevent the pull request from being completed until the required reviewers have approved it. This is a way to ensure that the code is reviewed by the appropriate people before it is merged into the main branch.
+This is the part that makes your risk and audit teams happy. You cannot circumvent the required reviewers; the pipeline failing will prevent the pull request from being merged / completed until the required reviewers have approved it. This is a way to ensure that the code is reviewed by the appropriate people before it is merged into the main branch.
 
 I mentioned "clunky" earlier. The clunkiness comes from the need to rerun the build validation pipeline in the Azure DevOps UI when the approval has been given. This is because there is no way (that I'm aware of) to trigger the build validation pipeline when a reviewer approval has been provided. So, if the required reviewers approve the pull request, you will need to rerun the build validation pipeline to ensure that it passes and the pull request can be completed.
 
@@ -72,7 +72,7 @@ You can see reference to the `scripts/dynamic-required-reviewers` directory. Thi
 
 You can also see that we're using the `System.AccessToken` and `System.PullRequest.PullRequestId` variables. The `System.AccessToken` is a token that allows the code to interact with the Azure DevOps API, and the `System.PullRequest.PullRequestId` is the ID of the pull request that the build validation pipeline is running against. We'll use these in our code to dynamically assign required reviewers to the pull request.
 
-We also use the `System.CollectionUri`, `Build.Repository.Name`, and `System.TeamProject` variables to get the organization, repository name, and project name respectively. These will be used to make API calls to Azure DevOps with token.
+We also use the `System.CollectionUri`, `Build.Repository.Name`, and `System.TeamProject` variables to get the organization, repository name, and project name respectively. These will be used to make API calls to Azure DevOps with our token.
 
 ## Setting up the code to dynamically assign required reviewers
 
@@ -383,7 +383,7 @@ There's a good bit of code here, so let's break it down:
 
 - The `main` function is the entry point of the script. It parses the command line arguments and sets up the Azure DevOps API client.
 - The `makeWebApi` function creates an instance of the Azure DevOps Web API client using either a Personal Access Token (PAT) or a Service Account Token (SAT). You'll use a PAT for local development and a SAT in the build validation pipeline. If using a PAT it requires the scopes: `vso.code` and `vso.identity`.
-- The `getRequiredReviewerName` function is a placeholder for your logic to determine the required reviewer name. You should implement your logic here to determine the required reviewer based on the pull request.
+- The `getRequiredReviewerName` function is a placeholder for your logic to determine the name of your required reviewer, if any. You should implement your logic here to determine when dynamically assigned reviewers are appropriate.
 - The `searchIdentityForReviewer` function searches for the required reviewer in the Azure DevOps identity system. It uses the Azure DevOps REST API to search for identities based on a search term. Rather frustratingly, you can't directly use the Azure AD / Entra ID Graph API to search for users in Azure DevOps.
 - The `determineAction` function checks if the required reviewer is already assigned to the pull request and whether they have approved it.
   - If they have, it logs a success message.
@@ -398,7 +398,7 @@ You can run the code locally to test it. You'll need to set up a Personal Access
 npm start -- --pat [YOUR_PAT] --pullRequestId [PULL_REQUEST_ID] --organization [ORGANISATION_NAME] --repositoryName [ADO_REPOSITORY_NAME] --projectName [ADO_PROJECT_NAME]
 ```
 
-## Conclusion
+## Conclusion
 
 In this post, we've seen how to dynamically assign required reviewers for a pull request in Azure DevOps using build validations and the Azure DevOps API brought together with a little TypeScript. By co-opting your existing build validation pipeline, you can ensure that the code is reviewed by the appropriate people before it is merged into the main branch.
 
