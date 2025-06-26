@@ -153,7 +153,10 @@ async function main() {
   const pullRequestId = parseInt(args.values.pullRequestId ?? '0', 10);
   const pat = args.values.pat ?? '';
   const sat = args.values.sat ?? '';
-  const organization = args.values.organization ?? '';
+  // https://dev.azure.com/johnnyreilly/ -> johnnyreilly
+  const organization = (args.values.organization ?? "")
+    .replace("https://dev.azure.com/", "")
+    .replace("/", "");
   const repositoryName = args.values.repositoryName ?? '';
   const projectName = args.values.projectName ?? '';
 
@@ -395,7 +398,7 @@ There's a good bit of code here, so let's break it down:
 You can run the code locally to test it. You'll need to set up a Personal Access Token (PAT) with the required scopes and set the environment variables accordingly. You can then run the code using:
 
 ```bash
-npm start -- --pat [YOUR_PAT] --pullRequestId [PULL_REQUEST_ID] --organization [ORGANISATION_NAME] --repositoryName [ADO_REPOSITORY_NAME] --projectName [ADO_PROJECT_NAME]
+npm start -- --pat [YOUR_PAT] --pullRequestId [PULL_REQUEST_ID] --organization [ORGANISATION] --repositoryName [ADO_REPOSITORY_NAME] --projectName [ADO_PROJECT_NAME]
 ```
 
 ## Conclusion
