@@ -374,7 +374,29 @@ async function determineAction({
       throw new Error(errorMessage, { cause: error });
     }
 
-    const errorMessage = `The pull request requires review and approval by ${requiredReviewer.providerDisplayName}. Once approved, please re-run this build validation and it should pass.`;
+    const errorMessage = `Added reviewer ${requiredReviewer.providerDisplayName} to pull request for review and approval. Once approved, please re-run the build validation and it should pass.`;
+    try {
+      await gitApi.createThread(
+        /** commentThread */ {
+          comments: [
+            {
+              parentCommentId: 0,
+              content: errorMessage,
+              commentType: CommentType.Text,
+            },
+          ],
+          status: CommentThreadStatus.Active,
+        },
+        /** repositoryId */ repositoryName,
+        /** pullRequestId */ pullRequest.pullRequestId!,
+        /** project */ projectName
+      );
+      console.log("✅ Successfully add comment to pull request");
+    } catch (error) {
+      const errorMessage = `❌ Failed to add comment to pull request`;
+      throw new Error(errorMessage, { cause: error });
+    }
+
     throw new Error(errorMessage);
   }
 }
@@ -391,7 +413,7 @@ There's a good bit of code here, so let's break it down:
 - The `determineAction` function checks if the required reviewer is already assigned to the pull request and whether they have approved it.
   - If they have, it logs a success message.
   - If they haven't, it throws an error with a message indicating that the required reviewer needs to approve the pull request.
-  - If the required reviewer is not assigned, it assigns them to the pull request and throws an error with a message indicating that the pull request requires their approval.
+  - If the required reviewer is not assigned, it assigns them to the pull request and throws an error with a message indicating that the pull request requires their approval. It also adds a comment on the PR to make the required action obvious to anyone looking at the PR.
 
 ## Running the code
 
