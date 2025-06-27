@@ -280,9 +280,7 @@ const config = {
   organizationName: 'johnnyreilly', // Usually your GitHub org/user name.
   projectName: 'blog.johnnyreilly.com', // Usually your repo name.
 
-  future: {
-    experimental_faster: true,
-  },
+  future: {v4: true},
 
   themes: ['@docusaurus/theme-mermaid'],
 
