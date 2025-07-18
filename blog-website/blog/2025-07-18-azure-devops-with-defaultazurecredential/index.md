@@ -63,7 +63,7 @@ Consider the following example pipeline YAML:
 
 The above will run the `npm start` command in the context of the Azure CLI, using the service connection specified by `azureSubscription`. This service connection will authenticate using the credentials of the service principal associated with it. When the code runs and `DefaultAzureCredential` is used, it will use the `AzureCliCredential` to authenticate, as at this point the pipeline is effectively a logged user with the Azure CLI.
 
-## Using the `AzureCLI@2` task with `EnvironmentCredential`
+## Using the `AzureCLI@2` task with `EnvironmentCredential`
 
 If, for whatever reason, you want to use `EnvironmentCredential` in your Azure DevOps pipeline, you can do so by setting the necessary environment variables in the pipeline. I don't have a specific reason to do this, but you may. To achieve this, you can modify the `AzureCLI@2` task as follows:
 
