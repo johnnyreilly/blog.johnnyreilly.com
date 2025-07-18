@@ -36,7 +36,7 @@ The specific environment variables that `DefaultAzureCredential` looks for are:
 
 The fifth credential in the chain is [`AzureCliCredential`](https://learn.microsoft.com/en-us/dotnet/api/azure.identity.azureclicredential?view=azure-dotnet&preserve-view=true), which uses the Azure CLI to authenticate. This means that if you have already authenticated using `az login`, you can use `DefaultAzureCredential` without setting any environment variables.
 
-## Why have you told me about `EnvironmentCredential` and `AzureCliCredential`?
+## Why have you told me about `EnvironmentCredential` and `AzureCliCredential`?
 
 Great question! When I'm developing locally, I can use `DefaultAzureCredential` without thinking further about it. I just run `az login` and then run my script. `DefaultAzureCredential` will do what I need.
 
