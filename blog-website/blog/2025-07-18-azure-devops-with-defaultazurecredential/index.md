@@ -14,7 +14,7 @@ I frequently build scripts that work against Azure resources using the [Azure SD
 
 The `DefaultAzureCredential` is a great way to authenticate locally; I can `az login` and then run my script, safe in the knowledge that the `DefaultAzureCredential` will authenticate successfully. However, how can I use the `DefaultAzureCredential` in an Azure DevOps pipeline?
 
-This post will show you how to use the `DefaultAzureCredential` in an Azure DevOps pipeline, specifically when using the `AzureCLI@2` task.
+This post will show you how to use the `DefaultAzureCredential` in an Azure DevOps pipeline, specifically by using the `AzureCLI@2` task.
 
 <!--truncate-->
 
@@ -40,7 +40,7 @@ The fifth credential in the chain is [`AzureCliCredential`](https://learn.micros
 
 Great question! When I'm developing locally, I can use `DefaultAzureCredential` without thinking further about it. I just run `az login` and then run my script. `DefaultAzureCredential` will do what I need.
 
-The reality is, that you can just make use of `AzureCliCredential`, both locally and in an Azure DevOps pipeline, and it will work as long as you have a service connection set up in Azure DevOps that uses the same credentials as your local `az login`. `EnvironmentCredential` is another option which can be used in an Azure DevOps pipeline, that is also possible, and we'll show you how to do that as well.
+You can just make use of `AzureCliCredential`, both locally and in an Azure DevOps pipeline, and it will work as long as you have a service connection set up in Azure DevOps that uses the same credentials as your local `az login`. Should you need it, `EnvironmentCredential` is another option which can be used in an Azure DevOps pipeline, and we'll show you how to use that as well.
 
 The nice thing about `DefaultAzureCredential` is that it support both approaches, so you can use it in your code without worrying about which credential type is being used.
 
@@ -52,12 +52,11 @@ Consider the following example pipeline YAML:
 
 ```yml
 - task: AzureCLI@2
-  displayName: Run with DefaultAzureCredential
+  displayName: Run with AzureCliCredential
   inputs:
     azureSubscription: myServiceConnection # this is the name of your Azure service connection in Azure DevOps
     scriptType: bash
     scriptLocation: inlineScript
-    failOnStderr: true
     inlineScript: npm start # where `npm start` is your command that uses DefaultAzureCredential
 ```
 
@@ -65,30 +64,35 @@ The above will run the `npm start` command in the context of the Azure CLI, usin
 
 ## Using the `AzureCLI@2` task with `EnvironmentCredential`
 
-If, for whatever reason, you want to use `EnvironmentCredential` in your Azure DevOps pipeline, you can do so by setting the necessary environment variables in the pipeline. I don't have a specific reason to do this, but you may. To achieve this, you can modify the `AzureCLI@2` task as follows:
+If, for whatever reason, you want to use `EnvironmentCredential` in your Azure DevOps pipeline, you can do so by setting the necessary environment variables in the pipeline. I don't have a specific reason to do this, but you may. To achieve this, you can modify the approach as follows:
 
 ```yml
 - task: AzureCLI@2
-  displayName: Run with DefaultAzureCredential
+  displayName: Set service principal variables
   inputs:
     azureSubscription: myServiceConnection # this is the name of your Azure service connection in Azure DevOps
     scriptType: bash
     scriptLocation: inlineScript
     addSpnToEnvironment: true
-    failOnStderr: true
-    inlineScript: npm start
+    inlineScript: |
+      echo "##vso[task.setvariable variable=AZURE_CLIENT_ID;issecret=true]${servicePrincipalId}"
+      echo "##vso[task.setvariable variable=AZURE_CLIENT_SECRET;issecret=true]${servicePrincipalKey}"
+      echo "##vso[task.setvariable variable=AZURE_SUBSCRIPTION_ID;issecret=true]$(az account show --query 'id' -o tsv)"
+      echo "##vso[task.setvariable variable=AZURE_TENANT_ID;issecret=true]${tenantId}"
+
+- bash: npm start
+  displayName: 'Run with EnvironmentCredential'
   env:
-    # see https://github.com/Azure/azure-sdk-for-go/wiki/Set-up-Your-Environment-for-Authentication#configure-defaultazurecredential
-    AZURE_CLIENT_ID: ${servicePrincipalId}
-    AZURE_CLIENT_SECRET: ${servicePrincipalKey}
-    AZURE_TENANT_ID: ${tenantId}
-    AZURE_SUBSCRIPTION_ID: $(az account show --query 'id' -o tsv) # this is optional and not necessary for DefaultAzureCredential to work
+    # see https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/identity/Azure.Identity/README.md#environment-variables
+    AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
+    AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
+    AZURE_SUBSCRIPTION_ID: $(AZURE_SUBSCRIPTION_ID)
+    AZURE_TENANT_ID: $(AZURE_TENANT_ID) # this is optional and not necessary for EnvironmentCredential to work
 ```
 
-You can see this is the same as before, but with two specific changes:
+You can see this is a little different from the previous example. We're now using the `AzureCLI@2` task to set the necessary environment variables for `DefaultAzureCredential` to work. The `addSpnToEnvironment` input is set to `true`, which ensures that the service principal's credentials are added to the environment.
 
-1. The `addSpnToEnvironment` input is set to `true`, which ensures that the service principal's credentials are added to the environment.
-2. The `env` section is added, which sets the necessary environment variables for `DefaultAzureCredential` to work. It maps the exposed variables to the [environment variables that `DefaultAzureCredential` expects](https://github.com/Azure/azure-sdk-for-net/blob/main/sdk/identity/Azure.Identity/README.md#environment-variables).
+The second task is a simple bash task that runs `npm start`, but it now has an `env` section that sets the necessary environment variables for `DefaultAzureCredential` to work. The environment variables are set using the variables exposed by the previous task.
 
 ## Conclusion
 
