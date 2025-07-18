@@ -38,11 +38,11 @@ The fifth credential in the chain is [`AzureCliCredential`](https://learn.micros
 
 ## Why have you told me about `EnvironmentCredential` and `AzureCliCredential`?
 
-Great question! When I'm developing locally, I can use `DefaultAzureCredential` without thinking further about it. I just run `az login` and then run my script. `DefaultAzureCredential` will do what I need.
+Great question! When I'm developing locally, I can use `DefaultAzureCredential` without thinking further about it. I run `az login` and then run my script. `DefaultAzureCredential` will do what I need.
 
-You can just make use of `AzureCliCredential`, both locally and in an Azure DevOps pipeline, and it will work as long as you have a service connection set up in Azure DevOps that uses the same credentials as your local `az login`. Should you need it, `EnvironmentCredential` is another option which can be used in an Azure DevOps pipeline, and we'll show you how to use that as well.
+You can make use of `AzureCliCredential`, both locally and in an Azure DevOps pipeline, and it can be used for authentication as long as you have a service connection set up in Azure DevOps that uses the same credentials as your local `az login`. Should you need it, `EnvironmentCredential` is another option, and we'll demonstrate it too.
 
-The nice thing about `DefaultAzureCredential` is that it support both approaches, so you can use it in your code without worrying about which credential type is being used.
+The nice thing about `DefaultAzureCredential` is that it supports both approaches, so you can use it in your code without having to specifically cater for the credential type being used.
 
 ## Using the `AzureCLI@2` task with `AzureCliCredential`
 
@@ -60,7 +60,7 @@ Consider the following example pipeline YAML:
     inlineScript: npm start # where `npm start` is your command that uses DefaultAzureCredential
 ```
 
-The above will run the `npm start` command in the context of the Azure CLI, using the service connection specified by `azureSubscription`. This service connection will authenticate using the credentials of the service principal associated with it. When the code runs and `DefaultAzureCredential` is used, it will use the `AzureCliCredential` to authenticate, as at this point the pipeline is effectively a logged user with the Azure CLI.
+The above will run the `npm start` command in the context of the Azure CLI. We won't document it here, but imagine the `npm start` command runs a Node.js script which makes use of `DefaultAzureCredential`. The supplied service connection will authenticate using the credentials of the  associated service principal. When the code runs and `DefaultAzureCredential` is used, the `AzureCliCredential` will be used to authenticate, as at this point the pipeline is effectively a logged user with the Azure CLI.
 
 ## Using the `AzureCLI@2` task with `EnvironmentCredential`
 
@@ -90,7 +90,7 @@ If, for whatever reason, you want to use `EnvironmentCredential` in your Azure D
     AZURE_TENANT_ID: $(AZURE_TENANT_ID) # this is optional and not necessary for EnvironmentCredential to work
 ```
 
-You can see this is a little different from the previous example. We're now using the `AzureCLI@2` task to set the necessary environment variables for `DefaultAzureCredential` to work. The `addSpnToEnvironment` input is set to `true`, which ensures that the service principal's credentials are added to the environment.
+You can see this is a little different from the previous example. We're now using the `AzureCLI@2` task to set the necessary environment variables for `DefaultAzureCredential` to work. The `addSpnToEnvironment` input is set to `true`, which ensures that the service principal's credentials are added to the environment. We then map those credentials to the names that the `DefaultAzureCredential` expects and write them to the pipeline to be used in the next task.
 
 The second task is a simple bash task that runs `npm start`, but it now has an `env` section that sets the necessary environment variables for `DefaultAzureCredential` to work. The environment variables are set using the variables exposed by the previous task.
 
