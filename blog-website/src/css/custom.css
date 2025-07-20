@@ -66,6 +66,8 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   max-height: 18px;
 }
 
-.footer__link-item {
-  width: fit-content;
+@media (max-width: 996px) {
+  .footer__link-item {
+    width: auto;
+  }
 }
