@@ -90,7 +90,9 @@ If, for whatever reason, you want to use `EnvironmentCredential` in your Azure D
     AZURE_TENANT_ID: $(AZURE_TENANT_ID) # this is optional and not necessary for EnvironmentCredential to work
 ```
 
-You can see this is a little different from the previous example. We're now using the `AzureCLI@2` task to set the necessary environment variables for `DefaultAzureCredential` to work. The `addSpnToEnvironment` input is set to `true`, which ensures that the service principal's credentials are added to the environment. We then map those credentials to the names that the `DefaultAzureCredential` expects and write them to the pipeline to be used in the next task.
+You can see this is a little different from the previous example. We're now using the `AzureCLI@2` task to set the necessary environment variables for `DefaultAzureCredential` to work. Specifically, `AZURE_CLIENT_ID`, `AZURE_CLIENT_SECRET` and `AZURE_SUBSCRIPTION_ID`.
+
+The `addSpnToEnvironment` input of the task is set to `true`, which ensures that the service principal's credentials are added to the environment. We then map those credentials to the names that the `DefaultAzureCredential` expects and write them to the pipeline to be used in the next task.
 
 The second task is a simple bash task that runs `npm start`, but it now has an `env` section that sets the necessary environment variables for `DefaultAzureCredential` to work. The environment variables are set using the variables exposed by the previous task.
 
