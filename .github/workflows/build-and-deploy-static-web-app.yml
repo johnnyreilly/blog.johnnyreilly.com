@@ -39,7 +39,7 @@ jobs:
           submodules: true
 
       - name: Install azd 🔧
-        uses: Azure/setup-azd@v2.0.0
+        uses: Azure/setup-azd@v2.2.0
 
       - name: Set `azd` config options 🔧
         run: |
