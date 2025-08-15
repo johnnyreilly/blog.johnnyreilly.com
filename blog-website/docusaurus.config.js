@@ -183,8 +183,8 @@ const siteStructuredData = {
         '@type': 'ImageObject',
         inLanguage: 'en-UK',
         '@id': 'https://johnnyreilly.com/about#image',
-        url: 'https://johnnyreilly.com/img/profile.jpg',
-        contentUrl: 'https://johnnyreilly.com/img/profile.jpg',
+        url: 'https://johnnyreilly.com/img/profile-2025.jpg',
+        contentUrl: 'https://johnnyreilly.com/img/profile-2025.jpg',
         width: 200,
         height: 200,
         caption: 'John Reilly',
@@ -214,8 +214,8 @@ const siteStructuredData = {
         '@type': 'ImageObject',
         inLanguage: 'en-UK',
         '@id': 'https://johnnyreilly.com/#logo',
-        url: 'https://johnnyreilly.com/img/profile.jpg',
-        contentUrl: 'https://johnnyreilly.com/img/profile.jpg',
+        url: 'https://johnnyreilly.com/img/profile-2025.jpg',
+        contentUrl: 'https://johnnyreilly.com/img/profile-2025.jpg',
         width: 200,
         height: 200,
         caption: 'John Reilly',
@@ -280,7 +280,7 @@ const config = {
   organizationName: 'johnnyreilly', // Usually your GitHub org/user name.
   projectName: 'blog.johnnyreilly.com', // Usually your repo name.
 
-  future: {v4: true},
+  future: { v4: true },
 
   themes: ['@docusaurus/theme-mermaid'],
 
@@ -470,7 +470,7 @@ const config = {
           {
             tagName: 'link',
             rel: 'icon',
-            href: '/img/profile-64x64.jpg',
+            href: '/img/profile-2025-64x64.jpg',
           },
           {
             tagName: 'link',
@@ -539,12 +539,12 @@ const config = {
 
       // Relative to your site's 'static' directory.
       // Cannot be SVGs. Can be external URLs too.
-      image: 'img/profile.jpg',
+      image: 'img/profile-2025.jpg',
       navbar: {
         title: 'John Reilly',
         logo: {
           alt: 'Profile picture of John Reilly',
-          src: 'img/profile-64x64.jpg',
+          src: 'img/profile-2025-64x64.jpg',
           width: 32,
           height: 32,
         },

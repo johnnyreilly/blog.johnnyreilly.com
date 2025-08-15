@@ -5,7 +5,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './styles.module.css';
 
 function About() {
-  const imgUrl = useBaseUrl('img/profile.jpg');
+  const imgUrl = useBaseUrl('img/profile-2025.jpg');
   const context = useDocusaurusContext();
   const { siteConfig = { title: '', tagline: '' } } = context;
 

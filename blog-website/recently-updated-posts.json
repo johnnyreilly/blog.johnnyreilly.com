@@ -1,14 +1,14 @@
 [
   {
-    "link": "introducing-ado-npm-auth-lite",
-    "title": "Introducing Azure DevOps npm auth-lite"
+    "link": "nodejs-azure-appinsights-fastify",
+    "title": "Node.js, Azure Application Insights, and Fastify"
   },
   {
-    "link": "azure-devops-set-user-story-column-api",
-    "title": "Azure DevOps API: Set User Story column with the Azure DevOps Client for Node.js"
+    "link": "get-service-connections-with-azure-devops-api",
+    "title": "Get Service Connections with the Azure DevOps API (REST and TypeScript)"
   },
   {
-    "link": "module-ws-does-not-provide-an-export-named-websocketserver",
-    "title": "module ws does not provide an export named WebSocketServer"
+    "link": "create-pipeline-with-azure-devops-api",
+    "title": "Create a Pipeline with the Azure DevOps API"
   }
 ]

@@ -13,7 +13,7 @@ const notMarkdownable: string[] = [];
 const author = 'johnnyreilly';
 const author_name = 'John Reilly';
 const author_url = 'https://twitter.com/johnny_reilly';
-const author_image_url = 'https://blog.johnnyreilly.com/img/profile.jpg';
+const author_image_url = 'https://blog.johnnyreilly.com/img/profile-2025.jpg';
 
 async function makePostsFromXML() {
   const blogDir = path.resolve(docusaurusDirectory, 'blog');
@@ -30,7 +30,7 @@ async function makePostsFromXML() {
   if (notMarkdownable.length)
     console.log(
       'These blog posts could not be turned into MarkDown - go find out why!',
-      notMarkdownable
+      notMarkdownable,
     );
 }
 
@@ -54,7 +54,7 @@ async function deleteExistingFiles(directory: string) {
  * johnnyreilly:
  *   name: John Reilly
  *   url: https://twitter.com/johnny_reilly
- *   image_url: https://blog.johnnyreilly.com/img/profile.jpg
+ *   image_url: https://blog.johnnyreilly.com/img/profile-2025.jpg
  */
 async function makeAuthorsYml(directory: string) {
   const authorsYml = `${author}:
@@ -66,7 +66,7 @@ async function makeAuthorsYml(directory: string) {
   await fs.promises.writeFile(
     path.join(directory, 'authors.yml'),
     authorsYml,
-    'utf-8'
+    'utf-8',
   );
 }
 
@@ -100,13 +100,13 @@ async function getPosts(): Promise<Post[]> {
       entry.category.some(
         (category: any) =>
           category.attr['@_term'] ===
-          'http://schemas.google.com/blogger/2008/kind#post'
+          'http://schemas.google.com/blogger/2008/kind#post',
       ) &&
       entry.link.some(
         (link: any) =>
-          link.attr['@_href'] && link.attr['@_type'] === 'text/html'
+          link.attr['@_href'] && link.attr['@_type'] === 'text/html',
       ) &&
-      entry.published < '2021-03-07'
+      entry.published < '2021-03-07',
   );
 
   const posts: Post[] = postsRaw.map((entry: any) => {
@@ -116,25 +116,25 @@ async function getPosts(): Promise<Post[]> {
       published: entry.published,
       link: entry.link.find(
         (link: any) =>
-          link.attr['@_href'] && link.attr['@_type'] === 'text/html'
+          link.attr['@_href'] && link.attr['@_type'] === 'text/html',
       )
         ? entry.link.find(
             (link: any) =>
-              link.attr['@_href'] && link.attr['@_type'] === 'text/html'
+              link.attr['@_href'] && link.attr['@_type'] === 'text/html',
           ).attr['@_href']
         : undefined,
       tags:
         Array.isArray(entry.category) &&
         entry.category.some(
           (category: any) =>
-            category.attr['@_scheme'] === 'http://www.blogger.com/atom/ns#'
+            category.attr['@_scheme'] === 'http://www.blogger.com/atom/ns#',
         )
           ? entry.category
               .filter(
                 (category: any) =>
                   category.attr['@_scheme'] ===
                     'http://www.blogger.com/atom/ns#' &&
-                  category.attr['@_term'] !== 'constructor'
+                  category.attr['@_term'] !== 'constructor',
               ) // 'constructor' will make docusaurus choke
               .map((category: any) => category.attr['@_term'])
           : [],
@@ -211,7 +211,7 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
       .replace(
         /\[!\[null\]\(<(.*?)\].*?>\)/g,
         (match) =>
-          `![](${match.slice(match.indexOf('<') + 1, match.indexOf('>'))})\n\n`
+          `![](${match.slice(match.indexOf('<') + 1, match.indexOf('>'))})\n\n`,
       )
 
       // Blogger tends to put images in HTML that looks like this:
@@ -229,7 +229,7 @@ async function makePostIntoMarkDownAndDownloadImages(post: Post) {
           if (src) images.push(src);
 
           return `![${alt}](${src})`;
-        }
+        },
       );
   } catch (e) {
     console.log(post.link);
@@ -258,7 +258,7 @@ ${markdown}
 
   await fs.promises.writeFile(
     path.resolve(docusaurusDirectory, 'blog', blogdirPath, 'index.md'),
-    content
+    content,
   );
 }
 

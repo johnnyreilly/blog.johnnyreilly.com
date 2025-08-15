@@ -126,7 +126,7 @@ const notMarkdownable: string[] = [];
 const author = 'johnnyreilly';
 const author_name = 'John Reilly';
 const author_url = 'https://twitter.com/johnny_reilly';
-const author_image_url = 'https://johnnyreilly.com/img/profile.jpg';
+const author_image_url = 'https://johnnyreilly.com/img/profile-2025.jpg';
 
 async function makePostsFromXML() {
   const blogDir = path.resolve(docusaurusDirectory, 'blog');
@@ -167,7 +167,7 @@ async function deleteExistingFiles(directory: string) {
  * johnnyreilly:
  *   name: John Reilly
  *   url: https://twitter.com/johnny_reilly
- *   image_url: https://johnnyreilly.com/img/profile.jpg
+ *   image_url: https://johnnyreilly.com/img/profile-2025.jpg
  */
 async function makeAuthorsYml(directory: string) {
   const authorsYml = `${author}:
@@ -217,7 +217,9 @@ async function getPosts(): Promise<Post[]> {
       ) &&
       entry.link.some(
         (link: any) =>
-          link.attr['@_href'] && link.attr['@_type'] === 'text/html' && link.attr['@_rel'] === 'alternate',
+          link.attr['@_href'] &&
+          link.attr['@_type'] === 'text/html' &&
+          link.attr['@_rel'] === 'alternate',
       ),
   );
 
@@ -228,11 +230,15 @@ async function getPosts(): Promise<Post[]> {
       published: entry.published,
       link: entry.link.find(
         (link: any) =>
-          link.attr['@_href'] && link.attr['@_type'] === 'text/html' && link.attr['@_rel'] === 'alternate',
+          link.attr['@_href'] &&
+          link.attr['@_type'] === 'text/html' &&
+          link.attr['@_rel'] === 'alternate',
       )
         ? entry.link.find(
             (link: any) =>
-              link.attr['@_href'] && link.attr['@_type'] === 'text/html' && link.attr['@_rel'] === 'alternate',
+              link.attr['@_href'] &&
+              link.attr['@_type'] === 'text/html' &&
+              link.attr['@_rel'] === 'alternate',
           ).attr['@_href']
         : undefined,
       tags:

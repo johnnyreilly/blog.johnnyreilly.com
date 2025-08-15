@@ -38,11 +38,11 @@ To quote [Cloudinary's website](https://cloudinary.com/blog/delivering_all_your_
 
 Consumption of the CDN is very simple. You simply prefix the URL of the image you want to serve with the URL of the Cloudinary CDN. For example, if you want to serve the following image:
 
-`https://johnnyreilly.com/img/profile-64x64.jpg`
+`https://johnnyreilly.com/img/profile-2025-64x64.jpg`
 
 you can serve it from Cloudinary with the following URL:
 
-`https://res.cloudinary.com/demo/image/fetch/https://johnnyreilly.com/img/profile-64x64.jpg`.
+`https://res.cloudinary.com/demo/image/fetch/https://johnnyreilly.com/img/profile-2025-64x64.jpg`.
 
 You see? All we did was prefix `https://res.cloudinary.com/demo/image/fetch/` to the URL of the image we wanted to serve. That's it. When you visit the URL, you'll see the image served from Cloudinary. Behind the scenes, Cloudinary will fetch the image from the original source and serve it to you.
 
@@ -115,9 +115,8 @@ function imageCloudinaryRehypePluginFactory(
 
         const url = node['properties'].src;
 
-        node[
-          'properties'
-        ].src = `https://res.cloudinary.com/${cloudName}/image/fetch/${url}`;
+        node['properties'].src =
+          `https://res.cloudinary.com/${cloudName}/image/fetch/${url}`;
       } else if (node.type === 'jsx' && node['value']?.includes('<img ')) {
         // handles nodes like this:
 
