@@ -480,7 +480,7 @@ const config = {
           {
             tagName: 'meta',
             name: 'theme-color',
-            content: '#3578e5',
+            content: '#cf6d1e',
           },
           {
             tagName: 'meta',
