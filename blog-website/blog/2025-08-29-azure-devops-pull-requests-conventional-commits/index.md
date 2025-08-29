@@ -16,7 +16,7 @@ There's also more technical reasons to care about commit messages. For example, 
 
 You can use the UI to change the commit message when completing a pull request, but it's very easy to forget to do this. And if you're using squash merges, you lose the individual commit messages from the feature branch, which can be a problem if you're trying to maintain a history of conventional commits.
 
-There is a way to bend Azure DevOps to our will; to allow us to control our commit messages and maintain a history of conventional commits. In this post, I'll show you how to do just that using the Azure DevOps API, some TypeScript and build validations. The fact this mechanism lives in a build validation means you cannot forget to set the commit message. That's the feature.
+There is a way to bend Azure DevOps to our will; to allow us to control our commit messages. In this post, I'll show you how to do just that using the Azure DevOps API, some TypeScript and build validations. The fact this mechanism lives in a build validation means you cannot forget to set the commit message. That's the feature.
 
 This post is not, in fact, specifically about using conventional commits. That's just a common use case. Rather this post is about being able to control the commit message when merging pull requests in Azure DevOps.
 
