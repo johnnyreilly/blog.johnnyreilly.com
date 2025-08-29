@@ -5,7 +5,7 @@ authors: johnnyreilly
 tags: [typescript, azure devops, node.js]
 image: ./title-image.png
 hide_table_of_contents: false
-description: 'How to have merge a pull request in Azure DevOps or set it to autocomplete using the Azure DevOps Client for Node.js.'
+description: 'How to merge a pull request in Azure DevOps or set it to autocomplete using the Azure DevOps API Client for Node.js.'
 ---
 
 Have you ever wanted to merge a pull request in Azure DevOps using the Azure DevOps API? Or set a pull request to autocomplete, so it automatically merges when all policies are satisfied? If so, you're in the right place. In this post, I'll show you how to do just that using the Azure DevOps Client for Node.js.
@@ -15,6 +15,8 @@ Have you ever wanted to merge a pull request in Azure DevOps using the Azure Dev
 I'm using the Azure DevOps Client for Node.js; but if you want to use the REST API directly, you can do that too. The principles are the same, but you'll need to make HTTP requests instead of using the client library.
 
 To get up and running with the Azure DevOps Client for Node.js, you can [see how we work with it in this post on dynamic required reviewers in Azure DevOps](../2025-06-25-azure-devops-pull-requests-dynamic-required-reviewers/index.md) post. This will help you set up your environment and authenticate with Azure DevOps.
+
+If you'd like to read about setting commit messages when merging pull requests in Azure DevOps, you can check out my post on [merging pull requests with conventional commits in Azure DevOps](../2025-08-29-azure-devops-pull-requests-conventional-commits/index.md).
 
 <!--truncate-->
 
@@ -45,10 +47,10 @@ async function mergePullRequest({
       },
       /** repositoryId */ repositoryName,
       pullRequest.pullRequestId!,
-      /** project */ projectName
+      /** project */ projectName,
     );
     console.log(
-      `✅ Successfully merged pull request ${pullRequest.pullRequestId}`
+      `✅ Successfully merged pull request ${pullRequest.pullRequestId}`,
     );
   } catch (error) {
     const errorMessage = `❌ Failed to merge pull request ${pullRequest.pullRequestId}`;
@@ -89,7 +91,7 @@ async function setPullRequestToAutocomplete({
     const { authenticatedUser } = await locationsApi.getConnectionData();
 
     console.log(
-      `Setting pull request ${pullRequest.pullRequestId} to auto-complete with squash merge as ${authenticatedUser?.providerDisplayName} (${authenticatedUser?.id})`
+      `Setting pull request ${pullRequest.pullRequestId} to auto-complete with squash merge as ${authenticatedUser?.providerDisplayName} (${authenticatedUser?.id})`,
     );
 
     await gitApi.updatePullRequest(
@@ -103,10 +105,10 @@ async function setPullRequestToAutocomplete({
       },
       /** repositoryId */ repositoryName,
       pullRequest.pullRequestId!,
-      /** project */ projectName
+      /** project */ projectName,
     );
     console.log(
-      `✅ Successfully set pull request ${pullRequest.pullRequestId} to auto-complete`
+      `✅ Successfully set pull request ${pullRequest.pullRequestId} to auto-complete`,
     );
   } catch (error) {
     const errorMessage = `❌ Failed to set pull request ${pullRequest.pullRequestId} to auto-complete`;
@@ -115,7 +117,7 @@ async function setPullRequestToAutocomplete({
 }
 ```
 
-What might be surprising about this code is that you have explicitly provide your user id when setting the pull request to autocomplete. The unlovely aspect of this is that you need to discover that id somehow.  We achieve it here by fetching the authenticated user from the `locationsApi`.
+What might be surprising about this code is that you have explicitly provide your user id when setting the pull request to autocomplete. The unlovely aspect of this is that you need to discover that id somehow. We achieve it here by fetching the authenticated user from the `locationsApi`.
 
 Once you have the user id, you can set the `autoCompleteSetBy` property of the pull request to that user id. This will allow the pull request to be set to autocomplete. Again we must specify the `mergeStrategy` so it knows how to merge when the time comes.
 
