@@ -30,11 +30,11 @@ I've written about [merging pull requests and setting autocomplete with the Azur
 
 This should allow us to go from commits like this:
 
-![Screenshot of the default merge commit in the style Merge PR 123: Title of pull request](screenshot-default-merge-commit.png)
+![Screenshot of the default merge commit in the style Merge PR 123: Title of pull request](screenshot-default-merge-commit.webp)
 
 To commits like this:
 
-![Screenshot of a merge commit with a conventional commit message](screenshot-semantic-merge-commit.png)
+![Screenshot of a merge commit with a conventional commit message](screenshot-semantic-merge-commit.webp)
 
 I should say that I'm using conventional commits as my commit message style, but you can use whatever style you like. The important thing is that you have control over the commit message.
 
