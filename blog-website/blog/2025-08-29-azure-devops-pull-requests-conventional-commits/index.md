@@ -10,13 +10,15 @@ description: 'How to merge a pull request in Azure DevOps and maintain a git com
 
 There was a time in my life when I didn't really care about commit messages. I would just write whatever I felt like, and it was fine. Over time, I learned that good commit messages are important for understanding the history of a project, especially when working in a team. And also, because I tend to forget what I've been working on surprisingly quickly.
 
-There's also more technical reasons to care about commit messages. For example, if you're using a tool like [semantic-release](https://semantic-release.gitbook.io/semantic-release/) to automate your release process, it relies on conventional commit messages to determine the next version number and generate release notes.
-
-It turns out that Azure DevOps has some challenges when it comes to maintaining a git commit history of conventional commits, especially when merging pull requests. By default, Azure DevOps uses a merge commit strategy that creates a merge commit with a message like "Merge PR 123: Title of pull request". This is acts against conventional commits.
+There's also more technical reasons to care about commit messages. For example, if you're using a tool like [semantic-release](https://semantic-release.gitbook.io/semantic-release/) to automate your release process, it relies on conventional commit messages to determine the next version number and generate release notes. It turns out that Azure DevOps has some challenges when it comes to maintaining a git commit history of conventional commits, especially when merging pull requests. By default, Azure DevOps uses a commit strategy that creates a merge commit with a message like "Merge PR 123: Title of pull request". This is acts against conventional commits.
 
 ![title image reading "Azure DevOps: merging pull requests with conventional commits" with an Azure DevOps logo](title-image.png)
 
-There is a way to bend Azure DevOps to our will; to allow us to control our commit messages and maintain a history of conventional commits. In this post, I'll show you how to do just that using the Azure DevOps API, some TypeScript and build validations. This post is actually directly about using conventional commits; you can use whatever commit message style you like. This post is about being able to control the commit message when merging pull requests in Azure DevOps.
+You can use the UI to change the commit message when completing a pull request, but it's very easy to forget to do this. And if you're using squash merges, you lose the individual commit messages from the feature branch, which can be a problem if you're trying to maintain a history of conventional commits.
+
+There is a way to bend Azure DevOps to our will; to allow us to control our commit messages and maintain a history of conventional commits. In this post, I'll show you how to do just that using the Azure DevOps API, some TypeScript and build validations. The fact this mechanism lives in a build validation means you cannot forget to set the commit message. That's the feature.
+
+This post is not, in fact, specifically about using conventional commits. That's just a common use case. Rather this post is about being able to control the commit message when merging pull requests in Azure DevOps.
 
 <!--truncate-->
 
@@ -26,7 +28,7 @@ The internet has been angry about Azure DevOps pull request commit messages for 
 
 Azure DevOps very rarely gets new features these days, and so it's unlikely that we'll see any changes here. However, there is one avenue that is open to us. Azure DevOps has the ability for a pull request to be set to autocomplete, which means that it will automatically merge when all policies are satisfied. This is useful for ensuring that the pull request is merged without manual intervention once it meets the requirements. For example when build validations have passed, and the required reviewers have approved.
 
-I've written about [merging pull requests and setting autocomplete with the Azure DevOps API](../2025-07-25-azure-devops-api-pull-requests-merge-set-autocomplete/index.md) previously. We're going to build on that knowledge here, but add in the magic of setting the merge commit message when we set the pull request to autocomplete. This is achieved by the [pull requests API](https://learn.microsoft.com/en-us/rest/api/azure/devops/git/pull-requests/update?view=azure-devops-rest-7.1#gitpullrequestcompletionoptions). It allows to update a pull request and set it autocomplete with a specific message commit message.
+I've written about [merging pull requests and setting autocomplete with the Azure DevOps API](../2025-07-25-azure-devops-api-pull-requests-merge-set-autocomplete/index.md) previously. We're going to build on that knowledge here, but add in the magic of setting the merge commit message when we set the pull request to autocomplete. This is achieved by the [pull requests API](https://learn.microsoft.com/en-us/rest/api/azure/devops/git/pull-requests/update?view=azure-devops-rest-7.1#gitpullrequestcompletionoptions). It allows us to update a pull request and set it autocomplete with a specific message commit message.
 
 This should allow us to go from commits like this:
 
@@ -40,7 +42,7 @@ I should say that I'm using conventional commits as my commit message style, but
 
 ## The code
 
-We're going to write a script that can be run in a build validation pipeline. This script will set the pull request to autocomplete with a merge commit message that matches the title of the pull request. This means that if you use conventional commits in your pull request titles, you'll get a history of conventional commits in your git history.
+We're going to write a script that can be run in a build validation pipeline. This script will set the pull request to autocomplete with a specific merge commit message. This means that if you use conventional commits, you'll get to maintain a history of conventional commits in your git history.
 
 Before we dive into the full code, here's the bit that does the magic of setting the merge commit message when setting the pull request to autocomplete:
 
@@ -69,13 +71,16 @@ Here we are:
 
 - Setting the `autoCompleteSetBy` property to the authenticated user. This is required when setting a pull request to autocomplete.
 - Setting the `completionOptions.mergeStrategy` to `squash`. [You can change this to `rebase` or `noFastForward` if you prefer those strategies.](https://learn.microsoft.com/en-us/rest/api/azure/devops/git/pull-requests/update?view=azure-devops-rest-7.1#gitpullrequestmergestrategy)
-- Setting the `completionOptions.mergeCommitMessage` to the title of the pull request. This is where we set our conventional commit message. Or if you wanted to use a different style, you could set it to whatever you like.
+- Setting the `completionOptions.mergeCommitMessage`. This is where we set our conventional commit message. Or if you wanted to use a different style, you could set it to whatever you like.
 
 ### The full TypeScript script
 
 Now that we understand the principle, here's the full `set-autocomplete-and-commit-message.ts` script that you can use in your build validation pipeline:
 
 ```ts
+import { Buffer } from 'buffer';
+import { parseArgs } from 'util';
+
 interface LocationData {
   authenticatedUser?: AuthenticatedUser;
 }
@@ -245,7 +250,7 @@ async function main() {
 
   await setMergeCommitMessageAndAutocomplete({
     pullRequestId: currentPullRequestId,
-    mergeCommitMessage: currentPullRequest.title,
+    mergeCommitMessage: 'feat: conventional commit message', // <- set your commit message here
     token,
     org,
     project,
@@ -261,7 +266,9 @@ main().catch((err: unknown) => {
 });
 ```
 
-This can also be run locally with `node ./set-autocomplete-and-commit-message.ts --token [PAT TOKEN WITH SCOPES: vso.code_write and vso.identity] --pr-id [PULL_REQUEST_ID] --org [NAME_OF_ORGANISATION] --project [NAME_OF_PROJECT] --repo [NAME_OF_REPOSITORY]`. You'll need Node.js 24 or later to run this locally. (And yes, you can run TypeScript files directly with Node.js these days).
+This can also be run locally with `node ./set-autocomplete-and-commit-message.ts --token [PAT TOKEN WITH SCOPES: vso.code_write and vso.identity] --pr-id [PULL_REQUEST_ID] --org [NAME_OF_ORGANISATION] --project [NAME_OF_PROJECT] --repo [NAME_OF_REPOSITORY]`. You'll need Node.js 24 or later to run this. (And yes, you can run TypeScript files directly with Node.js these days).
+
+The thing I haven't included here is how you determine the `mergeCommitMessage`. In my case, I use the title of the pull request as the commit message. You can fetch the pull request details using the Azure DevOps API and extract the title. I left this out for brevity, but you can easily add it in. Or use whatever logic you like to determine the commit message. The point is that you have control over it.
 
 ### The build validation pipeline
 
