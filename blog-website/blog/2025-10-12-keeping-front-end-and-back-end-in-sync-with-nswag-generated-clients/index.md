@@ -1,16 +1,16 @@
 ---
-slug: keeping-your-front-end-and-back-end-in-sync-with-nswag-generated-clients
-title: 'Keeping your front end and back end in sync with NSwag generated clients'
+slug: keeping-front-end-and-back-end-in-sync-with-nswag-generated-clients
+title: 'Keeping front end and back end in sync with NSwag generated clients'
 authors: johnnyreilly
 tags: [swagger, c#, azure, typescript]
-image: ./screenshot-passing-test.png
+image: ./title-image.png
 hide_table_of_contents: false
 description: 'By generating clients from OpenAPI specs, it is possible to have integration tests that check your front end and your back end are aligned. This post will show you how to do that using NSwag.'
 ---
 
 For many years I've been a big fan of using [NSwag](https://github.com/RicoSuter/NSwag) to generate TypeScript and CSharp clients for APIs. I've written about it before in [Generate TypeScript and CSharp clients with NSwag](../2021-03-06-generate-typescript-and-csharp-clients-with-nswag/index.md).
 
-You're likely aware of the popularity of excellent projects like [tRPC](https://trpc.io/) which provide a way to use TypeScript end-to-end. However, if you're working in a polyglot environment where your back end is written in C# or [insert other language here], and your front end is written in TypeScript, then cannot take advantage of that. However, by auto-generating clients from OpenAPI specs, it's possible to have integration tests that check your front end and your back end are aligned.
+You're likely aware of the popularity of excellent projects like [tRPC](https://trpc.io/) which provide a way to use TypeScript end-to-end. However, if you're working in a polyglot environment where your back end is written in C# or [insert other language here], and your front end is written in TypeScript, then cannot take advantage of that. However, by generating front end clients from a server's OpenAPI specs, it's possible to have integration tests that check your front end and your back end are aligned.
 
 This post will show you how to do that using NSwag.
 
@@ -60,6 +60,8 @@ I'm going to use [Vitest](https://vitest.dev/) for this example. I love it, you 
 But this could easily be part of your front end project if you prefer.
 
 I'm not going to repeat the code of the previous post that demonstrated how to [generate TypeScript clients with NSwag](../2021-03-06-generate-typescript-and-csharp-clients-with-nswag/index.md) - but please imagine that the code for the TypeScript client has been generated and is available in a front end project. The code above refers to the front end of that project as `client-app` and the generated client code is in `client-app/src/clients.ts`.
+
+For that project, the back end is in C#, but it could be in any language that can generate an OpenAPI spec. The important thing is that the OpenAPI spec is the source of truth for the API.
 
 You'll notice that both the `test:ci` and `test` scripts run a `testprepare` script first. This does two things:
 
