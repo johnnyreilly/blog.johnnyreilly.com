@@ -1,11 +1,11 @@
 ---
-slug: 2025-10-12-keeping-your-front-end-and-back-end-in-sync-with-nswag-generated-clients
+slug: keeping-your-front-end-and-back-end-in-sync-with-nswag-generated-clients
 title: 'Keeping your front end and back end in sync with NSwag generated clients'
 authors: johnnyreilly
 tags: [swagger, c#, azure, typescript]
 image: ./screenshot-passing-test.png
 hide_table_of_contents: false
-description: 'By auto-generating clients from OpenAPI specs, it's possible to have integration tests that check your front end and your back end are aligned.'
+description: 'By generating clients from OpenAPI specs, it is possible to have integration tests that check your front end and your back end are aligned. This post will show you how to do that using NSwag.'
 ---
 
 For many years I've been a big fan of using [NSwag](https://github.com/RicoSuter/NSwag) to generate TypeScript and CSharp clients for APIs. I've written about it before in [Generate TypeScript and CSharp clients with NSwag](../2021-03-06-generate-typescript-and-csharp-clients-with-nswag/index.md).
