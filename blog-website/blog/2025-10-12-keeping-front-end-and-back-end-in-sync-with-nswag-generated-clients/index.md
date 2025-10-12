@@ -10,6 +10,8 @@ description: 'By generating clients from OpenAPI specs, it is possible to have i
 
 For many years I've been a big fan of using [NSwag](https://github.com/RicoSuter/NSwag) to generate TypeScript and CSharp clients for APIs. I've written about it before in [Generate TypeScript and CSharp clients with NSwag](../2021-03-06-generate-typescript-and-csharp-clients-with-nswag/index.md).
 
+![title image reading "Keeping front end and back end in sync with NSwag generated clients" with the Open API, TypeScript and C# logos](title-image.png)
+
 You're likely aware of the popularity of excellent projects like [tRPC](https://trpc.io/) which provide a way to use TypeScript end-to-end. However, if you're working in a polyglot environment where your back end is written in C# or [insert other language here], and your front end is written in TypeScript, then cannot take advantage of that. However, by generating front end clients from a server's OpenAPI specs, it's possible to have integration tests that check your front end and your back end are aligned.
 
 This post will show you how to do that using NSwag.
