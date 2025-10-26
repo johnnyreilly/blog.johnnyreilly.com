@@ -8,14 +8,14 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #3578e5;
-  --ifm-color-primary-dark: #1d68e1;
-  --ifm-color-primary-darker: #1b62d4;
-  --ifm-color-primary-darkest: #1751af;
-  --ifm-color-primary-light: #4e89e8;
-  --ifm-color-primary-lighter: #5a91ea;
-  --ifm-color-primary-lightest: #80aaef;
-  --ifm-footer-link-hover-color: #9998e2;
+  --ifm-color-primary: #3da5b8;
+  --ifm-color-primary-dark: #3895a6;
+  --ifm-color-primary-darker: #358d9d;
+  --ifm-color-primary-darkest: #2c7481;
+  --ifm-color-primary-light: #42b5ca;
+  --ifm-color-primary-lighter: #45bdd3;
+  --ifm-color-primary-lightest: #4dd5e6;
+  --ifm-footer-link-hover-color: #5ee0f2;
 
   --ifm-code-font-size: 95%;
   --ifm-font-family-base: 'Poppins', 'Poppins override';
