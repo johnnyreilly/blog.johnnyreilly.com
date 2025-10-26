@@ -239,7 +239,7 @@ There's no two ways about it; our Azure DevOps pipeline modifications are pretty
 Here's a cut down version of our pipeline replacing the single `AzureResourceManagerTemplateDeployment@3` task with a series of tasks that use the `azd` command:
 
 ```yaml
-- task: setup-azd@0
+- task: setup-azd@1
   displayName: Install azd
 
 # If you can't use above task in your organization, you can remove it and uncomment below task to install azd

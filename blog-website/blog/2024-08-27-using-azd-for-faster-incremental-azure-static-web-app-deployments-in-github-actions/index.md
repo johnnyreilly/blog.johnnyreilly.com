@@ -155,7 +155,7 @@ We need to install and configure `azd` in our GitHub Actions workflow:
 
 ```yml
 - name: Install azd 🔧
-  uses: Azure/setup-azd@v1.0.0
+  uses: Azure/setup-azd@v2
 
 - name: Set `azd` config options 🔧
   run: |
