@@ -1,7 +1,7 @@
 {
   "name": "johnnyreilly",
   "short_name": "johnnyreilly",
-  "theme_color": "#cf6d1e",
+  "theme_color": "#3578e5",
   "background_color": "#424242",
   "display": "standalone",
   "scope": "./",
