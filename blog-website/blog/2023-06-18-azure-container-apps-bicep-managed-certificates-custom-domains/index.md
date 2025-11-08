@@ -12,9 +12,92 @@ Azure Container Apps support managed certificates and custom domains. However, d
 
 If, instead, you're looking to make use of the "bring your own certificates" approach in Azure Container Apps using Bicep, then you might want to take a look at [this post on the topic](../2023-07-20-azure-container-apps-bicep-bring-your-own-certificates-custom-domains/index.md).
 
+## Updated 08/11/2025 - with `bindingType: 'Auto'` you can deploy in one go
+
+Since originally writing this post, the [need to use multiple pipeline runs to deploy has been resolved](https://github.com/microsoft/azure-container-apps/issues/796). It is now possible to deploy managed certificates and custom domains to Azure Container Apps using a single Bicep deployment. To do that you'll need to use the [Microsoft.App containerApps 2025-07-01](https://learn.microsoft.com/en-us/azure/templates/microsoft.app/2025-07-01/containerapps?pivots=deployment-language-bicep) API version (or newer).
+
+That API version introduced the ability to create a managed certificate resource without needing to first create a disabled custom domain on the container app. This means you can now do it all in one go. This is achieved with the use of a new `bindingType` value of `Auto` on the `customDomains` property.
+
+Using the new approach, the Bicep required to create a managed certificate and custom domain looks like this:
+
+```bicep
+resource containerApp 'Microsoft.App/containerApps@2025-07-01' = {
+  //...
+  properties: {
+    configuration: {
+      //...
+      ingress: {
+        //...
+        customDomains: empty(customDomainName) ? [] : [
+          {
+            name: customDomainName
+            bindingType: 'Auto'
+          }
+        ]
+        //...
+      }
+      //...
+    }
+    //...
+  }
+  //...
+}
+
+resource managedEnvironmentManagedCertificate 'Microsoft.App/managedEnvironments/managedCertificates@2025-07-01' = if (!empty(customDomainName)) {
+  parent: managedEnvironment
+  name: '${managedEnvironment.name}-cert'
+  location: location
+  tags: tags
+  properties: {
+    subjectName: customDomainName
+    domainControlValidation: 'CNAME'
+  }
+  dependsOn: [
+    containerApp
+  ]
+}
+```
+
+### `azd deploy` with Microsoft.App containerApps 2025-07-01
+
+If you're using [Azure Developer CLI (azd)](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/overview) to deploy your Azure Container Apps, as described in [this post](../2024-07-15-using-azd-for-faster-incremental-azure-container-app-deployments-in-azure-devops/index.md), then you'll find that an issue can present when you try to deploy the custom domain and managed certificate using the `Microsoft.App/containerApps@2025-07-01` API version.
+
+The following error shows up when using `azd deploy`:
+
+```
+ERROR: failed deploying service 'app': updating container app service: getting container app: getting container app: unmarshalling type *armappcontainers.ContainerApp: unmarshalling type *armappcontainers.ContainerApp: struct field Properties: unmarshalling type *armappcontainers.ContainerAppProperties: struct field Configuration: unmarshalling type *armappcontainers.Configuration: struct field Ingress: unmarshalling type *armappcontainers.Ingress: struct field CustomDomains: unmarshalling type *armappcontainers.CustomDomain: struct field BindingType: json: cannot unmarshal number into Go value of type armappcontainers.BindingType
+Suggestion: set 'apiVersion' on your service in azure.yaml to match the API version in your IaC:
+
+services:
+  your-service:
+    apiVersion: 2025-02-02-preview
+```
+
+In fairness, this is a quite helpful error message. It suggests that you can resolve it by specifying the API version in your `azure.yaml` file like so:
+
+```yaml
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: my-container-app
+metadata:
+  template: azd-init@1.9.4
+services:
+  app:
+    image: myregistry.azurecr.io/${CONTAINER_IMAGE_NAME}:${APP_VERSION_TAG}
+    host: containerapp
+    resourceName: ${CONTAINER_APP_NAME}
+    apiVersion: 2025-07-01
+```
+
+With this in place, `azd deploy` will work as expected. Hopefully one day, supplying the API version in `azure.yaml` won't be necessary. I've raised an issue about this [here](https://github.com/Azure/azure-dev/issues/6092).
+
+Anyway, if for some reason you can't use the `Microsoft.App/containerApps@2025-07-01` API version, then you can still use the three pipeline approach described below. Back to the original post...
+
+## The dreaded message
+
 I've facetiously subtitled this post "a three pipe(line) problem" because it took three Azure Pipelines to get it working. This is not Azure Pipelines specific though, it's just that I was using Azure Pipelines to deploy the Bicep. Really, this applies to any way of deploying Bicep. GitHub Actions, Azure CLI or whatever.
 
-If you're here because you've encountered the dread message:
+If you're here because you've encountered the dreaded message:
 
 > `Creating managed certificate requires hostname '....' added as a custom hostname to a container app in environment 'caenv-appname-dev'`
 
