@@ -12,9 +12,57 @@ Azure Container Apps support managed certificates and custom domains. However, d
 
 If, instead, you're looking to make use of the "bring your own certificates" approach in Azure Container Apps using Bicep, then you might want to take a look at [this post on the topic](../2023-07-20-azure-container-apps-bicep-bring-your-own-certificates-custom-domains/index.md).
 
+## Updated 8th November 2025
+
+Since originally writing this post, the [issue described here has been resolved](https://github.com/microsoft/azure-container-apps/issues/796). It is now possible to deploy managed certificates and custom domains to Azure Container Apps using a single Bicep deployment. To do that you'll need to use the [Microsoft.App containerApps 2025-07-01](https://learn.microsoft.com/en-us/azure/templates/microsoft.app/2025-07-01/containerapps?pivots=deployment-language-bicep) API version (or newer).
+
+That API version introduced the ability to create a managed certificate resource without needing to first create a disabled custom domain on the container app. This means you can now do it all in one go. This is achieved with the use of a new `bindingType` value of `Auto` on the `customDomains` property.
+
+Using the new approach, the Bicep required to create a managed certificate and custom domain looks like this:
+
+```bicep
+resource containerApp 'Microsoft.App/containerApps@2025-07-01' = {
+  //...
+  properties: {
+    configuration: {
+      //...
+      ingress: {
+        //...
+        customDomains: empty(customDomainName) ? [] : [
+          {
+            name: customDomainName
+            bindingType: 'Auto'
+          }
+        ]
+        //...
+      }
+      //...
+    }
+    //...
+  }
+  //...
+}
+
+resource managedEnvironmentManagedCertificate 'Microsoft.App/managedEnvironments/managedCertificates@2025-07-01' = if (!empty(customDomainName)) {
+  parent: managedEnvironment
+  name: '${managedEnvironment.name}-cert'
+  location: location
+  tags: tags
+  properties: {
+    subjectName: customDomainName
+    domainControlValidation: 'CNAME'
+  }
+  dependsOn: [
+    containerApp
+  ]
+}
+```
+
+## The dreaded message
+
 I've facetiously subtitled this post "a three pipe(line) problem" because it took three Azure Pipelines to get it working. This is not Azure Pipelines specific though, it's just that I was using Azure Pipelines to deploy the Bicep. Really, this applies to any way of deploying Bicep. GitHub Actions, Azure CLI or whatever.
 
-If you're here because you've encountered the dread message:
+If you're here because you've encountered the dreaded message:
 
 > `Creating managed certificate requires hostname '....' added as a custom hostname to a container app in environment 'caenv-appname-dev'`
 
