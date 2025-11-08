@@ -93,7 +93,7 @@ With this in place, `azd deploy` will work as expected. Hopefully one day, suppl
 
 Anyway, if for some reason you can't use the `Microsoft.App/containerApps@2025-07-01` API version, then you can still use the three pipeline approach described below. Back to the original post...
 
-## The dreaded message
+## The dreaded message
 
 I've facetiously subtitled this post "a three pipe(line) problem" because it took three Azure Pipelines to get it working. This is not Azure Pipelines specific though, it's just that I was using Azure Pipelines to deploy the Bicep. Really, this applies to any way of deploying Bicep. GitHub Actions, Azure CLI or whatever.
 
