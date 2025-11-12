@@ -24,7 +24,7 @@ A little information about myself: I work as a software engineer for Investec, a
 
 I also work on open source software outside of work and have done for many years, primarily in the world of TypeScript.
 
-## Setting the table: GitHub Copilot and the emergence of agent mode
+## Setting the table: GitHub Copilot and the emergence of agent mode
 
 One of the most well-known AI coding tools is GitHub Copilot. In many ways, it was the original AI coding tool, and competitors like Claude Code and Cursor still can’t match Copilot’s dominance. Let’s consider for a moment what makes these IDE AI tools useful.
 
