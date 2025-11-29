@@ -8,11 +8,11 @@ hide_table_of_contents: false
 description: 'This post demonstrates how to use Yargs to create statically typed commands with builders in TypeScript.'
 ---
 
-[Yargs](https://yargs.js.org/) is a popular library for building command line interfaces in Node.js. And the name is just fabulous. Yargs provides a way to define commands, options, and arguments in a structured way. However, Yargs has been around for a long time and it the documentation makes [little mention](https://github.com/yargs/yargs/blob/main/docs/typescript.md) of TypeScript support.
+[Yargs](https://yargs.js.org/) is a popular library for building command line interfaces in Node.js. And the name is just fabulous. Yargs provides a way to define commands, options, and arguments in a structured way. However, Yargs has been around for a long time and it the documentation makes little mention of TypeScript support.
 
 ![title image reading "Yargs: statically typed builder commands" with the Yargs and TypeScript logos](title-image.png)
 
-Whilst there is some documentation, if you're building more involved command line interfaces with Yargs in TypeScript, you may find that you need to do a bit of extra work to get strong typing working well with commands that have builders. In this post, I'll demonstrate how to use Yargs to create statically typed commands with builders in TypeScript.
+Whilst there is [some documentation](https://github.com/yargs/yargs/blob/main/docs/typescript.md), if you're building more involved command line interfaces with Yargs in TypeScript, you may find that you need to do a bit of extra work to get strong typing working well with commands that have builders. In this post, I'll demonstrate how to use Yargs to create statically typed commands with builders in TypeScript.
 
 Before we start, I should say that I'm working with Yargs version 18.0.0 in this post. The type definitions come from Definitely Typed and the version is 17.0.35. However, there is no significant difference in the types between Yargs 17 and 18 and so the difference is not an issue.
 
@@ -65,7 +65,7 @@ export const mySimpleCommand: yargs.CommandModule = {
 
 You can see we have a command called `simple-command` that has a single option called `myOption` in the `builder`. However, if we look at the `handler` function, we can see that `myOption` is of type `unknown`. This is because Yargs does not know the shape of the arguments that will be passed to the handler.
 
-This is the problem we need to solve. Inside the handler, we want to have strongly typed access to the options defined in the builder.
+This is the problem we need to solve. Inside the handler, we want to have statically typed access to the options defined in the builder.
 
 ## Statically typing command builders
 
@@ -103,9 +103,9 @@ There's three things to note here:
 2. We've updated the `CommandModule` type to use `Args` as the second type, which defines the return type of the builder.
 3. In the `builder`, we've specified the type of `myOption` as `string`. This is crucial for strong typing to work correctly. Without this we will have compilation errors from TypeScript.
 
-Now we have strongly typed access to `myOption` inside the handler. Yay!
+Now we have statically typed access to `myOption` inside the handler. Yay!
 
-## Sharing options among commands and builders
+## Sharing options among commands and builders
 
 It's not unusual to have options that are shared among multiple commands. Imagine a common option that all commands need to use. How can we share that option definition among multiple commands while maintaining strong typing? We can achieve this by defining a shared interface for the common options and a function that adds those options to a builder. Here's how we can do that:
 
@@ -147,13 +147,13 @@ export const mySimpleCommand: yargs.CommandModule<unknown, Args> = {
       .help(),
   handler: async (argv) => {
     const { myOption, someSharedOption } = argv;
-    // Now you have strongly typed access to myOption and someSharedOption
+    // Now you have statically typed access to myOption and someSharedOption
 
     // Implement your command logic here
   },
 };
 ```
 
-By following this pattern, we can create strongly typed commands with builders in Yargs while also sharing common options among multiple commands.
+By following this pattern, we can create statically typed commands with builders in Yargs while also sharing common options among multiple commands.
 
 It's a beautiful pattern that sparks joy in my soul. Happy coding!
