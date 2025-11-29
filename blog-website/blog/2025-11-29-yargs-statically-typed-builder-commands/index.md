@@ -1,5 +1,5 @@
 ---
-slug: yargs-staticallyilder-commands
+slug: yargs-statically-typed-builder-commands
 title: 'Yargs: statically typed builder commands'
 authors: johnnyreilly
 tags: [typescript]
