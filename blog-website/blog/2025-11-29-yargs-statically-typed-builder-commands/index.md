@@ -1,18 +1,18 @@
 ---
-slug: yargs-strongly-typed-builder-commands
-title: 'Yargs: strongly typed builder commands'
+slug: yargs-staticallyilder-commands
+title: 'Yargs: statically typed builder commands'
 authors: johnnyreilly
 tags: [typescript]
 image: ./title-image.png
 hide_table_of_contents: false
-description: 'This post demonstrates how to use Yargs to create strongly typed commands with builders in TypeScript.'
+description: 'This post demonstrates how to use Yargs to create statically typed commands with builders in TypeScript.'
 ---
 
 [Yargs](https://yargs.js.org/) is a popular library for building command line interfaces in Node.js. And the name is just fabulous. Yargs provides a way to define commands, options, and arguments in a structured way. However, Yargs has been around for a long time and it the documentation makes [little mention](https://github.com/yargs/yargs/blob/main/docs/typescript.md) of TypeScript support.
 
-![title image reading "Yargs: strongly typed builder commands" with the Yargs and TypeScript logos](title-image.png)
+![title image reading "Yargs: statically typed builder commands" with the Yargs and TypeScript logos](title-image.png)
 
-Whilst there is some documentation, if you're building more involved command line interfaces with Yargs in TypeScript, you may find that you need to do a bit of extra work to get strong typing working well with commands that have builders. In this post, I'll demonstrate how to use Yargs to create strongly typed commands with builders in TypeScript.
+Whilst there is some documentation, if you're building more involved command line interfaces with Yargs in TypeScript, you may find that you need to do a bit of extra work to get strong typing working well with commands that have builders. In this post, I'll demonstrate how to use Yargs to create statically typed commands with builders in TypeScript.
 
 Before we start, I should say that I'm working with Yargs version 18.0.0 in this post. The type definitions come from Definitely Typed and the version is 17.0.35. However, there is no significant difference in the types between Yargs 17 and 18 and so the difference is not an issue.
 
@@ -92,7 +92,6 @@ export const mySimpleCommand: yargs.CommandModule<unknown, Args> = {
   handler: async (argv) => {
     const { myOption } = argv; // myOption is now `string`
 
-    // Now you have strongly typed access to myOption and someSharedOption
     // Implement your command logic here
   },
 };
@@ -148,8 +147,8 @@ export const mySimpleCommand: yargs.CommandModule<unknown, Args> = {
       .help(),
   handler: async (argv) => {
     const { myOption, someSharedOption } = argv;
-
     // Now you have strongly typed access to myOption and someSharedOption
+
     // Implement your command logic here
   },
 };
