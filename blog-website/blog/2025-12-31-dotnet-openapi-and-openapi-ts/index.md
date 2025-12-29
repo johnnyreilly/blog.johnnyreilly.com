@@ -32,7 +32,178 @@ If you're going to do this, you will need both [Node.js](https://nodejs.org/) an
 
 ## Create an API
 
-We'll now create an API which exposes a [Swagger / Open API](https://swagger.io/resources/open-api/) endpoint. Whilst we're doing that we'll create a TypeScript React app which we'll use later on. We'll drop to the command line and enter the following commands which use the .NET SDK, node and the `create-react-app` package:
+We'll now create an API which exposes an Open API endpoint:
+
+```shell
+dotnet new webapi -o server
+```
+
+The above command creates a new .NET Web API project in a folder called `server`. Pretty much all the code we care about is in `Program.cs`:
+
+```cs
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddOpenApi();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+}
+
+app.UseHttpsRedirection();
+
+var summaries = new[]
+{
+    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+};
+
+app.MapGet("/weatherforecast", () =>
+{
+    var forecast =  Enumerable.Range(1, 5).Select(index =>
+        new WeatherForecast
+        (
+            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+            Random.Shared.Next(-20, 55),
+            summaries[Random.Shared.Next(summaries.Length)]
+        ))
+        .ToArray();
+    return forecast;
+})
+.WithName("GetWeatherForecast");
+
+app.Run();
+
+record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+{
+    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+}
+```
+
+This is simply exposing a single endpoint, `/weatherforecast` which returns some (fake) weather data. If we run our API with:
+
+```shell
+dotnet run --urls="http://localhost:5000"
+```
+
+We can then navigate to `http://localhost:5000/weatherforecast` and see the JSON output:
+
+```json
+[
+  {
+    "date": "2025-12-30",
+    "temperatureC": 11,
+    "summary": "Sweltering",
+    "temperatureF": 51
+  },
+  {
+    "date": "2025-12-31",
+    "temperatureC": 4,
+    "summary": "Cool",
+    "temperatureF": 39
+  },
+  {
+    "date": "2026-01-01",
+    "temperatureC": -19,
+    "summary": "Cool",
+    "temperatureF": -2
+  },
+  {
+    "date": "2026-01-02",
+    "temperatureC": -8,
+    "summary": "Warm",
+    "temperatureF": 18
+  },
+  {
+    "date": "2026-01-03",
+    "temperatureC": -16,
+    "summary": "Sweltering",
+    "temperatureF": 4
+  }
+]
+```
+
+And we can see the OpenAPI endpoint at `http://localhost:5000/openapi/v1.json`:
+
+```json
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "server | v1",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/"
+    }
+  ],
+  "paths": {
+    "/weatherforecast": {
+      "get": {
+        "tags": ["server"],
+        "operationId": "GetWeatherForecast",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "WeatherForecast": {
+        "required": ["date", "temperatureC", "summary"],
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "temperatureC": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "summary": {
+            "type": ["null", "string"]
+          },
+          "temperatureF": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "server"
+    }
+  ]
+}
+```
+
+This is great! (Actually, there's some problems with the `temperatureC` and `temperatureF` properties being marked as both `integer` and `string` but we'll ignore that for now.)
+
+## Create our client
+
+Whilst we're doing that we'll create a TypeScript React app which we'll use later on. We'll drop to the command line and enter the following commands which use the .NET SDK, node and the `create-react-app` package:
 
 ```shell
 mkdir src
