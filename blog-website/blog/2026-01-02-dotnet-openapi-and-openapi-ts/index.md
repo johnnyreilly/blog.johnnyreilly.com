@@ -520,6 +520,8 @@ With this in place, when we next run `npm run generate-client` from the root of 
     };
 ```
 
+[I've inquired whether the default behaviour makes the most sense here.](https://github.com/dotnet/aspnetcore/issues/64920)
+
 ## Consume our generated API client
 
 Now we want to make use of our generated client in our React app. First we're going to install `openapi-fetch` to help with making requests:
