@@ -66,12 +66,12 @@ jobs:
             echo '::warning::Bicep linting results:'
             cat bicep.sarif
 
-      - name: Upload Bicep lint results
-        if: github.event_name == 'pull_request' && (success() || failure())
-        uses: github/codeql-action/upload-sarif@v4
-        with:
-          category: bicep
-          sarif_file: bicep.sarif
+      #- name: Upload Bicep lint results
+      #  if: github.event_name == 'pull_request' && (success() || failure())
+      #  uses: github/codeql-action/upload-sarif@v4
+      #  with:
+      #    category: bicep
+      #    sarif_file: bicep.sarif
 
       - name: Set deployment name 📝
         id: deployment_name
