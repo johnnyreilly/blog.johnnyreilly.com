@@ -26,7 +26,7 @@ I saw [Daniel Roe's post on Bluesky in January](https://bsky.app/profile/danielr
 
 I'd long felt that the npm website might generously be described as "adequate". It works, sure. But it does not spark joy. The last time I could remember a feature being added to the npm website was the addition of a "DT" badge to packages which had TypeScript type definitions available via Definitely Typed.
 
-[![Screenshot of lodash with DT badge](screenshot-lodash-npm.png)](https://www.npmjs.com/package/lodash)
+[![Screenshot of lodash with DT badge](screenshot-lodash-npm.webp)](https://www.npmjs.com/package/lodash)
 
 That was added a long time ago, and possibly by [Orta Therox](https://github.com/orta), during his time with the TypeScript compiler team if my memory serves me right. The point is, npmjs is in no way under active development.
 
@@ -48,7 +48,7 @@ I starred the repo in GitHub and allowed the flood of notifications to flow into
 
 I'd expected my contributions to npmx to be limited to a bit of testing. So I thought I'd do some testing. I looked up a project I work on called `ts-loader` and was surprised to discover it was missing from npmx.
 
-![Screenshot of ts-loader missing from npmx](screenshot-where-is-ts-loader.png)
+![Screenshot of ts-loader missing from npmx](screenshot-where-is-ts-loader.webp)
 
 I found myself raising [an issue](https://github.com/npmx-dev/npmx.dev/issues/1174), puzzled at the absence:
 
@@ -74,7 +74,7 @@ For the second time I gave Claude Code his marching orders. (Sidebar: is Claude 
 
 This time the approach worked. When I typed into the input box now, and 429s happened, I now saw something like this:
 
-![screenshot of the rate limit message in Google Chrome with 429s visible](screenshot-after-changes.png)
+![screenshot of the rate limit message in Google Chrome with 429s visible](screenshot-after-changes.webp)
 
 Beautiful right?
 
