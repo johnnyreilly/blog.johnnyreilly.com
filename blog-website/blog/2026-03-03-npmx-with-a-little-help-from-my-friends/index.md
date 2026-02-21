@@ -10,7 +10,7 @@ description: 'This post will show you how to contribute to npmx.dev and share my
 
 npmx.dev is an exciting new reimagining of the npmjs.com website. Did I mention it's new? It's new!
 
-I write this post not as one of the most significant contributors to npmx.dev. I'm not; I barely rank. At the point of writing I've submitted two PRs, one of which was merged, and one was not (for reasons I entirely agree with).
+I write this post not as one of the most significant contributors to npmx.dev. I barely rank. At the point of writing I've submitted two PRs, one of which was merged, and one was not (for reasons I entirely agree with).
 
 I'm writing as I'm excited by npmx; I really want it to succeed. So I thought I'd share my own mini story of npmx. If you walk away from this post with one thought I hope it's this: "npmx is a welcoming community, doing good work and very open to contributions, however minor".
 
@@ -28,7 +28,7 @@ I'd long felt that the npm website might generously be described as "adequate". 
 
 [![Screenshot of lodash with DT badge](screenshot-lodash-npm.webp)](https://www.npmjs.com/package/lodash)
 
-That was added a long time ago, and possibly by [Orta Therox](https://github.com/orta), during his time with the TypeScript compiler team if my memory serves me right. The point is, npmjs is in no way under active development.
+That was added a long time ago, and possibly by [Orta Therox](https://github.com/orta). (During his time with the TypeScript compiler team if my memory serves me right.) The point is, npmjs.com is in no way under active development.
 
 Daniel's post seemed really punk rock. "I'll do it myself!"
 
@@ -36,7 +36,7 @@ Daniel's post seemed really punk rock. "I'll do it myself!"
 
 Little pun there 😅. Given Daniel is the lead maintainer of Nuxt, it entirely made sense he would use that for the npm rewrite.
 
-I was interested, but I wasn't sure whether I'd make any contributions myself. Given my web background is mostly React. Also, life was and is quite full in other ways.
+I was interested, but I wasn't sure whether I'd make any contributions myself; given my web background is mostly React. Also, life was and is quite full in other ways.
 
 But before I knew what had happened, there was already this [npmx.dev](https://npmx.dev) website in existence. It was new, shiny and impressive. Many people were [actively contributing to the codebase day by day](https://github.com/npmx-dev/npmx.dev/graphs/contributors):
 
