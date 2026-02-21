@@ -38,7 +38,7 @@ Little pun there 😅. Given Daniel is the lead maintainer of Nuxt, it entirely 
 
 I was interested, but I wasn't sure whether I'd make any contributions myself. Given my web background is mostly React. Also, life was and is quite full in other ways.
 
-But before I knew what had happened, there was already this "npmx.dev" website in existence. It was new, shiny and impressive. Many people were [actively contributing to the codebase day by day](https://github.com/npmx-dev/npmx.dev/graphs/contributors):
+But before I knew what had happened, there was already this [npmx.dev](https://npmx.dev) website in existence. It was new, shiny and impressive. Many people were [actively contributing to the codebase day by day](https://github.com/npmx-dev/npmx.dev/graphs/contributors):
 
 ![Screenshot of the contributors graph for npmx.dev](screenshot-contributors.png)
 
@@ -70,7 +70,7 @@ So I reverted that. I blooming love Git.
 
 Idea number two was more straightforward: when a 429 happens make the UI simply say "you've been rate limited - give it a moment".
 
-For the second time I gave Claude Code his marching orders. (Sidebar: is Claude a "he"? Probably. Claude sounds like a gent 😅. Sorry.)
+For the second time I gave Claude Code his marching orders. (Sidebar: is Claude a "he"? Probably. Claude sounds like "a gent" 😅. Sorry.)
 
 This time the approach worked. When I typed into the input box now, and 429s happened, I now saw something like this:
 
