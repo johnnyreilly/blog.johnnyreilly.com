@@ -72,7 +72,7 @@ Idea number two was more straightforward: when a 429 happens make the UI simply 
 
 For the second time I gave Claude Code his marching orders. (Sidebar: is Claude a "he"? Probably. Claude sounds like "a gent" 😅. Sorry.)
 
-This time the approach worked. When I typed into the input box now, and 429s happened, I now saw something like this:
+This time the approach worked. When I typed into the input box and 429s happened, I was presented with something like this:
 
 ![screenshot of the rate limit message in Google Chrome with 429s visible](screenshot-after-changes.webp)
 
