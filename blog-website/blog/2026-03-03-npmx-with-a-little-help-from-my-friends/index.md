@@ -34,7 +34,7 @@ Daniel's post seemed really punk rock. "I'll do it myself!"
 
 ## What happened Nuxt?
 
-Little pun there 😅. Given Daniel is the lead maintainer of Nuxt, it entirely made sense he would use that for the npm rewrite.
+Little pun there 😅. Given Daniel is the lead maintainer of Nuxt, it entirely made sense he would use that for the npm browser registry.
 
 I was interested, but I wasn't sure whether I'd make any contributions myself; given my web background is mostly React. Also, life was and is quite full in other ways.
 
