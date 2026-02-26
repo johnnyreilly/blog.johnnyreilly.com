@@ -8,7 +8,7 @@ hide_table_of_contents: false
 description: 'This post will show you how to contribute to npmx.dev and share my experience with the project.'
 ---
 
-npmx.dev is an exciting new reimagining of the npmjs.com website. Did I mention it's new? It's new!
+npmx.dev is an exciting new reimagining of the npmjs.com website. Did I mention it's new? It's new! You can read the alpha blog post announcing the release here: https://npmx.dev/blog/alpha-release
 
 I write this post not as one of the most significant contributors to npmx.dev. I barely rank. At the point of writing I've submitted two PRs, one of which was merged, and one was not (for reasons I entirely agree with).
 
@@ -105,5 +105,3 @@ Some PRs have a lot of back and forth. This one just landed. Which was nice!
 Ironically, by the time you read this the original issue I raised, and the fix I provided, is I think generally no longer relevant. The npmx.dev website is now not just querying npmjs.com for package information, so the likelihood of running into npm rate limits is much lower. But that's the nature of development. You fix one thing, and then the world changes and that thing is no longer an issue. But that's fine.
 
 I'm really happy npmx.dev exists and I've a good feeling about it. If you're thinking about something in npmx.dev that you might be able to improve, you should have a crack. It's a wonderful community; get involved!
-
-LINK TO OFFICIAL LAUNCH POST HERE
