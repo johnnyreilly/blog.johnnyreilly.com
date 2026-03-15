@@ -11,26 +11,26 @@
     "test": "jest"
   },
   "dependencies": {
-    "@azure/cosmos": "^4.0.0",
-    "@azure/functions": "^4.0.1",
-    "@azure/identity": "^4.0.0",
-    "date-fns": "^4.0.0",
-    "lodash": "^4.17.21",
-    "ufo": "^1.0.1"
+    "@azure/cosmos": "^4.9.1",
+    "@azure/functions": "^4.11.2",
+    "@azure/identity": "^4.13.0",
+    "date-fns": "^4.1.0",
+    "lodash": "^4.17.23",
+    "ufo": "^1.6.3"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.0",
-    "@eslint/js": "^9.23.0",
-    "@types/jest": "^29.2.5",
-    "@types/lodash": "^4.14.197",
-    "@types/node": "^22.0.0",
-    "@typescript-eslint/eslint-plugin": "^8.0.0",
-    "@typescript-eslint/parser": "^8.0.0",
-    "eslint": "^9.23.0",
-    "jest": "^29.3.1",
-    "ts-jest": "^29.1.0",
-    "typescript": "^5.8.2",
-    "typescript-eslint": "^8.27.0"
+    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/js": "^9.39.4",
+    "@types/jest": "^29.5.14",
+    "@types/lodash": "^4.17.24",
+    "@types/node": "^22.19.15",
+    "@typescript-eslint/eslint-plugin": "^8.57.0",
+    "@typescript-eslint/parser": "^8.57.0",
+    "eslint": "^9.39.4",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.4.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.0"
   },
   "main": "dist/src/main.js"
 }
