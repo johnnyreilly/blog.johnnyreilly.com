@@ -17,6 +17,9 @@ This is John Reilly's personal blog (johnnyreilly.com), built with Docusaurus an
 - **pre-post-processing/**: Bun scripts that run before/after build
   - `pre-processing.ts`: Generates `recently-updated-posts.json` from git history
   - `post-processing.ts`: Post-build sitemap/feed processing
+- **tinypng/**: Image optimization script using TinyPNG API
+  - Runs with Node 24 native TypeScript (no ts-node)
+  - Requires `TINIFY_KEY` environment variable
 - **infra/**: Azure Bicep infrastructure-as-code
 - **.github/workflows/**: CI/CD pipelines for Azure Static Web Apps deployment
 
@@ -81,6 +84,18 @@ cd blog-website-tests && npx playwright test
 
 ```bash
 npm run format    # Runs Prettier on entire repo
+```
+
+### TinyPNG image optimization
+
+```bash
+cd tinypng && npm install
+
+# Optimize all images in all blog posts
+TINIFY_KEY=$KEY npm start
+
+# Optimize images in a specific blog post directory
+TINIFY_KEY=$KEY BLOG_DIR=2025-01-01-my-post npm start
 ```
 
 ## Blog Post Structure
