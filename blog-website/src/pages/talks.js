@@ -144,6 +144,7 @@ function Talks() {
                         title={talk.title}
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen
+                        referrerPolicy="strict-origin-when-cross-origin"
                         width="560"
                         height="315"
                       ></iframe>
