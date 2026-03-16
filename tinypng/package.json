@@ -2,15 +2,13 @@
   "name": "tinypng",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
   "dependencies": {
-    "@types/node": "^20.0.0",
-    "tinify": "*",
-    "ts-node": "^10.0.0",
-    "typescript": "^5.0.0"
+    "@types/node": "^24.0.0",
+    "tinify": "*"
   },
   "scripts": {
-    "start": "ts-node index.ts"
+    "start": "node index.ts"
   },
   "author": "",
   "license": "ISC"
