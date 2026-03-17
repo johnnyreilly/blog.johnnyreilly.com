@@ -48,9 +48,58 @@ The idea is straightforward:
 
 The practical result is that I can write `import { thing } from '#src/features/thing.js';` everywhere and avoid relative import gymnastics.
 
-At this point, I have subpaths working, but other import styles are still allowed. Time to end that and enforce that everyone uses the `#src/*` style for imports.
+## But what about Vitest?
+
+To configure Vitest to understand the subpath imports, I need to add some aliasing to `vitest.config.js`:
+
+```js
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { defineConfig } from 'vitest/config';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+export default defineConfig({
+  resolve: {
+    alias: [
+      {
+        find: /^#src\//,
+        replacement: path.resolve(__dirname, 'src') + '/',
+      },
+      {
+        find: /^#test\//,
+        replacement: path.resolve(__dirname, 'test') + '/',
+      },
+    ],
+  },
+  // ...other config
+});
+```
+
+Imports in test files will now work as expected, and I can use the same `#src/*` style imports in tests as well. There's a change required for mocks too, but it's not too bad. A migration in my project took me from this:
+
+```js
+import { makeProxy } from '../../../../test/makeProxy.js';
+
+vi.mock('chalk', () => ({
+  default: makeProxy({}),
+}));
+```
+
+To this:
+
+```js
+vi.mock('chalk', async () => {
+  const { makeProxy } = await import('#test/makeProxy.js');
+  return { default: makeProxy({}) };
+});
+```
+
+Not too bad. I actually prefer the import sitting inside the mock factory function, as it makes it clear that the import is only used for the mock setup.
 
 ## Block alternatives with `no-restricted-imports`
+
+At this point, I have subpaths working, but other import styles are still allowed. Time to end that and enforce that everyone uses the `#src/*` style for imports.
 
 We achieve this is two ways using ESLint's [`no-restricted-imports` rule](https://eslint.org/docs/latest/rules/no-restricted-imports). First, I make sure that no one can use relative imports or other path styles:
 
