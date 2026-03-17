@@ -8,7 +8,7 @@ hide_table_of_contents: false
 description: 'This post will show you how to migrate to using Node.js subpaths and how to use the no-restricted-imports and perfectionist/sort-imports ESLint rule to help you sort your imports.'
 ---
 
-I've recently been experimenting with [Node.js subpath imports](https://nodejs.org/api/packages.html#subpath-imports). My motivate is a general dislike of relative imports. I don't like seeing `import { thing } from '../../file.js'` in my code, and when I can avoid them. By using subpath imports instead I might have `import { thing } from 'src/folder/file.js'` and that feels much cleaner to me.
+I've recently been experimenting with [Node.js subpath imports](https://nodejs.org/api/packages.html#subpath-imports). My motivation is a general dislike of relative imports. I don't enjoy seeing `import { thing } from '../../file.js'` in my code, and when I can avoid them. By using subpath imports instead I might have `import { thing } from 'src/folder/file.js'` and that feels much cleaner to me.
 
 But I also like consistency in my codebase, and I don't want to have a mix of import styles. So while using subpath imports can help me avoid relative imports, I also want to make sure that everyone on the team is using the same style. How? Here's how!
 
