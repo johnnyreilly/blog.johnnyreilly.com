@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkjohnnyreilly_com=globalThis.webpackChunkjohnnyreilly_com||[]).push([[98644],{98644(e,c,h){h.d(c,{createArchitectureServices:()=>l.S});var l=h(85877);h(6902)}}]);
