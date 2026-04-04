@@ -155,7 +155,7 @@ jobs:
           BLOG_CUSTOM_DOMAIN_NAME: ${{ env.BLOG_CUSTOM_DOMAIN_NAME }}
 
       - name: Setup Node.js 🔧
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: 'npm'
@@ -246,7 +246,7 @@ jobs:
           timeout: 600000
           interval: 1000
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: 'npm'
