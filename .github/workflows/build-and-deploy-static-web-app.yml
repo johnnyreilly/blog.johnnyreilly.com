@@ -32,7 +32,7 @@ jobs:
     name: Site build and deploy 🏗️
     steps:
       - name: Checkout 📥
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           # Number of commits to fetch. 0 indicates all history for all branches and tags.
           fetch-depth: 0
@@ -235,7 +235,7 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Wait for preview ${{ needs.get_preview_url_job.outputs.preview-url }} ⌚
         id: static_web_app_wait_for_preview
@@ -278,7 +278,7 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Wait for preview ${{ needs.get_preview_url_job.outputs.preview-url }} ⌚
         id: static_web_app_wait_for_preview
@@ -337,7 +337,7 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action != 'closed'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Wait for preview ${{ needs.get_preview_url_job.outputs.preview-url }} ⌚
         id: static_web_app_wait_for_preview
