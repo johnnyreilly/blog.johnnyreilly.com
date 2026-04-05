@@ -44,7 +44,7 @@
     "@eslint/compat": "^1.4.1",
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^9.39.4",
-    "@types/node": "^22.19.15",
+    "@types/node": "^24.0.0",
     "@typescript-eslint/eslint-plugin": "^8.57.0",
     "@typescript-eslint/parser": "^8.57.0",
     "cross-env": "^10.0.0",
