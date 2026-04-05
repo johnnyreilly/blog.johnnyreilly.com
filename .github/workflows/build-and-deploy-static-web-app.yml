@@ -55,7 +55,7 @@ jobs:
 
       - name: Bicep lint
         if: github.event_name == 'pull_request'
-        uses: azure/CLI@v2
+        uses: azure/CLI@v3
         with:
           # azcliversion: 2.63.0 # pinning because https://github.com/Azure/cli/issues/165
           inlineScript: |
@@ -87,7 +87,7 @@ jobs:
       - name: Infra - detect changes & validate 📝
         id: static_web_app_what_if
         if: github.event_name == 'pull_request'
-        uses: azure/CLI@v2
+        uses: azure/CLI@v3
         with:
           # azcliversion: 2.63.0 # pinning because https://github.com/Azure/cli/issues/165
           inlineScript: |
@@ -180,7 +180,7 @@ jobs:
 
       - name: Get API key 🔑
         id: static_web_app_apikey
-        uses: azure/CLI@v2
+        uses: azure/CLI@v3
         with:
           # azcliversion: 2.63.0 # pinning because https://github.com/Azure/cli/issues/165
           inlineScript: |
@@ -215,7 +215,7 @@ jobs:
 
       - name: Get preview URL 📝
         id: static_web_app_preview_url
-        uses: azure/CLI@v2
+        uses: azure/CLI@v3
         with:
           # azcliversion: 2.63.0 # pinning because https://github.com/Azure/cli/issues/165
           inlineScript: |
@@ -414,7 +414,7 @@ jobs:
 
       - name: Get API key 🔑
         id: apikey
-        uses: azure/CLI@v2
+        uses: azure/CLI@v3
         with:
           # azcliversion: 2.63.0 # pinning because https://github.com/Azure/cli/issues/165
           inlineScript: |
