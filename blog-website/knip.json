@@ -14,8 +14,6 @@
     "@swc/core",
     "file-loader",
     "url-loader",
-    "@typescript-eslint/eslint-plugin",
-    "@typescript-eslint/parser",
     "unist-util-visit",
     "unified",
     "@docusaurus/plugin-content-blog",
