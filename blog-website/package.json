@@ -51,7 +51,7 @@
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-hooks": "^7.0.0",
     "fontaine": "^0.8.0",
     "globals": "^16.5.0",
     "rehype-cloudinary-docusaurus": "^3.0.0",
