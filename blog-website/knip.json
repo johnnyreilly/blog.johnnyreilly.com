@@ -1,0 +1,36 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "src/**/*.{ts,tsx,js}",
+    "createFeedItems.mjs",
+    "createSitemapItems.mjs",
+    "image-cloudinary-rehype-plugin.mjs",
+    "image-fetchpriority-rehype-plugin.mjs"
+  ],
+  "project": ["src/**/*.{ts,tsx,js}", "*.{js,mjs,ts}"],
+  "ignoreFiles": ["sidebars.js"],
+  "ignoreDependencies": [
+    "@docusaurus/faster",
+    "@docusaurus/plugin-ideal-image",
+    "@svgr/webpack",
+    "@swc/core",
+    "file-loader",
+    "url-loader",
+    "@typescript-eslint/eslint-plugin",
+    "@typescript-eslint/parser",
+    "@eslint/compat",
+    "@eslint/eslintrc",
+    "eslint-config-prettier",
+    "eslint-plugin-react-hooks",
+    "unist-util-visit",
+    "acorn",
+    "micromark-extension-mdx-jsx",
+    "mdast-util-from-markdown",
+    "mdast-util-mdx-jsx",
+    "mdast-util-to-markdown",
+    "unified",
+    "@docusaurus/plugin-content-blog",
+    "@docusaurus/plugin-sitemap",
+    "@docusaurus/theme-common"
+  ]
+}
