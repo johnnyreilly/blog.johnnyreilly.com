@@ -53,7 +53,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.0",
     "fontaine": "^0.8.0",
-    "globals": "^16.5.0",
+    "globals": "^17.0.0",
     "rehype-cloudinary-docusaurus": "^3.0.0",
     "simple-git": "^3.33.0",
     "typescript": "^5.9.3",
