@@ -1,0 +1,23 @@
+{
+  "$schema": "https://unpkg.com/knip@6.3.0/schema.json",
+  "entry": [
+    "src/**/*.{ts,tsx,js}",
+    "createFeedItems.mjs",
+    "createSitemapItems.mjs",
+    "image-fetchpriority-rehype-plugin.mjs"
+  ],
+  "project": ["src/**/*.{ts,tsx,js}", "*.{js,mjs,ts}"],
+  "ignoreFiles": ["sidebars.js"],
+  "ignoreDependencies": [
+    "@docusaurus/faster",
+    "@svgr/webpack",
+    "@swc/core",
+    "file-loader",
+    "url-loader",
+    "unist-util-visit",
+    "unified",
+    "@docusaurus/plugin-content-blog",
+    "@docusaurus/plugin-sitemap",
+    "@docusaurus/theme-common"
+  ]
+}

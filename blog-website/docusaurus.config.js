@@ -9,7 +9,6 @@ import * as fontaine from 'fontaine';
 import { themes as prismThemes } from 'prism-react-renderer';
 import imageFetchPriorityRehypePlugin from './image-fetchpriority-rehype-plugin.mjs';
 import docusaurusCloudinaryRehypePlugin from 'rehype-cloudinary-docusaurus';
-// import docusaurusCloudinaryRehypePlugin from './image-cloudinary-rehype-plugin.mjs';
 
 import { createFeedItems } from './createFeedItems.mjs';
 import { createSitemapItems } from './createSitemapItems.mjs';

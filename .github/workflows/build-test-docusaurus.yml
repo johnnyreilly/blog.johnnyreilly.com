@@ -39,4 +39,5 @@ jobs:
           cd blog-website
           npm ci
           npm run lint
+          npm run knip
           DOCUSAURUS_SSR_CONCURRENCY=5 npm run build
