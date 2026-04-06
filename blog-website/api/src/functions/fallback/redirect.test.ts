@@ -1,11 +1,11 @@
 import type { InvocationContext } from '@azure/functions';
-import { describe, expect, jest, test } from '@jest/globals';
+import { describe, expect, vi, test } from 'vitest';
 
 import { redirect } from './redirect.js';
 
 describe('redirect', () => {
   test('blog.johnnyreilly.com should be redirected to johnnyreilly.com', () => {
-    const mockContext = { log: jest.fn() };
+    const mockContext = { log: vi.fn() };
 
     expect(
       redirect(
@@ -27,7 +27,7 @@ describe('redirect', () => {
   });
 
   test('blog.johnnyreilly.com should be redirected to matches where possible', () => {
-    const mockContext = { log: jest.fn() };
+    const mockContext = { log: vi.fn() };
 
     expect(
       redirect(
@@ -49,7 +49,7 @@ describe('redirect', () => {
   });
 
   test('redirects should be matched', () => {
-    const mockContext = { log: jest.fn() };
+    const mockContext = { log: vi.fn() };
 
     expect(
       redirect(
@@ -71,7 +71,7 @@ describe('redirect', () => {
   });
 
   test('blogger RSS redirects should be handled', () => {
-    const mockContext = { log: jest.fn() };
+    const mockContext = { log: vi.fn() };
 
     expect(
       redirect(
@@ -92,7 +92,7 @@ describe('redirect', () => {
   });
 
   test('blogger Atom redirects should be handled', () => {
-    const mockContext = { log: jest.fn() };
+    const mockContext = { log: vi.fn() };
 
     expect(
       redirect(
@@ -113,7 +113,7 @@ describe('redirect', () => {
   });
 
   test('blogger search redirects should be handled', () => {
-    const mockContext = { log: jest.fn() };
+    const mockContext = { log: vi.fn() };
 
     expect(
       redirect(
@@ -134,7 +134,7 @@ describe('redirect', () => {
   });
 
   test('blogger archive year/month redirects should be handled', () => {
-    const mockContext = { log: jest.fn() };
+    const mockContext = { log: vi.fn() };
 
     expect(
       redirect(
@@ -155,7 +155,7 @@ describe('redirect', () => {
   });
 
   test('blogger archive year redirects should be handled', () => {
-    const mockContext = { log: jest.fn() };
+    const mockContext = { log: vi.fn() };
 
     expect(
       redirect(
@@ -176,7 +176,7 @@ describe('redirect', () => {
   });
 
   test('webp images that used to be png / jpg etc should be redirected where possible', () => {
-    const mockContext = { log: jest.fn() };
+    const mockContext = { log: vi.fn() };
 
     expect(
       redirect(
@@ -198,7 +198,7 @@ describe('redirect', () => {
   });
 
   test('empty originalUrls should redirect to /404', () => {
-    const mockContext = { log: jest.fn() };
+    const mockContext = { log: vi.fn() };
 
     expect(redirect('', mockContext as unknown as InvocationContext)).toEqual({
       status: 302,
@@ -211,7 +211,7 @@ describe('redirect', () => {
   });
 
   test('no explicit redirect should redirect to 404 with path in query', () => {
-    const mockContext = { log: jest.fn() };
+    const mockContext = { log: vi.fn() };
 
     expect(
       redirect(
