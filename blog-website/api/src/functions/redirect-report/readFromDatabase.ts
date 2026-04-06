@@ -81,6 +81,7 @@ export async function readFromDatabase({
     );
     throw new Error(
       `Problem reading redirects from database, dateFrom: ${dateFrom}, dateTo: ${dateTo}`,
+      { cause: error },
     );
   }
 }
