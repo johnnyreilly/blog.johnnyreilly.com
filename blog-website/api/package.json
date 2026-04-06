@@ -8,7 +8,7 @@
     "watch": "tsc -w",
     "prestart": "npm run build",
     "start": "func start",
-    "test": "jest"
+    "test": "vitest run"
   },
   "dependencies": {
     "@azure/cosmos": "^4.9.1",
@@ -21,16 +21,14 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^10.0.0",
-    "@types/jest": "^30.0.0",
     "@types/lodash": "^4.17.24",
     "@types/node": "^24.0.0",
     "@typescript-eslint/eslint-plugin": "^8.58.0",
     "@typescript-eslint/parser": "^8.58.0",
     "eslint": "^10.0.0",
-    "jest": "^30.0.0",
-    "ts-jest": "^29.4.9",
     "typescript": "^6.0.0",
-    "typescript-eslint": "^8.58.0"
+    "typescript-eslint": "^8.58.0",
+    "vitest": "^4.1.2"
   },
   "main": "dist/src/main.js"
 }
