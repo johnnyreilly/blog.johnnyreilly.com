@@ -111,8 +111,8 @@ function BlogArchive() {
             <section className={styles.features}>
               <div className="container">
                 <div className="row">
-                  {yearsOfPosts.map((props, idx) => (
-                    <Year key={idx} {...props} />
+                  {yearsOfPosts.map((props) => (
+                    <Year key={props.year} {...props} />
                   ))}
                 </div>
               </div>
