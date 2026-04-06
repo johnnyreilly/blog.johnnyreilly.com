@@ -1,6 +1,7 @@
 import BlogArchivePage from '@theme-original/BlogArchivePage';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
+/** @param {object} props */
 export default function BlogArchivePageWrapper(props) {
   const { siteConfig } = useDocusaurusContext();
 
