@@ -11,7 +11,11 @@ export default function imageFetchPriorityRehypePluginFactory() {
   /** @type {import('unified').Transformer} */
   return (tree, vfile) => {
     visit(tree, ['mdxJsxTextElement'], (node) => {
-      if (node.type === 'mdxJsxTextElement' && node['name'] === 'img') {
+      const mdxJsxNode =
+        /** @type {import('mdast-util-mdx-jsx').MdxJsxTextElement} */ (node);
+      /** @type {import('mdast-util-mdx-jsx').MdxJsxAttribute[]} */
+      const attrs = /** @type {any} */ (mdxJsxNode.attributes);
+      if (mdxJsxNode.type === 'mdxJsxTextElement' && mdxJsxNode.name === 'img') {
         // handles nodes like this:
         // {
         //   type: 'mdxJsxTextElement',
@@ -37,10 +41,13 @@ export default function imageFetchPriorityRehypePluginFactory() {
         //   children: []
         // }
 
-        const srcIndex = node['attributes'].findIndex(
+        const srcIndex = attrs.findIndex(
           (attr) => attr.name === 'src',
         );
-        const requireString = node['attributes'][srcIndex].value.value;
+        const requireString =
+          /** @type {import('mdast-util-mdx-jsx').MdxJsxAttributeValueExpression} */ (
+            attrs[srcIndex].value
+          ).value;
 
         const key = `jsx|${vfile.history[0]}`;
         const imageAlreadyProcessed = files.get(key);
@@ -52,19 +59,19 @@ export default function imageFetchPriorityRehypePluginFactory() {
         }
 
         // expect to be -1
-        const loadingIndex = node['attributes'].findIndex(
+        const loadingIndex = attrs.findIndex(
           (attr) => attr.name === 'loading',
         );
 
         if (fetchpriorityThisImage) {
           // expect to be -1
-          const fetchpriorityIndex = node['attributes'].findIndex(
+          const fetchpriorityIndex = attrs.findIndex(
             (attr) => attr.name === 'fetchpriority',
           );
           if (loadingIndex > -1) {
-            node['attributes'][loadingIndex].value = 'eager';
+            attrs[loadingIndex].value = 'eager';
           } else {
-            node['attributes'].push({
+            attrs.push({
               type: 'mdxJsxAttribute',
               name: 'loading',
               value: 'eager',
@@ -72,9 +79,9 @@ export default function imageFetchPriorityRehypePluginFactory() {
           }
 
           if (fetchpriorityIndex > -1) {
-            node['attributes'][fetchpriorityIndex].value = 'high';
+            attrs[fetchpriorityIndex].value = 'high';
           } else {
-            node['attributes'].push({
+            attrs.push({
               type: 'mdxJsxAttribute',
               name: 'fetchpriority',
               value: 'high',
@@ -82,9 +89,9 @@ export default function imageFetchPriorityRehypePluginFactory() {
           }
         } else {
           if (loadingIndex > -1) {
-            node['attributes'][loadingIndex].value = 'lazy';
+            attrs[loadingIndex].value = 'lazy';
           } else {
-            node['attributes'].push({
+            attrs.push({
               type: 'mdxJsxAttribute',
               name: 'loading',
               value: 'lazy',

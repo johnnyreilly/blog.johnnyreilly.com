@@ -25,6 +25,7 @@ export default [
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/parameter-properties': 'off',
       '@typescript-eslint/typedef': 'off',
+      '@eslint-react/dom-no-dangerously-set-innerhtml': 'off',
     },
   },
 ];

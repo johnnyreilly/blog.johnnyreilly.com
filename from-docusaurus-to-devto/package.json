@@ -7,7 +7,7 @@
     "@docusaurus/utils": "^2.2.0",
     "@types/node": "^24.0.0",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.0"
+    "typescript": "^6.0.0"
   },
   "scripts": {
     "start": "ts-node index.ts"

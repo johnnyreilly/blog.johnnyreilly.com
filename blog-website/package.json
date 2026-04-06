@@ -41,18 +41,19 @@
     "@docusaurus/module-type-aliases": "^3.9.2",
     "@docusaurus/tsconfig": "^3.9.2",
     "@docusaurus/types": "^3.9.2",
-    "@eslint/js": "^10.0.0",
     "@eslint-react/eslint-plugin": "^4.2.3",
+    "@eslint/js": "^10.0.0",
     "@types/node": "^24.0.0",
     "cross-env": "^10.0.0",
     "eslint": "^10.0.0",
     "fontaine": "^0.8.0",
     "globals": "^17.0.0",
     "knip": "^6.3.0",
+    "mdast-util-mdx-jsx": "^3.2.0",
     "rehype-cloudinary-docusaurus": "^3.0.0",
     "simple-git": "^3.33.0",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.0"
+    "typescript": "^6.0.0",
+    "typescript-eslint": "^8.58.0"
   },
   "browserslist": {
     "production": [
