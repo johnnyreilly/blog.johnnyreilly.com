@@ -29,7 +29,7 @@
     "eslint": "^10.0.0",
     "jest": "^30.0.0",
     "ts-jest": "^29.4.6",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.0",
     "typescript-eslint": "^8.57.0"
   },
   "main": "dist/src/main.js"
