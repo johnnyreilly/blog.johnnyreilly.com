@@ -52,7 +52,7 @@
     "rehype-cloudinary-docusaurus": "^3.0.0",
     "simple-git": "^3.33.0",
     "typescript": "^6.0.0",
-    "typescript-eslint": "^8.57.0"
+    "typescript-eslint": "^8.58.0"
   },
   "browserslist": {
     "production": [
