@@ -51,7 +51,7 @@
     "knip": "^6.3.0",
     "mdast-util-mdx-jsx": "^3.2.0",
     "rehype-cloudinary-docusaurus": "^3.0.0",
-    "simple-git": "^3.33.0",
+    "simple-git": "^3.36.0",
     "typescript": "^6.0.0",
     "typescript-eslint": "^8.58.0"
   },
