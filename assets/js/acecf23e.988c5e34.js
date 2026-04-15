@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkjohnnyreilly_com=globalThis.webpackChunkjohnnyreilly_com||[]).push([[81903],{1912(h){h.exports=JSON.parse('{"blogBasePath":"/","blogTitle":"I CAN MAKE THIS WORK","authorsListPath":"/authors"}')}}]);
