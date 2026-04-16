@@ -310,7 +310,7 @@ jobs:
 
       - name: Format lighthouse score
         id: format_lighthouse_score
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const lighthouseCommentMaker = require('./.github/workflows/lighthouseCommentMaker.js');
@@ -364,7 +364,7 @@ jobs:
       - name: Format structured data results
         id: format_structured_data_results
         if: always()
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const structuredDataCommentMaker = (await import('${{ github.workspace }}/.github/workflows/structuredDataCommentMaker.mjs')).default;
