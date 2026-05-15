@@ -41,7 +41,7 @@
     "@docusaurus/module-type-aliases": "^3.9.2",
     "@docusaurus/tsconfig": "^3.9.2",
     "@docusaurus/types": "^3.9.2",
-    "@eslint-react/eslint-plugin": "^4.2.3",
+    "@eslint-react/eslint-plugin": "^5.0.0",
     "@eslint/js": "^10.0.0",
     "@types/node": "^24.0.0",
     "cross-env": "^10.0.0",
