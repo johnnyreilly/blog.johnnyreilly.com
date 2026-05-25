@@ -45,7 +45,13 @@ Copilot zigged and zagged a bit, but it did build a version of `ts-loader` that 
 The changes can be summed up as:
 
 - different APIs in webpack 4 as compared to webpack 5
-- options in webpack 4 require usage of a dedicated library called `loader-utils`
+- options in webpack 4 require usage of a dedicated library called `loader-utils`. This is a dependency of webpack 4, and so we've added it to the `peerDependencies` of `ts-loader` and marked it as optional (since it won't be used for webpack 5)
 - the execution test pack in `ts-loader` now supports both webpack 4 and webpack 5. We're not going to bother with the comparison test pack for now.
 
-https://github.com/TypeStrong/ts-loader/pull/1697
+You can see the back and forth on this PR should you be so minded: https://github.com/TypeStrong/ts-loader/pull/1697
+
+## `ts-loader@9.7.0` supports webpack 4
+
+After mulling for a little while, I decided to ship. So if you're using webpack 4, you should now be able to use `ts-loader@9`.
+
+Let me take this moment to confirm that I am unlikely to add support for webpacks 3, 2 or 1 as well 😅
