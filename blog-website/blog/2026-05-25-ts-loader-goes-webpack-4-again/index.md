@@ -8,7 +8,7 @@ hide_table_of_contents: false
 description: 'TypeScript webpack loader `ts-loader@9.7+` now supports webpack 4.'
 ---
 
-Back in 2021 I published a post called ["`ts-loader` goes webpack 5"](../2021-04-20-ts-loader-goes-webpack-5/index.md) which was a big exciting post about how `ts-loader` was upgraded to directly support webpack 5, and drop support for webpack 4 in v9 of `ts-loader`.
+Back in 2021 I published a post called [`ts-loader` goes webpack 5](../2021-04-20-ts-loader-goes-webpack-5/index.md) which was a big exciting post about how `ts-loader` was upgraded to directly support webpack 5, and drop support for webpack 4 in v9 of `ts-loader`.
 
 For reasons which I'll get into shortly, as of v9.7.0, `ts-loader` now supports both webpack 5 (as it did already) **and** webpack 4. So if you're a webpack 4 user, you can now use `ts-loader@9`, rather than using `ts-loader@8`.
 
@@ -24,7 +24,7 @@ At the time this seemed reasonable; webpack had been evolving quickly. However, 
 
 Take a look at this screenshot of webpack major version usage on [npmx](https://npmx.dev/package/webpack?activeTab=versions&modal=versions):
 
-![a graph showing that webpack 4 has 4.1 million downloads a week](./screenshot-npmx-webpack-versions.png)
+![a graph showing that webpack 4 has 4.1 million downloads a week](./screenshot-npmx-webpack-versions.webp)
 
 Whilst you might be thinking "wow - people really are using webpack 5!", what you should also be thinking is "wow - webpack 4 still has 4 million downloads a week!" As we can see, webpack 4 has not gone away, and is probably not going to any time soon.
 
@@ -54,4 +54,4 @@ You can see the back and forth on this PR should you be so minded: https://githu
 
 After mulling for a little while, I decided to ship. So if you're using webpack 4, you should now be able to use `ts-loader@9`.
 
-Let me take this moment to confirm that I am unlikely to add support for webpacks 3, 2 or 1 as well 😅
+Let me take this moment to confirm that I am unlikely to add support for webpacks 3, 2 or 1 as well; there are limits! 😅
