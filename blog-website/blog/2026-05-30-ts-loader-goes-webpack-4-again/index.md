@@ -5,7 +5,7 @@ authors: johnnyreilly
 tags: [webpack, ts-loader, typescript]
 image: ./title-image.png
 hide_table_of_contents: false
-description: 'TypeScript webpack loader `ts-loader@9.7+` now supports webpack 4.'
+description: 'TypeScript webpack loader `ts-loader@9.6+` now supports webpack 4.'
 ---
 
 Back in 2021 I published a post called _[`ts-loader` goes webpack 5](../2021-04-20-ts-loader-goes-webpack-5/index.md)_ which was a big exciting post about how `ts-loader` was upgraded to directly support webpack 5, and drop support for webpack 4 in v9 of `ts-loader`.
