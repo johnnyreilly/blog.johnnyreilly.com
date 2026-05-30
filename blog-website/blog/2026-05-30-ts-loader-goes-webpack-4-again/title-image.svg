@@ -37,6 +37,6 @@
     <text x="355" y="456" fill="#FDE047" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="74" font-weight="800">again!</text>
 
     <rect x="610" y="441" width="289" height="64" rx="20" fill="#111827" fill-opacity="0.88" stroke="#93C5FD" stroke-opacity="0.3"/>
-    <text x="640" y="482" fill="#F8FAFC" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="30" font-weight="700">v9.7.0 released</text>
+    <text x="640" y="482" fill="#F8FAFC" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="30" font-weight="700">v9.6.0 released</text>
   </g>
 </svg>
