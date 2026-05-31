@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1020"/>
+      <stop offset="0.55" stop-color="#0F3C73"/>
+      <stop offset="1" stop-color="#5A3E9C"/>
+    </linearGradient>
+    <linearGradient id="card" x1="739" y1="118" x2="1095" y2="470" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.07"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="1200" height="630" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#020617" flood-opacity="0.38"/>
+    </filter>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" stroke="#B6C9FF" stroke-opacity="0.12"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="1122" cy="74" r="158" fill="#8B5CF6" fill-opacity="0.16"/>
+  <circle cx="103" cy="552" r="205" fill="#38BDF8" fill-opacity="0.12"/>
+  <path d="M645 128C754 103 855 91 1035 95" stroke="#9CD7FF" stroke-width="6" stroke-linecap="round" stroke-opacity="0.5"/>
+  <path d="M642 157C742 134 857 125 1053 135" stroke="#F9FAFB" stroke-width="2" stroke-linecap="round" stroke-opacity="0.55" stroke-dasharray="2 14"/>
+
+  <g filter="url(#shadow)">
+    <rect x="490" y="62" width="102" height="102" rx="24" fill="#091224" fill-opacity="0.64" stroke="#D6E4FF" stroke-opacity="0.14"/>
+    <image href="data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiBoZWlnaHQ9IjEyOCIgdmlld0JveD0iMCAwIDEyOCAxMjgiIHdpZHRoPSIxMjgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3QgZmlsbD0iIzMxNzhjNiIgaGVpZ2h0PSIxMjgiIHJ4PSI2IiB3aWR0aD0iMTI4Ii8+PHBhdGggY2xpcC1ydWxlPSJldmVub2RkIiBkPSJtNzQuMjYyMiA5OS40Njh2MTQuMDI2YzIuMjcyNCAxLjE2OCA0Ljk1OTggMi4wNDUgOC4wNjI1IDIuNjI5IDMuMTAyNy41ODUgNi4zNzI4Ljg3NyA5LjgxMDUuODc3IDMuMzUwMyAwIDYuNTMzLS4zMjEgOS41NDc4LS45NjQgMy4wMTYtLjY0MyA1LjY1OS0xLjcwMiA3LjkzMi0zLjE3OCAyLjI3Mi0xLjQ3NiA0LjA3MS0zLjQwNCA1LjM5Ny01Ljc4NiAxLjMyNS0yLjM4MSAxLjk4OC01LjMyNSAxLjk4OC04LjgzMTMgMC0yLjU0MjEtLjM3OS00Ljc3MDEtMS4xMzYtNi42ODQxLS43NTgtMS45MTM5LTEuODUtMy42MTU5LTMuMjc4LTUuMTA2Mi0xLjQyNy0xLjQ5MDItMy4xMzktMi44MjctNS4xMzQtNC4wMTA0LTEuOTk2LTEuMTgzNC00LjI0Ni0yLjMwMTEtNi43NTItMy4zNTMtMS44MzUyLS43NTk3LTMuNDgxMi0xLjQ5NzUtNC45Mzc4LTIuMjEzNC0xLjQ1NjctLjcxNTktMi42OTQ4LTEuNDQ2NC0zLjcxNDQtMi4xOTE1LTEuMDE5Ny0uNzQ1Mi0xLjgwNjMtMS41MzQxLTIuMzU5OC0yLjM2NjktLjU1MzUtLjgzMjctLjgzMDMtMS43NzUxLS44MzAzLTIuODI3IDAtLjk2NDMuMjQ3Ni0xLjgzMzYuNzQyOS0yLjYwNzlzMS4xOTQ1LTEuNDM5MSAyLjA5NzYtMS45OTQzYy45MDMxLS41NTUxIDIuMDEwMS0uOTg2MSAzLjMyMTEtMS4yOTI5IDEuMzExLS4zMDY5IDIuNzY3Ni0uNDYwMyA0LjM2OTktLjQ2MDMgMS4xNjU4IDAgMi4zOTU4LjA4NzcgMy42OTI4LjI2MyAxLjI5Ni4xNzUzIDIuNi40NDU2IDMuOTExLjgxMDkgMS4zMTEuMzY1MiAyLjU4NS44MjU0IDMuODI0IDEuMzgwNiAxLjIzOC41NTUyIDIuMzgxIDEuMTk4IDMuNDMgMS45Mjg1di0xMy4xMDUxYy0yLjEyNy0uODE4Mi00LjQ1LTEuNDI0NS02Ljk3LTEuODE5cy01LjQxMS0uNTkxNy04LjY3NDQtLjU5MTdjLTMuMzIxMSAwLTYuNDY3NC4zNTc5LTkuNDM5IDEuMDczOC0yLjk3MTUuNzE1OS01LjU4NjIgMS44MzM2LTcuODQ0IDMuMzUzLTIuMjU3OCAxLjUxOTUtNC4wNDIyIDMuNDU1My01LjM1MzEgNS44MDc1LTEuMzExIDIuMzUyMi0xLjk2NjUgNS4xNjQ2LTEuOTY2NSA4LjQzNzMgMCA0LjE3ODUgMS4yMDE3IDcuNzQzMyAzLjYwNTIgMTAuNjk0NSAyLjQwMzUgMi45NTEzIDYuMDUyMyA1LjQ0OTYgMTAuOTQ2NiA3LjQ5NSAxLjkyMjguNzg4OSAzLjcxNDUgMS41NjMzIDUuMzc1IDIuMzIzIDEuNjYwNi43NTk3IDMuMDk1NCAxLjU0ODYgNC4zMDQ0IDIuMzY2OHMyLjE2MjggMS43MDk0IDIuODYxOCAyLjY3MzZjLjcuOTY0MyAxLjA0OSAyLjA2IDEuMDQ5IDMuMjg3MyAwIC45MDYyLS4yMTggMS43NDYyLS42NTUgMi41MjAycy0xLjEgMS40NDYtMS45ODg1IDIuMDE2Yy0uODg4Ni41Ny0xLjk5NTYgMS4wMTYtMy4zMjEyIDEuMzM3LTEuMzI1NS4zMjEtMi44NzY4LjQ4Mi00LjY1MzkuNDgyLTMuMDI5OSAwLTYuMDMwNS0uNTMzLTkuMDAyMS0xLjYtMi45NzE1LTEuMDY2LTUuNzI0NS0yLjY2Ni04LjI1OTEtNC43OTl6bS0yMy41NTk2LTM0LjkxMzZoMTguMjk3NHYtMTEuNTU0NGgtNTF2MTEuNTU0NGgxOC4yMDc5djUxLjQ0NTZoMTQuNDk0N3oiIGZpbGw9IiNmZmYiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==" x="503" y="75" width="76" height="76" preserveAspectRatio="xMidYMid meet"/>
+
+    <rect x="610" y="62" width="102" height="102" rx="24" fill="#091224" fill-opacity="0.64" stroke="#D6E4FF" stroke-opacity="0.14"/>
+    <image href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDEyMDAiPjx0aXRsZT5pY29uLXNxdWFyZS1iaWc8L3RpdGxlPjxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik02MDAgMGw1MzAuMyAzMDB2NjAwTDYwMCAxMjAwIDY5LjcgOTAwVjMwMHoiLz48cGF0aCBmaWxsPSIjOEVENkZCIiBjbGFzcz0ic3QxIiBkPSJNMTAzNS42IDg3OS4zbC00MTguMSAyMzYuNVY5MzEuNkw4NzggNzg4LjNsMTU3LjYgOTF6bTI4LjYtMjUuOVYzNTguOGwtMTUzIDg4LjNWNzY1bDE1MyA4OC40em0tOTAxLjUgMjUuOWw0MTguMSAyMzYuNVY5MzEuNkwzMjAuMyA3ODguM2wtMTU3LjYgOTF6bS0yOC42LTI1LjlWMzU4LjhsMTUzIDg4LjNWNzY1bC0xNTMgODguNHpNMTUyIDMyNi44TDU4MC44IDg0LjJ2MTc4LjFMMzA2LjEgNDEzLjRsLTIuMSAxLjItMTUyLTg3Ljh6bTg5NC4zIDBMNjE3LjUgODQuMnYxNzguMWwyNzQuNyAxNTEuMSAyLjEgMS4yIDE1Mi04Ny44eiIvPjxwYXRoIGZpbGw9IiMxQzc4QzAiIGQ9Ik01ODAuOCA4ODkuN2wtMjU3LTE0MS4zdi0yODBsMjU3IDE0OC40djI3Mi45em0zNi43IDBsMjU3LTE0MS4zdi0yODBsLTI1NyAxNDguNHYyNzIuOXptLTE4LjMtMjgzLjZ6TTM0MS4yIDQzNmwyNTgtMTQxLjkgMjU4IDE0MS45LTI1OCAxNDktMjU4LTE0OXoiLz48L3N2Zz4=" x="623" y="75" width="76" height="76" preserveAspectRatio="xMidYMid meet"/>
+
+    <rect x="317" y="222" width="566" height="272" rx="32" fill="#091224" fill-opacity="0.64" stroke="#D6E4FF" stroke-opacity="0.14"/>
+    <text x="355" y="308" fill="#F8FAFC" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="68" font-weight="800">ts-loader goes</text>
+    <text x="355" y="382" fill="#F8FAFC" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="68" font-weight="800">webpack 4...</text>
+    <text x="355" y="456" fill="#FDE047" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="74" font-weight="800">again!</text>
+
+    <rect x="610" y="441" width="289" height="64" rx="20" fill="#111827" fill-opacity="0.88" stroke="#93C5FD" stroke-opacity="0.3"/>
+    <text x="640" y="482" fill="#F8FAFC" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="30" font-weight="700">v9.6.0 released</text>
+  </g>
+</svg>
