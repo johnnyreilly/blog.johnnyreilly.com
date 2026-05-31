@@ -6,5 +6,13 @@
   "debug.internalConsoleOptions": "neverOpen",
   "azureFunctions.preDeployTask": "npm prune (functions)",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "chat.tools.terminal.autoApprove": {
+    "command": true,
+    "sips": true,
+    "mktemp": true,
+    "cp": true,
+    "printf": true,
+    "base64": true
+  }
 }
