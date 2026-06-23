@@ -7,6 +7,7 @@ tags: [docusaurus]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'How to add Standard.site support to a Docusaurus site with Sequoia'
+draft: true
 ---
 
 I've kept hearing talk of [Standard.site](https://standard.site/) recently. But every time I heard about it, I didn't get it. I then read this [primer on it](https://lab.leaflet.pub/3moomxyjssk2p), and if I'm totally honest, I still didn't entirely get it. I'm feeling a bit thick. But that's okay.
@@ -154,4 +155,56 @@ for (const entry of readdirSync(blogDir)) {
     console.log(`Updated: ${entry}`);
   }
 }
+```
+
+That done, I decided to `npx sequoia-cli publish --dry-run` once more.
+
+![Screenshot of some posts now being skipped](./screenshot-now-skipping.png)
+
+This time of my 362 posts, only 2 were going to be published to Bluesky. Better. Along the way I'd fiddled with my `sequoia.json` and it now looked like this:
+
+```json
+{
+  "$schema": "https://tangled.org/stevedylan.dev/sequoia/raw/main/sequoia.schema.json",
+  "siteUrl": "https://johnnyreilly.com",
+  "identity": "johnnyreilly.com",
+  "contentDir": "blog",
+  "publicDir": "static",
+  "outputDir": "dist",
+  "publicationUri": "at://did:plc:yy3apqjlms24kso7ahn7lbmb/site.standard.publication/3mova7c4nho2b",
+  "pdsUrl": "https://puffball.us-east.host.bsky.network",
+  "frontmatter": {
+    "coverImage": "image",
+    "publishDate": "date",
+    "slugField": "slug",
+    "titleField": "title",
+    "descriptionField": "description"
+  },
+  "publishContent": true,
+  "bluesky": {
+    "enabled": true,
+    "maxAgeDays": 30
+  }
+}
+```
+
+The quickstart would have me hitting publish now, but I don't want that. I want it tied into my CI.
+
+## GitHub Actions
+
+There were [docs precisely for this](https://sequoia.pub/workflows#github-actions).
+
+Looking at it, I wanted to check that the `sequoia inject` mechanism worked locally, before I shifted off to GitHub Actions. So I ran:
+
+```bash
+npm run build
+npx sequoia-cli inject
+```
+
+![screenshot which says "No published posts found in state. Run 'sequoia publish' first."](./screenshot-you-must-publish.png)
+
+Ah checkmate. Okay, time to publish locally and see what happens.
+
+```bash
+npx sequoia-cli publish
 ```

@@ -1,9 +1,8 @@
 ---
 slug: webpack-overview
 title: 'Overview of webpack, a JavaScript bundler'
-authors:
 date: 2024-04-06
-  - johnnyreilly
+authors: johnnyreilly
 tags: [webpack]
 image: ./title-image.png
 description: webpack is a JavaScript bundler that helps you bundle your code into a single file. It's a great tool for optimizing your code and improving performance.

@@ -1,8 +1,8 @@
 ---
 slug: bun-overview
 title: 'Overview of Bun, a JavaScript runtime'
-authors:
 date: 2023-12-15
+authors:
   - johnnyreilly
   - name: Megan Lee
     title: Content Marketing Manager

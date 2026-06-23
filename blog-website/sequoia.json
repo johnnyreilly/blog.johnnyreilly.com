@@ -2,13 +2,17 @@
   "$schema": "https://tangled.org/stevedylan.dev/sequoia/raw/main/sequoia.schema.json",
   "siteUrl": "https://johnnyreilly.com",
   "identity": "johnnyreilly.com",
-  "contentDir": "./blog",
-  "publicDir": "./static",
-  "outputDir": "./dist",
+  "contentDir": "blog",
+  "publicDir": "static",
+  "outputDir": "dist",
   "publicationUri": "at://did:plc:yy3apqjlms24kso7ahn7lbmb/site.standard.publication/3mova7c4nho2b",
   "pdsUrl": "https://puffball.us-east.host.bsky.network",
   "frontmatter": {
-    "coverImage": "image"
+    "coverImage": "image",
+    "publishDate": "date",
+    "slugField": "slug",
+    "titleField": "title",
+    "descriptionField": "description"
   },
   "publishContent": true,
   "bluesky": {
