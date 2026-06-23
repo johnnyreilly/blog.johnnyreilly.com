@@ -1,7 +1,6 @@
 ---
 slug: standard-site-docusaurus-with-sequoia
 title: 'Standard.site Docusaurus with Sequoia'
-created_at: 2026-06-22
 authors: johnnyreilly
 tags: [docusaurus]
 image: ./title-image.png
@@ -90,12 +89,44 @@ It suggested the following:
 
 > Tip: Add "identity": "johnnyreilly.com" to sequoia.json to use this by default.
 
-I followed this advice. Terrifyingly, it also suggested it was going to publish every post I had ever written. Given these go back to 2012, this seemed a bit much.
+I followed this advice. Terrifyingly, it also suggested it was going to publish every post I had ever written. Given these is hundreds of posts going back to 2012, this seemed a bit much.
 
 ## Docusaurus meet Sequoia
 
 At this point I think we have the basics of Sequoia publishing set up, we now need to make Docusaurus play nice with it. Or try.
 
-My money is on Sequoia not being able to detect when my blogs are published.
+So why is it trying to publish everything? My money is on Sequoia not being able to detect when my blogs are published. The [config docs](https://sequoia.pub/config) suggest I need a `frontmatter.publishDate`:
+
+> Field name for publish date (checks "publishDate", "pubDate", "date", "createdAt", and "created_at" by default)
+
+Now if you look at the frontmatter for my blog posts, you'll see there is no field that matches up with the above.
+
+```md
+---
+slug: standard-site-docusaurus-with-sequoia
+title: 'Standard.site Docusaurus with Sequoia'
+authors: johnnyreilly
+tags: [docusaurus]
+image: ./title-image.png
+hide_table_of_contents: false
+description: 'How to add Standard.site support to a Docusaurus site with Sequoia'
+---
+```
+
+You can see that the date exists, but it's simply being inferred from the folder name:
+
+![screenshot of the files with dates in the folder path](./screenshot-file-system.png)
+
+This is one of the [many patterns that Docusaurus supports](screenshot-file-system.png). But it happily supports providing `date` as a frontmatter item as well. So I think that's what I'll do. I'll just make every
+
+```md
+---
+title: Docusaurus 3.9
+authors: [slorber]
+tags: [release]
+image: ./img/social-card.png
+date: 2025-09-25
+---
+```
 
 created_at
