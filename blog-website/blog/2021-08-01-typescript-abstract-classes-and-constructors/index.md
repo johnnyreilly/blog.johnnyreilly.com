@@ -2,6 +2,7 @@
 slug: typescript-abstract-classes-and-constructors
 title: 'TypeScript, abstract classes, and constructors'
 authors: johnnyreilly
+date: 2021-08-01
 tags: [typescript]
 image: ./vs-code-abstract-screenshot.png
 hide_table_of_contents: false

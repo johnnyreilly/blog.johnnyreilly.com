@@ -2,6 +2,7 @@
 slug: migrating-azure-functions-node-js-v4-typescript
 title: 'Migrating to v4 Azure Functions Node.js with TypeScript'
 authors: johnnyreilly
+date: 2023-10-24
 image: ./title-image.png
 tags: [typescript, azure, azure functions, azure static web apps]
 description: Learn how to migrate a TypeScript Azure Functions app to the v4 Node.js programming model.
@@ -280,23 +281,23 @@ A complete `host.json` might look like this:
 
 ```json
 {
-    "version": "2.0",
-    "logging": {
-        "applicationInsights": {
-            "samplingSettings": {
-                "isEnabled": true,
-                "excludedTypes": "Request"
-            }
-        }
-    },
-    "extensionBundle": {
-        "id": "Microsoft.Azure.Functions.ExtensionBundle",
-        "version": "[4.*, 5.0.0)"
+  "version": "2.0",
+  "logging": {
+    "applicationInsights": {
+      "samplingSettings": {
+        "isEnabled": true,
+        "excludedTypes": "Request"
+      }
     }
+  },
+  "extensionBundle": {
+    "id": "Microsoft.Azure.Functions.ExtensionBundle",
+    "version": "[4.*, 5.0.0)"
+  }
 }
 ```
 
-As discussed with [Eric Jizba](https://github.com/ejizba) on [this GitHub issue](https://github.com/Azure/azure-functions-core-tools/issues/3508#issuecomment-1894356158), updating the `host.json` may not actually be necessary.  For me it seemed to be the thing that turned a not working setup into a working setup; but it's possible I was mistaken. Certainly if I revert the change now I'm still able to run locally.  What I'm saying is: your mileage may vary.
+As discussed with [Eric Jizba](https://github.com/ejizba) on [this GitHub issue](https://github.com/Azure/azure-functions-core-tools/issues/3508#issuecomment-1894356158), updating the `host.json` may not actually be necessary. For me it seemed to be the thing that turned a not working setup into a working setup; but it's possible I was mistaken. Certainly if I revert the change now I'm still able to run locally. What I'm saying is: your mileage may vary.
 
 ## Conclusion
 

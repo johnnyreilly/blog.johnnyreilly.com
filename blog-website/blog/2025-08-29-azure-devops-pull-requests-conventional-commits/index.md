@@ -2,6 +2,7 @@
 slug: azure-devops-pull-requests-conventional-commits
 title: 'Azure DevOps: merging pull requests with conventional commits'
 authors: johnnyreilly
+date: 2025-08-29
 tags: [typescript, azure devops, node.js]
 image: ./title-image.png
 hide_table_of_contents: false

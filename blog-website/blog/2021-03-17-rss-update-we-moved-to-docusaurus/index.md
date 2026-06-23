@@ -2,6 +2,7 @@
 slug: rss-update-we-moved-to-docusaurus
 title: 'RSS update; we moved to Docusaurus'
 authors: johnnyreilly
+date: 2021-03-17
 tags: [docusaurus]
 image: ./rss.png
 hide_table_of_contents: false

@@ -2,6 +2,7 @@
 slug: why-your-team-needs-newsfeed
 title: 'Why your team needs a newsfeed'
 authors: johnnyreilly
+date: 2020-09-04
 hide_table_of_contents: false
 description: 'A newsfeed was built to narrow the gap between an online platform team and their users. It generates real-time stories in Markdown with links.'
 ---

@@ -2,6 +2,7 @@
 slug: how-to-make-azure-ad-403
 title: 'Make Microsoft.Identity.Web respond with 403 forbidden instead of a 302 redirect'
 authors: johnnyreilly
+date: 2020-12-21
 tags: [asp.net, azure]
 image: ./Forbidden.webp
 hide_table_of_contents: false

@@ -2,6 +2,7 @@
 slug: fork-ts-checker-webpack-plugin-code
 title: 'fork-ts-checker-webpack-plugin code clickability'
 authors: johnnyreilly
+date: 2017-09-12
 tags: [vs code, fork-ts-checker-webpack-plugin, ts-loader, webpack]
 hide_table_of_contents: false
 description: 'The `fork-ts-checker-webpack-plugin` can speed up builds, but TypeScript errors in the terminal are not clickable. The cause and solution are explained.'

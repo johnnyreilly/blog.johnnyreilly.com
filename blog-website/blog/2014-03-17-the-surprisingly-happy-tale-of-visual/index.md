@@ -2,6 +2,7 @@
 slug: the-surprisingly-happy-tale-of-visual
 title: 'The Surprisingly Happy Tale of Visual Studio Online, Continous Integration and Chutzpah'
 authors: johnnyreilly
+date: 2014-03-17
 tags: [automated testing, azure devops, javascript]
 hide_table_of_contents: false
 description: 'John recounts his experience with JavaScript unit testing using Jasmine and Chutzpah for integration with Visual Studio and Team Foundation Service.'

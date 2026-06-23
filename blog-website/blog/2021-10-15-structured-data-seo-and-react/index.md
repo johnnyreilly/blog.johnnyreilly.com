@@ -2,6 +2,7 @@
 slug: structured-data-seo-and-react
 title: 'Structured data, SEO and React'
 authors: johnnyreilly
+date: 2021-10-15
 tags: [seo, react]
 image: ./title-image.png
 hide_table_of_contents: false

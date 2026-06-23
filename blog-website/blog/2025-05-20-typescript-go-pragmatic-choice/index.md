@@ -2,6 +2,7 @@
 slug: typescript-go-pragmatic-choice
 title: 'TypeScript is going Go: Why it’s the pragmatic choice'
 authors:
+date: 2025-05-20
   - johnnyreilly
   - name: Ashley Claymore
     title: Bloomberg. TC39.

@@ -2,6 +2,7 @@
 slug: offline-storage-in-pwa
 title: 'Offline storage in a PWA'
 authors: johnnyreilly
+date: 2020-03-29
 tags: []
 hide_table_of_contents: false
 description: 'Learn how to use IndexedDB for offline storage in your web app or PWA with the IDB-Keyval library and a React custom hook.'

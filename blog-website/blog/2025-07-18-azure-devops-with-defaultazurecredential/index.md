@@ -2,6 +2,7 @@
 slug: azure-devops-with-defaultazurecredential
 title: 'Azure DevOps: using DefaultAzureCredential in an Azure Pipeline with AzureCLI@2'
 authors: johnnyreilly
+date: 2025-07-18
 tags: [typescript, azure devops, node.js]
 image: ./title-image.png
 hide_table_of_contents: false
@@ -60,7 +61,7 @@ Consider the following example pipeline YAML:
     inlineScript: npm start # where `npm start` is your command that uses DefaultAzureCredential
 ```
 
-The above will run the `npm start` command in the context of the Azure CLI. We won't document it here, but imagine the `npm start` command runs a Node.js script which makes use of `DefaultAzureCredential`. The supplied service connection will authenticate using the credentials of the  associated service principal. When the code runs and `DefaultAzureCredential` is used, the `AzureCliCredential` will be used to authenticate, as at this point the pipeline is effectively a logged user with the Azure CLI.
+The above will run the `npm start` command in the context of the Azure CLI. We won't document it here, but imagine the `npm start` command runs a Node.js script which makes use of `DefaultAzureCredential`. The supplied service connection will authenticate using the credentials of the associated service principal. When the code runs and `DefaultAzureCredential` is used, the `AzureCliCredential` will be used to authenticate, as at this point the pipeline is effectively a logged user with the Azure CLI.
 
 ## Using the `AzureCLI@2` task with `EnvironmentCredential`
 

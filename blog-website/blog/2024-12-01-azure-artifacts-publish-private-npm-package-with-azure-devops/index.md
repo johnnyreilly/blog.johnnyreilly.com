@@ -2,6 +2,7 @@
 slug: azure-artifacts-publish-private-npm-package-with-azure-devops
 title: 'Azure Artifacts: Publish a private npm package with Azure DevOps'
 authors: johnnyreilly
+date: 2024-12-01
 tags: [azure devops, node.js]
 image: ./title-image.png
 hide_table_of_contents: false

@@ -2,6 +2,7 @@
 slug: azure-devops-set-user-story-column-api
 title: 'Azure DevOps API: Set User Story column with the Azure DevOps Client for Node.js'
 authors: johnnyreilly
+date: 2024-11-01
 tags: [typescript, azure devops, node.js]
 image: ./title-image.png
 hide_table_of_contents: false

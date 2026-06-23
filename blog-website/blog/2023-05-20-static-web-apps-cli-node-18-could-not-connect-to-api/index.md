@@ -2,6 +2,7 @@
 slug: static-web-apps-cli-node-18-could-not-connect-to-api
 title: 'Static Web Apps CLI and Node.js 18: could not connect to API'
 authors: johnnyreilly
+date: 2023-05-20
 tags: [azure static web apps, node.js, static web apps cli]
 image: ./title-image.png
 description: 'With Node.js 18, the Static Web Apps CLI fails to connect to the API - there is a way to fix this.'

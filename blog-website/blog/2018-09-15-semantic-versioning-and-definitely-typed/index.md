@@ -2,6 +2,7 @@
 slug: semantic-versioning-and-definitely-typed
 title: 'Semantic Versioning and Definitely Typed'
 authors: johnnyreilly
+date: 2018-09-15
 tags: [definitely typed, typescript]
 image: ./i-must-break-you.webp
 hide_table_of_contents: false

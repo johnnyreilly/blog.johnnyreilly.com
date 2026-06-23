@@ -2,6 +2,7 @@
 slug: static-typing-for-mui-react-data-grid-columns
 title: 'Static Typing for MUI React Data Grid Columns'
 authors: johnnyreilly
+date: 2024-10-07
 tags: [react, typescript, mui]
 image: ./title-image.png
 hide_table_of_contents: false
@@ -185,10 +186,14 @@ export default function BasicColumnsGrid() {
   type ValidField = keyof ValidRow;
   type ColumnWithValidField = { field: ValidField };
 
-  const columns = React.useMemo(() => [
-    { field: 'username', headerName: 'User' },
-    { field: 'age', headerName: 'Age' },
-  ] satisfies GridColDef<ValidRow>[] & ColumnWithValidField[], []);
+  const columns = React.useMemo(
+    () =>
+      [
+        { field: 'username', headerName: 'User' },
+        { field: 'age', headerName: 'Age' },
+      ] satisfies GridColDef<ValidRow>[] & ColumnWithValidField[],
+    [],
+  );
 
   return (
     <Box sx={{ height: 250, width: '100%' }}>

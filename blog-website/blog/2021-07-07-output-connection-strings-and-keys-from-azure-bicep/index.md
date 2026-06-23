@@ -2,6 +2,7 @@
 slug: output-connection-strings-and-keys-from-azure-bicep
 title: 'Output connection strings and keys from Azure Bicep'
 authors: johnnyreilly
+date: 2021-07-07
 tags: [bicep, azure]
 image: ./title-image.png
 hide_table_of_contents: false

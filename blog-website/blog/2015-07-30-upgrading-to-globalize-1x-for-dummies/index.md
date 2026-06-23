@@ -2,6 +2,7 @@
 slug: upgrading-to-globalize-1x-for-dummies
 title: 'Upgrading to Globalize 1.x for Dummies'
 authors: johnnyreilly
+date: 2015-07-30
 tags: [globalize]
 hide_table_of_contents: false
 description: 'Migrating to Globalize 1.0, which modularized the code, requires a significant amount of work, as shown by John Reilly’s examples.'
@@ -316,12 +317,12 @@ gulp.task('make-globalize-culture-de-js', function () {
   var locale = 'de';
   var jsonWeNeed = [
     require('./bower_components/cldr-data/supplemental/likelySubtags.json'),
-    require('./bower_components/cldr-data/main/' +
-      locale +
-      '/ca-gregorian.json'),
-    require('./bower_components/cldr-data/main/' +
-      locale +
-      '/timeZoneNames.json'),
+    require(
+      './bower_components/cldr-data/main/' + locale + '/ca-gregorian.json',
+    ),
+    require(
+      './bower_components/cldr-data/main/' + locale + '/timeZoneNames.json',
+    ),
     require('./bower_components/cldr-data/supplemental/timeData.json'),
     require('./bower_components/cldr-data/supplemental/weekData.json'),
     require('./bower_components/cldr-data/main/' + locale + '/numbers.json'),

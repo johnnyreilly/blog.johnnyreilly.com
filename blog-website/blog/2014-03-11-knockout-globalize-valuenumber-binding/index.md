@@ -2,6 +2,7 @@
 slug: knockout-globalize-valuenumber-binding
 title: 'Knockout + Globalize = valueNumber Binding Handler'
 authors: johnnyreilly
+date: 2014-03-11
 tags: [globalize]
 hide_table_of_contents: false
 description: 'Learn how to use Globalize and Knockout to create a "valueNumber" binding handler that makes numeric validation and localization easy.'

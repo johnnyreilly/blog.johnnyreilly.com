@@ -2,6 +2,7 @@
 slug: cypress-and-auth0
 title: 'Cypress and Auth0'
 authors: johnnyreilly
+date: 2018-07-09
 tags: [auth, automated testing]
 hide_table_of_contents: false
 description: 'The article explains how to automate Auth0 login using Cypress, by using the auth0-js client library, and creating a custom command.'

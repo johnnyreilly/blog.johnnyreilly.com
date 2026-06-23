@@ -2,6 +2,7 @@
 slug: docusaurus-3-how-to-migrate-rehype-plugins
 title: 'Docusaurus 3: how to migrate rehype plugins'
 authors: johnnyreilly
+date: 2023-10-09
 image: ./title-image.png
 tags: [docusaurus]
 description: Learn how to migrate rehype plugins to Docusaurus 3.
@@ -279,9 +280,8 @@ function imageCloudinaryRehypePlugin(
 
         const url = node['properties'].src;
 
-        node[
-          'properties'
-        ].src = `https://res.cloudinary.com/${cloudName}/image/fetch/${url}`;
+        node['properties'].src =
+          `https://res.cloudinary.com/${cloudName}/image/fetch/${url}`;
       } else if (node.type === 'jsx' && node['value']?.includes('<img ')) {
         // handles nodes like this:
 

@@ -2,6 +2,7 @@
 slug: typescript-4-7-and-ecmascript-module-support
 title: 'TypeScript 4.7 and ECMAScript Module Support'
 authors: johnnyreilly
+date: 2022-06-07
 tags: [typescript, javascript]
 image: ./title-image.png
 description: 'As part of the TypeScript 4.7 release comes a major upgrade to ECMAScript Module Support for Node.js. This post takes a look at what that means.'

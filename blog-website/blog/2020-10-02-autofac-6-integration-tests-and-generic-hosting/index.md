@@ -2,6 +2,7 @@
 slug: autofac-6-integration-tests-and-generic-hosting
 title: 'Autofac 6, integration tests and .NET generic hosting'
 authors: johnnyreilly
+date: 2020-10-02
 tags: [asp.net, automated testing]
 image: ./autofac-integration-tests.webp
 hide_table_of_contents: false

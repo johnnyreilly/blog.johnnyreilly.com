@@ -2,6 +2,7 @@
 slug: using-web-optimization-with-mvc-3
 title: 'Using Web Optimization with MVC 3'
 authors: johnnyreilly
+date: 2012-10-05
 tags: [asp.net]
 hide_table_of_contents: false
 description: 'Optimize JavaScript/CSS in MVC 3 through Microsofts NuGet package, bundling jQuery, jQuery UI, jQuery Validate and Modernizr.'

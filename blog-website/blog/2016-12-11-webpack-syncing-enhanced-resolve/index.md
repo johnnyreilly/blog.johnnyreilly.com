@@ -2,6 +2,7 @@
 slug: webpack-syncing-enhanced-resolve
 title: 'webpack: syncing the enhanced-resolve'
 authors: johnnyreilly
+date: 2016-12-11
 tags: [webpack]
 hide_table_of_contents: false
 description: 'How to create a sync webpack resolver instead of the default async resolver using `enhanced-resolve`.'

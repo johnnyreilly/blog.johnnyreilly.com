@@ -2,6 +2,7 @@
 slug: web-monetization-api
 title: 'Getting started with the Web Monetization API'
 authors: johnnyreilly
+date: 2022-10-20
 tags: []
 image: ./title-image.png
 description: 'The Web Monetization API is a browser API streams payment from the browser to the website. This post walks through getting started adding it to a site.'

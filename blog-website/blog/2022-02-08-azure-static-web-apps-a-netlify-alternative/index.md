@@ -2,6 +2,7 @@
 slug: azure-static-web-apps-a-netlify-alternative
 title: 'Azure Static Web Apps - a Netlify alternative'
 authors: johnnyreilly
+date: 2022-02-08
 tags: [azure static web apps, github actions, docusaurus]
 description: 'Azure Static Web Apps are a new offering from Microsoft. This post looks at what they are and how they compare to Netlify.'
 hide_table_of_contents: false

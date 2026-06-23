@@ -2,6 +2,7 @@
 slug: docusaurus-blogs-adding-breadcrumb-structured-data
 title: 'Docusaurus blogs: adding breadcrumb structured data'
 authors: johnnyreilly
+date: 2023-02-05
 tags: [docusaurus, seo]
 image: ./title-image.png
 description: 'Docusaurus blogs can add breadcrumb structured data to their blog posts. This post shows how to add it using the JSON-LD format.'

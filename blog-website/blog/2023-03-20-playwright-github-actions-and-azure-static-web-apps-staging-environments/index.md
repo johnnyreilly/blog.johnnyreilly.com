@@ -2,6 +2,7 @@
 slug: playwright-github-actions-and-azure-static-web-apps-staging-environments
 title: 'Playwright, GitHub Actions and Azure Static Web Apps staging environments'
 authors: johnnyreilly
+date: 2023-03-20
 tags: [azure static web apps, github actions]
 image: ./title-image.png
 description: 'Azure Static Web Apps staging environments allow you to test changes before they go live. This shows how to use Playwright against staging environments.'

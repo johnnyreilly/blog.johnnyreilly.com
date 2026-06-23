@@ -2,6 +2,7 @@
 slug: the-names-have-been-changed
 title: 'The Names Have Been Changed...'
 authors: johnnyreilly
+date: 2015-10-23
 tags: []
 hide_table_of_contents: false
 description: 'John changes the domain name of his blog from .io to .com to save money and has set up a redirect from old site to new one.'

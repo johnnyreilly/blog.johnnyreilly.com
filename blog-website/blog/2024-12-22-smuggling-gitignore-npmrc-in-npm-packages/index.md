@@ -2,6 +2,7 @@
 slug: smuggling-gitignore-npmrc-in-npm-packages
 title: 'Smuggling .gitignore, .npmrc and friends in npm packages'
 authors: johnnyreilly
+date: 2024-12-22
 tags: [node.js]
 image: ./title-image.png
 hide_table_of_contents: false

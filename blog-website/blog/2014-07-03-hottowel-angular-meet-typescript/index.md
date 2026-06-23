@@ -2,6 +2,7 @@
 slug: hottowel-angular-meet-typescript
 title: 'HotTowel-Angular meet TypeScript'
 authors: johnnyreilly
+date: 2014-07-03
 tags: [angularjs, typescript]
 hide_table_of_contents: false
 description: 'Johnny Reilly creates a bare-bones port of the Hot Towel Angular SPA Template to TypeScript in order to demonstrate the ease of transition.'

@@ -2,6 +2,7 @@
 slug: the-mysterious-case-of-webpack-angular-and-jquery
 title: 'The Mysterious Case of webpack, AngularJS and jQuery'
 authors: johnnyreilly
+date: 2016-05-24
 tags: [angularjs, webpack, jquery]
 hide_table_of_contents: false
 description: 'Angular can use jQuery instead of jQLite, but this becomes complicated when using webpack. We need to use the ProvidePlugin function in webpack.config.js.'
@@ -21,8 +22,8 @@ var jqName = jq();
 jQuery = isUndefined(jqName)
   ? window.jQuery // use jQuery (if present)
   : !jqName
-  ? undefined // use jqLite
-  : window[jqName]; // use jQuery specified by `ngJq`
+    ? undefined // use jqLite
+    : window[jqName]; // use jQuery specified by `ngJq`
 ```
 
 Amongst other things it looks for a `jQuery` variable which has been placed onto the `window` object. If it is found then jQuery is used; if it is not then it's `jqLite` all the way.
@@ -54,8 +55,8 @@ This uses the webpack [`ProvidePlugin`](https://github.com/webpack/docs/wiki/lis
 jQuery = isUndefined(jqName)
   ? __webpack_provided_window_dot_jQuery // use jQuery (if present)
   : !jqName
-  ? undefined // use jqLite
-  : window[jqName]; // use jQuery specified by `ngJq`
+    ? undefined // use jqLite
+    : window[jqName]; // use jQuery specified by `ngJq`
 ```
 
 That's right; webpack is providing Angular with jQuery whilst still _not_ placing a `jQuery` variable onto the `window`. Neat huh?

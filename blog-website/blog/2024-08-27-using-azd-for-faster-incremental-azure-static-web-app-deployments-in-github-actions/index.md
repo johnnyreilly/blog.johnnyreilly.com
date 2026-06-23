@@ -2,6 +2,7 @@
 slug: using-azd-for-faster-incremental-azure-static-web-app-deployments-in-github-actions
 title: 'Using AZD for faster incremental Azure Static Web App deployments in GitHub Actions'
 authors: johnnyreilly
+date: 2024-08-27
 tags: [azure, bicep, github actions, azure static web apps]
 image: ./title-image.png
 hide_table_of_contents: false

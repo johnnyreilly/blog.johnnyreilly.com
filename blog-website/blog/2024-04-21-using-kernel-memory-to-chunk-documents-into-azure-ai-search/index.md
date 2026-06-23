@@ -2,6 +2,7 @@
 slug: using-kernel-memory-to-chunk-documents-into-azure-ai-search
 title: 'Using Kernel Memory to Chunk Documents into Azure AI Search'
 authors: johnnyreilly
+date: 2024-04-21
 image: ./title-image.png
 tags: [azure, c#, asp.net, ai]
 description: To build RAG (Retrieval Augmented Generation) experiences, where LLMs can query documents, you need a strategy to chunk those documents. Kernel Memory supports this.

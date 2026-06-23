@@ -2,6 +2,7 @@
 slug: azure-pipelines-meet-jest
 title: 'Azure Pipelines meet Jest'
 authors: johnnyreilly
+date: 2020-12-30
 image: ./test-results.webp
 tags: [azure pipelines, automated testing]
 hide_table_of_contents: false

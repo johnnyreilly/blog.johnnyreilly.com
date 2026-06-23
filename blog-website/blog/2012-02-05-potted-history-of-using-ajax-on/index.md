@@ -2,6 +2,7 @@
 slug: potted-history-of-using-ajax-on
 title: 'A Potted History of using Ajax (on the Microsoft Stack of Love)'
 authors: johnnyreilly
+date: 2012-02-05
 tags: [jquery, javascript]
 hide_table_of_contents: false
 description: 'Discovering Ajax and JSON transformed Johns approach to programming by lifting limitations and improving performance.'

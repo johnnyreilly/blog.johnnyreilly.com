@@ -2,6 +2,7 @@
 slug: type-annotations-proposal-strong-types-weakly-held
 title: 'Type annotations: strong types, weakly held'
 authors: johnnyreilly
+date: 2022-04-16
 tags: [typescript, javascript, jsdoc]
 image: ./title-image.png
 description: 'Type annotations is a proposal which would allow for the inclusion of types in JavaScript code. Here is a description of the proposal and some thoughts.'

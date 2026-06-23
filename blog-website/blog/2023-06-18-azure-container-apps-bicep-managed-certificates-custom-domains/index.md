@@ -2,6 +2,7 @@
 slug: azure-container-apps-bicep-managed-certificates-custom-domains
 title: 'Azure Container Apps, Bicep, managed certificates and custom domains'
 authors: johnnyreilly
+date: 2023-06-18
 tags: [azure container apps, bicep]
 image: ./title-image.png
 description: 'Azure Container Apps support managed certificates and custom domains. However, deploying them with Bicep is not straightforward. This post explains how to do it.'

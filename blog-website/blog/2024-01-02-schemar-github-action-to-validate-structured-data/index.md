@@ -2,6 +2,7 @@
 slug: schemar-github-action-to-validate-structured-data
 title: 'Schemar: a GitHub Action to validate structured data'
 authors: johnnyreilly
+date: 2024-01-02
 tags: [seo]
 image: ./title-image.png
 description: This post demonstrates how to use Schemar to validate structured data using a GitHub Action.

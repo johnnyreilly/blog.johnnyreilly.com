@@ -2,6 +2,7 @@
 slug: google-apis-authentication-with-typescript
 title: 'Google APIs: authentication with TypeScript'
 authors: johnnyreilly
+date: 2021-09-10
 tags: [typescript]
 image: ./app-registration.png
 hide_table_of_contents: false

@@ -2,6 +2,7 @@
 slug: bicep-syntax-highlighting-with-prismjs
 title: 'Bicep: syntax highlighting with PrismJS (and Docusaurus)'
 authors: johnnyreilly
+date: 2021-08-19
 tags: [bicep]
 image: ./bicep-syntax-highlighting-with-prismjs.webp
 hide_table_of_contents: false

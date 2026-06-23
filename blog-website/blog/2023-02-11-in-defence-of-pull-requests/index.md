@@ -2,6 +2,7 @@
 slug: in-defence-of-pull-requests
 title: 'In defence of pull requests'
 authors: johnnyreilly
+date: 2023-02-11
 tags: []
 image: ./title-image.png
 description: 'Some people feel that pull requests are a barrier to contribution. I disagree.'

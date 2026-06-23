@@ -2,6 +2,7 @@
 slug: web-workers-comlink-vite-tanstack-query
 title: 'Web Workers, Comlink, Vite and TanStack Query'
 authors: johnnyreilly
+date: 2024-06-23
 tags: [typescript, react]
 image: ./title-image.png
 description: 'Web Workers are a great way to offload work from the main thread. Comlink is a delightful way to communicate with Web Workers. TanStack Query is an awesome way to bring them together.'

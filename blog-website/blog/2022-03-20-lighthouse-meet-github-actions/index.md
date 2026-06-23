@@ -2,6 +2,7 @@
 slug: lighthouse-meet-github-actions
 title: 'Lighthouse meet GitHub Actions'
 authors: johnnyreilly
+date: 2022-03-20
 tags: [azure static web apps, github actions, docusaurus]
 image: ./title-image.png
 description: 'This post illustrates how to integrate Lighthouse into a GitHub Actions workflow for an Azure Static Web App.'

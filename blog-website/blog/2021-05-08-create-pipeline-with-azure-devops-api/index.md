@@ -2,6 +2,7 @@
 slug: create-pipeline-with-azure-devops-api
 title: 'Create a Pipeline with the Azure DevOps API'
 authors: johnnyreilly
+date: 2021-05-08
 tags: [azure pipelines, azure devops, typescript]
 image: ./new-pipeline.webp
 hide_table_of_contents: false

@@ -2,6 +2,7 @@
 slug: dotnet-openapi-and-openapi-ts
 title: 'Full-stack static typing with OpenAPI TypeScript and Microsoft.AspNetCore.OpenApi'
 authors: johnnyreilly
+date: 2026-01-02
 tags: [swagger, c#, azure, typescript]
 image: ./use-generated-client.gif
 hide_table_of_contents: false

@@ -2,6 +2,7 @@
 slug: typescript-4-4-more-readable-code
 title: 'TypeScript 4.4 and more readable code'
 authors: johnnyreilly
+date: 2021-08-14
 tags: [typescript]
 image: ./reactions-on-github.webp
 hide_table_of_contents: false

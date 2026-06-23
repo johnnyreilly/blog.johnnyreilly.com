@@ -2,6 +2,7 @@
 slug: get-service-connections-with-azure-devops-api
 title: 'Get Service Connections with the Azure DevOps API (REST and TypeScript)'
 authors: johnnyreilly
+date: 2025-01-25
 tags: [azure pipelines, azure devops, typescript]
 image: ./title-image.png
 hide_table_of_contents: false

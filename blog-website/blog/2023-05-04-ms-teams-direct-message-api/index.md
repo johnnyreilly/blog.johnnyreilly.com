@@ -2,6 +2,7 @@
 slug: ms-teams-direct-message-api
 title: 'Teams Direct Message API with Power Automate'
 authors:
+date: 2023-05-04
   - johnnyreilly
   - name: Chris Tacey-Green
     title: Engineer, Architect, Human

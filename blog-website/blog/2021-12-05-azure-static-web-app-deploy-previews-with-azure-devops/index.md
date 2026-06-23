@@ -2,6 +2,7 @@
 slug: azure-static-web-app-deploy-previews-with-azure-devops
 title: 'Azure Static Web App Deploy Previews with Azure DevOps'
 authors: johnnyreilly
+date: 2021-12-05
 tags: [azure static web apps, azure devops]
 image: ./title-image.png
 hide_table_of_contents: false

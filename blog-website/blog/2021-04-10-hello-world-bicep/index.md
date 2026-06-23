@@ -2,6 +2,7 @@
 slug: hello-world-bicep
 title: 'Hello World Bicep'
 authors: johnnyreilly
+date: 2021-04-10
 tags: [bicep, azure]
 image: ./hello-world-bicep.webp
 hide_table_of_contents: false

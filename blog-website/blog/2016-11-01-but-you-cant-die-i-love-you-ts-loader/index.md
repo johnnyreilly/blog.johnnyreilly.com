@@ -2,6 +2,7 @@
 slug: but-you-cant-die-i-love-you-ts-loader
 title: "But you can't die... I love you!"
 authors: johnnyreilly
+date: 2016-11-01
 tags: [ts-loader, typescript]
 image: ./title-image.png
 hide_table_of_contents: false

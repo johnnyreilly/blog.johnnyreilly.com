@@ -2,6 +2,7 @@
 slug: unit-testing-mvc-controllers-mocking
 title: 'Unit testing MVC controllers / Mocking UrlHelper'
 authors: johnnyreilly
+date: 2013-02-18
 tags: [asp.net]
 hide_table_of_contents: false
 description: 'This article presents a solution for testing ASP.net MVC controllers, including how to test controllers using UrlHelper.'

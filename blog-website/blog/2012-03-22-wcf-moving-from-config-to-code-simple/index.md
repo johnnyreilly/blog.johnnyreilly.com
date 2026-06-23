@@ -2,6 +2,7 @@
 slug: wcf-moving-from-config-to-code-simple
 title: 'WCF - moving from Config to Code, a simple WCF service harness (plus implementing your own Authorization)'
 authors: johnnyreilly
+date: 2012-03-22
 tags: [auth]
 hide_table_of_contents: false
 description: 'John describes his approach to developing a Windows Service-hosted WCF service/client harness, including locking down WCF authorization.'

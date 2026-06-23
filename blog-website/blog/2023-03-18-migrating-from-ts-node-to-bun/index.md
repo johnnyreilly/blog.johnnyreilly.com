@@ -2,6 +2,7 @@
 slug: migrating-from-ts-node-to-bun
 title: 'Migrating from ts-node to Bun'
 authors: johnnyreilly
+date: 2023-03-18
 tags: [node.js, typescript]
 image: ./title-image.png
 description: 'Migrating from ts-node to Bun is surprisingly easy - this post ports a console app from ts-node to Bun and compares performance.'

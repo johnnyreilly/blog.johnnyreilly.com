@@ -2,6 +2,7 @@
 slug: static-web-apps-cli-local-auth-emulator-with-dotnet-authentication
 title: 'Static Web Apps CLI: local authentication emulation with ASP.NET'
 authors: johnnyreilly
+date: 2025-03-29
 tags: [azure static web apps, node.js, asp.net, static web apps cli]
 image: ./title-image.png
 description: 'The Static Web Apps CLI has a local authentication emulator. This is a useful tool for local development, and can be used with ASP.NET authentication. This post shows how.'

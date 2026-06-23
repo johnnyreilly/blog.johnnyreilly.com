@@ -2,6 +2,7 @@
 slug: the-ternary-operator-meets-destructuring
 title: 'The Ternary Operator <3 Destructuring'
 authors: johnnyreilly
+date: 2016-08-19
 tags: [typescript, javascript]
 hide_table_of_contents: false
 description: 'ES2015 destructuring allows setting multiple variables using the ternary operator. Change the return type of each branch to an object for this to work.'

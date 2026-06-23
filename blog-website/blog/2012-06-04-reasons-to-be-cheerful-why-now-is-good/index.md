@@ -2,6 +2,7 @@
 slug: reasons-to-be-cheerful-why-now-is-good
 title: 'Reasons to be Cheerful (why now is a good time to be a dev)'
 authors: johnnyreilly
+date: 2012-06-04
 tags: []
 hide_table_of_contents: false
 description: 'Easy access to information via Google and the rise of JavaScript, as well as blogs, screencasts, and podcasts have made learning coding easier.'

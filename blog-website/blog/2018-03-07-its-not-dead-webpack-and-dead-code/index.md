@@ -2,6 +2,7 @@
 slug: its-not-dead-webpack-and-dead-code
 title: "It's Not Dead: webpack and dead code elimination limitations"
 authors: johnnyreilly
+date: 2018-03-07
 tags: [webpack]
 hide_table_of_contents: false
 description: 'webpack eliminates dead code through DefinePlugin. Directly use `process.env.NODE_ENV !== production` for smarter code elimination by UglifyJSPlugin.'

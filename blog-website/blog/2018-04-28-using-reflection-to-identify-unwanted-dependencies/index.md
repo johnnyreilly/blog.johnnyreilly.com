@@ -2,6 +2,7 @@
 slug: using-reflection-to-identify-unwanted-dependencies
 title: 'Using Reflection to Identify Unwanted Dependencies'
 authors: johnnyreilly
+date: 2018-04-28
 tags: [asp.net]
 hide_table_of_contents: false
 description: 'Learn how to identify unwelcome dependencies in complex web apps by walking a dependency tree using reflection-based tests.'

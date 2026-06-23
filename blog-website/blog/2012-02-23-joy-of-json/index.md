@@ -2,6 +2,7 @@
 slug: joy-of-json
 title: 'The Joy of JSON'
 authors: johnnyreilly
+date: 2012-02-23
 tags: [javascript]
 hide_table_of_contents: false
 description: 'JSON is a lightweight data format that helps create and read JavaScript objects. This article traces its discovery and explains its usefulness.'

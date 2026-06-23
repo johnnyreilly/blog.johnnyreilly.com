@@ -2,6 +2,7 @@
 slug: beg-steal-or-borrow-decent-javascript
 title: 'Beg, Steal or Borrow a Decent JavaScript DateTime Converter'
 authors: johnnyreilly
+date: 2012-04-28
 tags: [javascript, asp.net]
 hide_table_of_contents: false
 description: 'ASP.NETs JavaScriptSerializer class is improved through ISO 8601 and a custom converter for better DateTime serialisation.'

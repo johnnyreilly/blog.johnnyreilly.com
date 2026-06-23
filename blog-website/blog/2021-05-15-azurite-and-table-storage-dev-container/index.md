@@ -2,6 +2,7 @@
 slug: azurite-and-table-storage-dev-container
 title: 'Azurite and Table Storage in a dev container'
 authors: johnnyreilly
+date: 2021-05-15
 tags: [vs code]
 image: ./dev-container-start.gif
 hide_table_of_contents: false

@@ -2,6 +2,7 @@
 slug: typescript-eslint-with-jsdoc-js
 title: 'typescript-eslint with JSDoc JavaScript'
 authors: johnnyreilly
+date: 2024-09-02
 tags: [javascript, typescript, jsdoc]
 image: ./title-image.png
 hide_table_of_contents: false
@@ -42,7 +43,7 @@ We now have TypeScript installed in our project. We'll need to create a `tsconfi
       "ESNext"
     ] /* Specify a set of bundled library declaration files that describe the target runtime environment. */,
     "jsx": "preserve" /* Specify what JSX code is generated. */,
-    "target": "ESNext", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "target": "ESNext" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
 
     /* Modules */
     "module": "preserve" /* Specify what module code is generated. */,

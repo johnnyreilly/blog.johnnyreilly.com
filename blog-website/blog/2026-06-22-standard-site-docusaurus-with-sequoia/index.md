@@ -2,6 +2,7 @@
 slug: standard-site-docusaurus-with-sequoia
 title: 'Standard.site Docusaurus with Sequoia'
 authors: johnnyreilly
+date: 2026-06-22
 tags: [docusaurus]
 image: ./title-image.png
 hide_table_of_contents: false
@@ -117,16 +118,40 @@ You can see that the date exists, but it's simply being inferred from the folder
 
 ![screenshot of the files with dates in the folder path](./screenshot-file-system.png)
 
-This is one of the [many patterns that Docusaurus supports](screenshot-file-system.png). But it happily supports providing `date` as a frontmatter item as well. So I think that's what I'll do. I'll just make every
+This is one of the [many patterns that Docusaurus supports](screenshot-file-system.png). But it happily supports providing `date` as a frontmatter item as well. So I think that's what I'll do. I'll just make every `index.md` file have an `date: yyyy-MM-dd` entry in the frontmatter.
 
-```md
----
-title: Docusaurus 3.9
-authors: [slorber]
-tags: [release]
-image: ./img/social-card.png
-date: 2025-09-25
----
+The following Node.js script updated my existing frontmatters:
+
+```js
+import { readdirSync, readFileSync, writeFileSync } from 'fs';
+import { join } from 'path';
+
+const blogDir = new URL('./blog', import.meta.url).pathname;
+
+for (const entry of readdirSync(blogDir)) {
+  if (!/^\d{4}-\d{2}-\d{2}-/.test(entry)) continue;
+
+  const date = entry.slice(0, 10);
+  const filePath = join(blogDir, entry, 'index.md');
+
+  let content;
+  try {
+    content = readFileSync(filePath, 'utf8');
+  } catch {
+    continue;
+  }
+
+  const fmMatch = content.match(/^---\n([\s\S]*?)\n---/);
+  if (!fmMatch || fmMatch[1].includes('\ndate:')) continue;
+
+  const updated = content.replace(
+    /(^---\n[\s\S]*?^authors:.*$)/m,
+    `$1\ndate: ${date}`,
+  );
+
+  if (updated !== content) {
+    writeFileSync(filePath, updated, 'utf8');
+    console.log(`Updated: ${entry}`);
+  }
+}
 ```
-
-created_at

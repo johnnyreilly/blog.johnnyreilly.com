@@ -2,6 +2,7 @@
 slug: making-a-programmer
 title: 'Making a Programmer'
 authors: johnnyreilly
+date: 2018-10-27
 hide_table_of_contents: false
 description: 'Learn programming in a relaxed atmosphere with a coding bootcamp that values repetition, feedback and team facilitation.'
 ---

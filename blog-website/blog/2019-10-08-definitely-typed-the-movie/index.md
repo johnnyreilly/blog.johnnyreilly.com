@@ -2,6 +2,7 @@
 slug: definitely-typed-the-movie
 title: 'Definitely Typed: The Movie'
 authors: johnnyreilly
+date: 2019-10-08
 tags: [definitely typed, typescript]
 image: ./title-image.png
 hide_table_of_contents: false

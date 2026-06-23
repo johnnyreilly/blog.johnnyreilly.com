@@ -2,6 +2,7 @@
 slug: webpack-overview
 title: 'Overview of webpack, a JavaScript bundler'
 authors:
+date: 2024-04-06
   - johnnyreilly
 tags: [webpack]
 image: ./title-image.png

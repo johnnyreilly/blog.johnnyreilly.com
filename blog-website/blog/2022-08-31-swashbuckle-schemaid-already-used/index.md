@@ -2,6 +2,7 @@
 slug: swashbuckle-schemaid-already-used
 title: 'Swashbuckle and schemaId is already used'
 authors: johnnyreilly
+date: 2022-08-31
 tags: [swagger]
 image: ./title-image.png
 description: 'Swashbuckle can fail to generate a swagger / Open API document with the message "The same schemaId is already used...". This post offers a way forward.'

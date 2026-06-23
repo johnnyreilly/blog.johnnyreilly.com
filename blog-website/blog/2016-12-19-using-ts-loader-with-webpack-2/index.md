@@ -2,6 +2,7 @@
 slug: using-ts-loader-with-webpack-2
 title: 'Using ts-loader with webpack 2'
 authors: johnnyreilly
+date: 2016-12-19
 tags: [ts-loader, webpack]
 hide_table_of_contents: false
 description: 'TypeScript loader ts-loader has made its loader compatible with webpack 2. The update allows greater compatibility between the two applications.'

@@ -2,6 +2,7 @@
 slug: asp-net-authentication-hard-coding-claims
 title: 'ASP.NET Core authentication: hard-coding a claim in development'
 authors: johnnyreilly
+date: 2019-08-02
 tags: [asp.net, auth]
 hide_table_of_contents: false
 description: 'The DevelopmentModeAuthenticationHandler allows ASP.NET Core developers to hard code user authentication claims during development, easing testing.'

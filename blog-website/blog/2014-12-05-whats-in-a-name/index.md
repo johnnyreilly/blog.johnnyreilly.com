@@ -2,6 +2,7 @@
 slug: whats-in-a-name
 title: "What's in a (Domain) Name?"
 authors: johnnyreilly
+date: 2014-12-05
 hide_table_of_contents: false
 description: '"icanmakethiswork" blog has a new domain due to Johns concern about potential changes in Google hosting, now "blog.icanmakethiswork.io".'
 ---

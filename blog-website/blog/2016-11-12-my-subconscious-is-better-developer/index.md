@@ -2,6 +2,7 @@
 slug: my-subconscious-is-better-developer
 title: 'My Subconscious is a Better Developer Than I Am'
 authors: johnnyreilly
+date: 2016-11-12
 tags: []
 hide_table_of_contents: false
 description: 'In which I wonder if my subconscious is a better developer than I am, as solutions seem to come to mind, bypassing the work I consciously put in.'

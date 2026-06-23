@@ -2,6 +2,7 @@
 slug: giving-odata-to-crm-40
 title: 'Giving OData to CRM 4.0'
 authors: johnnyreilly
+date: 2012-09-24
 tags: [c#]
 hide_table_of_contents: false
 description: 'The article explains how to create an OData service to access Dynamics CRM 4.0 by using LINQ to CRM provider and WCF Data Services.'
@@ -33,7 +34,6 @@ As I said, Microsoft makes it fantastically easy to get an OData service up and 
 1. Create a new ASP.NET Web Application called "CrmOData" (in case it's relevant I was using Visual Studio 2010 to do this).
 2. Remove all ASPXs / JavaScript / CSS files etc leaving you with an essentially empty project.
 3. Add references to the following DLLs that come with the SDK: - microsoft.crm.sdk.dll
-
    - microsoft.crm.sdktypeproxy.dll
    - microsoft.crm.sdktypeproxy.xmlserializers.dll
    - microsoft.xrm.client.dll

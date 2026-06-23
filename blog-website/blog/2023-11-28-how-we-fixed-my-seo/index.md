@@ -2,6 +2,7 @@
 slug: how-we-fixed-my-seo
 title: 'How we fixed my SEO'
 authors:
+date: 2023-11-28
   - johnnyreilly
   - name: Growtika
     title: A dedicated SEO and growth marketing firm for dev-focused, cybersecurity, fintech and deep tech startups

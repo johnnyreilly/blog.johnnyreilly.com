@@ -2,6 +2,7 @@
 slug: npx-and-azure-artifacts-the-secret-cli-delivery-mechanism
 title: 'npx and Azure Artifacts: the secret CLI delivery mechanism'
 authors: johnnyreilly
+date: 2024-12-08
 tags: [azure devops, node.js]
 image: ./title-image.png
 hide_table_of_contents: false

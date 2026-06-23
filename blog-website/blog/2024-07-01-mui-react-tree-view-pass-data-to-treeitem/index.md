@@ -2,6 +2,7 @@
 slug: mui-react-tree-view-pass-data-to-treeitem
 title: 'MUI React Tree View: pass data to TreeItem'
 authors: johnnyreilly
+date: 2024-07-01
 tags: [react, mui]
 image: ./title-image.png
 hide_table_of_contents: false

@@ -2,6 +2,7 @@
 slug: open-graph-sharing-previews-guide
 title: 'Open Graph: a guide to sharable social media previews'
 authors: johnnyreilly
+date: 2021-12-12
 tags: []
 image: ./title-image.png
 hide_table_of_contents: false

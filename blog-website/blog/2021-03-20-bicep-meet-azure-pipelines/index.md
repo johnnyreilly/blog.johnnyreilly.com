@@ -2,6 +2,7 @@
 slug: bicep-meet-azure-pipelines
 title: 'Bicep meet Azure Pipelines'
 authors: johnnyreilly
+date: 2021-03-20
 tags: [bicep, azure pipelines, azure]
 image: ./bicep-meet-azure-pipelines.webp
 hide_table_of_contents: false

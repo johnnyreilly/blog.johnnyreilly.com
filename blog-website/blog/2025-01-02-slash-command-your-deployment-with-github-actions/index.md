@@ -2,6 +2,7 @@
 slug: slash-command-your-deployment-with-github-actions
 title: 'Slash command your deployment with GitHub Actions'
 authors: johnnyreilly
+date: 2025-01-02
 tags: [github actions, azure container apps]
 image: ./title-image.png
 hide_table_of_contents: false

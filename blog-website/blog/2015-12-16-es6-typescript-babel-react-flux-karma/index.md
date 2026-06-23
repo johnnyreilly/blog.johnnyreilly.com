@@ -2,6 +2,7 @@
 slug: es6-typescript-babel-react-flux-karma
 title: 'ES6 + TypeScript + Babel + React + Flux + Karma: The Secret Recipe'
 authors: johnnyreilly
+date: 2015-12-16
 tags: [react, ts-loader, webpack, javascript, automated testing]
 hide_table_of_contents: false
 description: 'Learn how to set up a powerful TypeScript-React workflow with webpack, gulp, Karma, and inject in this comprehensive article.'

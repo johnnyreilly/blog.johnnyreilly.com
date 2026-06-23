@@ -2,6 +2,7 @@
 slug: yargs-statically-typed-builder-commands
 title: 'Yargs: statically typed builder commands'
 authors: johnnyreilly
+date: 2025-11-29
 tags: [typescript]
 image: ./title-image.png
 hide_table_of_contents: false
