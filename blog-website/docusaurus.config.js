@@ -274,7 +274,6 @@ const config = {
   url,
   baseUrl: '/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'throw',
   favicon: 'favicon.ico',
   organizationName: 'johnnyreilly', // Usually your GitHub org/user name.
   projectName: 'blog.johnnyreilly.com', // Usually your repo name.
@@ -284,6 +283,9 @@ const config = {
   themes: ['@docusaurus/theme-mermaid'],
 
   markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'throw',
+    },
     mermaid: true,
 
     // based on https://github.com/facebook/docusaurus/blob/main/website/docs/migration/v3.mdx

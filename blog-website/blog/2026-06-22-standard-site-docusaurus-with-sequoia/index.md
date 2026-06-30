@@ -7,7 +7,6 @@ tags: [docusaurus]
 image: ./title-image.png
 hide_table_of_contents: false
 description: 'How to add Standard.site support to a Docusaurus site with Sequoia'
-draft: true
 ---
 
 I've kept hearing talk of [Standard.site](https://standard.site/) recently. But every time I heard about it, I didn't get it. I then read this [primer on it](https://lab.leaflet.pub/3moomxyjssk2p), and if I'm totally honest, I still didn't entirely get it. I'm feeling a bit thick. But that's okay.
@@ -68,7 +67,7 @@ I had to answer a number of questions, which eventually created this `sequoia.js
   "siteUrl": "https://johnnyreilly.com",
   "contentDir": "./blog",
   "publicDir": "./static",
-  "outputDir": "./dist",
+  "outputDir": "./build",
   "publicationUri": "at://did:plc:yy3apqjlms24kso7ahn7lbmb/site.standard.publication/3mova7c4nho2b",
   "pdsUrl": "https://puffball.us-east.host.bsky.network",
   "frontmatter": {
@@ -170,7 +169,7 @@ This time of my 362 posts, only 2 were going to be published to Bluesky. Better.
   "identity": "johnnyreilly.com",
   "contentDir": "blog",
   "publicDir": "static",
-  "outputDir": "dist",
+  "outputDir": "build",
   "publicationUri": "at://did:plc:yy3apqjlms24kso7ahn7lbmb/site.standard.publication/3mova7c4nho2b",
   "pdsUrl": "https://puffball.us-east.host.bsky.network",
   "frontmatter": {
@@ -208,3 +207,39 @@ Ah checkmate. Okay, time to publish locally and see what happens.
 ```bash
 npx sequoia-cli publish
 ```
+
+![screenshot of publishing](./screenshot-publish.png)
+
+Interestingly this updated every single blog post and added an entry to the frontmatter like this:
+
+```
+atUri: "at://did:plc:yy3apqjlms24kso7ahn7lbmb/site.standard.document/3mpj4hhesmf24"
+```
+
+And filled out a `.sequoia-state.json` file as well. I don't love having this frontmatter entry in every post. It feels like a build artefact; it feels noisy. The docs suggest you don't need this and can just use `inject`. Okay - that's what'll I'll aim for.
+
+Now I had published, I was safe to:
+
+```bash
+npx sequoia-cli inject
+```
+
+![screenshot of injecting](./screenshot-inject.png)
+
+I was left with a slightly adjusted GitHub Actions workflow that added in `publish` and `inject` alongside the requisite credentials.
+
+```diff
+      - name: Install and build app 🔧
+        run: |
+          cd blog-website
+          npm ci
++          npx sequoia-cli publish
+          DOCUSAURUS_SSR_CONCURRENCY=5 IS_LIVE_SITE=${{ github.event_name != 'pull_request' }} npm run build
+          cp staticwebapp.config.json build/staticwebapp.config.json
++          npx sequoia-cli inject
++        env:
++          ATP_IDENTIFIER: ${{ secrets.ATP_IDENTIFIER }}
++          ATP_APP_PASSWORD: ${{ secrets.ATP_APP_PASSWORD }}
+```
+
+This all looked pretty good - but the only way to really test is to ship. Let's do that next.

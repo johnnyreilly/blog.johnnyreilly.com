@@ -4,7 +4,7 @@
   "identity": "johnnyreilly.com",
   "contentDir": "blog",
   "publicDir": "static",
-  "outputDir": "dist",
+  "outputDir": "build",
   "publicationUri": "at://did:plc:yy3apqjlms24kso7ahn7lbmb/site.standard.publication/3mova7c4nho2b",
   "pdsUrl": "https://puffball.us-east.host.bsky.network",
   "frontmatter": {

@@ -169,8 +169,13 @@ jobs:
         run: |
           cd blog-website
           npm ci
+          npx sequoia-cli publish
           DOCUSAURUS_SSR_CONCURRENCY=5 IS_LIVE_SITE=${{ github.event_name != 'pull_request' }} npm run build
           cp staticwebapp.config.json build/staticwebapp.config.json
+          npx sequoia-cli inject
+        env:
+          ATP_IDENTIFIER: ${{ secrets.ATP_IDENTIFIER }}
+          ATP_APP_PASSWORD: ${{ secrets.ATP_APP_PASSWORD }}
 
       - name: Install and build API 🔧
         run: |
