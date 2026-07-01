@@ -434,6 +434,14 @@ const config = {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         configureWebpack(_config, _isServer) {
           return {
+            ignoreWarnings: [
+              // vscode-languageserver-types uses UMD require() that webpack can't statically analyze;
+              // pulled in transitively by mermaid → langium and is harmless at runtime.
+              {
+                module: /vscode-languageserver-types/,
+                message: /Critical dependency/,
+              },
+            ],
             plugins: [
               fontaine.FontaineTransform.webpack({
                 fallbacks: [

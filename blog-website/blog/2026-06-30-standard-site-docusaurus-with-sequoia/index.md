@@ -2,7 +2,7 @@
 slug: standard-site-docusaurus-with-sequoia
 title: 'Standard.site Docusaurus with Sequoia'
 authors: johnnyreilly
-date: 2026-06-22
+date: 2026-06-30
 tags: [docusaurus]
 image: ./title-image.png
 hide_table_of_contents: false
@@ -41,7 +41,7 @@ And it's fine. So let's `login`:
 npx sequoia-cli login
 ```
 
-![Screenshot of the OAuth flow](./screenshot-oauth-flow.png)
+![Screenshot of the OAuth flow](./screenshot-oauth-flow.webp)
 
 Well that went great. This is the alternative option using [app passwords](https://bsky.app/settings/app-passwords):
 
@@ -49,7 +49,7 @@ Well that went great. This is the alternative option using [app passwords](https
 npx sequoia-cli auth
 ```
 
-![Screenshot of the OAuth flow](./screenshot-sequoia-auth.png)
+![Screenshot of the OAuth flow](./screenshot-sequoia-auth.webp)
 
 I'm pretty sure that I'm going to want this flow, as I want my CI to handle publishing for me, I don't want to do it by hand. I wonder if I'm right...
 
@@ -116,9 +116,9 @@ description: 'How to add Standard.site support to a Docusaurus site with Sequoia
 
 You can see that the date exists, but it's simply being inferred from the folder name:
 
-![screenshot of the files with dates in the folder path](./screenshot-file-system.png)
+![screenshot of the files with dates in the folder path](./screenshot-file-system.webp)
 
-This is one of the [many patterns that Docusaurus supports](screenshot-file-system.png). But it happily supports providing `date` as a frontmatter item as well. So I think that's what I'll do. I'll just make every `index.md` file have an `date: yyyy-MM-dd` entry in the frontmatter.
+This is one of the [many patterns that Docusaurus supports](screenshot-file-system.webp). But it happily supports providing `date` as a frontmatter item as well. So I think that's what I'll do. I'll just make every `index.md` file have an `date: yyyy-MM-dd` entry in the frontmatter.
 
 The following Node.js script updated my existing frontmatters:
 
@@ -158,7 +158,7 @@ for (const entry of readdirSync(blogDir)) {
 
 That done, I decided to `npx sequoia-cli publish --dry-run` once more.
 
-![Screenshot of some posts now being skipped](./screenshot-now-skipping.png)
+![Screenshot of some posts now being skipped](./screenshot-now-skipping.webp)
 
 This time of my 362 posts, only 2 were going to be published to Bluesky. Better. Along the way I'd fiddled with my `sequoia.json` and it now looked like this:
 
@@ -200,7 +200,7 @@ npm run build
 npx sequoia-cli inject
 ```
 
-![screenshot which says "No published posts found in state. Run 'sequoia publish' first."](./screenshot-you-must-publish.png)
+![screenshot which says "No published posts found in state. Run 'sequoia publish' first."](./screenshot-you-must-publish.webp)
 
 Ah checkmate. Okay, time to publish locally and see what happens.
 
@@ -208,7 +208,7 @@ Ah checkmate. Okay, time to publish locally and see what happens.
 npx sequoia-cli publish
 ```
 
-![screenshot of publishing](./screenshot-publish.png)
+![screenshot of publishing](./screenshot-publish.webp)
 
 Interestingly this updated every single blog post and added an entry to the frontmatter like this:
 
@@ -224,7 +224,7 @@ Now I had published, I was safe to:
 npx sequoia-cli inject
 ```
 
-![screenshot of injecting](./screenshot-inject.png)
+![screenshot of injecting](./screenshot-inject.webp)
 
 I was left with a slightly adjusted GitHub Actions workflow that added in `publish` and `inject` alongside the requisite credentials.
 
@@ -243,3 +243,22 @@ I was left with a slightly adjusted GitHub Actions workflow that added in `publi
 ```
 
 This all looked pretty good - but the only way to really test is to ship. Let's do that next.
+
+It worked. I can see the following links in the HTML of my blog:
+
+```html
+<link
+  rel="site.standard.document"
+  href="at://did:plc:yy3apqjlms24kso7ahn7lbmb/site.standard.document/3mpj624abhm2b"
+/>
+<link
+  rel="site.standard.publication"
+  href="at://did:plc:yy3apqjlms24kso7ahn7lbmb/site.standard.publication/3mova7c4nho2b"
+/>
+```
+
+![screenshot of devtools showing the tags](./screenshot-inject-tags.webp)
+
+## Conclusion
+
+We've now got Sequoia set up with Docusaurus - it works. Although it's not officially supported, Sequoia works with Docusaurus. It's pretty much plug and play.
