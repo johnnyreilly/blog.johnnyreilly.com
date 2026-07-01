@@ -2,6 +2,7 @@
 slug: azure-app-service-web-app-containers-asp-net-nested-configuration
 title: 'Azure App Service: nested configuration for ASP.NET running in Web App for Containers using Application Settings'
 authors: johnnyreilly
+date: 2018-07-28
 tags: []
 image: ./appservice_classic.webp
 hide_table_of_contents: false

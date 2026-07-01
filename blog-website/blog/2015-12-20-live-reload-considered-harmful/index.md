@@ -2,6 +2,7 @@
 slug: live-reload-considered-harmful
 title: 'Live Reload Considered Harmful'
 authors: johnnyreilly
+date: 2015-12-20
 tags: []
 hide_table_of_contents: false
 description: 'Live Reload is a popular development tool that refreshes web pages automatically, however, its usefulness is questionable. It can disrupt app design.'

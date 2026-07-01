@@ -2,6 +2,7 @@
 slug: mui-react-tree-view-check-children-uncheck-parents
 title: 'MUI React Tree View: check children, uncheck parents'
 authors: johnnyreilly
+date: 2024-05-25
 tags: [react, mui]
 image: ./title-image.png
 hide_table_of_contents: false

@@ -2,6 +2,7 @@
 slug: azure-container-apps-build-and-deploy-with-bicep-and-github-actions
 title: 'Azure Container Apps: build and deploy with Bicep and GitHub Actions'
 authors: johnnyreilly
+date: 2021-12-27
 tags: [bicep, github actions, azure container apps]
 image: ./title-image.png
 hide_table_of_contents: false

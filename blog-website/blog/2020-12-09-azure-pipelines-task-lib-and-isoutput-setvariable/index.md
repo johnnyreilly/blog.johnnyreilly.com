@@ -2,6 +2,7 @@
 slug: azure-pipelines-task-lib-and-isoutput-setvariable
 title: 'azure-pipelines-task-lib and isOutput setVariable'
 authors: johnnyreilly
+date: 2020-12-09
 tags: [azure pipelines]
 hide_table_of_contents: false
 description: 'This is a workaround for custom Azure Pipelines task extension to output variable since the library does not support "isOutput=true."'

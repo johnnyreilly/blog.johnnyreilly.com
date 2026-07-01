@@ -2,6 +2,7 @@
 slug: under-duck-afternoon-in-open-source
 title: 'Under the Duck: An Afternoon in Open Source'
 authors: johnnyreilly
+date: 2017-02-23
 tags: [ts-loader, webpack]
 hide_table_of_contents: false
 description: 'A minute-by-minute account of how open source developers fixed an issue with ts-loader and webpack, demonstrating the collaborative nature of the community.'

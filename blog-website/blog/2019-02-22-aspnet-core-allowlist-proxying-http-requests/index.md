@@ -2,6 +2,7 @@
 slug: aspnet-core-allowlist-proxying-http-requests
 title: 'ASP.NET Core: Proxying HTTP Requests with an AllowList'
 authors: johnnyreilly
+date: 2019-02-22
 tags: [asp.net]
 image: ./hang-on-lads-ive-got-a-great-idea.webp
 hide_table_of_contents: false

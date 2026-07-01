@@ -2,6 +2,7 @@
 slug: compromising-guide-for-developers
 title: 'Compromising: A Guide for Developers'
 authors: johnnyreilly
+date: 2018-05-13
 hide_table_of_contents: false
 description: 'Weighing opinions with a voting system can reduce friction and boost productivity when working with developers of different opinions.'
 ---

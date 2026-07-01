@@ -2,6 +2,7 @@
 slug: dad-didnt-buy-any-games
 title: "Dad Didn't Buy Any Games"
 authors: johnnyreilly
+date: 2012-05-30
 tags: []
 image: images.webp
 hide_table_of_contents: false

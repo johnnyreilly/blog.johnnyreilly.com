@@ -2,6 +2,7 @@
 slug: standing-on-shoulders-of-giants
 title: 'Standing on the Shoulders of Giants...'
 authors: johnnyreilly
+date: 2012-01-07
 hide_table_of_contents: false
 description: 'John starts a blog inspired by Scott Hanselman to share useful tools and techniques for web development.'
 ---

@@ -2,6 +2,7 @@
 slug: docusaurus-meta-tags-and-google-discover
 title: 'Docusaurus, meta tags and Google Discover'
 authors: johnnyreilly
+date: 2021-10-18
 tags: [docusaurus]
 image: ./title-image.png
 hide_table_of_contents: false

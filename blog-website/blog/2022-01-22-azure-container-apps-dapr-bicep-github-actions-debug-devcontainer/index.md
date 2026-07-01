@@ -2,6 +2,7 @@
 slug: azure-container-apps-dapr-bicep-github-actions-debug-devcontainer
 title: 'Azure Container Apps: dapr, devcontainer, debug and deploy'
 authors: johnnyreilly
+date: 2022-01-22
 tags: [bicep, github actions, azure container apps]
 image: ./title-image.png
 description: 'Build and deploy two Azure Container Apps using Bicep and GitHub Actions, communicate using dapr, build, run and debug in VS Code using a devcontainer.'

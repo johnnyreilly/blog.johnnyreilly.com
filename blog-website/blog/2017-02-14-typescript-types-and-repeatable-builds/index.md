@@ -2,6 +2,7 @@
 slug: typescript-types-and-repeatable-builds
 title: '@types is rogue'
 authors: johnnyreilly
+date: 2017-02-14
 tags: []
 hide_table_of_contents: false
 description: 'Type definitions from Definitely Typed under @types namespace on npm cannot be trusted to follow semantic versioning, leading to breakages.'

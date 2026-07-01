@@ -2,6 +2,7 @@
 slug: auth0-typescript-and-aspnet-core
 title: 'Auth0, TypeScript and ASP.NET Core'
 authors: johnnyreilly
+date: 2018-01-14
 tags: [react, asp.net, auth, typescript]
 hide_table_of_contents: false
 description: 'Auth0 makes authentication and authorization simple. They offer Auth-As-A-Service, quick start and easy customization of settings.'

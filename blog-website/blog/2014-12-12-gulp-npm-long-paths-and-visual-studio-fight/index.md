@@ -2,6 +2,7 @@
 slug: gulp-npm-long-paths-and-visual-studio-fight
 title: 'Gulp, npm, long paths and Visual Studio.... Fight!'
 authors: johnnyreilly
+date: 2014-12-12
 tags: [visual studio, node.js]
 hide_table_of_contents: false
 description: 'Installing gulp-angular-templatecache plugin caused issues with Visual Studio. A temporary solution is to install lodash.bind at root level.'

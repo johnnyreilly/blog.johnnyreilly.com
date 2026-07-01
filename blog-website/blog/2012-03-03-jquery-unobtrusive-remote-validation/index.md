@@ -2,6 +2,7 @@
 slug: jquery-unobtrusive-remote-validation
 title: 'jQuery Unobtrusive Remote Validation'
 authors: johnnyreilly
+date: 2012-03-03
 tags: [jquery]
 hide_table_of_contents: false
 description: 'Learn how to do remote validation with unobtrusive data attributes in ASP.NET MVC. Block validation and re-evaluate it with this hacky solution.'

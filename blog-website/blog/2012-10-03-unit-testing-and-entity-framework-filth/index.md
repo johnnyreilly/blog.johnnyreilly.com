@@ -2,6 +2,7 @@
 slug: unit-testing-and-entity-framework-filth
 title: 'Unit Testing and Entity Framework: The Filth and the Fury'
 authors: johnnyreilly
+date: 2012-10-03
 tags: [automated testing, sql server]
 hide_table_of_contents: false
 description: 'Controversy arises over Unit Testing with Entity Framework & MOQ. A simple class could be used to wrap all Entity Framework code.'

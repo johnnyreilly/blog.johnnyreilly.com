@@ -2,6 +2,7 @@
 slug: announcing-jquery-validation
 title: 'Announcing jQuery Validation Unobtrusive Native...'
 authors: johnnyreilly
+date: 2013-08-08
 tags: []
 hide_table_of_contents: false
 description: 'jQuery Validation Unobtrusive Native bridges data attributes and jQuery Validations native support. The ASP.Net MVC HTML extension is available on GitHub.'

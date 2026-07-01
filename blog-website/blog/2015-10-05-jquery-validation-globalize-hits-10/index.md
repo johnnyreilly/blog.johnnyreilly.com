@@ -2,6 +2,7 @@
 slug: jquery-validation-globalize-hits-10
 title: 'jQuery Validation Globalize hits 1.0'
 authors: johnnyreilly
+date: 2015-10-05
 tags: [globalize, jquery]
 hide_table_of_contents: false
 description: 'jQuery Validation Globalize plugin now supports Globalize 1.x, with minor code changes. Users can customize date parsing format.'

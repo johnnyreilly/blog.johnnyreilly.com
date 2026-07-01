@@ -2,6 +2,7 @@
 slug: im-looking-for-work
 title: "I'm looking for work!"
 authors: johnnyreilly
+date: 2017-03-30
 tags: []
 hide_table_of_contents: false
 description: 'Full stack developer John Reilly seeks new work after finishing recent contract. 15 years’ experience includes telecoms, advertising, tech and finance.'

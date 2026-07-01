@@ -2,6 +2,7 @@
 slug: azure-cosmosdb-container-item-generics
 title: 'Azure Cosmos DB: container items and generics'
 authors: johnnyreilly
+date: 2024-04-01
 tags: [azure, c#]
 image: ./title-image.png
 hide_table_of_contents: false

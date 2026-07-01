@@ -2,6 +2,7 @@
 slug: service-now-api-and-typescript-conditional-types
 title: 'The Service Now API and TypeScript Conditional Types'
 authors: johnnyreilly
+date: 2021-04-24
 tags: [typescript]
 image: ./ts-ervice-now.png
 hide_table_of_contents: false
@@ -148,8 +149,8 @@ export type PropertyValue<
 > = TAllTrueFalse extends 'all'
   ? ValueAndDisplayValue<TValue, TDisplayValue>
   : TAllTrueFalse extends 'true'
-  ? TDisplayValue
-  : TValue;
+    ? TDisplayValue
+    : TValue;
 ```
 
 The `PropertyValue` will either be a `ValueAndDisplayValue`, a `TDisplayValue` or a `TValue`, depending upon whether `PropertyValue` is `'all'`, `'true'` or `'false'` respectively. That's hard to grok. Let's look at an example of each of those cases using the `reason` property, which allows a `TValue` of `string` and a `TDisplayValue` of `string | null`:
@@ -225,8 +226,7 @@ export interface LinkAndDisplayValue extends Link {
 
 /** when TAllTrueFalse is 'all' */
 export interface LinkValueAndDisplayValue
-  extends LinkAndValue,
-    LinkAndDisplayValue {}
+  extends LinkAndValue, LinkAndDisplayValue {}
 ```
 
 The three types above model the different scenarios. Now we need a conditional type to make use of them:
@@ -236,8 +236,8 @@ export type LinkValue<TAllTrueFalse extends DisplayValue> =
   TAllTrueFalse extends 'all'
     ? LinkValueAndDisplayValue
     : TAllTrueFalse extends 'true'
-    ? LinkAndDisplayValue
-    : LinkAndValue;
+      ? LinkAndDisplayValue
+      : LinkAndValue;
 ```
 
 This is hopefully simpler to read than the `PropertyValue` type, and if you look at the examples below you can see what usage looks like:

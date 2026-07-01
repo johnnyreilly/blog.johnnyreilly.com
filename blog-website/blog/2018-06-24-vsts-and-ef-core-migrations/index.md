@@ -2,6 +2,7 @@
 slug: vsts-and-ef-core-migrations
 title: 'VSTS and EF Core Migrations'
 authors: johnnyreilly
+date: 2018-06-24
 tags: [azure devops, sql server]
 hide_table_of_contents: false
 description: 'Learn how to migrate Entity Framework database migrations during an ASP.NET Core project deployment with a console app using VSTS and Azure.'

@@ -2,6 +2,7 @@
 slug: introducing-azdo-npm-auth
 title: 'Introducing azdo-npm-auth (Azure DevOps npm auth)'
 authors: johnnyreilly
+date: 2024-11-09
 tags: [azure devops, node.js]
 image: ./title-image.png
 hide_table_of_contents: false

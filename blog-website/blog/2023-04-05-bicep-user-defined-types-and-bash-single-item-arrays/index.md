@@ -2,6 +2,7 @@
 slug: bicep-user-defined-types-and-bash-single-item-arrays
 title: 'Bicep user defined types and Bash single item arrays'
 authors: johnnyreilly
+date: 2023-04-05
 tags: [bicep]
 image: ./title-image.png
 description: The error "Expected a value of type \'Array\', but received a value of type \'String\'", presents when wrestling with the AZ CLI, Bash single item arrays and Bicep.

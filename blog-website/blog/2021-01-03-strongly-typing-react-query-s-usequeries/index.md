@@ -2,6 +2,7 @@
 slug: strongly-typing-react-query-s-usequeries
 title: 'react-query: strongly typing useQueries'
 authors: johnnyreilly
+date: 2021-01-03
 image: ./strongly-typing-usequeries.webp
 tags: [react]
 hide_table_of_contents: false
@@ -168,7 +169,7 @@ TQueries[ArrayElement];
 The above code indexes into our `TQueries` array for each element of our strongly typed indexer `ArrayElement`. So it might resolve the first element of an array to `{ queryKey: 'key1', queryFn: () =&gt; 1 }`, for example. Next:
 
 ```ts
-Extract < TQueries[ArrayElement], UseQueryOptions > ['queryFn'];
+(Extract < TQueries[ArrayElement], UseQueryOptions > ['queryFn']);
 ```
 
 We're now taking the type of each element provided, and grabbing the type of the `queryFn` property. It's this type which contains the type of the data that will be passed back, that we want to make use of. So for an examples of `[{ queryKey: 'key1', queryFn: () =&gt; 1 }, { queryKey: 'key2', queryFn: () =&gt; 'two' }, { queryKey: 'key3', queryFn: () =&gt; new Date() }]` we'd have the type: `const result: [() =&gt; number, () =&gt; string, () =&gt; Date]`.

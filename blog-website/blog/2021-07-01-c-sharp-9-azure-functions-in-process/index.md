@@ -2,6 +2,7 @@
 slug: c-sharp-9-azure-functions-in-process
 title: 'C# 9 in-process Azure Functions'
 authors: johnnyreilly
+date: 2021-07-01
 tags: [c#, azure functions, asp.net]
 image: ./title-image.png
 hide_table_of_contents: false

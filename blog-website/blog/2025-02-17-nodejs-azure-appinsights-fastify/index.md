@@ -2,6 +2,7 @@
 slug: nodejs-azure-appinsights-fastify
 title: 'Node.js, Azure Application Insights, and Fastify'
 authors: johnnyreilly
+date: 2025-02-17
 tags: [azure, node.js, typescript]
 image: ./title-image.png
 hide_table_of_contents: false

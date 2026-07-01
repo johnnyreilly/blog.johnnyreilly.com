@@ -2,6 +2,7 @@
 slug: publishing-docusaurus-to-devto-with-devto-api
 title: 'Publishing Docusaurus to dev.to with the dev.to API'
 authors: johnnyreilly
+date: 2022-12-11
 tags: [docusaurus, github actions]
 image: ./title-image.png
 description: 'The dev.to API provides a way to cross post your Docusaurus blogs to dev.to. This post describes how to do that with TypeScript, Node.js and the dev.to API.'

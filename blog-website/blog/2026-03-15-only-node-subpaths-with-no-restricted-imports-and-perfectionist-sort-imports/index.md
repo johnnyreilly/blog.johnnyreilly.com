@@ -2,6 +2,7 @@
 slug: only-node-subpaths-with-no-restricted-imports-and-perfectionist-sort-imports
 title: 'Only Node.js subpaths with no-restricted-imports and perfectionist/sort-imports'
 authors: johnnyreilly
+date: 2026-03-15
 tags: [javascript, typescript, eslint, node.js]
 image: ./title-image.png
 hide_table_of_contents: false

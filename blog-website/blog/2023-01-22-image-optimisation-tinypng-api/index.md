@@ -2,6 +2,7 @@
 slug: image-optimisation-tinypng-api
 title: 'Image Optimisation with the TinyPNG API'
 authors: johnnyreilly
+date: 2023-01-22
 tags: []
 image: ./title-image.webp
 description: 'Image optimisation can be automated with the TinyPNG API. This post demonstrates how to do that.'

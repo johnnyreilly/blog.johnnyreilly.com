@@ -1,6 +1,7 @@
 ---
 slug: how-we-fixed-my-seo
 title: 'How we fixed my SEO'
+date: 2023-11-28
 authors:
   - johnnyreilly
   - name: Growtika

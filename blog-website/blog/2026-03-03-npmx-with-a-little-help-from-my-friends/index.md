@@ -2,6 +2,7 @@
 slug: npmx-with-a-little-help-from-my-friends
 title: 'npmx.dev: with a little help from my friends'
 authors: johnnyreilly
+date: 2026-03-03
 tags: [javascript]
 image: ./title-image.png
 hide_table_of_contents: false

@@ -2,6 +2,7 @@
 slug: making-ie-10s-clear-field-x-button-and
 title: "Making IE 10's clear field (X) button and jQuery UI autocomplete play nice"
 authors: johnnyreilly
+date: 2013-04-09
 tags: [jquery]
 hide_table_of_contents: false
 description: 'IE 10 installed w/o notice on Johns machine, causing issues with jQuery UI auto-complete loading gifs which have been resolved with a CSS fix.'

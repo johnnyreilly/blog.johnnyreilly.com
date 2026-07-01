@@ -2,6 +2,7 @@
 slug: start-me-up-ts-loader-meet-tsbuildinfo
 title: 'Start Me Up: ts-loader meet .tsbuildinfo'
 authors: johnnyreilly
+date: 2019-09-30
 tags: [ts-loader, typescript]
 hide_table_of_contents: false
 description: 'TypeScript 3.4 introduced `.tsbuildinfo` files for faster compilations. With TypeScript 3.6, APIs landed to enable third party tool integration.'

@@ -2,6 +2,7 @@
 slug: working-with-extrahop-on-webpack-and-ts
 title: 'Working with Extrahop on webpack and ts-loader'
 authors: johnnyreilly
+date: 2017-10-19
 tags: [ts-loader, webpack]
 hide_table_of_contents: false
 description: 'John shares his excitement for working with talented individuals on open source software - its everywhere and a privilege to work on.'

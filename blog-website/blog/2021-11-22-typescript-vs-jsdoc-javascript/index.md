@@ -2,6 +2,7 @@
 slug: typescript-vs-jsdoc-javascript
 title: 'TypeScript vs JSDoc JavaScript'
 authors: johnnyreilly
+date: 2021-11-22
 tags: [javascript, typescript, jsdoc]
 image: ./title-image.png
 hide_table_of_contents: false

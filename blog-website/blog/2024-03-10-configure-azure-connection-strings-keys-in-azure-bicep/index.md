@@ -2,6 +2,7 @@
 slug: configure-azure-connection-strings-keys-in-azure-bicep
 title: 'Configure Azure connection strings and keys in Azure Bicep'
 authors: johnnyreilly
+date: 2024-03-10
 tags: [bicep, azure, azure container apps, azure static web apps]
 image: ./title-image.png
 hide_table_of_contents: false

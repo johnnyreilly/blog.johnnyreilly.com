@@ -2,6 +2,7 @@
 slug: aspnet-serilog-and-application-insights
 title: 'ASP.NET, Serilog and Application Insights'
 authors: johnnyreilly
+date: 2021-01-30
 image: ./title-image.png
 tags: [azure, asp.net]
 hide_table_of_contents: false

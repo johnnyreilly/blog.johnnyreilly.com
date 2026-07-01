@@ -2,6 +2,7 @@
 slug: template-tricks-for-dainty-dom
 title: 'Template Tricks for a Dainty DOM'
 authors: johnnyreilly
+date: 2019-03-24
 tags: []
 hide_table_of_contents: false
 description: 'Wrapping data in HTML templates can help with performance. This trick kept rendering server-side but only rendered content when necessary.'

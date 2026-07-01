@@ -2,6 +2,7 @@
 slug: text-first-mui-tabs
 title: 'Text-first MUI Tabs'
 authors: johnnyreilly
+date: 2024-03-20
 tags: [react, mui]
 image: ./title-image.png
 hide_table_of_contents: false

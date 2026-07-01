@@ -2,6 +2,7 @@
 slug: swashbuckle-inheritance-multiple-return-types
 title: 'Swashbuckle & inheritance: Give. Me. The. Types'
 authors: johnnyreilly
+date: 2022-03-06
 tags: [swagger, asp.net]
 image: ./title-image.png
 description: 'For API endpoints that return multiple types, you can use inheritance with Swashbuckle to get create a Swagger / Open API definition; here is how.'

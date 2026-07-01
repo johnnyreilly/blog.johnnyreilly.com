@@ -2,6 +2,7 @@
 slug: bicep-link-azure-application-insights-to-static-web-apps
 title: 'Bicep: Link Azure Application Insights to Static Web Apps'
 authors: johnnyreilly
+date: 2023-10-18
 image: ./title-image.png
 tags: [azure, bicep, azure static web apps]
 description: Learn how to link Azure Application Insights to an Azure Static Web App using Bicep.

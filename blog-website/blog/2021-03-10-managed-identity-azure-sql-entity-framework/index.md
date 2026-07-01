@@ -2,6 +2,7 @@
 slug: managed-identity-azure-sql-entity-framework
 title: 'Managed Identity, Azure SQL and Entity Framework'
 authors: johnnyreilly
+date: 2021-03-10
 tags: [azure]
 image: ./entity-framework-core-nuget.png
 hide_table_of_contents: false

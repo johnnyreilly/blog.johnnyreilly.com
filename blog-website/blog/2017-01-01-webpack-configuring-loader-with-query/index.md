@@ -2,6 +2,7 @@
 slug: webpack-configuring-loader-with-query
 title: 'webpack: configuring a loader with query / options'
 authors: johnnyreilly
+date: 2017-01-01
 tags: [webpack]
 hide_table_of_contents: false
 description: 'webpack 2 now enforces a strict schema for `webpack.config.js`. Loaders should be configured using `query` or `options`.'

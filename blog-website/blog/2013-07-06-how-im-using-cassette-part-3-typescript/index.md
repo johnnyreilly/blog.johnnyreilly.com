@@ -2,6 +2,7 @@
 slug: how-im-using-cassette-part-3-typescript
 title: "How I'm Using Cassette part 3:Cassette and TypeScript Integration"
 authors: johnnyreilly
+date: 2013-07-06
 tags: [typescript, javascript, asp.net]
 hide_table_of_contents: false
 ---

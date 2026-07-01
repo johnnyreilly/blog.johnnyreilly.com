@@ -2,6 +2,7 @@
 slug: webpack-resolveloader-alias-with-query
 title: 'webpack: resolveLoader / alias with query / options'
 authors: johnnyreilly
+date: 2017-01-06
 tags: [webpack]
 hide_table_of_contents: false
 description: 'Webpacks enhanced-resolve has a bug with aliased loaders. A workaround involves suffixing the aliased path with query options.'

@@ -2,6 +2,7 @@
 slug: finding-webpack-4-use-map
 title: 'Finding webpack 4 (use a Map)'
 authors: johnnyreilly
+date: 2018-01-29
 tags: [webpack]
 hide_table_of_contents: false
 description: 'webpack 4s new plugin architecture requires migrating from "kebab-case" to "camelCase". A migration guide for plugins and loaders is available.'

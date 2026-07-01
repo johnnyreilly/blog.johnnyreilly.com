@@ -2,6 +2,7 @@
 slug: ts-loader-goes-webpack-5
 title: 'ts-loader goes webpack 5'
 authors: johnnyreilly
+date: 2021-04-20
 tags: [webpack, ts-loader, typescript]
 image: ./ts-loader-9.png
 hide_table_of_contents: false

@@ -2,6 +2,7 @@
 slug: how-i-ruined-my-seo
 title: 'How I ruined my SEO'
 authors: johnnyreilly
+date: 2023-01-15
 tags: [seo]
 image: ./title-image.png
 description: 'In October 2022 traffic to my blog dropped like a stone. What happened?'

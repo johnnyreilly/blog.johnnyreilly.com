@@ -2,6 +2,7 @@
 slug: wcf-transport-windows-authentication
 title: 'WCF Transport Windows authentication using NetTcpBinding in an Intranet environment'
 authors: johnnyreilly
+date: 2012-02-15
 tags: [auth]
 hide_table_of_contents: false
 description: 'John explains authentication issues when migrating from .NET Remoting to WCF. The post highlights a security feature and suggests solutions.'

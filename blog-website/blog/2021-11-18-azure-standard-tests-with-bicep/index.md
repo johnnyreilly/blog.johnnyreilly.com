@@ -2,6 +2,7 @@
 slug: azure-standard-tests-with-bicep
 title: 'Azure standard availability tests with Bicep'
 authors: johnnyreilly
+date: 2021-11-18
 tags: [azure, bicep]
 image: ./title-image.png
 hide_table_of_contents: false

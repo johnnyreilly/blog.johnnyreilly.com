@@ -2,6 +2,7 @@
 slug: simple-technique-for-initialising
 title: 'A Simple Technique for Initialising Properties with Internal Setters for Unit Testing'
 authors: johnnyreilly
+date: 2012-04-16
 tags: [automated testing]
 hide_table_of_contents: false
 description: 'Refactoring a legacy app includes adding unit tests, but properties with internal setters pose a problem. John explores various approaches.'
@@ -101,7 +102,6 @@ We toyed with 3 approaches and since each has merits I thought it worth going th
    ```
 
    Now this approach worked fine but had a couple of snags:
-
    - As you can see it's pretty verbose and much less clear to read than it was previously.
    - It required that we add the `virtual` keyword to all our internally set properties like so:
 

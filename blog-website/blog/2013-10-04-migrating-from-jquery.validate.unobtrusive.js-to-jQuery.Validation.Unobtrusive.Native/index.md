@@ -2,6 +2,7 @@
 slug: migrating-from-jquery.validate.unobtrusive.js-to-jQuery.Validation.Unobtrusive.Native
 title: 'Migrating from jquery.validate.unobtrusive.js to jQuery.Validation.Unobtrusive.Native'
 authors: johnnyreilly
+date: 2013-10-04
 tags: [jquery]
 hide_table_of_contents: false
 description: 'Migrating from jquery.validation.unobtrusive.js to jQuery.Validation.Unobtrusive.Native is easy, with only minor tweaks to HTML and JS needed.'

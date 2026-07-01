@@ -2,6 +2,7 @@
 slug: list-pipelines-with-azure-devops-api
 title: 'List Pipelines with the Azure DevOps API'
 authors: johnnyreilly
+date: 2025-04-06
 tags: [azure pipelines, azure devops, typescript]
 image: ./title-image.png
 hide_table_of_contents: false

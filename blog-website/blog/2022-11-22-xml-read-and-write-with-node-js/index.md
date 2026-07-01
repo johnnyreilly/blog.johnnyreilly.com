@@ -2,6 +2,7 @@
 slug: xml-read-and-write-with-node-js
 title: 'XML: read and write with Node.js'
 authors: johnnyreilly
+date: 2022-11-22
 tags: [node.js, docusaurus]
 image: ./title-image.png
 description: 'This post demonstrates reading and writing XML in Node.js using fast-xml-parser. We will use the Docusauruses XML sitemap as an example.'

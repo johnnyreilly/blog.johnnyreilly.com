@@ -2,6 +2,7 @@
 slug: adding-lastmod-to-sitemap-git-commit-date
 title: 'Adding lastmod to sitemap based on git commits'
 authors: johnnyreilly
+date: 2022-11-25
 tags: [node.js, docusaurus]
 image: ./title-image.png
 description: 'This post demonstrates enriching an XML sitemap with `lastmod` timestamps based on git commits.'

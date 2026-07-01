@@ -2,6 +2,7 @@
 slug: typescript-and-webpack-watch-it
 title: 'TypeScript and webpack: Watch It'
 authors: johnnyreilly
+date: 2019-01-13
 tags: [webpack, typescript]
 hide_table_of_contents: false
 description: 'TypeScripts "watch" API shortens time between incremental builds for quicker development; updates are available for fork-ts-checker-webpack-plugin.'

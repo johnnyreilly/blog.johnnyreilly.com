@@ -2,6 +2,7 @@
 slug: typescript-documentary
 title: 'TypeScript: The Movie'
 authors: johnnyreilly
+date: 2023-09-20
 image: ./typescript-the-movie.webp
 tags: [typescript]
 description: A documentary has been made about TypeScript and I feature in the story of how it came to be what it is today.

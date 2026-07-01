@@ -2,6 +2,7 @@
 slug: react-18-and-typescript
 title: 'React 18 and TypeScript'
 authors: johnnyreilly
+date: 2021-06-30
 tags: [react, typescript]
 image: ./createNode-error.png
 hide_table_of_contents: false

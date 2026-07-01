@@ -2,6 +2,7 @@
 slug: ai-assisted-coding
 title: 'Where AI-assisted coding accelerates development — and where it doesn’t'
 authors: johnnyreilly
+date: 2025-11-12
 tags: [ai]
 image: ./title-image.png
 hide_table_of_contents: false

@@ -2,6 +2,7 @@
 slug: azure-devops-api-pull-requests-merge-set-autocomplete
 title: 'Azure DevOps: merging pull requests and setting autocomplete with the API'
 authors: johnnyreilly
+date: 2025-07-25
 tags: [typescript, azure devops, node.js]
 image: ./title-image.png
 hide_table_of_contents: false

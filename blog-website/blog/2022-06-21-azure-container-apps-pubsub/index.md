@@ -2,6 +2,7 @@
 slug: azure-container-apps-pubsub
 title: 'Azure Container Apps: dapr pubsub'
 authors: johnnyreilly
+date: 2022-06-21
 tags: [azure container apps, bicep]
 image: ./title-image.png
 description: 'This post shows how to build and deploy two Azure Container Apps using Bicep and GitHub Actions which communicate using daprs pubsub building block.'

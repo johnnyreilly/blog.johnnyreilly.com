@@ -2,6 +2,7 @@
 slug: azure-static-web-apps-easyauth-deeplink
 title: 'Deep linking with Azure Static Web Apps and Easy Auth'
 authors: johnnyreilly
+date: 2022-12-04
 tags: [azure static web apps, auth, azure]
 image: ./title-image.png
 description: 'Azure Static Web Apps does not support deep linking with authentication. This post describes how to work around this limitation.'

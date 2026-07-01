@@ -2,6 +2,7 @@
 slug: dual-publishing-esm-cjs-modules-with-tsup-and-are-the-types-wrong
 title: 'Dual Publishing ESM and CJS Modules with tsup and Are the Types Wrong?'
 authors: johnnyreilly
+date: 2024-06-15
 tags: [typescript]
 image: ./title-image.png
 hide_table_of_contents: false

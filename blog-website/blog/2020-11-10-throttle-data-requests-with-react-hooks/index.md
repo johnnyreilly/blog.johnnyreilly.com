@@ -2,6 +2,7 @@
 slug: throttle-data-requests-with-react-hooks
 title: 'Throttling data requests with React Hooks'
 authors: johnnyreilly
+date: 2020-11-10
 tags: [react]
 hide_table_of_contents: false
 description: 'A custom React Hook `useThrottleRequests` is used to solve the problem of loading large amounts of data gradually and displaying loading progress.'
@@ -379,7 +380,6 @@ export function useThrottleRequests<TValue>() {
 The `useThrottleRequests` hook returns 2 properties:
 
 - `throttle` \- a `ThrottledProgress&lt;TData&gt;` that contains the following data:
-
   - `totalRequests` \- the number of requests that will be made
   - `errors` \- the errors that came from failed requests
   - `values` \- the responses that came from successful requests
@@ -387,7 +387,6 @@ The `useThrottleRequests` hook returns 2 properties:
   - `loading` \- whether the throttle is currently processing requests
 
 - `updateThrottle` \- an object which exposes 3 functions:
-
   - `queueRequests` \- the function to which you pass the requests that should be queued and executed in a throttled fashion
   - `requestSucceededWithData` \- the function which is called if a request succeeds to provide the data
   - `requestFailedWithError` \- the function which is called if a request fails to provide the error

@@ -2,6 +2,7 @@
 slug: how-im-structuring-my-javascript-in-web
 title: 'Optimally Serving Up JavaScript'
 authors: johnnyreilly
+date: 2012-07-01
 tags: [asp.net, javascript]
 hide_table_of_contents: false
 description: 'John describes his "JS second" approach to structuring JavaScript and using HtmlHelper to control the order of scripts in web apps for internal use.'

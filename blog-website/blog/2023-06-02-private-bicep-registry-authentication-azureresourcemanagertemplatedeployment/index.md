@@ -2,6 +2,7 @@
 slug: private-bicep-registry-authentication-azureresourcemanagertemplatedeployment
 title: 'Private Bicep registry authentication with AzureResourceManagerTemplateDeployment@3'
 authors: johnnyreilly
+date: 2023-06-02
 tags: [bicep, azure devops]
 image: ./title-image.png
 description: 'You can deploy Bicep to Azure with the dedicated Azure DevOps task; however authentication to private Bicep registries is not supported.  This post shares a workaround.'

@@ -2,6 +2,7 @@
 slug: dates-DataAnnotations-and-data-impedance-mismatch
 title: 'A folk story wherein we shall find dates, DataAnnotations & data impedance mismatch'
 authors: johnnyreilly
+date: 2014-06-20
 tags: []
 hide_table_of_contents: false
 description: 'This article offers developers an attribute-based solution to prevent datetime errors, ensuring that DateTime properties only include dates.'

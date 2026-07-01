@@ -2,6 +2,7 @@
 slug: hey-tsconfigjson-where-have-you-been
 title: 'Hey tsconfig.json, where have you been all my life?'
 authors: johnnyreilly
+date: 2015-02-27
 tags: [typescript]
 hide_table_of_contents: false
 description: 'The creation of a "tsconfig.json" file will eliminate the need for "reference" comments when using TypeScript, reducing barriers between IDEs.'

@@ -2,6 +2,7 @@
 slug: debugging-azure-functions-vs-code-mac-os
 title: 'Debugging Azure Functions in VS Code on Mac OS'
 authors: johnnyreilly
+date: 2022-11-11
 tags: [azure functions, vs code]
 image: ./title-image.png
 description: 'The VS Code debugging mechanism for Azure Functions on Mac OS frequently breaks. This post documents an approach to get it working.'

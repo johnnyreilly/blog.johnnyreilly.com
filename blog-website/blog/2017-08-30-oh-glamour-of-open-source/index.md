@@ -2,6 +2,7 @@
 slug: oh-glamour-of-open-source
 title: 'Oh the Glamour of Open Source'
 authors: johnnyreilly
+date: 2017-08-30
 tags: []
 hide_table_of_contents: false
 description: 'A programmer recounts a sleepless night spent fixing a gap in an open source project, but accidentally deletes the repo and eventually seeks help.'

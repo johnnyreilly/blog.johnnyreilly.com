@@ -2,6 +2,7 @@
 slug: how-to-activate-your-emoji-keyboard-on-android
 title: 'How to activate your emoji keyboard on Android 5.0 (Lollipop)'
 authors: johnnyreilly
+date: 2015-04-17
 tags: []
 hide_table_of_contents: false
 description: 'Learn how to get emoji on your Android phone by activating the "iWnn IME Japanese" keyboard and selecting the "Emoji" option.'

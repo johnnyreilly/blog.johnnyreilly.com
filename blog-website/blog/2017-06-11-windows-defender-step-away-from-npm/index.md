@@ -2,6 +2,7 @@
 slug: windows-defender-step-away-from-npm
 title: 'Windows Defender Step Away From npm'
 authors: johnnyreilly
+date: 2017-06-11
 tags: [vs code, node.js]
 hide_table_of_contents: false
 description: 'A bug causing issues with Windows Defender has been fixed with the release of VS Code 1.14. The bug was causing problems with the program open.'

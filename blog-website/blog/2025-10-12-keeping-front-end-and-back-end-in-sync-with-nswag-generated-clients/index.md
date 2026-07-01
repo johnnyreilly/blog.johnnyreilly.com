@@ -2,6 +2,7 @@
 slug: keeping-front-end-and-back-end-in-sync-with-nswag-generated-clients
 title: 'Keeping front end and back end in sync with NSwag generated clients'
 authors: johnnyreilly
+date: 2025-10-12
 tags: [swagger, c#, azure, typescript]
 image: ./title-image.png
 hide_table_of_contents: false

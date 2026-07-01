@@ -2,6 +2,7 @@
 slug: my-unrequited-love-for-isolate-scope
 title: 'My Unrequited Love for Isolate Scope'
 authors: johnnyreilly
+date: 2014-08-12
 tags: [angularjs, typescript, javascript]
 hide_table_of_contents: false
 description: 'A new version of the serverError directive is presented without isolated scope after discovering directives can only create one isolated scope.'

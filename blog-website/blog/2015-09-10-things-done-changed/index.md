@@ -2,6 +2,7 @@
 slug: things-done-changed
 title: 'Things Done Changed'
 authors: johnnyreilly
+date: 2015-09-10
 tags: [react, javascript]
 hide_table_of_contents: false
 description: 'Embracing change is key to being a developer; John discusses some of the tools that have taken his fancy, including React and ES6.'

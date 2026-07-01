@@ -2,6 +2,7 @@
 slug: its-not-dead-2-mobx-react-devtools-and-the-undead
 title: "It's Not Dead 2: mobx-react-devtools and the undead"
 authors: johnnyreilly
+date: 2018-03-26
 tags: [webpack]
 hide_table_of_contents: false
 description: 'Using `mobx-react-devtools` with `process.env.NODE_ENV` caused problems with webpack production mode. A different approach fixed the issue.'

@@ -2,6 +2,7 @@
 slug: webpack-esbuild-why-not-both
 title: 'webpack? esbuild? Why not both?'
 authors: johnnyreilly
+date: 2021-07-11
 tags: [webpack, ts-loader, node.js]
 image: ./webpack-esbuild-why-not-both.webp
 hide_table_of_contents: false

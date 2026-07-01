@@ -2,6 +2,7 @@
 slug: azure-devops-pull-requests-dynamic-required-reviewers
 title: 'Azure DevOps: pull requests and dynamic required reviewers'
 authors: johnnyreilly
+date: 2025-06-25
 tags: [typescript, azure devops, node.js]
 image: ./title-image.png
 hide_table_of_contents: false
@@ -154,9 +155,9 @@ async function main() {
   const pat = args.values.pat ?? '';
   const sat = args.values.sat ?? '';
   // https://dev.azure.com/johnnyreilly/ -> johnnyreilly
-  const organization = (args.values.organization ?? "")
-    .replace("https://dev.azure.com/", "")
-    .replace("/", "");
+  const organization = (args.values.organization ?? '')
+    .replace('https://dev.azure.com/', '')
+    .replace('/', '');
   const repositoryName = args.values.repositoryName ?? '';
   const projectName = args.values.projectName ?? '';
 
@@ -389,9 +390,9 @@ async function determineAction({
         },
         /** repositoryId */ repositoryName,
         /** pullRequestId */ pullRequest.pullRequestId!,
-        /** project */ projectName
+        /** project */ projectName,
       );
-      console.log("✅ Successfully add comment to pull request");
+      console.log('✅ Successfully add comment to pull request');
     } catch (error) {
       const errorMessage = `❌ Failed to add comment to pull request`;
       throw new Error(errorMessage, { cause: error });

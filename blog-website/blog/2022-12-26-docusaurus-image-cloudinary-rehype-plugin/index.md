@@ -2,6 +2,7 @@
 slug: docusaurus-image-cloudinary-rehype-plugin
 title: 'Serving Docusaurus images with Cloudinary'
 authors: johnnyreilly
+date: 2022-12-26
 tags: [docusaurus]
 image: ./title-image.png
 description: Cloudinary offers an image CDN which can improve performance of your site. This post details how to get Docusaurus to use Cloudinary to serve optimised images.

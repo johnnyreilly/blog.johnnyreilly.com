@@ -2,6 +2,7 @@
 slug: microsoft-graphclient-filter-endswith-consistencylevel-eventual-header
 title: 'Microsoft Graph client: how to filter by endswith'
 authors: johnnyreilly
+date: 2025-05-11
 tags: [microsoft graph, typescript]
 image: ./title-image.png
 hide_table_of_contents: false

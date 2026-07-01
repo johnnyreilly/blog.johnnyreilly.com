@@ -2,6 +2,7 @@
 slug: multiline-strings-dot-env-files
 title: 'Multiline strings in .env files'
 authors: johnnyreilly
+date: 2024-03-09
 tags: [node.js]
 hide_table_of_contents: false
 description: 'Learn how to use multiline strings in .env files.'

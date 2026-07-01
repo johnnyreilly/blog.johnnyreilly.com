@@ -2,6 +2,7 @@
 slug: static-web-apps-azure-devops-named-preview-environments
 title: 'Azure Static Web Apps: named preview environments with Azure DevOps'
 authors: johnnyreilly
+date: 2022-05-07
 tags: [azure static web apps, azure devops]
 image: ./title-image.png
 description: 'Azure Static Web Apps have just released a new feature for Azure DevOps users called "named preview environments". Let us have a look'

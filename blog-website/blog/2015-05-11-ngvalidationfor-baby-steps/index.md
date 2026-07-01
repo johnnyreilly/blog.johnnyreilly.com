@@ -2,6 +2,7 @@
 slug: ngvalidationfor-baby-steps
 title: 'NgValidationFor Baby Steps'
 authors: johnnyreilly
+date: 2015-05-11
 tags: [angularjs, asp.net]
 hide_table_of_contents: false
 description: 'The NgValidationFor project translates data annotations to Angular validation directive attributes while minimising dependencies.'

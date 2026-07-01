@@ -2,6 +2,7 @@
 slug: nswag-generated-c-sharp-client-property-name-clash
 title: 'NSwag generated C# client: Open API property name clashes and decimal types rather than double'
 authors: johnnyreilly
+date: 2021-10-31
 tags: [c#, swagger]
 image: ./title-image.png
 hide_table_of_contents: false

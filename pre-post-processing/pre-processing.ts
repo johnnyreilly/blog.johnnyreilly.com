@@ -56,6 +56,7 @@ async function getPopularPosts() {
 
   const recentlyUpdatedPosts: { link: string; title: string }[] = [];
   const slugRegex = /slug: (.*)\n/;
+  const dateRegex = /date: (.*)\n/;
   const titleRegex = /title: ["'](.*)["']\n/;
 
   for (const blogIndexMd of blogIndexMdsOrderedByLastCommitDates) {
@@ -64,12 +65,15 @@ async function getPopularPosts() {
       'utf-8',
     );
     const slugMatch = blogPostContent.match(slugRegex);
+    const dateMatch = blogPostContent.match(dateRegex);
     const titleMatch = blogPostContent.match(titleRegex);
 
     // console.log(slugMatch);
     // console.log(titleMatch);
-    if (!slugMatch || !titleMatch) {
-      throw new Error(`no match ${blogIndexMd.blogIndexMd}`);
+    if (!slugMatch || !titleMatch || !dateMatch) {
+      throw new Error(
+        `missing slug, title or date in frontmatter of ${blogIndexMd.blogIndexMd}`,
+      );
     }
 
     const slug = slugMatch[1];

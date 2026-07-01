@@ -2,6 +2,7 @@
 slug: autofac-webapplicationfactory-integration-tests
 title: 'Autofac, WebApplicationFactory and integration tests'
 authors: johnnyreilly
+date: 2020-05-21
 tags: [asp.net, automated testing]
 image: ./autofac-webapplicationfactory-tests.webp
 hide_table_of_contents: false

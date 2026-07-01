@@ -2,6 +2,7 @@
 slug: blog-archive-for-docusaurus
 title: 'Blog Archive for Docusaurus'
 authors: johnnyreilly
+date: 2021-05-01
 tags: [docusaurus, webpack]
 image: ./docusaurus-blog-archive.png
 hide_table_of_contents: false

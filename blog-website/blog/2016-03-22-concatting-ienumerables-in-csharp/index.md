@@ -2,6 +2,7 @@
 slug: concatting-ienumerables-in-csharp
 title: 'Concatting IEnumerables in C#'
 authors: johnnyreilly
+date: 2016-03-22
 tags: [c#]
 hide_table_of_contents: false
 description: 'Author proposes clean alternatives to `IEnumerable`s concatenation which entail creating custom extensions & using nulls for null-conditional operator.'

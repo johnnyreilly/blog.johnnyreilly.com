@@ -2,6 +2,7 @@
 slug: jshint-customising-your-hurt-feelings
 title: 'JSHint - Customising your hurt feelings'
 authors: johnnyreilly
+date: 2012-04-23
 tags: [javascript]
 hide_table_of_contents: false
 description: 'JSHint is a tool for evaluating JavaScript code quality. Its configurable, has an extension for Visual Studio and is better than JSLint.'

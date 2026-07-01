@@ -2,6 +2,7 @@
 slug: generate-word-doc-in-asp-net
 title: 'Generate a Word document in ASP.NET'
 authors: johnnyreilly
+date: 2024-03-19
 tags: [asp.net]
 image: ./title-image.png
 hide_table_of_contents: false

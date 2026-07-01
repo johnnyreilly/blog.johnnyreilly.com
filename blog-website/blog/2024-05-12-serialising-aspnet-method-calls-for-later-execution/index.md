@@ -2,6 +2,7 @@
 slug: serialising-aspnet-method-calls-for-later-execution
 title: 'Serialising ASP.NET method calls for later execution'
 authors: johnnyreilly
+date: 2024-05-12
 image: ./title-image.png
 tags: [azure, c#]
 description: 'How can we take a method call, serialise it, perhaps store it in a database, and then later rehydrate and execute?'

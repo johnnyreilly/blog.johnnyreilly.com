@@ -2,6 +2,7 @@
 slug: bicep-lint-azure-pipelines-github-actions
 title: 'Bicep lint with Azure Pipelines and GitHub Actions'
 authors: johnnyreilly
+date: 2024-01-30
 tags: [bicep, github actions, azure pipelines, azure devops]
 image: ./title-image.png
 description: Bicep lint allows you to lint bicep files to ensure they conform to best practices. In this post we'll look at how to run bicep lint in Azure Pipelines and GitHub Actions.

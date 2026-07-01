@@ -2,6 +2,7 @@
 slug: snapshot-log-tests-dotnet
 title: 'Snapshot log tests in .NET'
 authors: johnnyreilly
+date: 2023-12-20
 tags: [asp.net, c#, automated testing]
 image: ./title-image.png
 description: This post demonstrates how to write high quality and low effort log assertions using snapshot testing.

@@ -2,6 +2,7 @@
 slug: up-to-clouds
 title: 'Up to the clouds!'
 authors: johnnyreilly
+date: 2020-04-04
 tags: [asp.net]
 hide_table_of_contents: false
 description: 'Migrating ASP.NET Core app from on-prem to cloud with Kubernetes, Docker, Jenkins, Vault & Azure AD Single Sign-On for greater efficiency.'

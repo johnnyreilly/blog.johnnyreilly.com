@@ -2,6 +2,7 @@
 slug: google-analytics-api-and-aspnet-core
 title: 'Google Analytics API and ASP.Net Core'
 authors: johnnyreilly
+date: 2019-03-22
 tags: [asp.net]
 hide_table_of_contents: false
 description: 'Accessing Google Analytics API from ASP.Net Core can be tough due to lack of examples. This article provides an example code to get page access stats.'

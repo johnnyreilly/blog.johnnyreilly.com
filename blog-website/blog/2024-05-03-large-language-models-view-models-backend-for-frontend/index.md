@@ -2,6 +2,7 @@
 slug: large-language-models-view-models-backend-for-frontend
 title: 'Large Language Models, Open API, View Models and the Backend for Frontend Pattern'
 authors: johnnyreilly
+date: 2024-05-03
 image: ./title-image.png
 tags: [azure, c#, ai]
 description: To integrate LLMs with APIs, there is a need for the LLM equivalent of view models and the backend for frontend pattern. This discusses it in the context of Semantic Kernel.
