@@ -28,6 +28,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "prettier": "3.9.0"
+    "prettier": "3.9.1"
   }
 }
