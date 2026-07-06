@@ -25,7 +25,7 @@ I've long worked on Definitely Typed. However, whilst there was a point when it 
 
 For a while I was the primary maintainer of the [`fork-ts-checker-webpack-plugin`](https://github.com/TypeStrong/fork-ts-checker-webpack-plugin). But again, this has been looked after by [Piotr Oleś](https://github.com/piotr-oles) for quite a while now. So I don't need to worry about that one either.
 
-The project that I am currently most involved in that actually does need someone to own it if I can't is [`ts-loader`](https://github.com/TypeStrong/ts-loader). I've been looking after it [for about ten years now](../2016-11-01-but-you-cant-die-i-love-you-ts-loader/index.md). To my increasing amazement, it is still actively used, and (I assume) thanks to AI, it is becoming more used and not less. 50 million downloads a month is a lot of people relying on it. So I need to make sure that if I cannot maintain it anymore, someone else can.
+The project that I am currently most involved in that actually does need someone to own it if I can't is [`ts-loader`](https://github.com/TypeStrong/ts-loader). I've been looking after it [for about ten years now](../2016-11-01-but-you-cant-die-i-love-you-ts-loader/index.md). To my increasing surprise in this age of Vite etc, `ts-loader` is still actively used, and it is becoming more used over time and not less. Very likely AI is the cause - that's my speculation. 50 million downloads a month is a lot of people / bots relying on a library. So if I cannot maintain it anymore, I'd like to ensure it's possible someone can.
 
 ## Introducing Ashley Claymore
 
