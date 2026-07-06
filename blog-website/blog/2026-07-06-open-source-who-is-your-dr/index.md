@@ -9,9 +9,11 @@ hide_table_of_contents: false
 description: 'Who looks after your open source if you cannot anymore?'
 ---
 
-It's been a rough year. In March I was diagnosed with a serious illness. [I've written about my diagnosis on my personal blog](https://johnnyreilly.github.io/reillys-on-tour/rough-road-ahead/) and I won't repeat what I said there here. But the TL;DR is this: I was told that without treatment I'd likely be dead in a year. Happily, there was a follow up sentence; there is treatment and I am now having it. Whilst nothing is guaranteed, the doctors have used phrases like "cautious optimism". Time will tell what happens, but I am hopeful that I will be around for a while yet.
+It's been a rough year. In March I was diagnosed with a serious illness. [I've written about my diagnosis on my personal blog](https://johnnyreilly.github.io/reillys-on-tour/rough-road-ahead/) and I won't repeat what I said there here. But the TL;DR is this: I was told that without treatment things looked bleak. Happily, there was a follow up sentence; there is treatment and I am now having it. Whilst nothing is guaranteed, the doctors have used phrases like "cautious optimism". Time will tell what happens, but I am hopeful that I will be around for a while yet.
 
-However, this has made me think about the future of the open source projects I maintain. If I cannot maintain them anymore, who will? That's what the title of this blog post means; who is your DR (Disaster Recovery) for your open source projects?
+However, this has made me think about the future of the open source projects I maintain. If I cannot maintain them anymore, who will? That's what the title of this blog post means; who is the DR (Disaster Recovery) for my open source projects? Maybe there's a better term than "Disaster Recovery". Having worked on various systems over the years, I've' often been involved in disaster recovery planning for them. What takes over when everything goes South?
+
+So that's what I'm thinking about here. Who is the DR for my open source projects?
 
 ![title image that reads "Open source: Who is your DR?"](./title-image.svg)
 
