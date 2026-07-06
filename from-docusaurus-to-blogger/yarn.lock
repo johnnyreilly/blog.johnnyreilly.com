@@ -3159,10 +3159,10 @@ prelude-ls@~1.1.2:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
 
-prettier@3.9.0:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.9.0.tgz#287fabfbf20161611aa3b2db8de2a7d8c88ecb2d"
-  integrity sha512-LjIqSIC5VYLzs9WedVmJ2ljNAGnU+DteIClbahu4L/DBeWjZ6iT/k1lAYyu9JUh+1xINxWadaPw/Pl63y/agAw==
+prettier@3.9.1:
+  version "3.9.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.9.1.tgz#5868bcf16456bfe145ddbfa107c623b6f39e332c"
+  integrity sha512-ppiDo2CSwexck1eyZUwJHg/N3nf1+6IRCv7W/VJ5vaLnVCmB7+3CdRfMwoCHBBX6xTrREDTksZ4OZl5SSf4zXA==
 
 proxy-from-env@^1.1.0:
   version "1.1.0"
