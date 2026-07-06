@@ -17,7 +17,7 @@ However, this has made me think about the future of the open source projects I m
 
 <!--truncate-->
 
-## What projects of mine actually need a DR?
+## What projects actually need a DR plan?
 
 Over the years I've maintained a number of open source projects. Some of them are used by a lot of people, some of them are used by very few. So I got to thinking, of the ones I work on now, which ones would be a problem if I could no longer maintain them?
 
