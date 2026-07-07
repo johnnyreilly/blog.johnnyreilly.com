@@ -29,7 +29,7 @@ The project that I am currently most involved in that actually does need someone
 
 ## Introducing Ashley Claymore
 
-I've known [Ashley](https://github.com/acutmore) for years now. He lives near me in London and we regularly go for walks around the River Thames together. Perhaps more relevantly, he is a very talented engineer, a member of TC39, a Bloomberg employee and an open source maintainer. For instance, he works on Bloomberg's [`ts-blank-space`](https://github.com/bloomberg/ts-blank-space).
+I've known [Ashley](https://github.com/acutmore) for years now. He lives near me in London and we regularly go for walks around the River Thames together. Perhaps more relevantly, he is a very talented engineer, a delegate of TC39, a Bloomberg employee and an open source maintainer. For instance, he works on Bloomberg's [`ts-blank-space`](https://github.com/bloomberg/ts-blank-space).
 
 He's a friend and I trust him. So I asked him if he would be willing to do whatever is necessary for `ts-loader` if I cannot. This is not me signing him up to toil down the open source mines for life. No. Rather, I have given him the relevant access to the `ts-loader` assets, and I trust him to make choices on its behalf if I cannot.
 
