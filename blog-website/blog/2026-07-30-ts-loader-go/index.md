@@ -92,6 +92,12 @@ One of the benefits of moving to Node 22 as a minimum is that we can use the bui
 
 This reduces the dependency weight of `ts-loader` and it makes `ts-loader` faster. It's a win-win.
 
+## Goodbye `typescript-eslint`, hello `oxlint-tsgolint`
+
+At the moment `ts-loader` uses `typescript-eslint` to lint the code. However, that library is [not compatible with TypeScript 7.1](https://github.com/typescript-eslint/typescript-eslint/issues/10940). So we have switched to using `oxlint-tsgolint`, which is a new linter that supports TypeScript 7.1. It is also faster than `typescript-eslint`. You can read more about it here: https://oxc.rs/blog/2026-07-22-type-aware-linting-stable
+
+I feel slightly torn on this one as I've long used and liked `typescript-eslint`. I may return to it when it becomes compatible, but I couldn't take seeing the red cross in the GitHub Actions workflow for `ts-loader` any longer.
+
 ## What is still to come?
 
 Around this time I got excited and posted on Bluesky about the progress. Andrew Branch, one of the TypeScript team members that has worked on the API, [replied to my post](https://bsky.app/profile/andrewbran.ch/post/3mrmtyco7cs2k):
