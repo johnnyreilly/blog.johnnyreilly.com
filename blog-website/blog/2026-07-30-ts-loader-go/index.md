@@ -86,6 +86,12 @@ With that in place, Claude was able to run the comparison tests on Windows and f
 
 Also, the boys were pleased as I didn't have to use their machines for testing. I say "their machines" - technically these are my laptops that they borrowed and never gave back. But I digress.
 
+## Goodbye `chalk`, hello `styleText`
+
+One of the benefits of moving to Node 22 as a minimum is that we can use the built-in `styleText` API instead of the `chalk` library. There's lovely documentation on how to do that here: https://e18e.dev/docs/replacements/chalk.html#styletext-native
+
+This reduces the dependency weight of `ts-loader` and it makes `ts-loader` faster. It's a win-win.
+
 ## What is still to come?
 
 Around this time I got excited and posted on Bluesky about the progress. Andrew Branch, one of the TypeScript team members that has worked on the API, [replied to my post](https://bsky.app/profile/andrewbran.ch/post/3mrmtyco7cs2k):
