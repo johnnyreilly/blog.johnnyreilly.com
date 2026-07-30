@@ -23,7 +23,7 @@ I would like `ts-loader` to be able to support TypeScript 7.1 when it comes. Thi
 
 Instead I intended to use my GitHub Copilot and Claude licenses. What follows is a diary of the port. The things I did, what was useful / wasn't, the principles followed etc.
 
-In fact, let's start there: principles. These are my principles, and if you don't like them... well, I have others: (sorry - couldn't help myself)
+In fact, let's start there: principles:
 
 1. I wanted AI to do most of the work
 2. I reserved the right to not port all features The codebase of `ts-loader` is more than 10 years old, and I was pretty sure we didn't need everything that we'd accreted over the years.
@@ -36,7 +36,7 @@ I thought I'd start off by firing [this prompt at GitHub Copilot](https://github
 
 ![Screenshot of initial port prompt which reads "following the addition of the emit API in this pull request: https://github.com/microsoft/typescript-go/pull/4699 please determine what this potentially means for ts-loader See context here: https://github.com/TypeStrong/ts-loader/issues/1671#issuecomment-4937039062 Please add a comment to that PR with your findings"](./screenshot-initial-port-prompt.webp)
 
-It did some decent analysis and claimed it had added that to the issue. It had not:
+It did some decent analysis and claimed it had added the analysis to the issue. It had not:
 
 ![Screenshot of me telling GitHub Copilot it had not added a comment](./screenshot-not-added-comment-1.webp)
 
@@ -70,7 +70,7 @@ At this point I had a version of `ts-loader` that supported TypeScript 7.1. But 
 
 From here on out my workflow became pretty simple. I would point Claude at a failing comparison test, and ask it to fix it:
 
-> please fix `yarn comparison-tests --single-test basic`
+![screenshot of a terminal that reads "please fix `yarn comparison-tests --single-test basic`"](./screenshot-claude-prompt.webp)
 
 A lesson I learned early on, was to start with the simpler tests and work up to the more complex ones. I'd initially not used that approach and found that Claude was "fixing" the more complex tests in a way that broke other ones. So I started with the simpler tests and worked my way up.
 
