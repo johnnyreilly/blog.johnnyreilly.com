@@ -34,19 +34,19 @@ In fact, let's start there: principles. These are my principles, and if you don'
 
 I thought I'd start off by firing [this prompt at GitHub Copilot](https://github.com/TypeStrong/ts-loader/tasks/159bdfb2-8b93-4986-98ec-77e6476f05c9?q=is%3Aclosed+author%3A%40me) to get it to do some analysis and put that on [an existing issue that discussed TypeScript 7](https://github.com/TypeStrong/ts-loader/issues/1671#issuecomment-4937039062):
 
-![Screenshot of initial port prompt which reads "following the addition of the emit API in this pull request: https://github.com/microsoft/typescript-go/pull/4699 please determine what this potentially means for ts-loader See context here: https://github.com/TypeStrong/ts-loader/issues/1671#issuecomment-4937039062 Please add a comment to that PR with your findings"](./screenshot-initial-port-prompt.png)
+![Screenshot of initial port prompt which reads "following the addition of the emit API in this pull request: https://github.com/microsoft/typescript-go/pull/4699 please determine what this potentially means for ts-loader See context here: https://github.com/TypeStrong/ts-loader/issues/1671#issuecomment-4937039062 Please add a comment to that PR with your findings"](./screenshot-initial-port-prompt.webp)
 
 It did some decent analysis and claimed it had added that to the issue. It had not:
 
-![Screenshot of me telling GitHub Copilot it had not added a comment](./screenshot-not-added-comment-1.png)
+![Screenshot of me telling GitHub Copilot it had not added a comment](./screenshot-not-added-comment-1.webp)
 
 It told me it had added the comment again, and it had not. So I challenged it once more.
 
-![Screenshot of me telling GitHub Copilot it had not added a comment again](./screenshot-not-added-comment-2.png)
+![Screenshot of me telling GitHub Copilot it had not added a comment again](./screenshot-not-added-comment-2.webp)
 
 And then it happened again, so I tried sarcasm.
 
-![Screenshot of me telling GitHub Copilot it had not added a comment again sarcastically](./screenshot-not-added-comment-3.png)
+![Screenshot of me telling GitHub Copilot it had not added a comment again sarcastically](./screenshot-not-added-comment-3.webp)
 
 At this point I realised I was getting distracted.
 
@@ -56,7 +56,7 @@ The analysis was decent and so I asked it to PR it, [which it did](https://githu
 
 So [I asked it to go again](https://github.com/TypeStrong/ts-loader/tasks/c976c829-4a93-4e31-93f3-f82b97c38c0e?author=johnnyreilly), but this time to drop support for the old API:
 
-![Screenshot of second prompt which reads "https://github.com/TypeStrong/ts-loader/pull/1703 is a good first attempt at implementing the new tsgo API support but is too complicated because it maintains existing support as well. Please try implementing new API support alone instead. Drop existing support. We would like execution-tests to pass - comparison-tests need not pass initially. Use npm:typescript@7.1.0-dev.20260725.1 or newer for implementing. See https://github.com/microsoft/typescript-go/pull/4699 for additional context."](./screenshot-second-prompt.png)
+![Screenshot of second prompt which reads "https://github.com/TypeStrong/ts-loader/pull/1703 is a good first attempt at implementing the new tsgo API support but is too complicated because it maintains existing support as well. Please try implementing new API support alone instead. Drop existing support. We would like execution-tests to pass - comparison-tests need not pass initially. Use npm:typescript@7.1.0-dev.20260725.1 or newer for implementing. See https://github.com/microsoft/typescript-go/pull/4699 for additional context."](./screenshot-second-prompt.webp)
 
 The PR it came up with was decent: https://github.com/TypeStrong/ts-loader/pull/1704 - this became the basis for the port.
 
@@ -90,7 +90,7 @@ Also, the boys were pleased as I didn't have to use their machines for testing. 
 
 Around this time I got excited and posted on Bluesky about the progress. Andrew Branch, one of the TypeScript team members that has worked on the API, [replied to my post](https://bsky.app/profile/andrewbran.ch/post/3mrmtyco7cs2k):
 
-![screenshot of Andrew Branch's post on Bluesky saying "Awesome! FYI, transpileModule is coming soon too"](./screenshot-bsky-andrew-branch-transpile.png)
+![screenshot of Andrew Branch's post on Bluesky saying "Awesome! FYI, transpileModule is coming soon too"](./screenshot-bsky-andrew-branch-transpile.webp)
 
 This was a good reminder that what we had done was not the end of the story. If you're a `ts-loader` user then you might be familiar with the `transpileOnly` option. This allows you to transpile TypeScript code without type checking. The port as it stands does not properly support this option as the APIs aren't yet there. When they land, we'll look again.
 
@@ -102,7 +102,7 @@ It's not too bad. I've deliberately not looked too hard at it as yet. It made a 
 
 One surprising thing is that it has added a lot of comments to the code.
 
-![screenshot of code with a lot of comments](./screenshot-comments.png)
+![screenshot of code with a lot of comments](./screenshot-comments.webp)
 
 I don't like it. However, for now I'm leaving the comments in place, on the assumption that it helps Claude understand the code better. I will remove them before we merge.
 
