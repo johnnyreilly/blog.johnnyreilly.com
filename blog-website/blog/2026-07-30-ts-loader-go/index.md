@@ -2,7 +2,7 @@
 slug: migrating-ts-loader-to-typescript-7-1-with-ai
 title: 'Migrating ts-loader to TypeScript 7.1 with AI'
 authors: johnnyreilly
-date: 2026-07-06
+date: 2026-07-30
 tags: [webpack, ts-loader, typescript]
 image: ./title-image.png
 hide_table_of_contents: false
