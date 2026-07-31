@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Write",
+      "WebFetch(domain:*)",
+      "Bash(gh search *)",
+      "Read(//tmp/**)",
+      "Bash(rsvg-convert -w 1200 -h 630 /tmp/new-title-image.svg -o /tmp/new-title-image.png)",
+      "Bash(convert --version)",
+      "Bash(find /Users/johnreilly/code/github/blog.johnnyreilly.com/blog-website/blog -name \"index.md\" -exec grep -l \"^date:\" {} \\\\;)",
+      "Bash(npm ls *)",
+      "Bash(npm run *)",
+      "Bash(node *)"
+    ]
+  }
+}
