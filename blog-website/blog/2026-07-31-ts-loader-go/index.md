@@ -2,7 +2,7 @@
 slug: migrating-ts-loader-to-typescript-7-1-with-ai
 title: 'Migrating ts-loader to TypeScript 7.1 with AI'
 authors: johnnyreilly
-date: 2026-07-30
+date: 2026-07-31
 tags: [webpack, ts-loader, typescript]
 image: ./title-image.png
 hide_table_of_contents: false
@@ -15,7 +15,7 @@ One of them is [`ts-loader`](https://github.com/TypeStrong/ts-loader), which int
 
 Just lately, TypeScript was ported from being written in TypeScript to being written in Go. The reason being for performance - make TypeScript tooling 10x faster. [TypeScript 7](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/) is written in Go.
 
-This has implications for `ts-loader` as it is built on APIs the TypeScript library exposed. But those APIs were not ported to TypeScript 7. New ones are being written, recently I heard that [the first APIs had landed in the nightly version of TypeScript](https://github.com/microsoft/typescript-go/pull/4699).
+This has implications for `ts-loader` as it is built on APIs the TypeScript library exposed. But those APIs were not ported to TypeScript 7. New ones are being written, recently I heard that [the first emit APIs had landed in the nightly version of TypeScript](https://github.com/microsoft/typescript-go/pull/4699).
 
 ## Porting with AI
 
@@ -86,11 +86,11 @@ With that in place, Claude was able to run the comparison tests on Windows and f
 
 Also, the boys were pleased as I didn't have to use their machines for testing. I say "their machines" - technically these are my laptops that they borrowed and never gave back. But I digress.
 
-## Goodbye `chalk`, hello `styleText`
+## Goodbye `chalk`, hello `picocolors`
 
-One of the benefits of moving to Node 22 as a minimum is that we can use the built-in `styleText` API instead of the `chalk` library. There's lovely documentation on how to do that here: https://e18e.dev/docs/replacements/chalk.html#styletext-native
+One of the benefits of moving to Node 22 as a minimum is that we can use the built-in `styleText` API instead of the `chalk` library. There's lovely documentation on how to do that here: https://e18e.dev/docs/replacements/chalk.html#styletext-native and it was my initial plan to use it.
 
-This reduces the dependency weight of `ts-loader` and it makes `ts-loader` faster. It's a win-win.
+However, there was some odd behaviour which meant that output differed between platforms. After trying to work around that and deciding it was too complex, we switched to using [`picocolors`](https://github.com/alexeyraspopov/picocolors) instead. This still reduces the dependency weight of `ts-loader` and it makes `ts-loader` faster. It's a win-win.
 
 ## Goodbye `typescript-eslint`, hello `oxlint-tsgolint`
 
