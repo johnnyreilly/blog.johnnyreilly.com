@@ -17,7 +17,7 @@
   },
   "publishContent": true,
   "bluesky": {
-    "enabled": true,
+    "enabled": false,
     "maxAgeDays": 30
   }
 }
