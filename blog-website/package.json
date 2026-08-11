@@ -52,7 +52,7 @@
     "mdast-util-mdx-jsx": "^3.2.0",
     "rehype-cloudinary-docusaurus": "^3.0.0",
     "simple-git": "^3.36.0",
-    "typescript": "^6.0.0",
+    "typescript": "^7.0.0",
     "typescript-eslint": "^8.58.0"
   },
   "browserslist": {
