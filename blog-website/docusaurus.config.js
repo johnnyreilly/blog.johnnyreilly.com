@@ -278,7 +278,17 @@ const config = {
   organizationName: 'johnnyreilly', // Usually your GitHub org/user name.
   projectName: 'blog.johnnyreilly.com', // Usually your repo name.
 
-  future: { v4: true },
+  // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
+  future: {
+    v4: true, // Improve compatibility with the upcoming Docusaurus v4
+    faster: {
+      // `v4: true` turns this on by default (via fasterByDefault), but the
+      // SWC HTML minifier strips quotes from attributes like og:image,
+      // which breaks strict/RDFa parsers. The html-minifier-terser
+      // fallback (used when this is false) never strips attribute quotes.
+      swcHtmlMinimizer: false,
+    },
+  },
 
   themes: ['@docusaurus/theme-mermaid'],
 
