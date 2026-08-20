@@ -12,7 +12,7 @@
         <title type="html"><![CDATA[Migrating ts-loader to TypeScript 7.1 with AI]]></title>
         <id>https://johnnyreilly.com/migrating-ts-loader-to-typescript-7-1-with-ai</id>
         <link href="https://johnnyreilly.com/migrating-ts-loader-to-typescript-7-1-with-ai"/>
-        <updated>2026-07-31T15:05:51.000Z</updated>
+        <updated>2026-08-20T14:01:49.000Z</updated>
         <summary type="html"><![CDATA[How I used AI to migrate ts-loader to TypeScript 7.1.]]></summary>
         <content type="html"><![CDATA[<p>TypeScript is now the <a href="https://github.blog/news-insights/octoverse/octoverse-a-new-developer-joins-github-every-second-as-ai-leads-typescript-to-1/" target="_blank" rel="noopener noreferrer" class="">most popular programming language</a>. Incredible. I was an early adopter back in 2012 and have since worked on a number of open source projects in the TypeScript ecosystem.</p>
 <p>One of them is <a href="https://github.com/TypeStrong/ts-loader" target="_blank" rel="noopener noreferrer" class=""><code>ts-loader</code></a>, which integrates TypeScript the language with webpack; which is used to build web applications. You might be surprised to know ts-loader has 54 million downloads a month. I know I am. I'll be honest - I'm using Vite far more than I use webpack these days, but there are still a lot of people using webpack and <code>ts-loader</code>. And I intend to continue to support them.</p>
