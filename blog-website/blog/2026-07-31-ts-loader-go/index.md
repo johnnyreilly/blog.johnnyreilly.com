@@ -17,6 +17,8 @@ Just lately, TypeScript was ported from being written in TypeScript to being wri
 
 This has implications for `ts-loader` as it is built on APIs the TypeScript library exposed. But those APIs were not ported to TypeScript 7. New ones are being written, recently I heard that [the first emit APIs had landed in the nightly version of TypeScript](https://github.com/microsoft/typescript-go/pull/4699).
 
+<!--truncate-->
+
 ## Porting with AI
 
 I would like `ts-loader` to be able to support TypeScript 7.1 when it comes. This will be the first Go built version of TypeScript which ships with an API. But I'm quite lazy and I have / had very little interest in doing the migration manually.
