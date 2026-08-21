@@ -43,7 +43,7 @@ I ran into this on my own site which uses `faster`. I turn out to be slightly ov
 
 ## The workaround
 
-The SWC minifier is only used when `future.v4` (or `future.experimental_faster`) is enabled. There's a [config flag called `swcHtmlMinimizer`](https://docusaurus.io/docs/api/docusaurus-config) to opt back into the old `html-minifier-terser` minifier instead, which never strips attribute quotes:
+The SWC minifier is used when `future.v4` is enabled. There's a [config flag called `swcHtmlMinimizer`](https://docusaurus.io/docs/api/docusaurus-config) to opt back into the old `html-minifier-terser` minifier instead, which never strips attribute quotes:
 
 ```diff title="docusaurus.config.js"
   future: {
