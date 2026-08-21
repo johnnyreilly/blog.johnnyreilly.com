@@ -2,7 +2,7 @@
 import { type SimpleGitOptions, simpleGit } from 'simple-git';
 import path from 'path';
 import fs from 'fs';
-import { orderBy } from 'lodash';
+import { chunk, orderBy } from 'lodash';
 
 async function getBlogIndexMds() {
   const rootBlogPath = path.resolve('..', 'blog-website', 'blog');
@@ -16,31 +16,35 @@ async function getBlogIndexMds() {
 async function getPopularPosts() {
   const baseDir = path.resolve(process.cwd(), '..');
 
+  const maxConcurrentProcesses = 6;
   const options: Partial<SimpleGitOptions> = {
     baseDir,
     binary: 'git',
-    maxConcurrentProcesses: 6,
+    maxConcurrentProcesses,
     trimmed: false,
   };
 
   const git = simpleGit(options);
 
+  const blogIndexMds = await getBlogIndexMds();
+
+  // Match the git.log calls' concurrency to maxConcurrentProcesses above,
+  // so simple-git can actually run them in parallel instead of one at a time.
   const blogIndexMdsAndLastCommitDates: {
     blogIndexMd: string;
     lastUpdated: string | undefined;
   }[] = [];
+  for (const batch of chunk(blogIndexMds, maxConcurrentProcesses)) {
+    const results = await Promise.all(
+      batch.map(async (blogIndexMd) => {
+        const log = await git.log({
+          file: blogIndexMd,
+        });
 
-  const blogIndexMds = await getBlogIndexMds();
-  for (const blogIndexMd of blogIndexMds) {
-    const log = await git.log({
-      file: blogIndexMd,
-    });
-
-    const latestCommitDate = log.latest?.date;
-    blogIndexMdsAndLastCommitDates.push({
-      blogIndexMd,
-      lastUpdated: latestCommitDate,
-    });
+        return { blogIndexMd, lastUpdated: log.latest?.date };
+      }),
+    );
+    blogIndexMdsAndLastCommitDates.push(...results);
   }
 
   const blogIndexMdsOrderedByLastCommitDates = orderBy(
