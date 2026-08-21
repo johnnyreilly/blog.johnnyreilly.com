@@ -64,15 +64,13 @@ I applied this exact change to my blog in [this commit](https://github.com/johnn
 <meta data-rh="true" property="og:image" content="..." />
 ```
 
-...and with them, WhatsApp link previews are showing the image as expected:
+...and with them, WhatsApp link previews now show the image as expected:
 
 ![WhatsApp link preview correctly showing the image after disabling the SWC HTML minimizer](./fixed-whatsapp-preview.webp)
 
-A little side note here; WhatsApp caches link previews for a while, so if you share a link that was previously shared without an image, you may still see the broken preview. I restarted my phone to flush the cache - there may be better ways to flush the cache.
+A little side note here; WhatsApp caches link previews for a while, so if you share a link that was previously shared without an image, you may still see the broken preview. I restarted my phone to flush the cache - there may be better ways.
 
-You can see the working image previews live on [this post's preview](https://johnnyreilly.com/open-source-who-is-your-dr) if you share it via WhatsApp. (You don't even have to send it; it shows up in the preview before you send it.)
-
-The trade-off: you lose a little of the build-time speed that `swcHtmlMinimizer` buys you. I'd rather have my Open Graph images working than not, so this is a trade-off I'm happy to make.
+The trade-off from using this approach: you lose a little of the build-time speed that `swcHtmlMinimizer` buys you. I'd rather have my Open Graph images working than not, so this is a trade-off I'm happy to make.
 
 ## OpenGraph.xyz emulator
 
