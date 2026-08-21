@@ -3,8 +3,8 @@ slug: docusaurus-workaround-whatsapp-open-graph-image-bug
 title: 'Docusaurus: Workaround for WhatsApp Open Graph Image Bug'
 authors: johnnyreilly
 date: 2026-08-21
-tags: [docusaurus, whatsapp, open-graph]
-image: ./title-image.png
+tags: [docusaurus, open graph]
+image: ./title-image.svg
 hide_table_of_contents: false
 description: 'Workaround for WhatsApp Open Graph image bug in Docusaurus Faster (powered by SWC).'
 ---

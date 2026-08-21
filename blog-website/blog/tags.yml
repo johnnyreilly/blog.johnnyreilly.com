@@ -133,6 +133,11 @@ node.js:
   description: 'The Node.js runtime.'
   permalink: /node-js
 
+open graph:
+  label: 'Open Graph'
+  description: 'The Open Graph protocol for social media sharing.'
+  permalink: /open-graph
+
 react:
   label: 'React'
   description: 'The React library.'
