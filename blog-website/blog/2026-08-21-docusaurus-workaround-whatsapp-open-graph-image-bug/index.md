@@ -76,18 +76,18 @@ The trade-off: you lose a little of the build-time speed that `swcHtmlMinimizer`
 
 ## OpenGraph.xyz emulator
 
-I've long been a user of [OpenGraph.xyz](https://www.opengraph.xyz/) to check my Open Graph tags. It has a nice emulator that shows you what the link preview will look like on various platforms, including WhatsApp. Emulators are not always correct, and it turned out that OpenGraph.xyz was not showing the missing image problem, so I reported that to them too. I didn't hear back from them, but it seems they are now emulating WhatsApp's behavior correctly, as you can see in the screenshot below:
+I've long been a user of [OpenGraph.xyz](https://www.opengraph.xyz/) to check my Open Graph tags. It has a nice emulator that shows you what the link preview will look like on various platforms, including WhatsApp. Emulators are not always correct, and it turned out that OpenGraph.xyz was not showing the missing image problem, so I reported that to them too.
+
+I didn't hear back from them, but it seems they are now emulating WhatsApp's behavior correctly, as you can see in the screenshot below:
 
 ![OpenGraph.xyz emulator showing WhatsApp preview with missing image](./screenshot-opengraph-xyz.webp)
 
 It even explicitly explains that the image is missing because the `og:image` attribute is unquoted. Nice touch.
 
-You can see for yourself by pasting the URL of the post in question into the OpenGraph.xyz emulator: https://www.opengraph.xyz/url/https%3A%2F%2Fdocusaurus.io%2Fblog%2Freleases%2F3.10
-
 ## Where things stand upstream
 
 I [raised this as an issue](https://github.com/facebook/docusaurus/issues/12368) on the Docusaurus repo. There's already been some discussion. I don't know if it will go anywhere.
 
-I've reported it to WhatsApp too, as I'd rather that they fixed the bug than needing consumers to work around it. I don't know if they are likely to act on my feedback - I'm not really expecting them to.
+I've reported it to WhatsApp too, as I'd rather that they fixed the bug than needing consumers to work around it. I don't know if they are likely to act on my feedback - I'm not really expecting them to. Come on WhatsApp, be more like OpenGraph.xyz on the responding-to-feedback front!
 
 For now, if your Docusaurus site's social previews are broken on WhatsApp (or possibly elsewhere in the Meta ecosystem), setting `swcHtmlMinimizer: false` is a quick, safe way to get your `og:image` working again.
