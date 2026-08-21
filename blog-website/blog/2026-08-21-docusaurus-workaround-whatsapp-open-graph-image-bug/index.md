@@ -37,7 +37,7 @@ So a meta tag that starts like this:
 
 That's still valid HTML - unquoted attribute values are permitted by the spec, and most Open Graph consumers cope fine with it. WhatsApp does not. Its link-preview parser chokes on the unquoted `og:image` and simply renders the preview without an image:
 
-![WhatsApp link preview missing the image because of unquoted og:image attributes](./broken-whatsapp-preview.png)
+![WhatsApp link preview missing the image because of unquoted og:image attributes](./broken-whatsapp-preview.webp)
 
 I ran into this on my own site which uses `faster`. I turn out to be slightly overzealous with my care for open graph support; I'm not really sure why. But I do know that I want my blog posts to have a preview image when shared on WhatsApp, so I needed a workaround.
 
@@ -66,7 +66,7 @@ I applied this exact change to my blog in [this commit](https://github.com/johnn
 
 ...and with them, WhatsApp link previews are showing the image as expected:
 
-![WhatsApp link preview correctly showing the image after disabling the SWC HTML minimizer](./fixed-whatsapp-preview.png)
+![WhatsApp link preview correctly showing the image after disabling the SWC HTML minimizer](./fixed-whatsapp-preview.webp)
 
 A little side note here; WhatsApp caches link previews for a while, so if you share a link that was previously shared without an image, you may still see the broken preview. I restarted my phone to flush the cache - there may be better ways to flush the cache.
 
@@ -78,7 +78,7 @@ The trade-off: you lose a little of the build-time speed that `swcHtmlMinimizer`
 
 I've long been a user of [OpenGraph.xyz](https://www.opengraph.xyz/) to check my Open Graph tags. It has a nice emulator that shows you what the link preview will look like on various platforms, including WhatsApp. Emulators are not always correct, and it turned out that OpenGraph.xyz was not showing the missing image problem, so I reported that to them too. I didn't hear back from them, but it seems they are now emulating WhatsApp's behavior correctly, as you can see in the screenshot below:
 
-![OpenGraph.xyz emulator showing WhatsApp preview with missing image](./screenshot-opengraph-xyz.png)
+![OpenGraph.xyz emulator showing WhatsApp preview with missing image](./screenshot-opengraph-xyz.webp)
 
 It even explicitly explains that the image is missing because the `og:image` attribute is unquoted. Nice touch.
 
