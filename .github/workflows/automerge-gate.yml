@@ -1,0 +1,34 @@
+name: Automerge Gatekeeper
+
+on:
+  pull_request:
+    types: [opened, edited, synchronized]
+
+jobs:
+  check-title:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for Dependency Title
+        id: title_check
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          if [[ "$PR_TITLE" =~ ^chore\(deps\): ]]; then
+            echo "This is an automated dependency update. Proceeding."
+            echo "is_dep=true" >> $GITHUB_OUTPUT
+          else
+            echo "This is a human PR. Blocking automatic merging engine."
+            echo "is_dep=false" >> $GITHUB_OUTPUT
+          fi
+
+      # This step only passes for Renovate/Dependency PRs
+      - name: Gatekeeper Status
+        if: steps.title_check.outputs.is_dep == 'true'
+        run: echo "Gatekeeper passed successfully."
+
+      # This step fails or hangs for human PRs, blocking auto-merge
+      - name: Block Non-Dependency Automerge
+        if: steps.title_check.outputs.is_dep == 'false'
+        run: |
+          echo "::error::Auto-merge is disabled for non-dependency PRs."
+          exit 1
+          
