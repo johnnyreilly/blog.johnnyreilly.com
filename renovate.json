@@ -7,13 +7,13 @@
     {
       "matchPaths": ["blog-website/**"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "automerge": true
+      "automerge": false
     },
     {
       "excludePaths": ["blog-website/**"],
       "enabled": false
     }
   ],
-  "platformAutomerge": true,
+  "platformAutomerge": false,
   "stabilityDays": 7
 }
