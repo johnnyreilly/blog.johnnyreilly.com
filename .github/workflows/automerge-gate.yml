@@ -4,31 +4,51 @@ on:
   pull_request:
     types: [opened, edited, synchronized]
 
+# Explicitly lock down the GITHUB_TOKEN to the bare minimum required
+permissions:
+  contents: read
+  pull-requests: read
+
 jobs:
-  check-title:
+  check-automated:
     runs-on: ubuntu-latest
+    name: Check automated 
     steps:
-      - name: Check for Dependency Title
-        id: title_check
+      - name: Verify PR Metadata and Actor
+        id: security_check
         run: |
           PR_TITLE="${{ github.event.pull_request.title }}"
-          if [[ "$PR_TITLE" =~ ^chore\(deps\): ]]; then
-            echo "This is an automated dependency update. Proceeding."
+          ACTOR="${{ github.actor }}"
+          HEAD_REPO="${{ github.event.pull_request.head.repo.full_name }}"
+          BASE_REPO="${{ github.repository }}"
+          BRANCH_NAME="${{ github.head_ref }}"
+
+          echo "Evaluating PR #$Line from actor: $ACTOR"
+
+          # 1. Verify the repository origin (Block external forks)
+          if [ "$HEAD_REPO" != "$BASE_REPO" ]; then
+            echo "SECURITY WARN: Auto-merge is strictly forbidden for external forks."
+            echo "is_dep=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # 2. Verify the PR title format, the expected branch prefix, and the authenticated bot actor
+          if [[ "$PR_TITLE" =~ ^chore\(deps\): ]] && [[ "$BRANCH_NAME" =~ ^renovate/ ]] && [[ "$ACTOR" == "renovate[bot]" ]]; then
+            echo "SUCCESS: Verified automated dependency update from Renovate."
             echo "is_dep=true" >> $GITHUB_OUTPUT
           else
-            echo "This is a human PR. Blocking automatic merging engine."
+            echo "SECURITY WARN: Spoofing attempt or unauthorized manual PR detected."
             echo "is_dep=false" >> $GITHUB_OUTPUT
           fi
 
-      # This step only passes for Renovate/Dependency PRs
+      # This step only passes for legitimate Renovate PRs
       - name: Gatekeeper Status
-        if: steps.title_check.outputs.is_dep == 'true'
+        if: steps.security_check.outputs.is_dep == 'true'
         run: echo "Gatekeeper passed successfully."
 
-      # This step fails or hangs for human PRs, blocking auto-merge
-      - name: Block Non-Dependency Automerge
-        if: steps.title_check.outputs.is_dep == 'false'
+      # This step explicitly fails to block status-check-dependent auto-mergers
+      - name: Block Unauthorized Automerge
+        if: steps.security_check.outputs.is_dep == 'false'
         run: |
-          echo "::error::Auto-merge is disabled for non-dependency PRs."
+          echo "::error::Auto-merge engine blocked for this pull request."
           exit 1
-          
