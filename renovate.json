@@ -1,14 +1,14 @@
 {
-  "extends": ["config:base"],
-  "ignoreDeps": [
-    "@mdx-js/react",
-    "@types/showdown",
-    "@types/yargs",
-    "fast-xml-parser",
-    "googleapis",
-    "jsdom",
-    "showdown",
-    "yargs"
+  "$schema": "https://renovatebot.com",
+  "extends": [
+    "config:base"
   ],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    }
+  ],
+  "platformAutomerge": true,
   "stabilityDays": 7
 }
