@@ -6,6 +6,7 @@ on:
 
 jobs:
   check-title:
+    name: Check automated
     runs-on: ubuntu-latest
     steps:
       - name: Check for Dependency Title
