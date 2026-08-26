@@ -5,8 +5,13 @@
   ],
   "packageRules": [
     {
+      "matchPaths": ["blog-website/**"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": true
+    },
+    {
+      "excludePaths": ["blog-website/**"],
+      "enabled": false
     }
   ],
   "platformAutomerge": true,
