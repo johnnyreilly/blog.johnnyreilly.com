@@ -177,7 +177,7 @@ jobs:
         run: |
           (
             cd blog-website
-            npm ci
+            npm ci --no-audit --no-fund
             DOCUSAURUS_SSR_CONCURRENCY=5 IS_LIVE_SITE=false npm run build
             cp staticwebapp.config.json build/staticwebapp.config.json
           ) &
@@ -185,7 +185,7 @@ jobs:
 
           (
             cd blog-website/api
-            npm ci
+            npm ci --no-audit --no-fund
             npm run build
           ) &
           API_PID=$!
@@ -198,7 +198,7 @@ jobs:
         run: |
           (
             cd blog-website
-            npm ci
+            npm ci --no-audit --no-fund
             npx sequoia-cli publish
             DOCUSAURUS_SSR_CONCURRENCY=5 IS_LIVE_SITE=true npm run build
             cp staticwebapp.config.json build/staticwebapp.config.json
@@ -208,7 +208,7 @@ jobs:
 
           (
             cd blog-website/api
-            npm ci
+            npm ci --no-audit --no-fund
             npm run build
           ) &
           API_PID=$!
@@ -293,7 +293,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --no-audit --no-fund
         working-directory: ./blog-website-tests
 
       - name: Get installed Playwright version

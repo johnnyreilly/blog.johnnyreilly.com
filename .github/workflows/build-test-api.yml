@@ -32,7 +32,7 @@ jobs:
       - name: API build and test ⚙️
         run: |
           cd blog-website/api
-          npm ci
+          npm ci --no-audit --no-fund
           npm run lint
           npm run build
           npm test

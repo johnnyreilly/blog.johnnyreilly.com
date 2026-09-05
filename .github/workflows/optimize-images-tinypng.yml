@@ -1,0 +1,110 @@
+name: Optimize blog images via TinyPNG
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+    paths:
+      - blog-website/blog/**
+
+permissions:
+  contents: write
+  pull-requests: read
+
+concurrency:
+  group: tinypng-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  optimize_blog_images:
+    if: ${{ !github.event.pull_request.head.repo.fork }}
+    runs-on: ubuntu-latest
+    name: Optimize blog images via TinyPNG
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: tinypng/package-lock.json
+
+      - name: Validate TinyPNG key
+        env:
+          TINIFY_KEY: ${{ secrets.TINIFY_KEY }}
+        run: |
+          if [ -z "$TINIFY_KEY" ]; then
+            echo "::error::TINIFY_KEY secret is required for TinyPNG optimization."
+            exit 1
+          fi
+
+      - name: Install TinyPNG dependencies
+        run: npm ci
+        working-directory: tinypng
+
+      - name: Discover changed blog directories
+        id: changed_dirs
+        run: |
+          changed_dirs=$(git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" -- 'blog-website/blog/**' \
+            | awk -F/ 'NF >= 3 { print $3 }' \
+            | sort -u)
+
+          if [ -z "$changed_dirs" ]; then
+            echo "has_dirs=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          {
+            echo "directories<<EOF"
+            echo "$changed_dirs"
+            echo "EOF"
+            echo "has_dirs=true"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Run TinyPNG for changed blog directories
+        if: steps.changed_dirs.outputs.has_dirs == 'true'
+        env:
+          TINIFY_KEY: ${{ secrets.TINIFY_KEY }}
+        run: |
+          failed=0
+
+          while IFS= read -r blog_dir; do
+            [ -z "$blog_dir" ] && continue
+            echo "Processing blog directory: $blog_dir"
+
+            if ! (cd tinypng && BLOG_DIR="$blog_dir" npm start); then
+              echo "::error::TinyPNG failed for blog directory $blog_dir"
+              failed=1
+            fi
+          done <<< "${{ steps.changed_dirs.outputs.directories }}"
+
+          if [ "$failed" -ne 0 ]; then
+            exit 1
+          fi
+
+      - name: Commit optimized images
+        if: steps.changed_dirs.outputs.has_dirs == 'true'
+        run: |
+          if git diff --quiet -- blog-website/blog; then
+            echo "No optimized image changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add blog-website/blog
+
+          if git diff --cached --quiet; then
+            echo "No staged changes to commit."
+            exit 0
+          fi
+
+          git commit -m "chore(images): optimize PR blog images via TinyPNG"
+          git push origin "HEAD:${{ github.head_ref }}"
