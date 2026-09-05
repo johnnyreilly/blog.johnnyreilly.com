@@ -23,32 +23,34 @@ jobs:
           BASE_REPO="${{ github.repository }}"
           BRANCH_NAME="${{ github.head_ref }}"
 
-          echo "Evaluating PR #$Line from actor: $ACTOR"
+          echo "Evaluating PR #${{ github.event.pull_request.number }} from actor: $ACTOR"
 
           # 1. Verify the repository origin (Block external forks)
           if [ "$HEAD_REPO" != "$BASE_REPO" ]; then
             echo "SECURITY WARN: Auto-merge is strictly forbidden for external forks."
-            echo "is_dep=false" >> $GITHUB_OUTPUT
+            echo "allow_automerge=false" >> $GITHUB_OUTPUT
             exit 0
           fi
 
           # 2. Verify the PR title format, the expected branch prefix, and the authenticated bot actor
           if [[ "$PR_TITLE" =~ ^chore\(deps\): ]] && [[ "$BRANCH_NAME" =~ ^renovate/ ]] && [[ "$ACTOR" == "renovate[bot]" ]]; then
             echo "SUCCESS: Verified automated dependency update from Renovate."
-            echo "is_dep=true" >> $GITHUB_OUTPUT
+            echo "allow_automerge=true" >> $GITHUB_OUTPUT
           else
             echo "SECURITY WARN: Spoofing attempt or unauthorized manual PR detected."
-            echo "is_dep=false" >> $GITHUB_OUTPUT
+            echo "allow_automerge=false" >> $GITHUB_OUTPUT
           fi
 
       # This step only passes for legitimate Renovate PRs
-      - name: Gatekeeper Status
-        if: steps.security_check.outputs.is_dep == 'true'
-        run: echo "Gatekeeper passed successfully."
+      - name: Allow Auto-Merge for verified PRs
+        if: steps.security_check.outputs.allow_automerge == 'true'
+        run: |
+          echo "Gatekeeper passed successfully - PR #${{ github.event.pull_request.number }} is eligible for auto-merge."
+          gh pr merge ${{ github.event.pull_request.number }} --auto --squash
 
       # This step explicitly fails to block status-check-dependent auto-mergers
-      - name: Block Unauthorized Automerge
-        if: steps.security_check.outputs.is_dep == 'false'
+      - name: Block Unauthorized Auto-Merge for unverified PRs
+        if: steps.security_check.outputs.allow_automerge == 'false'
         run: |
           echo "::error::Auto-merge engine blocked for this pull request."
-          exit 1
+          gh pr merge ${{ github.event.pull_request.number }} --disable-auto
