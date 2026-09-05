@@ -7,7 +7,7 @@ on:
 # Explicitly lock down the GITHUB_TOKEN to the bare minimum required
 permissions:
   contents: read
-  pull-requests: read
+  pull-requests: write
 
 jobs:
   check-automated:
