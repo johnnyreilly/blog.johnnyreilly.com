@@ -34,10 +34,10 @@ jobs:
 
           # 2. Verify the PR title format, the expected branch prefix, and the authenticated bot actor
           if [[ "$PR_TITLE" =~ ^chore\(deps\): ]] && [[ "$BRANCH_NAME" =~ ^renovate/ ]] && [[ "$ACTOR" == "renovate[bot]" ]]; then
-            echo "SUCCESS: Verified automated dependency update from Renovate."
+            echo "SUCCESS: Verified automated dependency update - eligible for auto-merge."
             echo "allow_automerge=true" >> $GITHUB_OUTPUT
           else
-            echo "SECURITY WARN: Spoofing attempt or unauthorized manual PR detected."
+            echo "FAILURE: Not eligible for auto-merge."
             echo "allow_automerge=false" >> $GITHUB_OUTPUT
           fi
 
