@@ -47,10 +47,14 @@ jobs:
         run: |
           echo "Gatekeeper passed successfully - PR #${{ github.event.pull_request.number }} is eligible for auto-merge."
           gh pr merge ${{ github.event.pull_request.number }} --auto --squash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # This step explicitly fails to block status-check-dependent auto-mergers
       - name: Block Unauthorized Auto-Merge for unverified PRs
         if: steps.security_check.outputs.allow_automerge == 'false'
         run: |
-          echo "::error::Auto-merge engine blocked for this pull request."
+          echo "::info::Auto-merge engine blocked for this pull request."
           gh pr merge ${{ github.event.pull_request.number }} --disable-auto
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
