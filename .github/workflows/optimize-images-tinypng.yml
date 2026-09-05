@@ -26,6 +26,9 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          # Blobless partial clone: keeps full commit/tree history (required above)
+          # but skips downloading historical file blobs, which is most of the repo's size.
+          filter: blob:none
           ref: ${{ github.head_ref }}
 
       - name: Setup Node.js
