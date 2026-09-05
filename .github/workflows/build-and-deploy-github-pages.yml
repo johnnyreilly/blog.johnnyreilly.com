@@ -27,6 +27,9 @@ jobs:
           # Number of commits to fetch. 0 indicates all history for all branches and tags.
           # Default: 1
           fetch-depth: 0
+          # Blobless partial clone: keeps full commit/tree history (required above)
+          # but skips downloading historical file blobs, which is most of the repo's size.
+          filter: blob:none
 
       - name: Setup Node.js 🔧
         uses: actions/setup-node@v7

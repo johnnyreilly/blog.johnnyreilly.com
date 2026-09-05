@@ -18,10 +18,8 @@ jobs:
     steps:
       - name: Checkout 📥
         uses: actions/checkout@v7
-        with:
-          # Number of commits to fetch. 0 indicates all history for all branches and tags.
-          # Default: 1
-          fetch-depth: 0
+        # This job only lints/builds/tests the API - no git history is needed,
+        # so we use the default shallow (fetch-depth: 1) checkout for speed.
 
       - name: Setup Node.js 🔧
         uses: actions/setup-node@v7
@@ -32,7 +30,7 @@ jobs:
       - name: API build and test ⚙️
         run: |
           cd blog-website/api
-          npm ci
+          npm ci --no-audit --no-fund
           npm run lint
           npm run build
           npm test
