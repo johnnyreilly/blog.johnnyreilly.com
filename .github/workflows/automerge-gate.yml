@@ -2,7 +2,7 @@ name: Automerge Gatekeeper
 
 on:
   pull_request:
-    types: [opened, edited, synchronized]
+    types: [opened, edited, synchronize]
 
 # Explicitly lock down the GITHUB_TOKEN to the bare minimum required
 permissions:
@@ -12,7 +12,7 @@ permissions:
 jobs:
   check-automated:
     runs-on: ubuntu-latest
-    name: Check automated 
+    name: Check automated
     steps:
       - name: Verify PR Metadata and Actor
         id: security_check
