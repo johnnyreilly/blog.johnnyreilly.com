@@ -12,10 +12,10 @@ permissions:
 jobs:
   check-automated:
     runs-on: ubuntu-latest
-    name: Check automated
+    name: Auto-merge if eligible
     steps:
-      - name: Verify PR Metadata and Actor
-        id: security_check
+      - name: Check auto-merge eligibility
+        id: check_automergable
         run: |
           PR_TITLE="${{ github.event.pull_request.title }}"
           ACTOR="${{ github.actor }}"
@@ -41,18 +41,16 @@ jobs:
             echo "allow_automerge=false" >> $GITHUB_OUTPUT
           fi
 
-      # This step only passes for legitimate Renovate PRs
-      - name: Allow Auto-Merge for verified PRs
-        if: steps.security_check.outputs.allow_automerge == 'true'
+      - name: Allow auto-merge for eligible PRs
+        if: steps.check_automergable.outputs.allow_automerge == 'true'
         run: |
           echo "::notice title=Gatekeeper::PR #${{ github.event.pull_request.number }} is eligible for auto-merge."
           gh pr merge ${{ github.event.pull_request.number }} --auto --squash --repo ${{ github.repository }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # This step explicitly fails to block status-check-dependent auto-mergers
-      - name: Block Unauthorized Auto-Merge for unverified PRs
-        if: steps.security_check.outputs.allow_automerge == 'false'
+      - name: Block auto-merge for ineligible PRs
+        if: steps.check_automergable.outputs.allow_automerge == 'false'
         run: |
           echo "::notice title=Gatekeeper::PR #${{ github.event.pull_request.number }} is not eligible for auto-merge."
           # Best-effort: disabling auto-merge fails with a GraphQL error when the
