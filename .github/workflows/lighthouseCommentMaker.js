@@ -6,7 +6,6 @@
  * @prop {number} accessibility
  * @prop {number} best-practices
  * @prop {number} seo
- * @prop {number} pwa
  */
 
 /**
@@ -65,7 +64,7 @@
 //   return comment;
 // }
 
-/** @typedef {Record<'performance' | 'accessibility' | 'best-practices' | 'seo' | 'pwa', number>} LighthouseSummary */
+/** @typedef {Record<'performance' | 'accessibility' | 'best-practices' | 'seo', number>} LighthouseSummary */
 
 /** @type {Record<keyof LighthouseSummary, string>} */
 const summaryKeys = {
@@ -73,7 +72,6 @@ const summaryKeys = {
   accessibility: 'Accessibility',
   'best-practices': 'Best Practices',
   seo: 'SEO',
-  pwa: 'PWA',
 };
 
 /** @param {number} rawScore */
@@ -172,7 +170,6 @@ const _exampleOutputs = {
         accessibility: 0.97,
         'best-practices': 0.93,
         seo: 1,
-        pwa: 0.64,
       },
     },
   ],
