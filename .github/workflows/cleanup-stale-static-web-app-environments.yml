@@ -1,0 +1,73 @@
+name: Static Web App - Cleanup stale preview environments 🧹
+
+on:
+  schedule:
+    # 03:00 UTC daily
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  id-token: write # Require write permission to Fetch an OIDC token.
+  contents: read
+
+env:
+  AZURE_RESOURCE_GROUP: rg-blog-johnnyreilly-com
+  STATIC_WEB_APP_NAME: blog.johnnyreilly.com
+  MAX_ENVIRONMENT_AGE_DAYS: 3
+
+jobs:
+  cleanup_stale_environments_job:
+    runs-on: ubuntu-latest
+    name: Cleanup stale preview environments 🧹
+    steps:
+      - name: AZ CLI login 🔑
+        uses: azure/login@v3
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Delete preview environments older than ${{ env.MAX_ENVIRONMENT_AGE_DAYS }} days 💥
+        uses: azure/CLI@v3
+        with:
+          inlineScript: |
+            set -euo pipefail
+
+            CUTOFF_EPOCH=$(date -u -d "${{ env.MAX_ENVIRONMENT_AGE_DAYS }} days ago" +%s)
+
+            az staticwebapp environment list \
+              --name '${{ env.STATIC_WEB_APP_NAME }}' \
+              --resource-group '${{ env.AZURE_RESOURCE_GROUP }}' \
+              -o json > environments.json
+
+            echo "Found $(jq 'length' environments.json) environment(s)"
+
+            jq -c '.[]' environments.json | while read -r environment; do
+              BUILD_ID=$(echo "$environment" | jq -r '.buildId // .name // empty')
+              STATUS=$(echo "$environment" | jq -r '.status // empty')
+              CREATED=$(echo "$environment" | jq -r '.createdTimeUtc // empty')
+
+              if [ -z "$BUILD_ID" ] || [ "$BUILD_ID" = "default" ]; then
+                echo "⏭️  Skipping production environment"
+                continue
+              fi
+
+              if [ -z "$CREATED" ]; then
+                echo "⏭️  Skipping environment '$BUILD_ID' - no createdTimeUtc reported"
+                continue
+              fi
+
+              CREATED_EPOCH=$(date -u -d "$CREATED" +%s)
+
+              if [ "$CREATED_EPOCH" -ge "$CUTOFF_EPOCH" ]; then
+                echo "✅ Keeping environment '$BUILD_ID' (status: $STATUS, created: $CREATED)"
+                continue
+              fi
+
+              echo "💥 Deleting stale environment '$BUILD_ID' (status: $STATUS, created: $CREATED)"
+              az staticwebapp environment delete \
+                --name '${{ env.STATIC_WEB_APP_NAME }}' \
+                --resource-group '${{ env.AZURE_RESOURCE_GROUP }}' \
+                --environment-name "$BUILD_ID" \
+                --yes
+            done
