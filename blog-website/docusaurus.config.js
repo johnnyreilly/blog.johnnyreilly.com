@@ -170,7 +170,7 @@ const siteStructuredData = {
         },
         'query-input': 'required name=search_term_string',
       },
-      inLanguage: 'en-UK',
+      inLanguage: 'en-GB',
     },
 
     {
@@ -180,7 +180,7 @@ const siteStructuredData = {
       alternateName: 'Johnny Reilly',
       image: {
         '@type': 'ImageObject',
-        inLanguage: 'en-UK',
+        inLanguage: 'en-GB',
         '@id': 'https://johnnyreilly.com/about#image',
         url: 'https://johnnyreilly.com/img/profile-2025.jpg',
         contentUrl: 'https://johnnyreilly.com/img/profile-2025.jpg',
@@ -211,7 +211,7 @@ const siteStructuredData = {
       description,
       logo: {
         '@type': 'ImageObject',
-        inLanguage: 'en-UK',
+        inLanguage: 'en-GB',
         '@id': 'https://johnnyreilly.com/#logo',
         url: 'https://johnnyreilly.com/img/profile-2025.jpg',
         contentUrl: 'https://johnnyreilly.com/img/profile-2025.jpg',
