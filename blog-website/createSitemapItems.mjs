@@ -1,20 +1,25 @@
 //@ts-check
-/* eslint-env node */
 import path from 'node:path';
 import fs from 'node:fs';
+import { simpleGit } from 'simple-git';
 
 /**
  * @typedef {import('@docusaurus/plugin-sitemap').PluginOptions["createSitemapItems"]} CreateSitemapItemsFn
  */
 
+// blog-website is a subdirectory of the git repo, so the repo root is one level up
+const repoRoot = path.resolve('..');
+const git = simpleGit({ baseDir: repoRoot });
+
 /** @type {NonNullable<CreateSitemapItemsFn>} */
 export async function createSitemapItems(params) {
-  const canonicalSlugs = await getCanonicalSlugs();
+  const { canonicalSlugs, slugToFilePath } = await getBlogPostsInfo();
   // console.log('canonicalSlugs', canonicalSlugs);
 
   const { defaultCreateSitemapItems, ...rest } = params;
   const items = await defaultCreateSitemapItems(rest);
-  return items.filter((item) => {
+  const filteredItems = items.filter((item) => {
+    // console.log(JSON.stringify(item));
     const include =
       !item.url.endsWith(`/blog-handrolled`) && // we have /blog and /blog-handrolled; we only want /blog
       // !item.url.endsWith(`/search`) &&
@@ -27,11 +32,40 @@ export async function createSitemapItems(params) {
     }
     return include;
   });
+
+  for (const item of filteredItems) {
+    if (!item.lastmod) {
+      const slug = item.url.replace(/\/$/, '').split('/').pop();
+      const filePath = slug && slugToFilePath.get(slug);
+      if (filePath) {
+        item.lastmod = await getGitLastMod(filePath);
+      }
+    }
+  }
+
+  return filteredItems;
 }
 
-async function getCanonicalSlugs() {
+/**
+ * Determine the last modified date of a file, according to git history
+ * @param {string} filePath
+ */
+async function getGitLastMod(filePath) {
+  try {
+    const log = await git.log({ file: filePath });
+    const date = log.latest?.date;
+    return date ? new Date(date).toISOString() : undefined;
+  } catch (e) {
+    console.log(`could not determine git lastmod for ${filePath}`, e);
+    return undefined;
+  }
+}
+
+async function getBlogPostsInfo() {
   /** @type {string[]} */
   const canonicalSlugs = [];
+  /** @type {Map<string, string>} */
+  const slugToFilePath = new Map();
   const slugRegex = /slug: (.*)\n/;
 
   const blogIndexMds = await getBlogIndexMds();
@@ -44,12 +78,14 @@ async function getCanonicalSlugs() {
     }
 
     const slug = slugMatch[1];
+    slugToFilePath.set(slug, path.relative(repoRoot, blogIndexMd));
+
     if (blogPostContent.includes('<link rel="canonical" href=')) {
       canonicalSlugs.push(slug);
     }
   }
 
-  return canonicalSlugs;
+  return { canonicalSlugs, slugToFilePath };
 }
 
 async function getBlogIndexMds() {
