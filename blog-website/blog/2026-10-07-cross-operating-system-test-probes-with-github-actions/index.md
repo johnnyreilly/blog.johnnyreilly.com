@@ -21,22 +21,22 @@ This post is about a small GitHub Actions workflow that removed me from that loo
 
 First, a little story. You remember lockdown? I remember lockdown. For most of my working life, I'd been dev-ing on Windows machines. I was aware there were other operating systems out there, but I'd just never quite got round to doing much with them. But I meant to. To that end, a friend had helped me repave an old Dell XPS from Windows to Ubuntu.
 
-On Monday 23rd March 2020 I was leaving the office. Whilst we didn't actually know for sure then, there were rumours of some kind of lockdown coming. Nothing had been announced, but it was in the air. On a whim, as I left, I decided to take home my Ubuntu laptop, which was presently sitting unused in my locker. Then we went into lockdown.
+On Monday 23rd March 2020 I was leaving the office. Whilst we didn't actually know for sure then, there were rumours of some kind of lockdown coming. Nothing had been announced, but it was in the air. On a whim, as I left, I decided to take home my Ubuntu laptop, which had been sitting unused in my locker. That night we went into lockdown.
 
-To entertain myself during lockdown I decided I wouldn't allow myself to use my Windows laptop at home, only the Ubuntu one. And I liked it. Thus I stopped using Windows for development. Since that time, I've only really used Ubuntu and Macs to write code. My home laptop of choice at the moment is a MacBook Air M2.
+To entertain myself during lockdown I decided I wouldn't allow myself to use my Windows laptop at home, only the Ubuntu one. That'll pass the time until we can emerge from our homes again. Brilliant idea! And I found I liked Ubuntu. It's really nice. Thus I stopped using Windows for development. Since that time, I've only really used Ubuntu and Macs to write code. Right now I'm using a MacBook Air M2.
 
 Why am I telling you this? Well, one of the projects I work on is [`ts-loader`](https://github.com/TypeStrong/ts-loader), which is a webpack loader for TypeScript. I've looked after it for [many moons](../2016-11-01-but-you-cant-die-i-love-you-ts-loader/index.md) and it has long worked on Mac, Windows and Linux.
 
 Now, the codebase for `ts-loader` hadn't changed much in years, but it's now changing massively, in order to support the TypeScript 7.1+ APIs that are under development. (Work in progress is [happening here](https://github.com/TypeStrong/ts-loader/pull/1704).)
 
-The near enough complete rewrite of `ts-loader` has been powered by AI (mostly Claude) and has been underpinned by the existing integration test packs that `ts-loader` has had in place for years. By and large, they aren't actually changing much and they are providing validation that the new codebase works.
+The near enough complete rewrite of `ts-loader` has been powered by AI (mostly Claude) and has been underpinned by the existing integration test packs that `ts-loader` has had in place for years. By and large, the test packs aren't actually changing much and they are providing validation that the new codebase works.
 
-Now we come to the "but", and the reason for the story. But tests started breaking on Windows. Locally on my Mac they were fine. According to GitHub Actions they were fine on Linux as well. But Windows tests were failing.
+Now we come to the "but", and the reason for the story. The "but" was that tests started breaking on Windows. Locally on my Mac they were fine. According to GitHub Actions they were fine on Linux as well. But on Windows the tests were failing.
 
 Two pieces of information that are relevant here:
 
 1. I had no interest in getting a Windows machine set up to debug this.
-2. My sons have both half-inched the Windows laptops that I owned and repurposed them for gaming. So it wasn't like it would have been straightforward anyway.
+2. My sons had both half-inched the Windows laptops that I owned and repurposed them for gaming. So it wasn't like it would have been straightforward anyway.
 
 So what to do? So far, so anecdotal. Let us now transition into a more typical blog post, wherein we shall discuss problems and solutions.
 
@@ -52,7 +52,7 @@ None of this shows up on a Mac. The agent (I was mostly using Claude Code) would
 
 There were two problems with this:
 
-1. **I was the bottleneck.** The agent was blocked on me relaying CI output. If I wandered off to make a cup of tea, everything stopped.
+1. **I was the bottleneck.** The agent was blocked on me relaying CI output. If I wandered off, everything stopped.
 2. **The feedback loop was slow.** The full CI run for `ts-loader` covers comparison tests and a matrix of execution tests across Node, TypeScript and webpack versions. Waiting for all of that to find out whether one Windows comparison test passed is a waste of time and of runner minutes.
 
 What I wanted was something the agent could run itself, that would only run the tests it cared about, on the operating system it cared about, and come back fast.
