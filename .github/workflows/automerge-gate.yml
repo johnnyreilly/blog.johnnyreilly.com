@@ -61,9 +61,11 @@ jobs:
             echo "configured=true" >> "$GITHUB_OUTPUT"
           fi
 
+      # Only needed to enable auto-merge, or to disable it on a managed PR that has it on -
+      # otherwise a token problem would fail this required check on PRs with nothing to do
       - name: Create GitHub App token 🔑
         id: app_token
-        if: steps.app_configured.outputs.configured == 'true' && (steps.check_automergable.outputs.allow_automerge == 'true' || steps.check_automergable.outputs.managed == 'true')
+        if: steps.app_configured.outputs.configured == 'true' && (steps.check_automergable.outputs.allow_automerge == 'true' || (steps.check_automergable.outputs.managed == 'true' && steps.check_automergable.outputs.auto_merge_enabled == 'true'))
         uses: actions/create-github-app-token@v3
         with:
           client-id: ${{ secrets.AUTOMERGE_APP_CLIENT_ID }}
