@@ -55,7 +55,7 @@ jobs:
         id: changed_dirs
         run: |
           changed_dirs=$(git diff --name-only "${{ github.event.pull_request.base.sha }}" "${{ github.event.pull_request.head.sha }}" -- 'blog-website/blog/**' \
-            | awk -F/ 'NF >= 3 { print $3 }' \
+            | awk -F/ 'NF >= 4 { print $3 }' \
             | sort -u)
 
           if [ -z "$changed_dirs" ]; then
@@ -79,6 +79,13 @@ jobs:
 
           while IFS= read -r blog_dir; do
             [ -z "$blog_dir" ] && continue
+
+            # Deleted or renamed posts show up in the diff but no longer exist on disk
+            if [ ! -d "blog-website/blog/$blog_dir" ]; then
+              echo "Skipping $blog_dir - directory no longer exists"
+              continue
+            fi
+
             echo "Processing blog directory: $blog_dir"
 
             if ! (cd tinypng && BLOG_DIR="$blog_dir" npm start); then
