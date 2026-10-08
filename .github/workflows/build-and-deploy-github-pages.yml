@@ -11,9 +11,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  id-token: write # Require write permission to Fetch an OIDC token.
-  contents: write
-  pull-requests: write
+  contents: write # Required to push to the gh-pages branch
 
 jobs:
   deploy_to_github_pages_job:

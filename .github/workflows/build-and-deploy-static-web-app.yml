@@ -12,7 +12,8 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  # Only cancel superseded PR runs - cancelling on main could interrupt a provision or deploy midway
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   id-token: write # Require write permission to Fetch an OIDC token.
@@ -214,6 +215,8 @@ jobs:
           inlineScript: |
             # APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.properties.apiKey')
             APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' --query properties.apiKey -o tsv)
+            # Not a registered secret, so mask it or it is printed in plain text in the deploy step's inputs
+            echo "::add-mask::$APIKEY"
             echo "APIKEY=$APIKEY" >> $GITHUB_OUTPUT
 
       - name: Deploy site 🚀
@@ -438,6 +441,8 @@ jobs:
           inlineScript: |
             # APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' | jq -r '.properties.apiKey')
             APIKEY=$(az staticwebapp secrets list --name '${{ env.STATIC_WEB_APP_NAME }}' --query properties.apiKey -o tsv)
+            # Not a registered secret, so mask it or it is printed in plain text in the deploy step's inputs
+            echo "::add-mask::$APIKEY"
             echo "APIKEY=$APIKEY" >> $GITHUB_OUTPUT
 
       - name: Destroy staging environment 💥
