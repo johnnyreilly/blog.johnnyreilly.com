@@ -32,18 +32,10 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
-            const { evaluateAutomerge } = require('./.github/workflows/automergeRules.js');
+            const { evaluateAutomerge, toPullRequestInfo } = require('./.github/workflows/automergeRules.js');
 
             const pr = context.payload.pull_request;
-            const result = evaluateAutomerge({
-              title: pr.title,
-              author: pr.user.login,
-              actor: context.actor,
-              branch: pr.head.ref,
-              headRepo: pr.head.repo?.full_name ?? '',
-              baseRepo: `${context.repo.owner}/${context.repo.repo}`,
-              labels: pr.labels.map((label) => label.name),
-            });
+            const result = evaluateAutomerge(toPullRequestInfo(context));
 
             core.notice(result.reason, {
               title: result.eligible ? 'Eligible for auto-merge' : 'Not eligible for auto-merge',

@@ -72,6 +72,28 @@ const rules = [
 ];
 
 /**
+ * Builds the PR details the guards and rules evaluate from the github-script `context`
+ * of a `pull_request` event. If a new rule needs more data, add it here and to
+ * PullRequestInfo.
+ * @param {{ actor: string, repo: { owner: string, repo: string }, payload: { pull_request?: any } }} context
+ * @returns {PullRequestInfo}
+ */
+function toPullRequestInfo(context) {
+  const pr = context.payload.pull_request;
+  return {
+    title: pr.title,
+    author: pr.user.login,
+    actor: context.actor,
+    branch: pr.head.ref,
+    headRepo: pr.head.repo?.full_name ?? '',
+    baseRepo: `${context.repo.owner}/${context.repo.repo}`,
+    labels: pr.labels.map(
+      (/** @type {{ name: string }} */ label) => label.name,
+    ),
+  };
+}
+
+/**
  * @param {PullRequestInfo} pr
  */
 function evaluateAutomerge(pr) {
@@ -108,4 +130,4 @@ function evaluateAutomerge(pr) {
   };
 }
 
-module.exports = { evaluateAutomerge, guards, rules };
+module.exports = { evaluateAutomerge, toPullRequestInfo, guards, rules };
