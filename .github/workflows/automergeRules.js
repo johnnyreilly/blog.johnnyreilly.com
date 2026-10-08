@@ -46,6 +46,17 @@ const guards = [
     name: 'on a renovate/ branch',
     passes: (pr) => pr.branch.startsWith('renovate/'),
   },
+  {
+    // Fails closed: a PR with no update:* label yet (Renovate may add labels just
+    // after opening the PR) is not eligible until the label arrives
+    name: 'not a major update',
+    passes: (pr) => {
+      const updateLabels = pr.labels.filter((label) =>
+        label.startsWith('update:'),
+      );
+      return updateLabels.length > 0 && !updateLabels.includes('update:major');
+    },
+  },
 ];
 
 /**
