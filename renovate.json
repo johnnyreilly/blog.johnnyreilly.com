@@ -1,19 +1,35 @@
 {
-  "$schema": "https://renovatebot.com",
-  "extends": [
-    "config:base"
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Renovate's own automerge is off - .github/workflows/automerge-gate.yml decides what auto-merges",
+  "extends": ["config:recommended"],
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/bower_components/**",
+    "**/vendor/**",
+    "**/examples/**",
+    "**/__tests__/**",
+    "**/test/**",
+    "**/tests/**",
+    "**/__fixtures__/**",
+    "from-blogger-to-docusaurus/**",
+    "from-docusaurus-to-blogger/**",
+    "from-docusaurus-to-devto/**",
+    "its-all-relative/**",
+    "open-ai-description/**",
+    "tags-trim/**"
   ],
   "packageRules": [
     {
-      "matchPaths": ["blog-website/**"],
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "automerge": false
+      "description": "Labels read by the automerge gate - see .github/workflows/automergeRules.js",
+      "matchPackageNames": ["*"],
+      "addLabels": ["update:{{updateType}}", "manager:{{manager}}"]
     },
     {
-      "excludePaths": ["blog-website/**"],
-      "enabled": false
+      "matchFileNames": ["blog-website/**"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": false
     }
   ],
   "platformAutomerge": false,
-  "stabilityDays": 7
+  "minimumReleaseAge": "7 days"
 }
