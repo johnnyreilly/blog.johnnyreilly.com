@@ -16,14 +16,16 @@ jobs:
     steps:
       - name: Check auto-merge eligibility
         id: check_automergable
+        # Pass untrusted values (title, branch) via env rather than ${{ }} in the script to prevent shell injection
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          ACTOR: ${{ github.actor }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          BASE_REPO: ${{ github.repository }}
+          BRANCH_NAME: ${{ github.head_ref }}
         run: |
-          PR_TITLE="${{ github.event.pull_request.title }}"
-          ACTOR="${{ github.actor }}"
-          HEAD_REPO="${{ github.event.pull_request.head.repo.full_name }}"
-          BASE_REPO="${{ github.repository }}"
-          BRANCH_NAME="${{ github.head_ref }}"
-
-          echo "Evaluating PR #${{ github.event.pull_request.number }} from actor: $ACTOR"
+          echo "Evaluating PR #$PR_NUMBER from actor: $ACTOR"
 
           # 1. Verify the repository origin (Block external forks)
           if [ "$HEAD_REPO" != "$BASE_REPO" ]; then
