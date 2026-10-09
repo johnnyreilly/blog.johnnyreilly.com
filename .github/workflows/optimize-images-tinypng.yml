@@ -23,7 +23,7 @@ jobs:
     name: Optimize blog images via TinyPNG
     steps:
       - name: Checkout PR branch
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           # Blobless partial clone: keeps full commit/tree history (required above)
