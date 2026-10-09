@@ -6,7 +6,7 @@
   "dependencies": {
     "@types/lodash": "^4.14.198",
     "bun-types": "^1.0.2",
-    "fast-xml-parser": "^4.0.12",
+    "fast-xml-parser": "^5.0.0",
     "lodash": "^4.17.21",
     "simple-git": "^3.15.0",
     "typescript": "^6.0.0"
