@@ -4,17 +4,18 @@ on:
   pull_request:
     types: [opened, reopened, edited, synchronize, labeled, unlabeled]
 
-# Events for the same PR can arrive close together (e.g. edited + synchronize) -
-# only the latest run should enable / disable auto-merge
-concurrency:
-  group: automerge-gate-${{ github.event.pull_request.number }}
-  cancel-in-progress: true
+# No `concurrency` group on purpose: this job is a required check, and a cancelled run
+# leaves a cancelled "Auto-merge if eligible" check on the commit that blocks merging.
+# Several runs per PR are normal (Renovate's label events), so instead each run reads
+# the PR's current state from the API rather than its event payload - whichever run
+# finishes last decides using up-to-date labels and title.
 
 # Auto-merge is enabled with a GitHub App token, not GITHUB_TOKEN: merges made via
 # GITHUB_TOKEN don't trigger `push` workflows, so the site would never deploy.
 # GITHUB_TOKEN therefore only needs to read the repo.
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   check-automated:
@@ -34,8 +35,11 @@ jobs:
           script: |
             const { evaluateAutomerge, toPullRequestInfo } = require('./.github/workflows/automergeRules.js');
 
-            const pr = context.payload.pull_request;
-            const result = evaluateAutomerge(toPullRequestInfo(context));
+            const { data: pr } = await github.rest.pulls.get({
+              ...context.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+            const result = evaluateAutomerge(toPullRequestInfo(context, pr));
 
             core.notice(result.reason, {
               title: result.eligible ? 'Eligible for auto-merge' : 'Not eligible for auto-merge',

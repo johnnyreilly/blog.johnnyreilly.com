@@ -72,14 +72,13 @@ const rules = [
 ];
 
 /**
- * Builds the PR details the guards and rules evaluate from the github-script `context`
- * of a `pull_request` event. If a new rule needs more data, add it here and to
- * PullRequestInfo.
- * @param {{ actor: string, repo: { owner: string, repo: string }, payload: { pull_request?: any } }} context
+ * Builds the PR details the guards and rules evaluate. If a new rule needs more data,
+ * add it here and to PullRequestInfo.
+ * @param {{ actor: string, repo: { owner: string, repo: string } }} context - github-script `context` of a `pull_request` event
+ * @param {any} pr - the PR as returned by the REST API (current state, not the event payload)
  * @returns {PullRequestInfo}
  */
-function toPullRequestInfo(context) {
-  const pr = context.payload.pull_request;
+function toPullRequestInfo(context, pr) {
   return {
     title: pr.title,
     author: pr.user.login,
