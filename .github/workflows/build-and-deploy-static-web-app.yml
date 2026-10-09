@@ -11,7 +11,9 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  # Group PR runs by PR number, not github.ref: a merged PR's `closed` run has
+  # github.ref = refs/heads/main, so it would share main's group and cancel the deploy
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   # Only cancel superseded PR runs - cancelling on main could interrupt a provision or deploy midway
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
