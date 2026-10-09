@@ -294,7 +294,7 @@ jobs:
         working-directory: ./blog-website-tests
 
       - name: Cache Playwright browsers
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-browsers-${{ runner.os }}-${{ steps.playwright_version.outputs.version }}
