@@ -5,13 +5,19 @@ const IS_LIVE_SITE = process.env['IS_LIVE_SITE'] === 'true';
 console.log('IS_LIVE_SITE', IS_LIVE_SITE);
 
 import { readFileSync } from 'fs';
-import * as fontaine from 'fontaine';
+import { createRequire } from 'node:module';
 import { themes as prismThemes } from 'prism-react-renderer';
 import imageFetchPriorityRehypePlugin from './image-fetchpriority-rehype-plugin.mjs';
 import docusaurusCloudinaryRehypePlugin from 'rehype-cloudinary-docusaurus';
 
 import { createFeedItems } from './createFeedItems.mjs';
 import { createSitemapItems } from './createSitemapItems.mjs';
+
+const nativeRequire = createRequire(`${process.cwd()}/package.json`);
+const fontaine = /** @type {typeof import('fontaine')} */ (
+  nativeRequire(nativeRequire.resolve('fontaine').replace(/\.cjs$/, '.mjs'))
+);
+const { FontaineTransform } = fontaine;
 // import recentlyUpdatedPostsJson from "./recently-updated-posts.json" assert { type: "json" };
 // const recentlyUpdatedPostsJson = await import("./recently-updated-posts.json", {
 //   assert: { type: "json" },
@@ -453,7 +459,7 @@ const config = {
               },
             ],
             plugins: [
-              fontaine.FontaineTransform.webpack({
+              FontaineTransform.webpack({
                 fallbacks: [
                   'system-ui',
                   '-apple-system',
