@@ -35,11 +35,6 @@ jobs:
           node-version: 24
           cache: 'npm'
 
-      - name: Setup bun 🔧
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-
       - name: Docusaurus build 🦕
         run: |
           cd blog-website

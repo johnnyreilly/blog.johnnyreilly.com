@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import { simpleGit, SimpleGit, SimpleGitOptions } from 'simple-git';
+import { simpleGit, type SimpleGit, type SimpleGitOptions } from 'simple-git';
 
 const dateBlogUrlRegEx = /(\d\d\d\d\/\d\d\/\d\d)\/(.+)/;
 const slugBlogUrlRegEx = /slug: (.*)\n/;

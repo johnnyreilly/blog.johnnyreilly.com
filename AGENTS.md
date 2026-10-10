@@ -14,7 +14,8 @@ This is John Reilly's personal blog (johnnyreilly.com), built with Docusaurus an
   - `api/`: Azure Functions backend (TypeScript)
   - `docusaurus.config.js`: Main configuration including SEO structured data, navigation, footer
 - **blog-website-tests/**: Playwright end-to-end tests
-- **pre-post-processing/**: Bun scripts that run before/after build
+- **pre-post-processing/**: TypeScript scripts that run before/after build
+  - Runs with Node 24 native TypeScript (no ts-node or Bun)
   - `pre-processing.ts`: Generates `recently-updated-posts.json` from git history
   - `post-processing.ts`: Post-build sitemap/feed processing
 - **tinypng/**: Image optimization script using TinyPNG API
@@ -39,7 +40,7 @@ cd blog-website && npm install && npm start
 cd blog-website && npm run build
 ```
 
-Note: Build runs pre-processing (Bun) → Docusaurus build → post-processing (Bun) automatically.
+Note: Build runs pre-processing (Node) → Docusaurus build → post-processing (Node) automatically.
 
 ### Serve production build locally
 
@@ -129,7 +130,7 @@ Located in `blog-website/api/src/functions/`, includes:
 
 ### Pre/Post Processing
 
-Uses Bun runtime (`pre-post-processing/`):
+Uses Node 24 native TypeScript (`pre-post-processing/`):
 
 - Pre-build: Queries git history to populate "Recently Updated" posts in footer
 - Post-build: Enriches sitemap with lastmod dates, processes feeds

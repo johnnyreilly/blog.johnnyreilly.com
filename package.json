@@ -9,7 +9,7 @@
     "install:blog-website": "cd blog-website && npm install",
     "install:blog-api": "cd blog-website/api && npm install",
     "install:blog-website-tests": "cd blog-website-tests && npm install",
-    "install:pre-post-processing": "cd pre-post-processing && bun install",
+    "install:pre-post-processing": "cd pre-post-processing && npm install",
     "postinstall": "npm run install:blog-website && npm run install:blog-api && npm run install:blog-website-tests && npm run install:pre-post-processing",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write --ignore-unknown .",

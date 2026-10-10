@@ -5,9 +5,17 @@ import {
   getBlogPathFromUrl,
   getGitLastUpdatedFromFilePath,
   getPagesPathFromUrl,
-} from './getGitLastUpdated';
-import type { SitemapUrl, Sitemap, AtomFeed, RssItem, RssFeed } from './types';
-import { orderBy } from 'lodash';
+} from './getGitLastUpdated.ts';
+import type {
+  SitemapUrl,
+  Sitemap,
+  AtomFeed,
+  RssItem,
+  RssFeed,
+} from './types.ts';
+import lodash from 'lodash';
+
+const { orderBy } = lodash;
 
 const rootUrl = 'https://johnnyreilly.com';
 const cloudinaryUrl =
@@ -48,7 +56,7 @@ async function enrichUrlsWithLastmodAndFilterCanonicals(
       // }
 
       // eg blog-website/blog/2013-04-26-a-navigation-animation-for-your-users/index.md
-      const blogMarkdown = await Bun.file('../' + filePath).text();
+      const blogMarkdown = await fs.promises.readFile('../' + filePath, 'utf8');
 
       const match = blogMarkdown.match(regex);
       if (match) {
@@ -116,10 +124,10 @@ async function patchHtmlImagesToCloudinary() {
   // https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/https://johnnyreilly.com/assets/images/title-image-934557b5733320b51dc0b371cf808e3a.png
   for (const indexHtmlPath of indexHtmlPaths) {
     console.log(`Loading ${indexHtmlPath}`);
-    const indexHtml = await Bun.file(indexHtmlPath).text();
+    const indexHtml = await fs.promises.readFile(indexHtmlPath, 'utf8');
 
     console.log(`Saving ${indexHtmlPath}`);
-    await Bun.write(
+    await fs.promises.writeFile(
       indexHtmlPath,
       indexHtml
         // .replaceAll(imageRegex, function (match, url) {
@@ -160,11 +168,11 @@ async function patchJsImagesToCloudinary() {
   // https://res.cloudinary.com/priou/image/fetch/f_auto,q_auto,w_auto,dpr_auto/https://johnnyreilly.com/assets/images/title-image-934557b5733320b51dc0b371cf808e3a.png
   for (const assetJsPath of assetsJsPaths) {
     console.log(`Loading ${assetJsPath}`);
-    const jsCode = await Bun.file(assetJsPath).text();
+    const jsCode = await fs.promises.readFile(assetJsPath, 'utf8');
 
     if (jsCode.match(imageRegex)) {
       console.log(`Saving ${assetJsPath}`);
-      await Bun.write(
+      await fs.promises.writeFile(
         assetJsPath,
         jsCode.replaceAll(imageRegex, function (match, url) {
           return match.replace(
@@ -207,7 +215,7 @@ async function trimSitemapXML() {
   );
 
   console.log(`Loading ${sitemapPath}`);
-  const sitemapXml = await Bun.file(sitemapPath).text();
+  const sitemapXml = await fs.promises.readFile(sitemapPath, 'utf8');
 
   const parser = new XMLParser({
     ignoreAttributes: false,
@@ -251,14 +259,14 @@ async function trimSitemapXML() {
   const shorterSitemapXml = builder.build(sitemap);
 
   console.log(`Saving ${sitemapPath}`);
-  await Bun.write(sitemapPath, shorterSitemapXml);
+  await fs.promises.writeFile(sitemapPath, shorterSitemapXml);
 }
 
 async function trimAtomXML() {
   const atomPath = path.resolve('..', 'blog-website', 'build', 'atom.xml');
 
   console.log(`Loading ${atomPath}`);
-  const atomXml = await Bun.file(atomPath).text();
+  const atomXml = await fs.promises.readFile(atomPath, 'utf8');
 
   const parser = new XMLParser({
     ignoreAttributes: false,
@@ -296,14 +304,14 @@ async function trimAtomXML() {
   const shorterSitemapXml = builder.build(rss);
 
   console.log(`Saving ${atomPath}`);
-  await Bun.write(atomPath, shorterSitemapXml);
+  await fs.promises.writeFile(atomPath, shorterSitemapXml);
 }
 
 async function trimRssXML() {
   const rssPath = path.resolve('..', 'blog-website', 'build', 'rss.xml');
 
   console.log(`Loading ${rssPath}`);
-  const rssXml = await Bun.file(rssPath).text();
+  const rssXml = await fs.promises.readFile(rssPath, 'utf8');
 
   const parser = new XMLParser({
     ignoreAttributes: false,
@@ -341,7 +349,7 @@ async function trimRssXML() {
   const shorterSitemapXml = builder.build(rss);
 
   console.log(`Saving ${rssPath}`);
-  await Bun.write(rssPath, shorterSitemapXml);
+  await fs.promises.writeFile(rssPath, shorterSitemapXml);
 }
 
 async function main() {
