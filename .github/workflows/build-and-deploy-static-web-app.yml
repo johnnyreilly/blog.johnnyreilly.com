@@ -158,11 +158,6 @@ jobs:
           node-version: 24
           cache: 'npm'
 
-      - name: Setup bun 🔧
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
-
       - name: Install and build app + API 🔧
         if: github.event_name == 'pull_request'
         run: |

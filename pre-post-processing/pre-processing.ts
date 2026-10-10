@@ -2,7 +2,9 @@
 import { type SimpleGitOptions, simpleGit } from 'simple-git';
 import path from 'path';
 import fs from 'fs';
-import { chunk, orderBy } from 'lodash';
+import lodash from 'lodash';
+
+const { chunk, orderBy } = lodash;
 
 async function getBlogIndexMds() {
   const rootBlogPath = path.resolve('..', 'blog-website', 'blog');

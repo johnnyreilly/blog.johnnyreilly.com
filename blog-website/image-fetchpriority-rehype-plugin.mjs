@@ -15,7 +15,10 @@ export default function imageFetchPriorityRehypePluginFactory() {
         /** @type {import('mdast-util-mdx-jsx').MdxJsxTextElement} */ (node);
       /** @type {import('mdast-util-mdx-jsx').MdxJsxAttribute[]} */
       const attrs = /** @type {any} */ (mdxJsxNode.attributes);
-      if (mdxJsxNode.type === 'mdxJsxTextElement' && mdxJsxNode.name === 'img') {
+      if (
+        mdxJsxNode.type === 'mdxJsxTextElement' &&
+        mdxJsxNode.name === 'img'
+      ) {
         // handles nodes like this:
         // {
         //   type: 'mdxJsxTextElement',
@@ -41,9 +44,7 @@ export default function imageFetchPriorityRehypePluginFactory() {
         //   children: []
         // }
 
-        const srcIndex = attrs.findIndex(
-          (attr) => attr.name === 'src',
-        );
+        const srcIndex = attrs.findIndex((attr) => attr.name === 'src');
         const requireString =
           /** @type {import('mdast-util-mdx-jsx').MdxJsxAttributeValueExpression} */ (
             attrs[srcIndex].value
@@ -59,9 +60,7 @@ export default function imageFetchPriorityRehypePluginFactory() {
         }
 
         // expect to be -1
-        const loadingIndex = attrs.findIndex(
-          (attr) => attr.name === 'loading',
-        );
+        const loadingIndex = attrs.findIndex((attr) => attr.name === 'loading');
 
         if (fetchpriorityThisImage) {
           // expect to be -1

@@ -35,10 +35,12 @@ jobs:
           node-version: 24
           cache: 'npm'
 
-      - name: Setup bun 🔧
-        uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
+      - name: Typecheck pre/post-processing 🔎
+        if: github.event_name == 'pull_request'
+        run: |
+          cd pre-post-processing
+          npm ci --no-audit --no-fund
+          npm run typecheck
 
       - name: Docusaurus build 🦕
         run: |
