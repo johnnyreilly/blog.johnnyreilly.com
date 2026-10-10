@@ -5,7 +5,7 @@ const IS_LIVE_SITE = process.env['IS_LIVE_SITE'] === 'true';
 console.log('IS_LIVE_SITE', IS_LIVE_SITE);
 
 import { readFileSync } from 'fs';
-import * as fontaine from 'fontaine';
+import { FontaineTransform } from './fontaine-interop.cjs';
 import { themes as prismThemes } from 'prism-react-renderer';
 import imageFetchPriorityRehypePlugin from './image-fetchpriority-rehype-plugin.mjs';
 import docusaurusCloudinaryRehypePlugin from 'rehype-cloudinary-docusaurus';
@@ -453,7 +453,7 @@ const config = {
               },
             ],
             plugins: [
-              fontaine.FontaineTransform.webpack({
+              FontaineTransform.webpack({
                 fallbacks: [
                   'system-ui',
                   '-apple-system',
