@@ -9,12 +9,10 @@
   "project": ["src/**/*.{ts,tsx,js}", "*.{js,mjs,ts}"],
   "ignoreFiles": ["sidebars.js"],
   "ignoreDependencies": [
-    "@docusaurus/faster",
     "@svgr/webpack",
     "@swc/core",
     "file-loader",
     "url-loader",
-    "unist-util-visit",
     "unified",
     "@docusaurus/plugin-content-blog",
     "@docusaurus/plugin-sitemap",

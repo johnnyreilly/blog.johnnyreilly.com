@@ -381,7 +381,7 @@ const config = {
             'https://github.com/johnnyreilly/blog.johnnyreilly.com/edit/main/blog-website/',
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: './src/css/custom.css',
         },
       }),
     ],
