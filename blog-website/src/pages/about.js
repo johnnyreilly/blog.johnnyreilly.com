@@ -53,12 +53,14 @@ function About() {
                 </p>
 
                 <p>
-                  I write the occasional{' '}
-                  <a href="https://johnnyreilly.github.io/reillys-on-tour/">
-                    travel blog(ish)
-                  </a>{' '}
-                  as well. You can{' '}
-                  <a href="mailto:johnny_reilly@hotmail.com">email me here</a>.
+                  I'm currently going through treatment for cancer. I've been
+                  writing about my experiences as I go through this process. If
+                  you're interested, you can{' '}
+                  <a href="https://johnnyreilly.github.io/reillys-on-tour/tags/recovery-diaries">
+                    follow along here
+                  </a>
+                  . What was once my occasional travel diaries has become
+                  something more.
                 </p>
 
                 <h3>What is this?</h3>
