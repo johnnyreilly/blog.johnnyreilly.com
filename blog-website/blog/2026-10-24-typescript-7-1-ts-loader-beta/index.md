@@ -35,7 +35,7 @@ That brings with it some baseline changes:
 
 In fact I rather enjoyed decreasing `ts-loader`'s dependencies as part of this work. And check it out, [npmx shows that it is so](https://npmx.dev/package/ts-loader/v/10.0.0-beta.0)!
 
-![Screenshot of the ts-loader beta on npmx illustrating reduced size](./screenshot-npmx-dependencies.png)
+![Screenshot of the ts-loader beta on npmx illustrating reduced size](./screenshot-npmx-dependencies.webp)
 
 ## Installing the beta
 
