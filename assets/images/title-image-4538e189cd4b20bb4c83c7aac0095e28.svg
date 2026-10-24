@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0D1117"/>
+      <stop offset="0.6" stop-color="#132238"/>
+      <stop offset="1" stop-color="#1F4A7A"/>
+    </linearGradient>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M44 0H0V44" stroke="#C9D1D9" stroke-opacity="0.07"/>
+    </pattern>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="1080" cy="90" r="175" fill="#3178C6" fill-opacity="0.14"/>
+  <circle cx="110" cy="560" r="150" fill="#8ED6FB" fill-opacity="0.08"/>
+
+  <text x="600" y="120" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="58" font-weight="700" fill="#F0F6FC">TypeScript 7.1 and the</text>
+  <text x="600" y="192" text-anchor="middle" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="58" font-weight="700" fill="#F0F6FC">ts-loader v10 beta</text>
+
+  <g filter="url(#shadow)">
+    <rect x="190" y="250" width="820" height="64" rx="12" fill="#010409" stroke="#30363D"/>
+    <text x="216" y="290" font-family="Menlo, Consolas, monospace" font-size="22" fill="#7EE787">$ <tspan fill="#C9D1D9">npm i -D ts-loader@</tspan><tspan fill="#79C0FF">next</tspan><tspan fill="#C9D1D9"> typescript@</tspan><tspan fill="#79C0FF">beta</tspan></text>
+  </g>
+
+  <g filter="url(#shadow)" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+    <rect x="240" y="370" width="300" height="160" rx="16" fill="#3178C6"/>
+    <text x="390" y="440" text-anchor="middle" font-size="44" font-weight="700" fill="#FFFFFF">TS 7.1</text>
+    <text x="390" y="490" text-anchor="middle" font-family="Menlo, Consolas, monospace" font-size="22" fill="#DCEBFA">typescript/sync</text>
+
+    <path d="M560 450H640" stroke="#8B949E" stroke-width="4" stroke-linecap="round"/>
+    <path d="M626 436L642 450L626 464" stroke="#8B949E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <rect x="660" y="370" width="300" height="160" rx="16" fill="#161B22" stroke="#8ED6FB" stroke-width="2"/>
+    <text x="810" y="440" text-anchor="middle" font-size="44" font-weight="700" fill="#8ED6FB">ts-loader</text>
+    <text x="810" y="490" text-anchor="middle" font-family="Menlo, Consolas, monospace" font-size="22" fill="#C9D1D9">10.0.0-beta.0</text>
+  </g>
+</svg>
