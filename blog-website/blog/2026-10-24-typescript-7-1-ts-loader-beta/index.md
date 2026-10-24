@@ -2,6 +2,7 @@
 slug: typescript-7-1-ts-loader-beta
 title: 'TypeScript 7.1 and the ts-loader v10 beta'
 authors: johnnyreilly
+date: 2026-10-24
 tags: [ts-loader, typescript, webpack]
 image: ./title-image.svg
 hide_table_of_contents: false
