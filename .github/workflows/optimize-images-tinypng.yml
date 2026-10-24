@@ -2,7 +2,8 @@ name: Optimize blog images via TinyPNG
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    # Only run once per PR, when it is first opened
+    types: [opened]
     branches:
       - main
     paths:
