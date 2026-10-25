@@ -165,6 +165,8 @@ Custom transformers let you hook into TypeScript's emit and rewrite the output. 
 
 These options let you supply your own module resolution, and existed to support things like [Yarn Plug'n'Play](https://yarnpkg.com/features/pnp). The native API does have [support for custom resolvers](https://github.com/microsoft/TypeScript/pull/64299), so this one _could_ be implemented. However, it's not clear that this is a feature many `ts-loader` users actually use, so it hasn't been implemented for now. If you rely on it, please [let us know](https://github.com/TypeStrong/ts-loader/issues); that's exactly the sort of feedback the beta is for.
 
+There is a PR that demonstrates `resolveModuleName` support: https://github.com/TypeStrong/ts-loader/pull/1715 - but I haven't decided to land it as yet. It may remain just an experiment.
+
 ### `projectReferences`
 
 [Project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in your `tsconfig.json` are followed by the native API, so code in referenced projects is resolved. But the `projectReferences` loader option, which made `ts-loader` incrementally build upstream projects to disk the way `tsc --build` does, has no effect. v10 doesn't build referenced projects to disk.
