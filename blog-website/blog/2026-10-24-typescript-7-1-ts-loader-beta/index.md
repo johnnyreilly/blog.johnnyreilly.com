@@ -6,14 +6,26 @@ date: 2026-10-24
 tags: [ts-loader, typescript, webpack]
 image: ./title-image.svg
 hide_table_of_contents: false
-description: 'ts-loader 10.0.0-beta.0 is out, rebuilt on the TypeScript 7.1 native API. How to install and test it, and which features are not in v10 and why.'
+description: 'The ts-loader v10 beta is out, rebuilt on the TypeScript 7.1 native API. How to install and test it, and which features are not in v10 and why.'
 ---
 
-`ts-loader` 10.0.0-beta.0 has shipped. It's a ground-up rewrite of `ts-loader`'s compilation engine, built on the new native API that ships with [TypeScript 7.1](https://devblogs.microsoft.com/typescript/announcing-typescript-7-1-beta/#typescript-7.1-api). This post covers how to install it, how to test it, and, importantly, what _isn't_ in v10 and why.
+The `ts-loader` v10 beta has shipped. It's a ground-up rewrite of `ts-loader`'s compilation engine, built on the new native API that ships with [TypeScript 7.1](https://devblogs.microsoft.com/typescript/announcing-typescript-7-1-beta/#typescript-7.1-api). This post covers how to install it, how to test it, and, importantly, what _isn't_ in v10 and why.
 
 ![title image that reads "TypeScript 7.1 and the ts-loader v10 beta"](./title-image.svg)
 
 <!--truncate-->
+
+## Updated 21st November 2026: 10.0.0-beta.1
+
+[`ts-loader` 10.0.0-beta.1](https://github.com/TypeStrong/ts-loader/releases/tag/v10.0.0-beta.1) is now out, and this post has been updated to reflect it. The headlines:
+
+- **The `compilerOptions` and `context` loader options are back.** They were removed in 10.0.0-beta.0; they now work as they did in v9. ([#1727](https://github.com/TypeStrong/ts-loader/pull/1727))
+- **Error messages are complete again.** 10.0.0-beta.0 dropped the elaboration lines of an error (the indented "Types of parameters ... are incompatible" lines). They're restored. ([#1726](https://github.com/TypeStrong/ts-loader/pull/1726))
+- **Compiler option errors are reported when type checking**, not only with `transpileOnly`; so if your `tsconfig.json` uses an option that TypeScript 7 removed, you'll be told. And with `transpileOnly`, such an error is reported once per build rather than once per file as well. ([#1726](https://github.com/TypeStrong/ts-loader/pull/1726))
+- **Watch mode is more robust.** A change to `tsconfig.json` is picked up on the next rebuild when type checking. A new file that is covered by your tsconfig's `include`, but which webpack doesn't bundle, is now type checked. And if the TypeScript compiler process dies, `ts-loader` starts a new one and adds a warning to the build, rather than failing every subsequent build in the watch session. ([#1726](https://github.com/TypeStrong/ts-loader/pull/1726), [#1728](https://github.com/TypeStrong/ts-loader/pull/1728), [#1729](https://github.com/TypeStrong/ts-loader/pull/1729))
+- **Builds with `declaration` or `composite` are much faster.** Declarations are now emitted once per build, rather than for every project file each time a file was compiled. A 300 file build went from 16s to 1.2s. ([#1728](https://github.com/TypeStrong/ts-loader/pull/1728))
+
+If you tried 10.0.0-beta.0 and bounced off one of these, please give 10.0.0-beta.1 a go.
 
 ## How we got here
 
@@ -97,28 +109,6 @@ This is the section I suspect most people will care about. When I started the po
 
 By the way, I could be wrong about some of this. If I am, tell me; I want to know.
 
-### Removed: `compilerOptions`
-
-The `compilerOptions` loader option let you override the compiler options in your `tsconfig.json` on a per-loader basis. The native API resolves a project's compiler options purely from its on-disk `tsconfig.json`, and there's no hook to override them for a particular loader instance.
-
-**What to do instead:** move those options into your `tsconfig.json`. If you were using `compilerOptions` so that different loader rules could compile with different settings, create a separate `tsconfig` for each and point each rule at the right one using the `configFile` option:
-
-```js
-{
-  test: /\.ts$/,
-  loader: 'ts-loader',
-  options: {
-    configFile: 'tsconfig.app.json',
-  },
-}
-```
-
-### Removed: `context`
-
-The `context` option let you resolve the paths in a `tsconfig.json` relative to a different directory than the one the config file was in. That was handy if your `tsconfig.json` lived outside your project root. The native API always resolves relative paths against the config file's own directory, and doesn't expose a way to change the base path.
-
-**What to do instead:** put a `tsconfig.json` in the place your paths should be relative to. If you want to share settings, a small `tsconfig.json` that `extends` the shared one works nicely.
-
 ### Removed: `happyPackMode`
 
 `happyPackMode` existed to make `ts-loader` play nicely with [HappyPack](https://github.com/amireh/happypack) and [`thread-loader`](https://github.com/webpack/thread-loader), which parallelise loaders across multiple processes. HappyPack is archived and no longer maintained, there's no point supporting it.
@@ -152,6 +142,32 @@ Mind you, `ts-loader` does very little logging; most of the logging happens thro
 ### Changed: `errorFormatter`'s `colors` argument
 
 If you provide a custom `errorFormatter`, the `colors` argument it receives is now a small `picocolors`-backed helper object rather than a `chalk` instance. If your formatter calls simple colour functions like `colors.red(...)`, you'll probably be fine. If it uses chalk-specific features like chaining (`colors.bold.red(...)`), you'll need to adjust it.
+
+## Removed in beta.0, restored in beta.1
+
+Two options were removed in 10.0.0-beta.0, as I didn't think they could be built on the native API. I said above that I could be wrong about some of this; here I was. Both options are back in 10.0.0-beta.1, and work as they did in v9.
+
+### Restored: `compilerOptions`
+
+The `compilerOptions` loader option lets you override the compiler options in your `tsconfig.json` on a per-loader basis:
+
+```js
+{
+  test: /\.ts$/,
+  loader: 'ts-loader',
+  options: {
+    compilerOptions: {
+      sourceMap: false,
+    },
+  },
+}
+```
+
+There's one nicety worth knowing about. If you use `compilerOptions` to turn off an option that other options in your `tsconfig.json` depend upon, then the dependent options are dropped too. So the override alone won't land you with a TS5051 or TS5069 error. This covers `sourceMap`, `inlineSourceMap` and `declarationMap` (along with `inlineSources`, `sourceRoot` and `mapRoot`), and `declaration` (along with `declarationMap`, `declarationDir` and `emitDeclarationOnly`).
+
+### Restored: `context`
+
+The `context` option is an absolute path that the relative paths in your TypeScript config are resolved against, rather than the directory the config file is in. That's handy if your `tsconfig.json` lives outside your project root. When `context` is set, a relative `extends` in the root config resolves against it too.
 
 ## Accepted, but not supported (yet)
 
