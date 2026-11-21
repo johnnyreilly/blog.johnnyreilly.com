@@ -63,7 +63,10 @@ async function getPopularPosts() {
   const recentlyUpdatedPosts: { link: string; title: string }[] = [];
   const slugRegex = /slug: (.*)\n/;
   const dateRegex = /date: (.*)\n/;
-  const titleRegex = /title: ["'](.*)["']\n/;
+  // The quotes around the title are optional: on the live build `sequoia-cli publish`
+  // runs first and rewrites each post's frontmatter with js-yaml, which drops quotes
+  // a title doesn't strictly need (eg `title: 'Foo bar'` becomes `title: Foo bar`).
+  const titleRegex = /title: (["']?)(.*)\1\n/;
 
   for (const blogIndexMd of blogIndexMdsOrderedByLastCommitDates) {
     const blogPostContent = await fs.promises.readFile(
@@ -83,7 +86,7 @@ async function getPopularPosts() {
     }
 
     const slug = slugMatch[1];
-    const title = titleMatch[1];
+    const title = titleMatch[2];
     recentlyUpdatedPosts.push({
       link: slug,
       title,
